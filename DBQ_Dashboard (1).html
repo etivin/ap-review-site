@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP World History — DBQ Grade Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e28;
+    --border: #252a38;
+    --accent: #4fffb0;
+    --accent2: #ff6b6b;
+    --accent3: #ffd166;
+    --accent4: #74b9ff;
+    --accent5: #fd79a8;
+    --text: #e8eaf2;
+    --muted: #6b7090;
+    --A2: #4fffb0;
+    --A3: #74b9ff;
+    --A4: #ffd166;
+    --B1: #fd79a8;
+    --B3: #ff6b6b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(79,255,176,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,255,176,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* Header */
+  header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px; margin-bottom: 36px;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .header-left h1 {
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .header-left h1 span { color: var(--accent); }
+  .header-left p { color: var(--muted); font-size: 13px; margin-top: 6px; font-weight: 300; }
+  .header-right {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .class-pill {
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600; font-family: 'DM Mono', monospace;
+    border: 1.5px solid;
+    cursor: pointer; transition: all 0.2s;
+    opacity: 0.45;
+  }
+  .class-pill.active { opacity: 1; }
+  .class-pill[data-cls="ALL"] { border-color: var(--accent); color: var(--accent); }
+  .class-pill[data-cls="A2"] { border-color: var(--A2); color: var(--A2); }
+  .class-pill[data-cls="A3"] { border-color: var(--A3); color: var(--A3); }
+  .class-pill[data-cls="A4"] { border-color: var(--A4); color: var(--A4); }
+  .class-pill[data-cls="B1"] { border-color: var(--B1); color: var(--B1); }
+  .class-pill[data-cls="B3"] { border-color: var(--B3); color: var(--B3); }
+
+  /* KPI row */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px; margin-bottom: 32px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 18px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .kpi:hover { border-color: var(--accent); }
+  .kpi::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .kpi-students::before { background: var(--accent); }
+  .kpi-avg::before { background: var(--accent4); }
+  .kpi-top::before { background: var(--accent3); }
+  .kpi-struggle::before { background: var(--accent2); }
+  .kpi-sourcing::before { background: var(--accent5); }
+  .kpi label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 600; font-family: 'DM Mono', monospace; }
+  .kpi .val { font-size: 36px; font-weight: 800; line-height: 1.1; margin-top: 6px; }
+  .kpi .sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* Grid layout */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .grid-full { margin-bottom: 20px; }
+  @media(max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 22px 18px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(79,255,176,0.2); }
+  .card-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--muted); font-weight: 600; font-family: 'DM Mono', monospace;
+    margin-bottom: 16px;
+  }
+  .card-title span { color: var(--accent); }
+
+  canvas { max-height: 300px; }
+
+  /* Class avg bars */
+  .class-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .class-bar-label { width: 32px; font-size: 12px; font-weight: 600; font-family: 'DM Mono', monospace; }
+  .class-bar-track { flex: 1; background: var(--surface2); border-radius: 4px; height: 28px; overflow: hidden; position: relative; }
+  .class-bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 700; transition: width 1s ease; }
+  .class-bar-score { width: 40px; text-align: right; font-size: 13px; font-weight: 700; font-family: 'DM Mono', monospace; }
+
+  /* Rubric breakdown */
+  .rubric-row { margin-bottom: 14px; }
+  .rubric-header { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 12px; }
+  .rubric-name { font-weight: 600; }
+  .rubric-pct { color: var(--muted); font-family: 'DM Mono', monospace; }
+  .rubric-track { height: 10px; background: var(--surface2); border-radius: 5px; overflow: hidden; }
+  .rubric-fill { height: 100%; border-radius: 5px; transition: width 1s ease; }
+
+  /* Points missed heatmap */
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: 140px repeat(6, 1fr) 60px;
+    gap: 3px; font-size: 11px;
+  }
+  .hm-header { font-size: 10px; text-align: center; color: var(--muted); font-family: 'DM Mono', monospace; padding: 4px 2px; font-weight: 600; }
+  .hm-cell {
+    text-align: center; padding: 6px 2px; border-radius: 4px;
+    font-family: 'DM Mono', monospace; font-weight: 600; font-size: 11px;
+  }
+  .hm-name { text-align: left; padding: 5px 6px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11px; }
+  .hm-total { font-weight: 800; }
+
+  /* Struggle list */
+  .struggle-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: 8px;
+    background: var(--surface2); margin-bottom: 8px;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+  .struggle-item:hover { background: #1f2535; }
+  .struggle-name { font-size: 13px; font-weight: 600; flex: 1; }
+  .struggle-class { font-size: 10px; font-family: 'DM Mono', monospace; }
+  .struggle-score { font-size: 18px; font-weight: 800; font-family: 'DM Mono', monospace; }
+  .struggle-missed { font-size: 10px; color: var(--muted); }
+
+  /* Section divider */
+  .section-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--muted); font-family: 'DM Mono', monospace;
+    margin-bottom: 14px; margin-top: 8px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* Focus areas */
+  .focus-item {
+    padding: 14px 16px; border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .focus-icon { font-size: 20px; flex-shrink: 0; }
+  .focus-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .focus-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* Tooltip */
+  .tooltip-badge {
+    display: inline-block; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--border); color: var(--muted);
+    font-size: 9px; text-align: center; line-height: 14px;
+    cursor: help; margin-left: 4px;
+  }
+
+  /* Table */
+  .roster-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .roster-table th {
+    background: var(--surface2); padding: 10px 10px; text-align: center;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--muted); font-family: 'DM Mono', monospace;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+  }
+  .roster-table th:first-child { text-align: left; }
+  .roster-table td {
+    padding: 8px 10px; border-bottom: 1px solid var(--border);
+    text-align: center; font-family: 'DM Mono', monospace;
+  }
+  .roster-table td:first-child { text-align: left; font-family: 'Sora', sans-serif; font-weight: 500; }
+  .roster-table tr:hover td { background: var(--surface2); }
+  .score-chip {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-weight: 700; font-size: 12px;
+  }
+  .search-box {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); padding: 10px 14px; border-radius: 8px;
+    font-family: 'Sora', sans-serif; font-size: 13px; margin-bottom: 14px;
+    outline: none; transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: var(--accent); }
+  .search-box::placeholder { color: var(--muted); }
+
+  /* Scrollable table wrapper */
+  .table-scroll { max-height: 480px; overflow-y: auto; border-radius: 8px; }
+  .table-scroll::-webkit-scrollbar { width: 4px; }
+  .table-scroll::-webkit-scrollbar-track { background: var(--surface2); }
+  .table-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.82);
+    backdrop-filter: blur(6px);
+    display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; max-width: 740px; width: 100%;
+    max-height: 88vh; overflow-y: auto; padding: 36px 36px 28px;
+    position: relative;
+    animation: modalUp 0.2s ease;
+  }
+  @keyframes modalUp { from { opacity:0; transform:translateY(18px) scale(0.97); } to { opacity:1; transform:none; } }
+  .modal-box::-webkit-scrollbar { width: 4px; }
+  .modal-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .modal-close-btn {
+    position: absolute; top: 16px; right: 18px;
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--muted); width: 30px; height: 30px; border-radius: 50%;
+    cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .modal-close-btn:hover { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+  .modal-name { font-size: 24px; font-weight: 800; letter-spacing: -0.4px; }
+  .modal-meta { color: var(--muted); font-size: 12px; font-family: 'DM Mono', monospace; margin: 4px 0 20px; }
+  .modal-score-row { display: grid; grid-template-columns: repeat(7,1fr); gap: 8px; margin-bottom: 24px; }
+  .ms-box {
+    background: var(--surface2); border-radius: 8px; padding: 10px 4px; text-align: center;
+    border: 1px solid var(--border);
+  }
+  .ms-box.earned { border-color: rgba(79,255,176,0.45); }
+  .ms-box.missed { border-color: rgba(255,107,107,0.45); }
+  .ms-label { font-size: 8px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .ms-val { font-size: 18px; font-weight: 800; font-family: 'DM Mono', monospace; margin-top: 3px; }
+  .fb-block { margin-bottom: 12px; }
+  .fb-block h4 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--muted); font-family: 'DM Mono', monospace;
+    padding-bottom: 6px; border-bottom: 1px solid var(--border); margin-bottom: 10px;
+  }
+  .fb-row {
+    display: flex; gap: 10px; padding: 11px 13px;
+    border-radius: 8px; font-size: 13px; line-height: 1.6;
+    align-items: flex-start; margin-bottom: 7px;
+  }
+  .fb-row.e { background: rgba(79,255,176,0.06); border-left: 3px solid var(--accent); }
+  .fb-row.m { background: rgba(255,107,107,0.06); border-left: 3px solid var(--accent2); }
+  .fb-tag {
+    font-size: 10px; font-weight: 700; font-family: 'DM Mono', monospace;
+    white-space: nowrap; padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+  }
+  .fb-tag.e { background: rgba(79,255,176,0.15); color: var(--accent); }
+  .fb-tag.m { background: rgba(255,107,107,0.15); color: var(--accent2); }
+  .improve-box {
+    margin-top: 16px; background: var(--surface2);
+    border: 1px solid rgba(79,255,176,0.28); border-radius: 10px; padding: 14px 16px;
+  }
+  .improve-box h4 {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--accent); font-family: 'DM Mono', monospace; margin-bottom: 8px;
+  }
+  .improve-box p { font-size: 13px; line-height: 1.65; }
+
+  /* clickable rows */
+  .clickable-student { cursor: pointer; }
+  .clickable-student:hover { color: var(--accent) !important; text-decoration: underline; }
+  .hm-name.clickable { cursor: pointer; }
+  .hm-name.clickable:hover { color: var(--accent); }
+  .struggle-item.clickable { cursor: pointer; }
+
+  /* Animate in */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .card, .kpi { animation: fadeUp 0.5s ease both; }
+  .kpi:nth-child(1) { animation-delay: 0.05s; }
+  .kpi:nth-child(2) { animation-delay: 0.1s; }
+  .kpi:nth-child(3) { animation-delay: 0.15s; }
+  .kpi:nth-child(4) { animation-delay: 0.2s; }
+  .kpi:nth-child(5) { animation-delay: 0.25s; }
+</style>
+</head>
+<body>
+<!-- FEEDBACK MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close-btn" id="modalClose">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<header>
+  <div class="header-left">
+    <h1>AP World History <span>DBQ Dashboard</span></h1>
+    <p>106 students · 5 classes · 2025 Exam · Transportation & Communication in Africa 1850–1960</p>
+  </div>
+  <div class="header-right" id="classPills">
+    <div class="class-pill active" data-cls="ALL">ALL</div>
+    <div class="class-pill active" data-cls="A2">A2</div>
+    <div class="class-pill active" data-cls="A3">A3</div>
+    <div class="class-pill active" data-cls="A4">A4</div>
+    <div class="class-pill active" data-cls="B1">B1</div>
+    <div class="class-pill active" data-cls="B3">B3</div>
+  </div>
+</header>
+
+<!-- KPI Row -->
+<div class="kpi-row">
+  <div class="kpi kpi-students">
+    <label>Total Students</label>
+    <div class="val" id="kpiStudents">106</div>
+    <div class="sub">across 5 classes</div>
+  </div>
+  <div class="kpi kpi-avg">
+    <label>Average Score</label>
+    <div class="val" id="kpiAvg">—</div>
+    <div class="sub">out of 7 points</div>
+  </div>
+  <div class="kpi kpi-top">
+    <label>Scored 6–7</label>
+    <div class="val" id="kpiTop">—</div>
+    <div class="sub">students (≥86%)</div>
+  </div>
+  <div class="kpi kpi-struggle">
+    <label>Scored ≤ 3</label>
+    <div class="val" id="kpiStruggle">—</div>
+    <div class="sub">students need support</div>
+  </div>
+  <div class="kpi kpi-sourcing">
+    <label>Sourcing Rate</label>
+    <div class="val" id="kpiSourcing">—</div>
+    <div class="sub">hardest rubric point</div>
+  </div>
+</div>
+
+<!-- Row 1: Class Averages + Score Distribution -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Class Average Scores <span>/ 7</span></div>
+    <div id="classBars"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Score Distribution</div>
+    <canvas id="distChart"></canvas>
+  </div>
+</div>
+
+<!-- Row 2: Rubric breakdown + radar -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Points Earned Rate <span>by Rubric Category</span></div>
+    <div id="rubricBars"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Class Radar <span>Rubric Profile</span></div>
+    <canvas id="radarChart"></canvas>
+  </div>
+</div>
+
+<!-- Row 3: Points missed heatmap -->
+<div class="card grid-full">
+  <div class="card-title">Points Missed by Student <span>— darker = more points lost</span></div>
+  <div class="section-label">Students scoring ≤ 4 highlighted</div>
+  <div class="table-scroll">
+    <div class="heatmap-grid" id="heatmapGrid"></div>
+  </div>
+</div>
+
+<!-- Row 4: Students needing support + Focus areas -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">⚠ Students to Watch <span>scored ≤ 4</span></div>
+    <div id="struggleList"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">📌 Key Focus Areas <span>for instruction</span></div>
+    <div id="focusAreas"></div>
+  </div>
+</div>
+
+<!-- Row 5: Full Roster -->
+<div class="card grid-full">
+  <div class="card-title">Full Roster <span>— click columns to sort</span></div>
+  <input class="search-box" type="text" id="searchBox" placeholder="Search student name...">
+  <div class="table-scroll">
+    <table class="roster-table" id="rosterTable">
+      <thead>
+        <tr>
+          <th data-col="name">Student ↕</th>
+          <th data-col="class">Class ↕</th>
+          <th data-col="thesis">Thesis</th>
+          <th data-col="context">Context</th>
+          <th data-col="docevid">Doc Evid</th>
+          <th data-col="outside">Outside</th>
+          <th data-col="sourcing">Sourcing</th>
+          <th data-col="complex">Complex</th>
+          <th data-col="total">Total ↕</th>
+        </tr>
+      </thead>
+      <tbody id="rosterBody"></tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<script>
+const RAW = [
+  ["Blake","JR","A2",1,0,2,0,1,1],
+  ["Boland","Teague","A2",1,1,2,1,1,0],
+  ["Bosco","Tommy","A2",1,1,2,1,1,1],
+  ["Cortes","Alex","A2",1,1,2,1,1,0],
+  ["Erd","Jack","A2",1,1,2,1,1,0],
+  ["Everly","Patrick","A2",1,1,2,0,1,1],
+  ["Fackey","Hudson","A2",1,1,2,0,1,1],
+  ["Fernandes","Jayden","A2",1,1,2,1,1,1],
+  ["Fields","Max","A2",1,1,2,1,1,0],
+  ["Fife","Drew","A2",1,1,2,1,1,1],
+  ["Figart","Trevor","A2",1,1,2,1,1,0],
+  ["Gilpin","CJ","A2",1,1,2,1,1,0],
+  ["Guthrie","Zach","A2",1,1,2,1,1,0],
+  ["Hammond","Joe","A2",1,1,2,1,1,0],
+  ["Herron","Jude","A2",1,1,2,0,0,0],
+  ["Hope","Harry","A2",1,1,2,1,1,1],
+  ["Karulf","Isaac","A2",1,1,2,0,1,0],
+  ["Keehn","Jameson","A2",1,1,2,0,1,1],
+  ["McCarthy","Josh","A2",1,1,2,1,1,0],
+  ["Runk","Daniel","A2",1,1,2,1,1,1],
+  ["Schuckman","Jake","A2",1,1,2,1,1,0],
+  ["Stallo","John","A2",1,1,2,0,1,1],
+  ["Swarts","Ben","A2",1,1,2,1,1,0],
+  ["Wentzel","Brayden","A2",1,1,2,0,1,0],
+  ["Adkins","Cooper","A3",1,0,2,1,1,1],
+  ["Begley","Tyler","A3",1,0,2,0,0,0],
+  ["Beresh","Jack","A3",1,1,2,1,1,0],
+  ["Boehm","David","A3",1,1,1,1,0,0],
+  ["Clemandot","Tommy","A3",1,0,1,1,0,0],
+  ["Demosthenes","Sebastian","A3",1,1,2,1,1,0],
+  ["Fulton","Nate","A3",1,1,2,1,1,1],
+  ["Griffith","Cooper","A3",1,1,2,0,0,1],
+  ["Hughes","Sam","A3",1,1,2,1,1,0],
+  ["Leonardi","David","A3",1,0,2,0,0,1],
+  ["McGraw","Evan","A3",1,1,2,1,0,0],
+  ["Mitchell","Noah","A3",0,0,1,0,0,0],
+  ["Morris","Jackson","A3",1,1,2,1,1,1],
+  ["Nanista","Joseph","A3",1,1,2,1,1,0],
+  ["Nill","Tyler","A3",1,1,2,1,1,1],
+  ["Taylor","Brody","A3",1,1,2,1,1,1],
+  ["Ullman","Will","A3",1,1,2,1,0,0],
+  ["VanFleet","Charlie","A3",1,1,1,0,0,1],
+  ["Weast","Brody","A3",1,0,2,0,0,1],
+  ["Young","Gavin","A3",1,1,2,1,1,1],
+  ["Abraham","Eyobel","A4",1,1,2,0,1,0],
+  ["Barhorst","Sawyer","A4",1,1,2,1,1,0],
+  ["Bonjour","Matthias","A4",1,1,2,1,1,1],
+  ["Braden","Tristan","A4",1,1,2,1,1,0],
+  ["Bruns","Jack","A4",1,1,2,1,1,0],
+  ["Cox","Braylon","A4",1,1,2,1,1,0],
+  ["Fischesser","Aiden","A4",0,1,1,1,0,0],
+  ["Griga","Drew","A4",1,1,2,1,1,0],
+  ["Haag","Maddox","A4",1,1,2,1,1,0],
+  ["Kirwan","Stephen","A4",1,1,2,1,1,1],
+  ["Klaber","Simon","A4",1,0,2,1,1,0],
+  ["Meiners","Ben","A4",1,0,2,1,1,1],
+  ["Mirizzi","Mason","A4",1,1,2,1,1,0],
+  ["Oakley","Landon","A4",1,1,2,1,1,0],
+  ["Reiners","Luke","A4",1,1,2,1,1,0],
+  ["Russo","Quinn","A4",1,0,1,0,1,0],
+  ["Shannon","Ian","A4",1,1,2,0,1,1],
+  ["White","Noah","A4",1,1,2,1,1,0],
+  ["Alzugaray","Antonio","B1",1,1,2,1,0,0],
+  ["Andino","Andino","B1",1,0,1,1,0,0],
+  ["Bachman","Harry","B1",0,0,1,1,0,0],
+  ["Bowman","Connor","B1",1,1,2,0,1,0],
+  ["Brenzel","Will","B1",1,1,2,1,0,0],
+  ["Corsmo","Ethan","B1",1,0,2,0,0,0],
+  ["Falci","Adam","B1",1,1,2,1,1,1],
+  ["George","Josh","B1",1,1,2,1,0,0],
+  ["Kaplan","Scott","B1",1,1,2,1,1,1],
+  ["Knight","Liam","B1",1,1,2,1,0,1],
+  ["Lammert","Evan","B1",1,1,2,1,1,1],
+  ["Mikesell","Giovanni","B1",1,1,2,1,1,1],
+  ["Nelson","Maddox","B1",0,1,2,0,0,0],
+  ["Owens","Owens","B1",1,0,2,1,0,1],
+  ["Pitz","Noah","B1",1,1,2,1,1,1],
+  ["Sanders","Brady","B1",1,1,2,1,1,1],
+  ["Shafto","Dylan","B1",1,0,2,1,1,1],
+  ["Smith","Lincoln","B1",1,1,2,1,1,1],
+  ["Sobolewski","Luke","B1",1,1,2,1,1,1],
+  ["Steele","Dev","B1",1,1,2,1,0,1],
+  ["Bohman","Matthew","B3",1,1,1,1,0,0],
+  ["Brennan","Zach","B3",1,1,2,0,1,0],
+  ["Buckley","Danny","B3",1,1,2,0,0,1],
+  ["Campbell","Josh","B3",1,1,1,1,0,1],
+  ["Cornelius","Gavin","B3",1,1,2,0,0,1],
+  ["Cox","Hayden","B3",1,1,2,1,0,0],
+  ["Detmer","Aiden","B3",1,1,2,0,0,1],
+  ["Fuhrer","Carson","B3",1,1,2,0,0,1],
+  ["Gordon","Patrick","B3",1,1,1,0,0,0],
+  ["Kanyuck","Alex","B3",1,1,1,0,0,0],
+  ["Kral","Ethan","B3",0,1,2,0,0,1],
+  ["Laufersweiler","Chris","B3",1,1,2,0,0,0],
+  ["Meyer","Charlie","B3",1,1,2,1,0,0],
+  ["Nestle","Will","B3",1,1,1,0,0,0],
+  ["Pucke","Logan","B3",1,1,2,0,0,1],
+  ["Rayburn","Chris","B3",0,1,1,1,0,0],
+  ["Schlake","Will","B3",1,1,2,1,0,1],
+  ["Simonovich","Eli","B3",1,1,2,0,1,1],
+  ["Stueve","Lukas","B3",1,1,2,0,0,1],
+  ["Wallner","Ben","B3",1,1,2,1,0,0],
+  ["Walters","Sam","B3",1,0,1,1,0,0],
+  ["Warnecke","Sam","B3",1,1,2,0,1,1],
+  ["Weber","Michael","B3",1,1,2,1,0,0],
+  ["Wisniewski","Calvin","B3",1,1,2,1,0,1],
+];
+
+const CLASSES = ["A2","A3","A4","B1","B3"];
+const CLASS_COLORS = {A2:"#4fffb0",A3:"#74b9ff",A4:"#ffd166",B1:"#fd79a8",B3:"#ff6b6b"};
+const RUBRIC_LABELS = ["Thesis","Context","Doc Evid","Outside","Sourcing","Complex"];
+const RUBRIC_MAX = [1,1,2,1,1,1];
+const RUBRIC_COLORS = ["#4fffb0","#74b9ff","#ffd166","#fd79a8","#ff6b6b","#a29bfe"];
+
+let activeClasses = new Set(["A2","A3","A4","B1","B3"]);
+let sortCol = "total", sortDir = -1;
+let searchTerm = "";
+
+function getData() {
+  return RAW.filter(r => activeClasses.has(r[2]));
+}
+
+function total(r) { return r[3]+r[4]+r[5]+r[6]+r[7]+r[8]; }
+
+function classAvg(cls, idx) {
+  const d = RAW.filter(r=>r[2]===cls);
+  if(!d.length) return 0;
+  return d.reduce((s,r)=>s+r[idx],0)/d.length;
+}
+
+// Score color
+function scoreColor(score, max) {
+  const pct = score/max;
+  if(pct>=0.85) return "#4fffb0";
+  if(pct>=0.7) return "#ffd166";
+  if(pct>=0.5) return "#fd79a8";
+  return "#ff6b6b";
+}
+
+function heatColor(missed, max) {
+  const pct = missed/max;
+  if(pct===0) return "rgba(79,255,176,0.15)";
+  if(pct<=0.25) return "rgba(116,185,255,0.2)";
+  if(pct<=0.5) return "rgba(255,209,102,0.25)";
+  if(pct<=0.75) return "rgba(253,121,168,0.3)";
+  return "rgba(255,107,107,0.4)";
+}
+
+// KPIs
+function updateKPIs() {
+  const d = getData();
+  const n = d.length;
+  document.getElementById("kpiStudents").textContent = n;
+  if(!n) return;
+  const avg = d.reduce((s,r)=>s+total(r),0)/n;
+  document.getElementById("kpiAvg").textContent = avg.toFixed(2);
+  document.getElementById("kpiTop").textContent = d.filter(r=>total(r)>=6).length;
+  document.getElementById("kpiStruggle").textContent = d.filter(r=>total(r)<=3).length;
+  const sourcingEarned = d.reduce((s,r)=>s+r[7],0);
+  document.getElementById("kpiSourcing").textContent = Math.round(sourcingEarned/n*100)+"%";
+}
+
+// Class bars
+function updateClassBars() {
+  const el = document.getElementById("classBars");
+  el.innerHTML = "";
+  CLASSES.forEach(cls => {
+    if(!activeClasses.has(cls)) return;
+    const d = RAW.filter(r=>r[2]===cls);
+    const avg = d.reduce((s,r)=>s+total(r),0)/d.length;
+    const pct = (avg/7)*100;
+    const color = CLASS_COLORS[cls];
+    el.innerHTML += `
+      <div class="class-bar-row">
+        <div class="class-bar-label" style="color:${color}">${cls}</div>
+        <div class="class-bar-track">
+          <div class="class-bar-fill" style="width:${pct}%;background:${color}22;color:${color};border-right:2px solid ${color}">
+            <span style="font-size:11px;font-family:'DM Mono',monospace">${d.length} students</span>
+          </div>
+        </div>
+        <div class="class-bar-score" style="color:${color}">${avg.toFixed(2)}</div>
+      </div>`;
+  });
+}
+
+// Distribution chart
+let distChart;
+function updateDistChart() {
+  const d = getData();
+  const counts = Array(8).fill(0);
+  d.forEach(r=>counts[total(r)]++);
+  if(distChart) distChart.destroy();
+  const ctx = document.getElementById("distChart").getContext("2d");
+  distChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["0","1","2","3","4","5","6","7"],
+      datasets: [{
+        data: counts,
+        backgroundColor: counts.map((_,i)=>scoreColor(i,7)+"99"),
+        borderColor: counts.map((_,i)=>scoreColor(i,7)),
+        borderWidth: 1.5, borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      plugins: { legend: { display:false }, tooltip: {
+        backgroundColor: "#1a1e28", borderColor:"#252a38", borderWidth:1,
+        callbacks: { label: ctx => ` ${ctx.raw} students` }
+      }},
+      scales: {
+        x: { grid:{color:"#252a38"}, ticks:{color:"#6b7090",font:{family:"DM Mono",size:11}} },
+        y: { grid:{color:"#252a38"}, ticks:{color:"#6b7090",font:{family:"DM Mono",size:11},stepSize:2} }
+      }
+    }
+  });
+}
+
+// Rubric bars
+function updateRubricBars() {
+  const d = getData();
+  const n = d.length;
+  if(!n) return;
+  const el = document.getElementById("rubricBars");
+  el.innerHTML = "";
+  const cols = [3,4,5,6,7,8];
+  cols.forEach((ci,i)=>{
+    const earned = d.reduce((s,r)=>s+r[ci],0);
+    const maxPossible = RUBRIC_MAX[i]*n;
+    const pct = (earned/maxPossible*100).toFixed(1);
+    el.innerHTML += `
+      <div class="rubric-row">
+        <div class="rubric-header">
+          <span class="rubric-name" style="color:${RUBRIC_COLORS[i]}">${RUBRIC_LABELS[i]}</span>
+          <span class="rubric-pct">${pct}% earned · avg ${(earned/n).toFixed(2)}/${RUBRIC_MAX[i]}</span>
+        </div>
+        <div class="rubric-track">
+          <div class="rubric-fill" style="width:${pct}%;background:${RUBRIC_COLORS[i]}"></div>
+        </div>
+      </div>`;
+  });
+}
+
+// Radar chart
+let radarChart;
+function updateRadar() {
+  if(radarChart) radarChart.destroy();
+  const ctx = document.getElementById("radarChart").getContext("2d");
+  const datasets = [];
+  CLASSES.forEach(cls => {
+    if(!activeClasses.has(cls)) return;
+    const d = RAW.filter(r=>r[2]===cls);
+    const n = d.length;
+    // Normalize each to 0-100%
+    const vals = [3,4,5,6,7,8].map((ci,i)=>
+      d.reduce((s,r)=>s+r[ci],0)/(n*RUBRIC_MAX[i])*100
+    );
+    datasets.push({
+      label: cls, data: vals,
+      borderColor: CLASS_COLORS[cls],
+      backgroundColor: CLASS_COLORS[cls]+"22",
+      borderWidth: 2, pointRadius: 3,
+      pointBackgroundColor: CLASS_COLORS[cls],
+    });
+  });
+  radarChart = new Chart(ctx, {
+    type:"radar",
+    data: { labels: RUBRIC_LABELS, datasets },
+    options: {
+      responsive:true, maintainAspectRatio:true,
+      plugins:{ legend:{ labels:{color:"#6b7090",font:{family:"Sora",size:11},boxWidth:12} } },
+      scales: { r: {
+        min:0, max:100,
+        grid:{color:"#252a38"}, angleLines:{color:"#252a38"},
+        ticks:{display:false},
+        pointLabels:{color:"#e8eaf2",font:{family:"Sora",size:11,weight:"600"}}
+      }}
+    }
+  });
+}
+
+// Heatmap
+function updateHeatmap() {
+  const d = getData().sort((a,b)=>total(a)-total(b));
+  const el = document.getElementById("heatmapGrid");
+  el.innerHTML = "";
+  // Headers
+  const headers = ["Student","Class","Thesis","Context","Doc Evid","Outside","Sourcing","Complex","Total"];
+  headers.forEach(h=>{
+    const div = document.createElement("div");
+    div.className = "hm-header"; div.textContent = h;
+    el.appendChild(div);
+  });
+  d.forEach(r=>{
+    const t = total(r);
+    const cls = r[2];
+    const color = CLASS_COLORS[cls];
+    // Name
+    const name = document.createElement("div");
+    name.className="hm-name"; name.textContent=r[0];
+    name.style.borderLeft=`3px solid ${color}`;
+    name.style.background = t<=3 ? "rgba(255,107,107,0.08)" : "transparent";
+    el.appendChild(name);
+    // Class
+    const clsEl = document.createElement("div");
+    clsEl.className="hm-cell"; clsEl.textContent=cls;
+    clsEl.style.color=color; clsEl.style.fontWeight="700";
+    el.appendChild(clsEl);
+    // Rubric cells: missed points
+    const rubricMax=[1,1,2,1,1,1];
+    [3,4,5,6,7,8].forEach((ci,i)=>{
+      const missed = rubricMax[i]-r[ci];
+      const cell = document.createElement("div");
+      cell.className="hm-cell";
+      cell.textContent = missed===0 ? "✓" : `-${missed}`;
+      cell.style.background = heatColor(missed, rubricMax[i]);
+      cell.style.color = missed===0 ? "#4fffb0" : "#ff6b6b";
+      el.appendChild(cell);
+    });
+    // Total
+    const totEl = document.createElement("div");
+    totEl.className="hm-cell hm-total";
+    totEl.textContent=t;
+    totEl.style.color=scoreColor(t,7);
+    el.appendChild(totEl);
+  });
+}
+
+// Struggle list
+function updateStruggle() {
+  const d = getData().filter(r=>total(r)<=4).sort((a,b)=>total(a)-total(b));
+  const el = document.getElementById("struggleList");
+  el.innerHTML = "";
+  if(!d.length) { el.innerHTML='<div style="color:var(--muted);font-size:13px;padding:12px">No students scoring ≤4 in selected classes 🎉</div>'; return; }
+  d.forEach(r=>{
+    const t = total(r);
+    const cls = r[2];
+    const missedCats = [];
+    ["Thesis","Context","Doc Evid","Outside","Sourcing","Complex"].forEach((c,i)=>{
+      const max=[1,1,2,1,1,1][i];
+      if(r[i+3]<max) missedCats.push(c);
+    });
+    el.innerHTML+=`
+      <div class="struggle-item" style="border-left-color:${CLASS_COLORS[cls]}">
+        <div style="flex:1">
+          <div class="struggle-name">${r[0]}, ${r[1]}</div>
+          <div class="struggle-missed">Missing: ${missedCats.join(" · ")}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="struggle-class" style="color:${CLASS_COLORS[cls]}">${cls}</div>
+          <div class="struggle-score" style="color:${scoreColor(t,7)}">${t}/7</div>
+        </div>
+      </div>`;
+  });
+}
+
+// Focus areas
+function updateFocus() {
+  const d = getData();
+  const n = d.length;
+  if(!n) return;
+  const rates = [3,4,5,6,7,8].map((ci,i)=>
+    d.reduce((s,r)=>s+r[ci],0)/(n*[1,1,2,1,1,1][i])*100
+  );
+  const focuses = [];
+  if(rates[4]<60) focuses.push({icon:"📎",title:"Sourcing needs work",desc:`Only ${rates[4].toFixed(0)}% of students earned the Sourcing point. Focus on teaching students to explain HOW the author's purpose/POV/audience/situation affects the document's argument — not just identifying it.`});
+  if(rates[5]<55) focuses.push({icon:"🔀",title:"Complexity not being demonstrated",desc:`Only ${rates[5].toFixed(0)}% earned Complex Understanding. Students need to substantively develop BOTH sides, explain causation across time, or make a corroboration argument — not just mention another topic.`});
+  if(rates[3]<70) focuses.push({icon:"🌍",title:"Outside Evidence underused",desc:`Only ${rates[3].toFixed(0)}% earned Outside Evidence. Push students to go beyond Belgian Congo (which many use but poorly). Encourage Berlin Conference details, specific independence movements, or Meiji Japan for comparison.`});
+  if(rates[1]<75) focuses.push({icon:"📖",title:"Contextualization too vague",desc:`Only ${rates[1].toFixed(0)}% earned Contextualization. Students are mentioning industrialization but not explaining HOW it connects to the prompt. Require 2-3 sentences of developed context, not a single sentence.`});
+  if(rates[0]<90) focuses.push({icon:"✏️",title:"Some students missing Thesis",desc:`${(100-rates[0]).toFixed(0)}% of students didn't earn the Thesis point. Drill the formula: "New tech affected Africa as seen through [X] and [Y]" — any defensible claim with a line of reasoning earns it.`});
+  if(focuses.length===0) focuses.push({icon:"🌟",title:"Strong overall performance",desc:"All rubric categories are above 70%. Focus on pushing the Sourcing and Complexity scores even higher through targeted feedback."});
+
+  const el = document.getElementById("focusAreas");
+  el.innerHTML = focuses.map(f=>`
+    <div class="focus-item">
+      <div class="focus-icon">${f.icon}</div>
+      <div><div class="focus-title">${f.title}</div><div class="focus-desc">${f.desc}</div></div>
+    </div>`).join("");
+}
+
+// Roster table
+function updateRoster() {
+  let d = getData();
+  if(searchTerm) d = d.filter(r=>`${r[0]} ${r[1]}`.toLowerCase().includes(searchTerm));
+  d.sort((a,b)=>{
+    const map = {name:0,class:2,thesis:3,context:4,docevid:5,outside:6,sourcing:7,complex:8,total:-1};
+    let va,vb;
+    if(sortCol==="name") { va=a[0]; vb=b[0]; return sortDir*(va>vb?1:-1); }
+    if(sortCol==="class") { va=a[2]; vb=b[2]; return sortDir*(va>vb?1:-1); }
+    if(sortCol==="total") { va=total(a); vb=total(b); }
+    else { va=a[map[sortCol]]; vb=b[map[sortCol]]; }
+    return sortDir*(va-vb);
+  });
+  const tbody = document.getElementById("rosterBody");
+  tbody.innerHTML = "";
+  d.forEach(r=>{
+    const t = total(r);
+    const cls = r[2];
+    const color = CLASS_COLORS[cls];
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${r[0]}, ${r[1]}</td>
+      <td><span style="color:${color};font-weight:700">${cls}</span></td>
+      <td>${r[3]}/1</td>
+      <td>${r[4]}/1</td>
+      <td>${r[5]}/2</td>
+      <td>${r[6]}/1</td>
+      <td>${r[7]}/1</td>
+      <td>${r[8]}/1</td>
+      <td><span class="score-chip" style="background:${scoreColor(t,7)}22;color:${scoreColor(t,7)}">${t}/7</span></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Init
+function renderAll() {
+  updateKPIs();
+  updateClassBars();
+  updateDistChart();
+  updateRubricBars();
+  updateRadar();
+  updateHeatmap();
+  updateStruggle();
+  updateFocus();
+  updateRoster();
+}
+
+// Class pills toggle
+document.querySelectorAll(".class-pill[data-cls]").forEach(pill=>{
+  const cls = pill.dataset.cls;
+  pill.addEventListener("click", ()=>{
+    if(cls==="ALL") {
+      const allActive = CLASSES.every(c=>activeClasses.has(c));
+      if(allActive) { activeClasses.clear(); }
+      else { CLASSES.forEach(c=>activeClasses.add(c)); }
+    } else {
+      if(activeClasses.has(cls)) activeClasses.delete(cls);
+      else activeClasses.add(cls);
+    }
+    document.querySelectorAll(".class-pill").forEach(p=>{
+      const c = p.dataset.cls;
+      if(c==="ALL") p.classList.toggle("active", CLASSES.every(x=>activeClasses.has(x)));
+      else p.classList.toggle("active", activeClasses.has(c));
+    });
+    renderAll();
+  });
+});
+
+// Sort
+document.querySelectorAll("th[data-col]").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const col = th.dataset.col;
+    if(sortCol===col) sortDir*=-1;
+    else { sortCol=col; sortDir=-1; }
+    updateRoster();
+  });
+});
+
+// Search
+document.getElementById("searchBox").addEventListener("input",e=>{
+  searchTerm=e.target.value.toLowerCase();
+  updateRoster();
+});
+
+// ── FEEDBACK DATA (students scoring ≤ 4 only) ──────────────────────────────
+// key: "Last_First"  |  rubric: [thesis, context, docevid, outside, sourcing, complex]
+// Each value: { earned: bool, text: string }  |  improve: string
+const FEEDBACK = {
+  "Herron_Jude": {
+    scores: [1,1,2,0,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"Your three-part thesis (westernization, tuberculosis, new taxes) gives a clear line of reasoning and is well-supported throughout." },
+      context:  { e:true,  t:"Good context — Europe's rapid industrialization pushing colonies to become raw-goods exporters, requiring new transport, is specific and causally connected." },
+      docevid:  { e:true,  t:"Docs 4, 5, and 1 all used with argument and direct quotes. Solid document coverage." },
+      outside:  { e:false, t:"No outside evidence. Vague references to 'British expansion' don't count. You needed one named example with a causal sentence — e.g., the Belgian Congo and its forced rubber quotas enabled by railways." },
+      sourcing: { e:false, t:"You describe what documents say and who wrote them, but never explain HOW the author's POV or purpose changes how to read the document. Identifying purpose isn't enough — you must say why it matters to your argument." },
+      complex:  { e:false, t:"All three of your thesis categories are negative. No positive counterargument with document evidence appears anywhere. Complexity requires substantive development of the other side." },
+    },
+    improve: "Three targeted additions get you to 7: (1) Outside evidence — one sentence: 'King Leopold II's Congo Free State used railways to enforce rubber quotas under threat of mutilation.' (2) Sourcing — pick Doc 5 and add: 'Because this was commissioned for British Parliament, the author would need to be accurate to motivate policy — making the tuberculosis statistics especially credible.' (3) Complexity — add a paragraph using Docs 6 and 7 showing trade and urban benefits in Kumasi and Ibadan, then contrast with your negative argument."
+  },
+
+  "Begley_Tyler": {
+    scores: [1,0,2,0,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"Thesis earned — 'rebellion, spread of disease, and unfair wages/forced taxes' gives three specific negative categories as a defensible line of reasoning." },
+      context:  { e:false, t:"No historical context. You jump straight into Doc 3 without any framing about the broader period. You needed 2–3 sentences on the Industrial Revolution driving resource demand and European colonization before your first document." },
+      docevid:  { e:true,  t:"Docs 3 and 5 both used with solid argument and quotes. Each tied to your thesis about rebellion and disease." },
+      outside:  { e:false, t:"'Dehumanization of African tribal members' restates document themes — it's not an outside example. You needed a specific named event (Belgian Congo, Berlin Conference, Anglo-Zulu Wars) with 1–2 causal sentences." },
+      sourcing: { e:false, t:"You name who wrote the documents but never analyze how that POV or purpose affects your interpretation. Example for Doc 3: 'Written between British officials who would frame Ashanti attacks as unprovoked to justify troop requests — meaning we should read it as one-sided.'" },
+      complex:  { e:false, t:"All three thesis categories are negative. No positive counterargument with document evidence developed anywhere. Complexity requires building both sides with evidence, not just acknowledging that good things exist." },
+    },
+    improve: "Four additions transform this essay from 3 → 7: (1) Context — 2–3 sentences: 'The Second Industrial Revolution made European nations resource-hungry, driving the Scramble for Africa and the Berlin Conference that divided the continent without African input.' (2) Outside evidence — Belgian Congo, one sentence with a specific detail about rubber quotas. (3) Sourcing — for Doc 3, explain why the British military perspective makes the document one-sided. (4) Complexity — add a paragraph using Docs 6 and 7 showing economic benefits in Kumasi and Ibadan, then contrast: 'Yet these benefits served British economic interests more than African communities, as Docs 1 and 5 show.'"
+  },
+
+  "Boehm_David": {
+    scores: [1,1,1,1,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'Mistreatment of native peoples and harsh laboring conditions' — two specific negative categories as a defensible line of reasoning." },
+      context:  { e:true,  t:"'European industrialization and civilizing mission to westernize barbaric Africans' — captures the ideological justification accurately as context." },
+      docevid:  { e:false, t:"You used Docs 3 and 5 well in paragraph 1, and mention Docs 1 and 2 in paragraph 2, but those two are used as description rather than argument connected to your specific thesis claims. You needed four documents explicitly tied to your two categories." },
+      outside:  { e:true,  t:"'Industrialization in the Americas — harsh conditions killed lower-class Americans' — specific comparative outside example. Earns the point." },
+      sourcing: { e:false, t:"You name authors and parliaments but never analyze how their POV, purpose, or audience affects the argument. The key step: 'Because Doc 5 was written for Parliament, the commission would need to appear accurate to motivate action — making these tuberculosis statistics especially credible.' That step is missing throughout." },
+      complex:  { e:false, t:"Essay argues only negative effects (mistreatment and civilizing mission). No positive counterargument with document evidence is developed anywhere." },
+    },
+    improve: "Two changes raise this to 6 or 7: (1) Connect Docs 1 and 2 explicitly to your thesis — add argument sentences like 'This shows how the civilizing mission imposed financial hardship on those least able to pay' and 'The photograph shows how African labor was exploited for British industry.' That earns the second doc evidence point. (2) Sourcing — for one doc, add: 'Because [author/audience], they would [do X], which means [Y] about how to read this document.' (3) For complexity, add a short paragraph on Docs 6 and 7 showing economic benefits — new jobs in Kumasi, cocoa trade in Ibadan — then contrast with your negative argument."
+  },
+
+  "Clemandot_Tommy": {
+    scores: [1,0,1,1,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'Positive — made life easier, industrialization faster, more trade.' Specific positive line of reasoning." },
+      context:  { e:false, t:"No historical context before your documents. You jump straight to Doc 1. You needed the Industrial Revolution and Scramble for Africa framing — 2–3 sentences." },
+      docevid:  { e:false, t:"Critical problem: Doc 1 is misread. It is a letter from the Temne people OPPOSING the hut tax because they can't afford it — not evidence that roads made life easier. With Doc 1 misread, only Docs 4, 6, and 7 are correctly used. You need four accurate documents to earn the second point." },
+      outside:  { e:true,  t:"Japan comparison — Britain opened Japan to Western tech and trade, Japan thrived — is a specific named outside example." },
+      sourcing: { e:false, t:"You mention the POV of Doc 7 briefly but don't analyze how the Nigerian historian's perspective affects reliability or bias. No other sourcing analysis appears anywhere." },
+      complex:  { e:false, t:"Essay is entirely positive. Doc 1 is even misread as positive. No negative counterargument with document evidence is developed." },
+    },
+    improve: "Key fixes to raise from 3 to 6+: (1) Reread Doc 1 carefully — it's about Africans OPPOSING taxation. Use it as a negative: 'Doc 1 shows Africans couldn't afford taxes imposed to fund railways — demonstrating that transportation came at real cost to local people.' (2) Add context: 'The Second Industrial Revolution made Britain resource-hungry, driving the Scramble for Africa.' (3) Sourcing — for Doc 6: 'Written by British colonial officials who benefit from positive reports — meaning trade numbers may be accurate but African hardships are understated.' (4) Add a negative paragraph (Docs 1, 5) for complexity, contrasting with your positive argument."
+  },
+
+  "Leonardi_David": {
+    scores: [1,0,2,0,0,1],
+    rubric: {
+      thesis:   { e:true,  t:"'Negatively affected through documents 1 and 3' — while structurally minimal, it claims a direction with implied reasoning about taxation and military overreaction." },
+      context:  { e:false, t:"No broader historical context. Essay opens directly with Doc 1 analysis without framing the Industrial Revolution or Scramble for Africa." },
+      docevid:  { e:true,  t:"Docs 1 and 3 developed well in body paragraphs. Docs 4 and 7 used for positives at the end. All four connected to arguments." },
+      outside:  { e:false, t:"Your hypotheticals ('if telegraphs hadn't been introduced') aren't outside evidence — you need a real, named historical event. Belgian Congo, Berlin Conference, or Anglo-Zulu Wars would each work with 1–2 causal sentences." },
+      sourcing: { e:false, t:"You describe who wrote documents but never analyze how their POV, purpose, or audience affects your argument or the document's reliability. That analytical connection — 'because X wrote this, it means Y for my interpretation' — is missing throughout." },
+      complex:  { e:true,  t:"First section develops negative arguments (Docs 1, 3); second section develops positives (Docs 4, 7). Both sides engaged with document evidence. Complexity earned." },
+    },
+    improve: "Three additions get you to 7: (1) Context — add to your intro: 'During the Second Industrial Revolution, Britain industrialized rapidly and needed new raw materials, driving the Scramble for Africa and the Berlin Conference of 1884.' 2–3 sentences. (2) Outside evidence — in a body paragraph: 'Beyond the documents, King Leopold's Congo Free State used railways to force rubber extraction under threat of mutilation, showing how transportation technology enabled extreme exploitation.' (3) Sourcing — for Doc 3: 'Written between British military officers who needed troops — they would frame the Ashanti attacks as unprovoked aggression to justify the request, meaning we should read this as a one-sided military account.'"
+  },
+
+  "Mitchell_Noah": {
+    scores: [0,0,1,0,0,0],
+    rubric: {
+      thesis:   { e:false, t:"Your intro describes European influence on transportation but makes no defensible claim about HOW technologies affected African societies. A thesis needs a specific, arguable line of reasoning — e.g., 'New transportation technologies benefited some African societies economically while displacing traditional cultures and enabling colonial exploitation.'" },
+      context:  { e:false, t:"No historical context appears. You go straight to document descriptions without framing the Industrial Revolution, the Scramble for Africa, or the Berlin Conference." },
+      docevid:  { e:false, t:"You describe Docs 4 and 7, but they're not tied to a clear thesis argument. You need at least three documents used as evidence for a specific claim — not just described." },
+      outside:  { e:false, t:"No outside evidence appears anywhere." },
+      sourcing: { e:false, t:"No sourcing analysis — no POV, purpose, audience, or historical situation analysis anywhere. This is a required step for each document you use." },
+      complex:  { e:false, t:"Essay shows only positive impacts. No negative counterargument or evidence of any kind is developed." },
+    },
+    improve: "The essay needs a full structural rebuild. Here's the exact template: (1) Thesis: 'New transportation technologies affected Africa positively through [X] and negatively through [Y].' Write this as your last intro sentence. (2) Context paragraph: Industrial Revolution → resource demand → Scramble for Africa / Berlin Conference. 2–3 sentences. (3) Body paragraph 1 — positive impacts: Docs 4, 6, 7 — new trade, modernization, jobs in Ibadan and Kumasi. For each doc add: 'The [author/purpose] of this document means...' (4) Body paragraph 2 — negative impacts: Docs 1, 3, 5 — taxation, rebellion, disease. Same sourcing step. (5) Outside evidence sentence: 'King Leopold's Congo Free State used railways to enforce rubber quotas under threat of mutilation.' Each of these six elements is a separate point."
+  },
+
+  "VanFleet_Charlie": {
+    scores: [1,1,1,0,0,1],
+    rubric: {
+      thesis:   { e:true,  t:"'Both negative and positive — small communities to connected labor-based society through telegraphs, trains, and boats.' Two-sided with specific categories." },
+      context:  { e:true,  t:"'Second Industrial Revolution brought by British — transformed small communities through telegraphs, trains, and boats.' Specific technology framing as context." },
+      docevid:  { e:false, t:"You reference Docs 3, 4, 6, and 5 — four documents — but Docs 4 and 5 are used more as description than as argument explicitly tied to a specific thesis claim. Each document needs a sentence connecting it to your argument." },
+      outside:  { e:false, t:"No outside evidence appears. The comparison to Great Britain's own poor housing/labor conditions is too vague and implied — you needed a named specific event (Belgian Congo, Berlin Conference) with a causal sentence." },
+      sourcing: { e:false, t:"You describe documents' contents and sometimes reference who wrote them, but don't analyze how the author's POV or purpose affects your argument or document reliability. The analytical step — 'because X wrote this, they would Y, which means Z for my interpretation' — is entirely missing." },
+      complex:  { e:true,  t:"You cover British military advantage (negative), tourism/trade (positive), and disease (negative) across multiple paragraphs. Both sides are engaged with document support." },
+    },
+    improve: "Three additions raise this to 7: (1) For Docs 4 and 5, add explicit argument sentences: 'This shows how transportation changed African society by [specific claim connecting to your thesis].' That earns the second document evidence point. (2) Outside evidence — Belgian Congo, one sentence: 'King Leopold's Congo Free State used railways to force rubber extraction under threat of mutilation, demonstrating how transportation could enable atrocity.' (3) Sourcing — for Doc 6: 'Written by British colonial officials employed in the Gold Coast — they would emphasize economic successes to justify their presence, meaning we should read trade numbers as directionally accurate but benefits to Africans as likely overstated.'"
+  },
+
+  "Weast_Brody": {
+    scores: [1,0,2,0,0,1],
+    rubric: {
+      thesis:   { e:true,  t:"'Positively affected — new trade and further industrialization.' Specific categories as a defensible line of reasoning." },
+      context:  { e:false, t:"No broader historical context. Essay starts directly with Doc 6 analysis. You needed the Industrial Revolution, Scramble for Africa, or Berlin Conference as framing — 2–3 sentences before your first document." },
+      docevid:  { e:true,  t:"Docs 6, 7, 3, and 5 all used across two body paragraphs with connected argument. Each tied to a specific claim." },
+      outside:  { e:false, t:"No named outside evidence. 'The bringing of communication and transportation did bring many goods' is a restatement, not an outside example. Needed: Belgian Congo, Berlin Conference, or another specific named event with causal detail." },
+      sourcing: { e:false, t:"You describe document purposes briefly (what the author is showing us) but don't analyze how the author's position, audience, or historical situation affects whether to trust the source or how it connects to your argument." },
+      complex:  { e:true,  t:"Paragraph 1 develops positive impacts (trade, industrialization — Docs 6, 7) and Paragraph 2 develops negative impacts (conflict, disease — Docs 3, 5). Both sides covered with document support." },
+    },
+    improve: "Three quick additions get you to 7: (1) Context — add to your intro: 'Before this period, the Second Industrial Revolution made European nations resource-hungry, driving the Scramble for Africa and the Berlin Conference of 1884 that divided the continent without African input.' (2) Outside evidence — 'Beyond the documents, the Belgian Congo under King Leopold II used railways to force rubber extraction under threat of mutilation — showing how the same technology that enabled trade could also enable atrocity.' (3) Sourcing — for Doc 6: 'Written by British colonial officials, this source would emphasize trade successes to justify their presence — meaning the economic figures are likely accurate but African hardships are understated.'"
+  },
+
+  "Fischesser_Aiden": {
+    scores: [0,1,1,1,0,0],
+    rubric: {
+      thesis:   { e:false, t:"Your essay describes European expansion and a technology gap but never makes a defensible claim. 'Transportation and communication greatly affected African populations' is too vague — it doesn't give a line of reasoning. You needed: 'New transportation technologies negatively affected African societies through forced taxation and cultural displacement, while also creating economic growth that primarily served British interests.'" },
+      context:  { e:true,  t:"'Africa occupied by tribes; European powers dividing Africa; the technology gap allowed European countries to force their ideals on Africans.' Specific and causally connected context." },
+      docevid:  { e:false, t:"You describe all seven documents accurately, but they're presented as a list of descriptions rather than as evidence for a specific thesis argument. Each document needs to connect explicitly to your claim." },
+      outside:  { e:true,  t:"'Two World Wars — increased competition for African resources, expanded transport/communication networks.' Specific outside evidence connecting to the period." },
+      sourcing: { e:false, t:"You briefly identify intended audiences (Doc 1: the British; Doc 4: British citizens) but never explain how those audiences affect what the author includes, omits, or exaggerates — and how that matters to your argument." },
+      complex:  { e:false, t:"Without a structured thesis and argument, the complexity point cannot be awarded even though both positive and negative elements appear in the essay." },
+    },
+    improve: "Restructuring earns four more points: (1) Write a clear thesis as your final intro sentence with a line of reasoning — pick a direction (positive, negative, or both) and name specific categories. (2) For each document, add an explicit argument sentence: 'This supports my argument that [specific claim] because [reason].' (3) Sourcing — for one doc, add: 'Because this was written for [audience], the author would [do X], which means [Z] about how to interpret it.' (4) Organize your body into two paragraphs — one per side of your argument. That structure creates visible complexity. Your outside evidence (World Wars) is good — keep it."
+  },
+
+  "Russo_Quinn": {
+    scores: [1,0,1,0,1,0],
+    rubric: {
+      thesis:   { e:true,  t:"'Transportation positively — boosted economy and trade.' Specific positive line of reasoning." },
+      context:  { e:false, t:"No historical context. Essay starts directly with Doc 1 without framing the Industrial Revolution or Scramble for Africa." },
+      docevid:  { e:false, t:"Critical problem: Doc 1 is misread. It is a letter from Africans OPPOSING the hut tax because they can't afford it — not evidence that 'taxes allowed for transportation projects which boosted the economy.' With Doc 1 misread, only Docs 5, 6, and 7 are correctly used. You need four accurate documents to earn the second point." },
+      outside:  { e:false, t:"'Many Africans died traveling to the Republic of the Congo to snakes' is not a valid outside evidence example. You needed a specific named historical event — Belgian Congo, Berlin Conference — with a causal sentence." },
+      sourcing: { e:true,  t:"Historical situation of Doc 1 (conflict over modernization) and intended audience of Doc 5 (British Parliament, pros and cons of modernization) both analyzed. Earns the sourcing point." },
+      complex:  { e:false, t:"Essay argues entirely positive. No negative counterargument with document evidence developed anywhere." },
+    },
+    improve: "Four fixes raise this significantly: (1) Context — 2–3 sentences: 'During the Second Industrial Revolution, Britain industrialized rapidly and needed raw materials, driving the Scramble for Africa.' (2) Reread Doc 1 — it's about Africans OPPOSING the hut tax. Use it as a negative: 'Doc 1 shows that Africans were taxed to fund railways they couldn't afford — demonstrating that transportation came at direct cost to local people.' (3) Outside evidence — Belgian Congo, one specific sentence. (4) Complexity — add a paragraph on negative impacts using corrected Doc 1 and Doc 5 (tuberculosis), then contrast: 'While railways boosted trade (Docs 6, 7), they also imposed costs on African communities.'"
+  },
+
+  "Andino_Andino": {
+    scores: [1,0,1,1,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'Negatively affected — exploitation, taxation, crammed living environments.' Three specific negative categories." },
+      context:  { e:false, t:"No broader historical context. Essay jumps directly into documents without framing the Industrial Revolution, Scramble for Africa, or Berlin Conference." },
+      docevid:  { e:false, t:"You describe Docs 3, 6, 5, and 4, but none are explicitly tied to your three thesis categories (exploitation, taxation, crammed living). Each document needs a sentence saying: 'This supports my argument about [category] because [reason].'" },
+      outside:  { e:true,  t:"Belgium and rubber extraction — factories making rubber useful, Belgium extracted rubber from Africa — is a named specific country and resource with causal connection." },
+      sourcing: { e:false, t:"You describe what documents say but never analyze how the author's POV, purpose, or audience affects the argument. For Doc 5, you incorrectly identify the audience as 'immigrants figuring out if Africa is their destination' — Doc 5 is a British Parliamentary commission report about tuberculosis, not immigration." },
+      complex:  { e:false, t:"Essay argues exclusively negative effects. No positive counterargument with document evidence developed." },
+    },
+    improve: "Three targeted improvements: (1) Context — add 2–3 sentences: 'The Second Industrial Revolution made European nations resource-hungry. This drove the Scramble for Africa and the Berlin Conference of 1884, setting the stage for the forced introduction of railways and telegraphs.' (2) Connect each document to your thesis categories explicitly — 'Doc 3 supports exploitation because...' 'Doc 6 shows taxation because...' (3) Sourcing — correct the Doc 5 audience (it's British Parliament, not immigrants) and explain what that means: 'A Parliamentary commission would need accurate data to motivate policy — making the tuberculosis statistics especially credible.' (4) Complexity — add a paragraph using Docs 6 and 7 showing trade and urban benefits, then contrast with your negative argument."
+  },
+
+  "Bachman_Harry": {
+    scores: [0,0,1,1,0,0],
+    rubric: {
+      thesis:   { e:false, t:"'Britain's technology strongly controlled the effect on African societies' — this describes what happened without making a defensible historical claim. You need: 'New transportation technologies negatively affected African societies through forced taxation and cultural displacement, while creating economic benefits that primarily served British interests.'" },
+      context:  { e:false, t:"No historical context. The essay launches into document descriptions without framing the Industrial Revolution or Scramble for Africa." },
+      docevid:  { e:false, t:"Critical problem: Doc 2 is misread — it depicts two African diamond miners walking home, not 'a Protestant minister born in South Africa who worked in diamond mines.' The minister is William Douglas Mackenzie, the author of the book, not the subject. With this misread and weak argument connections, the document evidence point cannot be awarded." },
+      outside:  { e:true,  t:"Scramble for Africa — all countries wanted a piece of Africa; England most successful because of new technology. Named specific event with causal connection." },
+      sourcing: { e:false, t:"You reference historical context of documents but never analyze how the author's specific POV, purpose, or audience affects the argument's reliability or what it means for your interpretation." },
+      complex:  { e:false, t:"Essay argues one direction throughout (British technological control). No genuine counterargument with opposite evidence developed." },
+    },
+    improve: "Significant rebuilding needed to raise from 2 to 6+: (1) Write a clear thesis with a specific line of reasoning. (2) Reread Doc 2 — the two men in the photo are African miners, not the minister. Use it correctly: 'This shows how African workers were employed in harsh mining conditions for British industry.' (3) Connect every document explicitly to your thesis argument with a sentence. (4) Sourcing — for one doc: 'Because [author/audience], they would [do X], which means [Y] about trusting this document.' (5) Add a counterargument paragraph for complexity. Your outside evidence (Scramble for Africa) is good — keep it."
+  },
+
+  "Corsmo_Ethan": {
+    scores: [1,0,2,0,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'Somewhat positive — increase of trade and movement of goods and people.' Specific positive line of reasoning." },
+      context:  { e:false, t:"No historical context. Essay begins directly with Doc 6 analysis. You needed the Industrial Revolution, Scramble for Africa, or Berlin Conference as framing — 2–3 sentences." },
+      docevid:  { e:true,  t:"Docs 6, 7, 3, and 5 all used across two paragraphs with connected argument. Each tied to a specific claim." },
+      outside:  { e:false, t:"No outside evidence. You describe document content thoroughly but never bring in a named historical event or development beyond the documents themselves." },
+      sourcing: { e:false, t:"You describe the purpose of Docs 6 and 7 (what they show) but don't analyze how the author's specific position, audience, or historical situation affects whether to trust the source or what it means for your argument." },
+      complex:  { e:false, t:"Essay focuses primarily on positive impacts. Doc 5 is mentioned about tuberculosis but not developed into a substantive negative counterargument with equal evidence." },
+    },
+    improve: "Four additions raise this from 3 to 7: (1) Context — add 2–3 sentences: 'During the Second Industrial Revolution, Britain industrialized rapidly and needed new raw materials, driving the Scramble for Africa and the Berlin Conference of 1884 that divided the continent.' (2) Outside evidence — Belgian Congo, one sentence: 'King Leopold II's Congo Free State used railways to force rubber extraction under threat of mutilation.' (3) Sourcing — for Doc 6: 'Written by British colonial officials, this source would emphasize trade successes to justify their presence — meaning we should read the economic benefits as real but the costs to Africans as understated.' (4) Complexity — fully develop a negative paragraph: 'Despite these benefits, Doc 1 shows Africans taxed to fund railways they couldn't afford. Doc 5 shows those railways spread tuberculosis to overcrowded labor centers.' Then contrast with your positive argument."
+  },
+
+  "Nelson_Maddox": {
+    scores: [0,1,2,0,0,0],
+    rubric: {
+      thesis:   { e:false, t:"Your intro is passionate and historically aware but never makes a specific defensible claim with a line of reasoning. 'It negatively affected Africa' isn't enough — you need: 'New transportation technologies negatively affected African societies by spreading disease to exploited labor populations and enabling forced extraction of African resources for European profit.'" },
+      context:  { e:true,  t:"'Industrialization → seeking power → cities corrupt with factories → world focused on increasing wealth → looking to Africa for resources.' Causally connected context." },
+      docevid:  { e:true,  t:"Docs 5 and 2 both used with argument. Each tied to your negative impact claims about disease and exploitative labor." },
+      outside:  { e:false, t:"'Sounds kind of familiar — like Native Americans getting disease' is too vague and undeveloped. You needed: 'Beyond the documents, King Leopold II's Congo Free State forced rubber extraction under threat of mutilation, enabled by Belgian railways.' One specific sentence." },
+      sourcing: { e:false, t:"You write passionately about the documents but never analyze how the author's POV, purpose, or audience affects the argument. The analytical step — 'because X wrote this, it means Y for how much to trust it' — is missing." },
+      complex:  { e:false, t:"Essay develops disease (Doc 5) and exploitative labor (Doc 2) — both negative. No positive counterargument with document evidence is developed." },
+    },
+    improve: "Four changes transform this: (1) Thesis — add a specific last sentence to your intro: 'New transportation technologies negatively affected African societies through the spread of disease to exploited labor populations and through forced resource extraction.' (2) Outside evidence — one sentence on the Belgian Congo with a specific detail (rubber quotas, mutilation as punishment). (3) Sourcing — for Doc 5: 'Written for British Parliament, the commission would need to appear accurate to motivate policy action — making the tuberculosis statistics especially credible.' (4) Complexity — add a short paragraph using Docs 6 and 7 showing economic benefits in Ibadan and Kumasi, then pivot: 'Yet these gains came at the cost shown in Docs 5 and 2.'"
+  },
+
+  "Bohman_Matthew": {
+    scores: [1,1,1,1,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'Influx in trade AND worsening working/living conditions.' Two specific categories, two-sided." },
+      context:  { e:true,  t:"'Industrial Revolution → steam engines → Scramble for Africa → colonization → transportation introduced.' Specific causal chain covering key events." },
+      docevid:  { e:false, t:"Docs 2 and 6 are used well for the trade paragraph. But the working/living conditions paragraph only begins — you reference worsening conditions but don't connect a specific document (like Doc 1 or Doc 5) explicitly to that claim. Need four documents tied to arguments to earn the second point." },
+      outside:  { e:true,  t:"'Scramble for Africa — European states joining to divide Africa, adding railways and transportation.' Named specific event with causal connection." },
+      sourcing: { e:false, t:"You reference the historical context of Doc 2 (1899, communities connecting via new transportation) but don't analyze how the author's specific POV, purpose, or audience affects the argument. The 'because X, therefore Y about this source' step is missing." },
+      complex:  { e:false, t:"Trade paragraph (positive) is developed; working conditions paragraph is started but not fully supported with document evidence. Complexity requires substantive development of both sides." },
+    },
+    improve: "Three improvements: (1) Add Docs 1 and 5 to your working conditions paragraph: 'Doc 1 shows Africans taxed to fund railways they couldn't afford — the Temne people had no power or money to pay. Doc 5 shows those railways spread tuberculosis to crowded mining towns, with labor centers developing in historically 'bad' health conditions.' That earns the second document evidence point AND builds complexity. (2) Sourcing — for Doc 2: 'Published by a Protestant minister sympathetic to African workers — this perspective makes the harsh walking distances described more credible, since an author who viewed the workers positively would not exaggerate their hardship.' That single analytical sentence earns the sourcing point."
+  },
+
+  "Gordon_Patrick": {
+    scores: [1,1,1,0,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'Extortion of African people and extraction of resources under British control.' Specific negative line of reasoning." },
+      context:  { e:true,  t:"'Industrialization created strong economy, new jobs, influx of migrants — facilitated imperialism — came across Africa and its resources.' Specific causal context." },
+      docevid:  { e:false, t:"You describe Docs 1, 4, 3, and 6, but the connections to your thesis argument are thin. Doc 4 is described as showing 'travelers and passengers' without connecting it to extortion or extraction. Need each document explicitly tied to your specific claims." },
+      outside:  { e:false, t:"No outside evidence. You reference 'the entire country of Egypt taken under British control' — but that's from Doc 4, not outside the documents." },
+      sourcing: { e:false, t:"You briefly note document purposes ('purpose was to provide some information') but never analyze how the author's POV, position, or audience affects the argument's reliability or meaning for your interpretation." },
+      complex:  { e:false, t:"Essay argues exclusively negative throughout. No positive counterargument with document evidence is developed." },
+    },
+    improve: "Four additions raise this from 3 to 7: (1) Connect each document explicitly to your thesis: 'Doc 4 supports extortion because the British transformed Cairo's economy for European profit, displacing traditional shops.' (2) Outside evidence — Belgian Congo: 'King Leopold II's Congo Free State forced rubber extraction under threat of mutilation, enabled by Belgian railways.' (3) Sourcing — for Doc 3: 'Written between British military officers who needed troop reinforcements — they would frame Ashanti resistance as unprovoked to justify the request, making this a one-sided military account.' (4) Complexity — add a paragraph using Docs 6 and 7 showing that railways did create genuine trade growth and new jobs in Ibadan and Kumasi, then contrast: 'But these benefits primarily served British economic interests.'"
+  },
+
+  "Kanyuck_Alex": {
+    scores: [1,1,1,0,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'Unfair treatment of native peoples in trade, and spread of disease.' Two specific categories." },
+      context:  { e:true,  t:"'Scramble for Africa — European states divided Africa, added railways and transportation.' Specific named event as context." },
+      docevid:  { e:false, t:"You describe Docs 1, 2, 4, and 3 with some analysis, but the connections to 'unfair treatment in trade' and 'spread of disease' aren't always explicit. Doc 3 starts a new argument (the 'f' at the end suggests you ran out of space). You need four documents clearly tied to your two thesis categories." },
+      outside:  { e:false, t:"No outside evidence. The Scramble for Africa is used as context (intro), not as a body paragraph outside evidence example." },
+      sourcing: { e:false, t:"You analyze the POV and audience of Docs 1, 2, and 4 — this is good work! But the analyses don't connect to your argument. You explain what the author would omit, but you need to add: 'This means [X] about how to interpret this document for my argument about unfair treatment.'" },
+      complex:  { e:false, t:"Essay argues unfair treatment and disease — both negative. No positive counterargument with document evidence is developed." },
+    },
+    improve: "Three additions raise this from 3 to 6+: (1) Add a body paragraph outside evidence example: 'Beyond the documents, King Leopold II's Congo Free State used railways to force rubber extraction under threat of mutilation — showing how transportation enabled extreme exploitation of African peoples.' (2) Sourcing — your analysis of Doc 1's POV is almost there; add the final connection: 'Because this document comes from an African leader trying to persuade British authorities, it would emphasize hardship — meaning the poverty described is likely accurate but strategically framed to build sympathy.' (3) Complexity — add a paragraph using Docs 6 and 7: 'Railways did bring genuine economic growth to Ibadan's cocoa trade and created new jobs in Kumasi (Doc 6). But these benefits served British economic interests more than African communities, as shown by the taxation in Doc 1.'"
+  },
+
+  "Kral_Ethan": {
+    scores: [0,1,2,0,0,1],
+    rubric: {
+      thesis:   { e:false, t:"Your essay presents arguments about industrialization and city problems, but your introduction doesn't make a defensible claim with a line of reasoning. 'Societies in Africa were affected' is too broad. You needed: 'New transportation technologies both industrialized African cities and created severe social costs — overcrowding, disease, and housing crises — for those who came seeking work.'" },
+      context:  { e:true,  t:"'Dire need for natural resources due to industrialization → people looked to Africa where resources were plentiful → railways connected cities → new manufacturing methods.' Specific causal context." },
+      docevid:  { e:true,  t:"Docs 7, 6, and 5 all used with argument. Each tied to industrialization or city problem claims. Good document use across both paragraphs." },
+      outside:  { e:false, t:"No outside evidence in any paragraph. The essay needed a specific named event beyond the documents — Belgian Congo, Berlin Conference, or Anglo-Zulu Wars with 1–2 causal sentences." },
+      sourcing: { e:false, t:"You identify the intended purpose of Docs 7 and 6 ('to show how much Africa has changed,' 'encouraging people to travel to the inner city') but don't analyze how those purposes create bias or affect your interpretation." },
+      complex:  { e:true,  t:"Industrialization paragraph (Doc 7, Doc 6 — positive change) and city problems paragraph (Doc 5 — disease, overcrowding, housing crisis) both developed. Both sides covered with document support." },
+    },
+    improve: "Three additions get you to 7: (1) Thesis — add a specific claim as your last intro sentence that names both sides with reasoning. (2) Outside evidence — Belgian Congo, one sentence with a specific detail about rubber quotas or forced labor: 'King Leopold II's Congo Free State used railways to force rubber extraction under threat of mutilation, demonstrating how transportation could enable systematic exploitation.' (3) Sourcing — for Doc 6: 'Written to encourage people to move to African cities for opportunity, this source would emphasize economic positives — meaning job growth is likely real but crowding and health costs are understated, as Doc 5 shows.' That analytical connection earns the sourcing point."
+  },
+
+  "Laufersweiler_Chris": {
+    scores: [1,1,2,0,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'New economic policies AND new infrastructural and social ideas.' Two-sided with specific categories." },
+      context:  { e:true,  t:"'Industrial Revolution shifted manufacturing to factories, encouraged family wages, increased GDP, facilitated new communication and transportation.' Specific and causally connected context." },
+      docevid:  { e:true,  t:"Docs 1, 2, 3, and 6 all used with argument across two paragraphs. Each tied to economic policies or social ideas claims." },
+      outside:  { e:false, t:"No outside evidence. Noting that Temne leaders 'went their whole lives without paying tax' extends the document rather than bringing in an external example. Needed: Belgian Congo, Berlin Conference, or another specific named event." },
+      sourcing: { e:false, t:"You analyze the POV of Doc 1 (Temne leaders biased against change) and the POV of Doc 3 (British officials thinking antagonistically of natives). These are good starts! But you don't connect how those biases affect your argument — the 'so what does this mean for how I use this document' step is missing." },
+      complex:  { e:false, t:"Economic policies paragraph and infrastructural/social ideas paragraph cover different aspects but both ultimately argue the same direction — British control and change. No positive counterargument with document evidence is developed." },
+    },
+    improve: "Three additions raise this from 4 to 7: (1) Outside evidence — in a body paragraph: 'Beyond the documents, King Leopold II's Congo Free State used railways to force rubber extraction under threat of mutilation — showing how new economic policies could enable extreme exploitation.' (2) Sourcing — complete your existing analyses: for Doc 1, add: 'Because of this bias against change, the letter likely exaggerates the hardship to build sympathy — but the core financial inability to pay the tax is corroborated by the specific amounts mentioned.' For Doc 3, add: 'Because British officials would want troops sent, they would frame the Ashanti resistance as unprovoked — making this a one-sided account.' (3) Complexity — add a paragraph using Docs 6 and 7 showing genuine economic and trade benefits in Kumasi and Ibadan, then contrast: 'But these benefits came through policies that imposed taxes and displaced traditional economies.'"
+  },
+
+  "Nestle_Will": {
+    scores: [1,1,1,0,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'European aggression and spread of disease through migration and traveling.' Two specific negative categories." },
+      context:  { e:true,  t:"'Industrialization in late 19th century — England and advanced countries led it — new technologies for manufacturing and travel restructured society.' Specific causal context." },
+      docevid:  { e:false, t:"Docs 1 and 3 used for aggression paragraph; Doc 4 used for disease/migration paragraph. But Doc 4 doesn't show disease — it's a travel advertisement for Egypt. The disease argument in paragraph 2 isn't supported with the right document. Doc 5 shows disease; Doc 4 shows westernization/tourism. Misusing Doc 4 for a disease argument means only two documents are correctly used." },
+      outside:  { e:false, t:"Berlin Conference is mentioned in your first paragraph — good instinct! But it's used as 'gives reason to believe they would be aggressive,' which is too vague. You need a specific causal sentence: 'At the Berlin Conference in 1884, European powers divided Africa without any African input, setting the conditions for the forced taxation and military resistance shown in Docs 1 and 3.'" },
+      sourcing: { e:false, t:"You describe what documents say and their purposes briefly, but never analyze how the author's specific POV, position, or audience affects the argument's reliability." },
+      complex:  { e:false, t:"Essay argues exclusively negative (aggression and disease). No positive counterargument with document evidence is developed." },
+    },
+    improve: "Key fixes to raise from 3 to 6+: (1) Replace Doc 4 in your disease paragraph with Doc 5: 'Doc 5, a British Parliamentary commission report, shows that tuberculosis spread in towns first opened by railways — the crowded labor centers created by mining were breeding grounds for disease.' Doc 4 belongs in a positive paragraph about Cairo's modernization. (2) Outside evidence — strengthen Berlin Conference: 'At the Berlin Conference of 1884, European powers divided Africa without any African input, setting the conditions for the forced taxation and military resistance shown in Docs 1 and 3.' (3) Sourcing — for Doc 3: 'Written between British military officers who needed troops sent — they would frame Ashanti resistance as unprovoked aggression, making this a one-sided account.' (4) Complexity — add a paragraph using Docs 4, 6, and 7 showing genuine modernization and economic benefits, then contrast with your negative argument."
+  },
+
+  "Rayburn_Chris": {
+    scores: [0,1,1,1,0,0],
+    rubric: {
+      thesis:   { e:false, t:"Your thesis says transportation 'positively affected' Africa, then your first body paragraph says it was 'positive and negatively affected.' The contradiction means there's no clear defensible claim with a consistent line of reasoning. Pick a direction and stick to it, or write a two-sided thesis: 'New transportation technologies benefited African economies through mining and trade while simultaneously enabling disease and colonial exploitation.'" },
+      context:  { e:true,  t:"'Industrialization of Great Britain → creation of boats and trains → easier transportation of people and goods → people migrated to Africa for resources.' Specific causal context." },
+      docevid:  { e:false, t:"Docs 2 and 5 are used with some argument. But Doc 2's POV analysis incorrectly states that Mackenzie 'immigrated to the United States later on' — that's not relevant historical information from the document. Only two documents are clearly connected to your claims, and one has a misread element." },
+      outside:  { e:true,  t:"Belgian Congo under King Leopold — forced rubber extraction, children working in brutal conditions, hands chopped off for not meeting quotas, enabled by steam boats. Specific named outside evidence with causal detail." },
+      sourcing: { e:false, t:"You describe the POV of Doc 2 (Mackenzie as a Protestant minister who immigrated) but focus on irrelevant biographical details rather than analyzing how his purpose in writing — to document African labor conditions for a South African history book — affects what he includes and why." },
+      complex:  { e:false, t:"Your thesis claims positive but your body covers both — this structural confusion means neither side is developed substantively enough to earn complexity." },
+    },
+    improve: "Three key changes: (1) Fix your thesis — write one clear two-sided claim as your last intro sentence: 'New transportation technologies economically benefited some African societies through mining and trade while simultaneously enabling disease and colonial exploitation.' (2) Add two more documents tied to clear arguments — use Doc 1 (hut tax as negative) and Doc 6 or 7 (trade growth as positive), each with an explicit connection to your thesis. (3) Sourcing — for Doc 2: 'Published by a Protestant minister documenting African working conditions for a general audience, Mackenzie would want to build sympathy for African workers — making the harsh conditions described more credible, since sympathy doesn't require exaggerating hardship.' Your Belgian Congo outside evidence is excellent — keep it exactly as written."
+  },
+
+  "Walters_Sam": {
+    scores: [1,0,1,1,0,0],
+    rubric: {
+      thesis:   { e:true,  t:"'New transportation helped some but hurt others such as people in Africa.' Specific direction with implied line of reasoning about who benefited and who suffered." },
+      context:  { e:false, t:"No broader historical context. Essay begins directly with Doc 1 analysis without framing the Industrial Revolution, Scramble for Africa, or Berlin Conference." },
+      docevid:  { e:false, t:"You describe Docs 1, 5, and 3, and connect each to your argument, but Doc 3's analysis is thin ('it shows that even thought people are on the other side of the country they could respond faster') without connecting it to who was helped or harmed. Only two documents (Docs 1 and 5) are clearly and correctly tied to your argument." },
+      outside:  { e:true,  t:"Congo state — European countries came for rubber, many people struggling to stay alive because of hard work. Named specific place with causal connection." },
+      sourcing: { e:false, t:"For Doc 5, you note 'the POV would be of a South African living during the time when they opened the railway' — but Doc 5 is a British Parliamentary commission report, not written from a South African resident's perspective. The misidentification means this sourcing analysis cannot be credited." },
+      complex:  { e:false, t:"Essay covers taxation (negative), disease (negative), and communication (positive), but the positive argument is underdeveloped. No substantive positive counterargument with multiple documents is developed." },
+    },
+    improve: "Four changes raise this from 3 to 7: (1) Context — add 2–3 sentences: 'During the Second Industrial Revolution, Britain industrialized rapidly and needed new raw materials. This drove the Scramble for Africa and the Berlin Conference of 1884, where European powers divided the continent without African input.' (2) Add a fourth document clearly tied to your argument — use Doc 6 or 7: 'Doc 7 shows railways in Ibadan brought genuine economic growth — cocoa trade to global markets, new jobs, electricity — showing that transportation did benefit some African societies.' (3) Correct Doc 5 sourcing — 'Doc 5 was written for British Parliament by a commissioned investigator who needed to be accurate to motivate policy — making the tuberculosis statistics especially credible.' (4) Develop the positive side into a full paragraph for complexity, then contrast with your negative argument."
+  }
+};
+
+// ── MODAL LOGIC ─────────────────────────────────────────────────────────────
+const RUBRIC_LABELS_FULL = ["Thesis","Context","Doc Evid","Outside","Sourcing","Complex"];
+const RUBRIC_MAX2 = [1,1,2,1,1,1];
+
+function buildFeedbackKey(r) {
+  return `${r[0]}_${r[1]}`;
+}
+
+function showFeedback(r) {
+  const key = buildFeedbackKey(r);
+  const fb = FEEDBACK[key];
+  if (!fb) return; // no feedback for this student (scored > 4)
+
+  const t = total(r);
+  const cls = r[2];
+  const clsColor = CLASS_COLORS[cls];
+
+  // Score boxes
+  const rubricKeys = ["thesis","context","docevid","outside","sourcing","complex"];
+  let scoreBoxes = "";
+  [3,4,5,6,7,8].forEach((ci,i) => {
+    const earned = r[ci];
+    const max = RUBRIC_MAX2[i];
+    const isEarned = earned === max;
+    const color = isEarned ? "var(--accent)" : "var(--accent2)";
+    scoreBoxes += `<div class="ms-box ${isEarned?'earned':'missed'}">
+      <div class="ms-label">${RUBRIC_LABELS_FULL[i]}</div>
+      <div class="ms-val" style="color:${color}">${earned}/${max}</div>
+    </div>`;
+  });
+
+  // Rubric feedback rows
+  const rubricOrder = ["thesis","context","docevid","outside","sourcing","complex"];
+  let fbRows = "";
+  rubricOrder.forEach(k => {
+    const item = fb.rubric[k];
+    if (!item) return;
+    const cls2 = item.e ? "e" : "m";
+    const label = item.e ? "EARNED" : "MISSED";
+    fbRows += `<div class="fb-row ${cls2}">
+      <span class="fb-tag ${cls2}">${label}</span>
+      <span>${item.t}</span>
+    </div>`;
+  });
+
+  document.getElementById("modalBody").innerHTML = `
+    <div class="modal-name">${r[0]}, ${r[1]}</div>
+    <div class="modal-meta" style="color:${clsColor}">Class ${cls} &nbsp;·&nbsp; Score: ${t}/7</div>
+    <div class="modal-score-row">${scoreBoxes}</div>
+    <div class="fb-block">
+      <h4>Rubric Breakdown — Why You Got What You Got</h4>
+      ${fbRows}
+    </div>
+    <div class="improve-box">
+      <h4>📈 How to Improve</h4>
+      <p>${fb.improve}</p>
+    </div>`;
+
+  document.getElementById("modalOverlay").classList.add("open");
+}
+
+document.getElementById("modalClose").addEventListener("click", () => {
+  document.getElementById("modalOverlay").classList.remove("open");
+});
+document.getElementById("modalOverlay").addEventListener("click", (e) => {
+  if (e.target === document.getElementById("modalOverlay"))
+    document.getElementById("modalOverlay").classList.remove("open");
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") document.getElementById("modalOverlay").classList.remove("open");
+});
+
+// ── PATCH RENDER FUNCTIONS TO SUPPORT CLICK ─────────────────────────────────
+// Patch struggle list to be clickable
+const _origStruggle = updateStruggle;
+updateStruggle = function() {
+  _origStruggle();
+  document.querySelectorAll(".struggle-item").forEach(el => {
+    const name = el.querySelector(".struggle-name")?.textContent?.split(", ");
+    if (!name) return;
+    const r = RAW.find(x => x[0] === name[0] && x[1] === name[1]);
+    if (r && FEEDBACK[buildFeedbackKey(r)]) {
+      el.style.cursor = "pointer";
+      el.onclick = () => showFeedback(r);
+    }
+  });
+};
+
+// Patch roster table to make student names clickable
+const _origRoster = updateRoster;
+updateRoster = function() {
+  _origRoster();
+  document.querySelectorAll("#rosterBody tr").forEach(tr => {
+    const nameTd = tr.querySelector("td:first-child");
+    if (!nameTd) return;
+    const parts = nameTd.textContent.split(", ");
+    if (parts.length < 2) return;
+    const r = RAW.find(x => x[0] === parts[0] && x[1] === parts[1]);
+    if (r && FEEDBACK[buildFeedbackKey(r)]) {
+      nameTd.style.cursor = "pointer";
+      nameTd.style.color = "var(--accent4)";
+      nameTd.title = "Click for feedback";
+      nameTd.onclick = () => showFeedback(r);
+    }
+  });
+};
+
+// Patch heatmap to make low-scorers clickable
+const _origHeatmap = updateHeatmap;
+updateHeatmap = function() {
+  _origHeatmap();
+  document.querySelectorAll(".hm-name").forEach(el => {
+    const lastName = el.textContent.trim();
+    const r = RAW.find(x => x[0] === lastName && FEEDBACK[buildFeedbackKey(x)]);
+    if (r) {
+      el.style.cursor = "pointer";
+      el.title = "Click for feedback";
+      el.onclick = () => showFeedback(r);
+    }
+  });
+};
+
+renderAll();
+</script>
+</body>
+</html>

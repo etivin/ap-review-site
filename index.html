@@ -218,36 +218,81 @@ img{display:block;max-width:100%}
 .btn-red{background:var(--red);border-color:var(--red);color:#fff}
 .btn-red:hover{background:var(--red-d);border-color:var(--red-d)}
 
-/* ── WRITING ── */
-.wp-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}
-.wp-tab{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;transition:all .15s}
-.wp-tab.active{background:var(--red);border-color:var(--red);color:#fff}
-.wp-panel{display:none}.wp-panel.active{display:block}
-.wp-prompt{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:15px 19px;margin-bottom:14px;font-size:.89rem;line-height:1.72}
-.wp-prompt strong{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px}
-.wp-tips{background:var(--blue-bg);border:1px solid var(--border);border-left:3px solid var(--blue);padding:12px 15px;margin-bottom:13px;font-size:.81rem;line-height:1.65;color:var(--mid)}
-.wp-tips strong{font-family:'IBM Plex Mono',monospace;font-size:.53rem;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:5px}
-.wp-textarea{width:100%;min-height:180px;border:1.5px solid var(--border);padding:13px 15px;font-family:'Source Serif 4',serif;font-size:.91rem;line-height:1.7;color:var(--ink);background:var(--white);resize:vertical;outline:none;transition:border-color .15s}
-.wp-textarea:focus{border-color:var(--red)}
-.wp-char{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);text-align:right;margin-top:4px;margin-bottom:11px}
-.wp-submit{background:var(--red);color:#fff;border:none;padding:10px 26px;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
-.wp-submit:hover{background:var(--red-d)}
-.wp-result{margin-top:16px;display:none}
-.wp-result.show{display:block}
-.wp-result-hdr{background:var(--ink);color:#fff;padding:11px 15px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
-.wp-score-badge{background:var(--red);color:#fff;font-size:.68rem;font-weight:700;padding:2px 10px}
-.wp-feedback{background:var(--white);border:1px solid var(--border);padding:17px 19px;font-size:.88rem;line-height:1.75;color:var(--mid)}
-.rubric-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
-.rubric-row:last-child{border-bottom:none}
-.rubric-icon{font-size:1rem;flex-shrink:0;margin-top:2px}
-.rubric-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:3px}
-.rubric-label.pass{color:var(--green)}.rubric-label.fail{color:var(--red)}.rubric-label.partial{color:var(--gold)}
-.rubric-note{font-size:.82rem;color:var(--mid);line-height:1.6}
-.score-summary{background:var(--ink);color:#fff;padding:12px 16px;margin-bottom:14px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;display:flex;align-items:center;justify-content:space-between}
-.score-num{font-size:1.2rem;font-weight:700;color:var(--gold)}
-.improve-box{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:3px solid var(--gold);padding:11px 14px;margin-top:12px}
-.improve-title{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-
+<!-- ══ WRITING ══ -->
+<div class="page" id="pg-write">
+  <div class="inner">
+    <div class="pg-hero">
+      <div class="eyebrow">Writing Practice</div>
+      <h2>SAQ, DBQ &amp; LEQ</h2>
+      <p>Write a response and get instant feedback scored against the real AP rubric.</p>
+    </div>
+    <div class="wp-tabs">
+      <button type="button" class="wp-tab active" data-type="saq">SAQ</button>
+      <button type="button" class="wp-tab" data-type="dbq">DBQ</button>
+      <button type="button" class="wp-tab" data-type="leq">LEQ</button>
+    </div>
+    <div id="wp-saq" class="wp-panel active">
+      <div class="wp-prompt">
+        <strong>SAQ Prompt — Nazi Election Poster, 1932</strong>
+        <div style="background:#f3ece0;border:1px solid #ddd0b8;padding:12px;margin:12px 0;font-size:.85rem;">
+          <strong>Election Poster for the German National Socialist Party, 1932</strong><br/>
+          The German text in the poster reads: "Men! Women! Millions of men without work; millions of children without futures. Save the German family—vote for Adolf Hitler."<br/><br/>
+          <em>[Image shows a struggling German family — father, mother, and children — with text urging Germans to vote for Hitler]</em>
+        </div>
+        <strong>A.</strong> Identify ONE likely political purpose of the image.<br/>
+        <strong>B.</strong> Explain ONE way the image illustrates the economic situation of the period after the First World War.<br/>
+        <strong>C.</strong> Explain ONE way the rise of the German National Socialist Party led to the Second World War.
+      </div>
+      <div class="wp-tips"><strong>SAQ Tips from Mr. T</strong> Answer ONLY what is asked. Identify = 1–2 sentences. Explain = 2–3 sentences with "because." No full paragraphs. Each part is worth 1 point for a total of 3 points.</div>
+    </div>
+    <div id="wp-dbq" class="wp-panel">
+      <div class="wp-prompt">
+        <strong>DBQ Prompt — Japanese Imperialism</strong><br/><br/>
+        Evaluate the extent to which economic motives were the leading cause of Japanese imperialism in the period circa 1900–1945.<br/><br/>
+        <div style="background:#f3ece0;border:1px solid #ddd0b8;padding:12px;margin:12px 0;font-size:.82rem;">
+          <strong>Documents Available:</strong><br/>
+          • Doc 1: Tokyo Economist editorial on Russia and Port Arthur (1903)<br/>
+          • Doc 2: Fumimaro Konoe essay on Anglo-American economic policies (1918)<br/>
+          • Doc 3: Allied Korean Organizations manifesto against Japanese invasion of Manchuria (1931)<br/>
+          • Doc 4: Kanji Ishiwara on the Manchuria-Mongolia Problem (1931)<br/>
+          • Doc 5: New York Times article on Japan's invasion of China (1937)<br/>
+          • Doc 6: Toichi Nawa on Japanese cotton industry and China (1937)<br/>
+          • Doc 7: Photo of Japanese language class in occupied Singapore (1943)
+        </div>
+        <em>Write a full DBQ: thesis + contextualization, evidence from 4+ documents with HIPP/sourcing on 2, and one piece of outside evidence.</em>
+      </div>
+      <div class="wp-tips"><strong>DBQ Rubric (7 points)</strong><br/>
+        • Thesis (1 pt): Historically defensible claim with line of reasoning<br/>
+        • Contextualization (1 pt): Broader historical context before/during period<br/>
+        • Evidence (2 pts): Use 3+ docs (1 pt), support argument with 4+ docs (2 pts)<br/>
+        • Evidence Beyond Docs (1 pt): Specific outside evidence relevant to argument<br/>
+        • Sourcing (1 pt): Explain POV, purpose, situation, or audience for 2+ docs<br/>
+        • Complexity (1 pt): Sophisticated argument using evidence effectively
+      </div>
+    </div>
+    <div id="wp-leq" class="wp-panel">
+      <div class="wp-prompt">
+        <strong>LEQ Prompt — State Control of Economies</strong><br/><br/>
+        In the period after 1900, the role of the state in the economy varied, with many states adopting policies to control or manage their economies.<br/><br/>
+        <strong>Develop an argument that evaluates the extent to which one or more states controlled their economies in this time period.</strong>
+      </div>
+      <div class="wp-tips"><strong>LEQ Rubric (6 points)</strong><br/>
+        • Thesis (1 pt): Historically defensible claim with line of reasoning<br/>
+        • Contextualization (1 pt): Broader context relevant to state economic control<br/>
+        • Evidence (2 pts): 2+ specific examples (1 pt), support argument (2 pts)<br/>
+        • Historical Reasoning (1 pt): Use causation, CCOT, or comparison to structure argument<br/>
+        • Complexity (1 pt): Demonstrate nuanced understanding (multiple variables, connections across time/space)
+      </div>
+    </div>
+    <textarea class="wp-textarea" id="wp-text" placeholder="Write your response here..."></textarea>
+    <div class="wp-char" id="wp-char">0 words</div>
+    <button type="button" class="wp-submit" id="wp-submit">&#9997; Check My Response</button>
+    <div class="wp-result" id="wp-result">
+      <div class="wp-result-hdr"><span>Rubric Feedback</span><span class="wp-score-badge" id="wp-score-badge">&mdash;</span></div>
+      <div class="wp-feedback" id="wp-feedback"></div>
+    </div>
+  </div>
+</div>
 /* ── STUDY GUIDE ── */
 .sg-section{margin-bottom:9px}
 .sg-hdr{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--red);padding:13px 17px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .15s}
@@ -1913,6 +1958,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('mcq-reset-btn').addEventListener('click', function(){ mcqGo(mcqMode); });
   mcqInit();
 
+<script>
   /* ── WRITING — LOCAL RUBRIC GRADER ───────────────────── */
   var wpType = 'saq';
 
@@ -1954,182 +2000,229 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  /* ── SAQ GRADER (Nazi Poster 1932) ── */
   function gradeSAQ(t, words, raw) {
     var rows = [];
     var score = 0;
     var improve = [];
 
-    // PART A — Identify
-    var hasA = contains(t, ['author argues','the author','editorial argues','argues that','the source','the document','handelsblad','versailles','the treaty','war guilt','reparations','economic bondage','humiliating','financial burden','hard peace','unjust']);
-    var hasARef = contains(t, ['part a','a.','identifies','identifies that']);
-    if (hasA && words >= 20) {
-      rows.push({icon:'✓', label:'pass', head:'Part A — Identification (1/1)', note:'You identified a specific argument from the source. Good work naming the author\'s claim directly.'});
+    // PART A — Identify political purpose of the image
+    var purposeTerms = ['vote','voting','inspire','convince','persuade','support','nazi','hitler','gain votes','election','political support','angry','current government','solve','economic problems','dissatisfaction','blame','weimar'];
+    var hasA = contains(t, purposeTerms);
+    
+    if (hasA && words >= 15) {
+      rows.push({icon:'✓', label:'pass', head:'Part A — Political Purpose (1/1)', note:'You identified a likely political purpose of the poster. Good examples include: inspiring people to vote for the Nazi party, convincing people Hitler would solve economic problems, or making people angry with the current government.'});
       score++;
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Part A — Identification (0/1)', note:'Part A needs a specific argument from the Handelsblad editorial — for example, that the Treaty imposed "economic bondage" or that reparations were unjustly harsh.'});
-      improve.push('Part A: State the specific argument the author makes — quote or closely paraphrase the source.');
+      rows.push({icon:'✗', label:'fail', head:'Part A — Political Purpose (0/1)', note:'Part A needs to identify a political purpose of the poster. Examples: The poster was created to inspire people to vote for the Nazi party, OR to convince people that voting for the Nazi party would solve their economic problems, OR to make people angry with the current government.'});
+      improve.push('Part A: Identify a specific political purpose — why was this poster created? What did it want viewers to do or believe?');
     }
 
-    // PART B — Explain instability
-    var hasB = contains(t, ['because','hyperinflation','weimar','nazi','stab in the back','economic collapse','unemployment','depression','resentment','reparations led','war guilt caused','political extremism','hitler','fascism','instability']);
-    var hasBecause = contains(t, ['because','as a result','therefore','this led','which caused','resulting in']);
-    if (hasB && hasBecause && words >= 50) {
-      rows.push({icon:'✓', label:'pass', head:'Part B — Explanation (1/1)', note:'You explained a consequence of Versailles with causal reasoning. Strong use of "because" or causal language.'});
+    // PART B — Explain economic situation after WWI
+    var econTerms = ['poverty','unemployment','depression','great depression','reparations','inflation','hyperinflation','debt','economic','jobless','work','hardship','families','suffering','financial','weimar','economic collapse'];
+    var hasEconExplain = contains(t, ['because','due to','as a result','this shows','illustrates','demonstrates','reflects','caused by','resulted from','following']);
+    var hasB = contains(t, econTerms) && hasEconExplain;
+    
+    if (hasB && words >= 30) {
+      rows.push({icon:'✓', label:'pass', head:'Part B — Economic Situation (1/1)', note:'You explained how the image illustrates the post-WWI economic situation. Good connections include: poverty from the Great Depression, unemployment, reparations burden, or government inability to solve economic problems.'});
       score++;
-    } else if (hasB) {
-      rows.push({icon:'~', label:'partial', head:'Part B — Partial Credit Risk (0–1/1)', note:'You mention relevant content (hyperinflation, Weimar, Hitler, etc.) but may be describing rather than explaining. Add "because" or "this led to" to connect cause and effect explicitly.'});
-      improve.push('Part B: Add causal language — "because," "this led to," or "as a result" — to turn a description into an explanation.');
+    } else if (contains(t, econTerms)) {
+      rows.push({icon:'~', label:'partial', head:'Part B — Partial (0–1/1)', note:'You mention economic content but need to EXPLAIN how the image illustrates it. Add "because," "this shows," or "this illustrates" to connect the image to the economic situation.'});
+      improve.push('Part B: Don\'t just describe — EXPLAIN how the image (family, unemployment message) illustrates the economic hardship after WWI.');
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Part B — Explanation (0/1)', note:'Part B needs a specific explanation of how Versailles caused German political instability — for example, how hyperinflation, resentment over reparations, or the stab-in-the-back legend fueled extremism.'});
-      improve.push('Part B: Use a specific example (hyperinflation 1923, Weimar collapse, rise of the Nazi party) and explain WHY Versailles caused it.');
+      rows.push({icon:'✗', label:'fail', head:'Part B — Economic Situation (0/1)', note:'Part B needs to explain how the image illustrates the economic situation after WWI. Examples: The image shows poverty many German families faced because of the Great Depression, OR illustrates unemployment and reparations that crippled Germany after WWI.'});
+      improve.push('Part B: Explain how the poster illustrates post-WWI economics — mention unemployment, Great Depression, reparations, or family poverty shown in the image.');
     }
 
-    // PART C — Other nation
-    var otherNations = ['india','gandhi','soviet','russia','japan','brazil','vargas','united states','roosevelt','new deal','france','britain','mussolini','italy','turkey','kemal','mexico','china','vietnam','ho chi minh'];
-    var hasC = contains(t, otherNations);
-    var hasCExplain = contains(t, ['because','responded by','in response','this caused','led to','as a result']);
-    if (hasC && hasCExplain && words >= 80) {
-      rows.push({icon:'✓', label:'pass', head:'Part C — Non-German Example (1/1)', note:'You used a specific non-German example and explained how it responded to interwar instability.'});
+    // PART C — Explain how Nazi rise led to WWII
+    var wwiiTerms = ['world war ii','wwii','second world war','invasion','poland','military','expansion','conquest','militarism','aggressive','lebensraum','living space','totalitarian','annexation','war','attack'];
+    var hasCausal = contains(t, ['led to','caused','resulted in','because','contributed to','this meant','therefore','as a result']);
+    var hasC = contains(t, wwiiTerms) && hasCausal;
+    
+    if (hasC && words >= 45) {
+      rows.push({icon:'✓', label:'pass', head:'Part C — Nazi Rise to WWII (1/1)', note:'You explained how the Nazi rise led to WWII. Good examples include: aggressive militarism and invasions, desire for "living space" through expansion, or Hitler\'s totalitarian control leading to military domination.'});
       score++;
-    } else if (hasC) {
-      rows.push({icon:'~', label:'partial', head:'Part C — Partial Credit Risk (0–1/1)', note:'You name a non-German example but the explanation may be too brief. Make sure you explain HOW that nation responded and WHY.'});
-      improve.push('Part C: Expand your non-German example — explain what specific policy or event the nation used to respond, and why.');
+    } else if (contains(t, wwiiTerms)) {
+      rows.push({icon:'~', label:'partial', head:'Part C — Partial (0–1/1)', note:'You mention WWII-related content but need causal language. Add "led to," "caused," or "resulted in" to explain HOW the Nazi rise caused WWII.'});
+      improve.push('Part C: Use causal language — "The rise of the Nazi Party LED TO..." or "This CAUSED..." to connect Nazi policies to WWII.');
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Part C — Non-German Example (0/1)', note:'Part C needs a specific non-German nation — India (Gandhi/Salt March), Soviet Union (Five Year Plans), U.S. (New Deal), Brazil (Vargas reforms), Japan (militarism), etc.'});
-      improve.push('Part C: Choose a specific non-German nation and explain their response to interwar instability with evidence.');
+      rows.push({icon:'✗', label:'fail', head:'Part C — Nazi Rise to WWII (0/1)', note:'Part C needs to explain how the Nazi rise led to WWII. Examples: The Nazi Party contributed to aggressive militarism and invasions of other countries, OR intense nationalism led to desire for "living space" through military expansion.'});
+      improve.push('Part C: Explain the causal connection — Nazi militarism, expansionism, invasions (Poland), desire for Lebensraum, or totalitarian control leading to war.');
     }
 
-    // Word count warning
-    if (words < 60) {
-      improve.push('Length: SAQ responses should be at least 3–4 solid sentences per part. Your response may be too brief to earn full credit.');
+    if (words < 50) {
+      improve.push('Length: SAQ responses should have at least 2-3 sentences per part. Your response may be too brief.');
     }
 
     return { score: score, max: 3, rows: rows, improve: improve };
   }
 
+  /* ── DBQ GRADER (Japanese Imperialism) ── */
   function gradeDBQ(t, words, raw) {
     var rows = [];
     var score = 0;
     var improve = [];
 
-    // Thesis
-    var hasThesis = contains(t, ['significantly','fundamentally','primarily','largely','substantially','to a great extent','to a limited extent','while','although','however']) && contains(t, ['propaganda','mobilization','war effort','total war','as seen through','shaped']);
-    if (hasThesis && words >= 40) {
-      rows.push({icon:'✓', label:'pass', head:'Thesis — Historically Defensible Claim (1/1)', note:'Your response appears to contain a thesis with a line of reasoning (evaluative language + two categories).'});
+    // Thesis — historically defensible claim about extent of economic motives
+    var thesisTerms = ['economic motives','economic factors','resources','raw materials','trade','leading cause','primary cause','significant','largely','extent','although','while','however','not only','also'];
+    var hasCategories = contains(t, ['as seen through','including','such as','categories','on one hand','on the other']);
+    var hasThesis = contains(t, thesisTerms) && (hasCategories || contains(t, ['because','since','due to']));
+    
+    if (hasThesis && words >= 50) {
+      rows.push({icon:'✓', label:'pass', head:'Thesis (1/1)', note:'Your response contains a historically defensible thesis about the extent of economic motives in Japanese imperialism with a line of reasoning.'});
       score++;
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Thesis — Historically Defensible Claim (0/1)', note:'Use Mr. T\'s formula: "The [subject] [adverb] affected [object] as seen through [group 1] and [group 2]." Include an evaluative adverb like "significantly" or "fundamentally."'});
-      improve.push('Thesis: Add an evaluative adverb (significantly, fundamentally, primarily) and name two specific categories/groups in your claim.');
+      rows.push({icon:'✗', label:'fail', head:'Thesis (0/1)', note:'Your thesis must make a claim about the EXTENT to which economic motives were the leading cause. Include analytical categories or reasoning. Example: "Taking advantage of its newly industrialized economy, Japan established a colonial empire in order to compete with Western imperial powers."'});
+      improve.push('Thesis: Make a defensible claim about the extent of economic motives (significant? limited? primary but not only?) with categories or reasoning.');
     }
 
-    // Contextualization
-    var hasContext = contains(t, ['prior to','before the war','in the years before','nineteenth century','industrial revolution','imperialism','nationalism','19th century','leading up to','long before','context','by 1914','by 1939']) && words >= 100;
+    // Contextualization — broader context (Meiji, imperialism, etc.)
+    var contextTerms = ['meiji','restoration','tokugawa','industrialization','19th century','nineteenth century','perry','western powers','scramble','imperialism','colonialism','before','prior to','leading up to'];
+    var hasContext = contains(t, contextTerms) && words >= 80;
+    
     if (hasContext) {
-      rows.push({icon:'✓', label:'pass', head:'Contextualization (1/1)', note:'You appear to have placed the topic in broader historical context before the prompt period.'});
+      rows.push({icon:'✓', label:'pass', head:'Contextualization (1/1)', note:'You provided broader historical context relevant to Japanese imperialism (Meiji Restoration, Western imperialism, industrialization, etc.).'});
       score++;
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Contextualization (0/1)', note:'Write 2–3 sentences of context describing a historical process BEFORE 1914/1939 that led to the widespread use of propaganda — e.g., the rise of mass literacy, mass media, and nationalism in the 19th century.'});
-      improve.push('Contextualization: Add a paragraph about pre-1914 developments that made government propaganda possible (mass literacy, newspapers, nationalism, industrial mobilization).');
+      rows.push({icon:'✗', label:'fail', head:'Contextualization (0/1)', note:'Add 2-3 sentences of context describing developments before or during the period: Meiji Restoration, Japanese industrialization, Western imperialism in Asia, sakoku/isolation policies, Perry\'s opening of Japan.'});
+      improve.push('Contextualization: Add context about pre-1900 developments — Meiji Restoration, Japanese industrialization, Western imperial expansion in Asia.');
     }
 
-    // Document Evidence
-    var docRefs = ['watson','goldfarb','durnovo','handelsblad','algemeen','vargas','olere','shigenobu','moltke','giolitti','soviet poster','hitler','document 1','document 2','document 3','document 4','document 5','doc 1','doc 2','doc 3','doc 4','the source states','according to','the document'];
+    // Document Evidence — count document references
+    var docRefs = ['document 1','document 2','document 3','document 4','document 5','document 6','document 7','doc 1','doc 2','doc 3','doc 4','doc 5','doc 6','doc 7','tokyo economist','konoe','korean organizations','ishiwara','janeway','nawa','singapore','manchuria','port arthur'];
     var docCount = 0;
     docRefs.forEach(function(d){ if (t.indexOf(d) !== -1) docCount++; });
+    
+    // Cap at realistic document count
+    docCount = Math.min(docCount, 7);
+    
     if (docCount >= 4) {
-      rows.push({icon:'✓', label:'pass', head:'Document Evidence — 4+ Documents (2/2)', note:'You appear to reference multiple documents. Make sure each reference includes accurate historical content from the source.'});
+      rows.push({icon:'✓', label:'pass', head:'Document Evidence (2/2)', note:'You use 4+ documents to support your argument. Make sure each reference accurately describes document content and connects to your argument.'});
       score += 2;
-    } else if (docCount >= 2) {
-      rows.push({icon:'~', label:'partial', head:'Document Evidence — Insufficient (1/2)', note:'You reference some documents but may not reach the minimum of 4. AP requires accurate use of at least 3 documents for the base evidence point, and 6+ for the second point.'});
+    } else if (docCount >= 3) {
+      rows.push({icon:'~', label:'partial', head:'Document Evidence (1/2)', note:'You reference 3 documents. Use at least 4 documents to support your argument to earn full credit.'});
       score++;
-      improve.push('Document Evidence: Explicitly reference and use at least 4 different documents. Name the source or author each time.');
+      improve.push('Evidence: Use at least 4 of the 7 documents to support your argument about economic motives.');
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Document Evidence — Insufficient (0/2)', note:'Reference specific sources by name (Watson, Goldfarb, Durnovo, the Handelsblad editorial, the Soviet poster, etc.) and explain what each shows about propaganda/mobilization.'});
-      improve.push('Document Evidence: You must explicitly cite and use documents. Name each source and explain what it shows.');
+      rows.push({icon:'✗', label:'fail', head:'Document Evidence (0/2)', note:'Reference and use at least 3-4 documents. Name each document (Doc 1, Konoe, Ishiwara, etc.) and explain what it shows about Japanese imperialism.'});
+      improve.push('Evidence: You must cite specific documents by name or number and use them to support your argument.');
     }
 
-    // HIPP
-    var hasHIPP = contains(t, ['historical situation','intended audience','point of view','purpose','written because','written for','as a','reflects the author','the author\'s purpose','this source was','point of view of','bias','perspective']);
-    if (hasHIPP) {
-      rows.push({icon:'✓', label:'pass', head:'HIPP Sourcing on 2+ Documents (1/1)', note:'You appear to apply sourcing analysis (HIPP). Make sure you explain HOW it affects the meaning of the document.'});
-      score++;
-    } else {
-      rows.push({icon:'✗', label:'fail', head:'HIPP Sourcing (0/1)', note:'Apply HIPP to at least 2 documents. For each: state Historical Situation, Intended Audience, Point of View, OR Purpose — then explain "This affects my interpretation because..."'});
-      improve.push('HIPP: For 2 documents, write "The [historical situation / purpose / point of view] of this source is significant because..."');
-    }
-
-    // Outside Evidence
-    var outsideTerms = ['outside evidence','not in the documents','beyond the documents','one example not in','additional evidence','for instance','for example','we also know that','another example is','outside of the documents'];
-    var hasOutside = contains(t, outsideTerms) || (words > 300 && contains(t, ['amritsar','salt march','mustafa kemal','five year plan','new deal','hiroshima','blitzkrieg','total war','firebombing','dresden','appeasement','munich']));
+    // Evidence Beyond Documents
+    var outsideTerms = ['zaibatsu','greater east asia co-prosperity sphere','oil embargo','pearl harbor','rape of nanjing','comfort women','philippines','indonesia','vietnam','textiles','chemical industry','outside evidence','beyond the documents'];
+    var hasOutside = contains(t, outsideTerms) || (words > 350 && contains(t, ['for example','additionally','furthermore','also','another']));
+    
     if (hasOutside) {
-      rows.push({icon:'✓', label:'pass', head:'Outside Evidence (1/1)', note:'You appear to include evidence beyond the documents.'});
+      rows.push({icon:'✓', label:'pass', head:'Evidence Beyond Documents (1/1)', note:'You include specific evidence beyond the documents (e.g., Greater East Asia Co-Prosperity Sphere, oil embargo, Pearl Harbor, zaibatsu, specific atrocities).'});
       score++;
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Outside Evidence (0/1)', note:'Include at least one specific historical fact NOT found in the documents — a date, event, or person from the same period that supports your argument.'});
-      improve.push('Outside Evidence: Add a specific fact from memory not in the documents (e.g., specific battles, specific leaders, specific death tolls or economic statistics).');
+      rows.push({icon:'✗', label:'fail', head:'Evidence Beyond Documents (0/1)', note:'Include at least one specific historical fact NOT in the documents: Greater East Asia Co-Prosperity Sphere, American oil embargo, Pearl Harbor, zaibatsu, Rape of Nanjing, comfort women, invasion of Philippines/Indonesia.'});
+      improve.push('Outside Evidence: Add a specific fact from memory not in the documents (oil embargo, Pearl Harbor, Co-Prosperity Sphere, specific atrocities).');
     }
 
-    if (words < 200) improve.push('Length: A DBQ should be 400–600+ words. Your response is likely too brief.');
+    // Sourcing (HIPP) — looking for POV, purpose, audience, historical situation
+    var sourcingTerms = ['point of view','purpose','audience','historical situation','bias','perspective','intended','written for','written because','as a','reflects','the author\'s','published in','newspaper','journalist','trying to'];
+    var hasSourcing = contains(t, sourcingTerms);
+    
+    if (hasSourcing && docCount >= 2) {
+      rows.push({icon:'✓', label:'pass', head:'Sourcing/HIPP (1/1)', note:'You apply sourcing analysis (POV, purpose, historical situation, or audience) to documents. Make sure to explain HOW it affects the document\'s meaning or your argument.'});
+      score++;
+    } else {
+      rows.push({icon:'✗', label:'fail', head:'Sourcing/HIPP (0/1)', note:'For at least 2 documents, explain the Point of View, Purpose, Historical Situation, or Intended Audience AND how it affects your understanding. Example: "The Tokyo Economist article was published in a business newspaper, so it likely emphasizes economic concerns over other issues."'});
+      improve.push('Sourcing: For 2 documents, explain WHY the author\'s POV, purpose, audience, or situation affects how we should understand the document.');
+    }
+
+    // Complexity
+    var complexTerms = ['on one hand','on the other hand','although','however','while','nuance','multiple','various','both','not only','but also','complexity','across time','connection'];
+    var hasComplexity = contains(t, complexTerms) && docCount >= 5 && words >= 400;
+    
+    if (hasComplexity) {
+      rows.push({icon:'✓', label:'pass', head:'Complexity (1/1)', note:'Your response demonstrates sophisticated understanding through nuanced argument, multiple perspectives, or effective use of evidence across documents.'});
+      score++;
+    } else {
+      rows.push({icon:'~', label:'partial', head:'Complexity (0/1)', note:'To earn complexity: use all 7 documents effectively, explain multiple causes (economic AND non-economic), make connections across time/space, or provide nuanced analysis showing that economic motives were significant but not the only factor.'});
+      improve.push('Complexity: Analyze multiple perspectives, qualify your argument, or make connections across regions/periods.');
+    }
+
+    if (words < 300) improve.push('Length: A DBQ should be 400-600+ words. Your response may be too brief for full credit.');
 
     return { score: score, max: 7, rows: rows, improve: improve };
   }
 
+  /* ── LEQ GRADER (State Control of Economies) ── */
   function gradeLEQ(t, words, raw) {
     var rows = [];
     var score = 0;
     var improve = [];
 
-    // Thesis
-    var hasThesis = contains(t, ['significantly','fundamentally','primarily','largely','substantially','to a great extent','to a limited extent','while','although','however','directly caused','primarily caused','largely caused']) && contains(t, ['world war ii','wwii','second world war','caused','consequences','resulted']);
-    if (hasThesis && words >= 30) {
-      rows.push({icon:'✓', label:'pass', head:'Thesis (1/1)', note:'Your response contains a historically defensible claim with a line of reasoning about the extent to which WWI caused WWII.'});
+    // Thesis — claim about extent of state economic control
+    var thesisTerms = ['control','controlled','managed','intervened','regulate','regulated','economy','economic','state','government','extent','significantly','fully','partially','varied'];
+    var hasLineOfReasoning = contains(t, ['because','as seen in','through','such as','including','by']);
+    var hasThesis = contains(t, thesisTerms) && hasLineOfReasoning;
+    
+    if (hasThesis && words >= 40) {
+      rows.push({icon:'✓', label:'pass', head:'Thesis (1/1)', note:'Your thesis makes a historically defensible claim about the extent of state economic control with a line of reasoning.'});
       score++;
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Thesis (0/1)', note:'Use Mr. T\'s formula with an evaluative adverb. Example: "The consequences of WWI significantly caused WWII as seen through German economic devastation and the rise of fascist ideology."'});
-      improve.push('Thesis: Add an evaluative adverb and identify two specific categories in your claim.');
+      rows.push({icon:'✗', label:'fail', head:'Thesis (0/1)', note:'Your thesis must make a claim about the EXTENT to which states controlled their economies. Examples: "The twentieth century included several examples of states controlling their economies, the most famous being the Soviet Union, which used Marxist ideology to justify nationalization and centralized planning." OR "While some states like communist Russia exercised great control, the United States believed in more free-market policies."'});
+      improve.push('Thesis: Make a defensible claim about the extent of state economic control — specify which states and how much control.');
     }
 
     // Contextualization
-    var hasContext = contains(t, ['before','prior to','19th century','nineteenth','industrial','imperialism','nationalism','leading up to','by 1914','context','long-term']) && words >= 80;
+    var contextTerms = ['world war i','wwi','great depression','19th century','industrial revolution','laissez-faire','capitalism','before','prior to','leading up to','context','previously','earlier'];
+    var hasContext = contains(t, contextTerms) && words >= 80;
+    
     if (hasContext) {
-      rows.push({icon:'✓', label:'pass', head:'Contextualization (1/1)', note:'You appear to provide historical context before the prompt period.'});
+      rows.push({icon:'✓', label:'pass', head:'Contextualization (1/1)', note:'You provided broader historical context relevant to state economic policies (WWI, Great Depression, 19th century capitalism, etc.).'});
       score++;
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Contextualization (0/1)', note:'Add 2–3 sentences describing a pre-1919 development that provides context — e.g., rising nationalism, the alliance system, or imperial competition that created the conditions for WWI\'s devastating outcome.'});
-      improve.push('Contextualization: Write about a development BEFORE 1919 that helps explain why WWI\'s consequences were so severe and far-reaching.');
+      rows.push({icon:'✗', label:'fail', head:'Contextualization (0/1)', note:'Add 2-3 sentences of context: unregulated 19th century capitalism and its problems, WWI\'s economic disruptions, the Great Depression\'s impact on economic thinking.'});
+      improve.push('Contextualization: Add context about pre-1900 or early 20th century economic conditions that led to state intervention.');
     }
 
-    // Evidence — two specific pieces
-    var evidenceTerms = ['versailles','reparations','war guilt','hyperinflation','weimar','great depression','unemployment','appeasement','munich','hitler','nazi','mussolini','japan','manchuria','stab in the back','fourteen points','wilson','league of nations','fascism'];
+    // Evidence — specific examples
+    var evidenceTerms = ['new deal','five year plan','collectivization','soviet','stalin','mao','great leap forward','fascist','nazi','hitler','keynesian','social security','aaa','twa','pwa','nra','nationalization','tariff','pemex','vargas','brazil','fdr','roosevelt','lenin','nep','zaibatsu','corporatist'];
     var evidenceCount = 0;
     evidenceTerms.forEach(function(e){ if (t.indexOf(e) !== -1) evidenceCount++; });
-    var hasExplain = contains(t, ['because','this caused','which led','therefore','as a result','this resulted','this meant','this contributed']);
-
+    var hasExplain = contains(t, ['because','this shows','demonstrates','led to','resulted in','caused','example of']);
+    
     if (evidenceCount >= 4 && hasExplain) {
-      rows.push({icon:'✓', label:'pass', head:'Evidence — Two Specific Pieces (2/2)', note:'You use multiple specific pieces of evidence and connect them to your argument with causal reasoning.'});
+      rows.push({icon:'✓', label:'pass', head:'Evidence (2/2)', note:'You use multiple specific examples of state economic control with explanations connecting them to your argument.'});
       score += 2;
-    } else if (evidenceCount >= 2 && hasExplain) {
-      rows.push({icon:'~', label:'partial', head:'Evidence — One Piece Evident (1/2)', note:'You have some specific evidence but may need a second distinct piece. Make sure each piece is described AND explained.'});
+    } else if (evidenceCount >= 2) {
+      rows.push({icon:'~', label:'partial', head:'Evidence (1/2)', note:'You provide some evidence but need more specific examples or clearer explanation of how they support your argument.'});
       score++;
-      improve.push('Evidence: Add a second distinct piece of specific evidence and explain how it supports your argument.');
+      improve.push('Evidence: Add more specific examples (New Deal programs, Five Year Plans, collectivization) and explain how each shows state economic control.');
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Evidence — Insufficient (0/2)', note:'Include at least two specific pieces of evidence (e.g., hyperinflation 1923, Great Depression unemployment, Hitler\'s rise 1933, Munich Agreement 1938) and explain how each caused/contributed to WWII.'});
-      improve.push('Evidence: Use specific facts (dates, names, events) and explain each one — don\'t just list them.');
+      rows.push({icon:'✗', label:'fail', head:'Evidence (0/2)', note:'Include at least 2 specific examples: Soviet Five Year Plans, collectivization, U.S. New Deal (AAA, NRA, Social Security), Nazi economic policies, Mao\'s Great Leap Forward, Keynesian economics.'});
+      improve.push('Evidence: Use specific facts — name programs, policies, leaders, and dates to support your argument.');
     }
 
-    // Reasoning skill
-    var hasCausation = contains(t, ['caused','because','as a result','led to','resulted in','contributing factor','root cause','consequence']);
-    var hasCCOT = contains(t, ['changed','continued','remained','transformation','continuity','shift','persisted','evolved']);
-    var hasComparison = contains(t, ['similarly','in contrast','unlike','compared to','whereas','both','while','on the other hand']);
-    if (hasCausation || hasCCOT || hasComparison) {
-      rows.push({icon:'✓', label:'pass', head:'Historical Reasoning Skill (1/1)', note:'Your response demonstrates a reasoning skill (causation, CCOT, or comparison) to frame the argument.'});
+    // Historical Reasoning
+    var reasoningTerms = ['caused','because','led to','resulted in','changed','continued','remained','comparison','similarly','in contrast','unlike','whereas','continuity','change'];
+    var hasReasoning = contains(t, reasoningTerms);
+    
+    if (hasReasoning && words >= 150) {
+      rows.push({icon:'✓', label:'pass', head:'Historical Reasoning (1/1)', note:'Your response uses historical reasoning (causation, continuity/change, or comparison) to structure your argument about state economic control.'});
       score++;
     } else {
-      rows.push({icon:'✗', label:'fail', head:'Historical Reasoning Skill (0/1)', note:'Frame your essay around a reasoning skill. For causation: use "caused," "because," "as a result." Organize body paragraphs around causes or consequences.'});
-      improve.push('Reasoning Skill: Make sure your body paragraphs are organized around causation — each paragraph should explain WHY something caused WWII.');
+      rows.push({icon:'✗', label:'fail', head:'Historical Reasoning (0/1)', note:'Use a reasoning skill to structure your argument. Causation: explain WHY states adopted these policies and what EFFECTS they had. CCOT: explain what changed and what stayed the same. Comparison: compare different states\' approaches.'});
+      improve.push('Reasoning: Structure your essay around causation (why did states intervene? what resulted?), change over time, or comparison between states.');
     }
 
-    if (words < 150) improve.push('Length: An LEQ should be at least 300–400 words with a full introduction, 2 body paragraphs, and a conclusion.');
+    // Complexity
+    var complexTerms = ['however','although','while','on the other hand','nuance','varied','both','not only','also','even','sometimes','complexity','exception'];
+    var hasComplexity = contains(t, complexTerms) && evidenceCount >= 3 && words >= 350;
+    
+    if (hasComplexity) {
+      rows.push({icon:'✓', label:'pass', head:'Complexity (1/1)', note:'Your response demonstrates complex understanding through nuanced analysis, multiple perspectives, or connections across time/space.'});
+      score++;
+    } else {
+      rows.push({icon:'~', label:'partial', head:'Complexity (0/1)', note:'To earn complexity: analyze multiple variables, qualify your argument (e.g., even free-market states adopted some controls during wartime), or make connections across time periods (19th century laissez-faire → Depression intervention → late 20th century deregulation).'});
+      improve.push('Complexity: Show nuance — even communist states sometimes relaxed control (NEP); even capitalist states intervened (wartime, Depression).');
+    }
+
+    if (words < 250) improve.push('Length: An LEQ should be at least 300-400 words with introduction, 2 body paragraphs, and conclusion.');
 
     return { score: score, max: 6, rows: rows, improve: improve };
   }
@@ -2166,23 +2259,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('wp-result').style.display = 'block';
     renderRubric(result, wpType);
     document.getElementById('wp-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-
-  /* ── STUDY GUIDE ─────────────────────────────────────── */
-  function renderGuide() {
-    var el = document.getElementById('sg-content');
-    if (!el || el.innerHTML || typeof SG === 'undefined') return;
-    el.innerHTML = SG.map(function(s, i) {
-      return '<div class="sg-section"><div class="sg-hdr" data-sgi="' + i + '"><div class="sg-htitle">' + s.n + '</div><div class="sg-hmeta"><span class="sg-hnum">' + s.kw + ' key terms</span><span class="sg-arr">&#9660;</span></div></div><div class="sg-body" id="sgb' + i + '">' + s.body + '</div></div>';
-    }).join('');
-    el.querySelectorAll('.sg-hdr[data-sgi]').forEach(function(hdr) {
-      hdr.addEventListener('click', function() {
-        var i = this.dataset.sgi;
-        var body = document.getElementById('sgb' + i);
-        var open = body && body.classList.contains('open');
-        this.classList.toggle('open', !open);
-        if (body) body.classList.toggle('open', !open);
-      });
     });
   }
 

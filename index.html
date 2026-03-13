@@ -206,6 +206,9 @@ img{display:block;max-width:100%}
 .bd-textarea{width:100%;min-height:300px;background:var(--white);border:1.5px solid var(--border2);padding:18px;font-family:'Source Serif 4',Georgia,serif;font-size:.95rem;line-height:1.8;color:var(--ink);resize:vertical;margin-bottom:8px}
 .bd-textarea:focus{outline:none;border-color:var(--blue)}
 .bd-textarea:disabled{background:var(--paper);color:var(--mid)}
+.bd-stem{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-bottom:16px}
+.bd-stem-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
 .bd-word-count{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);letter-spacing:.1em;margin-bottom:24px}
 .bd-reveal{display:none;margin-top:8px}
 .bd-reveal.active{display:block}
@@ -520,7 +523,7 @@ img{display:block;max-width:100%}
           <div class="card-tag">Term</div>
           <div class="card-term" id="fc-term">Loading...</div>
           <div class="card-topic" id="fc-topic">Topic 7.1</div>
-          <div class="card-hint">Click card to flip ↓</div>
+          <div class="card-hint">Think of the answer, then flip when the timer is done ↓</div>
         </div>
         <div class="card-face back">
           <div class="card-tag back-tag">Definition</div>
@@ -528,7 +531,7 @@ img{display:block;max-width:100%}
         </div>
       </div>
     </div>
-    <p class="flip-hint">Click card to flip &nbsp;&middot;&nbsp; Use arrows to navigate</p>
+    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
     <div class="card-nav">
       <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
       <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
@@ -565,6 +568,10 @@ img{display:block;max-width:100%}
       <div class="bd-timer-bar">
         <div class="bd-topic-label">Topic<strong id="bd-active-topic">&mdash;</strong></div>
         <div class="bd-countdown" id="bd-countdown">5:00</div>
+      </div>
+      <div class="bd-stem" id="bd-stem">
+        <div class="bd-stem-lbl">&#9997; Sentence Stem — start here if you need a push</div>
+        <div class="bd-stem-txt" id="bd-stem-txt"></div>
       </div>
       <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic — key terms, events, causes, effects, people… don't stop writing!"></textarea>
       <div class="bd-word-count" id="bd-word-count">0 words</div>
@@ -1889,7 +1896,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fg.classList.remove('done');
     fg.style.strokeDashoffset = '0';
     num.textContent = '15';
-    msg.textContent = 'Study this card\u2026';
+    msg.textContent = 'Think \u2014 what does this term mean?';
     msg.classList.remove('ready');
 
     fcTimerInterval = setInterval(function() {
@@ -1901,7 +1908,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fcTimerReady = true;
         fg.classList.add('done');
         num.textContent = '✓';
-        msg.textContent = 'Ready to move on';
+        msg.textContent = 'Now flip to check your answer!';
         msg.classList.add('ready');
         document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
       } else {
@@ -1928,6 +1935,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (typeof CARDS !== 'undefined') { fcDeck = CARDS.slice(); fcRender(); }
 
   document.getElementById('card-area').addEventListener('click', function() {
+    if (!fcTimerReady) return;
     fcFlipped = !fcFlipped;
     document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
   });
@@ -2313,6 +2321,16 @@ document.addEventListener('DOMContentLoaded', function () {
     '7.5':'7.5 — Resistance & Nationalism','7.6':'7.6 — Causes of WWII',
     '7.7':'7.7 — Mass Atrocities','7.8':'7.8 — Propaganda'
   };
+  var BD_STEMS = {
+    '7.1': 'In the late 1800s and early 1900s, the global balance of power shifted because…',
+    '7.2': 'World War I broke out due to a combination of long-term tensions and a short-term trigger, including…',
+    '7.3': 'The way World War I was fought was unlike previous wars because new technologies and tactics, such as…',
+    '7.4': 'After World War I, the global economy became unstable because…',
+    '7.5': 'Colonized and marginalized peoples resisted imperial rule during this period by…',
+    '7.6': 'World War II emerged from the unresolved problems of WWI and the rise of aggressive regimes, specifically…',
+    '7.7': 'During this era, governments and regimes carried out mass atrocities against civilian populations, for example…',
+    '7.8': 'Governments on all sides used propaganda during both World Wars to…'
+  };
 
   document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -2329,6 +2347,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var session = document.getElementById('bd-session');
     session.classList.add('active');
     document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
+    document.getElementById('bd-stem-txt').textContent = BD_STEMS[bdTopic] || 'Write everything you remember about this topic…';
     document.getElementById('bd-textarea').value = '';
     document.getElementById('bd-textarea').disabled = false;
     document.getElementById('bd-word-count').textContent = '0 words';

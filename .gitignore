@@ -1,3 +1,6 @@
+# raw extracted PDF images (optimized versions already committed as .jpg)
+images/frq-*.png
+
 # wrangler files
 .wrangler
 .dev.vars*

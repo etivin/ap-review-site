@@ -174,6 +174,49 @@ img{display:block;max-width:100%}
 .cn-btn:disabled{opacity:.3;cursor:default}
 .flip-hint{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
 
+/* ── FLASHCARD TIMER ── */
+.fc-timer-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.fc-timer-ring{position:relative;width:54px;height:54px;flex-shrink:0}
+.fc-timer-ring svg{transform:rotate(-90deg)}
+.fc-timer-ring circle{fill:none;stroke-width:4}
+.fc-timer-bg{stroke:var(--border)}
+.fc-timer-fg{stroke:var(--red);transition:stroke-dashoffset .95s linear,stroke .4s}
+.fc-timer-fg.done{stroke:var(--green)}
+.fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
+.fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+.fc-timer-msg.ready{color:var(--green)}
+
+/* ── BRAIN DUMP ── */
+.bd-setup{text-align:center;max-width:600px;margin:0 auto 32px}
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{background:var(--red);color:#fff;border:none;padding:13px 36px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
+.bd-start-btn:hover{background:var(--red-d)}
+.bd-start-btn:disabled{opacity:.38;cursor:default}
+.bd-session{display:none}
+.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.bd-topic-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
+.bd-countdown{font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:500;color:#fff;letter-spacing:.05em}
+.bd-countdown.warning{color:#f5a623}
+.bd-countdown.expired{color:var(--red)}
+.bd-textarea{width:100%;min-height:300px;background:var(--white);border:1.5px solid var(--border2);padding:18px;font-family:'Source Serif 4',Georgia,serif;font-size:.95rem;line-height:1.8;color:var(--ink);resize:vertical;margin-bottom:8px}
+.bd-textarea:focus{outline:none;border-color:var(--blue)}
+.bd-textarea:disabled{background:var(--paper);color:var(--mid)}
+.bd-word-count{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);letter-spacing:.1em;margin-bottom:24px}
+.bd-reveal{display:none;margin-top:8px}
+.bd-reveal.active{display:block}
+.bd-reveal-hdr{background:var(--green);color:#fff;padding:14px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:28px}
+.bd-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--green);padding:16px 18px}
+.bd-card-term{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:6px}
+.bd-card-def{font-size:.84rem;line-height:1.7;color:var(--mid)}
+.bd-reset-btn{background:none;border:1.5px solid var(--border2);color:var(--ink);padding:10px 26px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:all .18s}
+.bd-reset-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+
 /* ── MCQ ── */
 .topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:11px;margin-bottom:11px}
 .tc{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:15px 17px;transition:box-shadow .18s,transform .18s;box-shadow:var(--sh);text-align:left}
@@ -320,6 +363,7 @@ img{display:block;max-width:100%}
     <button type="button" class="hn-btn" data-tab="pg-write">&#9997; Writing</button>
     <button type="button" class="hn-btn" data-tab="pg-guide">&#128214; Guide</button>
     <button type="button" class="hn-btn" data-tab="pg-tips">&#128161; Tips</button>
+    <button type="button" class="hn-btn" data-tab="pg-brain">&#129504; Brain Dump</button>
   </nav>
   <div id="bar-score" style="display:none">Score: <strong id="score-txt">0/0</strong></div>
 </header>
@@ -459,6 +503,17 @@ img{display:block;max-width:100%}
       </div>
     </div>
     <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
+    <div class="fc-timer-wrap">
+      <div class="fc-timer-ring">
+        <svg width="54" height="54" viewBox="0 0 54 54">
+          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
+          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22"
+            stroke-dasharray="138.23" stroke-dashoffset="0"/>
+        </svg>
+        <div class="fc-timer-num" id="fc-timer-num">15</div>
+      </div>
+      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
+    </div>
     <div class="card-area" id="card-area">
       <div class="card-3d" id="fc-card">
         <div class="card-face front">
@@ -477,6 +532,49 @@ img{display:block;max-width:100%}
     <div class="card-nav">
       <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
       <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BRAIN DUMP ══ -->
+<div class="page" id="pg-brain">
+  <div class="inner">
+    <div class="pg-hero">
+      <div class="eyebrow">Brain Dump</div>
+      <h2>Write What You Know</h2>
+      <p>Pick a topic, then write everything you remember for 5 minutes. When time's up, we'll show you all the content so you can compare.</p>
+    </div>
+
+    <!-- Setup screen -->
+    <div class="bd-setup" id="bd-setup">
+      <div class="bd-topic-grid">
+        <button type="button" class="bd-topic-btn" data-topic="7.1">7.1 &mdash; Shifting Power</button>
+        <button type="button" class="bd-topic-btn" data-topic="7.2">7.2 &mdash; Causes of WWI</button>
+        <button type="button" class="bd-topic-btn" data-topic="7.3">7.3 &mdash; Conducting WWI</button>
+        <button type="button" class="bd-topic-btn" data-topic="7.4">7.4 &mdash; Interwar Economy</button>
+        <button type="button" class="bd-topic-btn" data-topic="7.5">7.5 &mdash; Resistance &amp; Nationalism</button>
+        <button type="button" class="bd-topic-btn" data-topic="7.6">7.6 &mdash; Causes of WWII</button>
+        <button type="button" class="bd-topic-btn" data-topic="7.7">7.7 &mdash; Mass Atrocities</button>
+        <button type="button" class="bd-topic-btn" data-topic="7.8">7.8 &mdash; Propaganda</button>
+      </div>
+      <button type="button" class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
+    </div>
+
+    <!-- Active session -->
+    <div class="bd-session" id="bd-session">
+      <div class="bd-timer-bar">
+        <div class="bd-topic-label">Topic<strong id="bd-active-topic">&mdash;</strong></div>
+        <div class="bd-countdown" id="bd-countdown">5:00</div>
+      </div>
+      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic — key terms, events, causes, effects, people… don't stop writing!"></textarea>
+      <div class="bd-word-count" id="bd-word-count">0 words</div>
+
+      <!-- Revealed cards -->
+      <div class="bd-reveal" id="bd-reveal">
+        <div class="bd-reveal-hdr">&#9989; Time's up! Here's everything from this topic &mdash; compare it to what you wrote.</div>
+        <div class="bd-card-list" id="bd-card-list"></div>
+        <button type="button" class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1773,6 +1871,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── FLASHCARDS ───────────────────────────────────────── */
   var fcDeck = [], fcIdx = 0, fcFlipped = false;
+  var fcTimerInterval = null, fcTimerSec = 15, fcTimerReady = false;
+  var FC_TIMER_CIRC = 138.23; // 2π × r(22)
+
+  function fcTimerStop() {
+    if (fcTimerInterval) { clearInterval(fcTimerInterval); fcTimerInterval = null; }
+  }
+
+  function fcTimerStart() {
+    fcTimerStop();
+    fcTimerSec = 15;
+    fcTimerReady = false;
+    document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1) ? true : true; // blocked until ready
+    var fg = document.getElementById('fc-timer-fg');
+    var num = document.getElementById('fc-timer-num');
+    var msg = document.getElementById('fc-timer-msg');
+    fg.classList.remove('done');
+    fg.style.strokeDashoffset = '0';
+    num.textContent = '15';
+    msg.textContent = 'Study this card\u2026';
+    msg.classList.remove('ready');
+
+    fcTimerInterval = setInterval(function() {
+      fcTimerSec--;
+      var progress = (15 - fcTimerSec) / 15;
+      fg.style.strokeDashoffset = (FC_TIMER_CIRC * progress).toFixed(2);
+      if (fcTimerSec <= 0) {
+        fcTimerStop();
+        fcTimerReady = true;
+        fg.classList.add('done');
+        num.textContent = '✓';
+        msg.textContent = 'Ready to move on';
+        msg.classList.add('ready');
+        document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
+      } else {
+        num.textContent = fcTimerSec;
+        document.getElementById('fc-next').disabled = true;
+      }
+    }, 1000);
+  }
 
   function fcRender() {
     if (!fcDeck.length) return;
@@ -1783,9 +1920,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('fc-meta').textContent = 'Card ' + (fcIdx + 1) + ' of ' + fcDeck.length;
     document.getElementById('fc-pbar').style.width = ((fcIdx + 1) / fcDeck.length * 100) + '%';
     document.getElementById('fc-prev').disabled = (fcIdx === 0);
-    document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
     var card = document.getElementById('fc-card');
     if (fcFlipped) { card.classList.remove('flipped'); fcFlipped = false; }
+    fcTimerStart();
   }
 
   if (typeof CARDS !== 'undefined') { fcDeck = CARDS.slice(); fcRender(); }
@@ -1795,7 +1932,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
   });
   document.getElementById('fc-prev').addEventListener('click', function() { if (fcIdx > 0) { fcIdx--; fcRender(); } });
-  document.getElementById('fc-next').addEventListener('click', function() { if (fcIdx < fcDeck.length - 1) { fcIdx++; fcRender(); } });
+  document.getElementById('fc-next').addEventListener('click', function() { if (fcTimerReady && fcIdx < fcDeck.length - 1) { fcIdx++; fcRender(); } });
   document.getElementById('fc-filter').addEventListener('change', function() {
     var v = this.value;
     fcDeck = (v === 'all') ? CARDS.slice() : CARDS.filter(function(c){ return c.topic === v; });
@@ -2166,6 +2303,87 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('wp-result').style.display = 'block';
     renderRubric(result, wpType);
     document.getElementById('wp-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  /* ── BRAIN DUMP ───────────────────────────────────────── */
+  var bdTopic = null, bdTimerInterval = null;
+  var BD_TOPIC_NAMES = {
+    '7.1':'7.1 — Shifting Power','7.2':'7.2 — Causes of WWI',
+    '7.3':'7.3 — Conducting WWI','7.4':'7.4 — Interwar Economy',
+    '7.5':'7.5 — Resistance & Nationalism','7.6':'7.6 — Causes of WWII',
+    '7.7':'7.7 — Mass Atrocities','7.8':'7.8 — Propaganda'
+  };
+
+  document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+      this.classList.add('selected');
+      bdTopic = this.dataset.topic;
+      document.getElementById('bd-start-btn').disabled = false;
+    });
+  });
+
+  document.getElementById('bd-start-btn').addEventListener('click', function() {
+    if (!bdTopic) return;
+    document.getElementById('bd-setup').style.display = 'none';
+    var session = document.getElementById('bd-session');
+    session.classList.add('active');
+    document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
+    document.getElementById('bd-textarea').value = '';
+    document.getElementById('bd-textarea').disabled = false;
+    document.getElementById('bd-word-count').textContent = '0 words';
+    document.getElementById('bd-reveal').classList.remove('active');
+    document.getElementById('bd-countdown').className = 'bd-countdown';
+    bdStartTimer(5 * 60);
+  });
+
+  function bdStartTimer(totalSec) {
+    if (bdTimerInterval) clearInterval(bdTimerInterval);
+    var remaining = totalSec;
+    function tick() {
+      var m = Math.floor(remaining / 60);
+      var s = remaining % 60;
+      var display = m + ':' + (s < 10 ? '0' : '') + s;
+      var el = document.getElementById('bd-countdown');
+      el.textContent = display;
+      if (remaining <= 60 && remaining > 0) el.className = 'bd-countdown warning';
+      if (remaining <= 0) {
+        clearInterval(bdTimerInterval);
+        el.className = 'bd-countdown expired';
+        el.textContent = '0:00';
+        bdReveal();
+        return;
+      }
+      remaining--;
+    }
+    tick();
+    bdTimerInterval = setInterval(tick, 1000);
+  }
+
+  function bdReveal() {
+    var ta = document.getElementById('bd-textarea');
+    ta.disabled = true;
+    var cards = (typeof CARDS !== 'undefined') ? CARDS.filter(function(c){ return c.topic === bdTopic; }) : [];
+    var list = document.getElementById('bd-card-list');
+    list.innerHTML = cards.map(function(c) {
+      return '<div class="bd-card"><div class="bd-card-term">' + c.t + '</div><div class="bd-card-def">' + c.d + '</div></div>';
+    }).join('') || '<p style="color:var(--muted);font-size:.88rem">No cards found for this topic.</p>';
+    document.getElementById('bd-reveal').classList.add('active');
+    document.getElementById('bd-reveal').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('bd-textarea').addEventListener('input', function() {
+    var w = this.value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('bd-word-count').textContent = w + ' word' + (w !== 1 ? 's' : '');
+  });
+
+  document.getElementById('bd-reset-btn').addEventListener('click', function() {
+    if (bdTimerInterval) clearInterval(bdTimerInterval);
+    document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+    bdTopic = null;
+    document.getElementById('bd-start-btn').disabled = true;
+    document.getElementById('bd-session').classList.remove('active');
+    document.getElementById('bd-setup').style.display = '';
   });
 
   /* ── STUDY GUIDE ─────────────────────────────────────── */

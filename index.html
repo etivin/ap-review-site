@@ -3225,13 +3225,15 @@ document.addEventListener('DOMContentLoaded', function () {
     renderProgress();
   }
 
-  function setStudentName() {
+  window.setStudentName = function() {
     var n = (document.getElementById('name-input').value || '').trim();
     progressData.studentName = n;
     saveProgress();
     var modal = document.getElementById('name-modal');
     if (modal) modal.style.display = 'none';
-  }
+  };
+  window.exportCSV = exportCSV;
+  window.resetProgress = resetProgress;
 
   // Show name modal on first visit
   if (progressData.studentName === undefined) {

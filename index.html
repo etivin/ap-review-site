@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Unit 7 Review — AP World History: Modern</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyCl_5-wKBoHT2Nh34LfFqDskLVzIiyuSKc",
+    authDomain: "apwh-87c0c.firebaseapp.com",
+    projectId: "apwh-87c0c",
+    storageBucket: "apwh-87c0c.firebasestorage.app",
+    messagingSenderId: "622367312972",
+    appId: "1:622367312972:web:870a5fab4150020980b8e9"
+  };
+  const app = initializeApp(firebaseConfig);
+  const firestore = getFirestore(app);
+  window.__fs = firestore;
+  window.__fsDoc = doc;
+  window.__fsSetDoc = setDoc;
+  window.__fsCollection = collection;
+  window.__fsGetDocs = getDocs;
+  window.__fsDeleteDoc = deleteDoc;
+  document.dispatchEvent(new Event('firebase-ready'));
+</script>
 <style>
 /* ── RESET & VARIABLES ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -2017,7 +2038,27 @@ function loadProgress() {
 function saveProgress() {
   try { localStorage.setItem('apReview_v1', JSON.stringify(progressData)); }
   catch(e) {}
+  syncToFirestore();
 }
+
+var fsReady = false;
+var syncTimer = null;
+function syncToFirestore() {
+  if (!fsReady || !progressData.studentId) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(function() {
+    var docRef = window.__fsDoc(window.__fs, 'students', progressData.studentId);
+    window.__fsSetDoc(docRef, {
+      name: progressData.studentName || '',
+      lastSeen: new Date().toISOString(),
+      mcq: progressData.mcq || {}
+    }).catch(function(){});
+  }, 1500);
+}
+document.addEventListener('firebase-ready', function() {
+  fsReady = true;
+  if (progressData.studentId && progressData.studentName) syncToFirestore();
+});
 function initProgress() {
   progressData = loadProgress();
   if (!progressData.mcq)     progressData.mcq = {};
@@ -3252,7 +3293,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     errEl.textContent = '';
     progressData.studentName = n;
+    if (!progressData.studentId) {
+      var slug = n.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+      progressData.studentId = slug + '-' + Math.random().toString(16).slice(2, 8);
+    }
     saveProgress();
+    if (fsReady) syncToFirestore();
     document.getElementById('name-modal').style.display = 'none';
     showGreeting(n);
   }

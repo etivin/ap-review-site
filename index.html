@@ -3368,50 +3368,52 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ── GAMES ──────────────────────────────────────────── */
   (function() {
-    // ── Jeopardy Data (clue + answer, drawn from QB questions) ──
-    var JEOP_CATS = [
-      {name:'Shifting Power',topic:'7.1'},
-      {name:'Causes of WWI',topic:'7.2'},
-      {name:'Conducting WWI',topic:'7.3'},
-      {name:'Interwar Period',topic:'7.4'},
-      {name:'WWII',topic:'7.6'},
-      {name:'Atrocities & Propaganda',topic:'7.7'}
+    // ── Jeopardy Data (fact-based clues, not stimulus-based) ──
+    var JEOP_DATA = [
+      { name: 'Shifting Power', questions: [
+        { clue: "This 1868 transformation modernized Japan by adopting Western institutions, industry, and military organization", answer: "Meiji Restoration", explanation: "The Meiji Restoration transformed Japan from a feudal state into an industrial and military power, enabling it to become a major world player by the early 1900s." },
+        { clue: "Japan's stunning 1905 victory over this European country shocked the world and proved Japan was a major power", answer: "Russia (Russo-Japanese War)", explanation: "Japan's defeat of Russia in the Russo-Japanese War (1904-05) was the first time a non-Western nation defeated a European power in modern warfare." },
+        { clue: "Japan proposed this clause at the 1919 Paris Peace Conference — rejected by Western powers, fueling deep resentment", answer: "Racial Equality Clause", explanation: "Japan's proposal was blocked largely by the U.S., Britain, and Australia, humiliating Japan and fueling the ultranationalism that drove later militarism." },
+        { clue: "These three empires all collapsed between 1911 and 1922: one in China, one in Russia, one centered in Istanbul", answer: "Qing, Russian, and Ottoman Empires", explanation: "The fall of these three empires reshaped the world map and created the power vacuums that contributed to WWII instability." },
+        { clue: "Japan formally colonized this neighboring peninsula in 1910, beginning decades of harsh military rule", answer: "Korea", explanation: "Japan's annexation of Korea in 1910 followed its victory in the Russo-Japanese War; Korean culture and language were suppressed under colonial rule until 1945." }
+      ]},
+      { name: 'Causes of WWI', questions: [
+        { clue: "The acronym historians use for the four long-term causes of World War I", answer: "MAIN (Militarism, Alliances, Imperialism, Nationalism)", explanation: "MAIN captures the structural tensions that made Europe a powder keg: military buildups, interlocking alliances, colonial rivalry, and ethnic nationalism." },
+        { clue: "This Austro-Hungarian heir was assassinated in Sarajevo on June 28, 1914, igniting WWI", answer: "Archduke Franz Ferdinand", explanation: "His assassination by Gavrilo Princip set off a chain of ultimatums and mobilizations that pulled all major European powers into war within six weeks." },
+        { clue: "Britain and Germany competed fiercely in this pre-WWI arms race, building ever-larger warships", answer: "Naval arms race (Dreadnought race)", explanation: "Germany's attempt to challenge British naval supremacy alarmed Britain and pushed it closer to France and Russia, tightening the alliance system." },
+        { clue: "This 1919 treaty ended WWI, forced Germany to accept sole blame, pay reparations, and lose territory", answer: "Treaty of Versailles", explanation: "The Treaty's harsh terms — especially the War Guilt Clause and massive reparations — created the economic and political instability that Hitler later exploited." },
+        { clue: "This Russian minister's 1914 memo eerily predicted that war would produce revolution in the losing nation", answer: "Pyotr Durnovo (Durnovo Memo)", explanation: "Durnovo warned Tsar Nicholas II that war against Germany would devastate Russia and lead to social revolution — a remarkably accurate prediction of 1917." }
+      ]},
+      { name: 'Conducting WWI', questions: [
+        { clue: "This type of warfare defined the Western Front, creating a bloody stalemate in miles of dug-out positions", answer: "Trench warfare", explanation: "Trenches stretched from Belgium to Switzerland; new defensive weapons (machine guns, barbed wire) far outpaced offensive tactics, causing millions of casualties." },
+        { clue: "A conflict in which entire nations — civilians, factories, and economies — are fully mobilized for the war effort", answer: "Total war", explanation: "WWI was the first major total war: governments rationed food, conscripted workers, controlled industry, and used propaganda to sustain the home front." },
+        { clue: "Germany's introduction of this weapon in WWI horrified the world and was later banned by the 1925 Geneva Protocol", answer: "Poison gas (chemical weapons)", explanation: "Germany first used chlorine gas at Ypres in 1915; later phosgene and mustard gas caused devastating casualties and lasting psychological trauma." },
+        { clue: "Women entered these workplaces in massive numbers during WWI, producing shells, weapons, and war materials", answer: "Munitions factories", explanation: "Women's wartime industrial labor fundamentally changed their social roles and directly contributed to post-war suffrage movements in Britain and the U.S." },
+        { clue: "Germany's secret proposal for a military alliance with Mexico, intercepted by Britain, helped pull the U.S. into WWI", answer: "Zimmermann Telegram", explanation: "The 1917 Zimmermann Telegram — offering Mexico Texas, New Mexico, and Arizona for attacking the U.S. — outraged American public opinion and accelerated U.S. entry into the war." }
+      ]},
+      { name: 'Interwar Period', questions: [
+        { clue: "This worldwide economic crisis of the 1930s created fertile conditions for the rise of fascist dictators", answer: "Great Depression", explanation: "The Depression destroyed savings, created mass unemployment, and discredited liberal democracies — making populations desperate for authoritarian leaders who promised order and national revival." },
+        { clue: "This Italian dictator coined the term 'fascism' and seized power in 1922 by marching on Rome", answer: "Benito Mussolini (Il Duce)", explanation: "Mussolini's March on Rome forced King Victor Emmanuel III to appoint him prime minister; he then dismantled democracy and established the first fascist state — a model Hitler studied." },
+        { clue: "Gandhi's famous 1930 act of civil disobedience — a 240-mile protest march — targeted this British colonial policy", answer: "Salt tax (Salt March)", explanation: "The Salt March defied British law by making salt from seawater; it galvanized the Indian independence movement and demonstrated the global power of nonviolent resistance." },
+        { clue: "Britain and France gave Hitler the Sudetenland in 1938, hoping to prevent war — the defining act of this failed policy", answer: "Appeasement (Munich Agreement)", explanation: "Chamberlain declared 'peace for our time,' but Hitler invaded the rest of Czechoslovakia within months, proving appeasement only emboldened aggression." },
+        { clue: "Japan invaded this northeastern Chinese region in 1931, beginning its aggressive military expansion in Asia", answer: "Manchuria", explanation: "The Manchurian Incident (1931) was staged by Japanese officers; the League of Nations condemned it but took no action, revealing the League's fatal weakness." }
+      ]},
+      { name: 'WWII', questions: [
+        { clue: "The German military strategy of rapid, combined air and armored attacks that defeated France in just six weeks", answer: "Blitzkrieg ('lightning war')", explanation: "Blitzkrieg bypassed France's Maginot Line through the Ardennes forest, encircling Allied forces at Dunkirk and forcing France's surrender in June 1940." },
+        { clue: "Hitler's invasion of this country on September 1, 1939 officially started WWII in Europe", answer: "Poland", explanation: "Germany's invasion triggered British and French declarations of war; Poland was then divided between Nazi Germany and the Soviet Union under the Molotov-Ribbentrop Pact." },
+        { clue: "Japan's surprise attack on this U.S. naval base on December 7, 1941 brought America into WWII", answer: "Pearl Harbor", explanation: "Japan's attack killed over 2,400 Americans and destroyed much of the U.S. Pacific Fleet; FDR called it 'a date which will live in infamy.'" },
+        { clue: "The Nazi concept of 'living space' — used to justify conquering and colonizing Eastern Europe with Germanic settlers", answer: "Lebensraum", explanation: "Hitler compared Lebensraum to American westward expansion; it drove the invasion of the Soviet Union and the brutal occupation of Poland and Eastern Europe." },
+        { clue: "The United States dropped atomic bombs on these two Japanese cities in August 1945, ending WWII", answer: "Hiroshima and Nagasaki", explanation: "The bombs killed approximately 200,000 people; they remain the only use of nuclear weapons in warfare and ushered in the Cold War arms race." }
+      ]},
+      { name: 'Atrocities & Propaganda', questions: [
+        { clue: "The Nazi systematic murder of approximately 6 million Jews and 6 million others using industrialized killing methods", answer: "The Holocaust", explanation: "The Holocaust used gas chambers, crematoria, and death camps to murder Jews, Roma, disabled people, and others the Nazis deemed racially inferior." },
+        { clue: "The Ottoman Empire's mass killing and forced deportation of up to 1.5 million of these people during WWI", answer: "Armenians (Armenian Genocide)", explanation: "Beginning in 1915, Ottoman leaders ordered deportation and massacre of Armenian Christians — widely recognized as one of the first modern genocides." },
+        { clue: "The Nazi propaganda myth that Germany lost WWI because Jews and communists betrayed the war effort from within", answer: "Stab-in-the-Back Legend (Dolchstosslegende)", explanation: "This false myth denied Germany's military defeat and scapegoated Jews; Hitler used it to build antisemitism into a mass political movement that justified the Holocaust." },
+        { clue: "Governments used this type of mass communication — posters, film, and radio — to mobilize populations and justify war", answer: "Propaganda", explanation: "Both World Wars saw states weaponize mass media: Britain suppressed naval defeats, Soviets promoted heroic worker imagery, and Nazi Germany produced history's most effective political propaganda." },
+        { clue: "This radical Cambodian communist regime killed roughly 25% of Cambodia's entire population between 1975 and 1979", answer: "Khmer Rouge (Pol Pot)", explanation: "The Khmer Rouge evacuated cities, abolished money and religion, and sent people to forced labor camps; approximately 1.5-2 million died from execution, starvation, and disease." }
+      ]}
     ];
     var POINTS = [200,400,600,800,1000];
-
-    function buildJeopData() {
-      var data = [];
-      JEOP_CATS.forEach(function(cat) {
-        var qs = (QB[cat.topic] || []).slice();
-        // supplement from adjacent topics if needed
-        if (qs.length < 5 && cat.topic === '7.4') qs = qs.concat((QB['7.5'] || []).slice());
-        if (qs.length < 5 && cat.topic === '7.7') qs = qs.concat((QB['7.8'] || []).slice());
-        // supplement from flashcards
-        if (qs.length < 5) {
-          var fcs = (typeof CARDS !== 'undefined' ? CARDS : []).filter(function(f){ return f.topic === cat.topic; });
-          fcs.forEach(function(f) {
-            if (qs.length < 5) {
-              qs.push({ q: 'What term matches this definition: "' + f.d.substring(0, 120) + '"', answer: f.t, e: f.d });
-            }
-          });
-        }
-        var catQs = [];
-        for (var i = 0; i < 5; i++) {
-          if (qs[i]) {
-            var q = qs[i];
-            catQs.push({
-              clue: q.q || q.s || '',
-              answer: q.answer || (q.o ? q.o[q.c] : ''),
-              explanation: q.e || ''
-            });
-          } else {
-            catQs.push({ clue: 'Bonus: Name a key term from ' + cat.name, answer: '(Teacher decides)', explanation: '' });
-          }
-        }
-        data.push({ name: cat.name, questions: catQs });
-      });
-      return data;
-    }
 
     // ── Jeopardy state ──
     var jeopData = [];
@@ -3552,7 +3554,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('jeop-start').addEventListener('click', function() {
-      jeopData = buildJeopData();
+      jeopData = JEOP_DATA;
       jeopUsed = {};
       document.getElementById('jeop-setup').style.display = 'none';
       document.getElementById('jeop-board-wrap').style.display = 'block';
@@ -3583,6 +3585,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('jeop-back').addEventListener('click', function() {
+      // Reset all state so next visit starts fresh
+      jeopTeams = [];
+      jeopUsed = {};
+      jeopCurrentCell = null;
+      document.getElementById('jeop-setup').style.display = 'block';
+      document.getElementById('jeop-board-wrap').style.display = 'none';
+      document.getElementById('jeop-winner').style.display = 'none';
       document.getElementById('jeopardy-game').style.display = 'none';
       document.getElementById('game-picker').style.display = 'grid';
     });

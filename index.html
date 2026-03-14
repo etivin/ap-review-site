@@ -400,6 +400,61 @@ img{display:block;max-width:100%}
   .hero h1{font-size:2.2rem}
 }
 
+/* ── GAMES ─────────────────────────────────────────────── */
+.game-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:700px;margin:0 auto}
+.game-pick-card{background:var(--white);border:2px solid var(--border2);padding:36px 28px;cursor:pointer;text-align:center;transition:box-shadow .2s,border-color .2s}
+.game-pick-card:hover{border-color:var(--red);box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.game-pick-icon{font-size:2.8rem;margin-bottom:12px}
+.game-pick-name{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px}
+.game-pick-desc{font-size:.84rem;color:var(--mid);line-height:1.5}
+
+/* Jeopardy */
+.jeop-teams-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px}
+.jeop-team{background:var(--white);border:2px solid var(--border2);padding:12px 16px;min-width:140px;position:relative}
+.jeop-team-name{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:none;background:none;width:100%;outline:none;padding:2px 0;border-bottom:1.5px dashed var(--border2)}
+.jeop-team-name:focus{border-bottom-color:var(--red)}
+.jeop-team-score{font-family:'Playfair Display',serif;font-size:1.6rem;margin-top:6px}
+.jeop-team-rm{position:absolute;top:4px;right:6px;background:none;border:none;color:#999;cursor:pointer;font-size:.9rem}
+.jeop-team-rm:hover{color:var(--red)}
+.jeop-board{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:20px 0}
+.jeop-cat{background:#1a1a12;color:#fff;padding:12px 6px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
+.jeop-cell{background:#1a237e;color:#ffd740;padding:18px 8px;text-align:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;cursor:pointer;border:none;transition:background .15s,transform .1s}
+.jeop-cell:hover{background:#283593;transform:scale(1.04)}
+.jeop-cell.used{background:#37474f;color:#78909c;cursor:default;transform:none}
+.jeop-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:910;display:flex;align-items:center;justify-content:center;padding:20px}
+.jeop-modal-inner{background:#f9f6ef;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;padding:40px 36px;border:2px solid #ddd0b8;box-shadow:0 12px 48px rgba(0,0,0,.4)}
+.jeop-modal-pts{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:var(--red);text-transform:uppercase;margin-bottom:8px}
+.jeop-modal-q{font-family:'Source Serif 4',serif;font-size:1.15rem;line-height:1.7;margin-bottom:24px}
+.jeop-modal-answer{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-bottom:20px;font-family:'Source Serif 4',serif;font-size:1rem;line-height:1.6;display:none}
+.jeop-modal-answer.show{display:block}
+.jeop-award-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.jeop-award-btn{padding:10px 18px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;color:#fff;transition:opacity .15s}
+.jeop-award-btn:hover{opacity:.85}
+.jeop-award-btn.no-pts{background:#78909c;color:#fff}
+.jeop-reveal-btn{padding:12px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.jeop-end-bar{display:flex;gap:12px;justify-content:center;margin-top:24px}
+.jeop-winner{text-align:center;padding:40px 20px}
+.jeop-winner h3{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:10px}
+
+/* Matching */
+.match-board{display:flex;gap:20px;max-width:900px;margin:0 auto}
+.match-col{flex:1;display:flex;flex-direction:column;gap:10px}
+.match-col-hdr{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;text-align:center}
+.match-card{background:var(--white);border:2px solid var(--border2);padding:14px 16px;font-size:.84rem;line-height:1.5;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.match-card:hover{border-color:var(--red);transform:translateY(-1px)}
+.match-card.selected{border-color:var(--red);background:#fff5f5;box-shadow:0 0 0 2px rgba(176,0,28,.2)}
+.match-card.matched{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.8}
+.match-card.wrong{animation:matchShake .4s ease-out}
+.match-counter{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:var(--muted);margin:20px 0}
+.match-success{text-align:center;padding:40px 20px}
+.match-success h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px}
+@keyframes matchShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@media(max-width:600px){
+  .match-board{flex-direction:column}
+  .jeop-board{grid-template-columns:repeat(3,1fr)}
+  .jeop-cat:nth-child(n+4){display:none}
+}
+
 </style>
 </head>
 <body>
@@ -419,6 +474,7 @@ img{display:block;max-width:100%}
     <button type="button" class="hn-btn" data-tab="pg-guide">&#128214; Guide</button>
     <button type="button" class="hn-btn" data-tab="pg-tips">&#128161; Tips</button>
     <button type="button" class="hn-btn" data-tab="pg-brain">&#129504; Brain Dump</button>
+    <button type="button" class="hn-btn" data-tab="pg-games">&#127918; Games</button>
   </nav>
   <div id="bar-score" style="display:none">Score: <strong id="score-txt">0/0</strong></div>
 </header>
@@ -484,6 +540,12 @@ img{display:block;max-width:100%}
           <div class="feat-desc">Pick a topic and write everything you know in 5 minutes. Then compare to the full content.</div>
           <div class="feat-count">8 topics &mdash; Timed practice</div>
         </button>
+        <button type="button" class="feat" data-tab="pg-games">
+          <div class="feat-icon">&#127918;</div>
+          <div class="feat-name">Review Games</div>
+          <div class="feat-desc">Play Jeopardy with your class or match key ideas to build the Unit 7 narrative.</div>
+          <div class="feat-count">2 games &mdash; Jeopardy + Matching</div>
+        </button>
       </div>
     </div>
   </section>
@@ -532,6 +594,7 @@ img{display:block;max-width:100%}
       <button type="button" class="cta-btn" data-tab="pg-flash">&#128218; Study Flashcards</button>
       <button type="button" class="cta-btn-outline" data-tab="pg-guide">&#128214; Open Study Guide</button>
       <button type="button" class="cta-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
+      <button type="button" class="cta-btn-outline" data-tab="pg-games">&#127918; Play Games</button>
     </div>
   </section>
 
@@ -3303,6 +3366,356 @@ document.addEventListener('DOMContentLoaded', function () {
     showTab('pg-progress');
   });
 
+  /* ── GAMES ──────────────────────────────────────────── */
+  (function() {
+    // ── Jeopardy Data (clue + answer, drawn from QB questions) ──
+    var JEOP_CATS = [
+      {name:'Shifting Power',topic:'7.1'},
+      {name:'Causes of WWI',topic:'7.2'},
+      {name:'Conducting WWI',topic:'7.3'},
+      {name:'Interwar Period',topic:'7.4'},
+      {name:'WWII',topic:'7.6'},
+      {name:'Atrocities & Propaganda',topic:'7.7'}
+    ];
+    var POINTS = [200,400,600,800,1000];
+
+    function buildJeopData() {
+      var data = [];
+      JEOP_CATS.forEach(function(cat) {
+        var qs = (QB[cat.topic] || []).slice();
+        // supplement from adjacent topics if needed
+        if (qs.length < 5 && cat.topic === '7.4') qs = qs.concat((QB['7.5'] || []).slice());
+        if (qs.length < 5 && cat.topic === '7.7') qs = qs.concat((QB['7.8'] || []).slice());
+        // supplement from flashcards
+        if (qs.length < 5) {
+          var fcs = (typeof CARDS !== 'undefined' ? CARDS : []).filter(function(f){ return f.topic === cat.topic; });
+          fcs.forEach(function(f) {
+            if (qs.length < 5) {
+              qs.push({ q: 'What term matches this definition: "' + f.d.substring(0, 120) + '"', answer: f.t, e: f.d });
+            }
+          });
+        }
+        var catQs = [];
+        for (var i = 0; i < 5; i++) {
+          if (qs[i]) {
+            var q = qs[i];
+            catQs.push({
+              clue: q.q || q.s || '',
+              answer: q.answer || (q.o ? q.o[q.c] : ''),
+              explanation: q.e || ''
+            });
+          } else {
+            catQs.push({ clue: 'Bonus: Name a key term from ' + cat.name, answer: '(Teacher decides)', explanation: '' });
+          }
+        }
+        data.push({ name: cat.name, questions: catQs });
+      });
+      return data;
+    }
+
+    // ── Jeopardy state ──
+    var jeopData = [];
+    var jeopTeams = [];
+    var jeopUsed = {};
+    var jeopCurrentCell = null;
+    var TEAM_COLORS = ['#b0001c','#1a237e','#1a6825','#e65100','#6a1b9a','#00695c'];
+
+    function renderTeamSetup() {
+      var el = document.getElementById('jeop-teams');
+      el.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var div = document.createElement('div');
+        div.className = 'jeop-team';
+        div.style.borderTopColor = TEAM_COLORS[i % TEAM_COLORS.length];
+        div.style.borderTopWidth = '4px';
+        div.innerHTML = '<input class="jeop-team-name" value="' + t.name.replace(/"/g, '&quot;') + '" data-ti="' + i + '"/>' +
+          '<div class="jeop-team-score">' + t.score + '</div>' +
+          (jeopTeams.length > 1 ? '<button class="jeop-team-rm" data-ti="' + i + '">&times;</button>' : '');
+        el.appendChild(div);
+      });
+      el.querySelectorAll('.jeop-team-name').forEach(function(inp) {
+        inp.addEventListener('change', function() { jeopTeams[parseInt(this.dataset.ti)].name = this.value || 'Team'; });
+      });
+      el.querySelectorAll('.jeop-team-rm').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          jeopTeams.splice(parseInt(this.dataset.ti), 1);
+          renderTeamSetup();
+        });
+      });
+    }
+
+    function renderScoreboard() {
+      var el = document.getElementById('jeop-scoreboard');
+      el.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var div = document.createElement('div');
+        div.className = 'jeop-team';
+        div.style.borderTopColor = TEAM_COLORS[i % TEAM_COLORS.length];
+        div.style.borderTopWidth = '4px';
+        div.innerHTML = '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:' + TEAM_COLORS[i % TEAM_COLORS.length] + '">' + (t.name || 'Team') + '</div><div class="jeop-team-score">' + t.score + '</div>';
+        el.appendChild(div);
+      });
+    }
+
+    function renderBoard() {
+      var el = document.getElementById('jeop-board');
+      el.innerHTML = '';
+      // Category headers
+      jeopData.forEach(function(cat) {
+        var hdr = document.createElement('div');
+        hdr.className = 'jeop-cat';
+        hdr.textContent = cat.name;
+        el.appendChild(hdr);
+      });
+      // Cells
+      POINTS.forEach(function(pts, row) {
+        jeopData.forEach(function(cat, col) {
+          var btn = document.createElement('button');
+          btn.className = 'jeop-cell';
+          var key = col + '_' + row;
+          if (jeopUsed[key]) btn.classList.add('used');
+          btn.textContent = pts;
+          btn.dataset.col = col;
+          btn.dataset.row = row;
+          if (!jeopUsed[key]) {
+            btn.addEventListener('click', function() { openJeopQuestion(col, row, pts); });
+          }
+          el.appendChild(btn);
+        });
+      });
+    }
+
+    function openJeopQuestion(col, row, pts) {
+      var q = jeopData[col].questions[row];
+      jeopCurrentCell = { col: col, row: row, pts: pts };
+      document.getElementById('jeop-modal-pts').textContent = jeopData[col].name + ' — ' + pts + ' pts';
+      document.getElementById('jeop-modal-q').textContent = q.clue;
+      var ansEl = document.getElementById('jeop-modal-answer');
+      ansEl.innerHTML = '<strong>Answer:</strong> ' + q.answer + (q.explanation ? '<br><span style="font-size:.88rem;color:#555">' + q.explanation + '</span>' : '');
+      ansEl.classList.remove('show');
+      document.getElementById('jeop-reveal').style.display = '';
+      document.getElementById('jeop-award-bar').style.display = 'none';
+      document.getElementById('jeop-modal').style.display = 'flex';
+    }
+
+    document.getElementById('jeop-reveal').addEventListener('click', function() {
+      document.getElementById('jeop-modal-answer').classList.add('show');
+      this.style.display = 'none';
+      // Show award buttons
+      var bar = document.getElementById('jeop-award-bar');
+      bar.style.display = 'flex';
+      bar.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var btn = document.createElement('button');
+        btn.className = 'jeop-award-btn';
+        btn.style.background = TEAM_COLORS[i % TEAM_COLORS.length];
+        btn.textContent = t.name || 'Team ' + (i + 1);
+        btn.addEventListener('click', function() { awardPoints(i); });
+        bar.appendChild(btn);
+      });
+      var noBtn = document.createElement('button');
+      noBtn.className = 'jeop-award-btn no-pts';
+      noBtn.textContent = 'No Points';
+      noBtn.addEventListener('click', function() { awardPoints(-1); });
+      bar.appendChild(noBtn);
+    });
+
+    function awardPoints(teamIdx) {
+      if (jeopCurrentCell === null) return;
+      if (teamIdx >= 0) jeopTeams[teamIdx].score += jeopCurrentCell.pts;
+      jeopUsed[jeopCurrentCell.col + '_' + jeopCurrentCell.row] = true;
+      jeopCurrentCell = null;
+      document.getElementById('jeop-modal').style.display = 'none';
+      renderBoard();
+      renderScoreboard();
+      // Check if all cells used
+      if (Object.keys(jeopUsed).length >= jeopData.length * POINTS.length) showWinner();
+    }
+
+    function showWinner() {
+      var sorted = jeopTeams.slice().sort(function(a, b) { return b.score - a.score; });
+      var el = document.getElementById('jeop-winner');
+      el.innerHTML = '<h3>&#127942; ' + (sorted[0].name || 'Team') + ' Wins!</h3>' +
+        '<p style="font-size:1.2rem;color:var(--mid);margin-bottom:20px">' + sorted[0].score + ' points</p>' +
+        '<div style="font-size:.9rem;color:var(--mid)">' + sorted.map(function(t, i) {
+          return '<div style="margin-bottom:4px">' + (i + 1) + '. ' + t.name + ' — ' + t.score + ' pts</div>';
+        }).join('') + '</div>';
+      document.getElementById('jeop-board-wrap').style.display = 'none';
+      el.style.display = 'block';
+    }
+
+    // Team management buttons
+    document.getElementById('jeop-add-team').addEventListener('click', function() {
+      if (jeopTeams.length >= 6) return;
+      jeopTeams.push({ name: 'Team ' + (jeopTeams.length + 1), score: 0 });
+      renderTeamSetup();
+    });
+
+    document.getElementById('jeop-start').addEventListener('click', function() {
+      jeopData = buildJeopData();
+      jeopUsed = {};
+      document.getElementById('jeop-setup').style.display = 'none';
+      document.getElementById('jeop-board-wrap').style.display = 'block';
+      document.getElementById('jeop-winner').style.display = 'none';
+      renderBoard();
+      renderScoreboard();
+    });
+
+    document.getElementById('jeop-end-game').addEventListener('click', function() { showWinner(); });
+
+    document.getElementById('jeop-new-game').addEventListener('click', function() {
+      jeopTeams.forEach(function(t) { t.score = 0; });
+      jeopUsed = {};
+      document.getElementById('jeop-board-wrap').style.display = 'none';
+      document.getElementById('jeop-winner').style.display = 'none';
+      document.getElementById('jeop-setup').style.display = 'block';
+      renderTeamSetup();
+    });
+
+    // Game picker navigation
+    document.getElementById('pick-jeopardy').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('jeopardy-game').style.display = 'block';
+      if (!jeopTeams.length) {
+        jeopTeams = [{ name: 'Team 1', score: 0 }, { name: 'Team 2', score: 0 }];
+      }
+      renderTeamSetup();
+    });
+
+    document.getElementById('jeop-back').addEventListener('click', function() {
+      document.getElementById('jeopardy-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+
+    // ── Matching Game ──
+    var MATCH_DATA = [
+      { left: "Assassination of Archduke Franz Ferdinand", right: "Triggered the alliance system and started WWI" },
+      { left: "Trench warfare and new weapons (machine guns, poison gas)", right: "Created a brutal stalemate on the Western Front" },
+      { left: "Treaty of Versailles and the War Guilt Clause", right: "Humiliated Germany and fueled resentment leading to WWII" },
+      { left: "Russian Revolution of 1917", right: "Bolsheviks seized power and established a communist state" },
+      { left: "Great Depression and global economic collapse", right: "Created conditions for the rise of fascist dictators" },
+      { left: "Gandhi's Salt March and civil disobedience", right: "Challenged British colonial rule through nonviolent resistance" },
+      { left: "Hitler's invasion of Poland (September 1939)", right: "Triggered the start of World War II in Europe" },
+      { left: "Japanese militarism and the Greater East Asia Co-Prosperity Sphere", right: "Justified imperial expansion across Asia and the Pacific" },
+      { left: "Nazi ideology of racial superiority and Lebensraum", right: "Led to the Holocaust and systematic genocide of 6 million Jews" },
+      { left: "Total war: the Blitz, firebombing, and civilian targeting", right: "Blurred the line between soldiers and civilians in modern warfare" },
+      { left: "Atomic bombs dropped on Hiroshima and Nagasaki", right: "Ended WWII and demonstrated the terrifying power of nuclear weapons" },
+      { left: "Government propaganda and state-controlled media", right: "Used mass communication to mobilize and manipulate populations" }
+    ];
+
+    var matchSelected = { left: null, right: null };
+    var matchedPairs = {};
+    var matchTotal = MATCH_DATA.length;
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    function renderMatching() {
+      matchSelected = { left: null, right: null };
+      matchedPairs = {};
+      var leftCol = document.getElementById('match-left');
+      var rightCol = document.getElementById('match-right');
+      leftCol.innerHTML = '<div class="match-col-hdr">Cause / Event</div>';
+      rightCol.innerHTML = '<div class="match-col-hdr">Effect / Significance</div>';
+      document.getElementById('match-success').style.display = 'none';
+      document.getElementById('match-board').style.display = 'flex';
+      document.getElementById('match-counter').textContent = '0 of ' + matchTotal + ' matched';
+
+      var leftOrder = shuffle(MATCH_DATA.map(function(_, i) { return i; }));
+      var rightOrder = shuffle(MATCH_DATA.map(function(_, i) { return i; }));
+
+      leftOrder.forEach(function(idx) {
+        var card = document.createElement('div');
+        card.className = 'match-card';
+        card.textContent = MATCH_DATA[idx].left;
+        card.dataset.idx = idx;
+        card.dataset.side = 'left';
+        card.addEventListener('click', function() { matchClick(this, 'left', idx); });
+        leftCol.appendChild(card);
+      });
+
+      rightOrder.forEach(function(idx) {
+        var card = document.createElement('div');
+        card.className = 'match-card';
+        card.textContent = MATCH_DATA[idx].right;
+        card.dataset.idx = idx;
+        card.dataset.side = 'right';
+        card.addEventListener('click', function() { matchClick(this, 'right', idx); });
+        rightCol.appendChild(card);
+      });
+    }
+
+    function matchClick(el, side, idx) {
+      if (matchedPairs[idx] && side === (matchSelected.left !== null ? 'left' : 'right')) return;
+      if (el.classList.contains('matched')) return;
+
+      // Deselect same side
+      if (matchSelected[side] !== null) {
+        var prev = document.querySelector('.match-card.selected[data-side="' + side + '"]');
+        if (prev) prev.classList.remove('selected');
+      }
+
+      matchSelected[side] = idx;
+      el.classList.add('selected');
+
+      // Check if both sides selected
+      if (matchSelected.left !== null && matchSelected.right !== null) {
+        var leftIdx = matchSelected.left;
+        var rightIdx = matchSelected.right;
+        var leftCard = document.querySelector('.match-card.selected[data-side="left"]');
+        var rightCard = document.querySelector('.match-card.selected[data-side="right"]');
+
+        if (leftIdx === rightIdx) {
+          // Correct match
+          leftCard.classList.remove('selected');
+          rightCard.classList.remove('selected');
+          leftCard.classList.add('matched');
+          rightCard.classList.add('matched');
+          matchedPairs[leftIdx] = true;
+          var count = Object.keys(matchedPairs).length;
+          document.getElementById('match-counter').textContent = count + ' of ' + matchTotal + ' matched';
+          if (count >= matchTotal) {
+            setTimeout(function() {
+              document.getElementById('match-board').style.display = 'none';
+              document.getElementById('match-counter').textContent = '';
+              document.getElementById('match-success').style.display = 'block';
+            }, 600);
+          }
+        } else {
+          // Wrong match
+          leftCard.classList.add('wrong');
+          rightCard.classList.add('wrong');
+          setTimeout(function() {
+            leftCard.classList.remove('selected', 'wrong');
+            rightCard.classList.remove('selected', 'wrong');
+          }, 500);
+        }
+        matchSelected = { left: null, right: null };
+      }
+    }
+
+    document.getElementById('pick-matching').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('matching-game').style.display = 'block';
+      renderMatching();
+    });
+
+    document.getElementById('match-back').addEventListener('click', function() {
+      document.getElementById('matching-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+
+    document.getElementById('match-replay').addEventListener('click', function() {
+      renderMatching();
+    });
+  })();
+
   /* ── STUDY GUIDE ─────────────────────────────────────── */
   function renderGuide() {
     var el = document.getElementById('sg-content');
@@ -3324,6 +3737,89 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
+
+<!-- ══ GAMES PAGE ══ -->
+<div id="pg-games" class="page">
+  <div class="inner" style="max-width:960px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-hero">
+      <div class="eyebrow">Review Games</div>
+      <h2>Test Your Knowledge</h2>
+      <p>Choose a game mode to review Unit 7 with your class or on your own.</p>
+    </div>
+
+    <!-- Game picker -->
+    <div id="game-picker" class="game-picker">
+      <div class="game-pick-card" id="pick-jeopardy">
+        <div class="game-pick-icon">&#128218;</div>
+        <div class="game-pick-name">Jeopardy</div>
+        <div class="game-pick-desc">Team-based review game. Add teams, pick categories, and compete for points. Perfect for classroom play.</div>
+      </div>
+      <div class="game-pick-card" id="pick-matching">
+        <div class="game-pick-icon">&#129513;</div>
+        <div class="game-pick-name">Narrative Matching</div>
+        <div class="game-pick-desc">Match causes to effects to reconstruct the full story of Unit 7 — from the fall of empires to the atomic bomb.</div>
+      </div>
+    </div>
+
+    <!-- ── JEOPARDY ── -->
+    <div id="jeopardy-game" style="display:none">
+      <button type="button" id="jeop-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+
+      <!-- Team setup -->
+      <div id="jeop-setup">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:14px">Set Up Teams</h3>
+        <div id="jeop-teams" class="jeop-teams-bar"></div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button type="button" id="jeop-add-team" style="padding:8px 16px;background:none;border:1.5px solid var(--border2);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">+ Add Team</button>
+          <button type="button" id="jeop-start" style="padding:8px 20px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Start Game</button>
+        </div>
+      </div>
+
+      <!-- Board -->
+      <div id="jeop-board-wrap" style="display:none">
+        <div id="jeop-scoreboard" class="jeop-teams-bar" style="margin-bottom:16px"></div>
+        <div id="jeop-board" class="jeop-board"></div>
+        <div class="jeop-end-bar">
+          <button type="button" id="jeop-end-game" style="padding:10px 24px;background:none;border:1.5px solid var(--red);color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">End Game</button>
+          <button type="button" id="jeop-new-game" style="padding:10px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">New Game</button>
+        </div>
+      </div>
+
+      <!-- Winner screen -->
+      <div id="jeop-winner" class="jeop-winner" style="display:none"></div>
+    </div>
+
+    <!-- Jeopardy question modal -->
+    <div id="jeop-modal" class="jeop-modal" style="display:none">
+      <div class="jeop-modal-inner">
+        <div class="jeop-modal-pts" id="jeop-modal-pts"></div>
+        <div class="jeop-modal-q" id="jeop-modal-q"></div>
+        <div class="jeop-modal-answer" id="jeop-modal-answer"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="jeop-reveal-btn" id="jeop-reveal">Reveal Answer</button>
+        </div>
+        <div class="jeop-award-bar" id="jeop-award-bar" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- ── MATCHING ── -->
+    <div id="matching-game" style="display:none">
+      <button type="button" id="match-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Reconstruct the Unit 7 Narrative</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.5">Match each event or cause on the left with its effect or significance on the right. Click one from each column to pair them.</p>
+      <div class="match-counter" id="match-counter">0 of 12 matched</div>
+      <div class="match-board" id="match-board">
+        <div class="match-col" id="match-left"><div class="match-col-hdr">Cause / Event</div></div>
+        <div class="match-col" id="match-right"><div class="match-col-hdr">Effect / Significance</div></div>
+      </div>
+      <div class="match-success" id="match-success" style="display:none">
+        <h3>You reconstructed the Unit 7 narrative!</h3>
+        <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From shifting empires to the atomic age — you connected all the pieces.</p>
+        <button type="button" id="match-replay" style="padding:12px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ══ PROGRESS PAGE ══ -->
 <div id="pg-progress" class="page">

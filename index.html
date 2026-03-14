@@ -2038,7 +2038,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (sb) sb.style.display = (id === 'pg-mcq' && document.getElementById('mcq-session').classList.contains('active')) ? 'block' : 'none';
 
     if (id === 'pg-guide') renderGuide();
-    if (id === 'pg-progress') renderProgress();
+    if (id === 'pg-progress' && teacherUnlocked) renderProgress();
     window.scrollTo(0, 0);
   }
 
@@ -3225,19 +3225,53 @@ document.addEventListener('DOMContentLoaded', function () {
     renderProgress();
   }
 
-  function setStudentName() {
+  // ── Student name modal ──
+  function dismissNameModal() {
     var n = (document.getElementById('name-input').value || '').trim();
     progressData.studentName = n;
     saveProgress();
-    var modal = document.getElementById('name-modal');
-    if (modal) modal.style.display = 'none';
+    document.getElementById('name-modal').style.display = 'none';
+  }
+  document.getElementById('name-submit-btn').addEventListener('click', dismissNameModal);
+  document.getElementById('name-skip-btn').addEventListener('click', dismissNameModal);
+  document.getElementById('name-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') dismissNameModal();
+  });
+
+  // Show modal on first visit (studentName not yet set)
+  if (progressData.studentName === undefined) {
+    document.getElementById('name-modal').style.display = 'flex';
   }
 
-  // Show name modal on first visit
-  if (progressData.studentName === undefined) {
-    var nm = document.getElementById('name-modal');
-    if (nm) nm.style.display = 'flex';
-  }
+  // ── Teacher login gate ──
+  var TEACHER_PW = 'apworld7';  // ← change this to your password
+  var teacherUnlocked = false;
+
+  document.getElementById('teacher-login-btn').addEventListener('click', function() {
+    var pw = document.getElementById('teacher-pw').value;
+    if (pw === TEACHER_PW) {
+      teacherUnlocked = true;
+      document.getElementById('teacher-gate').style.display = 'none';
+      document.getElementById('teacher-dashboard').style.display = 'block';
+      document.getElementById('teacher-pw-err').textContent = '';
+      renderProgress();
+    } else {
+      document.getElementById('teacher-pw-err').textContent = 'Incorrect password. Try again.';
+    }
+  });
+  document.getElementById('teacher-pw').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('teacher-login-btn').click();
+  });
+  document.getElementById('teacher-logout-btn').addEventListener('click', function() {
+    teacherUnlocked = false;
+    document.getElementById('teacher-dashboard').style.display = 'none';
+    document.getElementById('teacher-gate').style.display = '';
+    document.getElementById('teacher-pw').value = '';
+  });
+
+  // ── Export & Reset buttons ──
+  document.getElementById('export-csv-btn').addEventListener('click', exportCSV);
+  document.getElementById('reset-progress-btn').addEventListener('click', resetProgress);
 
   /* ── STUDY GUIDE ─────────────────────────────────────── */
   function renderGuide() {
@@ -3263,15 +3297,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!-- ══ PROGRESS PAGE ══ -->
 <div id="pg-progress" class="page">
-  <div style="max-width:940px;margin:0 auto;padding:40px 20px 60px">
+  <!-- Teacher login gate -->
+  <div id="teacher-gate" style="max-width:440px;margin:80px auto;padding:40px 28px;background:var(--white);border:2px solid var(--border2);box-shadow:var(--shm)">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px">Teacher Access Only</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:8px">Progress Dashboard</h3>
+    <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.6">Enter the teacher password to view student data and export reports.</p>
+    <input id="teacher-pw" type="password" placeholder="Teacher password" style="width:100%;padding:11px 14px;border:1.5px solid var(--border2);background:var(--cream);font-family:'Source Serif 4',serif;font-size:.92rem;margin-bottom:6px;outline:none;transition:border-color .15s"/>
+    <div id="teacher-pw-err" style="color:var(--red);font-size:.78rem;margin-bottom:14px;min-height:1.2em"></div>
+    <button id="teacher-login-btn" style="width:100%;padding:12px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Unlock Dashboard</button>
+  </div>
+  <!-- Teacher dashboard (hidden until authenticated) -->
+  <div id="teacher-dashboard" style="display:none;max-width:940px;margin:0 auto;padding:40px 20px 60px">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:14px">
       <div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:6px">My Progress</h2>
+        <h2 style="font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:6px">Student Progress</h2>
         <div id="progress-student-name" style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:#7a7860;letter-spacing:.09em;text-transform:uppercase"></div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <button onclick="exportCSV()" style="padding:10px 20px;background:#1a6825;color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .15s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">&#128194; Export to Excel (.csv)</button>
-        <button onclick="resetProgress()" style="padding:10px 18px;background:none;border:1.5px solid #b0001c;color:#b0001c;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .15s" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">&#9166; Reset All Progress</button>
+        <button id="export-csv-btn" style="padding:10px 20px;background:#1a6825;color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .15s">&#128194; Export to Excel (.csv)</button>
+        <button id="reset-progress-btn" style="padding:10px 18px;background:none;border:1.5px solid #b0001c;color:#b0001c;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .15s">&#9166; Reset All Progress</button>
+        <button id="teacher-logout-btn" style="padding:10px 18px;background:none;border:1.5px solid var(--border2);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">&#128274; Lock</button>
       </div>
     </div>
     <div id="progress-summary"></div>
@@ -3282,13 +3327,13 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ══ STUDENT NAME MODAL ══ -->
 <div id="name-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:900;align-items:center;justify-content:center">
   <div style="background:#f9f6ef;padding:40px 36px;max-width:440px;width:92%;border:2px solid #ddd0b8;box-shadow:0 12px 48px rgba(0,0,0,.35)">
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:#b0001c;margin-bottom:10px">AP World History · Unit 7</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:#b0001c;margin-bottom:10px">AP World History &middot; Unit 7</div>
     <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:10px">Welcome, Scholar</h3>
     <p style="font-size:.88rem;color:#48483a;margin-bottom:22px;line-height:1.6">Enter your name so your teacher can identify your progress report when you export it.</p>
-    <input id="name-input" type="text" placeholder="Your name (optional)" style="width:100%;padding:11px 14px;border:1.5px solid #ddd0b8;background:#fff;font-family:'Source Serif 4',serif;font-size:.92rem;margin-bottom:16px;outline:none;transition:border-color .15s" onfocus="this.style.borderColor='#b0001c'" onblur="this.style.borderColor='#ddd0b8'" onkeydown="if(event.key==='Enter')setStudentName()"/>
+    <input id="name-input" type="text" placeholder="Your name (optional)" style="width:100%;padding:11px 14px;border:1.5px solid #ddd0b8;background:#fff;font-family:'Source Serif 4',serif;font-size:.92rem;margin-bottom:16px;outline:none;transition:border-color .15s"/>
     <div style="display:flex;gap:10px">
-      <button onclick="setStudentName()" style="flex:1;padding:11px;background:#b0001c;color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Start Studying</button>
-      <button onclick="setStudentName()" style="padding:11px 18px;background:none;border:1.5px solid #ddd0b8;color:#48483a;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Skip</button>
+      <button id="name-submit-btn" style="flex:1;padding:11px;background:#b0001c;color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Start Studying</button>
+      <button id="name-skip-btn" style="padding:11px 18px;background:none;border:1.5px solid #ddd0b8;color:#48483a;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Skip</button>
     </div>
   </div>
 </div>

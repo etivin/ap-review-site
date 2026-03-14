@@ -419,7 +419,6 @@ img{display:block;max-width:100%}
     <button type="button" class="hn-btn" data-tab="pg-guide">&#128214; Guide</button>
     <button type="button" class="hn-btn" data-tab="pg-tips">&#128161; Tips</button>
     <button type="button" class="hn-btn" data-tab="pg-brain">&#129504; Brain Dump</button>
-    <button type="button" class="hn-btn" data-tab="pg-progress">&#128200; Progress</button>
   </nav>
   <div id="bar-score" style="display:none">Score: <strong id="score-txt">0/0</strong></div>
 </header>
@@ -525,11 +524,12 @@ img{display:block;max-width:100%}
       <button type="button" class="cta-btn" data-tab="pg-mcq">&#128203; Begin MCQ Practice</button>
       <button type="button" class="cta-btn" data-tab="pg-flash">&#128218; Study Flashcards</button>
       <button type="button" class="cta-btn-outline" data-tab="pg-guide">&#128214; Open Study Guide</button>
+      <button type="button" class="cta-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
     </div>
   </section>
 
   <footer class="site-footer">
-    <p>Archbishop Moeller High School &nbsp;&bull;&nbsp; APWH: Modern &nbsp;&bull;&nbsp; Unit 7: Global Conflict After 1900</p>
+    <p>Archbishop Moeller High School &nbsp;&bull;&nbsp; <span id="secret-progress-trigger" style="cursor:default;user-select:none">APWH: Modern</span> &nbsp;&bull;&nbsp; Unit 7: Global Conflict After 1900</p>
   </footer>
 </div>
 
@@ -3272,6 +3272,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // ── Export & Reset buttons ──
   document.getElementById('export-csv-btn').addEventListener('click', exportCSV);
   document.getElementById('reset-progress-btn').addEventListener('click', resetProgress);
+
+  // ── Secret Progress trigger (footer "APWH: Modern" text) ──
+  document.getElementById('secret-progress-trigger').addEventListener('click', function() {
+    showTab('pg-progress');
+  });
 
   /* ── STUDY GUIDE ─────────────────────────────────────── */
   function renderGuide() {

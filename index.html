@@ -2337,6 +2337,13 @@ document.addEventListener('DOMContentLoaded', function () {
       mcqQs = (QB[m] || []).slice();
       mcqQs.forEach(function(_, idx) { mcqQsMeta.push({ topic: m, topicIdx: idx }); });
     }
+    // Clear saved answers so Reset & Retry actually shows a blank quiz
+    if (progressData.mcq) {
+      mcqQsMeta.forEach(function(meta) {
+        delete progressData.mcq[meta.topic + '_' + meta.topicIdx];
+      });
+      saveProgress();
+    }
     var names = {'all':'All Unit 7 Questions','7.1':'7.1 — Shifting Power','7.2':'7.2 — Causes of WWI','7.3':'7.3 — Conducting WWI','7.4':'7.4 — Interwar Economy','7.5':'7.5 — Resistance & Nationalism','7.6':'7.6 — Causes & Conduct of WWII','7.7':'7.7 — Mass Atrocities','7.8':'7.8 — Propaganda'};
     document.getElementById('qhdr-name').textContent = names[m] || m;
     document.getElementById('qhdr-prog').textContent = '0 of ' + mcqQs.length + ' answered';

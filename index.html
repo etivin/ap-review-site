@@ -486,6 +486,35 @@ img{display:block;max-width:100%}
 .warmup-frame{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin-bottom:12px;font-size:.86rem;line-height:1.7}
 .warmup-model{background:#e8f5e9;border:1px solid #1a6825;padding:14px 18px;margin-top:14px;font-size:.84rem;line-height:1.65}
 .warmup-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+/* ── Speed Quiz ─────────────────────────────────────────── */
+.sq-score-chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ink);background:var(--paper);border:1.5px solid var(--border2);padding:6px 14px}
+.sq-qnum{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sq-timer-bar-wrap{height:8px;background:var(--border);border-radius:4px;margin-bottom:18px;overflow:hidden}
+.sq-timer-bar{height:100%;background:var(--red);border-radius:4px}
+.sq-q-text{font-family:'Playfair Display',serif;font-size:1.2rem;line-height:1.5;margin-bottom:20px;text-align:center}
+.sq-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto 16px}
+.sq-choice{padding:16px 18px;border:2px solid var(--border2);background:var(--white);font-size:.86rem;line-height:1.4;cursor:pointer;text-align:left;transition:background .15s,border-color .15s;font-family:inherit}
+.sq-choice:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.sq-choice.sq-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.sq-choice.sq-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.sq-pts-flash{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:1rem;letter-spacing:.1em;min-height:26px;margin-bottom:8px}
+.sq-expl{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--border2);padding:12px 16px;font-size:.83rem;line-height:1.6;max-width:640px;margin:0 auto}
+.sq-final-score{font-family:'IBM Plex Mono',monospace;font-size:2.4rem;letter-spacing:.06em;margin:14px 0 4px}
+.sq-bk-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--border);font-size:.82rem;line-height:1.5;text-align:left}
+.sq-bk-icon{font-size:1rem;flex-shrink:0;margin-top:2px}
+@media(max-width:520px){.sq-choices{grid-template-columns:1fr}}
+/* ── Timeline Builder ───────────────────────────────────── */
+.tl-pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:22px}
+.tl-card{background:var(--white);border:2px solid var(--border2);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.tl-card:hover:not(.tl-placed){border-color:var(--red);transform:translateY(-2px)}
+.tl-card-title{font-size:.84rem;font-weight:600;color:var(--ink)}
+.tl-placed{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.7}
+.tl-wrong-anim{animation:matchShake .35s ease-out;border-color:var(--red) !important;background:#fff5f5 !important}
+.tl-sequence{background:var(--paper);border:1px solid var(--border);padding:14px 18px;margin-bottom:16px}
+.tl-seq-lbl{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.tl-seq-item{display:flex;gap:10px;align-items:baseline;font-size:.82rem;line-height:1.5;color:#1a6825;margin-bottom:4px}
+.tl-seq-num{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;min-width:18px;color:#1a6825}
+.tl-next-slot{color:var(--muted);font-style:italic}
 
 </style>
 </head>
@@ -4124,6 +4153,249 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  /* ── SPEED QUIZ ───────────────────────────────────────── */
+  (function() {
+    var SQ_DATA = [
+      { q: 'Which event directly triggered the alliance system and started World War I?', o: ['The sinking of the Lusitania', 'The assassination of Archduke Franz Ferdinand', "Germany's invasion of Belgium", "Austria-Hungary's annexation of Bosnia"], c: 1, e: 'Gavrilo Princip assassinated Franz Ferdinand in Sarajevo on June 28, 1914, setting off a cascade of alliance obligations that drew every major European power into war within weeks.' },
+      { q: 'What does the acronym MAIN stand for as the long-term causes of WWI?', o: ['Militarism, Alliances, Imperialism, Nationalism', 'Mobilization, Aggression, Industrialization, Nationalism', 'Military Alliances, Imperial Nations', 'Monarchism, Annexation, Industrialization, Nationalism'], c: 0, e: 'MAIN = Militarism (arms race), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), Nationalism (Pan-Slavism, German nationalism). These tensions made war explosive once the trigger was pulled.' },
+      { q: 'The War Guilt Clause (Article 231) of the Treaty of Versailles required Germany to', o: ['Surrender all overseas colonies immediately', 'Accept sole responsibility for WWI and pay reparations', 'Disband its military permanently', 'Join the League of Nations as a probationary member'], c: 1, e: 'Article 231 forced Germany to accept sole war guilt and pay massive reparations. The economic devastation and national humiliation it caused fueled the resentment that Hitler exploited to rise to power.' },
+      { q: 'The Great Depression began in what year?', o: ['1925', '1927', '1929', '1933'], c: 2, e: 'The U.S. stock market crashed in October 1929, triggering a global economic collapse. By 1933, U.S. unemployment hit 25%, GDP fell ~27%, and world trade dropped by half.' },
+      { q: "FDR's Keynesian economic recovery program during the Great Depression was called", o: ['The Five Year Plans', 'Import Substitution', 'The New Deal', 'The Marshall Plan'], c: 2, e: "FDR's New Deal (1933) used government spending on public works, relief programs, and financial regulation to stimulate recovery — a practical application of Keynesian deficit spending." },
+      { q: "Japan's 1905 victory in the Russo-Japanese War was historically significant primarily because", o: ['It gave Japan permanent control of Korea', 'It was the first time a non-European nation defeated a European power in modern warfare', 'It directly caused WWI', 'It collapsed the Qing Dynasty'], c: 1, e: "Japan's defeat of Russia shocked the world — demonstrating that a non-Western nation could defeat a European great power using industrialization and modern military tactics, signaling the end of automatic European dominance." },
+      { q: "Gandhi's Salt March (1930) was a protest against", o: ['British control of the Indian army', 'The partition of Bengal', 'British colonial taxation and monopoly on salt', 'The deportation of Indian workers'], c: 2, e: "The British Salt Acts prohibited Indians from making or selling salt. Gandhi's 240-mile march to the sea to make salt was a defining act of nonviolent civil disobedience that galvanized the Indian independence movement." },
+      { q: 'Which technology was most responsible for the stalemate on the WWI Western Front?', o: ['Airplanes', 'Poison gas', 'Machine guns and barbed wire', 'Naval submarines'], c: 2, e: 'Machine guns firing hundreds of rounds per minute made infantry advances across open ground nearly suicidal. Combined with barbed wire, artillery, and trenches, they created the deadlock that defined WWI.' },
+      { q: "Stalin's centrally directed Soviet economic modernization program was called", o: ['The New Economic Policy', 'The Five Year Plans', 'Collectivization Reform', 'The Comintern Agenda'], c: 1, e: "Stalin's Five Year Plans (beginning 1928) set industrial production quotas and forced collectivization of agriculture, transforming the USSR into a major industrial power at the cost of millions of lives." },
+      { q: 'The Munich Agreement (1938) is primarily remembered as an example of', o: ['Successful collective security', 'The policy of appeasement toward Hitler', "The League of Nations' military enforcement", 'Allied deterrence of fascism'], c: 1, e: "Britain and France handed Hitler the Sudetenland at Munich, hoping to avoid war. Churchill called it 'a total defeat.' Six months later Hitler seized all of Czechoslovakia, proving appeasement had catastrophically failed." },
+      { q: 'The Holocaust resulted in the systematic killing of approximately', o: ['1 million people total', '3 million Jews only', '6 million Jews and 6 million others', '20 million soldiers and civilians combined'], c: 2, e: "Nazi Germany used industrial methods — gas chambers, crematoria, deportation networks — to murder approximately 6 million Jews and 6 million others including Roma, disabled people, Soviet POWs, and political prisoners." },
+      { q: 'Which economic policy did Latin American governments use during the Great Depression to reduce dependence on foreign imports?', o: ['Keynesian austerity', 'Import substitution industrialization', 'Gold standard currency pegging', 'Export-led growth'], c: 1, e: "Import substitution industrialization (ISI) encouraged domestic manufacturing of goods previously imported from Europe and the U.S. Mexico nationalized its oil industry (Pemex, 1938) as part of this broader shift." },
+      { q: 'Total war in WWI and WWII is best described as', o: ['A strategy targeting only military combatants', 'The complete mobilization of a nation\'s economy and civilian population for warfare', 'A peace treaty requiring unconditional surrender', 'An alliance that obligated all members to join any conflict'], c: 1, e: 'Total war blurred the soldier/civilian line. Governments controlled industries, rationed goods, used propaganda, conscripted workers, and deliberately targeted civilian infrastructure — making the home front as critical as the battlefield.' },
+      { q: 'Which development most directly explains the rise of fascism in Germany and Italy during the 1930s?', o: ["WWI military generals who refused to accept civilian government's authority", 'Economic devastation and national humiliation following WWI and the Great Depression', 'Communist revolutions that forced moderate parties to adopt radical nationalism', 'The collapse of the League of Nations military enforcement'], c: 1, e: "Versailles's punishing terms left Germany economically destroyed and nationally humiliated. The Great Depression deepened the crisis. Desperate populations turned to authoritarian leaders promising national restoration and economic solutions." },
+      { q: 'The atomic bombs dropped on Hiroshima and Nagasaki (1945) are historically significant because they', o: ['Were the first use of chemical weapons in warfare', 'Ended WWI and established U.S. military supremacy', 'Ended WWII and introduced a new era of nuclear deterrence', 'Destroyed military bases with minimal civilian casualties'], c: 2, e: "The bombs killed ~200,000 people and forced Japan's surrender, ending WWII. They also inaugurated the nuclear age — a world where cities could be annihilated in an instant, permanently transforming war and international relations." }
+    ];
+
+    var sqCurrent = 0, sqScore = 0, sqTimer = null, sqSecondsLeft = 20, sqAnswered = false, sqResults = [];
+
+    function renderSpeedQuiz() {
+      sqCurrent = 0; sqScore = 0; sqResults = [];
+      document.getElementById('sq-question-area').style.display = 'block';
+      document.getElementById('sq-final').style.display = 'none';
+      showSQQuestion();
+    }
+
+    function showSQQuestion() {
+      sqAnswered = false;
+      sqSecondsLeft = 20;
+      var item = SQ_DATA[sqCurrent];
+      document.getElementById('sq-qnum').textContent = 'Question ' + (sqCurrent + 1) + ' of ' + SQ_DATA.length;
+      document.getElementById('sq-score-chip').textContent = 'Score: ' + sqScore.toLocaleString();
+      document.getElementById('sq-q-text').textContent = item.q;
+      document.getElementById('sq-pts-flash').textContent = '';
+      document.getElementById('sq-pts-flash').style.color = '';
+      document.getElementById('sq-expl').style.display = 'none';
+      var grid = document.getElementById('sq-choices');
+      grid.innerHTML = '';
+      item.o.forEach(function(opt, i) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sq-choice';
+        btn.textContent = opt;
+        btn.addEventListener('click', function() { sqAnswer(i); });
+        grid.appendChild(btn);
+      });
+      // Timer bar animation
+      var bar = document.getElementById('sq-timer-bar');
+      bar.style.transition = 'none';
+      bar.style.width = '100%';
+      setTimeout(function() {
+        bar.style.transition = 'width ' + sqSecondsLeft + 's linear';
+        bar.style.width = '0%';
+      }, 30);
+      clearInterval(sqTimer);
+      sqTimer = setInterval(function() {
+        sqSecondsLeft--;
+        if (sqSecondsLeft <= 0) { clearInterval(sqTimer); sqAnswer(-1); }
+      }, 1000);
+    }
+
+    function sqAnswer(choice) {
+      if (sqAnswered) return;
+      sqAnswered = true;
+      clearInterval(sqTimer);
+      var bar = document.getElementById('sq-timer-bar');
+      bar.style.transition = 'none';
+      bar.style.width = Math.max(0, (sqSecondsLeft / 20) * 100) + '%';
+      var item = SQ_DATA[sqCurrent];
+      var correct = choice === item.c;
+      var pts = correct ? Math.max(100, Math.round((sqSecondsLeft / 20) * 1000)) : 0;
+      sqScore += pts;
+      sqResults.push({ correct: correct, choice: choice, item: item });
+      document.querySelectorAll('#sq-choices .sq-choice').forEach(function(btn, i) {
+        btn.disabled = true;
+        if (i === item.c) btn.classList.add('sq-correct');
+        else if (i === choice) btn.classList.add('sq-wrong');
+      });
+      var flash = document.getElementById('sq-pts-flash');
+      if (choice === -1) { flash.textContent = "Time\u2019s up! +0 pts"; flash.style.color = 'var(--red)'; }
+      else if (correct) { flash.textContent = '+' + pts + ' pts'; flash.style.color = '#1a6825'; }
+      else { flash.textContent = '+0 pts'; flash.style.color = 'var(--red)'; }
+      document.getElementById('sq-score-chip').textContent = 'Score: ' + sqScore.toLocaleString();
+      var expl = document.getElementById('sq-expl');
+      expl.textContent = item.e;
+      expl.style.display = 'block';
+      setTimeout(function() {
+        sqCurrent++;
+        if (sqCurrent >= SQ_DATA.length) showSQFinal();
+        else showSQQuestion();
+      }, 2600);
+    }
+
+    function showSQFinal() {
+      document.getElementById('sq-question-area').style.display = 'none';
+      document.getElementById('sq-final').style.display = 'block';
+      var correct = sqResults.filter(function(r) { return r.correct; }).length;
+      document.getElementById('sq-final-score').textContent = sqScore.toLocaleString() + ' pts';
+      document.getElementById('sq-final-correct').textContent = correct + ' / ' + SQ_DATA.length + ' correct';
+      var bk = document.getElementById('sq-breakdown');
+      bk.innerHTML = '';
+      sqResults.forEach(function(r, i) {
+        var row = document.createElement('div');
+        row.className = 'sq-bk-row';
+        row.innerHTML = '<div class="sq-bk-icon" style="color:' + (r.correct ? '#1a6825' : 'var(--red)') + '">' + (r.correct ? '&#10003;' : '&#10007;') + '</div>' +
+          '<div><strong>' + (i + 1) + '. ' + r.item.q + '</strong>' +
+          (r.correct ? '' : '<br><span style="color:var(--red)">Your answer: ' + (r.choice === -1 ? "Time\u2019s up" : r.item.o[r.choice]) + '</span>') +
+          '<br><span style="color:#1a6825">Correct: ' + r.item.o[r.item.c] + '</span></div>';
+        bk.appendChild(row);
+      });
+    }
+
+    document.getElementById('pick-speedquiz').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('speedquiz-game').style.display = 'block';
+      renderSpeedQuiz();
+    });
+    document.getElementById('sq-back').addEventListener('click', function() {
+      clearInterval(sqTimer);
+      document.getElementById('speedquiz-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+    document.getElementById('sq-replay').addEventListener('click', function() {
+      renderSpeedQuiz();
+    });
+  })();
+
+  /* ── TIMELINE BUILDER ─────────────────────────────────── */
+  (function() {
+    // TIMELINE is already in chronological order; use index as correct position
+    var tlPool = [], tlCurrent = 0, tlMisses = 0;
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    function renderTimeline() {
+      tlCurrent = 0; tlMisses = 0;
+      tlPool = shuffle(TIMELINE.map(function(_, i) { return i; }));
+      document.getElementById('tl-result').style.display = 'none';
+      document.getElementById('tl-sequence-wrap').style.display = 'block';
+      document.getElementById('tl-wrong-msg').textContent = '';
+      updateTLProgress();
+      renderTLPool(null);
+      updateTLSequence();
+    }
+
+    function updateTLProgress() {
+      document.getElementById('tl-progress').textContent = tlCurrent + ' of ' + TIMELINE.length + ' placed correctly';
+    }
+
+    function renderTLPool(wrongIdx) {
+      var pool = document.getElementById('tl-pool');
+      pool.innerHTML = '';
+      tlPool.forEach(function(origIdx) {
+        if (origIdx < tlCurrent) return; // already placed (correct items are first tlCurrent of TIMELINE)
+        var item = TIMELINE[origIdx];
+        var card = document.createElement('div');
+        card.className = 'tl-card' + (origIdx === wrongIdx ? ' tl-wrong-anim' : '');
+        card.innerHTML = '<div class="tl-card-title">' + item.title + '</div>';
+        card.addEventListener('click', (function(idx, el) {
+          return function() { tlClick(idx, el); };
+        })(origIdx, card));
+        pool.appendChild(card);
+      });
+    }
+
+    function updateTLSequence() {
+      var list = document.getElementById('tl-seq-list');
+      list.innerHTML = '';
+      for (var i = 0; i < tlCurrent; i++) {
+        var div = document.createElement('div');
+        div.className = 'tl-seq-item';
+        div.innerHTML = '<span class="tl-seq-num">' + (i + 1) + '.</span>' +
+          '<span>' + TIMELINE[i].year + ' &mdash; ' + TIMELINE[i].title + '</span>';
+        list.appendChild(div);
+      }
+      if (tlCurrent < TIMELINE.length) {
+        var next = document.createElement('div');
+        next.className = 'tl-seq-item tl-next-slot';
+        next.innerHTML = '<span class="tl-seq-num">' + (tlCurrent + 1) + '.</span><span>What comes next?</span>';
+        list.appendChild(next);
+      }
+    }
+
+    function tlClick(origIdx, card) {
+      if (origIdx === tlCurrent) {
+        // Correct — this event belongs at position tlCurrent
+        tlCurrent++;
+        document.getElementById('tl-wrong-msg').textContent = '';
+        updateTLProgress();
+        if (tlCurrent >= TIMELINE.length) {
+          showTLResult();
+        } else {
+          renderTLPool(null);
+          updateTLSequence();
+        }
+      } else {
+        // Wrong
+        tlMisses++;
+        document.getElementById('tl-wrong-msg').textContent = 'Not quite \u2014 try again!';
+        renderTLPool(origIdx);
+        setTimeout(function() {
+          document.getElementById('tl-wrong-msg').textContent = '';
+          renderTLPool(null);
+        }, 400);
+      }
+    }
+
+    function showTLResult() {
+      document.getElementById('tl-sequence-wrap').style.display = 'none';
+      var res = document.getElementById('tl-result');
+      res.style.display = 'block';
+      var grade = tlMisses === 0 ? 'Perfect!' : tlMisses <= 3 ? 'Nice work!' : 'Keep practicing!';
+      res.innerHTML = '<div style="text-align:center;padding:28px 0">' +
+        '<div style="font-family:\'Playfair Display\',serif;font-size:1.6rem;margin-bottom:8px">' + grade + '</div>' +
+        '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:.75rem;letter-spacing:.08em;color:var(--muted);margin-bottom:22px">' +
+          TIMELINE.length + ' events placed &mdash; ' + tlMisses + ' wrong click' + (tlMisses !== 1 ? 's' : '') +
+        '</div>' +
+        '<button type="button" id="tl-replay-btn" style="padding:12px 28px;background:var(--red);color:#fff;border:none;font-family:\'IBM Plex Mono\',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>' +
+        '</div>';
+      document.getElementById('tl-replay-btn').addEventListener('click', function() { renderTimeline(); });
+    }
+
+    document.getElementById('pick-timeline').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('timeline-game').style.display = 'block';
+      renderTimeline();
+    });
+    document.getElementById('tl-back').addEventListener('click', function() {
+      document.getElementById('timeline-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+  })();
+
   /* ── STUDY GUIDE ─────────────────────────────────────── */
   function renderGuide() {
     var el = document.getElementById('sg-content');
@@ -4176,6 +4448,16 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="game-pick-icon">&#9200;</div>
         <div class="game-pick-name">Source Line Warm-up</div>
         <div class="game-pick-desc">One document, 60 seconds. Pick a lens, complete the sentence frame, earn the point. Reps on photographs, ads, and official reports.</div>
+      </div>
+      <div class="game-pick-card" id="pick-speedquiz">
+        <div class="game-pick-icon">&#9889;</div>
+        <div class="game-pick-name">Speed Quiz</div>
+        <div class="game-pick-desc">15 questions, 20 seconds each. Answer faster to earn more points. Final score and breakdown show exactly what to review.</div>
+      </div>
+      <div class="game-pick-card" id="pick-timeline">
+        <div class="game-pick-icon">&#128337;</div>
+        <div class="game-pick-name">Timeline Builder</div>
+        <div class="game-pick-desc">Click Unit 7 events from earliest to latest. Wrong picks don&rsquo;t advance &mdash; every miss counts against your score.</div>
       </div>
     </div>
 
@@ -4281,6 +4563,48 @@ document.addEventListener('DOMContentLoaded', function () {
       <div style="text-align:right;margin-top:18px">
         <button type="button" id="warmup-next" style="padding:10px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;display:none">Next Document &rarr;</button>
       </div>
+    </div>
+
+    <!-- ── SPEED QUIZ ── -->
+    <div id="speedquiz-game" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <button type="button" id="sq-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer">&larr; Back to Games</button>
+        <div class="sq-score-chip" id="sq-score-chip">Score: 0</div>
+      </div>
+      <!-- Question area -->
+      <div id="sq-question-area">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <div class="sq-qnum" id="sq-qnum">Question 1 of 15</div>
+        </div>
+        <div class="sq-timer-bar-wrap"><div class="sq-timer-bar" id="sq-timer-bar" style="width:100%"></div></div>
+        <div class="sq-q-text" id="sq-q-text"></div>
+        <div class="sq-choices" id="sq-choices"></div>
+        <div class="sq-pts-flash" id="sq-pts-flash"></div>
+        <div class="sq-expl" id="sq-expl" style="display:none"></div>
+      </div>
+      <!-- Final screen -->
+      <div id="sq-final" style="display:none;text-align:center;padding:24px 0">
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:6px">Quiz Complete!</div>
+        <div class="sq-final-score" id="sq-final-score"></div>
+        <div id="sq-final-correct" style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--muted);margin-bottom:20px"></div>
+        <button type="button" id="sq-replay" style="padding:12px 28px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+        <div style="max-width:640px;margin:24px auto 0" id="sq-breakdown"></div>
+      </div>
+    </div>
+
+    <!-- ── TIMELINE BUILDER ── -->
+    <div id="timeline-game" style="display:none">
+      <button type="button" id="tl-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Timeline Builder</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:16px;line-height:1.55">Click the events in order from <strong>earliest</strong> to <strong>latest</strong>. Wrong picks don&rsquo;t advance &mdash; try again.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px" id="tl-progress">0 of 9 placed correctly</div>
+      <div id="tl-wrong-msg" style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:var(--red);min-height:20px;margin-bottom:10px"></div>
+      <div class="tl-pool" id="tl-pool"></div>
+      <div class="tl-sequence" id="tl-sequence-wrap">
+        <div class="tl-seq-lbl">Placed correctly &mdash; earliest to latest:</div>
+        <div id="tl-seq-list"></div>
+      </div>
+      <div id="tl-result" style="display:none"></div>
     </div>
 
   </div>

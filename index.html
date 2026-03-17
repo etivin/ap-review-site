@@ -454,6 +454,38 @@ img{display:block;max-width:100%}
   .jeop-board{grid-template-columns:repeat(3,1fr)}
   .jeop-cat:nth-child(n+4){display:none}
 }
+/* ── HAPP Lens / Sentence Frame ─────────────────────────── */
+.happ-lens-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.happ-lens-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .15s}
+.happ-lens-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.happ-lens-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.happ-frame{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin:0 0 12px;font-size:.86rem;line-height:1.7}
+.happ-frame-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.happ-frame-tip{font-size:.78rem;color:var(--mid);font-style:italic;margin-top:6px}
+/* ── Sort It game ───────────────────────────────────────── */
+.sortit-card{background:var(--white);border:2px solid var(--border2);padding:16px 18px;margin-bottom:12px;font-size:.86rem;line-height:1.6}
+.sortit-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sortit-btn{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .15s}
+.sortit-btn.earns{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.sortit-btn.nope{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.sortit-card.revealed-correct{border-color:#1a6825}
+.sortit-card.revealed-wrong{border-color:var(--red)}
+.sortit-explain{font-size:.79rem;color:var(--mid);margin-top:8px;display:none;line-height:1.55;border-top:1px solid var(--border);padding-top:8px}
+.sortit-card.revealed-correct .sortit-explain,.sortit-card.revealed-wrong .sortit-explain{display:block}
+/* ── Source Line Warm-up ────────────────────────────────── */
+.warmup-timer{font-family:'IBM Plex Mono',monospace;font-size:2rem;text-align:center;letter-spacing:.06em;color:var(--ink);margin:8px 0 16px}
+.warmup-timer.urgent{color:var(--red)}
+.warmup-source-card{background:var(--paper);border:1px solid var(--border2);border-left:4px solid var(--red);padding:16px 20px;margin-bottom:16px}
+.warmup-doc-type{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.warmup-source-line{font-weight:700;font-size:.88rem;margin-bottom:7px;color:var(--ink)}
+.warmup-excerpt{font-size:.83rem;color:var(--mid);line-height:1.6;font-style:italic}
+.warmup-lens-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.warmup-lens-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all .15s}
+.warmup-lens-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.warmup-lens-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.warmup-frame{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin-bottom:12px;font-size:.86rem;line-height:1.7}
+.warmup-model{background:#e8f5e9;border:1px solid #1a6825;padding:14px 18px;margin-top:14px;font-size:.84rem;line-height:1.65}
+.warmup-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
 
 </style>
 </head>
@@ -904,11 +936,30 @@ img{display:block;max-width:100%}
           <div class="drill-rubric-title">What earns the point &mdash; official rubric language (DBQ only)</div>
           <ul>
             <li>For <strong>at least 2 documents</strong>, explain how the document&rsquo;s <strong>H</strong>istorical situation, <strong>A</strong>udience, <strong>P</strong>urpose, or <strong>P</strong>oint of View is relevant to an argument</li>
-            <li>Must <strong>explain HOW or WHY</strong> &mdash; not just identify. Say &ldquo;This is significant because&hellip;&rdquo;</li>
-            <li>The explanation must connect to your <strong>argument about the prompt</strong></li>
+            <li>Must <strong>explain HOW or WHY</strong> &mdash; not just identify. The <em>&ldquo;which means&rdquo;</em> anchor forces the second move: &ldquo;[feature] is [X], <strong>which means</strong> [consequence for argument].&rdquo;</li>
+            <li>The explanation must connect to your <strong>argument about the prompt</strong> &mdash; the sourcing sentence must do work, not just exist</li>
           </ul>
         </div>
-        <p style="font-size:.83rem;color:var(--mid);margin:10px 0 6px">Write HAPP analysis for <strong>two different documents</strong> from the DBQ above. Label each (e.g. &ldquo;Doc 1:&rdquo; and &ldquo;Doc 4:&rdquo;).</p>
+
+        <!-- Lens selector -->
+        <div style="margin:12px 0 6px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Step 1 &mdash; pick a lens (don&rsquo;t default to POV every time):</div>
+          <div class="happ-lens-row" id="happ-lens-row">
+            <button type="button" class="happ-lens-btn active" data-lens="pov">Point of View</button>
+            <button type="button" class="happ-lens-btn" data-lens="purpose">Purpose</button>
+            <button type="button" class="happ-lens-btn" data-lens="audience">Audience</button>
+            <button type="button" class="happ-lens-btn" data-lens="hist">Historical Situation</button>
+          </div>
+        </div>
+
+        <!-- Sentence frame -->
+        <div class="happ-frame" id="happ-frame">
+          <div class="happ-frame-lbl">Step 2 &mdash; sentence frame (fill in the blanks):</div>
+          <div id="happ-frame-text">&ldquo;The <strong>point of view</strong> of [Doc #] is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X &mdash; connect to your argument</em>].&rdquo;</div>
+          <div class="happ-frame-tip" id="happ-frame-tip">Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?</div>
+        </div>
+
+        <p style="font-size:.83rem;color:var(--mid);margin:10px 0 6px">Step 3 &mdash; write HAPP analysis for <strong>two different documents</strong> from the DBQ above. Label each (e.g. &ldquo;Doc 1:&rdquo; and &ldquo;Doc 4:&rdquo;). You can use different lenses for each.</p>
         <textarea class="drill-textarea" id="drill-happ-text" placeholder="Write your HAPP analysis for two documents here..."></textarea>
         <button type="button" class="drill-check-btn" data-drill="happ">Check HAPP</button>
         <div class="drill-result" id="drill-happ-result"></div>
@@ -3725,6 +3776,347 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  /* ── HAPP LENS SWITCHER ───────────────────────────────── */
+  (function() {
+    var LENS_FRAMES = {
+      pov: {
+        text: '&ldquo;The <strong>point of view</strong> of [Doc #] is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?'
+      },
+      purpose: {
+        text: '&ldquo;The <strong>purpose</strong> of [Doc #] was to [<em>specific goal &mdash; convince, report, warn, celebrate</em>] [<em>specific audience</em>], <strong>which means</strong> the source [<em>overstates / downplays / frames X &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: why was this document created, and how does that goal shape what it says or leaves out?'
+      },
+      audience: {
+        text: '&ldquo;Because [Doc #] was written for [<em>specific audience &mdash; who they are and their context</em>], the source [<em>emphasizes / avoids X</em>], <strong>which means</strong> it [<em>consequence for your argument</em>].&rdquo;',
+        tip: 'Ask: who was this meant to reach, and what did that audience need &mdash; or not need &mdash; to hear?'
+      },
+      hist: {
+        text: '&ldquo;[Doc #] was produced during [<em>specific historical moment or event</em>], <strong>which means</strong> [<em>that context shaped the source because &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: what was happening when this was created, and how does that context explain what the source says?'
+      }
+    };
+    document.querySelectorAll('#happ-lens-row .happ-lens-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#happ-lens-row .happ-lens-btn').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        var lens = this.dataset.lens;
+        document.getElementById('happ-frame-text').innerHTML = LENS_FRAMES[lens].text;
+        document.getElementById('happ-frame-tip').innerHTML = LENS_FRAMES[lens].tip;
+      });
+    });
+  })();
+
+  /* ── SORT IT GAME ─────────────────────────────────────── */
+  (function() {
+    var SORT_DATA = [
+      {
+        text: 'Doc 3 was written by a Japanese military official, which means the source likely downplays the human costs of imperial expansion in order to persuade government leaders to authorize further military action.',
+        earns: true,
+        explain: '<strong>Earns the point.</strong> Identifies the author\'s role (military official), explains the consequence (downplays human costs), and connects to an argument about persuasion and imperial authorization.'
+      },
+      {
+        text: 'Doc 1 was written by a Japanese business newspaper.',
+        earns: false,
+        explain: '<strong>Doesn\'t earn the point.</strong> Identifies the source but stops there. No "which means" — no explanation of why a business newspaper matters for any argument.'
+      },
+      {
+        text: 'Because Doc 5 is a U.S. government advertisement produced during WWII, its purpose was to maintain public morale, which means it overstates Allied military progress to encourage continued civilian support for the war.',
+        earns: true,
+        explain: '<strong>Earns the point.</strong> Identifies the purpose (maintain morale), explains the consequence (overstates progress), and connects to the argument about state propaganda during total war.'
+      },
+      {
+        text: 'The author of Doc 4 is a Korean nationalist, so this document shows a Korean perspective.',
+        earns: false,
+        explain: '<strong>Doesn\'t earn the point.</strong> Identifies that the author is Korean, but "shows a Korean perspective" is circular and vague. No explanation of what that means for the argument or what the source emphasizes or omits.'
+      },
+      {
+        text: 'Doc 7 was produced at the height of Stalin\'s industrialization campaign, which means it reflects intense pressure to project confidence in Soviet economic policy — making it an unreliable measure of actual worker conditions.',
+        earns: true,
+        explain: '<strong>Earns the point.</strong> Names the historical situation (Stalin\'s industrialization), explains the consequence (pressure to project confidence), and connects to the argument about source reliability and state control.'
+      },
+      {
+        text: 'This propaganda poster has a purpose of convincing people. It uses strong imagery to make its point.',
+        earns: false,
+        explain: '<strong>Doesn\'t earn the point.</strong> "Convincing people" is too vague to name a specific purpose, and describing the imagery is not HAPP analysis. No connection to an argument.'
+      },
+      {
+        text: 'Doc 2 is a photograph taken by a British War Office photographer on the Western Front, which means the image was likely curated to avoid showing British casualties — supporting the argument that governments used propaganda to maintain domestic support during total war.',
+        earns: true,
+        explain: '<strong>Earns the point.</strong> Identifies the source type and producer (British War Office), explains the consequence (curated to avoid casualties), and connects explicitly to the argument about wartime propaganda.'
+      },
+      {
+        text: 'The point of view of Doc 6 is that the author supports imperialism. This helps understand the document.',
+        earns: false,
+        explain: '<strong>Doesn\'t earn the point.</strong> "This helps understand the document" is not an explanation of relevance to an argument. The analysis must say what consequence the POV has for what the source emphasizes, omits, or why it was produced.'
+      }
+    ];
+
+    function renderSortIt() {
+      var container = document.getElementById('sortit-cards');
+      container.innerHTML = '';
+      document.getElementById('sortit-score').style.display = 'none';
+      document.getElementById('sortit-replay-bar').style.display = 'none';
+      SORT_DATA.forEach(function(item, i) {
+        var card = document.createElement('div');
+        card.className = 'sortit-card';
+        card.dataset.idx = i;
+        card.dataset.choice = '';
+        card.innerHTML =
+          '<div class="sortit-card-text">' + (i + 1) + '. ' + item.text + '</div>' +
+          '<div class="sortit-btn-row">' +
+            '<button type="button" class="sortit-btn" data-choice="earns">Earns it</button>' +
+            '<button type="button" class="sortit-btn" data-choice="nope">Doesn\'t earn it</button>' +
+          '</div>' +
+          '<div class="sortit-explain">' + item.explain + '</div>';
+        card.querySelectorAll('.sortit-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            card.querySelectorAll('.sortit-btn').forEach(function(b) { b.classList.remove('earns', 'nope'); });
+            this.classList.add(this.dataset.choice);
+            card.dataset.choice = this.dataset.choice;
+          });
+        });
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('pick-sortit').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('sortit-game').style.display = 'block';
+      renderSortIt();
+    });
+
+    document.getElementById('sortit-back').addEventListener('click', function() {
+      document.getElementById('sortit-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+
+    document.getElementById('sortit-submit').addEventListener('click', function() {
+      var correct = 0;
+      document.querySelectorAll('#sortit-cards .sortit-card').forEach(function(card) {
+        var i = parseInt(card.dataset.idx);
+        var choice = card.dataset.choice;
+        var earns = SORT_DATA[i].earns;
+        var gotIt = (choice === 'earns' && earns) || (choice === 'nope' && !earns);
+        card.classList.remove('revealed-correct', 'revealed-wrong');
+        card.classList.add(gotIt ? 'revealed-correct' : 'revealed-wrong');
+        if (gotIt) correct++;
+      });
+      var scoreEl = document.getElementById('sortit-score');
+      scoreEl.textContent = correct + ' / ' + SORT_DATA.length + ' correct';
+      scoreEl.style.display = 'block';
+      document.getElementById('sortit-replay-bar').style.display = 'block';
+    });
+
+    document.getElementById('sortit-replay').addEventListener('click', function() {
+      renderSortIt();
+    });
+  })();
+
+  /* ── SOURCE LINE WARM-UP GAME ─────────────────────────── */
+  (function() {
+    var WARMUP_DOCS = [
+      {
+        type: 'Photograph',
+        sourceLine: 'Photograph taken by an official British War Office photographer, Western Front, France, 1916',
+        excerpt: 'Image shows British soldiers walking single-file through a muddy trench system; no bodies or wounds are visible.',
+        models: {
+          pov: 'The point of view of this photograph is that of an official British War Office photographer, which means the image was selected and approved by the government — making it likely that scenes of mass casualties or failed offensives were excluded to maintain public support for the war.',
+          purpose: 'The purpose of this photograph was to document the war for a domestic British audience in a way that showed discipline and resolve, which means the image downplays the horrific conditions of trench warfare — supporting the argument that governments used visual media to control public perception during WWI.',
+          audience: 'Because this photograph was produced for a British domestic audience on the home front, it avoids images of death or defeat, which means the source cannot be used as reliable evidence of actual battlefield conditions but is strong evidence of how states managed civilian morale.',
+          hist: 'This photograph was taken during the prolonged stalemate of WWI trench warfare in 1916, which means the British government had strong reasons to prevent images of mass casualties from reaching the public — making this source reflect the total war strategy of controlling information as much as controlling territory.'
+        }
+      },
+      {
+        type: 'Advertisement',
+        sourceLine: 'U.S. Treasury Department War Bonds advertisement, published in Life Magazine, United States, 1943',
+        excerpt: '"Every bond you buy is a bullet aimed at the enemy. Do your part — buy war bonds today."',
+        models: {
+          pov: 'The point of view of this advertisement is that of the U.S. government\'s Treasury Department, which means the source is designed to frame financial investment as a patriotic duty — making it reflect the argument that WWII-era states mobilized civilian populations through appeals to nationalism and shared sacrifice.',
+          purpose: 'The purpose of this advertisement was to persuade American civilians to finance the war effort by purchasing government bonds, which means it deliberately links personal spending to military victory — supporting the argument that states used mass communication to extract economic resources from civilian populations during total war.',
+          audience: 'Because this advertisement was directed at American civilian readers of a popular magazine, it uses emotionally charged language ("aimed at the enemy") rather than economic arguments, which means the source demonstrates how governments translated the abstract costs of war into personal moral obligations.',
+          hist: 'This advertisement was produced in 1943, during the height of U.S. involvement in WWII when government spending vastly exceeded tax revenue, which means the state was under pressure to fund the war through civilian debt — making this source evidence of how total war transformed the relationship between government and the domestic economy.'
+        }
+      },
+      {
+        type: 'Official Report',
+        sourceLine: 'Report of the Committee on Alleged German Outrages (Bryce Report), British government publication, London, 1915',
+        excerpt: 'The report documents alleged atrocities committed by German forces in Belgium, including the killing of civilians and the destruction of Leuven.',
+        models: {
+          pov: 'The point of view of this official report reflects the British government\'s wartime need to justify intervention and sustain public and Allied support, which means the report likely amplifies or selectively presents German atrocities — making it evidence of wartime propaganda rather than a neutral account of events in Belgium.',
+          purpose: 'The purpose of this report was to build domestic and international support for Britain\'s war against Germany by documenting alleged German war crimes, which means the source systematically frames German actions as uniquely barbaric — supporting the argument that states used official publications to manufacture consent for total war.',
+          audience: 'Because this report was produced for a British public audience as well as neutral nations (including the United States), it needed to be credible enough to influence international opinion, which means the report uses legal and bureaucratic language to give official weight to accounts that served a clear propaganda purpose.',
+          hist: 'This report was published in 1915, when Britain needed to maintain civilian morale and encourage the United States to abandon neutrality, which means the historical situation of Allied military uncertainty shaped the report\'s emphasis on German brutality — making it a primary source for the study of state information control during WWI.'
+        }
+      },
+      {
+        type: 'Personal Testimony',
+        sourceLine: 'Diary of Sgt. Shōhei Ōoka, Imperial Japanese Army, written during the Nanjing Campaign, China, December 1937',
+        excerpt: 'Entry describes the chaos of entering the city and difficulty maintaining unit discipline; makes no direct mention of civilian killings.',
+        models: {
+          pov: 'The point of view of this diary is that of a Japanese Imperial Army soldier writing in a war zone under military authority, which means the source may self-censor accounts of violence against civilians — making the absence of mentions of civilian killings itself significant evidence of how soldiers managed personal documentation under wartime conditions.',
+          purpose: 'Although a personal diary does not have an official purpose, the author wrote within a military context where personal documents could be examined, which means the source likely omits or minimizes accounts of atrocities — making it unreliable as a complete record but valuable as evidence of the pressures soldiers faced in documenting their own actions.',
+          audience: 'Because this diary was written for the author\'s personal record in a military context, the audience includes the author\'s future self and potentially military censors, which means the source\'s silence on civilian violence may reflect fear of punishment rather than an absence of knowledge — supporting the argument that states suppressed documentation of wartime atrocities.',
+          hist: 'This diary was written during the Nanjing Campaign of December 1937, a period of intense Japanese military pressure to consolidate control over China, which means soldiers operated under orders that prioritized speed and intimidation — making the diary\'s omissions consistent with the broader pattern of institutional suppression surrounding the Nanjing Massacre.'
+        }
+      },
+      {
+        type: 'Government Article',
+        sourceLine: '"Dizzy with Success," by Joseph Stalin, published in Pravda (Soviet state newspaper), USSR, March 2, 1930',
+        excerpt: 'Stalin criticizes "excesses" in the collectivization campaign, blaming local party officials for moving too fast and using coercion — while defending the collective farm policy itself as a success.',
+        models: {
+          pov: 'The point of view of this article reflects Stalin\'s position as both the architect of collectivization and the leader of the Soviet state, which means the source deflects blame for violent coercion onto local officials in order to protect his own authority — making it evidence of how authoritarian states managed internal criticism to maintain ideological legitimacy.',
+          purpose: 'The purpose of this article was to reduce peasant resistance to collectivization by appearing to moderate the policy, while preserving the collective farm system itself, which means Stalin used state media not to reverse course but to stabilize a policy causing mass disruption — supporting the argument that Soviet economic control relied on managing popular perception as much as on force.',
+          audience: 'Because this article was published in Pravda and directed at Soviet party members and the broader public, Stalin needed to maintain the appearance of controlled, rational policy, which means the source admits limited "excesses" while attributing them to individual officials rather than the system — making it a model of how authoritarian leaders use official communication to contain dissent.',
+          hist: 'This article was written in early 1930 during a period of widespread peasant unrest and famine caused by rapid forced collectivization, which means the Soviet state faced the risk of losing control of rural areas — making Stalin\'s public "correction" a political tool to reduce resistance while preserving the fundamental policy of state economic control.'
+        }
+      },
+      {
+        type: 'Propaganda Poster',
+        sourceLine: 'Nazi Party election poster, "Hitler — Our Last Hope," Germany, 1932',
+        excerpt: 'The poster shows a long line of dejected, unemployed workers beneath bold text reading: "Hitler — Our Last Hope."',
+        models: {
+          pov: 'The point of view of this poster reflects the Nazi Party\'s urgent need to win electoral support during Germany\'s economic crisis, which means the image frames mass unemployment as a crisis that only Hitler can resolve — making it evidence of how political movements used mass communication to translate economic despair into electoral mobilization.',
+          purpose: 'The purpose of this poster was to persuade unemployed German voters that Hitler represented their only solution to economic collapse, which means it deliberately connects individual suffering to a single political figure — supporting the argument that the Nazi rise to power was enabled by the political exploitation of post-WWI economic conditions.',
+          audience: 'Because this poster was aimed at unemployed German workers in 1932, it uses visual imagery of suffering rather than policy arguments, which means the source reflects the Nazi strategy of emotional appeal over substance — making it evidence of how economic desperation created conditions for authoritarian political movements.',
+          hist: 'This poster was produced in 1932 during the Great Depression, when German unemployment had reached approximately 30%, which means the historical situation of economic catastrophe created a political opening for extremist movements promising radical solutions — making this source a direct illustration of the connection between economic instability and the collapse of democratic governance in the interwar period.'
+        }
+      }
+    ];
+
+    var warmupIdx = 0;
+    var warmupTimer = null;
+    var warmupSecondsLeft = 60;
+    var warmupLens = 'pov';
+
+    var LENS_FRAMES_W = {
+      pov: {
+        text: '&ldquo;The <strong>point of view</strong> of this document is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X &mdash; connect to argument</em>].&rdquo;',
+        tip: 'Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?'
+      },
+      purpose: {
+        text: '&ldquo;The <strong>purpose</strong> of this document was to [<em>specific goal</em>] [<em>specific audience</em>], <strong>which means</strong> the source [<em>overstates / downplays / frames X &mdash; connect to argument</em>].&rdquo;',
+        tip: 'Ask: why was this created, and how does that goal shape what it says or omits?'
+      },
+      audience: {
+        text: '&ldquo;Because this document was written for [<em>specific audience</em>], the source [<em>emphasizes / avoids X</em>], <strong>which means</strong> it [<em>consequence for your argument</em>].&rdquo;',
+        tip: 'Ask: who was this meant to reach, and what did that audience need &mdash; or not need &mdash; to hear?'
+      },
+      hist: {
+        text: '&ldquo;This document was produced during [<em>specific historical moment</em>], <strong>which means</strong> [<em>that context shaped the source because &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: what was happening when this was created, and how does that context explain what the source says?'
+      }
+    };
+
+    function startWarmupTimer() {
+      clearInterval(warmupTimer);
+      warmupSecondsLeft = 60;
+      updateTimerDisplay();
+      warmupTimer = setInterval(function() {
+        warmupSecondsLeft--;
+        updateTimerDisplay();
+        if (warmupSecondsLeft <= 0) clearInterval(warmupTimer);
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      var el = document.getElementById('warmup-timer');
+      var s = Math.max(0, warmupSecondsLeft);
+      el.textContent = Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+      el.classList.toggle('urgent', s <= 10);
+    }
+
+    function loadWarmupDoc(idx) {
+      var doc = WARMUP_DOCS[idx];
+      document.getElementById('warmup-doc-num').textContent = 'Document ' + (idx + 1) + ' of ' + WARMUP_DOCS.length;
+      document.getElementById('warmup-doc-type').textContent = doc.type;
+      document.getElementById('warmup-source-line').textContent = doc.sourceLine;
+      document.getElementById('warmup-excerpt').textContent = '\u201c' + doc.excerpt + '\u201d';
+      document.getElementById('warmup-text').value = '';
+      document.getElementById('warmup-result').innerHTML = '';
+      document.getElementById('warmup-result').className = 'drill-result';
+      document.getElementById('warmup-model').style.display = 'none';
+      document.getElementById('warmup-next').style.display = 'none';
+
+      // Build lens buttons
+      var lensRow = document.getElementById('warmup-lens-row');
+      lensRow.innerHTML = '';
+      warmupLens = 'pov';
+      [['pov','Point of View'],['purpose','Purpose'],['audience','Audience'],['hist','Historical Situation']].forEach(function(pair) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'warmup-lens-btn' + (pair[0] === 'pov' ? ' active' : '');
+        btn.dataset.wlens = pair[0];
+        btn.textContent = pair[1];
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#warmup-lens-row .warmup-lens-btn').forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          warmupLens = this.dataset.wlens;
+          showWarmupFrame();
+        });
+        lensRow.appendChild(btn);
+      });
+      showWarmupFrame();
+      startWarmupTimer();
+    }
+
+    function showWarmupFrame() {
+      var frame = document.getElementById('warmup-frame');
+      frame.style.display = 'block';
+      document.getElementById('warmup-frame-text').innerHTML = LENS_FRAMES_W[warmupLens].text;
+      document.getElementById('warmup-frame-tip').innerHTML = LENS_FRAMES_W[warmupLens].tip;
+    }
+
+    document.getElementById('pick-warmup').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('warmup-game').style.display = 'block';
+      warmupIdx = 0;
+      loadWarmupDoc(0);
+    });
+
+    document.getElementById('warmup-back').addEventListener('click', function() {
+      clearInterval(warmupTimer);
+      document.getElementById('warmup-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+
+    document.getElementById('warmup-check').addEventListener('click', function() {
+      clearInterval(warmupTimer);
+      var t = document.getElementById('warmup-text').value.toLowerCase().trim();
+      var words = t.split(/\s+/).filter(Boolean).length;
+      var hasFeature = /point of view|purpose|audience|historical situation|which means|because|since|as a|written by|produced by|official|government|military|newspaper|photographer|advertisement/.test(t);
+      var hasConsequence = /which means|therefore|so that|in order to|making it|making this|supports the|supporting|evidence that|suggests that|means that|this means/.test(t);
+      var hasArgConn = /argument|supports|evidence|demonstrates|illustrates|indicates|suggests|reflects|shows that|proving|proves/.test(t);
+      var resultEl = document.getElementById('warmup-result');
+      if (words < 8) {
+        resultEl.className = 'drill-result fail';
+        resultEl.innerHTML = '<span class="dr-icon">&#10007;</span><div><strong>Too short.</strong> Write a complete sentence: name the source feature, then explain the consequence with "which means."</div>';
+      } else if (hasFeature && hasConsequence) {
+        resultEl.className = 'drill-result pass';
+        resultEl.innerHTML = '<span class="dr-icon">&#10003;</span><div><strong>Likely earns the point.</strong> You named a source feature and used consequence language. Check the model answer to see if your explanation connects clearly to an argument.</div>';
+      } else if (hasFeature) {
+        resultEl.className = 'drill-result partial';
+        resultEl.innerHTML = '<span class="dr-icon">&#126;</span><div><strong>Identifies &mdash; but needs consequence.</strong> You named a source feature. Now add the "which means" move: what does that feature mean for your argument? What does the source likely emphasize, omit, or argue <em>because</em> of that feature?</div>';
+      } else {
+        resultEl.className = 'drill-result fail';
+        resultEl.innerHTML = '<span class="dr-icon">&#10007;</span><div><strong>No HAPP feature identified.</strong> Start by naming something specific about the source: its author\'s role, the document\'s purpose, who it was written for, or the historical moment it was produced in. Then use "which means" to connect it to your argument.</div>';
+      }
+      // Show model answer
+      var doc = WARMUP_DOCS[warmupIdx];
+      document.getElementById('warmup-model-text').textContent = doc.models[warmupLens];
+      document.getElementById('warmup-model').style.display = 'block';
+      // Show next button
+      if (warmupIdx < WARMUP_DOCS.length - 1) {
+        document.getElementById('warmup-next').style.display = 'inline-block';
+      }
+    });
+
+    document.getElementById('warmup-next').addEventListener('click', function() {
+      warmupIdx++;
+      loadWarmupDoc(warmupIdx);
+    });
+  })();
+
   /* ── STUDY GUIDE ─────────────────────────────────────── */
   function renderGuide() {
     var el = document.getElementById('sg-content');
@@ -3766,7 +4158,17 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="game-pick-card" id="pick-matching">
         <div class="game-pick-icon">&#129513;</div>
         <div class="game-pick-name">Narrative Matching</div>
-        <div class="game-pick-desc">Match causes to effects to reconstruct the full story of Unit 7 — from the fall of empires to the atomic bomb.</div>
+        <div class="game-pick-desc">Match causes to effects to reconstruct the full story of Unit 7 &mdash; from the fall of empires to the atomic bomb.</div>
+      </div>
+      <div class="game-pick-card" id="pick-sortit">
+        <div class="game-pick-icon">&#9878;</div>
+        <div class="game-pick-name">Sort It</div>
+        <div class="game-pick-desc">Separate sourcing sentences that earn the HAPP point from ones that don&rsquo;t. Build your internal standard before writing on your own.</div>
+      </div>
+      <div class="game-pick-card" id="pick-warmup">
+        <div class="game-pick-icon">&#9200;</div>
+        <div class="game-pick-name">Source Line Warm-up</div>
+        <div class="game-pick-desc">One document, 60 seconds. Pick a lens, complete the sentence frame, earn the point. Reps on photographs, ads, and official reports.</div>
       </div>
     </div>
 
@@ -3823,10 +4225,57 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
       <div class="match-success" id="match-success" style="display:none">
         <h3>You reconstructed the Unit 7 narrative!</h3>
-        <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From shifting empires to the atomic age — you connected all the pieces.</p>
+        <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From shifting empires to the atomic age &mdash; you connected all the pieces.</p>
         <button type="button" id="match-replay" style="padding:12px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
       </div>
     </div>
+
+    <!-- ── SORT IT ── -->
+    <div id="sortit-game" style="display:none">
+      <button type="button" id="sortit-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Does It Earn the Point?</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.55">Read each sourcing sentence. Click <strong>Earns it</strong> or <strong>Doesn&rsquo;t earn it</strong> for each one, then submit to see all the answers and explanations.</p>
+      <div id="sortit-cards"></div>
+      <div style="text-align:center;margin-top:20px">
+        <button type="button" id="sortit-submit" style="padding:12px 28px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Check My Sort</button>
+      </div>
+      <div id="sortit-score" style="display:none;text-align:center;margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:.85rem;letter-spacing:.06em"></div>
+      <div style="text-align:center;margin-top:16px;display:none" id="sortit-replay-bar">
+        <button type="button" id="sortit-replay" style="padding:10px 24px;background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Try Again</button>
+      </div>
+    </div>
+
+    <!-- ── SOURCE LINE WARM-UP ── -->
+    <div id="warmup-game" style="display:none">
+      <button type="button" id="warmup-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:4px">Source Line Warm-up</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:14px;line-height:1.55">Read the source line. Pick a lens. Complete the sentence frame. You have 60 seconds &mdash; but keep writing even after time is up.</p>
+      <div id="warmup-doc-num" style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px"></div>
+      <div class="warmup-timer" id="warmup-timer">1:00</div>
+      <div class="warmup-source-card">
+        <div class="warmup-doc-type" id="warmup-doc-type"></div>
+        <div class="warmup-source-line" id="warmup-source-line"></div>
+        <div class="warmup-excerpt" id="warmup-excerpt"></div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Pick a lens:</div>
+      <div class="warmup-lens-row" id="warmup-lens-row"></div>
+      <div class="warmup-frame" id="warmup-frame" style="display:none">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px">Sentence frame &mdash; fill in the blanks:</div>
+        <div id="warmup-frame-text"></div>
+        <div style="font-size:.78rem;color:var(--mid);font-style:italic;margin-top:6px" id="warmup-frame-tip"></div>
+      </div>
+      <textarea id="warmup-text" class="drill-textarea" placeholder="Write your sourcing sentence here..." style="margin-top:4px"></textarea>
+      <button type="button" id="warmup-check" style="padding:10px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;margin-top:8px">Check Sentence</button>
+      <div class="drill-result" id="warmup-result" style="margin-top:12px"></div>
+      <div class="warmup-model" id="warmup-model" style="display:none">
+        <div class="warmup-model-lbl">Model answer:</div>
+        <div id="warmup-model-text"></div>
+      </div>
+      <div style="text-align:right;margin-top:18px">
+        <button type="button" id="warmup-next" style="padding:10px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;display:none">Next Document &rarr;</button>
+      </div>
+    </div>
+
   </div>
 </div>
 

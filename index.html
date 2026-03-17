@@ -3677,8 +3677,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (matchSelected.left !== null && matchSelected.right !== null) {
         var leftIdx = matchSelected.left;
         var rightIdx = matchSelected.right;
-        var leftCard = document.querySelector('.match-card.selected[data-side="left"]');
-        var rightCard = document.querySelector('.match-card.selected[data-side="right"]');
+        var leftCard = document.querySelector('.match-card[data-side="left"][data-idx="' + leftIdx + '"]');
+        var rightCard = document.querySelector('.match-card[data-side="right"][data-idx="' + rightIdx + '"]');
 
         if (leftIdx === rightIdx) {
           // Correct match

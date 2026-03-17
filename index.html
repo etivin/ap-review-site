@@ -515,6 +515,22 @@ img{display:block;max-width:100%}
 .tl-seq-item{display:flex;gap:10px;align-items:baseline;font-size:.82rem;line-height:1.5;color:#1a6825;margin-bottom:4px}
 .tl-seq-num{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;min-width:18px;color:#1a6825}
 .tl-next-slot{color:var(--muted);font-style:italic}
+/* ── Class Slides ───────────────────────────────────────── */
+.slides-layout{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;margin-top:24px}
+.slides-embed{background:var(--paper);border:1px solid var(--border2);aspect-ratio:4/3;width:100%;overflow:hidden}
+.slides-embed iframe,.slides-embed embed{width:100%;height:100%;border:none;display:block}
+.slides-panel{background:var(--white);border:1px solid var(--border2);padding:0}
+.slides-panel-hdr{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);padding:14px 18px 0;margin-bottom:10px}
+.slides-topic{border-top:1px solid var(--border);padding:12px 18px;cursor:pointer}
+.slides-topic:first-of-type{border-top:none}
+.slides-topic-title{font-size:.86rem;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+.slides-topic-title .sa{font-size:.7rem;color:var(--muted);transition:transform .2s}
+.slides-topic.open .sa{transform:rotate(180deg)}
+.slides-topic-body{display:none;font-size:.82rem;color:var(--mid);line-height:1.65;margin-top:8px}
+.slides-topic.open .slides-topic-body{display:block}
+.slides-topic-kw{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.slides-topic-kw span{background:var(--paper);border:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;color:var(--muted)}
+@media(max-width:860px){.slides-layout{grid-template-columns:1fr}.slides-panel{margin-top:0}}
 
 </style>
 </head>
@@ -536,6 +552,7 @@ img{display:block;max-width:100%}
     <button type="button" class="hn-btn" data-tab="pg-tips">&#128161; Tips</button>
     <button type="button" class="hn-btn" data-tab="pg-brain">&#129504; Brain Dump</button>
     <button type="button" class="hn-btn" data-tab="pg-games">&#127918; Games</button>
+    <button type="button" class="hn-btn" data-tab="pg-slides">&#128196; Class Slides</button>
   </nav>
   <div id="bar-score" style="display:none">Score: <strong id="score-txt">0/0</strong></div>
 </header>
@@ -4396,6 +4413,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  /* ── CLASS SLIDES ACCORDION ──────────────────────────── */
+  document.querySelectorAll('.slides-topic').forEach(function(topic) {
+    topic.querySelector('.slides-topic-title').addEventListener('click', function() {
+      topic.classList.toggle('open');
+    });
+  });
+
   /* ── STUDY GUIDE ─────────────────────────────────────── */
   function renderGuide() {
     var el = document.getElementById('sg-content');
@@ -4607,6 +4631,109 @@ document.addEventListener('DOMContentLoaded', function () {
       <div id="tl-result" style="display:none"></div>
     </div>
 
+  </div>
+</div>
+
+<!-- ══ CLASS SLIDES PAGE ══ -->
+<div id="pg-slides" class="page">
+  <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 7</div>
+      <h2>Class Slides</h2>
+      <p>Your full lecture slides alongside topic-by-topic analysis notes. Use these to review key arguments, vocabulary, and connections.</p>
+    </div>
+
+    <div class="slides-layout">
+      <!-- PDF embed -->
+      <div>
+        <div class="slides-embed" id="slides-embed-wrap">
+          <iframe src="unit%207%20slides.pdf" title="Unit 7 Class Slides" allowfullscreen></iframe>
+        </div>
+        <p style="font-size:.75rem;color:var(--muted);margin-top:8px;line-height:1.5">
+          If the slides don&rsquo;t load, <a href="unit%207%20slides.pdf" target="_blank" style="color:var(--red)">open them in a new tab &rarr;</a>
+        </p>
+      </div>
+
+      <!-- Analysis panel -->
+      <div class="slides-panel">
+        <div class="slides-panel-hdr">Topic-by-Topic Analysis</div>
+
+        <div class="slides-topic open">
+          <div class="slides-topic-title">7.1 &mdash; Shifting Power After 1900 <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>Three land empires collapse in the same generation: the Qing (1911), the Russian (1917), and the Ottoman (partitioned 1923). Japan and the U.S. emerge as new global powers, challenging European dominance.</p>
+            <p><strong>Key argument:</strong> Japan's rise exposed the limits of Western racial hierarchy — the West refused Japan equal status at Versailles, fueling the very imperialism they claimed to oppose.</p>
+            <div class="slides-topic-kw"><span>Meiji Restoration</span><span>Qing Collapse</span><span>Russo-Japanese War</span><span>Racial Equality Proposal</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.2 &mdash; Causes of WWI (MAIN) <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>Long-term tensions (MAIN) made Europe explosive; the assassination of Archduke Franz Ferdinand was the spark, not the cause. The alliance system turned a regional crisis into a world war in weeks.</p>
+            <p><strong>Key argument:</strong> The Treaty of Versailles (1919) ended WWI but planted the conditions for WWII — the War Guilt Clause, reparations, and territorial losses created a crisis of legitimacy in Germany.</p>
+            <div class="slides-topic-kw"><span>MAIN</span><span>Triple Entente</span><span>Franz Ferdinand</span><span>Treaty of Versailles</span><span>War Guilt Clause</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.3 &mdash; WWI &amp; Total War <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>Total war mobilized entire economies and societies. Machine guns and barbed wire produced the Western Front stalemate. Governments used propaganda, censorship, and rationing to sustain civilian commitment over years of devastating conflict.</p>
+            <p><strong>Key argument:</strong> Total war blurred the soldier/civilian line — the home front became as strategically important as the battlefield. This redefined what states could demand from their populations.</p>
+            <div class="slides-topic-kw"><span>Total War</span><span>Trench Warfare</span><span>Poison Gas</span><span>Propaganda</span><span>Russian Revolution</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.4 &mdash; The Interwar Economy <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>The Great Depression (1929) collapsed world trade by 50% and devastated democratic governments. Responses varied sharply: Keynesian spending (U.S. New Deal), centralized planning (Soviet Five Year Plans), and import substitution (Latin America).</p>
+            <p><strong>Key argument:</strong> Economic desperation made populations willing to accept radical solutions — the Depression was the key enabling condition for fascist movements in Europe.</p>
+            <div class="slides-topic-kw"><span>Great Depression</span><span>New Deal</span><span>Five Year Plans</span><span>Import Substitution</span><span>Pemex</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.5 &mdash; Resistance &amp; Nationalism <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>WWI weakened European empires and raised expectations of self-determination — promises that were not kept. Resistance movements intensified, from Gandhi's nonviolent civil disobedience to armed anti-colonial uprisings.</p>
+            <p><strong>Key argument:</strong> European states used the language of democracy and self-determination to justify war, but denied those same rights to colonized peoples — creating a legitimacy crisis that accelerated decolonization after WWII.</p>
+            <div class="slides-topic-kw"><span>Salt March</span><span>Self-Determination</span><span>Négritude</span><span>Pan-Africanism</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.6 &mdash; Appeasement &amp; WWII <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>The slides walk through four key appeasement moments: Japan&rsquo;s invasion of Manchuria (League fails to act), Hitler&rsquo;s Rhineland remilitarization, the annexation of Austria, and finally the Munich Agreement — where Chamberlain handed Hitler the Sudetenland and declared &ldquo;Peace for our time.&rdquo;</p>
+            <p><strong>Pattern to see:</strong> Each time the Allies failed to act, Hitler grew bolder. Japan observed the same weakness and escalated in China. This is the lesson of appeasement: rewarding aggression signals that more aggression is safe.</p>
+            <p><strong>AP angle:</strong> Appeasement is a Complexity move — argue that WWI exhaustion explains Allied inaction, but that inaction made WWII inevitable. Don&rsquo;t just say &ldquo;appeasement was bad.&rdquo; Explain <em>why</em> rational leaders made that choice and <em>why</em> it still failed.</p>
+            <div class="slides-topic-kw"><span>Appeasement</span><span>Munich Agreement</span><span>Rhineland</span><span>Sudetenland</span><span>League of Nations</span><span>Chamberlain</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.7 &mdash; Genocide &amp; Mass Atrocities <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>The slides cover three genocide case studies: the Armenian Genocide (Ottoman Empire, 1915&ndash;1923), the Cambodian Genocide (Khmer Rouge, 1975&ndash;1979), and the Rwandan Genocide (1994). The Holocaust and the Nanjing Massacre (&ldquo;Rape of Nanking&rdquo;) are also central to Unit 7.</p>
+            <p><strong>Key argument:</strong> Modern state capacity — bureaucracy, railway networks, propaganda, industrial technology — made 20th-century genocides possible at a scale impossible in pre-industrial societies. The state did not just permit these killings; the state organized them.</p>
+            <p><strong>AP angle:</strong> Use genocide as evidence for the broader argument that total war and authoritarian nationalism dehumanized out-groups. The Nanjing Massacre connects directly to Japanese imperial expansion; the Armenian Genocide connects to Ottoman collapse and WWI.</p>
+            <div class="slides-topic-kw"><span>Holocaust</span><span>Armenian Genocide</span><span>Nanjing Massacre</span><span>Rwandan Genocide</span><span>Cambodian Genocide</span><span>Genocide</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.8 &mdash; Nationalism &amp; Mass Communication <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>Radio, film, and print allowed states to mobilize entire populations. Propaganda shaped what civilians understood about the war. States suppressed bad news (Britain never announced the sinking of HMS Audacious) while amplifying narratives of national sacrifice.</p>
+            <p><strong>Key argument:</strong> The development of mass media created a new form of state power — the ability to shape popular belief at scale was as important to total war as industrial production.</p>
+            <div class="slides-topic-kw"><span>Propaganda</span><span>Censorship</span><span>Radio</span><span>Press Lords</span><span>State Media</span></div>
+          </div>
+        </div>
+
+      </div><!-- end slides-panel -->
+    </div><!-- end slides-layout -->
   </div>
 </div>
 

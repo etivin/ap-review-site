@@ -528,23 +528,32 @@ img{display:block;max-width:100%}
 .vs-card-src{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
 .vs-card-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
 .vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
-.vs-card-q{font-size:.83rem;font-weight:600;margin-bottom:10px;line-height:1.5}
-.vs-hipp-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-bottom:12px}
-.vs-hipp-table th{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;text-align:left;padding:6px 8px;background:var(--paper);border:1px solid var(--border);color:var(--muted);width:110px;vertical-align:top}
-.vs-hipp-table td{padding:6px 8px;border:1px solid var(--border);font-size:.79rem;line-height:1.55;color:var(--mid);vertical-align:top}
-.vs-hipp-table td.hidden-answer{filter:blur(5px);user-select:none;cursor:pointer;transition:filter .3s}
-.vs-hipp-table td.hidden-answer:hover{filter:blur(3px)}
-.vs-hipp-table td.revealed{filter:none;cursor:default}
-.vs-reveal-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;margin-bottom:10px;transition:all .15s}
-.vs-reveal-btn:hover{background:var(--ink);color:#fff}
-.vs-answer-box{background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;display:none;margin-top:6px}
-.vs-answer-box.show{display:block}
-.vs-answer-box .vs-ans-lbl{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
+.vs-hipp-section{margin-bottom:14px}
+.vs-hipp-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:48px;margin-bottom:4px;transition:border-color .15s}
+.vs-hipp-input:focus{border-color:var(--red);outline:none}
+.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:8px 10px;font-size:.79rem;line-height:1.55;color:var(--mid);margin-bottom:10px}
+.vs-hipp-model.show{display:block}
+.vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:3px}
+.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.vs-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .15s}
+.vs-btn:hover{background:var(--ink);color:#fff}
+.vs-btn-red{border-color:var(--red);color:var(--red)}
+.vs-btn-red:hover{background:var(--red);color:#fff}
+.vs-mc-area{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.vs-mc-area.show{display:block}
+.vs-mc-q{font-size:.83rem;font-weight:600;margin-bottom:10px;line-height:1.5}
+.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
+.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.vs-mc-option.vs-mc-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
+.vs-mc-explain.show{display:block}
 @media(max-width:860px){.vs-layout{grid-template-columns:1fr}}
 /* ── Asteroid Game ──────────────────────────────────────── */
 #asteroid-arena{position:relative;width:100%;height:420px;background:#06061a;overflow:hidden;border:2px solid #1a1a40;border-radius:4px}
 .ast-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 15% 25%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 55% 18%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 82% 65%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 38% 78%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 92% 42%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 8% 58%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 48% 48%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 68% 32%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 25% 12%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 75% 85%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 33% 55%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 62% 90%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 5% 38%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 88% 22%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 44% 68%,#fff 0%,transparent 100%)}
-.ast-ship{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-bottom:28px solid #44aaff;filter:drop-shadow(0 0 8px #44aaff)}
+/* .ast-ship moved below with transition support */
 .ast-ship::after{content:'';position:absolute;top:8px;left:-6px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:14px solid #06061a}
 .asteroid{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;width:128px;height:108px;background:#7a4e28;clip-path:polygon(50% 0%,82% 10%,100% 40%,88% 76%,60% 100%,28% 98%,5% 72%,0% 40%,18% 12%);color:#f0e8d8;font-size:.62rem;line-height:1.3;font-family:'IBM Plex Mono',monospace;padding:14px 10px;user-select:none;transform-origin:50% 50%;box-shadow:inset -5px -5px 12px rgba(0,0,0,.6)}
 .asteroid:nth-child(odd){clip-path:polygon(30% 0%,72% 8%,100% 36%,92% 70%,65% 100%,28% 95%,0% 65%,5% 28%);background:#6b421e}
@@ -561,6 +570,10 @@ img{display:block;max-width:100%}
 .ast-end.show{display:flex;flex-direction:column;align-items:center;justify-content:center}
 .ast-end-score{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;letter-spacing:.06em;color:#44aaff;margin:10px 0 4px}
 .ast-flash-overlay{position:absolute;inset:0;pointer-events:none;z-index:10;opacity:0;transition:opacity .15s}
+.ast-laser{position:absolute;height:3px;background:linear-gradient(90deg,transparent,#44aaff 20%,#88ddff 50%,#44aaff 80%,transparent);transform-origin:0 50%;pointer-events:none;z-index:5;opacity:0;filter:drop-shadow(0 0 4px #44aaff)}
+.ast-laser.fire{animation:laserFire .3s ease-out forwards}
+@keyframes laserFire{0%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(0)}30%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}70%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}100%{opacity:0;transform:rotate(var(--laser-angle)) scaleX(1)}}
+.ast-ship{position:absolute;bottom:24px;left:50%;width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-bottom:28px solid #44aaff;filter:drop-shadow(0 0 8px #44aaff);transition:transform .15s ease-out;transform-origin:50% 100%}
 @keyframes astExplode{0%{transform:scale(1) rotate(var(--rot,0deg));opacity:1}40%{transform:scale(1.8) rotate(var(--rot,0deg));filter:brightness(4);opacity:.8}100%{transform:scale(0) rotate(var(--rot,0deg));opacity:0}}
 @keyframes astWrong{0%,100%{transform:translate(var(--tx,0px),var(--ty,0px)) rotate(var(--rot,0deg))}25%{transform:translate(calc(var(--tx,0px) - 7px),var(--ty,0px)) rotate(var(--rot,0deg))}75%{transform:translate(calc(var(--tx,0px) + 7px),var(--ty,0px)) rotate(var(--rot,0deg))}}
 /* ── Class Slides ───────────────────────────────────────── */
@@ -4606,13 +4619,19 @@ document.addEventListener('DOMContentLoaded', function () {
     var cardsEl = document.getElementById('vs-cards');
     if (!tabRow || !cardsEl || typeof VISUAL_DATA === 'undefined') return;
 
+    var HIPP_KEYS = [
+      { key: 'h',   label: 'Historical Context', prompt: 'What was happening when this source was created?' },
+      { key: 'i',   label: 'Intended Audience',  prompt: 'Who was this source made for?' },
+      { key: 'p',   label: 'Purpose',            prompt: 'Why was this source created?' },
+      { key: 'pov', label: 'Point of View',      prompt: "How does the creator\u2019s identity shape this source?" }
+    ];
+
     VISUAL_DATA.forEach(function(item, idx) {
       // Tab button
       var tab = document.createElement('button');
       tab.type = 'button';
       tab.className = 'vs-tab' + (idx === 0 ? ' active' : '');
       tab.textContent = 'Image ' + item.num;
-      tab.dataset.idx = idx;
       tab.addEventListener('click', function() {
         document.querySelectorAll('.vs-tab').forEach(function(t) { t.classList.remove('active'); });
         tab.classList.add('active');
@@ -4620,6 +4639,26 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('vs-card-' + idx).classList.add('active');
       });
       tabRow.appendChild(tab);
+
+      // Build HIPP input sections
+      var hippHTML = '';
+      HIPP_KEYS.forEach(function(hk) {
+        hippHTML +=
+          '<div class="vs-hipp-section">' +
+            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
+            '<textarea class="vs-hipp-input" placeholder="' + hk.prompt + '" rows="2"></textarea>' +
+            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '">' +
+              '<div class="vs-hipp-model-lbl">Model ' + hk.label + '</div>' +
+              item.hipp[hk.key] +
+            '</div>' +
+          '</div>';
+      });
+
+      // Build MC options
+      var mcHTML = '';
+      item.o.forEach(function(opt, oi) {
+        mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>';
+      });
 
       // Card
       var card = document.createElement('div');
@@ -4629,40 +4668,50 @@ document.addEventListener('DOMContentLoaded', function () {
         '<div class="vs-card-src">' + item.source + '</div>' +
         '<div class="vs-card-title">' + item.title + '</div>' +
         '<div class="vs-card-desc">' + item.desc + '</div>' +
-        '<div class="vs-card-q">AP Question: ' + item.q + '</div>' +
-        '<div style="font-size:.78rem;color:var(--muted);margin-bottom:8px">Click any analysis row to reveal &mdash; or reveal all at once:</div>' +
-        '<button type="button" class="vs-reveal-btn" data-idx="' + idx + '">Reveal All HIPP Answers</button>' +
-        '<table class="vs-hipp-table">' +
-          '<tr><th>Historical Context</th><td class="hidden-answer" data-row="h-' + idx + '">' + item.hipp.h + '</td></tr>' +
-          '<tr><th>Intended Audience</th><td class="hidden-answer" data-row="i-' + idx + '">' + item.hipp.i + '</td></tr>' +
-          '<tr><th>Purpose</th><td class="hidden-answer" data-row="p-' + idx + '">' + item.hipp.p + '</td></tr>' +
-          '<tr><th>Point of View</th><td class="hidden-answer" data-row="pov-' + idx + '">' + item.hipp.pov + '</td></tr>' +
-        '</table>' +
-        '<div class="vs-answer-box" id="vs-ans-' + idx + '">' +
-          '<div class="vs-ans-lbl">Correct Answer &amp; AP Explanation</div>' +
-          '<strong>' + item.o[item.c] + '</strong><br><span style="color:var(--mid)">' + item.e + '</span>' +
+        '<div style="font-size:.78rem;color:var(--muted);margin-bottom:10px">Look at the image in the PDF, then write your own HIPP analysis below:</div>' +
+        hippHTML +
+        '<div class="vs-btn-row">' +
+          '<button type="button" class="vs-btn" data-compare="' + idx + '">Compare to Model Answers</button>' +
+          '<button type="button" class="vs-btn vs-btn-red" data-mcshow="' + idx + '">Practice AP Question</button>' +
         '</div>' +
-        '<button type="button" class="vs-reveal-btn" data-ans="' + idx + '" style="margin-top:8px">Reveal MC Answer</button>';
+        '<div class="vs-mc-area" id="vs-mc-' + idx + '">' +
+          '<div class="vs-mc-q">' + item.q + '</div>' +
+          mcHTML +
+          '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
+        '</div>';
       cardsEl.appendChild(card);
     });
 
-    // Individual row reveal on click
+    // Event delegation
     cardsEl.addEventListener('click', function(e) {
-      var cell = e.target.closest('td.hidden-answer');
-      if (cell) { cell.classList.remove('hidden-answer'); cell.classList.add('revealed'); return; }
-      // Reveal all button
-      var btn = e.target.closest('.vs-reveal-btn[data-idx]');
-      if (btn) {
-        var idx = btn.dataset.idx;
-        document.querySelectorAll('[data-row$="-' + idx + '"]').forEach(function(td) {
-          td.classList.remove('hidden-answer'); td.classList.add('revealed');
+      // Compare to model
+      var cmpBtn = e.target.closest('[data-compare]');
+      if (cmpBtn) {
+        var idx = cmpBtn.dataset.compare;
+        HIPP_KEYS.forEach(function(hk) {
+          document.getElementById('vs-model-' + hk.key + '-' + idx).classList.add('show');
         });
         return;
       }
-      // MC answer button
-      var ansBtn = e.target.closest('.vs-reveal-btn[data-ans]');
-      if (ansBtn) {
-        document.getElementById('vs-ans-' + ansBtn.dataset.ans).classList.add('show');
+      // Show MC question
+      var mcBtn = e.target.closest('[data-mcshow]');
+      if (mcBtn) {
+        document.getElementById('vs-mc-' + mcBtn.dataset.mcshow).classList.add('show');
+        return;
+      }
+      // MC option click
+      var opt = e.target.closest('.vs-mc-option');
+      if (opt && !opt.disabled) {
+        var area = opt.closest('.vs-mc-area');
+        var idx = area.id.replace('vs-mc-', '');
+        var item = VISUAL_DATA[parseInt(idx)];
+        var oi = parseInt(opt.dataset.oi);
+        area.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
+          b.disabled = true;
+          if (bi === item.c) b.classList.add('vs-mc-correct');
+          else if (bi === oi) b.classList.add('vs-mc-wrong');
+        });
+        document.getElementById('vs-mc-explain-' + idx).classList.add('show');
       }
     });
   })();
@@ -4776,11 +4825,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (correct) {
         astScore += 100;
-        if (clickedEl) clickedEl.classList.add('ast-correct');
-        // Remove other asteroids
-        astAsteroids.forEach(function(a) { if (a.el !== clickedEl) a.el.style.opacity = '0'; });
         updateHUD();
-        setTimeout(function() { astQIdx++; nextAsteroidQuestion(); }, 700);
+
+        var arena = document.getElementById('asteroid-arena');
+        var shipEl = arena.querySelector('.ast-ship');
+        var arenaW = arena.clientWidth, arenaH = arena.clientHeight;
+        var shipX = arenaW / 2, shipY = arenaH - 24 - 28;
+
+        // Find correct asteroid current position
+        var correctAst = astAsteroids.filter(function(a) { return a.correct; })[0];
+        var astX = correctAst ? correctAst.x : (clickedEl ? clickedEl.offsetLeft : shipX);
+        var astY = correctAst ? correctAst.y : (clickedEl ? clickedEl.offsetTop : shipY - 100);
+
+        var dx = astX - shipX, dy = astY - shipY;
+        var angleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
+        var dist = Math.hypot(dx, dy);
+
+        // Rotate ship to face asteroid (ship points up by default, so offset by +90)
+        if (shipEl) shipEl.style.transform = 'translateX(-50%) rotate(' + (angleDeg + 90) + 'deg)';
+
+        // Fire laser after ship rotation settles
+        setTimeout(function() {
+          var laser = document.createElement('div');
+          laser.className = 'ast-laser';
+          laser.style.cssText = 'left:' + shipX + 'px;top:' + shipY + 'px;width:' + dist + 'px;--laser-angle:' + angleDeg + 'deg';
+          arena.appendChild(laser);
+          laser.getBoundingClientRect(); // force reflow
+          laser.classList.add('fire');
+
+          // Explode asteroid after laser fires
+          setTimeout(function() {
+            if (clickedEl) clickedEl.classList.add('ast-correct');
+            astAsteroids.forEach(function(a) { if (a.el !== clickedEl) a.el.style.opacity = '0'; });
+
+            setTimeout(function() {
+              if (laser.parentNode) laser.parentNode.removeChild(laser);
+              if (shipEl) shipEl.style.transform = 'translateX(-50%) rotate(0deg)';
+              astQIdx++;
+              nextAsteroidQuestion();
+            }, 400);
+          }, 300);
+        }, 120);
       } else {
         astLives--;
         updateHUD();

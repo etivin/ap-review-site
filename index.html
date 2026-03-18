@@ -528,27 +528,33 @@ img{display:block;max-width:100%}
 .vs-card-src{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
 .vs-card-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
 .vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
-.vs-hipp-section{margin-bottom:14px}
-.vs-hipp-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:48px;margin-bottom:4px;transition:border-color .15s}
-.vs-hipp-input:focus{border-color:var(--red);outline:none}
-.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:8px 10px;font-size:.79rem;line-height:1.55;color:var(--mid);margin-bottom:10px}
-.vs-hipp-model.show{display:block}
-.vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:3px}
-.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.vs-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .15s}
-.vs-btn:hover{background:var(--ink);color:#fff}
-.vs-btn-red{border-color:var(--red);color:var(--red)}
-.vs-btn-red:hover{background:var(--red);color:#fff}
-.vs-mc-area{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
-.vs-mc-area.show{display:block}
-.vs-mc-q{font-size:.83rem;font-weight:600;margin-bottom:10px;line-height:1.5}
+.vs-source-img{width:100%;display:block;border:1px solid var(--border);margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.dbq-pages{display:flex;flex-direction:column;gap:10px;margin:10px 0 16px}
+.dbq-page-img{width:100%;display:block;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.vs-step-hdr{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
+.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
 .vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
 .vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
 .vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
 .vs-mc-option.vs-mc-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
 .vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
 .vs-mc-explain.show{display:block}
+.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
+.vs-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
+.vs-btn:hover{background:var(--ink);color:#fff}
+.vs-btn-red{border-color:var(--red);color:var(--red)}
+.vs-btn-red:hover{background:var(--red);color:#fff}
+.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
+.vs-hipp-area.show{display:block}
+.vs-hipp-section{margin-bottom:18px}
+.vs-hipp-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
+.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px}
+.vs-guide li{margin-bottom:2px}
+.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
+.vs-hipp-input:focus{border-color:var(--red);outline:none}
+.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
+.vs-hipp-model.show{display:block}
+.vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
 @media(max-width:860px){.vs-layout{grid-template-columns:1fr}}
 /* ── Asteroid Game ──────────────────────────────────────── */
 #asteroid-arena{position:relative;width:100%;height:420px;background:#06061a;overflow:hidden;border:2px solid #1a1a40;border-radius:4px}
@@ -937,14 +943,12 @@ img{display:block;max-width:100%}
       <div class="wp-prompt">
         <strong>2024 AP Exam &mdash; Document-Based Question 1</strong>
         <p style="font-size:.95rem;font-weight:600;margin:8px 0 12px;color:var(--ink)">Evaluate the extent to which economic motives were the leading cause of Japanese imperialism in the period circa 1900&ndash;1945.</p>
-        <div class="doc-list">
-          <div class="doc-item"><span class="doc-num">Doc 1</span><span class="doc-desc"><strong>&ldquo;Why do Japan&rsquo;s businessmen insist on war against Russia?&rdquo;</strong> &mdash; <em>Tokyo Economist</em> editorial, 1903. Russian taxes on non-Russian ships at Port Arthur threaten Japanese trade; businessmen push for war.</span></div>
-          <div class="doc-item"><span class="doc-num">Doc 2</span><span class="doc-desc"><strong>Fumimaro Konoe, &ldquo;Reject the Anglo-American-Centered Peace&rdquo;</strong> &mdash; Essay, 1918. Resource-poor Japan is unfairly denied colonies by England and America and may need to challenge the Western-dominated world order.</span></div>
-          <div class="doc-item"><span class="doc-num">Doc 3</span><span class="doc-desc"><strong>Allied Korean Organizations of New York, Manifesto against the Japanese invasion of Manchuria</strong>, 1931. Japan has violated Korean sovereignty, broken treaties, and continues imperial conquest despite promises of &ldquo;Asia for Asians.&rdquo;</span></div>
-          <div class="doc-item"><span class="doc-num">Doc 4</span><span class="doc-desc"><strong>Kanji Ishiwara, &ldquo;Personal Opinion on the Manchuria-Mongolia Problem&rdquo;</strong>, 1931. Seizing Manchuria and Mongolia would give Japan resources, regional leadership, and allow it to contain Russia and challenge Anglo-American power.</span></div>
-          <div class="doc-item"><span class="doc-num">Doc 5</span><span class="doc-desc"><strong>Eliot Janeway, <em>New York Times</em> article</strong>, 1937. Japan&rsquo;s invasion of China is about controlling key economic resources &mdash; Shaanxi iron mines, coal, steel &mdash; and preventing China from industrializing.</span></div>
-          <div class="doc-item"><span class="doc-num">Doc 6</span><span class="doc-desc"><strong>Toichi Nawa, <em>The Japanese Cotton Spinning Industry and Raw Cotton</em></strong>, 1937. Argues Japan cannot profitably control North China; notes Japan&rsquo;s growing dependence on world markets for raw cotton.</span></div>
-          <div class="doc-item doc-item-photo"><span class="doc-num">Doc 7</span><span class="doc-desc"><strong>Photograph: Japanese language class at a Singaporean school</strong>, 1943. Published in a Japanese daily newspaper.<img src="images/dbq-doc7.jpg" alt="Japanese soldier teaching Singaporean students Japanese writing at a blackboard, 1943" class="doc-photo"></span></div>
+        <div class="dbq-pages">
+          <img src="images/dbq/page-1.jpg" class="dbq-page-img" alt="DBQ Document 1">
+          <img src="images/dbq/page-2.jpg" class="dbq-page-img" alt="DBQ Documents 2 and 3">
+          <img src="images/dbq/page-3.jpg" class="dbq-page-img" alt="DBQ Documents 4 and 5">
+          <img src="images/dbq/page-4.jpg" class="dbq-page-img" alt="DBQ Document 6">
+          <img src="images/dbq/page-5.jpg" class="dbq-page-img" alt="DBQ Document 7">
         </div>
       </div>
       <div class="wp-tips"><strong>DBQ Formula from Mr. T</strong> &para;1: Thesis + Contextualization (pre-1900 Japan). &para;2&ndash;3: Group documents by theme (economic vs. non-economic motives). Apply HAPP to 2 docs. Include 1 piece of outside evidence not in the documents. Aim for 4+ documents used.</div>
@@ -1194,6 +1198,7 @@ img{display:block;max-width:100%}
 var VISUAL_DATA = [
   {
     num: 1,
+    img: 'images/stimuli/page-1.jpg',
     title: '\u201cThe Hero\u201d \u2014 George Grosz, 1936',
     source: 'Lithograph by German artist George Grosz, 1936',
     desc: 'A satirical lithograph depicting a helmeted, grotesque soldier figure in the expressionist style. Grosz was a German satirist who fled Nazi Germany in 1933.',
@@ -1210,6 +1215,7 @@ var VISUAL_DATA = [
   },
   {
     num: 2,
+    img: 'images/stimuli/page-2.jpg',
     title: 'Aeroflot Soviet Airline Advertisement, 1950s',
     source: 'Advertisement by Aeroflot, a Soviet state-owned commercial airline, used in the Soviet Union during the 1950s.',
     desc: 'A commercial advertisement showing a Soviet jetliner flying over major international landmarks from America, Europe, Africa, and Asia \u2014 suggesting Soviet global reach.',
@@ -1226,6 +1232,7 @@ var VISUAL_DATA = [
   },
   {
     num: 3,
+    img: 'images/stimuli/page-3.jpg',
     title: 'Workers and Soldiers in Saint Petersburg, February 1917',
     source: 'Photograph \u2014 workers and soldiers marching in Saint Petersburg after taking control of the city, February 1917 (Keystone-France/Contributor).',
     desc: 'A large crowd of both civilian workers and uniformed soldiers marching together through the streets of Saint Petersburg \u2014 the beginning of the February Revolution.',
@@ -1242,6 +1249,7 @@ var VISUAL_DATA = [
   },
   {
     num: 4,
+    img: 'images/stimuli/page-4.jpg',
     title: 'Indian Muslim Troops Praying in Surrey, England, 1916',
     source: 'Indian Muslim troops in the British Armed Forces praying. Photograph taken in Surrey, England, 1916 (FPG/Staff). British civilian women are visible watching in the background.',
     desc: 'Indian Muslim soldiers in British military uniforms performing prayer in England, observed by British civilian women in the background.',
@@ -1258,6 +1266,7 @@ var VISUAL_DATA = [
   },
   {
     num: 5,
+    img: 'images/stimuli/page-5.jpg',
     title: 'David Ol\u00e8re \u2014 \u201cThe Food of the Dead for the Living\u201d, c. 1950',
     source: 'David Ol\u00e8re, French Jewish painter and Auschwitz inmate (March 1943\u2013May 1945). \u201cThe Food of the Dead for the Living,\u201d painted circa 1950.',
     desc: 'A painting by Holocaust survivor David Ol\u00e8re depicting the Auschwitz crematoria system \u2014 the industrial apparatus of mass murder that he was forced to work within as a Sonderkommando prisoner.',
@@ -1274,6 +1283,7 @@ var VISUAL_DATA = [
   },
   {
     num: 6,
+    img: 'images/stimuli/page-6.jpg',
     title: 'German East African Troops (Askari), WWI',
     source: 'Photograph of German East African troops (Askari soldiers) serving under German command during the First World War.',
     desc: 'African soldiers (Askari troops) in military formation, serving under German officers in German East Africa (modern Tanzania) during WWI.',
@@ -1290,6 +1300,7 @@ var VISUAL_DATA = [
   },
   {
     num: 7,
+    img: 'images/stimuli/page-7.jpg',
     title: 'Two Maps: Southeast Asian Decolonization',
     source: 'Two comparative maps of Southeast Asia \u2014 showing political boundaries under European colonial rule and after WWII-era decolonization.',
     desc: 'A before-and-after map comparison showing Southeast Asia under European colonial control and then as newly independent nations, particularly highlighting Indonesian independence.',
@@ -4620,14 +4631,42 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!tabRow || !cardsEl || typeof VISUAL_DATA === 'undefined') return;
 
     var HIPP_KEYS = [
-      { key: 'h',   label: 'Historical Context', prompt: 'What was happening when this source was created?' },
-      { key: 'i',   label: 'Intended Audience',  prompt: 'Who was this source made for?' },
-      { key: 'p',   label: 'Purpose',            prompt: 'Why was this source created?' },
-      { key: 'pov', label: 'Point of View',      prompt: "How does the creator\u2019s identity shape this source?" }
+      {
+        key: 'h', label: 'Historical Context',
+        guides: [
+          'When and where was this source created?',
+          'What major events, conflicts, or tensions were happening at this time?',
+          'How does the historical moment explain why this source exists?'
+        ]
+      },
+      {
+        key: 'i', label: 'Intended Audience',
+        guides: [
+          'Who was this source originally created for \u2014 a mass public, a specific group, or a limited audience?',
+          'What details in the source (language, imagery, style) hint at who it was aimed at?',
+          'Would the intended audience have agreed with the source\u2019s message?'
+        ]
+      },
+      {
+        key: 'p', label: 'Purpose',
+        guides: [
+          'Why did the creator make this \u2014 to persuade, inform, document, commemorate, or entertain?',
+          'What reaction or action did the creator want from the audience?',
+          'Who benefits if the source\u2019s message is believed or accepted?'
+        ]
+      },
+      {
+        key: 'pov', label: 'Point of View',
+        guides: [
+          'Who created this source? What is their background, nationality, class, or position?',
+          'How does the creator\u2019s identity shape what they emphasize, downplay, or leave out?',
+          'Why should a historian consider this creator\u2019s perspective when evaluating this source?'
+        ]
+      }
     ];
 
     VISUAL_DATA.forEach(function(item, idx) {
-      // Tab button
+      // Tab
       var tab = document.createElement('button');
       tab.type = 'button';
       tab.className = 'vs-tab' + (idx === 0 ? ' active' : '');
@@ -4640,24 +4679,26 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       tabRow.appendChild(tab);
 
-      // Build HIPP input sections
-      var hippHTML = '';
-      HIPP_KEYS.forEach(function(hk) {
-        hippHTML +=
-          '<div class="vs-hipp-section">' +
-            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
-            '<textarea class="vs-hipp-input" placeholder="' + hk.prompt + '" rows="2"></textarea>' +
-            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '">' +
-              '<div class="vs-hipp-model-lbl">Model ' + hk.label + '</div>' +
-              item.hipp[hk.key] +
-            '</div>' +
-          '</div>';
-      });
-
-      // Build MC options
+      // MC options
       var mcHTML = '';
       item.o.forEach(function(opt, oi) {
         mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>';
+      });
+
+      // HIPP sections with guided questions
+      var hippHTML = '';
+      HIPP_KEYS.forEach(function(hk) {
+        var guideItems = hk.guides.map(function(g) { return '<li>' + g + '</li>'; }).join('');
+        hippHTML +=
+          '<div class="vs-hipp-section">' +
+            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
+            '<ul class="vs-guide">' + guideItems + '</ul>' +
+            '<textarea class="vs-hipp-input" placeholder="Write your analysis here\u2026" rows="3"></textarea>' +
+            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '">' +
+              '<div class="vs-hipp-model-lbl">Exemplar \u2014 ' + hk.label + '</div>' +
+              item.hipp[hk.key] +
+            '</div>' +
+          '</div>';
       });
 
       // Card
@@ -4665,48 +4706,60 @@ document.addEventListener('DOMContentLoaded', function () {
       card.className = 'vs-card' + (idx === 0 ? ' active' : '');
       card.id = 'vs-card-' + idx;
       card.innerHTML =
-        '<div class="vs-card-src">' + item.source + '</div>' +
-        '<div class="vs-card-title">' + item.title + '</div>' +
-        '<div class="vs-card-desc">' + item.desc + '</div>' +
-        '<div style="font-size:.78rem;color:var(--muted);margin-bottom:10px">Look at the image in the PDF, then write your own HIPP analysis below:</div>' +
-        hippHTML +
+        // Full source document image
+        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
+
+        // Step 1 — AP question (always visible)
+        '<div class="vs-step-hdr">Step 1 \u2014 Answer the AP Question</div>' +
+        '<div class="vs-mc-q">' + item.q + '</div>' +
+        mcHTML +
+        '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
+
+        // Reveal HIPP button
         '<div class="vs-btn-row">' +
-          '<button type="button" class="vs-btn" data-compare="' + idx + '">Compare to Model Answers</button>' +
-          '<button type="button" class="vs-btn vs-btn-red" data-mcshow="' + idx + '">Practice AP Question</button>' +
+          '<button type="button" class="vs-btn" data-hippshow="' + idx + '">Step 2 \u2014 Analyze this Source (HIPP) \u2192</button>' +
         '</div>' +
-        '<div class="vs-mc-area" id="vs-mc-' + idx + '">' +
-          '<div class="vs-mc-q">' + item.q + '</div>' +
-          mcHTML +
-          '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
+
+        // HIPP area — hidden until button click
+        '<div class="vs-hipp-area" id="vs-hipp-' + idx + '">' +
+          '<div class="vs-step-hdr" style="margin-bottom:12px">Step 2 \u2014 HIPP Analysis</div>' +
+          '<p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Use the guiding questions below to write your own HIPP analysis. Answer in your own words before comparing to the exemplar.</p>' +
+          hippHTML +
+          '<div class="vs-btn-row">' +
+            '<button type="button" class="vs-btn vs-btn-red" data-compare="' + idx + '">Compare to Exemplar HIPP \u2192</button>' +
+          '</div>' +
         '</div>';
+
       cardsEl.appendChild(card);
     });
 
     // Event delegation
     cardsEl.addEventListener('click', function(e) {
-      // Compare to model
+      // Reveal HIPP section
+      var hippBtn = e.target.closest('[data-hippshow]');
+      if (hippBtn) {
+        document.getElementById('vs-hipp-' + hippBtn.dataset.hippshow).classList.add('show');
+        hippBtn.style.display = 'none';
+        return;
+      }
+      // Reveal exemplar HIPP
       var cmpBtn = e.target.closest('[data-compare]');
       if (cmpBtn) {
         var idx = cmpBtn.dataset.compare;
         HIPP_KEYS.forEach(function(hk) {
           document.getElementById('vs-model-' + hk.key + '-' + idx).classList.add('show');
         });
-        return;
-      }
-      // Show MC question
-      var mcBtn = e.target.closest('[data-mcshow]');
-      if (mcBtn) {
-        document.getElementById('vs-mc-' + mcBtn.dataset.mcshow).classList.add('show');
+        cmpBtn.style.display = 'none';
         return;
       }
       // MC option click
       var opt = e.target.closest('.vs-mc-option');
       if (opt && !opt.disabled) {
-        var area = opt.closest('.vs-mc-area');
-        var idx = area.id.replace('vs-mc-', '');
+        var card = opt.closest('.vs-card');
+        var idx = card.id.replace('vs-card-', '');
         var item = VISUAL_DATA[parseInt(idx)];
         var oi = parseInt(opt.dataset.oi);
-        area.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
+        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
           b.disabled = true;
           if (bi === item.c) b.classList.add('vs-mc-correct');
           else if (bi === oi) b.classList.add('vs-mc-wrong');
@@ -4848,7 +4901,10 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function() {
           var laser = document.createElement('div');
           laser.className = 'ast-laser';
-          laser.style.cssText = 'left:' + shipX + 'px;top:' + shipY + 'px;width:' + dist + 'px;--laser-angle:' + angleDeg + 'deg';
+          laser.style.left = shipX + 'px';
+          laser.style.top = (shipY - 1) + 'px';
+          laser.style.width = dist + 'px';
+          laser.style.setProperty('--laser-angle', angleDeg + 'deg');
           arena.appendChild(laser);
           laser.getBoundingClientRect(); // force reflow
           laser.classList.add('fire');

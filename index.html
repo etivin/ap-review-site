@@ -454,6 +454,144 @@ img{display:block;max-width:100%}
   .jeop-board{grid-template-columns:repeat(3,1fr)}
   .jeop-cat:nth-child(n+4){display:none}
 }
+/* ── HAPP Lens / Sentence Frame ─────────────────────────── */
+.happ-lens-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.happ-lens-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .15s}
+.happ-lens-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.happ-lens-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.happ-frame{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin:0 0 12px;font-size:.86rem;line-height:1.7}
+.happ-frame-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.happ-frame-tip{font-size:.78rem;color:var(--mid);font-style:italic;margin-top:6px}
+/* ── Sort It game ───────────────────────────────────────── */
+.sortit-card{background:var(--white);border:2px solid var(--border2);padding:16px 18px;margin-bottom:12px;font-size:.86rem;line-height:1.6}
+.sortit-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sortit-btn{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .15s}
+.sortit-btn.earns{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.sortit-btn.nope{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.sortit-card.revealed-correct{border-color:#1a6825}
+.sortit-card.revealed-wrong{border-color:var(--red)}
+.sortit-explain{font-size:.79rem;color:var(--mid);margin-top:8px;display:none;line-height:1.55;border-top:1px solid var(--border);padding-top:8px}
+.sortit-card.revealed-correct .sortit-explain,.sortit-card.revealed-wrong .sortit-explain{display:block}
+/* ── Source Line Warm-up ────────────────────────────────── */
+.warmup-timer{font-family:'IBM Plex Mono',monospace;font-size:2rem;text-align:center;letter-spacing:.06em;color:var(--ink);margin:8px 0 16px}
+.warmup-timer.urgent{color:var(--red)}
+.warmup-source-card{background:var(--paper);border:1px solid var(--border2);border-left:4px solid var(--red);padding:16px 20px;margin-bottom:16px}
+.warmup-doc-type{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.warmup-source-line{font-weight:700;font-size:.88rem;margin-bottom:7px;color:var(--ink)}
+.warmup-excerpt{font-size:.83rem;color:var(--mid);line-height:1.6;font-style:italic}
+.warmup-lens-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.warmup-lens-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all .15s}
+.warmup-lens-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.warmup-lens-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.warmup-frame{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin-bottom:12px;font-size:.86rem;line-height:1.7}
+.warmup-model{background:#e8f5e9;border:1px solid #1a6825;padding:14px 18px;margin-top:14px;font-size:.84rem;line-height:1.65}
+.warmup-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+/* ── Speed Quiz ─────────────────────────────────────────── */
+.sq-score-chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ink);background:var(--paper);border:1.5px solid var(--border2);padding:6px 14px}
+.sq-qnum{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sq-timer-bar-wrap{height:8px;background:var(--border);border-radius:4px;margin-bottom:18px;overflow:hidden}
+.sq-timer-bar{height:100%;background:var(--red);border-radius:4px}
+.sq-q-text{font-family:'Playfair Display',serif;font-size:1.2rem;line-height:1.5;margin-bottom:20px;text-align:center}
+.sq-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto 16px}
+.sq-choice{padding:16px 18px;border:2px solid var(--border2);background:var(--white);font-size:.86rem;line-height:1.4;cursor:pointer;text-align:left;transition:background .15s,border-color .15s;font-family:inherit}
+.sq-choice:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.sq-choice.sq-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.sq-choice.sq-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.sq-pts-flash{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:1rem;letter-spacing:.1em;min-height:26px;margin-bottom:8px}
+.sq-expl{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--border2);padding:12px 16px;font-size:.83rem;line-height:1.6;max-width:640px;margin:0 auto}
+.sq-final-score{font-family:'IBM Plex Mono',monospace;font-size:2.4rem;letter-spacing:.06em;margin:14px 0 4px}
+.sq-bk-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--border);font-size:.82rem;line-height:1.5;text-align:left}
+.sq-bk-icon{font-size:1rem;flex-shrink:0;margin-top:2px}
+@media(max-width:520px){.sq-choices{grid-template-columns:1fr}}
+/* ── Timeline Builder ───────────────────────────────────── */
+.tl-pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:22px}
+.tl-card{background:var(--white);border:2px solid var(--border2);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.tl-card:hover:not(.tl-placed){border-color:var(--red);transform:translateY(-2px)}
+.tl-card-title{font-size:.84rem;font-weight:600;color:var(--ink)}
+.tl-placed{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.7}
+.tl-wrong-anim{animation:matchShake .35s ease-out;border-color:var(--red) !important;background:#fff5f5 !important}
+.tl-sequence{background:var(--paper);border:1px solid var(--border);padding:14px 18px;margin-bottom:16px}
+.tl-seq-lbl{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.tl-seq-item{display:flex;gap:10px;align-items:baseline;font-size:.82rem;line-height:1.5;color:#1a6825;margin-bottom:4px}
+.tl-seq-num{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;min-width:18px;color:#1a6825}
+.tl-next-slot{color:var(--muted);font-style:italic}
+/* ── Visual Stimuli ─────────────────────────────────────── */
+.vs-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start;margin-top:24px}
+.vs-pdf-wrap{background:var(--paper);border:1px solid var(--border2);aspect-ratio:4/3;width:100%;overflow:hidden}
+.vs-pdf-wrap iframe{width:100%;height:100%;border:none;display:block}
+.vs-panel{background:var(--white);border:1px solid var(--border2)}
+.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.vs-tab{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
+.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.vs-card{display:none;padding:16px 18px}
+.vs-card.active{display:block}
+.vs-card-src{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.vs-card-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
+.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
+.vs-hipp-section{margin-bottom:14px}
+.vs-hipp-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:48px;margin-bottom:4px;transition:border-color .15s}
+.vs-hipp-input:focus{border-color:var(--red);outline:none}
+.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:8px 10px;font-size:.79rem;line-height:1.55;color:var(--mid);margin-bottom:10px}
+.vs-hipp-model.show{display:block}
+.vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:3px}
+.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.vs-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .15s}
+.vs-btn:hover{background:var(--ink);color:#fff}
+.vs-btn-red{border-color:var(--red);color:var(--red)}
+.vs-btn-red:hover{background:var(--red);color:#fff}
+.vs-mc-area{display:none;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.vs-mc-area.show{display:block}
+.vs-mc-q{font-size:.83rem;font-weight:600;margin-bottom:10px;line-height:1.5}
+.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
+.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.vs-mc-option.vs-mc-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
+.vs-mc-explain.show{display:block}
+@media(max-width:860px){.vs-layout{grid-template-columns:1fr}}
+/* ── Asteroid Game ──────────────────────────────────────── */
+#asteroid-arena{position:relative;width:100%;height:420px;background:#06061a;overflow:hidden;border:2px solid #1a1a40;border-radius:4px}
+.ast-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 15% 25%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 55% 18%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 82% 65%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 38% 78%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 92% 42%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 8% 58%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 48% 48%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 68% 32%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 25% 12%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 75% 85%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 33% 55%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 62% 90%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 5% 38%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 88% 22%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 44% 68%,#fff 0%,transparent 100%)}
+/* .ast-ship moved below with transition support */
+.ast-ship::after{content:'';position:absolute;top:8px;left:-6px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:14px solid #06061a}
+.asteroid{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;width:128px;height:108px;background:#7a4e28;clip-path:polygon(50% 0%,82% 10%,100% 40%,88% 76%,60% 100%,28% 98%,5% 72%,0% 40%,18% 12%);color:#f0e8d8;font-size:.62rem;line-height:1.3;font-family:'IBM Plex Mono',monospace;padding:14px 10px;user-select:none;transform-origin:50% 50%;box-shadow:inset -5px -5px 12px rgba(0,0,0,.6)}
+.asteroid:nth-child(odd){clip-path:polygon(30% 0%,72% 8%,100% 36%,92% 70%,65% 100%,28% 95%,0% 65%,5% 28%);background:#6b421e}
+.asteroid:nth-child(3n){clip-path:polygon(45% 2%,80% 14%,100% 48%,82% 82%,50% 100%,16% 88%,0% 52%,10% 20%);background:#8b5e35}
+.asteroid:hover{filter:brightness(1.3)}
+.asteroid.ast-correct{animation:astExplode .45s ease-out forwards;pointer-events:none}
+.asteroid.ast-wrong{animation:astWrong .3s ease-out}
+.ast-hud{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:#0a0a28;border-bottom:1px solid #1a1a50;position:relative;z-index:2}
+.ast-lives{color:#ff6666;font-size:.9rem;letter-spacing:.04em}
+.ast-score-hud{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:#44aaff}
+.ast-qbar{background:rgba(10,10,40,.95);border-bottom:1px solid #1a1a50;padding:10px 18px;font-size:.84rem;color:#e8e8ff;line-height:1.45;text-align:center;position:relative;z-index:2;min-height:44px}
+.ast-qnum-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:#44aaff;margin-bottom:4px}
+.ast-end{display:none;text-align:center;padding:44px 20px;background:#06061a;color:#e8e8ff;height:100%;box-sizing:border-box}
+.ast-end.show{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ast-end-score{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;letter-spacing:.06em;color:#44aaff;margin:10px 0 4px}
+.ast-flash-overlay{position:absolute;inset:0;pointer-events:none;z-index:10;opacity:0;transition:opacity .15s}
+.ast-laser{position:absolute;height:3px;background:linear-gradient(90deg,transparent,#44aaff 20%,#88ddff 50%,#44aaff 80%,transparent);transform-origin:0 50%;pointer-events:none;z-index:5;opacity:0;filter:drop-shadow(0 0 4px #44aaff)}
+.ast-laser.fire{animation:laserFire .3s ease-out forwards}
+@keyframes laserFire{0%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(0)}30%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}70%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}100%{opacity:0;transform:rotate(var(--laser-angle)) scaleX(1)}}
+.ast-ship{position:absolute;bottom:24px;left:50%;width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-bottom:28px solid #44aaff;filter:drop-shadow(0 0 8px #44aaff);transition:transform .15s ease-out;transform-origin:50% 100%}
+@keyframes astExplode{0%{transform:scale(1) rotate(var(--rot,0deg));opacity:1}40%{transform:scale(1.8) rotate(var(--rot,0deg));filter:brightness(4);opacity:.8}100%{transform:scale(0) rotate(var(--rot,0deg));opacity:0}}
+@keyframes astWrong{0%,100%{transform:translate(var(--tx,0px),var(--ty,0px)) rotate(var(--rot,0deg))}25%{transform:translate(calc(var(--tx,0px) - 7px),var(--ty,0px)) rotate(var(--rot,0deg))}75%{transform:translate(calc(var(--tx,0px) + 7px),var(--ty,0px)) rotate(var(--rot,0deg))}}
+/* ── Class Slides ───────────────────────────────────────── */
+.slides-layout{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;margin-top:24px}
+.slides-embed{background:var(--paper);border:1px solid var(--border2);aspect-ratio:4/3;width:100%;overflow:hidden}
+.slides-embed iframe,.slides-embed embed{width:100%;height:100%;border:none;display:block}
+.slides-panel{background:var(--white);border:1px solid var(--border2);padding:0}
+.slides-panel-hdr{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);padding:14px 18px 0;margin-bottom:10px}
+.slides-topic{border-top:1px solid var(--border);padding:12px 18px;cursor:pointer}
+.slides-topic:first-of-type{border-top:none}
+.slides-topic-title{font-size:.86rem;font-weight:600;color:var(--ink);display:flex;justify-content:space-between;align-items:center}
+.slides-topic-title .sa{font-size:.7rem;color:var(--muted);transition:transform .2s}
+.slides-topic.open .sa{transform:rotate(180deg)}
+.slides-topic-body{display:none;font-size:.82rem;color:var(--mid);line-height:1.65;margin-top:8px}
+.slides-topic.open .slides-topic-body{display:block}
+.slides-topic-kw{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.slides-topic-kw span{background:var(--paper);border:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;color:var(--muted)}
+@media(max-width:860px){.slides-layout{grid-template-columns:1fr}.slides-panel{margin-top:0}}
 
 /* ── SOURCING PRACTICE ─────────────────────────────── */
 .src-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:860px;margin:0 auto}
@@ -528,7 +666,8 @@ img{display:block;max-width:100%}
     <button type="button" class="hn-btn" data-tab="pg-tips">&#128161; Tips</button>
     <button type="button" class="hn-btn" data-tab="pg-brain">&#129504; Brain Dump</button>
     <button type="button" class="hn-btn" data-tab="pg-games">&#127918; Games</button>
-    <button type="button" class="hn-btn" data-tab="pg-source">&#128270; Sourcing</button>
+    <button type="button" class="hn-btn" data-tab="pg-slides">&#128196; Class Slides</button>
+    <button type="button" class="hn-btn" data-tab="pg-visual">&#128444; Visual Sources</button>
   </nav>
   <div id="bar-score" style="display:none">Score: <strong id="score-txt">0/0</strong></div>
 </header>
@@ -598,7 +737,19 @@ img{display:block;max-width:100%}
           <div class="feat-icon">&#127918;</div>
           <div class="feat-name">Review Games</div>
           <div class="feat-desc">Play Jeopardy with your class or match key ideas to build the Unit 7 narrative.</div>
-          <div class="feat-count">2 games &mdash; Jeopardy + Matching</div>
+          <div class="feat-count">6 games &mdash; Jeopardy, Matching &amp; more</div>
+        </button>
+        <button type="button" class="feat" data-tab="pg-slides">
+          <div class="feat-icon">&#128196;</div>
+          <div class="feat-name">Class Slides</div>
+          <div class="feat-desc">Your full lecture slides embedded alongside topic-by-topic analysis, key arguments, and AP vocabulary.</div>
+          <div class="feat-count">43 slides &mdash; Topic analysis</div>
+        </button>
+        <button type="button" class="feat" data-tab="pg-visual">
+          <div class="feat-icon">&#128444;</div>
+          <div class="feat-name">Visual Sources</div>
+          <div class="feat-desc">7 AP-authentic visual stimuli &mdash; photographs, posters, maps, and paintings &mdash; with full HIPP analysis and AP MC questions.</div>
+          <div class="feat-count">7 sources &mdash; HIPP analysis</div>
         </button>
         <button type="button" class="feat" data-tab="pg-source">
           <div class="feat-icon">&#128270;</div>
@@ -965,11 +1116,30 @@ img{display:block;max-width:100%}
           <div class="drill-rubric-title">What earns the point &mdash; official rubric language (DBQ only)</div>
           <ul>
             <li>For <strong>at least 2 documents</strong>, explain how the document&rsquo;s <strong>H</strong>istorical situation, <strong>A</strong>udience, <strong>P</strong>urpose, or <strong>P</strong>oint of View is relevant to an argument</li>
-            <li>Must <strong>explain HOW or WHY</strong> &mdash; not just identify. Say &ldquo;This is significant because&hellip;&rdquo;</li>
-            <li>The explanation must connect to your <strong>argument about the prompt</strong></li>
+            <li>Must <strong>explain HOW or WHY</strong> &mdash; not just identify. The <em>&ldquo;which means&rdquo;</em> anchor forces the second move: &ldquo;[feature] is [X], <strong>which means</strong> [consequence for argument].&rdquo;</li>
+            <li>The explanation must connect to your <strong>argument about the prompt</strong> &mdash; the sourcing sentence must do work, not just exist</li>
           </ul>
         </div>
-        <p style="font-size:.83rem;color:var(--mid);margin:10px 0 6px">Write HAPP analysis for <strong>two different documents</strong> from the DBQ above. Label each (e.g. &ldquo;Doc 1:&rdquo; and &ldquo;Doc 4:&rdquo;).</p>
+
+        <!-- Lens selector -->
+        <div style="margin:12px 0 6px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Step 1 &mdash; pick a lens (don&rsquo;t default to POV every time):</div>
+          <div class="happ-lens-row" id="happ-lens-row">
+            <button type="button" class="happ-lens-btn active" data-lens="pov">Point of View</button>
+            <button type="button" class="happ-lens-btn" data-lens="purpose">Purpose</button>
+            <button type="button" class="happ-lens-btn" data-lens="audience">Audience</button>
+            <button type="button" class="happ-lens-btn" data-lens="hist">Historical Situation</button>
+          </div>
+        </div>
+
+        <!-- Sentence frame -->
+        <div class="happ-frame" id="happ-frame">
+          <div class="happ-frame-lbl">Step 2 &mdash; sentence frame (fill in the blanks):</div>
+          <div id="happ-frame-text">&ldquo;The <strong>point of view</strong> of [Doc #] is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X &mdash; connect to your argument</em>].&rdquo;</div>
+          <div class="happ-frame-tip" id="happ-frame-tip">Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?</div>
+        </div>
+
+        <p style="font-size:.83rem;color:var(--mid);margin:10px 0 6px">Step 3 &mdash; write HAPP analysis for <strong>two different documents</strong> from the DBQ above. Label each (e.g. &ldquo;Doc 1:&rdquo; and &ldquo;Doc 4:&rdquo;). You can use different lenses for each.</p>
         <textarea class="drill-textarea" id="drill-happ-text" placeholder="Write your HAPP analysis for two documents here..."></textarea>
         <button type="button" class="drill-check-btn" data-drill="happ">Check HAPP</button>
         <div class="drill-result" id="drill-happ-result"></div>
@@ -1079,6 +1249,139 @@ img{display:block;max-width:100%}
 <script>
 // ── APWH Unit 7 Data ─────────────────────────────────────────────────────────
 // All content data. No inline handlers. Loaded before apwh-app.js
+
+/* ── VISUAL STIMULI DATA ───────────────────────────────── */
+var VISUAL_DATA = [
+  {
+    num: 1,
+    title: '\u201cThe Hero\u201d \u2014 George Grosz, 1936',
+    source: 'Lithograph by German artist George Grosz, 1936',
+    desc: 'A satirical lithograph depicting a helmeted, grotesque soldier figure in the expressionist style. Grosz was a German satirist who fled Nazi Germany in 1933.',
+    q: 'Which of the following best describes the 1936 lithograph (entitled The Hero) by German artist George Grosz?',
+    o: ['A propaganda poster prepared by the Nazi Party', 'A protest poster against the atrocities of the atomic bomb', 'A representation of a Holocaust victim', 'A post-First World War print expressing antiwar sentiment'],
+    c: 3,
+    e: 'Grosz consistently expressed outrage at militarism. Having witnessed WWI\u2019s horrors and fled Nazi Germany, he used satirical art to condemn the glorification of war \u2014 making this an antiwar image, not pro-war propaganda.',
+    hipp: {
+      h: 'WWI (1914\u201318) killed 20 million people and shattered European confidence in militarism. By 1936, Hitler was remilitarizing Germany \u2014 the same militarist ideology Grosz spent his career attacking. Antiwar art was increasingly dangerous to produce in Europe.',
+      i: 'Anti-militarist audiences in Europe and the United States \u2014 those who opposed the glorification of war and feared the rising tide of fascism in the 1930s.',
+      p: 'To satirize and condemn the glorification of military heroes \u2014 to expose the brutal, dehumanizing reality of warfare behind the propaganda-driven celebration of soldiers.',
+      pov: 'As a German who lived through WWI and fled Nazi persecution, Grosz was personally motivated to use art as political protest. His point of view is that of a traumatized witness turned critic of the state that produced him.'
+    }
+  },
+  {
+    num: 2,
+    title: 'Aeroflot Soviet Airline Advertisement, 1950s',
+    source: 'Advertisement by Aeroflot, a Soviet state-owned commercial airline, used in the Soviet Union during the 1950s.',
+    desc: 'A commercial advertisement showing a Soviet jetliner flying over major international landmarks from America, Europe, Africa, and Asia \u2014 suggesting Soviet global reach.',
+    q: 'The image can best be used to illustrate which of the following about communist states?',
+    o: ['The collectivization of agriculture', 'Limited technological progress in comparison with Western states', 'State control of borders with noncommunist states', 'State control over the economy'],
+    c: 3,
+    e: 'Aeroflot was a state-owned enterprise. The advertisement demonstrates that the Soviet state directly controlled commercial aviation \u2014 a sector privately owned in capitalist economies \u2014 as part of broader central economic planning.',
+    hipp: {
+      h: 'The 1950s were the height of the Cold War. The USSR competed with the West in technology and global prestige (Sputnik launched 1957). Soviet state planning claimed to outperform Western capitalism in economic development and technological achievement.',
+      i: 'Soviet citizens and potentially foreign audiences \u2014 those the Soviet state wanted to persuade that socialist planning could achieve technological and commercial success equal to or exceeding the West.',
+      p: 'To promote state-owned airline service while projecting Soviet technological achievement, modernity, and global connectivity \u2014 serving double duty as both commercial advertising and political propaganda.',
+      pov: 'As a state-controlled enterprise, Aeroflot\u2019s advertising directly reflected Soviet government priorities. The image cannot be separated from Soviet Cold War ideology: global reach = ideological reach.'
+    }
+  },
+  {
+    num: 3,
+    title: 'Workers and Soldiers in Saint Petersburg, February 1917',
+    source: 'Photograph \u2014 workers and soldiers marching in Saint Petersburg after taking control of the city, February 1917 (Keystone-France/Contributor).',
+    desc: 'A large crowd of both civilian workers and uniformed soldiers marching together through the streets of Saint Petersburg \u2014 the beginning of the February Revolution.',
+    q: 'The makeup of the force shown in the image is best explained by the fact that by 1917',
+    o: ['nationalism in Russia had intensified sharply as a result of the shared experiences of the First World War', 'new military technologies had made it possible to transport soldiers more rapidly', 'wartime propaganda had fueled fanatical loyalty to the Tsarist regime among ordinary Russians', "Russia\u2019s army morale and home-front effort were collapsing because of the strains of total war"],
+    c: 3,
+    e: 'By early 1917 Russia had suffered millions of casualties, food shortages, and military defeats. Total war\u2019s demands had broken both military discipline and civilian loyalty to the Tsar \u2014 soldiers and workers united against the regime.',
+    hipp: {
+      h: 'Russia entered WWI in 1914 and suffered catastrophic losses: millions dead, armies in retreat, cities starving. The strain of total war collapsed the Tsarist government\u2019s legitimacy. By February 1917, neither the army nor the working class would continue to fight for the Tsar.',
+      i: 'The photograph was taken by a photojournalist for historical/news documentation \u2014 not staged for a specific audience, but intended to record the revolutionary moment as it unfolded.',
+      p: 'To document the February Revolution of 1917 \u2014 the moment when Russian soldiers and workers united against the Tsarist regime. This photograph captured the beginning of the end of the Romanov dynasty.',
+      pov: 'The crucial insight is the presence of BOTH workers AND soldiers together. The army was supposed to suppress revolution, not join it. Their unity proves that total war had destroyed loyalty to the regime from within.'
+    }
+  },
+  {
+    num: 4,
+    title: 'Indian Muslim Troops Praying in Surrey, England, 1916',
+    source: 'Indian Muslim troops in the British Armed Forces praying. Photograph taken in Surrey, England, 1916 (FPG/Staff). British civilian women are visible watching in the background.',
+    desc: 'Indian Muslim soldiers in British military uniforms performing prayer in England, observed by British civilian women in the background.',
+    q: 'The situation shown in the image is best understood in the context of which of the following aspects of twentieth-century warfare?',
+    o: ['States used propaganda to intensify patriotism in times of war.', 'States used new industrial technologies to fight wars that were deadlier and more expensive.', 'States made full use of their populations and material resources to fight total wars.', 'States increasingly mobilized their citizens for warfare regardless of gender or class.'],
+    c: 2,
+    e: 'The British Indian Army contributed over 1 million soldiers to WWI. Using colonial populations to fight on European soil is direct evidence of total war mobilization \u2014 states drawing on every available human and material resource.',
+    hipp: {
+      h: 'Total war in WWI forced Britain to mobilize all available resources, including the manpower of its empire. By 1916, catastrophic casualties on the Western Front created desperate demand for colonial troops. Over 1 million Indian soldiers served in WWI.',
+      i: 'British home-front civilian audiences (note women watching) and potentially Indian colonial audiences \u2014 to demonstrate imperial unity and the shared sacrifice of the war effort across the empire.',
+      p: 'Documentary/propaganda: to record and publicize the diverse composition of British imperial forces; to build home-front support for the war by showing the empire fighting together.',
+      pov: 'The British civilian women watching frame the soldiers as both foreign and fascinating \u2014 the home front literally encountering the empire. The image reveals how total war made the colonial relationship visible to ordinary British people in ways peacetime never had.'
+    }
+  },
+  {
+    num: 5,
+    title: 'David Ol\u00e8re \u2014 \u201cThe Food of the Dead for the Living\u201d, c. 1950',
+    source: 'David Ol\u00e8re, French Jewish painter and Auschwitz inmate (March 1943\u2013May 1945). \u201cThe Food of the Dead for the Living,\u201d painted circa 1950.',
+    desc: 'A painting by Holocaust survivor David Ol\u00e8re depicting the Auschwitz crematoria system \u2014 the industrial apparatus of mass murder that he was forced to work within as a Sonderkommando prisoner.',
+    q: 'The implementation of the policies of extermination shown in the image is most directly explained by which of the following aspects of Nazi ideology?',
+    o: ['The idea that Germans descended from a master \u201cAryan\u201d race', 'The idea that some minority populations could eventually be Germanized', 'The idea that minority populations within Germany were somehow responsible for its defeat during the First World War', 'The idea that Germany needed to expand its postwar borders in order to provide \u201cliving space\u201d for its people'],
+    c: 2,
+    e: 'Nazi ideology used the \u201cstab in the back\u201d legend to blame Jews for Germany\u2019s WWI defeat. This scapegoating made Jews existential threats to the state \u2014 the ideological justification for organized extermination.',
+    hipp: {
+      h: 'The Holocaust (1941\u201345) was the state-organized murder of ~6 million Jews and 6 million others. Ol\u00e8re survived Auschwitz as a Sonderkommando \u2014 forced to operate the crematoria. He painted from memory after liberation, driven by the need to document what he witnessed.',
+      i: 'Post-war audiences: survivors, historians, and anyone at risk of denying or minimizing the Holocaust. Painted circa 1950, when the world was still processing the scale of Nazi atrocities.',
+      p: 'To bear witness \u2014 to ensure the atrocities of the Holocaust were documented, visualized, and impossible to deny. Ol\u00e8re felt a moral obligation as a survivor to testify through art.',
+      pov: 'Ol\u00e8re did not merely observe \u2014 he was forced to participate in the camp\u2019s operations. His paintings have the authority of direct testimony. As HAPP analysis: his point of view as a victim and forced participant means the source cannot be dismissed as exaggerated or second-hand.'
+    }
+  },
+  {
+    num: 6,
+    title: 'German East African Troops (Askari), WWI',
+    source: 'Photograph of German East African troops (Askari soldiers) serving under German command during the First World War.',
+    desc: 'African soldiers (Askari troops) in military formation, serving under German officers in German East Africa (modern Tanzania) during WWI.',
+    q: 'The photograph above of German East African troops best illustrates which of the following historical processes during the First World War?',
+    o: ['The increasing inclusion of non-Europeans in European conflicts', 'The undermining of European claims to moral superiority as a result of the destructiveness of the First World War', 'The development of African nationalism as a consequence of Africans\u2019 involvement in European wars', 'The gradual extension of self-rule to Europe\u2019s African colonies in the face of anticolonial protests by Africans'],
+    c: 0,
+    e: 'Both the Entente and Central Powers mobilized African and Asian colonial troops to fight WWI. German East Africa fielded Askari soldiers; Britain used over 1 million Indian soldiers. This demonstrates WWI as a truly global, inclusive conflict.',
+    hipp: {
+      h: 'European colonial powers mobilized troops from Africa, Asia, and other colonized regions. German East Africa (Tanganyika) was defended largely by African Askari troops under German officers \u2014 and held out until after the Armistice in 1918, making it the last theater of WWI to surrender.',
+      i: 'Likely German military or colonial documentation \u2014 intended to showcase German colonial military organization and the capability of African troops under German command.',
+      p: 'Military documentation of colonial forces; possibly propaganda to demonstrate German colonial administration and African soldier loyalty \u2014 both for German domestic audiences and colonial authorities.',
+      pov: 'Taken from a German colonial perspective, the photograph portrays Askari soldiers as disciplined assets of the German colonial system, not as individuals with their own agency or political consciousness. The framing reflects the colonial gaze of its time.'
+    }
+  },
+  {
+    num: 7,
+    title: 'Two Maps: Southeast Asian Decolonization',
+    source: 'Two comparative maps of Southeast Asia \u2014 showing political boundaries under European colonial rule and after WWII-era decolonization.',
+    desc: 'A before-and-after map comparison showing Southeast Asia under European colonial control and then as newly independent nations, particularly highlighting Indonesian independence.',
+    q: 'Which of the following twentieth-century developments most directly weakened European colonial states and contributed to the changes between the two maps?',
+    o: ['The decline of European economies during the Great Depression', 'Japanese occupation of Southeast Asia during the Second World War', 'Competition between Great Britain and France', 'The conquest of Spanish imperial territories by the United States'],
+    c: 1,
+    e: 'Japanese occupation (1941\u201345) dismantled European colonial administrations across Southeast Asia, ended the myth of European invincibility, and in many cases armed independence movements. Countries like Indonesia used the post-war vacuum to declare independence.',
+    hipp: {
+      h: 'Japan rapidly conquered most of Southeast Asia in 1941\u201342, overthrowing Dutch, British, French, and American colonial administrations. Japan\u2019s defeat of European powers destroyed the myth that Europeans were naturally superior rulers \u2014 accelerating independence movements across the region.',
+      i: 'Students and historians comparing political geography over time \u2014 the maps are analytical tools for visualizing decolonization as a historical process.',
+      p: 'To make the scale of decolonization immediately visible through comparison. The before/after format reveals what decades of historical change look like on a map \u2014 turning an abstract process into a concrete visual shift.',
+      pov: 'Maps appear neutral but embed political reality as normal. The first map treats colonial boundaries as natural; the second treats national sovereignty as the new norm. The shift between them encodes the entire story of 20th-century decolonization without a single word of text.'
+    }
+  }
+];
+
+/* ── ASTEROID GAME QUESTIONS ───────────────────────────── */
+var ASTEROID_Q = [
+  { q: 'Which technology caused the WWI Western Front stalemate?', o: ['Poison gas', 'Machine guns & barbed wire', 'Fighter planes', 'Tank warfare'], c: 1 },
+  { q: 'MAIN stands for Militarism, Alliances, Imperialism, and\u2026', o: ['Nationalism', 'Navigation', 'Neutrality', 'Naval power'], c: 0 },
+  { q: 'What did the War Guilt Clause require Germany to do?', o: ['Accept sole blame & pay reparations', 'Surrender the Rhine', 'Divide the country', 'Disarm permanently'], c: 0 },
+  { q: 'Gandhi\u2019s 1930 Salt March protested\u2026', o: ['Partition of Bengal', 'British salt monopoly', 'British conscription', 'The Bengal famine'], c: 1 },
+  { q: 'Japan\u2019s Russo-Japanese War victory (1905) proved\u2026', o: ['Europe ruled Asia forever', 'Non-Europeans could defeat European powers', 'Japan needed more colonies', 'Russia was invincible'], c: 1 },
+  { q: 'FDR\u2019s U.S. Depression recovery program was called\u2026', o: ['Five Year Plans', 'The New Deal', 'Import Substitution', 'The Marshall Plan'], c: 1 },
+  { q: 'Stalin\u2019s Soviet economic program was called\u2026', o: ['New Economic Policy', 'Five Year Plans', 'Collectivization Reform', 'Comintern Agenda'], c: 1 },
+  { q: 'The Munich Agreement (1938) gave Hitler\u2026', o: ['Poland', 'Austria', 'The Sudetenland', 'The Rhineland'], c: 2 },
+  { q: 'The Great Depression began in\u2026', o: ['1925', '1927', '1929', '1933'], c: 2 },
+  { q: 'Total war means\u2026', o: ['Target soldiers only', 'Full mobilization of economy & civilians', 'No peace treaties allowed', 'All allies must fight'], c: 1 },
+  { q: 'Which event directly triggered WWI?', o: ['Sinking of Lusitania', 'Assassination of Franz Ferdinand', 'German invasion of Belgium', 'Zimmermann Telegram'], c: 1 },
+  { q: 'Latin American import substitution industrialization meant\u2026', o: ['Free trade zones', 'Build domestic industry to replace imports', 'Nationalize only oil', 'Export-led growth only'], c: 1 }
+];
+
 
 var TIMELINE = [
   {
@@ -4064,8 +4367,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (matchSelected.left !== null && matchSelected.right !== null) {
         var leftIdx = matchSelected.left;
         var rightIdx = matchSelected.right;
-        var leftCard = document.querySelector('.match-card.selected[data-side="left"]');
-        var rightCard = document.querySelector('.match-card.selected[data-side="right"]');
+        var leftCard = document.querySelector('.match-card[data-side="left"][data-idx="' + leftIdx + '"]');
+        var rightCard = document.querySelector('.match-card[data-side="right"][data-idx="' + rightIdx + '"]');
 
         if (leftIdx === rightIdx) {
           // Correct match
@@ -4111,6 +4414,906 @@ document.addEventListener('DOMContentLoaded', function () {
       renderMatching();
     });
   })();
+
+  /* ── HAPP LENS SWITCHER ───────────────────────────────── */
+  (function() {
+    var LENS_FRAMES = {
+      pov: {
+        text: '&ldquo;The <strong>point of view</strong> of [Doc #] is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?'
+      },
+      purpose: {
+        text: '&ldquo;The <strong>purpose</strong> of [Doc #] was to [<em>specific goal &mdash; convince, report, warn, celebrate</em>] [<em>specific audience</em>], <strong>which means</strong> the source [<em>overstates / downplays / frames X &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: why was this document created, and how does that goal shape what it says or leaves out?'
+      },
+      audience: {
+        text: '&ldquo;Because [Doc #] was written for [<em>specific audience &mdash; who they are and their context</em>], the source [<em>emphasizes / avoids X</em>], <strong>which means</strong> it [<em>consequence for your argument</em>].&rdquo;',
+        tip: 'Ask: who was this meant to reach, and what did that audience need &mdash; or not need &mdash; to hear?'
+      },
+      hist: {
+        text: '&ldquo;[Doc #] was produced during [<em>specific historical moment or event</em>], <strong>which means</strong> [<em>that context shaped the source because &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: what was happening when this was created, and how does that context explain what the source says?'
+      }
+    };
+    document.querySelectorAll('#happ-lens-row .happ-lens-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#happ-lens-row .happ-lens-btn').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        var lens = this.dataset.lens;
+        document.getElementById('happ-frame-text').innerHTML = LENS_FRAMES[lens].text;
+        document.getElementById('happ-frame-tip').innerHTML = LENS_FRAMES[lens].tip;
+      });
+    });
+  })();
+
+  /* ── SORT IT GAME ─────────────────────────────────────── */
+  (function() {
+    var SORT_DATA = [
+      {
+        text: 'Doc 3 was written by a Japanese military official, which means the source likely downplays the human costs of imperial expansion in order to persuade government leaders to authorize further military action.',
+        earns: true,
+        explain: '<strong>Earns the point.</strong> Identifies the author\'s role (military official), explains the consequence (downplays human costs), and connects to an argument about persuasion and imperial authorization.'
+      },
+      {
+        text: 'Doc 1 was written by a Japanese business newspaper.',
+        earns: false,
+        explain: '<strong>Doesn\'t earn the point.</strong> Identifies the source but stops there. No "which means" — no explanation of why a business newspaper matters for any argument.'
+      },
+      {
+        text: 'Because Doc 5 is a U.S. government advertisement produced during WWII, its purpose was to maintain public morale, which means it overstates Allied military progress to encourage continued civilian support for the war.',
+        earns: true,
+        explain: '<strong>Earns the point.</strong> Identifies the purpose (maintain morale), explains the consequence (overstates progress), and connects to the argument about state propaganda during total war.'
+      },
+      {
+        text: 'The author of Doc 4 is a Korean nationalist, so this document shows a Korean perspective.',
+        earns: false,
+        explain: '<strong>Doesn\'t earn the point.</strong> Identifies that the author is Korean, but "shows a Korean perspective" is circular and vague. No explanation of what that means for the argument or what the source emphasizes or omits.'
+      },
+      {
+        text: 'Doc 7 was produced at the height of Stalin\'s industrialization campaign, which means it reflects intense pressure to project confidence in Soviet economic policy — making it an unreliable measure of actual worker conditions.',
+        earns: true,
+        explain: '<strong>Earns the point.</strong> Names the historical situation (Stalin\'s industrialization), explains the consequence (pressure to project confidence), and connects to the argument about source reliability and state control.'
+      },
+      {
+        text: 'This propaganda poster has a purpose of convincing people. It uses strong imagery to make its point.',
+        earns: false,
+        explain: '<strong>Doesn\'t earn the point.</strong> "Convincing people" is too vague to name a specific purpose, and describing the imagery is not HAPP analysis. No connection to an argument.'
+      },
+      {
+        text: 'Doc 2 is a photograph taken by a British War Office photographer on the Western Front, which means the image was likely curated to avoid showing British casualties — supporting the argument that governments used propaganda to maintain domestic support during total war.',
+        earns: true,
+        explain: '<strong>Earns the point.</strong> Identifies the source type and producer (British War Office), explains the consequence (curated to avoid casualties), and connects explicitly to the argument about wartime propaganda.'
+      },
+      {
+        text: 'The point of view of Doc 6 is that the author supports imperialism. This helps understand the document.',
+        earns: false,
+        explain: '<strong>Doesn\'t earn the point.</strong> "This helps understand the document" is not an explanation of relevance to an argument. The analysis must say what consequence the POV has for what the source emphasizes, omits, or why it was produced.'
+      }
+    ];
+
+    function renderSortIt() {
+      var container = document.getElementById('sortit-cards');
+      container.innerHTML = '';
+      document.getElementById('sortit-score').style.display = 'none';
+      document.getElementById('sortit-replay-bar').style.display = 'none';
+      SORT_DATA.forEach(function(item, i) {
+        var card = document.createElement('div');
+        card.className = 'sortit-card';
+        card.dataset.idx = i;
+        card.dataset.choice = '';
+        card.innerHTML =
+          '<div class="sortit-card-text">' + (i + 1) + '. ' + item.text + '</div>' +
+          '<div class="sortit-btn-row">' +
+            '<button type="button" class="sortit-btn" data-choice="earns">Earns it</button>' +
+            '<button type="button" class="sortit-btn" data-choice="nope">Doesn\'t earn it</button>' +
+          '</div>' +
+          '<div class="sortit-explain">' + item.explain + '</div>';
+        card.querySelectorAll('.sortit-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            card.querySelectorAll('.sortit-btn').forEach(function(b) { b.classList.remove('earns', 'nope'); });
+            this.classList.add(this.dataset.choice);
+            card.dataset.choice = this.dataset.choice;
+          });
+        });
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('pick-sortit').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('sortit-game').style.display = 'block';
+      renderSortIt();
+    });
+
+    document.getElementById('sortit-back').addEventListener('click', function() {
+      document.getElementById('sortit-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+
+    document.getElementById('sortit-submit').addEventListener('click', function() {
+      var correct = 0;
+      document.querySelectorAll('#sortit-cards .sortit-card').forEach(function(card) {
+        var i = parseInt(card.dataset.idx);
+        var choice = card.dataset.choice;
+        var earns = SORT_DATA[i].earns;
+        var gotIt = (choice === 'earns' && earns) || (choice === 'nope' && !earns);
+        card.classList.remove('revealed-correct', 'revealed-wrong');
+        card.classList.add(gotIt ? 'revealed-correct' : 'revealed-wrong');
+        if (gotIt) correct++;
+      });
+      var scoreEl = document.getElementById('sortit-score');
+      scoreEl.textContent = correct + ' / ' + SORT_DATA.length + ' correct';
+      scoreEl.style.display = 'block';
+      document.getElementById('sortit-replay-bar').style.display = 'block';
+    });
+
+    document.getElementById('sortit-replay').addEventListener('click', function() {
+      renderSortIt();
+    });
+  })();
+
+  /* ── SOURCE LINE WARM-UP GAME ─────────────────────────── */
+  (function() {
+    var WARMUP_DOCS = [
+      {
+        type: 'Photograph',
+        sourceLine: 'Photograph taken by an official British War Office photographer, Western Front, France, 1916',
+        excerpt: 'Image shows British soldiers walking single-file through a muddy trench system; no bodies or wounds are visible.',
+        models: {
+          pov: 'The point of view of this photograph is that of an official British War Office photographer, which means the image was selected and approved by the government — making it likely that scenes of mass casualties or failed offensives were excluded to maintain public support for the war.',
+          purpose: 'The purpose of this photograph was to document the war for a domestic British audience in a way that showed discipline and resolve, which means the image downplays the horrific conditions of trench warfare — supporting the argument that governments used visual media to control public perception during WWI.',
+          audience: 'Because this photograph was produced for a British domestic audience on the home front, it avoids images of death or defeat, which means the source cannot be used as reliable evidence of actual battlefield conditions but is strong evidence of how states managed civilian morale.',
+          hist: 'This photograph was taken during the prolonged stalemate of WWI trench warfare in 1916, which means the British government had strong reasons to prevent images of mass casualties from reaching the public — making this source reflect the total war strategy of controlling information as much as controlling territory.'
+        }
+      },
+      {
+        type: 'Advertisement',
+        sourceLine: 'U.S. Treasury Department War Bonds advertisement, published in Life Magazine, United States, 1943',
+        excerpt: '"Every bond you buy is a bullet aimed at the enemy. Do your part — buy war bonds today."',
+        models: {
+          pov: 'The point of view of this advertisement is that of the U.S. government\'s Treasury Department, which means the source is designed to frame financial investment as a patriotic duty — making it reflect the argument that WWII-era states mobilized civilian populations through appeals to nationalism and shared sacrifice.',
+          purpose: 'The purpose of this advertisement was to persuade American civilians to finance the war effort by purchasing government bonds, which means it deliberately links personal spending to military victory — supporting the argument that states used mass communication to extract economic resources from civilian populations during total war.',
+          audience: 'Because this advertisement was directed at American civilian readers of a popular magazine, it uses emotionally charged language ("aimed at the enemy") rather than economic arguments, which means the source demonstrates how governments translated the abstract costs of war into personal moral obligations.',
+          hist: 'This advertisement was produced in 1943, during the height of U.S. involvement in WWII when government spending vastly exceeded tax revenue, which means the state was under pressure to fund the war through civilian debt — making this source evidence of how total war transformed the relationship between government and the domestic economy.'
+        }
+      },
+      {
+        type: 'Official Report',
+        sourceLine: 'Report of the Committee on Alleged German Outrages (Bryce Report), British government publication, London, 1915',
+        excerpt: 'The report documents alleged atrocities committed by German forces in Belgium, including the killing of civilians and the destruction of Leuven.',
+        models: {
+          pov: 'The point of view of this official report reflects the British government\'s wartime need to justify intervention and sustain public and Allied support, which means the report likely amplifies or selectively presents German atrocities — making it evidence of wartime propaganda rather than a neutral account of events in Belgium.',
+          purpose: 'The purpose of this report was to build domestic and international support for Britain\'s war against Germany by documenting alleged German war crimes, which means the source systematically frames German actions as uniquely barbaric — supporting the argument that states used official publications to manufacture consent for total war.',
+          audience: 'Because this report was produced for a British public audience as well as neutral nations (including the United States), it needed to be credible enough to influence international opinion, which means the report uses legal and bureaucratic language to give official weight to accounts that served a clear propaganda purpose.',
+          hist: 'This report was published in 1915, when Britain needed to maintain civilian morale and encourage the United States to abandon neutrality, which means the historical situation of Allied military uncertainty shaped the report\'s emphasis on German brutality — making it a primary source for the study of state information control during WWI.'
+        }
+      },
+      {
+        type: 'Personal Testimony',
+        sourceLine: 'Diary of Sgt. Shōhei Ōoka, Imperial Japanese Army, written during the Nanjing Campaign, China, December 1937',
+        excerpt: 'Entry describes the chaos of entering the city and difficulty maintaining unit discipline; makes no direct mention of civilian killings.',
+        models: {
+          pov: 'The point of view of this diary is that of a Japanese Imperial Army soldier writing in a war zone under military authority, which means the source may self-censor accounts of violence against civilians — making the absence of mentions of civilian killings itself significant evidence of how soldiers managed personal documentation under wartime conditions.',
+          purpose: 'Although a personal diary does not have an official purpose, the author wrote within a military context where personal documents could be examined, which means the source likely omits or minimizes accounts of atrocities — making it unreliable as a complete record but valuable as evidence of the pressures soldiers faced in documenting their own actions.',
+          audience: 'Because this diary was written for the author\'s personal record in a military context, the audience includes the author\'s future self and potentially military censors, which means the source\'s silence on civilian violence may reflect fear of punishment rather than an absence of knowledge — supporting the argument that states suppressed documentation of wartime atrocities.',
+          hist: 'This diary was written during the Nanjing Campaign of December 1937, a period of intense Japanese military pressure to consolidate control over China, which means soldiers operated under orders that prioritized speed and intimidation — making the diary\'s omissions consistent with the broader pattern of institutional suppression surrounding the Nanjing Massacre.'
+        }
+      },
+      {
+        type: 'Government Article',
+        sourceLine: '"Dizzy with Success," by Joseph Stalin, published in Pravda (Soviet state newspaper), USSR, March 2, 1930',
+        excerpt: 'Stalin criticizes "excesses" in the collectivization campaign, blaming local party officials for moving too fast and using coercion — while defending the collective farm policy itself as a success.',
+        models: {
+          pov: 'The point of view of this article reflects Stalin\'s position as both the architect of collectivization and the leader of the Soviet state, which means the source deflects blame for violent coercion onto local officials in order to protect his own authority — making it evidence of how authoritarian states managed internal criticism to maintain ideological legitimacy.',
+          purpose: 'The purpose of this article was to reduce peasant resistance to collectivization by appearing to moderate the policy, while preserving the collective farm system itself, which means Stalin used state media not to reverse course but to stabilize a policy causing mass disruption — supporting the argument that Soviet economic control relied on managing popular perception as much as on force.',
+          audience: 'Because this article was published in Pravda and directed at Soviet party members and the broader public, Stalin needed to maintain the appearance of controlled, rational policy, which means the source admits limited "excesses" while attributing them to individual officials rather than the system — making it a model of how authoritarian leaders use official communication to contain dissent.',
+          hist: 'This article was written in early 1930 during a period of widespread peasant unrest and famine caused by rapid forced collectivization, which means the Soviet state faced the risk of losing control of rural areas — making Stalin\'s public "correction" a political tool to reduce resistance while preserving the fundamental policy of state economic control.'
+        }
+      },
+      {
+        type: 'Propaganda Poster',
+        sourceLine: 'Nazi Party election poster, "Hitler — Our Last Hope," Germany, 1932',
+        excerpt: 'The poster shows a long line of dejected, unemployed workers beneath bold text reading: "Hitler — Our Last Hope."',
+        models: {
+          pov: 'The point of view of this poster reflects the Nazi Party\'s urgent need to win electoral support during Germany\'s economic crisis, which means the image frames mass unemployment as a crisis that only Hitler can resolve — making it evidence of how political movements used mass communication to translate economic despair into electoral mobilization.',
+          purpose: 'The purpose of this poster was to persuade unemployed German voters that Hitler represented their only solution to economic collapse, which means it deliberately connects individual suffering to a single political figure — supporting the argument that the Nazi rise to power was enabled by the political exploitation of post-WWI economic conditions.',
+          audience: 'Because this poster was aimed at unemployed German workers in 1932, it uses visual imagery of suffering rather than policy arguments, which means the source reflects the Nazi strategy of emotional appeal over substance — making it evidence of how economic desperation created conditions for authoritarian political movements.',
+          hist: 'This poster was produced in 1932 during the Great Depression, when German unemployment had reached approximately 30%, which means the historical situation of economic catastrophe created a political opening for extremist movements promising radical solutions — making this source a direct illustration of the connection between economic instability and the collapse of democratic governance in the interwar period.'
+        }
+      }
+    ];
+
+    var warmupIdx = 0;
+    var warmupTimer = null;
+    var warmupSecondsLeft = 60;
+    var warmupLens = 'pov';
+
+    var LENS_FRAMES_W = {
+      pov: {
+        text: '&ldquo;The <strong>point of view</strong> of this document is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X &mdash; connect to argument</em>].&rdquo;',
+        tip: 'Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?'
+      },
+      purpose: {
+        text: '&ldquo;The <strong>purpose</strong> of this document was to [<em>specific goal</em>] [<em>specific audience</em>], <strong>which means</strong> the source [<em>overstates / downplays / frames X &mdash; connect to argument</em>].&rdquo;',
+        tip: 'Ask: why was this created, and how does that goal shape what it says or omits?'
+      },
+      audience: {
+        text: '&ldquo;Because this document was written for [<em>specific audience</em>], the source [<em>emphasizes / avoids X</em>], <strong>which means</strong> it [<em>consequence for your argument</em>].&rdquo;',
+        tip: 'Ask: who was this meant to reach, and what did that audience need &mdash; or not need &mdash; to hear?'
+      },
+      hist: {
+        text: '&ldquo;This document was produced during [<em>specific historical moment</em>], <strong>which means</strong> [<em>that context shaped the source because &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: what was happening when this was created, and how does that context explain what the source says?'
+      }
+    };
+
+    function startWarmupTimer() {
+      clearInterval(warmupTimer);
+      warmupSecondsLeft = 60;
+      updateTimerDisplay();
+      warmupTimer = setInterval(function() {
+        warmupSecondsLeft--;
+        updateTimerDisplay();
+        if (warmupSecondsLeft <= 0) clearInterval(warmupTimer);
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      var el = document.getElementById('warmup-timer');
+      var s = Math.max(0, warmupSecondsLeft);
+      el.textContent = Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+      el.classList.toggle('urgent', s <= 10);
+    }
+
+    function loadWarmupDoc(idx) {
+      var doc = WARMUP_DOCS[idx];
+      document.getElementById('warmup-doc-num').textContent = 'Document ' + (idx + 1) + ' of ' + WARMUP_DOCS.length;
+      document.getElementById('warmup-doc-type').textContent = doc.type;
+      document.getElementById('warmup-source-line').textContent = doc.sourceLine;
+      document.getElementById('warmup-excerpt').textContent = '\u201c' + doc.excerpt + '\u201d';
+      document.getElementById('warmup-text').value = '';
+      document.getElementById('warmup-result').innerHTML = '';
+      document.getElementById('warmup-result').className = 'drill-result';
+      document.getElementById('warmup-model').style.display = 'none';
+      document.getElementById('warmup-next').style.display = 'none';
+
+      // Build lens buttons
+      var lensRow = document.getElementById('warmup-lens-row');
+      lensRow.innerHTML = '';
+      warmupLens = 'pov';
+      [['pov','Point of View'],['purpose','Purpose'],['audience','Audience'],['hist','Historical Situation']].forEach(function(pair) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'warmup-lens-btn' + (pair[0] === 'pov' ? ' active' : '');
+        btn.dataset.wlens = pair[0];
+        btn.textContent = pair[1];
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#warmup-lens-row .warmup-lens-btn').forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          warmupLens = this.dataset.wlens;
+          showWarmupFrame();
+        });
+        lensRow.appendChild(btn);
+      });
+      showWarmupFrame();
+      startWarmupTimer();
+    }
+
+    function showWarmupFrame() {
+      var frame = document.getElementById('warmup-frame');
+      frame.style.display = 'block';
+      document.getElementById('warmup-frame-text').innerHTML = LENS_FRAMES_W[warmupLens].text;
+      document.getElementById('warmup-frame-tip').innerHTML = LENS_FRAMES_W[warmupLens].tip;
+    }
+
+    document.getElementById('pick-warmup').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('warmup-game').style.display = 'block';
+      warmupIdx = 0;
+      loadWarmupDoc(0);
+    });
+
+    document.getElementById('warmup-back').addEventListener('click', function() {
+      clearInterval(warmupTimer);
+      document.getElementById('warmup-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+
+    document.getElementById('warmup-check').addEventListener('click', function() {
+      clearInterval(warmupTimer);
+      var t = document.getElementById('warmup-text').value.toLowerCase().trim();
+      var words = t.split(/\s+/).filter(Boolean).length;
+      var hasFeature = /point of view|purpose|audience|historical situation|which means|because|since|as a|written by|produced by|official|government|military|newspaper|photographer|advertisement/.test(t);
+      var hasConsequence = /which means|therefore|so that|in order to|making it|making this|supports the|supporting|evidence that|suggests that|means that|this means/.test(t);
+      var hasArgConn = /argument|supports|evidence|demonstrates|illustrates|indicates|suggests|reflects|shows that|proving|proves/.test(t);
+      var resultEl = document.getElementById('warmup-result');
+      if (words < 8) {
+        resultEl.className = 'drill-result fail';
+        resultEl.innerHTML = '<span class="dr-icon">&#10007;</span><div><strong>Too short.</strong> Write a complete sentence: name the source feature, then explain the consequence with "which means."</div>';
+      } else if (hasFeature && hasConsequence) {
+        resultEl.className = 'drill-result pass';
+        resultEl.innerHTML = '<span class="dr-icon">&#10003;</span><div><strong>Likely earns the point.</strong> You named a source feature and used consequence language. Check the model answer to see if your explanation connects clearly to an argument.</div>';
+      } else if (hasFeature) {
+        resultEl.className = 'drill-result partial';
+        resultEl.innerHTML = '<span class="dr-icon">&#126;</span><div><strong>Identifies &mdash; but needs consequence.</strong> You named a source feature. Now add the "which means" move: what does that feature mean for your argument? What does the source likely emphasize, omit, or argue <em>because</em> of that feature?</div>';
+      } else {
+        resultEl.className = 'drill-result fail';
+        resultEl.innerHTML = '<span class="dr-icon">&#10007;</span><div><strong>No HAPP feature identified.</strong> Start by naming something specific about the source: its author\'s role, the document\'s purpose, who it was written for, or the historical moment it was produced in. Then use "which means" to connect it to your argument.</div>';
+      }
+      // Show model answer
+      var doc = WARMUP_DOCS[warmupIdx];
+      document.getElementById('warmup-model-text').textContent = doc.models[warmupLens];
+      document.getElementById('warmup-model').style.display = 'block';
+      // Show next button
+      if (warmupIdx < WARMUP_DOCS.length - 1) {
+        document.getElementById('warmup-next').style.display = 'inline-block';
+      }
+    });
+
+    document.getElementById('warmup-next').addEventListener('click', function() {
+      warmupIdx++;
+      loadWarmupDoc(warmupIdx);
+    });
+  })();
+
+  /* ── SPEED QUIZ ───────────────────────────────────────── */
+  (function() {
+    var SQ_DATA = [
+      { q: 'Which event directly triggered the alliance system and started World War I?', o: ['The sinking of the Lusitania', 'The assassination of Archduke Franz Ferdinand', "Germany's invasion of Belgium", "Austria-Hungary's annexation of Bosnia"], c: 1, e: 'Gavrilo Princip assassinated Franz Ferdinand in Sarajevo on June 28, 1914, setting off a cascade of alliance obligations that drew every major European power into war within weeks.' },
+      { q: 'What does the acronym MAIN stand for as the long-term causes of WWI?', o: ['Militarism, Alliances, Imperialism, Nationalism', 'Mobilization, Aggression, Industrialization, Nationalism', 'Military Alliances, Imperial Nations', 'Monarchism, Annexation, Industrialization, Nationalism'], c: 0, e: 'MAIN = Militarism (arms race), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), Nationalism (Pan-Slavism, German nationalism). These tensions made war explosive once the trigger was pulled.' },
+      { q: 'The War Guilt Clause (Article 231) of the Treaty of Versailles required Germany to', o: ['Surrender all overseas colonies immediately', 'Accept sole responsibility for WWI and pay reparations', 'Disband its military permanently', 'Join the League of Nations as a probationary member'], c: 1, e: 'Article 231 forced Germany to accept sole war guilt and pay massive reparations. The economic devastation and national humiliation it caused fueled the resentment that Hitler exploited to rise to power.' },
+      { q: 'The Great Depression began in what year?', o: ['1925', '1927', '1929', '1933'], c: 2, e: 'The U.S. stock market crashed in October 1929, triggering a global economic collapse. By 1933, U.S. unemployment hit 25%, GDP fell ~27%, and world trade dropped by half.' },
+      { q: "FDR's Keynesian economic recovery program during the Great Depression was called", o: ['The Five Year Plans', 'Import Substitution', 'The New Deal', 'The Marshall Plan'], c: 2, e: "FDR's New Deal (1933) used government spending on public works, relief programs, and financial regulation to stimulate recovery — a practical application of Keynesian deficit spending." },
+      { q: "Japan's 1905 victory in the Russo-Japanese War was historically significant primarily because", o: ['It gave Japan permanent control of Korea', 'It was the first time a non-European nation defeated a European power in modern warfare', 'It directly caused WWI', 'It collapsed the Qing Dynasty'], c: 1, e: "Japan's defeat of Russia shocked the world — demonstrating that a non-Western nation could defeat a European great power using industrialization and modern military tactics, signaling the end of automatic European dominance." },
+      { q: "Gandhi's Salt March (1930) was a protest against", o: ['British control of the Indian army', 'The partition of Bengal', 'British colonial taxation and monopoly on salt', 'The deportation of Indian workers'], c: 2, e: "The British Salt Acts prohibited Indians from making or selling salt. Gandhi's 240-mile march to the sea to make salt was a defining act of nonviolent civil disobedience that galvanized the Indian independence movement." },
+      { q: 'Which technology was most responsible for the stalemate on the WWI Western Front?', o: ['Airplanes', 'Poison gas', 'Machine guns and barbed wire', 'Naval submarines'], c: 2, e: 'Machine guns firing hundreds of rounds per minute made infantry advances across open ground nearly suicidal. Combined with barbed wire, artillery, and trenches, they created the deadlock that defined WWI.' },
+      { q: "Stalin's centrally directed Soviet economic modernization program was called", o: ['The New Economic Policy', 'The Five Year Plans', 'Collectivization Reform', 'The Comintern Agenda'], c: 1, e: "Stalin's Five Year Plans (beginning 1928) set industrial production quotas and forced collectivization of agriculture, transforming the USSR into a major industrial power at the cost of millions of lives." },
+      { q: 'The Munich Agreement (1938) is primarily remembered as an example of', o: ['Successful collective security', 'The policy of appeasement toward Hitler', "The League of Nations' military enforcement", 'Allied deterrence of fascism'], c: 1, e: "Britain and France handed Hitler the Sudetenland at Munich, hoping to avoid war. Churchill called it 'a total defeat.' Six months later Hitler seized all of Czechoslovakia, proving appeasement had catastrophically failed." },
+      { q: 'The Holocaust resulted in the systematic killing of approximately', o: ['1 million people total', '3 million Jews only', '6 million Jews and 6 million others', '20 million soldiers and civilians combined'], c: 2, e: "Nazi Germany used industrial methods — gas chambers, crematoria, deportation networks — to murder approximately 6 million Jews and 6 million others including Roma, disabled people, Soviet POWs, and political prisoners." },
+      { q: 'Which economic policy did Latin American governments use during the Great Depression to reduce dependence on foreign imports?', o: ['Keynesian austerity', 'Import substitution industrialization', 'Gold standard currency pegging', 'Export-led growth'], c: 1, e: "Import substitution industrialization (ISI) encouraged domestic manufacturing of goods previously imported from Europe and the U.S. Mexico nationalized its oil industry (Pemex, 1938) as part of this broader shift." },
+      { q: 'Total war in WWI and WWII is best described as', o: ['A strategy targeting only military combatants', 'The complete mobilization of a nation\'s economy and civilian population for warfare', 'A peace treaty requiring unconditional surrender', 'An alliance that obligated all members to join any conflict'], c: 1, e: 'Total war blurred the soldier/civilian line. Governments controlled industries, rationed goods, used propaganda, conscripted workers, and deliberately targeted civilian infrastructure — making the home front as critical as the battlefield.' },
+      { q: 'Which development most directly explains the rise of fascism in Germany and Italy during the 1930s?', o: ["WWI military generals who refused to accept civilian government's authority", 'Economic devastation and national humiliation following WWI and the Great Depression', 'Communist revolutions that forced moderate parties to adopt radical nationalism', 'The collapse of the League of Nations military enforcement'], c: 1, e: "Versailles's punishing terms left Germany economically destroyed and nationally humiliated. The Great Depression deepened the crisis. Desperate populations turned to authoritarian leaders promising national restoration and economic solutions." },
+      { q: 'The atomic bombs dropped on Hiroshima and Nagasaki (1945) are historically significant because they', o: ['Were the first use of chemical weapons in warfare', 'Ended WWI and established U.S. military supremacy', 'Ended WWII and introduced a new era of nuclear deterrence', 'Destroyed military bases with minimal civilian casualties'], c: 2, e: "The bombs killed ~200,000 people and forced Japan's surrender, ending WWII. They also inaugurated the nuclear age — a world where cities could be annihilated in an instant, permanently transforming war and international relations." }
+    ];
+
+    var sqCurrent = 0, sqScore = 0, sqTimer = null, sqSecondsLeft = 20, sqAnswered = false, sqResults = [];
+
+    function renderSpeedQuiz() {
+      sqCurrent = 0; sqScore = 0; sqResults = [];
+      document.getElementById('sq-question-area').style.display = 'block';
+      document.getElementById('sq-final').style.display = 'none';
+      showSQQuestion();
+    }
+
+    function showSQQuestion() {
+      sqAnswered = false;
+      sqSecondsLeft = 20;
+      var item = SQ_DATA[sqCurrent];
+      document.getElementById('sq-qnum').textContent = 'Question ' + (sqCurrent + 1) + ' of ' + SQ_DATA.length;
+      document.getElementById('sq-score-chip').textContent = 'Score: ' + sqScore.toLocaleString();
+      document.getElementById('sq-q-text').textContent = item.q;
+      document.getElementById('sq-pts-flash').textContent = '';
+      document.getElementById('sq-pts-flash').style.color = '';
+      document.getElementById('sq-expl').style.display = 'none';
+      var grid = document.getElementById('sq-choices');
+      grid.innerHTML = '';
+      item.o.forEach(function(opt, i) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sq-choice';
+        btn.textContent = opt;
+        btn.addEventListener('click', function() { sqAnswer(i); });
+        grid.appendChild(btn);
+      });
+      // Timer bar animation
+      var bar = document.getElementById('sq-timer-bar');
+      bar.style.transition = 'none';
+      bar.style.width = '100%';
+      setTimeout(function() {
+        bar.style.transition = 'width ' + sqSecondsLeft + 's linear';
+        bar.style.width = '0%';
+      }, 30);
+      clearInterval(sqTimer);
+      sqTimer = setInterval(function() {
+        sqSecondsLeft--;
+        if (sqSecondsLeft <= 0) { clearInterval(sqTimer); sqAnswer(-1); }
+      }, 1000);
+    }
+
+    function sqAnswer(choice) {
+      if (sqAnswered) return;
+      sqAnswered = true;
+      clearInterval(sqTimer);
+      var bar = document.getElementById('sq-timer-bar');
+      bar.style.transition = 'none';
+      bar.style.width = Math.max(0, (sqSecondsLeft / 20) * 100) + '%';
+      var item = SQ_DATA[sqCurrent];
+      var correct = choice === item.c;
+      var pts = correct ? Math.max(100, Math.round((sqSecondsLeft / 20) * 1000)) : 0;
+      sqScore += pts;
+      sqResults.push({ correct: correct, choice: choice, item: item });
+      document.querySelectorAll('#sq-choices .sq-choice').forEach(function(btn, i) {
+        btn.disabled = true;
+        if (i === item.c) btn.classList.add('sq-correct');
+        else if (i === choice) btn.classList.add('sq-wrong');
+      });
+      var flash = document.getElementById('sq-pts-flash');
+      if (choice === -1) { flash.textContent = "Time\u2019s up! +0 pts"; flash.style.color = 'var(--red)'; }
+      else if (correct) { flash.textContent = '+' + pts + ' pts'; flash.style.color = '#1a6825'; }
+      else { flash.textContent = '+0 pts'; flash.style.color = 'var(--red)'; }
+      document.getElementById('sq-score-chip').textContent = 'Score: ' + sqScore.toLocaleString();
+      var expl = document.getElementById('sq-expl');
+      expl.textContent = item.e;
+      expl.style.display = 'block';
+      setTimeout(function() {
+        sqCurrent++;
+        if (sqCurrent >= SQ_DATA.length) showSQFinal();
+        else showSQQuestion();
+      }, 2600);
+    }
+
+    function showSQFinal() {
+      document.getElementById('sq-question-area').style.display = 'none';
+      document.getElementById('sq-final').style.display = 'block';
+      var correct = sqResults.filter(function(r) { return r.correct; }).length;
+      document.getElementById('sq-final-score').textContent = sqScore.toLocaleString() + ' pts';
+      document.getElementById('sq-final-correct').textContent = correct + ' / ' + SQ_DATA.length + ' correct';
+      var bk = document.getElementById('sq-breakdown');
+      bk.innerHTML = '';
+      sqResults.forEach(function(r, i) {
+        var row = document.createElement('div');
+        row.className = 'sq-bk-row';
+        row.innerHTML = '<div class="sq-bk-icon" style="color:' + (r.correct ? '#1a6825' : 'var(--red)') + '">' + (r.correct ? '&#10003;' : '&#10007;') + '</div>' +
+          '<div><strong>' + (i + 1) + '. ' + r.item.q + '</strong>' +
+          (r.correct ? '' : '<br><span style="color:var(--red)">Your answer: ' + (r.choice === -1 ? "Time\u2019s up" : r.item.o[r.choice]) + '</span>') +
+          '<br><span style="color:#1a6825">Correct: ' + r.item.o[r.item.c] + '</span></div>';
+        bk.appendChild(row);
+      });
+    }
+
+    document.getElementById('pick-speedquiz').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('speedquiz-game').style.display = 'block';
+      renderSpeedQuiz();
+    });
+    document.getElementById('sq-back').addEventListener('click', function() {
+      clearInterval(sqTimer);
+      document.getElementById('speedquiz-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+    document.getElementById('sq-replay').addEventListener('click', function() {
+      renderSpeedQuiz();
+    });
+  })();
+
+  /* ── TIMELINE BUILDER ─────────────────────────────────── */
+  (function() {
+    // TIMELINE is already in chronological order; use index as correct position
+    var tlPool = [], tlCurrent = 0, tlMisses = 0;
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    function renderTimeline() {
+      tlCurrent = 0; tlMisses = 0;
+      tlPool = shuffle(TIMELINE.map(function(_, i) { return i; }));
+      document.getElementById('tl-result').style.display = 'none';
+      document.getElementById('tl-sequence-wrap').style.display = 'block';
+      document.getElementById('tl-wrong-msg').textContent = '';
+      updateTLProgress();
+      renderTLPool(null);
+      updateTLSequence();
+    }
+
+    function updateTLProgress() {
+      document.getElementById('tl-progress').textContent = tlCurrent + ' of ' + TIMELINE.length + ' placed correctly';
+    }
+
+    function renderTLPool(wrongIdx) {
+      var pool = document.getElementById('tl-pool');
+      pool.innerHTML = '';
+      tlPool.forEach(function(origIdx) {
+        if (origIdx < tlCurrent) return; // already placed (correct items are first tlCurrent of TIMELINE)
+        var item = TIMELINE[origIdx];
+        var card = document.createElement('div');
+        card.className = 'tl-card' + (origIdx === wrongIdx ? ' tl-wrong-anim' : '');
+        card.innerHTML = '<div class="tl-card-title">' + item.title + '</div>';
+        card.addEventListener('click', (function(idx, el) {
+          return function() { tlClick(idx, el); };
+        })(origIdx, card));
+        pool.appendChild(card);
+      });
+    }
+
+    function updateTLSequence() {
+      var list = document.getElementById('tl-seq-list');
+      list.innerHTML = '';
+      for (var i = 0; i < tlCurrent; i++) {
+        var div = document.createElement('div');
+        div.className = 'tl-seq-item';
+        div.innerHTML = '<span class="tl-seq-num">' + (i + 1) + '.</span>' +
+          '<span>' + TIMELINE[i].year + ' &mdash; ' + TIMELINE[i].title + '</span>';
+        list.appendChild(div);
+      }
+      if (tlCurrent < TIMELINE.length) {
+        var next = document.createElement('div');
+        next.className = 'tl-seq-item tl-next-slot';
+        next.innerHTML = '<span class="tl-seq-num">' + (tlCurrent + 1) + '.</span><span>What comes next?</span>';
+        list.appendChild(next);
+      }
+    }
+
+    function tlClick(origIdx, card) {
+      if (origIdx === tlCurrent) {
+        // Correct — this event belongs at position tlCurrent
+        tlCurrent++;
+        document.getElementById('tl-wrong-msg').textContent = '';
+        updateTLProgress();
+        if (tlCurrent >= TIMELINE.length) {
+          showTLResult();
+        } else {
+          renderTLPool(null);
+          updateTLSequence();
+        }
+      } else {
+        // Wrong
+        tlMisses++;
+        document.getElementById('tl-wrong-msg').textContent = 'Not quite \u2014 try again!';
+        renderTLPool(origIdx);
+        setTimeout(function() {
+          document.getElementById('tl-wrong-msg').textContent = '';
+          renderTLPool(null);
+        }, 400);
+      }
+    }
+
+    function showTLResult() {
+      document.getElementById('tl-sequence-wrap').style.display = 'none';
+      var res = document.getElementById('tl-result');
+      res.style.display = 'block';
+      var grade = tlMisses === 0 ? 'Perfect!' : tlMisses <= 3 ? 'Nice work!' : 'Keep practicing!';
+      res.innerHTML = '<div style="text-align:center;padding:28px 0">' +
+        '<div style="font-family:\'Playfair Display\',serif;font-size:1.6rem;margin-bottom:8px">' + grade + '</div>' +
+        '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:.75rem;letter-spacing:.08em;color:var(--muted);margin-bottom:22px">' +
+          TIMELINE.length + ' events placed &mdash; ' + tlMisses + ' wrong click' + (tlMisses !== 1 ? 's' : '') +
+        '</div>' +
+        '<button type="button" id="tl-replay-btn" style="padding:12px 28px;background:var(--red);color:#fff;border:none;font-family:\'IBM Plex Mono\',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>' +
+        '</div>';
+      document.getElementById('tl-replay-btn').addEventListener('click', function() { renderTimeline(); });
+    }
+
+    document.getElementById('pick-timeline').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('timeline-game').style.display = 'block';
+      renderTimeline();
+    });
+    document.getElementById('tl-back').addEventListener('click', function() {
+      document.getElementById('timeline-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+  })();
+
+  /* ── VISUAL SOURCES (HIPP) ───────────────────────────── */
+  (function() {
+    var tabRow = document.getElementById('vs-tabs');
+    var cardsEl = document.getElementById('vs-cards');
+    if (!tabRow || !cardsEl || typeof VISUAL_DATA === 'undefined') return;
+
+    var HIPP_KEYS = [
+      { key: 'h',   label: 'Historical Context', prompt: 'What was happening when this source was created?' },
+      { key: 'i',   label: 'Intended Audience',  prompt: 'Who was this source made for?' },
+      { key: 'p',   label: 'Purpose',            prompt: 'Why was this source created?' },
+      { key: 'pov', label: 'Point of View',      prompt: "How does the creator\u2019s identity shape this source?" }
+    ];
+
+    VISUAL_DATA.forEach(function(item, idx) {
+      // Tab button
+      var tab = document.createElement('button');
+      tab.type = 'button';
+      tab.className = 'vs-tab' + (idx === 0 ? ' active' : '');
+      tab.textContent = 'Image ' + item.num;
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.vs-tab').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        document.querySelectorAll('.vs-card').forEach(function(c) { c.classList.remove('active'); });
+        document.getElementById('vs-card-' + idx).classList.add('active');
+      });
+      tabRow.appendChild(tab);
+
+      // Build HIPP input sections
+      var hippHTML = '';
+      HIPP_KEYS.forEach(function(hk) {
+        hippHTML +=
+          '<div class="vs-hipp-section">' +
+            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
+            '<textarea class="vs-hipp-input" placeholder="' + hk.prompt + '" rows="2"></textarea>' +
+            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '">' +
+              '<div class="vs-hipp-model-lbl">Model ' + hk.label + '</div>' +
+              item.hipp[hk.key] +
+            '</div>' +
+          '</div>';
+      });
+
+      // Build MC options
+      var mcHTML = '';
+      item.o.forEach(function(opt, oi) {
+        mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>';
+      });
+
+      // Card
+      var card = document.createElement('div');
+      card.className = 'vs-card' + (idx === 0 ? ' active' : '');
+      card.id = 'vs-card-' + idx;
+      card.innerHTML =
+        '<div class="vs-card-src">' + item.source + '</div>' +
+        '<div class="vs-card-title">' + item.title + '</div>' +
+        '<div class="vs-card-desc">' + item.desc + '</div>' +
+        '<div style="font-size:.78rem;color:var(--muted);margin-bottom:10px">Look at the image in the PDF, then write your own HIPP analysis below:</div>' +
+        hippHTML +
+        '<div class="vs-btn-row">' +
+          '<button type="button" class="vs-btn" data-compare="' + idx + '">Compare to Model Answers</button>' +
+          '<button type="button" class="vs-btn vs-btn-red" data-mcshow="' + idx + '">Practice AP Question</button>' +
+        '</div>' +
+        '<div class="vs-mc-area" id="vs-mc-' + idx + '">' +
+          '<div class="vs-mc-q">' + item.q + '</div>' +
+          mcHTML +
+          '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
+        '</div>';
+      cardsEl.appendChild(card);
+    });
+
+    // Event delegation
+    cardsEl.addEventListener('click', function(e) {
+      // Compare to model
+      var cmpBtn = e.target.closest('[data-compare]');
+      if (cmpBtn) {
+        var idx = cmpBtn.dataset.compare;
+        HIPP_KEYS.forEach(function(hk) {
+          document.getElementById('vs-model-' + hk.key + '-' + idx).classList.add('show');
+        });
+        return;
+      }
+      // Show MC question
+      var mcBtn = e.target.closest('[data-mcshow]');
+      if (mcBtn) {
+        document.getElementById('vs-mc-' + mcBtn.dataset.mcshow).classList.add('show');
+        return;
+      }
+      // MC option click
+      var opt = e.target.closest('.vs-mc-option');
+      if (opt && !opt.disabled) {
+        var area = opt.closest('.vs-mc-area');
+        var idx = area.id.replace('vs-mc-', '');
+        var item = VISUAL_DATA[parseInt(idx)];
+        var oi = parseInt(opt.dataset.oi);
+        area.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
+          b.disabled = true;
+          if (bi === item.c) b.classList.add('vs-mc-correct');
+          else if (bi === oi) b.classList.add('vs-mc-wrong');
+        });
+        document.getElementById('vs-mc-explain-' + idx).classList.add('show');
+      }
+    });
+  })();
+
+  /* ── ASTEROID BLASTER ────────────────────────────────── */
+  (function() {
+    var astScore = 0, astLives = 3, astQIdx = 0, astAnswered = false;
+    var astAsteroids = []; // [{el, x, y, vx, vy, rot, rotSpeed, correct}]
+    var astRAF = null, astTimerRAF = null, astSecondsLeft = 0;
+    var astQ = [];
+    var SHIP_Y_FRAC = 0.82; // ship is at 82% down the arena
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    function startAsteroidGame() {
+      astScore = 0; astLives = 3; astQIdx = 0; astAnswered = false;
+      astQ = shuffle(ASTEROID_Q.slice());
+      document.getElementById('ast-end').classList.remove('show');
+      updateHUD();
+      nextAsteroidQuestion();
+    }
+
+    function updateHUD() {
+      var hearts = '';
+      for (var i = 0; i < 3; i++) hearts += (i < astLives ? '\u2665' : '\u2661') + ' ';
+      document.getElementById('ast-lives').textContent = hearts.trim();
+      document.getElementById('ast-score').textContent = astScore;
+    }
+
+    function nextAsteroidQuestion() {
+      clearAsteroids();
+      if (astQIdx >= astQ.length) { endAsteroidGame(); return; }
+      astAnswered = false;
+      var item = astQ[astQIdx];
+      document.getElementById('ast-qnum-lbl').textContent = 'Question ' + (astQIdx + 1) + ' of ' + astQ.length;
+      document.getElementById('ast-question').textContent = item.q;
+
+      var arena = document.getElementById('asteroid-arena');
+      var W = arena.clientWidth, H = arena.clientHeight;
+      var cx = W / 2, cy = H * SHIP_Y_FRAC;
+
+      // Spawn 4 asteroids from edges
+      var spawnPositions = [
+        { x: W * 0.15, y: -60 },
+        { x: W * 0.85, y: -60 },
+        { x: -70,      y: H * 0.35 },
+        { x: W + 70,   y: H * 0.35 }
+      ];
+
+      item.o.forEach(function(opt, i) {
+        var sp = spawnPositions[i];
+        var el = document.createElement('div');
+        el.className = 'asteroid';
+        el.textContent = opt;
+        var rot = Math.random() * 360;
+        var rotSpeed = (Math.random() - 0.5) * 1.2;
+        el.style.cssText = 'left:' + sp.x + 'px;top:' + sp.y + 'px;--rot:' + rot + 'deg;--tx:' + sp.x + 'px;--ty:' + sp.y + 'px;transform:translate(-50%,-50%) rotate(' + rot + 'deg)';
+
+        var isCorrect = (i === item.c);
+        el.addEventListener('click', (function(correct, elem) {
+          return function() { onAsteroidClick(correct, elem); };
+        })(isCorrect, el));
+
+        arena.appendChild(el);
+        astAsteroids.push({ el: el, x: sp.x, y: sp.y, rot: rot, rotSpeed: rotSpeed, correct: isCorrect, speed: 0.55 + Math.random() * 0.25 });
+      });
+
+      astRAF = requestAnimationFrame(asteroidLoop);
+    }
+
+    function asteroidLoop() {
+      if (astAnswered) return;
+      var arena = document.getElementById('asteroid-arena');
+      var W = arena.clientWidth, H = arena.clientHeight;
+      var cx = W / 2, cy = H * SHIP_Y_FRAC;
+      var reachedShip = false;
+
+      astAsteroids.forEach(function(ast) {
+        var dx = cx - ast.x, dy = cy - ast.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 55) { reachedShip = true; return; }
+        ast.x += (dx / dist) * ast.speed;
+        ast.y += (dy / dist) * ast.speed;
+        ast.rot += ast.rotSpeed;
+        ast.el.style.left = ast.x + 'px';
+        ast.el.style.top = ast.y + 'px';
+        ast.el.style.transform = 'translate(-50%,-50%) rotate(' + ast.rot + 'deg)';
+        ast.el.style.setProperty('--rot', ast.rot + 'deg');
+        ast.el.style.setProperty('--tx', ast.x + 'px');
+        ast.el.style.setProperty('--ty', ast.y + 'px');
+      });
+
+      if (reachedShip && !astAnswered) {
+        onAsteroidClick(false, null, true); // asteroid hit ship
+      } else {
+        astRAF = requestAnimationFrame(asteroidLoop);
+      }
+    }
+
+    function onAsteroidClick(correct, clickedEl, shipHit) {
+      if (astAnswered) return;
+      astAnswered = true;
+      cancelAnimationFrame(astRAF);
+
+      if (correct) {
+        astScore += 100;
+        updateHUD();
+
+        var arena = document.getElementById('asteroid-arena');
+        var shipEl = arena.querySelector('.ast-ship');
+        var arenaW = arena.clientWidth, arenaH = arena.clientHeight;
+        var shipX = arenaW / 2, shipY = arenaH - 24 - 28;
+
+        // Find correct asteroid current position
+        var correctAst = astAsteroids.filter(function(a) { return a.correct; })[0];
+        var astX = correctAst ? correctAst.x : (clickedEl ? clickedEl.offsetLeft : shipX);
+        var astY = correctAst ? correctAst.y : (clickedEl ? clickedEl.offsetTop : shipY - 100);
+
+        var dx = astX - shipX, dy = astY - shipY;
+        var angleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
+        var dist = Math.hypot(dx, dy);
+
+        // Rotate ship to face asteroid (ship points up by default, so offset by +90)
+        if (shipEl) shipEl.style.transform = 'translateX(-50%) rotate(' + (angleDeg + 90) + 'deg)';
+
+        // Fire laser after ship rotation settles
+        setTimeout(function() {
+          var laser = document.createElement('div');
+          laser.className = 'ast-laser';
+          laser.style.cssText = 'left:' + shipX + 'px;top:' + shipY + 'px;width:' + dist + 'px;--laser-angle:' + angleDeg + 'deg';
+          arena.appendChild(laser);
+          laser.getBoundingClientRect(); // force reflow
+          laser.classList.add('fire');
+
+          // Explode asteroid after laser fires
+          setTimeout(function() {
+            if (clickedEl) clickedEl.classList.add('ast-correct');
+            astAsteroids.forEach(function(a) { if (a.el !== clickedEl) a.el.style.opacity = '0'; });
+
+            setTimeout(function() {
+              if (laser.parentNode) laser.parentNode.removeChild(laser);
+              if (shipEl) shipEl.style.transform = 'translateX(-50%) rotate(0deg)';
+              astQIdx++;
+              nextAsteroidQuestion();
+            }, 400);
+          }, 300);
+        }, 120);
+      } else {
+        astLives--;
+        updateHUD();
+        // Flash overlay red
+        var flash = document.getElementById('ast-flash');
+        flash.style.background = 'rgba(255,60,60,.35)';
+        flash.style.opacity = '1';
+        setTimeout(function() { flash.style.opacity = '0'; }, 300);
+        // Shake clicked wrong asteroid
+        if (clickedEl) { clickedEl.classList.add('ast-wrong'); setTimeout(function() { clickedEl.classList.remove('ast-wrong'); }, 350); }
+        // Show correct answer briefly
+        astAsteroids.forEach(function(a) { if (a.correct) a.el.style.filter = 'brightness(2.5)'; });
+        if (astLives <= 0) {
+          setTimeout(function() { endAsteroidGame(); }, 900);
+        } else {
+          setTimeout(function() {
+            astAnswered = false;
+            clearAsteroids();
+            // Re-spawn same question
+            astRAF = requestAnimationFrame(function() { nextAsteroidQuestion(); });
+          }, 1100);
+        }
+      }
+    }
+
+    function clearAsteroids() {
+      cancelAnimationFrame(astRAF);
+      astAsteroids.forEach(function(a) { if (a.el.parentNode) a.el.parentNode.removeChild(a.el); });
+      astAsteroids = [];
+    }
+
+    function endAsteroidGame() {
+      clearAsteroids();
+      var endEl = document.getElementById('ast-end');
+      endEl.classList.add('show');
+      var pct = Math.round((astScore / (astQ.length * 100)) * 100);
+      document.getElementById('ast-end-title').textContent = astLives > 0 ? 'Mission Complete!' : 'Ship Destroyed!';
+      document.getElementById('ast-end-score').textContent = astScore + ' pts';
+      document.getElementById('ast-end-detail').textContent = Math.round(astScore / 100) + ' / ' + astQ.length + ' correct \u2014 ' + astLives + ' lives remaining';
+    }
+
+    document.getElementById('pick-asteroid').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('asteroid-game').style.display = 'block';
+      startAsteroidGame();
+    });
+    document.getElementById('ast-back').addEventListener('click', function() {
+      clearAsteroids();
+      document.getElementById('asteroid-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+    document.getElementById('ast-replay').addEventListener('click', function() {
+      startAsteroidGame();
+    });
+  })();
+
+  /* ── CLASS SLIDES ACCORDION ──────────────────────────── */
+  document.querySelectorAll('.slides-topic').forEach(function(topic) {
+    topic.querySelector('.slides-topic-title').addEventListener('click', function() {
+      topic.classList.toggle('open');
+    });
+  });
 
   /* ── STUDY GUIDE ─────────────────────────────────────── */
   function renderGuide() {
@@ -4244,7 +5447,32 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="game-pick-card" id="pick-matching">
         <div class="game-pick-icon">&#129513;</div>
         <div class="game-pick-name">Narrative Matching</div>
-        <div class="game-pick-desc">Match causes to effects to reconstruct the full story of Unit 7 — from the fall of empires to the atomic bomb.</div>
+        <div class="game-pick-desc">Match causes to effects to reconstruct the full story of Unit 7 &mdash; from the fall of empires to the atomic bomb.</div>
+      </div>
+      <div class="game-pick-card" id="pick-sortit">
+        <div class="game-pick-icon">&#9878;</div>
+        <div class="game-pick-name">Sort It</div>
+        <div class="game-pick-desc">Separate sourcing sentences that earn the HAPP point from ones that don&rsquo;t. Build your internal standard before writing on your own.</div>
+      </div>
+      <div class="game-pick-card" id="pick-warmup">
+        <div class="game-pick-icon">&#9200;</div>
+        <div class="game-pick-name">Source Line Warm-up</div>
+        <div class="game-pick-desc">One document, 60 seconds. Pick a lens, complete the sentence frame, earn the point. Reps on photographs, ads, and official reports.</div>
+      </div>
+      <div class="game-pick-card" id="pick-speedquiz">
+        <div class="game-pick-icon">&#9889;</div>
+        <div class="game-pick-name">Speed Quiz</div>
+        <div class="game-pick-desc">15 questions, 20 seconds each. Answer faster to earn more points. Final score and breakdown show exactly what to review.</div>
+      </div>
+      <div class="game-pick-card" id="pick-timeline">
+        <div class="game-pick-icon">&#128337;</div>
+        <div class="game-pick-name">Timeline Builder</div>
+        <div class="game-pick-desc">Click Unit 7 events from earliest to latest. Wrong picks don&rsquo;t advance &mdash; every miss counts against your score.</div>
+      </div>
+      <div class="game-pick-card" id="pick-asteroid">
+        <div class="game-pick-icon">&#9654;</div>
+        <div class="game-pick-name">Asteroid Blaster</div>
+        <div class="game-pick-desc">Destroy incoming asteroids by clicking the correct answer before they reach your ship. 3 lives &mdash; don&rsquo;t let the wrong ones through.</div>
       </div>
     </div>
 
@@ -4301,8 +5529,266 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>
       <div class="match-success" id="match-success" style="display:none">
         <h3>You reconstructed the Unit 7 narrative!</h3>
-        <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From shifting empires to the atomic age — you connected all the pieces.</p>
+        <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From shifting empires to the atomic age &mdash; you connected all the pieces.</p>
         <button type="button" id="match-replay" style="padding:12px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+      </div>
+    </div>
+
+    <!-- ── SORT IT ── -->
+    <div id="sortit-game" style="display:none">
+      <button type="button" id="sortit-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Does It Earn the Point?</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.55">Read each sourcing sentence. Click <strong>Earns it</strong> or <strong>Doesn&rsquo;t earn it</strong> for each one, then submit to see all the answers and explanations.</p>
+      <div id="sortit-cards"></div>
+      <div style="text-align:center;margin-top:20px">
+        <button type="button" id="sortit-submit" style="padding:12px 28px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Check My Sort</button>
+      </div>
+      <div id="sortit-score" style="display:none;text-align:center;margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:.85rem;letter-spacing:.06em"></div>
+      <div style="text-align:center;margin-top:16px;display:none" id="sortit-replay-bar">
+        <button type="button" id="sortit-replay" style="padding:10px 24px;background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Try Again</button>
+      </div>
+    </div>
+
+    <!-- ── SOURCE LINE WARM-UP ── -->
+    <div id="warmup-game" style="display:none">
+      <button type="button" id="warmup-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:4px">Source Line Warm-up</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:14px;line-height:1.55">Read the source line. Pick a lens. Complete the sentence frame. You have 60 seconds &mdash; but keep writing even after time is up.</p>
+      <div id="warmup-doc-num" style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px"></div>
+      <div class="warmup-timer" id="warmup-timer">1:00</div>
+      <div class="warmup-source-card">
+        <div class="warmup-doc-type" id="warmup-doc-type"></div>
+        <div class="warmup-source-line" id="warmup-source-line"></div>
+        <div class="warmup-excerpt" id="warmup-excerpt"></div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Pick a lens:</div>
+      <div class="warmup-lens-row" id="warmup-lens-row"></div>
+      <div class="warmup-frame" id="warmup-frame" style="display:none">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px">Sentence frame &mdash; fill in the blanks:</div>
+        <div id="warmup-frame-text"></div>
+        <div style="font-size:.78rem;color:var(--mid);font-style:italic;margin-top:6px" id="warmup-frame-tip"></div>
+      </div>
+      <textarea id="warmup-text" class="drill-textarea" placeholder="Write your sourcing sentence here..." style="margin-top:4px"></textarea>
+      <button type="button" id="warmup-check" style="padding:10px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;margin-top:8px">Check Sentence</button>
+      <div class="drill-result" id="warmup-result" style="margin-top:12px"></div>
+      <div class="warmup-model" id="warmup-model" style="display:none">
+        <div class="warmup-model-lbl">Model answer:</div>
+        <div id="warmup-model-text"></div>
+      </div>
+      <div style="text-align:right;margin-top:18px">
+        <button type="button" id="warmup-next" style="padding:10px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;display:none">Next Document &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ── SPEED QUIZ ── -->
+    <div id="speedquiz-game" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <button type="button" id="sq-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer">&larr; Back to Games</button>
+        <div class="sq-score-chip" id="sq-score-chip">Score: 0</div>
+      </div>
+      <!-- Question area -->
+      <div id="sq-question-area">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <div class="sq-qnum" id="sq-qnum">Question 1 of 15</div>
+        </div>
+        <div class="sq-timer-bar-wrap"><div class="sq-timer-bar" id="sq-timer-bar" style="width:100%"></div></div>
+        <div class="sq-q-text" id="sq-q-text"></div>
+        <div class="sq-choices" id="sq-choices"></div>
+        <div class="sq-pts-flash" id="sq-pts-flash"></div>
+        <div class="sq-expl" id="sq-expl" style="display:none"></div>
+      </div>
+      <!-- Final screen -->
+      <div id="sq-final" style="display:none;text-align:center;padding:24px 0">
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:6px">Quiz Complete!</div>
+        <div class="sq-final-score" id="sq-final-score"></div>
+        <div id="sq-final-correct" style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--muted);margin-bottom:20px"></div>
+        <button type="button" id="sq-replay" style="padding:12px 28px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+        <div style="max-width:640px;margin:24px auto 0" id="sq-breakdown"></div>
+      </div>
+    </div>
+
+    <!-- ── TIMELINE BUILDER ── -->
+    <div id="timeline-game" style="display:none">
+      <button type="button" id="tl-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Timeline Builder</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:16px;line-height:1.55">Click the events in order from <strong>earliest</strong> to <strong>latest</strong>. Wrong picks don&rsquo;t advance &mdash; try again.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px" id="tl-progress">0 of 9 placed correctly</div>
+      <div id="tl-wrong-msg" style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:var(--red);min-height:20px;margin-bottom:10px"></div>
+      <div class="tl-pool" id="tl-pool"></div>
+      <div class="tl-sequence" id="tl-sequence-wrap">
+        <div class="tl-seq-lbl">Placed correctly &mdash; earliest to latest:</div>
+        <div id="tl-seq-list"></div>
+      </div>
+      <div id="tl-result" style="display:none"></div>
+    </div>
+
+    <!-- ── ASTEROID BLASTER ── -->
+    <div id="asteroid-game" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <button type="button" id="ast-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer">&larr; Back to Games</button>
+        <div style="font-size:.8rem;color:var(--mid)">Click the <strong>correct answer</strong> asteroid before it reaches your ship &mdash; 3 lives</div>
+      </div>
+      <!-- HUD -->
+      <div class="ast-hud">
+        <div class="ast-lives" id="ast-lives">&#9829; &#9829; &#9829;</div>
+        <div class="ast-score-hud">Score: <span id="ast-score">0</span></div>
+      </div>
+      <!-- Question bar -->
+      <div class="ast-qbar" id="ast-qbar">
+        <div class="ast-qnum-lbl" id="ast-qnum-lbl">Question 1 of 12</div>
+        <div id="ast-question"></div>
+      </div>
+      <!-- Arena -->
+      <div id="asteroid-arena">
+        <div class="ast-stars"></div>
+        <div class="ast-ship"></div>
+        <div class="ast-flash-overlay" id="ast-flash"></div>
+        <div class="ast-end" id="ast-end">
+          <div style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:8px" id="ast-end-title">Game Over!</div>
+          <div class="ast-end-score" id="ast-end-score">0 pts</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:#8888cc;margin-bottom:22px" id="ast-end-detail"></div>
+          <button type="button" id="ast-replay" style="padding:12px 28px;background:#44aaff;color:#06061a;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-weight:700">Play Again</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CLASS SLIDES PAGE ══ -->
+<div id="pg-slides" class="page">
+  <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 7</div>
+      <h2>Class Slides</h2>
+      <p>Your full lecture slides alongside topic-by-topic analysis notes. Use these to review key arguments, vocabulary, and connections.</p>
+    </div>
+
+    <div class="slides-layout">
+      <!-- PDF embed -->
+      <div>
+        <div class="slides-embed" id="slides-embed-wrap">
+          <iframe src="unit%207%20slides.pdf" title="Unit 7 Class Slides" allowfullscreen></iframe>
+        </div>
+        <p style="font-size:.75rem;color:var(--muted);margin-top:8px;line-height:1.5">
+          If the slides don&rsquo;t load, <a href="unit%207%20slides.pdf" target="_blank" style="color:var(--red)">open them in a new tab &rarr;</a>
+        </p>
+      </div>
+
+      <!-- Analysis panel -->
+      <div class="slides-panel">
+        <div class="slides-panel-hdr">Topic-by-Topic Analysis</div>
+
+        <div class="slides-topic open">
+          <div class="slides-topic-title">7.1 &mdash; Shifting Power After 1900 <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>Three land empires collapse in the same generation: the Qing (1911), the Russian (1917), and the Ottoman (partitioned 1923). Japan and the U.S. emerge as new global powers, challenging European dominance.</p>
+            <p><strong>Key argument:</strong> Japan's rise exposed the limits of Western racial hierarchy — the West refused Japan equal status at Versailles, fueling the very imperialism they claimed to oppose.</p>
+            <div class="slides-topic-kw"><span>Meiji Restoration</span><span>Qing Collapse</span><span>Russo-Japanese War</span><span>Racial Equality Proposal</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.2 &mdash; Causes of WWI (MAIN) <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>Long-term tensions (MAIN) made Europe explosive; the assassination of Archduke Franz Ferdinand was the spark, not the cause. The alliance system turned a regional crisis into a world war in weeks.</p>
+            <p><strong>Key argument:</strong> The Treaty of Versailles (1919) ended WWI but planted the conditions for WWII — the War Guilt Clause, reparations, and territorial losses created a crisis of legitimacy in Germany.</p>
+            <div class="slides-topic-kw"><span>MAIN</span><span>Triple Entente</span><span>Franz Ferdinand</span><span>Treaty of Versailles</span><span>War Guilt Clause</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.3 &mdash; WWI &amp; Total War <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>Total war mobilized entire economies and societies. Machine guns and barbed wire produced the Western Front stalemate. Governments used propaganda, censorship, and rationing to sustain civilian commitment over years of devastating conflict.</p>
+            <p><strong>Key argument:</strong> Total war blurred the soldier/civilian line — the home front became as strategically important as the battlefield. This redefined what states could demand from their populations.</p>
+            <div class="slides-topic-kw"><span>Total War</span><span>Trench Warfare</span><span>Poison Gas</span><span>Propaganda</span><span>Russian Revolution</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.4 &mdash; The Interwar Economy <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>The Great Depression (1929) collapsed world trade by 50% and devastated democratic governments. Responses varied sharply: Keynesian spending (U.S. New Deal), centralized planning (Soviet Five Year Plans), and import substitution (Latin America).</p>
+            <p><strong>Key argument:</strong> Economic desperation made populations willing to accept radical solutions — the Depression was the key enabling condition for fascist movements in Europe.</p>
+            <div class="slides-topic-kw"><span>Great Depression</span><span>New Deal</span><span>Five Year Plans</span><span>Import Substitution</span><span>Pemex</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.5 &mdash; Resistance &amp; Nationalism <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>WWI weakened European empires and raised expectations of self-determination — promises that were not kept. Resistance movements intensified, from Gandhi's nonviolent civil disobedience to armed anti-colonial uprisings.</p>
+            <p><strong>Key argument:</strong> European states used the language of democracy and self-determination to justify war, but denied those same rights to colonized peoples — creating a legitimacy crisis that accelerated decolonization after WWII.</p>
+            <div class="slides-topic-kw"><span>Salt March</span><span>Self-Determination</span><span>Négritude</span><span>Pan-Africanism</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.6 &mdash; Appeasement &amp; WWII <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>The slides walk through four key appeasement moments: Japan&rsquo;s invasion of Manchuria (League fails to act), Hitler&rsquo;s Rhineland remilitarization, the annexation of Austria, and finally the Munich Agreement — where Chamberlain handed Hitler the Sudetenland and declared &ldquo;Peace for our time.&rdquo;</p>
+            <p><strong>Pattern to see:</strong> Each time the Allies failed to act, Hitler grew bolder. Japan observed the same weakness and escalated in China. This is the lesson of appeasement: rewarding aggression signals that more aggression is safe.</p>
+            <p><strong>AP angle:</strong> Appeasement is a Complexity move — argue that WWI exhaustion explains Allied inaction, but that inaction made WWII inevitable. Don&rsquo;t just say &ldquo;appeasement was bad.&rdquo; Explain <em>why</em> rational leaders made that choice and <em>why</em> it still failed.</p>
+            <div class="slides-topic-kw"><span>Appeasement</span><span>Munich Agreement</span><span>Rhineland</span><span>Sudetenland</span><span>League of Nations</span><span>Chamberlain</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.7 &mdash; Genocide &amp; Mass Atrocities <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>The slides cover three genocide case studies: the Armenian Genocide (Ottoman Empire, 1915&ndash;1923), the Cambodian Genocide (Khmer Rouge, 1975&ndash;1979), and the Rwandan Genocide (1994). The Holocaust and the Nanjing Massacre (&ldquo;Rape of Nanking&rdquo;) are also central to Unit 7.</p>
+            <p><strong>Key argument:</strong> Modern state capacity — bureaucracy, railway networks, propaganda, industrial technology — made 20th-century genocides possible at a scale impossible in pre-industrial societies. The state did not just permit these killings; the state organized them.</p>
+            <p><strong>AP angle:</strong> Use genocide as evidence for the broader argument that total war and authoritarian nationalism dehumanized out-groups. The Nanjing Massacre connects directly to Japanese imperial expansion; the Armenian Genocide connects to Ottoman collapse and WWI.</p>
+            <div class="slides-topic-kw"><span>Holocaust</span><span>Armenian Genocide</span><span>Nanjing Massacre</span><span>Rwandan Genocide</span><span>Cambodian Genocide</span><span>Genocide</span></div>
+          </div>
+        </div>
+
+        <div class="slides-topic">
+          <div class="slides-topic-title">7.8 &mdash; Nationalism &amp; Mass Communication <span class="sa">&#9660;</span></div>
+          <div class="slides-topic-body">
+            <p>Radio, film, and print allowed states to mobilize entire populations. Propaganda shaped what civilians understood about the war. States suppressed bad news (Britain never announced the sinking of HMS Audacious) while amplifying narratives of national sacrifice.</p>
+            <p><strong>Key argument:</strong> The development of mass media created a new form of state power — the ability to shape popular belief at scale was as important to total war as industrial production.</p>
+            <div class="slides-topic-kw"><span>Propaganda</span><span>Censorship</span><span>Radio</span><span>Press Lords</span><span>State Media</span></div>
+          </div>
+        </div>
+
+      </div><!-- end slides-panel -->
+    </div><!-- end slides-layout -->
+  </div>
+</div>
+
+<!-- ══ VISUAL SOURCES PAGE ══ -->
+<div id="pg-visual" class="page">
+  <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 7 &mdash; Skill Practice</div>
+      <h2>Visual Sources &amp; HIPP Analysis</h2>
+      <p>7 AP-authentic visual stimuli &mdash; photographs, lithographs, maps, and paintings. Practice HIPP analysis for each source, then check your thinking against the model answers.</p>
+    </div>
+
+    <div class="vs-layout">
+      <!-- Left: embedded PDF -->
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:8px">Source Document</div>
+        <div class="vs-pdf-wrap">
+          <iframe src="SG_visualstimuli_69ba9e5d76c120.69ba9e5ee2bf90.27219373.pdf" title="AP Visual Stimuli" allowfullscreen></iframe>
+        </div>
+        <p style="font-size:.74rem;color:var(--muted);margin-top:7px;line-height:1.5">Scroll the document to each image, then use the panel &rarr; to practice HIPP. <a href="SG_visualstimuli_69ba9e5d76c120.69ba9e5ee2bf90.27219373.pdf" target="_blank" style="color:var(--red)">Open full screen &rarr;</a></p>
+        <div style="background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin-top:16px;font-size:.82rem;line-height:1.6">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:5px">HIPP Reminder</div>
+          <strong>H</strong> &mdash; Historical Context: what was happening when this was made?<br>
+          <strong>I</strong> &mdash; Intended Audience: who was this made for?<br>
+          <strong>P</strong> &mdash; Purpose: why was this created?<br>
+          <strong>P</strong> &mdash; Point of View: how does the source&rsquo;s origin shape what it shows or omits?<br>
+          <br>The &ldquo;which means&rdquo; anchor: always end your analysis by connecting the HIPP element to your argument.
+        </div>
+      </div>
+
+      <!-- Right: HIPP analysis panel -->
+      <div class="vs-panel">
+        <div class="vs-tab-row" id="vs-tabs"></div>
+        <div id="vs-cards"></div>
       </div>
     </div>
   </div>

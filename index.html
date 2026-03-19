@@ -516,19 +516,16 @@ img{display:block;max-width:100%}
 .tl-seq-num{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;min-width:18px;color:#1a6825}
 .tl-next-slot{color:var(--muted);font-style:italic}
 /* ── Visual Stimuli ─────────────────────────────────────── */
-.vs-layout{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start;margin-top:24px}
-.vs-pdf-wrap{background:var(--paper);border:1px solid var(--border2);aspect-ratio:4/3;width:100%;overflow:hidden}
-.vs-pdf-wrap iframe{width:100%;height:100%;border:none;display:block}
-.vs-panel{background:var(--white);border:1px solid var(--border2)}
+.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
 .vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
 .vs-tab{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
 .vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
-.vs-card{display:none;padding:16px 18px}
+.vs-card{display:none;padding:24px 32px}
 .vs-card.active{display:block}
 .vs-card-src{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
 .vs-card-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
 .vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
-.vs-source-img{width:100%;display:block;border:1px solid var(--border);margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.vs-source-img{display:block;width:auto;max-width:100%;max-height:80vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
 .dbq-pages{display:flex;flex-direction:column;gap:10px;margin:10px 0 16px}
 .dbq-page-img{width:100%;display:block;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .vs-step-hdr{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
@@ -555,7 +552,6 @@ img{display:block;max-width:100%}
 .vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
 .vs-hipp-model.show{display:block}
 .vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
-@media(max-width:860px){.vs-layout{grid-template-columns:1fr}}
 /* ── Asteroid Game ──────────────────────────────────────── */
 #asteroid-arena{position:relative;width:100%;height:420px;background:#06061a;overflow:hidden;border:2px solid #1a1a40;border-radius:4px}
 .ast-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 15% 25%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 55% 18%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 82% 65%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 38% 78%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 92% 42%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 8% 58%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 48% 48%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 68% 32%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 25% 12%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 75% 85%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 33% 55%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 62% 90%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 5% 38%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 88% 22%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 44% 68%,#fff 0%,transparent 100%)}
@@ -5816,36 +5812,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!-- ══ VISUAL SOURCES PAGE ══ -->
 <div id="pg-visual" class="page">
-  <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+  <div class="inner" style="max-width:1400px;margin:0 auto;padding:40px 20px 60px">
     <div class="pg-hero">
       <div class="eyebrow">Unit 7 &mdash; Skill Practice</div>
       <h2>Visual Sources &amp; HIPP Analysis</h2>
-      <p>7 AP-authentic visual stimuli &mdash; photographs, lithographs, maps, and paintings. Practice HIPP analysis for each source, then check your thinking against the model answers.</p>
+      <p>7 AP-authentic visual stimuli &mdash; photographs, lithographs, maps, and paintings. Study each source, answer the AP question, then complete your own HIPP analysis and compare to the model.</p>
     </div>
 
-    <div class="vs-layout">
-      <!-- Left: embedded PDF -->
-      <div>
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:8px">Source Document</div>
-        <div class="vs-pdf-wrap">
-          <iframe src="SG_visualstimuli_69ba9e5d76c120.69ba9e5ee2bf90.27219373.pdf" title="AP Visual Stimuli" allowfullscreen></iframe>
-        </div>
-        <p style="font-size:.74rem;color:var(--muted);margin-top:7px;line-height:1.5">Scroll the document to each image, then use the panel &rarr; to practice HIPP. <a href="SG_visualstimuli_69ba9e5d76c120.69ba9e5ee2bf90.27219373.pdf" target="_blank" style="color:var(--red)">Open full screen &rarr;</a></p>
-        <div style="background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin-top:16px;font-size:.82rem;line-height:1.6">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:5px">HIPP Reminder</div>
-          <strong>H</strong> &mdash; Historical Context: what was happening when this was made?<br>
-          <strong>I</strong> &mdash; Intended Audience: who was this made for?<br>
-          <strong>P</strong> &mdash; Purpose: why was this created?<br>
-          <strong>P</strong> &mdash; Point of View: how does the source&rsquo;s origin shape what it shows or omits?<br>
-          <br>The &ldquo;which means&rdquo; anchor: always end your analysis by connecting the HIPP element to your argument.
-        </div>
-      </div>
-
-      <!-- Right: HIPP analysis panel -->
-      <div class="vs-panel">
-        <div class="vs-tab-row" id="vs-tabs"></div>
-        <div id="vs-cards"></div>
-      </div>
+    <div class="vs-panel">
+      <div class="vs-tab-row" id="vs-tabs"></div>
+      <div id="vs-cards"></div>
     </div>
   </div>
 </div>

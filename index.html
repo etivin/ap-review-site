@@ -229,6 +229,8 @@ img{display:block;max-width:100%}
 .tc-cnt{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted)}
 .btn-all{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;transition:background .18s}
 .btn-all:hover{background:#2a2a1e}
+.btn-mixed{display:block;width:100%;background:var(--blue);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;transition:background .18s;margin-bottom:8px}
+.btn-mixed:hover{background:#0f2350}
 .qsession{display:none}.qsession.active{display:block}
 .qhdr{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;box-shadow:var(--sh)}
 .qhdr-name{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);font-weight:500}
@@ -942,6 +944,7 @@ img{display:block;max-width:100%}
         <button type="button" class="tc" data-topic="7.7"><div class="tc-n">Topic 7.7</div><div class="tc-name">Mass Atrocities</div><div class="tc-cnt" id="cnt77"></div></button>
         <button type="button" class="tc" data-topic="7.8"><div class="tc-n">Topic 7.8</div><div class="tc-name">Propaganda &amp; Mobilization</div><div class="tc-cnt" id="cnt78"></div></button>
       </div>
+      <button type="button" class="btn-mixed" id="mcq-mixed-btn">&#9889; Quick Mixed Quiz &mdash; 2 Questions Per Unit</button>
       <button type="button" class="btn-all" id="mcq-all-btn">&#128203; Practice All Questions</button>
     </div>
     <div id="mcq-session" class="qsession">
@@ -2704,6 +2707,21 @@ document.addEventListener('DOMContentLoaded', function () {
           mcqQsMeta.push({ topic: k, topicIdx: idx });
         });
       });
+    } else if (m === 'mixed') {
+      mcqQs = [];
+      var MIXED_PER_UNIT = 2;
+      topicOrder.forEach(function(k) {
+        var pool = QB[k] || [];
+        var indices = pool.map(function(_, i){ return i; });
+        for (var ii = indices.length - 1; ii > 0; ii--) {
+          var jj = Math.floor(Math.random() * (ii + 1));
+          var tmp = indices[ii]; indices[ii] = indices[jj]; indices[jj] = tmp;
+        }
+        indices.slice(0, MIXED_PER_UNIT).forEach(function(idx) {
+          mcqQs.push(pool[idx]);
+          mcqQsMeta.push({ topic: k, topicIdx: idx });
+        });
+      });
     } else {
       mcqQs = (QB[m] || []).slice();
       mcqQs.forEach(function(_, idx) { mcqQsMeta.push({ topic: m, topicIdx: idx }); });
@@ -2715,7 +2733,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       saveProgress();
     }
-    var names = {'all':'All Unit 7 Questions','7.1':'7.1 — Shifting Power','7.2':'7.2 — Causes of WWI','7.3':'7.3 — Conducting WWI','7.4':'7.4 — Interwar Economy','7.5':'7.5 — Resistance & Nationalism','7.6':'7.6 — Causes & Conduct of WWII','7.7':'7.7 — Mass Atrocities','7.8':'7.8 — Propaganda'};
+    var names = {'all':'All Unit 7 Questions','mixed':'⚡ Quick Mixed Quiz (All Units)','7.1':'7.1 — Shifting Power','7.2':'7.2 — Causes of WWI','7.3':'7.3 — Conducting WWI','7.4':'7.4 — Interwar Economy','7.5':'7.5 — Resistance & Nationalism','7.6':'7.6 — Causes & Conduct of WWII','7.7':'7.7 — Mass Atrocities','7.8':'7.8 — Propaganda'};
     document.getElementById('qhdr-name').textContent = names[m] || m;
     document.getElementById('qhdr-prog').textContent = '0 of ' + mcqQs.length + ' answered';
     document.getElementById('qpbf').style.width = '0%';
@@ -2837,6 +2855,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.tc[data-topic]').forEach(function(card) {
     card.addEventListener('click', function(){ mcqGo(this.dataset.topic); });
   });
+  document.getElementById('mcq-mixed-btn').addEventListener('click', function(){ mcqGo('mixed'); });
   document.getElementById('mcq-all-btn').addEventListener('click', function(){ mcqGo('all'); });
   document.getElementById('mcq-back-btn').addEventListener('click', mcqHome);
   document.getElementById('mcq-reset-btn').addEventListener('click', function(){ mcqGo(mcqMode); });

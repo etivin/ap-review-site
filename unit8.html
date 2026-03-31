@@ -155,6 +155,109 @@ button{font-family:inherit;cursor:pointer}
 .complexity-label{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:9px}
 .complexity-body{font-size:.86rem;line-height:1.8;color:rgba(255,255,255,.8)}
 .complexity-note{color:rgba(255,255,255,.4);font-size:.78rem;margin-top:7px;display:block}
+/* GAMES */
+.game-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:700px;margin:0 auto}
+.game-pick-card{background:var(--white);border:2px solid var(--border2);padding:36px 28px;cursor:pointer;text-align:center;transition:box-shadow .2s,border-color .2s}
+.game-pick-card:hover{border-color:var(--red);box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.game-pick-icon{font-size:2.8rem;margin-bottom:12px}
+.game-pick-name{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px}
+.game-pick-desc{font-size:.84rem;color:var(--mid);line-height:1.5}
+.jeop-teams-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px}
+.jeop-team{background:var(--white);border:2px solid var(--border2);padding:12px 16px;min-width:140px;position:relative}
+.jeop-team-name{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:none;background:none;width:100%;outline:none;padding:2px 0;border-bottom:1.5px dashed var(--border2)}
+.jeop-team-name:focus{border-bottom-color:var(--red)}
+.jeop-team-score{font-family:'Playfair Display',serif;font-size:1.6rem;margin-top:6px}
+.jeop-team-rm{position:absolute;top:4px;right:6px;background:none;border:none;color:#999;cursor:pointer;font-size:.9rem}
+.jeop-team-rm:hover{color:var(--red)}
+.jeop-board{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:20px 0}
+.jeop-cat{background:#1a1a12;color:#fff;padding:12px 6px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
+.jeop-cell{background:#1a237e;color:#ffd740;padding:18px 8px;text-align:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;cursor:pointer;border:none;transition:background .15s,transform .1s}
+.jeop-cell:hover{background:#283593;transform:scale(1.04)}
+.jeop-cell.used{background:#37474f;color:#78909c;cursor:default;transform:none}
+.jeop-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:910;display:flex;align-items:center;justify-content:center;padding:20px}
+.jeop-modal-inner{background:#f9f6ef;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;padding:40px 36px;border:2px solid #ddd0b8;box-shadow:0 12px 48px rgba(0,0,0,.4)}
+.jeop-modal-pts{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:var(--red);text-transform:uppercase;margin-bottom:8px}
+.jeop-modal-q{font-family:'Source Serif 4',serif;font-size:1.15rem;line-height:1.7;margin-bottom:24px}
+.jeop-modal-answer{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-bottom:20px;font-family:'Source Serif 4',serif;font-size:1rem;line-height:1.6;display:none}
+.jeop-modal-answer.show{display:block}
+.jeop-award-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.jeop-award-btn{padding:10px 18px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;color:#fff;transition:opacity .15s}
+.jeop-award-btn:hover{opacity:.85}
+.jeop-award-btn.no-pts{background:#78909c;color:#fff}
+.jeop-reveal-btn{padding:12px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.jeop-end-bar{display:flex;gap:12px;justify-content:center;margin-top:24px}
+.jeop-winner{text-align:center;padding:40px 20px}
+.jeop-winner h3{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:10px}
+.match-board{display:flex;gap:20px;max-width:900px;margin:0 auto}
+.match-col{flex:1;display:flex;flex-direction:column;gap:10px}
+.match-col-hdr{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;text-align:center}
+.match-card{background:var(--white);border:2px solid var(--border2);padding:14px 16px;font-size:.84rem;line-height:1.5;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.match-card:hover{border-color:var(--red);transform:translateY(-1px)}
+.match-card.selected{border-color:var(--red);background:#fff5f5;box-shadow:0 0 0 2px rgba(176,0,28,.2)}
+.match-card.matched{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.8}
+.match-card.wrong{animation:matchShake .4s ease-out}
+.match-counter{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:var(--muted);margin:20px 0}
+.match-success{text-align:center;padding:40px 20px}
+.match-success h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px}
+@keyframes matchShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.sortit-card{background:var(--white);border:2px solid var(--border2);padding:16px 18px;margin-bottom:12px;font-size:.86rem;line-height:1.6}
+.sortit-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sortit-btn{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .15s}
+.sortit-btn.earns{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.sortit-btn.nope{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.sortit-card.revealed-correct{border-color:#1a6825}
+.sortit-card.revealed-wrong{border-color:var(--red)}
+.sortit-explain{font-size:.79rem;color:var(--mid);margin-top:8px;display:none;line-height:1.55;border-top:1px solid var(--border);padding-top:8px}
+.sortit-card.revealed-correct .sortit-explain,.sortit-card.revealed-wrong .sortit-explain{display:block}
+.sq-score-chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ink);background:var(--paper);border:1.5px solid var(--border2);padding:6px 14px}
+.sq-qnum{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sq-timer-bar-wrap{height:8px;background:var(--border);border-radius:4px;margin-bottom:18px;overflow:hidden}
+.sq-timer-bar{height:100%;background:var(--red);border-radius:4px}
+.sq-q-text{font-family:'Playfair Display',serif;font-size:1.2rem;line-height:1.5;margin-bottom:20px;text-align:center}
+.sq-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto 16px}
+.sq-choice{padding:16px 18px;border:2px solid var(--border2);background:var(--white);font-size:.86rem;line-height:1.4;cursor:pointer;text-align:left;transition:background .15s,border-color .15s;font-family:inherit}
+.sq-choice:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.sq-choice.sq-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.sq-choice.sq-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.sq-pts-flash{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:1rem;letter-spacing:.1em;min-height:26px;margin-bottom:8px}
+.sq-expl{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--border2);padding:12px 16px;font-size:.83rem;line-height:1.6;max-width:640px;margin:0 auto}
+.sq-final-score{font-family:'IBM Plex Mono',monospace;font-size:2.4rem;letter-spacing:.06em;margin:14px 0 4px}
+.sq-bk-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--border);font-size:.82rem;line-height:1.5;text-align:left}
+.sq-bk-icon{font-size:1rem;flex-shrink:0;margin-top:2px}
+.tl-pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:22px}
+.tl-card{background:var(--white);border:2px solid var(--border2);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.tl-card:hover:not(.tl-placed){border-color:var(--red);transform:translateY(-2px)}
+.tl-card-title{font-size:.84rem;font-weight:600;color:var(--ink)}
+.tl-placed{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.7}
+.tl-wrong-anim{animation:matchShake .35s ease-out;border-color:var(--red) !important;background:#fff5f5 !important}
+.tl-sequence{background:var(--paper);border:1px solid var(--border);padding:14px 18px;margin-bottom:16px}
+.tl-seq-lbl{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.tl-seq-item{display:flex;gap:10px;align-items:baseline;font-size:.82rem;line-height:1.5;color:#1a6825;margin-bottom:4px}
+.tl-seq-num{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;min-width:18px;color:#1a6825}
+#asteroid-arena{position:relative;width:100%;height:420px;background:#06061a;overflow:hidden;border:2px solid #1a1a40;border-radius:4px}
+.ast-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 15% 25%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 55% 18%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 82% 65%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 38% 78%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 92% 42%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 8% 58%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 48% 48%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 68% 32%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 25% 12%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 75% 85%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 33% 55%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 62% 90%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 5% 38%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 88% 22%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 44% 68%,#fff 0%,transparent 100%)}
+.ast-ship{position:absolute;bottom:24px;left:50%;width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-bottom:28px solid #44aaff;filter:drop-shadow(0 0 8px #44aaff);transition:transform .15s ease-out;transform-origin:50% 100%}
+.ast-ship::after{content:'';position:absolute;top:8px;left:-6px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:14px solid #06061a}
+.asteroid{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;width:128px;height:108px;background:#7a4e28;clip-path:polygon(50% 0%,82% 10%,100% 40%,88% 76%,60% 100%,28% 98%,5% 72%,0% 40%,18% 12%);color:#f0e8d8;font-size:.62rem;line-height:1.3;font-family:'IBM Plex Mono',monospace;padding:14px 10px;user-select:none;transform-origin:50% 50%;box-shadow:inset -5px -5px 12px rgba(0,0,0,.6)}
+.asteroid:nth-child(odd){clip-path:polygon(30% 0%,72% 8%,100% 36%,92% 70%,65% 100%,28% 95%,0% 65%,5% 28%);background:#6b421e}
+.asteroid:nth-child(3n){clip-path:polygon(45% 2%,80% 14%,100% 48%,82% 82%,50% 100%,16% 88%,0% 52%,10% 20%);background:#8b5e35}
+.asteroid:hover{filter:brightness(1.3)}
+.asteroid.ast-correct{animation:astExplode .45s ease-out forwards;pointer-events:none}
+.asteroid.ast-wrong{animation:astWrong .3s ease-out}
+.ast-hud{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:#0a0a28;border-bottom:1px solid #1a1a50;position:relative;z-index:2}
+.ast-lives{color:#ff6666;font-size:.9rem;letter-spacing:.04em}
+.ast-score-hud{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:#44aaff}
+.ast-qbar{background:rgba(10,10,40,.95);border-bottom:1px solid #1a1a50;padding:10px 18px;font-size:.84rem;color:#e8e8ff;line-height:1.45;text-align:center;position:relative;z-index:2;min-height:44px}
+.ast-qnum-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:#44aaff;margin-bottom:4px}
+.ast-end{display:none;text-align:center;padding:44px 20px;background:#06061a;color:#e8e8ff;height:100%;box-sizing:border-box}
+.ast-end.show{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ast-end-score{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;letter-spacing:.06em;color:#44aaff;margin:10px 0 4px}
+.ast-flash-overlay{position:absolute;inset:0;pointer-events:none;z-index:10;opacity:0;transition:opacity .15s}
+.ast-laser{position:absolute;height:3px;background:linear-gradient(90deg,transparent,#44aaff 20%,#88ddff 50%,#44aaff 80%,transparent);transform-origin:0 50%;pointer-events:none;z-index:5;opacity:0;filter:drop-shadow(0 0 4px #44aaff)}
+.ast-laser.fire{animation:laserFire .3s ease-out forwards}
+@keyframes laserFire{0%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(0)}30%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}70%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}100%{opacity:0;transform:rotate(var(--laser-angle)) scaleX(1)}}
+@keyframes astExplode{0%{transform:scale(1) rotate(var(--rot,0deg));opacity:1}40%{transform:scale(1.8) rotate(var(--rot,0deg));filter:brightness(4);opacity:.8}100%{transform:scale(0) rotate(var(--rot,0deg));opacity:0}}
+@keyframes astWrong{0%,100%{transform:translate(var(--tx,0px),var(--ty,0px)) rotate(var(--rot,0deg))}25%{transform:translate(calc(var(--tx,0px) - 7px),var(--ty,0px)) rotate(var(--rot,0deg))}75%{transform:translate(calc(var(--tx,0px) + 7px),var(--ty,0px)) rotate(var(--rot,0deg))}}
 /* FOOTER */
 .site-footer{background:var(--ink);padding:18px 24px;text-align:center}
 .site-footer p{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3)}
@@ -163,26 +266,14 @@ button{font-family:inherit;cursor:pointer}
   .header-title{display:none}
   .topic-grid,.features-grid,.tip-grid{grid-template-columns:1fr}
   .hero{min-height:55vh}
+  .match-board{flex-direction:column}
+  .jeop-board{grid-template-columns:repeat(3,1fr)}
+  .jeop-cat:nth-child(n+4){display:none}
+  .sq-choices{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
-<!-- PASSWORD GATE -->
-<div id="pw-gate" style="position:fixed;inset:0;background:#1a1a12;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:24px">
-  <div style="color:rgba(176,0,28,.8);font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase">AP World History: Modern</div>
-  <div style="color:#fff;font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;text-align:center">Unit 8 — Teacher Preview</div>
-  <div style="color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;max-width:320px;line-height:1.8">This unit is under construction.<br/>Enter password to preview.</div>
-  <input id="pw-input" type="password" placeholder="Password" style="padding:12px 18px;font-size:.95rem;border:2px solid rgba(176,0,28,.5);background:#fff;width:240px;font-family:'IBM Plex Mono',monospace;outline:none;margin-top:4px"/>
-  <button onclick="checkPw()" style="background:#b0001c;color:#fff;border:none;padding:11px 32px;font-size:.65rem;cursor:pointer;font-family:'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase">ENTER</button>
-  <div id="pw-err" style="color:#e55;font-size:.78rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;display:none">Incorrect password.</div>
-  <a href="index.html" style="color:rgba(255,255,255,.28);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;margin-top:10px">&#8592; Back to Hub</a>
-</div>
-<script>
-(function(){if(sessionStorage.getItem('u8_access')==='1'){document.getElementById('pw-gate').style.display='none';}})();
-function checkPw(){var v=document.getElementById('pw-input').value;if(v==='Moeselu5506'){sessionStorage.setItem('u8_access','1');document.getElementById('pw-gate').style.display='none';}else{document.getElementById('pw-err').style.display='block';document.getElementById('pw-input').value='';document.getElementById('pw-input').focus();}}
-document.addEventListener('keydown',function(e){if(e.key==='Enter'&&document.getElementById('pw-gate').style.display!=='none')checkPw();});
-</script>
 
 <!-- HEADER -->
 <header class="site-header">
@@ -196,6 +287,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Enter'&&document.get
     <button class="hn-btn" data-tab="pg-mcq">&#128203; MCQ</button>
     <button class="hn-btn" data-tab="pg-guide">&#128214; Guide</button>
     <button class="hn-btn" data-tab="pg-tips">&#128161; Tips</button>
+    <button class="hn-btn" data-tab="pg-games">&#127918; Games</button>
   </nav>
   <div id="bar-score">Score: <strong id="score-txt">0/0</strong></div>
 </header>
@@ -238,15 +330,22 @@ document.addEventListener('keydown',function(e){if(e.key==='Enter'&&document.get
           <div class="feat-desc">Mr. T&rsquo;s SAQ, DBQ &amp; LEQ formulas, HAPP guide, thesis structure, and complexity strategies.</div>
           <div class="feat-count">SAQ &bull; DBQ &bull; LEQ &bull; HAPP</div>
         </button>
+        <button class="feat" data-tab="pg-games">
+          <div class="feat-icon">&#127918;</div>
+          <div class="feat-name">Review Games</div>
+          <div class="feat-desc">Jeopardy, Matching, Sort It, Speed Quiz, Timeline Builder, and Asteroid Blaster &mdash; all with Unit 8 content.</div>
+          <div class="feat-count">6 games &mdash; Compete &amp; review</div>
+        </button>
       </div>
     </div>
   </section>
   <section class="home-cta">
     <h2>Ready to Master Unit 8?</h2>
-    <p>MCQ practice and study guide &mdash; all in one place.</p>
+    <p>MCQ practice, study guide, and review games &mdash; all in one place.</p>
     <div class="home-cta-btns">
       <button class="cta-btn" data-tab="pg-mcq">&#128203; Begin MCQ Practice</button>
       <button class="cta-btn-outline" data-tab="pg-guide">&#128214; Open Study Guide</button>
+      <button class="cta-btn-outline" data-tab="pg-games">&#127918; Play Games</button>
     </div>
   </section>
   <footer class="site-footer">
@@ -322,6 +421,181 @@ document.addEventListener('keydown',function(e){if(e.key==='Enter'&&document.get
     <div class="complexity-box">
       <div class="complexity-label">Complexity Point Options</div>
       <div class="complexity-body">&#10022; Explain multiple causes/effects, similarities/differences, or continuities/changes<br/>&#10022; Explain both cause AND effect, or both similarity AND difference<br/>&#10022; Connect across time periods or geographic areas<br/>&#10022; Use all 7 documents effectively (DBQ) or HAPP 4+ documents<br/><span class="complexity-note">A counterargument paragraph can earn complexity &mdash; but only if it is a full paragraph with evidence, not just a sentence.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- GAMES PAGE -->
+<div class="page" id="pg-games">
+  <div class="inner" style="max-width:960px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-hero">
+      <div class="eyebrow">Review Games</div>
+      <h2>Test Your Knowledge</h2>
+      <p>Choose a game mode to review Unit 8 with your class or on your own.</p>
+    </div>
+    <div id="game-picker" class="game-picker">
+      <div class="game-pick-card" id="pick-jeopardy">
+        <div class="game-pick-icon">&#128218;</div>
+        <div class="game-pick-name">Jeopardy</div>
+        <div class="game-pick-desc">Team-based review game. Add teams, pick categories, and compete for points. Perfect for classroom play.</div>
+      </div>
+      <div class="game-pick-card" id="pick-matching">
+        <div class="game-pick-icon">&#129513;</div>
+        <div class="game-pick-name">Narrative Matching</div>
+        <div class="game-pick-desc">Match Cold War causes to effects and decolonization events to outcomes &mdash; reconstruct the Unit 8 story.</div>
+      </div>
+      <div class="game-pick-card" id="pick-sortit">
+        <div class="game-pick-icon">&#9878;</div>
+        <div class="game-pick-name">Sort It</div>
+        <div class="game-pick-desc">Separate sourcing sentences that earn the HAPP point from ones that don&rsquo;t. Unit 8 documents only.</div>
+      </div>
+      <div class="game-pick-card" id="pick-speedquiz">
+        <div class="game-pick-icon">&#9889;</div>
+        <div class="game-pick-name">Speed Quiz</div>
+        <div class="game-pick-desc">15 questions, 20 seconds each. Answer faster to earn more points. Final score and breakdown show what to review.</div>
+      </div>
+      <div class="game-pick-card" id="pick-timeline">
+        <div class="game-pick-icon">&#128337;</div>
+        <div class="game-pick-name">Timeline Builder</div>
+        <div class="game-pick-desc">Click Unit 8 events from earliest to latest. Wrong picks don&rsquo;t advance &mdash; every miss counts against your score.</div>
+      </div>
+      <div class="game-pick-card" id="pick-asteroid">
+        <div class="game-pick-icon">&#9654;</div>
+        <div class="game-pick-name">Asteroid Blaster</div>
+        <div class="game-pick-desc">Destroy incoming asteroids by clicking the correct answer before they reach your ship. 3 lives.</div>
+      </div>
+    </div>
+
+    <!-- JEOPARDY -->
+    <div id="jeopardy-game" style="display:none">
+      <button type="button" id="jeop-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <div id="jeop-setup">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:14px">Set Up Teams</h3>
+        <div id="jeop-teams" class="jeop-teams-bar"></div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button type="button" id="jeop-add-team" style="padding:8px 16px;background:none;border:1.5px solid var(--border2);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">+ Add Team</button>
+          <button type="button" id="jeop-start" style="padding:8px 20px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Start Game</button>
+        </div>
+      </div>
+      <div id="jeop-board-wrap" style="display:none">
+        <div id="jeop-scoreboard" class="jeop-teams-bar" style="margin-bottom:16px"></div>
+        <div id="jeop-board" class="jeop-board"></div>
+        <div class="jeop-end-bar">
+          <button type="button" id="jeop-end-game" style="padding:10px 24px;background:none;border:1.5px solid var(--red);color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">End Game</button>
+          <button type="button" id="jeop-new-game" style="padding:10px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">New Game</button>
+        </div>
+      </div>
+      <div id="jeop-winner" class="jeop-winner" style="display:none"></div>
+    </div>
+    <div id="jeop-modal" class="jeop-modal" style="display:none">
+      <div class="jeop-modal-inner">
+        <div class="jeop-modal-pts" id="jeop-modal-pts"></div>
+        <div class="jeop-modal-q" id="jeop-modal-q"></div>
+        <div class="jeop-modal-answer" id="jeop-modal-answer"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="jeop-reveal-btn" id="jeop-reveal">Reveal Answer</button>
+        </div>
+        <div class="jeop-award-bar" id="jeop-award-bar" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- MATCHING -->
+    <div id="matching-game" style="display:none">
+      <button type="button" id="match-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Reconstruct the Unit 8 Narrative</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.5">Match each event or cause on the left with its effect or significance on the right.</p>
+      <div class="match-counter" id="match-counter">0 of 12 matched</div>
+      <div class="match-board" id="match-board">
+        <div class="match-col" id="match-left"><div class="match-col-hdr">Cause / Event</div></div>
+        <div class="match-col" id="match-right"><div class="match-col-hdr">Effect / Significance</div></div>
+      </div>
+      <div class="match-success" id="match-success" style="display:none">
+        <h3>You reconstructed the Unit 8 narrative!</h3>
+        <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From the Iron Curtain to the fall of the Berlin Wall &mdash; you connected all the pieces.</p>
+        <button type="button" id="match-replay" style="padding:12px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+      </div>
+    </div>
+
+    <!-- SORT IT -->
+    <div id="sortit-game" style="display:none">
+      <button type="button" id="sortit-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Does It Earn the Point?</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.55">Read each sourcing sentence. Click <strong>Earns it</strong> or <strong>Doesn&rsquo;t earn it</strong>, then submit to see answers and explanations.</p>
+      <div id="sortit-cards"></div>
+      <div style="text-align:center;margin-top:20px">
+        <button type="button" id="sortit-submit" style="padding:12px 28px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Check My Sort</button>
+      </div>
+      <div id="sortit-score" style="display:none;text-align:center;margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:.85rem;letter-spacing:.06em"></div>
+      <div style="text-align:center;margin-top:16px;display:none" id="sortit-replay-bar">
+        <button type="button" id="sortit-replay" style="padding:10px 24px;background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Try Again</button>
+      </div>
+    </div>
+
+    <!-- SPEED QUIZ -->
+    <div id="speedquiz-game" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <button type="button" id="sq-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer">&larr; Back to Games</button>
+        <div class="sq-score-chip" id="sq-score-chip">Score: 0</div>
+      </div>
+      <div id="sq-question-area">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <div class="sq-qnum" id="sq-qnum">Question 1 of 15</div>
+        </div>
+        <div class="sq-timer-bar-wrap"><div class="sq-timer-bar" id="sq-timer-bar" style="width:100%"></div></div>
+        <div class="sq-q-text" id="sq-q-text"></div>
+        <div class="sq-choices" id="sq-choices"></div>
+        <div class="sq-pts-flash" id="sq-pts-flash"></div>
+        <div class="sq-expl" id="sq-expl" style="display:none"></div>
+      </div>
+      <div id="sq-final" style="display:none;text-align:center;padding:24px 0">
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:6px">Quiz Complete!</div>
+        <div class="sq-final-score" id="sq-final-score"></div>
+        <div id="sq-final-correct" style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--muted);margin-bottom:20px"></div>
+        <button type="button" id="sq-replay" style="padding:12px 28px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+        <div style="max-width:640px;margin:24px auto 0" id="sq-breakdown"></div>
+      </div>
+    </div>
+
+    <!-- TIMELINE BUILDER -->
+    <div id="timeline-game" style="display:none">
+      <button type="button" id="tl-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Timeline Builder</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:16px;line-height:1.55">Click the events in order from <strong>earliest</strong> to <strong>latest</strong>. Wrong picks don&rsquo;t advance.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px" id="tl-progress">0 of 10 placed correctly</div>
+      <div id="tl-wrong-msg" style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:var(--red);min-height:20px;margin-bottom:10px"></div>
+      <div class="tl-pool" id="tl-pool"></div>
+      <div class="tl-sequence" id="tl-sequence-wrap">
+        <div class="tl-seq-lbl">Placed correctly &mdash; earliest to latest:</div>
+        <div id="tl-seq-list"></div>
+      </div>
+      <div id="tl-result" style="display:none"></div>
+    </div>
+
+    <!-- ASTEROID BLASTER -->
+    <div id="asteroid-game" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <button type="button" id="ast-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer">&larr; Back to Games</button>
+        <div style="font-size:.8rem;color:var(--mid)">Click the <strong>correct answer</strong> asteroid before it reaches your ship &mdash; 3 lives</div>
+      </div>
+      <div class="ast-hud">
+        <div class="ast-lives" id="ast-lives">&#9829; &#9829; &#9829;</div>
+        <div class="ast-score-hud">Score: <span id="ast-score">0</span></div>
+      </div>
+      <div class="ast-qbar" id="ast-qbar">
+        <div class="ast-qnum-lbl" id="ast-qnum-lbl">Question 1 of 12</div>
+        <div id="ast-question"></div>
+      </div>
+      <div id="asteroid-arena">
+        <div class="ast-stars"></div>
+        <div class="ast-ship"></div>
+        <div class="ast-flash-overlay" id="ast-flash"></div>
+        <div class="ast-end" id="ast-end">
+          <div style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:8px" id="ast-end-title">Game Over!</div>
+          <div class="ast-end-score" id="ast-end-score">0 pts</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:#8888cc;margin-bottom:22px" id="ast-end-detail"></div>
+          <button type="button" id="ast-replay" style="padding:12px 28px;background:#44aaff;color:#06061a;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-weight:700">Play Again</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -530,6 +804,489 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('mcq-back-btn').addEventListener('click', mcqHome);
   document.getElementById('mcq-reset-btn').addEventListener('click', function(){ mcqGo(mcqMode); });
   mcqInit();
+
+  /* ── GAMES ── */
+  (function() {
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    /* ── JEOPARDY ── */
+    var JEOP_DATA = [
+      { name: 'Cold War Origins', questions: [
+        { clue: "Churchill's 1946 speech coined this two-word metaphor for the Soviet division of Europe", answer: "Iron Curtain", explanation: "Churchill's 'Sinews of Peace' speech in Fulton, Missouri publicly named the emerging East-West division, crystallizing Cold War rhetoric for Western audiences." },
+        { clue: "This 1947 American policy committed the U.S. to supporting 'free peoples' resisting communist subjugation, starting with Greece and Turkey", answer: "Truman Doctrine", explanation: "The Truman Doctrine replaced British support in Greece and Turkey and set the precedent for decades of American Cold War intervention globally." },
+        { clue: "George Kennan's strategy of preventing Soviet expansion without direct military confrontation", answer: "Containment", explanation: "Kennan's 'Long Telegram' and 'X Article' argued that patient, firm resistance to Soviet expansion — not rollback — was the correct American strategy." },
+        { clue: "The American economic recovery program that provided $13 billion to rebuild Western European economies after WWII", answer: "Marshall Plan", explanation: "The Marshall Plan simultaneously rebuilt Western Europe, created markets for American goods, and anchored Western European nations to the American-led democratic bloc." },
+        { clue: "This 1949 military alliance committed its members to treat an attack on one as an attack on all", answer: "NATO (North Atlantic Treaty Organization)", explanation: "NATO's Article 5 collective defense commitment bound the United States to European defense for the first time in peacetime, forming the Western military alliance." }
+      ]},
+      { name: 'Cold War Conflicts', questions: [
+        { clue: "This October 1962 confrontation brought the world to the brink of nuclear war over Soviet missiles 90 miles from Florida", answer: "Cuban Missile Crisis", explanation: "Kennedy's naval blockade and Khrushchev's eventual agreement to remove missiles — in exchange for a U.S. pledge not to invade Cuba — averted nuclear war." },
+        { clue: "The Cold War strategy of maintaining enough nuclear weapons to guarantee mutual destruction if either side attacked first", answer: "MAD — Mutually Assured Destruction", explanation: "MAD made direct superpower war irrational — neither side could strike first without facing annihilation. This nuclear standoff paradoxically stabilized the Cold War." },
+        { clue: "The 1955 Soviet counterpart to NATO, which formalized the Soviet military alliance with Eastern European satellite states", answer: "Warsaw Pact", explanation: "Formed in response to West Germany joining NATO, the Warsaw Pact institutionalized Soviet military control over Eastern Europe for the duration of the Cold War." },
+        { clue: "The theory that if one country fell to communism, neighboring countries would follow — used to justify Vietnam intervention", answer: "Domino Theory", explanation: "Eisenhower articulated the domino theory in 1954; it became the primary justification for massive American military involvement in Vietnam." },
+        { clue: "The expensive Soviet-American competition to develop ever more powerful nuclear weapons and delivery systems", answer: "Nuclear Arms Race", explanation: "The arms race consumed enormous resources and produced thousands of warheads — enough to destroy civilization many times over — while making both superpowers existentially vulnerable." }
+      ]},
+      { name: 'Communism Spreads', questions: [
+        { clue: "Ho Chi Minh's 1945 declaration quoted this American founding document to argue for Vietnamese independence", answer: "The Declaration of Independence", explanation: "Ho Chi Minh strategically invoked Jefferson's 'all men are created equal' to appeal to American anti-colonial ideals — a gamble that failed when Cold War logic prevailed." },
+        { clue: "Mao Zedong's communist guerrilla strategy described warfare as: 'The enemy advances, we retreat; the enemy camps, we harass'", answer: "People's War (guerrilla warfare / Maoist strategy)", explanation: "Mao's strategy of mobilizing peasants in prolonged guerrilla warfare defeated the Nationalist KMT and became a model for communist insurgencies worldwide." },
+        { clue: "The communist victory in China in 1949 was won by this political party, led by Mao Zedong", answer: "Chinese Communist Party (CCP)", explanation: "The CCP's victory shocked the West and contributed to 'Who lost China?' debates in the U.S., intensifying McCarthyism and hardening Cold War anti-communist policies." },
+        { clue: "The 1950–1953 war that divided a peninsula between a communist north and an American-backed south at the 38th parallel", answer: "Korean War", explanation: "The Korean War was the first major armed proxy conflict of the Cold War — ending in stalemate along the original partition line but costing over 3 million lives." },
+        { clue: "The conflict in which the U.S. deployed 500,000+ troops to prevent communist North Vietnam from unifying the country", answer: "Vietnam War", explanation: "The Vietnam War lasted from 1955–1975; despite massive American military force, North Vietnam won unification in 1975 — a major Cold War defeat for the United States." }
+      ]},
+      { name: 'Decolonization', questions: [
+        { clue: "This 1955 conference in Indonesia launched the Non-Aligned Movement as newly independent Asian and African nations rejected Cold War alignment", answer: "Bandung Conference", explanation: "Twenty-nine nations gathered at Bandung under leaders like Sukarno, Nehru, Nkrumah, and Nasser to chart an independent path between the US and Soviet blocs." },
+        { clue: "India's independence leader who pioneered nonviolent civil disobedience against British colonial rule", answer: "Mahatma Gandhi", explanation: "Gandhi's satyagraha (nonviolent resistance) tactics — the Salt March, civil disobedience campaigns, hunger strikes — forced Britain to grant Indian independence in 1947." },
+        { clue: "Ghana's independence leader and first president, who became a symbol of African decolonization in 1957", answer: "Kwame Nkrumah", explanation: "Nkrumah led the Gold Coast to become independent Ghana in 1957 — the first sub-Saharan African colony to gain independence — inspiring decolonization across Africa." },
+        { clue: "Algeria's brutal independence war (1954–1962) was fought against this European colonial power", answer: "France", explanation: "The Algerian War claimed over 300,000 lives, brought down France's Fourth Republic, and became a defining example of violent decolonization — in contrast to India's peaceful transfer of power." },
+        { clue: "African independence leader who articulated Pan-Africanism and rejected superpower alignment: 'Africa must unite'", answer: "Kwame Nkrumah (Pan-Africanism)", explanation: "Nkrumah argued that African nations must cooperate economically and politically to resist neocolonialism — the continuation of Western economic control after formal independence." }
+      ]},
+      { name: 'Resistance & Reform', questions: [
+        { clue: "Nelson Mandela's organization, which fought apartheid in South Africa through protest, sabotage, and international pressure", answer: "African National Congress (ANC)", explanation: "The ANC — founded 1912, banned 1960, unbanned 1990 — led the anti-apartheid struggle. Mandela served 27 years in prison before becoming South Africa's first Black president in 1994." },
+        { clue: "This American civil rights leader organized the 1963 March on Washington and delivered the 'I Have a Dream' speech", answer: "Martin Luther King Jr.", explanation: "King's nonviolent strategy — inspired by Gandhi — produced landmark legislation: the Civil Rights Act (1964) and Voting Rights Act (1965), dismantling legal segregation in the U.S." },
+        { clue: "The system of racial segregation and white minority rule in South Africa, formally established in 1948", answer: "Apartheid", explanation: "Apartheid classified South Africans by race and denied Black citizens basic rights; it ended through international sanctions, internal resistance, and negotiated transition in 1994." },
+        { clue: "Feminist leader and author of 'The Feminine Mystique' (1963) who challenged the limitation of women's roles to domestic life", answer: "Betty Friedan", explanation: "Friedan articulated 'the problem that has no name' — women's dissatisfaction with domestic confinement — and helped launch second-wave feminism in the United States." },
+        { clue: "Gandhi's key term for nonviolent resistance — meaning 'truth-force' or 'soul-force'", answer: "Satyagraha", explanation: "Gandhi developed satyagraha as a principled alternative to violent resistance: by accepting suffering without retaliation, resisters demonstrated moral superiority and exposed colonial injustice." }
+      ]},
+      { name: 'End of Cold War', questions: [
+        { clue: "Gorbachev's policy of economic restructuring, which loosened state control of the Soviet economy in the late 1980s", answer: "Perestroika", explanation: "Perestroika (restructuring) allowed limited market reforms and private enterprise but created economic chaos and political instability, contributing to the Soviet collapse." },
+        { clue: "Gorbachev's policy of 'openness,' which allowed public criticism of the Soviet government for the first time", answer: "Glasnost", explanation: "Glasnost unleashed decades of suppressed grievances about corruption, inefficiency, and Soviet crimes. Rather than strengthening the system, it revealed its fundamental illegitimacy." },
+        { clue: "The barrier dividing East and West Berlin fell on this date in 1989, symbolizing the end of the Cold War", answer: "November 9, 1989", explanation: "East German authorities accidentally announced that citizens could cross the border; crowds gathered and began dismantling the Wall — one of history's most dramatic moments of political change." },
+        { clue: "The Soviet Union formally dissolved on this date, ending the Cold War", answer: "December 25, 1991", explanation: "Gorbachev resigned on Christmas Day 1991 as the USSR officially dissolved into 15 independent republics, ending the superpower confrontation that had defined world politics since 1947." },
+        { clue: "Reagan's challenge to Gorbachev at the Brandenburg Gate: 'Mr. Gorbachev, ______ this wall!'", answer: "Tear down", explanation: "Reagan's 1987 speech at the Berlin Wall challenged Soviet legitimacy and aligned American rhetoric with democratic aspirations across Eastern Europe. The wall fell two years later." }
+      ]}
+    ];
+    var POINTS = [200,400,600,800,1000];
+    var jeopData = [], jeopTeams = [], jeopUsed = {}, jeopCurrentCell = null;
+    var TEAM_COLORS = ['#b0001c','#1a237e','#1a6825','#e65100','#6a1b9a','#00695c'];
+
+    function renderTeamSetup() {
+      var el = document.getElementById('jeop-teams'); el.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var div = document.createElement('div'); div.className = 'jeop-team';
+        div.style.borderTopColor = TEAM_COLORS[i % TEAM_COLORS.length]; div.style.borderTopWidth = '4px';
+        div.innerHTML = '<input class="jeop-team-name" value="' + t.name.replace(/"/g,'&quot;') + '" data-ti="' + i + '"/><div class="jeop-team-score">' + t.score + '</div>' + (jeopTeams.length > 1 ? '<button class="jeop-team-rm" data-ti="' + i + '">&times;</button>' : '');
+        el.appendChild(div);
+      });
+      el.querySelectorAll('.jeop-team-name').forEach(function(inp) { inp.addEventListener('change', function() { jeopTeams[parseInt(this.dataset.ti)].name = this.value || 'Team'; }); });
+      el.querySelectorAll('.jeop-team-rm').forEach(function(btn) { btn.addEventListener('click', function() { jeopTeams.splice(parseInt(this.dataset.ti), 1); renderTeamSetup(); }); });
+    }
+    function renderScoreboard() {
+      var el = document.getElementById('jeop-scoreboard'); el.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var div = document.createElement('div'); div.className = 'jeop-team';
+        div.style.borderTopColor = TEAM_COLORS[i % TEAM_COLORS.length]; div.style.borderTopWidth = '4px';
+        div.innerHTML = '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:' + TEAM_COLORS[i % TEAM_COLORS.length] + '">' + (t.name || 'Team') + '</div><div class="jeop-team-score">' + t.score + '</div>';
+        el.appendChild(div);
+      });
+    }
+    function renderBoard() {
+      var el = document.getElementById('jeop-board'); el.innerHTML = '';
+      jeopData.forEach(function(cat) { var hdr = document.createElement('div'); hdr.className = 'jeop-cat'; hdr.textContent = cat.name; el.appendChild(hdr); });
+      POINTS.forEach(function(pts, row) {
+        jeopData.forEach(function(cat, col) {
+          var btn = document.createElement('button'); btn.className = 'jeop-cell';
+          var key = col + '_' + row;
+          if (jeopUsed[key]) btn.classList.add('used');
+          btn.textContent = pts; btn.dataset.col = col; btn.dataset.row = row;
+          if (!jeopUsed[key]) { btn.addEventListener('click', function() { openJeopQ(col, row, pts); }); }
+          el.appendChild(btn);
+        });
+      });
+    }
+    function openJeopQ(col, row, pts) {
+      var q = jeopData[col].questions[row]; jeopCurrentCell = { col: col, row: row, pts: pts };
+      document.getElementById('jeop-modal-pts').textContent = jeopData[col].name + ' — ' + pts + ' pts';
+      document.getElementById('jeop-modal-q').textContent = q.clue;
+      var ansEl = document.getElementById('jeop-modal-answer');
+      ansEl.innerHTML = '<strong>Answer:</strong> ' + q.answer + (q.explanation ? '<br><span style="font-size:.88rem;color:#555">' + q.explanation + '</span>' : '');
+      ansEl.classList.remove('show');
+      document.getElementById('jeop-reveal').style.display = '';
+      document.getElementById('jeop-award-bar').style.display = 'none';
+      document.getElementById('jeop-modal').style.display = 'flex';
+    }
+    document.getElementById('jeop-reveal').addEventListener('click', function() {
+      document.getElementById('jeop-modal-answer').classList.add('show');
+      this.style.display = 'none';
+      var bar = document.getElementById('jeop-award-bar'); bar.style.display = 'flex'; bar.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var btn = document.createElement('button'); btn.className = 'jeop-award-btn';
+        btn.style.background = TEAM_COLORS[i % TEAM_COLORS.length]; btn.textContent = t.name || 'Team ' + (i+1);
+        btn.addEventListener('click', function() { awardPoints(i); }); bar.appendChild(btn);
+      });
+      var noBtn = document.createElement('button'); noBtn.className = 'jeop-award-btn no-pts'; noBtn.textContent = 'No Points';
+      noBtn.addEventListener('click', function() { awardPoints(-1); }); bar.appendChild(noBtn);
+    });
+    function awardPoints(ti) {
+      if (jeopCurrentCell === null) return;
+      if (ti >= 0) jeopTeams[ti].score += jeopCurrentCell.pts;
+      jeopUsed[jeopCurrentCell.col + '_' + jeopCurrentCell.row] = true; jeopCurrentCell = null;
+      document.getElementById('jeop-modal').style.display = 'none';
+      renderBoard(); renderScoreboard();
+      if (Object.keys(jeopUsed).length >= jeopData.length * POINTS.length) showJeopWinner();
+    }
+    function showJeopWinner() {
+      var sorted = jeopTeams.slice().sort(function(a, b) { return b.score - a.score; });
+      var el = document.getElementById('jeop-winner');
+      el.innerHTML = '<h3>&#127942; ' + (sorted[0].name || 'Team') + ' Wins!</h3><p style="font-size:1.2rem;color:var(--mid);margin-bottom:20px">' + sorted[0].score + ' points</p><div style="font-size:.9rem;color:var(--mid)">' + sorted.map(function(t, i) { return '<div style="margin-bottom:4px">' + (i+1) + '. ' + t.name + ' — ' + t.score + ' pts</div>'; }).join('') + '</div>';
+      document.getElementById('jeop-board-wrap').style.display = 'none'; el.style.display = 'block';
+    }
+    document.getElementById('jeop-add-team').addEventListener('click', function() { if (jeopTeams.length >= 6) return; jeopTeams.push({ name: 'Team ' + (jeopTeams.length + 1), score: 0 }); renderTeamSetup(); });
+    document.getElementById('jeop-start').addEventListener('click', function() {
+      jeopData = JEOP_DATA; jeopUsed = {};
+      document.getElementById('jeop-setup').style.display = 'none'; document.getElementById('jeop-board-wrap').style.display = 'block'; document.getElementById('jeop-winner').style.display = 'none';
+      renderBoard(); renderScoreboard();
+    });
+    document.getElementById('jeop-end-game').addEventListener('click', function() { showJeopWinner(); });
+    document.getElementById('jeop-new-game').addEventListener('click', function() {
+      jeopTeams.forEach(function(t) { t.score = 0; }); jeopUsed = {};
+      document.getElementById('jeop-board-wrap').style.display = 'none'; document.getElementById('jeop-winner').style.display = 'none'; document.getElementById('jeop-setup').style.display = 'block';
+      renderTeamSetup();
+    });
+    document.getElementById('pick-jeopardy').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none'; document.getElementById('jeopardy-game').style.display = 'block';
+      if (!jeopTeams.length) { jeopTeams = [{ name: 'Team 1', score: 0 }, { name: 'Team 2', score: 0 }]; }
+      renderTeamSetup();
+    });
+    document.getElementById('jeop-back').addEventListener('click', function() {
+      jeopTeams = []; jeopUsed = {}; jeopCurrentCell = null;
+      document.getElementById('jeop-setup').style.display = 'block'; document.getElementById('jeop-board-wrap').style.display = 'none'; document.getElementById('jeop-winner').style.display = 'none';
+      document.getElementById('jeopardy-game').style.display = 'none'; document.getElementById('game-picker').style.display = 'grid';
+    });
+
+    /* ── MATCHING ── */
+    var MATCH_DATA = [
+      { left: "Churchill's 'Iron Curtain' speech (1946)", right: "Publicly named the East-West division and crystallized Cold War rhetoric" },
+      { left: "Truman Doctrine (1947) — aid to Greece and Turkey", right: "Operationalized containment and committed the U.S. to resisting communist expansion globally" },
+      { left: "Marshall Plan ($13 billion to Western Europe)", right: "Rebuilt Western economies, anchored Europe to the American bloc, and denied Soviet influence" },
+      { left: "Soviet development of nuclear weapons (1949)", right: "Ended the American nuclear monopoly and intensified the arms race" },
+      { left: "Cuban Missile Crisis (1962)", right: "Brought superpowers to the brink of nuclear war; led to the hotline and arms control talks" },
+      { left: "Ho Chi Minh's independence declaration quoting Jefferson", right: "Demonstrated anti-colonial movements adapting Western ideals against Western imperial domination" },
+      { left: "Bandung Conference and the Non-Aligned Movement (1955)", right: "Challenged Cold War bipolarity by asserting newly independent nations' right to neutrality" },
+      { left: "Gandhi's nonviolent civil disobedience against Britain", right: "Won Indian independence in 1947 and inspired global movements for civil rights and decolonization" },
+      { left: "Decolonization of Africa (1950s–1970s)", right: "Created 50+ newly independent states that struggled with Cold War pressure and neocolonialism" },
+      { left: "Apartheid in South Africa", right: "Provoked global anti-apartheid movements; ended through sanctions, resistance, and the ANC's 1994 electoral victory" },
+      { left: "Gorbachev's glasnost and perestroika reforms", right: "Undermined the legitimacy of Soviet communism and accelerated the USSR's collapse" },
+      { left: "Fall of the Berlin Wall (November 9, 1989)", right: "Symbolized the end of the Cold War and precipitated the reunification of Germany" }
+    ];
+    var matchSelected = { left: null, right: null }, matchedPairs = {}, matchTotal = MATCH_DATA.length;
+    function renderMatching() {
+      matchSelected = { left: null, right: null }; matchedPairs = {};
+      var leftCol = document.getElementById('match-left'), rightCol = document.getElementById('match-right');
+      leftCol.innerHTML = '<div class="match-col-hdr">Cause / Event</div>';
+      rightCol.innerHTML = '<div class="match-col-hdr">Effect / Significance</div>';
+      document.getElementById('match-success').style.display = 'none'; document.getElementById('match-board').style.display = 'flex';
+      document.getElementById('match-counter').textContent = '0 of ' + matchTotal + ' matched';
+      var leftOrder = shuffle(MATCH_DATA.map(function(_, i) { return i; }));
+      var rightOrder = shuffle(MATCH_DATA.map(function(_, i) { return i; }));
+      leftOrder.forEach(function(idx) {
+        var card = document.createElement('div'); card.className = 'match-card'; card.textContent = MATCH_DATA[idx].left;
+        card.dataset.idx = idx; card.dataset.side = 'left';
+        card.addEventListener('click', function() { matchClick(this, 'left', idx); }); leftCol.appendChild(card);
+      });
+      rightOrder.forEach(function(idx) {
+        var card = document.createElement('div'); card.className = 'match-card'; card.textContent = MATCH_DATA[idx].right;
+        card.dataset.idx = idx; card.dataset.side = 'right';
+        card.addEventListener('click', function() { matchClick(this, 'right', idx); }); rightCol.appendChild(card);
+      });
+    }
+    function matchClick(el, side, idx) {
+      if (matchedPairs[idx]) return; if (el.classList.contains('matched')) return;
+      if (matchSelected[side] !== null) {
+        var prev = document.querySelector('.match-card.selected[data-side="' + side + '"]');
+        if (prev) prev.classList.remove('selected');
+      }
+      matchSelected[side] = idx; el.classList.add('selected');
+      if (matchSelected.left !== null && matchSelected.right !== null) {
+        var li = matchSelected.left, ri = matchSelected.right;
+        if (li === ri) {
+          document.querySelectorAll('.match-card[data-idx="' + li + '"]').forEach(function(c) { c.classList.remove('selected'); c.classList.add('matched'); });
+          matchedPairs[li] = true;
+          var cnt = Object.keys(matchedPairs).length;
+          document.getElementById('match-counter').textContent = cnt + ' of ' + matchTotal + ' matched';
+          if (cnt >= matchTotal) { document.getElementById('match-board').style.display = 'none'; document.getElementById('match-success').style.display = 'block'; }
+        } else {
+          document.querySelectorAll('.match-card.selected').forEach(function(c) { c.classList.add('wrong'); setTimeout(function() { c.classList.remove('wrong', 'selected'); }, 420); });
+        }
+        matchSelected = { left: null, right: null };
+      }
+    }
+    document.getElementById('pick-matching').addEventListener('click', function() { document.getElementById('game-picker').style.display = 'none'; document.getElementById('matching-game').style.display = 'block'; renderMatching(); });
+    document.getElementById('match-back').addEventListener('click', function() { document.getElementById('matching-game').style.display = 'none'; document.getElementById('game-picker').style.display = 'grid'; });
+    document.getElementById('match-replay').addEventListener('click', renderMatching);
+
+    /* ── SORT IT ── */
+    var SORT_DATA = [
+      { text: 'Doc 2 was written by an NSC official in 1950, which means the source likely exaggerates the Soviet threat in order to persuade Congress to dramatically increase the defense budget.', earns: true, explain: '<strong>Earns the point.</strong> Identifies the author\'s role and institutional position, explains the consequence (exaggerates threat), and connects to the argument about budget justification.' },
+      { text: 'Doc 1 was written by Winston Churchill in 1946.', earns: false, explain: '<strong>Doesn\'t earn the point.</strong> Names the author but stops there. No "which means" — no explanation of why Churchill\'s role or the historical situation matters for any argument.' },
+      { text: 'Because Doc 5 is a decolonization speech delivered by Sukarno at an international conference of newly independent nations, its purpose was to build solidarity, which means it overstates unity and downplays internal divisions among Asian and African states.', earns: true, explain: '<strong>Earns the point.</strong> Identifies the purpose (build solidarity), explains the consequence (overstates unity), and connects to the argument about Non-Aligned Movement rhetoric.' },
+      { text: 'The author of Doc 3 is Ho Chi Minh, so this document shows the communist point of view on Vietnamese independence.', earns: false, explain: '<strong>Doesn\'t earn the point.</strong> "Shows the communist point of view" is circular and vague. No explanation of what consequences that perspective has for what the document emphasizes or how it argues.' },
+      { text: 'Doc 6 was produced at the height of the Soviet arms buildup, which means it reflects pressure to project military confidence — making it an unreliable source for actual Soviet military capacity.', earns: true, explain: '<strong>Earns the point.</strong> Names the historical situation (Soviet arms buildup), explains the consequence (pressure to project confidence), and connects to reliability and the argument.' },
+      { text: 'This independence speech uses emotional language and appeals to people\'s feelings. It was clearly trying to convince its audience.', earns: false, explain: '<strong>Doesn\'t earn the point.</strong> "Emotional language" and "convince its audience" are too vague — no specific HAPP feature identified, and "convincing people" is a generic purpose that doesn\'t connect to an argument.' },
+      { text: 'Doc 4 is a British Colonial Office report written for a London audience, which means the source likely minimizes African agency and resistance in order to justify continued British control over colonial territories.', earns: true, explain: '<strong>Earns the point.</strong> Identifies audience (London policymakers), explains the consequence (minimizes African agency), and connects explicitly to the argument about colonial justification.' },
+      { text: 'The point of view of Doc 7 is that the author supports decolonization. This helps us understand why the document was written.', earns: false, explain: '<strong>Doesn\'t earn the point.</strong> "This helps us understand why the document was written" is circular. No explanation of what consequences the author\'s support for decolonization has for what the source emphasizes, omits, or argues.' }
+    ];
+    function renderSortIt() {
+      var container = document.getElementById('sortit-cards'); container.innerHTML = '';
+      document.getElementById('sortit-score').style.display = 'none'; document.getElementById('sortit-replay-bar').style.display = 'none';
+      SORT_DATA.forEach(function(item, i) {
+        var card = document.createElement('div'); card.className = 'sortit-card'; card.dataset.idx = i; card.dataset.choice = '';
+        card.innerHTML = '<div class="sortit-card-text">' + (i+1) + '. ' + item.text + '</div>' +
+          '<div class="sortit-btn-row"><button type="button" class="sortit-btn" data-choice="earns">Earns it</button><button type="button" class="sortit-btn" data-choice="nope">Doesn\'t earn it</button></div>' +
+          '<div class="sortit-explain">' + item.explain + '</div>';
+        card.querySelectorAll('.sortit-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            card.querySelectorAll('.sortit-btn').forEach(function(b) { b.classList.remove('earns','nope'); });
+            this.classList.add(this.dataset.choice); card.dataset.choice = this.dataset.choice;
+          });
+        });
+        container.appendChild(card);
+      });
+    }
+    document.getElementById('pick-sortit').addEventListener('click', function() { document.getElementById('game-picker').style.display = 'none'; document.getElementById('sortit-game').style.display = 'block'; renderSortIt(); });
+    document.getElementById('sortit-back').addEventListener('click', function() { document.getElementById('sortit-game').style.display = 'none'; document.getElementById('game-picker').style.display = 'grid'; });
+    document.getElementById('sortit-submit').addEventListener('click', function() {
+      var cards = document.querySelectorAll('.sortit-card'), correct = 0;
+      cards.forEach(function(card, i) {
+        var choice = card.dataset.choice, earns = SORT_DATA[i].earns;
+        var isRight = (choice === 'earns' && earns) || (choice === 'nope' && !earns);
+        if (isRight) correct++;
+        card.classList.add(isRight ? 'revealed-correct' : 'revealed-wrong');
+        card.querySelectorAll('.sortit-btn').forEach(function(b) { b.disabled = true; });
+      });
+      document.getElementById('sortit-score').style.display = 'block';
+      document.getElementById('sortit-score').textContent = correct + ' / ' + SORT_DATA.length + ' correct';
+      document.getElementById('sortit-replay-bar').style.display = 'block';
+    });
+    document.getElementById('sortit-replay').addEventListener('click', renderSortIt);
+
+    /* ── SPEED QUIZ ── */
+    var SQ_DATA = [
+      { q: "Churchill's 1946 'Iron Curtain' speech named the division between", o: ['Western and Eastern Europe under Soviet domination','Britain and France','NATO and the Warsaw Pact','The United States and China'], c: 0, e: "Churchill described Soviet-dominated Eastern Europe as behind an 'iron curtain' — a metaphor that defined Cold War geography." },
+      { q: 'The Truman Doctrine (1947) committed the U.S. to supporting free peoples resisting', o: ['Fascist military coups','Communist subjugation by armed minorities or outside pressure','Economic inequality and poverty','Colonial rule by European empires'], c: 1, e: 'Truman asked Congress for $400 million to support Greece and Turkey — operationalizing containment as American foreign policy.' },
+      { q: "George Kennan's Cold War strategy, which called for firm resistance to Soviet expansion without direct military confrontation, was called", o: ['Rollback','Détente','Containment','Massive Retaliation'], c: 2, e: "Kennan's 'Long Telegram' and 'X Article' argued that patient, firm containment would eventually cause the Soviet system to collapse from within." },
+      { q: 'The Cuban Missile Crisis of 1962 was resolved when', o: ['The U.S. invaded Cuba and destroyed the missiles','The Soviet Union agreed to remove missiles in exchange for a U.S. pledge not to invade Cuba','The United Nations deployed peacekeepers to Cuba','Cuba chose to align with the United States'], c: 1, e: 'Kennedy imposed a naval blockade; Khrushchev agreed to remove missiles. The U.S. privately promised not to invade Cuba and quietly withdrew missiles from Turkey.' },
+      { q: 'The Non-Aligned Movement, launched at the 1955 Bandung Conference, represented newly independent nations that chose to', o: ['Align with the Soviet Union against Western imperialism','Join both NATO and the Warsaw Pact','Remain neutral rather than align with either Cold War superpower','Form a military alliance to challenge American and Soviet power'], c: 2, e: 'Nations including India, Indonesia, Ghana, and Egypt asserted their right to navigate between the superpowers — challenging Cold War bipolarity.' },
+      { q: "Gandhi's tactic of refusing to obey unjust laws and accepting punishment without violence is called", o: ['Guerrilla warfare','Non-cooperation movement','Civil disobedience (satyagraha)','Parliamentary resistance'], c: 2, e: "Gandhi's satyagraha (truth-force) held that accepting suffering without retaliation exposed the moral illegitimacy of colonial rule and pressured oppressors to reform." },
+      { q: "Kwame Nkrumah led which African nation to independence in 1957, the first in sub-Saharan Africa?", o: ['Nigeria','Kenya','Ghana','Algeria'], c: 2, e: 'The Gold Coast became independent Ghana in 1957 under Nkrumah, inspiring a wave of African decolonization that produced 17 new African nations in 1960 alone.' },
+      { q: "Mao Zedong's strategy that mobilized peasants through prolonged guerrilla warfare to defeat the Nationalists in China was called", o: ['Blitzkrieg','People's War','The Long March','The Great Leap Forward'], c: 1, e: "Mao's People's War strategy used rural peasants as the revolutionary base — 'the enemy advances, we retreat' — and became a model for communist insurgencies globally." },
+      { q: "Ho Chi Minh's 1945 declaration of Vietnamese independence strategically quoted which document?", o: ['The French Declaration of the Rights of Man','The Atlantic Charter','The American Declaration of Independence','The Soviet Constitution'], c: 2, e: "Ho Chi Minh quoted Jefferson's 'all men are created equal' to appeal to American anti-colonial ideals — a gamble that failed when Cold War anti-communism overrode such considerations." },
+      { q: 'The Berlin Wall was constructed in 1961 primarily to', o: ['Protect East Germany from NATO invasion','Stop the flow of East Germans fleeing to the West','Divide West Germany into occupation zones','Prevent nuclear missiles from entering East Berlin'], c: 1, e: 'By 1961, 3 million East Germans had fled west through Berlin. The Wall stopped this embarrassing population exodus but became the Cold War\'s most visible symbol.' },
+      { q: "Gorbachev's policy of 'openness' that allowed public criticism of Soviet government was called", o: ['Perestroika','Détente','Glasnost','Solidarity'], c: 2, e: 'Glasnost (openness) unleashed suppressed criticism of Soviet corruption and inefficiency. Rather than strengthening the system, it exposed its fundamental illegitimacy.' },
+      { q: 'The system of racial segregation and white minority rule in South Africa was called', o: ['Jim Crow','Apartheid','Colonialism','Segregation'], c: 1, e: "Apartheid (Afrikaans for 'separateness') classified South Africans by race and denied Black citizens basic rights from 1948 until its dismantling in 1994." },
+      { q: 'The Soviet Union formally dissolved in', o: ['1989','1990','1991','1993'], c: 2, e: 'On December 25, 1991, Gorbachev resigned and the USSR officially dissolved into 15 independent republics, ending the Cold War that had defined world politics since 1947.' },
+      { q: 'The Korean War (1950–1953) ended in', o: ['North Korean victory and unification of Korea','American nuclear strike on North Korea','Stalemate near the original 38th parallel partition line','South Korean capture of Pyongyang'], c: 2, e: 'After three years of fighting and 3+ million casualties, the armistice restored the pre-war boundary — the 38th parallel — leaving Korea permanently divided.' },
+      { q: "Nelson Mandela's organization that led the anti-apartheid struggle in South Africa was the", o: ['ANC — African National Congress','ZANU — Zimbabwe African National Union','PAC — Pan Africanist Congress','UDF — United Democratic Front'], c: 0, e: "The ANC (founded 1912, banned 1960, unbanned 1990) led the anti-apartheid struggle. Mandela served 27 years in prison and became South Africa's first Black president in 1994." }
+    ];
+    var sqIdx = 0, sqScore = 0, sqCorrect = 0, sqTimer = null, sqTimeLeft = 0, sqAnswered = false, sqResults = [];
+    function startSpeedQuiz() {
+      sqIdx = 0; sqScore = 0; sqCorrect = 0; sqResults = [];
+      document.getElementById('sq-final').style.display = 'none';
+      document.getElementById('sq-question-area').style.display = 'block';
+      document.getElementById('sq-score-chip').textContent = 'Score: 0';
+      renderSQQuestion();
+    }
+    function renderSQQuestion() {
+      if (sqIdx >= SQ_DATA.length) { endSpeedQuiz(); return; }
+      sqAnswered = false; sqTimeLeft = 20;
+      var q = SQ_DATA[sqIdx];
+      document.getElementById('sq-qnum').textContent = 'Question ' + (sqIdx+1) + ' of ' + SQ_DATA.length;
+      document.getElementById('sq-q-text').textContent = q.q;
+      document.getElementById('sq-pts-flash').textContent = '';
+      document.getElementById('sq-expl').style.display = 'none';
+      var choicesEl = document.getElementById('sq-choices'); choicesEl.innerHTML = '';
+      q.o.forEach(function(opt, j) {
+        var btn = document.createElement('button'); btn.className = 'sq-choice'; btn.textContent = opt;
+        btn.addEventListener('click', function() { answerSQ(j); }); choicesEl.appendChild(btn);
+      });
+      clearInterval(sqTimer);
+      document.getElementById('sq-timer-bar').style.width = '100%';
+      sqTimer = setInterval(function() {
+        sqTimeLeft--;
+        document.getElementById('sq-timer-bar').style.width = (sqTimeLeft / 20 * 100) + '%';
+        if (sqTimeLeft <= 0) { clearInterval(sqTimer); answerSQ(-1); }
+      }, 1000);
+    }
+    function answerSQ(j) {
+      if (sqAnswered) return; sqAnswered = true; clearInterval(sqTimer);
+      var q = SQ_DATA[sqIdx]; var correct = (j === q.c);
+      if (correct) { var pts = Math.max(50, Math.round(sqTimeLeft / 20 * 500)); sqScore += pts; sqCorrect++; document.getElementById('sq-pts-flash').textContent = '+' + pts + ' pts'; }
+      else { document.getElementById('sq-pts-flash').textContent = j === -1 ? 'Time\'s up!' : 'Wrong'; }
+      document.getElementById('sq-score-chip').textContent = 'Score: ' + sqScore;
+      document.querySelectorAll('.sq-choice').forEach(function(btn, i) {
+        btn.disabled = true;
+        if (i === q.c) btn.classList.add('sq-correct');
+        if (i === j && j !== q.c) btn.classList.add('sq-wrong');
+      });
+      document.getElementById('sq-expl').textContent = q.e; document.getElementById('sq-expl').style.display = 'block';
+      sqResults.push({ q: q.q, correct: correct, answer: q.o[q.c] });
+      sqIdx++;
+      setTimeout(renderSQQuestion, 2200);
+    }
+    function endSpeedQuiz() {
+      document.getElementById('sq-question-area').style.display = 'none';
+      document.getElementById('sq-final').style.display = 'block';
+      document.getElementById('sq-final-score').textContent = sqScore + ' pts';
+      document.getElementById('sq-final-correct').textContent = sqCorrect + ' of ' + SQ_DATA.length + ' correct';
+      var bd = document.getElementById('sq-breakdown'); bd.innerHTML = '';
+      sqResults.forEach(function(r) {
+        var row = document.createElement('div'); row.className = 'sq-bk-row';
+        row.innerHTML = '<div class="sq-bk-icon">' + (r.correct ? '&#10003;' : '&#10007;') + '</div><div><strong>' + r.q + '</strong><div style="color:var(--muted);margin-top:2px">' + r.answer + '</div></div>';
+        bd.appendChild(row);
+      });
+    }
+    document.getElementById('pick-speedquiz').addEventListener('click', function() { document.getElementById('game-picker').style.display = 'none'; document.getElementById('speedquiz-game').style.display = 'block'; startSpeedQuiz(); });
+    document.getElementById('sq-back').addEventListener('click', function() { clearInterval(sqTimer); document.getElementById('speedquiz-game').style.display = 'none'; document.getElementById('game-picker').style.display = 'grid'; });
+    document.getElementById('sq-replay').addEventListener('click', startSpeedQuiz);
+
+    /* ── TIMELINE BUILDER ── */
+    var TL_DATA = [
+      { title: 'WWII ends; Japan surrenders', year: 1945 },
+      { title: 'Churchill\'s Iron Curtain speech', year: 1946 },
+      { title: 'Truman Doctrine & Marshall Plan', year: 1947 },
+      { title: 'NATO formed; China falls to communism', year: 1949 },
+      { title: 'Korean War begins', year: 1950 },
+      { title: 'Bandung Conference — Non-Aligned Movement', year: 1955 },
+      { title: 'Ghana becomes independent (first in sub-Saharan Africa)', year: 1957 },
+      { title: 'Berlin Wall constructed', year: 1961 },
+      { title: 'Cuban Missile Crisis', year: 1962 },
+      { title: 'Berlin Wall falls; Eastern Bloc collapses', year: 1989 }
+    ];
+    var tlPlaced = 0, tlCorrectOrder = TL_DATA.slice();
+    function renderTimeline() {
+      tlPlaced = 0;
+      var pool = document.getElementById('tl-pool'), seqList = document.getElementById('tl-seq-list');
+      pool.innerHTML = ''; seqList.innerHTML = '';
+      document.getElementById('tl-result').style.display = 'none';
+      document.getElementById('tl-wrong-msg').textContent = '';
+      document.getElementById('tl-progress').textContent = '0 of ' + TL_DATA.length + ' placed correctly';
+      var shuffled = shuffle(TL_DATA.slice());
+      shuffled.forEach(function(ev, i) {
+        var card = document.createElement('div'); card.className = 'tl-card'; card.dataset.year = ev.year; card.dataset.title = ev.title;
+        card.innerHTML = '<div class="tl-card-title">' + ev.title + '</div>';
+        card.addEventListener('click', function() { tlCardClick(this); }); pool.appendChild(card);
+      });
+    }
+    function tlCardClick(card) {
+      if (card.classList.contains('tl-placed')) return;
+      var year = parseInt(card.dataset.year);
+      var expectedYear = tlCorrectOrder[tlPlaced].year;
+      if (year === expectedYear) {
+        card.classList.add('tl-placed');
+        var item = document.createElement('div'); item.className = 'tl-seq-item';
+        item.innerHTML = '<span class="tl-seq-num">' + (tlPlaced+1) + '.</span><span>' + card.dataset.title + ' (' + year + ')</span>';
+        document.getElementById('tl-seq-list').appendChild(item);
+        tlPlaced++;
+        document.getElementById('tl-progress').textContent = tlPlaced + ' of ' + TL_DATA.length + ' placed correctly';
+        document.getElementById('tl-wrong-msg').textContent = '';
+        if (tlPlaced >= TL_DATA.length) {
+          document.getElementById('tl-result').innerHTML = '<div style="text-align:center;padding:20px;background:#e8f5e9;border:1px solid #1a6825"><strong style="font-family:\'Playfair Display\',serif;font-size:1.2rem">Perfect timeline!</strong><br><span style="font-size:.84rem;color:var(--mid)">You placed all ' + TL_DATA.length + ' events in order.</span><br><button type="button" id="tl-replay-btn" style="margin-top:14px;padding:10px 24px;background:var(--red);color:#fff;border:none;font-family:\'IBM Plex Mono\',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Play Again</button></div>';
+          document.getElementById('tl-result').style.display = 'block';
+          document.getElementById('tl-replay-btn').addEventListener('click', renderTimeline);
+        }
+      } else {
+        card.classList.add('tl-wrong-anim');
+        document.getElementById('tl-wrong-msg').textContent = 'Not quite — find the next earliest event.';
+        setTimeout(function() { card.classList.remove('tl-wrong-anim'); }, 420);
+      }
+    }
+    document.getElementById('pick-timeline').addEventListener('click', function() { document.getElementById('game-picker').style.display = 'none'; document.getElementById('timeline-game').style.display = 'block'; renderTimeline(); });
+    document.getElementById('tl-back').addEventListener('click', function() { document.getElementById('timeline-game').style.display = 'none'; document.getElementById('game-picker').style.display = 'grid'; });
+
+    /* ── ASTEROID BLASTER ── */
+    var ASTEROID_Q = [
+      { q: "What was Churchill's metaphor for Soviet domination of Eastern Europe?", o: ['Red Curtain','Iron Curtain','Steel Wall','Eastern Barrier'], c: 1 },
+      { q: "The Truman Doctrine (1947) operationalized which Cold War strategy?", o: ['Rollback','Détente','Containment','Massive Retaliation'], c: 2 },
+      { q: "The 1955 Bandung Conference launched the:", o: ['Warsaw Pact','Non-Aligned Movement','Organization of African Unity','SEATO'], c: 1 },
+      { q: "Ho Chi Minh quoted which founding document in his 1945 independence declaration?", o: ['The Magna Carta','The French Declaration of Rights','The U.S. Declaration of Independence','The Atlantic Charter'], c: 2 },
+      { q: "Gorbachev's policy of political 'openness' was called:", o: ['Perestroika','Solidarity','Glasnost','Détente'], c: 2 },
+      { q: "The Cuban Missile Crisis ended when the Soviets agreed to:", o: ['Abandon Cuba entirely','Remove missiles in exchange for a U.S. pledge not to invade Cuba','Dismantle all Soviet nuclear weapons','Join the Non-Aligned Movement'], c: 1 },
+      { q: "Kwame Nkrumah led which nation to become the first independent sub-Saharan African state?", o: ['Nigeria','Algeria','Kenya','Ghana'], c: 3 },
+      { q: "The Berlin Wall was built in 1961 primarily to stop:", o: ['NATO military advances','Nuclear missile deployment','East Germans fleeing to the West','American spy operations'], c: 2 },
+      { q: "The theory that communist victory in one country would trigger neighboring countries to fall was called:", o: ['Containment','Domino Theory','MAD','Détente'], c: 1 },
+      { q: "South Africa's system of racial segregation was called:", o: ['Jim Crow','Colonialism','Apartheid','Segregation'], c: 2 },
+      { q: "Mao Zedong's guerrilla strategy mobilized which social class as the revolutionary base?", o: ['Urban workers','Military officers','Peasants','Intellectuals'], c: 2 },
+      { q: "The Soviet Union formally dissolved in which year?", o: ['1989','1990','1991','1992'], c: 2 }
+    ];
+    var astScore = 0, astLives = 3, astQIdx = 0, astAnswered = false, astAsteroids = [], astRAF = null;
+    var SHIP_Y_FRAC = 0.82;
+    function startAsteroidGame() {
+      astScore = 0; astLives = 3; astQIdx = 0; astAnswered = false;
+      var aqShuffled = shuffle(ASTEROID_Q.slice());
+      ASTEROID_Q.forEach(function(_, i) { ASTEROID_Q[i] = aqShuffled[i]; });
+      document.getElementById('ast-end').classList.remove('show'); updateAstHUD(); nextAstQ();
+    }
+    function updateAstHUD() {
+      var h = ''; for (var i = 0; i < 3; i++) h += (i < astLives ? '\u2665' : '\u2661') + ' ';
+      document.getElementById('ast-lives').textContent = h.trim(); document.getElementById('ast-score').textContent = astScore;
+    }
+    function clearAsteroids() { cancelAnimationFrame(astRAF); var arena = document.getElementById('asteroid-arena'); astAsteroids.forEach(function(a) { if (a.el && a.el.parentNode) a.el.parentNode.removeChild(a.el); }); astAsteroids = []; }
+    function nextAstQ() {
+      clearAsteroids();
+      if (astQIdx >= ASTEROID_Q.length) { endAstGame('You cleared all questions!'); return; }
+      astAnswered = false;
+      var item = ASTEROID_Q[astQIdx];
+      document.getElementById('ast-qnum-lbl').textContent = 'Question ' + (astQIdx+1) + ' of ' + ASTEROID_Q.length;
+      document.getElementById('ast-question').textContent = item.q;
+      var arena = document.getElementById('asteroid-arena');
+      var W = arena.clientWidth, H = arena.clientHeight;
+      var spawnPos = [{ x: W*0.15, y: -60 },{ x: W*0.85, y: -60 },{ x: -70, y: H*0.35 },{ x: W+70, y: H*0.35 }];
+      item.o.forEach(function(opt, i) {
+        var sp = spawnPos[i]; var el = document.createElement('div'); el.className = 'asteroid'; el.textContent = opt;
+        var rot = Math.random()*360, rotSpeed = (Math.random()-.5)*1.2;
+        el.style.cssText = 'left:'+sp.x+'px;top:'+sp.y+'px;transform:translate(-50%,-50%) rotate('+rot+'deg)';
+        var isCorrect = (i === item.c);
+        el.addEventListener('click', (function(correct, elem) { return function() { onAstClick(correct, elem); }; })(isCorrect, el));
+        arena.appendChild(el);
+        astAsteroids.push({ el: el, x: sp.x, y: sp.y, rot: rot, rotSpeed: rotSpeed, correct: isCorrect, speed: 0.55 + Math.random()*0.25 });
+      });
+      astRAF = requestAnimationFrame(astLoop);
+    }
+    function astLoop() {
+      if (astAnswered) return;
+      var arena = document.getElementById('asteroid-arena');
+      var W = arena.clientWidth, H = arena.clientHeight;
+      var cx = W/2, cy = H*SHIP_Y_FRAC, reachedShip = false;
+      astAsteroids.forEach(function(ast) {
+        var dx = cx - ast.x, dy = cy - ast.y, dist = Math.sqrt(dx*dx+dy*dy);
+        if (dist < 55) { reachedShip = true; return; }
+        ast.x += (dx/dist)*ast.speed; ast.y += (dy/dist)*ast.speed; ast.rot += ast.rotSpeed;
+        ast.el.style.left = ast.x+'px'; ast.el.style.top = ast.y+'px';
+        ast.el.style.transform = 'translate(-50%,-50%) rotate('+ast.rot+'deg)';
+      });
+      if (reachedShip && !astAnswered) { onAstClick(false, null, true); } else { astRAF = requestAnimationFrame(astLoop); }
+    }
+    function onAstClick(correct, clickedEl, shipHit) {
+      if (astAnswered) return; astAnswered = true; cancelAnimationFrame(astRAF);
+      if (correct) {
+        astScore += 100; updateAstHUD();
+        if (clickedEl) { clickedEl.classList.add('ast-correct'); }
+        setTimeout(function() { astQIdx++; nextAstQ(); }, 600);
+      } else {
+        astLives--; updateAstHUD();
+        astAsteroids.forEach(function(a) { if (!a.correct && a.el) a.el.classList.add('ast-wrong'); });
+        var flash = document.getElementById('ast-flash'); flash.style.background = 'rgba(255,80,80,.35)'; flash.style.opacity = '1';
+        setTimeout(function() { flash.style.opacity = '0'; }, 300);
+        if (astLives <= 0) { setTimeout(function() { endAstGame('Game Over!'); }, 800); }
+        else { setTimeout(function() { astQIdx++; nextAstQ(); }, 900); }
+      }
+    }
+    function endAstGame(title) {
+      clearAsteroids();
+      document.getElementById('ast-end-title').textContent = title;
+      document.getElementById('ast-end-score').textContent = astScore + ' pts';
+      document.getElementById('ast-end-detail').textContent = astQIdx + ' of ' + ASTEROID_Q.length + ' questions answered';
+      document.getElementById('ast-end').classList.add('show');
+    }
+    document.getElementById('pick-asteroid').addEventListener('click', function() { document.getElementById('game-picker').style.display = 'none'; document.getElementById('asteroid-game').style.display = 'block'; startAsteroidGame(); });
+    document.getElementById('ast-back').addEventListener('click', function() { clearAsteroids(); cancelAnimationFrame(astRAF); document.getElementById('asteroid-game').style.display = 'none'; document.getElementById('game-picker').style.display = 'grid'; });
+    document.getElementById('ast-replay').addEventListener('click', startAsteroidGame);
+  })();
 
   /* STUDY GUIDE */
   function renderGuide() {

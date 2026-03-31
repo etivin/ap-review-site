@@ -166,6 +166,10 @@ button{font-family:inherit;cursor:pointer}
 .vs-card-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
 .vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
 .vs-source-img{display:block;width:auto;max-width:100%;max-height:80vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.vs-multi-img{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.vs-img-wrap{flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px}
+.vs-source-img-multi{max-height:55vh;width:100%;object-fit:contain;margin:0}
+.vs-img-cap{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
 .vs-step-hdr{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
 .vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
 .vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
@@ -371,6 +375,12 @@ button{font-family:inherit;cursor:pointer}
           <div class="feat-name">Review Games</div>
           <div class="feat-desc">Jeopardy, Matching, Sort It, Speed Quiz, Timeline Builder, and Asteroid Blaster &mdash; all with Unit 8 content.</div>
           <div class="feat-count">6 games &mdash; Compete &amp; review</div>
+        </button>
+        <button class="feat" data-tab="pg-visual">
+          <div class="feat-icon">&#128444;</div>
+          <div class="feat-name">Visual Sources</div>
+          <div class="feat-desc">AP-authentic visual stimuli with MCQ practice and HAPP analysis &mdash; advertisements, maps, photographs, cartoons, and posters.</div>
+          <div class="feat-count">11 sources &mdash; HAPP practice</div>
         </button>
       </div>
     </div>
@@ -674,6 +684,235 @@ var VISUAL_DATA_U8 = [
       a: 'Soviet citizens \u2014 and potentially international audiences \u2014 whom the Soviet state wanted to convince that socialist central planning could achieve technological and commercial success equal to or surpassing the capitalist West. The global landmarks in the image signal the international message.',
       p: 'To promote Aeroflot\u2019s airline service while simultaneously projecting Soviet technological achievement, global reach, and modernity. The ad serves two purposes at once: sell tickets and demonstrate that the USSR is a world-class power.',
       pov: 'As a state-controlled enterprise, Aeroflot\u2019s advertising directly reflected Soviet government Cold War priorities. The ad cannot be separated from Soviet ideology: the jet marked \u201cCCCP\u201d dominating the skies above world landmarks encodes the message that Soviet technology is superior \u2014 and global.'
+    }
+  },
+  {
+    num: 2,
+    imgs: ['images/stimuli/u8-2a.jpg', 'images/stimuli/u8-2b.jpg'],
+    imgTitles: ['Cuban Troops, Angola, 1975', 'South African Troops, Angola, 1975'],
+    imgSources: ['AP/Wide World Photos', 'AP/Wide World Photos'],
+    title: 'Proxy War in Angola, 1975',
+    source: 'Left: Cuban soldiers deployed to Angola in support of the MPLA, 1975. Right: South African troops deployed to Angola in support of UNITA/FNLA, 1975. Both AP/Wide World Photos.',
+    desc: 'Two photographs taken in Angola during its civil war following independence from Portugal in 1975. The left image shows Cuban soldiers, deployed by Fidel Castro in support of the MPLA (People\'s Movement for the Liberation of Angola). The right image shows South African soldiers, deployed with US backing in support of UNITA and FNLA forces opposing the MPLA.',
+    q: 'The intervention of Cuba and South Africa in Angola in 1975 is best understood as an example of',
+    o: [
+      'direct military conflict between the United States and Soviet Union during the Cold War',
+      'the use of proxy forces by superpowers to advance Cold War geopolitical goals in newly independent states',
+      'the Non-Aligned Movement\'s strategy of recruiting military allies from both Cold War blocs',
+      'African nations\' successful resistance to all forms of outside intervention after decolonization'
+    ],
+    c: 1,
+    e: 'Neither the US nor USSR sent their own troops to Angola. Instead, they backed opposing local factions \u2014 the USSR and Cuba supported the MPLA; the US (via the CIA) and South Africa backed UNITA/FNLA. This proxy war pattern \u2014 fighting Cold War battles through local allies \u2014 repeated across Asia, Africa, and Latin America.',
+    happ: {
+      h: 'Angola gained independence from Portugal in November 1975. Three rival movements \u2014 MPLA (Soviet-backed), FNLA, and UNITA (US/South Africa-backed) \u2014 immediately fought for control. The Cold War context transformed a domestic power struggle into an internationalized proxy conflict at the height of superpower competition in Africa.',
+      a: 'These press photographs were intended for Western and international news audiences seeking to understand the Angolan Civil War. The images document foreign military presence, implicitly raising questions about post-independence sovereignty.',
+      p: 'To document and report on foreign military intervention in a newly independent African state. The photographs serve as historical evidence of how Cold War rivalries extended into decolonized Africa.',
+      pov: 'AP photojournalists operated independently of either superpower, but Cold War framing shaped how Western editors captioned and used the images. Cuban presence was often portrayed as Soviet-directed; South African presence was treated as anti-communist resistance, reflecting the ideological lens of Western Cold War media.'
+    }
+  },
+  {
+    num: 3,
+    img: 'images/stimuli/u8-3.jpg',
+    title: 'B-24 Liberator Bombers, Consolidated Vultee Aircraft, Fort Worth, Texas, 1942',
+    source: 'Photograph of B-24 Liberator bombers on the assembly line at the Consolidated Vultee Aircraft plant, Fort Worth, Texas, 1942. Library of Congress.',
+    desc: 'A wartime photograph showing rows of B-24 Liberator heavy bombers in various stages of assembly inside a massive American aircraft factory. The image captures the scale of American industrial mobilization during World War II, with dozens of aircraft visible on a single factory floor.',
+    q: 'The scene depicted in this photograph most directly contributed to which postwar development?',
+    o: [
+      'American demobilization and reduction of military production following Japan\'s surrender in 1945',
+      'The emergence of the United States as the dominant global superpower due to its unmatched industrial and military capacity',
+      'Soviet efforts to rapidly industrialize in order to match American wartime production through the Five-Year Plans',
+      'The United Nations\' decision to ban the further development of heavy bomber aircraft after 1945'
+    ],
+    c: 1,
+    e: 'American industrial output during WWII dwarfed all other nations combined \u2014 the US produced more planes, tanks, and ships than Germany, Japan, and the USSR together. This industrial supremacy, combined with the US being the only major power undamaged by the war, established American economic and military dominance that defined the postwar world order.',
+    happ: {
+      h: 'By 1942 the United States had fully entered WWII and converted its industrial economy to war production. American factories like this one in Fort Worth produced at scales impossible for European or Asian nations whose industry was being destroyed by the war. The US entered the postwar period with its industry intact and expanded.',
+      a: 'This photograph was likely intended for American domestic audiences \u2014 workers, citizens, and policymakers \u2014 to demonstrate the scale and success of war mobilization. It functions as both documentation and propaganda, boosting morale by showing industrial power.',
+      p: 'To document and publicize American industrial mobilization for the war effort. Such images were used to boost public morale, encourage war bond purchases, and project confidence in American military-industrial capacity.',
+      pov: 'As an official or press photograph produced within the wartime American propaganda context, this image emphasizes scale and progress. It does not show labor conditions, racial segregation in defense plants, or the human cost of rapid industrial conversion \u2014 the perspective is triumphalist.'
+    }
+  },
+  {
+    num: 4,
+    img: 'images/stimuli/u8-4.jpg',
+    title: 'French Government Anti-FLN Propaganda Poster, Algeria, 1958',
+    source: 'French government propaganda poster targeting the FLN (Front de Lib\u00e9ration Nationale) during the Algerian War, 1958. Mus\u00e9e d\'Histoire de Marseille.',
+    desc: 'A French government poster from the Algerian War (1954\u20131962) depicting FLN (National Liberation Front) fighters as violent terrorists. The poster uses stark imagery to delegitimize the Algerian independence movement, framing French military presence as protection for Algerian civilians against FLN violence.',
+    q: 'The French government\'s need to produce propaganda posters defending its military presence in Algeria is best explained by which historical development?',
+    o: [
+      'The Soviet Union\'s direct military support for the FLN, which threatened to internationalize the Algerian conflict',
+      'Growing domestic and international opposition to French colonial rule following World War II\'s weakening of imperial legitimacy',
+      'The Algerian nationalist movement\'s success in gaining formal United Nations condemnation of French colonialism',
+      'American pressure on France to decolonize as a condition of continued NATO membership'
+    ],
+    c: 1,
+    e: 'WWII fundamentally undermined colonial legitimacy: France had proclaimed universal rights while denying them to colonial subjects, and France\'s own defeat and occupation made its claims of "civilizing" others hollow. Rising international anti-colonial sentiment, the UN\'s self-determination principles, and France\'s own postwar political weakness made defending Algeria increasingly costly. Propaganda was needed precisely because colonial justifications had lost credibility.',
+    happ: {
+      h: 'The Algerian War began in 1954 when the FLN launched armed resistance against French rule. By 1958 France had deployed over 400,000 troops in Algeria and was facing both FLN guerrilla warfare and growing international criticism. WWII had dramatically weakened French imperial prestige and legitimacy.',
+      a: 'French citizens and Algerian "pied-noir" (European settler) communities who needed to be convinced that the military campaign was justified and that the FLN \u2014 not France \u2014 was the source of violence. The poster aimed to maintain domestic support for an increasingly unpopular war.',
+      p: 'To delegitimize the Algerian independence movement by portraying the FLN as terrorists who threatened ordinary Algerians, and to justify continued French military presence as protective rather than colonial.',
+      pov: 'As French government propaganda, this poster presents only the colonial perspective. It ignores French military violence, the political demands of Algerian nationalists, and the conditions of colonial exploitation that motivated the independence movement. The FLN is dehumanized rather than understood as a political movement.'
+    }
+  },
+  {
+    num: 5,
+    img: 'images/stimuli/u8-5.jpg',
+    title: 'Workers\' Strike at Galeries Lafayette, Paris, France, 1936',
+    source: 'Photograph of workers occupying the Galeries Lafayette department store during the wave of sit-down strikes that followed the Popular Front election victory, Paris, France, June 1936. Roger-Viollet / Getty Images.',
+    desc: 'A photograph showing workers occupying the Galeries Lafayette department store in Paris during the June 1936 general strike wave. Workers sit among the shop floor merchandise, having taken peaceful possession of the store as part of the nationwide sit-down strike movement that accompanied the Popular Front government\'s rise to power.',
+    q: 'The workers\' occupation depicted in this photograph is best understood as an example of which strategy for achieving political and economic change?',
+    o: [
+      'Armed revolutionary struggle aimed at overthrowing the French government and establishing a communist state',
+      'Nonviolent collective action \u2014 the sit-down strike \u2014 as a method of applying economic pressure without violence',
+      'Government-organized labor mobilization as part of the Popular Front\'s state-directed economic reform program',
+      'International communist coordination of simultaneous worker uprisings across multiple European countries'
+    ],
+    c: 1,
+    e: 'The 1936 French sit-down strikes involved over 2 million workers who occupied factories and stores without destroying property or engaging in violence. This form of collective action \u2014 nonviolent, disruptive, and economically powerful \u2014 forced employers and the government to negotiate. The Popular Front government responded with the Matignon Agreements, granting paid holidays, a 40-hour week, and collective bargaining rights.',
+    happ: {
+      h: 'The Popular Front \u2014 a coalition of communists, socialists, and liberals \u2014 won French elections in May 1936. Workers, emboldened by the electoral victory and responding to years of wage cuts during the Great Depression, launched spontaneous sit-down strikes across French industry and commerce in June 1936.',
+      a: 'French workers, politicians, employers, and international observers watching whether the Popular Front would succeed. The image was likely used in press coverage of the strikes and would have been seen very differently by working-class readers (solidarity) versus business-class readers (threat).',
+      p: 'To document one of the largest strike movements in French history and potentially to generate public sympathy or pressure for worker demands. Press photographs of nonviolent occupation humanized strikers and countered narratives of communist violence.',
+      pov: 'Roger-Viollet was a Parisian press photography agency \u2014 the image reflects professional journalistic documentation rather than explicit advocacy. However, the choice to show workers sitting peacefully among merchandise emphasizes the nonviolent, organized nature of the occupation, which implicitly supports the workers\' framing of their action.'
+    }
+  },
+  {
+    num: 6,
+    img: 'images/stimuli/page-4.jpg',
+    title: 'Indian Muslim Soldiers at Prayer, Surrey, England, 1916',
+    source: 'Photograph of Indian Muslim soldiers at Friday prayers at a military camp, Surrey, England, 1916. Imperial War Museum, London.',
+    desc: 'A photograph of Indian Muslim soldiers performing Friday prayers at a British military camp in Surrey, England during World War I. Indian soldiers served across multiple theaters of WWI \u2014 Western Front, Mesopotamia, East Africa, and Gallipoli \u2014 with over 1.5 million Indians serving in the British imperial military forces.',
+    q: 'Which of the following best explains how the experience of Indian soldiers depicted in this photograph contributed to anti-imperial sentiment after World War I?',
+    o: [
+      'Indian soldiers refused to fight for Britain and instead organized armed resistance to colonial rule during the war',
+      'The British government formally promised Indian independence in exchange for Indian military service, then broke this promise',
+      'Indian soldiers\' exposure to European battlefields convinced them that European civilization was morally superior',
+      'Indian soldiers who fought for Britain returned home with military skills and political awareness that strengthened nationalist movements and exposed the contradiction of fighting for "freedom" while remaining colonized'
+    ],
+    c: 3,
+    e: 'Indian veterans returned with military training, cross-cultural exposure, and heightened political consciousness. Having fought and died for the British Empire\'s stated ideals of liberty and democracy, they found continued colonial subjugation intolerable. The Montagu Declaration (1917) promised Indian self-governance but delivered little. The Amritsar Massacre (1919) radicalized many veterans. The INC and Muslim League both grew significantly in the postwar years.',
+    happ: {
+      h: 'Britain mobilized its colonial empire extensively during WWI. India provided 1.5 million soldiers, essential supplies, and financial support. In exchange, Indian political leaders expected meaningful movement toward self-governance. Wartime service intensified both loyalty to British institutions and resentment of continued colonial rule.',
+      a: 'This photograph was likely produced for British domestic audiences \u2014 to demonstrate imperial loyalty and the diversity of the British war effort. It also served as a morale document for Indian soldiers\' families. The framing emphasizes religious practice being accommodated, signaling British respect for Indian culture.',
+      p: 'To document Indian military service and loyalty to the British Empire, and to project an image of a multi-ethnic, tolerant empire fighting for civilization. Such images were used in wartime propaganda to justify imperial governance.',
+      pov: 'As an Imperial War Museum photograph produced within the British military and propaganda apparatus, this image presents the perspective of the colonial power, not the soldiers themselves. It does not capture the political frustrations, second-class treatment, or growing nationalist ambitions of Indian soldiers serving an empire that denied them self-determination.'
+    }
+  },
+  {
+    num: 7,
+    imgs: ['images/stimuli/u8-7a.jpg', 'images/stimuli/u8-7b.jpg'],
+    imgTitles: ['"House of Cards," Soviet political cartoon, 1986', '"Parade," Western political cartoon, 1989'],
+    imgSources: ['Krokodil Magazine, USSR', 'Western press cartoon, 1989'],
+    title: 'Political Cartoons: Soviet Instability, 1986 & 1989',
+    source: 'Left: "House of Cards," published in Krokodil (Soviet satirical magazine), 1986. Right: Western political cartoon depicting Soviet satellite states, 1989.',
+    desc: 'Two political cartoons from the late Cold War period. The left image, from the Soviet satirical magazine Krokodil (1986), depicts the Soviet economic or political system as a fragile "house of cards." The right image (1989) shows Soviet satellite states metaphorically marching out of Soviet control, reflecting the wave of revolutions that swept Eastern Europe.',
+    q: 'Taken together, these two cartoons are best used as evidence of which historical development?',
+    o: [
+      'American military pressure forcing the Soviet Union to collapse through economic exhaustion',
+      'The Soviet government\'s successful use of satire to defuse political opposition',
+      'Western media\'s inaccurate prediction of Soviet collapse that was not borne out by events',
+      'Rising internal instability and popular discontent within the Soviet bloc that contributed to its eventual dissolution'
+    ],
+    c: 3,
+    e: 'By the mid-1980s, structural weaknesses in the Soviet system \u2014 economic stagnation, declining legitimacy, restless satellite states \u2014 were visible even within Soviet media. Gorbachev\'s glasnost (openness) policies acknowledged systemic problems. By 1989, those satellite states did break away in rapid succession: Poland, Hungary, Czechoslovakia, East Germany, Romania, and Bulgaria all experienced revolutions. The USSR itself dissolved in 1991.',
+    happ: {
+      h: 'Gorbachev came to power in 1985 and launched glasnost (openness) and perestroika (restructuring) to reform the Soviet system. Economic stagnation, the Afghanistan war, Chernobyl, and nationalist movements in satellite states all destabilized Soviet authority through the late 1980s.',
+      a: 'The Krokodil cartoon addressed Soviet readers who recognized systemic problems but operated within censored media. The Western cartoon addressed international audiences watching Soviet bloc instability. Each cartoon assumes an audience already aware of Soviet fragility.',
+      p: 'The Krokodil cartoon, despite being Soviet, used permitted satire to comment on system weaknesses \u2014 glasnost expanded the range of permitted criticism. The Western cartoon aimed to document and predict the collapse of Soviet Eastern European empire in real time.',
+      pov: 'The perspectives differ sharply: the Soviet cartoon reflects internal acknowledgment of problems within the system (a remarkable concession under glasnost). The Western cartoon reflects external observation with an implicit "we told you so" framing about communist instability. Together they show both internal and external recognition of Soviet crisis.'
+    }
+  },
+  {
+    num: 8,
+    img: 'images/stimuli/u8-8.jpg',
+    title: 'World Political Map, 1980',
+    source: 'World political map showing nation-states, Cold War alignments, and newly independent post-colonial states, 1980. Standard cartographic publication.',
+    desc: 'A 1980 world political map showing the distribution of nation-states across the globe. By 1980, most former European colonies in Asia and Africa had achieved independence, producing a dramatically different political geography than the colonial map of 1900. The map reflects decades of decolonization that produced over 80 new sovereign states after 1945.',
+    q: 'A historian studying this map in comparison to a 1900 world map would most likely conclude that newly independent post-colonial states in 1980 were',
+    o: [
+      'deeply cautious of both superpowers\' intentions, having experienced European imperialism and witnessed Cold War interference in their internal affairs',
+      'overwhelmingly aligned with the United States due to American support for decolonization movements during the Cold War',
+      'economically prosperous and politically stable due to the institutional frameworks established during the colonial period',
+      'fully integrated into Cold War alliances with clear ideological commitments to either capitalism or communism'
+    ],
+    c: 0,
+    e: 'Having experienced European colonial domination, newly independent states were wary of any form of external control \u2014 from either superpower. The Non-Aligned Movement (founded at Bandung, 1955) reflected this wariness: nations like India, Egypt, Indonesia, and Ghana refused to join either Cold War bloc, recognizing that both superpowers engaged in forms of neo-colonial interference. The 1980 map shows a politically decolonized world that remained economically and strategically contested.',
+    happ: {
+      h: 'By 1980, the wave of decolonization was largely complete. Over 80 former colonies had gained independence since 1945. But Cold War competition meant both superpowers sought to influence newly independent states through aid, military support, and proxy conflicts \u2014 a new form of external intervention that resembled, in some ways, colonialism.',
+      a: 'This map was produced for general educational and reference audiences \u2014 students, policymakers, and citizens \u2014 to visualize the political geography of the contemporary world. The audience would use it to understand international relations, not to examine colonialism directly.',
+      p: 'To document and communicate current political boundaries and national sovereignty. Maps are authoritative documents that reinforce the nation-state as the basic unit of political organization. The 1980 map implicitly legitimizes the post-colonial state system.',
+      pov: 'Standard political maps reflect a Western cartographic tradition that treats nation-state borders as natural and legitimate. They do not show colonial boundaries versus indigenous territories, economic inequalities, or the internal divisions created by colonial-era border drawing \u2014 all of which shaped the political reality of newly independent states.'
+    }
+  },
+  {
+    num: 9,
+    img: 'images/stimuli/u8-9.jpg',
+    title: 'Partition of South Asia, 1947',
+    source: 'Map depicting the partition of British India into the independent states of India and Pakistan, August 1947. The map shows the Radcliffe Line boundary and the princely states that acceded to either nation.',
+    desc: 'A map showing the partition of British India into the independent nations of India and Pakistan on August 14-15, 1947. The partition was drawn along religious lines, with Muslim-majority areas forming West Pakistan and East Pakistan (later Bangladesh), while Hindu-majority areas formed India. Partition triggered one of history\'s largest mass migrations \u2014 approximately 10-15 million people crossed the new borders \u2014 and severe communal violence that killed between 200,000 and 2 million people.',
+    q: 'The partition of British India depicted in this map most directly illustrates which challenge faced by newly independent post-colonial states?',
+    o: [
+      'Former colonial powers deliberately drawing borders to create conflict and maintain influence in newly independent territories',
+      'The United Nations\' decision to intervene in decolonization processes to ensure democratic governance',
+      'Newly independent states\' difficulty in establishing borders that reflected Cold War alliance commitments',
+      'The difficulty of creating stable post-colonial states when colonial rule had governed diverse religious and ethnic communities under a single administrative unit',
+      'The Non-Aligned Movement\'s failure to prevent superpower interference in South Asian independence negotiations'
+    ],
+    c: 3,
+    e: 'The partition of India illustrates how colonial rule created the conditions for post-independence crisis: Britain governed hundreds of millions of Hindus, Muslims, and Sikhs as a single administrative unit with no clear path to independent governance that satisfied all communities. Hasty partition along religious lines produced borders that cut across communities, creating mass displacement, violence, and territorial disputes (especially over Kashmir) that persist today. This pattern \u2014 colonial administrative units poorly suited to post-colonial governance \u2014 repeated across Africa and Asia.',
+    happ: {
+      h: 'Britain\'s decision to withdraw from India was accelerated by postwar exhaustion and the election of a Labour government committed to decolonization. The Mountbatten Plan (June 1947) set partition in motion with a mere 73 days\' notice. The speed and violence of partition reflected decades of British divide-and-rule policies that had sharpened Hindu-Muslim political identities.',
+      a: 'This map was produced for political leaders, military planners, and the public to communicate the new international boundaries. The Radcliffe Commission drew the actual borders, creating what became known as the "Radcliffe Line" \u2014 named for a man who had never visited India before being asked to partition it.',
+      p: 'To establish and communicate sovereign territorial boundaries for the new states of India and Pakistan. Maps of partition served administrative, military, and diplomatic purposes, defining which communities, cities, and resources fell under each nation\'s jurisdiction.',
+      pov: 'Official partition maps reflect the perspective of colonial administrators and the Boundary Commission, not the communities affected. They show lines on paper, not the villages bisected, families separated, or religious sites suddenly placed in the "wrong" country. The clinical cartographic perspective obscures the human catastrophe the borders created.'
+    }
+  },
+  {
+    num: 10,
+    imgs: ['images/stimuli/u8-10a.jpg', 'images/stimuli/u8-10b.jpg'],
+    imgTitles: ['Africa: Political Map (state boundaries)', 'Africa: Ethnolinguistic Map (language/ethnic groups)'],
+    imgSources: ['Standard political map of Africa', 'Ethnolinguistic distribution map of Africa'],
+    title: 'Africa: Political vs. Ethnolinguistic Maps',
+    source: 'Left: Political map of Africa showing national borders. Right: Ethnolinguistic map of Africa showing distribution of language and ethnic groups. Standard cartographic publications.',
+    desc: 'Two maps of Africa placed side by side: the left map shows the political boundaries of African nation-states as drawn during the colonial period and inherited at independence; the right map shows the distribution of ethnolinguistic groups across Africa. Comparison reveals that political borders frequently cut across ethnic and linguistic communities, while many states contain dozens of distinct ethnic groups whose territories span multiple countries.',
+    q: 'Comparing these two maps, a historian would most likely conclude that the political boundaries inherited by newly independent African states',
+    o: [
+      'generally reflected the natural territorial boundaries of African ethnic and linguistic communities',
+      'were carefully drawn by African nationalist leaders to unite related ethnic communities within single states',
+      'had no meaningful connection to Cold War superpower competition in Africa',
+      'created governance challenges because colonial-era borders divided ethnic communities and grouped rival groups within the same state'
+    ],
+    c: 3,
+    e: 'European powers drew African borders at the Berlin Conference (1884\u201385) and subsequent treaties based on their own territorial competitions, geographic features, and administrative convenience \u2014 not African ethnic, linguistic, or political realities. The resulting borders split the same ethnic groups across multiple countries (Somali people across 5 states) and forced rival groups into the same state (over 200 ethnic groups within Nigeria). These inherited borders became a source of persistent political instability, ethnic conflict, and civil war in post-colonial Africa.',
+    happ: {
+      h: 'The Berlin Conference (1884\u201385) allowed European powers to partition Africa without reference to African political or social structures. Colonial borders were maintained at independence (under the OAU\'s 1964 Cairo Declaration) because African leaders feared that revising any border would trigger endless territorial conflicts \u2014 creating a structural legacy that persists today.',
+      a: 'These comparative maps are produced for educational audiences \u2014 students, historians, and policymakers \u2014 to understand the relationship between colonial borders and post-colonial governance challenges. The side-by-side format invites direct comparison and analytical thinking.',
+      p: 'To illustrate the mismatch between political boundaries and ethnic/linguistic realities in Africa, enabling analysis of why post-colonial governance was difficult. The ethnolinguistic map challenges the naturalness of state borders that the political map presents as fixed.',
+      pov: 'Both maps reflect Western cartographic traditions. The political map treats colonial-era borders as authoritative. The ethnolinguistic map attempts to document African social geography but reflects the work of European and American anthropologists and linguists whose categories may not map exactly onto African self-identification. Neither perspective is fully African.'
+    }
+  },
+  {
+    num: 11,
+    imgs: ['images/stimuli/u8-11a.jpg', 'images/stimuli/u8-11b.jpg'],
+    imgTitles: ['Colonial Possessions in Africa, 1930', 'Independent States in Africa, 1981'],
+    imgSources: ['Historical atlas map, 1930', 'Historical atlas map, 1981'],
+    title: 'Africa: Colonial vs. Independent, 1930 and 1981',
+    source: 'Left: Map of Africa showing European colonial possessions, 1930. Right: Map of Africa showing independent nation-states, 1981. Historical atlas, standard cartographic publication.',
+    desc: 'Two maps showing Africa in 1930 and 1981. In 1930, virtually the entire continent was divided among European colonial powers \u2014 Britain, France, Belgium, Portugal, Italy, and Spain. By 1981, all but a few territories had achieved independence, producing a continent of over 50 sovereign nation-states. The transformation occurred primarily between 1956 and 1975, with 1960 alone seeing 17 new African nations.',
+    q: 'The transformation depicted in these two maps was most directly driven by which historical development?',
+    o: [
+      'The Pan-African movement, which united African peoples across ethnic and national lines in a coordinated campaign that compelled European powers to grant independence',
+      'American Cold War policy that pressured European allies to decolonize as a condition of NATO membership and Marshall Plan aid',
+      'United Nations Security Council resolutions that mandated European withdrawal from African territories by 1970',
+      'The economic unviability of maintaining colonial empires after World War II, combined with rising African nationalist movements'
+    ],
+    c: 0,
+    e: 'Pan-Africanism \u2014 the ideology of African unity across ethnic, national, and geographic lines \u2014 provided the intellectual and political framework for coordinated decolonization. Figures like Nkrumah, Nyerere, L\u00e9opold S\u00e9dar Senghor, and Patrice Lumumba drew on Pan-African ideas to build mass independence movements. The 1958 All-African Peoples\' Conference in Accra coordinated strategies across the continent. While economic factors and WWII\'s weakening of Europe enabled decolonization, Pan-Africanism provided the political vision that made coordinated, rapid decolonization possible.',
+    happ: {
+      h: 'WWII decisively undermined European colonial authority: France and Belgium were occupied; Britain was exhausted and dependent on American aid; Portugal was isolated and economically weak. African soldiers who served in European armies returned with military skills, political ideas, and diminished respect for European invincibility. The 1945 Manchester Pan-African Congress demanded immediate independence.',
+      a: 'Historical atlas maps are produced for educational audiences \u2014 students, teachers, historians, and policymakers. The before-and-after format invites readers to perceive decolonization as a dramatic transformation and to ask what caused it.',
+      p: 'To document the political transformation of Africa from a colonized to a decolonized continent, enabling historical analysis of the pace, pattern, and causes of African independence movements.',
+      pov: 'Historical atlases produced in the West frame decolonization as a political process of transferring sovereignty. This perspective emphasizes formal independence while potentially underplaying the economic and political constraints that limited the meaning of that independence \u2014 neo-colonialism, debt, Cold War interference, and inherited colonial structures.'
     }
   }
 ];
@@ -1429,9 +1668,18 @@ document.addEventListener('DOMContentLoaded', function() {
       var card = document.createElement('div');
       card.className = 'vs-card' + (idx === 0 ? ' active' : '');
       card.id = 'vs-card-u8-' + idx;
+      var imgHTML;
+      if (item.imgs) {
+        imgHTML = '<div class="vs-multi-img">' + item.imgs.map(function(src, ii) {
+          var cap = (item.imgTitles && item.imgTitles[ii]) ? '<div class="vs-img-cap">' + item.imgTitles[ii] + '</div>' : '';
+          return '<div class="vs-img-wrap"><img src="' + src + '" alt="' + (item.imgTitles && item.imgTitles[ii] ? item.imgTitles[ii] : item.title) + '" class="vs-source-img vs-source-img-multi">' + cap + '</div>';
+        }).join('') + '</div>';
+      } else {
+        imgHTML = '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">';
+      }
       card.innerHTML =
         '<div class="vs-card-src">' + item.source + '</div>' +
-        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
+        imgHTML +
         '<div class="vs-card-desc">' + item.desc + '</div>' +
 
         '<div class="vs-step-hdr">Step 1 \u2014 Answer the AP Question</div>' +

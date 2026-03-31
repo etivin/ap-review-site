@@ -102,13 +102,14 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
       <div class="unit-badge ready">&#9654; Open Unit 7</div>
     </a>
 
-    <div class="unit-card locked-card" onclick="unlockUnit8()">
+    <a class="unit-card" href="unit8.html">
       <div class="unit-num">Unit 8</div>
       <div class="unit-name">Cold War &amp; Decolonization</div>
       <div class="unit-period">c. 1945&ndash;Present</div>
       <div class="unit-desc">Cold War rivalries, proxy wars, nuclear arms race, decolonization in Asia &amp; Africa, newly independent states, and the fall of the Soviet Union.</div>
-      <div class="unit-badge soon">Coming Soon</div>
-    </div>
+      <div class="unit-badge ready">&#9654; Open Unit 8</div>
+    </a>
+    
 
     <div class="unit-card coming-soon">
       <div class="unit-num">Unit 9</div>
@@ -121,14 +122,6 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   </div>
 </section>
 
-<script>
-function unlockUnit8(){
-  var pw=prompt('Unit 8 is currently under construction.\nEnter teacher password to preview:');
-  if(pw===null)return;
-  if(pw==='Moeselu5506'){window.location.href='unit8.html';}
-  else{alert('Incorrect password.');}
-}
-</script>
 <footer class="site-footer">
   <p>Archbishop Moeller High School &nbsp;&bull;&nbsp; APWH: Modern &nbsp;&bull;&nbsp; Unit Review Hub</p>
 </footer>

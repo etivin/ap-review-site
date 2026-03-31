@@ -155,6 +155,41 @@ button{font-family:inherit;cursor:pointer}
 .complexity-label{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:9px}
 .complexity-body{font-size:.86rem;line-height:1.8;color:rgba(255,255,255,.8)}
 .complexity-note{color:rgba(255,255,255,.4);font-size:.78rem;margin-top:7px;display:block}
+/* VISUAL SOURCES */
+.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
+.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.vs-tab{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
+.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.vs-card{display:none;padding:24px 32px}
+.vs-card.active{display:block}
+.vs-card-src{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.vs-card-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
+.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
+.vs-source-img{display:block;width:auto;max-width:100%;max-height:80vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.vs-step-hdr{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
+.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
+.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
+.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.vs-mc-option.vs-mc-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
+.vs-mc-explain.show{display:block}
+.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
+.vs-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
+.vs-btn:hover{background:var(--ink);color:#fff}
+.vs-btn-red{border-color:var(--red);color:var(--red)}
+.vs-btn-red:hover{background:var(--red);color:#fff}
+.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
+.vs-hipp-area.show{display:block}
+.vs-hipp-section{margin-bottom:18px}
+.vs-hipp-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
+.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px;padding-left:1.2em}
+.vs-guide li{margin-bottom:2px}
+.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
+.vs-hipp-input:focus{border-color:var(--red);outline:none}
+.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
+.vs-hipp-model.show{display:block}
+.vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
 /* GAMES */
 .game-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:700px;margin:0 auto}
 .game-pick-card{background:var(--white);border:2px solid var(--border2);padding:36px 28px;cursor:pointer;text-align:center;transition:box-shadow .2s,border-color .2s}
@@ -288,6 +323,7 @@ button{font-family:inherit;cursor:pointer}
     <button class="hn-btn" data-tab="pg-guide">&#128214; Guide</button>
     <button class="hn-btn" data-tab="pg-tips">&#128161; Tips</button>
     <button class="hn-btn" data-tab="pg-games">&#127918; Games</button>
+    <button class="hn-btn" data-tab="pg-visual">&#128444; Visual Sources</button>
   </nav>
   <div id="bar-score">Score: <strong id="score-txt">0/0</strong></div>
 </header>
@@ -421,6 +457,21 @@ button{font-family:inherit;cursor:pointer}
     <div class="complexity-box">
       <div class="complexity-label">Complexity Point Options</div>
       <div class="complexity-body">&#10022; Explain multiple causes/effects, similarities/differences, or continuities/changes<br/>&#10022; Explain both cause AND effect, or both similarity AND difference<br/>&#10022; Connect across time periods or geographic areas<br/>&#10022; Use all 7 documents effectively (DBQ) or HAPP 4+ documents<br/><span class="complexity-note">A counterargument paragraph can earn complexity &mdash; but only if it is a full paragraph with evidence, not just a sentence.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- VISUAL SOURCES PAGE -->
+<div class="page" id="pg-visual">
+  <div class="inner" style="max-width:900px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 8 &mdash; Skill Practice</div>
+      <h2>Visual Sources &amp; HAPP Analysis</h2>
+      <p>AP-authentic visual stimuli. Answer the AP question, then complete your HAPP analysis and compare to the model answer.</p>
+    </div>
+    <div class="vs-panel">
+      <div class="vs-tab-row" id="vs-tabs"></div>
+      <div id="vs-cards"></div>
     </div>
   </div>
 </div>
@@ -602,6 +653,31 @@ button{font-family:inherit;cursor:pointer}
 
 <!-- DATA -->
 <script>
+var VISUAL_DATA_U8 = [
+  {
+    num: 1,
+    img: 'images/stimuli/page-2.jpg',
+    title: 'Aeroflot Soviet Airline Advertisement, 1950s',
+    source: 'Advertisement by Aeroflot, a Soviet State-Owned Commercial Airline. The Advertisement Was Used in the Soviet Union During the 1950s. Shawshots / Alamy Stock Photo.',
+    desc: 'A Soviet commercial advertisement showing a jet airliner marked \u201cCCCP\u201d (USSR) flying over major international landmarks \u2014 the Eiffel Tower, Big Ben, Egyptian pyramids, the Kremlin, American skyscrapers, and an Asian pagoda \u2014 with \u201c\u0410\u042d\u0420\u041e\u0424\u041b\u041e\u0422\u201d (Aeroflot) printed across the bottom.',
+    q: 'In addition to its main use as advertising material, the image was most likely also intended to',
+    o: [
+      'show the Soviet Union\u2019s rise as a major technological power',
+      'demonstrate Soviet support for communist parties in Western European countries',
+      'encourage improved relations between the United States and the Soviet Union',
+      'facilitate the spread of communist ideas in East and Southeast Asia'
+    ],
+    c: 0,
+    e: 'The advertisement\u2019s depiction of a speeding Soviet jet aircraft flying over global landmarks was designed to show the Soviet Union\u2019s ability to compete with \u2014 and surpass \u2014 American and European technological capabilities. During the Cold War, technological achievement (Sputnik, jet aviation, nuclear weapons) was a key arena of superpower competition.',
+    happ: {
+      h: 'The 1950s were the height of early Cold War competition. The USSR was racing to match Western technological prestige: the Sputnik satellite launched in 1957; Soviet jet development competed directly with Western aviation. State-owned enterprises like Aeroflot served double duty as commercial services and propaganda tools projecting Soviet modernity.',
+      a: 'Soviet citizens \u2014 and potentially international audiences \u2014 whom the Soviet state wanted to convince that socialist central planning could achieve technological and commercial success equal to or surpassing the capitalist West. The global landmarks in the image signal the international message.',
+      p: 'To promote Aeroflot\u2019s airline service while simultaneously projecting Soviet technological achievement, global reach, and modernity. The ad serves two purposes at once: sell tickets and demonstrate that the USSR is a world-class power.',
+      pov: 'As a state-controlled enterprise, Aeroflot\u2019s advertising directly reflected Soviet government Cold War priorities. The ad cannot be separated from Soviet ideology: the jet marked \u201cCCCP\u201d dominating the skies above world landmarks encodes the message that Soviet technology is superior \u2014 and global.'
+    }
+  }
+];
+
 var QB = {
 "8.1":[
   {s:"From Stettin in the Baltic to Trieste in the Adriatic, an iron curtain has descended across the Continent. Behind that line lie all the capitals of the ancient states of Central and Eastern Europe. Warsaw, Berlin, Prague, Vienna, Budapest, Belgrade, Bucharest and Sofia — all these famous cities and the populations around them lie in what I must call the Soviet sphere, and all are subject, in one form or another, not only to Soviet influence but to a very high and in many cases increasing measure of control from Moscow.",sl:"Winston Churchill, 'The Sinews of Peace,' Westminster College, Fulton, Missouri, March 5, 1946",q:"Churchill's use of the metaphor 'iron curtain' was significant primarily because it",o:["formally declared war between the United States and Soviet Union","marked the beginning of public acknowledgment that the wartime alliance had broken down into open East-West rivalry","provided the ideological justification for the Marshall Plan's economic aid program","demonstrated Western support for communist parties in Eastern Europe"],c:1,e:"Churchill's speech publicly acknowledged what policymakers already knew: the wartime US-Soviet alliance had collapsed. By naming the division, Churchill crystallized the emerging Cold War framework and signaled Western resolve to resist Soviet expansion."},
@@ -1286,6 +1362,129 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('pick-asteroid').addEventListener('click', function() { document.getElementById('game-picker').style.display = 'none'; document.getElementById('asteroid-game').style.display = 'block'; startAsteroidGame(); });
     document.getElementById('ast-back').addEventListener('click', function() { clearAsteroids(); cancelAnimationFrame(astRAF); document.getElementById('asteroid-game').style.display = 'none'; document.getElementById('game-picker').style.display = 'grid'; });
     document.getElementById('ast-replay').addEventListener('click', startAsteroidGame);
+  })();
+
+  /* VISUAL SOURCES (HAPP) */
+  (function() {
+    var tabRow = document.getElementById('vs-tabs');
+    var cardsEl = document.getElementById('vs-cards');
+    if (!tabRow || !cardsEl) return;
+
+    var HAPP_KEYS = [
+      { key: 'h', label: 'Historical Situation', guides: [
+        'When and where was this source created?',
+        'What major events or tensions were happening at this time?',
+        'How does the historical moment explain why this source exists?'
+      ]},
+      { key: 'a', label: 'Audience', guides: [
+        'Who was this source originally created for?',
+        'What details (imagery, language, style) hint at who it was aimed at?',
+        'Would the intended audience have agreed with the source\u2019s message?'
+      ]},
+      { key: 'p', label: 'Purpose', guides: [
+        'Why did the creator make this \u2014 to persuade, inform, document, or advertise?',
+        'What reaction did the creator want from the audience?',
+        'Who benefits if the source\u2019s message is believed?'
+      ]},
+      { key: 'pov', label: 'Point of View', guides: [
+        'Who created this source? What is their background or institutional position?',
+        'How does the creator\u2019s identity shape what they emphasize or leave out?',
+        'Why should a historian consider this creator\u2019s perspective when evaluating the source?'
+      ]}
+    ];
+
+    VISUAL_DATA_U8.forEach(function(item, idx) {
+      var tab = document.createElement('button');
+      tab.type = 'button';
+      tab.className = 'vs-tab' + (idx === 0 ? ' active' : '');
+      tab.textContent = 'Image ' + item.num;
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('#vs-tabs .vs-tab').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        document.querySelectorAll('#vs-cards .vs-card').forEach(function(c) { c.classList.remove('active'); });
+        document.getElementById('vs-card-u8-' + idx).classList.add('active');
+      });
+      tabRow.appendChild(tab);
+
+      var mcHTML = '';
+      item.o.forEach(function(opt, oi) {
+        mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>';
+      });
+
+      var hippHTML = '';
+      HAPP_KEYS.forEach(function(hk) {
+        var guideItems = hk.guides.map(function(g) { return '<li>' + g + '</li>'; }).join('');
+        hippHTML +=
+          '<div class="vs-hipp-section">' +
+            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
+            '<ul class="vs-guide">' + guideItems + '</ul>' +
+            '<textarea class="vs-hipp-input" placeholder="Write your analysis here\u2026" rows="3"></textarea>' +
+            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-u8-' + idx + '">' +
+              '<div class="vs-hipp-model-lbl">Exemplar \u2014 ' + hk.label + '</div>' +
+              item.happ[hk.key] +
+            '</div>' +
+          '</div>';
+      });
+
+      var card = document.createElement('div');
+      card.className = 'vs-card' + (idx === 0 ? ' active' : '');
+      card.id = 'vs-card-u8-' + idx;
+      card.innerHTML =
+        '<div class="vs-card-src">' + item.source + '</div>' +
+        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
+        '<div class="vs-card-desc">' + item.desc + '</div>' +
+
+        '<div class="vs-step-hdr">Step 1 \u2014 Answer the AP Question</div>' +
+        '<div class="vs-mc-q">' + item.q + '</div>' +
+        mcHTML +
+        '<div class="vs-mc-explain" id="vs-mc-explain-u8-' + idx + '">' + item.e + '</div>' +
+
+        '<div class="vs-btn-row">' +
+          '<button type="button" class="vs-btn" data-hippshow="u8-' + idx + '">Step 2 \u2014 HAPP Analysis \u2192</button>' +
+        '</div>' +
+
+        '<div class="vs-hipp-area" id="vs-hipp-u8-' + idx + '">' +
+          '<div class="vs-step-hdr" style="margin-bottom:12px">Step 2 \u2014 HAPP Analysis</div>' +
+          '<p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Write your own HAPP analysis using the guiding questions, then compare to the exemplar.</p>' +
+          hippHTML +
+          '<div class="vs-btn-row">' +
+            '<button type="button" class="vs-btn vs-btn-red" data-compare="u8-' + idx + '">Compare to Exemplar \u2192</button>' +
+          '</div>' +
+        '</div>';
+
+      cardsEl.appendChild(card);
+    });
+
+    cardsEl.addEventListener('click', function(e) {
+      var hippBtn = e.target.closest('[data-hippshow]');
+      if (hippBtn) {
+        document.getElementById('vs-hipp-' + hippBtn.dataset.hippshow).classList.add('show');
+        hippBtn.style.display = 'none';
+        return;
+      }
+      var cmpBtn = e.target.closest('[data-compare]');
+      if (cmpBtn) {
+        var idx = cmpBtn.dataset.compare;
+        HAPP_KEYS.forEach(function(hk) {
+          document.getElementById('vs-model-' + hk.key + '-' + idx).classList.add('show');
+        });
+        cmpBtn.style.display = 'none';
+        return;
+      }
+      var opt = e.target.closest('.vs-mc-option');
+      if (opt && !opt.disabled) {
+        var card = opt.closest('.vs-card');
+        var idx = card.id.replace('vs-card-u8-', '');
+        var item = VISUAL_DATA_U8[parseInt(idx)];
+        var oi = parseInt(opt.dataset.oi);
+        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
+          b.disabled = true;
+          if (bi === item.c) b.classList.add('vs-mc-correct');
+          else if (bi === oi) b.classList.add('vs-mc-wrong');
+        });
+        document.getElementById('vs-mc-explain-u8-' + idx).classList.add('show');
+      }
+    });
   })();
 
   /* STUDY GUIDE */

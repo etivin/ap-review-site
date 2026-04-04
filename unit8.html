@@ -300,6 +300,46 @@ button{font-family:inherit;cursor:pointer}
 /* FOOTER */
 .site-footer{background:var(--ink);padding:18px 24px;text-align:center}
 .site-footer p{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+/* TIMELINE */
+.tl-section{background:#2a2a1e;padding:72px 24px 80px;overflow:hidden}
+.tl-inner{max-width:1100px;margin:0 auto}
+.tl-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(176,0,28,.8);margin-bottom:8px}
+.tl-heading{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:10px;line-height:1.1}
+.tl-sub{font-size:.93rem;color:rgba(255,255,255,.45);margin-bottom:56px;max-width:540px}
+.tl-list{position:relative;padding:0 0 10px}
+.tl-list::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(176,0,28,.8),rgba(176,0,28,.15));transform:translateX(-50%)}
+.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;margin-bottom:64px;opacity:0;transition:opacity .7s ease,transform .7s ease}
+.tl-item.tl-left{transform:translateX(-40px)}
+.tl-item.tl-right{transform:translateX(40px)}
+.tl-item.visible{opacity:1;transform:none}
+.tl-item.tl-left .tl-img-wrap{order:1}.tl-item.tl-left .tl-spine{order:2}.tl-item.tl-left .tl-content{order:3}
+.tl-item.tl-right .tl-img-wrap{order:3}.tl-item.tl-right .tl-spine{order:2}.tl-item.tl-right .tl-content{order:1;text-align:right}
+.tl-img-wrap{aspect-ratio:4/3;overflow:hidden;background:#111;box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative}
+.tl-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.tl-img-wrap .tl-img-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a0e,#2a2a1e);color:rgba(255,255,255,.25);font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:16px}
+.tl-item:hover .tl-img-wrap img{transform:scale(1.04)}
+.tl-spine{display:flex;justify-content:center;align-items:center;z-index:2;position:relative}
+.tl-dot{width:16px;height:16px;background:var(--red);border:3px solid #2a2a1e;border-radius:50%;box-shadow:0 0 0 3px rgba(176,0,28,.4);transition:transform .3s}
+.tl-item:hover .tl-dot{transform:scale(1.4)}
+.tl-content{padding:0 28px}
+.tl-year-badge{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:.1em;padding:4px 12px;margin-bottom:8px}
+.tl-item.tl-right .tl-year-badge{float:right}
+.tl-item.tl-right .tl-content::after{content:'';display:table;clear:both}
+.tl-topic-tag{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;clear:both;display:block}
+.tl-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2}
+.tl-desc{font-size:.83rem;line-height:1.75;color:rgba(255,255,255,.55)}
+/* AI TUTOR */
+.ai-tutor-section{background:linear-gradient(135deg,#0d1b2a 0%,#1a2a3a 100%);padding:60px 24px;border-top:2px solid rgba(176,0,28,.3);border-bottom:2px solid rgba(176,0,28,.3)}
+.ai-tutor-inner{max-width:960px;margin:0 auto}
+.ai-tutor-hdr{text-align:center;margin-bottom:32px}
+.ai-tutor-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(176,0,28,.9);margin-bottom:8px}
+.ai-tutor-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;color:#fff;margin-bottom:8px}
+.ai-tutor-sub{font-size:.88rem;color:rgba(255,255,255,.45);max-width:480px;margin:0 auto}
+.ai-tutor-frame-wrap{position:relative;width:100%;border:1px solid rgba(255,255,255,.1);border-radius:2px;overflow:hidden;background:#111;box-shadow:0 12px 48px rgba(0,0,0,.5)}
+.ai-tutor-frame-wrap iframe{display:block;width:100%;height:640px;border:none}
+.ai-tutor-fallback{display:none;padding:48px 24px;text-align:center;color:rgba(255,255,255,.5);font-size:.88rem}
+.ai-tutor-fallback a{color:var(--red);text-decoration:none}
+.ai-tutor-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:4px 12px;font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:14px}
 @media(max-width:600px){
   .site-header{padding:0 12px}
   .header-title{display:none}
@@ -309,6 +349,13 @@ button{font-family:inherit;cursor:pointer}
   .jeop-board{grid-template-columns:repeat(3,1fr)}
   .jeop-cat:nth-child(n+4){display:none}
   .sq-choices{grid-template-columns:1fr}
+  .tl-list::before{left:24px}
+  .tl-item,.tl-item.tl-right,.tl-item.tl-left{grid-template-columns:48px 1fr;grid-template-rows:auto auto;align-items:start}
+  .tl-img-wrap,.tl-item.tl-left .tl-img-wrap,.tl-item.tl-right .tl-img-wrap{order:1!important;grid-column:1/-1;grid-row:1;aspect-ratio:16/7;margin-bottom:0}
+  .tl-spine,.tl-item.tl-left .tl-spine,.tl-item.tl-right .tl-spine{order:2!important;grid-column:1;grid-row:2;justify-content:center;padding-top:18px}
+  .tl-content,.tl-item.tl-left .tl-content,.tl-item.tl-right .tl-content{order:3!important;grid-column:2;grid-row:2;text-align:left!important;padding:12px 0 12px 16px}
+  .tl-item.tl-right .tl-year-badge{float:none}
+  .ai-tutor-frame-wrap iframe{height:480px}
 }
 </style>
 </head>
@@ -317,7 +364,7 @@ button{font-family:inherit;cursor:pointer}
 <!-- HEADER -->
 <header class="site-header">
   <div class="header-brand">
-    <a href="index.html" style="color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2);padding:5px 12px;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .15s;margin-right:6px;white-space:nowrap" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">&#8592; All Units</a>
+    <a href="index.html" style="color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2);padding:5px 12px;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .15s;margin-right:6px;white-space:nowrap" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">&#8962; Home</a>
     <div class="header-badge">APWH</div>
     <div class="header-title">AP World History: Modern &nbsp;&mdash;&nbsp; <strong>Unit 8</strong></div>
   </div>
@@ -344,6 +391,7 @@ button{font-family:inherit;cursor:pointer}
       <div class="hero-btns" style="margin-top:28px">
         <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">&#128203; Start MCQ Practice</button>
         <button class="hero-btn hero-btn-outline" data-tab="pg-guide">&#128214; Study Guide</button>
+        <button type="button" class="hero-btn hero-btn-outline" id="scroll-timeline-btn">&#9660; View Timeline</button>
       </div>
     </div>
   </section>
@@ -385,6 +433,36 @@ button{font-family:inherit;cursor:pointer}
       </div>
     </div>
   </section>
+  <!-- AI TUTOR -->
+  <section class="ai-tutor-section">
+    <div class="ai-tutor-inner">
+      <div class="ai-tutor-hdr">
+        <div class="ai-tutor-eyebrow">Powered by NotebookLM</div>
+        <h2 class="ai-tutor-heading">AI Study Assistant</h2>
+        <p class="ai-tutor-sub">Ask questions, get explanations, and quiz yourself on Unit 8 &mdash; Cold War, decolonization, and beyond.</p>
+        <div class="ai-tutor-badge">&#129504; Unit 8 &mdash; Cold War &amp; Decolonization</div>
+      </div>
+      <div class="ai-tutor-frame-wrap">
+        <iframe
+          src="https://notebooklm.google.com/notebook/f4460cf4-5e3a-4a63-bbd5-075eb3352fd7/preview"
+          allow="clipboard-read; clipboard-write"
+          title="Unit 8 AI Study Assistant"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="tl-section" id="timeline-section">
+    <div class="tl-inner">
+      <div class="tl-label">Unit 8 at a Glance</div>
+      <h2 class="tl-heading">The Story of the Cold War &amp; Decolonization</h2>
+      <p class="tl-sub">Fourteen turning points from 1945 to 1991 &mdash; scroll to explore.</p>
+      <div class="tl-list" id="tl-list"></div>
+    </div>
+  </section>
+
   <section class="home-cta">
     <h2>Ready to Master Unit 8?</h2>
     <p>MCQ practice, study guide, and review games &mdash; all in one place.</p>
@@ -1644,6 +1722,121 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   })();
+
+  /* TIMELINE */
+  document.getElementById('scroll-timeline-btn').addEventListener('click', function() {
+    document.getElementById('timeline-section').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  var TIMELINE = [
+    {
+      year: '1945', title: 'End of World War II — Cold War Begins',
+      topic: 'Topic 8.1 — Cold War Origins',
+      desc: 'WWII ends with US and Soviet forces meeting in Europe. Two superpowers with incompatible ideologies — democracy/capitalism vs. communism — dominate a devastated world. The wartime alliance collapses almost immediately.',
+      img: 'images/tl/u8-tl-1.jpg', alt: 'Allied forces meet at the Elbe River, 1945'
+    },
+    {
+      year: '1947', title: 'Truman Doctrine & Marshall Plan',
+      topic: 'Topic 8.1 — Containment Strategy',
+      desc: 'Truman pledges US support for "free peoples" resisting subjugation — formalizing containment. The Marshall Plan pumps $13 billion into rebuilding Western Europe, binding it to the American-led order.',
+      img: 'images/tl/u8-tl-2.jpg', alt: 'President Truman addressing Congress, 1947'
+    },
+    {
+      year: '1949', title: 'NATO Founded & China Goes Communist',
+      topic: 'Topic 8.3 — Cold War Alliances',
+      desc: 'NATO creates the Western military alliance (Article 5). Simultaneously, Mao Zedong proclaims the People\'s Republic of China — the "loss of China" shocks American policymakers and intensifies Cold War anxiety.',
+      img: 'images/tl/u8-tl-3.jpg', alt: 'Mao Zedong proclaims the PRC, Beijing, October 1949'
+    },
+    {
+      year: '1950–53', title: 'Korean War — Cold War Goes Hot',
+      topic: 'Topic 8.4 — Spread of Communism',
+      desc: 'North Korea invades South Korea. US-led UN forces intervene; China sends troops. The first "hot" proxy war of the Cold War kills 4 million people and ends in stalemate at the 38th parallel.',
+      img: 'images/tl/u8-tl-4.jpg', alt: 'US Marines at the Chosin Reservoir, Korea, 1950'
+    },
+    {
+      year: '1955', title: 'Bandung Conference — Non-Aligned Movement',
+      topic: 'Topic 8.2 — Cold War Bipolarity Challenged',
+      desc: '29 Asian and African nations meet in Bandung, Indonesia. Led by Sukarno, Nehru, and Nkrumah, they reject Cold War alignment and found the Non-Aligned Movement — the Global South asserts its independence.',
+      img: 'images/tl/u8-tl-5.jpg', alt: 'Leaders at the Bandung Conference, 1955'
+    },
+    {
+      year: '1957', title: 'Sputnik & Ghana Independence',
+      topic: 'Topic 8.1 / 8.5 — Technology & Decolonization',
+      desc: 'The USSR launches Sputnik — the first satellite — shocking America and launching the Space Race. The same year, Ghana becomes the first sub-Saharan African nation to gain independence, inspiring a continent.',
+      img: 'images/tl/u8-tl-6.jpg', alt: 'Sputnik 1 satellite and Kwame Nkrumah'
+    },
+    {
+      year: '1960', title: 'Year of Africa — 17 Nations Independent',
+      topic: 'Topic 8.5 — Decolonization Wave',
+      desc: '1960 alone produces 17 new African nations as French and British colonial empires rapidly withdraw. Across the continent, independence movements that began with Ghana in 1957 reach full momentum.',
+      img: 'images/tl/u8-tl-7.jpg', alt: 'African independence celebrations, 1960'
+    },
+    {
+      year: '1962', title: 'Cuban Missile Crisis',
+      topic: 'Topic 8.3 — Nuclear Brinkmanship',
+      desc: 'Soviet missiles discovered in Cuba. Thirteen days of nuclear brinkmanship bring the world to the edge of annihilation. Kennedy and Khrushchev negotiate — missiles removed, US pledges not to invade Cuba.',
+      img: 'images/tl/u8-tl-8.jpg', alt: 'US Navy blockade ship, Cuban Missile Crisis, 1962'
+    },
+    {
+      year: '1968', title: 'Prague Spring Crushed',
+      topic: 'Topic 8.7 — Resistance to Established Order',
+      desc: 'Czechoslovakian leader Alexander Dubček launches "socialism with a human face." Soviet tanks roll in and crush the reform movement. The Brezhnev Doctrine declares Soviet right to intervene in socialist states.',
+      img: 'images/tl/u8-tl-9.jpg', alt: 'Soviet tanks in Prague, August 1968'
+    },
+    {
+      year: '1975', title: 'Vietnam Falls & Angola Proxy War',
+      topic: 'Topic 8.4 — Cold War in Asia & Africa',
+      desc: 'Saigon falls — Vietnam unifies under communism after 20 years of war. Simultaneously, Cuba and South Africa fight a proxy war in Angola over its independence from Portugal, killing thousands.',
+      img: 'images/tl/u8-tl-10.jpg', alt: 'Helicopter evacuation of Saigon, April 1975'
+    },
+    {
+      year: '1979', title: 'Soviet Invasion of Afghanistan',
+      topic: 'Topic 8.8 — Cold War Decline',
+      desc: 'The USSR invades Afghanistan to prop up a communist government. The decade-long war becomes the Soviet "Vietnam" — draining resources, killing 15,000 Soviet soldiers, and devastating Cold War prestige.',
+      img: 'images/tl/u8-tl-11.jpg', alt: 'Soviet troops in Afghanistan, 1979'
+    },
+    {
+      year: '1989', title: 'Fall of the Berlin Wall',
+      topic: 'Topic 8.8 — Soviet Collapse',
+      desc: 'East Germans pour through the Berlin Wall as communist governments fall across Eastern Europe. Poland, Hungary, Czechoslovakia, Romania, Bulgaria — the Soviet bloc dissolves in a cascade of revolutions.',
+      img: 'images/tl/u8-tl-12.jpg', alt: 'Crowds celebrate atop the Berlin Wall, November 1989'
+    },
+    {
+      year: '1991', title: 'Soviet Union Dissolves',
+      topic: 'Topic 8.8 — End of the Cold War',
+      desc: 'Gorbachev\'s glasnost and perestroika fail to save the USSR. On December 25, 1991, Gorbachev resigns and the Soviet flag is lowered for the last time. 15 independent nations emerge. The Cold War is over.',
+      img: 'images/tl/u8-tl-13.jpg', alt: 'Soviet flag lowered over the Kremlin, December 1991'
+    }
+  ];
+
+  var tlList = document.getElementById('tl-list');
+  if (tlList) {
+    var tlHTML = '';
+    TIMELINE.forEach(function(item, i) {
+      var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
+      tlHTML +=
+        '<div class="tl-item ' + side + '">' +
+          '<div class="tl-img-wrap">' +
+            '<img src="' + item.img + '" alt="' + item.alt + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' +
+            '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>' +
+          '</div>' +
+          '<div class="tl-spine"><div class="tl-dot"></div></div>' +
+          '<div class="tl-content">' +
+            '<div class="tl-year-badge">' + item.year + '</div>' +
+            '<div class="tl-topic-tag">' + item.topic + '</div>' +
+            '<h3 class="tl-title">' + item.title + '</h3>' +
+            '<p class="tl-desc">' + item.desc + '</p>' +
+          '</div>' +
+        '</div>';
+    });
+    tlList.innerHTML = tlHTML;
+    var tlObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    tlList.querySelectorAll('.tl-item').forEach(function(el) { tlObs.observe(el); });
+  }
 
   /* STUDY GUIDE */
   function renderGuide() {

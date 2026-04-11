@@ -155,6 +155,38 @@ button{font-family:inherit;cursor:pointer}
 .complexity-label{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:9px}
 .complexity-body{font-size:.86rem;line-height:1.8;color:rgba(255,255,255,.8)}
 .complexity-note{color:rgba(255,255,255,.4);font-size:.78rem;margin-top:7px;display:block}
+/* MAPS PAGE */
+.map-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.map-nav-btn{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;color:var(--muted);transition:all .15s}
+.map-nav-btn:hover,.map-nav-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.map-section{margin-bottom:52px;padding-bottom:52px;border-bottom:1px solid var(--border)}
+.map-section:last-child{border-bottom:none}
+.map-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.map-tag{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;background:var(--red);color:#fff}
+.map-date{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--border);padding:3px 10px}
+.map-title{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:900;line-height:1.15;margin-bottom:10px}
+.map-caption{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.map-img-wrap{margin-bottom:20px;border:1px solid var(--border);background:var(--paper);text-align:center}
+.map-img-wrap img{display:block;max-width:100%;max-height:75vh;width:auto;margin:0 auto;object-fit:contain}
+.map-img-pair{display:flex;gap:2px;margin-bottom:20px;border:1px solid var(--border);background:var(--border)}
+.map-img-pair > div{flex:1;background:var(--paper);text-align:center;display:flex;flex-direction:column}
+.map-img-pair img{display:block;width:100%;max-height:55vh;object-fit:contain}
+.map-img-pair-cap{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:6px;text-align:center;border-top:1px solid var(--border)}
+.map-placeholder{background:var(--paper);border:2px dashed var(--border2);padding:32px;text-align:center;margin-bottom:20px}
+.map-placeholder-icon{font-size:2.2rem;margin-bottom:8px;opacity:.4}
+.map-placeholder-text{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.map-placeholder-path{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--red);margin-top:6px;background:var(--red-bg);display:inline-block;padding:3px 10px}
+.map-context{font-size:.88rem;line-height:1.7;color:var(--mid);margin-bottom:16px}
+.map-reveals{margin-bottom:20px}
+.map-reveals-hdr{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--ink)}
+.map-reveal-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.map-reveal-item:last-child{border-bottom:none}
+.map-reveal-num{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:700;color:var(--red);flex-shrink:0;width:20px}
+.map-reveal-text{font-size:.85rem;line-height:1.65;color:var(--ink)}
+.map-reveal-text strong{color:var(--red)}
+.map-ap-box{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-top:16px}
+.map-ap-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.map-ap-text{font-size:.83rem;line-height:1.65;color:var(--ink)}
 /* VISUAL SOURCES */
 .vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
 .vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
@@ -361,6 +393,7 @@ button{font-family:inherit;cursor:pointer}
     <button class="hn-btn" data-tab="pg-guide">&#128214; Guide</button>
     <button class="hn-btn" data-tab="pg-tips">&#128161; Tips</button>
     <button class="hn-btn" data-tab="pg-games">&#127918; Games</button>
+    <button class="hn-btn" data-tab="pg-maps">&#128506; Maps</button>
     <button class="hn-btn" data-tab="pg-visual">&#128444; Visual Sources</button>
   </nav>
   <div id="bar-score">Score: <strong id="score-txt">0/0</strong></div>
@@ -528,6 +561,164 @@ button{font-family:inherit;cursor:pointer}
       <div class="vs-tab-row" id="vs-tabs"></div>
       <div id="vs-cards"></div>
     </div>
+  </div>
+</div>
+
+<!-- MAPS PAGE -->
+<div class="page" id="pg-maps">
+  <div class="inner" style="max-width:960px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 8 &mdash; Geographic Analysis</div>
+      <h2>Reading the Maps</h2>
+      <p>Maps are primary sources. Each one encodes choices about power, borders, and ideology &mdash; who drew the line, why there, and what it left out are AP-worthy questions every time.</p>
+    </div>
+
+    <nav class="map-nav" aria-label="Jump to map">
+      <button class="map-nav-btn active" data-mapjump="map-nato">NATO vs. Warsaw Pact</button>
+      <button class="map-nav-btn" data-mapjump="map-iron">East vs. West</button>
+      <button class="map-nav-btn" data-mapjump="map-india">Partition of India</button>
+      <button class="map-nav-btn" data-mapjump="map-africa">Decolonization of Africa</button>
+    </nav>
+
+    <!-- 1. NATO VS WARSAW PACT -->
+    <div class="map-section" id="map-nato">
+      <div class="map-meta">
+        <span class="map-tag">Topic 8.1 &amp; 8.3</span>
+        <span class="map-date">1955&ndash;1991</span>
+      </div>
+      <h3 class="map-title">NATO vs. Warsaw Pact: The Military Geography of the Cold War</h3>
+      <div class="map-caption">Map of Cold War alliance blocs in Europe, post-1955 &mdash; standard cartographic publication</div>
+      <div class="map-img-wrap">
+        <img src="images/maps/nato-warsaw.jpg" alt="Map showing NATO and Warsaw Pact alliance blocs" onerror="this.closest('.map-img-wrap').innerHTML='<div class=\'map-placeholder\'><div class=\'map-placeholder-icon\'>&#128506;</div><div class=\'map-placeholder-text\'>Add image to</div><div class=\'map-placeholder-path\'>images/maps/nato-warsaw.jpg</div></div>'">
+      </div>
+      <p class="map-context">NATO (North Atlantic Treaty Organization) was founded in 1949; the Warsaw Pact formed in 1955 as the Soviet response when West Germany joined NATO. The two alliances faced each other across a militarized frontier in central Europe. Both operated on Article 5-style collective defense logic: an attack on one member is an attack on all. The map shows the geographic distribution of member states, with a crucial detail &mdash; neutral nations in between.</p>
+      <div class="map-reveals">
+        <div class="map-reveals-hdr">What This Map Reveals</div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">1</div>
+          <div class="map-reveal-text"><strong>Germany was the Cold War's geographic center of gravity.</strong> Divided into West Germany (NATO) and East Germany (Warsaw Pact), Germany sat at the exact fault line. Berlin &mdash; deep inside East Germany &mdash; was the most dangerous flashpoint: a Western island surrounded by Soviet-aligned territory, blockaded in 1948 and walled in 1961.</div>
+        </div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">2</div>
+          <div class="map-reveal-text"><strong>Neutral nations reveal the limits of bipolar logic.</strong> Sweden, Finland, Austria, Switzerland, and Yugoslavia appear on neither side. Yugoslavia's neutrality is especially significant &mdash; Tito broke with Stalin in 1948, showing that communist states could resist Soviet control. The Non-Aligned Movement's logic had a European precedent.</div>
+        </div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">3</div>
+          <div class="map-reveal-text"><strong>NATO's geographic advantage was asymmetric.</strong> NATO included the United States and Canada &mdash; nations unreachable by Soviet conventional forces. The Warsaw Pact's strength was concentrated in continental Europe. The map shows why nuclear weapons were central to Soviet strategy: they were the only way to threaten the American homeland.</div>
+        </div>
+      </div>
+      <div class="map-ap-box">
+        <div class="map-ap-lbl">AP Exam Focus</div>
+        <div class="map-ap-text">NATO/Warsaw Pact questions test your understanding of <strong>how alliances structured Cold War conflict</strong>. Key contrasts: NATO was a voluntary alliance of democracies; Warsaw Pact members were Soviet satellites with limited sovereignty (see: Hungary 1956, Czechoslovakia 1968 &mdash; Soviet invasion to enforce bloc loyalty). The dissolution of the Warsaw Pact in 1991 and NATO's survival frames questions about post-Cold War order.</div>
+      </div>
+    </div>
+
+    <!-- 3. EAST VS WEST / IRON CURTAIN -->
+    <div class="map-section" id="map-iron">
+      <div class="map-meta">
+        <span class="map-tag">Topic 8.1</span>
+        <span class="map-date">1946&ndash;1989</span>
+      </div>
+      <h3 class="map-title">East vs. West: Europe Divided by the Iron Curtain</h3>
+      <div class="map-caption">Map of divided Europe showing Soviet and Western spheres, Cold War era &mdash; standard reference map</div>
+      <div class="map-img-wrap">
+        <img src="images/maps/iron-curtain.jpg" alt="Map of divided Europe showing Iron Curtain, Cold War" onerror="this.closest('.map-img-wrap').innerHTML='<div class=\'map-placeholder\'><div class=\'map-placeholder-icon\'>&#128506;</div><div class=\'map-placeholder-text\'>Add image to</div><div class=\'map-placeholder-path\'>images/maps/iron-curtain.jpg</div></div>'">
+      </div>
+      <p class="map-context">Churchill named it the "Iron Curtain" in his 1946 Fulton speech: "From Stettin in the Baltic to Trieste in the Adriatic, an iron curtain has descended across the Continent." The map shows the political and military division of Europe that defined the Cold War for 44 years. Western Europe (US sphere) was capitalist and democratic; Eastern Europe (Soviet sphere) was communist and authoritarian. The division was formalized at Yalta (1945) and hardened through the late 1940s.</p>
+      <div class="map-reveals">
+        <div class="map-reveals-hdr">What This Map Reveals</div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">1</div>
+          <div class="map-reveal-text"><strong>The division was the result of military geography, not elections.</strong> Soviet forces liberated Eastern Europe from Nazi occupation and simply stayed. The Iron Curtain ran where the Red Army stopped in May 1945. The map is a picture of where two armies met &mdash; and a reminder that the postwar order was imposed by force as much as by diplomacy.</div>
+        </div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">2</div>
+          <div class="map-reveal-text"><strong>Berlin was an anomaly that made the Cold War dangerous.</strong> The map shows Berlin surrounded by Soviet-controlled East Germany, yet divided into four occupation zones. This geographic absurdity produced the Berlin Blockade (1948), the Berlin Airlift, the Berlin Wall (1961), and crises that brought the superpowers close to confrontation repeatedly.</div>
+        </div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">3</div>
+          <div class="map-reveal-text"><strong>The line moved once in 44 years.</strong> When the Berlin Wall fell in November 1989 and Germany reunified in 1990, the Iron Curtain disappeared &mdash; almost overnight. The speed of 1989 shows how artificial the division had been: it was maintained by Soviet military force, and when Gorbachev signaled he wouldn't intervene, the entire structure collapsed within months.</div>
+        </div>
+      </div>
+      <div class="map-ap-box">
+        <div class="map-ap-lbl">AP Exam Focus</div>
+        <div class="map-ap-text">Questions about this map connect to <strong>Cold War origins</strong> (Yalta, Soviet expansion), <strong>containment</strong> (why the U.S. drew the line), and <strong>Cold War end</strong> (why the line disappeared in 1989&ndash;91). Churchill's "Iron Curtain" speech is a frequently tested document &mdash; link the rhetorical image to the geographic reality shown on the map, and note that Churchill was out of power when he gave it, speaking as a private citizen trying to shape American policy.</div>
+      </div>
+    </div>
+
+    <!-- 4. PARTITION OF INDIA -->
+    <div class="map-section" id="map-india">
+      <div class="map-meta">
+        <span class="map-tag">Topic 8.6</span>
+        <span class="map-date">August 1947</span>
+      </div>
+      <h3 class="map-title">The Partition of British India, 1947</h3>
+      <div class="map-caption">Map depicting the Radcliffe Line &mdash; partition of British India into India and Pakistan, August 14&ndash;15, 1947</div>
+      <div class="map-img-wrap">
+        <img src="images/stimuli/u8-9.jpg" alt="Map of the partition of British India into India and Pakistan, 1947">
+      </div>
+      <p class="map-context">On August 14&ndash;15, 1947, British India was partitioned into two independent nations: India and Pakistan (which included what is now Bangladesh as East Pakistan). The Radcliffe Line &mdash; drawn by Sir Cyril Radcliffe, a British lawyer who had never visited India &mdash; divided Punjab and Bengal along religious lines. The decision was made in 73 days. The result: one of history&rsquo;s largest forced migrations (10&ndash;15 million people) and communal violence that killed between 200,000 and 2 million.</p>
+      <div class="map-reveals">
+        <div class="map-reveals-hdr">What This Map Reveals</div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">1</div>
+          <div class="map-reveal-text"><strong>The line cut through communities, not just territories.</strong> Punjab and Bengal had mixed Hindu, Muslim, and Sikh populations at the village level. A line drawn on religious majorities at the district level bisected families, farms, irrigation systems, and railway lines. The map shows a clean boundary; the reality was chaos and massacre.</div>
+        </div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">2</div>
+          <div class="map-reveal-text"><strong>Pakistan's two halves were geographically incoherent.</strong> West Pakistan and East Pakistan (1,000 miles apart, separated by India) were united only by religion. The map reveals the structural flaw that produced the 1971 Bangladesh Liberation War, when East Pakistan broke away with Indian military support &mdash; creating a third state from the original partition.</div>
+        </div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">3</div>
+          <div class="map-reveal-text"><strong>Kashmir is the map&rsquo;s unresolved question.</strong> Kashmir had a Muslim-majority population but a Hindu maharajah who chose to accede to India. The disputed border shown on the map (now called the Line of Control) has never been formally resolved. India and Pakistan have fought three wars over it; both possess nuclear weapons. The partition map&rsquo;s unfinished business remains a live geopolitical crisis.</div>
+        </div>
+      </div>
+      <div class="map-ap-box">
+        <div class="map-ap-lbl">AP Exam Focus</div>
+        <div class="map-ap-text">AP questions on this map test <strong>decolonization's challenges</strong>: how colonial administrative structures (one unit governing diverse communities) produced post-independence crises. Connect to the <strong>POV</strong> skill: the Radcliffe map represents the colonial administrator's perspective &mdash; clean lines, no villages, no people. Compare to the African decolonization maps below for a pattern: in both cases, European-drawn borders created artificial states.</div>
+      </div>
+    </div>
+
+    <!-- 5. DECOLONIZATION OF AFRICA -->
+    <div class="map-section" id="map-africa">
+      <div class="map-meta">
+        <span class="map-tag">Topic 8.6</span>
+        <span class="map-date">1930 vs. 1981</span>
+      </div>
+      <h3 class="map-title">Decolonization of Africa: 1930 and 1981</h3>
+      <div class="map-caption">Left: European colonial possessions in Africa, 1930 &mdash; Right: Independent African nation-states, 1981 &mdash; Historical atlas</div>
+      <div class="map-img-pair">
+        <div>
+          <img src="images/stimuli/u8-11a.jpg" alt="Map of Africa showing European colonial possessions, 1930">
+          <div class="map-img-pair-cap">Africa, 1930 &mdash; Colonial</div>
+        </div>
+        <div>
+          <img src="images/stimuli/u8-11b.jpg" alt="Map of Africa showing independent states, 1981">
+          <div class="map-img-pair-cap">Africa, 1981 &mdash; Independent</div>
+        </div>
+      </div>
+      <p class="map-context">In 1930, virtually all of Africa was colonized by European powers: Britain, France, Belgium, Portugal, Italy, and Spain. Only Ethiopia and Liberia were independent. By 1981, over 50 sovereign African nations existed &mdash; nearly all created between 1956 and 1975, with 1960 alone producing 17 new nations ("the Year of Africa"). The transformation happened within a single human lifetime.</p>
+      <div class="map-reveals">
+        <div class="map-reveals-hdr">What This Map Reveals</div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">1</div>
+          <div class="map-reveal-text"><strong>Colonial borders became national borders.</strong> Compare the 1930 and 1981 maps carefully: the internal boundaries between colonial territories became the borders of independent nations. These lines were drawn at the 1884&ndash;85 Berlin Conference by European powers who knew nothing of African ethnic, linguistic, or political geography. The new African states inherited borders that cut across over 177 ethnic and linguistic boundaries &mdash; a structural source of post-independence conflict.</div>
+        </div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">2</div>
+          <div class="map-reveal-text"><strong>The pace of decolonization was uneven and reveals different causes.</strong> British and French colonies mostly became independent through negotiated transfer in the late 1950s&ndash;early 1960s. Portuguese colonies (Angola, Mozambique) held out until the 1970s &mdash; because Portugal was a fascist dictatorship with no domestic pressure to decolonize. The timing on the map tells you about the political will (and capacity) of each colonial power.</div>
+        </div>
+        <div class="map-reveal-item">
+          <div class="map-reveal-num">3</div>
+          <div class="map-reveal-text"><strong>The 1981 map shows formal sovereignty, not actual independence.</strong> Political maps show which flag flies over a capital. They don&rsquo;t show neo-colonial economic relationships: many African nations exported raw materials to former colonial powers, imported manufactured goods, and carried debts denominated in European currencies. Formal decolonization and genuine self-determination were not the same thing &mdash; which is exactly what the Pan-African and Non-Aligned movements argued.</div>
+        </div>
+      </div>
+      <div class="map-ap-box">
+        <div class="map-ap-lbl">AP Exam Focus</div>
+        <div class="map-ap-text">This two-map set is a classic AP stimulus format. Expect questions asking <strong>what drove the transformation</strong> (World War II's weakening of European empires + African nationalist movements + Cold War superpower pressure), <strong>what challenges the new states faced</strong> (colonial border legacy, economic dependency, Cold War proxy interference), and <strong>sourcing questions</strong>: note that historical atlases are produced for Western educational audiences &mdash; the before/after format frames decolonization as a completed success story rather than an ongoing struggle.</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -834,8 +1025,7 @@ var VISUAL_DATA_U8 = [
       'Former colonial powers deliberately drawing borders to create conflict and maintain influence in newly independent territories',
       'The United Nations\' decision to intervene in decolonization processes to ensure democratic governance',
       'Newly independent states\' difficulty in establishing borders that reflected Cold War alliance commitments',
-      'The difficulty of creating stable post-colonial states when colonial rule had governed diverse religious and ethnic communities under a single administrative unit',
-      'The Non-Aligned Movement\'s failure to prevent superpower interference in South Asian independence negotiations'
+      'The difficulty of creating stable post-colonial states when colonial rule had governed diverse religious and ethnic communities under a single administrative unit'
     ],
     c: 3,
     e: 'The partition of India illustrates how colonial rule created the conditions for post-independence crisis: Britain governed hundreds of millions of Hindus, Muslims, and Sikhs as a single administrative unit with no clear path to independent governance that satisfied all communities. Hasty partition along religious lines produced borders that cut across communities, creating mass displacement, violence, and territorial disputes (especially over Kashmir) that persist today. This pattern \u2014 colonial administrative units poorly suited to post-colonial governance \u2014 repeated across Africa and Asia.',
@@ -1556,6 +1746,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('pick-asteroid').addEventListener('click', function() { document.getElementById('game-picker').style.display = 'none'; document.getElementById('asteroid-game').style.display = 'block'; startAsteroidGame(); });
     document.getElementById('ast-back').addEventListener('click', function() { clearAsteroids(); cancelAnimationFrame(astRAF); document.getElementById('asteroid-game').style.display = 'none'; document.getElementById('game-picker').style.display = 'grid'; });
     document.getElementById('ast-replay').addEventListener('click', startAsteroidGame);
+  })();
+
+  /* MAPS PAGE NAV */
+  (function() {
+    document.querySelectorAll('.map-nav-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.map-nav-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var target = document.getElementById(btn.dataset.mapjump);
+        if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
   })();
 
   /* VISUAL SOURCES (HAPP) */

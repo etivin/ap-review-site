@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 6 Review — AP World History: Modern</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --green:#1a6825;--green-bg:#eef7f0;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+}
+body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;line-height:1.65;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+
+/* HEADER */
+.site-header{background:var(--ink);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:600;box-shadow:0 2px 20px rgba(0,0,0,.4)}
+.header-brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.header-badge{background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;padding:4px 9px;flex-shrink:0}
+.header-title{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.header-title strong{color:#fff}
+.header-nav{display:flex;align-items:center;gap:2px;overflow-x:auto}
+.hn-btn{background:none;border:none;color:rgba(255,255,255,.5);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.09em;text-transform:uppercase;padding:7px 10px;transition:color .15s,background .15s;white-space:nowrap}
+.hn-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hn-btn.active{color:#fff;background:rgba(176,0,28,.35)}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* INNER */
+.inner{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+.pg-hero{text-align:center;padding:32px 0 28px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.pg-hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:8px}
+.pg-hero p{color:var(--muted);font-size:.92rem;max-width:520px;margin:0 auto}
+
+/* HOME HERO */
+.hero{position:relative;min-height:72vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(to bottom,rgba(249,246,239,.88) 0%,rgba(243,236,224,.82) 50%,rgba(243,236,224,.94) 100%),url("https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Going_to_Work_by_Eyre_Crowe.jpg/1280px-Going_to_Work_by_Eyre_Crowe.jpg") center/cover no-repeat;padding:90px 24px 60px;border-bottom:3px solid var(--border2)}
+.hero-inner{text-align:center;max-width:720px;margin:0 auto}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:16px;border:1px solid rgba(176,0,28,.35);display:inline-block;padding:4px 14px;background:rgba(255,255,255,.6)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.0;color:var(--ink);margin-bottom:18px}
+.hero h1 em{color:var(--red);font-style:italic}
+.hero-rule{width:70px;height:3px;background:var(--red);margin:0 auto 20px}
+.hero-sub{color:var(--mid);font-size:clamp(.9rem,2vw,1.1rem);max-width:560px;line-height:1.7;margin:0 auto 28px}
+.hero-period{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.hero-btn{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;border:none;transition:all .2s}
+.hero-btn-primary{background:var(--red);color:#fff}
+.hero-btn-primary:hover{background:var(--red-d);transform:translateY(-2px)}
+.hero-btn-outline{background:rgba(255,255,255,.7);color:var(--ink);border:1.5px solid var(--border2)!important}
+.hero-btn-outline:hover{background:var(--ink);color:#fff}
+
+/* HOME FEATURES */
+.features{background:var(--white);padding:52px 24px;border-bottom:2px solid var(--border)}
+.features-inner{max-width:900px;margin:0 auto}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;margin-bottom:28px;line-height:1.1}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.feat{background:var(--cream);border:1px solid var(--border);border-top:4px solid var(--red);padding:20px 18px;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer}
+.feat:hover{box-shadow:var(--shm);transform:translateY(-3px)}
+.feat-icon{font-size:1.7rem}
+.feat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700}
+.feat-desc{font-size:.79rem;color:var(--muted);line-height:1.5}
+.feat-count{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-top:auto}
+
+/* MCQ */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.tc{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--red);padding:16px 18px;text-align:left;transition:box-shadow .18s,transform .18s}
+.tc:hover{box-shadow:var(--shm);transform:translateY(-2px)}
+.tc-n{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.tc-name{font-size:.93rem;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.3}
+.tc-cnt{font-family:'IBM Plex Mono',monospace;font-size:.54rem;color:var(--muted);letter-spacing:.08em}
+.btn-all{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;transition:background .15s}
+.btn-all:hover{background:var(--red)}
+.btn-mixed{display:block;width:100%;background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-b);padding:12px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-top:10px;transition:background .15s}
+.btn-mixed:hover{background:var(--gold-b);color:var(--ink)}
+.qsession{display:none}
+.qsession.active{display:block}
+.qhdr{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qhdr-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+.qhdr-prog{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.08em}
+.qpbar{background:var(--border);height:4px;margin-bottom:24px;border-radius:2px}
+.qpbf{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.stim{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--red);padding:18px 20px;margin-bottom:18px}
+.stim-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.stim-src{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:10px;padding-top:8px;border-top:1px solid var(--border)}
+.q-text{font-size:.95rem;font-weight:600;line-height:1.55;margin-bottom:14px}
+.mc-opt{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:11px 16px;margin-bottom:8px;font-size:.88rem;line-height:1.5;transition:border-color .15s,background .15s;color:var(--ink)}
+.mc-opt:hover:not(:disabled){border-color:var(--red);background:var(--red-bg)}
+.mc-opt.correct{border-color:var(--green);background:var(--green-bg);color:var(--green);font-weight:600}
+.mc-opt.wrong{border-color:var(--red);background:var(--red-bg);color:var(--red)}
+.mc-opt:disabled{cursor:default}
+.q-explain{display:none;background:var(--blue-bg);border:1px solid #b8c8e8;border-left:4px solid var(--blue);padding:14px 18px;font-size:.84rem;line-height:1.7;margin-top:10px;color:var(--ink)}
+.q-explain.show{display:block}
+.q-block{background:var(--white);border:1px solid var(--border);padding:22px 24px;margin-bottom:22px}
+.q-num{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.btn-row{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.btn{padding:10px 20px;border:1.5px solid var(--border2);background:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);transition:all .15s}
+.btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-red:hover{background:var(--red-d);border-color:var(--red-d)}
+#mcq-topics{display:block}
+#mcq-session{display:none}
+#mcq-session.active{display:block}
+
+/* STUDY GUIDE */
+.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
+.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;transition:background .15s;gap:12px}
+.sg-hdr:hover{background:var(--cream)}
+.sg-hdr.open{background:var(--ink);color:#fff}
+.sg-htitle{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;line-height:1.3}
+.sg-hmeta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.sg-hnum{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.5)}
+.sg-arr{font-size:.7rem;color:var(--muted);transition:transform .2s}
+.sg-hdr.open .sg-arr{transform:rotate(180deg);color:#fff}
+.sg-body{display:none;padding:22px 24px;border-top:1px solid var(--border);font-size:.88rem;line-height:1.8}
+.sg-body.open{display:block}
+.sg-body p{margin-bottom:12px}
+.sg-body p:last-of-type{margin-bottom:0}
+.sg-body ul,.sg-body ol{margin:8px 0 12px 20px}
+.sg-body li{margin-bottom:4px}
+.sg-body strong{color:var(--ink)}
+.sg-kws{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.sg-kw{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;background:var(--paper);border:1px solid var(--border);padding:3px 9px;color:var(--mid)}
+
+/* FLASHCARDS */
+.fc-toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.fc-timer-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fc-timer-lbl{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.fc-timer-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.08em;background:none;border:1.5px solid var(--border);padding:5px 11px;color:var(--mid);transition:all .15s}
+.fc-timer-btn:hover,.fc-timer-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.fc-action-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.08em;background:none;border:1.5px solid var(--border2);padding:5px 14px;color:var(--ink);transition:all .15s;margin-left:auto}
+.fc-action-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fc-filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.fc-filter-btn{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1.5px solid var(--border);padding:4px 10px;color:var(--muted);transition:all .15s}
+.fc-filter-btn:hover,.fc-filter-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+.fc-progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.fc-progress-txt{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fc-progress-bar{flex:1;height:3px;background:var(--border);margin:0 14px;border-radius:2px}
+.fc-progress-fill{height:100%;background:var(--red);border-radius:2px;transition:width .3s}
+.fc-scene{perspective:1200px;width:100%;max-width:640px;height:320px;margin:0 auto 24px;cursor:pointer}
+@media(max-width:600px){.fc-scene{height:260px}}
+.fc-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.fc-card-inner.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;padding:28px 32px;border:1px solid var(--border2);box-shadow:var(--shm)}
+.fc-front{background:var(--white);justify-content:center;align-items:center;text-align:center}
+.fc-back{background:var(--ink);color:#fff;transform:rotateY(180deg);justify-content:center;align-items:flex-start;text-align:left;overflow-y:auto}
+.fc-topic-tag{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;margin-bottom:14px;align-self:flex-start}
+.fc-front .fc-topic-tag{background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.2)}
+.fc-back .fc-topic-tag{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7)}
+.fc-term{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:900;line-height:1.2;margin-bottom:12px}
+.fc-hint{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.fc-def{font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.9)}
+.fc-back .fc-term-mini{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:rgba(255,255,255,.45);margin-bottom:10px}
+.fc-timer-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(0,0,0,.08)}
+.fc-timer-fill{height:100%;background:var(--red);width:100%;transition:width linear}
+.fc-timer-fill.depleting{transition:none}
+.fc-nav-row{display:flex;justify-content:center;align-items:center;gap:16px;margin-bottom:12px}
+.fc-nav-btn{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1.5px solid var(--border2);padding:9px 22px;color:var(--ink);transition:all .15s}
+.fc-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fc-nav-btn:disabled{opacity:.3;cursor:default}
+.fc-complete{text-align:center;padding:48px 24px;border:1px solid var(--border);background:var(--white);display:none}
+.fc-complete.show{display:block}
+.fc-complete h3{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:8px}
+.fc-complete p{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+.fc-complete-btn{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:12px 28px;transition:background .15s}
+.fc-complete-btn:hover{background:var(--red-d)}
+.fc-keyboard-hint{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+@media(max-width:600px){
+  .fc-face{padding:20px 20px}
+  .fc-term{font-size:1.3rem}
+  .fc-def{font-size:.83rem}
+  .fc-toolbar{gap:10px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <a href="index.html" style="color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2);padding:5px 12px;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .15s;margin-right:6px;white-space:nowrap" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">&#8962; Home</a>
+    <div class="header-badge">APWH</div>
+    <div class="header-title">AP World History: Modern &nbsp;&mdash;&nbsp; <strong>Unit 6</strong></div>
+  </div>
+  <nav class="header-nav">
+    <button class="hn-btn active" data-tab="pg-home">Home</button>
+    <button class="hn-btn" data-tab="pg-mcq">&#128203; MCQ</button>
+    <button class="hn-btn" data-tab="pg-guide">&#128214; Study Guide</button>
+    <button class="hn-btn" data-tab="pg-flash">&#127183; Flashcards</button>
+  </nav>
+</header>
+
+<!-- HOME PAGE -->
+<div class="page active" id="pg-home">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Unit 6 &mdash; AP World History: Modern</div>
+      <h1>Industrialization &amp;<br/><em>Imperialism</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">From the steam engine to the Scramble for Africa &mdash; how industrialization reshaped the globe, drove empire, and set the stage for the modern world.</p>
+      <p class="hero-period">c. 1750 &mdash; c. 1900</p>
+      <div class="hero-btns" style="margin-top:24px">
+        <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">Practice MCQ</button>
+        <button class="hero-btn hero-btn-outline" data-tab="pg-flash">Flashcards</button>
+      </div>
+    </div>
+  </div>
+  <div class="features">
+    <div class="features-inner">
+      <div class="section-label">What&rsquo;s Inside</div>
+      <div class="section-heading">Three Ways to Review Unit 6</div>
+      <div class="features-grid">
+        <button class="feat" data-tab="pg-mcq">
+          <div class="feat-icon">&#128203;</div>
+          <div class="feat-name">MCQ Practice</div>
+          <div class="feat-desc">Stimulus-based AP questions organized by topic. Answer, check, and read explanations.</div>
+          <div class="feat-count">8 topics &mdash; 24 questions</div>
+        </button>
+        <button class="feat" data-tab="pg-guide">
+          <div class="feat-icon">&#128214;</div>
+          <div class="feat-name">Study Guide</div>
+          <div class="feat-desc">Expandable topic summaries with key terms, figures, and AP-relevant analysis.</div>
+          <div class="feat-count">8 topics with key terms</div>
+        </button>
+        <button class="feat" data-tab="pg-flash">
+          <div class="feat-icon">&#127183;</div>
+          <div class="feat-name">Flashcards + Timer</div>
+          <div class="feat-desc">45 key terms with definitions. Set a countdown timer, shuffle, and filter by topic.</div>
+          <div class="feat-count">45 terms &mdash; timer: 5s / 10s / 15s</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MCQ PAGE -->
+<div class="page" id="pg-mcq">
+  <div class="inner">
+    <div class="pg-hero">
+      <div class="eyebrow">MCQ Review</div>
+      <h2>Stimulus-Based Questions</h2>
+      <p>AP-authentic questions using primary sources and documents from Unit 6.</p>
+    </div>
+    <div id="mcq-topics">
+      <div class="topic-grid">
+        <button class="tc" data-topic="6.1"><div class="tc-n">Topic 6.1</div><div class="tc-name">Rationales for Imperialism</div><div class="tc-cnt" id="cnt61"></div></button>
+        <button class="tc" data-topic="6.2"><div class="tc-n">Topic 6.2</div><div class="tc-name">State Expansion</div><div class="tc-cnt" id="cnt62"></div></button>
+        <button class="tc" data-topic="6.3"><div class="tc-n">Topic 6.3</div><div class="tc-name">Indigenous Responses</div><div class="tc-cnt" id="cnt63"></div></button>
+        <button class="tc" data-topic="6.4"><div class="tc-n">Topic 6.4</div><div class="tc-name">Global Economic Development</div><div class="tc-cnt" id="cnt64"></div></button>
+        <button class="tc" data-topic="6.5"><div class="tc-n">Topic 6.5</div><div class="tc-name">Economic Imperialism</div><div class="tc-cnt" id="cnt65"></div></button>
+        <button class="tc" data-topic="6.6"><div class="tc-n">Topic 6.6</div><div class="tc-name">Causes of Migration</div><div class="tc-cnt" id="cnt66"></div></button>
+        <button class="tc" data-topic="6.7"><div class="tc-n">Topic 6.7</div><div class="tc-name">Effects of Migration</div><div class="tc-cnt" id="cnt67"></div></button>
+        <button class="tc" data-topic="6.8"><div class="tc-n">Topic 6.8</div><div class="tc-name">Causation in the Imperial Age</div><div class="tc-cnt" id="cnt68"></div></button>
+      </div>
+      <button class="btn-mixed" id="mcq-mixed-btn">&#9889; Quick Mixed Quiz &mdash; 2 Questions Per Topic</button>
+      <button class="btn-all" id="mcq-all-btn">&#128203; Practice All Questions</button>
+    </div>
+    <div id="mcq-session">
+      <div class="qhdr">
+        <div class="qhdr-name" id="qhdr-name">All Questions</div>
+        <div class="qhdr-prog" id="qhdr-prog">0 answered</div>
+      </div>
+      <div class="qpbar"><div class="qpbf" id="qpbf" style="width:0%"></div></div>
+      <div id="qbody"></div>
+      <div class="btn-row">
+        <button class="btn btn-red" id="mcq-back-btn">&#8592; Back to Topics</button>
+        <button class="btn" id="mcq-reset-btn">Reset &amp; Retry</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STUDY GUIDE PAGE -->
+<div class="page" id="pg-guide">
+  <div class="inner">
+    <div class="pg-hero">
+      <div class="eyebrow">Study Guide</div>
+      <h2>Unit 6: Industrialization &amp; Imperialism</h2>
+      <p>Click each topic to expand the full summary and key terms.</p>
+    </div>
+    <div id="sg-content"></div>
+  </div>
+</div>
+
+<!-- FLASHCARDS PAGE -->
+<div class="page" id="pg-flash">
+  <div class="inner" style="max-width:760px">
+    <div class="pg-hero">
+      <div class="eyebrow">Flashcards</div>
+      <h2>45 Key Terms &mdash; Unit 6</h2>
+      <p>Click a card to flip. Use the timer to challenge yourself. Filter by topic or shuffle the deck.</p>
+    </div>
+
+    <div class="fc-toolbar">
+      <div class="fc-timer-group">
+        <span class="fc-timer-lbl">Timer:</span>
+        <button class="fc-timer-btn active" data-sec="0">Off</button>
+        <button class="fc-timer-btn" data-sec="5">5s</button>
+        <button class="fc-timer-btn" data-sec="10">10s</button>
+        <button class="fc-timer-btn" data-sec="15">15s</button>
+      </div>
+      <button class="fc-action-btn" id="fc-shuffle-btn">&#8645; Shuffle</button>
+      <button class="fc-action-btn" id="fc-restart-btn">&#8635; Reset</button>
+    </div>
+
+    <div class="fc-filter-row" id="fc-filter-row">
+      <button class="fc-filter-btn active" data-filter="all">All (45)</button>
+      <button class="fc-filter-btn" data-filter="6.1">6.1 Rationales</button>
+      <button class="fc-filter-btn" data-filter="6.2">6.2 Expansion</button>
+      <button class="fc-filter-btn" data-filter="6.3">6.3 Responses</button>
+      <button class="fc-filter-btn" data-filter="6.4">6.4 Economy</button>
+      <button class="fc-filter-btn" data-filter="6.5">6.5 Econ. Imperialism</button>
+      <button class="fc-filter-btn" data-filter="6.6">6.6 Migration Causes</button>
+      <button class="fc-filter-btn" data-filter="6.7">6.7 Migration Effects</button>
+      <button class="fc-filter-btn" data-filter="6.8">6.8 Causation</button>
+    </div>
+
+    <div class="fc-progress-row">
+      <span class="fc-progress-txt" id="fc-prog-txt">1 / 45</span>
+      <div class="fc-progress-bar"><div class="fc-progress-fill" id="fc-prog-fill" style="width:0%"></div></div>
+      <span class="fc-progress-txt" id="fc-pct-txt">0%</span>
+    </div>
+
+    <div class="fc-scene" id="fc-scene">
+      <div class="fc-card-inner" id="fc-card-inner">
+        <div class="fc-face fc-front" id="fc-front">
+          <div class="fc-topic-tag" id="fc-front-tag">Topic 6.1</div>
+          <div class="fc-term" id="fc-term">Loading&hellip;</div>
+          <div class="fc-hint">Click to reveal definition</div>
+          <div class="fc-timer-bar"><div class="fc-timer-fill" id="fc-timer-fill" style="width:100%"></div></div>
+        </div>
+        <div class="fc-face fc-back" id="fc-back">
+          <div class="fc-topic-tag" id="fc-back-tag">Topic 6.1</div>
+          <div class="fc-term-mini" id="fc-back-term"></div>
+          <div class="fc-def" id="fc-def">Definition here</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-nav-row">
+      <button class="fc-nav-btn" id="fc-prev-btn">&#8592; Prev</button>
+      <button class="fc-nav-btn" id="fc-next-btn">Next &#8594;</button>
+    </div>
+    <div class="fc-keyboard-hint">Spacebar = flip &nbsp;&bull;&nbsp; &larr; &rarr; = navigate</div>
+
+    <div class="fc-complete" id="fc-complete">
+      <h3>Deck Complete!</h3>
+      <p id="fc-complete-msg">You went through all 45 cards. Ready to go again?</p>
+      <button class="fc-complete-btn" id="fc-complete-restart">Start Over</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DATA ═══════════════ -->
+<script>
+var QB = {
+"6.1":[
+  {s:"Take up the White Man's burden— / Send forth the best ye breed— / Go bind your sons to exile / To serve your captives' need; / To wait in heavy harness, / On fluttered folk and wild— / Your new-caught, sullen peoples, / Half-devil and half-child.",sl:"Rudyard Kipling, 'The White Man's Burden,' 1899",q:"Kipling's poem most directly reflects which ideology used to justify European and American imperialism in the late nineteenth century?",o:["Scientific racism and Social Darwinism, which depicted colonized peoples as racially inferior and in need of European guidance","The economic argument that colonial territories provided essential markets for surplus industrial goods","The strategic argument that controlling overseas territories was necessary for national defense","The religious argument that Christian missionaries had a duty to convert non-Christian populations"],c:0,e:"Kipling's language — 'half-devil and half-child,' 'sullen peoples' — reflects the Social Darwinist and scientific racist ideology that portrayed colonized peoples as racially and culturally inferior, requiring European 'civilizing' guidance. This paternalistic racism became a core justification for imperialism across the late 19th century, deployed alongside but distinct from purely economic or religious arguments."},
+  {s:"The superior races have a right, because they have a duty. They have the duty to civilize the inferior races... Colonial policy is the daughter of industrial policy. Is it possible to say that in Europe — in the competitive scramble of so many rivals — we can afford not to export our goods abroad and not to seek investment opportunities for our capital? The answer is no.",sl:"Jules Ferry, French Prime Minister, speech defending French colonial expansion, 1884",q:"Ferry's speech illustrates which combination of factors driving European imperialism in the late nineteenth century?",o:["Religious conversion missions combined with humanitarian concern for colonized populations","Military security needs combined with opposition to rival powers' expansionism","Economic motivations linked to industrialization combined with an ideological belief in European cultural superiority","Diplomatic pressure from international organizations combined with domestic political opposition"],c:2,e:"Ferry explicitly links two central pillars of imperial justification: the economic need for markets and investment opportunities (a direct product of industrialization's surplus production capacity) and the racial-civilizational ideology that portrayed conquest as a 'duty' of 'superior races.' Both arguments were widely used across European imperial powers in the 1880s–1900s."},
+  {s:"Social Darwinism took Darwin's insights about natural selection and applied them to human societies and nations. Herbert Spencer, who coined the phrase 'survival of the fittest,' argued that competition between nations and races naturally resulted in the rise of superior peoples. Imperialists used this framework to argue that the conquest of weaker peoples was not merely justified — it was the natural and inevitable unfolding of human progress.",sl:"Secondary source summary of Social Darwinist ideology, c. 1880s",q:"Social Darwinism differed from Charles Darwin's actual scientific theory most significantly in that it",o:["Rejected the idea that species could change over time through competition and natural selection","Applied biological concepts to human societies and nations to justify conquest and racial hierarchy","Argued that all human civilizations followed an identical path of evolutionary progress","Claimed that technological development determined which nations would survive international competition"],c:1,e:"Darwin's theory addressed biological evolution in plants and animals. Social Darwinism misapplied these biological concepts to human societies, nations, and races — using 'survival of the fittest' to justify imperial conquest and racial hierarchy. This misapplication was not scientific but ideological, giving a veneer of scientific legitimacy to policies that served imperial economic and political interests."}
+],
+"6.2":[
+  {s:"The general act of the conference hereby establishes freedom of commerce throughout the Congo Basin... Any new occupation of territory on the coasts of Africa must be notified to the signatory powers. The principle of effective occupation is hereby established: a power claiming territory must demonstrate actual governance.",sl:"General Act of the Berlin Conference, February 26, 1885",q:"The Berlin Conference of 1884–85 most directly illustrates which aspect of European imperialism?",o:["European powers competed militarily for African territory, with victory in battle determining colonial borders","African rulers participated in negotiations that established borders protecting their existing territories","European powers collectively organized the partition of Africa without African participation, treating the continent as available for European acquisition","The United States played a leading role in mediating disputes between European colonial powers"],c:2,e:"The Berlin Conference is the paradigmatic example of European powers treating Africa as open for claiming. Representatives of 14 European nations and the United States met in Berlin to regulate the Scramble for Africa — establishing rules for how European powers could claim territory. No African rulers were invited or consulted. The result was the partition of roughly 80% of Africa into European colonies by 1900."},
+  {s:"Japan has opened its mines, built railways, constructed ships, established telegraph systems, and reorganized its army and navy on European models — all within thirty years. The transformation is not mere imitation; it is the deliberate adoption of Western techniques to preserve Japanese independence. The nation that modernizes fastest will not be colonized.",sl:"Secondary source paraphrase of Meiji-era Japanese government strategy, c. 1890",q:"Japan's Meiji-era modernization most directly challenges which assumption often made about 19th-century imperialism?",o:["Western-style industrialization and modernization could only succeed in societies with existing Protestant Christian traditions","Non-Western nations could industrialize, build modern military forces, and resist colonization by selectively adopting Western technology","The Japanese government's authoritarian structure made industrialization faster than in European democracies","Colonization by Western powers was necessary for Asian nations to develop industrial economies"],c:1,e:"Japan's Meiji Restoration (1868) represents the most successful case of a non-Western nation adopting Western industrial and military technology to avoid colonization. By 1905, Japan defeated Russia — the first time a non-Western nation defeated a European power in modern warfare. Japan then itself became an imperial power, annexing Taiwan (1895) and Korea (1910), demonstrating that imperialism was not uniquely European."},
+  {s:"The Government of India Act of 1858 transferred sovereignty over India from the British East India Company to the British Crown. Queen Victoria was proclaimed Empress of India in 1877. The Colonial Secretary noted: 'We have 300 million subjects who regard our rule as the guarantee of peace, order, and prosperity they could not provide for themselves.'",sl:"Secondary source summary of British Crown assumption of Indian governance, 1858",q:"The transfer of authority over India from the East India Company to the British Crown in 1858 most directly resulted from",o:["Indian nationalist demands for greater self-governance within the British imperial system","The British government's desire to more efficiently extract revenue from Indian territories","The Indian Rebellion of 1857, which demonstrated that corporate governance was inadequate to maintain British control","International diplomatic pressure from European rivals seeking to limit British expansion in Asia"],c:2,e:"The Indian Rebellion of 1857 — triggered by cultural insensitivity, economic exploitation, and the Enfield rifle cartridge controversy — forced Britain to dramatically reconsider its governance model. The East India Company's rule had proven unable to maintain order; Crown rule promised more direct, coordinated imperial governance. The colonial secretary's statement also exemplifies the civilizing mission ideology used to justify continued British control."}
+],
+"6.3":[
+  {s:"The cartridges for the new Enfield rifle were rumored to be greased with pig and cow fat — forbidden to Muslims and Hindus respectively. The sepoys refused to use them. But this was only the spark. Behind it lay decades of resentment: the annexation of native states, the abolition of customs missionaries condemned as 'barbaric,' the replacement of Persian with English as the official administrative language. In May 1857, the rebellion had begun.",sl:"Secondary source narrative of the Indian Rebellion of 1857",q:"The Indian Rebellion of 1857 is best understood as",o:["A coordinated nationalist independence movement seeking to establish a unified independent Indian state","A mutiny sparked solely by religious offense over rifle cartridges, with no broader political causes","A response to multiple accumulated grievances against British rule, triggered by a specific cultural offense","A communist-inspired uprising against British capitalist exploitation of Indian workers"],c:2,e:"The cartridge controversy was the trigger, but historians emphasize the accumulation of grievances: loss of land through the Doctrine of Lapse, suppression of Indian customs, displacement of traditional elites, economic exploitation, and cultural humiliation. The rebellion was not a unified nationalist movement — it lacked coordination and a unified leadership — but it drew on broad resentment across northern India and represented the most significant challenge to British rule before the 20th-century nationalist movement."},
+  {s:"Emperor Menelik II of Ethiopia, learning of the Italian advance, mobilized approximately 100,000 soldiers — including both traditional warriors and troops equipped with modern rifles and artillery purchased from France and Russia. At Adwa on March 1, 1896, Ethiopian forces surrounded and destroyed an Italian army of 18,000 men. Italy was forced to sign the Treaty of Addis Ababa, recognizing Ethiopia's full sovereignty.",sl:"Secondary source summary of the Battle of Adwa, 1896",q:"The Ethiopian victory at Adwa in 1896 was most significant because it",o:["Demonstrated that African kingdoms could defeat European armies through superior strategy and access to modern weapons, inspiring anti-colonial movements","Forced all European colonial powers to immediately abandon their territorial claims in Africa","Led directly to organized nationalist resistance across all of sub-Saharan Africa","Proved that African kingdoms could successfully incorporate European settlers into their political systems"],c:0,e:"Adwa was the only complete African military defeat of a European colonial army during the Scramble for Africa, and Ethiopia remained one of only two African nations never colonized (alongside Liberia). The battle became a powerful symbol across Africa and the African diaspora of the possibility of successful resistance. Menelik's military modernization — importing European weapons while maintaining Ethiopian political independence — became a model for later anti-colonial strategists."},
+  {s:"The Qing court was divided. Some officials argued for immediate armed resistance to Western demands; others counseled accommodation. The 'Self-Strengthening Movement' sought to adopt Western military technology without altering Chinese political or cultural institutions. As one official argued: 'Chinese learning for the essence; Western learning for practical use.'",sl:"Secondary source summary of late Qing dynasty response to Western pressure, c. 1870s",q:"The Chinese Self-Strengthening Movement represents which type of indigenous response to imperialism?",o:["Armed resistance that sought to expel all Western presence from Chinese territory","Complete cultural assimilation, adopting both Western technology and Western political institutions","Selective modernization — using Western technology while preserving traditional Chinese political and cultural structures","Revolutionary overthrow of the Qing dynasty to establish a Western-style republic"],c:2,e:"The Self-Strengthening Movement (c. 1861–1895) represents selective modernization in response to imperialism — accepting Western military and industrial technology while rejecting Western political institutions and cultural values. The formula 'Chinese learning for the essence, Western learning for practical use' reflected elite anxiety about losing Chinese identity while recognizing the need to modernize military capacity. The movement ultimately failed — China's defeat in the 1894–95 Sino-Japanese War exposed the limits of technological modernization without political reform."}
+],
+"6.4":[
+  {s:"By 1900, over 200,000 miles of railroad track spanned the globe. The railroad transformed the economics of empire: raw materials that once took weeks to reach a coastal port arrived within hours. The interior of continents — Africa, Asia, Latin America — was opened to commercial exploitation. The railroads transported cotton, rubber, and minerals outward; they carried manufactured goods inward.",sl:"Secondary source summary of railroad imperialism, c. 1900",q:"The global expansion of railroads in the nineteenth century most directly contributed to",o:["The economic independence of African and Asian societies by providing infrastructure for domestic trade","The integration of colonial territories into a global economy that extracted raw materials and supplied manufactured goods, deepening economic inequality","The spread of democratic governance by enabling faster communication between colonial governments and local populations","The decline of European industrial production as cheaper goods from colonial territories undercut domestic manufacturing"],c:1,e:"Railroads were built primarily to extract resources from colonial interiors to coastal ports for export, not to connect internal markets for domestic economic development. This 'export enclave' pattern meant railroads served colonial economic priorities, not local development needs. The result was structural economic dependency: colonies supplied raw materials and consumed manufactured imports, a pattern that persisted long after formal independence."},
+  {s:"The British cotton textile industry consumed 80% of Egypt's raw cotton by 1880. Egyptian farmers who once grew food were shifted to cotton monoculture — profitable in good years, catastrophic when British mills reduced orders. When the global cotton price fell in 1873, Egyptian farmers faced bankruptcy while British manufacturers who bought their cotton at lower prices increased profits.",sl:"Secondary source analysis of Egypt's cotton economy under informal British influence, c. 1880",q:"The Egyptian cotton economy described in this passage best illustrates which pattern of economic imperialism?",o:["European industrial nations deliberately suppressed colonial agricultural production to prevent competition with their own farms","Colonial economies were restructured to serve the needs of industrial metropolitan economies, making colonized peoples dependent on global commodity prices they could not control","Free trade policies allowed Egyptian farmers to accumulate capital and invest in industrial development","British economic policy in Egypt was driven primarily by humanitarian concern for Egyptian agricultural workers"],c:1,e:"Egypt's transformation into a cotton monoculture exemplifies how imperialism restructured colonial economies to serve metropolitan industrial needs. Egyptian farmers lost food security and economic independence; their livelihoods became tied to global commodity prices determined by markets in Liverpool and Manchester, not Cairo. This 'dependent development' — growth that benefited colonial powers while creating vulnerability in colonized territories — became a standard critique of imperialism and, later, of neocolonialism."}
+],
+"6.5":[
+  {s:"By the Treaty of Nanjing (1842), China ceded Hong Kong island to Britain. China was required to open five 'treaty ports' to British trade and residence. British citizens accused of crimes in China would be tried under British law in British courts — extraterritoriality. Britain was granted 'most-favored nation' status, ensuring it would receive any trade concession China granted to any other country. China paid an indemnity of 21 million silver dollars.",sl:"Secondary source summary of the Treaty of Nanjing, 1842",q:"The Treaty of Nanjing (1842) most directly illustrates which aspect of China's relationship with Western imperial powers in the nineteenth century?",o:["China's voluntary decision to open its economy to free trade in exchange for Western military protection","The imposition of unequal treaties that granted Western nations economic and legal privileges violating Chinese sovereignty","A negotiated compromise that balanced Chinese and British economic interests in the region","The failure of Western nations to establish meaningful commercial relationships with China"],c:1,e:"The Treaty of Nanjing established the template for what the Chinese called 'unequal treaties' — imposed by military force after China's defeat in the First Opium War, not negotiated between equals. Extraterritoriality, most-favored nation status, and forced treaty ports all represented direct violations of Chinese sovereignty. These treaties became the foundation of the 'Century of Humiliation' narrative that shaped Chinese politics through the 20th century."},
+  {s:"In June 1900, Chinese forces besieged the foreign legation quarter in Beijing for 55 days. The siege was lifted by an eight-nation international military force. The Boxer Protocol of 1901 required China to pay an indemnity of 450 million taels — more than four times China's annual government revenue. China was prohibited from importing arms. Foreign troops were permanently stationed in Beijing.",sl:"Secondary source summary of the Boxer Rebellion and Protocol, 1900–01",q:"The Boxer Uprising and the subsequent Boxer Protocol most directly demonstrates",o:["China's successful use of armed resistance to restore territorial sovereignty and limit Western privileges","The failure of accommodation strategies — China's willingness to grant trade privileges only increased foreign demands","That armed resistance deepened foreign control and financial burdens while failing to expel foreign powers","The effectiveness of the Qing government's military modernization in resisting foreign intervention"],c:2,e:"The Boxer Uprising seemed to represent a powerful armed response to imperialism, especially when the Qing government formally declared war on the foreign powers. But the eight-nation alliance suppressed the rebellion militarily, and the Boxer Protocol imposed humiliating terms that further limited Chinese sovereignty and created massive debt. The uprising accelerated the decline of the Qing dynasty rather than restoring Chinese autonomy — illustrating how armed resistance could sometimes worsen the conditions that inspired it."}
+],
+"6.6":[
+  {s:"Between 1848 and 1852, more than one million Irish people emigrated to the United States, fleeing the potato famine that killed approximately one million more. They arrived as unskilled laborers concentrated in northeastern cities. By the 1860s, Irish immigrants provided labor for the eastern transcontinental railroad while Chinese workers — recruited directly from Guangdong province — built the western half.",sl:"Secondary source summary of mid-19th century labor migration to the United States",q:"The migration patterns described in this passage are best explained by which combination of push and pull factors?",o:["Religious persecution in Ireland and China that drove migrants toward the religious freedom offered by the United States","Economic catastrophe in sending countries combined with massive labor demand in a rapidly industrializing destination economy","Political repression by governments in Ireland and China that drove political refugees to seek asylum in the United States","Active U.S. government recruitment programs that transported workers from Ireland and China to fill railroad shortages"],c:1,e:"Push-pull analysis is the standard framework for 19th-century migration. Push factors: the Irish famine (1845–52) and economic desperation in Guangdong province. Pull factors: American industrial and infrastructure expansion creating massive unskilled labor demand, particularly for dangerous, low-wage work European-American workers refused. The transcontinental railroad exemplifies this pattern — Chinese laborers built the more difficult Sierra Nevada sections under brutal conditions for wages below white workers."},
+  {s:"Following British abolition of slavery in 1833, plantation owners in the Caribbean, South Africa, and Southeast Asia faced labor shortages. Britain established indentured servitude: laborers from India, China, and elsewhere signed contracts binding them to five-year terms in exchange for transportation, wages, and eventual return passage. Between 1834 and 1920, over 1.5 million Indians traveled to Fiji, Trinidad, Guyana, Mauritius, and South Africa under these contracts.",sl:"Secondary source summary of the indentured labor system, 19th century",q:"The indentured labor system described in this passage most directly illustrates which historical continuity?",o:["The persistence of coerced and exploitative labor systems following the formal abolition of chattel slavery","Britain's commitment to providing equal economic opportunities to workers across its empire","The genuinely voluntary character of labor migration in the British Empire following abolition","The decline of plantation agriculture in the British Empire following emancipation"],c:0,e:"Indentured servitude is often described as a 'new system of slavery.' While technically voluntary (contracts were signed), conditions were coercive: laborers were often deceived about conditions, could not break contracts, and faced criminal penalties for non-compliance. The system maintained the plantation economy while technically complying with abolition. It represents a continuity: labor coercion persisted in modified form, using debt, contract, and criminal law to bind workers to plantations after chattel slavery was abolished."}
+],
+"6.7":[
+  {s:"'The Chinese must go!' cried Denis Kearney at San Francisco rally after rally. In 1882, the United States Congress passed the Chinese Exclusion Act, prohibiting the immigration of Chinese laborers for ten years — later extended indefinitely. It was the first major federal law restricting immigration by nationality and race. Courts ruled that Chinese already in the United States could not become naturalized citizens.",sl:"Secondary source summary of the Chinese Exclusion Act, 1882",q:"The Chinese Exclusion Act (1882) most directly resulted from which development?",o:["Evidence that Chinese immigrants were statistically more likely to commit crimes than other immigrant groups","Chinese government protests that emigration was depleting China of needed agricultural workers","Nativist backlash against Chinese immigration, driven by economic competition, racial prejudice, and fears about cultural change","The failure of Chinese immigrants to assimilate into American society through intermarriage and cultural adoption"],c:2,e:"The Chinese Exclusion Act was the product of nativist politics, not evidence-based policy. Economic anxiety (particularly among white workers competing with Chinese laborers in mining and railroad construction), racial ideology, and political opportunism combined to produce the first racially-based federal immigration restriction. This was part of a global pattern: Australia, Canada, and New Zealand enacted similar restrictions — reflecting how migration generated nativist political reactions across receiving countries."},
+  {s:"By 1900, San Francisco's Chinatown was the largest concentration of ethnic Chinese outside Asia. Indian communities in Natal, Trinidad, and Fiji maintained Hindu temples, practiced Diwali, and preserved cultural traditions across generations. In Port of Spain, Chinese shopkeepers sold goods to Afro-Caribbean customers using Creole phrases mixed with Cantonese. Diaspora communities simultaneously preserved home cultures and created hybrid new ones.",sl:"Secondary source description of 19th-century diaspora communities",q:"The patterns of cultural preservation and adaptation described in this passage most directly illustrate which effect of late nineteenth-century migration?",o:["The rapid and complete assimilation of immigrant communities into the dominant cultures of receiving countries","The creation of diaspora communities that preserved home cultures while also developing new hybrid cultural forms shaped by their new environments","The failure of migrant communities to establish permanent settlements due to intentions to return home","The cultural destruction of immigrant communities through forced assimilation policies in receiving countries"],c:1,e:"Diaspora communities in the late 19th century demonstrated a consistent pattern: cultural retention (language, religion, food, festivals, family structures) alongside cultural adaptation (adopting local languages, intermarrying, developing creole cultures). Chinatowns, Indian-Caribbean communities, and South Asian settlements in Africa all created hybrid cultural identities — neither fully preserving the original nor fully assimilating into the new. This cultural syncretism became a defining feature of the globalized world that imperialism and migration created."}
+],
+"6.8":[
+  {s:"It was not empire for empire's sake that drove European expansion in the late nineteenth century. It was the factory. The steam engine required coal; the textile mill required cotton; the metallurgical plant required iron ore. European industry had outgrown European markets — and so European industrialists looked outward. The map of empire is, in its essential logic, a map of European industrial demand.",sl:"Secondary source historical analysis connecting industrialization to imperialism, c. 1900",q:"This passage most directly supports which argument about the relationship between industrialization and imperialism?",o:["European imperialism was primarily motivated by religious missionary activity that accompanied industrial expansion","Industrial development in Europe created economic incentives — for raw materials, markets, and investment opportunities — that drove territorial expansion","European workers supported imperialism because colonial labor competition raised their wages","The industrialization of colonial territories was the primary goal of European imperial expansion"],c:1,e:"This argument — that industrialization created the economic conditions that made imperialism necessary for continued growth — is the core of economic theories of imperialism (associated with J.A. Hobson and later Lenin). Surplus capital needing investment, industrial demand for raw materials European territories couldn't supply, and saturated domestic markets all pushed industrializing nations toward colonial expansion. This economic causation argument is central to AP causation questions about the Imperial Age."},
+  {s:"The Portuguese arrived in West Africa in the 1440s seeking gold and enslaved people. Four hundred years later, the British arrived in the same regions seeking rubber, cocoa, and labor. The tools differed — steamships replaced sailing vessels, rifles replaced matchlocks — but the underlying relationship showed a disturbing continuity: extraction of resources and labor for European benefit, with African political and economic autonomy as the price.",sl:"Secondary source comparative analysis of European-African interactions, 1440s–1880s",q:"The comparison drawn in this passage is best used to support which historical claim?",o:["There was no meaningful difference between early modern European imperialism and nineteenth-century colonialism","African resistance to European contact was equally ineffective across both periods","The economic relationship of resource extraction and labor exploitation showed continuity from the early modern period to the era of New Imperialism, despite changing technologies","Portuguese colonialism was more economically damaging to Africa than British colonialism"],c:2,e:"The AP skill of continuity-and-change requires students to identify what persists across time periods. This passage argues that the fundamental economic relationship — European extraction of African resources and labor — showed continuity from the early modern slave trade to 19th-century colonialism, even as technologies, political structures, and ideological justifications changed. This continuity argument is the kind of complexity the AP exam rewards — it neither collapses the two eras into one nor treats them as entirely separate."}
+]
+};
+
+var SG = [
+  {n:"Topic 6.1 — Rationales for Imperialism",kw:8,body:"<p>European states, the United States, and Japan justified imperial expansion through a cluster of overlapping ideologies that combined economic interest with racial and moral arguments.</p><p><strong>Social Darwinism</strong> misapplied Darwin's biological theory of natural selection to human societies. Herbert Spencer's 'survival of the fittest' framed imperial conquest as the natural triumph of superior civilizations over inferior ones. This ideology gave a pseudoscientific veneer to racial hierarchy, claiming European dominance was biologically inevitable rather than historically contingent.</p><p><strong>Scientific racism</strong> reinforced Social Darwinism with claims about racial biology — skull measurements, intelligence rankings, and hierarchies of civilization that placed Europeans at the top and Africans and Asians at the bottom. These claims were used in everything from school textbooks to parliamentary debates to justify conquest.</p><p>The <strong>Civilizing Mission</strong> (France: <em>Mission civilisatrice</em>) argued that European powers had a moral <em>duty</em> to bring Christianity, Western education, medicine, and 'civilization' to 'backward' peoples. Rudyard Kipling's 1899 poem 'The White Man's Burden' encapsulated this paternalistic ideology — colonialism as an act of sacrifice and service.</p><p>Economic arguments were equally central. <strong>Jules Ferry</strong>, French Prime Minister, explicitly linked imperialism to industrial policy: European factories needed raw materials, overseas markets for surplus goods, and outlets for surplus capital investment. Colonies solved all three problems simultaneously.</p><p>Finally, <strong>strategic and nationalist rivalry</strong> drove imperial competition: if Britain claimed a territory, France felt compelled to claim its neighbor. The Scramble for Africa accelerated precisely because no power wanted rivals to gain an advantage.</p><div class='sg-kws'><span class='sg-kw'>Social Darwinism</span><span class='sg-kw'>White Man's Burden</span><span class='sg-kw'>Civilizing Mission</span><span class='sg-kw'>Scientific Racism</span><span class='sg-kw'>Jules Ferry</span><span class='sg-kw'>Cecil Rhodes</span><span class='sg-kw'>Kipling</span><span class='sg-kw'>Herbert Spencer</span></div>"},
+  {n:"Topic 6.2 — State Expansion",kw:9,body:"<p>Between 1870 and 1914, European powers, the United States, and Japan dramatically expanded their territorial control, claiming approximately 20% of the Earth's land surface in just four decades.</p><p>The <strong>Scramble for Africa</strong> (c. 1880–1914) was the most dramatic expression of New Imperialism. At the <strong>Berlin Conference (1884–85)</strong>, 14 European powers met — without a single African representative — to establish rules for claiming African territory. The principle of 'effective occupation' required colonial powers to demonstrate actual governance to legitimize claims. By 1914, only Ethiopia and Liberia remained independent.</p><p>Colonial control took different forms. <strong>Direct rule</strong> replaced existing political structures with European administrators (French model in Algeria, Belgian Congo). <strong>Indirect rule</strong> — practiced extensively by Britain — maintained existing local leaders as intermediaries who governed on behalf of the colonial power. Both systems served European interests, but indirect rule was cheaper and created local collaborators.</p><p>British consolidation in <strong>India</strong> followed the Indian Rebellion of 1857, when the East India Company was replaced by direct Crown governance. Queen Victoria became Empress of India in 1877. India became the jewel of the British Empire — a supplier of cotton, tea, and soldiers.</p><p>The <strong>Meiji Restoration (1868)</strong> transformed Japan from a feudal state into an industrial and military power within a generation. Facing the threat of Western colonization, Japan deliberately modernized its military, built railroads and factories, and adopted selective Western institutions. By 1895, Japan had defeated China (taking Taiwan and Korea); by 1905, Japan defeated Russia — the first non-Western nation to defeat a European power in modern warfare.</p><p>The United States expanded across North America through treaties, purchases, and wars — then extended overseas: annexing Hawaii (1898), winning the Philippines, Guam, and Puerto Rico from Spain (1898), and establishing a protectorate over Cuba.</p><div class='sg-kws'><span class='sg-kw'>Berlin Conference</span><span class='sg-kw'>Scramble for Africa</span><span class='sg-kw'>Meiji Restoration</span><span class='sg-kw'>Direct Rule</span><span class='sg-kw'>Indirect Rule</span><span class='sg-kw'>Protectorate</span><span class='sg-kw'>Sphere of Influence</span><span class='sg-kw'>Extraterritoriality</span><span class='sg-kw'>Settler Colony</span></div>"},
+  {n:"Topic 6.3 — Indigenous Responses to State Expansion",kw:8,body:"<p>Colonized peoples were not passive victims. Responses to imperial expansion ranged from armed resistance and diplomatic negotiation to selective accommodation and cultural preservation.</p><p><strong>Armed resistance</strong> was widespread. The <strong>Indian Rebellion of 1857</strong> (often called the Sepoy Mutiny) began when Indian soldiers in the British East India Company's army refused to use rifle cartridges allegedly greased with pig and cow fat. The rebellion quickly spread to a broader uprising rooted in decades of accumulated grievances: land annexation, cultural suppression, and displacement of traditional elites. Though ultimately suppressed, it forced the British Crown to assume direct rule of India.</p><p>In Africa, the <strong>Zulu Wars (1879)</strong> produced the Battle of Isandlwana — the largest British defeat by an indigenous African force — before Britain ultimately prevailed. In 1896, Emperor <strong>Menelik II of Ethiopia</strong> decisively defeated Italy at the <strong>Battle of Adwa</strong>, the only complete African military victory against a European colonial army during the Scramble for Africa. Ethiopia remained independent.</p><p>The <strong>Boxer Rebellion (1900)</strong> in China targeted foreign missionaries, businesspeople, and Chinese Christians. When the Qing government allied with the Boxers and declared war on foreign powers, an eight-nation alliance invaded and suppressed the rebellion. The resulting <strong>Boxer Protocol</strong> imposed massive indemnities and deepened foreign control.</p><p><strong>Accommodation</strong> and <strong>collaboration</strong> were also common. Some local leaders worked within colonial systems, gaining privileges and power as intermediaries. Others pursued selective modernization: China's <strong>Self-Strengthening Movement</strong> attempted to adopt Western military technology while preserving Chinese political and cultural structures — summarized as 'Chinese learning for the essence; Western learning for practical use.'</p><div class='sg-kws'><span class='sg-kw'>Indian Rebellion 1857</span><span class='sg-kw'>Battle of Adwa</span><span class='sg-kw'>Zulu Wars</span><span class='sg-kw'>Boxer Rebellion</span><span class='sg-kw'>Self-Strengthening Movement</span><span class='sg-kw'>Accommodation</span><span class='sg-kw'>Menelik II</span><span class='sg-kw'>Boxer Protocol</span></div>"},
+  {n:"Topic 6.4 — Global Economic Development",kw:7,body:"<p>Industrialization transformed not only European economies but global economic relationships, integrating the world into a single system on deeply unequal terms.</p><p><strong>Industrial capitalism</strong> created surplus production that required new markets and new sources of raw materials. European factories consumed cotton from Egypt and India, rubber from the Congo and Brazil, tea from Ceylon and China, and metals from Africa and Latin America. This demand restructured agriculture and labor worldwide.</p><p><strong>Railroad imperialism</strong> was the physical infrastructure of economic integration. By 1900, over 200,000 miles of track crisscrossed the globe. Railroads built in colonial territories were designed primarily to extract resources from interiors to coastal ports for export — not to connect domestic markets. This produced 'export enclave' economies structurally oriented toward the needs of distant industrial consumers, not local populations.</p><p><strong>Free trade imperialism</strong> — the British policy of forcing open foreign markets to British goods — created informal empires without formal annexation. Latin American nations nominally independent after the 1820s were economically dependent on British capital and markets: British banks financed their governments, British merchants dominated their ports, and British manufacturers supplied their consumer goods.</p><p><strong>Monoculture</strong> — the conversion of diverse agriculture to a single cash crop for export — created both short-term profit and long-term vulnerability. Egyptian cotton, Indian tea, Cuban sugar, and Guatemalan bananas all made colonial territories dependent on global commodity prices they had no power to influence.</p><p>The result was a global economic order that generated enormous wealth for industrial nations while limiting development in colonial territories — a structural inequality that persisted long after formal independence.</p><div class='sg-kws'><span class='sg-kw'>Industrial Capitalism</span><span class='sg-kw'>Railroad Imperialism</span><span class='sg-kw'>Free Trade Imperialism</span><span class='sg-kw'>Monoculture</span><span class='sg-kw'>Commodity Crops</span><span class='sg-kw'>Export Enclave Economy</span><span class='sg-kw'>Laissez-Faire</span></div>"},
+  {n:"Topic 6.5 — Economic Imperialism",kw:8,body:"<p>Economic imperialism involved the use of economic pressure, debt, and unequal treaties to control other nations without formal annexation — what historians call <strong>informal empire</strong>.</p><p>China provides the clearest case. The <strong>First Opium War (1839–42)</strong> began when China's Commissioner <strong>Lin Zexu</strong> destroyed 20,000 chests of British opium — a moral stand against a trade destroying Chinese society. Britain responded militarily, and China's defeat produced the <strong>Treaty of Nanjing (1842)</strong>: the first of the 'unequal treaties.' China ceded Hong Kong, opened five treaty ports, granted <strong>extraterritoriality</strong> (British citizens immune from Chinese law in China), and paid a massive indemnity.</p><p>The <strong>Most-Favored Nation clause</strong> ensured that any concession China granted to one Western power automatically extended to all. The Second Opium War (1856–60) produced further concessions. By 1900, Western powers had carved China into <strong>spheres of influence</strong> — zones of exclusive economic privilege — while the Qing government remained nominally sovereign.</p><p><strong>Gunboat diplomacy</strong> — the use or threat of naval force to compel weaker states to accept economic terms — was practiced by Britain throughout the 19th century, not only in China but in Latin America and the Ottoman Empire.</p><p>In Latin America, formally independent nations after the 1820s remained economically dependent on Britain and, later, the United States — providing the raw material of what would later be called <strong>neocolonialism</strong>: control through economic dominance rather than direct political rule.</p><div class='sg-kws'><span class='sg-kw'>Opium Wars</span><span class='sg-kw'>Treaty of Nanjing</span><span class='sg-kw'>Extraterritoriality</span><span class='sg-kw'>Most-Favored Nation</span><span class='sg-kw'>Unequal Treaties</span><span class='sg-kw'>Gunboat Diplomacy</span><span class='sg-kw'>Informal Empire</span><span class='sg-kw'>Lin Zexu</span></div>"},
+  {n:"Topic 6.6 — Causes of Migration in an Industrializing World",kw:7,body:"<p>The nineteenth century witnessed one of history's largest mass migrations, as tens of millions of people moved within and across continents in search of economic opportunity, safety, or simply survival.</p><p>Historians use the <strong>push-pull model</strong> to analyze migration. <strong>Push factors</strong> drove people out of their home regions: famine (the Irish Potato Famine, 1845–52, killed ~1 million and drove ~2 million to emigrate), poverty, lack of land, political persecution, and violence. <strong>Pull factors</strong> attracted migrants to destinations: available land, labor demand, higher wages, and political freedom.</p><p>Industrial expansion in the United States, Argentina, Australia, and Canada created enormous demand for unskilled labor — particularly for dangerous infrastructure work that local populations avoided. Chinese workers built the western half of the American transcontinental railroad (1863–69); Irish immigrants built the eastern half. Indian workers labored in South African mines and Caribbean sugar fields.</p><p>The abolition of the Atlantic slave trade created labor shortages on plantations, replaced by <strong>indentured servitude</strong>: contract labor binding migrants (primarily from India and China) to 5-year terms. Though technically voluntary, the system was often coercive — workers were deceived about conditions, could not break contracts, and faced criminal penalties for non-compliance. Over 1.5 million Indians migrated as indentured laborers between 1834 and 1920.</p><p><strong>Chain migration</strong> — where established migrants helped family and community members emigrate — created concentrated ethnic communities in destination cities, becoming self-sustaining networks that channeled future migration from the same origin regions.</p><div class='sg-kws'><span class='sg-kw'>Push Factors</span><span class='sg-kw'>Pull Factors</span><span class='sg-kw'>Indentured Servitude</span><span class='sg-kw'>Coolie Labor</span><span class='sg-kw'>Chain Migration</span><span class='sg-kw'>Irish Famine</span><span class='sg-kw'>Transcontinental Railroad</span></div>"},
+  {n:"Topic 6.7 — Effects of Migration",kw:7,body:"<p>Mass migration transformed both sending and receiving societies, creating new cultural communities, provoking nativist reactions, and reshaping economies on both ends of migration flows.</p><p><strong>Diaspora communities</strong> — groups living outside their ancestral homeland while maintaining cultural ties to it — emerged across the globe. Chinese communities in San Francisco, Southeast Asia, and the Caribbean; Indian communities in South Africa, Fiji, Trinidad, and Mauritius; Irish communities in Boston, New York, and Liverpool all preserved languages, religions, foods, and cultural practices across generations while also adapting to new environments.</p><p><strong>Cultural syncretism</strong> — the blending of cultural elements — produced new hybrid forms: Caribbean Creole languages, Chinese-Jamaican food, the fusion religions of Indo-Caribbean Hinduism. Diaspora communities were neither fully the culture of their origin nor fully assimilated into the receiving society.</p><p>Migration also provoked powerful <strong>nativist</strong> responses. The <strong>Chinese Exclusion Act (1882)</strong> was the first U.S. federal law restricting immigration by race and nationality, passed in response to anti-Chinese sentiment driven by economic competition and racial prejudice. Similar restrictions followed in Australia (White Australia Policy, 1901), Canada, and New Zealand. These laws reflected how receiving societies struggled with the cultural and economic changes that mass migration brought.</p><p><strong>Remittances</strong> — money sent by migrants back to families in origin countries — represented a significant economic flow. Italian migrants in Argentina, Chinese workers in California, and Indian laborers in Trinidad all sent money home, partially offsetting the human cost of emigration and funding development in sending regions.</p><div class='sg-kws'><span class='sg-kw'>Chinese Exclusion Act</span><span class='sg-kw'>Nativism</span><span class='sg-kw'>Diaspora</span><span class='sg-kw'>Cultural Syncretism</span><span class='sg-kw'>Remittances</span><span class='sg-kw'>Chinatown</span><span class='sg-kw'>White Australia Policy</span></div>"},
+  {n:"Topic 6.8 — Causation in the Imperial Age",kw:6,body:"<p>The AP skill of causation requires you to explain not just what happened but why — and to distinguish between necessary conditions, triggering causes, and underlying structural forces.</p><p>The central causal argument for Unit 6: <strong>industrialization caused the New Imperialism</strong>. Industrial production created three interconnected needs that colonial expansion satisfied: (1) raw material supplies that domestic territories could not provide at sufficient scale; (2) overseas markets for surplus manufactured goods; (3) investment opportunities for the surplus capital that industrial profits generated. Historian J.A. Hobson made this argument in <em>Imperialism: A Study</em> (1902); Lenin extended it in <em>Imperialism, the Highest Stage of Capitalism</em> (1916).</p><p>But causation was not purely economic. <strong>Nationalist rivalry</strong> among European powers accelerated imperial competition: Germany's unification (1871) created a new industrial power seeking colonial prestige; France sought to recover national dignity after defeat in the Franco-Prussian War through overseas empire. The <strong>technological gap</strong> — especially the Maxim machine gun, quinine (protecting against malaria), and steam-powered gunboats — made conquest militarily feasible in ways it had not been earlier.</p><p>For the <strong>continuity-and-change</strong> dimension: New Imperialism (post-1870) differed from earlier colonialism in scale, speed, and ideological justification — but shared the fundamental economic relationship of resource extraction from periphery to core. European-African commercial extraction dated to the 15th century; 19th-century colonialism accelerated and formalized it.</p><p>The concept of <strong>formal vs. informal empire</strong> is key: formal empire (direct political control, as in British India or French Algeria) and informal empire (economic dominance without annexation, as in British Latin America or semi-colonial China) both served metropolitan economic interests, just through different mechanisms.</p><div class='sg-kws'><span class='sg-kw'>New Imperialism</span><span class='sg-kw'>Formal Empire</span><span class='sg-kw'>Informal Empire</span><span class='sg-kw'>Economic Causation</span><span class='sg-kw'>Technological Gap</span><span class='sg-kw'>Nationalist Rivalry</span></div>"}
+];
+
+var FLASH = [
+  {t:"6.1",term:"Social Darwinism",def:"The misapplication of Charles Darwin's theory of natural selection to human societies and nations. Herbert Spencer's phrase 'survival of the fittest' was used to claim that 'superior' races would naturally dominate 'inferior' ones, providing a pseudoscientific justification for imperial conquest."},
+  {t:"6.1",term:"White Man's Burden",def:"Term from Rudyard Kipling's 1899 poem presenting European and American colonialism as a moral duty — the obligation of 'superior' races to 'civilize' and govern non-Western peoples. It framed imperial exploitation as humanitarian service."},
+  {t:"6.1",term:"Civilizing Mission",def:"The ideological justification for French colonialism (Mission civilisatrice) — the belief that France had a duty to spread its culture, language, and institutions to 'less advanced' peoples. Used broadly across European imperial powers as moral cover for conquest."},
+  {t:"6.1",term:"Scientific Racism",def:"The use of pseudoscientific claims about racial biology — skull measurements, intelligence hierarchies, racial 'types' — to justify racial hierarchy and imperial conquest. Gave a veneer of scientific legitimacy to policies that served imperial political and economic interests."},
+  {t:"6.1",term:"Jules Ferry",def:"French Prime Minister (1880–81, 1883–85) who explicitly argued for French colonial expansion on both economic grounds (markets, investment) and racial-civilizational ideology ('superior races have a duty'). His speeches are key primary sources for understanding imperial rationales."},
+  {t:"6.1",term:"Cecil Rhodes",def:"British imperialist, mining magnate, and politician who controlled much of Southern Africa's diamond and gold industries (De Beers). Dreamed of a British railway from Cape to Cairo through unbroken British-controlled territory. His name gave 'Rhodesia' to modern Zimbabwe and Zambia."},
+  {t:"6.2",term:"Berlin Conference (1884–85)",def:"Meeting of 14 European powers (plus the United States) that established rules for claiming African territory — without inviting a single African representative. Established 'effective occupation' as the standard for colonial claims. Accelerated the Scramble for Africa."},
+  {t:"6.2",term:"Scramble for Africa",def:"The rapid European colonization of Africa between roughly 1880 and 1914, driven by industrial competition and nationalist rivalry. By 1914, only Ethiopia and Liberia remained fully independent. European powers claimed territories 20 times their domestic size."},
+  {t:"6.2",term:"Meiji Restoration (1868)",def:"Japanese political transformation that replaced the Tokugawa shogunate with imperial rule and launched rapid modernization. Japan built railroads, factories, a modern military, and a constitutional government — successfully avoiding colonization and becoming an imperial power itself."},
+  {t:"6.2",term:"Protectorate",def:"A form of indirect colonial control where a territory maintained nominal independence but surrendered foreign policy, military affairs, and key economic decisions to the colonial power. Common in Africa and Asia — Britain used this form extensively."},
+  {t:"6.2",term:"Sphere of Influence",def:"A region where a foreign power claimed exclusive commercial or political privileges without formal annexation. China was divided into spheres of influence by Western powers and Japan by 1900 — each controlling railways, mines, and ports in its designated zone."},
+  {t:"6.2",term:"Extraterritoriality",def:"Provision in unequal treaties granting foreign nationals the right to be tried under their own national laws on Chinese (or other) soil, not by local courts. A direct violation of host-nation sovereignty — the right to judge crimes committed within one's own borders."},
+  {t:"6.2",term:"Indirect Rule",def:"Colonial governance strategy using existing local leaders as intermediaries who administered on behalf of the colonial power. Used extensively by Britain (Nigeria, Uganda, Malaya) — cheaper than direct rule and created local collaborators, but also maintained traditional hierarchies."},
+  {t:"6.2",term:"Settler Colony",def:"A colony where large numbers of European settlers permanently displaced indigenous populations and established European-style societies — Algeria (France), Rhodesia (Britain), Australia, South Africa. Settlers sought land, often violently dispossessing indigenous peoples."},
+  {t:"6.3",term:"Indian Rebellion of 1857",def:"Widespread uprising against British East India Company rule, beginning with sepoy soldiers who refused Enfield rifle cartridges (allegedly greased with pig/cow fat) and expanding into a broader revolt. Suppressed but forced transfer of India from Company to British Crown rule."},
+  {t:"6.3",term:"Battle of Adwa (1896)",def:"Ethiopian military victory over Italy — the only complete defeat of a European colonial army during the Scramble for Africa. Emperor Menelik II's 100,000-strong force destroyed an Italian army of 18,000. Italy was forced to recognize Ethiopian sovereignty. Adwa became a global symbol of anti-colonial resistance."},
+  {t:"6.3",term:"Zulu Wars (1879)",def:"Military conflict between Britain and the Zulu Kingdom. At the Battle of Isandlwana, the Zulu army inflicted the largest British defeat by an indigenous African force. Britain ultimately prevailed, annexing Zululand. Demonstrated both the possibility and the limits of armed resistance."},
+  {t:"6.3",term:"Boxer Rebellion (1900)",def:"Chinese nationalist uprising (the 'Boxers United in Righteousness') attacking foreign missionaries and Chinese Christians. When the Qing government allied with the Boxers, an eight-nation military alliance invaded. The Boxer Protocol imposed massive indemnities and expanded foreign military presence in China."},
+  {t:"6.3",term:"Self-Strengthening Movement",def:"Late Qing dynasty strategy (1861–1895) to adopt Western military technology while preserving Chinese political and cultural institutions: 'Chinese learning for the essence; Western learning for practical use.' Ultimately failed — Japan's defeat of China in 1895 exposed its limitations."},
+  {t:"6.3",term:"Maji Maji Rebellion (1905–07)",def:"East African uprising against German colonial rule in Tanganyika. Rebels believed magic water (maji) would protect them from bullets. Germany suppressed the rebellion through scorched-earth tactics and deliberate famine, killing an estimated 200,000–300,000 Africans."},
+  {t:"6.3",term:"Accommodation",def:"Indigenous response to imperialism that accepted colonial structures and worked within them, sometimes gaining privileges or maintaining power as intermediaries. Contrast with armed resistance. Both were rational responses depending on local circumstances and power realities."},
+  {t:"6.4",term:"Industrial Capitalism",def:"Economic system based on private ownership of industry, wage labor, and production for profit. Generated the surplus production and capital that drove imperial expansion by creating demand for raw materials, overseas markets, and investment opportunities."},
+  {t:"6.4",term:"Free Trade Imperialism",def:"Informal empire through economic coercion — forcing open foreign markets to British goods through diplomatic pressure and military threat, without formal annexation. Britain's relationship with Latin America in the 19th century is the classic example."},
+  {t:"6.4",term:"Railroad Imperialism",def:"The use of railroad construction to economically penetrate and exploit colonial territories. Railroads extracted raw materials from interiors to coastal ports for export — not to build domestic markets. Created 'export enclave' economies structurally dependent on external demand."},
+  {t:"6.4",term:"Monoculture",def:"Agricultural system focused on a single cash crop for export rather than diverse subsistence farming. Created economic dependence and vulnerability: Egyptian cotton, Indian tea, Cuban sugar, Guatemalan bananas. A bad harvest or price drop could devastate an entire colonial economy."},
+  {t:"6.4",term:"Commodity Crops",def:"Agricultural products grown primarily for export to global industrial markets: cotton, rubber, tea, coffee, cocoa, sugar, indigo. Produced in colonial territories using coerced or low-wage labor for consumption by industrial-world populations."},
+  {t:"6.4",term:"Export Enclave Economy",def:"Economic structure where colonial territories produce raw materials for export to metropolitan industries but lack integrated domestic markets. Infrastructure serves extraction (ports, rail to coast) not local development. Created structural underdevelopment."},
+  {t:"6.5",term:"Opium Wars",def:"First (1839–42) and Second (1856–60) wars fought by Britain (and France in the second) to force China to accept opium imports and open to Western trade. China's defeats produced the unequal treaty system that stripped China of sovereignty across key economic domains."},
+  {t:"6.5",term:"Treaty of Nanjing (1842)",def:"First unequal treaty imposed on China after the First Opium War. Ceded Hong Kong to Britain, opened five treaty ports, granted extraterritoriality, established most-favored nation status, and required China to pay 21 million silver dollars in indemnities."},
+  {t:"6.5",term:"Most-Favored Nation Status",def:"Treaty clause ensuring that any trade concession given to one country automatically extends to all nations holding MFN status. Used by Western powers to ensure no rival gained exclusive advantages in China — effectively making any concession a universal giveaway of sovereignty."},
+  {t:"6.5",term:"Unequal Treaties",def:"Treaties imposed by military force on China (and others) granting Western powers economic and legal privileges (treaty ports, extraterritoriality, low tariffs, indemnities) that violated national sovereignty. The basis of China's 'Century of Humiliation' narrative."},
+  {t:"6.5",term:"Gunboat Diplomacy",def:"The use or threat of naval military force to compel weaker nations to accept economic or political demands. Characteristic of British foreign policy in the 19th century — used against China, Argentina, and Ottoman ports to enforce commercial access."},
+  {t:"6.5",term:"Informal Empire",def:"Imperial control exercised through economic dominance and political pressure without formal annexation. Britain's relationship with Latin America is the paradigm: British banks funded governments, British merchants dominated ports, British manufacturers supplied consumer goods."},
+  {t:"6.5",term:"Lin Zexu",def:"Chinese official who ordered the destruction of 20,000 chests of British opium in Canton in 1839, triggering the First Opium War. Wrote an open letter to Queen Victoria arguing that the opium trade violated moral law. Became a symbol of principled resistance to Western imperialism."},
+  {t:"6.6",term:"Push Factors",def:"Conditions in countries of origin that drove emigration: famine (Ireland 1845–52), poverty, lack of land, political persecution, violence, and lack of economic opportunity. Push factors explain why people left, not why they went to a specific destination."},
+  {t:"6.6",term:"Pull Factors",def:"Conditions in destination countries that attracted migrants: economic opportunity, labor demand, available land, higher wages, political freedom, established diaspora communities. Pull factors explain why specific destinations attracted migrants over others."},
+  {t:"6.6",term:"Indentured Servitude",def:"Contract labor system replacing slavery after abolition. Workers signed multi-year contracts binding them to specific employers in exchange for transportation and wages. Often exploitative — workers were deceived about conditions and faced criminal penalties for breaking contracts. Over 1.5 million Indians migrated as indentured laborers (1834–1920)."},
+  {t:"6.6",term:"Coolie Labor",def:"Derogatory term for Asian (primarily Chinese and Indian) contract laborers used in mines, plantations, and railroad construction across the Americas, Caribbean, and Southeast Asia. Associated with harsh conditions and the replacement of enslaved labor after abolition."},
+  {t:"6.6",term:"Chain Migration",def:"Pattern where established migrants help family and community members from the same origin location emigrate, creating concentrated ethnic communities in destination cities. Self-sustaining networks that channeled future migration — the mechanism behind Chinatowns and Little Italys."},
+  {t:"6.6",term:"Great Famine (1845–52)",def:"Irish famine caused by potato blight, killing approximately 1 million people and driving ~2 million to emigrate — primarily to the United States, Canada, and Britain. Transformed Ireland's population and created a large, enduring Irish diaspora that shaped receiving societies."},
+  {t:"6.7",term:"Chinese Exclusion Act (1882)",def:"First U.S. federal law to restrict immigration based on nationality and race. Prohibited Chinese laborers from entering the United States; later extended indefinitely. Reflected nativist backlash driven by economic competition and racial ideology. Part of a global pattern of anti-Asian immigration restrictions."},
+  {t:"6.7",term:"Nativism",def:"Political and cultural movement favoring the interests and rights of native-born citizens over immigrants. Expressed through racial and religious prejudice and restrictive immigration laws. Produced the Chinese Exclusion Act (US, 1882), White Australia Policy (1901), and similar legislation globally."},
+  {t:"6.7",term:"Diaspora",def:"A community of people living outside their ancestral homeland while maintaining cultural, social, or political ties to it. Created by both voluntary and forced migration. Chinese diaspora in Southeast Asia and the Americas; Indian diaspora in the Caribbean and Africa — both products of 19th-century imperial labor systems."},
+  {t:"6.7",term:"Cultural Syncretism",def:"The blending of elements from two or more cultures to create new cultural forms. Common in diaspora communities: Caribbean Creole languages, Indo-Caribbean Hindu practices adapted to new environments, Chinese-Caribbean fusion cuisine. Neither fully original nor fully assimilated."},
+  {t:"6.7",term:"Remittances",def:"Money sent by migrants back to family in their home countries. Represented a major economic flow in the late 19th century — Italian migrants in Argentina, Chinese workers in California, Indian laborers in Trinidad all sent money home, funding development in sending regions."},
+  {t:"6.8",term:"New Imperialism",def:"Historians' term for the wave of European (and American and Japanese) imperialism in the late 19th–early 20th century, distinguished from earlier colonialism by its extraordinary scale (20% of Earth's land in 40 years), speed, ideological justifications (Social Darwinism), and industrial economic drivers."},
+  {t:"6.8",term:"Formal vs. Informal Empire",def:"Formal empire = direct political control (British India, French Algeria). Informal empire = economic dominance without annexation (British Latin America, semi-colonial China). Both served metropolitan economic interests through different mechanisms. AP questions often ask you to compare these two forms."}
+];
+</script>
+
+<!-- ═══════════════ APP ═══════════════ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* ── NAV ── */
+  function showTab(id) {
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    var t = document.getElementById(id);
+    if (t) t.classList.add('active');
+    document.querySelectorAll('.hn-btn[data-tab]').forEach(function(b){
+      b.classList.toggle('active', b.dataset.tab === id);
+    });
+    if (id === 'pg-guide') renderGuide();
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('[data-tab]').forEach(function(el){
+    el.addEventListener('click', function(){ showTab(this.dataset.tab); });
+  });
+
+  /* ── MCQ ── */
+  var mcqQs = [], mcqAnswered = 0;
+
+  function mcqInit() {
+    var keys = ['6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8'];
+    var ids  = ['61','62','63','64','65','66','67','68'];
+    var total = 0;
+    keys.forEach(function(k, i) {
+      var n = QB[k] ? QB[k].length : 0;
+      var el = document.getElementById('cnt' + ids[i]);
+      if (el) el.textContent = n + ' question' + (n !== 1 ? 's' : '');
+      total += n;
+    });
+    var ab = document.getElementById('mcq-all-btn');
+    if (ab) ab.textContent = '\uD83D\uDCCB Practice All ' + total + ' Questions';
+  }
+
+  function mcqGo(qs, label) {
+    mcqQs = qs; mcqAnswered = 0;
+    document.getElementById('mcq-topics').style.display = 'none';
+    document.getElementById('mcq-session').style.display = 'block';
+    document.getElementById('qhdr-name').textContent = label;
+    document.getElementById('qhdr-prog').textContent = '0 answered';
+    document.getElementById('qpbf').style.width = '0%';
+    var body = document.getElementById('qbody');
+    body.innerHTML = '';
+    qs.forEach(function(q, qi) {
+      var stimHTML = q.s ? '<div class="stim"><div class="stim-lbl">Source</div>' + q.s + (q.sl ? '<div class="stim-src">' + q.sl + '</div>' : '') + '</div>' : '';
+      var optsHTML = q.o.map(function(opt, oi) {
+        return '<button class="mc-opt" data-qi="' + qi + '" data-oi="' + oi + '">' + String.fromCharCode(65+oi) + '. ' + opt + '</button>';
+      }).join('');
+      body.innerHTML += '<div class="q-block"><div class="q-num">Question ' + (qi+1) + ' of ' + qs.length + '</div>' + stimHTML + '<div class="q-text">' + q.q + '</div>' + optsHTML + '<div class="q-explain" id="exp' + qi + '">' + (q.e || '') + '</div></div>';
+    });
+  }
+
+  document.getElementById('qbody').addEventListener('click', function(e) {
+    var opt = e.target.closest('.mc-opt');
+    if (!opt || opt.disabled) return;
+    var qi = parseInt(opt.dataset.qi), oi = parseInt(opt.dataset.oi);
+    var q = mcqQs[qi];
+    var block = opt.closest('.q-block');
+    block.querySelectorAll('.mc-opt').forEach(function(b, bi) {
+      b.disabled = true;
+      if (bi === q.c) b.classList.add('correct');
+      else if (bi === oi) b.classList.add('wrong');
+    });
+    var exp = document.getElementById('exp' + qi);
+    if (exp) exp.classList.add('show');
+    mcqAnswered++;
+    document.getElementById('qhdr-prog').textContent = mcqAnswered + ' answered';
+    document.getElementById('qpbf').style.width = (mcqAnswered / mcqQs.length * 100) + '%';
+  });
+
+  document.querySelectorAll('.tc').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var topic = this.dataset.topic;
+      var qs = QB[topic] || [];
+      mcqGo(qs, 'Topic ' + topic);
+    });
+  });
+
+  document.getElementById('mcq-all-btn').addEventListener('click', function() {
+    var all = [];
+    ['6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8'].forEach(function(k){ all = all.concat(QB[k]||[]); });
+    mcqGo(all, 'All Unit 6 Questions');
+  });
+
+  document.getElementById('mcq-mixed-btn').addEventListener('click', function() {
+    var mixed = [];
+    ['6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8'].forEach(function(k){
+      var qs = (QB[k]||[]).slice();
+      qs.sort(function(){ return Math.random()-.5; });
+      mixed = mixed.concat(qs.slice(0, 2));
+    });
+    mixed.sort(function(){ return Math.random()-.5; });
+    mcqGo(mixed, 'Mixed Quiz');
+  });
+
+  document.getElementById('mcq-back-btn').addEventListener('click', function() {
+    document.getElementById('mcq-session').style.display = 'none';
+    document.getElementById('mcq-topics').style.display = 'block';
+  });
+
+  document.getElementById('mcq-reset-btn').addEventListener('click', function() {
+    var label = document.getElementById('qhdr-name').textContent;
+    mcqGo(mcqQs, label);
+  });
+
+  mcqInit();
+
+  /* ── STUDY GUIDE ── */
+  function renderGuide() {
+    var el = document.getElementById('sg-content');
+    if (!el || el.innerHTML) return;
+    el.innerHTML = SG.map(function(s, i){
+      return '<div class="sg-section"><div class="sg-hdr" data-idx="' + i + '"><div class="sg-htitle">' + s.n + '</div><div class="sg-hmeta"><span class="sg-hnum">' + s.kw + ' key terms</span><span class="sg-arr">\u25bc</span></div></div><div class="sg-body" id="sgb' + i + '">' + s.body + '</div></div>';
+    }).join('');
+    el.querySelectorAll('.sg-hdr').forEach(function(hdr) {
+      hdr.addEventListener('click', function() {
+        var idx = this.dataset.idx;
+        var body = document.getElementById('sgb' + idx);
+        var open = body.classList.contains('open');
+        this.classList.toggle('open', !open);
+        body.classList.toggle('open', !open);
+      });
+    });
+  }
+
+  /* ── FLASHCARDS ── */
+  (function() {
+    var deck = FLASH.slice();
+    var filtered = deck.slice();
+    var idx = 0;
+    var timerSec = 0;
+    var timerRAF = null;
+    var timerStart = null;
+    var timerRunning = false;
+    var isFlipped = false;
+
+    function shuffle(arr) {
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+      return arr;
+    }
+
+    function render() {
+      if (idx >= filtered.length) { showComplete(); return; }
+      stopTimer();
+      isFlipped = false;
+      var card = filtered[idx];
+      var inner = document.getElementById('fc-card-inner');
+      inner.classList.remove('flipped');
+      document.getElementById('fc-front-tag').textContent = 'Topic ' + card.t;
+      document.getElementById('fc-back-tag').textContent = 'Topic ' + card.t;
+      document.getElementById('fc-term').textContent = card.term;
+      document.getElementById('fc-back-term').textContent = card.term;
+      document.getElementById('fc-def').textContent = card.def;
+      var fill = document.getElementById('fc-timer-fill');
+      fill.style.transition = 'none';
+      fill.style.width = '100%';
+      updateProgress();
+      document.getElementById('fc-prev-btn').disabled = (idx === 0);
+      document.getElementById('fc-next-btn').disabled = false;
+      document.getElementById('fc-complete').classList.remove('show');
+      if (timerSec > 0) startTimer();
+    }
+
+    function updateProgress() {
+      var total = filtered.length;
+      var cur = Math.min(idx + 1, total);
+      document.getElementById('fc-prog-txt').textContent = cur + ' / ' + total;
+      var pct = total > 0 ? Math.round((idx / total) * 100) : 0;
+      document.getElementById('fc-prog-fill').style.width = pct + '%';
+      document.getElementById('fc-pct-txt').textContent = pct + '%';
+    }
+
+    function flipCard() {
+      isFlipped = !isFlipped;
+      document.getElementById('fc-card-inner').classList.toggle('flipped', isFlipped);
+      if (isFlipped) stopTimer();
+    }
+
+    function nextCard() {
+      stopTimer();
+      if (idx < filtered.length - 1) { idx++; render(); }
+      else { idx = filtered.length; showComplete(); }
+    }
+
+    function prevCard() {
+      if (idx > 0) { idx--; render(); }
+    }
+
+    function showComplete() {
+      stopTimer();
+      document.getElementById('fc-complete-msg').textContent = 'You went through all ' + filtered.length + ' cards. Ready to go again?';
+      document.getElementById('fc-complete').classList.add('show');
+      document.getElementById('fc-prog-fill').style.width = '100%';
+      document.getElementById('fc-pct-txt').textContent = '100%';
+    }
+
+    function startTimer() {
+      if (timerSec <= 0) return;
+      timerRunning = true;
+      timerStart = performance.now();
+      var fill = document.getElementById('fc-timer-fill');
+      fill.style.transition = 'none';
+      fill.style.width = '100%';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          fill.style.transition = 'width ' + timerSec + 's linear';
+          fill.style.width = '0%';
+        });
+      });
+      timerRAF = setTimeout(function() {
+        if (!isFlipped) { flipCard(); }
+        setTimeout(function() { nextCard(); }, 1400);
+      }, timerSec * 1000);
+    }
+
+    function stopTimer() {
+      timerRunning = false;
+      if (timerRAF) { clearTimeout(timerRAF); timerRAF = null; }
+      var fill = document.getElementById('fc-timer-fill');
+      if (fill) {
+        var computed = getComputedStyle(fill).width;
+        fill.style.transition = 'none';
+        fill.style.width = computed;
+      }
+    }
+
+    /* Card click to flip */
+    document.getElementById('fc-scene').addEventListener('click', function() {
+      if (idx >= filtered.length) return;
+      if (!isFlipped) { flipCard(); }
+      else { nextCard(); }
+    });
+
+    /* Nav buttons */
+    document.getElementById('fc-next-btn').addEventListener('click', function(e) {
+      e.stopPropagation(); nextCard();
+    });
+    document.getElementById('fc-prev-btn').addEventListener('click', function(e) {
+      e.stopPropagation(); prevCard();
+    });
+
+    /* Keyboard */
+    document.addEventListener('keydown', function(e) {
+      if (document.getElementById('pg-flash').classList.contains('active')) {
+        if (e.code === 'Space') { e.preventDefault(); if (!isFlipped) flipCard(); else nextCard(); }
+        if (e.code === 'ArrowRight') { e.preventDefault(); nextCard(); }
+        if (e.code === 'ArrowLeft') { e.preventDefault(); prevCard(); }
+      }
+    });
+
+    /* Timer buttons */
+    document.querySelectorAll('.fc-timer-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.fc-timer-btn').forEach(function(b){ b.classList.remove('active'); });
+        this.classList.add('active');
+        timerSec = parseInt(this.dataset.sec);
+        stopTimer();
+        if (!isFlipped && timerSec > 0) startTimer();
+      });
+    });
+
+    /* Shuffle */
+    document.getElementById('fc-shuffle-btn').addEventListener('click', function() {
+      shuffle(filtered); idx = 0; render();
+    });
+
+    /* Reset */
+    document.getElementById('fc-restart-btn').addEventListener('click', function() {
+      idx = 0; render();
+    });
+    document.getElementById('fc-complete-restart').addEventListener('click', function() {
+      idx = 0; render();
+    });
+
+    /* Filter */
+    document.querySelectorAll('.fc-filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.fc-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+        this.classList.add('active');
+        var f = this.dataset.filter;
+        filtered = f === 'all' ? deck.slice() : deck.filter(function(c){ return c.t === f; });
+        idx = 0; render();
+      });
+    });
+
+    render();
+  })();
+
+});
+</script>
+</body>
+</html>

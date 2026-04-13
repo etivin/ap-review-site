@@ -68,6 +68,12 @@ button{font-family:inherit;cursor:pointer}
 .feat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700}
 .feat-desc{font-size:.79rem;color:var(--muted);line-height:1.5}
 .feat-count{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-top:auto}
+.feat-action{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--red);padding:6px 12px;margin-top:6px;align-self:flex-start}
+.pg-nav-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.pg-nav-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1.5px solid var(--border2);background:none;color:var(--ink);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pg-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-nav-all{background:var(--red);color:#fff;border-color:var(--red)}
+.pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
 /* HOME CTA */
 .home-cta{background:var(--ink);padding:52px 24px;text-align:center}
 .home-cta h2{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;color:#fff;margin-bottom:10px}
@@ -425,30 +431,35 @@ button{font-family:inherit;cursor:pointer}
           <div class="feat-name">MCQ Review</div>
           <div class="feat-desc">AP-authentic stimulus-based questions for all 8 topics, covering primary sources, speeches, and documents.</div>
           <div class="feat-count">Topics 8.1&ndash;8.8 &mdash; Instant feedback</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button class="feat" data-tab="pg-guide">
           <div class="feat-icon">&#128214;</div>
           <div class="feat-name">Study Guide</div>
           <div class="feat-desc">Topic-by-topic summaries covering Cold War origins, decolonization, newly independent states, and the Soviet collapse.</div>
           <div class="feat-count">8 topics &mdash; Full summaries</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button class="feat" data-tab="pg-tips">
           <div class="feat-icon">&#128161;</div>
           <div class="feat-name">Writing Tips</div>
           <div class="feat-desc">Mr. T&rsquo;s SAQ, DBQ &amp; LEQ formulas, HAPP guide, thesis structure, and complexity strategies.</div>
           <div class="feat-count">SAQ &bull; DBQ &bull; LEQ &bull; HAPP</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button class="feat" data-tab="pg-games">
           <div class="feat-icon">&#127918;</div>
           <div class="feat-name">Review Games</div>
           <div class="feat-desc">Jeopardy, Matching, Sort It, Speed Quiz, Timeline Builder, and Asteroid Blaster &mdash; all with Unit 8 content.</div>
           <div class="feat-count">6 games &mdash; Compete &amp; review</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button class="feat" data-tab="pg-visual">
           <div class="feat-icon">&#128444;</div>
           <div class="feat-name">Visual Sources</div>
           <div class="feat-desc">AP-authentic visual stimuli with MCQ practice and HAPP analysis &mdash; advertisements, maps, photographs, cartoons, and posters.</div>
           <div class="feat-count">7 sources &mdash; HAPP practice</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
       </div>
     </div>
@@ -480,6 +491,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- MCQ PAGE -->
 <div class="page" id="pg-mcq">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div id="mcq-home">
       <div class="pg-hero">
         <div class="eyebrow">MCQ Review</div>
@@ -517,6 +532,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- STUDY GUIDE PAGE -->
 <div class="page" id="pg-guide">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Study Guide</div>
       <h2>Unit 8: Cold War &amp; Decolonization</h2>
@@ -529,6 +548,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- TIPS PAGE -->
 <div class="page" id="pg-tips">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Writing Tips</div>
       <h2>Mr. T&rsquo;s FRQ Playbook</h2>
@@ -552,6 +575,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- VISUAL SOURCES PAGE -->
 <div class="page" id="pg-visual">
   <div class="inner" style="max-width:900px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Unit 8 &mdash; Skill Practice</div>
       <h2>Visual Sources &amp; HAPP Analysis</h2>
@@ -567,6 +594,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- MAPS PAGE -->
 <div class="page" id="pg-maps">
   <div class="inner" style="max-width:960px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Unit 8 &mdash; Geographic Analysis</div>
       <h2>Reading the Maps</h2>
@@ -725,6 +756,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- GAMES PAGE -->
 <div class="page" id="pg-games">
   <div class="inner" style="max-width:960px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Review Games</div>
       <h2>Test Your Knowledge</h2>

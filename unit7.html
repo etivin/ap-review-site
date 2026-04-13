@@ -84,6 +84,12 @@ img{display:block;max-width:100%}
 .feat-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700}
 .feat-desc{font-size:.81rem;color:var(--muted);line-height:1.55}
 .feat-count{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-top:auto}
+.feat-action{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--red);padding:6px 12px;margin-top:6px;align-self:flex-start}
+.pg-nav-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.pg-nav-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1.5px solid var(--border2);background:none;color:var(--ink);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pg-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-nav-all{background:var(--red);color:#fff;border-color:var(--red)}
+.pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
 
 /* ── VIDEO SECTION ── */
 .video-section{background:var(--ink);padding:64px 24px;border-bottom:3px solid var(--red)}
@@ -708,60 +714,70 @@ img{display:block;max-width:100%}
           <div class="feat-name">Flashcards</div>
           <div class="feat-desc">35 key terms across all 8 topics. Flip to reveal, filter by topic, or shuffle the deck.</div>
           <div class="feat-count">35 cards &mdash; Topics 7.1&ndash;7.8</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-mcq">
           <div class="feat-icon">&#128203;</div>
           <div class="feat-name">MCQ Review</div>
           <div class="feat-desc">56 AP-authentic stimulus-based questions using the exact sources from your test.</div>
           <div class="feat-count">56 questions &mdash; Instant feedback</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-write">
           <div class="feat-icon">&#9997;</div>
           <div class="feat-name">Writing Practice</div>
           <div class="feat-desc">SAQ, DBQ, and LEQ prompts scored against real AP rubric criteria automatically.</div>
           <div class="feat-count">3 prompts &mdash; Rubric feedback</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-guide">
           <div class="feat-icon">&#128214;</div>
           <div class="feat-name">Study Guide</div>
           <div class="feat-desc">Topic-by-topic summaries with key term badges and expandable sections.</div>
           <div class="feat-count">8 topics &mdash; Full summaries</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-tips">
           <div class="feat-icon">&#128161;</div>
           <div class="feat-name">Writing Tips</div>
           <div class="feat-desc">Mr. T&rsquo;s SAQ, DBQ &amp; LEQ formulas, HIPP guide, thesis structure, and complexity strategies.</div>
           <div class="feat-count">SAQ &bull; DBQ &bull; LEQ &bull; HIPP</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-brain">
           <div class="feat-icon">&#129504;</div>
           <div class="feat-name">Brain Dump</div>
           <div class="feat-desc">Pick a topic and write everything you know in 5 minutes. Then compare to the full content.</div>
           <div class="feat-count">8 topics &mdash; Timed practice</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-games">
           <div class="feat-icon">&#127918;</div>
           <div class="feat-name">Review Games</div>
           <div class="feat-desc">Play Jeopardy with your class or match key ideas to build the Unit 7 narrative.</div>
           <div class="feat-count">6 games &mdash; Jeopardy, Matching &amp; more</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-slides">
           <div class="feat-icon">&#128196;</div>
           <div class="feat-name">Class Slides</div>
           <div class="feat-desc">Your full lecture slides embedded alongside topic-by-topic analysis, key arguments, and AP vocabulary.</div>
           <div class="feat-count">43 slides &mdash; Topic analysis</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-visual">
           <div class="feat-icon">&#128444;</div>
           <div class="feat-name">Visual Sources</div>
           <div class="feat-desc">7 AP-authentic visual stimuli &mdash; photographs, posters, maps, and paintings &mdash; with full HIPP analysis and AP MC questions.</div>
           <div class="feat-count">7 sources &mdash; HIPP analysis</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button type="button" class="feat" data-tab="pg-source">
           <div class="feat-icon">&#128270;</div>
           <div class="feat-name">Sourcing Practice</div>
           <div class="feat-desc">Practice the "which means" move: identify source features and explain why they matter for your argument.</div>
           <div class="feat-count">3 modes &mdash; Drill + Sort + Upgrade</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
       </div>
     </div>
@@ -824,6 +840,10 @@ img{display:block;max-width:100%}
 <!-- ══ FLASHCARDS ══ -->
 <div class="page" id="pg-flash">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Unit 7 Flashcards</div>
       <h2>Key Terms &amp; Concepts</h2>
@@ -883,6 +903,10 @@ img{display:block;max-width:100%}
 <!-- ══ BRAIN DUMP ══ -->
 <div class="page" id="pg-brain">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Brain Dump</div>
       <h2>Write What You Know</h2>
@@ -930,6 +954,10 @@ img{display:block;max-width:100%}
 <!-- ══ MCQ ══ -->
 <div class="page" id="pg-mcq">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div id="mcq-home">
       <div class="pg-hero">
         <div class="eyebrow">MCQ Review</div>
@@ -967,6 +995,10 @@ img{display:block;max-width:100%}
 <!-- ══ WRITING ══ -->
 <div class="page" id="pg-write">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Writing Practice</div>
       <h2>SAQ, DBQ &amp; LEQ</h2>
@@ -1219,6 +1251,10 @@ img{display:block;max-width:100%}
 <!-- ══ STUDY GUIDE ══ -->
 <div class="page" id="pg-guide">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Study Guide</div>
       <h2>Unit 7: Global Conflict After 1900</h2>
@@ -1231,6 +1267,10 @@ img{display:block;max-width:100%}
 <!-- ══ WRITING TIPS ══ -->
 <div class="page" id="pg-tips">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Writing Tips</div>
       <h2>Mr. T&rsquo;s FRQ Playbook</h2>
@@ -5413,6 +5453,10 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ══ SOURCING PRACTICE ══ -->
 <div id="pg-source" class="page">
   <div class="inner" style="max-width:820px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Sourcing Practice</div>
       <h2>Go Beyond Identification</h2>
@@ -5504,6 +5548,10 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ══ GAMES PAGE ══ -->
 <div id="pg-games" class="page">
   <div class="inner" style="max-width:960px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Review Games</div>
       <h2>Test Your Knowledge</h2>
@@ -5731,6 +5779,10 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ══ CLASS SLIDES PAGE ══ -->
 <div id="pg-slides" class="page">
   <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Unit 7</div>
       <h2>Class Slides</h2>
@@ -5834,6 +5886,10 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- ══ VISUAL SOURCES PAGE ══ -->
 <div id="pg-visual" class="page">
   <div class="inner" style="max-width:1400px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Unit 7 &mdash; Skill Practice</div>
       <h2>Visual Sources &amp; HIPP Analysis</h2>

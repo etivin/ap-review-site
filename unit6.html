@@ -71,6 +71,12 @@ button{font-family:inherit;cursor:pointer}
 .feat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700}
 .feat-desc{font-size:.79rem;color:var(--muted);line-height:1.5}
 .feat-count{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-top:auto}
+.feat-action{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--red);padding:6px 12px;margin-top:6px;align-self:flex-start}
+.pg-nav-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.pg-nav-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1.5px solid var(--border2);background:none;color:var(--ink);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pg-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-nav-all{background:var(--red);color:#fff;border-color:var(--red)}
+.pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
 
 /* MCQ */
 .topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:18px}
@@ -226,18 +232,21 @@ button{font-family:inherit;cursor:pointer}
           <div class="feat-name">MCQ Practice</div>
           <div class="feat-desc">Stimulus-based AP questions organized by topic. Answer, check, and read explanations.</div>
           <div class="feat-count">8 topics &mdash; 24 questions</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button class="feat" data-tab="pg-guide">
           <div class="feat-icon">&#128214;</div>
           <div class="feat-name">Study Guide</div>
           <div class="feat-desc">Expandable topic summaries with key terms, figures, and AP-relevant analysis.</div>
           <div class="feat-count">8 topics with key terms</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
         <button class="feat" data-tab="pg-flash">
           <div class="feat-icon">&#127183;</div>
           <div class="feat-name">Flashcards + Timer</div>
-          <div class="feat-desc">45 key terms with definitions. Set a countdown timer, shuffle, and filter by topic.</div>
-          <div class="feat-count">45 terms &mdash; timer: 5s / 10s / 15s</div>
+          <div class="feat-desc">45 key terms with definitions. 10-second study lock before each flip.</div>
+          <div class="feat-count">45 terms &mdash; 10s study lock</div>
+          <div class="feat-action">Open &rarr;</div>
         </button>
       </div>
     </div>
@@ -247,6 +256,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- MCQ PAGE -->
 <div class="page" id="pg-mcq">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">MCQ Review</div>
       <h2>Stimulus-Based Questions</h2>
@@ -284,6 +297,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- STUDY GUIDE PAGE -->
 <div class="page" id="pg-guide">
   <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Study Guide</div>
       <h2>Unit 6: Industrialization &amp; Imperialism</h2>
@@ -296,6 +313,10 @@ button{font-family:inherit;cursor:pointer}
 <!-- FLASHCARDS PAGE -->
 <div class="page" id="pg-flash">
   <div class="inner" style="max-width:760px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
     <div class="pg-hero">
       <div class="eyebrow">Flashcards</div>
       <h2>45 Key Terms &mdash; Unit 6</h2>

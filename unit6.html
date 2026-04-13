@@ -303,13 +303,6 @@ button{font-family:inherit;cursor:pointer}
     </div>
 
     <div class="fc-toolbar">
-      <div class="fc-timer-group">
-        <span class="fc-timer-lbl">Timer:</span>
-        <button class="fc-timer-btn active" data-sec="0">Off</button>
-        <button class="fc-timer-btn" data-sec="5">5s</button>
-        <button class="fc-timer-btn" data-sec="10">10s</button>
-        <button class="fc-timer-btn" data-sec="15">15s</button>
-      </div>
       <button class="fc-action-btn" id="fc-shuffle-btn">&#8645; Shuffle</button>
       <button class="fc-action-btn" id="fc-restart-btn">&#8635; Reset</button>
     </div>
@@ -337,7 +330,7 @@ button{font-family:inherit;cursor:pointer}
         <div class="fc-face fc-front" id="fc-front">
           <div class="fc-topic-tag" id="fc-front-tag">Topic 6.1</div>
           <div class="fc-term" id="fc-term">Loading&hellip;</div>
-          <div class="fc-hint">Click to reveal definition</div>
+          <div class="fc-hint" id="fc-hint">Study this term&hellip; flip unlocks in 10s</div>
           <div class="fc-timer-bar"><div class="fc-timer-fill" id="fc-timer-fill" style="width:100%"></div></div>
         </div>
         <div class="fc-face fc-back" id="fc-back">
@@ -596,10 +589,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var deck = FLASH.slice();
     var filtered = deck.slice();
     var idx = 0;
-    var timerSec = 0;
+    var LOCK_SEC = 10;
     var timerRAF = null;
-    var timerStart = null;
-    var timerRunning = false;
+    var locked = true;
     var isFlipped = false;
 
     function shuffle(arr) {
@@ -629,7 +621,9 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('fc-prev-btn').disabled = (idx === 0);
       document.getElementById('fc-next-btn').disabled = false;
       document.getElementById('fc-complete').classList.remove('show');
-      if (timerSec > 0) startTimer();
+      setHint('Study this term\u2026 flip unlocks in 10s');
+      document.getElementById('fc-scene').style.cursor = 'default';
+      startTimer();
     }
 
     function updateProgress() {
@@ -641,10 +635,15 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('fc-pct-txt').textContent = pct + '%';
     }
 
+    function setHint(txt) {
+      var h = document.getElementById('fc-hint');
+      if (h) h.textContent = txt;
+    }
+
     function flipCard() {
+      if (locked) return;
       isFlipped = !isFlipped;
       document.getElementById('fc-card-inner').classList.toggle('flipped', isFlipped);
-      if (isFlipped) stopTimer();
     }
 
     function nextCard() {
@@ -666,38 +665,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function startTimer() {
-      if (timerSec <= 0) return;
-      timerRunning = true;
-      timerStart = performance.now();
+      locked = true;
       var fill = document.getElementById('fc-timer-fill');
       fill.style.transition = 'none';
       fill.style.width = '100%';
       requestAnimationFrame(function() {
         requestAnimationFrame(function() {
-          fill.style.transition = 'width ' + timerSec + 's linear';
+          fill.style.transition = 'width ' + LOCK_SEC + 's linear';
           fill.style.width = '0%';
         });
       });
       timerRAF = setTimeout(function() {
-        if (!isFlipped) { flipCard(); }
-        setTimeout(function() { nextCard(); }, 1400);
-      }, timerSec * 1000);
+        locked = false;
+        document.getElementById('fc-scene').style.cursor = 'pointer';
+        setHint('Click to reveal definition');
+      }, LOCK_SEC * 1000);
     }
 
     function stopTimer() {
-      timerRunning = false;
+      locked = false;
       if (timerRAF) { clearTimeout(timerRAF); timerRAF = null; }
       var fill = document.getElementById('fc-timer-fill');
-      if (fill) {
-        var computed = getComputedStyle(fill).width;
-        fill.style.transition = 'none';
-        fill.style.width = computed;
-      }
+      if (fill) { fill.style.transition = 'none'; fill.style.width = '0%'; }
     }
 
     /* Card click to flip */
     document.getElementById('fc-scene').addEventListener('click', function() {
       if (idx >= filtered.length) return;
+      if (locked) return;
       if (!isFlipped) { flipCard(); }
       else { nextCard(); }
     });
@@ -713,21 +708,10 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Keyboard */
     document.addEventListener('keydown', function(e) {
       if (document.getElementById('pg-flash').classList.contains('active')) {
-        if (e.code === 'Space') { e.preventDefault(); if (!isFlipped) flipCard(); else nextCard(); }
+        if (e.code === 'Space') { e.preventDefault(); if (!locked && !isFlipped) flipCard(); else if (!locked && isFlipped) nextCard(); }
         if (e.code === 'ArrowRight') { e.preventDefault(); nextCard(); }
         if (e.code === 'ArrowLeft') { e.preventDefault(); prevCard(); }
       }
-    });
-
-    /* Timer buttons */
-    document.querySelectorAll('.fc-timer-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.fc-timer-btn').forEach(function(b){ b.classList.remove('active'); });
-        this.classList.add('active');
-        timerSec = parseInt(this.dataset.sec);
-        stopTimer();
-        if (!isFlipped && timerSec > 0) startTimer();
-      });
     });
 
     /* Shuffle */

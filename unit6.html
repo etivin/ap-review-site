@@ -189,6 +189,209 @@ button{font-family:inherit;cursor:pointer}
   .fc-def{font-size:.83rem}
   .fc-toolbar{gap:10px}
 }
+
+/* ── BRAIN DUMP ─────────────────────────────────────────── */
+.bd-setup{text-align:center;max-width:600px;margin:0 auto 32px}
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{background:var(--red);color:#fff;border:none;padding:13px 36px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
+.bd-start-btn:hover{background:var(--red-d)}
+.bd-start-btn:disabled{opacity:.38;cursor:default}
+.bd-session{display:none}
+.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.bd-topic-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
+.bd-countdown{font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:500;color:#fff;letter-spacing:.05em}
+.bd-countdown.warning{color:#f5a623}
+.bd-countdown.expired{color:var(--red)}
+.bd-textarea{width:100%;min-height:300px;background:var(--white);border:1.5px solid var(--border2);padding:18px;font-family:'Source Serif 4',Georgia,serif;font-size:.95rem;line-height:1.8;color:var(--ink);resize:vertical;margin-bottom:8px}
+.bd-textarea:focus{outline:none;border-color:var(--blue)}
+.bd-textarea:disabled{background:var(--paper);color:var(--mid)}
+.bd-stem{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-bottom:16px}
+.bd-stem-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
+.bd-word-count{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);letter-spacing:.1em;margin-bottom:24px}
+.bd-reveal{display:none;margin-top:8px}
+.bd-reveal.active{display:block}
+.bd-reveal-hdr{background:var(--green);color:#fff;padding:14px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:28px}
+.bd-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--green);padding:16px 18px}
+.bd-card-term{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:6px}
+.bd-card-def{font-size:.84rem;line-height:1.7;color:var(--mid)}
+.bd-reset-btn{background:none;border:1.5px solid var(--border2);color:var(--ink);padding:10px 26px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:all .18s}
+.bd-reset-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.drill-textarea{width:100%;min-height:110px;border:1.5px solid var(--border);padding:11px 13px;font-family:'Source Serif 4',serif;font-size:.89rem;line-height:1.7;color:var(--ink);background:var(--white);resize:vertical;outline:none;transition:border-color .15s;margin-top:10px}
+.drill-textarea:focus{border-color:var(--ink)}
+.drill-result{display:none;margin-top:10px;border:1px solid var(--border);padding:12px 14px;background:var(--white)}
+.drill-result.pass{border-color:var(--green);background:var(--green-bg)}
+.drill-result.partial{border-color:var(--gold-b);background:var(--gold-bg)}
+.drill-result.fail{border-color:var(--red);background:var(--red-bg)}
+.dr-icon{font-size:1.2rem;margin-right:8px}
+
+/* ── GAMES ─────────────────────────────────────────────── */
+.game-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:700px;margin:0 auto}
+.game-pick-card{background:var(--white);border:2px solid var(--border2);padding:36px 28px;cursor:pointer;text-align:center;transition:box-shadow .2s,border-color .2s}
+.game-pick-card:hover{border-color:var(--red);box-shadow:0 8px 32px rgba(0,0,0,.12)}
+.game-pick-icon{font-size:2.8rem;margin-bottom:12px}
+.game-pick-name{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px}
+.game-pick-desc{font-size:.84rem;color:var(--mid);line-height:1.5}
+/* Jeopardy */
+.jeop-teams-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:20px}
+.jeop-team{background:var(--white);border:2px solid var(--border2);padding:12px 16px;min-width:140px;position:relative}
+.jeop-team-name{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:none;background:none;width:100%;outline:none;padding:2px 0;border-bottom:1.5px dashed var(--border2)}
+.jeop-team-name:focus{border-bottom-color:var(--red)}
+.jeop-team-score{font-family:'Playfair Display',serif;font-size:1.6rem;margin-top:6px}
+.jeop-team-rm{position:absolute;top:4px;right:6px;background:none;border:none;color:#999;cursor:pointer;font-size:.9rem}
+.jeop-team-rm:hover{color:var(--red)}
+.jeop-board{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:20px 0}
+.jeop-cat{background:#1a1a12;color:#fff;padding:12px 6px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
+.jeop-cell{background:#1a237e;color:#ffd740;padding:18px 8px;text-align:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;cursor:pointer;border:none;transition:background .15s,transform .1s}
+.jeop-cell:hover{background:#283593;transform:scale(1.04)}
+.jeop-cell.used{background:#37474f;color:#78909c;cursor:default;transform:none}
+.jeop-modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:910;display:flex;align-items:center;justify-content:center;padding:20px}
+.jeop-modal-inner{background:#f9f6ef;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;padding:40px 36px;border:2px solid #ddd0b8;box-shadow:0 12px 48px rgba(0,0,0,.4)}
+.jeop-modal-pts{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:var(--red);text-transform:uppercase;margin-bottom:8px}
+.jeop-modal-q{font-family:'Source Serif 4',serif;font-size:1.15rem;line-height:1.7;margin-bottom:24px}
+.jeop-modal-answer{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-bottom:20px;font-family:'Source Serif 4',serif;font-size:1rem;line-height:1.6;display:none}
+.jeop-modal-answer.show{display:block}
+.jeop-award-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.jeop-award-btn{padding:10px 18px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;color:#fff;transition:opacity .15s}
+.jeop-award-btn:hover{opacity:.85}
+.jeop-award-btn.no-pts{background:#78909c;color:#fff}
+.jeop-reveal-btn{padding:12px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.jeop-end-bar{display:flex;gap:12px;justify-content:center;margin-top:24px}
+.jeop-winner{text-align:center;padding:40px 20px}
+.jeop-winner h3{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:10px}
+/* Matching */
+.match-board{display:flex;gap:20px;max-width:900px;margin:0 auto}
+.match-col{flex:1;display:flex;flex-direction:column;gap:10px}
+.match-col-hdr{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;text-align:center}
+.match-card{background:var(--white);border:2px solid var(--border2);padding:14px 16px;font-size:.84rem;line-height:1.5;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.match-card:hover{border-color:var(--red);transform:translateY(-1px)}
+.match-card.selected{border-color:var(--red);background:#fff5f5;box-shadow:0 0 0 2px rgba(176,0,28,.2)}
+.match-card.matched{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.8}
+.match-card.wrong{animation:matchShake .4s ease-out}
+.match-counter{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:var(--muted);margin:20px 0}
+.match-success{text-align:center;padding:40px 20px}
+.match-success h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px}
+@keyframes matchShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@media(max-width:600px){.match-board{flex-direction:column}.jeop-board{grid-template-columns:repeat(3,1fr)}.jeop-cat:nth-child(n+4){display:none}}
+/* Sort It */
+.sortit-card{background:var(--white);border:2px solid var(--border2);padding:16px 18px;margin-bottom:12px;font-size:.86rem;line-height:1.6}
+.sortit-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sortit-btn{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .15s}
+.sortit-btn.earns{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.sortit-btn.nope{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.sortit-card.revealed-correct{border-color:#1a6825}
+.sortit-card.revealed-wrong{border-color:var(--red)}
+.sortit-explain{font-size:.79rem;color:var(--mid);margin-top:8px;display:none;line-height:1.55;border-top:1px solid var(--border);padding-top:8px}
+.sortit-card.revealed-correct .sortit-explain,.sortit-card.revealed-wrong .sortit-explain{display:block}
+/* Warmup */
+.warmup-timer{font-family:'IBM Plex Mono',monospace;font-size:2rem;text-align:center;letter-spacing:.06em;color:var(--ink);margin:8px 0 16px}
+.warmup-timer.urgent{color:var(--red)}
+.warmup-source-card{background:var(--paper);border:1px solid var(--border2);border-left:4px solid var(--red);padding:16px 20px;margin-bottom:16px}
+.warmup-doc-type{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.warmup-source-line{font-weight:700;font-size:.88rem;margin-bottom:7px;color:var(--ink)}
+.warmup-excerpt{font-size:.83rem;color:var(--mid);line-height:1.6;font-style:italic}
+.warmup-lens-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.warmup-lens-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all .15s}
+.warmup-lens-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.warmup-lens-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.warmup-frame{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin-bottom:12px;font-size:.86rem;line-height:1.7}
+.warmup-model{background:#e8f5e9;border:1px solid #1a6825;padding:14px 18px;margin-top:14px;font-size:.84rem;line-height:1.65}
+.warmup-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+/* Speed Quiz */
+.sq-score-chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ink);background:var(--paper);border:1.5px solid var(--border2);padding:6px 14px}
+.sq-qnum{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sq-timer-bar-wrap{height:8px;background:var(--border);border-radius:4px;margin-bottom:18px;overflow:hidden}
+.sq-timer-bar{height:100%;background:var(--red);border-radius:4px}
+.sq-q-text{font-family:'Playfair Display',serif;font-size:1.2rem;line-height:1.5;margin-bottom:20px;text-align:center}
+.sq-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:0 auto 16px}
+.sq-choice{padding:16px 18px;border:2px solid var(--border2);background:var(--white);font-size:.86rem;line-height:1.4;cursor:pointer;text-align:left;transition:background .15s,border-color .15s;font-family:inherit}
+.sq-choice:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.sq-choice.sq-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.sq-choice.sq-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.sq-pts-flash{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:1rem;letter-spacing:.1em;min-height:26px;margin-bottom:8px}
+.sq-expl{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--border2);padding:12px 16px;font-size:.83rem;line-height:1.6;max-width:640px;margin:0 auto}
+.sq-final-score{font-family:'IBM Plex Mono',monospace;font-size:2.4rem;letter-spacing:.06em;margin:14px 0 4px}
+.sq-bk-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--border);font-size:.82rem;line-height:1.5;text-align:left}
+.sq-bk-icon{font-size:1rem;flex-shrink:0;margin-top:2px}
+@media(max-width:520px){.sq-choices{grid-template-columns:1fr}}
+/* Timeline Builder */
+.tl-pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:22px}
+.tl-card{background:var(--white);border:2px solid var(--border2);padding:12px 14px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.tl-card:hover:not(.tl-placed){border-color:var(--red);transform:translateY(-2px)}
+.tl-card-title{font-size:.84rem;font-weight:600;color:var(--ink)}
+.tl-placed{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.7}
+.tl-wrong-anim{animation:matchShake .35s ease-out;border-color:var(--red) !important;background:#fff5f5 !important}
+.tl-sequence{background:var(--paper);border:1px solid var(--border);padding:14px 18px;margin-bottom:16px}
+.tl-seq-lbl{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.tl-seq-item{display:flex;gap:10px;align-items:baseline;font-size:.82rem;line-height:1.5;color:#1a6825;margin-bottom:4px}
+.tl-seq-num{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;min-width:18px;color:#1a6825}
+.tl-next-slot{color:var(--muted);font-style:italic}
+/* Visual Sources */
+.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
+.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.vs-tab{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
+.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.vs-card{display:none;padding:24px 32px}
+.vs-card.active{display:block}
+.vs-card-src{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.vs-card-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
+.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
+.vs-source-img{display:block;width:auto;max-width:100%;max-height:80vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.vs-step-hdr{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
+.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
+.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
+.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.vs-mc-option.vs-mc-wrong{background:#fff5f5;border-color:var(--red);color:var(--red)}
+.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
+.vs-mc-explain.show{display:block}
+.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
+.vs-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
+.vs-btn:hover{background:var(--ink);color:#fff}
+.vs-btn-red{border-color:var(--red);color:var(--red)}
+.vs-btn-red:hover{background:var(--red);color:#fff}
+.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
+.vs-hipp-area.show{display:block}
+.vs-hipp-section{margin-bottom:18px}
+.vs-hipp-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
+.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px}
+.vs-guide li{margin-bottom:2px}
+.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
+.vs-hipp-input:focus{border-color:var(--red);outline:none}
+.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
+.vs-hipp-model.show{display:block}
+.vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
+/* Asteroid */
+#asteroid-arena{position:relative;width:100%;height:420px;background:#06061a;overflow:hidden;border:2px solid #1a1a40;border-radius:4px}
+.ast-stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 15% 25%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 55% 18%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 82% 65%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 38% 78%,#aaf 0%,transparent 100%),radial-gradient(1px 1px at 92% 42%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 8% 58%,#cce 0%,transparent 100%),radial-gradient(1px 1px at 48% 48%,#fff 0%,transparent 100%),radial-gradient(1px 1px at 68% 32%,#aaf 0%,transparent 100%)}
+.ast-ship::after{content:'';position:absolute;top:8px;left:-6px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:14px solid #06061a}
+.asteroid{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;width:128px;height:108px;background:#7a4e28;clip-path:polygon(50% 0%,82% 10%,100% 40%,88% 76%,60% 100%,28% 98%,5% 72%,0% 40%,18% 12%);color:#f0e8d8;font-size:.62rem;line-height:1.3;font-family:'IBM Plex Mono',monospace;padding:14px 10px;user-select:none;transform-origin:50% 50%;box-shadow:inset -5px -5px 12px rgba(0,0,0,.6)}
+.asteroid:nth-child(odd){clip-path:polygon(30% 0%,72% 8%,100% 36%,92% 70%,65% 100%,28% 95%,0% 65%,5% 28%);background:#6b421e}
+.asteroid:nth-child(3n){clip-path:polygon(45% 2%,80% 14%,100% 48%,82% 82%,50% 100%,16% 88%,0% 52%,10% 20%);background:#8b5e35}
+.asteroid:hover{filter:brightness(1.3)}
+.asteroid.ast-correct{animation:astExplode .45s ease-out forwards;pointer-events:none}
+.asteroid.ast-wrong{animation:astWrong .3s ease-out}
+.ast-hud{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:#0a0a28;border-bottom:1px solid #1a1a50;position:relative;z-index:2}
+.ast-lives{color:#ff6666;font-size:.9rem;letter-spacing:.04em}
+.ast-score-hud{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:#44aaff}
+.ast-qbar{background:rgba(10,10,40,.95);border-bottom:1px solid #1a1a50;padding:10px 18px;font-size:.84rem;color:#e8e8ff;line-height:1.45;text-align:center;position:relative;z-index:2;min-height:44px}
+.ast-qnum-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;color:#44aaff;margin-bottom:4px}
+.ast-end{display:none;text-align:center;padding:44px 20px;background:#06061a;color:#e8e8ff;height:100%;box-sizing:border-box}
+.ast-end.show{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ast-end-score{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;letter-spacing:.06em;color:#44aaff;margin:10px 0 4px}
+.ast-flash-overlay{position:absolute;inset:0;pointer-events:none;z-index:10;opacity:0;transition:opacity .15s}
+.ast-laser{position:absolute;height:3px;background:linear-gradient(90deg,transparent,#44aaff 20%,#88ddff 50%,#44aaff 80%,transparent);transform-origin:0 50%;pointer-events:none;z-index:5;opacity:0;filter:drop-shadow(0 0 4px #44aaff)}
+.ast-laser.fire{animation:laserFire .3s ease-out forwards}
+@keyframes laserFire{0%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(0)}30%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}70%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}100%{opacity:0;transform:rotate(var(--laser-angle)) scaleX(1)}}
+.ast-ship{position:absolute;bottom:24px;left:50%;width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-bottom:28px solid #44aaff;filter:drop-shadow(0 0 8px #44aaff);transition:transform .15s ease-out;transform-origin:50% 100%}
+@keyframes astExplode{0%{transform:scale(1) rotate(var(--rot,0deg));opacity:1}40%{transform:scale(1.8) rotate(var(--rot,0deg));filter:brightness(4);opacity:.8}100%{transform:scale(0) rotate(var(--rot,0deg));opacity:0}}
+@keyframes astWrong{0%,100%{transform:translate(var(--tx,0px),var(--ty,0px)) rotate(var(--rot,0deg))}25%{transform:translate(calc(var(--tx,0px) - 7px),var(--ty,0px)) rotate(var(--rot,0deg))}75%{transform:translate(calc(var(--tx,0px) + 7px),var(--ty,0px)) rotate(var(--rot,0deg))}}
 </style>
 </head>
 <body>
@@ -240,6 +443,27 @@ button{font-family:inherit;cursor:pointer}
           <div class="feat-name">Flashcards + Timer</div>
           <div class="feat-desc">45 key terms with definitions. 10-second study lock before each flip.</div>
           <div class="feat-count">45 terms &mdash; 10s study lock</div>
+          <div class="feat-action">Open &rarr;</div>
+        </button>
+        <button class="feat" data-tab="pg-brain">
+          <div class="feat-icon">&#129504;</div>
+          <div class="feat-name">Brain Dump</div>
+          <div class="feat-desc">Pick a topic and write everything you know in 5 minutes. Compare to the full content when time's up.</div>
+          <div class="feat-count">8 topics &mdash; Timed practice</div>
+          <div class="feat-action">Open &rarr;</div>
+        </button>
+        <button class="feat" data-tab="pg-games">
+          <div class="feat-icon">&#127918;</div>
+          <div class="feat-name">Review Games</div>
+          <div class="feat-desc">Jeopardy, Matching, Sort It, Speed Quiz, Timeline Builder, Warmup, and Asteroid Blaster.</div>
+          <div class="feat-count">7 games &mdash; Compete or solo</div>
+          <div class="feat-action">Open &rarr;</div>
+        </button>
+        <button class="feat" data-tab="pg-visual">
+          <div class="feat-icon">&#128444;</div>
+          <div class="feat-name">Visual Sources</div>
+          <div class="feat-desc">4 AP-authentic visual stimuli &mdash; industrial art, imperial cartoons, and portraits &mdash; with full HIPP analysis and AP MC questions.</div>
+          <div class="feat-count">4 sources &mdash; HIPP analysis</div>
           <div class="feat-action">Open &rarr;</div>
         </button>
       </div>
@@ -370,6 +594,287 @@ button{font-family:inherit;cursor:pointer}
   </div>
 </div>
 
+<!-- BRAIN DUMP PAGE -->
+<div class="page" id="pg-brain">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Brain Dump</div>
+      <h2>Write What You Know</h2>
+      <p>Pick a topic, then write everything you remember for 5 minutes. When time's up, we'll show you all the content so you can compare.</p>
+    </div>
+    <div class="bd-setup" id="bd-setup">
+      <div class="bd-topic-grid">
+        <button type="button" class="bd-topic-btn" data-topic="6.1">6.1 &mdash; Rationales for Imperialism</button>
+        <button type="button" class="bd-topic-btn" data-topic="6.2">6.2 &mdash; State Expansion</button>
+        <button type="button" class="bd-topic-btn" data-topic="6.3">6.3 &mdash; Indigenous Responses</button>
+        <button type="button" class="bd-topic-btn" data-topic="6.4">6.4 &mdash; Global Economic Development</button>
+        <button type="button" class="bd-topic-btn" data-topic="6.5">6.5 &mdash; Economic Imperialism</button>
+        <button type="button" class="bd-topic-btn" data-topic="6.6">6.6 &mdash; Causes of Migration</button>
+        <button type="button" class="bd-topic-btn" data-topic="6.7">6.7 &mdash; Effects of Migration</button>
+        <button type="button" class="bd-topic-btn" data-topic="6.8">6.8 &mdash; Causation</button>
+      </div>
+      <button type="button" class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
+    </div>
+    <div class="bd-session" id="bd-session">
+      <div class="bd-timer-bar">
+        <div class="bd-topic-label">Topic<strong id="bd-active-topic">&mdash;</strong></div>
+        <div class="bd-countdown" id="bd-countdown">5:00</div>
+      </div>
+      <div class="bd-stem" id="bd-stem">
+        <div class="bd-stem-lbl">&#9997; Sentence Stem &mdash; start here if you need a push</div>
+        <div class="bd-stem-txt" id="bd-stem-txt"></div>
+      </div>
+      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic — key terms, events, causes, effects, people… don't stop writing!"></textarea>
+      <div class="bd-word-count" id="bd-word-count">0 words</div>
+      <div class="bd-reveal" id="bd-reveal">
+        <div class="bd-reveal-hdr">&#9989; Time's up! Here's everything from this topic &mdash; compare it to what you wrote.</div>
+        <div class="bd-card-list" id="bd-card-list"></div>
+        <button type="button" class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GAMES PAGE -->
+<div class="page" id="pg-games">
+  <div class="inner" style="max-width:960px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Review Games</div>
+      <h2>Test Your Knowledge</h2>
+      <p>Choose a game mode to review Unit 6 with your class or on your own.</p>
+    </div>
+
+    <div id="game-picker" class="game-picker">
+      <div class="game-pick-card" id="pick-jeopardy">
+        <div class="game-pick-icon">&#128218;</div>
+        <div class="game-pick-name">Jeopardy</div>
+        <div class="game-pick-desc">Team-based review. Add teams, pick categories, compete for points. Perfect for classroom play.</div>
+      </div>
+      <div class="game-pick-card" id="pick-matching">
+        <div class="game-pick-icon">&#129513;</div>
+        <div class="game-pick-name">Narrative Matching</div>
+        <div class="game-pick-desc">Match causes to effects to reconstruct the full story of Unit 6 &mdash; from industrialization to imperialism.</div>
+      </div>
+      <div class="game-pick-card" id="pick-sortit">
+        <div class="game-pick-icon">&#9878;</div>
+        <div class="game-pick-name">Sort It</div>
+        <div class="game-pick-desc">Separate sourcing sentences that earn the HIPP point from ones that don&rsquo;t.</div>
+      </div>
+      <div class="game-pick-card" id="pick-warmup">
+        <div class="game-pick-icon">&#9200;</div>
+        <div class="game-pick-name">Source Line Warm-up</div>
+        <div class="game-pick-desc">One document, 60 seconds. Pick a lens, complete the sentence frame, earn the point.</div>
+      </div>
+      <div class="game-pick-card" id="pick-speedquiz">
+        <div class="game-pick-icon">&#9889;</div>
+        <div class="game-pick-name">Speed Quiz</div>
+        <div class="game-pick-desc">15 questions, 20 seconds each. Answer faster for more points. Final score shows what to review.</div>
+      </div>
+      <div class="game-pick-card" id="pick-timeline">
+        <div class="game-pick-icon">&#128337;</div>
+        <div class="game-pick-name">Timeline Builder</div>
+        <div class="game-pick-desc">Click Unit 6 events from earliest to latest. Wrong picks don&rsquo;t advance &mdash; every miss counts.</div>
+      </div>
+      <div class="game-pick-card" id="pick-asteroid">
+        <div class="game-pick-icon">&#9654;</div>
+        <div class="game-pick-name">Asteroid Blaster</div>
+        <div class="game-pick-desc">Destroy incoming asteroids by clicking the correct answer. 3 lives &mdash; don&rsquo;t let the wrong ones through.</div>
+      </div>
+    </div>
+
+    <!-- JEOPARDY -->
+    <div id="jeopardy-game" style="display:none">
+      <button type="button" id="jeop-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <div id="jeop-setup">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:14px">Set Up Teams</h3>
+        <div id="jeop-teams" class="jeop-teams-bar"></div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button type="button" id="jeop-add-team" style="padding:8px 16px;background:none;border:1.5px solid var(--border2);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">+ Add Team</button>
+          <button type="button" id="jeop-start" style="padding:8px 20px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Start Game</button>
+        </div>
+      </div>
+      <div id="jeop-board-wrap" style="display:none">
+        <div id="jeop-scoreboard" class="jeop-teams-bar" style="margin-bottom:16px"></div>
+        <div id="jeop-board" class="jeop-board"></div>
+        <div class="jeop-end-bar">
+          <button type="button" id="jeop-end-game" style="padding:10px 24px;background:none;border:1.5px solid var(--red);color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">End Game</button>
+          <button type="button" id="jeop-new-game" style="padding:10px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">New Game</button>
+        </div>
+      </div>
+      <div id="jeop-winner" class="jeop-winner" style="display:none"></div>
+    </div>
+    <div id="jeop-modal" class="jeop-modal" style="display:none">
+      <div class="jeop-modal-inner">
+        <div class="jeop-modal-pts" id="jeop-modal-pts"></div>
+        <div class="jeop-modal-q" id="jeop-modal-q"></div>
+        <div class="jeop-modal-answer" id="jeop-modal-answer"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="jeop-reveal-btn" id="jeop-reveal">Reveal Answer</button>
+        </div>
+        <div class="jeop-award-bar" id="jeop-award-bar" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- MATCHING -->
+    <div id="matching-game" style="display:none">
+      <button type="button" id="match-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Reconstruct the Unit 6 Narrative</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.5">Match each cause or event on the left with its effect or significance on the right.</p>
+      <div class="match-counter" id="match-counter">0 of 12 matched</div>
+      <div class="match-board" id="match-board">
+        <div class="match-col" id="match-left"><div class="match-col-hdr">Cause / Event</div></div>
+        <div class="match-col" id="match-right"><div class="match-col-hdr">Effect / Significance</div></div>
+      </div>
+      <div class="match-success" id="match-success" style="display:none">
+        <h3>You reconstructed the Unit 6 narrative!</h3>
+        <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From the steam engine to the Scramble for Africa &mdash; you connected all the pieces.</p>
+        <button type="button" id="match-replay" style="padding:12px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+      </div>
+    </div>
+
+    <!-- SORT IT -->
+    <div id="sortit-game" style="display:none">
+      <button type="button" id="sortit-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Does It Earn the Point?</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.55">Read each sourcing sentence. Click <strong>Earns it</strong> or <strong>Doesn&rsquo;t earn it</strong> for each one, then submit to see all answers.</p>
+      <div id="sortit-cards"></div>
+      <div style="text-align:center;margin-top:20px">
+        <button type="button" id="sortit-submit" style="padding:12px 28px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Check My Sort</button>
+      </div>
+      <div id="sortit-score" style="display:none;text-align:center;margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:.85rem;letter-spacing:.06em"></div>
+      <div style="text-align:center;margin-top:16px;display:none" id="sortit-replay-bar">
+        <button type="button" id="sortit-replay" style="padding:10px 24px;background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Try Again</button>
+      </div>
+    </div>
+
+    <!-- WARMUP -->
+    <div id="warmup-game" style="display:none">
+      <button type="button" id="warmup-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:4px">Source Line Warm-up</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:14px;line-height:1.55">Read the source line. Pick a lens. Complete the sentence frame. You have 60 seconds.</p>
+      <div id="warmup-doc-num" style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px"></div>
+      <div class="warmup-timer" id="warmup-timer">1:00</div>
+      <div class="warmup-source-card">
+        <div class="warmup-doc-type" id="warmup-doc-type"></div>
+        <div class="warmup-source-line" id="warmup-source-line"></div>
+        <div class="warmup-excerpt" id="warmup-excerpt"></div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Pick a lens:</div>
+      <div class="warmup-lens-row" id="warmup-lens-row"></div>
+      <div class="warmup-frame" id="warmup-frame" style="display:none">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px">Sentence frame &mdash; fill in the blanks:</div>
+        <div id="warmup-frame-text"></div>
+        <div style="font-size:.78rem;color:var(--mid);font-style:italic;margin-top:6px" id="warmup-frame-tip"></div>
+      </div>
+      <textarea id="warmup-text" class="drill-textarea" placeholder="Write your sourcing sentence here..."></textarea>
+      <button type="button" id="warmup-check" style="padding:10px 24px;background:var(--ink);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;margin-top:8px">Check Sentence</button>
+      <div class="drill-result" id="warmup-result" style="margin-top:12px"></div>
+      <div class="warmup-model" id="warmup-model" style="display:none">
+        <div class="warmup-model-lbl">Model answer:</div>
+        <div id="warmup-model-text"></div>
+      </div>
+      <div style="text-align:right;margin-top:18px">
+        <button type="button" id="warmup-next" style="padding:10px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;display:none">Next Document &rarr;</button>
+      </div>
+    </div>
+
+    <!-- SPEED QUIZ -->
+    <div id="speedquiz-game" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <button type="button" id="sq-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer">&larr; Back to Games</button>
+        <div class="sq-score-chip" id="sq-score-chip">Score: 0</div>
+      </div>
+      <div id="sq-question-area">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+          <div class="sq-qnum" id="sq-qnum">Question 1 of 15</div>
+        </div>
+        <div class="sq-timer-bar-wrap"><div class="sq-timer-bar" id="sq-timer-bar" style="width:100%"></div></div>
+        <div class="sq-q-text" id="sq-q-text"></div>
+        <div class="sq-choices" id="sq-choices"></div>
+        <div class="sq-pts-flash" id="sq-pts-flash"></div>
+        <div class="sq-expl" id="sq-expl" style="display:none"></div>
+      </div>
+      <div id="sq-final" style="display:none;text-align:center;padding:24px 0">
+        <div style="font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:6px">Quiz Complete!</div>
+        <div class="sq-final-score" id="sq-final-score"></div>
+        <div id="sq-final-correct" style="font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--muted);margin-bottom:20px"></div>
+        <button type="button" id="sq-replay" style="padding:12px 28px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+        <div style="max-width:640px;margin:24px auto 0" id="sq-breakdown"></div>
+      </div>
+    </div>
+
+    <!-- TIMELINE BUILDER -->
+    <div id="timeline-game" style="display:none">
+      <button type="button" id="tl-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer;margin-bottom:20px">&larr; Back to Games</button>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:6px">Timeline Builder</h3>
+      <p style="font-size:.86rem;color:var(--mid);margin-bottom:16px;line-height:1.55">Click the events in order from <strong>earliest</strong> to <strong>latest</strong>.</p>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px" id="tl-progress">0 of 8 placed correctly</div>
+      <div id="tl-wrong-msg" style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:var(--red);min-height:20px;margin-bottom:10px"></div>
+      <div class="tl-pool" id="tl-pool"></div>
+      <div class="tl-sequence" id="tl-sequence-wrap">
+        <div class="tl-seq-lbl">Placed correctly &mdash; earliest to latest:</div>
+        <div id="tl-seq-list"></div>
+      </div>
+      <div id="tl-result" style="display:none"></div>
+    </div>
+
+    <!-- ASTEROID BLASTER -->
+    <div id="asteroid-game" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <button type="button" id="ast-back" style="background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);cursor:pointer">&larr; Back to Games</button>
+        <div style="font-size:.8rem;color:var(--mid)">Click the <strong>correct answer</strong> asteroid before it reaches your ship &mdash; 3 lives</div>
+      </div>
+      <div class="ast-hud">
+        <div class="ast-lives" id="ast-lives">&#9829; &#9829; &#9829;</div>
+        <div class="ast-score-hud">Score: <span id="ast-score">0</span></div>
+      </div>
+      <div class="ast-qbar" id="ast-qbar">
+        <div class="ast-qnum-lbl" id="ast-qnum-lbl">Question 1 of 12</div>
+        <div id="ast-question"></div>
+      </div>
+      <div id="asteroid-arena">
+        <div class="ast-stars"></div>
+        <div class="ast-ship"></div>
+        <div class="ast-flash-overlay" id="ast-flash"></div>
+        <div class="ast-end" id="ast-end">
+          <div style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:8px" id="ast-end-title">Game Over!</div>
+          <div class="ast-end-score" id="ast-end-score">0 pts</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:#8888cc;margin-bottom:22px" id="ast-end-detail"></div>
+          <button type="button" id="ast-replay" style="padding:12px 28px;background:#44aaff;color:#06061a;border:none;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;font-weight:700">Play Again</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- VISUAL SOURCES PAGE -->
+<div class="page" id="pg-visual">
+  <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 6 &mdash; Skill Practice</div>
+      <h2>Visual Sources &amp; HIPP Analysis</h2>
+      <p>4 AP-authentic visual stimuli from the era of industrialization and imperialism. Study each source, answer the AP question, then complete your own HIPP analysis.</p>
+    </div>
+    <div class="vs-panel">
+      <div class="vs-tab-row" id="vs-tabs"></div>
+      <div id="vs-cards"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════ DATA ═══════════════ -->
 <script>
 var QB = {
@@ -469,6 +974,208 @@ var FLASH = [
   {t:"6.7",term:"Remittances",def:"Money sent by migrants back to family in their home countries. Represented a major economic flow in the late 19th century — Italian migrants in Argentina, Chinese workers in California, Indian laborers in Trinidad all sent money home, funding development in sending regions."},
   {t:"6.8",term:"New Imperialism",def:"Historians' term for the wave of European (and American and Japanese) imperialism in the late 19th–early 20th century, distinguished from earlier colonialism by its extraordinary scale (20% of Earth's land in 40 years), speed, ideological justifications (Social Darwinism), and industrial economic drivers."},
   {t:"6.8",term:"Formal vs. Informal Empire",def:"Formal empire = direct political control (British India, French Algeria). Informal empire = economic dominance without annexation (British Latin America, semi-colonial China). Both served metropolitan economic interests through different mechanisms. AP questions often ask you to compare these two forms."}
+];
+
+var VISUAL_DATA = [
+  {
+    num: 1,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Going_to_Work_by_Eyre_Crowe.jpg/800px-Going_to_Work_by_Eyre_Crowe.jpg',
+    title: '\u201cGoing to Work\u201d \u2014 Eyre Crowe, 1874',
+    source: 'Oil painting by British artist Eyre Crowe, depicting female workers at a Lancashire cotton mill, 1874.',
+    desc: 'Female textile workers streaming into a Lancashire cotton mill. Crowe documented factory life in Britain\u2019s industrial heartland during the height of the Industrial Revolution.',
+    q: 'The painting is best used to illustrate which of the following about the Industrial Revolution?',
+    o: ['The Industrial Revolution increased child labor in British cities','The Industrial Revolution drew large numbers of women into factory wage labor','The Industrial Revolution raised average wages for all British workers','The Industrial Revolution was limited to male workers in heavy industry'],
+    c: 1,
+    e: 'The painting depicts women as the primary workforce shown entering the mill. This directly illustrates how industrialization dramatically expanded women\u2019s participation in wage labor, transforming both the economy and gender roles.',
+    hipp: {
+      h: 'By the 1870s, Lancashire cotton mills employed hundreds of thousands of workers, disproportionately women and children, under difficult conditions that social reformers were beginning to expose and regulate.',
+      i: 'Crowe painted for upper- and middle-class British audiences who consumed mill-made textiles but rarely saw the workers who produced them. His documentary style served both artistic and social-reform purposes.',
+      p: 'To document the social reality of industrial labor \u2014 the human cost of Britain\u2019s textile industry. The painting functions as both art and implicit social commentary on the lives of working-class women.',
+      pov: 'As a British artist embedded in the social reform tradition, Crowe presents workers sympathetically \u2014 as dignified laborers, not a threat. This shapes how his audience was meant to feel about industrial conditions.'
+    }
+  },
+  {
+    num: 2,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Conferencedeberlijn.jpg/800px-Conferencedeberlijn.jpg',
+    title: 'Berlin Conference on African Affairs, 1884\u201385',
+    source: 'Engraving of the Berlin West Africa Conference, published in the Illustrated London News, 1884.',
+    desc: 'European diplomats and officials seated around a table at the Berlin Conference, where 14 European powers negotiated rules for claiming African territory.',
+    q: 'The Berlin Conference depicted in this image best illustrates which aspect of 19th-century imperialism?',
+    o: ['African rulers negotiating with European powers to maintain territorial sovereignty','European industrial competition driving the rapid partition of Africa without African participation','The humanitarian goals of European powers seeking to end the African slave trade','Religious missionary organizations coordinating European colonial expansion'],
+    c: 1,
+    e: 'The Berlin Conference represents the quintessential example of European powers treating Africa as available for claiming. No African representatives were present \u2014 the conference established rules entirely for European benefit.',
+    hipp: {
+      h: 'By 1884, European powers competed intensely for African territory. The Berlin Conference was convened by Bismarck to regulate competition and prevent war among European powers \u2014 not to protect African interests.',
+      i: 'Published in the Illustrated London News for British middle-class audiences, this image projected the conference as a legitimate, orderly international process \u2014 normalizing the partition of an entire continent as routine diplomacy.',
+      p: 'To document and legitimize the Berlin Conference as a reasonable diplomatic gathering \u2014 presenting the Scramble for Africa as organized, lawful, and beneficial when it was none of these things.',
+      pov: 'As a British publication, the Illustrated London News presents European diplomats as authoritative decision-makers \u2014 the visual framing excludes the violence and coercion of colonial conquest that followed.'
+    }
+  },
+  {
+    num: 3,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Menelik_II.jpg/448px-Menelik_II.jpg',
+    title: 'Emperor Menelik II of Ethiopia, c. 1889',
+    source: 'Official portrait photograph of Emperor Menelik II of Ethiopia, c. 1889.',
+    desc: 'Formal portrait of Emperor Menelik II, who led Ethiopia to victory at the Battle of Adwa (1896), defeating an Italian colonial army and preserving Ethiopian independence.',
+    q: 'Menelik II\u2019s leadership most directly challenges which assumption about 19th-century imperialism?',
+    o: ['Western-style weapons were necessary for any military victory against European armies','African rulers could not successfully combine diplomatic and military strategies against European powers','Non-Western leaders could mobilize large modern armies and decisively defeat European colonial forces','European imperialism in Africa was always accepted without significant armed resistance'],
+    c: 2,
+    e: 'Menelik defeated a European army through diplomatic skill, military modernization, and effective large-scale mobilization \u2014 the opposite of the passive \u201cinferior\u201d African ruler that imperial ideology imagined.',
+    hipp: {
+      h: 'The Scramble for Africa (1880\u20131914) produced the assumption that African resistance was futile. Adwa (1896) directly contradicted this \u2014 an African emperor defeated a European army in open battle.',
+      i: 'Official portraits of Menelik II circulated domestically to project imperial authority and internationally \u2014 to European governments who needed to take him seriously as a sovereign equal after Adwa.',
+      p: 'To project Menelik\u2019s authority and legitimacy as a modern sovereign ruler \u2014 not the primitive \u201cchief\u201d that European racial ideology imagined African leaders to be.',
+      pov: 'As Ethiopian Emperor, Menelik\u2019s official image was carefully constructed to communicate sovereignty, modernity, and equality with European rulers \u2014 a direct visual argument against imperial racial hierarchy.'
+    }
+  },
+  {
+    num: 4,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Puck_-_Burden_of_White_Man.jpg/800px-Puck_-_Burden_of_White_Man.jpg',
+    title: '\u201cThe White Man\u2019s Burden\u201d \u2014 Puck Magazine, April 1, 1899',
+    source: 'Political cartoon, Puck Magazine, April 1, 1899, depicting Uncle Sam and John Bull carrying colonial subjects up a mountain.',
+    desc: 'Uncle Sam (U.S.) and John Bull (Britain) carry baskets labeled with colonial territories up a rugged mountain toward \u201ccivilization\u201d while colonial subjects are depicted as children.',
+    q: 'The cartoon is best used as evidence of which of the following about late-19th-century imperialism?',
+    o: ['Western powers unanimously opposed Kipling\u2019s argument about the \u201ccivilizing mission\u201d','American imperial ideology used the \u201ccivilizing mission\u201d to frame colonial control as uplift for \u201cinferior\u201d peoples','The United States treated its colonial subjects with equal rights and legal protections','American imperialism was motivated purely by strategic military concerns, not racial ideology'],
+    c: 1,
+    e: 'The cartoon reflects the \u201ccivilizing mission\u201d ideology \u2014 Western powers as guides, colonial subjects as burdens to be uplifted. The racial hierarchy embedded in the imagery reveals how deeply racial assumptions structured imperial ideology.',
+    hipp: {
+      h: 'Published in April 1899 amid American debate over annexing the Philippines, the cartoon appeared as the Senate ratified the Treaty of Paris and the U.S. officially became a colonial power.',
+      i: 'Puck\u2019s middle-class American audience was the target \u2014 the cartoon persuades readers that colonial annexation was moral obligation, not conquest, by framing it as shared Anglo-American duty.',
+      p: 'To persuade American and British audiences to support colonial annexation by framing it as civilizational mission \u2014 the \u201cburden\u201d framing makes conquest appear as sacrifice rather than exploitation.',
+      pov: 'As an American satirical magazine commenting on imperial politics, Puck reflects the pro-imperialist mainstream of 1899. The racial hierarchy in the image reveals how deeply racial ideology structured American views of colonial subjects.'
+    }
+  }
+];
+
+var ASTEROID_Q = [
+  {q:"The 1884\u201385 Berlin Conference established rules for which process?", o:["Dividing India into British provinces","Claiming African territory without African participation","Establishing free trade zones in Asia","Creating the League of Nations mandate system"], c:1},
+  {q:"Social Darwinism applied Darwin's natural selection to", o:["Plant breeding and agriculture","Ocean exploration","Human societies to justify racial hierarchy and conquest","Factory management and efficiency"], c:2},
+  {q:"What did the Treaty of Nanjing (1842) establish?", o:["Chinese sovereignty over Hong Kong","Extraterritoriality for Western citizens in China","Chinese right to trade in British ports","Joint British-Chinese rule of Shanghai"], c:1},
+  {q:"Emperor Menelik II of Ethiopia defeated which European power at Adwa (1896)?", o:["France","Britain","Italy","Germany"], c:2},
+  {q:"Japan's Meiji Restoration was primarily motivated by", o:["A desire to spread Japanese culture globally","The need to modernize militarily to avoid Western colonization","Religious reform led by Buddhist priests","Economic pressure from Chinese merchants"], c:1},
+  {q:"Indentured servitude emerged primarily as a response to", o:["Demand for skilled industrial workers in Europe","Labor shortages on plantations after abolition of chattel slavery","The Irish Potato Famine forcing emigration","Chinese demand for foreign workers"], c:1},
+  {q:"The Chinese Exclusion Act (1882) was the first U.S. law to restrict immigration by", o:["Age and health status","Political affiliation","Race and nationality","Educational attainment"], c:2},
+  {q:"The 'White Man's Burden' ideology most directly argued that", o:["White Europeans had a duty to govern and 'civilize' non-Western peoples","White workers deserved higher wages than Asian workers","European nations had a right to any territory they could defend","Western science proved European biological superiority"], c:0},
+  {q:"Colonial railroads in Africa and Asia were primarily built to", o:["Connect cities for passenger transportation","Extract raw materials from interiors to coastal ports for export","Facilitate communication between indigenous communities","Demonstrate European technological superiority"], c:1},
+  {q:"The Boxer Rebellion (1900) resulted in", o:["China successfully expelling all foreign powers","The Boxer Protocol imposing massive indemnities and deepening foreign control","Reform of the Qing dynasty with Western assistance","Japan gaining control of Manchuria"], c:1},
+  {q:"'Informal empire' most closely describes Britain's relationship with", o:["India after 1858","Latin America in the 19th century","Australia in the colonial period","South Africa under apartheid"], c:1},
+  {q:"Diaspora communities in the late 19th century typically demonstrated", o:["Complete assimilation within one generation","Rejection of all elements of their new homeland","Cultural syncretism \u2014 preserving home culture while adapting to new environments","Rapid return to their homelands after accumulating wealth"], c:2}
+];
+
+var TIMELINE = [
+  {year:"c. 1760", title:"Industrial Revolution Begins", topic:"6.4 / 6.8", desc:"Steam-powered textile mills in Britain transform production. Industrialization creates the surplus goods, capital, and raw-material demand that drive 19th-century imperialism.", img:"", alt:""},
+  {year:"1839\u201342", title:"First Opium War", topic:"6.5", desc:"Britain defeats China over trade restrictions; the Treaty of Nanjing imposes extraterritoriality, five treaty ports, and a massive indemnity \u2014 the first 'unequal treaty.'", img:"", alt:""},
+  {year:"1857", title:"Indian Rebellion", topic:"6.3", desc:"Indian soldiers (sepoys) and civilians revolt against British East India Company rule. Suppressed but forcing Britain to assume direct Crown rule of India.", img:"", alt:""},
+  {year:"1868", title:"Meiji Restoration", topic:"6.2", desc:"Japan's emperor restored to power; rapid industrialization and military modernization launched. Japan builds railroads, factories, a conscript army \u2014 and avoids colonization.", img:"", alt:""},
+  {year:"1882", title:"Chinese Exclusion Act", topic:"6.7", desc:"U.S. Congress bars Chinese laborers from immigration. First federal law restricting immigration by race \u2014 nativist response to mass migration and economic competition.", img:"", alt:""},
+  {year:"1884\u201385", title:"Berlin Conference", topic:"6.2", desc:"14 European powers meet to regulate the Scramble for Africa. Establish 'effective occupation' as the standard for territorial claims. No African representatives invited.", img:"", alt:""},
+  {year:"1896", title:"Battle of Adwa", topic:"6.3", desc:"Emperor Menelik II of Ethiopia defeats Italy at Adwa \u2014 the only complete defeat of a European colonial army during the Scramble for Africa. Ethiopia remains independent.", img:"", alt:""},
+  {year:"1900", title:"Boxer Rebellion", topic:"6.3 / 6.5", desc:"Chinese nationalists besiege foreign legations in Beijing. Eight-nation military response. Boxer Protocol imposes devastating indemnities, deepening foreign control of China.", img:"", alt:""}
+];
+
+var JEOP_DATA = [
+  { name: 'Rationales', questions: [
+    { clue: "Rudyard Kipling's 1899 poem that framed colonialism as a moral duty of 'superior' races to govern 'inferior' peoples", answer: "The White Man's Burden", explanation: "Kipling's poem captured the paternalistic 'civilizing mission' ideology \u2014 framing imperial exploitation as humanitarian obligation." },
+    { clue: "The misapplication of Darwin's natural selection to human societies, used to justify racial hierarchy and conquest", answer: "Social Darwinism", explanation: "Social Darwinism gave pseudoscientific legitimacy to imperial conquest, claiming 'inferior' races would naturally be dominated by 'superior' ones." },
+    { clue: "French Prime Minister who called colonial expansion the 'daughter of industrial policy' in his 1884 parliamentary speech", answer: "Jules Ferry", explanation: "Ferry combined economic justification (markets, raw materials) with racial ideology ('superior races have a duty') to defend French colonialism." },
+    { clue: "British imperialist who dreamed of a Cape-to-Cairo railway through unbroken British territory", answer: "Cecil Rhodes", explanation: "Rhodes controlled Southern Africa's diamond and gold industries and embodied the fusion of personal profit and nationalist imperial ideology." },
+    { clue: "French name for the ideological justification for colonialism \u2014 the duty to spread French civilization to 'backward' peoples", answer: "Mission civilisatrice (Civilizing Mission)", explanation: "The civilizing mission framed colonialism as humanitarian service \u2014 bringing Christianity, Western education, and 'civilization' to mask economic exploitation." }
+  ]},
+  { name: 'State Expansion', questions: [
+    { clue: "1884\u201385 meeting of 14 European powers that established rules for claiming African territory \u2014 without inviting a single African", answer: "Berlin Conference", explanation: "Established 'effective occupation' as the standard for colonial claims and accelerated the partition of Africa." },
+    { clue: "Japan's 1868 political transformation that launched rapid industrialization to avoid Western colonization", answer: "Meiji Restoration", explanation: "Japan modernized its military, economy, and government using Western models \u2014 successfully avoiding colonization and becoming an imperial power itself." },
+    { clue: "Form of colonial control in which existing local leaders governed as intermediaries on behalf of the colonial power", answer: "Indirect Rule", explanation: "Britain used indirect rule in Nigeria, Uganda, and Malaya \u2014 cheaper than direct rule and creating local collaborators who maintained traditional hierarchies." },
+    { clue: "The form of colonial governance imposed on India after the 1857 Rebellion, when the Crown replaced the East India Company", answer: "Crown Rule (British Raj)", explanation: "Victoria was named Empress of India in 1877; direct Crown rule meant more coordinated British control and direct extraction of Indian resources." },
+    { clue: "Region Japan formally colonized in 1910 after defeating Russia in the 1904\u201305 war", answer: "Korea", explanation: "Japan's annexation of Korea demonstrated that non-Western nations could become imperial powers, challenging European racial ideology." }
+  ]},
+  { name: 'Indigenous Responses', questions: [
+    { clue: "1896 Ethiopian military victory \u2014 the only complete defeat of a European colonial army during the Scramble for Africa", answer: "Battle of Adwa", explanation: "Menelik II destroyed an Italian army of 18,000; Ethiopia remained independent and Adwa became a global symbol of anti-colonial resistance." },
+    { clue: "Late Qing dynasty strategy: 'Chinese learning for the essence; Western learning for practical use'", answer: "Self-Strengthening Movement", explanation: "China tried to modernize its military while preserving Chinese culture \u2014 ultimately failing when Japan defeated China in 1895." },
+    { clue: "1857 uprising beginning with Indian soldiers who refused rifle cartridges but rooted in decades of accumulated grievances", answer: "Indian Rebellion of 1857", explanation: "Drew on land annexation, cultural suppression, and displacement of traditional elites \u2014 forcing the British Crown to assume direct rule." },
+    { clue: "1900 Chinese uprising that targeted foreign missionaries but ultimately deepened foreign control through the Boxer Protocol", answer: "Boxer Rebellion", explanation: "The eight-nation military response imposed massive indemnities and expanded foreign military presence \u2014 worsening China's sovereign position." },
+    { clue: "East African uprising where rebels believed magic water would protect them from German bullets; suppressed by deliberate famine killing ~250,000", answer: "Maji Maji Rebellion", explanation: "The Maji Maji Rebellion (1905\u201307) against German rule in Tanganyika was crushed through scorched-earth tactics and deliberate starvation." }
+  ]},
+  { name: 'Economic Imperialism', questions: [
+    { clue: "1842 treaty ending the First Opium War that gave Britain Hong Kong, five treaty ports, and exemption from Chinese law", answer: "Treaty of Nanjing", explanation: "The first 'unequal treaty' \u2014 forced on China after military defeat, establishing extraterritoriality, most-favored-nation status, and the treaty-port system." },
+    { clue: "Provision giving foreign nationals the right to be tried under their own national laws on Chinese soil", answer: "Extraterritoriality", explanation: "Bitterly resented as proof that China had lost control of its own territory \u2014 central to China's 'Century of Humiliation' narrative." },
+    { clue: "The economic relationship where colonial territories supplied raw materials and purchased manufactured goods, creating dependency", answer: "Free Trade Imperialism / Informal Empire", explanation: "Britain forced open foreign markets through diplomacy and military threat, controlling Latin American and Chinese economies without formal annexation." },
+    { clue: "The conversion of diverse agriculture to a single cash crop for export, creating vulnerability to global commodity price swings", answer: "Monoculture", explanation: "Egyptian cotton, Indian tea, Cuban sugar all created colonial dependency on global prices controlled by distant markets, not local producers." },
+    { clue: "Use of naval force or its threat to compel weaker states to accept British economic terms", answer: "Gunboat Diplomacy", explanation: "The military enforcement mechanism behind informal empire \u2014 forcing China, Ottoman Turkey, and Latin American states to accept British commercial demands." }
+  ]},
+  { name: 'Migration', questions: [
+    { clue: "The 1845\u201352 Irish catastrophe that killed ~1 million and drove ~2 million to emigrate, primarily to the United States", answer: "Irish Potato Famine (Great Famine)", explanation: "The famine is the textbook push factor: economic catastrophe driving mass emigration to industrializing destination economies needing unskilled labor." },
+    { clue: "Post-abolition labor system binding Indian and Chinese workers to 5-year contracts on Caribbean and South African plantations", answer: "Indentured Servitude", explanation: "Often called 'a new system of slavery' \u2014 while technically voluntary, coercive conditions and criminal penalties maintained plantation labor after chattel slavery ended." },
+    { clue: "The 1882 U.S. law \u2014 the first federal immigration restriction by race \u2014 targeting Chinese laborers", answer: "Chinese Exclusion Act", explanation: "Driven by nativist backlash, racial prejudice, and economic competition, this established the precedent of racially-based immigration restriction." },
+    { clue: "The blending of cultural elements from different societies, seen in Caribbean Creole languages and Indo-Caribbean hybrid practices", answer: "Cultural Syncretism", explanation: "Diaspora communities simultaneously preserved home cultures and created hybrid new ones \u2014 neither fully original nor fully assimilated." },
+    { clue: "Money sent by migrants back to families in home countries, representing a major economic flow in the late 19th century", answer: "Remittances", explanation: "Italian migrants in Argentina, Chinese workers in California, Indian laborers in Trinidad all sent money home, funding development in sending regions." }
+  ]},
+  { name: 'Causation', questions: [
+    { clue: "Historian J.A. Hobson's argument: surplus industrial capital needing overseas investment drove European imperial expansion", answer: "Economic Causation of Imperialism", explanation: "Hobson's 1902 Imperialism argued industrial capitalism created economic pressures \u2014 surplus capital, surplus goods, raw material demand \u2014 that required colonial expansion." },
+    { clue: "Historians' term for the post-1870 wave of colonialism distinguished by its scale, speed, and industrial character", answer: "New Imperialism", explanation: "Claimed ~20% of Earth's land in ~40 years \u2014 far faster than earlier colonialism \u2014 driven by industrial competition and nationalist rivalry." },
+    { clue: "The technological advantage \u2014 Maxim machine gun, quinine, steam gunboats \u2014 that made rapid African colonization militarily feasible", answer: "Technological Gap", explanation: "Industrial military technology allowed small European forces to defeat large African armies; quinine made interior Africa accessible for the first time." },
+    { clue: "Economic control through commerce, debt, and trade rather than direct annexation \u2014 British Latin America is the classic example", answer: "Informal Empire", explanation: "British banks, merchants, and railroads controlled Latin American economies without formal annexation \u2014 proving empire didn't require direct political rule." },
+    { clue: "The element of continuity from the early modern era (1440s) to the 19th century in European-African relations", answer: "Resource and Labor Extraction", explanation: "Despite changing technologies and ideologies, the fundamental relationship \u2014 European extraction of African resources and labor \u2014 showed continuity from the slave trade to 19th-century colonialism." }
+  ]}
+];
+var POINTS = [200,400,600,800,1000];
+
+var MATCH_DATA = [
+  {left: "Industrial Revolution in Britain (1760s)", right: "Created demand for raw materials and overseas markets \u2192 New Imperialism"},
+  {left: "Berlin Conference (1884\u201385)", right: "Partitioned Africa among European powers without African representation"},
+  {left: "Indian Rebellion of 1857", right: "Led to transfer of India from East India Company to British Crown rule"},
+  {left: "Meiji Restoration (1868)", right: "Japan modernized rapidly, avoided colonization, became an imperial power"},
+  {left: "First Opium War (1839\u201342)", right: "China forced to sign Treaty of Nanjing \u2014 the first unequal treaty"},
+  {left: "Abolition of Atlantic slave trade", right: "Created plantation labor shortage \u2192 emergence of indentured servitude"},
+  {left: "Irish Potato Famine (1845\u201352)", right: "Drove ~2 million Irish to emigrate, mostly to the United States"},
+  {left: "Chinese Exclusion Act (1882)", right: "First U.S. federal immigration restriction by race \u2014 nativist backlash"},
+  {left: "Battle of Adwa (1896)", right: "Italy defeated by Ethiopia \u2014 only complete African military victory in Scramble for Africa"},
+  {left: "Social Darwinism and scientific racism", right: "Provided pseudoscientific justification for racial hierarchy and conquest"},
+  {left: "Boxer Rebellion (1900)", right: "Eight-nation invasion \u2192 Boxer Protocol imposed massive indemnities on China"},
+  {left: "Monoculture and export enclave economies", right: "Colonial territories became dependent on global commodity prices they could not control"}
+];
+
+var SORT_DATA = [
+  {text: "According to Jules Ferry, a French Prime Minister, colonial expansion was the 'daughter of industrial policy,' which means that Ferry, as a politician advocating for French imperial interests, likely emphasized economic justifications to win parliamentary support.", earns: true, explain: "<strong>Earns the point.</strong> Identifies the source (Jules Ferry as French PM), explains why his position affects his argument (advocating for imperial interests), and connects to significance (shaped argument for parliamentary support)."},
+  {text: "Rudyard Kipling was a British writer who wrote 'The White Man's Burden' in 1899.", earns: false, explain: "<strong>Does NOT earn the point.</strong> It merely restates who wrote the source without explaining how the author's background affects the argument or why that matters for using the source."},
+  {text: "Since Menelik II was the Emperor of Ethiopia who mobilized against Italy, his account of the Battle of Adwa would emphasize Ethiopian strength and sovereignty \u2014 the exact qualities he needed to project to internal and external audiences.", earns: true, explain: "<strong>Earns the point.</strong> Explains how Menelik's specific role (emperor defending sovereignty) would shape what his account emphasized, and connects to the broader context of audience."},
+  {text: "The Boxer Rebellion was a Chinese uprising in 1900 that targeted foreigners and Chinese Christians. It shows that Chinese people were angry at foreign influence.", earns: false, explain: "<strong>Does NOT earn the point.</strong> It describes what happened but doesn't perform sourcing analysis \u2014 no identification of author/creator, no explanation of how that affects the source's content or reliability."},
+  {text: "This political cartoon from an American newspaper in 1899 depicting the Philippines as a child being civilized by Uncle Sam should be understood as reflecting American public anxiety about whether imperialism contradicted democratic ideals \u2014 exactly the debate Americans were having after the Spanish-American War.", earns: true, explain: "<strong>Earns the point.</strong> Identifies the source context (American newspaper, 1899), connects it to the historical situation (post-Spanish-American War debate), and explains how that context shapes the argument."},
+  {text: "The Chinese government signed the Treaty of Nanjing after losing the First Opium War. The treaty gave Britain Hong Kong and forced China to open five treaty ports.", earns: false, explain: "<strong>Does NOT earn the point.</strong> It describes the treaty's terms but doesn't analyze the source through HIPP \u2014 no author identification, no explanation of purpose, historical context, or point of view."},
+  {text: "This document was produced by the British East India Company, a profit-driven corporation, so we should expect it to downplay the economic exploitation of India and overstate the benefits of British governance to justify continued Company rule.", earns: true, explain: "<strong>Earns the point.</strong> Identifies the creator (East India Company), explains its purpose (justify continued rule), and predicts how those factors shape the document's content in a historically grounded way."},
+  {text: "The source says that Social Darwinism justified imperialism because it claimed superior races would naturally dominate inferior ones. This is important because it shows Europeans believed in racial hierarchy.", earns: false, explain: "<strong>Does NOT earn the point.</strong> It summarizes the source's content rather than analyzing the source itself. Sourcing requires examining author, audience, purpose, or historical context \u2014 not restating what the document says."}
+];
+
+var WARMUP_DOCS = [
+  {type:"Government Speech", sourceLine:"Jules Ferry, French Prime Minister, speech to the French Chamber of Deputies, July 28, 1883", excerpt:"The superior races have a right, because they have a duty. They have the duty to civilize the inferior races. Colonial policy is the daughter of industrial policy.",
+    models:{pov:"As French Prime Minister, Ferry had to justify imperial spending to parliament, so he combines both civilizational duty and economic necessity \u2014 framing colonialism as both morally obligatory and economically essential.", purpose:"Ferry's purpose is to persuade parliament to fund colonial expansion, so the speech overemphasizes mutual benefit while minimizing the violence and exploitation of the colonial enterprise.", audience:"Ferry's audience is French legislators who control the budget, which means he must appeal to both nationalist pride and economic self-interest to win the necessary votes.", hist:"Produced during the peak of the Scramble for Africa (1880s), when French politicians debated the costs and benefits of empire \u2014 Ferry's argument won the debate and France massively expanded its African colonies."}},
+  {type:"Poem (Literary Source)", sourceLine:"Rudyard Kipling, 'The White Man's Burden,' McClure's Magazine, February 1899", excerpt:"Take up the White Man's burden \u2014 Send forth the best ye breed \u2014 Go bind your sons to exile, To serve your captives' need.",
+    models:{pov:"Kipling was a British writer who grew up in India and celebrated empire, so his poem reflects the genuine belief of many imperial-era Britons that colonialism was service, not exploitation.", purpose:"Kipling wrote this to urge the United States to accept responsibility for governing the Philippines \u2014 his purpose was to frame American imperialism as moral duty, not conquest.", audience:"Written for an American audience debating whether to annex the Philippines, which means Kipling frames the colonial mission in American democratic and Christian values \u2014 not purely British imperial ones.", hist:"Published in 1899 amid American debate about the Philippines, this poem shaped global discourse on imperialism \u2014 becoming both the defining statement of the 'civilizing mission' and its most criticized example."}},
+  {type:"Treaty (Legal Document)", sourceLine:"Treaty of Nanjing, Article II, signed between Britain and the Qing Dynasty, August 29, 1842", excerpt:"His Majesty the Emperor of China agrees, that British Subjects shall be allowed to reside and carry on their mercantile pursuits at the Cities and Towns of Canton, Amoy, Fuchow-fu, Ningpo, and Shanghai.",
+    models:{pov:"As the victor in the First Opium War, Britain dictated the Treaty of Nanjing \u2014 its point of view is that of a powerful industrial state imposing its commercial interests on a weaker state through military force.", purpose:"The treaty's purpose is to formalize British commercial dominance in China by forcing open ports and establishing legal protection for British merchants \u2014 serving British industrial capitalism's need for new markets.", audience:"This legal document addresses both governments but primarily speaks to British commercial interests \u2014 guaranteeing specific legal rights to British merchants operating in Chinese cities.", hist:"Signed after China's defeat in the First Opium War, this treaty began China's 'Century of Humiliation' \u2014 a series of unequal treaties that stripped away Chinese sovereignty and created the extraterritoriality system."}},
+  {type:"Newspaper Editorial", sourceLine:"San Francisco Chronicle editorial, 'The Chinese Must Go,' March 4, 1879", excerpt:"The time has come to make clear that the American laborer will not compete with the Chinese coolie. The white workingman demands protection from the degradation of cheap Chinese competition.",
+    models:{pov:"As a California newspaper representing white working-class interests, the Chronicle reflects the nativist and racial anxieties of workers threatened by economic competition \u2014 not evidence-based policy analysis.", purpose:"The editorial's purpose is to build public and political pressure for Chinese exclusion legislation, deliberately using inflammatory racial language to mobilize readers' economic anxieties and racial prejudices.", audience:"Written for white working-class San Francisco readers who competed with Chinese immigrants for jobs \u2014 the editorial frames immigration as a racial threat rather than an economic policy question.", hist:"Published during intense political pressure that produced the Chinese Exclusion Act of 1882 \u2014 demonstrating how nativist journalism shaped immigration policy and how migration created backlash in receiving societies."}},
+  {type:"Eyewitness Account / Nationalist Writing", sourceLine:"Dadabhai Naoroji, 'Poverty and Un-British Rule in India,' 1901", excerpt:"Britain is bleeding India dry. Every year, a vast 'drain' of wealth flows from India to Britain \u2014 in salaries paid to British officials, profits remitted home, and the costs of wars fought for British interests.",
+    models:{pov:"As an Indian nationalist and Britain's first Indian-born MP, Naoroji argues from a colonized perspective \u2014 his 'drain theory' directly challenges British claims that empire benefited India.", purpose:"Naoroji's purpose is to use economic evidence to make the British case for Indian self-governance \u2014 arguing not that empire is immoral but that it is economically destructive, a pragmatic strategy for a British political audience.", audience:"Written for British political audiences who controlled Indian policy, Naoroji frames his critique in British economic language \u2014 appealing to British self-interest in a stable India rather than making a purely moral argument.", hist:"Naoroji's 'drain theory' became the foundation of Indian economic nationalism \u2014 the argument that British rule impoverished India through systematic wealth extraction rather than developing it."}},
+  {type:"Imperial Government Report", sourceLine:"Lord Curzon, Viceroy of India, addressing the Indian Civil Service, 1900", excerpt:"The British Empire is, under Providence, the greatest instrument for good that the world has seen. India without British rule would be rent asunder by the mutual hatreds and jealousies of its countless races.",
+    models:{pov:"As British Viceroy \u2014 the highest British official in India \u2014 Curzon's statement reflects the self-serving ideological justification of those directly profiting from colonial rule.", purpose:"Curzon's purpose is to motivate British civil servants by framing their work as moral duty \u2014 essential for maintaining morale in a massive and difficult imperial project.", audience:"Addressed to British colonial officials in India, Curzon assumes his audience shares British racial assumptions \u2014 framing Indian governance as a providential mission, not as occupation.", hist:"Produced at the height of British imperial confidence (1900), this exemplifies the 'civilizing mission' in practice \u2014 used daily to justify the apparatus of colonial rule and its massive economic extraction."}}
+];
+
+var SQ_DATA = [
+  {q:"The Berlin Conference of 1884\u201385 was significant primarily because it",o:["Invited African rulers to negotiate borders protecting their sovereignty","Established European rules for claiming African territory without African participation","Created the League of Nations to govern colonial territories","Set limits on how much territory each power could claim"],c:1,e:"The Berlin Conference established 'effective occupation' as the standard for colonial claims and partitioned Africa among 14 European powers with no African representation."},
+  {q:"The Indian Rebellion of 1857 resulted most directly in",o:["Indian independence from British rule","Transfer of India from the East India Company to British Crown rule","Abolition of the British colonial system in Asia","Greater Indian participation in British colonial governance"],c:1,e:"The Rebellion proved corporate governance inadequate; the British Crown assumed direct rule, with Queen Victoria named Empress of India in 1877."},
+  {q:"Japan's Meiji Restoration (1868) is best understood as",o:["A revolution that abolished the emperor and established a republic","A conservative reaction rejecting all Western influence","A deliberate program of selective modernization to prevent colonization","A religious movement uniting Japan under Buddhist governance"],c:2,e:"Japan deliberately modernized military, economy, and government using Western models while maintaining Japanese political control \u2014 successfully avoiding colonization."},
+  {q:"The Treaty of Nanjing (1842) established which pattern repeated in subsequent 'unequal treaties'?",o:["Mutual tariff reduction and free trade between equal partners","China's right to trade in European ports on equal terms","Western nations gaining extraterritoriality, treaty ports, and most-favored-nation status","European nations paying China for the right to trade within its territory"],c:2,e:"The Treaty of Nanjing established the template: extraterritoriality, forced-open ports, and legal privileges that violated Chinese sovereignty."},
+  {q:"The Battle of Adwa (1896) was historically significant because it",o:["Demonstrated that African armies could never defeat European forces","Was the only complete African military defeat of a European colonial army during the Scramble for Africa","Led all European powers to immediately abandon their African colonies","Proved Ethiopia could build its own African empire"],c:1,e:"Menelik II destroyed an Italian army of 18,000, keeping Ethiopia independent \u2014 the only complete African military victory against a European colonial army during the Scramble for Africa."},
+  {q:"Indentured servitude in the 19th century is most accurately described as",o:["A genuinely voluntary migration system offering equal opportunities","A coercive labor system that replaced chattel slavery while maintaining plantation agriculture","A government program providing free transportation and guaranteed wages","A system used exclusively by Britain in the Caribbean"],c:1,e:"Indentured workers were often deceived about conditions, couldn't break contracts, and faced criminal penalties \u2014 maintaining plantation labor through contract and legal coercion after slavery's abolition."},
+  {q:"The Chinese Exclusion Act (1882) was most directly caused by",o:["Evidence that Chinese immigrants were statistically more likely to commit crimes","Diplomatic pressure from the Chinese government","Nativist backlash driven by economic competition and racial prejudice","A Supreme Court ruling that Chinese workers could not become citizens"],c:2,e:"The Act was driven by nativist politics: white workers used racial ideology to win federal immigration restriction \u2014 the first U.S. law restricting immigration by race."},
+  {q:"The 'Civilizing Mission' ideology justified imperialism by arguing that",o:["European nations had an economic obligation to develop colonial infrastructure","European races had a racial and moral duty to govern and 'uplift' non-Western peoples","Colonized peoples had requested European governance to provide peace and order","Industrial technology gave Europeans the right to claim underpopulated territories"],c:1,e:"The Civilizing Mission framed imperial conquest as humanitarian service \u2014 bringing Christianity, Western education, and 'civilization' to 'backward' peoples, disguising economic exploitation as moral obligation."},
+  {q:"Which best describes the economic relationship established by 'railroad imperialism' in colonial territories?",o:["Railroads connected domestic markets, generating local economic development","Railroads extracted raw materials from interiors to coastal ports for export, creating dependent economies","Railroad profits were shared equally between colonial and local governments","Railroads primarily served military purposes with minimal economic impact"],c:1,e:"Colonial railroads were built to extract resources for export \u2014 creating 'export enclave' economies structurally oriented to distant industrial markets, not local development."},
+  {q:"Social Darwinism differed from Darwin's actual scientific theory most significantly by",o:["Claiming that species changed through natural selection and competition","Applying biological concepts to human societies to justify racial hierarchy","Arguing the fittest individuals were those with the highest intelligence","Claiming all civilizations followed an identical evolutionary path"],c:1,e:"Darwin's theory addressed biological evolution; Social Darwinism misapplied it to human societies \u2014 using 'survival of the fittest' to claim imperial conquest was natural and morally justified."},
+  {q:"Dadabhai Naoroji's 'drain of wealth' theory argued that",o:["India's poverty resulted from overpopulation and traditional agriculture","British rule systematically extracted wealth from India through salaries, profits, and imperial taxation","Indian princes and landlords were responsible for India's poverty","Free trade policies benefited India by connecting it to global markets"],c:1,e:"Naoroji's drain theory argued British rule extracted Indian wealth through official salaries, remitted profits, and war costs \u2014 the economic foundation of Indian nationalist arguments against British rule."},
+  {q:"The pattern of diaspora communities in the late 19th century most directly illustrates",o:["The complete assimilation of immigrant communities into receiving societies within one generation","The creation of hybrid cultural identities that preserved home cultures while adapting to new environments","The failure of migrant communities to establish permanent settlements","The suppression of all non-European cultural practices in receiving societies"],c:1,e:"Diaspora communities showed consistent cultural retention (language, religion, festivals) alongside adaptation \u2014 creating hybrid identities neither fully original nor fully assimilated."},
+  {q:"The Boxer Rebellion (1900) ultimately demonstrated which historical pattern?",o:["Armed resistance against imperialism always succeeded in restoring sovereignty","Accommodation was always more effective than armed resistance","Armed resistance could sometimes deepen foreign control and worsen conditions for colonized peoples","Western powers always negotiated rather than using military force against popular uprisings"],c:2,e:"The Boxer Rebellion drew an eight-nation invasion; the Boxer Protocol imposed massive indemnities and expanded foreign military presence \u2014 armed resistance actually deepened China's subordination."},
+  {q:"Which combination of factors most directly explains the speed of the Scramble for Africa (1880\u20131914)?",o:["African resistance was negligible, allowing European powers to claim territory without opposition","Industrial military technology, quinine, and steam power combined with nationalist rivalry among European powers","African states invited European powers to establish colonial governance to resolve internal conflicts","The Berlin Conference required European powers to claim all unclaimed territory within 30 years"],c:1,e:"The Maxim machine gun, quinine, and steam-powered gunboats made rapid conquest feasible; nationalist rivalry meant no power could allow competitors to gain a strategic advantage."},
+  {q:"The concept of 'informal empire' best illustrates which historical argument?",o:["Military occupation was necessary for effective economic exploitation","Political independence from Spain made Latin American nations economically independent","Economic dominance through trade and investment could control a nation without formal annexation","Britain had no economic interest in Latin America after abolition of the slave trade"],c:2,e:"British banks, merchants, and railroads controlled Latin American economies after independence \u2014 proving that economic domination through 'free trade' could extract wealth as effectively as direct colonial rule."}
 ];
 </script>
 
@@ -754,6 +1461,1092 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     render();
+  })();
+
+  /* ── BRAIN DUMP ───────────────────────────────────────── */
+  var bdTopic = null, bdTimerInterval = null;
+  var BD_TOPIC_NAMES = {
+    '6.1':'6.1 — Industrialization Begins',
+    '6.2':'6.2 — Industrialization Spreads',
+    '6.3':'6.3 — Technology of Industrialization',
+    '6.4':'6.4 — Economic Developments',
+    '6.5':'6.5 — Colonial Expansion',
+    '6.6':'6.6 — Resistance to Colonial Rule',
+    '6.7':'6.7 — Migration',
+    '6.8':'6.8 — Continuity and Change'
+  };
+  var BD_STEMS = {
+    '6.1': 'Industrialization began in Britain before spreading elsewhere because…',
+    '6.2': 'Industrialization spread to new regions in the 19th century because…',
+    '6.3': 'New technologies during the Industrial Age transformed economies and daily life by…',
+    '6.4': 'Industrial capitalism changed economic relationships and created new classes because…',
+    '6.5': 'European imperial expansion accelerated after 1870 because new technologies and ideologies, including…',
+    '6.6': 'Colonized peoples resisted imperial rule in a variety of ways, including…',
+    '6.7': 'Migration patterns shifted dramatically in the 19th century because industrialization and imperialism…',
+    '6.8': 'Key continuities and changes from the early modern era to the industrial age include…'
+  };
+
+  document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+      this.classList.add('selected');
+      bdTopic = this.dataset.topic;
+      document.getElementById('bd-start-btn').disabled = false;
+    });
+  });
+
+  document.getElementById('bd-start-btn').addEventListener('click', function() {
+    if (!bdTopic) return;
+    document.getElementById('bd-setup').style.display = 'none';
+    var session = document.getElementById('bd-session');
+    session.classList.add('active');
+    document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
+    document.getElementById('bd-stem-txt').textContent = BD_STEMS[bdTopic] || 'Write everything you remember about this topic…';
+    document.getElementById('bd-textarea').value = '';
+    document.getElementById('bd-textarea').disabled = false;
+    document.getElementById('bd-word-count').textContent = '0 words';
+    document.getElementById('bd-reveal').classList.remove('active');
+    document.getElementById('bd-countdown').className = 'bd-countdown';
+    bdStartTimer(5 * 60);
+  });
+
+  function bdStartTimer(totalSec) {
+    if (bdTimerInterval) clearInterval(bdTimerInterval);
+    var remaining = totalSec;
+    function tick() {
+      var m = Math.floor(remaining / 60);
+      var s = remaining % 60;
+      var display = m + ':' + (s < 10 ? '0' : '') + s;
+      var el = document.getElementById('bd-countdown');
+      el.textContent = display;
+      if (remaining <= 60 && remaining > 0) el.className = 'bd-countdown warning';
+      if (remaining <= 0) {
+        clearInterval(bdTimerInterval);
+        el.className = 'bd-countdown expired';
+        el.textContent = '0:00';
+        bdReveal();
+        return;
+      }
+      remaining--;
+    }
+    tick();
+    bdTimerInterval = setInterval(tick, 1000);
+  }
+
+  function bdReveal() {
+    var ta = document.getElementById('bd-textarea');
+    ta.disabled = true;
+    var cards = (typeof FLASH !== 'undefined') ? FLASH.filter(function(c){ return c.t === bdTopic; }) : [];
+    var list = document.getElementById('bd-card-list');
+    list.innerHTML = cards.map(function(c) {
+      return '<div class="bd-card"><div class="bd-card-term">' + c.term + '</div><div class="bd-card-def">' + c.def + '</div></div>';
+    }).join('') || '<p style="color:var(--muted);font-size:.88rem">No cards found for this topic.</p>';
+    document.getElementById('bd-reveal').classList.add('active');
+    document.getElementById('bd-reveal').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('bd-textarea').addEventListener('input', function() {
+    var w = this.value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('bd-word-count').textContent = w + ' word' + (w !== 1 ? 's' : '');
+  });
+
+  document.getElementById('bd-reset-btn').addEventListener('click', function() {
+    if (bdTimerInterval) clearInterval(bdTimerInterval);
+    document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+    bdTopic = null;
+    document.getElementById('bd-start-btn').disabled = true;
+    document.getElementById('bd-session').classList.remove('active');
+    document.getElementById('bd-setup').style.display = '';
+  });
+
+  /* ── GAMES ──────────────────────────────────────────── */
+  (function() {
+    // ── Jeopardy state ──
+    var jeopData = [];
+    var jeopTeams = [];
+    var jeopUsed = {};
+    var jeopCurrentCell = null;
+    var TEAM_COLORS = ['#b0001c','#1a237e','#1a6825','#e65100','#6a1b9a','#00695c'];
+
+    function renderTeamSetup() {
+      var el = document.getElementById('jeop-teams');
+      el.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var div = document.createElement('div');
+        div.className = 'jeop-team';
+        div.style.borderTopColor = TEAM_COLORS[i % TEAM_COLORS.length];
+        div.style.borderTopWidth = '4px';
+        div.innerHTML = '<input class="jeop-team-name" value="' + t.name.replace(/"/g, '&quot;') + '" data-ti="' + i + '"/>' +
+          '<div class="jeop-team-score">' + t.score + '</div>' +
+          (jeopTeams.length > 1 ? '<button class="jeop-team-rm" data-ti="' + i + '">&times;</button>' : '');
+        el.appendChild(div);
+      });
+      el.querySelectorAll('.jeop-team-name').forEach(function(inp) {
+        inp.addEventListener('change', function() { jeopTeams[parseInt(this.dataset.ti)].name = this.value || 'Team'; });
+      });
+      el.querySelectorAll('.jeop-team-rm').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          jeopTeams.splice(parseInt(this.dataset.ti), 1);
+          renderTeamSetup();
+        });
+      });
+    }
+
+    function renderScoreboard() {
+      var el = document.getElementById('jeop-scoreboard');
+      el.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var div = document.createElement('div');
+        div.className = 'jeop-team';
+        div.style.borderTopColor = TEAM_COLORS[i % TEAM_COLORS.length];
+        div.style.borderTopWidth = '4px';
+        div.innerHTML = '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:' + TEAM_COLORS[i % TEAM_COLORS.length] + '">' + (t.name || 'Team') + '</div><div class="jeop-team-score">' + t.score + '</div>';
+        el.appendChild(div);
+      });
+    }
+
+    function renderBoard() {
+      var el = document.getElementById('jeop-board');
+      el.innerHTML = '';
+      jeopData.forEach(function(cat) {
+        var hdr = document.createElement('div');
+        hdr.className = 'jeop-cat';
+        hdr.textContent = cat.name;
+        el.appendChild(hdr);
+      });
+      POINTS.forEach(function(pts, row) {
+        jeopData.forEach(function(cat, col) {
+          var btn = document.createElement('button');
+          btn.className = 'jeop-cell';
+          var key = col + '_' + row;
+          if (jeopUsed[key]) btn.classList.add('used');
+          btn.textContent = pts;
+          btn.dataset.col = col;
+          btn.dataset.row = row;
+          if (!jeopUsed[key]) {
+            btn.addEventListener('click', function() { openJeopQuestion(col, row, pts); });
+          }
+          el.appendChild(btn);
+        });
+      });
+    }
+
+    function openJeopQuestion(col, row, pts) {
+      var q = jeopData[col].questions[row];
+      jeopCurrentCell = { col: col, row: row, pts: pts };
+      document.getElementById('jeop-modal-pts').textContent = jeopData[col].name + ' — ' + pts + ' pts';
+      document.getElementById('jeop-modal-q').textContent = q.clue;
+      var ansEl = document.getElementById('jeop-modal-answer');
+      ansEl.innerHTML = '<strong>Answer:</strong> ' + q.answer + (q.explanation ? '<br><span style="font-size:.88rem;color:#555">' + q.explanation + '</span>' : '');
+      ansEl.classList.remove('show');
+      document.getElementById('jeop-reveal').style.display = '';
+      document.getElementById('jeop-award-bar').style.display = 'none';
+      document.getElementById('jeop-modal').style.display = 'flex';
+    }
+
+    document.getElementById('jeop-reveal').addEventListener('click', function() {
+      document.getElementById('jeop-modal-answer').classList.add('show');
+      this.style.display = 'none';
+      var bar = document.getElementById('jeop-award-bar');
+      bar.style.display = 'flex';
+      bar.innerHTML = '';
+      jeopTeams.forEach(function(t, i) {
+        var btn = document.createElement('button');
+        btn.className = 'jeop-award-btn';
+        btn.style.background = TEAM_COLORS[i % TEAM_COLORS.length];
+        btn.textContent = t.name || 'Team ' + (i + 1);
+        btn.addEventListener('click', function() { awardPoints(i); });
+        bar.appendChild(btn);
+      });
+      var noBtn = document.createElement('button');
+      noBtn.className = 'jeop-award-btn no-pts';
+      noBtn.textContent = 'No Points';
+      noBtn.addEventListener('click', function() { awardPoints(-1); });
+      bar.appendChild(noBtn);
+    });
+
+    function awardPoints(teamIdx) {
+      if (jeopCurrentCell === null) return;
+      if (teamIdx >= 0) jeopTeams[teamIdx].score += jeopCurrentCell.pts;
+      jeopUsed[jeopCurrentCell.col + '_' + jeopCurrentCell.row] = true;
+      jeopCurrentCell = null;
+      document.getElementById('jeop-modal').style.display = 'none';
+      renderBoard();
+      renderScoreboard();
+      if (Object.keys(jeopUsed).length >= jeopData.length * POINTS.length) showWinner();
+    }
+
+    function showWinner() {
+      var sorted = jeopTeams.slice().sort(function(a, b) { return b.score - a.score; });
+      var el = document.getElementById('jeop-winner');
+      el.innerHTML = '<h3>&#127942; ' + (sorted[0].name || 'Team') + ' Wins!</h3>' +
+        '<p style="font-size:1.2rem;color:var(--mid);margin-bottom:20px">' + sorted[0].score + ' points</p>' +
+        '<div style="font-size:.9rem;color:var(--mid)">' + sorted.map(function(t, i) {
+          return '<div style="margin-bottom:4px">' + (i + 1) + '. ' + t.name + ' — ' + t.score + ' pts</div>';
+        }).join('') + '</div>';
+      document.getElementById('jeop-board-wrap').style.display = 'none';
+      el.style.display = 'block';
+    }
+
+    document.getElementById('jeop-add-team').addEventListener('click', function() {
+      if (jeopTeams.length >= 6) return;
+      jeopTeams.push({ name: 'Team ' + (jeopTeams.length + 1), score: 0 });
+      renderTeamSetup();
+    });
+
+    document.getElementById('jeop-start').addEventListener('click', function() {
+      jeopData = JEOP_DATA;
+      jeopUsed = {};
+      document.getElementById('jeop-setup').style.display = 'none';
+      document.getElementById('jeop-board-wrap').style.display = 'block';
+      document.getElementById('jeop-winner').style.display = 'none';
+      renderBoard();
+      renderScoreboard();
+    });
+
+    document.getElementById('jeop-end-game').addEventListener('click', function() { showWinner(); });
+
+    document.getElementById('jeop-new-game').addEventListener('click', function() {
+      jeopTeams.forEach(function(t) { t.score = 0; });
+      jeopUsed = {};
+      document.getElementById('jeop-board-wrap').style.display = 'none';
+      document.getElementById('jeop-winner').style.display = 'none';
+      document.getElementById('jeop-setup').style.display = 'block';
+      renderTeamSetup();
+    });
+
+    document.getElementById('pick-jeopardy').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('jeopardy-game').style.display = 'block';
+      if (!jeopTeams.length) {
+        jeopTeams = [{ name: 'Team 1', score: 0 }, { name: 'Team 2', score: 0 }];
+      }
+      renderTeamSetup();
+    });
+
+    document.getElementById('jeop-back').addEventListener('click', function() {
+      jeopTeams = [];
+      jeopUsed = {};
+      jeopCurrentCell = null;
+      document.getElementById('jeop-setup').style.display = 'block';
+      document.getElementById('jeop-board-wrap').style.display = 'none';
+      document.getElementById('jeop-winner').style.display = 'none';
+      document.getElementById('jeopardy-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+
+    // ── Matching Game ──
+    var matchSelected = { left: null, right: null };
+    var matchedPairs = {};
+    var matchTotal = MATCH_DATA.length;
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    function renderMatching() {
+      matchSelected = { left: null, right: null };
+      matchedPairs = {};
+      var leftCol = document.getElementById('match-left');
+      var rightCol = document.getElementById('match-right');
+      leftCol.innerHTML = '<div class="match-col-hdr">Cause / Event</div>';
+      rightCol.innerHTML = '<div class="match-col-hdr">Effect / Significance</div>';
+      document.getElementById('match-success').style.display = 'none';
+      document.getElementById('match-board').style.display = 'flex';
+      document.getElementById('match-counter').textContent = '0 of ' + matchTotal + ' matched';
+
+      var leftOrder = shuffle(MATCH_DATA.map(function(_, i) { return i; }));
+      var rightOrder = shuffle(MATCH_DATA.map(function(_, i) { return i; }));
+
+      leftOrder.forEach(function(idx) {
+        var card = document.createElement('div');
+        card.className = 'match-card';
+        card.textContent = MATCH_DATA[idx].left;
+        card.dataset.idx = idx;
+        card.dataset.side = 'left';
+        card.addEventListener('click', function() { matchClick(this, 'left', idx); });
+        leftCol.appendChild(card);
+      });
+
+      rightOrder.forEach(function(idx) {
+        var card = document.createElement('div');
+        card.className = 'match-card';
+        card.textContent = MATCH_DATA[idx].right;
+        card.dataset.idx = idx;
+        card.dataset.side = 'right';
+        card.addEventListener('click', function() { matchClick(this, 'right', idx); });
+        rightCol.appendChild(card);
+      });
+    }
+
+    function matchClick(el, side, idx) {
+      if (el.classList.contains('matched')) return;
+      if (matchSelected[side] !== null) {
+        var prev = document.querySelector('.match-card.selected[data-side="' + side + '"]');
+        if (prev) prev.classList.remove('selected');
+      }
+      matchSelected[side] = idx;
+      el.classList.add('selected');
+      if (matchSelected.left !== null && matchSelected.right !== null) {
+        var leftIdx = matchSelected.left;
+        var rightIdx = matchSelected.right;
+        var leftCard = document.querySelector('.match-card[data-side="left"][data-idx="' + leftIdx + '"]');
+        var rightCard = document.querySelector('.match-card[data-side="right"][data-idx="' + rightIdx + '"]');
+        if (leftIdx === rightIdx) {
+          leftCard.classList.remove('selected'); rightCard.classList.remove('selected');
+          leftCard.classList.add('matched'); rightCard.classList.add('matched');
+          matchedPairs[leftIdx] = true;
+          var count = Object.keys(matchedPairs).length;
+          document.getElementById('match-counter').textContent = count + ' of ' + matchTotal + ' matched';
+          if (count >= matchTotal) {
+            setTimeout(function() {
+              document.getElementById('match-board').style.display = 'none';
+              document.getElementById('match-counter').textContent = '';
+              document.getElementById('match-success').style.display = 'block';
+            }, 600);
+          }
+        } else {
+          leftCard.classList.add('wrong'); rightCard.classList.add('wrong');
+          setTimeout(function() {
+            leftCard.classList.remove('selected', 'wrong');
+            rightCard.classList.remove('selected', 'wrong');
+          }, 500);
+        }
+        matchSelected = { left: null, right: null };
+      }
+    }
+
+    document.getElementById('pick-matching').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('matching-game').style.display = 'block';
+      renderMatching();
+    });
+    document.getElementById('match-back').addEventListener('click', function() {
+      document.getElementById('matching-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+    document.getElementById('match-replay').addEventListener('click', function() { renderMatching(); });
+  })();
+
+  /* ── SORT IT GAME ─────────────────────────────────────── */
+  (function() {
+    function renderSortIt() {
+      var container = document.getElementById('sortit-cards');
+      container.innerHTML = '';
+      document.getElementById('sortit-score').style.display = 'none';
+      document.getElementById('sortit-replay-bar').style.display = 'none';
+      SORT_DATA.forEach(function(item, i) {
+        var card = document.createElement('div');
+        card.className = 'sortit-card';
+        card.dataset.idx = i;
+        card.dataset.choice = '';
+        card.innerHTML =
+          '<div class="sortit-card-text">' + (i + 1) + '. ' + item.text + '</div>' +
+          '<div class="sortit-btn-row">' +
+            '<button type="button" class="sortit-btn" data-choice="earns">Earns it</button>' +
+            '<button type="button" class="sortit-btn" data-choice="nope">Doesn\'t earn it</button>' +
+          '</div>' +
+          '<div class="sortit-explain">' + item.explain + '</div>';
+        card.querySelectorAll('.sortit-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            card.querySelectorAll('.sortit-btn').forEach(function(b) { b.classList.remove('earns', 'nope'); });
+            this.classList.add(this.dataset.choice);
+            card.dataset.choice = this.dataset.choice;
+          });
+        });
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('pick-sortit').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('sortit-game').style.display = 'block';
+      renderSortIt();
+    });
+    document.getElementById('sortit-back').addEventListener('click', function() {
+      document.getElementById('sortit-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+    document.getElementById('sortit-submit').addEventListener('click', function() {
+      var correct = 0;
+      document.querySelectorAll('#sortit-cards .sortit-card').forEach(function(card) {
+        var i = parseInt(card.dataset.idx);
+        var choice = card.dataset.choice;
+        var earns = SORT_DATA[i].earns;
+        var gotIt = (choice === 'earns' && earns) || (choice === 'nope' && !earns);
+        card.classList.remove('revealed-correct', 'revealed-wrong');
+        card.classList.add(gotIt ? 'revealed-correct' : 'revealed-wrong');
+        if (gotIt) correct++;
+      });
+      var scoreEl = document.getElementById('sortit-score');
+      scoreEl.textContent = correct + ' / ' + SORT_DATA.length + ' correct';
+      scoreEl.style.display = 'block';
+      document.getElementById('sortit-replay-bar').style.display = 'block';
+    });
+    document.getElementById('sortit-replay').addEventListener('click', function() { renderSortIt(); });
+  })();
+
+  /* ── SOURCE LINE WARM-UP GAME ─────────────────────────── */
+  (function() {
+    var warmupIdx = 0;
+    var warmupTimer = null;
+    var warmupSecondsLeft = 60;
+    var warmupLens = 'pov';
+
+    var LENS_FRAMES_W = {
+      pov: {
+        text: '&ldquo;The <strong>point of view</strong> of this document is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X &mdash; connect to argument</em>].&rdquo;',
+        tip: 'Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?'
+      },
+      purpose: {
+        text: '&ldquo;The <strong>purpose</strong> of this document was to [<em>specific goal</em>] [<em>specific audience</em>], <strong>which means</strong> the source [<em>overstates / downplays / frames X &mdash; connect to argument</em>].&rdquo;',
+        tip: 'Ask: why was this created, and how does that goal shape what it says or omits?'
+      },
+      audience: {
+        text: '&ldquo;Because this document was written for [<em>specific audience</em>], the source [<em>emphasizes / avoids X</em>], <strong>which means</strong> it [<em>consequence for your argument</em>].&rdquo;',
+        tip: 'Ask: who was this meant to reach, and what did that audience need &mdash; or not need &mdash; to hear?'
+      },
+      hist: {
+        text: '&ldquo;This document was produced during [<em>specific historical moment</em>], <strong>which means</strong> [<em>that context shaped the source because &mdash; connect to your argument</em>].&rdquo;',
+        tip: 'Ask: what was happening when this was created, and how does that context explain what the source says?'
+      }
+    };
+
+    function startWarmupTimer() {
+      clearInterval(warmupTimer);
+      warmupSecondsLeft = 60;
+      updateTimerDisplay();
+      warmupTimer = setInterval(function() {
+        warmupSecondsLeft--;
+        updateTimerDisplay();
+        if (warmupSecondsLeft <= 0) clearInterval(warmupTimer);
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      var el = document.getElementById('warmup-timer');
+      var s = Math.max(0, warmupSecondsLeft);
+      el.textContent = Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+      el.classList.toggle('urgent', s <= 10);
+    }
+
+    function loadWarmupDoc(idx) {
+      var doc = WARMUP_DOCS[idx];
+      document.getElementById('warmup-doc-num').textContent = 'Document ' + (idx + 1) + ' of ' + WARMUP_DOCS.length;
+      document.getElementById('warmup-doc-type').textContent = doc.type;
+      document.getElementById('warmup-source-line').textContent = doc.sourceLine;
+      document.getElementById('warmup-excerpt').textContent = '\u201c' + doc.excerpt + '\u201d';
+      document.getElementById('warmup-text').value = '';
+      document.getElementById('warmup-result').innerHTML = '';
+      document.getElementById('warmup-result').className = 'drill-result';
+      document.getElementById('warmup-model').style.display = 'none';
+      document.getElementById('warmup-next').style.display = 'none';
+
+      var lensRow = document.getElementById('warmup-lens-row');
+      lensRow.innerHTML = '';
+      warmupLens = 'pov';
+      [['pov','Point of View'],['purpose','Purpose'],['audience','Audience'],['hist','Historical Situation']].forEach(function(pair) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'warmup-lens-btn' + (pair[0] === 'pov' ? ' active' : '');
+        btn.dataset.wlens = pair[0];
+        btn.textContent = pair[1];
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#warmup-lens-row .warmup-lens-btn').forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          warmupLens = this.dataset.wlens;
+          showWarmupFrame();
+        });
+        lensRow.appendChild(btn);
+      });
+      showWarmupFrame();
+      startWarmupTimer();
+    }
+
+    function showWarmupFrame() {
+      var frame = document.getElementById('warmup-frame');
+      frame.style.display = 'block';
+      document.getElementById('warmup-frame-text').innerHTML = LENS_FRAMES_W[warmupLens].text;
+      document.getElementById('warmup-frame-tip').innerHTML = LENS_FRAMES_W[warmupLens].tip;
+    }
+
+    document.getElementById('pick-warmup').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('warmup-game').style.display = 'block';
+      warmupIdx = 0;
+      loadWarmupDoc(0);
+    });
+    document.getElementById('warmup-back').addEventListener('click', function() {
+      clearInterval(warmupTimer);
+      document.getElementById('warmup-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+    document.getElementById('warmup-check').addEventListener('click', function() {
+      clearInterval(warmupTimer);
+      var t = document.getElementById('warmup-text').value.toLowerCase().trim();
+      var words = t.split(/\s+/).filter(Boolean).length;
+      var hasFeature = /point of view|purpose|audience|historical situation|which means|because|since|as a|written by|produced by|official|government|military|newspaper|photographer|advertisement/.test(t);
+      var hasConsequence = /which means|therefore|so that|in order to|making it|making this|supports the|supporting|evidence that|suggests that|means that|this means/.test(t);
+      var resultEl = document.getElementById('warmup-result');
+      if (words < 8) {
+        resultEl.className = 'drill-result fail';
+        resultEl.innerHTML = '<span class="dr-icon">&#10007;</span><div><strong>Too short.</strong> Write a complete sentence: name the source feature, then explain the consequence with "which means."</div>';
+      } else if (hasFeature && hasConsequence) {
+        resultEl.className = 'drill-result pass';
+        resultEl.innerHTML = '<span class="dr-icon">&#10003;</span><div><strong>Likely earns the point.</strong> You named a source feature and used consequence language. Check the model answer to see if your explanation connects clearly to an argument.</div>';
+      } else if (hasFeature) {
+        resultEl.className = 'drill-result partial';
+        resultEl.innerHTML = '<span class="dr-icon">&#126;</span><div><strong>Identifies &mdash; but needs consequence.</strong> You named a source feature. Now add the "which means" move: what does that feature mean for your argument?</div>';
+      } else {
+        resultEl.className = 'drill-result fail';
+        resultEl.innerHTML = '<span class="dr-icon">&#10007;</span><div><strong>No HAPP feature identified.</strong> Start by naming something specific about the source: its author\'s role, the document\'s purpose, who it was written for, or the historical moment it was produced in. Then use "which means" to connect it to your argument.</div>';
+      }
+      var doc = WARMUP_DOCS[warmupIdx];
+      document.getElementById('warmup-model-text').textContent = doc.models[warmupLens];
+      document.getElementById('warmup-model').style.display = 'block';
+      if (warmupIdx < WARMUP_DOCS.length - 1) {
+        document.getElementById('warmup-next').style.display = 'inline-block';
+      }
+    });
+    document.getElementById('warmup-next').addEventListener('click', function() {
+      warmupIdx++;
+      loadWarmupDoc(warmupIdx);
+    });
+  })();
+
+  /* ── SPEED QUIZ ───────────────────────────────────────── */
+  (function() {
+    var sqCurrent = 0, sqScore = 0, sqTimer = null, sqSecondsLeft = 20, sqAnswered = false, sqResults = [];
+
+    function renderSpeedQuiz() {
+      sqCurrent = 0; sqScore = 0; sqResults = [];
+      document.getElementById('sq-question-area').style.display = 'block';
+      document.getElementById('sq-final').style.display = 'none';
+      showSQQuestion();
+    }
+
+    function showSQQuestion() {
+      sqAnswered = false;
+      sqSecondsLeft = 20;
+      var item = SQ_DATA[sqCurrent];
+      document.getElementById('sq-qnum').textContent = 'Question ' + (sqCurrent + 1) + ' of ' + SQ_DATA.length;
+      document.getElementById('sq-score-chip').textContent = 'Score: ' + sqScore.toLocaleString();
+      document.getElementById('sq-q-text').textContent = item.q;
+      document.getElementById('sq-pts-flash').textContent = '';
+      document.getElementById('sq-pts-flash').style.color = '';
+      document.getElementById('sq-expl').style.display = 'none';
+      var grid = document.getElementById('sq-choices');
+      grid.innerHTML = '';
+      item.o.forEach(function(opt, i) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sq-choice';
+        btn.textContent = opt;
+        btn.addEventListener('click', function() { sqAnswer(i); });
+        grid.appendChild(btn);
+      });
+      var bar = document.getElementById('sq-timer-bar');
+      bar.style.transition = 'none';
+      bar.style.width = '100%';
+      setTimeout(function() {
+        bar.style.transition = 'width ' + sqSecondsLeft + 's linear';
+        bar.style.width = '0%';
+      }, 30);
+      clearInterval(sqTimer);
+      sqTimer = setInterval(function() {
+        sqSecondsLeft--;
+        if (sqSecondsLeft <= 0) { clearInterval(sqTimer); sqAnswer(-1); }
+      }, 1000);
+    }
+
+    function sqAnswer(choice) {
+      if (sqAnswered) return;
+      sqAnswered = true;
+      clearInterval(sqTimer);
+      var bar = document.getElementById('sq-timer-bar');
+      bar.style.transition = 'none';
+      bar.style.width = Math.max(0, (sqSecondsLeft / 20) * 100) + '%';
+      var item = SQ_DATA[sqCurrent];
+      var correct = choice === item.c;
+      var pts = correct ? Math.max(100, Math.round((sqSecondsLeft / 20) * 1000)) : 0;
+      sqScore += pts;
+      sqResults.push({ correct: correct, choice: choice, item: item });
+      document.querySelectorAll('#sq-choices .sq-choice').forEach(function(btn, i) {
+        btn.disabled = true;
+        if (i === item.c) btn.classList.add('sq-correct');
+        else if (i === choice) btn.classList.add('sq-wrong');
+      });
+      var flash = document.getElementById('sq-pts-flash');
+      if (choice === -1) { flash.textContent = 'Time\u2019s up! +0 pts'; flash.style.color = 'var(--red)'; }
+      else if (correct) { flash.textContent = '+' + pts + ' pts'; flash.style.color = '#1a6825'; }
+      else { flash.textContent = '+0 pts'; flash.style.color = 'var(--red)'; }
+      document.getElementById('sq-score-chip').textContent = 'Score: ' + sqScore.toLocaleString();
+      var expl = document.getElementById('sq-expl');
+      expl.textContent = item.e;
+      expl.style.display = 'block';
+      setTimeout(function() {
+        sqCurrent++;
+        if (sqCurrent >= SQ_DATA.length) showSQFinal();
+        else showSQQuestion();
+      }, 2600);
+    }
+
+    function showSQFinal() {
+      document.getElementById('sq-question-area').style.display = 'none';
+      document.getElementById('sq-final').style.display = 'block';
+      var correct = sqResults.filter(function(r) { return r.correct; }).length;
+      document.getElementById('sq-final-score').textContent = sqScore.toLocaleString() + ' pts';
+      document.getElementById('sq-final-correct').textContent = correct + ' / ' + SQ_DATA.length + ' correct';
+      var bk = document.getElementById('sq-breakdown');
+      bk.innerHTML = '';
+      sqResults.forEach(function(r, i) {
+        var row = document.createElement('div');
+        row.className = 'sq-bk-row';
+        row.innerHTML = '<div class="sq-bk-icon" style="color:' + (r.correct ? '#1a6825' : 'var(--red)') + '">' + (r.correct ? '&#10003;' : '&#10007;') + '</div>' +
+          '<div><strong>' + (i + 1) + '. ' + r.item.q + '</strong>' +
+          (r.correct ? '' : '<br><span style="color:var(--red)">Your answer: ' + (r.choice === -1 ? 'Time\u2019s up' : r.item.o[r.choice]) + '</span>') +
+          '<br><span style="color:#1a6825">Correct: ' + r.item.o[r.item.c] + '</span></div>';
+        bk.appendChild(row);
+      });
+    }
+
+    document.getElementById('pick-speedquiz').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('speedquiz-game').style.display = 'block';
+      renderSpeedQuiz();
+    });
+    document.getElementById('sq-back').addEventListener('click', function() {
+      clearInterval(sqTimer);
+      document.getElementById('speedquiz-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+    document.getElementById('sq-replay').addEventListener('click', function() { renderSpeedQuiz(); });
+  })();
+
+  /* ── TIMELINE BUILDER ─────────────────────────────────── */
+  (function() {
+    var tlPool = [], tlCurrent = 0, tlMisses = 0;
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    function renderTimeline() {
+      tlCurrent = 0; tlMisses = 0;
+      tlPool = shuffle(TIMELINE.map(function(_, i) { return i; }));
+      document.getElementById('tl-result').style.display = 'none';
+      document.getElementById('tl-sequence-wrap').style.display = 'block';
+      document.getElementById('tl-wrong-msg').textContent = '';
+      updateTLProgress();
+      renderTLPool(null);
+      updateTLSequence();
+    }
+
+    function updateTLProgress() {
+      document.getElementById('tl-progress').textContent = tlCurrent + ' of ' + TIMELINE.length + ' placed correctly';
+    }
+
+    function renderTLPool(wrongIdx) {
+      var pool = document.getElementById('tl-pool');
+      pool.innerHTML = '';
+      tlPool.forEach(function(origIdx) {
+        if (origIdx < tlCurrent) return;
+        var item = TIMELINE[origIdx];
+        var card = document.createElement('div');
+        card.className = 'tl-card' + (origIdx === wrongIdx ? ' tl-wrong-anim' : '');
+        card.innerHTML = '<div class="tl-card-title">' + item.title + '</div>';
+        card.addEventListener('click', (function(idx, el) {
+          return function() { tlClick(idx, el); };
+        })(origIdx, card));
+        pool.appendChild(card);
+      });
+    }
+
+    function updateTLSequence() {
+      var list = document.getElementById('tl-seq-list');
+      list.innerHTML = '';
+      for (var i = 0; i < tlCurrent; i++) {
+        var div = document.createElement('div');
+        div.className = 'tl-seq-item';
+        div.innerHTML = '<span class="tl-seq-num">' + (i + 1) + '.</span>' +
+          '<span>' + TIMELINE[i].year + ' &mdash; ' + TIMELINE[i].title + '</span>';
+        list.appendChild(div);
+      }
+      if (tlCurrent < TIMELINE.length) {
+        var next = document.createElement('div');
+        next.className = 'tl-seq-item tl-next-slot';
+        next.innerHTML = '<span class="tl-seq-num">' + (tlCurrent + 1) + '.</span><span>What comes next?</span>';
+        list.appendChild(next);
+      }
+    }
+
+    function tlClick(origIdx, card) {
+      if (origIdx === tlCurrent) {
+        tlCurrent++;
+        document.getElementById('tl-wrong-msg').textContent = '';
+        updateTLProgress();
+        if (tlCurrent >= TIMELINE.length) {
+          showTLResult();
+        } else {
+          renderTLPool(null);
+          updateTLSequence();
+        }
+      } else {
+        tlMisses++;
+        document.getElementById('tl-wrong-msg').textContent = 'Not quite \u2014 try again!';
+        renderTLPool(origIdx);
+        setTimeout(function() {
+          document.getElementById('tl-wrong-msg').textContent = '';
+          renderTLPool(null);
+        }, 400);
+      }
+    }
+
+    function showTLResult() {
+      document.getElementById('tl-sequence-wrap').style.display = 'none';
+      var res = document.getElementById('tl-result');
+      res.style.display = 'block';
+      var grade = tlMisses === 0 ? 'Perfect!' : tlMisses <= 3 ? 'Nice work!' : 'Keep practicing!';
+      res.innerHTML = '<div style="text-align:center;padding:28px 0">' +
+        '<div style="font-family:\'Playfair Display\',serif;font-size:1.6rem;margin-bottom:8px">' + grade + '</div>' +
+        '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:.75rem;letter-spacing:.08em;color:var(--muted);margin-bottom:22px">' +
+          TIMELINE.length + ' events placed &mdash; ' + tlMisses + ' wrong click' + (tlMisses !== 1 ? 's' : '') +
+        '</div>' +
+        '<button type="button" id="tl-replay-btn" style="padding:12px 28px;background:var(--red);color:#fff;border:none;font-family:\'IBM Plex Mono\',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>' +
+        '</div>';
+      document.getElementById('tl-replay-btn').addEventListener('click', function() { renderTimeline(); });
+    }
+
+    document.getElementById('pick-timeline').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('timeline-game').style.display = 'block';
+      renderTimeline();
+    });
+    document.getElementById('tl-back').addEventListener('click', function() {
+      document.getElementById('timeline-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+  })();
+
+  /* ── VISUAL SOURCES (HIPP) ───────────────────────────── */
+  (function() {
+    var tabRow = document.getElementById('vs-tabs');
+    var cardsEl = document.getElementById('vs-cards');
+    if (!tabRow || !cardsEl || typeof VISUAL_DATA === 'undefined') return;
+
+    var HIPP_KEYS = [
+      { key: 'h', label: 'Historical Context', guides: [
+          'When and where was this source created?',
+          'What major events, conflicts, or tensions were happening at this time?',
+          'How does the historical moment explain why this source exists?'
+      ]},
+      { key: 'i', label: 'Intended Audience', guides: [
+          'Who was this source originally created for \u2014 a mass public, a specific group, or a limited audience?',
+          'What details in the source (language, imagery, style) hint at who it was aimed at?',
+          'Would the intended audience have agreed with the source\u2019s message?'
+      ]},
+      { key: 'p', label: 'Purpose', guides: [
+          'Why did the creator make this \u2014 to persuade, inform, document, commemorate, or entertain?',
+          'What reaction or action did the creator want from the audience?',
+          'Who benefits if the source\u2019s message is believed or accepted?'
+      ]},
+      { key: 'pov', label: 'Point of View', guides: [
+          'Who created this source? What is their background, nationality, class, or position?',
+          'How does the creator\u2019s identity shape what they emphasize, downplay, or leave out?',
+          'Why should a historian consider this creator\u2019s perspective when evaluating this source?'
+      ]}
+    ];
+
+    VISUAL_DATA.forEach(function(item, idx) {
+      var tab = document.createElement('button');
+      tab.type = 'button';
+      tab.className = 'vs-tab' + (idx === 0 ? ' active' : '');
+      tab.textContent = 'Image ' + item.num;
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.vs-tab').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        document.querySelectorAll('.vs-card').forEach(function(c) { c.classList.remove('active'); });
+        document.getElementById('vs-card-' + idx).classList.add('active');
+      });
+      tabRow.appendChild(tab);
+
+      var mcHTML = '';
+      item.o.forEach(function(opt, oi) {
+        mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>';
+      });
+
+      var hippHTML = '';
+      HIPP_KEYS.forEach(function(hk) {
+        var guideItems = hk.guides.map(function(g) { return '<li>' + g + '</li>'; }).join('');
+        hippHTML +=
+          '<div class="vs-hipp-section">' +
+            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
+            '<ul class="vs-guide">' + guideItems + '</ul>' +
+            '<textarea class="vs-hipp-input" placeholder="Write your analysis here\u2026" rows="3"></textarea>' +
+            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '">' +
+              '<div class="vs-hipp-model-lbl">Exemplar \u2014 ' + hk.label + '</div>' +
+              item.hipp[hk.key] +
+            '</div>' +
+          '</div>';
+      });
+
+      var card = document.createElement('div');
+      card.className = 'vs-card' + (idx === 0 ? ' active' : '');
+      card.id = 'vs-card-' + idx;
+      card.innerHTML =
+        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
+        '<div class="vs-step-hdr">Step 1 \u2014 Answer the AP Question</div>' +
+        '<div class="vs-mc-q">' + item.q + '</div>' +
+        mcHTML +
+        '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
+        '<div class="vs-btn-row">' +
+          '<button type="button" class="vs-btn" data-hippshow="' + idx + '">Step 2 \u2014 Analyze this Source (HIPP) \u2192</button>' +
+        '</div>' +
+        '<div class="vs-hipp-area" id="vs-hipp-' + idx + '">' +
+          '<div class="vs-step-hdr" style="margin-bottom:12px">Step 2 \u2014 HIPP Analysis</div>' +
+          '<p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Use the guiding questions below to write your own HIPP analysis. Answer in your own words before comparing to the exemplar.</p>' +
+          hippHTML +
+          '<div class="vs-btn-row">' +
+            '<button type="button" class="vs-btn vs-btn-red" data-compare="' + idx + '">Compare to Exemplar HIPP \u2192</button>' +
+          '</div>' +
+        '</div>';
+      cardsEl.appendChild(card);
+    });
+
+    cardsEl.addEventListener('click', function(e) {
+      var hippBtn = e.target.closest('[data-hippshow]');
+      if (hippBtn) {
+        document.getElementById('vs-hipp-' + hippBtn.dataset.hippshow).classList.add('show');
+        hippBtn.style.display = 'none';
+        return;
+      }
+      var cmpBtn = e.target.closest('[data-compare]');
+      if (cmpBtn) {
+        var idx = cmpBtn.dataset.compare;
+        HIPP_KEYS.forEach(function(hk) {
+          document.getElementById('vs-model-' + hk.key + '-' + idx).classList.add('show');
+        });
+        cmpBtn.style.display = 'none';
+        return;
+      }
+      var opt = e.target.closest('.vs-mc-option');
+      if (opt && !opt.disabled) {
+        var card = opt.closest('.vs-card');
+        var idx = card.id.replace('vs-card-', '');
+        var item = VISUAL_DATA[parseInt(idx)];
+        var oi = parseInt(opt.dataset.oi);
+        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
+          b.disabled = true;
+          if (bi === item.c) b.classList.add('vs-mc-correct');
+          else if (bi === oi) b.classList.add('vs-mc-wrong');
+        });
+        document.getElementById('vs-mc-explain-' + idx).classList.add('show');
+      }
+    });
+  })();
+
+  /* ── ASTEROID BLASTER ────────────────────────────────── */
+  (function() {
+    var astScore = 0, astLives = 3, astQIdx = 0, astAnswered = false;
+    var astAsteroids = [];
+    var astRAF = null;
+    var astQ = [];
+    var SHIP_Y_FRAC = 0.82;
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+      }
+      return a;
+    }
+
+    function startAsteroidGame() {
+      astScore = 0; astLives = 3; astQIdx = 0; astAnswered = false;
+      astQ = shuffle(ASTEROID_Q.slice());
+      document.getElementById('ast-end').classList.remove('show');
+      updateHUD();
+      nextAsteroidQuestion();
+    }
+
+    function updateHUD() {
+      var hearts = '';
+      for (var i = 0; i < 3; i++) hearts += (i < astLives ? '\u2665' : '\u2661') + ' ';
+      document.getElementById('ast-lives').textContent = hearts.trim();
+      document.getElementById('ast-score').textContent = astScore;
+    }
+
+    function nextAsteroidQuestion() {
+      clearAsteroids();
+      if (astQIdx >= astQ.length) { endAsteroidGame(); return; }
+      astAnswered = false;
+      var item = astQ[astQIdx];
+      document.getElementById('ast-qnum-lbl').textContent = 'Question ' + (astQIdx + 1) + ' of ' + astQ.length;
+      document.getElementById('ast-question').textContent = item.q;
+
+      var arena = document.getElementById('asteroid-arena');
+      var W = arena.clientWidth, H = arena.clientHeight;
+      var cx = W / 2, cy = H * SHIP_Y_FRAC;
+
+      var spawnPositions = [
+        { x: W * 0.15, y: -60 },
+        { x: W * 0.85, y: -60 },
+        { x: -70,      y: H * 0.35 },
+        { x: W + 70,   y: H * 0.35 }
+      ];
+
+      item.o.forEach(function(opt, i) {
+        var sp = spawnPositions[i];
+        var el = document.createElement('div');
+        el.className = 'asteroid';
+        el.textContent = opt;
+        var rot = Math.random() * 360;
+        var rotSpeed = (Math.random() - 0.5) * 1.2;
+        el.style.cssText = 'left:' + sp.x + 'px;top:' + sp.y + 'px;--rot:' + rot + 'deg;--tx:' + sp.x + 'px;--ty:' + sp.y + 'px;transform:translate(-50%,-50%) rotate(' + rot + 'deg)';
+        var isCorrect = (i === item.c);
+        el.addEventListener('click', (function(correct, elem) {
+          return function() { onAsteroidClick(correct, elem); };
+        })(isCorrect, el));
+        arena.appendChild(el);
+        astAsteroids.push({ el: el, x: sp.x, y: sp.y, rot: rot, rotSpeed: rotSpeed, correct: isCorrect, speed: 0.55 + Math.random() * 0.25 });
+      });
+
+      astRAF = requestAnimationFrame(asteroidLoop);
+    }
+
+    function asteroidLoop() {
+      if (astAnswered) return;
+      var arena = document.getElementById('asteroid-arena');
+      var W = arena.clientWidth, H = arena.clientHeight;
+      var cx = W / 2, cy = H * SHIP_Y_FRAC;
+      var reachedShip = false;
+
+      astAsteroids.forEach(function(ast) {
+        var dx = cx - ast.x, dy = cy - ast.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 55) { reachedShip = true; return; }
+        ast.x += (dx / dist) * ast.speed;
+        ast.y += (dy / dist) * ast.speed;
+        ast.rot += ast.rotSpeed;
+        ast.el.style.left = ast.x + 'px';
+        ast.el.style.top = ast.y + 'px';
+        ast.el.style.transform = 'translate(-50%,-50%) rotate(' + ast.rot + 'deg)';
+        ast.el.style.setProperty('--rot', ast.rot + 'deg');
+        ast.el.style.setProperty('--tx', ast.x + 'px');
+        ast.el.style.setProperty('--ty', ast.y + 'px');
+      });
+
+      if (reachedShip && !astAnswered) {
+        onAsteroidClick(false, null, true);
+      } else {
+        astRAF = requestAnimationFrame(asteroidLoop);
+      }
+    }
+
+    function onAsteroidClick(correct, clickedEl, shipHit) {
+      if (astAnswered) return;
+      astAnswered = true;
+      cancelAnimationFrame(astRAF);
+
+      if (correct) {
+        astScore += 100;
+        updateHUD();
+
+        var arena = document.getElementById('asteroid-arena');
+        var shipEl = arena.querySelector('.ast-ship');
+        var arenaW = arena.clientWidth, arenaH = arena.clientHeight;
+        var shipX = arenaW / 2, shipY = arenaH - 24 - 28;
+
+        var correctAst = astAsteroids.filter(function(a) { return a.correct; })[0];
+        var astX = correctAst ? correctAst.x : (clickedEl ? clickedEl.offsetLeft : shipX);
+        var astY = correctAst ? correctAst.y : (clickedEl ? clickedEl.offsetTop : shipY - 100);
+
+        var dx = astX - shipX, dy = astY - shipY;
+        var angleDeg = Math.atan2(dy, dx) * 180 / Math.PI;
+        var dist = Math.hypot(dx, dy);
+
+        if (shipEl) shipEl.style.transform = 'translateX(-50%) rotate(' + (angleDeg + 90) + 'deg)';
+
+        setTimeout(function() {
+          var laser = document.createElement('div');
+          laser.className = 'ast-laser';
+          laser.style.left = shipX + 'px';
+          laser.style.top = (shipY - 1) + 'px';
+          laser.style.width = dist + 'px';
+          laser.style.setProperty('--laser-angle', angleDeg + 'deg');
+          arena.appendChild(laser);
+          laser.getBoundingClientRect();
+          laser.classList.add('fire');
+
+          setTimeout(function() {
+            if (clickedEl) clickedEl.classList.add('ast-correct');
+            astAsteroids.forEach(function(a) { if (a.el !== clickedEl) a.el.style.opacity = '0'; });
+            setTimeout(function() {
+              if (laser.parentNode) laser.parentNode.removeChild(laser);
+              if (shipEl) shipEl.style.transform = 'translateX(-50%) rotate(0deg)';
+              astQIdx++;
+              nextAsteroidQuestion();
+            }, 400);
+          }, 300);
+        }, 120);
+      } else {
+        astLives--;
+        updateHUD();
+        var flash = document.getElementById('ast-flash');
+        flash.style.background = 'rgba(255,60,60,.35)';
+        flash.style.opacity = '1';
+        setTimeout(function() { flash.style.opacity = '0'; }, 300);
+        if (clickedEl) { clickedEl.classList.add('ast-wrong'); setTimeout(function() { clickedEl.classList.remove('ast-wrong'); }, 350); }
+        astAsteroids.forEach(function(a) { if (a.correct) a.el.style.filter = 'brightness(2.5)'; });
+        if (astLives <= 0) {
+          setTimeout(function() { endAsteroidGame(); }, 900);
+        } else {
+          setTimeout(function() {
+            astAnswered = false;
+            clearAsteroids();
+            astRAF = requestAnimationFrame(function() { nextAsteroidQuestion(); });
+          }, 1100);
+        }
+      }
+    }
+
+    function clearAsteroids() {
+      cancelAnimationFrame(astRAF);
+      astAsteroids.forEach(function(a) { if (a.el.parentNode) a.el.parentNode.removeChild(a.el); });
+      astAsteroids = [];
+    }
+
+    function endAsteroidGame() {
+      clearAsteroids();
+      var endEl = document.getElementById('ast-end');
+      endEl.classList.add('show');
+      document.getElementById('ast-end-title').textContent = astLives > 0 ? 'Mission Complete!' : 'Ship Destroyed!';
+      document.getElementById('ast-end-score').textContent = astScore + ' pts';
+      document.getElementById('ast-end-detail').textContent = Math.round(astScore / 100) + ' / ' + astQ.length + ' correct \u2014 ' + astLives + ' lives remaining';
+    }
+
+    document.getElementById('pick-asteroid').addEventListener('click', function() {
+      document.getElementById('game-picker').style.display = 'none';
+      document.getElementById('asteroid-game').style.display = 'block';
+      startAsteroidGame();
+    });
+    document.getElementById('ast-back').addEventListener('click', function() {
+      clearAsteroids();
+      document.getElementById('asteroid-game').style.display = 'none';
+      document.getElementById('game-picker').style.display = 'grid';
+    });
+    document.getElementById('ast-replay').addEventListener('click', function() { startAsteroidGame(); });
   })();
 
 });

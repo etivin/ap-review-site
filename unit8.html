@@ -335,6 +335,39 @@ button{font-family:inherit;cursor:pointer}
 @keyframes laserFire{0%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(0)}30%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}70%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}100%{opacity:0;transform:rotate(var(--laser-angle)) scaleX(1)}}
 @keyframes astExplode{0%{transform:scale(1) rotate(var(--rot,0deg));opacity:1}40%{transform:scale(1.8) rotate(var(--rot,0deg));filter:brightness(4);opacity:.8}100%{transform:scale(0) rotate(var(--rot,0deg));opacity:0}}
 @keyframes astWrong{0%,100%{transform:translate(var(--tx,0px),var(--ty,0px)) rotate(var(--rot,0deg))}25%{transform:translate(calc(var(--tx,0px) - 7px),var(--ty,0px)) rotate(var(--rot,0deg))}75%{transform:translate(calc(var(--tx,0px) + 7px),var(--ty,0px)) rotate(var(--rot,0deg))}}
+/* ── BRAIN DUMP ── */
+.bd-setup{text-align:center;max-width:600px;margin:0 auto 32px}
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{background:var(--red);color:#fff;border:none;padding:13px 36px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
+.bd-start-btn:hover{background:var(--red-d)}
+.bd-start-btn:disabled{opacity:.38;cursor:default}
+.bd-session{display:none}
+.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.bd-topic-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
+.bd-countdown{font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:500;color:#fff;letter-spacing:.05em}
+.bd-countdown.warning{color:#f5a623}
+.bd-countdown.expired{color:var(--red)}
+.bd-textarea{width:100%;min-height:300px;background:var(--white);border:1.5px solid var(--border2);padding:18px;font-family:'Source Serif 4',Georgia,serif;font-size:.95rem;line-height:1.8;color:var(--ink);resize:vertical;margin-bottom:8px}
+.bd-textarea:focus{outline:none;border-color:var(--blue)}
+.bd-textarea:disabled{background:var(--paper);color:var(--mid)}
+.bd-stem{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-bottom:16px}
+.bd-stem-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
+.bd-word-count{font-family:'IBM Plex Mono',monospace;font-size:.57rem;color:var(--muted);letter-spacing:.1em;margin-bottom:24px}
+.bd-reveal{display:none;margin-top:8px}
+.bd-reveal.active{display:block}
+.bd-reveal-hdr{background:var(--green);color:#fff;padding:14px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:28px}
+.bd-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--green);padding:16px 18px}
+.bd-card-term{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:6px}
+.bd-card-def{font-size:.84rem;line-height:1.7;color:var(--mid)}
+.bd-reset-btn{background:none;border:1.5px solid var(--border2);color:var(--ink);padding:10px 26px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:all .18s}
+.bd-reset-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 /* FOOTER */
 .site-footer{background:var(--ink);padding:18px 24px;text-align:center}
 .site-footer p{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3)}
@@ -452,6 +485,13 @@ button{font-family:inherit;cursor:pointer}
           <div class="feat-count">7 sources &mdash; HAPP practice</div>
           <div class="feat-action">Open &rarr;</div>
         </button>
+        <button class="feat" data-tab="pg-brain">
+          <div class="feat-icon">&#129504;</div>
+          <div class="feat-name">Brain Dump</div>
+          <div class="feat-desc">Pick a topic and write everything you know in 5 minutes. Then compare to the full content.</div>
+          <div class="feat-count">8 topics &mdash; Timed practice</div>
+          <div class="feat-action">Open &rarr;</div>
+        </button>
       </div>
     </div>
   </section>
@@ -471,12 +511,64 @@ button{font-family:inherit;cursor:pointer}
     <div class="home-cta-btns">
       <button class="cta-btn" data-tab="pg-mcq">&#128203; Begin MCQ Practice</button>
       <button class="cta-btn-outline" data-tab="pg-guide">&#128214; Open Study Guide</button>
+      <button class="cta-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
       <button class="cta-btn-outline" data-tab="pg-games">&#127918; Play Games</button>
     </div>
   </section>
   <footer class="site-footer">
     <p>Archbishop Moeller High School &nbsp;&bull;&nbsp; APWH: Modern &nbsp;&bull;&nbsp; Unit 8: Cold War &amp; Decolonization</p>
   </footer>
+</div>
+
+<!-- BRAIN DUMP PAGE -->
+<div class="page" id="pg-brain">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Brain Dump</div>
+      <h2>Write What You Know</h2>
+      <p>Pick a topic, then write everything you remember for 5 minutes. When time&rsquo;s up, we&rsquo;ll show you all the content so you can compare.</p>
+    </div>
+
+    <!-- Setup screen -->
+    <div class="bd-setup" id="bd-setup">
+      <div class="bd-topic-grid">
+        <button class="bd-topic-btn" data-topic="8.1">8.1 &mdash; Setting the Stage</button>
+        <button class="bd-topic-btn" data-topic="8.2">8.2 &mdash; The Cold War</button>
+        <button class="bd-topic-btn" data-topic="8.3">8.3 &mdash; Effects of the Cold War</button>
+        <button class="bd-topic-btn" data-topic="8.4">8.4 &mdash; Spread of Communism</button>
+        <button class="bd-topic-btn" data-topic="8.5">8.5 &mdash; Decolonization</button>
+        <button class="bd-topic-btn" data-topic="8.6">8.6 &mdash; Newly Independent States</button>
+        <button class="bd-topic-btn" data-topic="8.7">8.7 &mdash; Global Resistance</button>
+        <button class="bd-topic-btn" data-topic="8.8">8.8 &mdash; End of the Cold War</button>
+      </div>
+      <button class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
+    </div>
+
+    <!-- Active session -->
+    <div class="bd-session" id="bd-session">
+      <div class="bd-timer-bar">
+        <div class="bd-topic-label">Topic<strong id="bd-active-topic">&mdash;</strong></div>
+        <div class="bd-countdown" id="bd-countdown">5:00</div>
+      </div>
+      <div class="bd-stem" id="bd-stem">
+        <div class="bd-stem-lbl">&#9997; Sentence Stem &mdash; start here if you need a push</div>
+        <div class="bd-stem-txt" id="bd-stem-txt"></div>
+      </div>
+      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic &mdash; key terms, events, causes, effects, people&hellip; don&rsquo;t stop writing!"></textarea>
+      <div class="bd-word-count" id="bd-word-count">0 words</div>
+
+      <!-- Revealed cards -->
+      <div class="bd-reveal" id="bd-reveal">
+        <div class="bd-reveal-hdr">&#9989; Time&rsquo;s up! Here&rsquo;s everything from this topic &mdash; compare it to what you wrote.</div>
+        <div class="bd-card-list" id="bd-card-list"></div>
+        <button class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- MCQ PAGE -->
@@ -2032,6 +2124,173 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     tlList.querySelectorAll('.tl-item').forEach(function(el) { tlObs.observe(el); });
   }
+
+  /* ── BRAIN DUMP ── */
+  var bdTopic = null, bdTimerInterval = null;
+  var BD_TOPIC_NAMES = {
+    '8.1':'8.1 \u2014 Setting the Stage','8.2':'8.2 \u2014 The Cold War',
+    '8.3':'8.3 \u2014 Effects of the Cold War','8.4':'8.4 \u2014 Spread of Communism',
+    '8.5':'8.5 \u2014 Decolonization','8.6':'8.6 \u2014 Newly Independent States',
+    '8.7':'8.7 \u2014 Global Resistance','8.8':'8.8 \u2014 End of the Cold War'
+  };
+  var BD_STEMS = {
+    '8.1': 'The Cold War began after WWII because the US and USSR disagreed about\u2026',
+    '8.2': 'The Cold War was defined by competition between the US and USSR, including\u2026',
+    '8.3': 'The Cold War\u2019s most dangerous flashpoints and their outcomes included\u2026',
+    '8.4': 'Communism spread beyond the Soviet Union to countries like China and Vietnam because\u2026',
+    '8.5': 'European colonial empires collapsed after 1945 because WWII had weakened colonial powers and\u2026',
+    '8.6': 'Newly independent nations faced challenges after decolonization, including\u2026',
+    '8.7': 'People around the world resisted established power structures through movements such as\u2026',
+    '8.8': 'The Soviet Union collapsed because internal reforms under Gorbachev unleashed forces that\u2026'
+  };
+  var BD_CARDS = {
+    '8.1': [
+      {t:'Cold War',d:'Ideological conflict between the US (capitalism/democracy) and USSR (communism) from 1945\u20131991; no direct military clash due to nuclear deterrence.'},
+      {t:'Yalta Conference (1945)',d:'Roosevelt, Churchill, and Stalin agreed that the USSR would dominate Eastern Europe; planted seeds of Cold War division.'},
+      {t:'Iron Curtain',d:'Churchill\'s 1946 metaphor for the political and ideological divide between Soviet-dominated Eastern Europe and the democratic West.'},
+      {t:'Truman Doctrine (1947)',d:'US commitment to support "free peoples" resisting Soviet-backed communist movements; operationalized containment strategy.'},
+      {t:'Containment',d:'George Kennan\'s strategy: don\'t roll back Soviet gains, but prevent further communist expansion anywhere in the world.'},
+      {t:'Marshall Plan (1947)',d:'$13 billion in US economic aid to rebuild Western Europe, binding it to the American-led capitalist order and preventing communist takeover.'},
+      {t:'Superpowers',d:'The US and USSR \u2014 the two powers that emerged from WWII with massive military strength and global reach, dominating postwar international relations.'}
+    ],
+    '8.2': [
+      {t:'Nuclear Arms Race',d:'US\u2013Soviet competition to build ever-larger nuclear arsenals; by the 1960s, both had enough weapons to destroy civilization multiple times.'},
+      {t:'MAD (Mutually Assured Destruction)',d:'The doctrine that any nuclear exchange would destroy both sides, making nuclear war irrational and paradoxically preserving peace.'},
+      {t:'Space Race',d:'US\u2013Soviet competition in space technology; Sputnik (1957) proved Soviet missiles could reach US cities; Apollo (1969) showed American technological power.'},
+      {t:'Sputnik (1957)',d:'First artificial satellite, launched by the USSR \u2014 shocked the US because it proved Soviet rockets could carry nuclear warheads to American cities.'},
+      {t:'Bandung Conference (1955)',d:'29 Asian and African nations met in Indonesia to assert independence from Cold War blocs; founded the Non-Aligned Movement.'},
+      {t:'Non-Aligned Movement',d:'Led by Nehru (India), Nkrumah (Ghana), Nasser (Egypt), and Sukarno (Indonesia) \u2014 newly independent nations refused to align with either superpower.'},
+      {t:'NSC-68 / Domino Theory',d:'US policy that communist gains anywhere were losses for American security \u2014 justified global military spending and intervention.'},
+      {t:'Berlin Wall (1961)',d:'Built by East Germany to stop mass emigration to the West; became the global symbol of Cold War division until its fall in 1989.'}
+    ],
+    '8.3': [
+      {t:'NATO (1949)',d:'North Atlantic Treaty Organization \u2014 Western military alliance under American leadership; Article 5 committed members to collective defense.'},
+      {t:'Warsaw Pact (1955)',d:'Soviet-led military alliance of Eastern European communist states; the Cold War counterpart to NATO.'},
+      {t:'Korean War (1950\u201353)',d:'First hot proxy war: North Korea\'s Soviet-backed invasion prompted US-led UN intervention; ended in armistice with Korea still divided at 38th parallel.'},
+      {t:'Cuban Missile Crisis (1962)',d:'13-day nuclear standoff after Soviet missiles discovered in Cuba; resolved when USSR removed missiles, US pledged not to invade Cuba.'},
+      {t:'Hotline (1963)',d:'Direct communication link between Moscow and Washington established after the Cuban Missile Crisis to prevent accidental nuclear war.'},
+      {t:'Vietnam War',d:'Major Cold War proxy conflict; US forces withdrew in 1973, North Vietnam unified the country under communism in 1975, proving limits of military intervention.'},
+      {t:'Proxy War',d:'Cold War conflict where the US and USSR backed opposing sides without directly fighting each other \u2014 Korea, Vietnam, Angola, Afghanistan.'}
+    ],
+    '8.4': [
+      {t:'Mao Zedong',d:'Led the Chinese Communist Revolution (1949); established the People\'s Republic of China after defeating US-backed Nationalists in civil war.'},
+      {t:'People\'s Republic of China (1949)',d:'Proclaimed by Mao \u2014 the "loss of China" shocked US policymakers and intensified Cold War anxiety about communist expansion.'},
+      {t:'Great Leap Forward (1958\u201362)',d:'Mao\'s forced collectivization campaign that caused a famine killing 15\u201355 million people \u2014 the deadliest man-made disaster of the 20th century.'},
+      {t:'Cultural Revolution (1966\u201376)',d:'Mao\'s campaign to purge capitalist and traditional elements; caused massive social disruption, persecution of intellectuals, and economic damage.'},
+      {t:'Ho Chi Minh',d:'Vietnamese communist leader who quoted Jefferson\'s Declaration of Independence to appeal to anti-colonial ideals; defeated France then US intervention.'},
+      {t:'Dien Bien Phu (1954)',d:'Vietnamese defeat of French forces in a decisive battle \u2014 ended French colonial rule in Indochina and set the stage for US involvement.'},
+      {t:'Castro / Cuban Revolution (1959)',d:'Fidel Castro\'s overthrow of the Batista regime aligned Cuba with the USSR, triggering Bay of Pigs and Cuban Missile Crisis.'}
+    ],
+    '8.5': [
+      {t:'Decolonization',d:'The process by which European colonial empires dissolved after 1945 \u2014 over 50 new nations emerged between 1945 and 1975.'},
+      {t:'Partition of India (1947)',d:'Independence came simultaneously with violent partition into Hindu India and Muslim Pakistan \u2014 displacing 10\u201320 million people, killing up to 2 million.'},
+      {t:'Satyagraha',d:'Gandhi\'s method of nonviolent resistance \u2014 civil disobedience, boycotts, marches \u2014 that built India\'s mass independence movement.'},
+      {t:'Kwame Nkrumah / Ghana (1957)',d:'First sub-Saharan African nation to gain independence; Nkrumah\'s success through political organizing inspired the broader African decolonization wave.'},
+      {t:'Year of Africa (1960)',d:'17 African nations gained independence in a single year; marked the peak of the decolonization wave as French and British empires rapidly withdrew.'},
+      {t:'Algerian War (1954\u201362)',d:'France\'s attempt to retain its settler colony killed over 1 million Algerians; one of the most violent decolonization struggles.'},
+      {t:'Paths to Independence',d:'Varied: negotiated (India, Ghana), armed struggle (Algeria, Angola, Kenya Mau Mau), and UN trust territory transitions.'}
+    ],
+    '8.6': [
+      {t:'Nehru / India',d:'First PM of independent India; pursued state-directed development, five-year plans, and Non-Alignment \u2014 tried to chart a "third way" between US and USSR.'},
+      {t:'Nasser / Egypt',d:'President who nationalized the Suez Canal (1956); a symbol of Arab nationalism and state-directed economic development in the postcolonial world.'},
+      {t:'Neocolonialism',d:'Economic dependency on former colonial powers that limited genuine sovereignty \u2014 new states were formally independent but economically dependent.'},
+      {t:'Colonial Border Legacy',d:'Borders drawn at the Berlin Conference (1884\u201385) divided ethnic groups or united hostile peoples, creating internal conflicts in newly independent states.'},
+      {t:'State-Directed Development',d:'Newly independent states often nationalized key industries and created five-year plans, following socialist models to achieve rapid economic growth.'},
+      {t:'Post-Colonial Migration',d:'Former colonial subjects moved to the metropole: South Asians to Britain, Algerians to France \u2014 creating multicultural societies shaped by colonial history.'},
+      {t:'Suez Crisis (1956)',d:'Nasser nationalized the Suez Canal; Britain, France, and Israel invaded but were forced to withdraw under US and Soviet pressure \u2014 symbolized end of European imperial power.'}
+    ],
+    '8.7': [
+      {t:'Apartheid',d:'South Africa\'s system of legal racial segregation (1948\u20131994) that classified people by race and enforced white minority rule through brutal repression.'},
+      {t:'Nelson Mandela / ANC',d:'African National Congress leader imprisoned 27 years for anti-apartheid activism; released 1990, became South Africa\'s first democratic president in 1994.'},
+      {t:'Sharpeville Massacre (1960)',d:'Police killed 69 peaceful anti-apartheid protesters; prompted ANC to shift from nonviolence to limited armed resistance.'},
+      {t:'Martin Luther King Jr.',d:'Led the American civil rights movement through nonviolent direct action \u2014 explicitly drew on Gandhi\'s methods to dismantle legal racial segregation.'},
+      {t:'Civil Rights Act (1964)',d:'Landmark US legislation that dismantled legal racial segregation in public life; followed by the Voting Rights Act (1965) that protected Black voting rights.'},
+      {t:'Transnational Nonviolent Resistance',d:'Gandhi\'s influence spread globally \u2014 directly shaped King\'s movement in the US and Mandela\'s early ANC strategy in South Africa.'},
+      {t:'Limits of Nonviolence',d:'Some movements (FLN in Algeria, ANC after Sharpeville, Mau Mau in Kenya) concluded nonviolence was insufficient against violent colonial suppression.'}
+    ],
+    '8.8': [
+      {t:'Gorbachev',d:'Soviet General Secretary from 1985 who launched glasnost and perestroika hoping to save the Soviet system; instead released forces that destroyed it.'},
+      {t:'Glasnost (Openness)',d:'Gorbachev\'s policy allowing public criticism of Soviet history and institutions; revealed failures and unleashed demands the system couldn\'t meet.'},
+      {t:'Perestroika (Restructuring)',d:'Gorbachev\'s economic reform introducing limited market mechanisms; intended to save the Soviet system but accelerated its collapse.'},
+      {t:'Soviet-Afghan War (1979\u201389)',d:'The Soviet "Vietnam" \u2014 a decade-long occupation that killed 15,000 Soviet soldiers, drained resources, and shattered Cold War prestige.'},
+      {t:'Brezhnev Doctrine (repealed)',d:'The Soviet right to use military force to preserve communist governments in Eastern Europe; Gorbachev\'s repudiation opened the door to 1989 revolutions.'},
+      {t:'Fall of the Berlin Wall (1989)',d:'East German border guards stood aside on November 9, 1989 \u2014 symbol of the collapse of communist governments across Eastern Europe.'},
+      {t:'Soviet Dissolution (1991)',d:'Gorbachev resigned December 25, 1991; the Soviet flag was lowered for the last time as 15 independent republics emerged. The Cold War was over.'},
+      {t:'Velvet Revolution (1989)',d:'Czechoslovakia\'s peaceful transition from communist rule; part of the cascade of Eastern European revolutions after Gorbachev renounced military intervention.'}
+    ]
+  };
+
+  document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+      this.classList.add('selected');
+      bdTopic = this.dataset.topic;
+      document.getElementById('bd-start-btn').disabled = false;
+    });
+  });
+
+  document.getElementById('bd-start-btn').addEventListener('click', function() {
+    if (!bdTopic) return;
+    document.getElementById('bd-setup').style.display = 'none';
+    var session = document.getElementById('bd-session');
+    session.classList.add('active');
+    document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
+    document.getElementById('bd-stem-txt').textContent = BD_STEMS[bdTopic] || 'Write everything you remember about this topic\u2026';
+    document.getElementById('bd-textarea').value = '';
+    document.getElementById('bd-textarea').disabled = false;
+    document.getElementById('bd-word-count').textContent = '0 words';
+    document.getElementById('bd-reveal').classList.remove('active');
+    document.getElementById('bd-countdown').className = 'bd-countdown';
+    bdStartTimer(5 * 60);
+  });
+
+  function bdStartTimer(totalSec) {
+    if (bdTimerInterval) clearInterval(bdTimerInterval);
+    var remaining = totalSec;
+    function tick() {
+      var m = Math.floor(remaining / 60);
+      var s = remaining % 60;
+      var el = document.getElementById('bd-countdown');
+      el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+      if (remaining <= 60 && remaining > 0) el.className = 'bd-countdown warning';
+      if (remaining <= 0) {
+        clearInterval(bdTimerInterval);
+        el.className = 'bd-countdown expired';
+        el.textContent = '0:00';
+        bdReveal();
+        return;
+      }
+      remaining--;
+    }
+    tick();
+    bdTimerInterval = setInterval(tick, 1000);
+  }
+
+  function bdReveal() {
+    var ta = document.getElementById('bd-textarea');
+    ta.disabled = true;
+    var cards = (BD_CARDS[bdTopic] || []);
+    var list = document.getElementById('bd-card-list');
+    list.innerHTML = cards.map(function(c) {
+      return '<div class="bd-card"><div class="bd-card-term">' + c.t + '</div><div class="bd-card-def">' + c.d + '</div></div>';
+    }).join('') || '<p style="color:var(--muted);font-size:.88rem">No cards found for this topic.</p>';
+    document.getElementById('bd-reveal').classList.add('active');
+    document.getElementById('bd-reveal').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('bd-textarea').addEventListener('input', function() {
+    var w = this.value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('bd-word-count').textContent = w + ' word' + (w !== 1 ? 's' : '');
+  });
+
+  document.getElementById('bd-reset-btn').addEventListener('click', function() {
+    if (bdTimerInterval) clearInterval(bdTimerInterval);
+    document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+    bdTopic = null;
+    document.getElementById('bd-start-btn').disabled = true;
+    document.getElementById('bd-session').classList.remove('active');
+    document.getElementById('bd-setup').style.display = '';
+  });
 
   /* STUDY GUIDE */
   function renderGuide() {

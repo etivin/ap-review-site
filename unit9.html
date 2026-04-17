@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 9 Review — AP World History: Modern</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --green:#1a6825;--green-bg:#eef7f0;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13);
+  /* node colors */
+  --c-tech:#18336b;
+  --c-econ:#7a5500;
+  --c-culture:#5a1a72;
+  --c-disease:#b0001c;
+  --c-inst:#1a6825;
+  --c-reform:#1a5a5a;
+}
+body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;line-height:1.65;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+
+/* HEADER */
+.site-header{background:var(--ink);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:600;box-shadow:0 2px 20px rgba(0,0,0,.4)}
+.header-brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.header-badge{background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;padding:4px 9px;flex-shrink:0}
+.header-title{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(255,255,255,.5);white-space:nowrap}
+.header-title strong{color:#fff}
+.header-nav{display:flex;align-items:center;gap:2px;overflow-x:auto}
+.hn-btn{background:none;border:none;color:rgba(255,255,255,.5);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.09em;text-transform:uppercase;padding:7px 10px;transition:color .15s,background .15s;white-space:nowrap}
+.hn-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hn-btn.active{color:#fff;background:rgba(176,0,28,.35)}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.inner{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+.pg-hero{text-align:center;padding:32px 0 28px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.pg-hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:8px}
+.pg-hero p{color:var(--muted);font-size:.92rem;max-width:520px;margin:0 auto}
+.pg-nav-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.pg-nav-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1.5px solid var(--border2);background:none;color:var(--ink);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pg-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-nav-all{background:var(--red);color:#fff;border-color:var(--red)}
+.pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
+
+/* HERO */
+.hero{position:relative;min-height:64vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(to bottom,rgba(249,246,239,.88) 0%,rgba(243,236,224,.92) 100%),
+  url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Simple_globe_schematic.svg/1280px-Simple_globe_schematic.svg.png") center/cover no-repeat;
+  padding:90px 24px 60px;border-bottom:3px solid var(--border2)}
+.hero-inner{text-align:center;max-width:720px;margin:0 auto}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:16px;border:1px solid rgba(176,0,28,.35);display:inline-block;padding:4px 14px;background:rgba(255,255,255,.6)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.0;color:var(--ink);margin-bottom:18px}
+.hero h1 em{color:var(--red);font-style:italic}
+.hero-rule{width:70px;height:3px;background:var(--red);margin:0 auto 20px}
+.hero-sub{color:var(--mid);font-size:clamp(.9rem,2vw,1.1rem);max-width:560px;line-height:1.7;margin:0 auto 28px}
+.hero-period{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.hero-btn{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;border:none;transition:all .2s}
+.hero-btn-primary{background:var(--red);color:#fff}
+.hero-btn-primary:hover{background:var(--red-d);transform:translateY(-2px)}
+.hero-btn-outline{background:rgba(255,255,255,.7);color:var(--ink);border:1.5px solid var(--border2)!important}
+.hero-btn-outline:hover{background:var(--ink);color:#fff}
+
+/* FEATURES GRID */
+.features{background:var(--white);padding:52px 24px;border-bottom:2px solid var(--border)}
+.features-inner{max-width:900px;margin:0 auto}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;margin-bottom:28px;line-height:1.1}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.feat{background:var(--cream);border:1px solid var(--border);border-top:4px solid var(--red);padding:20px 18px;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column;gap:8px;text-align:left}
+.feat:hover{box-shadow:var(--shm);transform:translateY(-3px)}
+.feat-icon{font-size:1.7rem}
+.feat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700}
+.feat-desc{font-size:.79rem;color:var(--muted);line-height:1.5}
+
+/* HOME CTA */
+.home-cta{background:var(--ink);padding:52px 24px;text-align:center}
+.home-cta h2{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;color:#fff;margin-bottom:10px}
+.home-cta p{color:rgba(255,255,255,.5);font-size:.92rem;margin-bottom:24px}
+.home-cta-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.cta-btn{background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 22px;transition:background .15s}
+.cta-btn:hover{background:var(--red-d)}
+.cta-btn-outline{background:none;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 22px;transition:all .15s}
+.cta-btn-outline:hover{border-color:#fff;color:#fff}
+
+/* ── GLOBALIZATION WEB ── */
+.glob-section{padding:36px 0 16px}
+.glob-intro{text-align:center;margin-bottom:28px}
+.glob-intro-hint{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+/* Arena: radial chart */
+.glob-arena-wrap{position:relative;width:100%;max-width:760px;margin:0 auto}
+.glob-arena{position:relative;width:100%;aspect-ratio:760/520;min-height:320px}
+.glob-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.glob-line{stroke:var(--border2);stroke-width:2;transition:stroke .3s,stroke-width .3s,opacity .3s;opacity:.6}
+.glob-line.active{stroke-width:3;opacity:1}
+
+/* Center node */
+.glob-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:clamp(130px,18%,175px);text-align:center;z-index:3;pointer-events:none}
+.glob-center-circle{background:var(--ink);border:3px solid var(--border2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  aspect-ratio:1;border-radius:50%;padding:14px;box-shadow:0 4px 24px rgba(0,0,0,.22)}
+.glob-center-word{font-family:'Playfair Display',serif;font-size:clamp(.62rem,1.6vw,1rem);font-weight:900;
+  color:#fff;line-height:1.1;letter-spacing:.02em;text-transform:uppercase}
+.glob-center-sub{font-family:'IBM Plex Mono',monospace;font-size:clamp(.38rem,.8vw,.52rem);
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:4px}
+
+/* Outer nodes */
+.glob-node{position:absolute;transform:translate(-50%,-50%);
+  width:clamp(100px,14%,138px);
+  background:var(--white);border:2px solid var(--border2);
+  padding:10px 8px;text-align:center;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s,transform .2s,background .2s;
+  z-index:4;line-height:1.3}
+.glob-node:hover{transform:translate(-50%,-50%) scale(1.07);box-shadow:var(--shm)}
+.glob-node.active{color:#fff;border-color:transparent;box-shadow:0 4px 20px rgba(0,0,0,.2);transform:translate(-50%,-50%) scale(1.07)}
+.glob-node-icon{display:block;font-size:clamp(1.1rem,2.2vw,1.5rem);margin-bottom:4px}
+.glob-node-name{font-family:'IBM Plex Mono',monospace;font-size:clamp(.46rem,.9vw,.6rem);
+  letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+
+/* node color themes */
+.glob-node[data-node="technology"].active  {background:var(--c-tech)}
+.glob-node[data-node="economy"].active     {background:var(--c-econ)}
+.glob-node[data-node="culture"].active     {background:var(--c-culture)}
+.glob-node[data-node="disease"].active     {background:var(--c-disease)}
+.glob-node[data-node="institutions"].active{background:var(--c-inst)}
+.glob-node[data-node="reform"].active      {background:var(--c-reform)}
+.glob-node[data-node="technology"]:hover,.glob-node[data-node="technology"].active  {border-color:var(--c-tech)}
+.glob-node[data-node="economy"]:hover,.glob-node[data-node="economy"].active        {border-color:var(--c-econ)}
+.glob-node[data-node="culture"]:hover,.glob-node[data-node="culture"].active        {border-color:var(--c-culture)}
+.glob-node[data-node="disease"]:hover,.glob-node[data-node="disease"].active        {border-color:var(--c-disease)}
+.glob-node[data-node="institutions"]:hover,.glob-node[data-node="institutions"].active{border-color:var(--c-inst)}
+.glob-node[data-node="reform"]:hover,.glob-node[data-node="reform"].active          {border-color:var(--c-reform)}
+
+/* line active colors */
+.glob-line[data-line="technology"].active   {stroke:var(--c-tech)}
+.glob-line[data-line="economy"].active      {stroke:var(--c-econ)}
+.glob-line[data-line="culture"].active      {stroke:var(--c-culture)}
+.glob-line[data-line="disease"].active      {stroke:var(--c-disease)}
+.glob-line[data-line="institutions"].active {stroke:var(--c-inst)}
+.glob-line[data-line="reform"].active       {stroke:var(--c-reform)}
+
+/* node positions (centered by transform:-50%,-50%) */
+.glob-node[data-node="technology"]  {top:50%;  left:89%}
+.glob-node[data-node="economy"]     {top:81%;  left:70%}
+.glob-node[data-node="culture"]     {top:81%;  left:30%}
+.glob-node[data-node="disease"]     {top:50%;  left:11%}
+.glob-node[data-node="institutions"]{top:19%;  left:30%}
+.glob-node[data-node="reform"]      {top:19%;  left:70%}
+
+/* Detail panel */
+.glob-panel-wrap{max-width:760px;margin:24px auto 0}
+.glob-panel{display:none;border:2px solid var(--border2);background:var(--white);animation:fadeUp .25s ease}
+.glob-panel.active{display:block}
+.glob-panel-hdr{display:flex;align-items:center;gap:14px;padding:18px 22px;color:#fff}
+.glob-panel-hdr-icon{font-size:1.8rem;flex-shrink:0}
+.glob-panel-hdr-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;line-height:1.1}
+.glob-panel-hdr-sub{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-top:3px}
+.glob-panel[data-panel="technology"]   .glob-panel-hdr{background:var(--c-tech)}
+.glob-panel[data-panel="economy"]      .glob-panel-hdr{background:var(--c-econ)}
+.glob-panel[data-panel="culture"]      .glob-panel-hdr{background:var(--c-culture)}
+.glob-panel[data-panel="disease"]      .glob-panel-hdr{background:var(--c-disease)}
+.glob-panel[data-panel="institutions"] .glob-panel-hdr{background:var(--c-inst)}
+.glob-panel[data-panel="reform"]       .glob-panel-hdr{background:var(--c-reform)}
+
+.glob-panel-body{padding:22px 24px}
+.glob-panel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:18px}
+.glob-sub-card{background:var(--cream);border:1px solid var(--border);border-left:4px solid var(--border2);padding:14px 16px}
+.glob-sub-card-title{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.glob-sub-card-text{font-size:.85rem;color:var(--mid);line-height:1.65}
+.glob-sub-card-text strong{color:var(--ink)}
+.glob-panel[data-panel="technology"]   .glob-sub-card{border-left-color:var(--c-tech)}
+.glob-panel[data-panel="economy"]      .glob-sub-card{border-left-color:var(--c-econ)}
+.glob-panel[data-panel="culture"]      .glob-sub-card{border-left-color:var(--c-culture)}
+.glob-panel[data-panel="disease"]      .glob-sub-card{border-left-color:var(--c-disease)}
+.glob-panel[data-panel="institutions"] .glob-sub-card{border-left-color:var(--c-inst)}
+.glob-panel[data-panel="reform"]       .glob-sub-card{border-left-color:var(--c-reform)}
+.glob-panel[data-panel="technology"]   .glob-sub-card-title{color:var(--c-tech)}
+.glob-panel[data-panel="economy"]      .glob-sub-card-title{color:var(--c-econ)}
+.glob-panel[data-panel="culture"]      .glob-sub-card-title{color:var(--c-culture)}
+.glob-panel[data-panel="disease"]      .glob-sub-card-title{color:var(--c-disease)}
+.glob-panel[data-panel="institutions"] .glob-sub-card-title{color:var(--c-inst)}
+.glob-panel[data-panel="reform"]       .glob-sub-card-title{color:var(--c-reform)}
+
+.glob-kw-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.glob-kw{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.06em;padding:3px 9px;background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold)}
+.glob-panel-close{display:block;width:100%;background:none;border:none;border-top:1px solid var(--border);
+  padding:10px;font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);transition:background .15s}
+.glob-panel-close:hover{background:var(--cream);color:var(--ink)}
+
+/* MOBILE: collapse to grid */
+@media(max-width:560px){
+  .glob-arena{aspect-ratio:auto;min-height:0;height:auto;display:none}
+  .glob-svg{display:none}
+  .glob-mobile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+}
+@media(min-width:561px){
+  .glob-mobile-grid{display:none}
+}
+.glob-mobile-btn{background:var(--white);border:2px solid var(--border2);padding:14px 12px;
+  text-align:center;cursor:pointer;transition:all .18s}
+.glob-mobile-btn:hover,.glob-mobile-btn.active{border-color:var(--red);box-shadow:var(--shm)}
+.glob-mobile-btn-icon{font-size:1.4rem;display:block;margin-bottom:5px}
+.glob-mobile-btn-name{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase}
+
+/* STUDY GUIDE */
+.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
+.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;gap:12px}
+.sg-hdr:hover{background:var(--cream)}
+.sg-hdr.open{background:var(--ink);color:#fff}
+.sg-htitle{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;line-height:1.2}
+.sg-hmeta{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.sg-hnum{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.45)}
+.sg-arr{font-size:.7rem;transition:transform .25s;flex-shrink:0}
+.sg-hdr.open .sg-arr{transform:rotate(180deg)}
+.sg-body{display:none;padding:20px 22px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.8;color:var(--mid)}
+.sg-body.open{display:block;animation:fadeUp .2s ease}
+.sg-body p+p{margin-top:.8em}
+.sg-body ul{margin:.6em 0 .6em 1.4em}
+.sg-body li{margin-bottom:.3em}
+.sg-body strong{color:var(--ink)}
+.sg-kws{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.sg-kw{display:inline-block;background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:.56rem;padding:3px 8px;letter-spacing:.06em}
+
+/* BRAIN DUMP */
+.bd-setup{text-align:center;max-width:600px;margin:0 auto 32px}
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{background:var(--red);color:#fff;border:none;padding:13px 36px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
+.bd-start-btn:hover{background:var(--red-d)}
+.bd-start-btn:disabled{opacity:.38;cursor:default}
+.bd-session{display:none}
+.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.bd-timer-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+.bd-timer-num{font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:500;letter-spacing:.04em;min-width:52px;text-align:right}
+.bd-topic-display{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;text-align:center;margin-bottom:16px}
+.bd-textarea{width:100%;min-height:280px;border:2px solid var(--border2);padding:18px;font-family:'Source Serif 4',Georgia,serif;font-size:.95rem;line-height:1.7;resize:vertical;background:var(--white);color:var(--ink);transition:border-color .15s}
+.bd-textarea:focus{border-color:var(--red);outline:none}
+.bd-done{text-align:center;display:none;padding:32px 0 16px}
+.bd-done.active{display:block}
+.bd-done h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:8px}
+.bd-done p{color:var(--muted);font-size:.9rem;margin-bottom:20px}
+
+/* EXAM TIPS */
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-bottom:16px}
+.tip-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:20px 18px}
+.tip-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:10px}
+.tip-card p,.tip-card li{font-size:.86rem;line-height:1.7;color:var(--mid)}
+.tip-card ul{margin:.5em 0 .5em 1.2em}
+.tip-formula{background:var(--paper);border-left:3px solid var(--gold-b);padding:10px 14px;font-size:.84rem;line-height:1.6;margin:10px 0;font-style:italic;color:var(--ink)}
+.complexity-box{background:var(--ink);color:#fff;padding:20px 22px;margin-top:6px}
+.complexity-label{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:9px}
+.complexity-body{font-size:.86rem;line-height:1.8;color:rgba(255,255,255,.8)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-brand">
+    <a href="index.html" style="color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2);padding:5px 12px;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .15s;margin-right:6px;white-space:nowrap" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">&#8962; Home</a>
+    <div class="header-badge">APWH</div>
+    <div class="header-title">AP World History: Modern &nbsp;&mdash;&nbsp; <strong>Unit 9</strong></div>
+  </div>
+  <nav class="header-nav">
+    <button class="hn-btn active" data-tab="pg-home">&#127760; Overview</button>
+    <button class="hn-btn" data-tab="pg-web">&#9881; Web</button>
+    <button class="hn-btn" data-tab="pg-guide">&#128214; Study Guide</button>
+    <button class="hn-btn" data-tab="pg-brain">&#129504; Brain Dump</button>
+    <button class="hn-btn" data-tab="pg-tips">&#9997; Exam Tips</button>
+  </nav>
+</header>
+
+<!-- ══ HOME PAGE ══ -->
+<div class="page active" id="pg-home">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">AP World History: Modern</div>
+      <h1>Unit 9<br/><em>Globalization</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">Technology, economy, culture, disease, multinational institutions, and reform — all woven together by the forces of an interconnected world.</p>
+      <p class="hero-period">c. 1900 &ndash; Present</p>
+      <div class="hero-btns" style="margin-top:28px">
+        <button class="hero-btn hero-btn-primary" data-tab="pg-web">&#9881; Explore the Web</button>
+        <button class="hero-btn hero-btn-outline" data-tab="pg-guide">&#128214; Study Guide</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-inner">
+      <div class="section-label">Unit 9 Tools</div>
+      <h2 class="section-heading">What&rsquo;s Inside</h2>
+      <div class="features-grid">
+        <button class="feat" data-tab="pg-web">
+          <div class="feat-icon">&#9881;</div>
+          <div class="feat-name">Globalization Web</div>
+          <div class="feat-desc">Interactive radial chart linking all 6 themes. Click any node for deep-dive content.</div>
+        </button>
+        <button class="feat" data-tab="pg-guide">
+          <div class="feat-icon">&#128214;</div>
+          <div class="feat-name">Study Guide</div>
+          <div class="feat-desc">Accordion sections covering every key concept, cause, and effect for Unit 9.</div>
+        </button>
+        <button class="feat" data-tab="pg-brain">
+          <div class="feat-icon">&#129504;</div>
+          <div class="feat-name">Brain Dump</div>
+          <div class="feat-desc">5-minute timed writing on any globalization theme — build retrieval skills fast.</div>
+        </button>
+        <button class="feat" data-tab="pg-tips">
+          <div class="feat-icon">&#9997;</div>
+          <div class="feat-name">Exam Tips</div>
+          <div class="feat-desc">SAQ and LEQ strategies, complexity point advice, and high-value comparisons.</div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-cta">
+    <h2>Start Reviewing</h2>
+    <p>The AP exam loves Unit 9 for complexity points — globalization connects everything.</p>
+    <div class="home-cta-btns">
+      <button class="cta-btn" data-tab="pg-web">&#9881; Open Web</button>
+      <button class="cta-btn-outline" data-tab="pg-guide">&#128214; Study Guide</button>
+      <button class="cta-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
+      <button class="cta-btn-outline" data-tab="pg-tips">&#9997; Exam Tips</button>
+    </div>
+  </section>
+
+</div><!-- /pg-home -->
+
+
+<!-- ══ GLOBALIZATION WEB PAGE ══ -->
+<div class="page" id="pg-web">
+<div class="inner">
+  <div class="pg-nav-row">
+    <button class="pg-nav-btn pg-nav-all" data-tab="pg-home">&#8592; Back to Home</button>
+    <button class="pg-nav-btn" data-tab="pg-guide">Study Guide</button>
+    <button class="pg-nav-btn" data-tab="pg-brain">Brain Dump</button>
+  </div>
+
+  <div class="pg-hero">
+    <div class="eyebrow">Unit 9 &mdash; Interactive</div>
+    <h2>The Globalization Web</h2>
+    <p>Click any theme to explore key concepts, examples, and vocabulary.</p>
+  </div>
+
+  <div class="glob-section">
+
+    <!-- DESKTOP RADIAL WEB -->
+    <div class="glob-arena-wrap">
+      <div class="glob-arena" id="globArena">
+
+        <!-- SVG connector lines -->
+        <svg class="glob-svg" viewBox="0 0 760 520" preserveAspectRatio="xMidYMid meet">
+          <!-- lines from center (380,260) to each node -->
+          <line class="glob-line" data-line="technology"   x1="380" y1="260" x2="676" y2="260"/>
+          <line class="glob-line" data-line="economy"      x1="380" y1="260" x2="524" y2="421"/>
+          <line class="glob-line" data-line="culture"      x1="380" y1="260" x2="228" y2="421"/>
+          <line class="glob-line" data-line="disease"      x1="380" y1="260" x2="84"  y2="260"/>
+          <line class="glob-line" data-line="institutions" x1="380" y1="260" x2="228" y2="99"/>
+          <line class="glob-line" data-line="reform"       x1="380" y1="260" x2="524" y2="99"/>
+        </svg>
+
+        <!-- Center node -->
+        <div class="glob-center">
+          <div class="glob-center-circle">
+            <div class="glob-center-word">Globalization</div>
+            <div class="glob-center-sub">c.&nbsp;1900–Present</div>
+          </div>
+        </div>
+
+        <!-- Outer nodes -->
+        <button class="glob-node" data-node="technology">
+          <span class="glob-node-icon">&#128187;</span>
+          <span class="glob-node-name">Technology</span>
+        </button>
+        <button class="glob-node" data-node="economy">
+          <span class="glob-node-icon">&#128176;</span>
+          <span class="glob-node-name">Economy</span>
+        </button>
+        <button class="glob-node" data-node="culture">
+          <span class="glob-node-icon">&#127926;</span>
+          <span class="glob-node-name">Culture</span>
+        </button>
+        <button class="glob-node" data-node="disease">
+          <span class="glob-node-icon">&#129440;</span>
+          <span class="glob-node-name">Disease</span>
+        </button>
+        <button class="glob-node" data-node="institutions">
+          <span class="glob-node-icon">&#127963;</span>
+          <span class="glob-node-name">Multinational<br/>Institutions</span>
+        </button>
+        <button class="glob-node" data-node="reform">
+          <span class="glob-node-icon">&#9994;</span>
+          <span class="glob-node-name">Reform</span>
+        </button>
+
+      </div><!-- /glob-arena -->
+
+      <!-- MOBILE GRID (shown only on small screens) -->
+      <div class="glob-mobile-grid">
+        <button class="glob-mobile-btn" data-node="technology">
+          <span class="glob-mobile-btn-icon">&#128187;</span>
+          <span class="glob-mobile-btn-name">Technology</span>
+        </button>
+        <button class="glob-mobile-btn" data-node="economy">
+          <span class="glob-mobile-btn-icon">&#128176;</span>
+          <span class="glob-mobile-btn-name">Economy</span>
+        </button>
+        <button class="glob-mobile-btn" data-node="culture">
+          <span class="glob-mobile-btn-icon">&#127926;</span>
+          <span class="glob-mobile-btn-name">Culture</span>
+        </button>
+        <button class="glob-mobile-btn" data-node="disease">
+          <span class="glob-mobile-btn-icon">&#129440;</span>
+          <span class="glob-mobile-btn-name">Disease</span>
+        </button>
+        <button class="glob-mobile-btn" data-node="institutions">
+          <span class="glob-mobile-btn-icon">&#127963;</span>
+          <span class="glob-mobile-btn-name">Institutions</span>
+        </button>
+        <button class="glob-mobile-btn" data-node="reform">
+          <span class="glob-mobile-btn-icon">&#9994;</span>
+          <span class="glob-mobile-btn-name">Reform</span>
+        </button>
+      </div>
+
+    </div><!-- /glob-arena-wrap -->
+
+    <!-- DETAIL PANELS -->
+    <div class="glob-panel-wrap">
+
+      <!-- TECHNOLOGY -->
+      <div class="glob-panel" data-panel="technology">
+        <div class="glob-panel-hdr">
+          <span class="glob-panel-hdr-icon">&#128187;</span>
+          <div>
+            <div class="glob-panel-hdr-title">Technology &amp; Globalization</div>
+            <div class="glob-panel-hdr-sub">Digital Revolution &bull; Connectivity &bull; The Digital Divide</div>
+          </div>
+        </div>
+        <div class="glob-panel-body">
+          <div class="glob-panel-grid">
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Internet &amp; Digital Revolution</div>
+              <div class="glob-sub-card-text">ARPANET evolved into the World Wide Web (<strong>1991, Tim Berners-Lee</strong>). By the 2000s, billions were connected globally. Smartphones accelerated this further, enabling real-time global communication at near-zero cost.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Container Shipping</div>
+              <div class="glob-sub-card-text">Standardized <strong>shipping containers</strong> (pioneered 1950s–60s) slashed cargo costs by ~90%, enabling global supply chains. Apple designs in California, manufactures in China, sells worldwide — only possible via container logistics.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Green &amp; Medical Technology</div>
+              <div class="glob-sub-card-text">Solar panels, wind turbines, and <strong>electric vehicles</strong> emerged as responses to climate change. <strong>mRNA vaccine technology</strong> (COVID-19 vaccines, 2020) demonstrated how rapidly new tech can be deployed globally in a crisis.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">The Digital Divide</div>
+              <div class="glob-sub-card-text">Technology's benefits spread unevenly. The <strong>Global South</strong> lags in internet access, creating a "digital divide." ~2.7 billion people remained offline as of the early 2020s, limiting economic opportunity and reinforcing inequality.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Social Media &amp; Politics</div>
+              <div class="glob-sub-card-text">The <strong>Arab Spring (2010–11)</strong> used social media (Twitter, Facebook) to organize protest movements across the Middle East. Conversely, social media also enables disinformation campaigns and surveillance by authoritarian states.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Automation &amp; Labor</div>
+              <div class="glob-sub-card-text"><strong>Automation</strong> displaces manufacturing jobs globally. Robots assemble cars; algorithms trade stocks. Developing nations that relied on cheap manufacturing face a new challenge: competing with machines, not just each other.</div>
+            </div>
+          </div>
+          <div class="glob-kw-row">
+            <span class="glob-kw">internet</span><span class="glob-kw">World Wide Web</span><span class="glob-kw">container shipping</span><span class="glob-kw">digital divide</span><span class="glob-kw">mRNA</span><span class="glob-kw">Arab Spring</span><span class="glob-kw">automation</span><span class="glob-kw">CRISPR</span>
+          </div>
+        </div>
+        <button class="glob-panel-close" data-close="technology">&#8593; Close</button>
+      </div>
+
+      <!-- ECONOMY -->
+      <div class="glob-panel" data-panel="economy">
+        <div class="glob-panel-hdr">
+          <span class="glob-panel-hdr-icon">&#128176;</span>
+          <div>
+            <div class="glob-panel-hdr-title">Economic Globalization</div>
+            <div class="glob-panel-hdr-sub">Free Trade &bull; MNCs &bull; Inequality &bull; Rise of the Global South</div>
+          </div>
+        </div>
+        <div class="glob-panel-body">
+          <div class="glob-panel-grid">
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Free Trade &amp; the WTO</div>
+              <div class="glob-sub-card-text">The <strong>World Trade Organization (WTO, 1995)</strong> replaced GATT, establishing global trade rules and lowering tariffs. Proponents argue free trade raises living standards; critics say it exploits workers in developing nations and destroys manufacturing jobs in wealthy ones.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Multinational Corporations</div>
+              <div class="glob-sub-card-text"><strong>MNCs</strong> like Nike, Apple, and Amazon operate globally, often with revenues exceeding entire national GDPs. They seek low-cost labor (Bangladesh garment factories, Foxconn in China), generating jobs but often at poor wages and conditions — called the <strong>"race to the bottom."</strong></div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Deindustrialization</div>
+              <div class="glob-sub-card-text">As manufacturing moved to lower-wage countries, the <strong>Rust Belt</strong> (U.S. Midwest) and similar regions in Europe hollowed out. This created economic anxiety that fueled nationalist backlash politics (Brexit, Trump) by the 2010s.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Rise of China &amp; Global South</div>
+              <div class="glob-sub-card-text">China's GDP grew ~<strong>10% annually</strong> from 1980–2010 through export-led industrialization. India's IT sector boomed. The <strong>BRICS</strong> nations (Brazil, Russia, India, China, South Africa) challenged Western economic dominance by the 2000s.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Microfinance</div>
+              <div class="glob-sub-card-text"><strong>Muhammad Yunus</strong> founded Grameen Bank in Bangladesh, providing tiny loans ("microloans") to poor entrepreneurs — mostly women. This model spread globally, arguing poverty could be addressed through market-based tools rather than aid alone.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Global Inequality</div>
+              <div class="glob-sub-card-text">Globalization lifted hundreds of millions out of poverty, but also widened gaps <em>within</em> nations. By 2020, the world's <strong>8 richest people</strong> held as much wealth as the bottom half of humanity. The Gini coefficient rose in most major economies.</div>
+            </div>
+          </div>
+          <div class="glob-kw-row">
+            <span class="glob-kw">WTO</span><span class="glob-kw">NAFTA</span><span class="glob-kw">MNC</span><span class="glob-kw">outsourcing</span><span class="glob-kw">deindustrialization</span><span class="glob-kw">microfinance</span><span class="glob-kw">BRICS</span><span class="glob-kw">race to the bottom</span>
+          </div>
+        </div>
+        <button class="glob-panel-close" data-close="economy">&#8593; Close</button>
+      </div>
+
+      <!-- CULTURE -->
+      <div class="glob-panel" data-panel="culture">
+        <div class="glob-panel-hdr">
+          <span class="glob-panel-hdr-icon">&#127926;</span>
+          <div>
+            <div class="glob-panel-hdr-title">Cultural Globalization</div>
+            <div class="glob-panel-hdr-sub">Americanization &bull; Hybridity &bull; Resistance &bull; Global Sports</div>
+          </div>
+        </div>
+        <div class="glob-panel-body">
+          <div class="glob-panel-grid">
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Americanization</div>
+              <div class="glob-sub-card-text">Post-WWII U.S. cultural dominance spread <strong>McDonald's, Hollywood films, Levi's jeans, and hip-hop</strong> globally. Critics call this "cultural imperialism" — the erasure of local cultures by Western (especially American) consumer culture.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Cultural Hybridity &amp; Glocalization</div>
+              <div class="glob-sub-card-text">Rather than simple Americanization, cultures <em>blend</em>. <strong>K-pop</strong> merges Korean pop with Western hip-hop production. <strong>Bollywood</strong> fuses Indian tradition with Hollywood-style spectacle. "<strong>Glocalization</strong>" — global products adapted to local tastes (e.g., McAloo Tikki burger in India).</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Global Sports</div>
+              <div class="glob-sub-card-text">The <strong>FIFA World Cup</strong> and Olympics function as global cultural spectacles, watched by billions. Sports figures like <strong>LeBron James</strong> or <strong>Cristiano Ronaldo</strong> become global cultural icons. Hosting the games carries enormous geopolitical prestige.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Cultural Resistance</div>
+              <div class="glob-sub-card-text">Many nations push back against Western cultural dominance. <strong>France</strong> mandates French-language quotas on radio. <strong>Iran</strong> restricts Western media. The <strong>Taliban</strong> banned music and film. These reactions reflect fears of cultural erosion as a form of neo-imperialism.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Indigenous Cultural Movements</div>
+              <div class="glob-sub-card-text">Globalization threatened indigenous languages and practices. Counter-movements emerged: the <strong>UN Declaration on Rights of Indigenous Peoples (2007)</strong>, Māori language revival in New Zealand, and efforts to preserve Native American traditions in the U.S.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Internet Culture</div>
+              <div class="glob-sub-card-text">Memes, TikTok dances, and YouTube content spread <em>instantly</em> across borders. <strong>UNESCO</strong> protects "intangible cultural heritage" (music, dance, crafts) threatened by homogenization. Internet culture both erases and celebrates cultural diversity simultaneously.</div>
+            </div>
+          </div>
+          <div class="glob-kw-row">
+            <span class="glob-kw">Americanization</span><span class="glob-kw">glocalization</span><span class="glob-kw">cultural hybridity</span><span class="glob-kw">K-pop</span><span class="glob-kw">Bollywood</span><span class="glob-kw">cultural imperialism</span><span class="glob-kw">UNESCO</span>
+          </div>
+        </div>
+        <button class="glob-panel-close" data-close="culture">&#8593; Close</button>
+      </div>
+
+      <!-- DISEASE -->
+      <div class="glob-panel" data-panel="disease">
+        <div class="glob-panel-hdr">
+          <span class="glob-panel-hdr-icon">&#129440;</span>
+          <div>
+            <div class="glob-panel-hdr-title">Disease &amp; Global Health</div>
+            <div class="glob-panel-hdr-sub">HIV/AIDS &bull; SARS &bull; COVID-19 &bull; WHO Response</div>
+          </div>
+        </div>
+        <div class="glob-panel-body">
+          <div class="glob-panel-grid">
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">HIV/AIDS</div>
+              <div class="glob-sub-card-text">Identified ~<strong>1981</strong>, HIV/AIDS spread via global travel and trade networks. Over <strong>40 million deaths</strong> globally. Sub-Saharan Africa was hardest hit. <strong>Antiretroviral drugs</strong> (1990s) transformed it from a death sentence into a manageable condition — but access remained unequal.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">SARS (2003)</div>
+              <div class="glob-sub-card-text">Severe Acute Respiratory Syndrome (<strong>SARS</strong>) originated in China and spread to 29 countries via air travel within months. WHO coordinated an unprecedented rapid response. SARS served as an early warning that global connectivity made pandemics far more dangerous.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Ebola (2014)</div>
+              <div class="glob-sub-card-text">A devastating <strong>Ebola</strong> outbreak in West Africa (Guinea, Liberia, Sierra Leone) killed ~11,000. WHO declared a Public Health Emergency of International Concern. The crisis exposed fragile health infrastructure in the Global South and the limits of international aid.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">COVID-19 (2019–Present)</div>
+              <div class="glob-sub-card-text">The most disruptive pandemic since the <strong>1918 influenza</strong>. ~7 million official deaths; the true toll may exceed 20 million. Global supply chains collapsed. <strong>mRNA vaccines</strong> (Pfizer, Moderna) were developed in record time, but <strong>vaccine nationalism</strong> meant wealthy nations hoarded doses.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Diseases of Globalization</div>
+              <div class="glob-sub-card-text">As Western diets and sedentary lifestyles spread globally, so did <strong>obesity, Type 2 diabetes, and cardiovascular disease</strong>. These "diseases of affluence" now burden healthcare systems in developing nations that had not previously faced them at scale.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Global Health Architecture</div>
+              <div class="glob-sub-card-text">The <strong>WHO</strong> coordinates international health responses. <strong>Médecins Sans Frontières (MSF)</strong> provides medical care in crisis zones. The <strong>GAVI Alliance</strong> funds vaccines for poor countries. These institutions reflect globalization of healthcare governance — and its limits.</div>
+            </div>
+          </div>
+          <div class="glob-kw-row">
+            <span class="glob-kw">HIV/AIDS</span><span class="glob-kw">antiretroviral</span><span class="glob-kw">SARS</span><span class="glob-kw">COVID-19</span><span class="glob-kw">WHO</span><span class="glob-kw">mRNA</span><span class="glob-kw">vaccine nationalism</span><span class="glob-kw">pandemic</span>
+          </div>
+        </div>
+        <button class="glob-panel-close" data-close="disease">&#8593; Close</button>
+      </div>
+
+      <!-- INSTITUTIONS -->
+      <div class="glob-panel" data-panel="institutions">
+        <div class="glob-panel-hdr">
+          <span class="glob-panel-hdr-icon">&#127963;</span>
+          <div>
+            <div class="glob-panel-hdr-title">Multinational Institutions</div>
+            <div class="glob-panel-hdr-sub">UN &bull; WHO &bull; IMF &bull; WTO &bull; EU &bull; NATO</div>
+          </div>
+        </div>
+        <div class="glob-panel-body">
+          <div class="glob-panel-grid">
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">United Nations (1945)</div>
+              <div class="glob-sub-card-text">Founded after WWII to prevent future global conflict. <strong>193 member states</strong>. The Security Council (5 permanent members with veto power: U.S., UK, France, Russia, China) can authorize military action. UN agencies like <strong>UNICEF, UNESCO, and UNHCR</strong> address humanitarian issues.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">IMF &amp; World Bank</div>
+              <div class="glob-sub-card-text">The <strong>IMF</strong> stabilizes currencies and provides emergency loans with "structural adjustment" conditions (austerity, privatization). The <strong>World Bank</strong> funds development projects. Critics argue both impose Western capitalist models and create debt dependency in the Global South.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">WTO &amp; Trade Governance</div>
+              <div class="glob-sub-card-text">The <strong>World Trade Organization (1995)</strong> arbitrates trade disputes between 164 member nations. The U.S.–China trade war (2018–) tested WTO authority. The stalled <strong>Doha Development Round</strong> highlighted tensions between wealthy and developing nations over trade fairness.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">European Union</div>
+              <div class="glob-sub-card-text">The <strong>EU</strong> is the most advanced example of regional integration — a common currency (<strong>Euro</strong>), free movement of people, and shared governance. <strong>Brexit (2016)</strong> — Britain's vote to leave — showed how nationalist backlash could fracture even deep integration.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">NATO &amp; Security</div>
+              <div class="glob-sub-card-text"><strong>NATO</strong> (North Atlantic Treaty Organization) expanded after the Cold War, incorporating former Warsaw Pact nations. Russia's invasion of Ukraine (2022) reinvigorated NATO unity. Sweden and Finland — historically neutral — joined NATO in response.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">ICC &amp; Human Rights Law</div>
+              <div class="glob-sub-card-text">The <strong>International Criminal Court (ICC, 2002)</strong> prosecutes individuals for war crimes, crimes against humanity, and genocide. Not all major powers (U.S., Russia, China) are members. The court has faced criticism for disproportionately targeting African leaders.</div>
+            </div>
+          </div>
+          <div class="glob-kw-row">
+            <span class="glob-kw">UN</span><span class="glob-kw">IMF</span><span class="glob-kw">World Bank</span><span class="glob-kw">WTO</span><span class="glob-kw">EU</span><span class="glob-kw">NATO</span><span class="glob-kw">ICC</span><span class="glob-kw">structural adjustment</span><span class="glob-kw">Brexit</span>
+          </div>
+        </div>
+        <button class="glob-panel-close" data-close="institutions">&#8593; Close</button>
+      </div>
+
+      <!-- REFORM -->
+      <div class="glob-panel" data-panel="reform">
+        <div class="glob-panel-hdr">
+          <span class="glob-panel-hdr-icon">&#9994;</span>
+          <div>
+            <div class="glob-panel-hdr-title">Reform &amp; Resistance</div>
+            <div class="glob-panel-hdr-sub">Environmental &bull; Human Rights &bull; Anti-Globalization &bull; Democracy</div>
+          </div>
+        </div>
+        <div class="glob-panel-body">
+          <div class="glob-panel-grid">
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Environmental Movement</div>
+              <div class="glob-sub-card-text">From <strong>Earth Day (1970)</strong> to the <strong>Kyoto Protocol (1997)</strong> to the <strong>Paris Agreement (2015)</strong>, international environmental activism reshaped policy. Youth activists like <strong>Greta Thunberg</strong> used global media to pressure governments on climate change.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Human Rights NGOs</div>
+              <div class="glob-sub-card-text">The <strong>Universal Declaration of Human Rights (1948)</strong> created a global framework. <strong>Amnesty International</strong>, <strong>Human Rights Watch</strong>, and other NGOs document abuses and lobby governments. NGOs multiplied dramatically with globalization — thousands now operate transnationally.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Anti-Globalization Movement</div>
+              <div class="glob-sub-card-text">Massive protests at the <strong>WTO summit in Seattle (1999)</strong> launched a global anti-globalization movement concerned about worker exploitation, environmental destruction, and erosion of national sovereignty by corporations and international institutions.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Nationalist &amp; Populist Backlash</div>
+              <div class="glob-sub-card-text"><strong>Brexit (2016)</strong> and the election of Donald Trump (2016) reflected backlash against globalization's "losers" — deindustrialized workers and communities who felt left behind. European far-right parties similarly rose on anti-immigration, anti-EU platforms in the 2010s.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Pro-Democracy Movements</div>
+              <div class="glob-sub-card-text"><strong>Tiananmen Square (1989)</strong>, the <strong>Color Revolutions</strong> in Eastern Europe (2000s), and the <strong>Arab Spring (2010–11)</strong> all reflected demands for democratic reform spread by global communications. Results were mixed — some succeeded; many were suppressed or collapsed into instability.</div>
+            </div>
+            <div class="glob-sub-card">
+              <div class="glob-sub-card-title">Women's &amp; LGBTQ+ Rights</div>
+              <div class="glob-sub-card-text">The <strong>Fourth World Conference on Women (Beijing, 1995)</strong> and the <strong>#MeToo movement (2017)</strong> spread globally via social media. LGBTQ+ rights advanced in many Western nations while remaining criminalized in others — illustrating how globalization spreads both progressive and conservative movements.</div>
+            </div>
+          </div>
+          <div class="glob-kw-row">
+            <span class="glob-kw">Paris Agreement</span><span class="glob-kw">NGO</span><span class="glob-kw">Kyoto Protocol</span><span class="glob-kw">WTO Seattle</span><span class="glob-kw">Brexit</span><span class="glob-kw">Arab Spring</span><span class="glob-kw">ICC</span><span class="glob-kw">Tiananmen</span>
+          </div>
+        </div>
+        <button class="glob-panel-close" data-close="reform">&#8593; Close</button>
+      </div>
+
+    </div><!-- /glob-panel-wrap -->
+
+    <p style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:20px" id="glob-hint">&#8592; Click any node to explore</p>
+
+  </div><!-- /glob-section -->
+</div>
+</div><!-- /pg-web -->
+
+
+<!-- ══ STUDY GUIDE PAGE ══ -->
+<div class="page" id="pg-guide">
+<div class="inner">
+  <div class="pg-nav-row">
+    <button class="pg-nav-btn pg-nav-all" data-tab="pg-home">&#8592; Back to Home</button>
+    <button class="pg-nav-btn" data-tab="pg-web">&#9881; Web</button>
+    <button class="pg-nav-btn" data-tab="pg-brain">Brain Dump</button>
+  </div>
+  <div class="pg-hero">
+    <div class="eyebrow">Unit 9 &mdash; Study Guide</div>
+    <h2>Globalization: Key Concepts</h2>
+    <p>Click any section to expand. Master these before exam day.</p>
+  </div>
+
+  <!-- SG Section 1 -->
+  <div class="sg-section">
+    <div class="sg-hdr" onclick="toggleSG(this)">
+      <div class="sg-htitle">1. What Is Globalization?</div>
+      <div class="sg-hmeta"><span class="sg-hnum">Overview</span><span class="sg-arr">&#9660;</span></div>
+    </div>
+    <div class="sg-body">
+      <p>Globalization refers to the increasing <strong>interconnectedness of the world's economies, cultures, politics, and populations</strong> through the exchange of goods, services, ideas, and people. It accelerated dramatically after World War II and especially after 1990 with the internet, the collapse of the Soviet Union, and the expansion of free trade.</p>
+      <p>Globalization is not new — earlier waves occurred during the Columbian Exchange, the era of industrialization, and the Age of Imperialism. But the post-WWII era is distinguished by its <strong>speed, scale, and depth</strong>.</p>
+      <ul>
+        <li><strong>Economic globalization:</strong> global trade, MNCs, financial markets</li>
+        <li><strong>Cultural globalization:</strong> spread of ideas, media, and practices</li>
+        <li><strong>Political globalization:</strong> international institutions, NGOs, global governance</li>
+        <li><strong>Technological globalization:</strong> internet, telecommunications, transportation</li>
+      </ul>
+      <div class="sg-kws">
+        <span class="sg-kw">interconnectedness</span><span class="sg-kw">post-WWII</span><span class="sg-kw">free trade</span><span class="sg-kw">MNC</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SG Section 2 -->
+  <div class="sg-section">
+    <div class="sg-hdr" onclick="toggleSG(this)">
+      <div class="sg-htitle">2. Economic Globalization &amp; Inequality</div>
+      <div class="sg-hmeta"><span class="sg-hnum">Economy</span><span class="sg-arr">&#9660;</span></div>
+    </div>
+    <div class="sg-body">
+      <p>The <strong>WTO (1995)</strong> replaced the General Agreement on Tariffs and Trade (GATT), creating enforceable global trade rules. Regional agreements like <strong>NAFTA (1994)</strong> further reduced barriers.</p>
+      <p>Multinational corporations (MNCs) became dominant economic actors. <strong>Nike</strong> designs shoes in Oregon, manufactures in Vietnam, and sells globally. This "global value chain" creates jobs in developing countries but often at low wages and in poor conditions.</p>
+      <p><strong>China's rise</strong> is the defining economic story of globalization: 800 million people lifted out of poverty in 40 years through export-led growth. But this also hollowed out manufacturing in the U.S., Europe, and other developed economies — the <strong>deindustrialization</strong> of the Rust Belt.</p>
+      <ul>
+        <li>Free trade → lower prices for consumers, but job losses in developed nations</li>
+        <li>MNCs → development AND exploitation; "race to the bottom" on labor standards</li>
+        <li>Microfinance (Grameen Bank) → market-based poverty reduction</li>
+        <li>Inequality: within-country gaps widened even as between-country gaps narrowed</li>
+      </ul>
+      <div class="sg-kws">
+        <span class="sg-kw">WTO</span><span class="sg-kw">NAFTA</span><span class="sg-kw">deindustrialization</span><span class="sg-kw">outsourcing</span><span class="sg-kw">Grameen Bank</span><span class="sg-kw">Gini coefficient</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SG Section 3 -->
+  <div class="sg-section">
+    <div class="sg-hdr" onclick="toggleSG(this)">
+      <div class="sg-htitle">3. Technology &amp; Communication</div>
+      <div class="sg-hmeta"><span class="sg-hnum">Technology</span><span class="sg-arr">&#9660;</span></div>
+    </div>
+    <div class="sg-body">
+      <p>The <strong>internet (World Wide Web, 1991)</strong> transformed how information spreads, how commerce operates, and how people organize politically. Combined with smartphones, it made global real-time communication available to billions.</p>
+      <p><strong>Container shipping</strong> (1950s–60s) was equally transformative — reducing the cost of moving goods by ~90% and enabling the global supply chains that made modern manufacturing possible.</p>
+      <p>However, technology's benefits are <strong>unevenly distributed</strong>. The "digital divide" separates those with internet access from those without — often mapping onto existing inequalities of wealth, gender, and geography.</p>
+      <ul>
+        <li>Social media enabled the Arab Spring (2010–11) but also disinformation</li>
+        <li>mRNA vaccines demonstrated rapid-response biotech capability (COVID-19)</li>
+        <li>Automation threatens jobs — even in developing nations previously reliant on cheap labor</li>
+      </ul>
+      <div class="sg-kws">
+        <span class="sg-kw">WWW</span><span class="sg-kw">digital divide</span><span class="sg-kw">container shipping</span><span class="sg-kw">mRNA</span><span class="sg-kw">automation</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SG Section 4 -->
+  <div class="sg-section">
+    <div class="sg-hdr" onclick="toggleSG(this)">
+      <div class="sg-htitle">4. Multinational Institutions &amp; Global Governance</div>
+      <div class="sg-hmeta"><span class="sg-hnum">Institutions</span><span class="sg-arr">&#9660;</span></div>
+    </div>
+    <div class="sg-body">
+      <p>Post-WWII, world leaders created a web of institutions to manage globalization and prevent future catastrophic war. The <strong>United Nations (1945)</strong> provided a forum for diplomacy; the <strong>IMF and World Bank</strong> stabilized economies; the <strong>WTO</strong> governed trade.</p>
+      <p>The <strong>European Union</strong> represents the deepest regional integration — a common currency, free movement, and shared laws. <strong>Brexit (2016)</strong> showed that integration can reverse when populations feel it benefits elites more than ordinary workers.</p>
+      <p>Critics of institutions like the IMF argue that <strong>"structural adjustment" programs</strong> — which require austerity and privatization in exchange for loans — perpetuate dependency rather than promoting genuine development.</p>
+      <ul>
+        <li>UN peacekeeping missions stabilized some post-conflict zones but failed in others (Rwanda 1994)</li>
+        <li>ICC (2002) marks the first permanent international criminal tribunal</li>
+        <li>NATO expanded post-Cold War; Russia-Ukraine war (2022) reinvigorated its purpose</li>
+      </ul>
+      <div class="sg-kws">
+        <span class="sg-kw">UN</span><span class="sg-kw">IMF</span><span class="sg-kw">EU</span><span class="sg-kw">NATO</span><span class="sg-kw">ICC</span><span class="sg-kw">structural adjustment</span><span class="sg-kw">Brexit</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SG Section 5 -->
+  <div class="sg-section">
+    <div class="sg-hdr" onclick="toggleSG(this)">
+      <div class="sg-htitle">5. Cultural Globalization &amp; Resistance</div>
+      <div class="sg-hmeta"><span class="sg-hnum">Culture</span><span class="sg-arr">&#9660;</span></div>
+    </div>
+    <div class="sg-body">
+      <p>Culture spreads alongside goods and information. <strong>Americanization</strong> — the global spread of U.S. culture (fast food, music, films, fashion) — is the most visible form of cultural globalization, but it coexists with cultural hybridity and local resistance.</p>
+      <p><strong>Glocalization</strong> describes how global products adapt to local cultures (McDonald's in India serving the McAloo Tikki; K-pop blending Korean and Western pop). This shows globalization is not simply one-directional Westernization.</p>
+      <p>Some communities actively resist cultural globalization. France mandates French on radio. Iran restricts Western media. Indigenous peoples worldwide fight for language and cultural preservation, supported by the <strong>UN Declaration on Rights of Indigenous Peoples (2007)</strong>.</p>
+      <div class="sg-kws">
+        <span class="sg-kw">Americanization</span><span class="sg-kw">glocalization</span><span class="sg-kw">hybridity</span><span class="sg-kw">K-pop</span><span class="sg-kw">UNESCO</span><span class="sg-kw">cultural imperialism</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SG Section 6 -->
+  <div class="sg-section">
+    <div class="sg-hdr" onclick="toggleSG(this)">
+      <div class="sg-htitle">6. Disease &amp; Global Health</div>
+      <div class="sg-hmeta"><span class="sg-hnum">Disease</span><span class="sg-arr">&#9660;</span></div>
+    </div>
+    <div class="sg-body">
+      <p>Globalization accelerates disease spread by increasing the speed and volume of human movement. <strong>HIV/AIDS</strong> (identified 1981) spread via global travel networks, eventually infecting ~38 million people worldwide. Sub-Saharan Africa bore the greatest burden.</p>
+      <p><strong>SARS (2003)</strong> was the first disease to spread globally via air travel — 29 countries in weeks. It served as a warning. <strong>COVID-19</strong> showed what an uncontained pandemic looks like in a hyper-connected world: ~7 million official deaths, global supply chain collapse, and a race for vaccines that exposed stark inequalities in global health access.</p>
+      <ul>
+        <li>WHO: coordinates global health responses but lacks enforcement power</li>
+        <li>Antiretroviral drugs transformed HIV from fatal to manageable — but only for those with access</li>
+        <li>"Diseases of globalization": obesity, diabetes spreading with Westernized diets</li>
+        <li>Vaccine nationalism: wealthy nations secured COVID vaccines first, leaving poor nations behind</li>
+      </ul>
+      <div class="sg-kws">
+        <span class="sg-kw">HIV/AIDS</span><span class="sg-kw">COVID-19</span><span class="sg-kw">SARS</span><span class="sg-kw">WHO</span><span class="sg-kw">antiretroviral</span><span class="sg-kw">vaccine nationalism</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SG Section 7 -->
+  <div class="sg-section">
+    <div class="sg-hdr" onclick="toggleSG(this)">
+      <div class="sg-htitle">7. Reform, Resistance &amp; Backlash</div>
+      <div class="sg-hmeta"><span class="sg-hnum">Reform</span><span class="sg-arr">&#9660;</span></div>
+    </div>
+    <div class="sg-body">
+      <p>Globalization produces both reform movements (calling for more just and sustainable globalization) and backlash movements (demanding less globalization). The <strong>anti-globalization movement</strong> gained visibility at the 1999 WTO Seattle protests, arguing that global trade rules prioritized corporate profits over workers and the environment.</p>
+      <p>The <strong>environmental movement</strong> achieved global governance milestones: Kyoto Protocol (1997) and the Paris Agreement (2015). Climate activism became a truly global youth movement with figures like <strong>Greta Thunberg</strong>.</p>
+      <p>Nationalist and populist backlash in the 2010s — <strong>Brexit, Trump, European far-right parties</strong> — reflects the "losers" of globalization: workers in deindustrialized regions, communities threatened by immigration, and citizens who feel sovereignty has been ceded to faceless international bodies.</p>
+      <div class="sg-kws">
+        <span class="sg-kw">WTO Seattle</span><span class="sg-kw">Paris Agreement</span><span class="sg-kw">Brexit</span><span class="sg-kw">NGO</span><span class="sg-kw">Arab Spring</span><span class="sg-kw">populism</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /pg-guide -->
+
+
+<!-- ══ BRAIN DUMP PAGE ══ -->
+<div class="page" id="pg-brain">
+<div class="inner">
+  <div class="pg-nav-row">
+    <button class="pg-nav-btn pg-nav-all" data-tab="pg-home">&#8592; Back to Home</button>
+    <button class="pg-nav-btn" data-tab="pg-web">&#9881; Web</button>
+    <button class="pg-nav-btn" data-tab="pg-guide">Study Guide</button>
+  </div>
+  <div class="pg-hero">
+    <div class="eyebrow">Unit 9 &mdash; Brain Dump</div>
+    <h2>5-Minute Retrieval Practice</h2>
+    <p>Choose a topic, then write everything you know in 5 minutes — no notes.</p>
+  </div>
+
+  <div class="bd-setup" id="bdSetup">
+    <p style="font-size:.9rem;color:var(--muted);margin-bottom:20px">Select a topic, then hit Start.</p>
+    <div class="bd-topic-grid">
+      <button class="bd-topic-btn" onclick="selectBDTopic(this,'Technology &amp; Globalization')">&#128187; Technology</button>
+      <button class="bd-topic-btn" onclick="selectBDTopic(this,'Economic Globalization')">&#128176; Economy</button>
+      <button class="bd-topic-btn" onclick="selectBDTopic(this,'Cultural Globalization')">&#127926; Culture</button>
+      <button class="bd-topic-btn" onclick="selectBDTopic(this,'Disease &amp; Global Health')">&#129440; Disease</button>
+      <button class="bd-topic-btn" onclick="selectBDTopic(this,'Multinational Institutions')">&#127963; Institutions</button>
+      <button class="bd-topic-btn" onclick="selectBDTopic(this,'Reform &amp; Resistance')">&#9994; Reform</button>
+    </div>
+    <button class="bd-start-btn" id="bdStartBtn" disabled onclick="startBD()">&#9654; Start Timer</button>
+  </div>
+
+  <div class="bd-session" id="bdSession">
+    <div class="bd-timer-bar">
+      <div>
+        <div class="bd-timer-label">Brain Dump</div>
+        <div class="bd-topic-display" id="bdTopicDisplay"></div>
+      </div>
+      <div class="bd-timer-num" id="bdTimerNum">5:00</div>
+    </div>
+    <textarea class="bd-textarea" id="bdTextarea" placeholder="Write everything you know about this topic…"></textarea>
+  </div>
+
+  <div class="bd-done" id="bdDone">
+    <h3>Time&rsquo;s Up!</h3>
+    <p>Great work. Now review your notes and see what you missed.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="hero-btn hero-btn-primary" onclick="restartBD()">&#8635; Go Again</button>
+      <button class="hero-btn hero-btn-outline" data-tab="pg-guide">&#128214; Check Study Guide</button>
+    </div>
+  </div>
+</div>
+</div><!-- /pg-brain -->
+
+
+<!-- ══ EXAM TIPS PAGE ══ -->
+<div class="page" id="pg-tips">
+<div class="inner">
+  <div class="pg-nav-row">
+    <button class="pg-nav-btn pg-nav-all" data-tab="pg-home">&#8592; Back to Home</button>
+    <button class="pg-nav-btn" data-tab="pg-web">&#9881; Web</button>
+    <button class="pg-nav-btn" data-tab="pg-guide">Study Guide</button>
+  </div>
+  <div class="pg-hero">
+    <div class="eyebrow">Unit 9 &mdash; Exam Strategy</div>
+    <h2>Tips for the AP Exam</h2>
+    <p>How to use Unit 9 to maximize your score — including the complexity point.</p>
+  </div>
+
+  <div class="tip-grid">
+    <div class="tip-card">
+      <h3>SAQ Strategy</h3>
+      <ul>
+        <li>Always answer in <strong>complete sentences</strong> — no bullets.</li>
+        <li>Name a specific example for each part (A, B, C).</li>
+        <li>For Unit 9: use <strong>COVID-19, WTO, Arab Spring, or Brexit</strong> as ready-made examples for almost any prompt about continuity and change.</li>
+      </ul>
+    </div>
+    <div class="tip-card">
+      <h3>LEQ: Complexity Point</h3>
+      <p>Unit 9 is <em>perfect</em> for the complexity point. Try one of:</p>
+      <ul>
+        <li><strong>Corroborate:</strong> technology accelerated both economic growth AND cultural resistance</li>
+        <li><strong>Qualify:</strong> globalization reduced poverty globally but increased inequality within nations</li>
+        <li><strong>Explain tension:</strong> multinational institutions enabled globalization AND became targets of anti-globalization protest</li>
+      </ul>
+    </div>
+    <div class="tip-card">
+      <h3>DBQ Tips</h3>
+      <ul>
+        <li>For globalization DBQs, <strong>HAPP</strong> (Historical context, Audience, Purpose, Point of view) is your friend for sourcing.</li>
+        <li>Look for documents that show <strong>pro- vs. anti-globalization</strong> tensions — group them accordingly.</li>
+        <li>Corroboration: find 2 docs that say similar things to make a stronger argument.</li>
+      </ul>
+    </div>
+    <div class="tip-card">
+      <h3>Causation Framing</h3>
+      <div class="tip-formula">"Globalization was enabled by X, which caused Y, which had the significant consequence of Z."</div>
+      <p>Example: The internet (X) enabled global communication (Y), causing both democratic movements like the Arab Spring and authoritarian surveillance states (Z).</p>
+    </div>
+    <div class="tip-card">
+      <h3>Continuity &amp; Change</h3>
+      <ul>
+        <li><strong>Changed:</strong> speed/scale of exchange, role of MNCs, global disease spread</li>
+        <li><strong>Continued:</strong> inequality between Global North &amp; South, resistance to outside cultural influence, use of disease as political issue</li>
+        <li>Tip: Always note that globalization accelerated existing patterns rather than creating entirely new ones.</li>
+      </ul>
+    </div>
+    <div class="tip-card">
+      <h3>High-Value Comparisons</h3>
+      <ul>
+        <li>HIV/AIDS <em>vs.</em> COVID-19 — different eras, same inequality in response</li>
+        <li>Anti-WTO protests (1999) <em>vs.</em> Brexit (2016) — two faces of anti-globalization</li>
+        <li>Cultural resistance in Iran <em>vs.</em> South Korea (K-pop) — different reactions to the same force</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="complexity-box">
+    <div class="complexity-label">Complexity Point — Unit 9 Formula</div>
+    <div class="complexity-body">Argue that globalization simultaneously <strong>created new forms of inequality</strong> (digital divide, vaccine nationalism) while <strong>reducing older forms</strong> (poverty in China/India, spread of democratic norms). This tension — globalization as both equalizer and divider — is what makes a truly complex argument for the AP exam.</div>
+  </div>
+
+</div>
+</div><!-- /pg-tips -->
+
+
+<script>
+// ── PAGE NAV ──────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.hn-btn[data-tab]').forEach(function(b){ b.classList.remove('active'); });
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.hn-btn[data-tab="'+id+'"]').forEach(function(b){ b.classList.add('active'); });
+  window.scrollTo(0,0);
+}
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-tab]');
+  if (btn) showTab(btn.getAttribute('data-tab'));
+});
+
+// ── GLOBALIZATION WEB ─────────────────────────────
+var activeNode = null;
+
+function activateNode(name) {
+  // deactivate all
+  document.querySelectorAll('.glob-node').forEach(function(n){ n.classList.remove('active'); });
+  document.querySelectorAll('.glob-mobile-btn').forEach(function(n){ n.classList.remove('active'); });
+  document.querySelectorAll('.glob-line').forEach(function(l){ l.classList.remove('active'); });
+  document.querySelectorAll('.glob-panel').forEach(function(p){ p.classList.remove('active'); });
+
+  if (name === activeNode) {
+    // toggle off
+    activeNode = null;
+    document.getElementById('glob-hint').textContent = '\u2190 Click any node to explore';
+    return;
+  }
+  activeNode = name;
+
+  // activate chosen
+  document.querySelectorAll('[data-node="'+name+'"]').forEach(function(n){ n.classList.add('active'); });
+  var line = document.querySelector('.glob-line[data-line="'+name+'"]');
+  if (line) line.classList.add('active');
+  var panel = document.querySelector('.glob-panel[data-panel="'+name+'"]');
+  if (panel) {
+    panel.classList.add('active');
+    setTimeout(function(){ panel.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 80);
+  }
+  document.getElementById('glob-hint').style.display = 'none';
+}
+
+// Node click
+document.addEventListener('click', function(e) {
+  var node = e.target.closest('[data-node]');
+  if (node) activateNode(node.getAttribute('data-node'));
+  var close = e.target.closest('[data-close]');
+  if (close) activateNode(close.getAttribute('data-close'));
+});
+
+// ── STUDY GUIDE ACCORDION ────────────────────────
+function toggleSG(hdr) {
+  var body = hdr.nextElementSibling;
+  var isOpen = body.classList.contains('open');
+  // close all
+  document.querySelectorAll('.sg-body.open').forEach(function(b){ b.classList.remove('open'); });
+  document.querySelectorAll('.sg-hdr.open').forEach(function(h){ h.classList.remove('open'); });
+  if (!isOpen) {
+    body.classList.add('open');
+    hdr.classList.add('open');
+  }
+}
+
+// ── BRAIN DUMP ───────────────────────────────────
+var bdTopic = '';
+var bdTimer = null;
+var bdSeconds = 300;
+
+function selectBDTopic(btn, topic) {
+  document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+  btn.classList.add('selected');
+  bdTopic = topic;
+  document.getElementById('bdStartBtn').disabled = false;
+}
+
+function startBD() {
+  document.getElementById('bdSetup').style.display = 'none';
+  document.getElementById('bdDone').classList.remove('active');
+  var session = document.getElementById('bdSession');
+  session.classList.add('active');
+  document.getElementById('bdTopicDisplay').innerHTML = bdTopic;
+  document.getElementById('bdTextarea').value = '';
+  document.getElementById('bdTextarea').focus();
+  bdSeconds = 300;
+  updateBDTimer();
+  bdTimer = setInterval(function() {
+    bdSeconds--;
+    updateBDTimer();
+    if (bdSeconds <= 0) {
+      clearInterval(bdTimer);
+      session.classList.remove('active');
+      document.getElementById('bdDone').classList.add('active');
+    }
+  }, 1000);
+}
+
+function updateBDTimer() {
+  var m = Math.floor(bdSeconds / 60);
+  var s = bdSeconds % 60;
+  document.getElementById('bdTimerNum').textContent = m + ':' + (s < 10 ? '0' : '') + s;
+}
+
+function restartBD() {
+  clearInterval(bdTimer);
+  document.getElementById('bdSession').classList.remove('active');
+  document.getElementById('bdDone').classList.remove('active');
+  document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+  document.getElementById('bdStartBtn').disabled = true;
+  document.getElementById('bdSetup').style.display = '';
+  bdTopic = '';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 4 Review — AP World History: Modern</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --green:#1a6825;--green-bg:#eef7f0;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+}
+body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;line-height:1.65;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+.site-header{background:var(--ink);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:600;box-shadow:0 2px 20px rgba(0,0,0,.4)}
+.header-brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.header-badge{background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;padding:4px 9px;flex-shrink:0}
+.header-title{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px}
+.header-title strong{color:#fff}
+.header-nav{display:flex;align-items:center;gap:2px;overflow-x:auto}
+.hn-btn{background:none;border:none;color:rgba(255,255,255,.5);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.09em;text-transform:uppercase;padding:7px 10px;transition:color .15s,background .15s;white-space:nowrap}
+.hn-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
+.hn-btn.active{color:#fff;background:rgba(176,0,28,.35)}
+#bar-score{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:rgba(255,255,255,.5);flex-shrink:0;display:none}
+#bar-score strong{color:#fff}
+.page{display:none}
+.page.active{display:block;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.inner{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+.pg-hero{text-align:center;padding:32px 0 28px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.pg-hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:8px}
+.pg-hero p{color:var(--muted);font-size:.92rem;max-width:520px;margin:0 auto}
+.hero{position:relative;min-height:65vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(to bottom,rgba(249,246,239,.88) 0%,rgba(243,236,224,.82) 50%,rgba(243,236,224,.94) 100%),url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Cantino_planisphere_%281502%29.jpg/1280px-Cantino_planisphere_%281502%29.jpg") center/cover no-repeat;padding:90px 24px 60px;border-bottom:3px solid var(--border2)}
+.hero-inner{text-align:center;max-width:720px;margin:0 auto}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:16px;border:1px solid rgba(176,0,28,.35);display:inline-block;padding:4px 14px;background:rgba(255,255,255,.6)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.0;color:var(--ink);margin-bottom:18px}
+.hero h1 em{color:var(--red);font-style:italic}
+.hero-rule{width:70px;height:3px;background:var(--red);margin:0 auto 20px}
+.hero-sub{color:var(--mid);font-size:clamp(.9rem,2vw,1.1rem);max-width:560px;line-height:1.7;margin:0 auto 28px}
+.hero-period{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.hero-btn{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;border:none;transition:all .2s}
+.hero-btn-primary{background:var(--red);color:#fff}
+.hero-btn-primary:hover{background:var(--red-d);transform:translateY(-2px)}
+.hero-btn-outline{background:rgba(255,255,255,.7);color:var(--ink);border:1.5px solid var(--border2)!important}
+.hero-btn-outline:hover{background:var(--ink);color:#fff}
+.features{background:var(--white);padding:52px 24px;border-bottom:2px solid var(--border)}
+.features-inner{max-width:900px;margin:0 auto}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;margin-bottom:28px;line-height:1.1}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.feat{background:var(--cream);border:1px solid var(--border);border-top:4px solid var(--red);padding:20px 18px;transition:box-shadow .2s,transform .2s;display:flex;flex-direction:column;gap:8px;text-align:left}
+.feat:hover{box-shadow:var(--shm);transform:translateY(-3px)}
+.feat-icon{font-size:1.7rem}
+.feat-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700}
+.feat-desc{font-size:.79rem;color:var(--muted);line-height:1.5}
+.feat-count{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-top:auto}
+.feat-action{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--red);padding:6px 12px;margin-top:6px;align-self:flex-start}
+.pg-nav-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.pg-nav-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1.5px solid var(--border2);background:none;color:var(--ink);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pg-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-nav-all{background:var(--red);color:#fff;border-color:var(--red)}
+.pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
+/* MCQ */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.tc{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--red);padding:16px 18px;text-align:left;transition:box-shadow .18s,transform .18s}
+.tc:hover{box-shadow:var(--shm);transform:translateY(-2px)}
+.tc-n{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.tc-name{font-size:.93rem;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.3}
+.tc-cnt{font-family:'IBM Plex Mono',monospace;font-size:.54rem;color:var(--muted);letter-spacing:.08em}
+.btn-all{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;transition:background .15s}
+.btn-all:hover{background:var(--red)}
+.btn-mixed{display:block;width:100%;background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-b);padding:12px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-top:10px;transition:background .15s}
+.btn-mixed:hover{background:var(--gold-b);color:var(--ink)}
+.qsession{display:none}
+.qsession.active{display:block}
+.qhdr{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qhdr-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+.qhdr-prog{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.08em}
+.qpbar{background:var(--border);height:4px;margin-bottom:24px;border-radius:2px}
+.qpbf{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.sset-name{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px}
+.stim{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--red);padding:18px 20px;margin-bottom:18px}
+.stim-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.stim-src{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.06em;color:var(--muted);margin-bottom:10px;font-style:italic}
+.stim-txt{font-size:.9rem;line-height:1.75;color:var(--mid)}
+.stim-txt p+p{margin-top:.6em}
+.qcard{background:var(--white);border:1px solid var(--border);padding:20px 22px;margin-bottom:14px}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.qtxt{font-size:.95rem;line-height:1.65;margin-bottom:14px;color:var(--ink)}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{background:var(--cream);border:1.5px solid var(--border);padding:11px 14px;text-align:left;display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.5;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.opt:disabled{cursor:default}
+.opt.c{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.w{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.opt.rv{background:var(--green-bg);border-color:var(--green);opacity:.7}
+.ol{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;flex-shrink:0;margin-top:2px;color:var(--muted)}
+.fb{display:none;margin-top:12px;padding:11px 14px;font-size:.86rem;line-height:1.6;border-left:3px solid transparent}
+.fb.show{display:block}
+.fb.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.fb.bad{background:var(--red-bg);border-color:var(--red);color:var(--mid)}
+.sbr{border:none;border-top:2px solid var(--border);margin:28px 0 20px}
+.btn-row{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{background:var(--cream);border:1px solid var(--border);padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;transition:all .15s}
+.btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-red:hover{background:var(--red-d)}
+/* BRAIN DUMP */
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:4px;transition:background .15s}
+.bd-start-btn:hover:not(:disabled){background:var(--red)}
+.bd-start-btn:disabled{opacity:.4;cursor:not-allowed}
+.bd-session{display:none}
+.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 18px;margin-bottom:14px}
+.bd-topic-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
+.bd-countdown{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;letter-spacing:.06em;color:#fff;transition:color .3s}
+.bd-countdown.warning{color:#f4b942}
+.bd-countdown.expired{color:var(--red)}
+.bd-stem{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-bottom:16px}
+.bd-stem-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
+.bd-textarea{width:100%;border:2px solid var(--border2);padding:14px 16px;font-family:'Source Serif 4',Georgia,serif;font-size:.93rem;line-height:1.7;resize:vertical;min-height:180px;background:var(--white);transition:border-color .15s}
+.bd-textarea:focus{outline:none;border-color:var(--red)}
+.bd-word-count{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;text-align:right}
+.bd-reveal{display:none;margin-top:28px}
+.bd-reveal.active{display:block}
+.bd-reveal-hdr{background:var(--green-bg);border:1px solid var(--green);border-left:4px solid var(--green);padding:14px 18px;font-size:.9rem;color:var(--green);margin-bottom:20px}
+.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:20px}
+.bd-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:16px 18px}
+.bd-card-term{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.bd-card-def{font-size:.82rem;line-height:1.6;color:var(--mid)}
+.bd-reset-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;transition:background .15s}
+.bd-reset-btn:hover{background:var(--red)}
+@media(max-width:600px){
+  .site-header{padding:0 12px}
+  .header-title{display:none}
+  .topic-grid,.features-grid{grid-template-columns:1fr}
+  .hero{min-height:55vh}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-brand">
+    <a href="index.html" style="color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2);padding:5px 12px;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .15s;margin-right:6px;white-space:nowrap" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">&#8962; Home</a>
+    <div class="header-badge">APWH</div>
+    <div class="header-title">AP World History: Modern &nbsp;&mdash;&nbsp; <strong>Unit 4</strong></div>
+  </div>
+  <nav class="header-nav">
+    <button class="hn-btn active" data-tab="pg-home">Home</button>
+    <button class="hn-btn" data-tab="pg-mcq">MCQ</button>
+    <button class="hn-btn" data-tab="pg-brain">Brain Dump</button>
+  </nav>
+  <div id="bar-score">Score: <strong id="score-txt">0/0</strong></div>
+</header>
+
+<!-- HOME PAGE -->
+<div class="page active" id="pg-home">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">AP World History: Modern</div>
+      <h1>Unit 4<br/><em>Maritime Empires</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">European exploration, the Columbian Exchange, Atlantic slave trade, trading post empires, and the reshaping of social hierarchies across the globe.</p>
+      <p class="hero-period">c. 1450 &ndash; c. 1750</p>
+      <div class="hero-btns" style="margin-top:28px">
+        <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">&#128203; Start MCQ Practice</button>
+        <button class="hero-btn hero-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
+      </div>
+    </div>
+  </section>
+  <section class="features">
+    <div class="features-inner">
+      <div class="section-label">What&rsquo;s Inside</div>
+      <h2 class="section-heading">Everything You Need to Review Unit 4</h2>
+      <div class="features-grid">
+        <button class="feat" data-tab="pg-mcq">
+          <div class="feat-icon">&#128203;</div>
+          <div class="feat-name">MCQ Review</div>
+          <div class="feat-desc">AP-authentic stimulus-based questions covering maritime empires, the Columbian Exchange, social hierarchies, and resistance movements.</div>
+          <div class="feat-count">Topics 4.1&ndash;4.8 &mdash; Instant feedback</div>
+          <div class="feat-action">Open &rarr;</div>
+        </button>
+        <button class="feat" data-tab="pg-brain">
+          <div class="feat-icon">&#129504;</div>
+          <div class="feat-name">Brain Dump</div>
+          <div class="feat-desc">Pick a topic and write everything you know in 5 minutes. Then compare to the full content.</div>
+          <div class="feat-count">8 topics &mdash; Timed practice</div>
+          <div class="feat-action">Open &rarr;</div>
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- BRAIN DUMP PAGE -->
+<div class="page" id="pg-brain">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Brain Dump</div>
+      <h2>Write What You Know</h2>
+      <p>Pick a topic, then write everything you remember for 5 minutes. When time&rsquo;s up, we&rsquo;ll show you all the content so you can compare.</p>
+    </div>
+
+    <div class="bd-setup" id="bd-setup">
+      <div class="bd-topic-grid">
+        <button class="bd-topic-btn" data-topic="4.1">4.1 &mdash; Technological Innovations</button>
+        <button class="bd-topic-btn" data-topic="4.2">4.2 &mdash; Exploration: Causes &amp; Events</button>
+        <button class="bd-topic-btn" data-topic="4.3">4.3 &mdash; Columbian Exchange</button>
+        <button class="bd-topic-btn" data-topic="4.4">4.4 &mdash; Maritime Empires Established</button>
+        <button class="bd-topic-btn" data-topic="4.5">4.5 &mdash; Maritime Empires Maintained</button>
+        <button class="bd-topic-btn" data-topic="4.6">4.6 &mdash; Challenges to State Power</button>
+        <button class="bd-topic-btn" data-topic="4.7">4.7 &mdash; Changing Social Hierarchies</button>
+        <button class="bd-topic-btn" data-topic="4.8">4.8 &mdash; Continuity &amp; Change in Networks</button>
+      </div>
+      <button class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
+    </div>
+
+    <div class="bd-session" id="bd-session">
+      <div class="bd-timer-bar">
+        <div class="bd-topic-label">Topic<strong id="bd-active-topic">&mdash;</strong></div>
+        <div class="bd-countdown" id="bd-countdown">5:00</div>
+      </div>
+      <div class="bd-stem" id="bd-stem">
+        <div class="bd-stem-lbl">&#9997; Sentence Stem &mdash; start here if you need a push</div>
+        <div class="bd-stem-txt" id="bd-stem-txt"></div>
+      </div>
+      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic &mdash; key terms, events, causes, effects, people&hellip; don&rsquo;t stop writing!"></textarea>
+      <div class="bd-word-count" id="bd-word-count">0 words</div>
+      <div class="bd-reveal" id="bd-reveal">
+        <div class="bd-reveal-hdr">&#9989; Time&rsquo;s up! Here&rsquo;s everything from this topic &mdash; compare it to what you wrote.</div>
+        <div class="bd-card-list" id="bd-card-list"></div>
+        <button class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MCQ PAGE -->
+<div class="page" id="pg-mcq">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div id="mcq-home">
+      <div class="pg-hero">
+        <div class="eyebrow">MCQ Review</div>
+        <h2>Stimulus-Based Questions</h2>
+        <p>AP-authentic questions using primary sources, maps, and documents from Unit 4.</p>
+      </div>
+      <div class="topic-grid">
+        <button class="tc" data-topic="4.1"><div class="tc-n">Topic 4.1</div><div class="tc-name">Technological Innovations</div><div class="tc-cnt" id="cnt41"></div></button>
+        <button class="tc" data-topic="4.2"><div class="tc-n">Topic 4.2</div><div class="tc-name">Exploration: Causes &amp; Events</div><div class="tc-cnt" id="cnt42"></div></button>
+        <button class="tc" data-topic="4.3"><div class="tc-n">Topic 4.3</div><div class="tc-name">Columbian Exchange</div><div class="tc-cnt" id="cnt43"></div></button>
+        <button class="tc" data-topic="4.4"><div class="tc-n">Topic 4.4</div><div class="tc-name">Maritime Empires Established</div><div class="tc-cnt" id="cnt44"></div></button>
+        <button class="tc" data-topic="4.5"><div class="tc-n">Topic 4.5</div><div class="tc-name">Maritime Empires Maintained</div><div class="tc-cnt" id="cnt45"></div></button>
+        <button class="tc" data-topic="4.6"><div class="tc-n">Topic 4.6</div><div class="tc-name">Challenges to State Power</div><div class="tc-cnt" id="cnt46"></div></button>
+        <button class="tc" data-topic="4.7"><div class="tc-n">Topic 4.7</div><div class="tc-name">Changing Social Hierarchies</div><div class="tc-cnt" id="cnt47"></div></button>
+        <button class="tc" data-topic="4.8"><div class="tc-n">Topic 4.8</div><div class="tc-name">Continuity &amp; Change in Networks</div><div class="tc-cnt" id="cnt48"></div></button>
+      </div>
+      <button class="btn-mixed" id="mcq-mixed-btn">&#9889; Quick Mixed Quiz &mdash; 2 Questions Per Topic</button>
+      <button class="btn-all" id="mcq-all-btn">&#128203; Practice All Questions</button>
+    </div>
+    <div id="mcq-session" class="qsession">
+      <div class="qhdr">
+        <div class="qhdr-name" id="qhdr-name">All Questions</div>
+        <div class="qhdr-prog" id="qhdr-prog">0 answered</div>
+      </div>
+      <div class="qpbar"><div class="qpbf" id="qpbf" style="width:0%"></div></div>
+      <div id="qbody"></div>
+      <div class="btn-row">
+        <button class="btn btn-red" id="mcq-back-btn">&#8592; Back to Topics</button>
+        <button class="btn" id="mcq-reset-btn">Reset &amp; Retry</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── PAGE NAV ── */
+function showTab(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.hn-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab === id); });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-tab]').forEach(function(el){
+  el.addEventListener('click', function(){ showTab(this.dataset.tab); });
+});
+
+/* ── MCQ DATA ── */
+var QB = {
+  '4.1': [
+    {s:'\"We agreed to leave the coast of Peru and sail for Japan, since we knew that cloth was valuable merchandise there. So we sailed directly for Japan. The shogun, hearing of us, sent five boats to bring me to his court. He demanded to know why we had come so far. I answered: \'We the English are a people who seek friendship with all nations and trade with all countries, bringing the merchandise that our country produces.\' He demanded also to know about the conflicts between Spain and Portugal and England and the reasons for them.\"',sl:'William Adams, English navigator and merchant, description of his voyage to Japan, 1611',q:'Which of the following most directly facilitated the voyage mentioned in the passage?',o:['European access to Arabian and Indian shipping vessels','European access to Chinese mapmaking knowledge','European innovations in ship design and navigation','European contact with Polynesian mariners'],c:2,e:'European innovations in ship design (the caravel, lateen sail) and navigation tools (the astrolabe, magnetic compass, portolan charts) made long-distance ocean voyages to East Asia possible.'},
+    {s:'\"We agreed to leave the coast of Peru and sail for Japan, since we knew that cloth was valuable merchandise there. So we sailed directly for Japan. The shogun, hearing of us, sent five boats to bring me to his court. He demanded to know why we had come so far. I answered: \'We the English are a people who seek friendship with all nations and trade with all countries, bringing the merchandise that our country produces.\' He demanded also to know about the conflicts between Spain and Portugal and England and the reasons for them.\"',sl:'William Adams, English navigator and merchant, description of his voyage to Japan, 1611',q:'Which of the following best explains why Adams\' vessel sailed from Peru rather than directly from England?',o:['Spain and England had signed a treaty requiring English merchants to use Spanish colonial ports','England lacked the naval technology to cross the Atlantic Ocean directly','Pacific Ocean winds and currents made it more efficient to sail from the Americas to Asia','The shogun only permitted ships arriving from Spanish territories to enter Japanese ports'],c:2,e:'Prevailing Pacific trade winds (the "roaring forties") made sailing from the Americas westward to Asia the most efficient route — the same winds and currents that had driven Manila Galleon trade since 1565.'}
+  ],
+  '4.2': [
+    {s:'\"We agreed to leave the coast of Peru and sail for Japan, since we knew that cloth was valuable merchandise there. So we sailed directly for Japan. The shogun, hearing of us, sent five boats to bring me to his court. He demanded to know why we had come so far. I answered: \'We the English are a people who seek friendship with all nations and trade with all countries, bringing the merchandise that our country produces.\' He demanded also to know about the conflicts between Spain and Portugal and England and the reasons for them.\"',sl:'William Adams, English navigator and merchant, description of his voyage to Japan, 1611',q:'Which of the following developments in the period 1450\u20131750 best explains the conflicts referred to in the passage?',o:['Imperial expansion in Africa','Competition for trade in Asia','Expansion of the Mughal Empire','Piracy in the East China Sea'],c:1,e:'Portuguese, Dutch, British, and French merchants and states competed and often fought one another for access to Asian markets and resources. These were rivalries over trade routes, not land empires in Asia.'},
+    {s:'The Portuguese explorer Vasco da Gama reached India in 1498 by sailing around the southern tip of Africa, opening a direct sea route between Europe and Asia. This route bypassed overland Silk Road networks controlled by Ottoman and other intermediaries.',sl:'Historical context, c. 1498',q:'Which of the following best explains the primary motivation for Portuguese maritime exploration along the African coast in the 15th century?',o:['To find a sea route to the Americas in order to establish settler colonies','To bypass Ottoman-controlled overland trade routes and access Asian spice markets directly','To spread Christianity to sub-Saharan Africa as part of a Crusade against Islam','To establish direct military control over Indian Ocean city-states'],c:1,e:'Portugal sought to reach Asian spice markets (especially pepper, nutmeg, cloves) without paying high prices to Ottoman and Italian intermediaries who controlled overland routes. Da Gama\'s 1498 voyage was the culmination of decades of coastal exploration directed by the Portuguese crown.'}
+  ],
+  '4.3': [
+    {s:'\"In the course of the fifth year [1519] the terrible pestilence began. First there was a cough, then blood. The number of deaths at this time was truly terrible and the people could not escape from the pestilence.\n\nIn 1520 the pestilence spread. Truly, the number of deaths among the people was terrible.\n\nIn 1521 my father, King Hunyg, died. The elders and the priests died alike from the pestilence. Half the people threw themselves into the ravines to escape it.\n\n[Years later] the Dominican friars arrived, and thereafter our lord the Spaniards conquered all the towns. And then they converted the people to the Christian faith.\n\nBefore the coming of the Spaniards, our ancestors were happy and had no suffering. And then when the Spanish arrived they were ignorant of the word and the commandments of God.\"',sl:'Anonymous Maya author, Annals of the Cakchiquels, 16th century',q:'Which of the following pieces of evidence does the author use to support his implicit argument that Maya society underwent a dramatic cultural change in the sixteenth century?',o:['Dominican friars knew the Maya language','The Maya were previously ignorant of Christian teachings','Maya people became poor after the Spanish arrived','The Spanish assassinated the king\'s eldest son'],c:1,e:'The author states that until the Dominican friars began their missionary efforts, the Maya had been "ignorant of the word and the commandments of God." This is used as evidence that Maya society underwent dramatic cultural change by converting to Christianity.'},
+    {s:'\"In the course of the fifth year [1519] the terrible pestilence began. First there was a cough, then blood. The number of deaths at this time was truly terrible and the people could not escape from the pestilence.\n\nIn 1520 the pestilence spread. Truly, the number of deaths among the people was terrible.\n\nIn 1521 my father, King Hunyg, died. The elders and the priests died alike from the pestilence. Half the people threw themselves into the ravines to escape it.\n\n[Years later] the Dominican friars arrived, and thereafter our lord the Spaniards conquered all the towns. And then they converted the people to the Christian faith.\n\nBefore the coming of the Spaniards, our ancestors were happy and had no suffering. And then when the Spanish arrived they were ignorant of the word and the commandments of God.\"',sl:'Anonymous Maya author, Annals of the Cakchiquels, 16th century',q:'Which of the following best describes why the arrival of the Spanish is NOT used as evidence to illustrate the toll of the pestilence on Maya society in this passage?',o:['The Maya king died in the epidemic','Fear of the disease drove Maya people to commit suicide','The disease killed members of the Maya elite, including elders and priests','The arrival of the Spanish is described after the pestilence, and the author does not draw a causal connection between them'],c:3,e:'The fourth and fifth paragraphs describe the arrival of the Spanish after the pestilence, but the author does not explicitly link Spanish contact to the spread of disease. He was likely unaware of the epidemiological connection. Since the arrival of the Spanish is not used as evidence supporting the argument about the "pestilence," it cannot serve as that evidence.'},
+    {s:'A graph shows Mesoamerican population decline from approximately 25 million in 1519 to roughly 1.2 million by 1600, followed by slow recovery.',sl:'Demographic data, central Mexico, 1519\u20131700',q:'The trend shown by this demographic data is best explained by',o:['Increased production of cash crops like sugar','Growth of silver mining in New Spain','The introduction of Old World diseases to which indigenous peoples had no immunity','African slave-trading kingdoms\' demand for European trade goods'],c:2,e:'The catastrophic population decline of indigenous peoples in the Americas was primarily caused by epidemics of Old World diseases \u2014 smallpox, measles, typhus, and influenza \u2014 to which Amerindian populations had no prior exposure and therefore no immunity. This demographic collapse was the defining consequence of the Columbian Exchange.'}
+  ],
+  '4.4': [
+    {s:'A Portuguese ivory plaque representing the Christ Child standing on a sailing ship, produced in Portuguese Goa, early seventeenth century.',sl:'Portuguese ivory plaque, Goa (southwestern coast of India), c. 1600\u20131625. Collection of the British Museum.',q:'The production of the plaque in Goa is best understood in the immediate context of which of the following?',o:['The establishment of plantation economies','The spread of printing-press technology','The development of trading-post empires','The decline of Asian states such as the Mughal Empire'],c:2,e:'The production of an ivory plaque in a Portuguese territory on the Indian coast is most directly situated in the creation of a Portuguese trading-post empire stretching from Brazil to West Africa to South Asia. Goa was one of Portugal\'s key Indian Ocean trading posts, acquired in 1510.'},
+    {s:'A Portuguese ivory plaque representing the Christ Child standing on a sailing ship, produced in Portuguese Goa, early seventeenth century.',sl:'Portuguese ivory plaque, Goa (southwestern coast of India), c. 1600\u20131625. Collection of the British Museum.',q:'A likely purpose for including the religious figure in the plaque was to show that',o:['Salvation for the Portuguese inhabitants of Goa could be obtained only by rejecting material wealth','Portuguese naval activities in the Indian Ocean region were favored by divine forces','Because of their belief in the prophecy of Jesus, the Muslim inhabitants of Goa could also obtain salvation','Jesus was going to provide the Portuguese with new sailing technologies if they continued to follow him'],c:1,e:'The Christ Child image standing atop a triumphant sailing vessel suggests that Portuguese naval voyages and activities in the region have divine sanction. This claim linked religious devotion to maritime expansion \u2014 a common theme in Iberian exploration ideology.'},
+    {s:'\"While European trade in the Americas relied upon the extraction and circulation of silver, European trade in Asia took a different form.\"',sl:'Historical comparison, period c. 1450\u20131750',q:'Which of the following best describes a key difference between European trade in the Americas and European trade in Asia in the period 1450\u20131750?',o:['While European trade in the Atlantic was based on mercantilist policies, Europeans engaged in free trade in Asia','While European trade in the Americas relied upon the extraction and circulation of silver, silver was not a significant medium of exchange in Asian markets','While European trade in the Americas was generally peaceful, European navies overthrew large established empires in Asia','While European trade in the Americas involved extensive conquest and colonization, Europeans primarily concentrated on transporting goods between Asian regions'],c:3,e:'Europeans conquered and colonized large parts of the Americas, establishing settler colonies and extractive empires. In Asia, because existing trade networks were entrenched in powerful empires (Mughal, Ming/Qing, Ottomans), Europeans primarily operated trading posts and transported goods between Asian ports rather than conquering territory directly.'}
+  ],
+  '4.5': [
+    {s:'\"Seeing how vile and despicable the idol was, we went outside to ask why they cared about so crude and ungainly a thing. But they, astounded at our daring, defended the honor of their god and said that he was Pachacamac, the Maker of the World, who healed their infirmities. Seeing the evil of what was there and the blindness of all those people, we gathered together their leaders and enlightened them. And in the presence of all, the hut was opened and torn down and with much solemnity a tall cross was raised over the seat which for so long the devil had claimed as his own.\"',sl:'Miguel de Estete, Spanish mercenary soldier, account of an expedition to Peru, c. 1532',q:'Which of the following long-term changes in the period circa 1550\u20131700 best demonstrates that the actions described by de Estete failed to fully achieve their goals?',o:['The development of a global economy based on Spanish exports of Andean silver','American foods becoming staple crops in Eurasia','The emergence of syncretic religious practices in the Americas','The growing Spanish dependence on coerced labor in the Americas'],c:2,e:'Although the Spanish imposed Roman Catholicism as the official religion, many indigenous religious traditions were partly preserved in syncretic beliefs and practices that emerged in the Americas \u2014 blending Catholic and indigenous elements. This demonstrates that the forced conversion described by de Estete did not fully erase indigenous religious traditions.'},
+    {s:'\"Seeing how vile and despicable the idol was, we went outside to ask why they cared about so crude and ungainly a thing. But they, astounded at our daring, defended the honor of their god and said that he was Pachacamac, the Maker of the World, who healed their infirmities. Seeing the evil of what was there and the blindness of all those people, we gathered together their leaders and enlightened them. And in the presence of all, the hut was opened and torn down and with much solemnity a tall cross was raised over the seat which for so long the devil had claimed as his own.\"',sl:'Miguel de Estete, Spanish mercenary soldier, account of an expedition to Peru, c. 1532',q:'The Spanish actions described in the passage differed from European attempts to promote Christianity in South and East Asia in the period 1450\u20131750 in that',o:['In South and East Asia, Europeans relied on established minority groups for help in spreading Christianity','The Spanish in the Americas had the military power to force conversion, while Europeans in Asia could not challenge powerful states like the Mughal Empire, Ming, and Qing dynasties','Europeans in Asia were completely uninterested in spreading Christianity','In Asia, Europeans converted entire populations through peaceful missionary work'],c:1,e:'In the Americas, Spanish forces were able to conquer indigenous empires and impose Christianity by force. In contrast, European technology and organization did not provide the same military advantages against the Mughal, Ming, Qing, and Ottoman empires in Asia \u2014 so missionaries had to use persuasion rather than compulsion.'}
+  ],
+  '4.6': [
+    {s:'\"Colonel Robert Bennett, under the authority of the Governor of Jamaica, makes a treaty with the rebellious Blacks, today, June 23, 1739. Captain Quao, and several other Black officers under his command, surrendered under the following terms.\n1. All hostilities on both sides shall cease forever, Amen.\n2. Captain Quao and his people shall have a certain quantity of land given to them, in order to raise crops, hogs, fowls, goats, or whatsoever stock they may think proper, with sugarcanes excepted.\n3. Four White men shall constantly live and reside with them in their town, in order to keep a good correspondence.\n4. Captain Quao and his people shall destroy all other rebellious Blacks in any part of Jamaica. They shall be paid to apprehend any runaway Blacks and return them to their respective owners.\"',sl:'Treaty between British colonial authorities and the Windward Maroons, Jamaica, 1739',q:'The actions of the Maroons that forced British colonial authorities to conclude a treaty with them are best explained as evidence of reactions against which of the following global trends in the period 1450\u20131750?',o:['The persistent spread of epidemic diseases','The continuing impoverishment of indigenous populations resulting from agricultural transfers','The increase in armed conflict resulting from state rivalries over control of trade routes','The increasing expansion of the Atlantic slave trade and plantation system'],c:3,e:'The Maroons were descendants of Africans brought to Jamaica as enslaved people to work on sugar plantations. Their resistance was a direct reaction to the expansion of the Atlantic slave trade and the plantation system. Their ability to force a treaty demonstrates that enslaved people and their descendants used violent resistance to escape and maintain freedom.'},
+    {s:'\"Colonel Robert Bennett, under the authority of the Governor of Jamaica, makes a treaty with the rebellious Blacks, today, June 23, 1739. Captain Quao, and several other Black officers under his command, surrendered under the following terms.\n1. All hostilities on both sides shall cease forever, Amen.\n2. Captain Quao and his people shall have a certain quantity of land given to them, in order to raise crops, hogs, fowls, goats, or whatsoever stock they may think proper, with sugarcanes excepted.\n3. Four White men shall constantly live and reside with them in their town, in order to keep a good correspondence.\n4. Captain Quao and his people shall destroy all other rebellious Blacks in any part of Jamaica. They shall be paid to apprehend any runaway Blacks and return them to their respective owners.\"',sl:'Treaty between British colonial authorities and the Windward Maroons, Jamaica, 1739',q:'Article 4 of the treaty is best explained as evidence of how states in the period 1450\u20131750 sought to',o:['Suppress resistance to their rule by co-opting local groups','Grant military titles as a way of encouraging the loyalty of their subjects','Provide financial incentives to minority populations to participate in local administration','Promote intermarriage between different ethnic populations in order to reduce conflict'],c:0,e:'Article 4 requires Captain Quao and his Maroon troops to destroy other rebel Black forces and return runaways in exchange for land and British concessions. This demonstrates the British government attempting to use diplomacy to gain the cooperation of one rebel group to suppress other rebel groups \u2014 a classic strategy of co-optation to suppress broader resistance.'}
+  ],
+  '4.7': [
+    {s:'A painting by Agostino Brunias, Italian painter, showing free women of mixed racial ancestry with their children and servants in a landscape, Dominica, a British colony in the West Indies, late eighteenth century.',sl:'Free Women of Color with Their Children and Servants in a Landscape, Agostino Brunias, 1770\u20131796, Brooklyn Museum of Art',q:'Which of the following best explains why the painting was seen as a challenge to social conventions when it was painted?',o:['Women were rarely the subject of paintings in European art of the period','Caribbean society was built on racial hierarchies that generally reserved elite status for people of European ancestry','In most cultures of the period, children were not considered worthy of being portrayed in art until they reached adulthood','Caribbean society was predominantly matriarchal, with men expected to play strictly domestic roles'],c:1,e:'Brunias\' painting was seen as a challenge because it showed people of color behaving in ways similar to European elites, questioning the dominant depiction of Caribbean society as a strict racial hierarchy with Africans and their descendants at the bottom.'},
+    {s:'[Testimony by creole members of a lay religious brotherhood in San Juan Perib\u00e1n, New Spain]\n\n\"Crist\u00f3bal Bernal was elected chair of our brotherhood by a margin of only two votes. Most votes in Bernal\'s favor came from mulatto and mestizo brothers. However, we, the creole brothers, elected Don Carvajal, a resident of the town and owner of the hacienda and sugar mill there. We urge you to command that only creoles should vote for the positions of chair and deputy chairs and that neither mulattoes nor mestizos can serve in those positions, and that a new election must be held.\"\n\n[Response by the mulatto and mestizo brothers]\n\n\"Since the brotherhood was founded, it has had the ancient custom of voting for and electing mulattoes and mestizos as deputies. Mestizos and mulattoes make up most of the membership and help the brotherhood grow. Mulatto and mestizo brothers had donated land, which earns 25 pesos rent per year for the brotherhood.\"',sl:'Dispute in a lay religious brotherhood, San Juan Perib\u00e1n, New Spain, c. 1640',q:'The dispute in the passage is best understood as evidence of which of the following developments in the Americas in the period 1450\u20131750?',o:['The economic tensions between landowning elites and landless peasants','The emergence of new syncretic forms of religious beliefs and rituals','The demographic collapse of the indigenous Amerindian population as a result of epidemic disease','The formation of new identities as part of the restructuring of social hierarchies'],c:3,e:'The activism of the mulatto and mestizo members of the lay brotherhood demonstrates that Mexico\'s mixed-race populations were beginning to assert claims to rights that challenged the existing social hierarchy. This represents the formation of new social identities and the restructuring of colonial hierarchies.'},
+    {s:'[Testimony by creole members of a lay religious brotherhood in San Juan Perib\u00e1n, New Spain]\n\n\"Crist\u00f3bal Bernal was elected chair of our brotherhood by a margin of only two votes. Most votes in Bernal\'s favor came from mulatto and mestizo brothers. However, we, the creole brothers, elected Don Carvajal, a resident of the town and owner of the hacienda and sugar mill there. We urge you to command that only creoles should vote for the positions of chair and deputy chairs and that neither mulattoes nor mestizos can serve in those positions.\"\n\n[Response by the mulatto and mestizo brothers]\n\n\"Since the brotherhood was founded, it has had the ancient custom of voting for and electing mulattoes and mestizos as deputies. Mestizos and mulattoes make up most of the membership and help the brotherhood grow. Mulatto and mestizo brothers had donated land, which earns 25 pesos rent per year for the brotherhood.\"',sl:'Dispute in a lay religious brotherhood, San Juan Perib\u00e1n, New Spain, c. 1640',q:'Based on the passage and your knowledge of world history, which of the following can be inferred about the economic hierarchy in San Juan Perib\u00e1n?',o:['Mulattoes and mestizos had no property rights and worked as tenant farmers on creole-owned plantations','Creoles were predominantly employed in commerce, whereas mulattoes and mestizos were employed in agriculture','Mulatto and mestizo communities had some economic resources, but creoles were still economically dominant','Creoles were being outcompeted economically by their mulatto and mestizo counterparts'],c:2,e:'The mulatto and mestizo brothers\' ability to donate land (earning 25 pesos rent per year) and their majority membership show they had access to some economic resources. However, based on the prevailing racial hierarchy in Spanish colonies \u2014 and the creole ownership of a hacienda and sugar mill \u2014 creoles held greater economic power.'}
+  ],
+  '4.8': [
+    {s:'A Portuguese ivory plaque representing the Christ Child standing on a sailing ship, produced in Portuguese Goa, early seventeenth century.',sl:'Portuguese ivory plaque, Goa (southwestern coast of India), c. 1600\u20131625',q:'The implicit claim made by the image about a connection between religious devotion and maritime exploration best demonstrates which of the following in the period circa 1450\u20131750?',o:['Increasing global connections expanded the reach of existing religions','Church authorities argued that religious diversity should be respected and protected','The intensification of cross-cultural interactions resulted in the development of syncretic religions','Religious motivations for European exploration and colonization were secondary to economic motivations'],c:0,e:'The symbolism of a Christ Child on a Portuguese vessel made in India demonstrates how the increase in global connections made possible by European maritime exploration expanded the geographic reach of Christianity \u2014 an existing religion extended to new regions via new trade and maritime networks.'},
+    {s:'In the sixteenth century, Spanish silver mined at Potos\u00ed (in present-day Bolivia) flowed eastward across the Atlantic to Spain and then to Asian markets, and westward across the Pacific on Manila Galleons to China, where silver was in high demand as currency.',sl:'Historical overview, global silver trade, c. 1550\u20131750',q:'The global circulation of silver described above is best understood as evidence of which of the following in the period 1450\u20131750?',o:['The establishment of a truly global trade network connecting the Americas, Europe, and Asia for the first time','The decline of traditional Silk Road overland trade routes due to Ottoman interference','The growing economic independence of Spanish colonies from the Spanish crown','The collapse of Ming Dynasty China due to silver price inflation'],c:0,e:'The flow of American silver to China via both Atlantic and Pacific routes represents the first genuinely global trade network, connecting the Americas to Europe and Asia. China absorbed vast quantities of silver (its currency of choice), which integrated American mining into Asian markets \u2014 a defining feature of the new global economy of this period.'}
+  ]
+};
+
+/* ── MCQ ENGINE ── */
+var mcqMode = 'all', mcqQs = [], mcqMap = {}, mcqRight = 0, mcqMeta = [];
+
+function mcqInit() {
+  var keys = ['4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8'];
+  var ids  = ['41','42','43','44','45','46','47','48'];
+  var total = 0;
+  keys.forEach(function(k, i) {
+    var n = QB[k] ? QB[k].length : 0;
+    var el = document.getElementById('cnt' + ids[i]);
+    if (el) el.textContent = n + ' question' + (n !== 1 ? 's' : '');
+    total += n;
+  });
+  var ab = document.getElementById('mcq-all-btn');
+  if (ab) ab.textContent = '\uD83D\uDCCB Practice All ' + total + ' Questions';
+}
+
+function startMCQ(mode, topic) {
+  mcqMode = mode;
+  mcqQs = []; mcqMap = {}; mcqRight = 0; mcqMeta = [];
+  var order = ['4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8'];
+  if (mode === 'topic') {
+    mcqQs = (QB[topic] || []).slice();
+  } else if (mode === 'mixed') {
+    order.forEach(function(k) {
+      var pool = QB[k] || [];
+      var picked = pool.slice().sort(function(){ return Math.random()-.5; }).slice(0,2);
+      mcqQs = mcqQs.concat(picked);
+    });
+  } else {
+    order.forEach(function(k){ mcqQs = mcqQs.concat(QB[k] || []); });
+  }
+  var names = {'all':'All Unit 4 Questions','mixed':'\u26A1 Quick Mixed Quiz',
+    '4.1':'4.1 \u2014 Technological Innovations','4.2':'4.2 \u2014 Exploration: Causes & Events',
+    '4.3':'4.3 \u2014 Columbian Exchange','4.4':'4.4 \u2014 Maritime Empires Established',
+    '4.5':'4.5 \u2014 Maritime Empires Maintained','4.6':'4.6 \u2014 Challenges to State Power',
+    '4.7':'4.7 \u2014 Changing Social Hierarchies','4.8':'4.8 \u2014 Continuity & Change'};
+  document.getElementById('qhdr-name').textContent = names[topic || mode] || 'Questions';
+  document.getElementById('mcq-home').style.display = 'none';
+  document.getElementById('mcq-session').classList.add('active');
+  renderMCQ();
+}
+
+function renderMCQ() {
+  var el = document.getElementById('qbody');
+  var h = '', ls = null, sn = 0, L = ['A','B','C','D'];
+  mcqQs.forEach(function(q, i) {
+    if (q.s !== ls) {
+      if (ls !== null) h += '<hr class="sbr">';
+      sn++;
+      h += '<div class="stim"><div class="stim-lbl">Source ' + sn + '</div>';
+      h += '<div class="stim-src">' + (q.sl || '') + '</div>';
+      h += '<div class="stim-txt">' + q.s.replace(/\n/g,'<br>') + '</div></div>';
+      ls = q.s;
+    }
+    h += '<div class="qcard" id="qcard' + i + '">';
+    h += '<div class="qnum">Question ' + (i+1) + ' of ' + mcqQs.length + '</div>';
+    h += '<div class="qtxt">' + q.q + '</div><div class="opts">';
+    q.o.forEach(function(opt, j) {
+      h += '<button class="opt" data-i="' + i + '" data-j="' + j + '"><span class="ol">(' + L[j] + ')</span>' + opt + '</button>';
+    });
+    h += '</div><div class="fb" id="fb' + i + '"></div></div>';
+  });
+  el.innerHTML = h;
+  el.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click', function(){
+      var i = parseInt(this.dataset.i), j = parseInt(this.dataset.j);
+      onAnswer(i, j);
+    });
+  });
+  updateProg();
+}
+
+function onAnswer(i, j) {
+  if (mcqMap[i] !== undefined) return;
+  var q = mcqQs[i], ok = (j === q.c);
+  mcqMap[i] = ok;
+  if (ok) mcqRight++;
+  var card = document.getElementById('qcard' + i);
+  var L = ['A','B','C','D'];
+  card.querySelectorAll('.opt').forEach(function(b) {
+    var bj = parseInt(b.dataset.j);
+    b.disabled = true;
+    if (bj === q.c) b.classList.add('c');
+    else if (bj === j && !ok) b.classList.add('w');
+    else if (bj !== j) b.classList.add('rv');
+  });
+  var fb = document.getElementById('fb' + i);
+  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  fb.innerHTML = (ok ? '<strong>Correct.</strong> ' : '<strong>Incorrect.</strong> ') + (q.e || '');
+  updateProg();
+}
+
+function updateProg() {
+  var tot = Object.keys(mcqMap).length;
+  var pct = mcqQs.length ? (tot / mcqQs.length * 100) : 0;
+  document.getElementById('qpbf').style.width = pct + '%';
+  document.getElementById('qhdr-prog').textContent = tot + ' of ' + mcqQs.length + ' answered';
+  var sb = document.getElementById('bar-score');
+  if (tot > 0) { sb.style.display='block'; document.getElementById('score-txt').textContent = mcqRight + '/' + tot; }
+}
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+document.querySelectorAll('.tc').forEach(function(btn){
+  btn.addEventListener('click', function(){ startMCQ('topic', this.dataset.topic); });
+});
+document.getElementById('mcq-all-btn').addEventListener('click', function(){ startMCQ('all'); });
+document.getElementById('mcq-mixed-btn').addEventListener('click', function(){ startMCQ('mixed'); });
+document.getElementById('mcq-back-btn').addEventListener('click', function(){
+  document.getElementById('mcq-session').classList.remove('active');
+  document.getElementById('mcq-home').style.display = '';
+  document.getElementById('bar-score').style.display = 'none';
+});
+document.getElementById('mcq-reset-btn').addEventListener('click', function(){
+  startMCQ(mcqMode, mcqMode === 'topic' ? (mcqMeta[0] || null) : null);
+});
+mcqInit();
+
+/* ── BRAIN DUMP ── */
+var bdTopic = null, bdTimerInterval = null;
+var BD_TOPIC_NAMES = {
+  '4.1':'4.1 \u2014 Technological Innovations','4.2':'4.2 \u2014 Exploration: Causes & Events',
+  '4.3':'4.3 \u2014 Columbian Exchange','4.4':'4.4 \u2014 Maritime Empires Established',
+  '4.5':'4.5 \u2014 Maritime Empires Maintained','4.6':'4.6 \u2014 Challenges to State Power',
+  '4.7':'4.7 \u2014 Changing Social Hierarchies','4.8':'4.8 \u2014 Continuity & Change in Networks'
+};
+var BD_STEMS = {
+  '4.1': 'European maritime exploration was made possible by technological innovations including\u2026',
+  '4.2': 'European states began maritime exploration because they wanted\u2026',
+  '4.3': 'The Columbian Exchange transformed the world by transferring\u2026',
+  '4.4': 'European maritime empires in the period 1450\u20131750 were organized differently depending on whether they were\u2026',
+  '4.5': 'European states maintained their maritime empires through economic and political systems such as\u2026',
+  '4.6': 'Indigenous peoples, enslaved Africans, and colonial subjects resisted European power by\u2026',
+  '4.7': 'The encounter between Europeans, Africans, and indigenous peoples created new social hierarchies, including\u2026',
+  '4.8': 'Despite the dramatic changes of this period, many trade networks and economic systems continued, including\u2026'
+};
+var BD_CARDS = {
+  '4.1': [
+    {t:'Caravel',d:'A small, maneuverable Portuguese sailing ship with lateen (triangular) sails that could sail into the wind, essential for Atlantic and Indian Ocean exploration.'},
+    {t:'Lateen Sail',d:'Triangular sail borrowed from Arab sailors that allowed ships to tack into the wind, enabling European ships to return home against prevailing winds.'},
+    {t:'Astrolabe',d:'Navigation instrument that measured the angle of celestial bodies above the horizon, allowing sailors to calculate latitude and determine their position at sea.'},
+    {t:'Magnetic Compass',d:'Adopted from Chinese technology, the compass indicated magnetic north, allowing navigators to maintain consistent direction even in cloudy weather.'},
+    {t:'Portolan Charts',d:'Detailed nautical maps of coastlines and harbors, developed in the Mediterranean, used by European navigators to plot ocean routes.'},
+    {t:'Stern Rudder',d:'Replaced the side oar for steering large ships, allowing better control of large ocean-going vessels.'},
+    {t:'Prince Henry the Navigator',d:'Portuguese prince who sponsored systematic exploration of the African coast starting in the 1420s, establishing a school of navigation and funding voyages south.'}
+  ],
+  '4.2': [
+    {t:'Portugal: First in Exploration',d:'Led maritime exploration: Prince Henry sponsored African coastal voyages; Bartolomeu Dias rounded Cape of Good Hope (1488); Vasco da Gama reached India (1498). Goal: bypass Ottoman-controlled overland routes to Asian spice markets.'},
+    {t:'Spain: The Americas',d:'Columbus reached the Caribbean (1492) funded by Spain. Magellan-Elcano circumnavigated the globe (1519\u20131522). Spain established a vast empire in the Americas.'},
+    {t:'Causes of Exploration',d:'Three main motives: (1) Wealth \u2014 access to Asian spices and goods; (2) Rivalry \u2014 European states competing to expand first; (3) Religion \u2014 spreading Christianity.'},
+    {t:'England',d:'John Cabot explored North America (1497); later established Jamestown (1607) and colonies in North America and the Caribbean. Defeated the Spanish Armada (1588), becoming the dominant naval power.'},
+    {t:'France',d:'Explored North America looking for the Northwest Passage; established Quebec (1608) and controlled the Mississippi Valley; fostered trade relations with indigenous peoples rather than conquest.'},
+    {t:'Dutch (Holland)',d:'Henry Hudson explored North America for the Dutch East India Company; founded New Amsterdam (later NYC); established VOC to dominate Asian trade.'},
+    {t:'China: Pulling Back',d:'Zheng He led seven massive voyages across the Indian Ocean (1405\u20131433), but the Ming Dynasty cancelled the voyages and restricted foreign trade, allowing European powers to fill the vacuum.'}
+  ],
+  '4.3': [
+    {t:'Columbian Exchange',d:'The widespread transfer of plants, animals, diseases, people, and ideas between the Americas, Africa, and Eurasia after Columbus\u2019s 1492 voyage.'},
+    {t:'Disease: The Biggest Killer',d:'Old World diseases (smallpox, measles, typhus, influenza) killed 50\u201390% of indigenous American populations. The Americas had no prior exposure and therefore no immunity.'},
+    {t:'New World Foods to Old World',d:'Potatoes, corn (maize), tomatoes, cacao, tobacco, sweet potatoes. Potatoes transformed European agriculture and population growth; tomatoes became staples in Mediterranean cuisines.'},
+    {t:'Old World to New World',d:'Horses, cattle, pigs, sheep, wheat, sugar cane, smallpox, measles. Horses transformed Plains Indian cultures. Sugar drove the plantation system and Atlantic slave trade.'},
+    {t:'Silver Trade',d:'Spanish silver mined at Potos\u00ed (Bolivia) and Zacatecas (Mexico) flooded world markets. China demanded silver for taxes; American silver flowed eastward to Asia, fueling global trade.'},
+    {t:'Atlantic Slave Trade',d:'European demand for plantation labor (sugar, tobacco, cotton) drove the forced migration of approximately 12.5 million Africans to the Americas between 1500\u20131900.'},
+    {t:'Demographic Collapse',d:'Indigenous American populations collapsed catastrophically \u2014 perhaps 90% decline in central Mexico in a century. This transformed colonial labor systems, eventually driving demand for enslaved Africans.'}
+  ],
+  '4.4': [
+    {t:'Trading Post Empire (Portugal)',d:'Portugal established fortified coastal trading posts (feitorias) rather than settler colonies \u2014 Goa, Malacca, Macao, Hormuz. Controlled trade routes without conquering large territories inland.'},
+    {t:'Settler Colony (Spain)',d:'Spain established large settler colonies in the Americas with viceroys, encomienda labor, Catholic missions, and extraction of precious metals. Different from trading-post model.'},
+    {t:'VOC (Dutch East India Company)',d:'World\u2019s first publicly traded joint-stock company (1602), given monopoly rights over Asian trade. Eventually controlled Java and spice islands; overthrew Portuguese in much of Southeast Asia.'},
+    {t:'British East India Company',d:'Chartered company (1600) that began as a trading enterprise; used commercial and then military power to gain control over Indian trade and eventually territory.'},
+    {t:'Manila Galleons',d:'Spanish ships crossing the Pacific between Manila (Philippines) and Acapulco (Mexico) from 1565\u20131815, carrying silver to China and Asian goods to the Americas \u2014 the first regular trans-Pacific trade.'},
+    {t:'Encomienda System',d:'Spanish labor system granting conquistadors the labor of indigenous people in exchange for Christian instruction. In practice, it was brutal forced labor that decimated indigenous populations.'},
+    {t:'Joint-Stock Company',d:'Business where investors pool capital and share profits/risks proportionally. Enabled the large-scale investment needed for expensive overseas trade expeditions.'}
+  ],
+  '4.5': [
+    {t:'Mita System',d:'Inca labor tax system adapted by Spain in Peru, requiring indigenous men to work for a set period in silver mines (especially Potos\u00ed). Worked millions to death.'},
+    {t:'Mercantilism',d:'Economic theory that colonies exist to enrich the mother country: provide raw materials, buy manufactured goods, not trade with rivals. Drove Spanish restrictions on colonial trade.'},
+    {t:'Hacienda System',d:'Large landed estates in Spanish America. Indigenous and mestizo workers (peones) were tied to the land through debt peonage \u2014 a form of coerced labor replacing encomienda.'},
+    {t:'Plantation System',d:'Large-scale agriculture in tropical colonies (sugar, tobacco, cotton) using enslaved African labor. Spread throughout the Caribbean, Brazil, and parts of mainland Americas.'},
+    {t:'Catholic Church in Colonies',d:'Missionaries (Jesuits, Dominicans, Franciscans) spread Christianity; built churches over indigenous sacred sites; ran missions and schools. Debated treatment of indigenous peoples (Las Casas vs. Sepúlveda).'},
+    {t:'Bartolom\u00e9 de las Casas',d:'Spanish Dominican friar who condemned the brutal treatment of indigenous peoples by the Spanish encomienda system; his advocacy contributed to the New Laws (1542) attempting to limit forced labor.'},
+    {t:'Coerced vs. Chattel Slavery',d:'Indigenous people were coerced through encomienda and mita (not legally slaves). Enslaved Africans were chattel (property). Both systems were driven by colonial labor demands.'}
+  ],
+  '4.6': [
+    {t:'Pueblo Revolt (1680)',d:'Pueblo and Apache peoples in present-day New Mexico rose against Spanish colonizers, killing 400 and driving them out. Spanish reconquered the region in 1692 but made concessions.'},
+    {t:'Maroon Communities',d:'Communities of formerly enslaved Africans who escaped to mountains or jungles and maintained independence. Maroon Wars in Jamaica (1728\u20131739) forced British to sign treaties recognizing Maroon freedom.'},
+    {t:'Japanese Isolation (Sakoku)',d:'Tokugawa shogunate restricted foreign trade (1635\u20131853): banned Christianity, expelled foreigners, limited trade to Dutch and Chinese at Nagasaki. Chose isolation over engagement with European empires.'},
+    {t:'Ming Dynasty Isolation',d:'After canceling Zheng He\u2019s voyages, Ming emperors restricted foreign trade, reconstructed the Great Wall, and re-emphasized Confucian values. China turned inward as Europeans expanded outward.'},
+    {t:'Cossack Resistance (Russia)',d:'Indigenous Siberian peoples and Cossack frontier communities resisted Russian eastward expansion across Siberia. Despite resistance, Russia reached the Pacific by 1639.'},
+    {t:'Las Casas and the New Laws',d:'Indigenous resistance included appeals to Spanish law. Bartolomé de las Casas\u2019 advocacy led to the New Laws (1542), which theoretically limited encomienda \u2014 but were widely ignored by colonists.'},
+    {t:'Atlantic Slave Trade Resistance',d:'Enslaved Africans resisted through sabotage, work slowdowns, flight (creating Maroon communities), revolts (Berbice, 1763), and retaining African cultural and religious practices.'}
+  ],
+  '4.7': [
+    {t:'Casta System',d:'Spanish colonial racial hierarchy: Peninsulares (born in Spain) at top, then Creoles (European descent, born in Americas), Mestizos (European + indigenous), Mulattos (European + African), then indigenous and enslaved Africans at bottom.'},
+    {t:'Peninsulares',d:'Colonists born in Spain who held the top positions in colonial government and church. Resented by Creoles who were excluded from the highest offices despite being of European descent.'},
+    {t:'Creoles',d:'American-born colonists of European descent. Economically powerful (owned haciendas, mines) but excluded from top political positions. Their resentment eventually fueled independence movements.'},
+    {t:'Mestizos',d:'People of mixed European and indigenous descent. Occupied a middle position in the casta system; could rise through wealth or military service but faced legal discrimination.'},
+    {t:'Syncretic Religion',d:'Blending of Catholic and indigenous (or African) religious practices. Examples: Día de los Muertos blends Catholic All Saints\u2019 Day with Aztec ancestor veneration; Candomblé blends African religions with Catholicism.'},
+    {t:'Gender and Colonial Society',d:'European women in colonies had limited rights but more than indigenous or enslaved women. Indigenous women sometimes gained status by marrying Spanish men. Enslaved women were most vulnerable.'},
+    {t:'Changing Status in Asia',d:'In trading post empires, Europeans often married local women, creating Eurasian communities. In Manila, a large Chinese merchant community (Sangley) occupied a middle social position, periodically persecuted by Spanish.'}
+  ],
+  '4.8': [
+    {t:'Indian Ocean Trade Continuity',d:'Despite European intrusion, Arab, Indian, Chinese, and Swahili merchants continued dominating Indian Ocean trade networks throughout this period. Portuguese controlled key chokepoints but could not displace existing networks entirely.'},
+    {t:'Silver as Global Currency',d:'American silver (Potos\u00ed, Zacatecas) became the world\u2019s primary trade currency: China demanded silver for taxes; it flowed from the Americas through Europe and directly across the Pacific, integrating global markets.'},
+    {t:'Silk Road Decline',d:'Overland Silk Road trade declined as sea routes became cheaper and faster. Ottoman control of key land routes had pushed Europeans to develop sea alternatives, which eventually supplanted overland trade.'},
+    {t:'Mughal Empire Continuity',d:'The Mughal Empire (founded 1526) continued to dominate South Asia throughout this period, controlling most of the subcontinent and the lucrative Indian textile trade that Europeans desperately wanted access to.'},
+    {t:'Ottoman Empire as Trade Hub',d:'The Ottoman Empire continued as the dominant power in the Middle East and eastern Mediterranean, controlling key trade routes between Europe and Asia and generating enormous wealth from transit trade.'},
+    {t:'Continuity of Coerced Labor',d:'Coerced labor systems (serfdom in Eastern Europe, mita in Andes, encomienda in New Spain) were features of both the old and new world orders \u2014 capitalism and colonialism adapted existing labor extraction rather than inventing it wholesale.'},
+    {t:'African Kingdoms and Trade',d:'West African kingdoms (Dahomey, Ashanti, Kongo) actively participated in the Atlantic slave trade, often capturing and selling rivals. Their economic power often increased even as the overall trade devastated African populations.'}
+  ]
+};
+
+document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+    this.classList.add('selected');
+    bdTopic = this.dataset.topic;
+    document.getElementById('bd-start-btn').disabled = false;
+  });
+});
+
+document.getElementById('bd-start-btn').addEventListener('click', function() {
+  if (!bdTopic) return;
+  document.getElementById('bd-setup').style.display = 'none';
+  var session = document.getElementById('bd-session');
+  session.classList.add('active');
+  document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
+  document.getElementById('bd-stem-txt').textContent = BD_STEMS[bdTopic] || 'Write everything you remember about this topic\u2026';
+  document.getElementById('bd-textarea').value = '';
+  document.getElementById('bd-textarea').disabled = false;
+  document.getElementById('bd-word-count').textContent = '0 words';
+  document.getElementById('bd-reveal').classList.remove('active');
+  document.getElementById('bd-countdown').className = 'bd-countdown';
+  bdStartTimer(5 * 60);
+});
+
+function bdStartTimer(totalSec) {
+  if (bdTimerInterval) clearInterval(bdTimerInterval);
+  var remaining = totalSec;
+  function tick() {
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+    var el = document.getElementById('bd-countdown');
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    if (remaining <= 60 && remaining > 0) el.className = 'bd-countdown warning';
+    if (remaining <= 0) {
+      clearInterval(bdTimerInterval);
+      el.className = 'bd-countdown expired';
+      el.textContent = '0:00';
+      bdReveal();
+      return;
+    }
+    remaining--;
+  }
+  tick();
+  bdTimerInterval = setInterval(tick, 1000);
+}
+
+function bdReveal() {
+  var ta = document.getElementById('bd-textarea');
+  ta.disabled = true;
+  var cards = (BD_CARDS[bdTopic] || []);
+  var list = document.getElementById('bd-card-list');
+  list.innerHTML = cards.map(function(c) {
+    return '<div class="bd-card"><div class="bd-card-term">' + c.t + '</div><div class="bd-card-def">' + c.d + '</div></div>';
+  }).join('') || '<p style="color:var(--muted);font-size:.88rem">No cards found for this topic.</p>';
+  document.getElementById('bd-reveal').classList.add('active');
+  document.getElementById('bd-reveal').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.getElementById('bd-textarea').addEventListener('input', function() {
+  var w = this.value.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('bd-word-count').textContent = w + ' word' + (w !== 1 ? 's' : '');
+});
+
+document.getElementById('bd-reset-btn').addEventListener('click', function() {
+  if (bdTimerInterval) clearInterval(bdTimerInterval);
+  document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+  bdTopic = null;
+  document.getElementById('bd-start-btn').disabled = true;
+  document.getElementById('bd-setup').style.display = '';
+  var session = document.getElementById('bd-session');
+  session.classList.remove('active');
+});
+</script>
+</body>
+</html>

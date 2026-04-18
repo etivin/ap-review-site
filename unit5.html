@@ -1161,16 +1161,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /* ── MATCHING ── */
     var MATCH_DATA = [
-      { left: "Locke's natural rights theory (1689)", right: "Became the philosophical foundation for American and French revolutionary declarations" },
+      { left: "Locke\'s natural rights theory (1689)", right: "Became the philosophical foundation for American and French revolutionary declarations" },
       { left: "Haitian Revolution (1791–1804)", right: "The only successful slave revolution in history — produced the first Black republic" },
-      { left: "Simón Bolívar's independence campaigns", right: "Liberated Venezuela, Colombia, Ecuador, Peru, and Bolivia from Spanish colonial rule" },
-      { left: "James Watt's improved steam engine (1769)", right: "Powered factories and railways — became the central technology of the Industrial Revolution" },
-      { left: "Meiji Restoration (1868)", right: "Japan's state-directed rapid industrialization — first non-Western industrial power" },
+      { left: "Simón Bolívar\'s independence campaigns", right: "Liberated Venezuela, Colombia, Ecuador, Peru, and Bolivia from Spanish colonial rule" },
+      { left: "James Watt\'s improved steam engine (1769)", right: "Powered factories and railways — became the central technology of the Industrial Revolution" },
+      { left: "Meiji Restoration (1868)", right: "Japan\'s state-directed rapid industrialization — first non-Western industrial power" },
       { left: "Self-Strengthening Movement (China, 1861–1895)", right: "Failed to modernize China effectively; exposed by defeat in the Sino-Japanese War" },
       { left: "Suez Canal (1869)", right: "Cut Europe-to-Asia voyage by weeks; became a key artery of British imperial trade" },
-      { left: "Adam Smith's 'Wealth of Nations' (1776)", right: "Argued free markets and the invisible hand allocate resources better than government planning" },
-      { left: "Karl Marx's Communist Manifesto (1848)", right: "Called workers to unite against capitalism; foundational text for socialist and communist movements" },
-      { left: "Bismarck's welfare legislation (1880s)", right: "Introduced state health and old-age insurance to undercut radical socialist appeal among workers" },
+      { left: "Adam Smith\'s 'Wealth of Nations' (1776)", right: "Argued free markets and the invisible hand allocate resources better than government planning" },
+      { left: "Karl Marx\'s Communist Manifesto (1848)", right: "Called workers to unite against capitalism; foundational text for socialist and communist movements" },
+      { left: "Bismarck\'s welfare legislation (1880s)", right: "Introduced state health and old-age insurance to undercut radical socialist appeal among workers" },
       { left: "British East India Company", right: "Controlled trade with India and deployed its own army — model of how capitalism and colonialism reinforced each other" },
       { left: "Labor unions in industrial nations", right: "Collectively negotiated wages and hours, driving factory acts, minimum wage laws, and child labor restrictions" }
     ];
@@ -1223,13 +1223,13 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ── SORT IT ── */
     var SORT_DATA = [
       { text: "Doc 1 was written by Simón Bolívar in 1819 to a congress of South American republicans, which means the source likely exaggerates Enlightenment ideals and downplays the economic interests of Creole elites in order to build political legitimacy for independence.", earns: true, explain: "<strong>Earns the point.</strong> Identifies the audience (South American republicans), explains the consequence (exaggerates ideals, downplays economic interests), and connects to the argument about independence movements." },
-      { text: "Doc 2 is a speech by Bolívar written during the independence period.", earns: false, explain: "<strong>Doesn't earn the point.</strong> Names the author and time period but stops there. No 'which means' — no explanation of why Bolívar's role or audience matters for interpreting the source." },
+      { text: "Doc 2 is a speech by Bolívar written during the independence period.", earns: false, explain: "<strong>Doesn\'t earn the point.</strong> Names the author and time period but stops there. No 'which means' — no explanation of why Bolívar\'s role or audience matters for interpreting the source." },
       { text: "Because Doc 4 is a British parliamentary report on factory conditions written for members of Parliament, its purpose was to evaluate reform legislation, which means it likely emphasizes the worst abuses to persuade legislators to act.", earns: true, explain: "<strong>Earns the point.</strong> Identifies purpose (evaluate reform legislation), explains the consequence (emphasizes worst abuses), and connects to how the source argues for legislative action." },
-      { text: "The author of Doc 3 is Karl Marx, so this document shows the communist perspective on industrial capitalism.", earns: false, explain: "<strong>Doesn't earn the point.</strong> 'Shows the communist perspective' is circular and vague. No explanation of what consequences Marx's position has for what the source emphasizes, omits, or argues." },
+      { text: "The author of Doc 3 is Karl Marx, so this document shows the communist perspective on industrial capitalism.", earns: false, explain: "<strong>Doesn\'t earn the point.</strong> 'Shows the communist perspective' is circular and vague. No explanation of what consequences Marx\'s position has for what the source emphasizes, omits, or argues." },
       { text: "Doc 5 was produced by the Japanese Meiji government at the height of state-directed industrialization, which means it likely projects an image of successful modernization — making it an unreliable source for understanding Japanese workers' actual experience of industrial transformation.", earns: true, explain: "<strong>Earns the point.</strong> Names the historical situation (Meiji industrialization), explains the consequence (projects success, hides hardship), and connects to reliability and the argument." },
-      { text: "This Enlightenment text uses ideas about natural rights and popular sovereignty. It was written to persuade readers.", earns: false, explain: "<strong>Doesn't earn the point.</strong> 'Written to persuade readers' is too vague — no specific HAPP feature identified, and 'persuasion' is a generic purpose that doesn't connect to an argument." },
-      { text: "Doc 6 is an Adam Smith lecture transcript delivered at Glasgow University for students of moral philosophy, which means it likely presents free market theory as ethically superior to mercantilism, in order to convince an educated audience of capitalism's moral legitimacy.", earns: true, explain: "<strong>Earns the point.</strong> Identifies audience (moral philosophy students), explains the consequence (presents capitalism as morally superior), and connects to the argument about economic ideology." },
-      { text: "The point of view of Doc 7 is that the author supports industrialization. This helps us understand why the document was written.", earns: false, explain: "<strong>Doesn't earn the point.</strong> 'This helps us understand why the document was written' is circular. No explanation of what consequences support for industrialization has for what the source emphasizes, omits, or argues." }
+      { text: "This Enlightenment text uses ideas about natural rights and popular sovereignty. It was written to persuade readers.", earns: false, explain: "<strong>Doesn't earn the point.</strong> 'Written to persuade readers' is too vague — no specific HAPP feature identified, and 'persuasion' is a generic purpose that doesn\'t connect to an argument." },
+      { text: "Doc 6 is an Adam Smith lecture transcript delivered at Glasgow University for students of moral philosophy, which means it likely presents free market theory as ethically superior to mercantilism, in order to convince an educated audience of capitalism\'s moral legitimacy.", earns: true, explain: "<strong>Earns the point.</strong> Identifies audience (moral philosophy students), explains the consequence (presents capitalism as morally superior), and connects to the argument about economic ideology." },
+      { text: "The point of view of Doc 7 is that the author supports industrialization. This helps us understand why the document was written.", earns: false, explain: "<strong>Doesn\'t earn the point.</strong> 'This helps us understand why the document was written' is circular. No explanation of what consequences support for industrialization has for what the source emphasizes, omits, or argues." }
     ];
     function renderSortIt() {
       var container = document.getElementById('sortit-cards'); container.innerHTML = '';
@@ -1278,10 +1278,10 @@ document.addEventListener('DOMContentLoaded', function() {
       { q: "Which economic philosophy advocates minimal government intervention, letting competition and price systems determine outcomes?", o: ['Mercantilism','Laissez-faire','Socialism','Keynesianism'], c: 1, e: "Laissez-faire ('let it be') became the dominant ideology of 19th-century industrial capitalism, associated with Adam Smith, David Ricardo, and British free trade policy." },
       { q: "The Tanzimat Reforms in the Ottoman Empire (beginning 1839) primarily aimed to", o: ['Convert the empire to a republic','Expel all European merchants from Ottoman territory','Modernize the military and government to strengthen the empire against Western pressure','Establish a constitutional monarchy based on British parliamentary models'], c: 2, e: "Tanzimat reformers sought to strengthen the empire by adopting Western administrative models, granting legal equality to non-Muslims, and creating secular courts." },
       { q: "The steam engine's improvement by James Watt was significant primarily because it", o: ['Made sailing ships obsolete overnight','Was the first machine ever to use energy to do work','Made factories, mines, and railways economically viable — powering the Industrial Revolution','Was invented specifically to solve the problem of flooding in British textile mills'], c: 2, e: "Watt's rotary steam engine was efficient enough to power a wide range of industrial machinery, transforming production, transportation, and energy use across the economy." },
-      { q: "Bismarck introduced state welfare programs in Germany (1880s) primarily to", o: ['Compete economically with Britain','Fulfill Marx's vision of a workers' state','Undercut radical socialist appeal by giving workers benefits through the conservative state','Comply with international labor conventions negotiated in Geneva'], c: 2, e: "Bismarck's 'state socialism' aimed to make German workers loyal to the empire rather than to the Social Democratic Party — health, accident, and old-age insurance created dependency on the state." },
+      { q: "Bismarck introduced state welfare programs in Germany (1880s) primarily to", o: ['Compete economically with Britain','Fulfill Marx\'s vision of a workers\' state','Undercut radical socialist appeal by giving workers benefits through the conservative state','Comply with international labor conventions negotiated in Geneva'], c: 2, e: "Bismarck\'s 'state socialism' aimed to make German workers loyal to the empire rather than to the Social Democratic Party — health, accident, and old-age insurance created dependency on the state." },
       { q: "The Suez Canal (1869) was historically significant because it", o: ['Connected the Atlantic and Pacific Oceans through Central America','Created a direct water route between the Mediterranean and the Red Sea, cutting the Europe-to-Asia voyage by weeks','Allowed steam-powered ships to cross the Sahara Desert','Was the first engineering project completed with industrial machinery'], c: 1, e: "The Suez Canal transformed global trade by cutting the Europe-India voyage from months to weeks. Britain bought a controlling interest in 1875, making it a key imperial asset." },
-      { q: "The British East India Company's significance in AP World History lies in how it demonstrates the connection between", o: ['Democratic governance and economic development','Capitalism and colonialism — how private profit motive drove imperial expansion','Free trade ideology and military conquest','Industrial technology and colonial administration'], c: 1, e: "The East India Company shows how capitalism and colonialism reinforced each other: private profit motive drove territorial expansion; imperial control enforced favorable trade conditions." },
-      { q: "Lenin's adaptation of Marxism argued that workers needed a 'vanguard party' because", o: ['Workers could not vote and needed political representation','The proletariat would not spontaneously develop revolutionary consciousness without organized party leadership','Russia lacked an industrial working class large enough for Marxist theory to apply','European socialist parties had already achieved workers' rights through parliamentary means'], c: 1, e: "Lenin argued in 'What Is to Be Done?' that professional revolutionaries must lead the proletariat — workers focused on immediate economic demands, not the revolutionary transformation of society." }
+      { q: "The British East India Company\'s significance in AP World History lies in how it demonstrates the connection between", o: ['Democratic governance and economic development','Capitalism and colonialism — how private profit motive drove imperial expansion','Free trade ideology and military conquest','Industrial technology and colonial administration'], c: 1, e: "The East India Company shows how capitalism and colonialism reinforced each other: private profit motive drove territorial expansion; imperial control enforced favorable trade conditions." },
+      { q: "Lenin\'s adaptation of Marxism argued that workers needed a 'vanguard party' because", o: ['Workers could not vote and needed political representation','The proletariat would not spontaneously develop revolutionary consciousness without organized party leadership','Russia lacked an industrial working class large enough for Marxist theory to apply','European socialist parties had already achieved workers\' rights through parliamentary means'], c: 1, e: "Lenin argued in 'What Is to Be Done?' that professional revolutionaries must lead the proletariat — workers focused on immediate economic demands, not the revolutionary transformation of society." }
     ];
     var sqIdx = 0, sqScore = 0, sqCorrect = 0, sqTimer = null, sqTimeLeft = 0, sqAnswered = false, sqResults = [];
     function startSpeedQuiz() {
@@ -1494,7 +1494,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var TIMELINE = [
     {
-      year: '1689', title: 'Locke's Two Treatises — Natural Rights',
+      year: '1689', title: 'Locke\'s Two Treatises — Natural Rights',
       topic: 'Topic 5.1 — The Enlightenment',
       desc: 'John Locke argues that governments derive authority from the consent of the governed and that individuals possess natural rights to life, liberty, and property. This work becomes the philosophical foundation for Atlantic Revolutions.',
       img: 'images/tl/u5-tl-1.jpg', alt: 'Portrait of John Locke'
@@ -1502,7 +1502,7 @@ document.addEventListener('DOMContentLoaded', function() {
     {
       year: '1776', title: 'American Declaration of Independence',
       topic: 'Topic 5.2 — Atlantic Revolutions',
-      desc: 'Thirteen colonies declare independence from Britain, invoking Locke's natural rights theory. The Declaration signals that Enlightenment ideals could be turned into revolutionary political action — inspiring revolutions worldwide.',
+      desc: 'Thirteen colonies declare independence from Britain, invoking Locke\'s natural rights theory. The Declaration signals that Enlightenment ideals could be turned into revolutionary political action — inspiring revolutions worldwide.',
       img: 'images/tl/u5-tl-2.jpg', alt: 'Signing of the Declaration of Independence, 1776'
     },
     {
@@ -1520,7 +1520,7 @@ document.addEventListener('DOMContentLoaded', function() {
     {
       year: 'c.1780s', title: 'Industrial Revolution — Steam Power & Factories',
       topic: 'Topic 5.3 — Industrial Revolution Begins',
-      desc: 'James Watt's improved steam engine powers factories, mines, and eventually railways across Britain. The factory system transforms labor: workers leave rural agriculture for urban industrial work, reshaping society and economics.',
+      desc: 'James Watt\'s improved steam engine powers factories, mines, and eventually railways across Britain. The factory system transforms labor: workers leave rural agriculture for urban industrial work, reshaping society and economics.',
       img: 'images/tl/u5-tl-5.jpg', alt: 'Early steam engine and factory, Britain, late 18th century'
     },
     {
@@ -1538,13 +1538,13 @@ document.addEventListener('DOMContentLoaded', function() {
     {
       year: '1853', title: 'Commodore Perry Opens Japan',
       topic: 'Topic 5.4 — Industrialization Spreads',
-      desc: 'American Commodore Matthew Perry forces Japan to open trade under threat of naval bombardment. Japan's humiliation triggers internal debate about modernization — leading directly to the Meiji Restoration fifteen years later.',
-      img: 'images/tl/u5-tl-8.jpg', alt: 'Commodore Perry's Black Ships in Tokyo Bay, 1853'
+      desc: 'American Commodore Matthew Perry forces Japan to open trade under threat of naval bombardment. Japan\'s humiliation triggers internal debate about modernization — leading directly to the Meiji Restoration fifteen years later.',
+      img: 'images/tl/u5-tl-8.jpg', alt: 'Commodore Perry\'s Black Ships in Tokyo Bay, 1853'
     },
     {
       year: '1868', title: 'Meiji Restoration — Japan Industrializes',
       topic: 'Topic 5.4 — Industrialization Spreads',
-      desc: 'Japan's emperor is restored to power. The Meiji government launches rapid industrialization: railroads, factories, a modern army, universal education, and legal reforms. Japan becomes the first non-Western industrial power.',
+      desc: 'Japan\'s emperor is restored to power. The Meiji government launches rapid industrialization: railroads, factories, a modern army, universal education, and legal reforms. Japan becomes the first non-Western industrial power.',
       img: 'images/tl/u5-tl-9.jpg', alt: 'Meiji era Japanese industrialization, 1870s-1880s'
     },
     {
@@ -1626,7 +1626,7 @@ document.addEventListener('DOMContentLoaded', function() {
       {t:'Rousseau',d:'French philosopher who argued that civilization corrupts natural human goodness; his social contract theory emphasized popular sovereignty and equality.'}
     ],
     '5.2': [
-      {t:'American Revolution (1776)',d:'Colonists used Locke's natural rights theory to justify independence from Britain. The Declaration of Independence became a model for subsequent revolutions worldwide.'},
+      {t:'American Revolution (1776)',d:'Colonists used Locke\'s natural rights theory to justify independence from Britain. The Declaration of Independence became a model for subsequent revolutions worldwide.'},
       {t:'French Revolution (1789)',d:'Overthrew the monarchy declaring "Liberty, Equality, Fraternity." Spread Enlightenment ideals, but also produced the Terror and Napoleonic Wars.'},
       {t:'Haitian Revolution (1791–1804)',d:'The only successful slave revolution in history. Enslaved people in Saint-Domingue used French revolutionary language to demand freedom, producing the first Black republic.'},
       {t:'Toussaint Louverture',d:'Military leader of the Haitian Revolution who organized enslaved people into a fighting force; captured and died in French prison, but independence was won in 1804.'},
@@ -1665,8 +1665,8 @@ document.addEventListener('DOMContentLoaded', function() {
       {t:'Adam Smith',d:"Scottish economist who argued in 'The Wealth of Nations' (1776) that free markets, guided by the 'invisible hand,' allocate resources more efficiently than government planning."},
       {t:'Laissez-Faire',d:'Economic philosophy advocating minimal government intervention in markets — let competition and the price system determine economic outcomes without tariffs or regulation.'},
       {t:'British East India Company',d:'Chartered company that controlled trade with and eventually administration of India; deployed its own army; exemplified how capitalism and colonialism reinforced each other.'},
-      {t:'British South Africa Company (BSAC)',d:'Cecil Rhodes’s chartered company that colonized Zimbabwe and Zambia; extracted mineral wealth while performing colonial administrative functions on behalf of the British government.'},
-      {t:'Chartered Companies',d:'Companies given government monopoly charters to trade in specific regions; tools of early capitalism and colonialism — East India Companies, Royal African Company, Hudson’s Bay.'},
+      {t:'British South Africa Company (BSAC)',d:'Cecil Rhodes\'s chartered company that colonized Zimbabwe and Zambia; extracted mineral wealth while performing colonial administrative functions on behalf of the British government.'},
+      {t:'Chartered Companies',d:'Companies given government monopoly charters to trade in specific regions; tools of early capitalism and colonialism — East India Companies, Royal African Company, Hudson\'s Bay.'},
       {t:'Comparative Advantage',d:"Ricardo's principle that countries should specialize in goods they produce most efficiently; used to justify free trade policies that often benefited industrialized Britain more than its trading partners."},
       {t:'Monopoly Capitalism',d:'Concentration of industrial production and finance in large corporations (trusts, cartels, banks) that dominated markets by the late 19th century — challenged laissez-faire assumptions.'}
     ],
@@ -1675,17 +1675,17 @@ document.addEventListener('DOMContentLoaded', function() {
       {t:'Limited Liability Corporation',d:'Legal structure protecting investors from personal liability beyond their investment — enabled large-scale industrial investment by reducing risk for shareholders.'},
       {t:'Gold Standard',d:'By the 1870s, major economies pegged currencies to gold, creating stable exchange rates that facilitated global trade but also made economies vulnerable to gold supply fluctuations.'},
       {t:'Migration & Labor Markets',d:'Industrialization drove mass migration: European workers to the Americas (20 million 1870–1914); Chinese and Indian workers to mines and plantations worldwide.'},
-      {t:'Economic Imperialism',d:'Industrial nations’ economic domination of non-industrial regions — controlling resources, markets, and labor — even without formal colonial administration.'},
+      {t:'Economic Imperialism',d:'Industrial nations\' economic domination of non-industrial regions — controlling resources, markets, and labor — even without formal colonial administration.'},
       {t:'Protectionism vs. Free Trade',d:'Industrial nations like Germany and the US used high tariffs to protect developing industries; Britain advocated free trade because it benefited as the most competitive producer.'},
       {t:'Capital Export',d:'By the late 19th century, surplus industrial profits were invested abroad: British capital built Argentine railways, South African mines, and Egyptian infrastructure.'}
     ],
     '5.8': [
       {t:'Karl Marx',d:'German philosopher who argued that capitalism creates class conflict between bourgeoisie (owners) and proletariat (workers) that will inevitably lead to socialist revolution.'},
-      {t:'The Communist Manifesto (1848)',d:"Marx and Engels's call for workers to unite and overthrow capitalism: 'Workers of the world, unite! You have nothing to lose but your chains.'"},
+      {t:'The Communist Manifesto (1848)',d:"Marx and Engels\'s call for workers to unite and overthrow capitalism: 'Workers of the world, unite! You have nothing to lose but your chains.'"},
       {t:'Socialism',d:'Economic system advocating collective or government ownership of means of production to eliminate exploitation; ranged from democratic socialism to revolutionary Marxism.'},
       {t:'Labor Unions',d:'Worker organizations that collectively bargained for better wages, hours, and conditions; grew rapidly in the late 19th century despite employer and government opposition.'},
       {t:'Luddites',d:'Early 19th-century British workers who smashed machinery that they believed threatened their livelihoods — an early form of resistance to industrial capitalism.'},
-      {t:'Bismarck’s Reforms',d:"German Chancellor Bismarck introduced state welfare programs (health insurance, accident insurance, old-age pensions) in the 1880s to undercut socialist appeal among workers."},
+      {t:'Bismarck\'s Reforms',d:"German Chancellor Bismarck introduced state welfare programs (health insurance, accident insurance, old-age pensions) in the 1880s to undercut socialist appeal among workers."},
       {t:'Lenin',d:'Russian Marxist who argued that a disciplined revolutionary party must lead the proletariat; adapted Marxism to Russian conditions; led the 1917 Bolshevik Revolution.'},
       {t:'Anarchism',d:'Political philosophy rejecting all forms of hierarchical government — advocated voluntary cooperation; competed with Marxism for influence in labor and socialist movements.'}
     ]

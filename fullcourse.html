@@ -595,7 +595,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
         correct++;
       } else {
         slot.classList.add('incorrect');
-        if (hint) { hint.textContent = '→ ' + answer; hint.classList.add('show'); }
+        if (hint) { hint.textContent = ''; hint.classList.remove('show'); }
       }
     });
     const total = slots.length;

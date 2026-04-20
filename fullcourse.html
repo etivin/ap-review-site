@@ -14,7 +14,7 @@ html{scroll-behavior:smooth}
   --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
   --green:#1a6825;--green-bg:#eef7f0;
   --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
-  --blue:#18336b;--blue-bg:#eef2fb;
+  --blue:#18336b;--blue-bg:#eef2fb;--blue-light:#c8d6f5;
   --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
 }
 body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;line-height:1.65;min-height:100vh}
@@ -36,38 +36,53 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
 .hero-rule{width:60px;height:3px;background:var(--red);margin:0 auto 14px}
 .hero-sub{color:rgba(255,255,255,.5);font-size:.9rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em}
 
-/* MAIN CONTENT */
-.page-content{max-width:860px;margin:0 auto;padding:48px 24px 80px}
+/* PAGE */
+.page-content{max-width:880px;margin:0 auto;padding:48px 24px 80px}
 
-/* NARRATIVE */
-.narrative-intro{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:18px 22px;margin-bottom:40px;font-size:.9rem;color:var(--gold)}
-.narrative-intro strong{font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+/* INTRO BOX */
+.narrative-intro{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:16px 20px;margin-bottom:40px;font-size:.88rem;color:var(--gold);line-height:1.6}
+.narrative-intro strong{font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
 
-.narrative-unit{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:30px 30px 24px;margin-bottom:32px;box-shadow:var(--sh)}
-.unit-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
-.unit-tag{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red)}
-.unit-heading{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-top:2px}
-.unit-score{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--muted);background:var(--paper);padding:4px 12px;border:1px solid var(--border)}
+/* UNIT CARD */
+.narrative-unit{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:28px 28px 22px;margin-bottom:36px;box-shadow:var(--sh)}
+.unit-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.unit-tag{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red)}
+.unit-heading{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:700;margin-top:3px}
+.unit-score{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--muted);background:var(--paper);padding:4px 12px;border:1px solid var(--border);white-space:nowrap}
 
-.narrative-p{font-size:1rem;line-height:1.85;color:var(--ink)}
+/* WORD BANK */
+.word-bank{background:var(--paper);border:1px solid var(--border);padding:14px 16px;margin-bottom:20px}
+.word-bank-label{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.word-bank-chips{display:flex;flex-wrap:wrap;gap:8px}
 
-/* BLANKS */
-.blank-wrap{display:inline-flex;align-items:center;gap:4px;vertical-align:middle;position:relative}
-.blank-input{font-family:'IBM Plex Mono',monospace;font-size:.82rem;width:130px;padding:2px 6px;border:none;border-bottom:2px solid var(--border2);background:var(--paper);color:var(--ink);outline:none;transition:border-color .2s}
-.blank-input:focus{border-bottom-color:var(--blue)}
-.blank-input.correct{border-bottom-color:var(--green);background:var(--green-bg)}
-.blank-input.incorrect{border-bottom-color:var(--red);background:var(--red-bg)}
-.check-btn{font-family:'IBM Plex Mono',monospace;font-size:.62rem;background:var(--ink);color:#fff;border:none;padding:3px 7px;cursor:pointer;transition:background .15s;flex-shrink:0}
-.check-btn:hover{background:var(--red)}
-.check-btn:disabled{background:var(--muted);cursor:default}
-.answer-reveal{display:none;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--green);margin-left:4px;white-space:nowrap}
-.answer-reveal.show{display:inline}
+.word-chip{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.72rem;padding:5px 12px;background:var(--ink);color:#fff;cursor:grab;user-select:none;transition:opacity .15s,transform .1s,background .15s;border:2px solid transparent}
+.word-chip:active{cursor:grabbing;transform:scale(.96)}
+.word-chip.selected{background:var(--blue);border-color:var(--blue-light);transform:scale(1.04)}
+.word-chip.used{opacity:.22;cursor:default;pointer-events:none}
+.word-chip.dragging{opacity:.35}
+
+/* DROP ZONES */
+.drop-zone{display:inline-block;vertical-align:middle;min-width:100px;padding:2px 10px;border-bottom:2px dashed var(--border2);background:transparent;font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--ink);cursor:pointer;transition:background .15s,border-color .15s,color .15s;text-align:center;line-height:1.6;position:relative}
+.drop-zone:empty::before{content:'__________';color:var(--border2);font-size:.7rem;letter-spacing:.05em}
+.drop-zone.drag-over{background:var(--blue-bg);border-bottom:2px solid var(--blue);border-bottom-style:solid}
+.drop-zone.filled{border-bottom-style:solid;border-bottom-color:var(--border2);cursor:pointer}
+.drop-zone.correct{background:var(--green-bg);border-bottom:2px solid var(--green);color:var(--green);cursor:default}
+.drop-zone.incorrect{background:var(--red-bg);border-bottom:2px solid var(--red);color:var(--red)}
+.drop-zone.selected-target{border-bottom:2px solid var(--blue);background:var(--blue-bg)}
+
+/* ANSWER HINT shown below slot after check */
+.slot-wrap{display:inline-block;vertical-align:middle;text-align:center}
+.slot-hint{display:none;font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--green);margin-top:1px;white-space:nowrap}
+.slot-hint.show{display:block}
+
+/* NARRATIVE TEXT */
+.narrative-p{font-size:.98rem;line-height:2.1;color:var(--ink)}
 
 /* UNIT ACTIONS */
-.unit-actions{display:flex;align-items:center;gap:14px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
-.btn-check-all{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:8px 18px;cursor:pointer;transition:background .15s}
+.unit-actions{display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap}
+.btn-check-all{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:8px 18px;cursor:pointer;transition:background .15s}
 .btn-check-all:hover{background:var(--red-d)}
-.btn-reset{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--muted);border:1px solid var(--border);padding:8px 14px;cursor:pointer;transition:all .15s}
+.btn-reset{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--muted);border:1px solid var(--border);padding:8px 14px;cursor:pointer;transition:all .15s}
 .btn-reset:hover{border-color:var(--border2);color:var(--ink)}
 
 /* FOOTER */
@@ -89,174 +104,294 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   <div class="hero-eyebrow">AP World History: Modern</div>
   <h1>Course <em>Narrative</em></h1>
   <div class="hero-rule"></div>
-  <p class="hero-sub">Units 1&ndash;9 &nbsp;&bull;&nbsp; Fill in the blanks &nbsp;&bull;&nbsp; Check each answer individually</p>
+  <p class="hero-sub">Units 1&ndash;9 &nbsp;&bull;&nbsp; Drag words from the bank into each blank</p>
 </div>
 
 <div class="page-content">
 
   <div class="narrative-intro">
-    <strong>How to use:</strong> Read each paragraph carefully. Type the missing term into each blank and click <strong>✓</strong> to check your answer. Use <strong>Check All</strong> to grade an entire unit at once. Answers are case-insensitive.
+    <strong>How to use:</strong> Drag a word from the <strong>Word Bank</strong> and drop it into a blank slot in the paragraph — or click a word to select it (highlighted in blue), then click the blank where you want to place it. Click a filled slot to return the word to the bank. Hit <strong>Check All</strong> when you're ready to grade the unit.
   </div>
 
-  <!-- UNIT 1 -->
+  <!-- ═══ UNIT 1 ═══ -->
   <div class="narrative-unit" id="unit1">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 1 &nbsp;&bull;&nbsp; 1200&ndash;1450</div>
+        <div class="unit-tag">Unit 1 &nbsp;&bull;&nbsp; 1200–1450</div>
         <div class="unit-heading">The Global Tapestry</div>
       </div>
       <div class="unit-score" id="score1">0 / 8 correct</div>
     </div>
+    <div class="word-bank" id="bank1">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="Mali" data-unit="1">Mali</span>
+        <span class="word-chip" draggable="true" data-word="feudalism" data-unit="1">feudalism</span>
+        <span class="word-chip" draggable="true" data-word="Sufis" data-unit="1">Sufis</span>
+        <span class="word-chip" draggable="true" data-word="mit'a" data-unit="1">mit'a</span>
+        <span class="word-chip" draggable="true" data-word="champa rice" data-unit="1">champa rice</span>
+        <span class="word-chip" draggable="true" data-word="Angkor Wat" data-unit="1">Angkor Wat</span>
+        <span class="word-chip" draggable="true" data-word="Abbasid Caliphate" data-unit="1">Abbasid Caliphate</span>
+        <span class="word-chip" draggable="true" data-word="scholar-gentry" data-unit="1">scholar-gentry</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      From 1200 to 1450, major societies across the world developed distinctive political systems while still sharing common patterns of state-building. In Song China, rulers relied on Confucianism, the imperial bureaucracy, and the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="scholar-gentry" data-unit="1"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> to justify order, while innovations like <span class="blank-wrap"><input type="text" class="blank-input" data-answer="champa rice" data-unit="1"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, expansion of the Grand Canal, and growing commercialization strengthened the economy. In Dar al-Islam, the decline of the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Abbasid Caliphate" data-unit="1"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> led to new states like the Mamluk Sultanate and Delhi Sultanates, while Islam spread through conquest, trade, and the work of <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Sufis" data-unit="1"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>. In South and Southeast Asia, Hinduism, Buddhism, and Islam shaped states such as the Khmer Empire, Majapahit, and Srivijaya, while religious movements like Bhakti influenced daily life and monumental architecture such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Angkor Wat" data-unit="1"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>. In the Americas, the Mexica and Inca built powerful empires using systems like tribute and the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="mit'a" data-unit="1"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>. In Africa, states such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Mali" data-unit="1"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, Ethiopia, and Great Zimbabwe expanded through trade and regional power. Meanwhile, Europe remained politically fragmented under <span class="blank-wrap"><input type="text" class="blank-input" data-answer="feudalism" data-unit="1"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, the manorial system, and decentralized monarchies, while Christianity, along with Judaism and Islam, continued to shape European society. Across all these regions, states showed both continuity and innovation, blending old traditions with new forms of power.
+      From 1200 to 1450, major societies across the world developed distinctive political systems while still sharing common patterns of state-building. In Song China, rulers relied on Confucianism, the imperial bureaucracy, and the <span class="slot-wrap"><span class="drop-zone" data-answer="scholar-gentry" data-unit="1"></span><span class="slot-hint"></span></span> to justify order, while innovations like <span class="slot-wrap"><span class="drop-zone" data-answer="champa rice" data-unit="1"></span><span class="slot-hint"></span></span>, expansion of the Grand Canal, and growing commercialization strengthened the economy. In Dar al-Islam, the decline of the <span class="slot-wrap"><span class="drop-zone" data-answer="Abbasid Caliphate" data-unit="1"></span><span class="slot-hint"></span></span> led to new states like the Mamluk Sultanate and Delhi Sultanates, while Islam spread through conquest, trade, and the work of <span class="slot-wrap"><span class="drop-zone" data-answer="Sufis" data-unit="1"></span><span class="slot-hint"></span></span>. In South and Southeast Asia, Hinduism, Buddhism, and Islam shaped states such as the Khmer Empire, Majapahit, and Srivijaya, while religious movements like Bhakti influenced daily life and monumental architecture such as <span class="slot-wrap"><span class="drop-zone" data-answer="Angkor Wat" data-unit="1"></span><span class="slot-hint"></span></span>. In the Americas, the Mexica and Inca built powerful empires using systems like tribute and the <span class="slot-wrap"><span class="drop-zone" data-answer="mit'a" data-unit="1"></span><span class="slot-hint"></span></span>. In Africa, states such as <span class="slot-wrap"><span class="drop-zone" data-answer="Mali" data-unit="1"></span><span class="slot-hint"></span></span>, Ethiopia, and Great Zimbabwe expanded through trade and regional power. Meanwhile, Europe remained politically fragmented under <span class="slot-wrap"><span class="drop-zone" data-answer="feudalism" data-unit="1"></span><span class="slot-hint"></span></span>, the manorial system, and decentralized monarchies, while Christianity, along with Judaism and Islam, continued to shape European society.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit1','score1',8)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit1','score1',8)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit1','score1')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit1','score1')">Reset</button>
     </div>
   </div>
 
-  <!-- UNIT 2 -->
+  <!-- ═══ UNIT 2 ═══ -->
   <div class="narrative-unit" id="unit2">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 2 &nbsp;&bull;&nbsp; 1200&ndash;1450</div>
+        <div class="unit-tag">Unit 2 &nbsp;&bull;&nbsp; 1200–1450</div>
         <div class="unit-heading">Networks of Exchange</div>
       </div>
       <div class="unit-score" id="score2">0 / 8 correct</div>
     </div>
+    <div class="word-bank" id="bank2">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="bubonic plague" data-unit="2">bubonic plague</span>
+        <span class="word-chip" draggable="true" data-word="Mongol Empire" data-unit="2">Mongol Empire</span>
+        <span class="word-chip" draggable="true" data-word="astrolabe" data-unit="2">astrolabe</span>
+        <span class="word-chip" draggable="true" data-word="paper money" data-unit="2">paper money</span>
+        <span class="word-chip" draggable="true" data-word="Silk Roads" data-unit="2">Silk Roads</span>
+        <span class="word-chip" draggable="true" data-word="Ibn Battuta" data-unit="2">Ibn Battuta</span>
+        <span class="word-chip" draggable="true" data-word="monsoon winds" data-unit="2">monsoon winds</span>
+        <span class="word-chip" draggable="true" data-word="caravanserai" data-unit="2">caravanserai</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      Between 1200 and 1450, expanding trade networks connected Afro-Eurasia more deeply than ever before. The <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Silk Roads" data-unit="2"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, Indian Ocean trade network, and trans-Saharan trade routes all grew because of improved transportation, commercial practices, and rising demand for luxury goods. Along the Silk Roads, technologies such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="caravanserai" data-unit="2"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, <span class="blank-wrap"><input type="text" class="blank-input" data-answer="paper money" data-unit="2"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and systems of credit supported exchange, while goods like textiles, porcelain, and steel moved across continents. The rise of the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Mongol Empire" data-unit="2"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> intensified these connections by making travel and trade safer and encouraging cultural and technological diffusion. In the Indian Ocean, sailors used <span class="blank-wrap"><input type="text" class="blank-input" data-answer="monsoon winds" data-unit="2"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, the compass, the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="astrolabe" data-unit="2"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and improved ships to connect cities from East Africa to Southeast Asia. These networks spread religion, technology, crops, and disease. Travelers such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Ibn Battuta" data-unit="2"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and Marco Polo recorded these interconnections, while the spread of bananas, new rice strains, and the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="bubonic plague" data-unit="2"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> showed that exchange had environmental as well as cultural effects.
+      Between 1200 and 1450, expanding trade networks connected Afro-Eurasia more deeply than ever before. The <span class="slot-wrap"><span class="drop-zone" data-answer="Silk Roads" data-unit="2"></span><span class="slot-hint"></span></span>, Indian Ocean trade network, and trans-Saharan trade routes all grew because of improved transportation, commercial practices, and rising demand for luxury goods. Along the Silk Roads, technologies such as <span class="slot-wrap"><span class="drop-zone" data-answer="caravanserai" data-unit="2"></span><span class="slot-hint"></span></span>, <span class="slot-wrap"><span class="drop-zone" data-answer="paper money" data-unit="2"></span><span class="slot-hint"></span></span>, and systems of credit supported exchange, while goods like textiles, porcelain, and steel moved across continents. The rise of the <span class="slot-wrap"><span class="drop-zone" data-answer="Mongol Empire" data-unit="2"></span><span class="slot-hint"></span></span> intensified these connections by making travel and trade safer and encouraging cultural and technological diffusion. In the Indian Ocean, sailors used <span class="slot-wrap"><span class="drop-zone" data-answer="monsoon winds" data-unit="2"></span><span class="slot-hint"></span></span>, the compass, the <span class="slot-wrap"><span class="drop-zone" data-answer="astrolabe" data-unit="2"></span><span class="slot-hint"></span></span>, and improved ships to connect cities from East Africa to Southeast Asia. Travelers such as <span class="slot-wrap"><span class="drop-zone" data-answer="Ibn Battuta" data-unit="2"></span><span class="slot-hint"></span></span> and Marco Polo recorded these interconnections, while the spread of bananas, new rice strains, and the <span class="slot-wrap"><span class="drop-zone" data-answer="bubonic plague" data-unit="2"></span><span class="slot-hint"></span></span> showed that exchange had environmental as well as cultural effects.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit2','score2',8)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit2','score2',8)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit2','score2')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit2','score2')">Reset</button>
     </div>
   </div>
 
-  <!-- UNIT 3 -->
+  <!-- ═══ UNIT 3 ═══ -->
   <div class="narrative-unit" id="unit3">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 3 &nbsp;&bull;&nbsp; 1450&ndash;1750</div>
+        <div class="unit-tag">Unit 3 &nbsp;&bull;&nbsp; 1450–1750</div>
         <div class="unit-heading">Land-Based Empires</div>
       </div>
       <div class="unit-score" id="score3">0 / 8 correct</div>
     </div>
+    <div class="word-bank" id="bank3">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="Sikhism" data-unit="3">Sikhism</span>
+        <span class="word-chip" draggable="true" data-word="devshirme" data-unit="3">devshirme</span>
+        <span class="word-chip" draggable="true" data-word="Mughal Empire" data-unit="3">Mughal Empire</span>
+        <span class="word-chip" draggable="true" data-word="tax farming" data-unit="3">tax farming</span>
+        <span class="word-chip" draggable="true" data-word="gunpowder" data-unit="3">gunpowder</span>
+        <span class="word-chip" draggable="true" data-word="Protestant Reformation" data-unit="3">Protestant Reformation</span>
+        <span class="word-chip" draggable="true" data-word="Ottoman Empire" data-unit="3">Ottoman Empire</span>
+        <span class="word-chip" draggable="true" data-word="Safavid Empire" data-unit="3">Safavid Empire</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      From 1450 to 1750, large land-based empires expanded through military power, especially the use of <span class="blank-wrap"><input type="text" class="blank-input" data-answer="gunpowder" data-unit="3"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, cannons, and professional armies. Major empires included the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Ottoman Empire" data-unit="3"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Safavid Empire" data-unit="3"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Mughal Empire" data-unit="3"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and the Manchu Qing Dynasty. These states built powerful centralized governments by recruiting military elites and loyal administrators, such as the Ottoman <span class="blank-wrap"><input type="text" class="blank-input" data-answer="devshirme" data-unit="3"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> system and peasant warriors like the Cossacks. Systems such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="tax farming" data-unit="3"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and zamindar tax collection helped these empires raise revenue and sustain expansion. At the same time, belief systems changed and adapted. The <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Protestant Reformation" data-unit="3"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> challenged the Catholic Church and transformed Christianity, while rivalry between the Sunni Ottomans and Shi'a Safavids deepened divisions within Islam. In South Asia, <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Sikhism" data-unit="3"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> emerged from interactions between Hinduism and Islam. These empires demonstrated that empire-building involved military conquest, political administration, and religious negotiation.
+      From 1450 to 1750, large land-based empires expanded through military power, especially the use of <span class="slot-wrap"><span class="drop-zone" data-answer="gunpowder" data-unit="3"></span><span class="slot-hint"></span></span>, cannons, and professional armies. Major empires included the <span class="slot-wrap"><span class="drop-zone" data-answer="Ottoman Empire" data-unit="3"></span><span class="slot-hint"></span></span>, the <span class="slot-wrap"><span class="drop-zone" data-answer="Safavid Empire" data-unit="3"></span><span class="slot-hint"></span></span>, the <span class="slot-wrap"><span class="drop-zone" data-answer="Mughal Empire" data-unit="3"></span><span class="slot-hint"></span></span>, and the Manchu Qing Dynasty. These states built powerful centralized governments by recruiting military elites and loyal administrators, such as the Ottoman <span class="slot-wrap"><span class="drop-zone" data-answer="devshirme" data-unit="3"></span><span class="slot-hint"></span></span> system and peasant warriors like the Cossacks. Systems such as <span class="slot-wrap"><span class="drop-zone" data-answer="tax farming" data-unit="3"></span><span class="slot-hint"></span></span> and zamindar tax collection helped these empires raise revenue and sustain expansion. The <span class="slot-wrap"><span class="drop-zone" data-answer="Protestant Reformation" data-unit="3"></span><span class="slot-hint"></span></span> challenged the Catholic Church and transformed Christianity, while rivalry between the Sunni Ottomans and Shi'a Safavids deepened divisions within Islam. In South Asia, <span class="slot-wrap"><span class="drop-zone" data-answer="Sikhism" data-unit="3"></span><span class="slot-hint"></span></span> emerged from interactions between Hinduism and Islam.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit3','score3',8)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit3','score3',8)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit3','score3')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit3','score3')">Reset</button>
     </div>
   </div>
 
-  <!-- UNIT 4 -->
+  <!-- ═══ UNIT 4 ═══ -->
   <div class="narrative-unit" id="unit4">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 4 &nbsp;&bull;&nbsp; 1450&ndash;1750</div>
+        <div class="unit-tag">Unit 4 &nbsp;&bull;&nbsp; 1450–1750</div>
         <div class="unit-heading">Transoceanic Interconnections</div>
       </div>
       <div class="unit-score" id="score4">0 / 10 correct</div>
     </div>
+    <div class="word-bank" id="bank4">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="silver" data-unit="4">silver</span>
+        <span class="word-chip" draggable="true" data-word="encomienda" data-unit="4">encomienda</span>
+        <span class="word-chip" draggable="true" data-word="maize" data-unit="4">maize</span>
+        <span class="word-chip" draggable="true" data-word="chattel slavery" data-unit="4">chattel slavery</span>
+        <span class="word-chip" draggable="true" data-word="joint-stock companies" data-unit="4">joint-stock companies</span>
+        <span class="word-chip" draggable="true" data-word="lateen sail" data-unit="4">lateen sail</span>
+        <span class="word-chip" draggable="true" data-word="Columbian Exchange" data-unit="4">Columbian Exchange</span>
+        <span class="word-chip" draggable="true" data-word="caravel" data-unit="4">caravel</span>
+        <span class="word-chip" draggable="true" data-word="Mercantilism" data-unit="4">Mercantilism</span>
+        <span class="word-chip" draggable="true" data-word="smallpox" data-unit="4">smallpox</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      Between 1450 and 1750, oceanic travel connected the Eastern and Western Hemispheres in new ways and created a truly global system. European exploration was made possible by technologies including the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="lateen sail" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, compass, astrolabe, <span class="blank-wrap"><input type="text" class="blank-input" data-answer="caravel" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and fluyt. Portugal built a trading-post empire in Africa and Asia, while Spain sponsored Columbus to conquer large American empires. These voyages sparked the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Columbian Exchange" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, which transferred crops, animals, people, and diseases between hemispheres. American crops like <span class="blank-wrap"><input type="text" class="blank-input" data-answer="maize" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and potatoes boosted populations in Afro-Eurasia, while Europeans brought horses, cattle, sugar, and devastating diseases such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="smallpox" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, measles, and malaria to the Americas. European maritime empires established colonies and plantation economies that relied on systems like <span class="blank-wrap"><input type="text" class="blank-input" data-answer="encomienda" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, hacienda, indentured servitude, and <span class="blank-wrap"><input type="text" class="blank-input" data-answer="chattel slavery" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>. <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Mercantilism" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and <span class="blank-wrap"><input type="text" class="blank-input" data-answer="joint-stock companies" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> helped states maintain overseas empires, while the global flow of <span class="blank-wrap"><input type="text" class="blank-input" data-answer="silver" data-unit="4"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, especially from Spanish America to China, tied world markets together.
+      Between 1450 and 1750, oceanic travel connected the Eastern and Western Hemispheres in new ways and created a truly global system. European exploration was made possible by technologies including the <span class="slot-wrap"><span class="drop-zone" data-answer="lateen sail" data-unit="4"></span><span class="slot-hint"></span></span>, compass, astrolabe, <span class="slot-wrap"><span class="drop-zone" data-answer="caravel" data-unit="4"></span><span class="slot-hint"></span></span>, and fluyt. Portugal built a trading-post empire in Africa and Asia, while Spain sponsored Columbus to conquer large American empires. These voyages sparked the <span class="slot-wrap"><span class="drop-zone" data-answer="Columbian Exchange" data-unit="4"></span><span class="slot-hint"></span></span>, which transferred crops, animals, people, and diseases between hemispheres. American crops like <span class="slot-wrap"><span class="drop-zone" data-answer="maize" data-unit="4"></span><span class="slot-hint"></span></span> and potatoes boosted populations in Afro-Eurasia, while Europeans brought horses, cattle, sugar, and devastating diseases such as <span class="slot-wrap"><span class="drop-zone" data-answer="smallpox" data-unit="4"></span><span class="slot-hint"></span></span>, measles, and malaria to the Americas. European maritime empires established colonies and plantation economies that relied on systems like <span class="slot-wrap"><span class="drop-zone" data-answer="encomienda" data-unit="4"></span><span class="slot-hint"></span></span>, hacienda, indentured servitude, and <span class="slot-wrap"><span class="drop-zone" data-answer="chattel slavery" data-unit="4"></span><span class="slot-hint"></span></span>. <span class="slot-wrap"><span class="drop-zone" data-answer="Mercantilism" data-unit="4"></span><span class="slot-hint"></span></span> and <span class="slot-wrap"><span class="drop-zone" data-answer="joint-stock companies" data-unit="4"></span><span class="slot-hint"></span></span> helped states maintain overseas empires, while the global flow of <span class="slot-wrap"><span class="drop-zone" data-answer="silver" data-unit="4"></span><span class="slot-hint"></span></span>, especially from Spanish America to China, tied world markets together.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit4','score4',10)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit4','score4',10)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit4','score4')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit4','score4')">Reset</button>
     </div>
   </div>
 
-  <!-- UNIT 5 -->
+  <!-- ═══ UNIT 5 ═══ -->
   <div class="narrative-unit" id="unit5">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 5 &nbsp;&bull;&nbsp; 1750&ndash;1900</div>
+        <div class="unit-tag">Unit 5 &nbsp;&bull;&nbsp; 1750–1900</div>
         <div class="unit-heading">Revolutions</div>
       </div>
       <div class="unit-score" id="score5">0 / 9 correct</div>
     </div>
+    <div class="word-bank" id="bank5">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="Karl Marx" data-unit="5">Karl Marx</span>
+        <span class="word-chip" draggable="true" data-word="nationalism" data-unit="5">nationalism</span>
+        <span class="word-chip" draggable="true" data-word="steam engine" data-unit="5">steam engine</span>
+        <span class="word-chip" draggable="true" data-word="communism" data-unit="5">communism</span>
+        <span class="word-chip" draggable="true" data-word="Haitian Revolution" data-unit="5">Haitian Revolution</span>
+        <span class="word-chip" draggable="true" data-word="socialism" data-unit="5">socialism</span>
+        <span class="word-chip" draggable="true" data-word="Enlightenment" data-unit="5">Enlightenment</span>
+        <span class="word-chip" draggable="true" data-word="Industrial Revolution" data-unit="5">Industrial Revolution</span>
+        <span class="word-chip" draggable="true" data-word="natural rights" data-unit="5">natural rights</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      From 1750 to 1900, revolutions in politics, thought, and industry transformed societies around the world. The <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Enlightenment" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> promoted reason, <span class="blank-wrap"><input type="text" class="blank-input" data-answer="natural rights" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and the social contract, encouraging people to challenge monarchy, tradition, and inherited privilege. Thinkers inspired revolutionary movements such as the American Revolution, French Revolution, <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Haitian Revolution" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and Latin American independence movements. At the same time, <span class="blank-wrap"><input type="text" class="blank-input" data-answer="nationalism" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> united people around shared language, culture, and territory, contributing to new nation-states and unifications such as Germany and Italy. Meanwhile, the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Industrial Revolution" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> began in England, fueled by coal, iron, waterways, urbanization, capital, and agricultural improvements. The factory system concentrated labor and increased productivity, while machines like the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="steam engine" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and later the internal combustion engine transformed manufacturing and transportation. New economic ideas emerged, including laissez-faire capitalism, free trade, <span class="blank-wrap"><input type="text" class="blank-input" data-answer="socialism" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and <span class="blank-wrap"><input type="text" class="blank-input" data-answer="communism" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, while industrial society gave rise to labor unions, urban reform, and critiques by thinkers like <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Karl Marx" data-unit="5"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>.
+      From 1750 to 1900, revolutions in politics, thought, and industry transformed societies around the world. The <span class="slot-wrap"><span class="drop-zone" data-answer="Enlightenment" data-unit="5"></span><span class="slot-hint"></span></span> promoted reason, <span class="slot-wrap"><span class="drop-zone" data-answer="natural rights" data-unit="5"></span><span class="slot-hint"></span></span>, and the social contract, encouraging people to challenge monarchy, tradition, and inherited privilege. Thinkers inspired revolutionary movements such as the American Revolution, French Revolution, <span class="slot-wrap"><span class="drop-zone" data-answer="Haitian Revolution" data-unit="5"></span><span class="slot-hint"></span></span>, and Latin American independence movements. At the same time, <span class="slot-wrap"><span class="drop-zone" data-answer="nationalism" data-unit="5"></span><span class="slot-hint"></span></span> united people around shared language, culture, and territory, contributing to new nation-states and unifications such as Germany and Italy. Meanwhile, the <span class="slot-wrap"><span class="drop-zone" data-answer="Industrial Revolution" data-unit="5"></span><span class="slot-hint"></span></span> began in England, fueled by coal, iron, waterways, urbanization, capital, and agricultural improvements. The factory system concentrated labor and increased productivity, while machines like the <span class="slot-wrap"><span class="drop-zone" data-answer="steam engine" data-unit="5"></span><span class="slot-hint"></span></span> and later the internal combustion engine transformed manufacturing and transportation. New economic ideas emerged, including laissez-faire capitalism, free trade, <span class="slot-wrap"><span class="drop-zone" data-answer="socialism" data-unit="5"></span><span class="slot-hint"></span></span>, and <span class="slot-wrap"><span class="drop-zone" data-answer="communism" data-unit="5"></span><span class="slot-hint"></span></span>, while industrial society gave rise to labor unions, urban reform, and critiques by thinkers like <span class="slot-wrap"><span class="drop-zone" data-answer="Karl Marx" data-unit="5"></span><span class="slot-hint"></span></span>.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit5','score5',9)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit5','score5',9)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit5','score5')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit5','score5')">Reset</button>
     </div>
   </div>
 
-  <!-- UNIT 6 -->
+  <!-- ═══ UNIT 6 ═══ -->
   <div class="narrative-unit" id="unit6">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 6 &nbsp;&bull;&nbsp; 1750&ndash;1900</div>
+        <div class="unit-tag">Unit 6 &nbsp;&bull;&nbsp; 1750–1900</div>
         <div class="unit-heading">Consequences of Industrialization</div>
       </div>
       <div class="unit-score" id="score6">0 / 8 correct</div>
     </div>
+    <div class="word-bank" id="bank6">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="Chinese Exclusion Act" data-unit="6">Chinese Exclusion Act</span>
+        <span class="word-chip" draggable="true" data-word="Opium Wars" data-unit="6">Opium Wars</span>
+        <span class="word-chip" draggable="true" data-word="indentured servitude" data-unit="6">indentured servitude</span>
+        <span class="word-chip" draggable="true" data-word="civilizing mission" data-unit="6">civilizing mission</span>
+        <span class="word-chip" draggable="true" data-word="King Leopold II" data-unit="6">King Leopold II</span>
+        <span class="word-chip" draggable="true" data-word="Social Darwinism" data-unit="6">Social Darwinism</span>
+        <span class="word-chip" draggable="true" data-word="Indian Rebellion of 1857" data-unit="6">Indian Rebellion of 1857</span>
+        <span class="word-chip" draggable="true" data-word="Congo Free State" data-unit="6">Congo Free State</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      As industrialization accelerated, powerful states sought raw materials, labor, and markets through a new wave of imperialism. European empires, along with the United States and Japan, justified expansion with ideologies such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Social Darwinism" data-unit="6"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, nationalism, the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="civilizing mission" data-unit="6"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and missionary Christianity. In some cases, colonial control shifted from private hands to governments, as seen in the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Congo Free State" data-unit="6"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> under <span class="blank-wrap"><input type="text" class="blank-input" data-answer="King Leopold II" data-unit="6"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and later Belgium. Economic imperialism also gave industrialized nations major influence without full political control, as seen in the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Opium Wars" data-unit="6"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> in China. These pressures sparked resistance, including the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Indian Rebellion of 1857" data-unit="6"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, the rise of the Zulu Kingdom, and the Xhosa Cattle-Killing Movement. Industrialization also drove global migration, both voluntary and coerced, while systems of <span class="blank-wrap"><input type="text" class="blank-input" data-answer="indentured servitude" data-unit="6"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> moved Chinese and Indian laborers worldwide. Migrants formed ethnic enclaves but also faced racism and exclusion, such as the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Chinese Exclusion Act" data-unit="6"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and the White Australia policy.
+      As industrialization accelerated, powerful states sought raw materials, labor, and markets through a new wave of imperialism. European empires, along with the United States and Japan, justified expansion with ideologies such as <span class="slot-wrap"><span class="drop-zone" data-answer="Social Darwinism" data-unit="6"></span><span class="slot-hint"></span></span>, nationalism, the <span class="slot-wrap"><span class="drop-zone" data-answer="civilizing mission" data-unit="6"></span><span class="slot-hint"></span></span>, and missionary Christianity. In some cases, colonial control shifted from private hands to governments, as seen in the <span class="slot-wrap"><span class="drop-zone" data-answer="Congo Free State" data-unit="6"></span><span class="slot-hint"></span></span> under <span class="slot-wrap"><span class="drop-zone" data-answer="King Leopold II" data-unit="6"></span><span class="slot-hint"></span></span> and later Belgium. Economic imperialism also gave industrialized nations major influence without full political control, as seen in the <span class="slot-wrap"><span class="drop-zone" data-answer="Opium Wars" data-unit="6"></span><span class="slot-hint"></span></span> in China. These pressures sparked resistance, including the <span class="slot-wrap"><span class="drop-zone" data-answer="Indian Rebellion of 1857" data-unit="6"></span><span class="slot-hint"></span></span>, the rise of the Zulu Kingdom, and the Xhosa Cattle-Killing Movement. Industrialization also drove global migration, while systems of <span class="slot-wrap"><span class="drop-zone" data-answer="indentured servitude" data-unit="6"></span><span class="slot-hint"></span></span> moved Chinese and Indian laborers worldwide. Migrants formed ethnic enclaves but also faced racism and exclusion, such as the <span class="slot-wrap"><span class="drop-zone" data-answer="Chinese Exclusion Act" data-unit="6"></span><span class="slot-hint"></span></span> and the White Australia policy.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit6','score6',8)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit6','score6',8)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit6','score6')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit6','score6')">Reset</button>
     </div>
   </div>
 
-  <!-- UNIT 7 -->
+  <!-- ═══ UNIT 7 ═══ -->
   <div class="narrative-unit" id="unit7">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 7 &nbsp;&bull;&nbsp; 1900&ndash;Present</div>
+        <div class="unit-tag">Unit 7 &nbsp;&bull;&nbsp; 1900–Present</div>
         <div class="unit-heading">Global Conflict</div>
       </div>
       <div class="unit-score" id="score7">0 / 8 correct</div>
     </div>
+    <div class="word-bank" id="bank7">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="Holocaust" data-unit="7">Holocaust</span>
+        <span class="word-chip" draggable="true" data-word="New Deal" data-unit="7">New Deal</span>
+        <span class="word-chip" draggable="true" data-word="World War II" data-unit="7">World War II</span>
+        <span class="word-chip" draggable="true" data-word="total war" data-unit="7">total war</span>
+        <span class="word-chip" draggable="true" data-word="atomic bomb" data-unit="7">atomic bomb</span>
+        <span class="word-chip" draggable="true" data-word="Great Depression" data-unit="7">Great Depression</span>
+        <span class="word-chip" draggable="true" data-word="militarism" data-unit="7">militarism</span>
+        <span class="word-chip" draggable="true" data-word="Armenian Genocide" data-unit="7">Armenian Genocide</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      The 20th century was defined by dramatic shifts in power, revolution, and catastrophic warfare. World War I erupted because of <span class="blank-wrap"><input type="text" class="blank-input" data-answer="militarism" data-unit="7"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, alliances, imperialism, and nationalism, becoming the first major <span class="blank-wrap"><input type="text" class="blank-input" data-answer="total war" data-unit="7"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, in which governments used propaganda, mass mobilization, and industrial weaponry to fight on an unprecedented scale. After the war, the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Great Depression" data-unit="7"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> led governments to intervene more actively in economic life through programs like the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="New Deal" data-unit="7"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, fascist corporatism, and Five-Year Plans in the Soviet Union. Unresolved tensions, punitive treaties, economic collapse, and aggressive fascist regimes led to <span class="blank-wrap"><input type="text" class="blank-input" data-answer="World War II" data-unit="7"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, another total war marked by fire-bombing, the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="atomic bomb" data-unit="7"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, genocide, and even greater destruction. The <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Holocaust" data-unit="7"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, in which Nazi Germany attempted the extermination of Europe's Jews, stands as the most infamous mass atrocity of the era, alongside the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Armenian Genocide" data-unit="7"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and other campaigns of ethnic violence.
+      The 20th century was defined by dramatic shifts in power, revolution, and catastrophic warfare. World War I erupted because of <span class="slot-wrap"><span class="drop-zone" data-answer="militarism" data-unit="7"></span><span class="slot-hint"></span></span>, alliances, imperialism, and nationalism, becoming the first major <span class="slot-wrap"><span class="drop-zone" data-answer="total war" data-unit="7"></span><span class="slot-hint"></span></span>, in which governments used propaganda, mass mobilization, and industrial weaponry to fight on an unprecedented scale. After the war, the <span class="slot-wrap"><span class="drop-zone" data-answer="Great Depression" data-unit="7"></span><span class="slot-hint"></span></span> led governments to intervene more actively in economic life through programs like the <span class="slot-wrap"><span class="drop-zone" data-answer="New Deal" data-unit="7"></span><span class="slot-hint"></span></span>, fascist corporatism, and Five-Year Plans in the Soviet Union. Unresolved tensions, punitive treaties, economic collapse, and aggressive fascist regimes led to <span class="slot-wrap"><span class="drop-zone" data-answer="World War II" data-unit="7"></span><span class="slot-hint"></span></span>, another total war marked by fire-bombing, the <span class="slot-wrap"><span class="drop-zone" data-answer="atomic bomb" data-unit="7"></span><span class="slot-hint"></span></span>, genocide, and even greater destruction. The <span class="slot-wrap"><span class="drop-zone" data-answer="Holocaust" data-unit="7"></span><span class="slot-hint"></span></span>, in which Nazi Germany attempted the extermination of Europe's Jews, stands as the most infamous mass atrocity of the era, alongside the <span class="slot-wrap"><span class="drop-zone" data-answer="Armenian Genocide" data-unit="7"></span><span class="slot-hint"></span></span> and other campaigns of ethnic violence.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit7','score7',8)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit7','score7',8)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit7','score7')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit7','score7')">Reset</button>
     </div>
   </div>
 
-  <!-- UNIT 8 -->
+  <!-- ═══ UNIT 8 ═══ -->
   <div class="narrative-unit" id="unit8">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 8 &nbsp;&bull;&nbsp; 1900&ndash;Present</div>
+        <div class="unit-tag">Unit 8 &nbsp;&bull;&nbsp; 1900–Present</div>
         <div class="unit-heading">Cold War &amp; Decolonization</div>
       </div>
       <div class="unit-score" id="score8">0 / 8 correct</div>
     </div>
+    <div class="word-bank" id="bank8">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="Warsaw Pact" data-unit="8">Warsaw Pact</span>
+        <span class="word-chip" draggable="true" data-word="Nelson Mandela" data-unit="8">Nelson Mandela</span>
+        <span class="word-chip" draggable="true" data-word="NATO" data-unit="8">NATO</span>
+        <span class="word-chip" draggable="true" data-word="Non-Aligned Movement" data-unit="8">Non-Aligned Movement</span>
+        <span class="word-chip" draggable="true" data-word="decolonization" data-unit="8">decolonization</span>
+        <span class="word-chip" draggable="true" data-word="proxy wars" data-unit="8">proxy wars</span>
+        <span class="word-chip" draggable="true" data-word="Cold War" data-unit="8">Cold War</span>
+        <span class="word-chip" draggable="true" data-word="Mohandas Gandhi" data-unit="8">Mohandas Gandhi</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      After World War II, the world entered a new era shaped by <span class="blank-wrap"><input type="text" class="blank-input" data-answer="decolonization" data-unit="8"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Cold War" data-unit="8"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>. European empires weakened, and anti-imperialist movements grew stronger, leading colonies in Asia, Africa, and the Middle East to seek independence. Some gained freedom through negotiation, as in India and Ghana, while others fought wars of liberation, as in Algeria and Vietnam. At the same time, the global balance of power shifted to the United States and the Soviet Union, whose ideological rivalry between capitalism and communism defined the Cold War. This struggle produced alliances such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="NATO" data-unit="8"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> and the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Warsaw Pact" data-unit="8"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, as well as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="proxy wars" data-unit="8"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> in places like Angola, Nicaragua, and Vietnam. Some nations tried to avoid choosing sides through the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Non-Aligned Movement" data-unit="8"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, led by figures like Sukarno and Kwame Nkrumah. Individuals such as <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Mohandas Gandhi" data-unit="8"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, Martin Luther King Jr., and <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Nelson Mandela" data-unit="8"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> challenged power through nonviolence.
+      After World War II, the world entered a new era shaped by <span class="slot-wrap"><span class="drop-zone" data-answer="decolonization" data-unit="8"></span><span class="slot-hint"></span></span> and the <span class="slot-wrap"><span class="drop-zone" data-answer="Cold War" data-unit="8"></span><span class="slot-hint"></span></span>. European empires weakened, and anti-imperialist movements grew stronger, leading colonies in Asia, Africa, and the Middle East to seek independence. Some gained freedom through negotiation, as in India and Ghana, while others fought wars of liberation, as in Algeria and Vietnam. At the same time, the global balance of power shifted to the United States and the Soviet Union, whose ideological rivalry between capitalism and communism defined the Cold War. This struggle produced alliances such as <span class="slot-wrap"><span class="drop-zone" data-answer="NATO" data-unit="8"></span><span class="slot-hint"></span></span> and the <span class="slot-wrap"><span class="drop-zone" data-answer="Warsaw Pact" data-unit="8"></span><span class="slot-hint"></span></span>, as well as <span class="slot-wrap"><span class="drop-zone" data-answer="proxy wars" data-unit="8"></span><span class="slot-hint"></span></span> in places like Angola, Nicaragua, and Vietnam. Some nations tried to avoid choosing sides through the <span class="slot-wrap"><span class="drop-zone" data-answer="Non-Aligned Movement" data-unit="8"></span><span class="slot-hint"></span></span>, led by figures like Sukarno and Kwame Nkrumah. Individuals such as <span class="slot-wrap"><span class="drop-zone" data-answer="Mohandas Gandhi" data-unit="8"></span><span class="slot-hint"></span></span>, Martin Luther King Jr., and <span class="slot-wrap"><span class="drop-zone" data-answer="Nelson Mandela" data-unit="8"></span><span class="slot-hint"></span></span> challenged power through nonviolence.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit8','score8',8)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit8','score8',8)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit8','score8')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit8','score8')">Reset</button>
     </div>
   </div>
 
-  <!-- UNIT 9 -->
+  <!-- ═══ UNIT 9 ═══ -->
   <div class="narrative-unit" id="unit9">
     <div class="unit-header">
       <div>
-        <div class="unit-tag">Unit 9 &nbsp;&bull;&nbsp; 1900&ndash;Present</div>
+        <div class="unit-tag">Unit 9 &nbsp;&bull;&nbsp; 1900–Present</div>
         <div class="unit-heading">Globalization</div>
       </div>
       <div class="unit-score" id="score9">0 / 8 correct</div>
     </div>
+    <div class="word-bank" id="bank9">
+      <div class="word-bank-label">Word Bank</div>
+      <div class="word-bank-chips">
+        <span class="word-chip" draggable="true" data-word="NAFTA" data-unit="9">NAFTA</span>
+        <span class="word-chip" draggable="true" data-word="greenhouse gases" data-unit="9">greenhouse gases</span>
+        <span class="word-chip" draggable="true" data-word="globalization" data-unit="9">globalization</span>
+        <span class="word-chip" draggable="true" data-word="United Nations" data-unit="9">United Nations</span>
+        <span class="word-chip" draggable="true" data-word="free-market reforms" data-unit="9">free-market reforms</span>
+        <span class="word-chip" draggable="true" data-word="Green Revolution" data-unit="9">Green Revolution</span>
+        <span class="word-chip" draggable="true" data-word="Universal Declaration of Human Rights" data-unit="9">Universal Declaration of Human Rights</span>
+        <span class="word-chip" draggable="true" data-word="climate change" data-unit="9">climate change</span>
+      </div>
+    </div>
     <p class="narrative-p">
-      Since 1900, and especially since the late 20th century, the world has become increasingly interconnected through <span class="blank-wrap"><input type="text" class="blank-input" data-answer="globalization" data-unit="9"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>. New technologies such as radio, cellular communication, the internet, air travel, and shipping containers reduced geographic distance and accelerated the movement of ideas, goods, and people. Advances in petroleum, nuclear power, vaccines, antibiotics, and birth control transformed standards of living, health, and family life, while the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Green Revolution" data-unit="9"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> increased food production and helped sustain a growing global population. At the same time, globalization intensified environmental challenges, including deforestation, desertification, air pollution, water scarcity, and debates over <span class="blank-wrap"><input type="text" class="blank-input" data-answer="climate change" data-unit="9"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> caused by <span class="blank-wrap"><input type="text" class="blank-input" data-answer="greenhouse gases" data-unit="9"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>. Economically, many governments embraced <span class="blank-wrap"><input type="text" class="blank-input" data-answer="free-market reforms" data-unit="9"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, from Margaret Thatcher in Britain to Deng Xiaoping in China. Multinational corporations, trade agreements like <span class="blank-wrap"><input type="text" class="blank-input" data-answer="NAFTA" data-unit="9"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, and institutions such as the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="United Nations" data-unit="9"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span> reflected this new global order. Yet globalization also sparked resistance, and encouraged reform movements including the <span class="blank-wrap"><input type="text" class="blank-input" data-answer="Universal Declaration of Human Rights" data-unit="9"><button class="check-btn" onclick="checkBlank(this)">&#10003;</button><span class="answer-reveal"></span></span>, global feminism, and the Green Belt Movement.
+      Since 1900, and especially since the late 20th century, the world has become increasingly interconnected through <span class="slot-wrap"><span class="drop-zone" data-answer="globalization" data-unit="9"></span><span class="slot-hint"></span></span>. New technologies such as radio, cellular communication, the internet, air travel, and shipping containers reduced geographic distance and accelerated the movement of ideas, goods, and people. Advances in petroleum, nuclear power, vaccines, antibiotics, and birth control transformed standards of living, while the <span class="slot-wrap"><span class="drop-zone" data-answer="Green Revolution" data-unit="9"></span><span class="slot-hint"></span></span> increased food production and helped sustain a growing global population. At the same time, globalization intensified environmental challenges, including debates over <span class="slot-wrap"><span class="drop-zone" data-answer="climate change" data-unit="9"></span><span class="slot-hint"></span></span> caused by <span class="slot-wrap"><span class="drop-zone" data-answer="greenhouse gases" data-unit="9"></span><span class="slot-hint"></span></span>. Economically, many governments embraced <span class="slot-wrap"><span class="drop-zone" data-answer="free-market reforms" data-unit="9"></span><span class="slot-hint"></span></span>, from Margaret Thatcher in Britain to Deng Xiaoping in China. Multinational corporations, trade agreements like <span class="slot-wrap"><span class="drop-zone" data-answer="NAFTA" data-unit="9"></span><span class="slot-hint"></span></span>, and institutions such as the <span class="slot-wrap"><span class="drop-zone" data-answer="United Nations" data-unit="9"></span><span class="slot-hint"></span></span> reflected this new global order. Yet globalization also sparked resistance and encouraged reform movements including the <span class="slot-wrap"><span class="drop-zone" data-answer="Universal Declaration of Human Rights" data-unit="9"></span><span class="slot-hint"></span></span>, global feminism, and the Green Belt Movement.
     </p>
     <div class="unit-actions">
-      <button class="btn-check-all" onclick="checkAll('unit9','score9',8)">Check All</button>
-      <button class="btn-reset" onclick="resetUnit('unit9','score9',8)">Reset</button>
+      <button class="btn-check-all" onclick="checkAll('unit9','score9')">Check All</button>
+      <button class="btn-reset" onclick="resetUnit('unit9','score9')">Reset</button>
     </div>
   </div>
 
@@ -267,85 +402,230 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
 </footer>
 
 <script>
-function normalize(str) {
-  return str.trim().toLowerCase().replace(/['']/g, "'");
-}
+(function () {
+  // ── State ──────────────────────────────────────────────
+  let dragWord = null;       // word text being dragged
+  let dragFromSlot = null;   // slot element if drag started from a slot
+  let selectedChip = null;   // chip selected via click
 
-function checkBlank(btn) {
-  const wrap = btn.closest('.blank-wrap');
-  const input = wrap.querySelector('.blank-input');
-  const reveal = wrap.querySelector('.answer-reveal');
-  const correct = normalize(input.dataset.answer);
-  const val = normalize(input.value);
+  // ── Helpers ────────────────────────────────────────────
+  function norm(s) { return (s || '').trim().toLowerCase().replace(/['']/g, "'"); }
 
-  if (!val) return;
-
-  if (val === correct) {
-    input.classList.remove('incorrect');
-    input.classList.add('correct');
-    reveal.classList.remove('show');
-    reveal.textContent = '';
-  } else {
-    input.classList.remove('correct');
-    input.classList.add('incorrect');
-    reveal.textContent = '→ ' + input.dataset.answer;
-    reveal.classList.add('show');
+  function getChip(unitEl, word) {
+    return [...unitEl.querySelectorAll('.word-chip')].find(c => c.dataset.word === word) || null;
   }
 
-  btn.disabled = true;
-  const unitEl = input.closest('.narrative-unit');
-  const unitId = unitEl.id;
-  const scoreId = 'score' + unitId.replace('unit','');
-  const total = unitEl.querySelectorAll('.blank-input').length;
-  updateScore(unitEl, scoreId, total);
-}
+  function markUsed(unitEl, word) {
+    const c = getChip(unitEl, word);
+    if (c) c.classList.add('used');
+  }
 
-function updateScore(unitEl, scoreId, total) {
-  const correct = unitEl.querySelectorAll('.blank-input.correct').length;
-  document.getElementById(scoreId).textContent = correct + ' / ' + total + ' correct';
-}
+  function markFree(unitEl, word) {
+    const c = getChip(unitEl, word);
+    if (c) c.classList.remove('used', 'selected');
+  }
 
-function checkAll(unitId, scoreId, total) {
-  const unitEl = document.getElementById(unitId);
-  const inputs = unitEl.querySelectorAll('.blank-input');
-  inputs.forEach(function(input) {
-    const wrap = input.closest('.blank-wrap');
-    const btn = wrap.querySelector('.check-btn');
-    const reveal = wrap.querySelector('.answer-reveal');
-    const correct = normalize(input.dataset.answer);
-    const val = normalize(input.value);
+  function placeWord(slot, word) {
+    const unitEl = slot.closest('.narrative-unit');
+    // if slot already has a word, free it first
+    if (slot.dataset.current) { markFree(unitEl, slot.dataset.current); }
+    slot.textContent = word;
+    slot.dataset.current = word;
+    slot.classList.add('filled');
+    slot.classList.remove('correct', 'incorrect', 'drag-over', 'selected-target');
+    slot.setAttribute('draggable', 'true');
+    // hide any hint
+    const hint = slot.closest('.slot-wrap').querySelector('.slot-hint');
+    if (hint) { hint.textContent = ''; hint.classList.remove('show'); }
+    markUsed(unitEl, word);
+    updateScore(unitEl);
+  }
 
-    if (val === correct) {
-      input.classList.remove('incorrect');
-      input.classList.add('correct');
-      reveal.classList.remove('show');
-      reveal.textContent = '';
-    } else {
-      input.classList.remove('correct');
-      input.classList.add('incorrect');
-      reveal.textContent = '→ ' + input.dataset.answer;
-      reveal.classList.add('show');
-    }
-    btn.disabled = true;
+  function clearSlot(slot) {
+    const unitEl = slot.closest('.narrative-unit');
+    const word = slot.dataset.current;
+    if (word) markFree(unitEl, word);
+    slot.textContent = '';
+    delete slot.dataset.current;
+    slot.classList.remove('filled', 'correct', 'incorrect', 'drag-over', 'selected-target');
+    slot.removeAttribute('draggable');
+    const hint = slot.closest('.slot-wrap').querySelector('.slot-hint');
+    if (hint) { hint.textContent = ''; hint.classList.remove('show'); }
+    updateScore(unitEl);
+  }
+
+  function updateScore(unitEl) {
+    const id = unitEl.id.replace('unit', '');
+    const scoreEl = document.getElementById('score' + id);
+    const slots = unitEl.querySelectorAll('.drop-zone');
+    const correct = [...slots].filter(s => s.classList.contains('correct')).length;
+    const total = slots.length;
+    scoreEl.textContent = correct + ' / ' + total + ' correct';
+  }
+
+  // ── Init all chips ─────────────────────────────────────
+  document.querySelectorAll('.word-chip').forEach(chip => {
+
+    // DRAG START from bank
+    chip.addEventListener('dragstart', e => {
+      if (chip.classList.contains('used')) { e.preventDefault(); return; }
+      dragWord = chip.dataset.word;
+      dragFromSlot = null;
+      chip.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', dragWord);
+    });
+
+    chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
+
+    // CLICK to select / deselect
+    chip.addEventListener('click', () => {
+      if (chip.classList.contains('used')) return;
+      if (selectedChip === chip) {
+        chip.classList.remove('selected');
+        selectedChip = null;
+      } else {
+        if (selectedChip) selectedChip.classList.remove('selected');
+        selectedChip = chip;
+        chip.classList.add('selected');
+      }
+    });
   });
-  updateScore(unitEl, scoreId, total);
-}
 
-function resetUnit(unitId, scoreId, total) {
-  const unitEl = document.getElementById(unitId);
-  const inputs = unitEl.querySelectorAll('.blank-input');
-  inputs.forEach(function(input) {
-    const wrap = input.closest('.blank-wrap');
-    const btn = wrap.querySelector('.check-btn');
-    const reveal = wrap.querySelector('.answer-reveal');
-    input.value = '';
-    input.classList.remove('correct','incorrect');
-    reveal.classList.remove('show');
-    reveal.textContent = '';
-    btn.disabled = false;
+  // ── Init all drop zones ────────────────────────────────
+  document.querySelectorAll('.drop-zone').forEach(slot => {
+
+    // Allow drag over
+    slot.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      slot.classList.add('drag-over');
+    });
+
+    slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
+
+    // Drop from bank chip or from another slot
+    slot.addEventListener('drop', e => {
+      e.preventDefault();
+      slot.classList.remove('drag-over');
+      const word = e.dataTransfer.getData('text/plain');
+      if (!word) return;
+
+      // if dragging from another slot, clear that slot first
+      if (dragFromSlot && dragFromSlot !== slot) {
+        const prev = dragFromSlot.dataset.current;
+        dragFromSlot.textContent = '';
+        delete dragFromSlot.dataset.current;
+        dragFromSlot.classList.remove('filled', 'correct', 'incorrect');
+        dragFromSlot.removeAttribute('draggable');
+        // don't free chip from bank — it's still "used" (being moved)
+      }
+
+      placeWord(slot, word);
+      dragWord = null;
+      dragFromSlot = null;
+    });
+
+    // Drag start FROM a filled slot
+    slot.addEventListener('dragstart', e => {
+      if (!slot.dataset.current) { e.preventDefault(); return; }
+      dragWord = slot.dataset.current;
+      dragFromSlot = slot;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', dragWord);
+      slot.classList.add('dragging');
+    });
+
+    slot.addEventListener('dragend', () => {
+      slot.classList.remove('dragging', 'drag-over');
+      // if drop never fired (dropped outside), restore
+      if (dragFromSlot === slot && slot.dataset.current === dragWord) {
+        // nothing changed; keep as-is
+      }
+      dragFromSlot = null;
+      dragWord = null;
+    });
+
+    // CLICK: place selected chip, or clear filled slot
+    slot.addEventListener('click', e => {
+      // if checked already, don't interact
+      if (slot.classList.contains('correct')) return;
+
+      if (selectedChip) {
+        // place the selected chip
+        const word = selectedChip.dataset.word;
+        selectedChip.classList.remove('selected');
+        selectedChip = null;
+        placeWord(slot, word);
+      } else if (slot.dataset.current) {
+        // return word to bank
+        clearSlot(slot);
+      }
+    });
   });
-  document.getElementById(scoreId).textContent = '0 / ' + total + ' correct';
-}
+
+  // ── Check All ──────────────────────────────────────────
+  window.checkAll = function (unitId, scoreId) {
+    const unitEl = document.getElementById(unitId);
+    const slots = unitEl.querySelectorAll('.drop-zone');
+    let correct = 0;
+    slots.forEach(slot => {
+      slot.classList.remove('correct', 'incorrect');
+      const hint = slot.closest('.slot-wrap').querySelector('.slot-hint');
+      const answer = slot.dataset.answer;
+      const filled = slot.dataset.current || '';
+      if (norm(filled) === norm(answer)) {
+        slot.classList.add('correct');
+        if (hint) { hint.textContent = ''; hint.classList.remove('show'); }
+        correct++;
+      } else {
+        slot.classList.add('incorrect');
+        if (hint) { hint.textContent = '→ ' + answer; hint.classList.add('show'); }
+      }
+    });
+    const total = slots.length;
+    document.getElementById(scoreId).textContent = correct + ' / ' + total + ' correct';
+  };
+
+  // ── Reset ──────────────────────────────────────────────
+  window.resetUnit = function (unitId, scoreId) {
+    const unitEl = document.getElementById(unitId);
+    // clear slots
+    unitEl.querySelectorAll('.drop-zone').forEach(slot => {
+      slot.textContent = '';
+      delete slot.dataset.current;
+      slot.classList.remove('filled', 'correct', 'incorrect', 'drag-over', 'selected-target');
+      slot.removeAttribute('draggable');
+      const hint = slot.closest('.slot-wrap').querySelector('.slot-hint');
+      if (hint) { hint.textContent = ''; hint.classList.remove('show'); }
+    });
+    // restore all chips
+    unitEl.querySelectorAll('.word-chip').forEach(chip => {
+      chip.classList.remove('used', 'selected', 'dragging');
+    });
+    if (selectedChip && selectedChip.closest('#' + unitId)) selectedChip = null;
+    const total = unitEl.querySelectorAll('.drop-zone').length;
+    document.getElementById(scoreId).textContent = '0 / ' + total + ' correct';
+  };
+
+  // ── Touch support (mobile) ─────────────────────────────
+  // Uses click-based selection as primary mobile interaction;
+  // slots highlight when a chip is selected so students know to tap.
+  document.querySelectorAll('.word-chip').forEach(chip => {
+    chip.addEventListener('touchend', e => {
+      e.preventDefault();
+      chip.click();
+    }, { passive: false });
+  });
+
+  document.querySelectorAll('.drop-zone').forEach(slot => {
+    slot.addEventListener('touchend', e => {
+      e.preventDefault();
+      slot.click();
+    }, { passive: false });
+  });
+
+})();
 </script>
 
 </body>

@@ -56,10 +56,10 @@ button{font-family:inherit;cursor:pointer}
 .pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
 
 /* HERO */
-.hero{position:relative;min-height:64vh;display:flex;align-items:center;justify-content:center;
+.hero{position:relative;display:flex;align-items:center;justify-content:center;
   background:linear-gradient(to bottom,rgba(249,246,239,.88) 0%,rgba(243,236,224,.92) 100%),
   url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Simple_globe_schematic.svg/1280px-Simple_globe_schematic.svg.png") center/cover no-repeat;
-  padding:90px 24px 60px;border-bottom:3px solid var(--border2)}
+  padding:48px 24px 40px;border-bottom:3px solid var(--border2)}
 .hero-inner{text-align:center;max-width:720px;margin:0 auto}
 .hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:16px;border:1px solid rgba(176,0,28,.35);display:inline-block;padding:4px 14px;background:rgba(255,255,255,.6)}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.0;color:var(--ink);margin-bottom:18px}
@@ -284,8 +284,10 @@ button{font-family:inherit;cursor:pointer}
 .nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
 .nav-item.active .nav-dot{background:var(--red)}
 .sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
-.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;display:flex;flex-direction:column;gap:6px}
-.sb-link{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.45);font-family:'IBM Plex Mono',monospace;font-size:.72rem;text-decoration:none;transition:color .15s;padding:4px 0}
+.sb-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+.sb-back-btn{display:block;background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .15s}
+.sb-back-btn:hover{background:var(--red-d)}
+.sb-link{display:flex;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.4);font-family:'IBM Plex Mono',monospace;font-size:.68rem;text-decoration:none;transition:color .15s;padding:2px 0}
 .sb-link:hover{color:#fff}
 .main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
 .top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
@@ -313,17 +315,13 @@ button{font-family:inherit;cursor:pointer}
     <div class="nav-item" data-target="pg-brain" onclick="showTab('pg-brain')"><span class="nav-dot"></span>Brain Dump</div>
   </nav>
   <div class="sb-footer">
-    <a href="index.html" class="sb-link">← All Units</a>
+    <a href="index.html" class="sb-back-btn">← All Units</a>
     <a href="resources.html" class="sb-link">→ Resources</a>
   </div>
 </aside>
 <div class="main-wrap">
 <div class="top-bar">
-  <div>
-    <div class="top-bar-title" id="top-title">Overview</div>
-    <div class="top-bar-sub">Unit 9 — Globalization · c. 1900–present</div>
-  </div>
-  <span class="top-bar-tag">AP World History</span>
+  <div class="top-bar-title" id="top-title">Overview</div>
 </div>
 
 <!-- ══ HOME PAGE ══ -->
@@ -331,55 +329,11 @@ button{font-family:inherit;cursor:pointer}
 
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-eyebrow">AP World History: Modern</div>
-      <h1>Unit 9<br/><em>Globalization</em></h1>
-      <div class="hero-rule"></div>
       <p class="hero-sub">Technology, economy, culture, disease, multinational institutions, and reform — all woven together by the forces of an interconnected world.</p>
-      <p class="hero-period">c. 1900 &ndash; Present</p>
-      <div class="hero-btns" style="margin-top:28px">
+      <div class="hero-btns" style="margin-top:24px">
         <button class="hero-btn hero-btn-primary" data-tab="pg-web">&#9881; Explore the Web</button>
         <button class="hero-btn hero-btn-outline" data-tab="pg-guide">&#128214; Study Guide</button>
       </div>
-    </div>
-  </section>
-
-  <section class="features">
-    <div class="features-inner">
-      <div class="section-label">Unit 9 Tools</div>
-      <h2 class="section-heading">What&rsquo;s Inside</h2>
-      <div class="features-grid">
-        <button class="feat" data-tab="pg-web">
-          <div class="feat-icon">&#9881;</div>
-          <div class="feat-name">Globalization Web</div>
-          <div class="feat-desc">Interactive radial chart linking all 6 themes. Click any node for deep-dive content.</div>
-        </button>
-        <button class="feat" data-tab="pg-guide">
-          <div class="feat-icon">&#128214;</div>
-          <div class="feat-name">Study Guide</div>
-          <div class="feat-desc">Accordion sections covering every key concept, cause, and effect for Unit 9.</div>
-        </button>
-        <button class="feat" data-tab="pg-brain">
-          <div class="feat-icon">&#129504;</div>
-          <div class="feat-name">Brain Dump</div>
-          <div class="feat-desc">5-minute timed writing on any globalization theme — build retrieval skills fast.</div>
-        </button>
-        <button class="feat" data-tab="pg-tips">
-          <div class="feat-icon">&#9997;</div>
-          <div class="feat-name">Exam Tips</div>
-          <div class="feat-desc">SAQ and LEQ strategies, complexity point advice, and high-value comparisons.</div>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <section class="home-cta">
-    <h2>Start Reviewing</h2>
-    <p>The AP exam loves Unit 9 for complexity points — globalization connects everything.</p>
-    <div class="home-cta-btns">
-      <button class="cta-btn" data-tab="pg-web">&#9881; Open Web</button>
-      <button class="cta-btn-outline" data-tab="pg-guide">&#128214; Study Guide</button>
-      <button class="cta-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
-      <button class="cta-btn-outline" data-tab="pg-tips">&#9997; Exam Tips</button>
     </div>
   </section>
 

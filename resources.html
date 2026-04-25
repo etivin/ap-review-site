@@ -4,703 +4,987 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>AP Review Resources — APWH: Modern</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;height:100%}
 :root{
-  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --sw:268px;
+  --bg:#f2ede5;--white:#fff;--paper:#f8f4ed;
+  --border:#e0d9cc;--border2:#c8b990;
   --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
-  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
-  --green:#1a6825;--green-bg:#eef7f0;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fff1f3;
   --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
-  --blue:#18336b;--blue-bg:#eef2fb;--blue-light:#c8d6f5;
-  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+  --blue:#18336b;--blue-bg:#eef2fb;--blue-b:#c8d6f5;
+  --sh:0 2px 8px rgba(0,0,0,.07);--shm:0 4px 18px rgba(0,0,0,.11)
 }
-body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;line-height:1.65;min-height:100vh}
-.site-header{background:var(--ink);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:600;box-shadow:0 2px 20px rgba(0,0,0,.4)}
-.header-brand{display:flex;align-items:center;gap:12px}
-.header-badge{background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;flex-shrink:0}
-.header-title{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:rgba(255,255,255,.55);white-space:nowrap}
-.header-title strong{color:#fff}
-.back-link{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(255,255,255,.55);text-decoration:none;transition:color .2s}
-.back-link:hover{color:#fff}
-.hero{background:var(--ink);padding:48px 24px 40px;border-bottom:3px solid var(--red);text-align:center}
-.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:14px;border:1px solid rgba(176,0,28,.35);display:inline-block;padding:4px 14px;background:rgba(255,255,255,.06)}
-.hero h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:900;color:#fff;margin-bottom:10px}
-.hero h1 em{color:var(--red);font-style:italic}
-.hero-rule{width:60px;height:3px;background:var(--red);margin:0 auto 14px}
-.hero-sub{color:rgba(255,255,255,.5);font-size:.9rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.06em}
-.page-content{max-width:960px;margin:0 auto;padding:40px 24px 80px}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;min-height:100%;display:flex}
 
-/* UNIT TABS */
-.unit-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px}
-.unit-tab{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;background:var(--paper);border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .15s}
-.unit-tab:hover{border-color:var(--border2);color:var(--ink)}
-.unit-tab.active{background:var(--red);border-color:var(--red);color:#fff}
+/* ── SIDEBAR ── */
+.sidebar{
+  position:fixed;top:0;left:0;bottom:0;
+  width:var(--sw);
+  background:var(--ink);
+  display:flex;flex-direction:column;
+  overflow-y:auto;z-index:300;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent;
+}
+.sb-brand{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;padding:3px 8px;margin-bottom:8px}
+.sb-title{color:#fff;font-size:.95rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;font-size:.6rem;margin-top:3px}
+.sb-nav{padding:10px 0;flex:1}
+.sb-group-label{padding:12px 18px 3px;font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 18px;
+  color:rgba(255,255,255,.55);
+  cursor:pointer;font-size:.82rem;font-weight:500;
+  border-left:3px solid transparent;
+  transition:all .13s;user-select:none;
+}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(176,0,28,.13)}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.nav-count{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.48rem;background:rgba(255,255,255,.08);padding:2px 6px;border-radius:10px;color:rgba(255,255,255,.4)}
+.nav-item.active .nav-count{background:var(--red);color:#fff}
+.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:8px 0}
+.sb-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sb-back{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.45);font-size:.76rem;text-decoration:none;transition:color .15s}
+.sb-back:hover{color:#fff}
 
-/* UNIT PANEL */
+/* ── MAIN WRAP ── */
+.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── TOP BAR ── */
+.top-bar{
+  background:var(--white);border-bottom:1px solid var(--border);
+  padding:0 30px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+}
+.top-bar-left{}
+.top-bar-title{font-size:.95rem;font-weight:700;color:var(--ink);line-height:1.2}
+.top-bar-period{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.08em;margin-top:1px}
+.top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;padding:4px 12px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
+
+/* ── PAGE ── */
+.page{padding:26px 30px 64px;flex:1}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.stat-card{background:var(--white);border:1px solid var(--border);padding:14px 18px;box-shadow:var(--sh);display:flex;align-items:center;gap:13px}
+.stat-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;font-style:normal}
+.stat-icon.v{background:rgba(176,0,28,.08)}
+.stat-icon.g{background:rgba(212,184,74,.18)}
+.stat-icon.r{background:var(--blue-bg)}
+.stat-info{}
+.stat-label{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.stat-val{font-size:1.4rem;font-weight:700;color:var(--ink);line-height:1}
+
+/* ── RESOURCE SECTIONS ── */
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.res-card{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh)}
+.res-card.full{grid-column:1/-1;border-top:3px solid var(--red)}
+.res-card.games{border-top:3px solid var(--gold-b)}
+.res-card.reading{border-top:3px solid var(--blue-b)}
+.res-card-head{
+  padding:12px 18px 10px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.res-card-title{font-weight:700;font-size:.82rem;display:flex;align-items:center;gap:7px}
+.res-card-title em{font-style:normal;font-size:.9rem}
+.res-cnt{font-family:'IBM Plex Mono',monospace;font-size:.5rem;background:var(--paper);border:1px solid var(--border);padding:2px 7px;color:var(--muted)}
+.res-card-body{padding:13px 18px 15px}
+.res-links{display:flex;flex-wrap:wrap;gap:7px}
+
+/* link chips */
+.rc{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'IBM Plex Mono',monospace;font-size:.63rem;
+  padding:5px 11px;text-decoration:none;
+  border:1px solid;transition:all .14s;white-space:nowrap;
+}
+/* video chip */
+.rc.v{background:var(--ink);border-color:var(--ink);color:#fff}
+.rc.v::before{content:'▶';font-size:.5rem;opacity:.65}
+.rc.v:hover{background:var(--red);border-color:var(--red)}
+/* game chip */
+.rc.gm{background:var(--gold-bg);border-color:var(--gold-b);color:var(--gold)}
+.rc.gm:hover{background:var(--gold-b);border-color:var(--gold-b);color:#fff}
+/* reading chip */
+.rc.rd{background:var(--white);border-color:var(--blue-b);color:var(--blue)}
+.rc.rd:hover{background:var(--blue-bg);border-color:var(--blue)}
+
+/* ── UNIT PANELS ── */
 .unit-panel{display:none}
 .unit-panel.active{display:block}
-.panel-heading{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:4px}
-.panel-sub{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:24px}
+.unit-heading{margin-bottom:20px}
+.unit-heading h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--ink)}
+.unit-heading p{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-top:4px}
 
-/* RESOURCE GROUP */
-.res-group{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:20px 22px 18px;margin-bottom:18px;box-shadow:var(--sh)}
-.res-group-label{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-.res-links{display:flex;flex-wrap:wrap;gap:8px}
-.res-link{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;padding:5px 13px;background:var(--paper);border:1px solid var(--border);color:var(--blue);text-decoration:none;transition:all .15s;white-space:nowrap}
-.res-link:hover{background:var(--blue-bg);border-color:var(--blue-light);color:var(--blue)}
-.res-link.yt{background:var(--ink);color:#fff;border-color:var(--ink)}
-.res-link.yt:hover{background:#b00;border-color:#b00}
-.res-link.game{background:var(--gold-bg);border-color:var(--gold-b);color:var(--gold)}
-.res-link.game:hover{background:var(--gold-b);color:#fff}
+/* ── GLOBAL PANELS ── */
+.global-section{display:none}
+.global-section.active{display:block}
 
-/* GLOBAL SECTIONS */
-.section-heading{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin:40px 0 6px;padding-top:32px;border-top:2px solid var(--border)}
-.section-sub{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
-.global-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--gold);padding:20px 22px 18px;margin-bottom:18px;box-shadow:var(--sh)}
-.global-card-title{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.list-plain{list-style:none;padding:0}
-.list-plain li{margin-bottom:6px;font-size:.9rem}
-.list-plain li a{color:var(--blue);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.7rem}
+/* ── SECTION HEADERS ── */
+.sec-head{margin:0 0 16px}
+.sec-head h2{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700}
+.sec-head p{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+
+/* global card grid */
+.g-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:8px}
+.g-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--gold-b);box-shadow:var(--sh)}
+.g-card-head{padding:11px 16px 9px;border-bottom:1px solid var(--border)}
+.g-card-title{font-weight:700;font-size:.8rem}
+.g-card-body{padding:11px 16px 13px}
+.g-card .res-links .rc{background:var(--ink);border-color:var(--ink);color:#fff;font-size:.62rem}
+.g-card .res-links .rc::before{content:'▶';font-size:.48rem;opacity:.6}
+.g-card .res-links .rc:hover{background:var(--red);border-color:var(--red)}
+.g-card .res-links .rc.gm{background:var(--gold-bg);border-color:var(--gold-b);color:var(--gold)}
+.g-card .res-links .rc.gm::before{content:none}
+.g-card .res-links .rc.gm:hover{background:var(--gold-b);color:#fff}
+
+/* DBQ */
+.dbq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.dbq-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--blue-b);padding:14px 16px;box-shadow:var(--sh)}
+.dbq-yr{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.dbq-yr strong{display:block;font-size:.85rem;font-weight:700;color:var(--blue);letter-spacing:0;margin-bottom:8px}
+.dbq-card .res-links .rc{background:var(--white);border-color:var(--blue-b);color:var(--blue);font-size:.6rem}
+.dbq-card .res-links .rc:hover{background:var(--blue-bg)}
+
+/* list plain */
+.list-plain{list-style:none}
+.list-plain li{border-bottom:1px solid var(--border);padding:7px 0;font-size:.82rem}
+.list-plain li:last-child{border-bottom:none}
+.list-plain li a{color:var(--blue);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem}
 .list-plain li a:hover{text-decoration:underline}
-.dbq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:4px}
-.dbq-item{background:var(--paper);border:1px solid var(--border);padding:12px 14px}
-.dbq-year{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;color:var(--muted);margin-bottom:6px}
-.dbq-item .res-links{gap:6px}
 
-.site-footer{background:var(--ink);padding:18px 24px;text-align:center}
-.site-footer p{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+/* FOOTER */
+.site-footer{background:var(--ink);padding:16px 30px;margin-left:0}
+.site-footer p{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+
+/* Mobile */
+@media(max-width:800px){
+  body{flex-direction:column}
+  .sidebar{position:relative;width:100%;height:auto}
+  .main-wrap{margin-left:0}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .res-grid{grid-template-columns:1fr}
+  .res-card.full{grid-column:1}
+  .g-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-brand">
-    <div class="header-badge">APWH</div>
-    <div class="header-title">AP World History: Modern &nbsp;&mdash;&nbsp; <strong>Review Resources</strong></div>
-  </div>
-  <a href="index.html" class="back-link">&#8592; All Units</a>
-</header>
-
-<div class="hero">
-  <div class="hero-eyebrow">AP World History: Modern</div>
-  <h1>Linked <em>Review</em> Sources</h1>
-  <div class="hero-rule"></div>
-  <p class="hero-sub">Videos &bull; Flashcards &bull; Games &bull; DBQ Practice &bull; Skill Resources</p>
-</div>
-
-<div class="page-content">
-
-  <!-- UNIT TABS -->
-  <div class="unit-tabs">
-    <button class="unit-tab active" data-unit="0" onclick="showUnit(0)">Unit 0</button>
-    <button class="unit-tab" data-unit="1" onclick="showUnit(1)">Unit 1</button>
-    <button class="unit-tab" data-unit="2" onclick="showUnit(2)">Unit 2</button>
-    <button class="unit-tab" data-unit="3" onclick="showUnit(3)">Unit 3</button>
-    <button class="unit-tab" data-unit="4" onclick="showUnit(4)">Unit 4</button>
-    <button class="unit-tab" data-unit="5" onclick="showUnit(5)">Unit 5</button>
-    <button class="unit-tab" data-unit="6" onclick="showUnit(6)">Unit 6</button>
-    <button class="unit-tab" data-unit="7" onclick="showUnit(7)">Unit 7</button>
-    <button class="unit-tab" data-unit="8" onclick="showUnit(8)">Unit 8</button>
-    <button class="unit-tab" data-unit="9" onclick="showUnit(9)">Unit 9</button>
+<!-- ════════════════ SIDEBAR ════════════════ -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">Review Resources</div>
+    <div class="sb-sub">AP World History: Modern</div>
   </div>
 
-  <!-- UNIT 0 -->
-  <div class="unit-panel active" id="unit0">
-    <div class="panel-heading">Unit 0 &mdash; Foundations</div>
-    <div class="panel-sub">Pre-1200 Background</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVLBpD1Rkc04M8G5Pn4bSVH" target="_blank">Heimler Unit 0</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7Ljy_PAV50QnMlHZskWI5x3G" target="_blank">Tripp — Period 0 Playlist</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=ym48Jr7SYD8&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=2" target="_blank">Anti-Social Studies Unit 0</a>
-      </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Pre-1200</div>
+    <div class="nav-item active" onclick="showPanel('unit0',this)" data-title="Unit 0 — Foundations" data-period="Pre-1200 Background">
+      <span class="nav-dot"></span>Unit 0 — Foundations
+      <span class="nav-count">3v</span>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link game" href="https://create.kahoot.it/details/ap-world-600-1450/69f9ce7a-4a44-4aad-a183-606a2cecd042" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://wayground.com/admin/quiz/68ace923199245c70b8ddcdf" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/68ace299851586064b77cbe8" target="_blank">Gimkit</a>
-      </div>
+
+    <div class="sb-group-label">1200–1450</div>
+    <div class="nav-item" onclick="showPanel('unit1',this)" data-title="Unit 1 — The Global Tapestry" data-period="1200–1450">
+      <span class="nav-dot"></span>Unit 1 — Global Tapestry
+      <span class="nav-count">11v</span>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/foundations-to-600-bce" target="_blank">Freeman-Pedia: Foundations</a>
-        <a class="res-link" href="https://www.freeman-pedia.com/classical-600-bce-600-ce" target="_blank">Freeman-Pedia: Classical</a>
-        <a class="res-link" href="https://www.freeman-pedia.com/early-modern-600-ce-to-1450-ce" target="_blank">Freeman-Pedia: Post-Classical</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history/ap-world-history-beginnings" target="_blank">Khan Academy: Beginnings</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history/ap-ancient-medieval" target="_blank">Khan Academy: 600 BCE–600 CE</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history/600-1450-regional-and-interregional-interactions#copy-of-byzantine-empire" target="_blank">Khan Academy: 600–1450</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer1-2to600ce.pdf" target="_blank">Cram Packet (to 600 CE)</a>
-      </div>
+    <div class="nav-item" onclick="showPanel('unit2',this)" data-title="Unit 2 — Networks of Exchange" data-period="1200–1450">
+      <span class="nav-dot"></span>Unit 2 — Networks of Exchange
+      <span class="nav-count">10v</span>
     </div>
+
+    <div class="sb-group-label">1450–1750</div>
+    <div class="nav-item" onclick="showPanel('unit3',this)" data-title="Unit 3 — Land-Based Empires" data-period="1450–1750">
+      <span class="nav-dot"></span>Unit 3 — Land-Based Empires
+      <span class="nav-count">8v</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('unit4',this)" data-title="Unit 4 — Transoceanic Interconnections" data-period="1450–1750">
+      <span class="nav-dot"></span>Unit 4 — Transoceanic
+      <span class="nav-count">9v</span>
+    </div>
+
+    <div class="sb-group-label">1750–1900</div>
+    <div class="nav-item" onclick="showPanel('unit5',this)" data-title="Unit 5 — Revolutions" data-period="1750–1900">
+      <span class="nav-dot"></span>Unit 5 — Revolutions
+      <span class="nav-count">9v</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('unit6',this)" data-title="Unit 6 — Consequences of Industrialization" data-period="1750–1900">
+      <span class="nav-dot"></span>Unit 6 — Industrialization
+      <span class="nav-count">9v</span>
+    </div>
+
+    <div class="sb-group-label">1900–Present</div>
+    <div class="nav-item" onclick="showPanel('unit7',this)" data-title="Unit 7 — Global Conflict" data-period="1900–Present">
+      <span class="nav-dot"></span>Unit 7 — Global Conflict
+      <span class="nav-count">5v</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('unit8',this)" data-title="Unit 8 — Cold War &amp; Decolonization" data-period="1900–Present">
+      <span class="nav-dot"></span>Unit 8 — Cold War
+      <span class="nav-count">10v</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('unit9',this)" data-title="Unit 9 — Globalization" data-period="1900–Present">
+      <span class="nav-dot"></span>Unit 9 — Globalization
+      <span class="nav-count">11v</span>
+    </div>
+
+    <div class="sb-divider"></div>
+    <div class="sb-group-label">Global</div>
+    <div class="nav-item" onclick="showPanel('global-full',this)" data-title="Full Course Review Videos" data-period="All Units">
+      <span class="nav-dot"></span>Full Course Videos
+    </div>
+    <div class="nav-item" onclick="showPanel('global-skills',this)" data-title="Skill Resources" data-period="DBQ · LEQ · SAQ · MCQ">
+      <span class="nav-dot"></span>Writing &amp; Strategy
+    </div>
+    <div class="nav-item" onclick="showPanel('global-other',this)" data-title="Other Resources" data-period="Study Guides &amp; DBQ Practice">
+      <span class="nav-dot"></span>Other &amp; DBQ Practice
+    </div>
+  </nav>
+
+  <div class="sb-footer">
+    <a href="index.html" class="sb-back">&#8592; Back to All Units</a>
+  </div>
+</aside>
+
+<!-- ════════════════ MAIN ════════════════ -->
+<div class="main-wrap">
+
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="top-bar-title" id="top-title">Unit 0 — Foundations</div>
+      <div class="top-bar-period" id="top-period">Pre-1200 Background</div>
+    </div>
+    <div class="top-bar-tag">AP World History: Modern</div>
   </div>
 
-  <!-- UNIT 1 -->
-  <div class="unit-panel" id="unit1">
-    <div class="panel-heading">Unit 1 &mdash; The Global Tapestry</div>
-    <div class="panel-sub">1200–1450</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDUKsY0KFUEvmFCs8aCj0RO5" target="_blank">Heimler Unit 1</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=i2-ceqnQEcQ&list=PLF83AAnuW0t36pgjsrFRwZiWLTi3d7bkO&pp=iAQB" target="_blank">Freeman-Pedia Unit 1</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LieaC0JwaRzdF23993xWZSl" target="_blank">Tripp — Period 1</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=v70xuFJUyV0&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=3" target="_blank">Anti-Social Studies Unit 1</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=C38IsYfoZyw&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=4" target="_blank">Anti-Social 1.2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=L3mGEgYcQBU&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=5" target="_blank">Anti-Social 1.3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=ekmzvVELI7Y&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=6" target="_blank">Anti-Social 1.4</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=jm3mnFqTf6o" target="_blank">Steph Gorges Unit 1</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=ZnW08UiYcBU&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=14" target="_blank">CollegeBoard 1.1 &amp; 1.3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=EY0Ie7-BPeg&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=15" target="_blank">CollegeBoard 1.2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=BxlZrn5Dwdw&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=16" target="_blank">CollegeBoard 1.4–1.6</a>
-      </div>
-    </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/418887282/ap-world-history-unit-1-global-tapestry-flash-cards/?x=1jqt" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/425937280/ap-modern-world-history-unit-1-1200-1450-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/share/apwh-modern-unit-1-1200-1450-review/3b71db8d-1ba8-4f4b-8b40-1ea9f5d0b9c7" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/5d8e17e73ca057001a7ed2ae/ap-world-global-tapestry-unit-1" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/656f71e7944cce002be28a9a" target="_blank">Gimkit</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/60820b13572889001b70d385" target="_blank">Blooket (Period 1)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/607da931d865bb0021935d4b" target="_blank">Blooket (Unit 1)</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-Nv7PaRiYltQ8tPeGgKp" target="_blank">Connections Game</a>
-      </div>
-    </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/global-tapestry-12001450" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history/600-1450-regional-and-interregional-interactions#copy-of-byzantine-empire" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer3to1450.pdf" target="_blank">Cram Packet (Units 1–2)</a>
-        <a class="res-link" href="https://docs.google.com/document/d/1CFLwBJwmQ85FMAKwgBGtIbRJc23pco1C/edit?usp=sharing&ouid=114019865951099543617&rtpof=true&sd=true" target="_blank">Cram Packet (Alt Doc)</a>
-      </div>
-    </div>
-  </div>
+  <div class="page">
 
-  <!-- UNIT 2 -->
-  <div class="unit-panel" id="unit2">
-    <div class="panel-heading">Unit 2 &mdash; Networks of Exchange</div>
-    <div class="panel-sub">1200–1450</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVlP4J7Zn1_LFTm_-8bkxpN" target="_blank">Heimler Unit 2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=CfYEwCxih7s&list=PLF83AAnuW0t0VpmL0TnBCdUuLLZDOWF0Q&pp=iAQB" target="_blank">Freeman-Pedia Unit 2</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LieaC0JwaRzdF23993xWZSl" target="_blank">Tripp — Period 1</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=J7rIGdv6Tgo&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=7" target="_blank">Anti-Social Studies Unit 2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=kesW9YAtVKA&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=8" target="_blank">Anti-Social 2.1</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=GcwPqcaCY44&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=9" target="_blank">Anti-Social 2.3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=7Q-3PnvbcsM" target="_blank">Steph Gorges Unit 2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=Ymgv8rNiMHQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=8" target="_blank">CollegeBoard 2.1 &amp; 2.3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=O2I16QbYFz0&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=9" target="_blank">CollegeBoard 2.2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=nFElmT6fnWM&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=10" target="_blank">CollegeBoard 2.5 &amp; 2.6</a>
+    <!-- ── UNIT 0 ── -->
+    <div class="unit-panel active" id="unit0">
+      <div class="unit-heading">
+        <h2>Unit 0 — Foundations</h2>
+        <p>Pre-1200 Background</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon v">▶</div>
+          <div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">3</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon g">🎮</div>
+          <div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">3</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon r">📖</div>
+          <div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">7</div></div>
+        </div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head">
+            <div class="res-card-title"><em>▶</em> Videos</div>
+            <span class="res-cnt">3 links</span>
+          </div>
+          <div class="res-card-body">
+            <div class="res-links">
+              <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVLBpD1Rkc04M8G5Pn4bSVH" target="_blank">Heimler Unit 0</a>
+              <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7Ljy_PAV50QnMlHZskWI5x3G" target="_blank">Tripp — Period 0 Playlist</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=ym48Jr7SYD8&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=2" target="_blank">Anti-Social Studies Unit 0</a>
+            </div>
+          </div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head">
+            <div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div>
+            <span class="res-cnt">3 links</span>
+          </div>
+          <div class="res-card-body">
+            <div class="res-links">
+              <a class="rc gm" href="https://create.kahoot.it/details/ap-world-600-1450/69f9ce7a-4a44-4aad-a183-606a2cecd042" target="_blank">Kahoot</a>
+              <a class="rc gm" href="https://wayground.com/admin/quiz/68ace923199245c70b8ddcdf" target="_blank">Quizizz</a>
+              <a class="rc gm" href="https://www.gimkit.com/view/68ace299851586064b77cbe8" target="_blank">Gimkit</a>
+            </div>
+          </div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head">
+            <div class="res-card-title"><em>📖</em> Reading &amp; Notes</div>
+            <span class="res-cnt">7 links</span>
+          </div>
+          <div class="res-card-body">
+            <div class="res-links">
+              <a class="rc rd" href="https://www.freeman-pedia.com/foundations-to-600-bce" target="_blank">Freeman-Pedia: Foundations</a>
+              <a class="rc rd" href="https://www.freeman-pedia.com/classical-600-bce-600-ce" target="_blank">Freeman-Pedia: Classical</a>
+              <a class="rc rd" href="https://www.freeman-pedia.com/early-modern-600-ce-to-1450-ce" target="_blank">Freeman-Pedia: Post-Classical</a>
+              <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history/ap-world-history-beginnings" target="_blank">Khan: Beginnings</a>
+              <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history/ap-ancient-medieval" target="_blank">Khan: 600 BCE–600 CE</a>
+              <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history/600-1450-regional-and-interregional-interactions#copy-of-byzantine-empire" target="_blank">Khan: 600–1450</a>
+              <a class="rc rd" href="http://www.teacheroz.com/CramPer1-2to600ce.pdf" target="_blank">Cram Packet (to 600 CE)</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/425833831/ap-world-history-unit-2-networks-of-exchange-flash-cards/" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/436316285/ap-world-modern-unit-2-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/share/2020-apwh-modern-unit-2-1200-1450-review/3c2a760f-ff83-4b55-97ba-3e797ea44a47" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/5cab8726140cc5001ac5ff40/ap-world-unit-2-review" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/656f71e7944cce002be28a9a" target="_blank">Gimkit (1200–1450)</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/656e4dcbf9ddc500475a6709" target="_blank">Gimkit (Unit 2)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/607ee78237335200213f6e3f" target="_blank">Blooket</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-Nv7Rf8hM9myHtpHb9P6" target="_blank">Connections Game</a>
-      </div>
-    </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/2-networks-of-exchange-12001450" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history/600-1450-regional-and-interregional-interactions#copy-of-byzantine-empire" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer3to1450.pdf" target="_blank">Cram Packet (Units 1–2)</a>
-      </div>
-    </div>
-  </div>
 
-  <!-- UNIT 3 -->
-  <div class="unit-panel" id="unit3">
-    <div class="panel-heading">Unit 3 &mdash; Land-Based Empires</div>
-    <div class="panel-sub">1450–1750</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDXd8x9722rSfw5go8MX2R7z" target="_blank">Heimler Unit 3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=CbJbNIH7ZKg&list=PLF83AAnuW0t3N6TlyLOHr-ywhdvp_GqLe&pp=iAQB" target="_blank">Freeman-Pedia Unit 3</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjJpt8kATwU28_w49gSLsVt" target="_blank">Tripp — Period 2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=UgcxMdsihAk&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=10" target="_blank">Anti-Social Studies Unit 3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=ooBqR24QVCs&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=11" target="_blank">Anti-Social 3.2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=xADCThEiuAo" target="_blank">Steph Gorges Unit 3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=vuQ6-3syLOQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=11" target="_blank">CollegeBoard 3.1 &amp; 3.2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=8HKCIdOj8-c&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=7" target="_blank">CollegeBoard 3.3</a>
+    <!-- ── UNIT 1 ── -->
+    <div class="unit-panel" id="unit1">
+      <div class="unit-heading">
+        <h2>Unit 1 — The Global Tapestry</h2>
+        <p>1200–1450</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon v">▶</div>
+          <div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">11</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon g">🎮</div>
+          <div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">8</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon r">📖</div>
+          <div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">4</div></div>
+        </div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head">
+            <div class="res-card-title"><em>▶</em> Videos</div>
+            <span class="res-cnt">11 links</span>
+          </div>
+          <div class="res-card-body">
+            <div class="res-links">
+              <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDUKsY0KFUEvmFCs8aCj0RO5" target="_blank">Heimler Unit 1</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=i2-ceqnQEcQ&list=PLF83AAnuW0t36pgjsrFRwZiWLTi3d7bkO&pp=iAQB" target="_blank">Freeman-Pedia Unit 1</a>
+              <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LieaC0JwaRzdF23993xWZSl" target="_blank">Tripp — Period 1</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=v70xuFJUyV0&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=3" target="_blank">Anti-Social Unit 1</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=C38IsYfoZyw&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=4" target="_blank">Anti-Social 1.2</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=L3mGEgYcQBU&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=5" target="_blank">Anti-Social 1.3</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=ekmzvVELI7Y&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=6" target="_blank">Anti-Social 1.4</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=ZnW08UiYcBU&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=14" target="_blank">CollegeBoard 1.1 &amp; 1.3</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=EY0Ie7-BPeg&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=15" target="_blank">CollegeBoard 1.2</a>
+              <a class="rc v" href="https://www.youtube.com/watch?v=BxlZrn5Dwdw&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=16" target="_blank">CollegeBoard 1.4–1.6</a>
+            </div>
+          </div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head">
+            <div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div>
+            <span class="res-cnt">8 links</span>
+          </div>
+          <div class="res-card-body">
+            <div class="res-links">
+              <a class="rc rd" href="https://quizlet.com/418887282/ap-world-history-unit-1-global-tapestry-flash-cards/?x=1jqt" target="_blank">Quizlet (Set 1)</a>
+              <a class="rc rd" href="https://quizlet.com/425937280/ap-modern-world-history-unit-1-1200-1450-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+              <a class="rc gm" href="https://create.kahoot.it/share/apwh-modern-unit-1-1200-1450-review/3b71db8d-1ba8-4f4b-8b40-1ea9f5d0b9c7" target="_blank">Kahoot</a>
+              <a class="rc gm" href="https://quizizz.com/admin/quiz/5d8e17e73ca057001a7ed2ae/ap-world-global-tapestry-unit-1" target="_blank">Quizizz</a>
+              <a class="rc gm" href="https://www.gimkit.com/view/656f71e7944cce002be28a9a" target="_blank">Gimkit</a>
+              <a class="rc gm" href="https://dashboard.blooket.com/set/60820b13572889001b70d385" target="_blank">Blooket (Period 1)</a>
+              <a class="rc gm" href="https://dashboard.blooket.com/set/607da931d865bb0021935d4b" target="_blank">Blooket (Unit 1)</a>
+              <a class="rc gm" href="https://connections.swellgarfo.com/game/-Nv7PaRiYltQ8tPeGgKp" target="_blank">Connections Game</a>
+            </div>
+          </div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head">
+            <div class="res-card-title"><em>📖</em> Reading &amp; Notes</div>
+            <span class="res-cnt">4 links</span>
+          </div>
+          <div class="res-card-body">
+            <div class="res-links">
+              <a class="rc rd" href="https://www.freeman-pedia.com/global-tapestry-12001450" target="_blank">Freeman-Pedia</a>
+              <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history/600-1450-regional-and-interregional-interactions#copy-of-byzantine-empire" target="_blank">Khan Academy</a>
+              <a class="rc rd" href="http://www.teacheroz.com/CramPer3to1450.pdf" target="_blank">Cram Packet (Units 1–2)</a>
+              <a class="rc rd" href="https://docs.google.com/document/d/1CFLwBJwmQ85FMAKwgBGtIbRJc23pco1C/edit?usp=sharing&ouid=114019865951099543617&rtpof=true&sd=true" target="_blank">Cram Packet (Alt Doc)</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/439018590/ap-world-history-unit-3-land-based-empires-flash-cards/" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/441571184/ap-modern-world-history-unit-3-1450-1750-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/share/apwh-modern-unit-3-1450-to-1750-review/8ade8c69-fe55-4771-b27d-072b82cd82c9" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/5dc17ce7e58884001b31a88c/ap-world-unit-3-land-based-empires" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/6446b882eb02f30032986405" target="_blank">Gimkit (1450–1750 A)</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/656f4341cdc74a002bf22342" target="_blank">Gimkit (1450–1750 B)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/6082d01407e525002851a507" target="_blank">Blooket (Period 2)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/607f13f410a7a20023a55e1e" target="_blank">Blooket (Unit 3)</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-Nv7ZxJ1nwJvJiUWUvxL" target="_blank">Connections Game</a>
-      </div>
-    </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/3-land-based-empires-14501750" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer4to1750.pdf" target="_blank">Cram Packet (Units 3–4)</a>
-        <a class="res-link" href="https://docs.google.com/document/d/1HjJif1brQKJMIrV3nHY8Nit5nuuSNtUc/edit?usp=sharing&ouid=114019865951099543617&rtpof=true&sd=true" target="_blank">Cram Packet (Alt Doc)</a>
-      </div>
-    </div>
-  </div>
 
-  <!-- UNIT 4 -->
-  <div class="unit-panel" id="unit4">
-    <div class="panel-heading">Unit 4 &mdash; Transoceanic Interconnections</div>
-    <div class="panel-sub">1450–1750</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVG6osVMx-168RjRmHv7eby" target="_blank">Heimler Unit 4</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=GzEwQbuo0ug&list=PLF83AAnuW0t0KgI0AUq1a5HEs-jcbFHAc&pp=iAQB" target="_blank">Freeman-Pedia Unit 4</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjJpt8kATwU28_w49gSLsVt" target="_blank">Tripp — Period 2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=5W-Rp5evBwA&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=12" target="_blank">Anti-Social Studies Unit 4</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=g21Fj-Ds9G0&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=13" target="_blank">Anti-Social 4.2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=mKaRZ_I8WNk" target="_blank">Steph Gorges Unit 4</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=HTsqNGmEGEw&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=6" target="_blank">CollegeBoard 4.1 &amp; 4.2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=aSkGMr_wkKs&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=5" target="_blank">CollegeBoard 4.3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=_TOIO7XOw58&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=4" target="_blank">CollegeBoard 4.4–4.6</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=tgRUvRd-JV8&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=3" target="_blank">CollegeBoard 4.7 &amp; 4.8</a>
+    <!-- ── UNIT 2 ── -->
+    <div class="unit-panel" id="unit2">
+      <div class="unit-heading">
+        <h2>Unit 2 — Networks of Exchange</h2>
+        <p>1200–1450</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon v">▶</div><div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">10</div></div></div>
+        <div class="stat-card"><div class="stat-icon g">🎮</div><div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">8</div></div></div>
+        <div class="stat-card"><div class="stat-icon r">📖</div><div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">3</div></div></div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head"><div class="res-card-title"><em>▶</em> Videos</div><span class="res-cnt">10 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVlP4J7Zn1_LFTm_-8bkxpN" target="_blank">Heimler Unit 2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=CfYEwCxih7s&list=PLF83AAnuW0t0VpmL0TnBCdUuLLZDOWF0Q&pp=iAQB" target="_blank">Freeman-Pedia Unit 2</a>
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LieaC0JwaRzdF23993xWZSl" target="_blank">Tripp — Period 1</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=J7rIGdv6Tgo&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=7" target="_blank">Anti-Social Unit 2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=kesW9YAtVKA&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=8" target="_blank">Anti-Social 2.1</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=GcwPqcaCY44&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=9" target="_blank">Anti-Social 2.3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=Ymgv8rNiMHQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=8" target="_blank">CollegeBoard 2.1 &amp; 2.3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=O2I16QbYFz0&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=9" target="_blank">CollegeBoard 2.2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=nFElmT6fnWM&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=10" target="_blank">CollegeBoard 2.5 &amp; 2.6</a>
+          </div></div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head"><div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div><span class="res-cnt">8 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://quizlet.com/425833831/ap-world-history-unit-2-networks-of-exchange-flash-cards/" target="_blank">Quizlet (Set 1)</a>
+            <a class="rc rd" href="https://quizlet.com/436316285/ap-world-modern-unit-2-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+            <a class="rc gm" href="https://create.kahoot.it/share/2020-apwh-modern-unit-2-1200-1450-review/3c2a760f-ff83-4b55-97ba-3e797ea44a47" target="_blank">Kahoot</a>
+            <a class="rc gm" href="https://quizizz.com/admin/quiz/5cab8726140cc5001ac5ff40/ap-world-unit-2-review" target="_blank">Quizizz</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/656f71e7944cce002be28a9a" target="_blank">Gimkit (1200–1450)</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/656e4dcbf9ddc500475a6709" target="_blank">Gimkit (Unit 2)</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/607ee78237335200213f6e3f" target="_blank">Blooket</a>
+            <a class="rc gm" href="https://connections.swellgarfo.com/game/-Nv7Rf8hM9myHtpHb9P6" target="_blank">Connections Game</a>
+          </div></div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head"><div class="res-card-title"><em>📖</em> Reading &amp; Notes</div><span class="res-cnt">3 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://www.freeman-pedia.com/2-networks-of-exchange-12001450" target="_blank">Freeman-Pedia</a>
+            <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history/600-1450-regional-and-interregional-interactions#copy-of-byzantine-empire" target="_blank">Khan Academy</a>
+            <a class="rc rd" href="http://www.teacheroz.com/CramPer3to1450.pdf" target="_blank">Cram Packet (Units 1–2)</a>
+          </div></div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/447758277/ap-world-history-unit-4-transoceanic-interconnections-flash-cards/" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/347666080/ap-world-history-modern-unit-4-1450-1750-maritime-empires-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/share/2020-apwh-modern-unit-4-1450-to-1750-review/c5417a8a-6d01-46ef-a11e-36a26b590520" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/5e174996b5390a001ba3649a/unit-4-ap-modern-world-history-transoceanic-connections" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/6446b882eb02f30032986405" target="_blank">Gimkit (1450–1750 A)</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/636421036afb940021647d88" target="_blank">Gimkit (Unit 4)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/607f1a41ebd40400213e1af1" target="_blank">Blooket</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-Nv7bK9gHBwyA3kuCzak" target="_blank">Connections Game</a>
-      </div>
-    </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/4-transoceanic-interactions" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer4to1750.pdf" target="_blank">Cram Packet (Units 3–4)</a>
-      </div>
-    </div>
-  </div>
 
-  <!-- UNIT 5 -->
-  <div class="unit-panel" id="unit5">
-    <div class="panel-heading">Unit 5 &mdash; Revolutions</div>
-    <div class="panel-sub">1750–1900</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVqlm9W8s3LiDUJDF_M7eBv" target="_blank">Heimler Unit 5</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=6cW4jus5B6Y&list=PLF83AAnuW0t2EMA-He9KOckNT8wdYg25Z&pp=iAQB" target="_blank">Freeman-Pedia Unit 5</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjY-WIPSkRjOWlJD75jQEPo" target="_blank">Tripp — Period 3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=KdOfQsLJxek&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=14" target="_blank">Anti-Social Studies Unit 5</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=VXlCePQTWPA&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=16" target="_blank">Anti-Social Midterm Review</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=1oXTvcN-g8A" target="_blank">Steph Gorges Unit 5</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=bEWFhtMA2Ts&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=2" target="_blank">CollegeBoard 5.1 &amp; 5.2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=E8DpgBhFklg&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=1" target="_blank">CollegeBoard 5.3–5.6</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=o9CfwQ_3Z80&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=25" target="_blank">CollegeBoard 5.7–5.10</a>
+    <!-- ── UNIT 3 ── -->
+    <div class="unit-panel" id="unit3">
+      <div class="unit-heading"><h2>Unit 3 — Land-Based Empires</h2><p>1450–1750</p></div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon v">▶</div><div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">8</div></div></div>
+        <div class="stat-card"><div class="stat-icon g">🎮</div><div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">9</div></div></div>
+        <div class="stat-card"><div class="stat-icon r">📖</div><div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">4</div></div></div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head"><div class="res-card-title"><em>▶</em> Videos</div><span class="res-cnt">8 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDXd8x9722rSfw5go8MX2R7z" target="_blank">Heimler Unit 3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=CbJbNIH7ZKg&list=PLF83AAnuW0t3N6TlyLOHr-ywhdvp_GqLe&pp=iAQB" target="_blank">Freeman-Pedia Unit 3</a>
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjJpt8kATwU28_w49gSLsVt" target="_blank">Tripp — Period 2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=UgcxMdsihAk&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=10" target="_blank">Anti-Social Unit 3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=ooBqR24QVCs&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=11" target="_blank">Anti-Social 3.2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=vuQ6-3syLOQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=11" target="_blank">CollegeBoard 3.1 &amp; 3.2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=8HKCIdOj8-c&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=7" target="_blank">CollegeBoard 3.3</a>
+          </div></div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head"><div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div><span class="res-cnt">9 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://quizlet.com/439018590/ap-world-history-unit-3-land-based-empires-flash-cards/" target="_blank">Quizlet (Set 1)</a>
+            <a class="rc rd" href="https://quizlet.com/441571184/ap-modern-world-history-unit-3-1450-1750-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+            <a class="rc gm" href="https://create.kahoot.it/share/apwh-modern-unit-3-1450-to-1750-review/8ade8c69-fe55-4771-b27d-072b82cd82c9" target="_blank">Kahoot</a>
+            <a class="rc gm" href="https://quizizz.com/admin/quiz/5dc17ce7e58884001b31a88c/ap-world-unit-3-land-based-empires" target="_blank">Quizizz</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/6446b882eb02f30032986405" target="_blank">Gimkit (1450–1750 A)</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/656f4341cdc74a002bf22342" target="_blank">Gimkit (1450–1750 B)</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/6082d01407e525002851a507" target="_blank">Blooket (Period 2)</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/607f13f410a7a20023a55e1e" target="_blank">Blooket (Unit 3)</a>
+            <a class="rc gm" href="https://connections.swellgarfo.com/game/-Nv7ZxJ1nwJvJiUWUvxL" target="_blank">Connections Game</a>
+          </div></div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head"><div class="res-card-title"><em>📖</em> Reading &amp; Notes</div><span class="res-cnt">4 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://www.freeman-pedia.com/3-land-based-empires-14501750" target="_blank">Freeman-Pedia</a>
+            <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
+            <a class="rc rd" href="http://www.teacheroz.com/CramPer4to1750.pdf" target="_blank">Cram Packet (Units 3–4)</a>
+            <a class="rc rd" href="https://docs.google.com/document/d/1HjJif1brQKJMIrV3nHY8Nit5nuuSNtUc/edit?usp=sharing&ouid=114019865951099543617&rtpof=true&sd=true" target="_blank">Cram Packet (Alt Doc)</a>
+          </div></div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/458630509/ap-world-history-unit-5-revolutions-flash-cards/" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/262629274/ap-world-history-unit-5-industrialization-global-integration-modern-period-1750-1900-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/share/apwh-modern-unit-5-1750-1900-review/42322ec7-8950-4e31-bbd9-4aae12d7bccf" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/5e344623305426001b756f2c/unit-5-ap-world" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/6095a331ac953e0022cdc2eb" target="_blank">Gimkit (1750–1900)</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/63bf0176a14ced003662eb78" target="_blank">Gimkit (5.3–5.9)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/6245ab40ec91d861b86dcb4f" target="_blank">Blooket (Period 3)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/6244917fd5ef50cc0b94f2db" target="_blank">Blooket (Unit 5)</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-Nv7o5X5mowI-0JbwMFd" target="_blank">Connections Game</a>
-      </div>
-    </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/5revolutions" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer5to1900.pdf" target="_blank">Cram Packet (Units 5–6)</a>
-        <a class="res-link" href="https://docs.google.com/document/d/1HOJDUagFbroD84222i9TbA6ETqMlBpMc/edit?usp=sharing&ouid=114019865951099543617&rtpof=true&sd=true" target="_blank">Cram Packet (Alt Doc)</a>
-      </div>
-    </div>
-  </div>
 
-  <!-- UNIT 6 -->
-  <div class="unit-panel" id="unit6">
-    <div class="panel-heading">Unit 6 &mdash; Consequences of Industrialization</div>
-    <div class="panel-sub">1750–1900</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDUcEYepeOH1x30epqrxfHoW" target="_blank">Heimler Unit 6</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=YQNFkJiqz1I&list=PLF83AAnuW0t3YO5Xk255c-2qfKkHxpZ8g&pp=iAQB" target="_blank">Freeman-Pedia Unit 6</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjY-WIPSkRjOWlJD75jQEPo" target="_blank">Tripp — Period 3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=a48aJVCNNUE&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=17" target="_blank">Anti-Social Studies Unit 6</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=Vtj09yca66o&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=18" target="_blank">Anti-Social: Fall of the Qing</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=2raqEXFWyDM" target="_blank">Steph Gorges Unit 6</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=uMzzRt2uoos&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=26" target="_blank">CollegeBoard 6.1–6.3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=v2Jtyww-lkU&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=27" target="_blank">CollegeBoard 6.4 &amp; 6.5</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=FxJPiee9eHo&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=28" target="_blank">CollegeBoard 6.6–6.8</a>
+    <!-- ── UNIT 4 ── -->
+    <div class="unit-panel" id="unit4">
+      <div class="unit-heading"><h2>Unit 4 — Transoceanic Interconnections</h2><p>1450–1750</p></div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon v">▶</div><div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">9</div></div></div>
+        <div class="stat-card"><div class="stat-icon g">🎮</div><div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">8</div></div></div>
+        <div class="stat-card"><div class="stat-icon r">📖</div><div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">3</div></div></div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head"><div class="res-card-title"><em>▶</em> Videos</div><span class="res-cnt">9 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVG6osVMx-168RjRmHv7eby" target="_blank">Heimler Unit 4</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=GzEwQbuo0ug&list=PLF83AAnuW0t0KgI0AUq1a5HEs-jcbFHAc&pp=iAQB" target="_blank">Freeman-Pedia Unit 4</a>
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjJpt8kATwU28_w49gSLsVt" target="_blank">Tripp — Period 2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=5W-Rp5evBwA&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=12" target="_blank">Anti-Social Unit 4</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=g21Fj-Ds9G0&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=13" target="_blank">Anti-Social 4.2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=HTsqNGmEGEw&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=6" target="_blank">CollegeBoard 4.1 &amp; 4.2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=aSkGMr_wkKs&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=5" target="_blank">CollegeBoard 4.3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=_TOIO7XOw58&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=4" target="_blank">CollegeBoard 4.4–4.6</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=tgRUvRd-JV8&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=3" target="_blank">CollegeBoard 4.7 &amp; 4.8</a>
+          </div></div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head"><div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div><span class="res-cnt">8 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://quizlet.com/447758277/ap-world-history-unit-4-transoceanic-interconnections-flash-cards/" target="_blank">Quizlet (Set 1)</a>
+            <a class="rc rd" href="https://quizlet.com/347666080/ap-world-history-modern-unit-4-1450-1750-maritime-empires-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+            <a class="rc gm" href="https://create.kahoot.it/share/2020-apwh-modern-unit-4-1450-to-1750-review/c5417a8a-6d01-46ef-a11e-36a26b590520" target="_blank">Kahoot</a>
+            <a class="rc gm" href="https://quizizz.com/admin/quiz/5e174996b5390a001ba3649a/unit-4-ap-modern-world-history-transoceanic-connections" target="_blank">Quizizz</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/6446b882eb02f30032986405" target="_blank">Gimkit (1450–1750 A)</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/636421036afb940021647d88" target="_blank">Gimkit (Unit 4)</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/607f1a41ebd40400213e1af1" target="_blank">Blooket</a>
+            <a class="rc gm" href="https://connections.swellgarfo.com/game/-Nv7bK9gHBwyA3kuCzak" target="_blank">Connections Game</a>
+          </div></div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head"><div class="res-card-title"><em>📖</em> Reading &amp; Notes</div><span class="res-cnt">3 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://www.freeman-pedia.com/4-transoceanic-interactions" target="_blank">Freeman-Pedia</a>
+            <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
+            <a class="rc rd" href="http://www.teacheroz.com/CramPer4to1750.pdf" target="_blank">Cram Packet (Units 3–4)</a>
+          </div></div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/474610621/ap-world-unit-6-consequences-of-industrialization-flash-cards/" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/413045133/ap-world-history-unit-6-consequences-of-industrialization-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/share/apwh-modern-unit-6-consequences-of-industrialization-1750-1900-test-review/14298753-c415-45cb-b146-9b74af2008d3" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/609d22b3ff7cf1001beae7dc/ap-world-history-unit-6-review" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/6095a331ac953e0022cdc2eb" target="_blank">Gimkit (1750–1900)</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/63dbdb5725a41e0036f2b85f" target="_blank">Gimkit (Unit 6)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/607f2afc1fdded002112f00a" target="_blank">Blooket</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-NvD4OiA1JAYmvwad_xO" target="_blank">Connections Game</a>
-      </div>
-    </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/6consequencesofindustrialization" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer5to1900.pdf" target="_blank">Cram Packet (Units 5–6)</a>
-      </div>
-    </div>
-  </div>
 
-  <!-- UNIT 7 -->
-  <div class="unit-panel" id="unit7">
-    <div class="panel-heading">Unit 7 &mdash; Global Conflict</div>
-    <div class="panel-sub">1900–Present</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDXpIjArszCIqDxXGHApX6WY" target="_blank">Heimler Unit 7</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=jbcQ7jPb8yU&list=PLF83AAnuW0t2uEu-hoM-P9AFfwPay-KtY&pp=iAQB" target="_blank">Freeman-Pedia Unit 7</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjfQ3r4k8ptQC-e-aC7loJ8" target="_blank">Tripp — Period 4</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=oXk-n-VD6Ro&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=19" target="_blank">Anti-Social Studies Unit 7</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=TjibjCUpvMM" target="_blank">Steph Gorges Unit 7</a>
+    <!-- ── UNIT 5 ── -->
+    <div class="unit-panel" id="unit5">
+      <div class="unit-heading"><h2>Unit 5 — Revolutions</h2><p>1750–1900</p></div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon v">▶</div><div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">9</div></div></div>
+        <div class="stat-card"><div class="stat-icon g">🎮</div><div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">9</div></div></div>
+        <div class="stat-card"><div class="stat-icon r">📖</div><div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">4</div></div></div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head"><div class="res-card-title"><em>▶</em> Videos</div><span class="res-cnt">9 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVqlm9W8s3LiDUJDF_M7eBv" target="_blank">Heimler Unit 5</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=6cW4jus5B6Y&list=PLF83AAnuW0t2EMA-He9KOckNT8wdYg25Z&pp=iAQB" target="_blank">Freeman-Pedia Unit 5</a>
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjY-WIPSkRjOWlJD75jQEPo" target="_blank">Tripp — Period 3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=KdOfQsLJxek&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=14" target="_blank">Anti-Social Unit 5</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=VXlCePQTWPA&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=16" target="_blank">Anti-Social Midterm Review</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=bEWFhtMA2Ts&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=2" target="_blank">CollegeBoard 5.1 &amp; 5.2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=E8DpgBhFklg&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=1" target="_blank">CollegeBoard 5.3–5.6</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=o9CfwQ_3Z80&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=25" target="_blank">CollegeBoard 5.7–5.10</a>
+          </div></div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head"><div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div><span class="res-cnt">9 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://quizlet.com/458630509/ap-world-history-unit-5-revolutions-flash-cards/" target="_blank">Quizlet (Set 1)</a>
+            <a class="rc rd" href="https://quizlet.com/262629274/ap-world-history-unit-5-industrialization-global-integration-modern-period-1750-1900-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+            <a class="rc gm" href="https://create.kahoot.it/share/apwh-modern-unit-5-1750-1900-review/42322ec7-8950-4e31-bbd9-4aae12d7bccf" target="_blank">Kahoot</a>
+            <a class="rc gm" href="https://quizizz.com/admin/quiz/5e344623305426001b756f2c/unit-5-ap-world" target="_blank">Quizizz</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/6095a331ac953e0022cdc2eb" target="_blank">Gimkit (1750–1900)</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/63bf0176a14ced003662eb78" target="_blank">Gimkit (5.3–5.9)</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/6245ab40ec91d861b86dcb4f" target="_blank">Blooket (Period 3)</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/6244917fd5ef50cc0b94f2db" target="_blank">Blooket (Unit 5)</a>
+            <a class="rc gm" href="https://connections.swellgarfo.com/game/-Nv7o5X5mowI-0JbwMFd" target="_blank">Connections Game</a>
+          </div></div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head"><div class="res-card-title"><em>📖</em> Reading &amp; Notes</div><span class="res-cnt">4 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://www.freeman-pedia.com/5revolutions" target="_blank">Freeman-Pedia</a>
+            <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
+            <a class="rc rd" href="http://www.teacheroz.com/CramPer5to1900.pdf" target="_blank">Cram Packet (Units 5–6)</a>
+            <a class="rc rd" href="https://docs.google.com/document/d/1HOJDUagFbroD84222i9TbA6ETqMlBpMc/edit?usp=sharing&ouid=114019865951099543617&rtpof=true&sd=true" target="_blank">Cram Packet (Alt Doc)</a>
+          </div></div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/481049019/ap-world-history-unit-7-global-conflict-flash-cards/" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/413205535/ap-world-history-unit-7-global-conflict-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/details/49902c4e-7328-4a42-9384-d5adbc9d16a3" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/5f06434d368ec8001ce58efa/unit-7-global-conflicts-ap-world" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/63fe2b4bb8a0f30032cffc24" target="_blank">Gimkit</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/627a7b5f92c7ecee43dc27af" target="_blank">Blooket (Period 4)</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/607f30d8112e02001e12e42b" target="_blank">Blooket (Unit 7)</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-NvD7p9tKrMDTbJKZUH2" target="_blank">Connections Game</a>
+
+    <!-- ── UNIT 6 ── -->
+    <div class="unit-panel" id="unit6">
+      <div class="unit-heading"><h2>Unit 6 — Consequences of Industrialization</h2><p>1750–1900</p></div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon v">▶</div><div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">9</div></div></div>
+        <div class="stat-card"><div class="stat-icon g">🎮</div><div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">8</div></div></div>
+        <div class="stat-card"><div class="stat-icon r">📖</div><div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">3</div></div></div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head"><div class="res-card-title"><em>▶</em> Videos</div><span class="res-cnt">9 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDUcEYepeOH1x30epqrxfHoW" target="_blank">Heimler Unit 6</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=YQNFkJiqz1I&list=PLF83AAnuW0t3YO5Xk255c-2qfKkHxpZ8g&pp=iAQB" target="_blank">Freeman-Pedia Unit 6</a>
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjY-WIPSkRjOWlJD75jQEPo" target="_blank">Tripp — Period 3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=a48aJVCNNUE&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=17" target="_blank">Anti-Social Unit 6</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=Vtj09yca66o&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=18" target="_blank">Anti-Social: Fall of the Qing</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=uMzzRt2uoos&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=26" target="_blank">CollegeBoard 6.1–6.3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=v2Jtyww-lkU&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=27" target="_blank">CollegeBoard 6.4 &amp; 6.5</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=FxJPiee9eHo&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=28" target="_blank">CollegeBoard 6.6–6.8</a>
+          </div></div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head"><div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div><span class="res-cnt">8 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://quizlet.com/474610621/ap-world-unit-6-consequences-of-industrialization-flash-cards/" target="_blank">Quizlet (Set 1)</a>
+            <a class="rc rd" href="https://quizlet.com/413045133/ap-world-history-unit-6-consequences-of-industrialization-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+            <a class="rc gm" href="https://create.kahoot.it/share/apwh-modern-unit-6-consequences-of-industrialization-1750-1900-test-review/14298753-c415-45cb-b146-9b74af2008d3" target="_blank">Kahoot</a>
+            <a class="rc gm" href="https://quizizz.com/admin/quiz/609d22b3ff7cf1001beae7dc/ap-world-history-unit-6-review" target="_blank">Quizizz</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/6095a331ac953e0022cdc2eb" target="_blank">Gimkit (1750–1900)</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/63dbdb5725a41e0036f2b85f" target="_blank">Gimkit (Unit 6)</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/607f2afc1fdded002112f00a" target="_blank">Blooket</a>
+            <a class="rc gm" href="https://connections.swellgarfo.com/game/-NvD4OiA1JAYmvwad_xO" target="_blank">Connections Game</a>
+          </div></div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head"><div class="res-card-title"><em>📖</em> Reading &amp; Notes</div><span class="res-cnt">3 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://www.freeman-pedia.com/6consequencesofindustrialization" target="_blank">Freeman-Pedia</a>
+            <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
+            <a class="rc rd" href="http://www.teacheroz.com/CramPer5to1900.pdf" target="_blank">Cram Packet (Units 5–6)</a>
+          </div></div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/7-global-conflicts" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer6toPresent.pdf" target="_blank">Cram Packet (Units 7–9)</a>
-        <a class="res-link" href="https://docs.google.com/document/d/1AbtjZqjY3B6-aH1JdkbhfPdbgX7ow97o/edit?usp=sharing&ouid=114019865951099543617&rtpof=true&sd=true" target="_blank">Cram Packet (Alt Doc)</a>
+
+    <!-- ── UNIT 7 ── -->
+    <div class="unit-panel" id="unit7">
+      <div class="unit-heading"><h2>Unit 7 — Global Conflict</h2><p>1900–Present</p></div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon v">▶</div><div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">5</div></div></div>
+        <div class="stat-card"><div class="stat-icon g">🎮</div><div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">8</div></div></div>
+        <div class="stat-card"><div class="stat-icon r">📖</div><div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">4</div></div></div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head"><div class="res-card-title"><em>▶</em> Videos</div><span class="res-cnt">5 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDXpIjArszCIqDxXGHApX6WY" target="_blank">Heimler Unit 7</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=jbcQ7jPb8yU&list=PLF83AAnuW0t2uEu-hoM-P9AFfwPay-KtY&pp=iAQB" target="_blank">Freeman-Pedia Unit 7</a>
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjfQ3r4k8ptQC-e-aC7loJ8" target="_blank">Tripp — Period 4</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=oXk-n-VD6Ro&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=19" target="_blank">Anti-Social Unit 7</a>
+          </div></div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head"><div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div><span class="res-cnt">8 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://quizlet.com/481049019/ap-world-history-unit-7-global-conflict-flash-cards/" target="_blank">Quizlet (Set 1)</a>
+            <a class="rc rd" href="https://quizlet.com/413205535/ap-world-history-unit-7-global-conflict-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+            <a class="rc gm" href="https://create.kahoot.it/details/49902c4e-7328-4a42-9384-d5adbc9d16a3" target="_blank">Kahoot</a>
+            <a class="rc gm" href="https://quizizz.com/admin/quiz/5f06434d368ec8001ce58efa/unit-7-global-conflicts-ap-world" target="_blank">Quizizz</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/63fe2b4bb8a0f30032cffc24" target="_blank">Gimkit</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/627a7b5f92c7ecee43dc27af" target="_blank">Blooket (Period 4)</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/607f30d8112e02001e12e42b" target="_blank">Blooket (Unit 7)</a>
+            <a class="rc gm" href="https://connections.swellgarfo.com/game/-NvD7p9tKrMDTbJKZUH2" target="_blank">Connections Game</a>
+          </div></div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head"><div class="res-card-title"><em>📖</em> Reading &amp; Notes</div><span class="res-cnt">4 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://www.freeman-pedia.com/7-global-conflicts" target="_blank">Freeman-Pedia</a>
+            <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
+            <a class="rc rd" href="http://www.teacheroz.com/CramPer6toPresent.pdf" target="_blank">Cram Packet (Units 7–9)</a>
+            <a class="rc rd" href="https://docs.google.com/document/d/1AbtjZqjY3B6-aH1JdkbhfPdbgX7ow97o/edit?usp=sharing&ouid=114019865951099543617&rtpof=true&sd=true" target="_blank">Cram Packet (Alt Doc)</a>
+          </div></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- UNIT 8 -->
-  <div class="unit-panel" id="unit8">
-    <div class="panel-heading">Unit 8 &mdash; Cold War &amp; Decolonization</div>
-    <div class="panel-sub">1900–Present</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVHumyadDXNRYm_SDYmilbi" target="_blank">Heimler Unit 8</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=B3MtqeN3ILE&list=PLF83AAnuW0t2fDOf0wmnCKrYXJI9mKuow&pp=iAQB" target="_blank">Freeman-Pedia Unit 8</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjfQ3r4k8ptQC-e-aC7loJ8" target="_blank">Tripp — Period 4</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=JGrPkxA5pto&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=20" target="_blank">Anti-Social Unit 8 Pt. 1</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=tKXnyLiti4U&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=21" target="_blank">Anti-Social Unit 8 Pt. 2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=Cbv4IgFRBfk&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=22" target="_blank">Anti-Social: 20th Century India</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=vL0TWrzFLvw" target="_blank">Steph Gorges Unit 8</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=UDRwqUKYNJM&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=2" target="_blank">CollegeBoard 8.2–8.4</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=6yTD_wS2QHQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=5" target="_blank">CollegeBoard 8.5 &amp; 8.6</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=qjxHoM5EXbQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=6" target="_blank">CollegeBoard 8.7</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=AgL0glVK6gE&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=7" target="_blank">CollegeBoard 8.8</a>
+    <!-- ── UNIT 8 ── -->
+    <div class="unit-panel" id="unit8">
+      <div class="unit-heading"><h2>Unit 8 — Cold War &amp; Decolonization</h2><p>1900–Present</p></div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon v">▶</div><div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">10</div></div></div>
+        <div class="stat-card"><div class="stat-icon g">🎮</div><div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">7</div></div></div>
+        <div class="stat-card"><div class="stat-icon r">📖</div><div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">3</div></div></div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head"><div class="res-card-title"><em>▶</em> Videos</div><span class="res-cnt">10 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDVHumyadDXNRYm_SDYmilbi" target="_blank">Heimler Unit 8</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=B3MtqeN3ILE&list=PLF83AAnuW0t2fDOf0wmnCKrYXJI9mKuow&pp=iAQB" target="_blank">Freeman-Pedia Unit 8</a>
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjfQ3r4k8ptQC-e-aC7loJ8" target="_blank">Tripp — Period 4</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=JGrPkxA5pto&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=20" target="_blank">Anti-Social Unit 8 Pt. 1</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=tKXnyLiti4U&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=21" target="_blank">Anti-Social Unit 8 Pt. 2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=Cbv4IgFRBfk&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=22" target="_blank">Anti-Social: 20th Century India</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=UDRwqUKYNJM&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=2" target="_blank">CollegeBoard 8.2–8.4</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=6yTD_wS2QHQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=5" target="_blank">CollegeBoard 8.5 &amp; 8.6</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=qjxHoM5EXbQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=6" target="_blank">CollegeBoard 8.7</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=AgL0glVK6gE&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=7" target="_blank">CollegeBoard 8.8</a>
+          </div></div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head"><div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div><span class="res-cnt">7 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://quizlet.com/493811789/ap-world-history-unit-8-cold-war-decolonization-flash-cards/" target="_blank">Quizlet (Set 1)</a>
+            <a class="rc rd" href="https://quizlet.com/413207269/ap-world-history-unit-8-cold-war-and-decolonization-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+            <a class="rc gm" href="https://create.kahoot.it/details/cc8deddb-21a1-44d6-bde2-0beed83e70cd" target="_blank">Kahoot</a>
+            <a class="rc gm" href="https://quizizz.com/admin/quiz/60816dd9ec8905001cc0bb04/ap-world-history-unit-8" target="_blank">Quizizz</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/64232e02e335fe00380dfef8" target="_blank">Gimkit</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/608044c5d7d372001e9cb1cb" target="_blank">Blooket</a>
+            <a class="rc gm" href="https://connections.swellgarfo.com/game/-Nv3MvCOkZYnD7nLu29z" target="_blank">Connections Game</a>
+          </div></div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head"><div class="res-card-title"><em>📖</em> Reading &amp; Notes</div><span class="res-cnt">3 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://www.freeman-pedia.com/8-cold-war-decolonization" target="_blank">Freeman-Pedia</a>
+            <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
+            <a class="rc rd" href="http://www.teacheroz.com/CramPer6toPresent.pdf" target="_blank">Cram Packet (Units 7–9)</a>
+          </div></div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/493811789/ap-world-history-unit-8-cold-war-decolonization-flash-cards/" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/413207269/ap-world-history-unit-8-cold-war-and-decolonization-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/details/cc8deddb-21a1-44d6-bde2-0beed83e70cd" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/60816dd9ec8905001cc0bb04/ap-world-history-unit-8" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/64232e02e335fe00380dfef8" target="_blank">Gimkit</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/608044c5d7d372001e9cb1cb" target="_blank">Blooket</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-Nv3MvCOkZYnD7nLu29z" target="_blank">Connections Game</a>
+
+    <!-- ── UNIT 9 ── -->
+    <div class="unit-panel" id="unit9">
+      <div class="unit-heading"><h2>Unit 9 — Globalization</h2><p>1900–Present</p></div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-icon v">▶</div><div class="stat-info"><div class="stat-label">Videos</div><div class="stat-val">11</div></div></div>
+        <div class="stat-card"><div class="stat-icon g">🎮</div><div class="stat-info"><div class="stat-label">Games</div><div class="stat-val">7</div></div></div>
+        <div class="stat-card"><div class="stat-icon r">📖</div><div class="stat-info"><div class="stat-label">Reading</div><div class="stat-val">3</div></div></div>
+      </div>
+      <div class="res-grid">
+        <div class="res-card full">
+          <div class="res-card-head"><div class="res-card-title"><em>▶</em> Videos</div><span class="res-cnt">11 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDXnx-yOpgjNqEHQISXjk4at" target="_blank">Heimler Unit 9</a>
+            <a class="rc v" href="https://youtube.com/playlist?list=PLF83AAnuW0t2ICAj4Rq5S07ddZMMtm6nS" target="_blank">Freeman-Pedia Unit 9</a>
+            <a class="rc v" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjfQ3r4k8ptQC-e-aC7loJ8" target="_blank">Tripp — Period 4</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=Z7ZkIWQ98QI&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=24" target="_blank">Anti-Social Unit 9 Pt. 1</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=XFhXQoNZT9E&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=24" target="_blank">Anti-Social Unit 9 Pt. 2</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=tsKuE9Wt4i8&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=25" target="_blank">Anti-Social Unit 9 Pt. 3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=3s0_dLMmWHU&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=8" target="_blank">CollegeBoard 9.1–9.3</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=CRE7Mex-ipU&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=9" target="_blank">CollegeBoard 9.4 &amp; 9.5</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=KmjxiYWm7no&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=10" target="_blank">CollegeBoard 9.6 &amp; 9.7</a>
+            <a class="rc v" href="https://www.youtube.com/watch?v=6lGmJETZ6GA&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=11" target="_blank">CollegeBoard 9.8 &amp; 9.9</a>
+          </div></div>
+        </div>
+        <div class="res-card games">
+          <div class="res-card-head"><div class="res-card-title"><em>🎮</em> Flashcards &amp; Games</div><span class="res-cnt">7 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://quizlet.com/500487488/ap-world-history-unit-9-globalization-flash-cards/" target="_blank">Quizlet (Set 1)</a>
+            <a class="rc rd" href="https://quizlet.com/413209373/ap-world-history-unit-9-globalization-flash-cards/" target="_blank">Quizlet (Set 2)</a>
+            <a class="rc gm" href="https://create.kahoot.it/details/14a3a398-c743-4d64-8adc-c0a8ea87ce85" target="_blank">Kahoot</a>
+            <a class="rc gm" href="https://quizizz.com/admin/quiz/609d25c986d07d001bbdb8a5/ap-world-history-unit-9-review" target="_blank">Quizizz</a>
+            <a class="rc gm" href="https://www.gimkit.com/view/64383f7ba824c60036b23883" target="_blank">Gimkit</a>
+            <a class="rc gm" href="https://dashboard.blooket.com/set/60804ddc964acf001b0c27e5" target="_blank">Blooket</a>
+            <a class="rc gm" href="https://connections.swellgarfo.com/game/-NvD9_g6cW4PIopJL5eH" target="_blank">Connections Game</a>
+          </div></div>
+        </div>
+        <div class="res-card reading">
+          <div class="res-card-head"><div class="res-card-title"><em>📖</em> Reading &amp; Notes</div><span class="res-cnt">3 links</span></div>
+          <div class="res-card-body"><div class="res-links">
+            <a class="rc rd" href="https://www.freeman-pedia.com/9-globalization" target="_blank">Freeman-Pedia</a>
+            <a class="rc rd" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
+            <a class="rc rd" href="http://www.teacheroz.com/CramPer6toPresent.pdf" target="_blank">Cram Packet (Units 7–9)</a>
+          </div></div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/8-cold-war-decolonization" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer6toPresent.pdf" target="_blank">Cram Packet (Units 7–9)</a>
+
+    <!-- ── GLOBAL: FULL COURSE ── -->
+    <div class="global-section" id="global-full">
+      <div class="sec-head"><h2>Full Course Review Videos</h2><p>Broad reviews spanning multiple units</p></div>
+      <div class="g-grid">
+        <div class="g-card">
+          <div class="g-card-head"><div class="g-card-title">Heimler — 2025 Livestream Reviews</div></div>
+          <div class="g-card-body"><div class="res-links">
+            <a class="rc" href="https://www.youtube.com/watch?v=6gcUu1EBa1w" target="_blank">Units 1–5 Review</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=BaqE9B6-L1c" target="_blank">Units 6–9 Review</a>
+          </div></div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-head"><div class="g-card-title">CollegeBoard — Full Review Videos</div></div>
+          <div class="g-card-body"><div class="res-links">
+            <a class="rc" href="https://www.youtube.com/watch?v=ipYcobm4E44&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=1" target="_blank">Units 1–3</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=5yFvRM4LJzk&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=2" target="_blank">Units 4–6</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=RgbZNOnBlPg&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=3" target="_blank">Units 7–9</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=NOV_VPeFSV4&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=4" target="_blank">Skills &amp; Reasoning</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=vWb_-69hEdA&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=5" target="_blank">Causation &amp; Situation</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=7S7r5n9RlUA&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=6" target="_blank">Patterns &amp; Evidence</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=ZzycJI0-4PQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=8" target="_blank">Test-Taking Strategies</a>
+            <a class="rc" href="https://youtube.com/playlist?list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM" target="_blank">Full 2023 Playlist</a>
+          </div></div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-head"><div class="g-card-title">Freeman-Pedia — Review Playlists</div></div>
+          <div class="g-card-body"><div class="res-links">
+            <a class="rc" href="https://www.youtube.com/playlist?list=PLF83AAnuW0t3V-rwBDaORsOI-fcwf2sXG" target="_blank">Dozen Dates to Know</a>
+            <a class="rc" href="https://www.youtube.com/playlist?list=PLF83AAnuW0t3Kmk1sV9fCwOg2G20x1GSV" target="_blank">5 Things Before the Exam</a>
+            <a class="rc" href="https://www.youtube.com/playlist?list=PLF83AAnuW0t3oVFTbmNIdAv43OVH3f4bY" target="_blank">Around the World in 80 Days</a>
+            <a class="rc" href="https://www.youtube.com/playlist?list=PLF83AAnuW0t0pPGHC1-yJKAx6EOZraum_" target="_blank">Illustrative Examples</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=sivHBQy5Gn0&t=2s" target="_blank">2025 Units 1–2 Live Review</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=WPmxYgD_CEk" target="_blank">2025 Units 3–4 Live Review</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=YmCQaTtTGdQ" target="_blank">2025 Units 5–6 Live Review</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=oi-ZF84JoGI" target="_blank">2025 Units 7–9 Live Review</a>
+          </div></div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-head"><div class="g-card-title">Steph Gorges — Additional Playlists</div></div>
+          <div class="g-card-body"><div class="res-links">
+            <a class="rc" href="https://www.youtube.com/playlist?list=PLAhhoKQ1zHC0dOty_vhXztJCUlqtTSXS-" target="_blank">AP World Writing</a>
+            <a class="rc" href="https://youtube.com/playlist?list=PLAhhoKQ1zHC1YivBqy_tycf2p8UZJYOKu" target="_blank">Review by Region</a>
+            <a class="rc" href="https://youtube.com/playlist?list=PLAhhoKQ1zHC0j_i_c73fPC7QojyaYMB9G" target="_blank">World Religions</a>
+          </div></div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-head"><div class="g-card-title">International Kahoots</div></div>
+          <div class="g-card-body"><div class="res-links">
+            <a class="rc gm" href="https://create.kahoot.it/details/2023-international-kahoot/b244a9d2-80e8-447f-b878-c379c8cdd7a6?authuser=0" target="_blank">2023 International Kahoot</a>
+            <a class="rc gm" href="https://create.kahoot.it/details/2024-international-kahoot/5a01a7fd-2b48-4b77-a7fa-926867fd0cd8?authuser=0" target="_blank">2024 International Kahoot</a>
+            <a class="rc gm" href="https://create.kahoot.it/course/95138876-709d-40d3-8cf8-0638fa3ef6e1" target="_blank">Barron's AP World Kahoots</a>
+          </div></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- UNIT 9 -->
-  <div class="unit-panel" id="unit9">
-    <div class="panel-heading">Unit 9 &mdash; Globalization</div>
-    <div class="panel-sub">1900–Present</div>
-    <div class="res-group">
-      <div class="res-group-label">Videos</div>
-      <div class="res-links">
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDXnx-yOpgjNqEHQISXjk4at" target="_blank">Heimler Unit 9</a>
-        <a class="res-link yt" href="https://youtube.com/playlist?list=PLF83AAnuW0t2ICAj4Rq5S07ddZMMtm6nS" target="_blank">Freeman-Pedia Unit 9</a>
-        <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLGWlBl73d7LjfQ3r4k8ptQC-e-aC7loJ8" target="_blank">Tripp — Period 4</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=Z7ZkIWQ98QI&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=24" target="_blank">Anti-Social Unit 9 Pt. 1</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=XFhXQoNZT9E&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=24" target="_blank">Anti-Social Unit 9 Pt. 2</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=tsKuE9Wt4i8&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=25" target="_blank">Anti-Social Unit 9 Pt. 3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=v_oaSoIXTSY" target="_blank">Steph Gorges Unit 9</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=3s0_dLMmWHU&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=8" target="_blank">CollegeBoard 9.1–9.3</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=CRE7Mex-ipU&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=9" target="_blank">CollegeBoard 9.4 &amp; 9.5</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=KmjxiYWm7no&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=10" target="_blank">CollegeBoard 9.6 &amp; 9.7</a>
-        <a class="res-link yt" href="https://www.youtube.com/watch?v=6lGmJETZ6GA&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=11" target="_blank">CollegeBoard 9.8 &amp; 9.9</a>
+    <!-- ── GLOBAL: SKILLS ── -->
+    <div class="global-section" id="global-skills">
+      <div class="sec-head"><h2>Skill Resources</h2><p>DBQ · LEQ · SAQ · MCQ strategy</p></div>
+      <div class="g-grid">
+        <div class="g-card">
+          <div class="g-card-head"><div class="g-card-title">Heimler — Writing &amp; Strategy</div></div>
+          <div class="g-card-body"><div class="res-links">
+            <a class="rc" href="https://www.youtube.com/watch?v=lIGX-J0ewNg&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=8" target="_blank">How to Get the Thesis Point</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=p4W61sw7-OE&list=PLGWlBl73d7Lgw7qEBekgENg4cdxhxT-i_&index=6" target="_blank">Top 5 DBQ Mistakes</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=eCxmBiqxFkw&list=PLEHRHjICEfDUVRqypMxX5TUH8x8ZzgiWX&index=10" target="_blank">Interpreting Documents</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=0nEwKX6W7UA&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=11" target="_blank">MCQ When You Can't Go Back</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=yCreDugHW3U&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=13" target="_blank">How to Plan a DBQ</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=qWHt_oyI5Vg&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=8" target="_blank">Formula: Write a LEQ</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=NzlP0_jL2Dg&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=10" target="_blank">LEQ &amp; DBQ Prompts</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=OXvF-5fBYe8&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=13" target="_blank">How to Plan a LEQ</a>
+            <a class="rc" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDUdQeVoRpt-APDo_WXdADri" target="_blank">2022 Exam Prep Playlist</a>
+          </div></div>
+        </div>
+        <div class="g-card">
+          <div class="g-card-head"><div class="g-card-title">Anti-Social Studies — Strategy &amp; Review</div></div>
+          <div class="g-card-body"><div class="res-links">
+            <a class="rc" href="https://www.youtube.com/watch?v=d8OWwOTdqA8&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=26" target="_blank">AMA Video</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=twSQNfVcB6M&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=27" target="_blank">MCQ &amp; SAQ Strategy</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=_dvnttWHOdQ&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=28" target="_blank">LEQ &amp; DBQ Strategy</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=ANnEQqb8W7w&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=30" target="_blank">Emily Writes a DBQ</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=SLiWluRF6-A&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=29" target="_blank">Units 1 &amp; 2 Review</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=vQNthOLrhBc&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=31" target="_blank">Units 3 &amp; 4 Review</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=mTiEZBgHdhE&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=32" target="_blank">Units 5 &amp; 6 Review</a>
+            <a class="rc" href="https://www.youtube.com/watch?v=xdX5AFLkRi8&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=33" target="_blank">Units 7, 8 &amp; 9 Review</a>
+          </div></div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Flashcards &amp; Games</div>
-      <div class="res-links">
-        <a class="res-link" href="https://quizlet.com/500487488/ap-world-history-unit-9-globalization-flash-cards/" target="_blank">Quizlet (Set 1)</a>
-        <a class="res-link" href="https://quizlet.com/413209373/ap-world-history-unit-9-globalization-flash-cards/" target="_blank">Quizlet (Set 2)</a>
-        <a class="res-link game" href="https://create.kahoot.it/details/14a3a398-c743-4d64-8adc-c0a8ea87ce85" target="_blank">Kahoot</a>
-        <a class="res-link game" href="https://quizizz.com/admin/quiz/609d25c986d07d001bbdb8a5/ap-world-history-unit-9-review" target="_blank">Quizizz</a>
-        <a class="res-link game" href="https://www.gimkit.com/view/64383f7ba824c60036b23883" target="_blank">Gimkit</a>
-        <a class="res-link game" href="https://dashboard.blooket.com/set/60804ddc964acf001b0c27e5" target="_blank">Blooket</a>
-        <a class="res-link game" href="https://connections.swellgarfo.com/game/-NvD9_g6cW4PIopJL5eH" target="_blank">Connections Game</a>
+
+    <!-- ── GLOBAL: OTHER + DBQ ── -->
+    <div class="global-section" id="global-other">
+      <div class="sec-head"><h2>Other Resources</h2><p>Study guides, notes, and free tools</p></div>
+      <div class="g-grid" style="margin-bottom:32px">
+        <div class="g-card" style="grid-column:1/-1">
+          <div class="g-card-head"><div class="g-card-title">Free Study Materials</div></div>
+          <div class="g-card-body">
+            <ul class="list-plain">
+              <li><a href="https://fiveable.me/ap-world/" target="_blank">Fiveable AP World History (free notes + live streams)</a></li>
+              <li><a href="https://www.antisocialstudies.org/ap-world-history" target="_blank">Anti-Social Studies — Full Exam Review</a></li>
+              <li><a href="https://marcolearning.com/free-study-guides/#history-study-guides" target="_blank">Marco Learning — Free Study Pack</a></li>
+              <li><a href="https://knowt.com/note/2d02dd1c-e85c-45a2-a939-c0a395bbdf48/AP%20World%20History:%20Modern%20Ultimate%20Guide" target="_blank">Knowt — Ultimate Guide</a></li>
+              <li><a href="https://knowt.com/flashcards/77f1b106-497e-4543-a482-4b19486b5f79" target="_blank">Knowt — Ultimate Flashcard Set</a></li>
+              <li><a href="https://drive.google.com/open?id=1wSkTr0y4vDJ3YQYPezpFHsLzg92rclLd" target="_blank">Google Drive Review Materials (extensive)</a></li>
+              <li><a href="https://drive.google.com/open?id=1HWNX9ohdebZwb1jvxR3DKrT26NGrOzyz" target="_blank">Tripp Recorded Lectures (APS email required)</a></li>
+              <li><a href="http://www.teacheroz.com/apexamreview.html" target="_blank">Mrs. Osborn's AP Exam Review Website</a></li>
+              <li><a href="https://attachments.convertkitcdnm.com/124816/36d9d1d5-17b2-4450-9963-9ec2e1d3bf26/Fiveable%20-%20AP%20Histories_%20FRQ%202%20-%20the%20Document-Based%20Question%20(DBQ).pdf" target="_blank">Fiveable PDF — Overview, Skills, Sample Prompts</a></li>
+              <li><a href="https://static1.squarespace.com/static/53b17013e4b0f83f2d8a8a4a/t/5ac3a9488a922d61e27f66cc/1522772297614/HOW+TO+DBQ+2018.pdf" target="_blank">Freeman-Pedia "How to DBQ" PowerPoint</a></li>
+              <li><a href="https://www.ultimatereviewpacket.com/courses/world-history" target="_blank">Heimler's History Pack ($26.99)</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-head"><h2>Old DBQ Practice</h2><p>Try timed — check scoring guidelines after. Note: 2024–2025 use a different rubric.</p></div>
+      <div class="dbq-grid">
+        <div class="dbq-card">
+          <div class="dbq-yr"><strong>2024</strong>Year</div>
+          <div class="res-links">
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap24-frq-world-history-set-1.pdf" target="_blank">DBQ 1 (pg. 6–11)</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap24-apc-world-history-dbq-set-1.pdf" target="_blank">Sample &amp; Scoring 1</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap24-frq-world-history-set-2.pdf" target="_blank">DBQ 2 (pg. 6–11)</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap24-apc-world-history-dbq-set-2.pdf" target="_blank">Sample &amp; Scoring 2</a>
+          </div>
+        </div>
+        <div class="dbq-card">
+          <div class="dbq-yr"><strong>2023</strong>Year</div>
+          <div class="res-links">
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap23-frq-world-history-modern-set-1.pdf" target="_blank">DBQ 1 (pg. 6–11)</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap23-apc-world-history-modern-dbq-set-1.pdf" target="_blank">Sample &amp; Scoring 1</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap23-frq-world-history-modern-set-2.pdf" target="_blank">DBQ 2 (pg. 6–11)</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap23-apc-world-history-modern-dbq-set-2.pdf" target="_blank">Sample &amp; Scoring 2</a>
+          </div>
+        </div>
+        <div class="dbq-card">
+          <div class="dbq-yr"><strong>2022</strong>Year</div>
+          <div class="res-links">
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap22-frq-world-history-modern.pdf" target="_blank">DBQ (pg. 6–11)</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap22-apc-world-history-modern-dbq.pdf" target="_blank">Sample &amp; Scoring</a>
+          </div>
+        </div>
+        <div class="dbq-card">
+          <div class="dbq-yr"><strong>2021</strong>Year</div>
+          <div class="res-links">
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap21-frq-world-history_1.pdf" target="_blank">DBQ (pg. 8–13)</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/media/pdf/ap21-apc-world-history-dbq.pdf" target="_blank">Sample &amp; Scoring</a>
+          </div>
+        </div>
+        <div class="dbq-card">
+          <div class="dbq-yr"><strong>2019</strong>Year</div>
+          <div class="res-links">
+            <a class="rc" href="https://apcentral.collegeboard.org/pdf/ap19-frq-world-history.pdf" target="_blank">DBQ (pg. 5–10)</a>
+            <a class="rc" href="https://apcentral.collegeboard.org/pdf/ap19-apc-world-history-dbq.pdf" target="_blank">Sample &amp; Scoring</a>
+          </div>
+        </div>
+        <div class="dbq-card">
+          <div class="dbq-yr"><strong>2018</strong>Year</div>
+          <div class="res-links">
+            <a class="rc" href="https://apcentral.collegeboard.org/pdf/ap18-frq-world-history.pdf" target="_blank">DBQ (pg. 5–10)</a>
+            <a class="rc" href="https://secure-media.collegeboard.org/digitalServices/pdf/ap/apcentral/ap18-world-history-dbq1.pdf" target="_blank">Sample &amp; Scoring</a>
+          </div>
+        </div>
+        <div class="dbq-card">
+          <div class="dbq-yr"><strong>2017</strong>Year</div>
+          <div class="res-links">
+            <a class="rc" href="https://apcentral.collegeboard.org/pdf/ap-world-history-frq-2017.pdf" target="_blank">DBQ (pg. 7–12)</a>
+            <a class="rc" href="https://secure-media.collegeboard.org/digitalServices/pdf/ap/apcentral/ap17-world-history-q1dbq.pdf" target="_blank">Sample &amp; Scoring</a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="res-group">
-      <div class="res-group-label">Reading &amp; Notes</div>
-      <div class="res-links">
-        <a class="res-link" href="https://www.freeman-pedia.com/9-globalization" target="_blank">Freeman-Pedia Website</a>
-        <a class="res-link" href="https://www.khanacademy.org/humanities/ap-world-history#1450-1750-renaissance-and-reformation" target="_blank">Khan Academy</a>
-        <a class="res-link" href="http://www.teacheroz.com/CramPer6toPresent.pdf" target="_blank">Cram Packet (Units 7–9)</a>
-      </div>
-    </div>
-  </div>
 
-  <!-- GLOBAL: FULL COURSE REVIEW -->
-  <div class="section-heading">Full Course Review Videos</div>
-  <div class="section-sub">Broad reviews spanning multiple units</div>
+  </div><!-- /page -->
 
-  <div class="global-card">
-    <div class="global-card-title">Heimler &mdash; 2025 Livestream Reviews</div>
-    <div class="res-links">
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=6gcUu1EBa1w" target="_blank">Units 1–5 Review</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=BaqE9B6-L1c" target="_blank">Units 6–9 Review</a>
-    </div>
-  </div>
+  <footer class="site-footer">
+    <p>AP World History: Modern &nbsp;&mdash;&nbsp; Review Resources &nbsp;&mdash;&nbsp; Links compiled from CFRT resource doc</p>
+  </footer>
 
-  <div class="global-card">
-    <div class="global-card-title">CollegeBoard &mdash; Full Review Videos</div>
-    <div class="res-links">
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=ipYcobm4E44&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=1" target="_blank">Units 1–3</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=5yFvRM4LJzk&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=2" target="_blank">Units 4–6</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=RgbZNOnBlPg&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=3" target="_blank">Units 7–9</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=NOV_VPeFSV4&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=4" target="_blank">Skills &amp; Reasoning</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=vWb_-69hEdA&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=5" target="_blank">Causation &amp; Situation</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=7S7r5n9RlUA&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=6" target="_blank">Patterns &amp; Evidence</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=pYGkeU6tAuo&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=7" target="_blank">In &amp; T</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=ZzycJI0-4PQ&list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM&index=8" target="_blank">Test-Taking Strategies</a>
-      <a class="res-link yt" href="https://youtube.com/playlist?list=PLoGgviqq4845dmFXqxdQ3LBR2fxLgv0GM" target="_blank">Full 2023 Playlist</a>
-    </div>
-  </div>
-
-  <div class="global-card">
-    <div class="global-card-title">Freeman-Pedia &mdash; Review Playlists</div>
-    <div class="res-links">
-      <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLF83AAnuW0t3V-rwBDaORsOI-fcwf2sXG" target="_blank">Dozen Dates to Know</a>
-      <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLF83AAnuW0t3Kmk1sV9fCwOg2G20x1GSV" target="_blank">5 Things Before the Exam</a>
-      <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLF83AAnuW0t3oVFTbmNIdAv43OVH3f4bY" target="_blank">Around the World in 80 Days</a>
-      <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLF83AAnuW0t0pPGHC1-yJKAx6EOZraum_" target="_blank">Illustrative Examples</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=sivHBQy5Gn0&t=2s" target="_blank">2025 Units 1–2 Live Review</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=WPmxYgD_CEk" target="_blank">2025 Units 3–4 Live Review</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=YmCQaTtTGdQ" target="_blank">2025 Units 5–6 Live Review</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=oi-ZF84JoGI" target="_blank">2025 Units 7–9 Live Review</a>
-    </div>
-  </div>
-
-  <div class="global-card">
-    <div class="global-card-title">Steph Gorges &mdash; Additional Videos</div>
-    <div class="res-links">
-      <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLAhhoKQ1zHC0dOty_vhXztJCUlqtTSXS-" target="_blank">AP World Writing</a>
-      <a class="res-link yt" href="https://youtube.com/playlist?list=PLAhhoKQ1zHC1YivBqy_tycf2p8UZJYOKu" target="_blank">Review by Region</a>
-      <a class="res-link yt" href="https://youtube.com/playlist?list=PLAhhoKQ1zHC0j_i_c73fPC7QojyaYMB9G" target="_blank">World Religions</a>
-    </div>
-  </div>
-
-  <div class="global-card">
-    <div class="global-card-title">International Kahoots</div>
-    <div class="res-links">
-      <a class="res-link game" href="https://create.kahoot.it/details/2023-international-kahoot/b244a9d2-80e8-447f-b878-c379c8cdd7a6?authuser=0" target="_blank">2023 International Kahoot</a>
-      <a class="res-link game" href="https://create.kahoot.it/details/2024-international-kahoot/5a01a7fd-2b48-4b77-a7fa-926867fd0cd8?authuser=0" target="_blank">2024 International Kahoot</a>
-      <a class="res-link game" href="https://create.kahoot.it/course/95138876-709d-40d3-8cf8-0638fa3ef6e1" target="_blank">Barron's AP World Kahoots</a>
-    </div>
-  </div>
-
-  <!-- SKILL RESOURCES -->
-  <div class="section-heading">Skill Resources</div>
-  <div class="section-sub">DBQ, LEQ, SAQ, and MCQ strategy</div>
-
-  <div class="global-card">
-    <div class="global-card-title">Heimler &mdash; Writing &amp; Strategy</div>
-    <div class="res-links">
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=lIGX-J0ewNg&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=8" target="_blank">How to Get the Thesis Point</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=p4W61sw7-OE&list=PLGWlBl73d7Lgw7qEBekgENg4cdxhxT-i_&index=6" target="_blank">Top 5 DBQ Mistakes</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=eCxmBiqxFkw&list=PLEHRHjICEfDUVRqypMxX5TUH8x8ZzgiWX&index=10" target="_blank">Interpreting Documents</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=0nEwKX6W7UA&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=11" target="_blank">MCQ When You Can't Go Back</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=yCreDugHW3U&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=13" target="_blank">How to Plan a DBQ</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=qWHt_oyI5Vg&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=8" target="_blank">Formula: Write a LEQ</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=NzlP0_jL2Dg&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=10" target="_blank">LEQ &amp; DBQ Prompts</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=OXvF-5fBYe8&list=PLEHRHjICEfDUil2GBYRfRk_vzsJyAI450&index=13" target="_blank">How to Plan a LEQ</a>
-      <a class="res-link yt" href="https://www.youtube.com/playlist?list=PLEHRHjICEfDUdQeVoRpt-APDo_WXdADri" target="_blank">2022 Exam Prep Playlist</a>
-    </div>
-  </div>
-
-  <div class="global-card">
-    <div class="global-card-title">Anti-Social Studies &mdash; Strategy &amp; Review</div>
-    <div class="res-links">
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=d8OWwOTdqA8&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=26" target="_blank">AMA Video</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=twSQNfVcB6M&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=27" target="_blank">MCQ &amp; SAQ Strategy</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=_dvnttWHOdQ&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=28" target="_blank">LEQ &amp; DBQ Strategy</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=ANnEQqb8W7w&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=30" target="_blank">Emily Writes a DBQ</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=SLiWluRF6-A&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=29" target="_blank">Units 1 &amp; 2 Review</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=vQNthOLrhBc&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=31" target="_blank">Units 3 &amp; 4 Review</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=mTiEZBgHdhE&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=32" target="_blank">Units 5 &amp; 6 Review</a>
-      <a class="res-link yt" href="https://www.youtube.com/watch?v=xdX5AFLkRi8&list=PLgzBArk5q1DhHLOgiD3gDKPcMEexaklyw&index=33" target="_blank">Units 7, 8 &amp; 9 Review</a>
-    </div>
-  </div>
-
-  <!-- OTHER RESOURCES -->
-  <div class="section-heading">Other Resources</div>
-  <div class="section-sub">Study guides, notes, and free tools</div>
-
-  <div class="global-card">
-    <div class="global-card-title">Free Study Materials</div>
-    <ul class="list-plain">
-      <li><a href="https://fiveable.me/ap-world/" target="_blank">Fiveable AP World History (free notes + live streams)</a></li>
-      <li><a href="https://www.antisocialstudies.org/ap-world-history" target="_blank">Anti-Social Studies — Full Exam Review</a></li>
-      <li><a href="https://marcolearning.com/free-study-guides/#history-study-guides" target="_blank">Marco Learning — Free Study Pack</a></li>
-      <li><a href="https://knowt.com/note/2d02dd1c-e85c-45a2-a939-c0a395bbdf48/AP%20World%20History:%20Modern%20Ultimate%20Guide" target="_blank">Knowt — Ultimate Guide</a></li>
-      <li><a href="https://knowt.com/flashcards/77f1b106-497e-4543-a482-4b19486b5f79" target="_blank">Knowt — Ultimate Flashcard Set</a></li>
-      <li><a href="https://drive.google.com/open?id=1wSkTr0y4vDJ3YQYPezpFHsLzg92rclLd" target="_blank">Google Drive Review Materials (extensive)</a></li>
-      <li><a href="https://drive.google.com/open?id=1HWNX9ohdebZwb1jvxR3DKrT26NGrOzyz" target="_blank">Tripp Recorded Lectures (APS email required)</a></li>
-      <li><a href="http://www.teacheroz.com/apexamreview.html" target="_blank">Mrs. Osborn's AP Exam Review Website</a></li>
-      <li><a href="https://attachments.convertkitcdnm.com/124816/36d9d1d5-17b2-4450-9963-9ec2e1d3bf26/Fiveable%20-%20AP%20Histories_%20FRQ%202%20-%20the%20Document-Based%20Question%20(DBQ).pdf" target="_blank">Fiveable PDF — Overview, Skills, Sample Prompts</a></li>
-      <li><a href="https://static1.squarespace.com/static/53b17013e4b0f83f2d8a8a4a/t/5ac3a9488a922d61e27f66cc/1522772297614/HOW+TO+DBQ+2018.pdf" target="_blank">Freeman-Pedia "How to DBQ" PowerPoint</a></li>
-      <li><a href="https://www.ultimatereviewpacket.com/courses/world-history" target="_blank">Heimler's History Pack ($26.99)</a></li>
-    </ul>
-  </div>
-
-  <!-- OLD DBQs -->
-  <div class="section-heading">Old DBQ Practice</div>
-  <div class="section-sub">Try timed; check scoring guidelines after. Note: 2024–2025 use a different rubric.</div>
-  <div class="dbq-grid">
-    <div class="dbq-item">
-      <div class="dbq-year">2024</div>
-      <div class="res-links">
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap24-frq-world-history-set-1.pdf" target="_blank">DBQ 1 (pg. 6–11)</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap24-apc-world-history-dbq-set-1.pdf" target="_blank">Sample &amp; Scoring 1</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap24-frq-world-history-set-2.pdf" target="_blank">DBQ 2 (pg. 6–11)</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap24-apc-world-history-dbq-set-2.pdf" target="_blank">Sample &amp; Scoring 2</a>
-      </div>
-    </div>
-    <div class="dbq-item">
-      <div class="dbq-year">2023</div>
-      <div class="res-links">
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap23-frq-world-history-modern-set-1.pdf" target="_blank">DBQ 1 (pg. 6–11)</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap23-apc-world-history-modern-dbq-set-1.pdf" target="_blank">Sample &amp; Scoring 1</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap23-frq-world-history-modern-set-2.pdf" target="_blank">DBQ 2 (pg. 6–11)</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap23-apc-world-history-modern-dbq-set-2.pdf" target="_blank">Sample &amp; Scoring 2</a>
-      </div>
-    </div>
-    <div class="dbq-item">
-      <div class="dbq-year">2022</div>
-      <div class="res-links">
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap22-frq-world-history-modern.pdf" target="_blank">DBQ (pg. 6–11)</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap22-apc-world-history-modern-dbq.pdf" target="_blank">Sample &amp; Scoring</a>
-      </div>
-    </div>
-    <div class="dbq-item">
-      <div class="dbq-year">2021</div>
-      <div class="res-links">
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap21-frq-world-history_1.pdf" target="_blank">DBQ (pg. 8–13)</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/media/pdf/ap21-apc-world-history-dbq.pdf" target="_blank">Sample &amp; Scoring</a>
-      </div>
-    </div>
-    <div class="dbq-item">
-      <div class="dbq-year">2019</div>
-      <div class="res-links">
-        <a class="res-link" href="https://apcentral.collegeboard.org/pdf/ap19-frq-world-history.pdf" target="_blank">DBQ (pg. 5–10)</a>
-        <a class="res-link" href="https://apcentral.collegeboard.org/pdf/ap19-apc-world-history-dbq.pdf" target="_blank">Sample &amp; Scoring</a>
-      </div>
-    </div>
-    <div class="dbq-item">
-      <div class="dbq-year">2018</div>
-      <div class="res-links">
-        <a class="res-link" href="https://apcentral.collegeboard.org/pdf/ap18-frq-world-history.pdf" target="_blank">DBQ (pg. 5–10)</a>
-        <a class="res-link" href="https://secure-media.collegeboard.org/digitalServices/pdf/ap/apcentral/ap18-world-history-dbq1.pdf" target="_blank">Sample &amp; Scoring</a>
-      </div>
-    </div>
-    <div class="dbq-item">
-      <div class="dbq-year">2017</div>
-      <div class="res-links">
-        <a class="res-link" href="https://apcentral.collegeboard.org/pdf/ap-world-history-frq-2017.pdf" target="_blank">DBQ (pg. 7–12)</a>
-        <a class="res-link" href="https://secure-media.collegeboard.org/digitalServices/pdf/ap/apcentral/ap17-world-history-q1dbq.pdf" target="_blank">Sample &amp; Scoring</a>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<footer class="site-footer">
-  <p>AP World History: Modern &nbsp;&mdash;&nbsp; Review Resources &nbsp;&mdash;&nbsp; Links compiled from CFRT resource doc</p>
-</footer>
+</div><!-- /main-wrap -->
 
 <script>
-function showUnit(n) {
-  document.querySelectorAll('.unit-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.unit-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('unit' + n).classList.add('active');
-  document.querySelector('[data-unit="' + n + '"]').classList.add('active');
+function showPanel(id, navEl) {
+  // hide all
+  document.querySelectorAll('.unit-panel, .global-section').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  // show target
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  // update top bar
+  if (navEl) {
+    const t = navEl.dataset.title || '';
+    const p = navEl.dataset.period || '';
+    document.getElementById('top-title').textContent = t;
+    document.getElementById('top-period').textContent = p;
+  }
 }
 </script>
 </body>

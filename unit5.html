@@ -1493,7 +1493,7 @@ document.addEventListener('DOMContentLoaded', function() {
       year: '1689', title: 'Locke\'s Two Treatises — Natural Rights',
       topic: 'Topic 5.1 — The Enlightenment',
       desc: 'John Locke argues that governments derive authority from the consent of the governed and that individuals possess natural rights to life, liberty, and property. This work becomes the philosophical foundation for Atlantic Revolutions.',
-      img: 'images/tl/u5-tl-1.jpg', alt: 'Portrait of John Locke'
+      img: 'images/tl/u5-tl-1.jpg', alt: 'Portrait of John Locke', pos: 'top center'
     },
     {
       year: '1776', title: 'American Declaration of Independence',
@@ -1511,7 +1511,7 @@ document.addEventListener('DOMContentLoaded', function() {
       year: '1791', title: 'Haitian Revolution Begins',
       topic: 'Topic 5.2 — Atlantic Revolutions',
       desc: 'Enslaved people in Saint-Domingue (Haiti) rise up, invoking French revolutionary ideals. Led by Toussaint Louverture, the revolt becomes the only successful slave revolution in history, producing the first Black republic in 1804.',
-      img: 'images/tl/u5-tl-4.jpg', alt: 'Toussaint Louverture, leader of the Haitian Revolution'
+      img: 'images/tl/u5-tl-4.jpg', alt: 'Toussaint Louverture, leader of the Haitian Revolution', pos: 'top center'
     },
     {
       year: 'c.1780s', title: 'Industrial Revolution — Steam Power & Factories',
@@ -1523,7 +1523,7 @@ document.addEventListener('DOMContentLoaded', function() {
       year: '1819–1825', title: 'Latin American Independence',
       topic: 'Topic 5.2 — Nationalism and Revolution',
       desc: 'Simón Bolívar and José de San Martín lead successful independence movements across Spanish South America. Creole elites use Enlightenment arguments to break from Spanish mercantilist control, creating a dozen new nations.',
-      img: 'images/tl/u5-tl-6.jpg', alt: 'Simón Bolívar, Liberator of South America'
+      img: 'images/tl/u5-tl-6.jpg', alt: 'Simón Bolívar, Liberator of South America', pos: 'top center'
     },
     {
       year: '1848', title: 'Revolutions of 1848 &amp; Communist Manifesto',
@@ -1535,13 +1535,13 @@ document.addEventListener('DOMContentLoaded', function() {
       year: '1853', title: 'Commodore Perry Opens Japan',
       topic: 'Topic 5.4 — Industrialization Spreads',
       desc: 'American Commodore Matthew Perry forces Japan to open trade under threat of naval bombardment. Japan\'s humiliation triggers internal debate about modernization — leading directly to the Meiji Restoration fifteen years later.',
-      img: 'images/tl/u5-tl-8.jpg', alt: 'Commodore Perry\'s Black Ships in Tokyo Bay, 1853'
+      img: 'images/tl/u5-tl-8.jpg', alt: 'Commodore Perry\'s Black Ships in Tokyo Bay, 1853', pos: 'top center'
     },
     {
       year: '1868', title: 'Meiji Restoration — Japan Industrializes',
       topic: 'Topic 5.4 — Industrialization Spreads',
       desc: 'Japan\'s emperor is restored to power. The Meiji government launches rapid industrialization: railroads, factories, a modern army, universal education, and legal reforms. Japan becomes the first non-Western industrial power.',
-      img: 'images/tl/u5-tl-9.jpg', alt: 'Meiji era Japanese industrialization, 1870s-1880s'
+      img: 'images/tl/u5-tl-9.jpg', alt: 'Meiji era Japanese industrialization, 1870s-1880s', pos: 'top center'
     },
     {
       year: '1869', title: 'Suez Canal Opens',
@@ -1571,7 +1571,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tlHTML +=
         '<div class="tl-item ' + side + '">' +
           '<div class="tl-img-wrap">' +
-            '<img src="' + item.img + '" alt="' + item.alt + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' +
+            '<img src="' + item.img + '" alt="' + item.alt + '" style="object-position:' + (item.pos||'center') + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' +
             '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>' +
           '</div>' +
           '<div class="tl-spine"><div class="tl-dot"></div></div>' +

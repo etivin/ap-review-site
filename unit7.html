@@ -2521,7 +2521,8 @@ document.addEventListener('DOMContentLoaded', function () {
       topic: 'Topic 7.3 — Total War',
       desc: 'Russia\'s catastrophic wartime losses — millions dead, cities starving — create exactly the conditions Durnovo warned of. The Tsar falls in February; the Bolsheviks seize power in October.',
       img: 'images/tl/u7-tl-2.jpg',
-      alt: 'Russian Provisional Government, 1917'
+      alt: 'Russian Provisional Government, 1917',
+      pos: 'top center'
     },
     {
       year: '1919', title: 'Treaty of Versailles',
@@ -2549,7 +2550,8 @@ document.addEventListener('DOMContentLoaded', function () {
       topic: 'Topic 7.6 — Rise of Fascism',
       desc: 'Economic desperation and Versailles resentment deliver Hitler to power. Germany begins systematic rearmament. Western democracies, exhausted from WWI, choose appeasement over confrontation.',
       img: 'images/tl/u7-tl-6.jpg',
-      alt: 'Adolf Hitler, 1933'
+      alt: 'Adolf Hitler, 1933',
+      pos: 'top center'
     },
     {
       year: '1938', title: 'Munich Agreement',
@@ -2582,7 +2584,7 @@ document.addEventListener('DOMContentLoaded', function () {
       tlHTML +=
         '<div class="tl-item ' + side + '">' +
           '<div class="tl-img-wrap">' +
-            '<img src="' + item.img + '" alt="' + item.alt + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' +
+            '<img src="' + item.img + '" alt="' + item.alt + '" style="object-position:' + (item.pos||'center') + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' +
             '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>' +
           '</div>' +
           '<div class="tl-spine"><div class="tl-dot"></div></div>' +

@@ -174,6 +174,8 @@ button{font-family:inherit;cursor:pointer}
 .top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}}
 @media(max-width:600px){.topic-grid,.features-grid{grid-template-columns:1fr}.hero{min-height:55vh}}
+.unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
+.tl-section{background:#2a2a1e;padding:72px 24px 80px;overflow:hidden}.tl-inner{max-width:1100px;margin:0 auto}.tl-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(176,0,28,.8);margin-bottom:8px}.tl-heading{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:10px;line-height:1.1}.tl-sub{font-size:.93rem;color:rgba(255,255,255,.45);margin-bottom:56px;max-width:540px}.tl-list{position:relative;padding:0 0 10px}.tl-list::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(176,0,28,.8),rgba(176,0,28,.15));transform:translateX(-50%)}.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;margin-bottom:64px;opacity:0;transition:opacity .7s ease,transform .7s ease}.tl-item.tl-left{transform:translateX(-40px)}.tl-item.tl-right{transform:translateX(40px)}.tl-item.visible{opacity:1;transform:none}.tl-item.tl-left .tl-img-wrap{order:1}.tl-item.tl-left .tl-spine{order:2}.tl-item.tl-left .tl-content{order:3}.tl-item.tl-right .tl-img-wrap{order:3}.tl-item.tl-right .tl-spine{order:2}.tl-item.tl-right .tl-content{order:1;text-align:right}.tl-img-wrap{aspect-ratio:4/3;overflow:hidden;background:#111;box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative}.tl-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.tl-img-wrap .tl-img-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a0e,#2a2a1e);color:rgba(255,255,255,.25);font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:16px}.tl-item:hover .tl-img-wrap img{transform:scale(1.04)}.tl-spine{display:flex;justify-content:center;align-items:center;z-index:2;position:relative}.tl-dot{width:16px;height:16px;background:var(--red);border:3px solid #2a2a1e;border-radius:50%;box-shadow:0 0 0 3px rgba(176,0,28,.4);transition:transform .3s}.tl-item:hover .tl-dot{transform:scale(1.4)}.tl-content{padding:0 28px}.tl-year-badge{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:.1em;padding:4px 12px;margin-bottom:8px}.tl-item.tl-right .tl-year-badge{float:right}.tl-item.tl-right .tl-content::after{content:'';display:table;clear:both}.tl-topic-tag{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;clear:both;display:block}.tl-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2}.tl-desc{font-size:.83rem;line-height:1.75;color:rgba(255,255,255,.55)}@media(max-width:700px){.tl-list::before{left:24px}.tl-item,.tl-item.tl-right,.tl-item.tl-left{grid-template-columns:48px 1fr;grid-template-rows:auto auto;align-items:start}.tl-img-wrap,.tl-item.tl-left .tl-img-wrap,.tl-item.tl-right .tl-img-wrap{order:1!important;grid-column:1/-1;grid-row:1;aspect-ratio:16/7;margin-bottom:0}.tl-spine,.tl-item.tl-left .tl-spine,.tl-item.tl-right .tl-spine{order:2!important;grid-column:1;grid-row:2;justify-content:center;padding-top:18px}.tl-content,.tl-item.tl-left .tl-content,.tl-item.tl-right .tl-content{order:3!important;grid-column:2;grid-row:2;text-align:left!important;padding:12px 0 12px 16px}.tl-item.tl-right .tl-year-badge{float:none}}
 </style>
 </head>
 <body>
@@ -208,9 +210,45 @@ button{font-family:inherit;cursor:pointer}
       <div class="hero-btns" style="margin-top:24px">
         <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">&#128203; Start MCQ Practice</button>
         <button class="hero-btn hero-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
+        <button type="button" class="hero-btn hero-btn-outline" id="scroll-timeline-btn">&#9660; View Timeline</button>
       </div>
     </div>
   </section>
+
+  <section class="unit-summary">
+    <div class="us-inner">
+      <div class="us-grid">
+        <div>
+          <div class="us-col-label">Unit Overview</div>
+          <h2 class="us-heading">The World Becomes One</h2>
+          <p class="us-body">Between 1450 and 1750, European maritime powers shattered the geographic barriers that had kept the world's civilizations largely separate. Portuguese navigators crept down the African coast seeking a sea route to Asia; Spanish-funded explorers crossed the Atlantic and found two continents no European had ever seen. Within a generation, the Pacific, Atlantic, and Indian Oceans became highways of global exchange.</p>
+          <p class="us-body">The consequences were staggering. The Columbian Exchange transferred crops, animals, and &mdash; most devastatingly &mdash; diseases between hemispheres. Smallpox and measles killed up to 90% of Indigenous American populations, collapsing empires overnight. New World crops like potatoes and maize fed population booms in Europe and China. The labor vacuum left by disease death created the demand engine for the transatlantic slave trade, one of history's greatest forced migrations.</p>
+          <p class="us-body">European powers built new kinds of empire: trading post networks in Asia (Portuguese Estado da &#205;ndia, Dutch VOC) that taxed existing trade routes rather than conquering territory, and settler-colonial regimes in the Americas backed by encomienda labor systems and racial hierarchies that would define social order for centuries.</p>
+        </div>
+        <div>
+          <div class="us-col-label">Core Themes</div>
+          <div class="us-themes-list">
+            <div class="us-theme"><div class="us-theme-num">01</div><div><div class="us-theme-name">Maritime Technology &amp; Navigation</div><div class="us-theme-detail">The caravel, lateen sail, astrolabe, and magnetic compass enabled ocean crossings previously impossible. Portuguese and Spanish crowns funded voyages that broke the geographic limits of the medieval world.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">02</div><div><div class="us-theme-name">The Columbian Exchange</div><div class="us-theme-detail">Crops, animals, diseases, and people moved across the Atlantic in both directions &mdash; reshaping diets, populations, and ecosystems on every continent touched by European contact.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">03</div><div><div class="us-theme-name">Atlantic Slave Trade</div><div class="us-theme-detail">Approximately 12.5 million Africans were forcibly transported to the Americas between 1500 and 1900. The trade devastated West African societies and created plantation economies across the Caribbean and Americas.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">04</div><div><div class="us-theme-name">Trading Post Empires</div><div class="us-theme-detail">Rather than conquering Asian landmasses, European powers established fortified trading posts at key nodes. The VOC and Portuguese Estado da &#205;ndia extracted wealth by inserting themselves into existing trade networks.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">05</div><div><div class="us-theme-name">New Social Hierarchies</div><div class="us-theme-detail">Contact created new racial classifications &mdash; peninsulares, creoles, mestizos, mulattos &mdash; that determined legal status, property rights, and social mobility across Spanish American colonial society.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">06</div><div><div class="us-theme-name">Indigenous Resistance &amp; Adaptation</div><div class="us-theme-detail">Not all Indigenous peoples were passive victims. Many resisted militarily, adapted European goods for their own purposes, or negotiated with competing European powers to preserve autonomy.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tl-section" id="timeline-section">
+    <div class="tl-inner">
+      <div class="tl-label">Unit 4 at a Glance</div>
+      <h2 class="tl-heading">From Lisbon to the Pacific</h2>
+      <p class="tl-sub">Ten turning points from 1418 to 1619 &mdash; scroll to explore.</p>
+      <div class="tl-list" id="tl-list"></div>
+    </div>
+  </section>
+
 </div>
 
 <!-- BRAIN DUMP PAGE -->
@@ -316,6 +354,37 @@ function showTab(id) {
 document.querySelectorAll('[data-tab]').forEach(function(el){
   el.addEventListener('click', function(){ showTab(this.dataset.tab); });
 });
+
+/* ── TIMELINE ── */
+document.getElementById('scroll-timeline-btn').addEventListener('click', function(){
+  var tl = document.getElementById('timeline-section');
+  if (tl) tl.scrollIntoView({ behavior: 'smooth' });
+});
+var TIMELINE = [
+  { year:'1418', title:'Prince Henry\'s School of Navigation', topic:'Topic 4.1 — Technological Innovations', desc:'Portugal\'s Prince Henry the Navigator sponsors a systematic program of exploration down the African coast, assembling cartographers, sailors, and astronomers. His investment in the caravel, lateen sail, and astronomical navigation tools pioneers the framework for all subsequent European oceanic exploration.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Henrique_iv_of_portugal.jpg/440px-Henrique_iv_of_portugal.jpg', alt:'Prince Henry the Navigator of Portugal' },
+  { year:'1488', title:'Dias Rounds the Cape of Good Hope', topic:'Topic 4.1 — European Exploration', desc:'Portuguese navigator Bartolomeu Dias rounds the Cape of Good Hope, proving a sea route to the Indian Ocean exists. The route to Asian spice markets — and the fortunes they promised — was now within reach for European merchants willing to finance the voyage.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Bartolomeu_Dias%2C_South_Africa_House_%28crop%29.jpg/440px-Bartolomeu_Dias%2C_South_Africa_House_%28crop%29.jpg', alt:'Statue of Bartolomeu Dias' },
+  { year:'1492', title:'Columbus Reaches the Caribbean', topic:'Topic 4.2 — Exploration Events', desc:'Believing he could reach Asia by sailing west, Columbus lands in the Bahamas. His "discovery" opens a permanent link between the Eastern and Western Hemispheres — triggering the Columbian Exchange and centuries of colonization that would reshape every continent.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Landing_of_Columbus_%282%29.jpg/1280px-Landing_of_Columbus_%282%29.jpg', alt:'Landing of Columbus in the Americas, 1492' },
+  { year:'1494', title:'Treaty of Tordesillas', topic:'Topic 4.2 — Maritime Empires Established', desc:'Spain and Portugal divide the non-Christian world between them with a line drawn through the Atlantic, blessed by the Pope. The treaty reveals European arrogance toward non-European peoples and shapes colonial rivalries for centuries — Brazil falls on the Portuguese side, all else to Spain.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Spain_and_Portugal.png/440px-Spain_and_Portugal.png', alt:'Map showing the Tordesillas line dividing Spanish and Portuguese spheres' },
+  { year:'1498', title:'Vasco da Gama Reaches India', topic:'Topic 4.2 — Trading Post Empires', desc:'Vasco da Gama completes the first direct sea voyage from Europe to India, arriving in Calicut. Portugal now has a direct route to the spice trade — bypassing Muslim and Venetian middlemen and establishing the blueprint for trading post empire across the Indian Ocean.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Vasco_da_Gama_-_1499_Portuguese_painting.jpg/440px-Vasco_da_Gama_-_1499_Portuguese_painting.jpg', alt:'Portrait of Vasco da Gama' },
+  { year:'1519–21', title:'Cortés Conquers the Aztec Empire', topic:'Topic 4.3 — Columbian Exchange &amp; Conquest', desc:'Hernán Cortés, aided by Indigenous allies and smallpox, topples the Aztec Empire. Tenochtitlán — population 200,000, larger than any European city — falls. The conquest demonstrates how disease and internal divisions could collapse civilizations that had no immunity to Old World pathogens.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Hernan_Cortes_Museo_del_Prado.jpg/440px-Hernan_Cortes_Museo_del_Prado.jpg', alt:'Portrait of Hernán Cortés' },
+  { year:'1519–22', title:'Magellan Circumnavigates the Globe', topic:'Topic 4.1 — Technological Innovations', desc:'Magellan\'s expedition completes the first circumnavigation of the globe (Magellan himself dies in the Philippines). The voyage proves Earth\'s true size, maps the Pacific trade winds, and opens the Manila Galleon trade route connecting Asia and the Americas.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Ferdinand_Magellan.jpg/440px-Ferdinand_Magellan.jpg', alt:'Portrait of Ferdinand Magellan' },
+  { year:'1532–35', title:'Pizarro Conquers the Inca Empire', topic:'Topic 4.3 — Columbian Exchange &amp; Conquest', desc:'Francisco Pizarro captures Incan emperor Atahualpa, collects a room-sized ransom in gold, then executes him anyway. Silver from Potosí\'s mines begins flowing to Spain and into the global economy, fueling inflation worldwide — the first global commodity shock.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Francisco_Pizarro.jpg/440px-Francisco_Pizarro.jpg', alt:'Portrait of Francisco Pizarro, conqueror of the Inca' },
+  { year:'1602', title:'Dutch East India Company (VOC) Founded', topic:'Topic 4.4 — Maritime Empires', desc:'The VOC becomes history\'s first joint-stock company — able to raise capital, wage war, and negotiate treaties independently of the Dutch state. It displaces Portugal across the Indian Ocean and establishes the model for corporate colonialism that would define the next three centuries.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/VOC_Hendrik_Cornelisz_Vroom_-_Harbour_of_Hoorn.jpg/1280px-VOC_Hendrik_Cornelisz_Vroom_-_Harbour_of_Hoorn.jpg', alt:'Dutch VOC ships in harbor, early 17th century' },
+  { year:'1619', title:'First Enslaved Africans in English Virginia', topic:'Topic 4.5 — Atlantic Slave Trade', desc:'A Dutch ship brings the first enslaved Africans to the English colony of Virginia. What begins as a trickle grows into a torrent: by 1800, roughly 400,000 Africans had been brought to North America — part of 12.5 million forcibly transported across the Atlantic world.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Arrival_of_Negro_slaves_1619.jpg/1280px-Arrival_of_Negro_slaves_1619.jpg', alt:'First enslaved Africans arriving in Virginia, 1619' }
+];
+var tlList = document.getElementById('tl-list');
+if (tlList) {
+  var tlHTML = '';
+  TIMELINE.forEach(function(item, i) {
+    var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
+    tlHTML += '<div class="tl-item ' + side + '"><div class="tl-img-wrap"><img src="' + item.img + '" alt="' + item.alt + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div></div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-year-badge">' + item.year + '</div><div class="tl-topic-tag">' + item.topic + '</div><h3 class="tl-title">' + item.title + '</h3><p class="tl-desc">' + item.desc + '</p></div></div>';
+  });
+  tlList.innerHTML = tlHTML;
+  var tlObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  tlList.querySelectorAll('.tl-item').forEach(function(el){ tlObs.observe(el); });
+}
 
 /* ── MCQ DATA ── */
 var QB = {

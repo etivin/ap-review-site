@@ -680,6 +680,7 @@ img{display:block;max-width:100%}
 .top-bar-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
 .top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}}
+.unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
 </style>
 </head>
 <body>
@@ -725,6 +726,31 @@ img{display:block;max-width:100%}
         <button type="button" class="hero-btn hero-btn-primary" data-tab="pg-mcq">&#128203; Start MCQ Practice</button>
         <button type="button" class="hero-btn hero-btn-outline" data-tab="pg-flash">&#128218; Study Flashcards</button>
         <button type="button" class="hero-btn hero-btn-outline" id="scroll-timeline-btn">&#9660; View Timeline</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="unit-summary">
+    <div class="us-inner">
+      <div class="us-grid">
+        <div>
+          <div class="us-col-label">Unit Overview</div>
+          <h2 class="us-heading">The Age of Total War</h2>
+          <p class="us-body">Between 1900 and 1945, the world experienced two catastrophic global wars that together killed over 70 million people. The causes were deeply rooted in the preceding century: imperial rivalries, hyper-nationalism, arms races, and the rigid alliance systems of European great powers. When Archduke Franz Ferdinand was assassinated in Sarajevo in June 1914, these pressures detonated into the most destructive war the world had ever seen.</p>
+          <p class="us-body">WWI shattered the old European order. The Ottoman, Austro-Hungarian, Russian, and German empires all collapsed. The harsh terms of the Versailles Treaty, combined with the global Great Depression of the 1930s, created the economic and psychological conditions in which fascism could flourish. Hitler's rise in Germany, Mussolini's in Italy, and militarism in Japan produced leaders willing to gamble civilization itself on conquest.</p>
+          <p class="us-body">World War II was even more total than the first &mdash; civilian populations were deliberate targets. The Holocaust, the Japanese war in China, and Allied strategic bombing campaigns killed millions of non-combatants. The war ended with atomic weapons deployed against Japanese cities, inaugurating the nuclear age and setting the stage for the Cold War that would define the second half of the 20th century.</p>
+        </div>
+        <div>
+          <div class="us-col-label">Core Themes</div>
+          <div class="us-themes-list">
+            <div class="us-theme"><div class="us-theme-num">01</div><div><div class="us-theme-name">Causes of WWI (MAIN)</div><div class="us-theme-detail">Militarism, Alliance systems, Imperialism, and Nationalism created a powder keg by 1914. The assassination of Archduke Franz Ferdinand provided the spark that ignited a continent-wide war within six weeks.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">02</div><div><div class="us-theme-name">Total War &amp; New Technology</div><div class="us-theme-detail">Industrial warfare introduced machine guns, poison gas, tanks, submarines, and airplanes. Both world wars mobilized entire economies and societies, blurring the line between soldiers and civilians.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">03</div><div><div class="us-theme-name">Interwar Instability</div><div class="us-theme-detail">The Great Depression devastated economies worldwide, discrediting liberal democracy in many nations. The result was the rise of fascism in Germany and Italy, and military nationalism in Japan.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">04</div><div><div class="us-theme-name">Mass Atrocities</div><div class="us-theme-detail">The Holocaust systematically murdered 6 million Jews and 5 million others. The Armenian Genocide, Japanese war crimes in Nanjing, and Soviet gulags represent deliberate state-directed mass murder on an unprecedented scale.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">05</div><div><div class="us-theme-name">Anti-Colonial Nationalism</div><div class="us-theme-detail">WWI exposed the contradictions of European claims to "civilization" and democracy. Colonial subjects who fought for empire returned home demanding self-determination &mdash; planting seeds of later independence movements.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">06</div><div><div class="us-theme-name">Propaganda &amp; Mobilization</div><div class="us-theme-detail">Both wars required unprecedented mass mobilization. Governments deployed propaganda through posters, film, and radio to sustain public support for industrialized slaughter on a scale never before seen.</div></div></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

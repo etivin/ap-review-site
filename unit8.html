@@ -441,6 +441,7 @@ button{font-family:inherit;cursor:pointer}
 .top-bar-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
 .top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}}
+.unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
 </style>
 </head>
 <body>
@@ -485,6 +486,32 @@ button{font-family:inherit;cursor:pointer}
       </div>
     </div>
   </section>
+
+  <section class="unit-summary">
+    <div class="us-inner">
+      <div class="us-grid">
+        <div>
+          <div class="us-col-label">Unit Overview</div>
+          <h2 class="us-heading">Cold War &amp; the End of Empire</h2>
+          <p class="us-body">The end of World War II in 1945 created a world simultaneously more unified &mdash; through the United Nations, the World Bank, and global institutions &mdash; and more bitterly divided. Two superpowers, the United States and the Soviet Union, emerged from the ruins of European hegemony with fundamentally incompatible visions of political and economic order. Their ideological conflict, conducted through proxy wars, arms races, and propaganda rather than direct confrontation, defined world politics for four decades.</p>
+          <p class="us-body">At the same time, WWII had fatally weakened the European colonial powers. Britain, France, Belgium, and the Netherlands could no longer project the power needed to hold their empires. Between 1945 and 1975, over 80 new nations emerged from colonial rule across Asia, Africa, the Middle East, and the Caribbean. Decolonization was rarely peaceful &mdash; it often involved brutal wars of independence, Cold War interference, and difficult nation-building in the aftermath of arbitrary colonial borders.</p>
+          <p class="us-body">The Cold War ended not with a bang but a series of revolutions &mdash; the fall of the Berlin Wall in 1989, the dissolution of the Soviet Union in 1991. What followed was not the "end of history" but an uncertain multipolar world in which the questions of economic justice, environmental sustainability, and political self-determination remained deeply unresolved.</p>
+        </div>
+        <div>
+          <div class="us-col-label">Core Themes</div>
+          <div class="us-themes-list">
+            <div class="us-theme"><div class="us-theme-num">01</div><div><div class="us-theme-name">Cold War Ideology &amp; Containment</div><div class="us-theme-detail">The US pursued "containment" of Soviet communism through the Truman Doctrine, Marshall Plan, and NATO. The USSR countered with the Warsaw Pact and support for communist movements worldwide.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">02</div><div><div class="us-theme-name">Proxy Wars &amp; Nuclear Brinkmanship</div><div class="us-theme-detail">The US and USSR avoided direct conflict but fought through proxies in Korea, Vietnam, Angola, and Afghanistan. The Cuban Missile Crisis of 1962 brought the world to the edge of nuclear annihilation.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">03</div><div><div class="us-theme-name">Decolonization</div><div class="us-theme-detail">Over 80 new nations emerged between 1945&ndash;1975, often after violent independence struggles. India (1947), Ghana (1957), Algeria (1962), and Vietnam (1975) represent different paths &mdash; from negotiation to armed revolution.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">04</div><div><div class="us-theme-name">Non-Aligned Movement</div><div class="us-theme-detail">Many newly independent nations refused to align with either superpower. The Bandung Conference (1955) launched the Non-Aligned Movement &mdash; the Global South asserting its right to chart its own political and economic path.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">05</div><div><div class="us-theme-name">Social &amp; Civil Rights Movements</div><div class="us-theme-detail">The postwar era saw major civil rights movements (US Civil Rights, South African anti-apartheid) and feminist movements challenging hierarchies of race and gender within both superpowers and newly independent states.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">06</div><div><div class="us-theme-name">End of the Cold War</div><div class="us-theme-detail">Gorbachev's reforms (glasnost, perestroika) weakened Soviet control. The 1989 revolutions swept Eastern Europe; the Soviet Union dissolved in 1991. The bipolar world order ended almost overnight.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TIMELINE -->
   <section class="tl-section" id="timeline-section">
     <div class="tl-inner">

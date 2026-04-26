@@ -418,6 +418,8 @@ button{font-family:inherit;cursor:pointer}
 .top-bar-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
 .top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}}
+.unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
+.tl-section{background:#2a2a1e;padding:72px 24px 80px;overflow:hidden}.tl-inner{max-width:1100px;margin:0 auto}.tl-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(176,0,28,.8);margin-bottom:8px}.tl-heading{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:10px;line-height:1.1}.tl-sub{font-size:.93rem;color:rgba(255,255,255,.45);margin-bottom:56px;max-width:540px}.tl-list{position:relative;padding:0 0 10px}.tl-list::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(176,0,28,.8),rgba(176,0,28,.15));transform:translateX(-50%)}.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;margin-bottom:64px;opacity:0;transition:opacity .7s ease,transform .7s ease}.tl-item.tl-left{transform:translateX(-40px)}.tl-item.tl-right{transform:translateX(40px)}.tl-item.visible{opacity:1;transform:none}.tl-item.tl-left .tl-img-wrap{order:1}.tl-item.tl-left .tl-spine{order:2}.tl-item.tl-left .tl-content{order:3}.tl-item.tl-right .tl-img-wrap{order:3}.tl-item.tl-right .tl-spine{order:2}.tl-item.tl-right .tl-content{order:1;text-align:right}.tl-img-wrap{aspect-ratio:4/3;overflow:hidden;background:#111;box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative}.tl-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.tl-img-wrap .tl-img-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a0e,#2a2a1e);color:rgba(255,255,255,.25);font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:16px}.tl-item:hover .tl-img-wrap img{transform:scale(1.04)}.tl-spine{display:flex;justify-content:center;align-items:center;z-index:2;position:relative}.tl-dot{width:16px;height:16px;background:var(--red);border:3px solid #2a2a1e;border-radius:50%;box-shadow:0 0 0 3px rgba(176,0,28,.4);transition:transform .3s}.tl-item:hover .tl-dot{transform:scale(1.4)}.tl-content{padding:0 28px}.tl-year-badge{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:.1em;padding:4px 12px;margin-bottom:8px}.tl-item.tl-right .tl-year-badge{float:right}.tl-item.tl-right .tl-content::after{content:'';display:table;clear:both}.tl-topic-tag{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;clear:both;display:block}.tl-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2}.tl-desc{font-size:.83rem;line-height:1.75;color:rgba(255,255,255,.55)}@media(max-width:700px){.tl-list::before{left:24px}.tl-item,.tl-item.tl-right,.tl-item.tl-left{grid-template-columns:48px 1fr;grid-template-rows:auto auto;align-items:start}.tl-img-wrap,.tl-item.tl-left .tl-img-wrap,.tl-item.tl-right .tl-img-wrap{order:1!important;grid-column:1/-1;grid-row:1;aspect-ratio:16/7;margin-bottom:0}.tl-spine,.tl-item.tl-left .tl-spine,.tl-item.tl-right .tl-spine{order:2!important;grid-column:1;grid-row:2;justify-content:center;padding-top:18px}.tl-content,.tl-item.tl-left .tl-content,.tl-item.tl-right .tl-content{order:3!important;grid-column:2;grid-row:2;text-align:left!important;padding:12px 0 12px 16px}.tl-item.tl-right .tl-year-badge{float:none}}
 </style>
 </head>
 <body>
@@ -456,9 +458,45 @@ button{font-family:inherit;cursor:pointer}
       <div class="hero-btns" style="margin-top:24px">
         <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">Practice MCQ</button>
         <button class="hero-btn hero-btn-outline" data-tab="pg-flash">Flashcards</button>
+        <button type="button" class="hero-btn hero-btn-outline" id="scroll-timeline-btn">&#9660; View Timeline</button>
       </div>
     </div>
   </div>
+
+  <section class="unit-summary">
+    <div class="us-inner">
+      <div class="us-grid">
+        <div>
+          <div class="us-col-label">Unit Overview</div>
+          <h2 class="us-heading">Steam, Empire, and Inequality</h2>
+          <p class="us-body">The Industrial Revolution, which began in Britain in the 1760s, fundamentally transformed how humans produced goods. Muscle power gave way to steam power; cottage industries were replaced by factories. The concentration of workers in industrial cities created new social classes &mdash; a wealthy capitalist bourgeoisie and a vast, often impoverished, industrial proletariat &mdash; and generated unprecedented national wealth that was profoundly unequally distributed.</p>
+          <p class="us-body">Industrialization also transformed the global balance of power. Industrial nations needed raw materials and markets for their manufactured goods, providing economic rationale for a new wave of imperialism. By 1914, European empires controlled roughly 84% of the Earth's surface. The Berlin Conference of 1884&ndash;85 divided Africa among European powers with no consideration for the peoples already living there, drawing borders that persist &mdash; and destabilize &mdash; to this day.</p>
+          <p class="us-body">Industrialization and empire together generated powerful counter-movements. Socialism and Marxism offered systematic critiques of industrial capitalism. Colonized peoples organized resistance movements from India's Sepoy Mutiny to Egypt's Urabi Revolt. Workers formed unions; women organized suffrage campaigns. The seeds of 20th-century decolonization were sown in the factories and colonial offices of the 19th century.</p>
+        </div>
+        <div>
+          <div class="us-col-label">Core Themes</div>
+          <div class="us-themes-list">
+            <div class="us-theme"><div class="us-theme-num">01</div><div><div class="us-theme-name">Industrialization &amp; Technology</div><div class="us-theme-detail">The steam engine, mechanized textile production, and railroads transformed production, transportation, and urban life &mdash; first in Britain, then spreading to Western Europe, the US, Japan, and Russia.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">02</div><div><div class="us-theme-name">New Social Classes</div><div class="us-theme-detail">Industrial capitalism created the bourgeoisie (factory owners, merchants) and the proletariat (industrial workers). Class conflict between these groups drove new political ideologies and labor movements.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">03</div><div><div class="us-theme-name">New Imperialism</div><div class="us-theme-detail">Industrialized powers colonized Africa and Asia using economic, racial, and "civilizing mission" justifications. The Scramble for Africa produced 50+ colonies in a single generation.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">04</div><div><div class="us-theme-name">Resistance to Imperialism</div><div class="us-theme-detail">Colonized peoples responded with armed resistance (Sepoy Mutiny, Zulu Wars), cultural nationalism (Indian National Congress), and selective modernization (Meiji Japan) to preserve sovereignty.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">05</div><div><div class="us-theme-name">Economic Theories</div><div class="us-theme-detail">Capitalism's inequalities spurred alternatives: utopian socialism, Marxist communism, and labor unionism all emerged as responses to industrial poverty and called for fundamental restructuring of economic power.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">06</div><div><div class="us-theme-name">Reform Movements</div><div class="us-theme-detail">Abolitionism, women's suffrage, and public health reform emerged as responses to industrialization's social costs. The British abolished slavery in 1833; suffrage campaigns fought for decades before winning the vote.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tl-section" id="timeline-section">
+    <div class="tl-inner">
+      <div class="tl-label">Unit 6 at a Glance</div>
+      <h2 class="tl-heading">The Age of Industry &amp; Empire</h2>
+      <p class="tl-sub">Ten turning points from 1765 to 1902 &mdash; scroll to explore.</p>
+      <div class="tl-list" id="tl-list"></div>
+    </div>
+  </section>
+
 </div>
 
 <!-- MCQ PAGE -->
@@ -1188,6 +1226,37 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('[data-tab]').forEach(function(el){
     el.addEventListener('click', function(){ showTab(this.dataset.tab); });
   });
+
+  /* ── TIMELINE ── */
+  document.getElementById('scroll-timeline-btn').addEventListener('click', function(){
+    var tl = document.getElementById('timeline-section');
+    if (tl) tl.scrollIntoView({ behavior: 'smooth' });
+  });
+  var TIMELINE = [
+    { year:'1765', title:'Watt\'s Steam Engine', topic:'Topic 6.1 — Industrialization Begins', desc:'James Watt patents a dramatically improved steam engine with a separate condenser, making industrial-scale steam power practical. The engine drives mines, textile mills, and eventually locomotives — beginning the transformation of production that would reshape the world.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/SteamEngine_Boulton%26Watt_1784.jpg/1280px-SteamEngine_Boulton%26Watt_1784.jpg', alt:'Boulton and Watt steam engine, 1784' },
+    { year:'1780s–1800s', title:'British Textile Revolution', topic:'Topic 6.1 — Industrial Revolution', desc:'Spinning jennies, power looms, and spinning frames mechanize textile production. Cloth that once required hundreds of hand spinners can now be made by a handful of workers and machines. Factory towns like Manchester explode in population — and in squalor, disease, and inequality.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Inside_of_a_Cotton_Factory.jpg/1280px-Inside_of_a_Cotton_Factory.jpg', alt:'Workers inside a British cotton factory, early 19th century' },
+    { year:'1833', title:'Abolition of Slavery in the British Empire', topic:'Topic 6.6 — Reform Movements', desc:'The Slavery Abolition Act ends enslaved labor across most of the British Empire — the result of decades of activism by abolitionists including William Wilberforce. Planters receive £20 million in compensation; the enslaved receive nothing. The act inspires abolitionists worldwide.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/William-wilberforce.jpg/440px-William-wilberforce.jpg', alt:'Portrait of William Wilberforce, abolitionist leader' },
+    { year:'1848', title:'Communist Manifesto &amp; European Revolutions', topic:'Topic 6.3 — Reactions to Industrialization', desc:'Marx and Engels publish The Communist Manifesto, arguing industrial capitalism\'s class contradictions will produce revolution. The same year, revolutionary uprisings sweep France, Austria, Prussia, and Italy — all fail, but the ideas of class struggle endure and spread globally.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Karl_Marx.jpg/440px-Karl_Marx.jpg', alt:'Portrait of Karl Marx, author of the Communist Manifesto' },
+    { year:'1857–58', title:'Indian Sepoy Mutiny', topic:'Topic 6.2 — Resistance to Imperialism', desc:'Indian soldiers (sepoys) in the British East India Company army mutiny over religious grievances and the erosion of traditional privileges. Though crushed, the Mutiny ends EIC rule — Britain\'s Crown takes direct control of India, creating the British Raj and revealing the costs of imperial control.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Indian_Rebellion_of_1857.jpg/1280px-Indian_Rebellion_of_1857.jpg', alt:'Indian Rebellion of 1857' },
+    { year:'1868', title:'Meiji Restoration — Japan Industrializes', topic:'Topic 6.1 — Industrialization Spreads', desc:'The Meiji government launches rapid industrialization and westernization to avoid colonial subjugation. Japan builds railways, a conscript army, a modern navy, and compulsory education. By 1905, Japan defeats Russia — the first non-European power to defeat a European power in modern war.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Meiji_Emperor_of_Japan.jpg/440px-Meiji_Emperor_of_Japan.jpg', alt:'Emperor Meiji of Japan, symbol of rapid modernization' },
+    { year:'1869', title:'Suez Canal Opens', topic:'Topic 6.4 — Global Economic Development', desc:'The Suez Canal connects the Mediterranean and Red Seas, slashing the voyage from Britain to India from 24,000 km to 12,000 km. British strategic anxiety about the canal drives the occupation of Egypt in 1882 — a textbook case of how infrastructure investment becomes economic imperialism.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Inauguration_of_the_Suez_Canal%2C_1869.jpg/1280px-Inauguration_of_the_Suez_Canal%2C_1869.jpg', alt:'Inauguration of the Suez Canal, 1869' },
+    { year:'1884–85', title:'Berlin Conference — Scramble for Africa', topic:'Topic 6.2 — State Expansion', desc:'Fourteen European powers meet in Berlin to regulate the colonization of Africa. No African representatives are present. The conference accelerates the "Scramble for Africa" — by 1914, only Ethiopia and Liberia remain independent on the entire continent.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Scramble_for_Africa_1880_to_1913.gif/440px-Scramble_for_Africa_1880_to_1913.gif', alt:'Map showing the Scramble for Africa, 1880–1913' },
+    { year:'1885', title:'Indian National Congress Founded', topic:'Topic 6.2 — Resistance to Imperialism', desc:'Indian educated elites found the Indian National Congress, initially seeking greater representation within the British Empire. It gradually becomes the vehicle for Indian nationalism — Gandhi\'s leadership will transform it into a mass independence movement by the 1920s.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Indian_National_Congress%2C_1885.jpg/1280px-Indian_National_Congress%2C_1885.jpg', alt:'Early meeting of the Indian National Congress, 1885' },
+    { year:'1899–1902', title:'Boer War — Limits of Empire Exposed', topic:'Topic 6.2 — Indigenous Responses', desc:'Britain fights Dutch-descended Boer settlers in South Africa for control of gold and diamond fields. Britain\'s use of concentration camps, in which 28,000 Boers and 14,000 Black Africans die, sparks international outrage and fuels debate about the true costs of imperial violence.', img:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Boercamp.jpg/1280px-Boercamp.jpg', alt:'British concentration camp during the Boer War, South Africa, 1901' }
+  ];
+  var tlList = document.getElementById('tl-list');
+  if (tlList) {
+    var tlHTML = '';
+    TIMELINE.forEach(function(item, i) {
+      var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
+      tlHTML += '<div class="tl-item ' + side + '"><div class="tl-img-wrap"><img src="' + item.img + '" alt="' + item.alt + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div></div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-year-badge">' + item.year + '</div><div class="tl-topic-tag">' + item.topic + '</div><h3 class="tl-title">' + item.title + '</h3><p class="tl-desc">' + item.desc + '</p></div></div>';
+    });
+    tlList.innerHTML = tlHTML;
+    var tlObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    tlList.querySelectorAll('.tl-item').forEach(function(el){ tlObs.observe(el); });
+  }
 
   /* ── MCQ ── */
   var mcqQs = [], mcqAnswered = 0;

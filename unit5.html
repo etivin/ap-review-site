@@ -428,6 +428,7 @@ button{font-family:inherit;cursor:pointer}
 .top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}}
 @media(max-width:600px){.topic-grid,.features-grid,.tip-grid{grid-template-columns:1fr}.match-board{flex-direction:column}.jeop-board{grid-template-columns:repeat(3,1fr)}.jeop-cat:nth-child(n+4){display:none}.sq-choices{grid-template-columns:1fr}.tl-list::before{left:24px}.tl-item,.tl-item.tl-right,.tl-item.tl-left{grid-template-columns:48px 1fr;grid-template-rows:auto auto;align-items:start}.tl-img-wrap,.tl-item.tl-left .tl-img-wrap,.tl-item.tl-right .tl-img-wrap{order:1!important;grid-column:1/-1;grid-row:1;aspect-ratio:16/7;margin-bottom:0}.tl-spine,.tl-item.tl-left .tl-spine,.tl-item.tl-right .tl-spine{order:2!important;grid-column:1;grid-row:2;justify-content:center;padding-top:18px}.tl-content,.tl-item.tl-left .tl-content,.tl-item.tl-right .tl-content{order:3!important;grid-column:2;grid-row:2;text-align:left!important;padding:12px 0 12px 16px}.tl-item.tl-right .tl-year-badge{float:none}}
+.unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
 </style>
 </head>
 <body>
@@ -470,6 +471,32 @@ button{font-family:inherit;cursor:pointer}
       </div>
     </div>
   </section>
+
+  <section class="unit-summary">
+    <div class="us-inner">
+      <div class="us-grid">
+        <div>
+          <div class="us-col-label">Unit Overview</div>
+          <h2 class="us-heading">The Age of Revolution</h2>
+          <p class="us-body">Between 1750 and 1900, a cascade of revolutions &mdash; intellectual, political, and industrial &mdash; remade the world. The Enlightenment challenged the divine right of kings with the language of natural rights and popular sovereignty. Those ideas, spread by pamphlets and newspapers, ignited political explosions from Philadelphia to Paris to Port-au-Prince. Within decades, monarchies that had ruled for centuries were overthrown or constitutionally constrained.</p>
+          <p class="us-body">The Industrial Revolution transformed production itself. Steam power, mechanized textile mills, and eventually railways concentrated workers in cities and generated unprecedented wealth &mdash; wealth that was profoundly unequally distributed. The factory system created new social classes: a wealthy industrial bourgeoisie and a vast, often impoverished, urban proletariat whose conditions inspired Marx to write that "the history of all hitherto existing society is the history of class struggles."</p>
+          <p class="us-body">Nationalism emerged as the era's most powerful political force, binding together people who shared language, culture, and history into demands for self-determination. Revolutionary ideals spread globally &mdash; inspiring Latin American independence movements, anticolonial resistance in Asia and Africa, and the abolitionist movements that would eventually end legalized slavery across the Atlantic world.</p>
+        </div>
+        <div>
+          <div class="us-col-label">Core Themes</div>
+          <div class="us-themes-list">
+            <div class="us-theme"><div class="us-theme-num">01</div><div><div class="us-theme-name">Enlightenment &amp; Natural Rights</div><div class="us-theme-detail">Locke, Rousseau, Voltaire, and Montesquieu challenged divine right monarchy with ideas about natural rights, separation of powers, and the social contract &mdash; providing the philosophical fuel for Atlantic Revolutions.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">02</div><div><div class="us-theme-name">Atlantic Revolutions</div><div class="us-theme-detail">The American (1776), French (1789), Haitian (1791), and Latin American independence movements (1810s&ndash;20s) all drew on Enlightenment ideals to challenge existing authority, with widely varying outcomes.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">03</div><div><div class="us-theme-name">Industrial Revolution</div><div class="us-theme-detail">Steam power, mechanized production, and urbanization transformed Britain first, then spread globally. The factory system created new economic relationships between capital owners and industrial workers.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">04</div><div><div class="us-theme-name">Nationalism &amp; Self-Determination</div><div class="us-theme-detail">The idea that peoples sharing culture and language should govern themselves drove the unification of Germany and Italy, the breakup of empires, and anticolonial movements worldwide.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">05</div><div><div class="us-theme-name">Abolitionism &amp; Social Reform</div><div class="us-theme-detail">Abolitionists in Britain, America, and Haiti challenged the Atlantic slave trade on moral and religious grounds, ultimately forcing legal emancipation across the Americas between 1791 and 1888.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">06</div><div><div class="us-theme-name">Reactions to Industrialization</div><div class="us-theme-detail">Industrial poverty inspired responses from Romantic anti-modernism to Marxist communism. Labor unions, socialist parties, and reform legislation emerged as industrial workers organized for better conditions and wages.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- TIMELINE -->
   <section class="tl-section" id="timeline-section">
     <div class="tl-inner">

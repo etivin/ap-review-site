@@ -2495,7 +2495,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   window.showTab = showTab;
 
-  document.getElementById('hdr-back').addEventListener('click', function(){ showTab('pg-home'); });
+  var hdrBack = document.getElementById('hdr-back');
+  if (hdrBack) hdrBack.addEventListener('click', function(){ showTab('pg-home'); });
 
   document.querySelectorAll('[data-tab]').forEach(function(el){
     el.addEventListener('click', function(){ showTab(this.dataset.tab); });

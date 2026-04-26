@@ -900,6 +900,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (id === 'pg-guide') renderGuide();
     window.scrollTo(0, 0);
   }
+  window.showTab = showTab;
 
   document.querySelectorAll('[data-tab]').forEach(function(el){
     el.addEventListener('click', function(){ showTab(this.dataset.tab); });

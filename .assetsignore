@@ -1,0 +1,12 @@
+node_modules/
+.git/
+*.pdf
+*.pptx
+*.txt
+*.jsonl
+agent.py
+bun.lockb
+package.json
+package-lock.json
+wrangler.jsonc
+README.md

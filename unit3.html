@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 3 Review — AP World History: Modern</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --sw:270px;
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --green:#1a6825;--green-bg:#eef7f0;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+}
+body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;line-height:1.65;min-height:100vh;display:flex}
+button{font-family:inherit;cursor:pointer}
+.page{display:none}
+.page.active{display:block;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.inner{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+.pg-hero{text-align:center;padding:32px 0 28px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.pg-hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:8px}
+.pg-hero p{color:var(--muted);font-size:.92rem;max-width:520px;margin:0 auto}
+.hero{position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(to bottom,rgba(249,246,239,.9) 0%,rgba(243,236,224,.85) 50%,rgba(243,236,224,.96) 100%),url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Babur_receives_a_courtier.jpg/1280px-Babur_receives_a_courtier.jpg") center/cover no-repeat;padding:48px 24px 40px;border-bottom:3px solid var(--border2)}
+.hero-inner{text-align:center;max-width:720px;margin:0 auto}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:16px;border:1px solid rgba(176,0,28,.35);display:inline-block;padding:4px 14px;background:rgba(255,255,255,.6)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.0;color:var(--ink);margin-bottom:18px}
+.hero h1 em{color:var(--red);font-style:italic}
+.hero-rule{width:70px;height:3px;background:var(--red);margin:0 auto 20px}
+.hero-sub{color:var(--mid);font-size:clamp(.9rem,2vw,1.1rem);max-width:560px;line-height:1.7;margin:0 auto 28px}
+.hero-period{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.hero-btn{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;border:none;transition:all .2s}
+.hero-btn-primary{background:var(--red);color:#fff}
+.hero-btn-primary:hover{background:var(--red-d);transform:translateY(-2px)}
+.hero-btn-outline{background:rgba(255,255,255,.7);color:var(--ink);border:1.5px solid var(--border2)!important}
+.hero-btn-outline:hover{background:var(--ink);color:#fff}
+.features{background:var(--white);padding:52px 24px;border-bottom:2px solid var(--border)}
+.features-inner{max-width:900px;margin:0 auto}
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;margin-bottom:28px;line-height:1.1}
+.pg-nav-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.pg-nav-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1.5px solid var(--border2);background:none;color:var(--ink);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pg-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-nav-all{background:var(--red);color:#fff;border-color:var(--red)}
+.pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
+/* MCQ */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.tc{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--red);padding:16px 18px;text-align:left;transition:box-shadow .18s,transform .18s}
+.tc:hover{box-shadow:var(--shm);transform:translateY(-2px)}
+.tc-n{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.tc-name{font-size:.93rem;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.3}
+.tc-cnt{font-family:'IBM Plex Mono',monospace;font-size:.54rem;color:var(--muted);letter-spacing:.08em}
+.btn-all{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;transition:background .15s}
+.btn-all:hover{background:var(--red)}
+.btn-mixed{display:block;width:100%;background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-b);padding:12px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-top:10px;transition:background .15s}
+.btn-mixed:hover{background:var(--gold-b);color:var(--ink)}
+.qsession{display:none}
+.qsession.active{display:block}
+.qhdr{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qhdr-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+.qhdr-prog{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.08em}
+.qpbar{background:var(--border);height:4px;margin-bottom:24px;border-radius:2px}
+.qpbf{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.sset-name{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px}
+.stim{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--red);padding:18px 20px;margin-bottom:18px}
+.stim-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.stim-src{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.06em;color:var(--muted);margin-bottom:10px;font-style:italic}
+.stim-txt{font-size:.9rem;line-height:1.75;color:var(--mid)}
+.stim-txt p+p{margin-top:.6em}
+.qcard{background:var(--white);border:1px solid var(--border);padding:20px 22px;margin-bottom:14px}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.qtxt{font-size:.95rem;line-height:1.65;margin-bottom:14px;color:var(--ink)}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{background:var(--cream);border:1.5px solid var(--border);padding:11px 14px;text-align:left;display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.5;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.opt:disabled{cursor:default}
+.opt.c{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.w{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.opt.rv{background:var(--green-bg);border-color:var(--green);opacity:.7}
+.ol{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:600;flex-shrink:0;margin-top:2px;color:var(--muted)}
+.fb{display:none;margin-top:12px;padding:11px 14px;font-size:.86rem;line-height:1.6;border-left:3px solid transparent}
+.fb.show{display:block}
+.fb.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.fb.bad{background:var(--red-bg);border-color:var(--red);color:var(--mid)}
+.sbr{border:none;border-top:2px solid var(--border);margin:28px 0 20px}
+.btn-row{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{background:var(--cream);border:1px solid var(--border);padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;transition:all .15s}
+.btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-red:hover{background:var(--red-d)}
+/* BRAIN DUMP */
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:4px;transition:background .15s}
+.bd-start-btn:hover:not(:disabled){background:var(--red)}
+.bd-start-btn:disabled{opacity:.4;cursor:not-allowed}
+.bd-session{display:none}
+.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 18px;margin-bottom:14px}
+.bd-topic-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
+.bd-countdown{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;letter-spacing:.06em;color:#fff;transition:color .3s}
+.bd-countdown.warning{color:#f4b942}
+.bd-countdown.expired{color:var(--red)}
+.bd-stem{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-bottom:16px}
+.bd-stem-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
+.bd-textarea{width:100%;border:2px solid var(--border2);padding:14px 16px;font-family:'Source Serif 4',Georgia,serif;font-size:.93rem;line-height:1.7;resize:vertical;min-height:180px;background:var(--white);transition:border-color .15s}
+.bd-textarea:focus{outline:none;border-color:var(--red)}
+.bd-word-count{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;text-align:right}
+.bd-reveal{display:none;margin-top:28px}
+.bd-reveal.active{display:block}
+.bd-reveal-hdr{background:var(--green-bg);border:1px solid var(--green);border-left:4px solid var(--green);padding:14px 18px;font-size:.9rem;color:var(--green);margin-bottom:20px}
+.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:20px}
+.bd-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:16px 18px}
+.bd-card-term{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.bd-card-def{font-size:.82rem;line-height:1.6;color:var(--mid)}
+.bd-reset-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;transition:background .15s}
+.bd-reset-btn:hover{background:var(--red)}
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;font-size:.72rem;margin-top:4px}
+.sb-nav{padding:12px 0;flex:1}
+.sb-group-label{padding:14px 20px 4px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(176,0,28,.13)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
+.sb-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+.sb-back-btn{display:block;background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .15s}
+.sb-back-btn:hover{background:var(--red-d)}
+.sb-link{display:flex;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.4);font-family:'IBM Plex Mono',monospace;font-size:.68rem;text-decoration:none;transition:color .15s;padding:2px 0}
+.sb-link:hover{color:#fff}
+/* MAIN WRAP */
+.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+/* TOP BAR */
+.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.top-bar-title{font-size:1.1rem;font-weight:700;color:var(--ink);line-height:1.2}
+.top-bar-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
+.top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
+@media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}}
+@media(max-width:600px){.topic-grid{grid-template-columns:1fr}.hero{min-height:55vh}}
+/* UNIT SUMMARY */
+.unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
+/* TIMELINE */
+.tl-section{background:#2a2a1e;padding:72px 24px 80px;overflow:hidden}.tl-inner{max-width:1100px;margin:0 auto}.tl-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(176,0,28,.8);margin-bottom:8px}.tl-heading{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:10px;line-height:1.1}.tl-sub{font-size:.93rem;color:rgba(255,255,255,.45);margin-bottom:56px;max-width:540px}.tl-list{position:relative;padding:0 0 10px}.tl-list::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(176,0,28,.8),rgba(176,0,28,.15));transform:translateX(-50%)}.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;margin-bottom:64px;opacity:0;transition:opacity .7s ease,transform .7s ease}.tl-item.tl-left{transform:translateX(-40px)}.tl-item.tl-right{transform:translateX(40px)}.tl-item.visible{opacity:1;transform:none}.tl-item.tl-left .tl-img-wrap{order:1}.tl-item.tl-left .tl-spine{order:2}.tl-item.tl-left .tl-content{order:3}.tl-item.tl-right .tl-img-wrap{order:3}.tl-item.tl-right .tl-spine{order:2}.tl-item.tl-right .tl-content{order:1;text-align:right}.tl-img-wrap{aspect-ratio:4/3;overflow:hidden;background:#111;box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative}.tl-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.tl-img-wrap .tl-img-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a0e,#2a2a1e);color:rgba(255,255,255,.25);font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:16px}.tl-item:hover .tl-img-wrap img{transform:scale(1.04)}.tl-spine{display:flex;justify-content:center;align-items:center;z-index:2;position:relative}.tl-dot{width:16px;height:16px;background:var(--red);border:3px solid #2a2a1e;border-radius:50%;box-shadow:0 0 0 3px rgba(176,0,28,.4);transition:transform .3s}.tl-item:hover .tl-dot{transform:scale(1.4)}.tl-content{padding:0 28px}.tl-year-badge{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:.1em;padding:4px 12px;margin-bottom:8px}.tl-item.tl-right .tl-year-badge{float:right}.tl-item.tl-right .tl-content::after{content:'';display:table;clear:both}.tl-topic-tag{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;clear:both;display:block}.tl-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2}.tl-desc{font-size:.83rem;line-height:1.75;color:rgba(255,255,255,.55)}@media(max-width:700px){.tl-list::before{left:24px}.tl-item,.tl-item.tl-right,.tl-item.tl-left{grid-template-columns:48px 1fr;grid-template-rows:auto auto;align-items:start}.tl-img-wrap,.tl-item.tl-left .tl-img-wrap,.tl-item.tl-right .tl-img-wrap{order:1!important;grid-column:1/-1;grid-row:1;aspect-ratio:16/7;margin-bottom:0}.tl-spine,.tl-item.tl-left .tl-spine,.tl-item.tl-right .tl-spine{order:2!important;grid-column:1;grid-row:2;justify-content:center;padding-top:18px}.tl-content,.tl-item.tl-left .tl-content,.tl-item.tl-right .tl-content{order:3!important;grid-column:2;grid-row:2;text-align:left!important;padding:12px 0 12px 16px}.tl-item.tl-right .tl-year-badge{float:none}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">Unit 3 — Land-Based Empires</div>
+    <div class="sb-sub">c. 1450 – c. 1750</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Sections</div>
+    <div class="nav-item active" data-target="pg-home" onclick="showTab('pg-home')"><span class="nav-dot"></span>Overview</div>
+    <div class="nav-item" data-target="pg-mcq" onclick="showTab('pg-mcq')"><span class="nav-dot"></span>MCQ Practice</div>
+    <div class="nav-item" data-target="pg-brain" onclick="showTab('pg-brain')"><span class="nav-dot"></span>Brain Dump</div>
+  </nav>
+  <div class="sb-footer">
+    <a href="index.html" class="sb-back-btn">&#8592; All Units</a>
+    <a href="resources.html" class="sb-link">&#8594; Resources</a>
+  </div>
+</aside>
+
+<div class="main-wrap">
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title" id="top-title">Overview</div>
+    <div class="top-bar-sub">Unit 3 &mdash; Land-Based Empires &mdash; c. 1450&ndash;c. 1750</div>
+  </div>
+  <div class="top-bar-tag">31 MCQs</div>
+</div>
+
+<!-- HOME PAGE -->
+<div class="page active" id="pg-home">
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Unit 3 &mdash; c. 1450 to c. 1750</p>
+      <h1>Land-Based <em>Empires</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">Gunpowder empires, bureaucratic expansion, the devshirme system, Sunni&ndash;Shi&lsquo;a rivalry, Jesuit missionaries, and the art of political legitimacy across the Ottoman, Mughal, Safavid, and Qing worlds.</p>
+      <div class="hero-btns" style="margin-top:24px">
+        <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">&#128203; Start MCQ Practice</button>
+        <button class="hero-btn hero-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
+        <button type="button" class="hero-btn hero-btn-outline" id="scroll-timeline-btn">&#9660; View Timeline</button>
+      </div>
+      <p class="hero-period">AP World History: Modern &mdash; Period 2</p>
+    </div>
+  </section>
+
+  <section class="unit-summary">
+    <div class="us-inner">
+      <div class="us-grid">
+        <div>
+          <div class="us-col-label">Unit Overview</div>
+          <h2 class="us-heading">Empires Built on Gunpowder and Bureaucracy</h2>
+          <p class="us-body">Between 1450 and 1750, a new kind of empire reshaped Afro-Eurasia. The Ottoman, Safavid, Mughal, and Qing states &mdash; along with a resurgent Russia and a unified Japan &mdash; harnessed gunpowder technology, professional armies, and sophisticated administrative systems to build the largest land empires the world had ever seen.</p>
+          <p class="us-body">The Ottomans seized Constantinople in 1453, ending the Byzantine Empire and claiming the imperial tradition of Rome. Their devshirme system recruited elite soldiers and administrators from conquered Christian populations, building a bureaucracy personally loyal to the sultan. Their rival, the Shi&lsquo;a Safavid Empire, turned religious difference into a tool of state identity &mdash; forcing Sunni scholars within the Ottoman Empire to defend orthodoxy and sharpening the Sunni&ndash;Shi&lsquo;a divide that still shapes the Middle East today.</p>
+          <p class="us-body">The Mughal emperors ruled a religiously diverse India that included over 100 million people, requiring constant negotiation between Muslim rulers and a Hindu majority. Akbar pursued a policy of religious tolerance and cultural synthesis; Aurangzeb reversed it, reimposing the jizya tax on non-Muslims and triggering the revolts that ultimately fragmented the empire. Meanwhile, Jesuit missionaries in China and Japan demonstrated how religious competition triggered by the Protestant Reformation rippled out across the globe.</p>
+        </div>
+        <div>
+          <div class="us-col-label">Core Themes</div>
+          <div class="us-themes-list">
+            <div class="us-theme"><div class="us-theme-num">01</div><div><div class="us-theme-name">Gunpowder &amp; Military Expansion</div><div class="us-theme-detail">Cannons and firearms enabled the rapid expansion of the Ottoman, Mughal, and Manchu empires. Gunpowder weapons were the great equalizers &mdash; states that mastered them conquered those that did not.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">02</div><div><div class="us-theme-name">Imperial Administration</div><div class="us-theme-detail">Empires developed sophisticated tools to govern vast, diverse populations: the Ottoman devshirme, Mughal zamindar tax system, Qing examination bureaucracy, and European divine-right monarchy.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">03</div><div><div class="us-theme-name">Religion &amp; State Legitimacy</div><div class="us-theme-detail">Rulers used religion to justify their power. Sultans claimed caliphate authority; Mughal emperors balanced Hindu and Muslim identities; European monarchs claimed divine right; the Protestant Reformation destabilized these claims across Europe.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">04</div><div><div class="us-theme-name">Sunni&ndash;Shi&lsquo;a Rivalry</div><div class="us-theme-detail">The Ottoman (Sunni) and Safavid (Shi&lsquo;a) empires clashed repeatedly over theology and territory, forcing each to define and defend religious orthodoxy more sharply than before.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">05</div><div><div class="us-theme-name">Cultural Syncretism</div><div class="us-theme-detail">Contact between different cultures and faiths produced syncretic results: Mughal architecture blended Islamic and Hindu styles; Sikhism synthesized elements of Hinduism and Islam; Jesuit missionaries adapted Christian teaching to local contexts.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">06</div><div><div class="us-theme-name">Art as Political Power</div><div class="us-theme-detail">Rulers across cultures commissioned art, architecture, and manuscripts to legitimize their rule &mdash; from the Selimiye Mosque surpassing the Hagia Sophia to Mughal court paintings glorifying imperial power.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tl-section" id="timeline-section">
+    <div class="tl-inner">
+      <div class="tl-label">Unit 3 at a Glance</div>
+      <h2 class="tl-heading">From Constantinople to the Qing</h2>
+      <p class="tl-sub">Eight turning points from 1453 to 1703 &mdash; scroll to explore.</p>
+      <div class="tl-list" id="tl-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- BRAIN DUMP PAGE -->
+<div class="page" id="pg-brain">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Brain Dump</div>
+      <h2>Write What You Know</h2>
+      <p>Pick a topic, then write everything you remember for 5 minutes. When time&rsquo;s up, we&rsquo;ll show you all the content so you can compare.</p>
+    </div>
+
+    <div class="bd-setup" id="bd-setup">
+      <div class="bd-topic-grid">
+        <button class="bd-topic-btn" data-topic="3.1">3.1 &mdash; Empires Expand</button>
+        <button class="bd-topic-btn" data-topic="3.2">3.2 &mdash; Empires: Administration</button>
+        <button class="bd-topic-btn" data-topic="3.3">3.3 &mdash; Empires: Belief Systems</button>
+        <button class="bd-topic-btn" data-topic="3.4">3.4 &mdash; Comparison in Land-Based Empires</button>
+      </div>
+      <button class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
+    </div>
+
+    <div class="bd-session" id="bd-session">
+      <div class="bd-timer-bar">
+        <div class="bd-topic-label">Topic<strong id="bd-active-topic">&mdash;</strong></div>
+        <div class="bd-countdown" id="bd-countdown">5:00</div>
+      </div>
+      <div class="bd-stem" id="bd-stem">
+        <div class="bd-stem-lbl">&#9997; Sentence Stem &mdash; start here if you need a push</div>
+        <div class="bd-stem-txt" id="bd-stem-txt"></div>
+      </div>
+      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic &mdash; key terms, events, causes, effects, people&hellip; don&rsquo;t stop writing!"></textarea>
+      <div class="bd-word-count" id="bd-word-count">0 words</div>
+      <div class="bd-reveal" id="bd-reveal">
+        <div class="bd-reveal-hdr">&#9989; Time&rsquo;s up! Here&rsquo;s everything from this topic &mdash; compare it to what you wrote.</div>
+        <div class="bd-card-list" id="bd-card-list"></div>
+        <button class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MCQ PAGE -->
+<div class="page" id="pg-mcq">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div id="mcq-home">
+      <div class="pg-hero">
+        <div class="eyebrow">MCQ Review</div>
+        <h2>Stimulus-Based Questions</h2>
+        <p>AP-authentic questions using primary sources, maps, images, and documents from Unit 3. All 30 questions sourced from the official AP scoring guide.</p>
+      </div>
+      <div class="topic-grid">
+        <button class="tc" data-topic="3.1"><div class="tc-n">Topic 3.1</div><div class="tc-name">Empires Expand</div><div class="tc-cnt" id="cnt31"></div></button>
+        <button class="tc" data-topic="3.2"><div class="tc-n">Topic 3.2</div><div class="tc-name">Empires: Administration</div><div class="tc-cnt" id="cnt32"></div></button>
+        <button class="tc" data-topic="3.3"><div class="tc-n">Topic 3.3</div><div class="tc-name">Empires: Belief Systems</div><div class="tc-cnt" id="cnt33"></div></button>
+        <button class="tc" data-topic="3.4"><div class="tc-n">Topic 3.4</div><div class="tc-name">Comparison: Land-Based Empires</div><div class="tc-cnt" id="cnt34"></div></button>
+      </div>
+      <button class="btn-mixed" id="mcq-mixed-btn">&#9889; Quick Mixed Quiz &mdash; 2 Questions Per Topic</button>
+      <button class="btn-all" id="mcq-all-btn">&#128203; Practice All Questions</button>
+    </div>
+    <div id="mcq-session" class="qsession">
+      <div class="qhdr">
+        <div class="qhdr-name" id="qhdr-name">All Questions</div>
+        <div class="qhdr-prog" id="qhdr-prog">0 answered</div>
+      </div>
+      <div class="qpbar"><div class="qpbf" id="qpbf" style="width:0%"></div></div>
+      <div id="qbody"></div>
+      <div class="btn-row">
+        <button class="btn btn-red" id="mcq-back-btn">&#8592; Back to Topics</button>
+        <button class="btn" id="mcq-reset-btn">Reset &amp; Retry</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── PAGE NAV ── */
+var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-brain':'Brain Dump'};
+function showTab(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-item[data-target]').forEach(function(n){ n.classList.toggle('active', n.dataset.target === id); });
+  var tt = document.getElementById('top-title');
+  if (tt) tt.textContent = PAGE_TITLES[id] || '';
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-tab]').forEach(function(el){
+  el.addEventListener('click', function(){ showTab(this.dataset.tab); });
+});
+
+/* ── TIMELINE ── */
+document.getElementById('scroll-timeline-btn').addEventListener('click', function(){
+  var tl = document.getElementById('timeline-section');
+  if (tl) tl.scrollIntoView({ behavior: 'smooth' });
+});
+var TIMELINE = [
+  { year:'1453', title:'Fall of Constantinople', topic:'Topic 3.1 — Empires Expand', desc:'Ottoman Sultan Mehmed II captures Constantinople using massive cannons, ending the Byzantine Empire after 1,000 years. The city is renamed Istanbul and becomes the Ottoman capital. The conquest demonstrates the decisive power of gunpowder artillery and establishes the Ottomans as heirs to Roman imperial tradition — a claim central to their legitimacy for centuries.', img:'', alt:'Ottoman conquest of Constantinople' },
+  { year:'1501', title:'Safavid Empire Founded', topic:'Topic 3.3 — Belief Systems', desc:'Shah Ismail I establishes the Safavid dynasty in Persia and forcibly converts Sunni Persia to Twelver Shi‘a Islam. This creates a permanent religious fault line with the Sunni Ottoman Empire and triggers a century of warfare. The Sunni–Shi‘a rivalry shapes Ottoman religious policy, forcing Sunni scholars to police orthodoxy and marginalize Sufi practices within the empire.', img:'', alt:'Shah Ismail I of the Safavid Empire' },
+  { year:'1526', title:'Mughal Empire Founded', topic:'Topic 3.1 — Empires Expand', desc:'Babur defeats Ibrahim Lodi at the First Battle of Panipat using field artillery and mobile cavalry tactics. His victory establishes the Mughal dynasty in northern India. The Mughals inherit the challenge of ruling a predominantly Hindu population with a Muslim ruling class — a tension that would define the empire for generations, resolved differently by each successive emperor.', img:'', alt:'Babur founds the Mughal Empire at Panipat' },
+  { year:'1556', title:'Akbar\'s Reign Begins', topic:'Topic 3.2 — Administration', desc:'Akbar becomes Mughal emperor at age 13 and goes on to build the most sophisticated administrative system in Asia. He abolishes the jizya tax on non-Muslims, marries Hindu Rajput princesses, employs Hindus in the highest offices of state, and commissions a new syncretic religion, Din-i-Ilahi. His reign exemplifies how successful land-based empires often required religious accommodation rather than coercion.', img:'', alt:'Emperor Akbar of the Mughal Empire' },
+  { year:'1566', title:'Death of Suleiman the Magnificent', topic:'Topic 3.1 — Empires Expand', desc:'Suleiman I dies on campaign in Hungary, having presided over the Ottoman Empire at its greatest extent — stretching from Vienna to the Persian Gulf, from Crimea to Algiers. He commissioned the Selimiye Mosque (designed by Mimar Sinan), codified Ottoman law, and patronized art and scholarship. His reign represents the peak of Ottoman power and the model against which later sultans were measured.', img:'', alt:'Sultan Suleiman the Magnificent' },
+  { year:'1644', title:'Qing Dynasty Conquers Ming China', topic:'Topic 3.1 — Empires Expand', desc:'The Manchu people from northeastern China — semi-nomadic like the Mongols before them — cross the Great Wall and overthrow the Ming Dynasty, founding the Qing. Rather than dismantling the sophisticated Chinese bureaucracy, the Qing rulers maintain the Confucian examination system and Chinese administrative practices, demonstrating how successful land-based empires often adapt existing institutions rather than replacing them.', img:'', alt:'Qing Dynasty expansion into Ming China' },
+  { year:'1683', title:'Ottoman Siege of Vienna Fails', topic:'Topic 3.1 — Empires Expand', desc:'A combined Austrian–Polish force defeats the Ottoman army besieging Vienna, ending Ottoman expansion into Europe and beginning a century of slow retreat. The defeat marks a symbolic turning point: European states had adopted and refined Ottoman-style gunpowder technology, and the Ottomans would never again threaten the heart of Europe. The siege of Vienna is a watershed in the long competition between gunpowder empires.', img:'', alt:'Ottoman siege of Vienna, 1683' },
+  { year:'1703', title:'Peter the Great\'s Westernization', topic:'Topic 3.2 — Administration', desc:'Peter the Great founds St. Petersburg as Russia\'s new western-facing capital, built in the European Baroque style. His reign involves a sweeping program of Westernization: adopting European military technology, dress, calendar, and administrative practices. St. Petersburg visually embodies his ambition to transform Russia into a European great power — an example of how land-based empires adapted external models to strengthen their states.', img:'', alt:'St. Petersburg, Russia, founded by Peter the Great' }
+];
+var tlList = document.getElementById('tl-list');
+if (tlList) {
+  var tlHTML = '';
+  TIMELINE.forEach(function(item, i) {
+    var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
+    var fallback = '<div class="tl-img-fallback">' + item.year + '<br/>' + item.title + '</div>';
+    var imgTag = item.img ? '<img src="' + item.img + '" alt="' + item.alt + '" style="object-position:top center" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' : '';
+    tlHTML += '<div class="tl-item ' + side + '"><div class="tl-img-wrap">' + imgTag + fallback + '</div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-year-badge">' + item.year + '</div><div class="tl-topic-tag">' + item.topic + '</div><h3 class="tl-title">' + item.title + '</h3><p class="tl-desc">' + item.desc + '</p></div></div>';
+  });
+  tlList.innerHTML = tlHTML;
+  var tlObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  tlList.querySelectorAll('.tl-item').forEach(function(el){ tlObs.observe(el); });
+}
+
+/* ── MCQ DATA ── */
+var S_BERNIER = '“The Mughal emperor is not as wealthy as he might appear because he grants some of his lands to governors, in place of a salary, on condition that they pay a certain sum annually to the emperor out of any extra revenue that the land may yield. For his other lands, he has contractors collecting the taxes. Like the governors, they are bound to pay him an annual sum.\n\nThese governors and contractors have an almost absolute authority over the peasantry and nearly as much over the artisans and merchants. Nothing is crueler and more oppressive than the manner in which they exercise their authority.\n\nThere is no one before whom the oppressed peasant, artisan, or tradesman can pour out his just complaints. This debasing state of slavery obstructs the progress of trade and influences the manners and mode of life of every individual. There can be little encouragement to engage in commercial pursuits when success merely provokes the greed of a tyrannical official who has both the power and the desire to deprive any man of his wealth. If a man manages to obtain wealth, he would rather bury it in the ground and continue to appear poor, than risk being dispossessed by the state.”';
+var S_BERNIER_SL = 'François Bernier, French traveler, letter to French finance minister Jean-Baptiste Colbert, 1670';
+
+var S_CELEBI = '“Many [Ottoman] Sunni religious scholars have labeled the Sufi whirling rituals as ‘dancing,’ and have pronounced them forbidden, branding those who approve of them as infidels. The Sufis counter that these rituals are not dancing, arguing instead that they enliven the soul through a combination of music and movement, which, they say, allows them to focus on the spiritual aspects of religion. The common people flock to the Sufis, giving them offerings and gifts. Since their whirling rituals play a big part in their popularity, they will not abandon these practices anytime soon. The Sunni scholars have written many tracts and opinions against them … and this tug-of-war between the two parties has brought them into a vicious circle.”';
+var S_CELEBI_SL = 'Katip Çelebi, Ottoman official, The Balance of Truth, philosophical and scientific treatise, 1656';
+
+var S_MILITARY_IMAGES = '[Image 1: Ottoman soldiers reconquering a fortress in Greece from Venetian forces, miniature in a Venetian-produced book of history and diplomacy, circa 1665. The image shows soldiers with cannons storming a fortified city.]\n\n[Image 2: Mughal forces led by Emperor Aurangzeb capture the fortress of Golconda, capital of a rival Muslim Indian state, in 1687. Painting by an anonymous Indian artist, circa 1760. The image shows a vast Mughal army with elephants, cavalry, and artillery besieging a great fortress.]';
+var S_MILITARY_SL = 'Two historical images depicting military campaigns by land-based empires, c. 1665 and c. 1760';
+
+var S_DEVSHIRME = '[Image: Illustration in a manuscript written to celebrate the achievements of the Ottoman Sultan Suleiman the Magnificent, circa 1560. The image shows Ottoman officials forcibly enlisting boys from the empire’s Christian subjects in the Balkans to train them for service in the Ottoman army and bureaucracy (the devshirme system).]';
+var S_DEVSHIRME_SL = 'Manuscript illustration of the Ottoman devshirme system, c. 1560, from a celebration of Sultan Suleiman’s achievements';
+
+var S_TRADEMAP = '[Map: Major Afro-Eurasian Long-Distance Trade Routes, circa 1500 C.E. The map shows trade routes connecting Europe, the Middle East, Central Asia, South Asia, East Africa, and East Asia. Multiple routes converge through the Middle East and Anatolia. Trade routes shown include overland Silk Roads across Central Asia, Indian Ocean maritime routes, and Mediterranean sea routes.]';
+var S_TRADEMAP_SL = 'Map: Major Afro-Eurasian long-distance trade routes, circa 1500 C.E.';
+
+var S_SINAN = '“Sultan Selim II [reigned 1566–1574] ordered the building of a great mosque in the city of Edirne. I, Sinan, his humble servant, prepared for him a design showing four minaret towers, each standing at one of the four corners of an enormous central prayer hall topped by a great dome. Each of the four minarets had three balconies, with separate staircases leading to each balcony. Previously only one Ottoman mosque had a minaret with three balconies, and its one minaret is like a thick tower. But the minarets I designed for Sultan Selim’s mosque are slender and elegant. The difficulty of putting three staircases in such slender structures should be obvious to anyone.\n\nThose among the Christians who consider themselves architects used to say that no building can ever be covered by a dome that is larger than that of the Christian church of Hagia Sophia in Constantinople. They used to claim that no Muslim architect would ever be able to build a mosque whose dome even approaches in size that of the Hagia Sophia. Yet in the Selimiye mosque, with the help of God and with the support of His Majesty the Sultan, I was able to build a dome that is about 10 feet higher and 6 feet wider than the dome of the Hagia Sophia.”\n\n*Sinan himself was born into an Ottoman Greek Christian family, but was converted to Islam when he began training for government service as a young boy.';
+var S_SINAN_SL = 'Sai Mustafa Chelebi, Ottoman court official, biography of the famous Ottoman architect Mimar Sinan, written circa 1600';
+
+var S_JESUIT = '[Image: Jean-Baptiste Du Halde, French historian, engraving included in the Description of China, published in Paris, 1735. In the top panel, the engraving shows three Jesuit missionaries and scholars who served at the courts of Chinese emperors of the Ming and Qing dynasty in the sixteenth and seventeenth centuries, depicted as men of faith, science, and learning surrounded by astronomical instruments. In the bottom panel, the engraving shows two Chinese Christian converts: Xu Guangxi (left) and his granddaughter, Candida Xu (right).]';
+var S_JESUIT_SL = 'Jean-Baptiste Du Halde, French Jesuit historian, Description of China, 1735';
+
+var S_GOLCONDA_WEDDING = '[Image: Wall painting from the Palace of the rulers of the southern Indian state of Golkonda, circa 1650. The painting shows celebrations of the wedding of the Muslim ruler of Golkonda and his Hindu bride. The newlyweds are surrounded by attendants of both religions, depicting a scene of interfaith aristocratic union.]';
+var S_GOLCONDA_SL = 'Wall painting from the Palace of Golkonda, c. 1650';
+
+var S_JAMES = '“The state of monarchy is the supremest thing upon earth; for kings are not only God’s lieutenants upon earth, and sit upon God’s throne, but even by God himself are called gods. In the Scriptures kings are called gods, and so their power after a certain relation compared to the divine power.”';
+var S_JAMES_SL = 'King James I, speech to Parliament, England, 1610';
+
+var S_LUTHER = 'Pope Leo X, in the bull in which he put me under the ban, condemned my statement that ‘to fight against the Turk is the same thing as resisting God, who visits our sin upon us with this rod.’ I still confess freely that this statement is mine. The popes and bishops called for war against the Turks in the name of Christ. Yet because Christ taught that Christians shall not resist evil with violence or take revenge, it is against His name.\n\nIn how many wars against the Turks have the bishops and clergy prevented Christians from enduring heavy losses? Indeed, the king of Hungary and his bishops were beaten by the Turks at Varna [a reference to a failed Christian Crusade launched against the Ottoman Turks in 1444] and more recently a German army would perhaps have fought with more success, if it had not contained priests. If I were an emperor, a king, or a prince in a campaign against the Turks, I would encourage my bishops and priests to stay at home and mind the duties of their office, praying, fasting, saying mass, preaching, and caring for the poor, as not only Holy Scripture, but their own canon law teaches and requires.';
+var S_LUTHER_SL = 'Martin Luther, German theologian, sermon addressed to a German prince, 1528';
+
+var S_MOSQUE = '[Photograph: A sixteenth-century Mughal mosque in India, built during the reign of Emperor Akbar. The structure combines Persian Islamic architectural elements — large central dome, arched entrances, symmetrical gardens — with traditional Indian architectural features including local sandstone, decorative screens, and Hindu-influenced ornamentation. The building reflects the blending of two distinct architectural traditions.]';
+var S_MOSQUE_SL = 'Photograph of a Mughal mosque built by Akbar, sixteenth century, India';
+
+var S_MUGHAL_SIKH = '[Source 1: A Mughal painting depicting a Mughal official (the kneeling figure holding a piece of paper near the center of the image) and his companions meeting a group of Hindu holy men (sadhus), circa 1635 C.E. The painting reflects the Mughal court’s engagement with Hindu religious figures.]\n\n[Source 2: Sayings attributed to Guru Nanak, the founder of Sikhism, circa 1500 C.E.]\n• “Oh God, the tongue of man has given Thee numerous names; but ‘the Truth’ is Thy real name from time immemorial.”\n• “We human beings are neither Hindus nor Muslims; but are bodies and soul of the Supreme Being; call Him Allah, or call Him Rama.”\n• “Everyone is chanting: ‘Rama, Rama’; but mere repetition is no remembrance of Rama. Only when the heart of man becomes saturated with God is such remembrance fruitful.”\n• “Worthless is caste and worthless an exalted name; for all humankind there is but a single refuge in God.”';
+var S_MUGHAL_SIKH_SL = 'Source 1: Mughal painting, c. 1635. Source 2: Sayings of Guru Nanak, founder of Sikhism, c. 1500 C.E.';
+
+var S_OTTOMAN_SIEGES = '[Image 1: Fresco painted on the outer wall of the Moldovita Monastery in Romania depicting the Ottoman Siege of Constantinople in 1453. The monastery was built in 1532. The fresco shows Ottoman armies with cannons attacking the city walls.]\n\n[Image 2: Nakkash Osman, Ottoman court painter, miniature depicting an Ottoman siege of a European city during the reign of Sultan Süleyman I (1520–1566). The image was produced for an official history of the Ottoman Empire compiled circa 1585. It shows the Ottoman army encamped outside a fortified city.]';
+var S_OTTOMAN_SIEGES_SL = 'Two images of Ottoman military campaigns: Moldovita Monastery fresco (c. 1532) and miniature by Nakkash Osman (c. 1585)';
+
+var QB = {
+  '3.1': [
+    {s:S_MILITARY_IMAGES,sl:S_MILITARY_SL,q:'Taken together, the two images best support which of the following claims regarding developments in the period from 1450 to 1750?',o:['European military technology was inferior to Asian military technology.','Rulers served as military commanders and typically led armies into battle themselves.','Gunpowder technology facilitated the expansion of land-based empires.','Religious divisions were not a significant source of military conflict.'],c:2,e:'Both images portray how the Ottoman and Mughal armies used cannons very effectively in the process of imperial expansion. Cannons were critical to the Ottoman capture of Constantinople and were similarly decisive in Mughal territorial expansion.'},
+    {s:S_MILITARY_IMAGES,sl:S_MILITARY_SL,q:'Which of the following imperial expansions was most similar to those of the Ottoman and Mughal Empires?',o:['The Portuguese Empire in Brazil','The Dutch Empire in South Africa and Indonesia','The Spanish Empire in the Americas and Asia','The Manchu Empire in East Asia'],c:3,e:'Like the Ottomans and Mughals, the Manchus were seminomadic in origin, from the northern frontier of China (Manchuria), and they succeeded in establishing a large land-based empire through the use of heavy cavalry and gunpowder technology in Eurasia.'},
+    {s:S_TRADEMAP,sl:S_TRADEMAP_SL,q:'Which of the following about Afro-Eurasian trade is supported by the map?',o:['The states of the Middle East did not participate in the Indian Ocean trading system.','The Ottoman Empire was located at the intersections of major trading routes.','The Delhi Sultanate relied primarily on sea routes to participate in the silk trade across Asia.','The Islamic states of West Africa maintained close commercial ties with eastern Europe.'],c:1,e:'The map showing major Afro-Eurasian trade routes circa 1500 demonstrates that the Ottoman Empire’s territory sat at the crossroads of multiple major trading routes connecting Europe, the Middle East, and Asia — giving the Ottomans enormous strategic and economic leverage.'},
+    {s:S_MUGHAL_SIKH,sl:S_MUGHAL_SIKH_SL,q:'Based on your knowledge of world history, which of the following factors contributed most directly to the Mughal Empire’s territorial expansion in South Asia?',o:['The Mughals’ adoption and effective use of gunpowder weapons','The Mughals’ adoption of Sikhism','The Mughals’ friendly relations with neighboring states, such as the Safavid Empire and Tibet','The Mughal emperors’ claims that they were directly descended from Genghis Khan'],c:0,e:'The Mughals reorganized their militaries to take advantage of gunpowder technology, including field artillery and firearms, which allowed them to expand their territorial boundaries rapidly across the Indian subcontinent.'},
+    {s:S_OTTOMAN_SIEGES,sl:S_OTTOMAN_SIEGES_SL,q:'The Ottoman practices shown in the two images directly contributed to which of the following developments before 1600?',o:['A series of Ottoman defeats in wars against an expanding Russian Empire','Large-scale Ottoman conquests in the Middle East and North Africa','Weakening of the Ottoman economy as the empire failed to keep pace with an industrializing Europe','The consolidation of Sunni Islam as the state religion of the Ottoman Empire'],c:1,e:'The Ottoman Empire used the military practices illustrated in the images, including the use of field artillery, to defeat its rival Safavid Empire and greatly expand its territorial holdings in the Middle East and North Africa, beginning in the early 1500s.'},
+    {s:S_OTTOMAN_SIEGES,sl:S_OTTOMAN_SIEGES_SL,q:'In the sixteenth and seventeenth centuries, many states responded to threats of the type depicted in the two images by',o:['forcing Muslims within their territories to convert to Christianity','seeking to increase tax revenues and professionalize their militaries','recruiting large numbers of Ottoman military advisors','engaging in economic boycotts against Ottoman trade goods'],c:1,e:'Gunpowder technologies were expensive and depended on greater military coordination, so many states interested in adopting these methods required both increases in tax revenues and more professionalized militaries. This dynamic drove state-building across Eurasia.'},
+    {s:S_OTTOMAN_SIEGES,sl:S_OTTOMAN_SIEGES_SL,q:'Which of the following most likely explains the inclusion of Image 2 in a court history of the Ottoman Empire?',o:['To highlight the Ottoman sultans’ role as caliphs of the Muslim world','To illustrate the growing influence of Persian art and culture at the Ottoman court','To celebrate the ethnic and cultural diversity of the Ottoman court','To glorify imperial power by referring back to a celebrated era of Ottoman history'],c:3,e:'The miniature celebrates earlier victories of the Ottomans at a time when the empire reached the height of its territorial expansion under the reign of Sultan Süleyman I. Commissioning official histories and art that glorified imperial achievements was a standard technique rulers used to legitimize their rule.'}
+  ],
+  '3.2': [
+    {s:S_BERNIER,sl:S_BERNIER_SL,q:'The actions of peasants, artisans, and merchants discussed in the third paragraph are an example of',o:['religious conflict in a multiethnic state','challenges to imperial legitimacy based on ideas of human rights','opportunities for upward mobility created by larger states','resistance against state attempts to collect revenue'],c:3,e:'The third paragraph references often futile efforts of peasants, artisans, and merchants to resist state tax collection efforts by concealing whatever wealth they had — hiding it in the ground to appear poor and avoid dispossession by tyrannical officials.'},
+    {s:S_BERNIER,sl:S_BERNIER_SL,q:'All the following statements about Bernier are factually accurate. Which would most increase historians’ confidence in the reliability of his account?',o:['He originally studied for a position in the Catholic Church, but then shifted to a nonreligious education.','He spent several years as an official at the Mughal imperial court.','He made extensive travels in Europe before going to India.','He wrote the description of Mughal administration at the request of Colbert, who founded the French East India Company.'],c:1,e:'Bernier’s account of conditions in the Mughal court has greater credibility to historians because he spent time at the Mughal court and observed the practices he describes firsthand, rather than acquired his information from other sources.'},
+    {s:S_DEVSHIRME,sl:S_DEVSHIRME_SL,q:'The Ottoman Empire’s recruitment of soldiers and bureaucrats through the system depicted in the image is most similar to which broader method that rulers used to strengthen their empires in the period 1450–1750?',o:['The collection of tribute','Establishment of religious uniformity','Abolition of feudal privileges','The granting of autonomy to minority groups'],c:0,e:'The image illustrates the Ottoman devshirme system, through which young boys were forcibly recruited to serve as soldiers or as officials in the Ottoman administration. Although the devshirme produced military and bureaucratic professionals rather than money or goods, it was similar to a tribute collection system in that it extracted resources from conquered or tributary regions for use of the state.'},
+    {s:S_DEVSHIRME,sl:S_DEVSHIRME_SL,q:'The recruitment depicted in the image is best understood in the context of which of the following developments in the period 1450–1750?',o:['Attempts by imperial states to expand their economic power','Attempts by imperial states to prevent religious conflict','Attempts by imperial states to centralize their authority','Attempts by imperial states to control population growth'],c:2,e:'The forced recruitment of soldiers and officials through practices such as the Ottoman devshirme increased the military and administrative capacity of states. In the Ottoman case, these soldiers and officials were solely dependent on the ruler’s favor and thereby helped expand and centralize state authority.'},
+    {s:S_DEVSHIRME,sl:S_DEVSHIRME_SL,q:'The inclusion of the image in the manuscript best illustrates which of the following features of the period 1450–1750?',o:['Rulers using art as a way to communicate with their illiterate subjects','Rulers using art to expand their territories','Rulers using art as a way to increase literacy','Rulers using art to legitimize their rule'],c:3,e:'The illustration was included in a manuscript intended to glorify the achievements of Suleiman the Magnificent and thereby demonstrate his legitimacy. The image illustrates how art was used by rulers to legitimize their rule in the period 1450–1750 — presenting even forced conscription as an achievement of the sultan.'},
+    {s:S_JAMES,sl:S_JAMES_SL,q:'The passage above is best understood in the context of which of the following?',o:['European monarchs’ continued use of religion to legitimize political authority','The influence of Islamic political thought on Europe after the Crusades','The establishment of theocracies throughout Eurasia','The differential treatment of Protestants and Catholics in England'],c:0,e:'King James I’s claim that kings sit upon God’s throne and are themselves called gods in scripture is a classic articulation of divine right monarchy — the theory that rulers derive their authority directly from God. This illustrates the continued use of religious justification for political authority by European monarchs in the period 1450–1750.'},
+    {s:'[Standalone question: no image or text stimulus required.]\n\nIn the seventeenth century, the Qing dynasty replaced the Ming dynasty in China. While the Manchu conquerors imposed certain new cultural requirements on the Chinese population (such as the queue hairstyle), they also maintained many existing Chinese administrative practices.',sl:'Historical context, China, seventeenth century',q:'Which of the following was an important continuity from the Ming Dynasty to the Qing dynasty in the seventeenth century?',o:['The ongoing assimilation of Manchu cultural traditions by the imperial elite','Maintenance of the Silk Roads to promote cultural exchanges with the Middle East','The use of the examination system and other Confucian bureaucratic practices','Financial support for maritime expeditions similar to those led by Zheng He'],c:2,e:'The Qing dynasty maintained the Confucian civil service examination system and other bureaucratic practices inherited from the Ming. This continuity helped the Manchu rulers legitimize their rule in the eyes of the Chinese literati class and allowed the massive Chinese administrative apparatus to continue functioning.'},
+    {s:'[Image: An eighteenth-century cityscape of St. Petersburg, Russia, showing neoclassical European-style palaces, broad avenues, and European architectural styles. The city was founded by Tsar Peter the Great in 1703 and built in the European Baroque style to serve as Russia’s new western-facing capital.]',sl:'Eighteenth-century cityscape of St. Petersburg, Russia, Giraudon/Art Resource',q:'Which of the following world history processes was most responsible for the eighteenth-century cityscape of St. Petersburg, Russia?',o:['Disease diffusion','World climate changes','Westernization','Democratization'],c:2,e:'St. Petersburg was deliberately built by Peter the Great in the European Baroque architectural style as a symbol of his program of Westernization — transforming Russia’s institutions, military, dress, and culture to conform to Western European models. The cityscape is the visual embodiment of this policy.'}
+  ],
+  '3.3': [
+    {s:S_CELEBI,sl:S_CELEBI_SL,q:'Which of the following most directly strengthened Sunni religious scholars’ role as official interpreters of Islamic doctrine within the Ottoman Empire, as suggested by the passage?',o:['The establishment of the Mughal Empire in India','The Ottoman conquest of Constantinople','Ottoman sultans’ extensive conquests in Europe','The Ottoman Empire’s rivalry with the Safavid Empire'],c:3,e:'Conflicts with the Shi‘a Safavid Empire, fueled by religious differences, led Sunni scholars in the Ottoman Empire to attempt to enforce stricter adherence to Sunni orthodoxy, contributing to their critical views of Sufism and strengthening their role as guardians of orthodox Islamic doctrine.'},
+    {s:S_CELEBI,sl:S_CELEBI_SL,q:'Outside of the Ottoman Empire, Sufis contributed most directly to which of the following during the period before 1750?',o:['Scientific exchanges between the Muslim world and the rest of Afro-Eurasia','The establishment of Arabic as the language of philosophy and theology in the Muslim world','The spread of Islam to new locations on the margins of the Muslim world, such as southeast Asia','The introduction of new practices for recruiting and training slave soldiers in Muslim states, such as the Mughal Empire'],c:2,e:'Sufis were instrumental in the spread of Islam to new locations in this period, both through the popularity of Sufi religious practices with merchants and through the ability of Sufi leaders to effect the conversion of political leaders in some regions on the margins of the Muslim world, including southeast Asia and sub-Saharan Africa.'},
+    {s:S_SINAN,sl:S_SINAN_SL,q:'Which of the following characteristics of the Ottoman Empire best explains why Sinan was determined to match the dimensions of the Hagia Sophia church, as discussed in the third paragraph?',o:['The Ottoman dynasty was descended from Turkic pastoralist nomads who did not have their own tradition of monumental architecture.','Ottoman art often illustrated the historical and spiritual connections between Islam and other monotheistic religions, such as Christianity and Judaism.','By the time the Ottoman Empire began to expand, the Byzantine Empire had already been dramatically reduced in size and geopolitical importance.','Bringing Constantinople, with its imperial traditions, under Islamic rule was one of the central pillars of Ottoman rulers’ claims to political legitimacy.'],c:3,e:'Surpassing the Hagia Sophia — the greatest church of the Byzantine Empire — was deeply meaningful because the Ottoman conquest of Constantinople and its transformation into an Islamic city was central to Ottoman imperial identity and claims to legitimate authority as heirs to Rome.'},
+    {s:S_SINAN,sl:S_SINAN_SL,q:'Based on the intended purpose of Sinan’s biography, it is most likely that the information in the passage might be',o:['overstating the extent of the architectural challenges Sinan faced in building the mosque','understating the extent of Ottoman royal support for the building of the mosque','overstating Christian architects’ achievements and their contributions to the building on the mosque','intentionally attributing the building of the mosque to Sinan even though he was not the architect'],c:0,e:'Because the biography was written to celebrate Sinan’s achievements and glorify the Ottoman court, it is most likely that Sinan’s account overstates the architectural difficulties he faced in designing and building the mosque, in order to make his accomplishment appear even more impressive.'},
+    {s:S_SINAN,sl:S_SINAN_SL,q:'Sinan’s service to the Ottoman state best illustrates the fact that land-based empires in the period 1450–1750 often relied on',o:['appointed bureaucrats to break the power of entrenched landed aristocracies','mass conscription of soldiers to carry out their territorial expansion','methods of recruitment of officials that made use of the ethnic and religious diversity of their subjects','members of the clergy to perform religious services, administer religious law, and oversee public order'],c:2,e:'Sinan was born into a Greek Christian family but was recruited through the devshirme system and converted to Islam, going on to become the greatest architect of the Ottoman Empire. His career illustrates how land-based empires like the Ottomans drew talent from the full ethnic and religious diversity of their subject populations.'},
+    {s:S_JESUIT,sl:S_JESUIT_SL,q:'Which of the following developments in Europe in the sixteenth and seventeenth centuries most directly helps to explain the presence of the scholars shown in the image of China?',o:['The Inquisition led to the expulsion of enemies of the Catholic Church from Europe.','The Protestant Reformation led the Catholic Church to seek new converts outside of Europe.','The wars of religion led many to question the role of religion in European society.','The expansion of the Ottoman Empire in Europe led many to leave their homes as refugees.'],c:1,e:'Because the Protestant Reformation dramatically reduced the number of Catholics in Europe, the Catholic Church commissioned the Jesuit order and other missionary organizations to convert new populations abroad, compensating for losses at home. The Jesuits shown in the image in China are a direct product of this counter-Reformation missionary effort.'},
+    {s:S_JESUIT,sl:S_JESUIT_SL,q:'All of the following statements about Du Halde are factually accurate. Which would most likely lead historians to question the objectivity of his portrayal of the scholars shown in the image?',o:['He was the confessor to an important French noble.','He never traveled to China.','He based his observations of China on unpublished translations of Chinese texts.','He was a Jesuit and based his book on Jesuit missionary reports.'],c:3,e:'The Jesuit scholars are portrayed in the image as illustrious men of faith, science, and wisdom. Because Du Halde had an institutional affiliation with the Jesuit order and based his book directly on Jesuit missionary reports, he was likely motivated to depict the Jesuit scholars positively. A historian would therefore consider the account potentially biased in favor of the Jesuits.'},
+    {s:S_LUTHER,sl:S_LUTHER_SL,q:'A historian interpreting the views expressed in the passage would likely explain that those views were most strongly influenced by Protestant desires to',o:['promote religious war against fellow Christians','encourage the creation of a united German state free of papal influence','demonstrate that an individual’s destiny was predetermined by God','reform Christian society by adhering more closely to Biblical teachings'],c:3,e:'In the passage, Luther claims that holy war against the Turks in the name of Jesus Christ is wrong because Jesus taught that Christians should not resist evil with violence or take revenge. He further states that scripture requires the bishops and clergy to mind the duties of their office. Luther’s arguments illustrate his belief that scripture was the foundation of faith and that adhering more closely to Biblical teachings would create a more just and pious Christian society.'},
+    {s:S_LUTHER,sl:S_LUTHER_SL,q:'A historian could best explain the arguments made in the passage regarding the pope and the clergy in the context of Protestant claims that the Catholic Church',o:['had not adequately supported earlier Crusades against Muslims in the Holy Land','had become corrupted by power','had become too heavily influenced by Renaissance Humanism','had failed to convert Muslims living in Europe to Christianity'],c:1,e:'One of Luther’s main arguments against the Catholic Church during the early stages of the Reformation is that it had become corrupted by worldly power. The passage illustrates Luther’s belief that the pope and the clergy were ignoring the most important duties of their offices in the pursuit of worldly political goals such as military campaigns.'},
+    {s:S_LUTHER,sl:S_LUTHER_SL,q:'A historian interpreting the passage would most likely explain that the audience of the sermon is an illustration of the fact that',o:['papal alliances with the Holy Roman emperors led to widespread religious persecutions in Germany','the Protestant German nobility was wary of confronting the Ottomans without Catholic support','political support from the German nobility aided in the development of the early Protestant community','the Protestant German nobility adopted pacifist attitudes during religious disputes with their Catholic and Muslim opponents'],c:2,e:'The fact that Luther wrote a highly critical sermon addressed to a German prince indicates that this prince supported Luther. Luther and early Protestant communities received protection from many members of the German nobility, either because they embraced the Protestant message of reform or because they wanted to limit the power of the Holy Roman emperor within Germany.'},
+    {s:S_MOSQUE,sl:S_MOSQUE_SL,q:'The photograph of a sixteenth-century Mughal mosque in India built by Akbar is an example of which of the following?',o:['Emergence of capitalist economies','Expansion of coercive labor systems','Creation of a global trade network','Cultural syncretism'],c:3,e:'The Mughal mosque combines Persian Islamic architectural elements with traditional Indian architectural features, demonstrating how contact between different cultures produced syncretic results. Akbar’s patronage of architecture that blended Islamic and Hindu styles reflects his broader policy of religious accommodation and cultural synthesis within the diverse Mughal Empire.'},
+    {s:S_MUGHAL_SIKH,sl:S_MUGHAL_SIKH_SL,q:'Source 2 indicates that all of the following were likely factors contributing to Sikhism’s popularity in India EXCEPT:',o:['It offered a set of religious beliefs that combined elements of both Hinduism and Islam.','It advocated a direct and personal approach to God that paralleled Islamic beliefs.','It appealed to members of the lower socioeconomic strata by rejecting the rigid social hierarchy of Hinduism.','It offered a set of principles around which all Indians could rally in resisting British imperial encroachment.'],c:3,e:'Sikhism developed around 1500 C.E., prior to British imperial expansion in South Asia. Because British imperialism postdates Sikhism’s founding, resistance to British encroachment cannot have been a factor contributing to its original popularity. The statement is factually inaccurate for this period, making it the correct answer to the EXCEPT question.'}
+  ],
+  '3.4': [
+    {s:S_MILITARY_IMAGES,sl:S_MILITARY_SL,q:'All of the following pieces of additional information regarding the events portrayed in Image 2 are factually accurate. Which would be most useful in evaluating the message that the image was intended to convey?',o:['Emperor Aurangzeb was a strong proponent of Sunni Islam, while the rulers of Golconda were supporters of Shiism.','Emperor Aurangzeb overthrew his father in order to become the Mughal emperor, while the ruler of Golconda succeeded his father peacefully.','Emperor Aurangzeb ruled over India during a time when it was the largest agricultural and manufacturing economy in the world.','Emperor Aurangzeb increased taxes on all non-Muslims in his empire which contributed to unrest in his multi-religious state.'],c:0,e:'The image portrays conflict between two rival Muslim states in India. An important part of the conflict resulted from differences between supporters of Sunni Islam in the Mughal Empire and Shi‘a Islam in Golconda. Knowing this religious dimension helps evaluate what message the image — a Mughal victory painting — was intended to communicate about religious legitimacy.'},
+    {s:S_GOLCONDA_WEDDING,sl:S_GOLCONDA_SL,q:'The particular event depicted in the painting was likely important to Golkonda rulers mostly because it',o:['could be used as a symbol of the union between the state’s ruling class and the majority of its population','provided a source of pride for Golkonda’s Muslim population by reminding them of the Muslim conquests of India','led to the decline of patriarchal social structures in the Indian subcontinent','illustrated the extent to which Golkonda elites relied on various forms of coerced labor'],c:0,e:'Because the painting depicts the union of the Muslim and Hindu ruling classes and shows both Hindu and Muslim attendants, it likely was important to Golkonda rulers to serve as a symbol of unity in a religiously divided society. The interfaith royal wedding demonstrated that the Muslim ruling class was not hostile to its Hindu majority population.'},
+    {s:S_GOLCONDA_WEDDING,sl:S_GOLCONDA_SL,q:'Which of the following most likely describes the fate of the Golkonda state after 1650?',o:['It expanded to control most of India.','It was conquered by the Portuguese.','It was conquered by the Mughal Empire.','It was conquered by the Ottoman Empire.'],c:2,e:'The Mughal Empire expanded rapidly in the late sixteenth and seventeenth centuries, eventually coming to rule almost all of present-day India and Pakistan. The Golkonda Sultanate was forced to recognize Mughal overlordship in 1636 and was fully conquered by the Mughals in 1687 — the very same event depicted in the military image of Aurangzeb’s forces at Golconda.'},
+    {s:S_MUGHAL_SIKH,sl:S_MUGHAL_SIKH_SL,q:'Source 1 and the context of Akbar’s reign suggest that Mughal emperors’ approaches to governing a religiously diverse empire were most similar to which of the following strategies used by other land-based empires in the period 1450–1750?',o:['The Ottoman practice of using the devshirme to recruit soldiers and officials from non-Muslim subject populations.','The Qing Dynasty practice of enforcing Manchu cultural norms on all subjects, including Chinese.','The Safavid practice of forcibly converting the population to Shi‘a Islam.','The Spanish practice of requiring all subjects to convert to Catholicism.'],c:0,e:'Both the Mughals and the Ottomans governed empires with enormous religious diversity by co-opting and incorporating members of non-Muslim communities into imperial administration. Akbar’s use of Hindu Rajput officials and the Ottoman devshirme’s recruitment of Christian-born soldiers and administrators both reflect this strategy of using diversity as a tool of empire-building rather than a problem to be eliminated.'}
+  ]
+};
+
+/* ── MCQ ENGINE ── */
+var mcqMode = 'all', mcqQs = [], mcqMap = {}, mcqRight = 0, mcqMeta = [];
+
+function mcqInit() {
+  var keys = ['3.1','3.2','3.3','3.4'];
+  var ids  = ['31','32','33','34'];
+  var total = 0;
+  keys.forEach(function(k, i) {
+    var n = QB[k] ? QB[k].length : 0;
+    var el = document.getElementById('cnt' + ids[i]);
+    if (el) el.textContent = n + ' question' + (n !== 1 ? 's' : '');
+    total += n;
+  });
+  var ab = document.getElementById('mcq-all-btn');
+  if (ab) ab.textContent = '📋 Practice All ' + total + ' Questions';
+}
+
+function startMCQ(mode, topic) {
+  mcqMode = mode;
+  mcqQs = []; mcqMap = {}; mcqRight = 0; mcqMeta = [];
+  var order = ['3.1','3.2','3.3','3.4'];
+  if (mode === 'topic') {
+    mcqQs = (QB[topic] || []).slice();
+  } else if (mode === 'mixed') {
+    order.forEach(function(k) {
+      var pool = QB[k] || [];
+      var picked = pool.slice().sort(function(){ return Math.random()-.5; }).slice(0,2);
+      mcqQs = mcqQs.concat(picked);
+    });
+  } else {
+    order.forEach(function(k){ mcqQs = mcqQs.concat(QB[k] || []); });
+  }
+  var names = {'all':'All Unit 3 Questions','mixed':'⚡ Quick Mixed Quiz',
+    '3.1':'3.1 — Empires Expand','3.2':'3.2 — Empires: Administration',
+    '3.3':'3.3 — Empires: Belief Systems','3.4':'3.4 — Comparison in Land-Based Empires'};
+  document.getElementById('qhdr-name').textContent = names[topic || mode] || 'Questions';
+  document.getElementById('mcq-home').style.display = 'none';
+  document.getElementById('mcq-session').classList.add('active');
+  renderMCQ();
+}
+
+function renderMCQ() {
+  var el = document.getElementById('qbody');
+  var h = '', ls = null, sn = 0, L = ['A','B','C','D'];
+  mcqQs.forEach(function(q, i) {
+    if (q.s !== ls) {
+      if (ls !== null) h += '<hr class="sbr">';
+      sn++;
+      h += '<div class="stim"><div class="stim-lbl">Source ' + sn + '</div>';
+      h += '<div class="stim-src">' + (q.sl || '') + '</div>';
+      h += '<div class="stim-txt">' + q.s.replace(/\n/g,'<br>') + '</div></div>';
+      ls = q.s;
+    }
+    h += '<div class="qcard" id="qcard' + i + '">';
+    h += '<div class="qnum">Question ' + (i+1) + ' of ' + mcqQs.length + '</div>';
+    h += '<div class="qtxt">' + q.q + '</div><div class="opts">';
+    q.o.forEach(function(opt, j) {
+      h += '<button class="opt" data-i="' + i + '" data-j="' + j + '"><span class="ol">(' + L[j] + ')</span>' + opt + '</button>';
+    });
+    h += '</div><div class="fb" id="fb' + i + '"></div></div>';
+  });
+  el.innerHTML = h;
+  el.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click', function(){
+      var i = parseInt(this.dataset.i), j = parseInt(this.dataset.j);
+      onAnswer(i, j);
+    });
+  });
+  updateProg();
+}
+
+function onAnswer(i, j) {
+  if (mcqMap[i] !== undefined) return;
+  var q = mcqQs[i], ok = (j === q.c);
+  mcqMap[i] = ok;
+  if (ok) mcqRight++;
+  var card = document.getElementById('qcard' + i);
+  var L = ['A','B','C','D'];
+  card.querySelectorAll('.opt').forEach(function(b) {
+    var bj = parseInt(b.dataset.j);
+    b.disabled = true;
+    if (bj === q.c) b.classList.add('c');
+    else if (bj === j && !ok) b.classList.add('w');
+    else if (bj !== j) b.classList.add('rv');
+  });
+  var fb = document.getElementById('fb' + i);
+  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
+  fb.innerHTML = (ok ? '<strong>Correct.</strong> ' : '<strong>Incorrect.</strong> ') + (q.e || '');
+  updateProg();
+}
+
+function updateProg() {
+  var tot = Object.keys(mcqMap).length;
+  var pct = mcqQs.length ? (tot / mcqQs.length * 100) : 0;
+  document.getElementById('qpbf').style.width = pct + '%';
+  document.getElementById('qhdr-prog').textContent = tot + ' of ' + mcqQs.length + ' answered';
+}
+
+document.querySelectorAll('.tc').forEach(function(btn){
+  btn.addEventListener('click', function(){ startMCQ('topic', this.dataset.topic); });
+});
+document.getElementById('mcq-all-btn').addEventListener('click', function(){ startMCQ('all'); });
+document.getElementById('mcq-mixed-btn').addEventListener('click', function(){ startMCQ('mixed'); });
+document.getElementById('mcq-back-btn').addEventListener('click', function(){
+  document.getElementById('mcq-session').classList.remove('active');
+  document.getElementById('mcq-home').style.display = '';
+});
+document.getElementById('mcq-reset-btn').addEventListener('click', function(){
+  startMCQ(mcqMode, mcqMode === 'topic' ? (mcqMeta[0] || null) : null);
+});
+mcqInit();
+
+/* ── BRAIN DUMP ── */
+var bdTopic = null, bdTimerInterval = null;
+var BD_TOPIC_NAMES = {
+  '3.1':'3.1 — Empires Expand',
+  '3.2':'3.2 — Empires: Administration',
+  '3.3':'3.3 — Empires: Belief Systems',
+  '3.4':'3.4 — Comparison in Land-Based Empires'
+};
+var BD_STEMS = {
+  '3.1': 'Land-based empires expanded their territory in the period 1450–1750 by using…',
+  '3.2': 'Rulers of land-based empires maintained their authority through administrative techniques including…',
+  '3.3': 'Religion shaped the policies and conflicts of land-based empires because…',
+  '3.4': 'The Ottoman, Mughal, Safavid, and Qing empires were similar to each other in that…'
+};
+var BD_CARDS = {
+  '3.1': [
+    {t:'Ottoman Empire',d:'Founded by Osman I (c. 1300), the Ottomans conquered Constantinople in 1453 using massive gunpowder cannons. At its height under Suleiman the Magnificent (1520–1566), the empire stretched from Vienna to the Persian Gulf. The Ottomans were the dominant Muslim power of the early modern world.'},
+    {t:'Safavid Empire',d:'Founded by Shah Ismail I in 1501 in Persia (modern Iran). The Safavids forcibly converted their population to Twelver Shi‘a Islam, making religion the central pillar of state identity. Perpetual rivals of the Sunni Ottomans.'},
+    {t:'Mughal Empire',d:'Founded by Babur in 1526 after the Battle of Panipat. At its peak under Akbar and Aurangzeb, the Mughal Empire encompassed most of the Indian subcontinent and over 100 million people — producing perhaps 25% of world GDP.'},
+    {t:'Qing Dynasty',d:'The Manchus, a semi-nomadic people from northeastern China, overthrew the Ming Dynasty in 1644 and established the Qing. They maintained Chinese bureaucratic practices (including the examination system) while imposing some Manchu cultural requirements on their subjects.'},
+    {t:'Russian Empire',d:'Russia expanded dramatically eastward across Siberia (reaching the Pacific by 1639) and southward under the Romanov dynasty. Peter the Great (r. 1682–1725) Westernized the empire’s institutions and founded St. Petersburg as the new capital.'},
+    {t:'Gunpowder Weapons',d:'Cannons and firearms transformed warfare in the 15th–17th centuries, allowing well-organized states to overpower traditional cavalry-based armies. Gunpowder technology was the key military advantage of the Ottoman, Mughal, and Manchu empires in their expansions.'},
+    {t:'Janissaries',d:'Elite Ottoman infantry corps recruited through the devshirme system from Christian subjects. Trained from youth, educated in Islam, and loyal personally to the sultan. Among the most professional soldiers in the world in the 16th century.'}
+  ],
+  '3.2': [
+    {t:'Devshirme System',d:'Ottoman practice of forcibly recruiting young boys from Christian subject populations in the Balkans. Boys were converted to Islam, educated, and trained as soldiers (janissaries) or administrators. Because they had no family connections in Ottoman society, they were personally loyal to the sultan.'},
+    {t:'Zamindar System',d:'Mughal system of tax administration in which zamindars (local lords, often Hindu) were granted the right to collect taxes from peasants in a given area in exchange for providing revenue to the central government. Similar to the Ottoman timar system.'},
+    {t:'Divine Right of Kings',d:'European political theory that monarchs derive their authority directly from God and are accountable only to God. Articulated by James I of England in 1610. Used by monarchs across Europe to resist both noble and clerical challenges to royal authority.'},
+    {t:'Confucian Examination System',d:'Chinese system for recruiting government officials through rigorous written examinations based on Confucian classics. Maintained by both the Ming and Qing dynasties. Created a merit-based bureaucracy that was theoretically open to any literate man, though the system favored wealthy families who could afford years of study.'},
+    {t:'Peter the Great & Westernization',d:'Tsar Peter I of Russia (r. 1682–1725) undertook a sweeping program of Westernization: adopted European military technology and tactics, founded the Russian navy, built St. Petersburg in the European style, required nobles to shave beards and wear Western clothing, and reorganized Russian bureaucracy on European models.'},
+    {t:'Art as Legitimacy',d:'Rulers across all land-based empires used art, architecture, and literature to legitimize their power. Ottoman sultans commissioned mosque complexes and official histories; Mughal emperors patronized miniature paintings; European monarchs built palaces like Versailles. These were not luxuries but political tools.'},
+    {t:'Tax Farming',d:'System of tax collection in which the right to collect taxes in a given area is sold or auctioned to private individuals (tax farmers), who then collect taxes from the population and keep a portion. Used in the Ottoman and Mughal empires. Often led to exploitation of peasants, as Bernier describes.'}
+  ],
+  '3.3': [
+    {t:'Sunni–Shi‘a Division',d:'The two main branches of Islam divided after a dispute over the succession of Muhammad (632 C.E.). The Ottoman Empire was officially Sunni; the Safavid Empire was Shi‘a. Their rivalry intensified pressure on Sunni scholars within the Ottoman Empire to define and enforce orthodoxy, including against Sufi practices.'},
+    {t:'Sufism',d:'Mystical dimension of Islam emphasizing direct personal experience of the divine through meditation, music, and ritual movement (including the whirling of the Mevlevi Order). Sufis were popular missionaries who spread Islam to southeast Asia, sub-Saharan Africa, and Central Asia. Ottoman Sunni scholars sometimes condemned Sufi practices as heterodox.'},
+    {t:'Jesuit Missionaries',d:'The Society of Jesus (Jesuits), founded by Ignatius of Loyola in 1540 as part of the Catholic Counter-Reformation, sent missionaries across the globe. Matteo Ricci in China, Francis Xavier in Japan and India. Their global missionary work was a direct response to losses caused by the Protestant Reformation in Europe.'},
+    {t:'Protestant Reformation',d:'Martin Luther’s 1517 challenge to the Catholic Church triggered a religious revolution in Europe. Protestants rejected papal authority, emphasized scripture over church tradition, and broke Europe’s religious unity. The Catholic Church responded with the Counter-Reformation, including the Council of Trent and expanded missionary activity.'},
+    {t:'Cultural Syncretism',d:'The blending of different cultural or religious traditions into new forms. Examples: Mughal architecture blending Islamic and Hindu elements; Sikhism combining elements of Hinduism and Islam; Jesuit missionaries in China incorporating Confucian traditions into Christian practice; syncretic folk Catholicism in colonial Latin America.'},
+    {t:'Sikhism',d:'Religion founded by Guru Nanak (c. 1500) in the Punjab region of South Asia. Sikhism emphasized direct devotion to one God (monotheism), rejected the Hindu caste system, and drew on both Hindu and Islamic traditions. It appealed to lower-caste Hindus and to those seeking a middle path between the two dominant faiths.'},
+    {t:'Ottoman Religious Policy',d:'The Ottoman Empire tolerated religious minorities (Christians, Jews) as dhimmis — protected peoples who paid extra taxes (jizya) in exchange for freedom of worship. This system allowed the Ottomans to govern a diverse multi-religious empire without forcing conversion, unlike the Safavids who enforced Shi‘a Islam.'}
+  ],
+  '3.4': [
+    {t:'Gunpowder Empires',d:'Historians sometimes use this term to describe the Ottoman, Safavid, and Mughal empires, which all used gunpowder weapons to build and maintain their empires. The Qing and Russian empires are also sometimes included. Key comparison point: all three used similar military technology but developed very different administrative and religious policies.'},
+    {t:'Comparing Administrative Systems',d:'Ottoman devshirme recruited diverse subjects into the bureaucracy, creating loyalty to the sultan. Mughal zamindars relied on existing local elites. Qing maintained Chinese examination system. All faced the same challenge: how to govern vast, diverse populations with limited communication technology.'},
+    {t:'Comparing Religious Policies',d:'Ottoman: tolerant of religious diversity (millet system), Sunni Islam as official faith. Mughal: varied by emperor (Akbar tolerant; Aurangzeb intolerant). Safavid: forced Shi‘a conversion. Qing: generally tolerant, maintained Chinese Buddhist and Confucian traditions. This variation shows that religious policy was a strategic choice, not a predetermined outcome.'},
+    {t:'Art and Legitimacy Across Empires',d:'All land-based empires used art and architecture to legitimize rulers: Ottoman mosques surpassing Byzantine churches; Mughal miniature paintings glorifying emperors; Chinese emperors portrayed as cosmic rulers; European divine-right monarchs building palaces. The specific symbols differed, but the political purpose was identical.'}
+  ]
+};
+
+document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+    this.classList.add('selected');
+    bdTopic = this.dataset.topic;
+    document.getElementById('bd-start-btn').disabled = false;
+  });
+});
+
+document.getElementById('bd-start-btn').addEventListener('click', function() {
+  if (!bdTopic) return;
+  document.getElementById('bd-setup').style.display = 'none';
+  var session = document.getElementById('bd-session');
+  session.classList.add('active');
+  document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
+  document.getElementById('bd-stem-txt').textContent = BD_STEMS[bdTopic] || 'Write everything you remember about this topic…';
+  document.getElementById('bd-textarea').value = '';
+  document.getElementById('bd-textarea').disabled = false;
+  document.getElementById('bd-word-count').textContent = '0 words';
+  document.getElementById('bd-reveal').classList.remove('active');
+  document.getElementById('bd-countdown').className = 'bd-countdown';
+  bdStartTimer(5 * 60);
+});
+
+function bdStartTimer(totalSec) {
+  if (bdTimerInterval) clearInterval(bdTimerInterval);
+  var remaining = totalSec;
+  function tick() {
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+    var el = document.getElementById('bd-countdown');
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    if (remaining <= 60 && remaining > 0) el.className = 'bd-countdown warning';
+    if (remaining <= 0) {
+      clearInterval(bdTimerInterval);
+      el.className = 'bd-countdown expired';
+      el.textContent = '0:00';
+      bdReveal();
+      return;
+    }
+    remaining--;
+  }
+  tick();
+  bdTimerInterval = setInterval(tick, 1000);
+}
+
+function bdReveal() {
+  var ta = document.getElementById('bd-textarea');
+  ta.disabled = true;
+  var cards = (BD_CARDS[bdTopic] || []);
+  var list = document.getElementById('bd-card-list');
+  list.innerHTML = cards.map(function(c) {
+    return '<div class="bd-card"><div class="bd-card-term">' + c.t + '</div><div class="bd-card-def">' + c.d + '</div></div>';
+  }).join('');
+  document.getElementById('bd-reveal').classList.add('active');
+}
+
+document.getElementById('bd-textarea').addEventListener('input', function() {
+  var words = this.value.trim() ? this.value.trim().split(/\s+/).length : 0;
+  document.getElementById('bd-word-count').textContent = words + ' word' + (words !== 1 ? 's' : '');
+});
+
+document.getElementById('bd-reset-btn').addEventListener('click', function() {
+  document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+  bdTopic = null;
+  document.getElementById('bd-start-btn').disabled = true;
+  document.getElementById('bd-session').classList.remove('active');
+  document.getElementById('bd-setup').style.display = '';
+  if (bdTimerInterval) clearInterval(bdTimerInterval);
+});
+</script>
+</body>
+</html>

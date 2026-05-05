@@ -680,6 +680,21 @@ img{display:block;max-width:100%}
 .top-bar-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
 .top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}}
+/* SPICE-T */
+.spice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:20px}
+.spice-card{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:24px 22px}
+.spice-letter{font-family:'IBM Plex Mono',monospace;font-size:2rem;font-weight:700;line-height:1;margin-bottom:4px;color:var(--red)}
+.spice-cat{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.spice-desc{font-size:.76rem;color:var(--muted);line-height:1.55;margin-bottom:12px;font-style:italic;border-bottom:1px solid var(--border);padding-bottom:11px}
+.spice-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+.spice-list li{font-size:.84rem;line-height:1.6;color:var(--mid);padding-left:14px;position:relative}
+.spice-list li::before{content:'›';position:absolute;left:0;color:var(--red);font-weight:700}
+.spice-s{border-top-color:var(--blue)}.spice-s .spice-letter{color:var(--blue)}
+.spice-p{border-top-color:var(--red)}.spice-p .spice-letter{color:var(--red)}
+.spice-i{border-top-color:var(--green)}.spice-i .spice-letter{color:var(--green)}
+.spice-c{border-top-color:var(--gold)}.spice-c .spice-letter{color:var(--gold)}
+.spice-e{border-top-color:#6b4e71}.spice-e .spice-letter{color:#6b4e71}
+.spice-t{border-top-color:#2e5266}.spice-t .spice-letter{color:#2e5266}
 .unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
 </style>
 </head>
@@ -704,6 +719,7 @@ img{display:block;max-width:100%}
     <div class="nav-item" data-target="pg-games" onclick="showTab('pg-games')"><span class="nav-dot"></span>Games</div>
     <div class="nav-item" data-target="pg-visual" onclick="showTab('pg-visual')"><span class="nav-dot"></span>Visual Sources</div>
     <div class="nav-item" data-target="pg-brain" onclick="showTab('pg-brain')"><span class="nav-dot"></span>Brain Dump</div>
+    <div class="nav-item" data-target="pg-spice" onclick="showTab('pg-spice')"><span class="nav-dot"></span>SPICE-T Analysis</div>
   </nav>
   <div class="sb-footer">
     <a href="index.html" class="sb-back-btn">← All Units</a>
@@ -1263,6 +1279,102 @@ img{display:block;max-width:100%}
     </div>
   </div>
 </div>
+<!-- SPICE-T PAGE -->
+<div class="page" id="pg-spice">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">AP Framework</div>
+      <h2>SPICE-T Analysis</h2>
+      <p>Unit 7 &mdash; Global Conflict (c. 1900&ndash;c. 1945) through the AP World History thematic lens.</p>
+    </div>
+    <div class="spice-grid">
+      <div class="spice-card spice-s">
+        <div class="spice-letter">S</div>
+        <div class="spice-cat">Social</div>
+        <div class="spice-desc">Socioeconomic groups, class/caste, gender roles, unfree labor, religious communities</div>
+        <ul class="spice-list">
+          <li>Total war mobilized entire civilian populations; women entered industrial and military support roles</li>
+          <li>Holocaust: Nazi racial ideology led to the systematic genocide of 6 million Jews and millions of others</li>
+          <li>Great Migration: millions of Black Americans moved north seeking industrial jobs and escape from Jim Crow</li>
+          <li>State propaganda dehumanized enemies and shaped public opinion in all warring nations</li>
+          <li>Post-WWI upheaval triggered waves of labor strikes, revolutions, and women&rsquo;s suffrage movements</li>
+          <li>Colonial soldiers from Africa and Asia fought for European empires, fueling demands for independence</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-p">
+        <div class="spice-letter">P</div>
+        <div class="spice-cat">Political</div>
+        <div class="spice-desc">Political structures, governance, power, state legitimacy, revolts, empires</div>
+        <ul class="spice-list">
+          <li>WWI triggered the collapse of four empires: Ottoman, Austro-Hungarian, Russian, and German</li>
+          <li>Treaty of Versailles imposed crushing reparations on Germany, breeding the resentment that enabled Hitler</li>
+          <li>Russian Revolution (1917) created the world&rsquo;s first communist state and began the Soviet experiment</li>
+          <li>Fascism rose in Italy (Mussolini) and Germany (Hitler) as a violent reaction to liberal democracy</li>
+          <li>League of Nations failed to prevent fascist aggression, exposing the limits of collective security</li>
+          <li>Anti-colonial nationalism surged: Gandhi&rsquo;s nonviolent movement in India, May Fourth Movement in China</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-i">
+        <div class="spice-letter">I</div>
+        <div class="spice-cat">Interaction w/ Environment</div>
+        <div class="spice-desc">Human-environment relations, demography, disease, resources, settlement</div>
+        <ul class="spice-list">
+          <li>Industrial-scale trench warfare permanently scarred the landscape of France and Belgium</li>
+          <li>Chemical weapons (mustard gas, chlorine) contaminated soil and water and caused mass casualties</li>
+          <li>Massive destruction of cities, ports, and railroads in both World Wars required decades of rebuilding</li>
+          <li>Atomic bombs dropped on Hiroshima and Nagasaki caused unprecedented environmental devastation</li>
+          <li>War economies diverted natural resources &mdash; oil, rubber, steel &mdash; to military production on industrial scales</li>
+          <li>Spanish flu pandemic (1918) killed 50&ndash;100 million people, amplified by wartime troop movements</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-c">
+        <div class="spice-letter">C</div>
+        <div class="spice-cat">Cultural</div>
+        <div class="spice-desc">Arts, literature, architecture, belief systems, science, ideologies</div>
+        <ul class="spice-list">
+          <li>&ldquo;Lost Generation&rdquo; writers (Hemingway, Owen, Remarque) captured WWI&rsquo;s disillusionment in literature</li>
+          <li>Nazi regime promoted Aryan cultural supremacy; &ldquo;degenerate&rdquo; modern art was banned and destroyed</li>
+          <li>Hollywood and state film propaganda shaped domestic and international perceptions of both wars</li>
+          <li>Modernist movements (Dada, Surrealism, Expressionism) responded to the trauma of industrial warfare</li>
+          <li>Jazz and blues music spread globally through wartime migration and radio broadcasts</li>
+          <li>Anti-colonial intellectuals challenged Western cultural supremacy through N&eacute;gritude and nationalist writing</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-e">
+        <div class="spice-letter">E</div>
+        <div class="spice-cat">Economic</div>
+        <div class="spice-desc">Economic systems, trade, labor, resources, agriculture, commerce</div>
+        <ul class="spice-list">
+          <li>Great Depression (1929) spread globally through bank failures, deflation, and collapsed trade</li>
+          <li>New Deal and Keynesian economics argued governments must actively intervene to stabilize economies</li>
+          <li>Nazi rearmament used state investment to eliminate unemployment and rebuild Germany&rsquo;s war capacity</li>
+          <li>WWII mobilization effectively ended the Great Depression through massive government spending</li>
+          <li>Lend-Lease program (1941) linked US and Allied economies before America formally entered the war</li>
+          <li>War reparations and interwar debt created economic instability that made fascism politically viable</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-t">
+        <div class="spice-letter">T</div>
+        <div class="spice-cat">Technology</div>
+        <div class="spice-desc">Creation and use of new technologies; their impact on society and empire</div>
+        <ul class="spice-list">
+          <li>Machine guns, tanks, barbed wire, and heavy artillery industrialized mass killing in WWI</li>
+          <li>Military aviation evolved from basic reconnaissance to strategic bombing campaigns in WWII</li>
+          <li>Radio enabled real-time state propaganda to reach millions of civilians for the first time</li>
+          <li>Manhattan Project (1942&ndash;45) produced the atomic bomb, inaugurating the nuclear age</li>
+          <li>Radar and sonar were developed as critical defensive and offensive military technologies in WWII</li>
+          <li>Synthetic rubber and oil production allowed Germany and Japan to substitute for blockaded imports</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
 // ── APWH Unit 7 Data ─────────────────────────────────────────────────────────
@@ -2481,7 +2593,7 @@ initProgress();
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ── NAV ──────────────────────────────────────────────── */
-  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-write':'Writing Practice','pg-guide':'Study Guide','pg-tips':'Exam Tips','pg-source':'Source Analysis','pg-flash':'Flashcards','pg-games':'Games','pg-visual':'Visual Sources','pg-brain':'Brain Dump','pg-slides':'Slides','pg-progress':'Progress'};
+  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-write':'Writing Practice','pg-guide':'Study Guide','pg-tips':'Exam Tips','pg-source':'Source Analysis','pg-flash':'Flashcards','pg-games':'Games','pg-visual':'Visual Sources','pg-brain':'Brain Dump','pg-slides':'Slides','pg-progress':'Progress','pg-spice':'SPICE-T Analysis'};
   function showTab(id) {
     document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
     var t = document.getElementById(id);

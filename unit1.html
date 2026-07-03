@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 1 Review — AP World History: Modern</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --sw:270px;
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#241d10;--mid:#48483a;--muted:#7a7860;
+  /* Unit 1 accent — earthy gold / warm brown */
+  --red:#7a5500;--red-d:#5c3f00;--red-bg:#fbf4e2;
+  --green:#1a6825;--green-bg:#eef7f0;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13);
+}
+body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;line-height:1.65;min-height:100vh;display:flex}
+button{font-family:inherit;cursor:pointer}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.inner{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+.pg-hero{text-align:center;padding:32px 0 28px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.pg-hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:8px}
+.pg-hero p{color:var(--muted);font-size:.92rem;max-width:520px;margin:0 auto}
+.pg-nav-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.pg-nav-btn{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1.5px solid var(--border2);background:none;color:var(--ink);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pg-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-nav-all{background:var(--red);color:#fff;border-color:var(--red)}
+.pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
+
+/* HERO */
+.hero{position:relative;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(to bottom,rgba(249,246,239,.90) 0%,rgba(243,236,224,.94) 100%);
+  padding:52px 24px 44px;border-bottom:3px solid var(--border2)}
+.hero-inner{text-align:center;max-width:720px;margin:0 auto}
+.hero-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:16px;border:1px solid rgba(122,85,0,.35);display:inline-block;padding:4px 14px;background:rgba(255,255,255,.6)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,6vw,4.2rem);font-weight:900;line-height:1.0;color:var(--ink);margin-bottom:16px}
+.hero h1 em{color:var(--red);font-style:italic}
+.hero-sub{color:var(--mid);font-size:clamp(.9rem,2vw,1.08rem);max-width:560px;line-height:1.7;margin:0 auto 22px}
+.hero-period{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.hero-btn{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;border:none;transition:all .2s}
+.hero-btn-primary{background:var(--red);color:#fff}
+.hero-btn-primary:hover{background:var(--red-d);transform:translateY(-2px)}
+.hero-btn-outline{background:rgba(255,255,255,.7);color:var(--ink);border:1.5px solid var(--border2)!important}
+.hero-btn-outline:hover{background:var(--ink);color:#fff}
+
+/* UNIT SUMMARY */
+.unit-summary{background:var(--white);padding:56px 24px;border-bottom:2px solid var(--border)}
+.us-inner{max-width:1000px;margin:0 auto}
+.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}
+.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}
+.us-body strong{color:var(--ink)}
+.us-themes-list{display:flex;flex-direction:column}
+.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.us-theme:last-child{border-bottom:none}
+.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}
+.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}
+@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
+
+/* TIMELINE (text) */
+.tl-section{background:#2a2318;padding:64px 24px 72px}
+.tl-inner{max-width:820px;margin:0 auto}
+.tl-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-b);margin-bottom:8px}
+.tl-heading{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;color:#fff;margin-bottom:10px;line-height:1.1}
+.tl-sub{font-size:.9rem;color:rgba(255,255,255,.45);margin-bottom:44px;max-width:520px}
+.tl-list{position:relative;padding-left:26px}
+.tl-list::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom,var(--gold-b),rgba(212,184,74,.15))}
+.tl-item{position:relative;margin-bottom:26px}
+.tl-item::before{content:'';position:absolute;left:-26px;top:5px;width:12px;height:12px;background:var(--red);border:2px solid #2a2318;border-radius:50%;box-shadow:0 0 0 2px rgba(212,184,74,.4)}
+.tl-year{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:500;letter-spacing:.08em;padding:3px 10px;margin-bottom:6px}
+.tl-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:4px;line-height:1.25}
+.tl-desc{font-size:.83rem;line-height:1.7;color:rgba(255,255,255,.55)}
+
+/* MCQ */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:11px;margin-bottom:11px}
+.tc{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:15px 17px;transition:box-shadow .18s,transform .18s;box-shadow:var(--sh);text-align:left}
+.tc:hover{box-shadow:var(--shm);transform:translateY(-2px)}
+.tc-n{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:3px}
+.tc-name{font-family:'Playfair Display',serif;font-size:.93rem;font-weight:700;line-height:1.25;margin-bottom:3px}
+.tc-cnt{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted)}
+.btn-all{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;transition:background .18s}
+.btn-all:hover{background:#3a3020}
+.btn-mixed{display:block;width:100%;background:var(--blue);color:#fff;border:none;padding:13px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;transition:background .18s;margin-bottom:8px}
+.btn-mixed:hover{background:#0f2350}
+.qsession{display:none}.qsession.active{display:block}
+.qhdr{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;box-shadow:var(--sh)}
+.qhdr-name{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);font-weight:500}
+.qhdr-prog{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.08em}
+.qpbar{background:var(--border);height:4px;margin:14px 0 22px}
+.qpbf{height:100%;background:var(--red);transition:width .35s ease;width:0}
+.sset-name{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
+.sbr{border:none;border-top:1px dashed var(--border2);margin:26px 0}
+.stim{background:var(--paper);border-left:3px solid var(--gold-b);padding:14px 16px;margin-bottom:14px}
+.stim-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.stim-src{font-size:.76rem;color:var(--muted);font-style:italic;margin-bottom:8px}
+.stim-txt{font-size:.86rem;line-height:1.7;color:var(--mid)}
+.stim-txt p+p{margin-top:.6em}
+.qcard{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:14px;box-shadow:var(--sh)}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.qtxt{font-size:.94rem;font-weight:600;line-height:1.5;margin-bottom:12px;color:var(--ink)}
+.opts{display:flex;flex-direction:column;gap:5px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:9px 11px;border:1.5px solid var(--border);background:var(--cream);text-align:left;width:100%;font-family:'Source Serif 4',serif;font-size:.86rem;line-height:1.5;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover:not(:disabled){border-color:var(--blue);background:var(--blue-bg)}
+.opt .ol{font-family:'IBM Plex Mono',monospace;font-weight:500;color:var(--muted);flex-shrink:0}
+.opt.c{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+.opt.w{border-color:var(--red);background:var(--red-bg);color:var(--red)}
+.opt.rv{border-color:var(--green);background:var(--green-bg)}
+.opt:disabled{cursor:default}
+.opt.c .ol{color:var(--green)}.opt.w .ol{color:var(--red)}.opt.rv .ol{color:var(--green)}
+.fb{display:none;margin-top:10px;padding:11px 13px;font-size:.83rem;line-height:1.6}
+.fb.show{display:block}
+.fb.ok{background:var(--green-bg);border-left:3px solid var(--green);color:var(--mid)}
+.fb.bad{background:var(--red-bg);border-left:3px solid var(--red);color:var(--mid)}
+.fb strong{color:var(--ink)}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
+.btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:11px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-red:hover{background:var(--red-d);border-color:var(--red-d)}
+
+/* FLASHCARDS */
+.fc-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.fc-meta{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em}
+.fc-select-wrap{display:flex;gap:8px;flex-wrap:wrap}
+.fc-sel{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border:1.5px solid var(--border2);background:var(--white);color:var(--ink)}
+.fc-progress{background:var(--border);height:4px;margin-bottom:22px;border-radius:2px}
+.fc-pbar{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.fc-timer-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.fc-timer-ring{position:relative;width:54px;height:54px;flex-shrink:0}
+.fc-timer-ring svg{transform:rotate(-90deg)}
+.fc-timer-ring circle{fill:none;stroke-width:4}
+.fc-timer-bg{stroke:var(--border)}
+.fc-timer-fg{stroke:var(--red);transition:stroke-dashoffset .95s linear,stroke .4s}
+.fc-timer-fg.done{stroke:var(--green)}
+.fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
+.fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+.fc-timer-msg.ready{color:var(--green)}
+.card-area{perspective:1200px;margin-bottom:18px;cursor:pointer}
+.card-3d{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.card-3d.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:28px 26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shm)}
+.card-face.back{transform:rotateY(180deg);border-top-color:var(--green)}
+.card-tag{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;color:var(--red)}
+.card-tag.back-tag{color:var(--green)}
+.card-term{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:6px}
+.card-topic{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.card-def{font-size:.92rem;line-height:1.72;color:var(--mid)}
+.card-hint{font-size:.76rem;color:var(--muted);margin-top:12px;font-style:italic}
+.flip-hint{text-align:center;font-size:.76rem;color:var(--muted);font-style:italic;margin-bottom:14px}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.cn-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:8px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.cn-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.cn-btn:disabled{opacity:.3;cursor:default}
+
+/* STUDY GUIDE */
+.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
+.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;gap:12px}
+.sg-hdr:hover{background:var(--cream)}
+.sg-hdr.open{background:var(--ink);color:#fff}
+.sg-htitle{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;line-height:1.2}
+.sg-hmeta{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.sg-hnum{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.45)}
+.sg-arr{font-size:.7rem;transition:transform .25s;flex-shrink:0}
+.sg-hdr.open .sg-arr{transform:rotate(180deg)}
+.sg-body{display:none;padding:20px 22px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.8;color:var(--mid)}
+.sg-body.open{display:block;animation:fadeUp .2s ease}
+.sg-body p+p{margin-top:.8em}
+.sg-body strong{color:var(--ink)}
+.sg-callout{background:var(--paper);border-left:3px solid var(--gold-b);padding:10px 14px;margin:12px 0;font-size:.86rem;color:var(--ink)}
+.sg-callout .sg-callout-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px}
+.sg-kws{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.sg-kw{display:inline-block;background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:.56rem;padding:3px 8px;letter-spacing:.06em}
+
+/* BRAIN DUMP */
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:20px}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{display:block;margin:0 auto;background:var(--red);color:#fff;border:none;padding:13px 36px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
+.bd-start-btn:hover{background:var(--red-d)}
+.bd-start-btn:disabled{opacity:.38;cursor:default}
+.bd-session{display:none}.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.bd-topic-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.bd-topic-label strong{margin-left:8px;color:#fff;opacity:1}
+.bd-countdown{font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:500;letter-spacing:.04em;min-width:64px;text-align:right}
+.bd-stem{background:var(--paper);border-left:3px solid var(--gold-b);padding:11px 14px;margin-bottom:12px}
+.bd-stem-lbl{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.bd-stem-txt{font-size:.88rem;font-style:italic;color:var(--ink)}
+.bd-textarea{width:100%;min-height:240px;border:2px solid var(--border2);padding:18px;font-family:'Source Serif 4',Georgia,serif;font-size:.95rem;line-height:1.7;resize:vertical;background:var(--white);color:var(--ink);transition:border-color .15s}
+.bd-textarea:focus{border-color:var(--red);outline:none}
+.bd-word-count{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.08em;margin:8px 0 4px;text-align:right}
+.bd-reveal{display:none;margin-top:20px}.bd-reveal.show{display:block;animation:fadeUp .3s ease}
+.bd-reveal-hdr{background:var(--green-bg);border-left:3px solid var(--green);padding:12px 16px;font-size:.88rem;color:var(--ink);margin-bottom:14px}
+.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:18px}
+.bd-rcard{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 14px;font-size:.84rem;line-height:1.6;color:var(--mid)}
+.bd-rcard strong{color:var(--ink);display:block;margin-bottom:3px;font-family:'Playfair Display',serif}
+.bd-reset-btn{background:var(--ink);color:#fff;border:none;padding:11px 26px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase}
+
+/* SPICE-T */
+.spice-intro{max-width:640px;margin:0 auto 8px;text-align:center;color:var(--muted);font-size:.9rem}
+.spice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:24px}
+.spice-card{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:24px 22px}
+.spice-letter{font-family:'IBM Plex Mono',monospace;font-size:2rem;font-weight:700;line-height:1;margin-bottom:4px;color:var(--red)}
+.spice-cat{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.spice-desc{font-size:.76rem;color:var(--muted);line-height:1.55;margin-bottom:12px;font-style:italic;border-bottom:1px solid var(--border);padding-bottom:11px}
+.spice-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+.spice-list li{font-size:.84rem;line-height:1.6;color:var(--mid);padding-left:14px;position:relative}
+.spice-list li::before{content:'\203a';position:absolute;left:0;color:var(--red);font-weight:700}
+.spice-list li strong{color:var(--ink)}
+.spice-s{border-top-color:var(--blue)}.spice-s .spice-letter{color:var(--blue)}
+.spice-p{border-top-color:#8c1212}.spice-p .spice-letter{color:#8c1212}
+.spice-i{border-top-color:var(--green)}.spice-i .spice-letter{color:var(--green)}
+.spice-c{border-top-color:var(--gold)}.spice-c .spice-letter{color:var(--gold)}
+.spice-e{border-top-color:#6b4e71}.spice-e .spice-letter{color:#6b4e71}
+.spice-t{border-top-color:#2e5266}.spice-t .spice-letter{color:#2e5266}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;font-size:.72rem;margin-top:4px}
+.sb-nav{padding:12px 0;flex:1}
+.sb-group-label{padding:14px 20px 4px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(122,85,0,.18)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.sb-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+.sb-back-btn{display:block;background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .15s}
+.sb-back-btn:hover{background:var(--red-d)}
+.sb-link{display:flex;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.4);font-family:'IBM Plex Mono',monospace;font-size:.68rem;text-decoration:none;transition:color .15s;padding:2px 0}
+.sb-link:hover{color:#fff}
+.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.top-bar-title{font-size:1.1rem;font-weight:700;color:var(--ink);line-height:1.2}
+.top-bar-score{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(122,85,0,.2)}
+.top-bar-score strong{font-size:.8rem}
+@media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}.top-bar{padding:0 18px}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">Unit 1 — The Global Tapestry</div>
+    <div class="sb-sub">c. 1200 – 1450</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Sections</div>
+    <div class="nav-item active" data-target="pg-home" onclick="showTab('pg-home')"><span class="nav-dot"></span>Overview</div>
+    <div class="nav-item" data-target="pg-mcq" onclick="showTab('pg-mcq')"><span class="nav-dot"></span>MCQ Practice</div>
+    <div class="nav-item" data-target="pg-guide" onclick="showTab('pg-guide')"><span class="nav-dot"></span>Study Guide</div>
+    <div class="nav-item" data-target="pg-flash" onclick="showTab('pg-flash')"><span class="nav-dot"></span>Flashcards</div>
+    <div class="nav-item" data-target="pg-brain" onclick="showTab('pg-brain')"><span class="nav-dot"></span>Brain Dump</div>
+    <div class="nav-item" data-target="pg-spice" onclick="showTab('pg-spice')"><span class="nav-dot"></span>SPICE-T Analysis</div>
+  </nav>
+  <div class="sb-footer">
+    <a href="index.html" class="sb-back-btn">← All Units</a>
+    <a href="resources.html" class="sb-link">→ Resources</a>
+  </div>
+</aside>
+
+<div class="main-wrap">
+<div class="top-bar">
+  <div class="top-bar-title" id="top-title">Overview</div>
+  <div class="top-bar-score">Score <strong id="score-txt">0/0</strong></div>
+</div>
+
+<!-- ══ HOME ══ -->
+<div class="page active" id="pg-home">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Unit 1 &bull; AP World History</div>
+      <h1>The Global <em>Tapestry</em></h1>
+      <p class="hero-sub">From Song China's civil-service bureaucracy to the Islamic Golden Age, the empires of the Americas, the trading kingdoms of Africa, and feudal Europe — a survey of the world's major societies on the eve of intensified global connection.</p>
+      <div class="hero-period">c. 1200 – c. 1450</div>
+      <div class="hero-btns">
+        <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">&#9998; Practice MCQs</button>
+        <button class="hero-btn hero-btn-outline" data-tab="pg-flash">&#128196; Flashcards</button>
+        <button class="hero-btn hero-btn-outline" data-tab="pg-guide">&#128214; Study Guide</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="unit-summary">
+    <div class="us-inner">
+      <div class="us-grid">
+        <div>
+          <div class="us-col-label">Unit Overview</div>
+          <h2 class="us-heading">States &amp; Societies, c. 1200–1450</h2>
+          <p class="us-body">Before the world's regions were tightly bound by ocean-spanning empires, each major society developed distinctive ways of organizing power, belief, and trade. In <strong>East Asia</strong>, the Song Dynasty ruled through a Confucian scholar-bureaucracy and civil-service exam, powering an economic revolution built on Champa rice, the Grand Canal, and proto-industrial iron and steel.</p>
+          <p class="us-body">Across <strong>Dar al-Islam</strong>, political unity fractured — the Abbasids gave way to Seljuk Turks, Mamluks, and the Delhi Sultanate — but a shared Islamic culture flourished, preserving Greek learning in the House of Wisdom and driving advances in math, medicine, and astronomy. In the <strong>Americas</strong>, the Maya, Aztec, and Inca built sophisticated theocratic states without contact with the Old World.</p>
+          <p class="us-body">Meanwhile, trans-Saharan and Indian Ocean trade enriched the <strong>African</strong> kingdoms of Mali and the Swahili city-states, and in <strong>Europe</strong>, decentralized feudalism, the manorial economy, and Church authority defined a fragmenting medieval order slowly reawakening to long-distance trade.</p>
+        </div>
+        <div>
+          <div class="us-col-label">Topics 1.1 – 1.6</div>
+          <div class="us-themes-list">
+            <div class="us-theme"><div class="us-theme-num">1.1</div><div><div class="us-theme-name">Song China</div><div class="us-theme-detail">Confucian meritocracy, civil-service exam, scholar-gentry, economic revolution, and influence on Korea, Japan, and Vietnam.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">1.2</div><div><div class="us-theme-name">Dar al-Islam</div><div class="us-theme-detail">Abbasid decline, Turkic and Mamluk successor states, the Golden Age of learning, and the spread of Islam through trade.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">1.3</div><div><div class="us-theme-name">South &amp; Southeast Asia</div><div class="us-theme-detail">The Delhi Sultanate, Vijayanagara, Bhakti and Sufi movements, and the sea-based kingdoms of Srivijaya and Majapahit.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">1.4</div><div><div class="us-theme-name">The Americas</div><div class="us-theme-detail">Maya city-states, the Aztec tribute empire and chinampas, and the Inca mit'a labor system and road network.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">1.5</div><div><div class="us-theme-name">Africa</div><div class="us-theme-detail">Mali and Mansa Musa, the Swahili city-states, Great Zimbabwe, griot oral tradition, and kin-based societies.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">1.6</div><div><div class="us-theme-name">Medieval Europe</div><div class="us-theme-detail">Feudalism and manorialism, the Great Schism, Crusades, the emerging bourgeoisie, and the dawn of the Renaissance.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tl-section">
+    <div class="tl-inner">
+      <div class="tl-label">Unit 1 at a Glance</div>
+      <h2 class="tl-heading">A World of Many Centers</h2>
+      <p class="tl-sub">Key developments across the major societies of 1200–1450.</p>
+      <div class="tl-list" id="tl-list"></div>
+    </div>
+  </section>
+</div><!-- /pg-home -->
+
+<!-- ══ MCQ ══ -->
+<div class="page" id="pg-mcq">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div id="mcq-home">
+      <div class="pg-hero">
+        <div class="eyebrow">MCQ Review</div>
+        <h2>Stimulus-Based Questions</h2>
+        <p>AP-style questions built on primary and secondary sources. Pick a topic, a quick mixed quiz, or practice everything.</p>
+      </div>
+      <div class="topic-grid" id="mcq-topic-grid"></div>
+      <button type="button" class="btn-mixed" id="mcq-mixed-btn">&#9889; Quick Mixed Quiz &mdash; 1 Per Topic</button>
+      <button type="button" class="btn-all" id="mcq-all-btn">&#128203; Practice All Questions</button>
+    </div>
+    <div id="mcq-session" class="qsession">
+      <div class="qhdr">
+        <div class="qhdr-name" id="qhdr-name">All Questions</div>
+        <div class="qhdr-prog" id="qhdr-prog">0 answered</div>
+      </div>
+      <div class="qpbar"><div class="qpbf" id="qpbf"></div></div>
+      <div id="qbody"></div>
+      <div class="btn-row">
+        <button type="button" class="btn btn-red" id="mcq-back-btn">&#8592; Back to Topics</button>
+        <button type="button" class="btn" id="mcq-reset-btn">Reset &amp; Retry</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STUDY GUIDE ══ -->
+<div class="page" id="pg-guide">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Study Guide</div>
+      <h2>Topic-by-Topic Review</h2>
+      <p>Click any topic to expand. Key terms are badged; watch for the AP angle callouts.</p>
+    </div>
+
+    <div class="sg-section">
+      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Song China &amp; East Asia</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.1</span><span class="sg-arr">&#9660;</span></div></div>
+      <div class="sg-body">
+        <p>The <strong>Song Dynasty</strong> ruled through a centralized <strong>bureaucracy</strong> staffed by a <strong>meritocracy</strong>: officials earned their posts by passing the <strong>Civil Service Exam</strong>, which tested mastery of Confucian classics. This produced the <strong>scholar-gentry</strong>, a class that even surpassed the aristocracy in status. Because peasants could in theory study and sit the exam, the system offered rare <strong>social mobility</strong>.</p>
+        <p>An <strong>economic revolution</strong> followed: fast-ripening <strong>Champa rice</strong> from Vietnam multiplied the food supply and population; the <strong>Grand Canal</strong> knit internal markets together; and China led the world in <strong>proto-industrialization</strong> — iron, steel, porcelain, silk, and tea. Chinese innovations (gunpowder, the magnetic compass, woodblock printing) spread west along the Silk Roads.</p>
+        <p>Society was <strong>patriarchal</strong>, emphasizing <strong>filial piety</strong> and Confucian hierarchy; elite women faced the painful status marker of <strong>foot binding</strong>. Belief blended <strong>Confucianism, Daoism, and Buddhism</strong>, producing <strong>Neo-Confucianism</strong>. Song China projected power through a <strong>tributary system</strong> over neighbors. <strong>Japan</strong> (Heian court, Tale of Genji, then feudal shogunate), <strong>Korea</strong> (Confucian elite, closed exam), and <strong>Vietnam</strong> (least sinified, greater freedom for women) each adapted Chinese models selectively.</p>
+        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Song China is the go-to example of <strong>continuity &amp; innovation in governance</strong> — the civil-service exam is a top comparison point for how states maintained and legitimized power.</div>
+        <div class="sg-kws"><span class="sg-kw">Civil Service Exam</span><span class="sg-kw">Scholar-gentry</span><span class="sg-kw">Neo-Confucianism</span><span class="sg-kw">Filial piety</span><span class="sg-kw">Foot binding</span><span class="sg-kw">Champa rice</span><span class="sg-kw">Grand Canal</span><span class="sg-kw">Tributary system</span></div>
+      </div>
+    </div>
+
+    <div class="sg-section">
+      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Dar al-Islam</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.2</span><span class="sg-arr">&#9660;</span></div></div>
+      <div class="sg-body">
+        <p><strong>Dar al-Islam</strong> ("the house of Islam") was culturally unified even as it fragmented politically. The <strong>Abbasid Caliphate</strong> declined and power passed to new Islamic states led by <strong>Turkic</strong> peoples — the <strong>Seljuk Turks</strong>, the Egyptian <strong>Mamluks</strong>, and the <strong>Delhi Sultanate</strong> in India. These states expanded Islam's reach even as no single ruler controlled it all.</p>
+        <p>This was a cultural <strong>Golden Age</strong>. The <strong>House of Wisdom</strong> in Baghdad translated and preserved Greek and Latin works — later fueling Europe's Renaissance — while scholars like <strong>Nasir al-Din al-Tusi</strong> advanced astronomy, mathematics, medicine, and law. Adopted <strong>papermaking</strong> from China spread literacy; <strong>Al-Andalus</strong> (Islamic Spain) and its capital <strong>Córdoba</strong> became centers of learning. Poets such as <strong>'A'ishah al-Ba'uniyyah</strong> flourished.</p>
+        <p>Islam spread mainly through <strong>trade, missionaries (Sufis), and conquest</strong>, not forced conversion — <strong>protected peoples</strong> (Jews, Christians, Zoroastrians) paid the <strong>jizya</strong> tax rather than convert. Merchants held high status, and women could inherit, divorce, and testify in court, though they remained limited as wives and concubines.</p>
+        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Dar al-Islam is the prime example of <strong>cultural continuity amid political change</strong> and of how <strong>trade routes carried religion and knowledge</strong> across Afro-Eurasia.</div>
+        <div class="sg-kws"><span class="sg-kw">Abbasid Caliphate</span><span class="sg-kw">House of Wisdom</span><span class="sg-kw">Seljuk Turks</span><span class="sg-kw">Mamluks</span><span class="sg-kw">Delhi Sultanate</span><span class="sg-kw">Sufism</span><span class="sg-kw">Córdoba</span><span class="sg-kw">Jizya</span></div>
+      </div>
+    </div>
+
+    <div class="sg-section">
+      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">South &amp; Southeast Asia</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.3</span><span class="sg-arr">&#9660;</span></div></div>
+      <div class="sg-body">
+        <p>In <strong>South Asia</strong>, the more stable south hosted the <strong>Chola Dynasty</strong> and later the powerful Hindu <strong>Vijayanagara Empire</strong>, while the north was fragmented and repeatedly attacked by Islamic forces — the <strong>Rajput</strong> kingdoms and the Muslim <strong>Delhi Sultanate</strong>. Islam's arrival produced a new blended language, <strong>Urdu</strong>, and architecture like the <strong>Qutub Minar</strong>. Many lower-caste Hindus converted to Islam to escape the rigid <strong>caste system</strong>, while the devotional <strong>Bhakti Movement</strong> re-energized Hinduism by stressing a direct, personal love of god open to all.</p>
+        <p>In <strong>Southeast Asia</strong>, sea-based kingdoms thrived on Indian Ocean trade: the Hindu, navally powerful <strong>Srivijaya</strong>, then the Buddhist <strong>Majapahit</strong>, which controlled key sea routes. Land-based kingdoms included the <strong>Khmer Empire / Angkor</strong>, whose capital Angkor Thom fused Hindu and Buddhist art and whose complex irrigation supported dense rice agriculture.</p>
+        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Use this region to show <strong>religious syncretism and the appeal of Islam and Bhakti to lower castes</strong>, plus how <strong>control of sea routes built state power</strong>.</div>
+        <div class="sg-kws"><span class="sg-kw">Vijayanagara</span><span class="sg-kw">Delhi Sultanate</span><span class="sg-kw">Bhakti Movement</span><span class="sg-kw">Rajput</span><span class="sg-kw">Srivijaya</span><span class="sg-kw">Majapahit</span><span class="sg-kw">Khmer / Angkor</span><span class="sg-kw">Urdu</span></div>
+      </div>
+    </div>
+
+    <div class="sg-section">
+      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">The Americas</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.4</span><span class="sg-arr">&#9660;</span></div></div>
+      <div class="sg-body">
+        <p>The <strong>Maya</strong> were organized as independent <strong>city-states</strong> ruled by god-kings (<strong>theocracy</strong>) with no central government; they developed the concept of <strong>zero</strong>, a glyph writing system, and an accurate calendar, and practiced <strong>human sacrifice</strong>. Warfare between city-states was common.</p>
+        <p>The <strong>Aztec (Mexica)</strong> built an empire in central Mexico with a capital at <strong>Tenochtitlan</strong>. A <strong>tribute system</strong> collected crops, goods, and sacrificial victims from conquered provinces; <strong>chinampas</strong> (floating gardens) fed the swampy capital; and they practiced human sacrifice on a large scale, which — along with disease and the Spanish — fed rebellion and decline.</p>
+        <p>The <strong>Inca</strong> ruled a vast Andean empire divided into four provinces, linked by the <strong>Carpa Ñan</strong> road network. They demanded labor through the <strong>mit'a system</strong> rather than tribute, recorded data with knotted-string <strong>quipu</strong>, and farmed steep terrain with <strong>terrace farming</strong>. Civil war after the emperor's death, plus disease and Spanish violence, brought collapse.</p>
+        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Compare the three: all were <strong>theocratic</strong> and used <strong>labor/tribute systems</strong> for control, but the Inca used <strong>mit'a labor</strong> where the Aztec used <strong>tribute goods</strong>.</div>
+        <div class="sg-kws"><span class="sg-kw">Maya</span><span class="sg-kw">Aztec / Mexica</span><span class="sg-kw">Tenochtitlan</span><span class="sg-kw">Chinampas</span><span class="sg-kw">Inca</span><span class="sg-kw">Mit'a system</span><span class="sg-kw">Quipu</span><span class="sg-kw">Carpa Ñan</span></div>
+      </div>
+    </div>
+
+    <div class="sg-section">
+      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Africa</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.5</span><span class="sg-arr">&#9660;</span></div></div>
+      <div class="sg-body">
+        <p>Many African societies began as <strong>kin-based networks</strong> that grew into larger kingdoms, such as the <strong>Hausa Kingdoms</strong>. In West Africa, <strong>Ghana</strong> and then <strong>Mali</strong> grew rich by taxing the <strong>trans-Saharan trade</strong> in gold, ivory, and salt. Mali's rulers <strong>Sundiata</strong> (founder) and <strong>Mansa Musa</strong> (whose lavish pilgrimage to Mecca broadcast Mali's wealth) made <strong>Timbuktu</strong> a center of trade and Islamic learning.</p>
+        <p>In East Africa, the <strong>Swahili city-states</strong> — a blend of <strong>Bantu and Arabic</strong> language and culture — linked the coast to Indian Ocean trade. <strong>Great Zimbabwe</strong> built massive stone walls without mortar, and <strong>Ethiopia</strong> remained a Christian kingdom. History was preserved orally by <strong>griots/griottes</strong>. Islam and Christianity spread but often blended with, rather than replaced, <strong>animist</strong> traditions.</p>
+        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Africa is a strong example of <strong>trade networks driving state formation and cultural exchange</strong> — Mansa Musa and the Swahili coast are frequent test subjects.</div>
+        <div class="sg-kws"><span class="sg-kw">Ghana</span><span class="sg-kw">Mali</span><span class="sg-kw">Mansa Musa</span><span class="sg-kw">Sundiata</span><span class="sg-kw">Swahili city-states</span><span class="sg-kw">Great Zimbabwe</span><span class="sg-kw">Hausa</span><span class="sg-kw">Griots</span></div>
+      </div>
+    </div>
+
+    <div class="sg-section">
+      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Medieval Europe</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.6</span><span class="sg-arr">&#9660;</span></div></div>
+      <div class="sg-body">
+        <p>Medieval Europe was politically <strong>decentralized</strong> under <strong>feudalism</strong> — a hierarchy of kings, lords, knights, and serfs bound by land and loyalty — and economically organized by the <strong>manorial system</strong>, in which serfs worked self-sufficient estates. The <strong>three-field system</strong> raised agricultural output and population.</p>
+        <p>The <strong>Roman Catholic Church</strong> dominated art, education, and daily life; the <strong>Great Schism</strong> split Roman Catholic (West) from Orthodox (East) Christianity. The <strong>Crusades</strong> pitted Christians against Muslims but reopened European interest in Asian goods — an interest travelers like <strong>Marco Polo</strong> intensified. A new merchant middle class (<strong>bourgeoisie / burghers</strong>) emerged, and monarchs began centralizing power, as in <strong>Norman England</strong> with Parliament and the <strong>Magna Carta</strong>.</p>
+        <p>Late in the period, the <strong>Black Death</strong> and the <strong>Little Ice Age</strong> weakened feudalism, while the <strong>Renaissance</strong> revived Greco-Roman arts and learning, ending the "Dark Ages" and pointing toward the nation-states to come.</p>
+        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Contrast Europe's <strong>decentralized feudalism</strong> with the <strong>centralized bureaucracy of Song China</strong> — a classic governance comparison.</div>
+        <div class="sg-kws"><span class="sg-kw">Feudalism</span><span class="sg-kw">Manorialism</span><span class="sg-kw">Three-field system</span><span class="sg-kw">Great Schism</span><span class="sg-kw">Crusades</span><span class="sg-kw">Black Death</span><span class="sg-kw">Bourgeoisie</span><span class="sg-kw">Magna Carta</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FLASHCARDS ══ -->
+<div class="page" id="pg-flash">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 1 Flashcards</div>
+      <h2>Key Terms &amp; Concepts</h2>
+      <p>Click the card to flip it. Use arrows to navigate or filter by topic.</p>
+    </div>
+    <div class="fc-controls">
+      <div class="fc-meta" id="fc-meta">Card 1 of 1</div>
+      <div class="fc-select-wrap">
+        <select class="fc-sel" id="fc-filter">
+          <option value="all">All Topics</option>
+          <option value="1.1">1.1 — Song China</option>
+          <option value="1.2">1.2 — Dar al-Islam</option>
+          <option value="1.3">1.3 — South &amp; SE Asia</option>
+          <option value="1.4">1.4 — The Americas</option>
+          <option value="1.5">1.5 — Africa</option>
+          <option value="1.6">1.6 — Medieval Europe</option>
+        </select>
+        <button type="button" class="fc-sel" id="fc-shuffle-btn">&#128256; Shuffle</button>
+      </div>
+    </div>
+    <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
+    <div class="fc-timer-wrap">
+      <div class="fc-timer-ring">
+        <svg width="54" height="54" viewBox="0 0 54 54">
+          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
+          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
+        </svg>
+        <div class="fc-timer-num" id="fc-timer-num">15</div>
+      </div>
+      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
+    </div>
+    <div class="card-area" id="card-area">
+      <div class="card-3d" id="fc-card">
+        <div class="card-face front">
+          <div class="card-tag">Term</div>
+          <div class="card-term" id="fc-term">Loading...</div>
+          <div class="card-topic" id="fc-topic">Topic 1.1</div>
+          <div class="card-hint">Think of the answer, then flip when the timer is done &#8595;</div>
+        </div>
+        <div class="card-face back">
+          <div class="card-tag back-tag">Definition</div>
+          <div class="card-def" id="fc-def">Loading...</div>
+        </div>
+      </div>
+    </div>
+    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
+    <div class="card-nav">
+      <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
+      <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BRAIN DUMP ══ -->
+<div class="page" id="pg-brain">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Brain Dump</div>
+      <h2>Write What You Know</h2>
+      <p>Pick a topic, then write everything you remember for 5 minutes. When time's up, compare against the full list.</p>
+    </div>
+    <div id="bd-setup">
+      <div class="bd-topic-grid" id="bd-topic-grid"></div>
+      <button type="button" class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
+    </div>
+    <div class="bd-session" id="bd-session">
+      <div class="bd-timer-bar">
+        <div class="bd-topic-label">Topic<strong id="bd-active-topic">&mdash;</strong></div>
+        <div class="bd-countdown" id="bd-countdown">5:00</div>
+      </div>
+      <div class="bd-stem">
+        <div class="bd-stem-lbl">&#9997; Sentence Stem — start here if you need a push</div>
+        <div class="bd-stem-txt" id="bd-stem-txt"></div>
+      </div>
+      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic — key terms, events, causes, effects, people… don't stop writing!"></textarea>
+      <div class="bd-word-count" id="bd-word-count">0 words</div>
+      <div class="bd-reveal" id="bd-reveal">
+        <div class="bd-reveal-hdr">&#9989; Time's up! Here's the key content for this topic — compare it to what you wrote.</div>
+        <div class="bd-card-list" id="bd-card-list"></div>
+        <button type="button" class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SPICE-T ══ -->
+<div class="page" id="pg-spice">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">SPICE-T Analysis</div>
+      <h2>Themes Across Unit 1</h2>
+      <p>Organize the whole unit by the six AP thematic lenses — the same categories your reference sheet uses.</p>
+    </div>
+    <div class="spice-grid">
+      <div class="spice-card spice-s">
+        <div class="spice-letter">S</div>
+        <div class="spice-cat">Social</div>
+        <div class="spice-desc">Structures, gender roles, classes, and hierarchy.</div>
+        <ul class="spice-list">
+          <li><strong>Patriarchy</strong> everywhere, but degrees varied — foot binding in Song China vs. greater freedom for Vietnamese and Islamic women (who could inherit &amp; divorce).</li>
+          <li>Rigid <strong>caste system</strong> in South Asia pushed conversions to Islam.</li>
+          <li><strong>Scholar-gentry</strong> (China) and <strong>merchants</strong> (Dar al-Islam) held high status; Europe's serfs were bound to manors.</li>
+          <li>Americas: theocratic elites of kings and priests atop tribute/labor societies.</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-p">
+        <div class="spice-letter">P</div>
+        <div class="spice-cat">Political</div>
+        <div class="spice-desc">States, governance, and how power was legitimized.</div>
+        <ul class="spice-list">
+          <li><strong>Centralized</strong> Song bureaucracy &amp; civil-service exam vs. <strong>decentralized</strong> European feudalism.</li>
+          <li>Dar al-Islam fragmented into <strong>Seljuk, Mamluk, Delhi Sultanate</strong> states.</li>
+          <li>Legitimacy by <strong>divine right / theocracy</strong> (Maya, Aztec, Inca; European monarchs).</li>
+          <li>Inca <strong>mit'a</strong> labor and Aztec <strong>tribute</strong> as tools of imperial control.</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-i">
+        <div class="spice-letter">I</div>
+        <div class="spice-cat">Interaction</div>
+        <div class="spice-desc">Humans &amp; the environment: geography, disease, resources.</div>
+        <ul class="spice-list">
+          <li><strong>Champa rice</strong> and the Grand Canal fueled China's population boom.</li>
+          <li>Inca <strong>terrace farming</strong> and Aztec <strong>chinampas</strong> conquered difficult terrain.</li>
+          <li>The <strong>Little Ice Age</strong> and <strong>Black Death</strong> weakened feudal Europe.</li>
+          <li>Trans-Saharan camels &amp; Indian Ocean monsoons shaped African/Asian trade.</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-c">
+        <div class="spice-letter">C</div>
+        <div class="spice-cat">Cultural</div>
+        <div class="spice-desc">Religion, belief, art, and the life of the mind.</div>
+        <ul class="spice-list">
+          <li><strong>Neo-Confucianism</strong> (China) and the Islamic <strong>Golden Age</strong> / House of Wisdom.</li>
+          <li><strong>Bhakti</strong> and <strong>Sufi</strong> movements spread devotion across South Asia.</li>
+          <li>Syncretic art at <strong>Angkor</strong>; Christian dominance in medieval Europe.</li>
+          <li>Polytheistic, sacrificial religion structured life in the Americas.</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-e">
+        <div class="spice-letter">E</div>
+        <div class="spice-cat">Economic</div>
+        <div class="spice-desc">Trade, labor, agriculture, and systems of exchange.</div>
+        <ul class="spice-list">
+          <li>Song <strong>proto-industrialization</strong>: iron, steel, porcelain, silk, tea.</li>
+          <li>Mali &amp; Ghana taxed <strong>trans-Saharan gold and salt</strong>; Swahili coast tapped the Indian Ocean.</li>
+          <li>European <strong>manorialism</strong> and a rising merchant <strong>bourgeoisie</strong>.</li>
+          <li>Aztec <strong>tribute</strong> vs. Inca <strong>labor (mit'a)</strong> economies.</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-t">
+        <div class="spice-letter">T</div>
+        <div class="spice-cat">Technology</div>
+        <div class="spice-desc">Innovations, science, and their diffusion.</div>
+        <ul class="spice-list">
+          <li>China's <strong>gunpowder, compass, and woodblock printing</strong> diffused west.</li>
+          <li>Islamic advances in <strong>math, medicine, and astronomy</strong>; adopted papermaking.</li>
+          <li>Maya <strong>zero</strong> &amp; calendar; Inca <strong>quipu</strong> and road engineering.</li>
+          <li>Europe's <strong>three-field system</strong> boosted farm output.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main-wrap -->
+
+<script>
+/* ══ DATA ══════════════════════════════════════════════════ */
+var TOPICS = [
+  {id:'1.1', name:'Song China'},
+  {id:'1.2', name:'Dar al-Islam'},
+  {id:'1.3', name:'South &amp; SE Asia'},
+  {id:'1.4', name:'The Americas'},
+  {id:'1.5', name:'Africa'},
+  {id:'1.6', name:'Medieval Europe'}
+];
+
+var TIMELINE = [
+  {year:'960–1279', title:'Song Dynasty', desc:'A Confucian bureaucracy and civil-service exam govern China during a commercial and technological revolution.'},
+  {year:'c. 1000', title:'Champa Rice Spreads', desc:'Fast-ripening rice from Vietnam multiplies China’s food supply and population.'},
+  {year:'1206', title:'Delhi Sultanate Founded', desc:'Turkic Muslim rule is established in northern India, spreading Islam and blended Urdu culture.'},
+  {year:'1235', title:'Mali Empire Rises', desc:'Sundiata unites West Africa; Mali grows rich taxing the trans-Saharan gold and salt trade.'},
+  {year:'1324', title:'Mansa Musa’s Hajj', desc:'Mali’s ruler makes a legendary pilgrimage to Mecca, broadcasting the empire’s wealth.'},
+  {year:'c. 1345', title:'Tenochtitlan Founded', desc:'The Aztec build their capital on Lake Texcoco, feeding it with chinampas (floating gardens).'},
+  {year:'1347–1351', title:'The Black Death', desc:'Plague sweeps Afro-Eurasia along trade routes, killing millions and weakening European feudalism.'},
+  {year:'c. 1400s', title:'Inca &amp; Vijayanagara Peak', desc:'The Inca road-and-mit’a empire and South India’s Hindu Vijayanagara reach their height.'}
+];
+
+var CARDS = [
+  {t:'Civil Service Exam', d:'Merit-based test on Confucian classics used to select Song officials, creating the scholar-gentry and enabling limited social mobility.', topic:'1.1'},
+  {t:'Scholar-gentry', d:'Educated class of Confucian officials who staffed the bureaucracy and became China’s most powerful social group.', topic:'1.1'},
+  {t:'Neo-Confucianism', d:'Revived Confucian philosophy blending ethics with Buddhist and Daoist ideas; reinforced hierarchy and filial piety.', topic:'1.1'},
+  {t:'Champa Rice', d:'Fast-ripening, drought-resistant rice from Vietnam that boosted Song China’s food supply and population.', topic:'1.1'},
+  {t:'Grand Canal', d:'Vast inland waterway linking northern and southern China, integrating internal trade and markets.', topic:'1.1'},
+  {t:'Foot binding', d:'Painful practice among elite Chinese women signaling status and controlling mobility; a marker of Song patriarchy.', topic:'1.1'},
+  {t:'Tributary System', d:'Diplomatic/economic order in which neighboring states acknowledged Chinese superiority with gifts in exchange for trade.', topic:'1.1'},
+  {t:'Abbasid Caliphate', d:'Declining Islamic dynasty centered in Baghdad; its weakening opened the way for Turkic successor states.', topic:'1.2'},
+  {t:'House of Wisdom', d:'Baghdad center of learning that translated and preserved Greek/Latin texts, later fueling Europe’s Renaissance.', topic:'1.2'},
+  {t:'Seljuk Turks', d:'Turkic Muslim people who took political power across much of the Middle East as the Abbasids declined.', topic:'1.2'},
+  {t:'Mamluks', d:'Enslaved-soldier dynasty that ruled Egypt and helped defend the Islamic world (including against the Mongols).', topic:'1.2'},
+  {t:'Delhi Sultanate', d:'Turkic Muslim state ruling northern India (1206–1526), spreading Islam and Indo-Islamic culture.', topic:'1.2'},
+  {t:'Sufism', d:'Mystical branch of Islam whose missionaries spread the faith by adapting to local cultures.', topic:'1.2'},
+  {t:'Jizya', d:'Tax paid by protected non-Muslims (Jews, Christians, Zoroastrians) in place of conversion under Islamic rule.', topic:'1.2'},
+  {t:'Bhakti Movement', d:'Hindu devotional movement stressing personal love of a god; open to all, it countered the appeal of Islam.', topic:'1.3'},
+  {t:'Vijayanagara Empire', d:'Powerful Hindu empire in South India that resisted Muslim expansion from the north.', topic:'1.3'},
+  {t:'Srivijaya', d:'Hindu, navally powerful sea-based kingdom that taxed and controlled Southeast Asian trade routes.', topic:'1.3'},
+  {t:'Majapahit', d:'Buddhist maritime kingdom of Java that dominated regional sea routes after Srivijaya.', topic:'1.3'},
+  {t:'Khmer Empire (Angkor)', d:'Southeast Asian land-based kingdom famous for Angkor Wat/Thom and advanced irrigation blending Hindu and Buddhist culture.', topic:'1.3'},
+  {t:'Urdu', d:'Blended language that emerged from the contact of Persian/Arabic and local Indian tongues under Muslim rule.', topic:'1.3'},
+  {t:'Maya', d:'Mesoamerican civilization of independent theocratic city-states; developed the concept of zero, glyph writing, and a calendar.', topic:'1.4'},
+  {t:'Tenochtitlan', d:'Aztec capital built on Lake Texcoco, sustained by chinampas and a tribute system over conquered provinces.', topic:'1.4'},
+  {t:'Chinampas', d:'Aztec “floating gardens” built on the lake to grow crops and feed a large urban population.', topic:'1.4'},
+  {t:'Mit’a System', d:'Inca mandatory public-labor obligation (roads, terraces, temples) used in place of tribute for imperial control.', topic:'1.4'},
+  {t:'Quipu', d:'Inca system of knotted, colored strings used to record numeric and administrative data.', topic:'1.4'},
+  {t:'Carpa Ñan', d:'Extensive Inca royal road network linking the empire’s four provinces for trade, troops, and communication.', topic:'1.4'},
+  {t:'Mansa Musa', d:'Mali ruler whose extravagant 1324 hajj to Mecca displayed the empire’s gold wealth to the wider world.', topic:'1.5'},
+  {t:'Sundiata', d:'Founder of the Mali Empire who united West African peoples and built its trade-based power.', topic:'1.5'},
+  {t:'Swahili City-States', d:'East African coastal trading cities blending Bantu and Arabic (Swahili) culture, tied into Indian Ocean commerce.', topic:'1.5'},
+  {t:'Great Zimbabwe', d:'Powerful Southern African kingdom known for massive mortar-less stone walls and control of interior trade.', topic:'1.5'},
+  {t:'Griots', d:'West African oral historians and storytellers who preserved history and tradition in societies without writing.', topic:'1.5'},
+  {t:'Feudalism', d:'Decentralized European political system of mutual obligation among kings, lords, knights, and serfs, based on land.', topic:'1.6'},
+  {t:'Manorialism', d:'Self-sufficient economic system in which serfs worked and lived on a noble’s manor.', topic:'1.6'},
+  {t:'Great Schism', d:'1054 split of Christianity into Roman Catholic (West) and Eastern Orthodox (East) churches.', topic:'1.6'},
+  {t:'Black Death', d:'Bubonic plague pandemic (c. 1347–51) that spread along trade routes and helped undermine European feudalism.', topic:'1.6'},
+  {t:'Bourgeoisie', d:'Emerging urban merchant middle class (burghers) in medieval Europe as trade revived.', topic:'1.6'},
+  {t:'Magna Carta', d:'1215 English charter limiting royal power and protecting certain rights — a step toward representative government.', topic:'1.6'}
+];
+
+var MCQ = {
+  '1.1': [
+    {s:'“The founders of the [Song] dynasty… decided that the empire should be governed by a civil bureaucracy recruited through competitive written examinations… In theory, the poorest peasant’s son could rise to the highest office by his own talent and effort.”', sl:'Modern historian describing Song governance', q:'The system described in the passage most directly contributed to which of the following in Song China?', o:['The abolition of the patriarchal family structure','The rise of the scholar-gentry as a dominant social class','The end of Confucian influence on the state','The elimination of social hierarchy'], c:1, e:'The exam produced the scholar-gentry, an educated elite that staffed the bureaucracy and outranked the old aristocracy.'},
+    {s:'“With the introduction of Champa rice, which ripened quickly and could be grown in poorer soils, two harvests a year became possible in the south. The population of China roughly doubled.”', sl:'Secondary source on the Song economy', q:'The development described most directly supported which of the following?', o:['A decline in Chinese urbanization','Population growth and proto-industrial production','The abandonment of the Grand Canal','A shift away from Confucian values'], c:1, e:'More reliable food surpluses drove population growth, urbanization, and the labor available for proto-industrial output in iron, silk, and porcelain.'}
+  ],
+  '1.2': [
+    {s:'“In Baghdad, scholars gathered in the House of Wisdom to translate the works of the Greeks—Aristotle, Galen, Euclid—into Arabic, adding their own commentaries in mathematics, medicine, and astronomy.”', sl:'Description of the Abbasid Golden Age', q:'The activity described in the passage is most significant because it:', o:['Forced the conversion of Christians and Jews to Islam','Preserved and expanded classical knowledge later transmitted to Europe','Ended trade between the Islamic world and Asia','Replaced Islamic law with Greek philosophy'], c:1, e:'The House of Wisdom preserved Greek learning and advanced it, later helping spark the European Renaissance.'},
+    {s:'“Though the Abbasid caliph still sat in Baghdad, real power had passed to Turkic sultans and their armies, who ruled in his name.”', sl:'Historian on the later Abbasid period', q:'The situation described best illustrates which characteristic of Dar al-Islam in this era?', o:['Cultural unity persisted despite political fragmentation','Islam was spread primarily through forced conversion','The caliph exercised absolute centralized control','Trade networks collapsed across the region'], c:0, e:'Political power fractured among Seljuk, Mamluk, and other states, yet a shared Islamic culture and learning continued to unify the region.'}
+  ],
+  '1.3': [
+    {s:'“Sing to the Lord with no thought of reward… The path to god is open to all, whatever their birth, who love him with a pure heart.”', sl:'Bhakti devotional poem, South Asia', q:'The ideas expressed in the poem most directly help explain which of the following?', o:['The strengthening of the caste system','The appeal of devotional Hinduism and Islam to lower-caste people','The rejection of all religion in South Asia','The decline of trade in the Indian Ocean'], c:1, e:'The Bhakti movement (and Islam/Sufism) attracted lower-caste Hindus by offering spiritual equality outside the rigid caste hierarchy.'}
+  ],
+  '1.4': [
+    {s:'“Each province was required to send to the capital a fixed amount of maize, cloth, and captives for sacrifice. In return the empire offered protection and order.”', sl:'Description of an American empire, c. 1400', q:'The system described was most characteristic of which society?', o:['The Inca Empire','The Aztec (Mexica) Empire','Song China','The Mali Empire'], c:1, e:'The Aztec ran a tribute system: conquered provinces supplied goods and sacrificial captives to Tenochtitlan.'},
+    {s:'“The roads ran for thousands of miles across mountains and deserts, with runners carrying messages and knotted strings recording the counts of the storehouses.”', sl:'Account of an Andean empire', q:'The “knotted strings” referenced in the passage are best identified as:', o:['Quipu used by the Inca for record-keeping','Chinampas used by the Aztec for farming','Glyphs used by the Maya for writing','Caravanserai used for trade'], c:0, e:'The Inca used quipu—knotted, colored strings—to record numeric and administrative data across their road-linked empire.'}
+  ],
+  '1.5': [
+    {s:'“So generous was the king in his gifts of gold as he passed through Cairo that the price of gold fell and did not recover for many years.”', sl:'Account of Mansa Musa’s pilgrimage, 14th c.', q:'The passage best illustrates which of the following about Mali?', o:['Its poverty and isolation from world trade','Its wealth derived from control of the trans-Saharan gold trade','Its rejection of Islam','Its reliance on Indian Ocean monsoon winds'], c:1, e:'Mali’s wealth came from taxing the trans-Saharan trade in gold and salt; Mansa Musa’s hajj famously displayed that wealth.'}
+  ],
+  '1.6': [
+    {s:'“The lord grants land to his vassal, who swears loyalty and military service in return; below them, serfs are bound to the manor, owing labor and a share of the harvest.”', sl:'Description of a European social order', q:'The system described is best contrasted with Song China’s government because Europe’s was:', o:['More centralized and bureaucratic','More decentralized, based on personal bonds and land','Governed by a civil-service exam','Free of any social hierarchy'], c:1, e:'European feudalism was decentralized and based on personal land-and-loyalty bonds, unlike the centralized, exam-based Song bureaucracy.'}
+  ]
+};
+
+var BRAIN = {
+  '1.1':{stem:'Song China governed through a Confucian bureaucracy and experienced an economic revolution because…', points:[
+    ['Governance','Civil-service exam → scholar-gentry; centralized bureaucracy; meritocracy and limited social mobility.'],
+    ['Economy','Champa rice, Grand Canal, proto-industrialization (iron, steel, porcelain, silk, tea).'],
+    ['Society','Patriarchy, filial piety, foot binding for elite women.'],
+    ['Culture','Confucianism, Buddhism, Daoism → Neo-Confucianism; woodblock printing.'],
+    ['Neighbors','Japan, Korea, Vietnam adapt Chinese models selectively (sinification).']
+  ]},
+  '1.2':{stem:'Dar al-Islam stayed culturally unified even as it fragmented politically because…', points:[
+    ['Political change','Abbasid decline → Seljuk Turks, Mamluks, Delhi Sultanate.'],
+    ['Golden Age','House of Wisdom preserved Greek learning; advances in math, medicine, astronomy.'],
+    ['Spread of Islam','Trade, Sufi missionaries, conquest — not forced conversion; jizya on protected peoples.'],
+    ['Society','Merchants high status; women could inherit, divorce, testify in court.'],
+    ['Legacy','Preserved knowledge later fueled the European Renaissance.']
+  ]},
+  '1.3':{stem:'South and Southeast Asian states were shaped by religion and trade because…', points:[
+    ['South Asia','Delhi Sultanate (Muslim north) vs. Vijayanagara/Chola (Hindu south); Rajput kingdoms.'],
+    ['Religion','Bhakti movement revives devotional Hinduism; Islam/Sufism appeals to lower castes.'],
+    ['Blending','Urdu language and Indo-Islamic architecture (Qutub Minar).'],
+    ['Southeast Asia','Sea kingdoms Srivijaya (Hindu) and Majapahit (Buddhist) control trade routes.'],
+    ['Land kingdoms','Khmer/Angkor: irrigation, Hindu-Buddhist art at Angkor Thom.']
+  ]},
+  '1.4':{stem:'The Maya, Aztec, and Inca built complex states in isolation because…', points:[
+    ['Maya','Independent theocratic city-states; zero, glyph writing, calendar; frequent warfare.'],
+    ['Aztec','Empire at Tenochtitlan; tribute system; chinampas; large-scale human sacrifice.'],
+    ['Inca','Four provinces; mit’a labor; quipu records; Carpa Ñan roads; terrace farming.'],
+    ['Common traits','Theocracy, polytheism, labor/tribute for control, monumental architecture.'],
+    ['Decline','Internal revolt/civil war, then disease and Spanish conquest.']
+  ]},
+  '1.5':{stem:'African kingdoms grew powerful through trade and cultural exchange because…', points:[
+    ['West Africa','Ghana then Mali tax trans-Saharan gold and salt; Sundiata, Mansa Musa; Timbuktu learning.'],
+    ['East Africa','Swahili city-states blend Bantu + Arabic; tied to Indian Ocean trade.'],
+    ['Southern Africa','Great Zimbabwe’s mortar-less stone walls; control of interior trade.'],
+    ['Society','Kin-based networks → kingdoms; griots preserve oral history.'],
+    ['Religion','Islam and Christianity spread but often blend with animist traditions.']
+  ]},
+  '1.6':{stem:'Medieval Europe was decentralized and Church-dominated because…', points:[
+    ['Politics','Feudalism: kings, lords, knights, serfs bound by land and loyalty.'],
+    ['Economy','Manorial system; three-field system raises output and population.'],
+    ['Religion','Catholic Church dominates; Great Schism splits West/East Christianity; Crusades.'],
+    ['Change','Marco Polo and Crusades revive trade interest; bourgeoisie emerges; Magna Carta.'],
+    ['Late period','Black Death and Little Ice Age weaken feudalism; Renaissance begins.']
+  ]}
+};
+
+/* ══ NAV / TABS ════════════════════════════════════════════ */
+var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-guide':'Study Guide','pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
+function showTab(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  var t=document.getElementById(id); if(t)t.classList.add('active');
+  document.querySelectorAll('.nav-item[data-target]').forEach(function(n){n.classList.toggle('active', n.dataset.target===id);});
+  var tt=document.getElementById('top-title'); if(tt)tt.textContent=PAGE_TITLES[id]||'';
+  window.scrollTo(0,0);
+}
+window.showTab=showTab;
+document.querySelectorAll('[data-tab]').forEach(function(el){el.addEventListener('click',function(){showTab(this.dataset.tab);});});
+
+/* ══ TIMELINE ══════════════════════════════════════════════ */
+(function(){
+  var el=document.getElementById('tl-list'); if(!el)return;
+  el.innerHTML=TIMELINE.map(function(it){
+    return '<div class="tl-item"><span class="tl-year">'+it.year+'</span><div class="tl-title">'+it.title+'</div><div class="tl-desc">'+it.desc+'</div></div>';
+  }).join('');
+})();
+
+/* ══ STUDY GUIDE ═══════════════════════════════════════════ */
+function toggleSG(hdr){
+  var body=hdr.nextElementSibling, open=hdr.classList.contains('open');
+  hdr.classList.toggle('open',!open); body.classList.toggle('open',!open);
+}
+
+/* ══ SCORE ═════════════════════════════════════════════════ */
+var scoreRight=0, scoreTotal=0;
+function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textContent=scoreRight+'/'+scoreTotal;}
+
+/* ══ MCQ ═══════════════════════════════════════════════════ */
+(function(){
+  var grid=document.getElementById('mcq-topic-grid');
+  var names={'1.1':'Song China','1.2':'Dar al-Islam','1.3':'South &amp; SE Asia','1.4':'The Americas','1.5':'Africa','1.6':'Medieval Europe'};
+  grid.innerHTML=TOPICS.map(function(tp){
+    var n=(MCQ[tp.id]||[]).length;
+    return '<button type="button" class="tc" data-topic="'+tp.id+'"><div class="tc-n">Topic '+tp.id+'</div><div class="tc-name">'+names[tp.id]+'</div><div class="tc-cnt">'+n+' question'+(n===1?'':'s')+'</div></button>';
+  }).join('');
+
+  var mcqQs=[], mcqMap={};
+  function esc(s){return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';}
+
+  function buildFrom(list){mcqQs=list.slice(); mcqMap={};}
+  function startTopic(id){buildFrom(MCQ[id]||[]); document.getElementById('qhdr-name').textContent='Topic '+id; render(); openSession();}
+  function startAll(){var all=[]; TOPICS.forEach(function(tp){(MCQ[tp.id]||[]).forEach(function(q){all.push(q);});}); buildFrom(all); document.getElementById('qhdr-name').textContent='All Questions'; render(); openSession();}
+  function startMixed(){var mix=[]; TOPICS.forEach(function(tp){var l=MCQ[tp.id]||[]; if(l.length)mix.push(l[Math.floor(Math.random()*l.length)]);}); buildFrom(mix); document.getElementById('qhdr-name').textContent='Quick Mixed Quiz'; render(); openSession();}
+
+  function openSession(){document.getElementById('mcq-home').style.display='none'; document.getElementById('mcq-session').classList.add('active');}
+  function closeSession(){document.getElementById('mcq-session').classList.remove('active'); document.getElementById('mcq-home').style.display='block';}
+
+  function render(){
+    var body=document.getElementById('qbody'), h='', ls=null, sn=0, L=['A','B','C','D'];
+    mcqQs.forEach(function(q,i){
+      if(q.s!==ls){ if(i>0)h+='<hr class="sbr"/>'; sn++; h+='<div class="sset-name">Stimulus Set '+sn+'</div>';
+        if(q.s)h+='<div class="stim"><div class="stim-lbl">&#128196; Source</div><div class="stim-src">'+esc(q.sl)+'</div><div class="stim-txt"><p>'+esc(q.s).replace(/\n/g,'</p><p>')+'</p></div></div>';
+        ls=q.s;}
+      h+='<div class="qcard"><div class="qnum">Question '+(i+1)+' of '+mcqQs.length+'</div><div class="qtxt">'+esc(q.q)+'</div><div class="opts">';
+      q.o.forEach(function(x,j){h+='<button type="button" class="opt" data-qi="'+i+'" data-j="'+j+'"><span class="ol">'+L[j]+'</span><span>'+esc(x)+'</span></button>';});
+      h+='</div><div class="fb" id="fb'+i+'"></div></div>';
+    });
+    body.innerHTML=h;
+    body.querySelectorAll('.opt').forEach(function(b){b.addEventListener('click',function(){pick(parseInt(this.dataset.qi),parseInt(this.dataset.j));});});
+    document.getElementById('qhdr-prog').textContent='0 of '+mcqQs.length+' answered';
+    document.getElementById('qpbf').style.width='0%';
+  }
+
+  function pick(i,j){
+    if(mcqMap[i])return; mcqMap[i]=true;
+    var q=mcqQs[i], ok=(j===q.c);
+    scoreTotal++; if(ok){scoreRight++;} updateScore();
+    document.querySelectorAll('.opt[data-qi="'+i+'"]').forEach(function(b){
+      var bj=parseInt(b.dataset.j); b.disabled=true;
+      if(bj===q.c)b.classList.add((ok&&bj===j)?'c':'rv');
+      if(bj===j&&!ok)b.classList.add('w');
+    });
+    var fb=document.getElementById('fb'+i);
+    if(fb){fb.className='fb show '+(ok?'ok':'bad'); fb.innerHTML='<strong>'+(ok?'✓ Correct!':'✗ Incorrect.')+'</strong> '+(q.e||'');}
+    var tot=Object.keys(mcqMap).length;
+    document.getElementById('qhdr-prog').textContent=tot+' of '+mcqQs.length+' answered';
+    document.getElementById('qpbf').style.width=(tot/mcqQs.length*100)+'%';
+  }
+
+  grid.querySelectorAll('.tc').forEach(function(b){b.addEventListener('click',function(){startTopic(this.dataset.topic);});});
+  document.getElementById('mcq-all-btn').addEventListener('click',startAll);
+  document.getElementById('mcq-mixed-btn').addEventListener('click',startMixed);
+  document.getElementById('mcq-back-btn').addEventListener('click',closeSession);
+  document.getElementById('mcq-reset-btn').addEventListener('click',function(){mcqMap={}; render();});
+})();
+
+/* ══ FLASHCARDS ════════════════════════════════════════════ */
+(function(){
+  var deck=CARDS.slice(), idx=0, flipped=false, timer=null, sec=15, ready=false;
+  var CIRC=138.23;
+  function stop(){if(timer){clearInterval(timer);timer=null;}}
+  function start(){
+    stop(); sec=15; ready=false;
+    var num=document.getElementById('fc-timer-num'), fg=document.getElementById('fc-timer-fg'), msg=document.getElementById('fc-timer-msg');
+    num.textContent=sec; fg.classList.remove('done'); fg.setAttribute('stroke-dashoffset','0'); msg.textContent='Study this card…'; msg.classList.remove('ready');
+    timer=setInterval(function(){
+      sec--; num.textContent=Math.max(sec,0);
+      fg.setAttribute('stroke-dashoffset', (CIRC*(15-sec)/15).toFixed(2));
+      if(sec<=0){stop(); ready=true; fg.classList.add('done'); num.textContent='✓'; msg.textContent='Ready — flip the card!'; msg.classList.add('ready');}
+    },1000);
+  }
+  function render(){
+    if(!deck.length)return; var c=deck[idx];
+    document.getElementById('fc-term').textContent=c.t;
+    document.getElementById('fc-topic').textContent='Topic '+c.topic;
+    document.getElementById('fc-def').textContent=c.d;
+    document.getElementById('fc-meta').textContent='Card '+(idx+1)+' of '+deck.length;
+    document.getElementById('fc-pbar').style.width=((idx+1)/deck.length*100)+'%';
+    document.getElementById('fc-prev').disabled=(idx===0);
+    document.getElementById('fc-next').disabled=(idx===deck.length-1);
+    var card=document.getElementById('fc-card'); if(flipped){card.classList.remove('flipped');flipped=false;}
+    start();
+  }
+  document.getElementById('card-area').addEventListener('click',function(){
+    if(!ready)return; flipped=!flipped; document.getElementById('fc-card').classList.toggle('flipped',flipped);
+  });
+  document.getElementById('fc-prev').addEventListener('click',function(){if(idx>0){idx--;render();}});
+  document.getElementById('fc-next').addEventListener('click',function(){if(idx<deck.length-1){idx++;render();}});
+  document.getElementById('fc-filter').addEventListener('change',function(){
+    var v=this.value; deck=(v==='all')?CARDS.slice():CARDS.filter(function(c){return c.topic===v;}); idx=0; render();
+  });
+  document.getElementById('fc-shuffle-btn').addEventListener('click',function(){
+    for(var i=deck.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=deck[i];deck[i]=deck[j];deck[j]=tmp;} idx=0; render();
+  });
+  render();
+})();
+
+/* ══ BRAIN DUMP ════════════════════════════════════════════ */
+(function(){
+  var grid=document.getElementById('bd-topic-grid'), selected=null, timer=null, remaining=300;
+  var names={'1.1':'Song China','1.2':'Dar al-Islam','1.3':'South &amp; SE Asia','1.4':'The Americas','1.5':'Africa','1.6':'Medieval Europe'};
+  grid.innerHTML=TOPICS.map(function(tp){return '<button type="button" class="bd-topic-btn" data-topic="'+tp.id+'">'+tp.id+' &mdash; '+names[tp.id]+'</button>';}).join('');
+  var startBtn=document.getElementById('bd-start-btn');
+  grid.querySelectorAll('.bd-topic-btn').forEach(function(b){b.addEventListener('click',function(){
+    grid.querySelectorAll('.bd-topic-btn').forEach(function(x){x.classList.remove('selected');});
+    this.classList.add('selected'); selected=this.dataset.topic; startBtn.disabled=false;
+  });});
+
+  function fmt(s){var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}
+  function tick(){remaining--; document.getElementById('bd-countdown').textContent=fmt(Math.max(remaining,0)); if(remaining<=0){clearInterval(timer); reveal();}}
+  function reveal(){
+    var data=BRAIN[selected]; var list=document.getElementById('bd-card-list');
+    list.innerHTML=data.points.map(function(p){return '<div class="bd-rcard"><strong>'+p[0]+'</strong>'+p[1]+'</div>';}).join('');
+    document.getElementById('bd-reveal').classList.add('show');
+  }
+  startBtn.addEventListener('click',function(){
+    if(!selected)return; var data=BRAIN[selected];
+    document.getElementById('bd-setup').style.display='none';
+    document.getElementById('bd-session').classList.add('active');
+    document.getElementById('bd-active-topic').textContent=' '+selected+' — '+names[selected].replace('&amp;','&');
+    document.getElementById('bd-stem-txt').textContent=data.stem;
+    document.getElementById('bd-reveal').classList.remove('show');
+    document.getElementById('bd-textarea').value='';
+    document.getElementById('bd-word-count').textContent='0 words';
+    remaining=300; document.getElementById('bd-countdown').textContent='5:00';
+    clearInterval(timer); timer=setInterval(tick,1000);
+  });
+  document.getElementById('bd-textarea').addEventListener('input',function(){
+    var w=this.value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('bd-word-count').textContent=w+' word'+(w===1?'':'s');
+  });
+  document.getElementById('bd-reset-btn').addEventListener('click',function(){
+    clearInterval(timer);
+    document.getElementById('bd-session').classList.remove('active');
+    document.getElementById('bd-setup').style.display='block';
+    grid.querySelectorAll('.bd-topic-btn').forEach(function(x){x.classList.remove('selected');});
+    selected=null; startBtn.disabled=true;
+  });
+})();
+</script>
+</body>
+</html>

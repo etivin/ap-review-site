@@ -254,6 +254,8 @@ button{font-family:inherit;cursor:pointer}
 .top-bar-score strong{font-size:.8rem}
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}.top-bar{padding:0 18px}}
 </style>
+<link rel="stylesheet" href="sbmcq.css"/>
+<script src="sbmcq.js"></script>
 </head>
 <body>
 
@@ -268,6 +270,7 @@ button{font-family:inherit;cursor:pointer}
     <div class="sb-group-label">Sections</div>
     <div class="nav-item active" data-target="pg-home" onclick="showTab('pg-home')"><span class="nav-dot"></span>Overview</div>
     <div class="nav-item" data-target="pg-mcq" onclick="showTab('pg-mcq')"><span class="nav-dot"></span>MCQ Practice</div>
+    <div class="nav-item" data-target="pg-walk" onclick="showTab('pg-walk')"><span class="nav-dot"></span>MCQ Walkthrough</div>
     <div class="nav-item" data-target="pg-guide" onclick="showTab('pg-guide')"><span class="nav-dot"></span>Study Guide</div>
     <div class="nav-item" data-target="pg-flash" onclick="showTab('pg-flash')"><span class="nav-dot"></span>Flashcards</div>
     <div class="nav-item" data-target="pg-brain" onclick="showTab('pg-brain')"><span class="nav-dot"></span>Brain Dump</div>
@@ -286,6 +289,19 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- ══ HOME ══ -->
+<div class="page sbmcq-root" id="pg-walk">
+  <div style="max-width:1080px;margin:0 auto">
+    <div class="walk-intro">
+      <h3>How to attack a stimulus-based MCQ</h3>
+      <p>Most of these questions are not really about history. They are about decoding what is being asked. Learn the four-step habit, then watch it worked step by step on a real test question. Use Back and Next to move through the highlighting.</p>
+    </div>
+    <div id="walk-cheat"></div>
+    <div id="walk-body"></div>
+    <p style="margin-top:26px"><a class="walk-cta" href="sbmcq.html">Practice every unit on the full &ldquo;Attack the Stimulus MCQ&rdquo; page &rarr;</a></p>
+  </div>
+  <script>(function(){if(!window.renderWalk)return;renderCheatsheet(document.getElementById('walk-cheat'));renderWalk(document.getElementById('walk-body'),{unit:2});})();</script>
+</div>
+
 <div class="page active" id="pg-home">
   <section class="hero">
     <div class="hero-inner">
@@ -762,7 +778,7 @@ var BRAIN = {
 };
 
 /* ══ NAV / TABS ════════════════════════════════════════════ */
-var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-guide':'Study Guide','pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
+var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-guide':'Study Guide','pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
 function showTab(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var t=document.getElementById(id); if(t)t.classList.add('active');

@@ -458,6 +458,8 @@ button{font-family:inherit;cursor:pointer}
 .spice-t{border-top-color:#2e5266}.spice-t .spice-letter{color:#2e5266}
 .unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
 </style>
+<link rel="stylesheet" href="sbmcq.css"/>
+<script src="sbmcq.js"></script>
 </head>
 <body>
 
@@ -472,6 +474,7 @@ button{font-family:inherit;cursor:pointer}
     <div class="sb-group-label">Sections</div>
     <div class="nav-item active" data-target="pg-home" onclick="showTab('pg-home')"><span class="nav-dot"></span>Overview</div>
     <div class="nav-item" data-target="pg-mcq" onclick="showTab('pg-mcq')"><span class="nav-dot"></span>MCQ Practice</div>
+    <div class="nav-item" data-target="pg-walk" onclick="showTab('pg-walk')"><span class="nav-dot"></span>MCQ Walkthrough</div>
     <div class="nav-item" data-target="pg-guide" onclick="showTab('pg-guide')"><span class="nav-dot"></span>Study Guide</div>
     <div class="nav-item" data-target="pg-tips" onclick="showTab('pg-tips')"><span class="nav-dot"></span>Exam Tips</div>
     <div class="nav-item" data-target="pg-maps" onclick="showTab('pg-maps')"><span class="nav-dot"></span>Maps</div>
@@ -491,6 +494,19 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- HOME PAGE -->
+<div class="page sbmcq-root" id="pg-walk">
+  <div style="max-width:1080px;margin:0 auto">
+    <div class="walk-intro">
+      <h3>How to attack a stimulus-based MCQ</h3>
+      <p>Most of these questions are not really about history. They are about decoding what is being asked. Learn the four-step habit, then watch it worked step by step on a real Unit&nbsp;8 test question. Use Back and Next to move through the highlighting.</p>
+    </div>
+    <div id="walk-cheat"></div>
+    <div id="walk-body"></div>
+    <p style="margin-top:26px"><a class="walk-cta" href="sbmcq.html">Practice every unit on the full &ldquo;Attack the Stimulus MCQ&rdquo; page &rarr;</a></p>
+  </div>
+  <script>(function(){if(!window.renderWalk)return;renderCheatsheet(document.getElementById('walk-cheat'));renderWalk(document.getElementById('walk-body'),{unit:8});})();</script>
+</div>
+
 <div class="page active" id="pg-home">
   <section class="hero">
     <div class="hero-inner">
@@ -1380,7 +1396,7 @@ var SG = [
 document.addEventListener('DOMContentLoaded', function() {
 
   /* NAV */
-  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-guide':'Study Guide','pg-tips':'Exam Tips','pg-maps':'Maps','pg-visual':'Visual Sources','pg-games':'Games','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
+  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-guide':'Study Guide','pg-tips':'Exam Tips','pg-maps':'Maps','pg-visual':'Visual Sources','pg-games':'Games','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
   function showTab(id) {
     document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
     var t = document.getElementById(id);

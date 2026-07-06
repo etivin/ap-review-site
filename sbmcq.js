@@ -185,30 +185,56 @@
     return paras.map(function (p) { return '<p>' + p + '</p>'; }).join('');
   }
 
+  var TYPEWHY = {
+    causation: 'point at cause and effect, what led to what, so this is a Causation question.',
+    context: 'point you to the bigger situation or development behind the source, so this is a Context question.',
+    purpose: 'ask about the author’s goal or point of view, so this is a Purpose / Point of View question.',
+    bestillustrates: 'ask what the source itself shows, so this is a Best Illustrates question.',
+    similar: 'ask you to match the method or process, not the topic, so this is a Most Similar question.'
+  };
+
+  // pull the text out of the <mark> spans so we can quote it in the coach panel
+  function pullMark(html, cls, joinAll) {
+    var re = new RegExp('<mark class="' + cls + '">([\\s\\S]*?)<\\/mark>', joinAll ? 'g' : '');
+    if (!joinAll) { var m = html.match(re); return m ? m[1] : ''; }
+    var out = [], mm; while ((mm = re.exec(html))) out.push(mm[1]); return out.join(' … ');
+  }
+  function quoteBox(t) { return '<blockquote class="wk-quote">' + esc(t) + '</blockquote>'; }
+
   function coachSteps(ex) {
     var T = WT[ex.type];
-    // step 1: source-line reasoning
+    var trigger = pullMark(ex.q, 'hq', false);
+    var key = pullMark(ex.stim, 'hs', true);
+
+    // step 1: source line, quoted, then since/therefore reasoning
     var s1 = '<div class="wk-coach-h">Step 1 &middot; Read the source line first</div>' +
-      '<p class="wk-coach-lead">Before the passage, read the small line that names who wrote it, when, and what kind of source it is. Then reason it out: since it was written at this time, by this person, as this kind of source, therefore...</p>';
+      '<p class="wk-coach-lead">Start with the small line naming who wrote it, when, and what kind of source it is:</p>' +
+      quoteBox(ex.srcline) +
+      '<p class="wk-note">Now reason it out, since ... therefore ...</p>';
     ex.src.forEach(function (r) {
       s1 += '<div class="wk-since"><span class="wk-since-k">' + esc(r.tag) + '</span> Since ' + esc(r.since) +
         ', <span class="wk-therefore">therefore</span> ' + esc(r.therefore) + '.</div>';
     });
 
-    // step 2: question + type
+    // step 2: quote the trigger words, then name the type and why
     var s2 = '<div class="wk-coach-h">Step 2 &middot; Read the question and the choices</div>' +
-      '<p class="wk-coach-lead">Look at the underlined trigger words in the question. They tell you the type:</p>' +
+      '<p class="wk-coach-lead">The underlined words in the question are the giveaway:</p>' +
+      quoteBox(trigger) +
+      '<p class="wk-note">These words ' + TYPEWHY[ex.type] + '</p>' +
       '<div class="wk-typecard"><span class="walk-badge ' + T.cls + '">' + T.name + '</span>' +
       '<p class="wk-cue">' + esc(T.cue) + '</p>' +
       '<p><b>How to handle it:</b> ' + esc(T.strat) + '</p></div>';
 
-    // step 3: plain english
+    // step 3: quote the key phrase in the passage, then plain English
     var s3 = '<div class="wk-coach-h">Step 3 &middot; Say what it is really asking</div>' +
-      '<p class="wk-coach-lead">Go back to the highlighted part of the passage and put the question in plain words:</p>' +
+      '<p class="wk-coach-lead">Go back to the highlighted words in the passage:</p>' +
+      quoteBox(key) +
       '<div class="wk-plain">' + esc(ex.meaning) + '</div>';
 
-    // step 4: answer + trap
+    // step 4: quote the proof, answer, then the trap
     var s4 = '<div class="wk-coach-h">Step 4 &middot; Answer, and name the trap</div>' +
+      '<p class="wk-coach-lead">The proof is right there in the passage:</p>' +
+      quoteBox(key) +
       '<div class="wk-why"><b>Correct: ' + letters(ex.answer) + '.</b> ' + esc(ex.why) + '</div>' +
       '<div class="wk-trap"><b>What NOT to do</b>' + esc(ex.trap) + '</div>';
 

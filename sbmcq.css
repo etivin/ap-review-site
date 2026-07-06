@@ -70,7 +70,7 @@
 .wk-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 18px;background:var(--walk-cream);border-bottom:1px solid var(--walk-border)}
 .wk-topic{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--walk-muted);letter-spacing:.03em}
 
-.wk-body{display:grid;grid-template-columns:1.35fr 1fr;gap:0}
+.wk-body{display:grid;grid-template-columns:1.35fr 1fr;gap:0;align-items:start}
 @media(max-width:860px){.wk-body{grid-template-columns:1fr}}
 
 /* --- the document (left) --- */
@@ -110,8 +110,13 @@
 .wk[data-step="4"] .wk-coach-step[data-for="4"]{display:block;animation:walkFade .3s ease}
 @keyframes walkFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .wk-coach-h{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--walk-accent);font-weight:600;margin-bottom:8px}
-.wk-coach-lead{font-size:.86rem;line-height:1.55;color:var(--walk-mid);margin:0 0 12px}
+.wk-coach-lead{font-size:.82rem;line-height:1.5;color:var(--walk-muted);margin:0 0 8px}
 .wk-coach-step p{font-size:.86rem;line-height:1.55;color:var(--walk-mid)}
+.wk-note{font-size:.87rem;line-height:1.55;color:var(--walk-ink);margin:0 0 12px}
+
+/* pulled quote from the stimulus / question */
+.wk-quote{position:relative;background:#fff;border:1px solid var(--walk-border);border-left:3px solid var(--walk-accent);border-radius:0 4px 4px 0;padding:9px 12px 9px 30px;margin:0 0 12px;font-style:italic;font-size:.85rem;line-height:1.5;color:var(--walk-ink)}
+.wk-quote::before{content:'“';position:absolute;left:9px;top:4px;font-family:'Playfair Display',Georgia,serif;font-size:1.5rem;line-height:1;color:var(--walk-accent);opacity:.7}
 
 .wk-since{background:#fff;border:1px solid var(--walk-border);border-left:3px solid var(--walk-accent);border-radius:4px;padding:9px 12px 10px;margin-bottom:9px;font-size:.85rem;line-height:1.55;color:var(--walk-ink)}
 .wk-since-k{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:#fff;background:var(--walk-accent);padding:2px 7px;border-radius:3px;font-weight:600;margin-right:6px;vertical-align:1px}

@@ -286,6 +286,18 @@ img{display:block;max-width:100%}
 .wp-char{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);text-align:right;margin-top:4px;margin-bottom:11px}
 .wp-submit{background:var(--red);color:#fff;border:none;padding:10px 26px;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
 .wp-submit:hover{background:var(--red-d)}
+/* ── TIMED MODE (optional exam-condition practice) ── */
+.wp-timer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--ink);padding:9px 13px;margin:4px 0 12px}
+.wp-timer-left{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.wp-timer-clock{font-family:'IBM Plex Mono',monospace;font-size:1.15rem;font-weight:700;letter-spacing:.05em;color:var(--ink)}
+.wp-timer-clock.running{color:var(--red)}
+.wp-timer-clock.done{color:#fff;background:var(--red);padding:1px 8px}
+.wp-timer-note{font-size:.78rem;color:var(--muted)}
+.wp-timer-btns{display:flex;gap:7px}
+.wp-timer-btn{background:var(--white);border:1.5px solid var(--ink);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 13px;cursor:pointer;transition:all .15s}
+.wp-timer-btn:hover{background:var(--ink);color:#fff}
+.wp-timer-btn.wp-timer-stop{border-color:var(--red);color:var(--red)}
+.wp-timer-btn.wp-timer-stop:hover{background:var(--red);color:#fff}
 .wp-result{margin-top:16px;display:none}
 .wp-result.show{display:block}
 .wp-result-hdr{background:var(--ink);color:#fff;padding:11px 15px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
@@ -369,6 +381,22 @@ img{display:block;max-width:100%}
 .drill-check-btn:hover{background:#000}
 .drill-result{display:none;margin-top:10px;border:1px solid var(--border)}
 .drill-res-row{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--white)}
+/* ── SELF-CHECK (analytical rows: complexity, LEQ Row D, SAQ Part C) ── */
+.selfcheck{background:var(--white)}
+.selfcheck-banner{background:var(--ink);color:rgba(255,255,255,.9);padding:12px 15px;font-size:.83rem;line-height:1.65}
+.selfcheck-tag{display:inline-block;background:var(--gold);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;padding:2px 8px;margin-right:8px;vertical-align:middle;font-weight:600}
+.selfcheck-hint{background:var(--gold-bg);border-left:3px solid var(--gold);padding:10px 14px;font-size:.83rem;line-height:1.65;color:var(--ink)}
+.selfcheck-block{padding:12px 15px;border-top:1px solid var(--border)}
+.selfcheck-h{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+.selfcheck-list{list-style:none;margin:0;padding:0}
+.selfcheck-list li{margin-bottom:9px}
+.selfcheck-list label{display:flex;align-items:flex-start;gap:9px;font-size:.85rem;line-height:1.55;color:var(--ink);cursor:pointer}
+.selfcheck-list input{margin-top:3px;flex-shrink:0;width:15px;height:15px;accent-color:var(--green,#1a6825)}
+.selfcheck-list input:checked + span{color:var(--muted);text-decoration:line-through}
+.selfcheck-frame{background:var(--paper);border-left:3px solid var(--ink);padding:8px 12px;margin-bottom:7px;font-size:.83rem;line-height:1.6;font-style:italic;color:var(--mid)}
+.rubric-row-self{background:var(--paper);align-items:flex-start}
+.rubric-label.selfassess{color:var(--gold-2,#7a5500)}
+.selfcheck-note-top{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:3px solid var(--gold);padding:10px 14px;font-size:.82rem;line-height:1.6;color:var(--ink);margin-bottom:10px}
 .saq-part-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .saq-part-tab{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;transition:all .15s;cursor:pointer}
 .saq-part-tab.active{background:var(--red);border-color:var(--red);color:#fff}
@@ -1064,6 +1092,16 @@ img{display:block;max-width:100%}
 
     <textarea class="wp-textarea" id="wp-text" placeholder="Write your full response here..."></textarea>
     <div class="wp-char" id="wp-char">0 words</div>
+    <div class="wp-timer" id="wp-timer">
+      <div class="wp-timer-left">
+        <span class="wp-timer-clock" id="wp-timer-clock">--:--</span>
+        <span class="wp-timer-note" id="wp-timer-note">Optional &mdash; rehearse under real exam time (SAQ 15m &middot; LEQ 40m &middot; DBQ 60m).</span>
+      </div>
+      <div class="wp-timer-btns">
+        <button type="button" class="wp-timer-btn" id="wp-timer-start">&#9201; Start timed</button>
+        <button type="button" class="wp-timer-btn wp-timer-stop" id="wp-timer-stop" style="display:none">Stop</button>
+      </div>
+    </div>
     <button type="button" class="wp-submit" id="wp-submit">&#9997; Check My Response</button>
     <div class="wp-result" id="wp-result">
       <div class="wp-result-hdr"><span>Rubric Feedback</span><span class="wp-score-badge" id="wp-score-badge">&mdash;</span></div>
@@ -1083,6 +1121,7 @@ img{display:block;max-width:100%}
         <button type="button" class="drill-tab" data-drill="evidence">Evidence</button>
         <button type="button" class="drill-tab" data-drill="happ">HAPP Sourcing</button>
         <button type="button" class="drill-tab" data-drill="complexity">Complexity</button>
+        <button type="button" class="drill-tab" data-drill="leq-reasoning">LEQ Reasoning</button>
         <button type="button" class="drill-tab" data-drill="saq-parts">SAQ A/B/C</button>
       </div>
 
@@ -1207,6 +1246,28 @@ img{display:block;max-width:100%}
         <textarea class="drill-textarea" id="drill-complexity-text" placeholder="Write your complexity statement here (3–6 sentences)..."></textarea>
         <button type="button" class="drill-check-btn" data-drill="complexity">Check Complexity</button>
         <div class="drill-result" id="drill-complexity-result"></div>
+      </div>
+
+      <!-- LEQ ANALYSIS & REASONING (ROW D) DRILL -->
+      <div class="drill-panel" id="drill-leq-reasoning">
+        <div class="drill-rubric">
+          <div class="drill-rubric-title">What earns the point &mdash; official rubric language (LEQ Row D, 2 pts)</div>
+          <ul>
+            <li><strong>1 pt &mdash; Reasoning:</strong> use a historical reasoning skill (<em>comparison, causation, or continuity &amp; change</em>) to <strong>frame or structure</strong> the argument &mdash; even if uneven</li>
+            <li><strong>1 pt &mdash; Complexity:</strong> demonstrate a <strong>complex understanding</strong> &mdash; corroborate, qualify, or modify the argument using evidence, sustained across the essay</li>
+            <li>This is your lowest-scoring LEQ row on the exam &mdash; it is worth deliberate practice</li>
+            <li>Neither half can be honestly auto-graded, so this drill <strong>coaches you to self-assess</strong> instead of faking a score</li>
+          </ul>
+        </div>
+        <div class="drill-prompt-pick">
+          <span class="drill-prompt-label">Choose prompt:</span>
+          <button type="button" class="drill-pick-btn active" data-for="leq-reasoning" data-prompt="leq">LEQ &mdash; State Control of Economies</button>
+          <button type="button" class="drill-pick-btn" data-for="leq-reasoning" data-prompt="dbq">LEQ &mdash; War &amp; State Building</button>
+        </div>
+        <div class="drill-ctx" id="leq-reasoning-ctx">Evaluate the extent to which one or more states controlled their economies in the period after 1900.</div>
+        <textarea class="drill-textarea" id="drill-leq-reasoning-text" placeholder="Write a body paragraph (or two) that uses a reasoning skill to structure the argument and pushes toward complexity..."></textarea>
+        <button type="button" class="drill-check-btn" data-drill="leq-reasoning">Check Reasoning &amp; Complexity</button>
+        <div class="drill-result" id="drill-leq-reasoning-result"></div>
       </div>
 
       <!-- SAQ A/B/C DRILL -->
@@ -3201,15 +3262,9 @@ document.addEventListener('DOMContentLoaded', function () {
       improve.push('Outside Evidence: Add a specific fact from memory not mentioned in any document — e.g., Japan\'s creation of government-supported zaibatsu businesses, or the 1905 Russo-Japanese War victory that demonstrated Japan\'s rising power.');
     }
 
-    // Complexity — nuance, cross-period, multiple perspectives
-    var hasComplexity = contains(t, ['not solely','not only economic','also included','ideology','nationalism','racial','superiority','social darwinism','compare','scramble for africa','european imperialism','similarly to','in contrast to','both economic and','qualify','however','although','nevertheless','on the other hand','even as','while economic','while some documents','while docs']);
-    if (hasComplexity && words >= 350) {
-      rows.push({icon:'✓', label:'pass', head:'Complexity (1/1)', note:'Your response demonstrates complex understanding — qualifying the argument, acknowledging multiple motives, or making insightful cross-period or cross-geographic connections.'});
-      score++;
-    } else {
-      rows.push({icon:'✗', label:'fail', head:'Complexity (0/1)', note:'To earn complexity: qualify your argument (acknowledge non-economic motives like nationalism or racial ideology using Docs 4, 6, 7); OR compare Japanese imperialism to European imperialism; OR explain how the warfare involved in imperialism ultimately undermined Japan\'s economic goals.'});
-      improve.push('Complexity: Acknowledge that while economic motives drove imperialism, Docs 4, 6, and 7 suggest nationalism, racial ideology, and strategic concerns also played a role — this nuance earns the complexity point.');
-    }
+    // Complexity — cannot be honestly auto-graded (a keyword scanner can't
+    // judge genuine complex reasoning). Hand off to self-assessment instead.
+    rows.push({selfKey:'complexity', pts:1, head:'Complexity — self-assess (1 pt)', note:'This point rewards genuine complex understanding, which a keyword scanner cannot verify. Score it yourself against the checklist below, then compare your writing to the models.', hintText: selfCheckHint(t, words, 'complexity')});
 
     if (words < 200) improve.push('Length: A DBQ should be 400–600+ words. Your response is too brief to earn full credit.');
 
@@ -3275,17 +3330,10 @@ document.addEventListener('DOMContentLoaded', function () {
       improve.push('Evidence: Name specific states, leaders, and policies — then EXPLAIN how each demonstrates your argument about the extent of state economic control.');
     }
 
-    // Historical Reasoning skill
-    var hasCausation = contains(t, ['caused','because','as a result','led to','resulted in','contributing factor','root cause','consequence','in response to','triggered','prompted']);
-    var hasCCOT = contains(t, ['changed','continued','remained','transformation','continuity','shift','persisted','evolved','over time','by the end','by the late','by 1980','still evident','no longer','gradually','eventually became']);
-    var hasComparison = contains(t, ['similarly','in contrast','unlike','compared to','whereas','both','while','on the other hand','in comparison','more than','less than','greater extent','lesser extent']);
-    if ((hasCausation || hasCCOT || hasComparison) && words >= 150) {
-      rows.push({icon:'✓', label:'pass', head:'Historical Reasoning Skill (1/1)', note:'Your response uses a historical reasoning skill (causation, CCOT, or comparison) to frame or structure the argument.'});
-      score++;
-    } else {
-      rows.push({icon:'✗', label:'fail', head:'Historical Reasoning Skill (0/1)', note:'Frame your essay around a reasoning skill. Causation: explain WHY certain states came to control their economies (depression, ideology, war). CCOT: trace how the level of state control changed over the 20th century. Comparison: contrast high-control states (USSR) with low-control states (interwar USA).'});
-      improve.push('Reasoning: Organize body paragraphs around a clear reasoning skill. For CCOT, show how state economic control rose dramatically in the 1930s–40s and then declined under neoliberalism in the 1980s. For causation, explain how the Great Depression caused states to increase economic intervention.');
-    }
+    // Analysis & Reasoning (Row D, 2 pts) — a reasoning skill framing the
+    // argument + complexity. Neither half can be honestly auto-graded, so
+    // hand both off to guided self-assessment.
+    rows.push({selfKey:'leq-reasoning', pts:2, head:'Analysis & Reasoning — Row D, self-assess (2 pts)', note:'Row D rewards using a reasoning skill to STRUCTURE your argument AND demonstrating complexity — both require judgment a keyword scanner lacks. Score each half yourself below, then compare to the models.', hintText: selfCheckHint(t, words, 'leq-reasoning')});
 
     if (words < 150) improve.push('Length: An LEQ should be at least 300–400 words with an intro, 2 body paragraphs, and a conclusion. Your response is too short.');
 
@@ -3296,15 +3344,26 @@ document.addEventListener('DOMContentLoaded', function () {
     var badge = document.getElementById('wp-score-badge');
     var fb = document.getElementById('wp-feedback');
 
-    badge.textContent = result.score + '/' + result.max;
+    var selfMax = 0;
+    result.rows.forEach(function(r){ if (r.selfKey) selfMax += (r.pts || 1); });
+    var autoMax = result.max - selfMax;
 
-    var pct = result.score / result.max;
+    badge.textContent = result.score + '/' + autoMax;
+
+    var pct = autoMax ? result.score / autoMax : 0;
     var colorCls = pct >= 0.7 ? '#1a6825' : pct >= 0.4 ? '#7a5500' : '#850015';
 
-    var html = '<div class="score-summary"><span>Your Score</span><span class="score-num" style="color:' + colorCls + '">' + result.score + ' / ' + result.max + ' points</span></div>';
+    var html = '<div class="score-summary"><span>Auto-graded</span><span class="score-num" style="color:' + colorCls + '">' + result.score + ' / ' + autoMax + ' points</span></div>';
+    if (selfMax > 0) {
+      html += '<div class="selfcheck-note-top">Plus <strong>' + selfMax + ' point' + (selfMax > 1 ? 's' : '') + '</strong> for analysis &amp; reasoning that you <strong>self-assess</strong> below &mdash; these can’t be graded honestly by keyword matching, so the tool coaches instead of guessing. Full rubric total: <strong>' + result.max + '</strong> points.</div>';
+    }
 
     result.rows.forEach(function(r) {
-      html += '<div class="rubric-row"><div class="rubric-icon">' + r.icon + '</div><div><div class="rubric-label ' + r.label + '">' + r.head + '</div><div class="rubric-note">' + r.note + '</div></div></div>';
+      if (r.selfKey) {
+        html += '<div class="rubric-row rubric-row-self"><div class="rubric-icon">&#9673;</div><div style="flex:1"><div class="rubric-label selfassess">' + r.head + '</div><div class="rubric-note">' + r.note + '</div>' + buildSelfCheckHTML(r.selfKey, r.hintText || '') + '</div></div>';
+      } else {
+        html += '<div class="rubric-row"><div class="rubric-icon">' + r.icon + '</div><div><div class="rubric-label ' + r.label + '">' + r.head + '</div><div class="rubric-note">' + r.note + '</div></div></div>';
+      }
     });
 
     if (result.improve.length) {
@@ -3326,6 +3385,48 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('wp-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
+  /* ── TIMED MODE — optional exam-condition practice ── */
+  (function(){
+    var wpTimerInt = null;
+    var WP_TIMER_DUR = { saq: 15*60, leq: 40*60, dbq: 60*60 };
+    var clock = document.getElementById('wp-timer-clock');
+    var note = document.getElementById('wp-timer-note');
+    var startBtn = document.getElementById('wp-timer-start');
+    var stopBtn = document.getElementById('wp-timer-stop');
+    if (!clock || !startBtn) return;
+    function fmt(s){ var m=Math.floor(s/60), ss=s%60; return (m<10?'0':'')+m+':'+(ss<10?'0':'')+ss; }
+    function reset(msg){
+      if (wpTimerInt){ clearInterval(wpTimerInt); wpTimerInt=null; }
+      startBtn.style.display=''; stopBtn.style.display='none';
+      clock.className='wp-timer-clock'; clock.textContent='--:--';
+      if (msg) note.textContent = msg;
+    }
+    startBtn.addEventListener('click', function(){
+      var remaining = WP_TIMER_DUR[wpType] || 40*60;
+      clock.className='wp-timer-clock running';
+      clock.textContent = fmt(remaining);
+      note.textContent = wpType.toUpperCase() + ' — clock is running. Keep writing until it reaches zero.';
+      startBtn.style.display='none'; stopBtn.style.display='';
+      if (wpTimerInt) clearInterval(wpTimerInt);
+      wpTimerInt = setInterval(function(){
+        remaining--;
+        if (remaining <= 0){
+          clearInterval(wpTimerInt); wpTimerInt=null;
+          clock.className='wp-timer-clock done'; clock.textContent='TIME';
+          note.textContent = "Time's up — on the real exam you'd stop here. Finish your thought, then check your response.";
+          startBtn.style.display=''; stopBtn.style.display='none';
+          return;
+        }
+        clock.textContent = fmt(remaining);
+      }, 1000);
+    });
+    stopBtn.addEventListener('click', function(){ reset('Stopped. Start again anytime.'); });
+    // Switching essay type resets a running clock (durations differ).
+    document.querySelectorAll('.wp-tab[data-type]').forEach(function(b){
+      b.addEventListener('click', function(){ if (wpTimerInt) reset('Timer reset — new essay type. Start when ready.'); });
+    });
+  })();
+
   /* ── SKILL DRILLS ─────────────────────────────────────── */
   var drillPrompts = {
     thesis: {
@@ -3343,6 +3444,10 @@ document.addEventListener('DOMContentLoaded', function () {
     complexity: {
       leq: 'Evaluate the extent to which one or more states controlled their economies in the period after 1900.',
       dbq: 'Evaluate the extent to which economic motives were the leading cause of Japanese imperialism in the period circa 1900–1945.'
+    },
+    'leq-reasoning': {
+      leq: 'Evaluate the extent to which one or more states controlled their economies in the period after 1900.',
+      dbq: 'Evaluate the extent to which warfare was the primary driver of state building in Afro-Eurasia in the period c. 1200–1600.'
     }
   };
 
@@ -3469,6 +3574,16 @@ document.addEventListener('DOMContentLoaded', function () {
         'Does NOT earn the point: \u201cThe Nazis were so angry for taking all of the blame from the First World War.\u201d \u2014 Identifies a grievance but does not explain how the Nazi Party\u2019s rise actually led to WWII.',
         'Must explain a specific mechanism or action \u2014 not just a feeling or attitude.'
       ]
+    },
+    'leq-reasoning': {
+      good: [
+        'Reasoning (CCOT): \u201cState control of the economy rose sharply during the Depression and WWII \u2014 the USSR\u2019s Five-Year Plans and the U.S. New Deal \u2014 but receded after 1980 as Thatcher and Reagan privatized industry, showing that the extent of control changed dramatically across the century.\u201d A reasoning skill structures the whole argument, not just one paragraph.',
+        'Complexity (qualify): \u201cEven states committed to total control relaxed it when it failed \u2014 Lenin\u2019s NEP restored private trade after War Communism caused famine, and Deng\u2019s reforms reintroduced markets to China \u2014 qualifying the claim that communist states fully controlled their economies.\u201d (College Board rubric example)'
+      ],
+      bad: [
+        'Does NOT earn reasoning: a paragraph on the USSR, then a paragraph on the U.S., with no comparison, causation, or change tying them together \u2014 just a list of facts.',
+        'Does NOT earn complexity: \u201cOverall, state control was complicated and varied.\u201d \u2014 asserts nuance without developing it with specific evidence.'
+      ]
     }
   };
 
@@ -3495,6 +3610,126 @@ document.addEventListener('DOMContentLoaded', function () {
       html += '</div>';
     }
     el.innerHTML = html;
+  }
+
+  /* ── SELF-CHECK: honest coaching for the analytical rows a keyword
+     scanner cannot grade (Complexity, LEQ Row D, SAQ Part C). Instead of
+     a fake pass/fail it gives a non-graded hint + a self-scored checklist
+     + sentence frames + model-vs-yours comparison. ── */
+  var SELF_CHECK = {
+    complexity: {
+      subtitle: 'This point rewards genuine complex reasoning &mdash; a keyword scanner can’t judge that. Score it yourself against the checklist, then compare your writing to the models below.',
+      checklist: [
+        'I did more than name a second side &mdash; I <em>developed</em> it with specific evidence.',
+        'The nuance runs through my argument; it is not a lone &ldquo;it was complicated&rdquo; sentence.',
+        'I made ONE clear move: qualified my claim, OR corroborated across regions/periods, OR explained how multiple factors interacted.',
+        'A reader could point to the exact sentences where the complexity happens.'
+      ],
+      frames: [
+        'Although [main cause] drove [outcome], [specific evidence] shows that [other factor] also shaped it&hellip;',
+        'This mirrors [other region/period], where [specific parallel] &mdash; revealing a broader pattern of&hellip;',
+        'Yet [main strategy] ultimately undermined [its own goal], because&hellip;'
+      ],
+      exampleKey: 'complexity',
+      hint: { min: 30, shortMsg: 'Complexity needs room to develop &mdash; weave a few sentences into the argument, not a tacked-on phrase.',
+        moves: [
+          { name: 'a qualifying word', kw: ['however','although','even though','nevertheless','on the other hand','despite','nonetheless','while some','while others','not solely'] },
+          { name: 'a cross-region/period connection', kw: ['compare','comparison','similarly','in contrast','unlike','elsewhere','other regions','scramble for africa','european imperialism','cold war'] },
+          { name: 'multi-causal language', kw: ['ideology','nationalism','racial','multiple factors','also political','also military','not only economic','strategic'] }
+        ],
+        someMsg: 'Good raw material &mdash; but only you can tell whether it does real analytical work. Use the checklist to judge whether it is developed and part of your argument.',
+        noneName: 'obvious complexity moves (qualify / compare / multi-cause)',
+        noneMsg: 'Not necessarily a miss &mdash; but a sign you may need one clear move. Try a sentence frame below.' }
+    },
+    'saq-c': {
+      subtitle: 'Part C asks you to EXPLAIN, not identify. A scanner sees the right nouns but can’t tell whether you explained a real mechanism. Check yourself, then compare to the models.',
+      checklist: [
+        'I named a specific action or event &mdash; not just a feeling or attitude.',
+        'I explained the MECHANISM &mdash; <em>how</em> it led to the outcome &mdash; with causal language (&ldquo;this led to&hellip;&rdquo;, &ldquo;which caused&hellip;&rdquo;).',
+        'My answer would make sense to someone who never read the source.',
+        'I answered the exact task in the prompt, not a nearby fact.'
+      ],
+      frames: [
+        '[Specific action] led to [outcome] because&hellip;',
+        'This directly caused [result] when&hellip;',
+        'As a result of [action], [consequence], which&hellip;'
+      ],
+      exampleKey: 'saq-c',
+      hint: { min: 20, shortMsg: 'Part C is usually 2&ndash;3 sentences &mdash; you need room to explain a mechanism, not just name it.',
+        moves: [
+          { name: 'a specific action/event', kw: ['militarism','invasion','invaded','expansion','lebensraum','totalitarian','aggression','nationalism','anschluss','remilitarization','rearmament'] },
+          { name: 'causal language', kw: ['because','as a result','therefore','this led','which caused','resulted in','led to','contributed to','triggered'] }
+        ],
+        someMsg: 'You have the ingredients &mdash; but a scanner can’t confirm the explanation actually connects them. Use the checklist.',
+        noneName: 'a specific action linked by causal language',
+        noneMsg: 'Part C rewards an explained mechanism. Name a specific action and connect it to the outcome using a frame below.' }
+    },
+    'leq-reasoning': {
+      subtitle: 'Row D has two halves that both require judgment a scanner lacks: using a reasoning skill to STRUCTURE the argument, and demonstrating COMPLEXITY. Score each half yourself, then compare to the models.',
+      checklist: [
+        '<strong>Reasoning (1 pt):</strong> one skill &mdash; comparison, causation, or continuity &amp; change &mdash; actually <em>structures</em> my argument (not a stray transition word).',
+        '<strong>Reasoning (1 pt):</strong> my body paragraphs are organized around that skill, not a random list of facts.',
+        '<strong>Complexity (1 pt):</strong> I qualified, corroborated, or modified my argument with specific evidence.',
+        '<strong>Complexity (1 pt):</strong> that nuance is developed and sustained, not a single closing sentence.'
+      ],
+      frames: [
+        'Causation: [State] increased economic control BECAUSE [cause], which led to&hellip;',
+        'CCOT: Early in the period [X]; by [later date] this had shifted to [Y], showing&hellip;',
+        'Comparison: Whereas [State A] [approach], [State B] [contrasting approach], revealing&hellip;',
+        'Complexity: Although [main claim], [counter-evidence] shows the picture was more complex because&hellip;'
+      ],
+      exampleKey: 'leq-reasoning',
+      hint: { min: 60, shortMsg: 'Row D is judged across the whole essay &mdash; a short paragraph can’t show a reasoning skill structuring the argument.',
+        moves: [
+          { name: 'causation', kw: ['because','caused','led to','resulted in','as a result','triggered','consequence'] },
+          { name: 'continuity &amp; change', kw: ['changed','continued','remained','over time','by the end','by the late','shifted','persisted','evolved'] },
+          { name: 'comparison', kw: ['similarly','in contrast','unlike','compared to','whereas','both','on the other hand'] },
+          { name: 'a complexity move', kw: ['however','although','qualify','nuance','even states','relaxed','exception'] }
+        ],
+        someMsg: 'You use reasoning language &mdash; but only you can tell whether it <em>structures</em> the argument and whether the complexity is developed. Use the checklist.',
+        noneName: 'a reasoning skill or complexity move',
+        noneMsg: 'Row D needs a reasoning skill framing the essay plus developed nuance. Build your paragraphs around a frame below.' }
+    }
+  };
+
+  function selfCheckHint(t, words, key) {
+    var h = SELF_CHECK[key] && SELF_CHECK[key].hint;
+    if (!h) return '';
+    if (words < h.min) return '<strong>Heads up:</strong> that’s short (' + words + ' words). ' + h.shortMsg;
+    var found = [];
+    h.moves.forEach(function(m){ if (contains(t, m.kw)) found.push(m.name); });
+    if (found.length) return '<strong>We spotted ' + found.join(', ') + '.</strong> ' + h.someMsg;
+    return '<strong>We didn’t spot ' + h.noneName + '.</strong> ' + h.noneMsg;
+  }
+
+  function buildSelfCheckHTML(key, hint) {
+    var c = SELF_CHECK[key];
+    if (!c) return '';
+    var html = '<div class="selfcheck">';
+    html += '<div class="selfcheck-banner"><span class="selfcheck-tag">Self-assess</span>' + c.subtitle + '</div>';
+    if (hint) html += '<div class="selfcheck-hint">' + hint + '</div>';
+    html += '<div class="selfcheck-block"><div class="selfcheck-h">Score yourself &mdash; tick only what is TRUE of your writing</div><ul class="selfcheck-list">';
+    c.checklist.forEach(function(item){ html += '<li><label><input type="checkbox"> <span>' + item + '</span></label></li>'; });
+    html += '</ul></div>';
+    html += '<div class="selfcheck-block"><div class="selfcheck-h">Sentence frames to push your reasoning</div>';
+    c.frames.forEach(function(f){ html += '<div class="selfcheck-frame">' + f + '</div>'; });
+    html += '</div>';
+    var ex = DRILL_EXAMPLES[c.exampleKey];
+    if (ex) {
+      html += '<div class="drill-samples"><div class="drill-samples-title">&#128218; Model vs. yours (College Board rubric)</div>';
+      if (ex.good) ex.good.forEach(function(g){ html += '<div class="drill-sample-eg drill-sample-pass"><span class="eg-pass">&#10003; Earns the point</span> ' + g + '</div>'; });
+      if (ex.bad) ex.bad.forEach(function(b){ html += '<div class="drill-sample-eg drill-sample-fail"><span class="eg-fail">&#10007; Does not earn</span> ' + b + '</div>'; });
+      html += '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function renderSelfCheck(elId, key, hint) {
+    var el = document.getElementById(elId);
+    if (!el) return;
+    el.style.display = 'block';
+    el.innerHTML = buildSelfCheckHTML(key, hint);
   }
 
   // ── DRILL CHECK HANDLERS ──
@@ -3582,18 +3817,13 @@ document.addEventListener('DOMContentLoaded', function () {
         textEl = document.getElementById('drill-complexity-text');
         t = textEl.value.toLowerCase().trim();
         words = t.split(/\s+/).filter(Boolean).length;
-        var hasQualify = contains(t, ['however','although','even though','nevertheless','on the other hand','not only','also','while some','while others','not solely','varied','nuance','complex','qualified','exception','counterargument','despite','nonetheless']);
-        var hasCrossTime = contains(t, ['19th century','twentieth century','before','after','over time','earlier','later','by the end','by the late','previously','subsequently','transformation','continuity','change','evolve','shift']);
-        var hasCrossGeo = contains(t, ['compare','comparison','similarly','in contrast','unlike','europe','european','britain','germany','united states','africa','china','india','asia','global','worldwide','in other regions','elsewhere','internationally','scramble for africa','cold war','decolonization']);
-        var hasMultiVar = contains(t, ['ideology','nationalism','racial','military','strategic','political','economic and','not only economic','also political','also military','also ideological','multiple factors','multiple causes','various reasons']);
-        var complexScore = (hasQualify ? 1 : 0) + (hasCrossTime ? 1 : 0) + (hasCrossGeo ? 1 : 0) + (hasMultiVar ? 1 : 0);
-        if (complexScore >= 2 && words >= 50) {
-          renderDrillResult('drill-complexity-result','✓','pass','Complexity — Likely Earns the Point','Your response demonstrates a complex understanding — you qualify the argument, acknowledge multiple factors, or make cross-period/geographic connections. Make sure this is integrated into your argument, not just a closing sentence.','complexity');
-        } else if (complexScore >= 1 && words >= 30) {
-          renderDrillResult('drill-complexity-result','~','partial','Approaching Complexity — Needs More Development','You hint at nuance or connections but need more elaboration. Complexity must be part of the argument with specific evidence — a passing phrase doesn\'t earn the point.','complexity');
-        } else {
-          renderDrillResult('drill-complexity-result','✗','fail','No Complexity Demonstrated','To earn this point: (1) qualify your argument by acknowledging exceptions or counterevidence; (2) compare across time periods or geographic regions; OR (3) explain multiple causation with specific examples for each factor. Just saying "it was complicated" does not earn the point.','complexity');
-        }
+        renderSelfCheck('drill-complexity-result','complexity',selfCheckHint(t,words,'complexity'));
+
+      } else if (drill === 'leq-reasoning') {
+        textEl = document.getElementById('drill-leq-reasoning-text');
+        t = textEl.value.toLowerCase().trim();
+        words = t.split(/\s+/).filter(Boolean).length;
+        renderSelfCheck('drill-leq-reasoning-result','leq-reasoning',selfCheckHint(t,words,'leq-reasoning'));
 
       } else if (drill === 'saq-a') {
         textEl = document.getElementById('drill-saq-a-text');
@@ -3628,15 +3858,7 @@ document.addEventListener('DOMContentLoaded', function () {
         textEl = document.getElementById('drill-saq-c-text');
         t = textEl.value.toLowerCase().trim();
         words = t.split(/\s+/).filter(Boolean).length;
-        var hasCAction = contains(t, ['militarism','military','invasion','invaded','expansion','expansionism','lebensraum','living space','totalitarian','aggression','aggressive','nationalism','nationalist','austria','czechoslovakia','poland','remilitarization','rearmament','anschluss','appeasement','munich agreement','blitzkrieg']);
-        var hasCLink = contains(t, ['because','as a result','therefore','this led','which caused','resulted in','led to','contributed to','triggered','caused wwii','caused the war','eventually','directly']);
-        if (hasCAction && hasCLink && words >= 35) {
-          renderDrillResult('drill-saq-c-result','✓','pass','Part C — Likely Earns the Point (1/1)','You explain a specific way the Nazi Party\'s rise led to WWII with causal language. Strong response.');
-        } else if (hasCAction) {
-          renderDrillResult('drill-saq-c-result','~','partial','Part C — Needs Explicit Causal Link to WWII','You describe what the Nazis did, but you need to explicitly connect it to the outbreak of WWII. Add language that shows HOW it caused the war (e.g., "this triggered WWII because…").','saq-c');
-        } else {
-          renderDrillResult('drill-saq-c-result','✗','fail','Part C — Needs Specific Nazi Action + Causal Link','Name a specific action of the Nazi Party (remilitarization, invasion of Austria/Czechoslovakia/Poland, Anschluss, pursuit of Lebensraum) and explain HOW it caused or triggered WWII.','saq-c');
-        }
+        renderSelfCheck('drill-saq-c-result','saq-c',selfCheckHint(t,words,'saq-c'));
       }
 
       // Scroll to result

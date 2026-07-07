@@ -297,6 +297,7 @@ button{font-family:inherit;cursor:pointer}
         <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">&#9998; Practice MCQs</button>
         <button class="hero-btn hero-btn-outline" data-tab="pg-flash">&#128196; Flashcards</button>
         <button class="hero-btn hero-btn-outline" data-tab="pg-guide">&#128214; Study Guide</button>
+        <button class="hero-btn hero-btn-outline" data-tab="pg-writing">&#9998; Writing Drills</button>
       </div>
     </div>
   </section>
@@ -335,6 +336,17 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
 </div><!-- /pg-home -->
+
+<!-- ══ WRITING DRILLS ══ -->
+<div class="page" id="pg-writing">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="wd-mount" data-unit-label="Unit 1"></div>
+  </div>
+</div>
 
 <!-- ══ MCQ ══ -->
 <div class="page" id="pg-mcq">
@@ -761,7 +773,7 @@ var BRAIN = {
 };
 
 /* ══ NAV / TABS ════════════════════════════════════════════ */
-var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-guide':'Study Guide','pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
+var PAGE_TITLES = {'pg-home':'Overview','pg-writing':'Writing Drills','pg-mcq':'MCQ Practice','pg-guide':'Study Guide','pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
 function showTab(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var t=document.getElementById(id); if(t)t.classList.add('active');
@@ -933,5 +945,6 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
   });
 })();
 </script>
+<script src="writing-drills.js"></script>
 </body>
 </html>

@@ -483,6 +483,17 @@ button{font-family:inherit;cursor:pointer}
   <script>(function(){if(!window.renderWalk)return;renderCheatsheet(document.getElementById('walk-cheat'));renderWalk(document.getElementById('walk-body'),{unit:6});})();</script>
 </div>
 
+<!-- ══ WRITING DRILLS ══ -->
+<div class="page" id="pg-writing">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="wd-mount" data-unit-label="Unit 6"></div>
+  </div>
+</div>
+
 <div class="page active" id="pg-home">
   <div class="hero">
     <div class="hero-inner">
@@ -1340,7 +1351,7 @@ var SQ_DATA = [
 document.addEventListener('DOMContentLoaded', function() {
 
   /* ── NAV ── */
-  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-guide':'Study Guide','pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-games':'Games','pg-visual':'Visual Sources','pg-spice':'SPICE-T Analysis'};
+  var PAGE_TITLES = {'pg-home':'Overview','pg-writing':'Writing Drills','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-guide':'Study Guide','pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-games':'Games','pg-visual':'Visual Sources','pg-spice':'SPICE-T Analysis'};
   function showTab(id) {
     document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
     var t = document.getElementById(id);
@@ -2741,5 +2752,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </div><!-- /main-wrap -->
+<script src="writing-drills.js"></script>
 </body>
 </html>

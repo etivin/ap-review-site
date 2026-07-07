@@ -1,0 +1,64 @@
+/* ============================================================
+   Portable Writing Skill-Drills module  (writing-drills.css)
+   ------------------------------------------------------------
+   Self-contained, namespaced under .wd-suite so it can drop into
+   any unit page without clashing. Uses each unit's own CSS
+   variables (--ink, --red, --gold, --paper …) so it inherits the
+   unit's accent color automatically.
+
+   Targets the AP writing rows the group loses most points on:
+   Complexity, LEQ Analysis & Reasoning (Row D), and SAQ Part C
+   get honest SELF-CHECK coaching (checklist + models + frames)
+   instead of a fake keyword pass/fail.
+   ============================================================ */
+.wd-suite{max-width:1000px;margin:0 auto;font-family:'Source Serif 4',Georgia,serif;color:var(--ink)}
+.wd-suite *{box-sizing:border-box}
+.wd-intro{background:var(--paper,#f3ece0);border:1px solid var(--border,#ddd0b8);border-left:3px solid var(--red,#7a5500);padding:14px 17px;margin-bottom:18px}
+.wd-intro-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:5px}
+.wd-intro p{font-size:.86rem;line-height:1.65;color:var(--mid,#48483a);margin:0}
+.wd-placeholder{display:inline-block;background:var(--gold,#7a5500);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;padding:2px 8px;margin-bottom:8px}
+
+.wd-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.wd-tab{background:var(--white,#fff);border:1.5px solid var(--border,#ddd0b8);color:var(--muted,#7a7860);font-family:'IBM Plex Mono',monospace;font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 15px;cursor:pointer;transition:all .15s}
+.wd-tab:hover{border-color:var(--ink)}
+.wd-tab.active{background:var(--red,#7a5500);border-color:var(--red,#7a5500);color:#fff}
+
+.wd-panel{display:none}
+.wd-panel.active{display:block}
+.wd-rubric{background:var(--paper,#f3ece0);border:1px solid var(--border,#ddd0b8);padding:12px 15px;margin-bottom:12px}
+.wd-rubric-title{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
+.wd-rubric ul{margin:0;padding-left:18px}
+.wd-rubric li{font-size:.84rem;line-height:1.6;color:var(--mid,#48483a);margin-bottom:5px}
+.wd-ctx{background:var(--gold-bg,#fdf7e8);border:1px solid var(--gold-b,#d4b84a);border-left:3px solid var(--gold,#7a5500);padding:10px 14px;font-size:.86rem;font-style:italic;margin-bottom:12px;line-height:1.6;color:var(--ink)}
+.wd-textarea{width:100%;min-height:120px;border:1.5px solid var(--border,#ddd0b8);padding:11px 13px;font-family:'Source Serif 4',serif;font-size:.89rem;line-height:1.7;color:var(--ink);background:var(--white,#fff);resize:vertical;outline:none;transition:border-color .15s}
+.wd-textarea:focus{border-color:var(--ink)}
+.wd-check{background:var(--ink);color:#fff;border:none;padding:9px 22px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;margin-top:9px;cursor:pointer;transition:background .15s}
+.wd-check:hover{background:#000}
+.wd-result{display:none;margin-top:10px;border:1px solid var(--border,#ddd0b8)}
+
+.wd-res-row{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--white,#fff)}
+.wd-res-icon{font-size:1rem;line-height:1.3;flex-shrink:0}
+.wd-res-head{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.wd-res-head.pass{color:#1a6825}.wd-res-head.partial{color:#7a5500}.wd-res-head.fail{color:#850015}
+.wd-res-note{font-size:.83rem;color:var(--mid,#48483a);line-height:1.6}
+
+/* ── Self-check (analytical rows) ── */
+.wd-selfcheck{background:var(--white,#fff)}
+.wd-sc-banner{background:var(--ink);color:rgba(255,255,255,.9);padding:12px 15px;font-size:.83rem;line-height:1.65}
+.wd-sc-tag{display:inline-block;background:var(--gold,#7a5500);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;padding:2px 8px;margin-right:8px;vertical-align:middle}
+.wd-sc-hint{background:var(--gold-bg,#fdf7e8);border-left:3px solid var(--gold,#7a5500);padding:10px 14px;font-size:.83rem;line-height:1.65;color:var(--ink)}
+.wd-sc-block{padding:12px 15px;border-top:1px solid var(--border,#ddd0b8)}
+.wd-sc-h{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+.wd-sc-list{list-style:none;margin:0;padding:0}
+.wd-sc-list li{margin-bottom:9px}
+.wd-sc-list label{display:flex;align-items:flex-start;gap:9px;font-size:.85rem;line-height:1.55;color:var(--ink);cursor:pointer}
+.wd-sc-list input{margin-top:3px;flex-shrink:0;width:15px;height:15px;accent-color:var(--green,#1a6825)}
+.wd-sc-list input:checked + span{color:var(--muted,#7a7860);text-decoration:line-through}
+.wd-sc-frame{background:var(--paper,#f3ece0);border-left:3px solid var(--ink);padding:8px 12px;margin-bottom:7px;font-size:.83rem;line-height:1.6;font-style:italic;color:var(--mid,#48483a)}
+.wd-samples{background:var(--paper,#f3ece0);border-top:1px solid var(--border,#ddd0b8);padding:13px 15px}
+.wd-samples-title{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin-bottom:9px}
+.wd-eg{font-size:.82rem;line-height:1.7;color:var(--mid,#48483a);padding:8px 10px;margin-bottom:6px;border-left:3px solid var(--border,#ddd0b8)}
+.wd-eg.pass{border-left-color:#2a7a3a}
+.wd-eg.fail{border-left-color:var(--red,#850015)}
+.wd-eg-pass{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:#2a7a3a;margin-right:5px}
+.wd-eg-fail{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red,#850015);margin-right:5px}

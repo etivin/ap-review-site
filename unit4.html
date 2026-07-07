@@ -235,6 +235,17 @@ button{font-family:inherit;cursor:pointer}
   <script>(function(){if(!window.renderWalk)return;renderCheatsheet(document.getElementById('walk-cheat'));renderWalk(document.getElementById('walk-body'),{unit:4});})();</script>
 </div>
 
+<!-- ══ WRITING DRILLS ══ -->
+<div class="page" id="pg-writing">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="wd-mount" data-unit-label="Unit 4"></div>
+  </div>
+</div>
+
 <div class="page active" id="pg-home">
   <section class="hero">
     <div class="hero-inner">
@@ -468,7 +479,7 @@ button{font-family:inherit;cursor:pointer}
 
 <script>
 /* ── PAGE NAV ── */
-var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
+var PAGE_TITLES = {'pg-home':'Overview','pg-writing':'Writing Drills','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
 function showTab(id) {
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
   var el = document.getElementById(id);
@@ -845,5 +856,6 @@ document.getElementById('bd-reset-btn').addEventListener('click', function() {
 });
 </script>
 </div><!-- /main-wrap -->
+<script src="writing-drills.js"></script>
 </body>
 </html>

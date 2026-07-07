@@ -343,6 +343,17 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- ══ HOME PAGE ══ -->
+<!-- ══ WRITING DRILLS ══ -->
+<div class="page" id="pg-writing">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="wd-mount" data-unit-label="Unit 9"></div>
+  </div>
+</div>
+
 <div class="page active" id="pg-home">
 
   <section class="hero">
@@ -1137,7 +1148,7 @@ button{font-family:inherit;cursor:pointer}
 
 <script>
 // ── PAGE NAV ──────────────────────────────────────
-var PAGE_TITLES = {'pg-home':'Overview','pg-web':'Web Review','pg-guide':'Study Guide','pg-tips':'Exam Tips','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
+var PAGE_TITLES = {'pg-home':'Overview','pg-writing':'Writing Drills','pg-web':'Web Review','pg-guide':'Study Guide','pg-tips':'Exam Tips','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
 function showTab(id) {
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
   var el = document.getElementById(id);
@@ -1286,5 +1297,6 @@ function restartBD() {
 }
 </script>
 </div><!-- /main-wrap -->
+<script src="writing-drills.js"></script>
 </body>
 </html>

@@ -237,15 +237,104 @@
     return '<div class="wd-res-row"><div class="wd-res-icon">' + icon + '</div><div><div class="wd-res-head ' + r.label + '">' + r.head + '</div><div class="wd-res-note">' + r.note + '</div></div></div>';
   }
 
+  /* ---- Real exam prompts (from window.WRITING_PROMPTS) ---- */
+  function esc(s) { return (s == null ? '' : String(s)).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function exParas(text) { return esc(text).split(/\n\n+/).map(function (p) { return '<p class="wd-ex-p">' + p + '</p>'; }).join(''); }
+
+  function renderSAQ(s, i) {
+    var h = '<div class="wd-ex-item">';
+    h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(s.year) + '</span> ' + esc(s.tag) + '</div>';
+    if (s.source) h += '<div class="wd-ex-src">Source: ' + esc(s.source) + '</div>';
+    if (s.excerpt) h += '<div class="wd-ex-excerpt">' + exParas(s.excerpt) + '</div>';
+    h += '<ol class="wd-ex-parts">';
+    s.parts.forEach(function (p) { h += '<li>' + esc(p) + '</li>'; });
+    h += '</ol>';
+    h += '<textarea class="wd-textarea" data-exam-text="saq-' + i + '" placeholder="Write your full SAQ response (parts a, b, c)…"></textarea>';
+    h += '<button type="button" class="wd-check" data-exam-check="saq" data-exam-idx="' + i + '">Check my response</button>';
+    h += '<div class="wd-result" data-exam-result="saq-' + i + '"></div></div>';
+    return h;
+  }
+  function renderLEQ(s, i) {
+    var h = '<div class="wd-ex-item">';
+    h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(s.year) + '</span> ' + esc(s.tag) + '</div>';
+    if (s.intro) h += '<div class="wd-ex-intro">' + esc(s.intro) + '</div>';
+    h += '<div class="wd-ex-prompt">' + esc(s.prompt) + '</div>';
+    h += '<textarea class="wd-textarea" data-exam-text="leq-' + i + '" placeholder="Write your full LEQ essay…"></textarea>';
+    h += '<button type="button" class="wd-check" data-exam-check="leq" data-exam-idx="' + i + '">Check my response</button>';
+    h += '<div class="wd-result" data-exam-result="leq-' + i + '"></div></div>';
+    return h;
+  }
+  function renderDBQ(d) {
+    var h = '<div class="wd-ex-item">';
+    h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(d.year) + '</span> ' + esc(d.tag) + '</div>';
+    h += '<div class="wd-ex-prompt">' + esc(d.prompt) + '</div>';
+    h += '<div class="wd-ex-docs">';
+    d.documents.forEach(function (doc) {
+      h += '<div class="wd-ex-doc"><div class="wd-ex-docn">Document ' + doc.n + '</div><div class="wd-ex-src">Source: ' + esc(doc.source) + '</div>' + exParas(doc.text) + '</div>';
+    });
+    h += '</div>';
+    h += '<textarea class="wd-textarea" data-exam-text="dbq-0" placeholder="Write your full DBQ essay…"></textarea>';
+    h += '<button type="button" class="wd-check" data-exam-check="dbq" data-exam-idx="0">Check my response</button>';
+    h += '<div class="wd-result" data-exam-result="dbq-0"></div></div>';
+    return h;
+  }
+
+  function examPromptsHTML(n) {
+    var P = window.WRITING_PROMPTS && window.WRITING_PROMPTS[n];
+    if (!P) return '';
+    var hasSAQ = P.saq && P.saq.length, hasLEQ = P.leq && P.leq.length, hasDBQ = !!P.dbq;
+    if (!hasSAQ && !hasLEQ && !hasDBQ) return '';
+    var kinds = [];
+    if (hasSAQ) kinds.push({ k: 'saq', label: 'SAQ' });
+    if (hasLEQ) kinds.push({ k: 'leq', label: 'LEQ' });
+    if (hasDBQ) kinds.push({ k: 'dbq', label: 'DBQ' });
+    var first = kinds[0].k;
+    var h = '<div class="wd-exam">';
+    h += '<div class="wd-exam-hd"><div class="wd-exam-title">&#9998; Real AP Exam Prompts</div>' +
+      '<p>Official released College Board prompts matched to this unit. Write a full response, then self-assess the reasoning rows with the coaching below and compare against the official scoring guidelines.</p></div>';
+    h += '<div class="wd-exam-tabs">';
+    kinds.forEach(function (kd) { h += '<button type="button" class="wd-exam-tab' + (kd.k === first ? ' active' : '') + '" data-exam-tab="' + kd.k + '">' + kd.label + '</button>'; });
+    h += '</div>';
+    if (hasSAQ) { h += '<div class="wd-exam-panel' + (first === 'saq' ? ' active' : '') + '" data-exam-panel="saq">'; P.saq.forEach(function (s, i) { h += renderSAQ(s, i); }); h += '</div>'; }
+    if (hasLEQ) { h += '<div class="wd-exam-panel' + (first === 'leq' ? ' active' : '') + '" data-exam-panel="leq">'; P.leq.forEach(function (s, i) { h += renderLEQ(s, i); }); h += '</div>'; }
+    if (hasDBQ) { h += '<div class="wd-exam-panel' + (first === 'dbq' ? ' active' : '') + '" data-exam-panel="dbq">'; h += renderDBQ(P.dbq); h += '</div>'; }
+    return h + '</div>';
+  }
+
+  function examFeedbackHTML(kind, t, words) {
+    var h = '';
+    if (kind === 'saq') {
+      h += keywordHTML(res('partial', 'How this is scored', 'Parts A and B just <em>identify</em> (one sentence each). Part C asks you to <em>explain</em> a development or mechanism &mdash; that is the part students most often lose, so self-assess it below.'));
+      h += selfHTML('saq-c', selfHint('saq-c', t, words));
+    } else if (kind === 'leq') {
+      h += keywordHTML(checkKeyword('thesis', t, words));
+      h += keywordHTML(checkKeyword('evidence', t, words));
+      h += selfHTML('leq-reasoning', selfHint('leq-reasoning', t, words));
+    } else if (kind === 'dbq') {
+      h += keywordHTML(checkKeyword('thesis', t, words));
+      h += keywordHTML(checkKeyword('evidence', t, words));
+      h += keywordHTML(checkHAPP(t, words));
+      h += selfHTML('complexity', selfHint('complexity', t, words));
+    }
+    return h;
+  }
+
   /* ---- Build the UI into each mount ---- */
   function build(mount) {
     var cfg = window.WRITING_DRILLS_CONFIG || {};
     var unitLabel = mount.getAttribute('data-unit-label') || cfg.unitLabel || '';
+    var n = parseInt((unitLabel.match(/\d+/) || [])[0], 10);
+    var examHTML = isNaN(n) ? '' : examPromptsHTML(n);
     var html = '<div class="wd-suite">';
-    html += '<div class="wd-intro"><div class="wd-placeholder">Skills practice</div>' +
-      '<div class="wd-intro-title">Writing Skill Drills' + (unitLabel ? ' &mdash; ' + unitLabel : '') + '</div>' +
-      '<p>Isolate each rubric point and practice it. <strong>Complexity, LEQ Reasoning, and SAQ Part C</strong> &mdash; the rows students lose the most points on &mdash; are coached with an honest self-check (checklist + models + sentence frames) instead of a fake score, because no tool can grade real reasoning from keywords. The prompts below are generic so the <em>skills</em> transfer to any topic; unit-specific prompts can be swapped in later.</p></div>';
+    html += '<div class="wd-intro"><div class="wd-placeholder">Writing practice</div>' +
+      '<div class="wd-intro-title">Writing Practice' + (unitLabel ? ' &mdash; ' + unitLabel : '') + '</div>' +
+      '<p>' + (examHTML ? 'Practice with <strong>real released AP exam prompts</strong> for this unit, then drill each rubric point below. ' : '') +
+      '<strong>Complexity, LEQ Reasoning, and SAQ Part C</strong> &mdash; the rows students lose the most points on &mdash; are coached with an honest self-check (checklist + models + sentence frames), because no tool can grade real reasoning from keywords.' +
+      (examHTML ? '' : ' The drill prompts are generic so the <em>skills</em> transfer to any topic.') + '</p></div>';
 
+    html += examHTML;
+
+    html += '<div class="wd-section-hd">Skill Drills <span>&mdash; isolate one rubric point at a time</span></div>';
     html += '<div class="wd-tabs">';
     DRILLS.forEach(function (d, i) { html += '<button type="button" class="wd-tab' + (i === 0 ? ' active' : '') + '" data-k="' + d.key + '">' + d.label + '</button>'; });
     html += '</div>';
@@ -273,8 +362,8 @@
       });
     });
 
-    // Check buttons
-    mount.querySelectorAll('.wd-check').forEach(function (btn) {
+    // Skill-drill check buttons (scoped so exam-prompt buttons are excluded)
+    mount.querySelectorAll('.wd-check[data-check]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var key = btn.getAttribute('data-check');
         var ta = mount.querySelector('[data-text="' + key + '"]');
@@ -291,6 +380,28 @@
         } else {
           out.innerHTML = keywordHTML(checkKeyword(key, t, words));
         }
+        out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    });
+
+    // Exam-prompt tab switching
+    mount.querySelectorAll('.wd-exam-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        mount.querySelectorAll('.wd-exam-tab').forEach(function (b) { b.classList.remove('active'); });
+        tab.classList.add('active');
+        mount.querySelectorAll('.wd-exam-panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-exam-panel') === tab.getAttribute('data-exam-tab')); });
+      });
+    });
+    // Exam-prompt check buttons
+    mount.querySelectorAll('[data-exam-check]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var kind = btn.getAttribute('data-exam-check'), idx = btn.getAttribute('data-exam-idx');
+        var ta = mount.querySelector('[data-exam-text="' + kind + '-' + idx + '"]');
+        var out = mount.querySelector('[data-exam-result="' + kind + '-' + idx + '"]');
+        var t = ta.value.toLowerCase().trim(), words = wc(t);
+        out.style.display = 'block';
+        if (words < 10) { out.innerHTML = keywordHTML(res('fail', 'Write your response first', 'Type a full response above, then check it.')); return; }
+        out.innerHTML = examFeedbackHTML(kind, t, words);
         out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
     });

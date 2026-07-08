@@ -255,6 +255,24 @@ button{font-family:inherit;cursor:pointer}
 .fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
 .fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
 .fc-timer-msg.ready{color:var(--green)}
+/* ── STUDY GUIDE ── */
+.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
+.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;transition:background .15s;gap:12px}
+.sg-hdr:hover{background:var(--cream)}
+.sg-hdr.open{background:var(--ink);color:#fff}
+.sg-htitle{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;line-height:1.3}
+.sg-hmeta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.sg-hnum{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.5)}
+.sg-arr{font-size:.7rem;color:var(--muted);transition:transform .2s}
+.sg-hdr.open .sg-arr{transform:rotate(180deg);color:#fff}
+.sg-body{display:none;padding:22px 24px;border-top:1px solid var(--border);font-size:.88rem;line-height:1.8}
+.sg-body.open{display:block}
+.sg-body p{margin-bottom:12px}
+.sg-body p:last-of-type{margin-bottom:0}
+.sg-body strong{color:var(--ink)}
+.sg-kws{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.sg-kw{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;background:var(--paper);border:1px solid var(--border);padding:3px 9px;color:var(--mid)}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -674,6 +692,48 @@ button{font-family:inherit;cursor:pointer}
     });
     document.getElementById('ng-replay').addEventListener('click', render);
     render();
+  })();
+  </script>
+</div>
+
+<!-- STUDY GUIDE PAGE -->
+<div class="page" id="pg-guide">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Study Guide</div>
+      <h2>Unit 4: Transoceanic Interconnections</h2>
+      <p>Click each topic to expand the full summary and key terms.</p>
+    </div>
+    <div id="sg-content"></div>
+  </div>
+  <script>
+  (function(){
+    var SG = [
+      {n:"Topic 4.1 — Technological Innovations", kw:5, body:"<p>Long-distance ocean travel became possible thanks to a blend of borrowed and improved <strong>maritime technologies</strong>.</p><p>The Portuguese <strong>caravel</strong> was a small, maneuverable ship; the <strong>lateen sail</strong> (from the Indian Ocean world) let ships sail against the wind. The <strong>magnetic compass</strong> (from China) and the <strong>astrolabe</strong> (refined in the Muslim world) allowed sailors to navigate the open ocean. Knowledge of <strong>monsoon winds</strong> and ocean currents made planned voyages possible.</p><div class='sg-kws'><span class='sg-kw'>Caravel</span><span class='sg-kw'>Lateen Sail</span><span class='sg-kw'>Astrolabe</span><span class='sg-kw'>Magnetic Compass</span><span class='sg-kw'>Monsoon Winds</span></div>"},
+      {n:"Topic 4.2 — Exploration: Causes &amp; Events", kw:5, body:"<p>Motivated by <strong>God, gold, and glory</strong>, European states sponsored voyages of exploration across the Atlantic, Pacific, and Indian Oceans.</p><p>Portugal, encouraged by figures like Prince Henry, pushed down the African coast toward Asian spice markets. Sailing for Spain, <strong>Christopher Columbus</strong> reached the Americas in <strong>1492</strong>, and <strong>Ferdinand Magellan's</strong> expedition first circumnavigated the globe. To avoid conflict, Spain and Portugal divided the non-European world in the <strong>Treaty of Tordesillas (1494)</strong>. States funded these risky voyages hoping for wealth, converts, and prestige.</p><div class='sg-kws'><span class='sg-kw'>Columbus</span><span class='sg-kw'>Magellan</span><span class='sg-kw'>Treaty of Tordesillas</span><span class='sg-kw'>God Gold Glory</span><span class='sg-kw'>Prince Henry</span></div>"},
+      {n:"Topic 4.3 — The Columbian Exchange", kw:5, body:"<p>The <strong>Columbian Exchange</strong> was the transfer of plants, animals, people, and diseases between the Eastern and Western Hemispheres after 1492 &mdash; one of the most transformative events in world history.</p><p>Old World <strong>diseases</strong>, especially <strong>smallpox</strong>, devastated Indigenous American populations who had no immunity, causing catastrophic population collapse. New World <strong>crops</strong> like maize, potatoes, and cassava spread to Afro-Eurasia and fueled population growth. Old World animals (horses, cattle, pigs) and <strong>cash crops</strong> like sugar reshaped economies and drove demand for coerced labor.</p><div class='sg-kws'><span class='sg-kw'>Columbian Exchange</span><span class='sg-kw'>Smallpox</span><span class='sg-kw'>Cash Crops</span><span class='sg-kw'>New World Crops</span><span class='sg-kw'>Population Collapse</span></div>"},
+      {n:"Topic 4.4 — Maritime Empires Established", kw:6, body:"<p>Europeans built <strong>maritime empires</strong> based on controlling sea lanes and extracting wealth.</p><p>Portugal created a <strong>trading-post empire</strong>, seizing fortified ports like <strong>Goa and Malacca</strong> to tax Indian Ocean commerce rather than conquering large territories. Spain conquered the <strong>Aztec and Inca</strong> and built a land empire worked by coerced labor: the <strong>encomienda</strong> granted colonists the right to native labor, and the <strong>mit'a</strong> forced labor in silver mines like <strong>Potosi</strong>. To meet plantation labor demand, Europeans expanded the <strong>Atlantic slave trade</strong>, forcing millions of Africans across the <strong>Middle Passage</strong>.</p><div class='sg-kws'><span class='sg-kw'>Trading Post Empire</span><span class='sg-kw'>Encomienda</span><span class='sg-kw'>Mit'a</span><span class='sg-kw'>Atlantic Slave Trade</span><span class='sg-kw'>Middle Passage</span><span class='sg-kw'>Potosi</span></div>"},
+      {n:"Topic 4.5 — Maritime Empires Maintained", kw:5, body:"<p>States and merchants developed new economic tools to sustain and profit from global empires.</p><p><strong>Mercantilism</strong> held that colonies existed to enrich the mother country by supplying raw materials and buying finished goods. <strong>Joint-stock companies</strong> like the Dutch <strong>VOC</strong> and the British <strong>East India Company</strong> pooled investors' money to fund and control trade, spreading risk. American <strong>silver</strong> &mdash; much of it flowing to <strong>Ming China</strong> &mdash; helped create the first truly global economy, linked by the <strong>triangular trade</strong> across the Atlantic.</p><div class='sg-kws'><span class='sg-kw'>Mercantilism</span><span class='sg-kw'>Joint-Stock Company</span><span class='sg-kw'>VOC</span><span class='sg-kw'>Silver Trade</span><span class='sg-kw'>Triangular Trade</span></div>"},
+      {n:"Topic 4.6 — Challenges to State Power", kw:5, body:"<p>Expanding states faced <strong>resistance</strong> from within and without.</p><p>Enslaved people resisted through revolts and by forming <strong>maroon communities</strong> of escapees. Indigenous peoples fought back, as in the <strong>Pueblo Revolt</strong> in North America. In Africa, <strong>Queen Nzinga</strong> of Ndongo and Matamba resisted Portuguese expansion for decades. In Europe, nobles challenged rising royal power, as in the French <strong>Fronde</strong>. Empire-building was contested at every step.</p><div class='sg-kws'><span class='sg-kw'>Maroon Communities</span><span class='sg-kw'>Pueblo Revolt</span><span class='sg-kw'>Queen Nzinga</span><span class='sg-kw'>Fronde</span><span class='sg-kw'>Resistance</span></div>"},
+      {n:"Topic 4.7 — Changing Social Hierarchies", kw:6, body:"<p>Global connections produced new <strong>social hierarchies</strong> and blended cultures.</p><p>In Spanish America the <strong>casta system</strong> ranked people by ancestry: <strong>peninsulares</strong> (Spanish-born) at the top, then <strong>creoles</strong>, <strong>mestizos</strong> (mixed European-Indigenous), and enslaved Africans and Indigenous people at the bottom. The mixing of peoples also created <strong>syncretic religions</strong> like <strong>Vodun</strong> and Santeria, blending African and Christian beliefs. Existing elites in Asia and Africa sometimes gained or lost status through new trade wealth.</p><div class='sg-kws'><span class='sg-kw'>Casta System</span><span class='sg-kw'>Peninsulares</span><span class='sg-kw'>Creoles</span><span class='sg-kw'>Mestizo</span><span class='sg-kw'>Syncretic Religions</span><span class='sg-kw'>Vodun</span></div>"},
+      {n:"Topic 4.8 — Continuity &amp; Change", kw:4, body:"<p>The AP skill of <strong>continuity and change</strong> asks how this era both transformed the world and echoed older patterns.</p><p>The biggest <strong>change</strong> was the creation of a single, interconnected <strong>global economy</strong> linking the Americas, Europe, Africa, and Asia for the first time. Yet important <strong>continuities</strong> remained: coerced labor, powerful merchant networks, and the wealth of Asian economies (India and China) that still dominated global manufacturing. Recognizing both sides shows why 1450&ndash;1750 was a turning point without being a total break from the past.</p><div class='sg-kws'><span class='sg-kw'>Global Economy</span><span class='sg-kw'>Continuity and Change</span><span class='sg-kw'>Coerced Labor</span><span class='sg-kw'>Interconnection</span></div>"}
+    ];
+    var el = document.getElementById('sg-content');
+    if (el && !el.innerHTML){
+      el.innerHTML = SG.map(function(s, i){
+        return '<div class="sg-section"><div class="sg-hdr" data-idx="' + i + '"><div class="sg-htitle">' + s.n + '</div><div class="sg-hmeta"><span class="sg-hnum">' + s.kw + ' key terms</span><span class="sg-arr">▼</span></div></div><div class="sg-body" id="sgb' + i + '">' + s.body + '</div></div>';
+      }).join('');
+      el.querySelectorAll('.sg-hdr').forEach(function(hdr){
+        hdr.addEventListener('click', function(){
+          var idx = this.dataset.idx, body = document.getElementById('sgb' + idx), open = body.classList.contains('open');
+          this.classList.toggle('open', !open); body.classList.toggle('open', !open);
+        });
+      });
+    }
   })();
   </script>
 </div>

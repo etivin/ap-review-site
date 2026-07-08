@@ -238,6 +238,24 @@ button{font-family:inherit;cursor:pointer}
 .fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
 .fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
 .fc-timer-msg.ready{color:var(--green)}
+/* ── STUDY GUIDE ── */
+.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
+.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;transition:background .15s;gap:12px}
+.sg-hdr:hover{background:var(--cream)}
+.sg-hdr.open{background:var(--ink);color:#fff}
+.sg-htitle{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;line-height:1.3}
+.sg-hmeta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.sg-hnum{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.5)}
+.sg-arr{font-size:.7rem;color:var(--muted);transition:transform .2s}
+.sg-hdr.open .sg-arr{transform:rotate(180deg);color:#fff}
+.sg-body{display:none;padding:22px 24px;border-top:1px solid var(--border);font-size:.88rem;line-height:1.8}
+.sg-body.open{display:block}
+.sg-body p{margin-bottom:12px}
+.sg-body p:last-of-type{margin-bottom:0}
+.sg-body strong{color:var(--ink)}
+.sg-kws{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.sg-kw{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;background:var(--paper);border:1px solid var(--border);padding:3px 9px;color:var(--mid)}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -650,6 +668,44 @@ button{font-family:inherit;cursor:pointer}
     });
     document.getElementById('ng-replay').addEventListener('click', render);
     render();
+  })();
+  </script>
+</div>
+
+<!-- STUDY GUIDE PAGE -->
+<div class="page" id="pg-guide">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Study Guide</div>
+      <h2>Unit 3: Land-Based Empires</h2>
+      <p>Click each topic to expand the full summary and key terms.</p>
+    </div>
+    <div id="sg-content"></div>
+  </div>
+  <script>
+  (function(){
+    var SG = [
+      {n:"Topic 3.1 — Empires Expand", kw:8, body:"<p>Between 1450 and 1750, several large <strong>land-based empires</strong> expanded dramatically by using <strong>gunpowder weapons</strong> &mdash; cannons and muskets &mdash; to conquer rivals and centralize power. Historians call the Ottoman, Safavid, and Mughal states the <strong>gunpowder empires</strong>.</p><p>The <strong>Ottoman Empire</strong> (Sunni Muslim) captured <strong>Constantinople in 1453</strong> using massive siege cannons, ending the Byzantine Empire and seizing key trade routes. The <strong>Safavid Empire</strong> in Persia adopted <strong>Shia Islam</strong>, creating a lasting rivalry with its Sunni neighbors seen at the <strong>Battle of Chaldiran (1514)</strong>. The <strong>Mughal Empire</strong>, founded by Babur, ruled a Hindu-majority population in South Asia.</p><p>In East Asia the <strong>Ming</strong> and then the <strong>Manchu (Qing)</strong> dynasties governed China; the Qing were a non-Han people who conquered China in 1644 and expanded its borders. In West Africa the <strong>Songhai Empire</strong> grew wealthy controlling trans-Saharan trade.</p><div class='sg-kws'><span class='sg-kw'>Gunpowder Empires</span><span class='sg-kw'>Ottoman</span><span class='sg-kw'>Safavid</span><span class='sg-kw'>Mughal</span><span class='sg-kw'>Qing</span><span class='sg-kw'>Constantinople 1453</span><span class='sg-kw'>Chaldiran</span><span class='sg-kw'>Songhai</span></div>"},
+      {n:"Topic 3.2 — Administration of Empires", kw:8, body:"<p>Ruling a large empire required a sophisticated <strong>bureaucracy</strong> and reliable ways to raise revenue and command loyalty from diverse populations.</p><p>The Ottomans used the <strong>devshirme</strong>, taking Christian boys from the Balkans, converting them to Islam, and training them as administrators or elite <strong>Janissary</strong> soldiers loyal directly to the sultan. The Mughals relied on <strong>zamindars</strong> &mdash; local landowners who collected taxes. Many empires used <strong>tax farming</strong>, selling the right to collect taxes to private individuals.</p><p>China maintained a merit-based <strong>scholar-gentry bureaucracy</strong> chosen by civil-service exam. In Tokugawa Japan, <strong>samurai</strong> became salaried bureaucrats during a long era of peace. China also used the <strong>tribute system</strong> to manage relations with neighboring states.</p><div class='sg-kws'><span class='sg-kw'>Devshirme</span><span class='sg-kw'>Janissaries</span><span class='sg-kw'>Zamindars</span><span class='sg-kw'>Tax Farming</span><span class='sg-kw'>Bureaucracy</span><span class='sg-kw'>Scholar-Gentry</span><span class='sg-kw'>Salaried Samurai</span><span class='sg-kw'>Tribute System</span></div>"},
+      {n:"Topic 3.3 — Belief Systems &amp; Legitimacy", kw:9, body:"<p>Rulers legitimized their power through <strong>religion</strong>, monumental <strong>art and architecture</strong>, and claims of divine favor.</p><p>European monarchs claimed the <strong>divine right of kings</strong> &mdash; that their authority came from God. Muslim empires drew legitimacy from Islam, though the <strong>Sunni-Shia</strong> split divided them. The Mughal emperor <strong>Akbar</strong> promoted religious tolerance, abolishing the <strong>jizya</strong> tax on non-Muslims and creating a syncretic faith. His descendant <strong>Aurangzeb</strong> reversed this, reimposing the jizya and persecuting non-Muslims, which weakened the empire. The syncretic religion of <strong>Sikhism</strong> also emerged in this environment.</p><p>In Europe the <strong>Protestant Reformation</strong>, begun by Martin Luther, split Western Christianity and prompted the Catholic <strong>Counter-Reformation</strong>. Rulers everywhere built monuments &mdash; the <strong>Taj Mahal</strong>, <strong>Versailles</strong>, the <strong>Suleymaniye Mosque</strong> &mdash; to display wealth and legitimacy.</p><div class='sg-kws'><span class='sg-kw'>Divine Right</span><span class='sg-kw'>Sunni-Shia</span><span class='sg-kw'>Akbar</span><span class='sg-kw'>Jizya</span><span class='sg-kw'>Aurangzeb</span><span class='sg-kw'>Sikhism</span><span class='sg-kw'>Reformation</span><span class='sg-kw'>Counter-Reformation</span><span class='sg-kw'>Taj Mahal</span></div>"},
+      {n:"Topic 3.4 — Comparison in Land-Based Empires", kw:6, body:"<p>The AP skill of <strong>comparison</strong> asks you to analyze similarities and differences in how these empires expanded and governed.</p><p>All of the land-based empires <strong>centralized power</strong>, but they used different tools. They legitimized rule through <strong>religion</strong> (Islam, Christianity, the Mandate of Heaven), <strong>art and architecture</strong>, and elaborate <strong>bureaucracies</strong>, and they funded their states through <strong>tax systems</strong> such as tax farming, zamindars, and tribute.</p><p>A key difference lay in <strong>religious policy</strong>: some rulers (Akbar) embraced tolerance to govern diverse subjects, while others (Aurangzeb, or Spain's Catholic monarchs) enforced conformity. Comparing these choices reveals how rulers balanced the needs of diverse populations against the desire for unity.</p><div class='sg-kws'><span class='sg-kw'>Centralization</span><span class='sg-kw'>Legitimacy</span><span class='sg-kw'>Comparison</span><span class='sg-kw'>Bureaucracy</span><span class='sg-kw'>Religious Policy</span><span class='sg-kw'>Absolutism</span></div>"}
+    ];
+    var el = document.getElementById('sg-content');
+    if (el && !el.innerHTML){
+      el.innerHTML = SG.map(function(s, i){
+        return '<div class="sg-section"><div class="sg-hdr" data-idx="' + i + '"><div class="sg-htitle">' + s.n + '</div><div class="sg-hmeta"><span class="sg-hnum">' + s.kw + ' key terms</span><span class="sg-arr">▼</span></div></div><div class="sg-body" id="sgb' + i + '">' + s.body + '</div></div>';
+      }).join('');
+      el.querySelectorAll('.sg-hdr').forEach(function(hdr){
+        hdr.addEventListener('click', function(){
+          var idx = this.dataset.idx, body = document.getElementById('sgb' + idx), open = body.classList.contains('open');
+          this.classList.toggle('open', !open); body.classList.toggle('open', !open);
+        });
+      });
+    }
   })();
   </script>
 </div>

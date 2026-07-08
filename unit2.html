@@ -270,6 +270,20 @@ button{font-family:inherit;cursor:pointer}
 .complexity-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:9px}
 .complexity-body{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.85)}
 .complexity-note{color:rgba(255,255,255,.42);font-size:.78rem;margin-top:7px;display:block}
+/* ── GAMES: narrative matching ── */
+.match-board{display:flex;gap:20px;max-width:900px;margin:0 auto}
+.match-col{flex:1;display:flex;flex-direction:column;gap:10px}
+.match-col-hdr{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;text-align:center}
+.match-card{background:var(--white);border:2px solid var(--border2);padding:14px 16px;font-size:.84rem;line-height:1.5;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.match-card:hover{border-color:var(--red);transform:translateY(-1px)}
+.match-card.selected{border-color:var(--red);background:#faf3ee}
+.match-card.matched{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.8}
+.match-card.wrong{animation:matchShake .4s ease-out}
+@keyframes matchShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.match-counter{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;color:var(--muted);margin:20px 0}
+.match-success{text-align:center;padding:40px 20px}
+.match-success h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px}
+@media(max-width:640px){.match-board{flex-direction:column}}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -585,6 +599,87 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- ══ SPICE-T ══ -->
+<!-- GAMES PAGE -->
+<div class="page" id="pg-games">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Review Game</div>
+      <h2>Reconstruct the Unit 2 Narrative</h2>
+      <p>Match each cause or event on the left with its effect or significance on the right. Click one on each side &mdash; correct pairs lock in green.</p>
+    </div>
+    <div class="match-counter" id="ng-counter">0 of 12 matched</div>
+    <div class="match-board" id="ng-board">
+      <div class="match-col" id="ng-left"><div class="match-col-hdr">Cause / Event</div></div>
+      <div class="match-col" id="ng-right"><div class="match-col-hdr">Effect / Significance</div></div>
+    </div>
+    <div class="match-success" id="ng-success" style="display:none">
+      <h3>You reconstructed the Unit 2 narrative!</h3>
+      <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From the Silk Roads to the Indian Ocean &mdash; every connection made.</p>
+      <button type="button" id="ng-replay" style="padding:12px 24px;background:var(--red);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+    </div>
+  </div>
+  <script type="application/json" id="ng-data">
+[
+{"left":"Rising demand for Silk Road luxury goods","right":"Growth of caravanserai and new forms of credit like Chinese flying cash"},
+{"left":"Mongol conquests unify much of Eurasia","right":"Pax Mongolica revives Silk Road trade and cross-cultural exchange"},
+{"left":"Spread of the Black Death along trade routes","right":"Population collapse across Afro-Eurasia and weakening of feudal economies"},
+{"left":"Diffusion of Chinese gunpowder and paper westward","right":"Transformed warfare and administration in the Islamic world and Europe"},
+{"left":"Indian Ocean monsoon wind patterns","right":"Predictable seasonal trade linking East Africa, Arabia, India, and China"},
+{"left":"Growth of the Swahili city-states","right":"Spread of Islam in East Africa and rise of the Swahili language and culture"},
+{"left":"Trans-Saharan trade in gold and salt","right":"Rise of Mali and the legendary wealth of Mansa Musa"},
+{"left":"Adoption of the camel saddle and caravans","right":"Made large-scale trade across the Sahara possible"},
+{"left":"Spread of Islam along trade networks","right":"A connected Dar al-Islam sharing faith, law, and scholarship"},
+{"left":"Chinese porcelain and silk exports","right":"China becomes the productive hub of Indian Ocean luxury trade"},
+{"left":"Diffusion of Champa rice and bananas","right":"Agricultural growth and rising populations across Afro-Eurasia"},
+{"left":"Diasporic merchant communities (Muslim, Jewish, Sogdian)","right":"Spread of religion, technology, and culture along trade routes"}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('ng-data'); if (!dataEl) return;
+    var PAIRS = JSON.parse(dataEl.textContent);
+    var sel = {left:null,right:null}, matched = 0;
+    function shuffle(a){ a=a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function updateCounter(){ document.getElementById('ng-counter').textContent = matched + ' of ' + PAIRS.length + ' matched'; }
+    function render(){
+      sel = {left:null,right:null}; matched = 0;
+      document.getElementById('ng-success').style.display = 'none';
+      document.getElementById('ng-board').style.display = 'flex';
+      var L = document.getElementById('ng-left'), R = document.getElementById('ng-right');
+      L.innerHTML = '<div class="match-col-hdr">Cause / Event</div>';
+      R.innerHTML = '<div class="match-col-hdr">Effect / Significance</div>';
+      shuffle(PAIRS.map(function(_,i){return i;})).forEach(function(idx){ var c=document.createElement('div'); c.className='match-card'; c.textContent=PAIRS[idx].left; c.dataset.idx=idx; c.dataset.side='left'; L.appendChild(c); });
+      shuffle(PAIRS.map(function(_,i){return i;})).forEach(function(idx){ var c=document.createElement('div'); c.className='match-card'; c.textContent=PAIRS[idx].right; c.dataset.idx=idx; c.dataset.side='right'; R.appendChild(c); });
+      updateCounter();
+    }
+    document.getElementById('ng-board').addEventListener('click', function(e){
+      var card = e.target.closest('.match-card'); if (!card || card.classList.contains('matched')) return;
+      var side = card.dataset.side;
+      document.querySelectorAll('#ng-' + side + ' .match-card.selected').forEach(function(x){ x.classList.remove('selected'); });
+      card.classList.add('selected'); sel[side] = card;
+      if (sel.left && sel.right){
+        var l = sel.left, r = sel.right;
+        if (l.dataset.idx === r.dataset.idx){
+          l.classList.add('matched'); r.classList.add('matched'); l.classList.remove('selected'); r.classList.remove('selected');
+          matched++; updateCounter(); sel = {left:null,right:null};
+          if (matched === PAIRS.length){ setTimeout(function(){ document.getElementById('ng-board').style.display='none'; document.getElementById('ng-success').style.display='block'; }, 450); }
+        } else {
+          l.classList.add('wrong'); r.classList.add('wrong');
+          setTimeout(function(){ l.classList.remove('wrong','selected'); r.classList.remove('wrong','selected'); }, 430);
+          sel = {left:null,right:null};
+        }
+      }
+    });
+    document.getElementById('ng-replay').addEventListener('click', render);
+    render();
+  })();
+  </script>
+</div>
+
 <!-- EXAM TIPS PAGE -->
 <div class="page" id="pg-tips">
   <div class="inner">

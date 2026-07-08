@@ -284,6 +284,41 @@ button{font-family:inherit;cursor:pointer}
 .match-success{text-align:center;padding:40px 20px}
 .match-success h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px}
 @media(max-width:640px){.match-board{flex-direction:column}}
+/* ── VISUAL SOURCES ── */
+.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
+.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.vs-tab{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
+.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.vs-card{display:none;padding:24px 32px}
+.vs-card.active{display:block}
+.vs-card-src{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.vs-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:8px}
+.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:16px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
+.vs-source-img{display:block;width:auto;max-width:100%;max-height:70vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.vs-step-hdr{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
+.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
+.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
+.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.vs-mc-option.vs-mc-wrong{background:#faf3ee;border-color:var(--red);color:var(--red)}
+.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
+.vs-mc-explain.show{display:block}
+.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
+.vs-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
+.vs-btn:hover{background:var(--ink);color:#fff}
+.vs-btn-red{border-color:var(--red);color:var(--red)}
+.vs-btn-red:hover{background:var(--red);color:#fff}
+.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
+.vs-hipp-area.show{display:block}
+.vs-hipp-section{margin-bottom:18px}
+.vs-hipp-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
+.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px;padding-left:18px}
+.vs-guide li{margin-bottom:2px}
+.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
+.vs-hipp-input:focus{border-color:var(--red);outline:none}
+.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
+.vs-hipp-model.show{display:block}
+.vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -705,6 +740,87 @@ button{font-family:inherit;cursor:pointer}
       <div class="complexity-body">&#10022; Explain multiple causes/effects, similarities/differences, or continuities/changes<br/>&#10022; Explain both cause AND effect, or both similarity AND difference<br/>&#10022; Connect across time periods or geographic areas<br/>&#10022; Use all 7 documents effectively (DBQ) or HIPP 4+ documents<br/><span class="complexity-note">A counterargument paragraph can earn complexity — but only if it is a full paragraph with evidence, not just a sentence.</span></div>
     </div>
   </div>
+</div>
+
+<!-- VISUAL SOURCES PAGE -->
+<div class="page" id="pg-visual">
+  <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Skill Practice</div>
+      <h2>Visual Sources &amp; HIPP Analysis</h2>
+      <p>Study each primary-source image, answer the AP question, then write your own HIPP analysis and compare it to the exemplar.</p>
+    </div>
+    <div class="vs-panel">
+      <div class="vs-tab-row" id="vs-tabs"></div>
+      <div id="vs-cards"></div>
+    </div>
+  </div>
+  <script type="application/json" id="vsdata">
+[
+{"num":1,"img":"images/u2-vis-1.jpg","title":"The Catalan Atlas — Asia and the Silk Roads (1375)","source":"Panel from the Catalan Atlas, attributed to Cresques Abraham, a Jewish mapmaker of Majorca, 1375.","desc":"A section of a lavish European world map showing the cities, enthroned rulers, and caravan routes of Asia — knowledge Europeans gained largely through Silk Road trade and travelers like Marco Polo.","q":"The map is best used as evidence for which of the following in the period c. 1200–1450?","o":["European states had established direct colonial rule over much of Asia","Long-distance trade routes spread knowledge of distant regions across Afro-Eurasia","Most Europeans had accurate firsthand knowledge of East Asian geography","Sea routes had completely replaced overland trade across Eurasia"],"c":1,"e":"The atlas reflects how Silk Road commerce and travelers' accounts transmitted knowledge of Asia's cities, rulers, and goods to Europe — even though the mapmaker in Majorca had never been there. It shows the cultural and intellectual consequences of Afro-Eurasian trade connectivity.","hipp":{"h":"The atlas was made in 1375 in Majorca, a Mediterranean crossroads, during the Pax Mongolica when overland routes were relatively safe and European merchants and travelers were reaching Asia in growing numbers.","i":"It was created for the royal court of Aragon — a wealthy, elite audience interested in trade, geography, and the riches of the East, not for ordinary people.","p":"Its purpose was both practical and prestigious: to compile the best available geographic and commercial knowledge and to display the sophistication and reach of its patrons.","pov":"As a Majorcan Jewish cartographer drawing on Arab, Jewish, and European sources, Cresques blended many traditions, but his knowledge of inland Asia was secondhand, so the map mixes real trade information with legend."}},
+{"num":2,"img":"images/u2-vis-2.jpg","title":"A Persian Court Under a Royal Parasol","source":"Persian manuscript illustration showing Takash, Sultan of Khwarazm, receiving a courtier; Persianate world, c. 14th century.","desc":"An enthroned Central Asian Muslim ruler sits beneath an ornate parasol as a bowing courtier and attendants approach — an image of the wealthy, sophisticated Islamic courts of Central Asia that were tied into Silk Road trade and later conquered by the Mongols.","q":"This image best reflects which feature of Afro-Eurasia before the Mongol conquests?","o":["The absence of centralized states across Central Asia","The wealth and courtly sophistication of Islamic states linked to Silk Road trade","The dominance of Christianity across Central Asia","The rejection of settled life by all Central Asian peoples"],"c":1,"e":"The Khwarazmian empire was a prosperous Islamic state enriched by its position astride the Silk Roads. Its refined court culture — reflected in fine manuscript painting — shows the sophistication of the Central Asian world that Mongol expansion would soon absorb into a single trade network.","hipp":{"h":"The image comes from the Persianate Islamic world; Khwarazm was a powerful Central Asian empire on the Silk Roads that Genghis Khan destroyed in the 1220s.","i":"Illustrated manuscripts like this were made for rulers and wealthy patrons who could afford them, not for a mass audience.","p":"Its purpose was to glorify the ruler and illustrate courtly power and refinement, presenting the sultan as majestic and legitimate.","pov":"As court-sponsored art, it offers an idealized, flattering view of royal authority and reveals nothing about ordinary subjects or the empire's weaknesses."}},
+{"num":3,"img":"images/u2-vis-3.jpg","title":"Burying the Dead During the Black Death (1349)","source":"Illustration from the chronicle of Gilles li Muisis showing citizens of Tournai burying plague victims, 1349.","desc":"Townspeople place plague victims into coffins for burial during the Black Death, which spread along the same trade routes that connected Afro-Eurasia.","q":"The spread of the disease shown here was most directly a consequence of which of the following?","o":["The expansion of interregional trade and travel networks","The collapse of all long-distance trade in the 13th century","European colonization of the Americas","The disappearance of cities across Afro-Eurasia"],"c":0,"e":"The Black Death spread from Asia to the Middle East and Europe along the Silk Road and maritime routes revived under the Mongols. It is a classic example of the biological consequences of Afro-Eurasian connectivity — the same networks that carried goods and ideas also carried disease.","hipp":{"h":"This was drawn in 1349, at the peak of the Black Death, which killed perhaps a third of Europe's population and devastated much of Afro-Eurasia.","i":"As part of a civic and religious chronicle, it was intended for a literate, often religious audience recording the catastrophe for posterity.","p":"Its purpose was to document and memorialize the scale of death, perhaps framing the plague in moral or religious terms.","pov":"Drawn from a European Christian perspective, it focuses on the communal experience of mass death rather than on the disease's Asian origins or how trade transmitted it."}}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('vsdata'); if (!dataEl) return;
+    var VISUAL_DATA = JSON.parse(dataEl.textContent);
+    var HIPP_KEYS = [
+      {key:'h',label:'Historical Context',guides:['When and where was this source created?','What major events or tensions were happening at this time?','How does the historical moment explain why this source exists?']},
+      {key:'i',label:'Intended Audience',guides:['Who was this source originally created for?','What details (language, imagery, style) hint at who it was aimed at?','Would that audience have agreed with the message?']},
+      {key:'p',label:'Purpose',guides:['Why did the creator make this — to persuade, inform, document, or commemorate?','What reaction or action did the creator want?','Who benefits if the message is accepted?']},
+      {key:'pov',label:'Point of View',guides:['Who created this source? What is their background or position?','How does their identity shape what they emphasize or leave out?','Why should a historian weigh this perspective?']}
+    ];
+    var tabRow = document.getElementById('vs-tabs'), cardsEl = document.getElementById('vs-cards');
+    VISUAL_DATA.forEach(function(item, idx){
+      var tab = document.createElement('button'); tab.type = 'button';
+      tab.className = 'vs-tab' + (idx === 0 ? ' active' : ''); tab.textContent = 'Image ' + item.num;
+      tab.addEventListener('click', function(){
+        document.querySelectorAll('#vs-tabs .vs-tab').forEach(function(t){ t.classList.remove('active'); });
+        tab.classList.add('active');
+        document.querySelectorAll('#vs-cards .vs-card').forEach(function(c){ c.classList.remove('active'); });
+        document.getElementById('vs-card-' + idx).classList.add('active');
+      });
+      tabRow.appendChild(tab);
+      var mcHTML = '';
+      item.o.forEach(function(opt, oi){ mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>'; });
+      var hippHTML = '';
+      HIPP_KEYS.forEach(function(hk){
+        var g = hk.guides.map(function(x){ return '<li>' + x + '</li>'; }).join('');
+        hippHTML += '<div class="vs-hipp-section"><div class="vs-hipp-lbl">' + hk.label + '</div><ul class="vs-guide">' + g + '</ul><textarea class="vs-hipp-input" placeholder="Write your analysis here…" rows="3"></textarea><div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '"><div class="vs-hipp-model-lbl">Exemplar — ' + hk.label + '</div>' + item.hipp[hk.key] + '</div></div>';
+      });
+      var card = document.createElement('div'); card.className = 'vs-card' + (idx === 0 ? ' active' : ''); card.id = 'vs-card-' + idx;
+      card.innerHTML =
+        '<div class="vs-card-src">' + item.source + '</div>' +
+        '<div class="vs-card-title">' + item.title + '</div>' +
+        '<div class="vs-card-desc">' + item.desc + '</div>' +
+        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
+        '<div class="vs-step-hdr">Step 1 — Answer the AP Question</div>' +
+        '<div class="vs-mc-q">' + item.q + '</div>' + mcHTML +
+        '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
+        '<div class="vs-btn-row"><button type="button" class="vs-btn" data-hippshow="' + idx + '">Step 2 — Analyze this Source (HIPP) →</button></div>' +
+        '<div class="vs-hipp-area" id="vs-hipp-' + idx + '"><div class="vs-step-hdr" style="margin-bottom:12px">Step 2 — HIPP Analysis</div><p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Use the guiding questions to write your own analysis, then compare to the exemplar.</p>' + hippHTML + '<div class="vs-btn-row"><button type="button" class="vs-btn vs-btn-red" data-compare="' + idx + '">Compare to Exemplar HIPP →</button></div></div>';
+      cardsEl.appendChild(card);
+    });
+    cardsEl.addEventListener('click', function(e){
+      var hb = e.target.closest('[data-hippshow]');
+      if (hb){ document.getElementById('vs-hipp-' + hb.dataset.hippshow).classList.add('show'); hb.style.display = 'none'; return; }
+      var cb = e.target.closest('[data-compare]');
+      if (cb){ var i = cb.dataset.compare; HIPP_KEYS.forEach(function(hk){ document.getElementById('vs-model-' + hk.key + '-' + i).classList.add('show'); }); cb.style.display = 'none'; return; }
+      var opt = e.target.closest('.vs-mc-option');
+      if (opt && !opt.disabled){
+        var card = opt.closest('.vs-card'); var idx = card.id.replace('vs-card-', ''); var item = VISUAL_DATA[parseInt(idx)]; var oi = parseInt(opt.dataset.oi);
+        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi){ b.disabled = true; if (bi === item.c) b.classList.add('vs-mc-correct'); else if (bi === oi) b.classList.add('vs-mc-wrong'); });
+        document.getElementById('vs-mc-explain-' + idx).classList.add('show');
+      }
+    });
+  })();
+  </script>
 </div>
 
 <div class="page" id="pg-spice">

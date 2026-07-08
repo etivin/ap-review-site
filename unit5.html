@@ -477,6 +477,41 @@ button{font-family:inherit;cursor:pointer}
 .fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
 .fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
 .fc-timer-msg.ready{color:var(--green)}
+/* ── VISUAL SOURCES ── */
+.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
+.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.vs-tab{background:none;border:1.5px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
+.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.vs-card{display:none;padding:24px 32px}
+.vs-card.active{display:block}
+.vs-card-src{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.vs-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:8px}
+.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:16px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
+.vs-source-img{display:block;width:auto;max-width:100%;max-height:70vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.vs-step-hdr{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
+.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
+.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
+.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.vs-mc-option.vs-mc-wrong{background:#faf3ee;border-color:var(--red);color:var(--red)}
+.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
+.vs-mc-explain.show{display:block}
+.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
+.vs-btn{background:none;border:1.5px solid var(--ink);font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
+.vs-btn:hover{background:var(--ink);color:#fff}
+.vs-btn-red{border-color:var(--red);color:var(--red)}
+.vs-btn-red:hover{background:var(--red);color:#fff}
+.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
+.vs-hipp-area.show{display:block}
+.vs-hipp-section{margin-bottom:18px}
+.vs-hipp-lbl{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
+.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px;padding-left:18px}
+.vs-guide li{margin-bottom:2px}
+.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
+.vs-hipp-input:focus{border-color:var(--red);outline:none}
+.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
+.vs-hipp-model.show{display:block}
+.vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -1051,6 +1086,88 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- SPICE-T PAGE -->
+<!-- VISUAL SOURCES PAGE -->
+<div class="page" id="pg-visual">
+  <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Skill Practice</div>
+      <h2>Visual Sources &amp; HIPP Analysis</h2>
+      <p>Study each primary-source image, answer the AP question, then write your own HIPP analysis and compare it to the exemplar.</p>
+    </div>
+    <div class="vs-panel">
+      <div class="vs-tab-row" id="vs-tabs"></div>
+      <div id="vs-cards"></div>
+    </div>
+  </div>
+  <script type="application/json" id="vsdata">
+[
+{"num":1,"img":"images/u5-vis-1.jpg","title":"Liberty Leading the People","source":"'Liberty Leading the People,' oil painting by Eugène Delacroix, France, 1830.","desc":"An allegorical woman personifying Liberty holds the French tricolor flag and leads an armed crowd of revolutionaries of different classes over a barricade and fallen bodies.","q":"The painting best reflects which force of the long nineteenth century?","o":["The defense of absolute monarchy against reform","Revolutionary and nationalist ideals inspiring political change","The rejection of Enlightenment thought","The decline of popular political participation"],"c":1,"e":"The painting celebrates revolution and the ideals — liberty, popular sovereignty, and nationalism — that inspired the Atlantic Revolutions and later nineteenth-century uprisings. Liberty leading citizens of different classes captures the era's revolutionary spirit.","hipp":{"h":"Painted in 1830 to commemorate the July Revolution in France, part of a century of revolutions rooted in Enlightenment ideas.","i":"Aimed at a French public and art establishment, it was meant to stir national and revolutionary feeling.","p":"Its purpose was to celebrate and glorify popular revolution and the ideal of liberty.","pov":"Delacroix, sympathetic to the revolution, presents the uprising as heroic and unifying, romanticizing the violence as noble sacrifice."}},
+{"num":2,"img":"images/u5-vis-2.jpg","title":"The Standard Oil Octopus","source":"American political cartoon depicting the Standard Oil Company as an octopus, c. 1904.","desc":"A giant octopus labeled 'Standard Oil' wraps its tentacles around industries and a state capitol and reaches toward the U.S. Capitol — a cartoon attacking the power of industrial monopolies.","q":"The cartoon is best understood as a reaction to which development of the industrial age?","o":["The concentration of economic and political power in giant corporations","The failure of industry to produce any large companies","Government ownership of all major industries","The decline of the oil industry in the United States"],"c":0,"e":"Industrial capitalism produced huge corporations and monopolies like Standard Oil. This cartoon reflects the reaction against their concentrated economic and political power — the kind of criticism that fueled reform movements and regulation.","hipp":{"h":"Created in the early 1900s in the United States, during the era of massive industrial trusts and Progressive-era calls for reform.","i":"Aimed at a broad newspaper-reading public to shape opinion against monopolies.","p":"Its purpose was to criticize and warn against the power of corporate monopolies and to build support for regulating them.","pov":"From a reform-minded, anti-monopoly perspective, it deliberately portrays the corporation as a menacing, all-consuming threat."}},
+{"num":3,"img":"images/u5-vis-3.jpg","title":"Coalbrookdale by Night","source":"'Coalbrookdale by Night,' oil painting by Philip James de Loutherbourg, Britain, 1801.","desc":"An ironworks glows fiery red against the night sky, smoke pouring from furnaces, with workers and a horse-drawn cart in the foreground — a dramatic image of early industrial Britain.","q":"The scene depicted is best used as evidence of which of the following?","o":["The environmental and industrial transformation of the Industrial Revolution","The persistence of a purely agricultural economy","The decline of manufacturing in Britain","The absence of coal and iron in British industry"],"c":0,"e":"Coalbrookdale was a birthplace of the Industrial Revolution. The blazing ironworks captures the new scale of coal-and-iron industry — and its dramatic environmental impact — as Britain led the world into industrial production.","hipp":{"h":"Painted in 1801 in Britain, the first industrial nation, as coal-powered iron production was booming.","i":"Aimed at British art audiences both fascinated and unsettled by the new industrial landscape.","p":"Its purpose was partly to awe viewers with the sublime, dramatic power of industry, capturing both its grandeur and its menace.","pov":"As a Romantic artist, Loutherbourg presents industry in dramatic, almost apocalyptic terms, emphasizing its overwhelming visual power rather than the daily lives of workers."}},
+{"num":4,"img":"images/u5-vis-4.jpg","title":"The Slave Revolt in Saint-Domingue","source":"European engraving depicting the slave revolt in the French colony of Saint-Domingue, which began in 1791.","desc":"Enslaved people rise up in armed revolt against colonists, with a plantation burning in the distance — the uprising that launched the Haitian Revolution.","q":"The event depicted led most directly to which of the following?","o":["The establishment of Haiti as an independent state founded by former slaves","The strengthening of slavery throughout the Caribbean","The peaceful negotiation of colonial independence","The restoration of the French monarchy in the Americas"],"c":0,"e":"The 1791 uprising in Saint-Domingue grew into the Haitian Revolution — the only successful large-scale slave revolt in history — which created the independent state of Haiti and applied the revolutionary ideals of liberty and equality to enslaved people themselves.","hipp":{"h":"The revolt began in 1791 in France's wealthiest colony, inspired in part by the ideals of the French Revolution then underway.","i":"European engravings of the revolt were aimed at audiences back in Europe, many of whom feared slave uprisings.","p":"Its purpose was often to depict the violence of the revolt, sometimes to alarm European viewers about the dangers of rebellion.","pov":"Drawn from a European colonial perspective, such images tend to emphasize the violence and threat of the uprising rather than the enslaved people's demand for freedom."}}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('vsdata'); if (!dataEl) return;
+    var VISUAL_DATA = JSON.parse(dataEl.textContent);
+    var HIPP_KEYS = [
+      {key:'h',label:'Historical Context',guides:['When and where was this source created?','What major events or tensions were happening at this time?','How does the historical moment explain why this source exists?']},
+      {key:'i',label:'Intended Audience',guides:['Who was this source originally created for?','What details (language, imagery, style) hint at who it was aimed at?','Would that audience have agreed with the message?']},
+      {key:'p',label:'Purpose',guides:['Why did the creator make this — to persuade, inform, document, or commemorate?','What reaction or action did the creator want?','Who benefits if the message is accepted?']},
+      {key:'pov',label:'Point of View',guides:['Who created this source? What is their background or position?','How does their identity shape what they emphasize or leave out?','Why should a historian weigh this perspective?']}
+    ];
+    var tabRow = document.getElementById('vs-tabs'), cardsEl = document.getElementById('vs-cards');
+    VISUAL_DATA.forEach(function(item, idx){
+      var tab = document.createElement('button'); tab.type = 'button';
+      tab.className = 'vs-tab' + (idx === 0 ? ' active' : ''); tab.textContent = 'Image ' + item.num;
+      tab.addEventListener('click', function(){
+        document.querySelectorAll('#vs-tabs .vs-tab').forEach(function(t){ t.classList.remove('active'); });
+        tab.classList.add('active');
+        document.querySelectorAll('#vs-cards .vs-card').forEach(function(c){ c.classList.remove('active'); });
+        document.getElementById('vs-card-' + idx).classList.add('active');
+      });
+      tabRow.appendChild(tab);
+      var mcHTML = '';
+      item.o.forEach(function(opt, oi){ mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>'; });
+      var hippHTML = '';
+      HIPP_KEYS.forEach(function(hk){
+        var g = hk.guides.map(function(x){ return '<li>' + x + '</li>'; }).join('');
+        hippHTML += '<div class="vs-hipp-section"><div class="vs-hipp-lbl">' + hk.label + '</div><ul class="vs-guide">' + g + '</ul><textarea class="vs-hipp-input" placeholder="Write your analysis here…" rows="3"></textarea><div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '"><div class="vs-hipp-model-lbl">Exemplar — ' + hk.label + '</div>' + item.hipp[hk.key] + '</div></div>';
+      });
+      var card = document.createElement('div'); card.className = 'vs-card' + (idx === 0 ? ' active' : ''); card.id = 'vs-card-' + idx;
+      card.innerHTML =
+        '<div class="vs-card-src">' + item.source + '</div>' +
+        '<div class="vs-card-title">' + item.title + '</div>' +
+        '<div class="vs-card-desc">' + item.desc + '</div>' +
+        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
+        '<div class="vs-step-hdr">Step 1 — Answer the AP Question</div>' +
+        '<div class="vs-mc-q">' + item.q + '</div>' + mcHTML +
+        '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
+        '<div class="vs-btn-row"><button type="button" class="vs-btn" data-hippshow="' + idx + '">Step 2 — Analyze this Source (HIPP) →</button></div>' +
+        '<div class="vs-hipp-area" id="vs-hipp-' + idx + '"><div class="vs-step-hdr" style="margin-bottom:12px">Step 2 — HIPP Analysis</div><p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Use the guiding questions to write your own analysis, then compare to the exemplar.</p>' + hippHTML + '<div class="vs-btn-row"><button type="button" class="vs-btn vs-btn-red" data-compare="' + idx + '">Compare to Exemplar HIPP →</button></div></div>';
+      cardsEl.appendChild(card);
+    });
+    cardsEl.addEventListener('click', function(e){
+      var hb = e.target.closest('[data-hippshow]');
+      if (hb){ document.getElementById('vs-hipp-' + hb.dataset.hippshow).classList.add('show'); hb.style.display = 'none'; return; }
+      var cb = e.target.closest('[data-compare]');
+      if (cb){ var i = cb.dataset.compare; HIPP_KEYS.forEach(function(hk){ document.getElementById('vs-model-' + hk.key + '-' + i).classList.add('show'); }); cb.style.display = 'none'; return; }
+      var opt = e.target.closest('.vs-mc-option');
+      if (opt && !opt.disabled){
+        var card = opt.closest('.vs-card'); var idx = card.id.replace('vs-card-', ''); var item = VISUAL_DATA[parseInt(idx)]; var oi = parseInt(opt.dataset.oi);
+        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi){ b.disabled = true; if (bi === item.c) b.classList.add('vs-mc-correct'); else if (bi === oi) b.classList.add('vs-mc-wrong'); });
+        document.getElementById('vs-mc-explain-' + idx).classList.add('show');
+      }
+    });
+  })();
+  </script>
+</div>
+
 <div class="page" id="pg-spice">
   <div class="inner">
     <div class="pg-nav-row">

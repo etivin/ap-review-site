@@ -457,6 +457,39 @@ button{font-family:inherit;cursor:pointer}
 .spice-e{border-top-color:#6b4e71}.spice-e .spice-letter{color:#6b4e71}
 .spice-t{border-top-color:#2e5266}.spice-t .spice-letter{color:#2e5266}
 .unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
+/* ── FLASHCARDS ── */
+.fc-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.fc-meta{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em}
+.fc-select-wrap{display:flex;gap:8px;flex-wrap:wrap}
+.fc-sel{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border:1.5px solid var(--border2);background:var(--white);color:var(--ink)}
+.fc-progress{background:var(--border);height:4px;margin-bottom:22px;border-radius:2px}
+.fc-pbar{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.card-area{perspective:1200px;margin-bottom:18px;cursor:pointer}
+.card-3d{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.card-3d.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:28px 26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shm)}
+.card-face.back{transform:rotateY(180deg);border-top-color:var(--green)}
+.card-tag{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;color:var(--red)}
+.back-tag{color:var(--green)!important}
+.card-term{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:6px}
+.card-topic{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.card-def{font-size:.92rem;line-height:1.72;color:var(--mid)}
+.card-hint{font-size:.76rem;color:var(--muted);margin-top:12px;font-style:italic}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.cn-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:8px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.cn-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.cn-btn:disabled{opacity:.3;cursor:default}
+.flip-hint{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.fc-timer-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.fc-timer-ring{position:relative;width:54px;height:54px;flex-shrink:0}
+.fc-timer-ring svg{transform:rotate(-90deg)}
+.fc-timer-ring circle{fill:none;stroke-width:4}
+.fc-timer-bg{stroke:var(--border)}
+.fc-timer-fg{stroke:var(--red);transition:stroke-dashoffset .95s linear,stroke .4s}
+.fc-timer-fg.done{stroke:var(--green)}
+.fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
+.fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+.fc-timer-msg.ready{color:var(--green)}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -559,6 +592,159 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- BRAIN DUMP PAGE -->
+<!-- FLASHCARDS PAGE -->
+<div class="page" id="pg-flash">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 8 Flashcards</div>
+      <h2>Key Terms &amp; Concepts</h2>
+      <p>Wait for the timer, think of the answer, then click the card to flip it. Navigate with the arrows or filter by topic.</p>
+    </div>
+    <div class="fc-controls">
+      <div class="fc-meta" id="fc-meta">Card 1 of 29</div>
+      <div class="fc-select-wrap">
+        <select class="fc-sel" id="fc-filter">
+          <option value="all">All Topics</option>
+          <option value="8.1">8.1 — Origins of the Cold War</option>
+          <option value="8.2">8.2 — The Cold War</option>
+          <option value="8.3">8.3 — Effects of the Cold War</option>
+          <option value="8.4">8.4 — Spread of Communism</option>
+          <option value="8.5">8.5 — Decolonization</option>
+          <option value="8.6">8.6 — Newly Independent States</option>
+          <option value="8.7">8.7 — Global Resistance</option>
+          <option value="8.8">8.8 — End of the Cold War</option>
+        </select>
+        <button type="button" class="fc-sel" id="fc-shuffle-btn">&#128256; Shuffle</button>
+      </div>
+    </div>
+    <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
+    <div class="fc-timer-wrap">
+      <div class="fc-timer-ring">
+        <svg width="54" height="54" viewBox="0 0 54 54">
+          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
+          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
+        </svg>
+        <div class="fc-timer-num" id="fc-timer-num">15</div>
+      </div>
+      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
+    </div>
+    <div class="card-area" id="card-area">
+      <div class="card-3d" id="fc-card">
+        <div class="card-face front">
+          <div class="card-tag">Term</div>
+          <div class="card-term" id="fc-term">Loading...</div>
+          <div class="card-topic" id="fc-topic">Topic 8.1</div>
+          <div class="card-hint">Think of the answer, then flip when the timer is done &darr;</div>
+        </div>
+        <div class="card-face back">
+          <div class="card-tag back-tag">Definition</div>
+          <div class="card-def" id="fc-def">Loading...</div>
+        </div>
+      </div>
+    </div>
+    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
+    <div class="card-nav">
+      <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
+      <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
+    </div>
+  </div>
+  <script type="application/json" id="u8-cards-data">
+[
+{"t":"Truman Doctrine","d":"1947 U.S. pledge to contain communism by aiding Greece and Turkey with military and economic support.","topic":"8.1"},
+{"t":"Iron Curtain","d":"Term for the ideological and physical divide separating Soviet-controlled Eastern Europe from the West after WWII.","topic":"8.1"},
+{"t":"Yalta Conference","d":"1945 meeting of Allied leaders (Roosevelt, Churchill, Stalin) that shaped the postwar division of Europe.","topic":"8.1"},
+{"t":"Containment","d":"U.S. Cold War strategy aimed at stopping the spread of communism without direct war with the USSR.","topic":"8.1"},
+{"t":"Marshall Plan","d":"U.S. program providing economic aid to rebuild Western Europe and prevent the spread of communism after WWII.","topic":"8.1"},
+{"t":"Superpowers","d":"Term for the U.S. and USSR, whose rival capitalist and communist ideologies dominated global politics after WWII.","topic":"8.2"},
+{"t":"Non-Aligned Movement","d":"Group of nations, including those led by Sukarno and Nkrumah, that refused to formally side with either Cold War bloc.","topic":"8.2"},
+{"t":"Bandung Conference","d":"1955 meeting of African and Asian states that promoted decolonization and independence from Cold War alliances.","topic":"8.2"},
+{"t":"NATO","d":"Military alliance formed by the U.S. and Western allies in 1949 to counter Soviet expansion.","topic":"8.3"},
+{"t":"Warsaw Pact","d":"Military alliance of the USSR and Eastern Bloc states formed in 1955 in response to NATO.","topic":"8.3"},
+{"t":"Proxy War","d":"Conflict in which major powers support opposing sides without direct military confrontation, such as the Korean War or Angolan Civil War.","topic":"8.3"},
+{"t":"Korean War","d":"1950–1953 proxy conflict between communist North Korea (backed by USSR/China) and South Korea (backed by the U.S.).","topic":"8.3"},
+{"t":"Great Leap Forward","d":"Mao Zedong's failed campaign to rapidly industrialize and collectivize China's economy, causing mass famine.","topic":"8.4"},
+{"t":"Chinese Communist Revolution","d":"Mao Zedong-led takeover of China in 1949 following internal tension and Japanese aggression.","topic":"8.4"},
+{"t":"Land Redistribution","d":"Policy used by communist and socialist movements in Africa, Asia, and Latin America to seize and reallocate land and resources.","topic":"8.4"},
+{"t":"Indian National Congress","d":"Nationalist party that led India's independence movement against British colonial rule.","topic":"8.5"},
+{"t":"Negotiated Independence","d":"Process by which colonies like India and the Gold Coast gained independence through political agreement rather than war.","topic":"8.5"},
+{"t":"Armed Struggle for Independence","d":"Path to independence taken by colonies like Algeria, Angola, and Vietnam through violent resistance.","topic":"8.5"},
+{"t":"Muslim League","d":"Political party representing India's Muslim minority that pushed for the creation of a separate state (Pakistan).","topic":"8.5"},
+{"t":"Partition of India","d":"1947 division of British India into India and Pakistan, causing mass displacement and violence.","topic":"8.6"},
+{"t":"Newly Independent States","d":"Nations like Israel, Cambodia, and Pakistan created through the redrawing of colonial boundaries after WWII.","topic":"8.6"},
+{"t":"State-Guided Economic Development","d":"Post-independence strategy where governments (e.g., Nasser in Egypt, Nyerere in Tanzania) took a strong role directing national economies.","topic":"8.6"},
+{"t":"Postcolonial Migration","d":"Movement of former colonial subjects (e.g., South Asians to Britain, Algerians to France) to the imperial metropole after decolonization.","topic":"8.6"},
+{"t":"Nonviolent Resistance","d":"Strategy used by figures like Gandhi, MLK, and Mandela to challenge existing power structures without violence.","topic":"8.7"},
+{"t":"Military-Industrial Complex","d":"Buildup of military and weapons industries that intensified conflict during the Cold War era.","topic":"8.7"},
+{"t":"Perestroika","d":"Gorbachev-era policy of economic restructuring in the USSR during the 1980s.","topic":"8.8"},
+{"t":"Glasnost","d":"Gorbachev-era policy of political openness and transparency in the USSR during the 1980s.","topic":"8.8"},
+{"t":"Soviet-Afghan War","d":"Costly, failed Soviet invasion (1979–1989) that contributed to the USSR's economic weakness and eventual collapse.","topic":"8.8"},
+{"t":"Fall of the Soviet Union","d":"1991 collapse of the USSR resulting from military overextension, economic weakness, and public discontent.","topic":"8.8"}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('u8-cards-data');
+    if (!dataEl) return;
+    var CARDS = JSON.parse(dataEl.textContent);
+    var fcDeck = CARDS.slice(), fcIdx = 0, fcFlipped = false;
+    var fcTimerInterval = null, fcTimerSec = 15, fcTimerReady = false;
+    var FC_TIMER_CIRC = 138.23;
+    function fcTimerStop(){ if (fcTimerInterval){ clearInterval(fcTimerInterval); fcTimerInterval = null; } }
+    function fcTimerStart(){
+      fcTimerStop(); fcTimerSec = 15; fcTimerReady = false;
+      document.getElementById('fc-next').disabled = true;
+      var fg = document.getElementById('fc-timer-fg'), num = document.getElementById('fc-timer-num'), msg = document.getElementById('fc-timer-msg');
+      fg.classList.remove('done'); fg.style.strokeDashoffset = '0'; num.textContent = '15';
+      msg.textContent = 'Think — what does this term mean?'; msg.classList.remove('ready');
+      fcTimerInterval = setInterval(function(){
+        fcTimerSec--;
+        var progress = (15 - fcTimerSec) / 15;
+        fg.style.strokeDashoffset = (FC_TIMER_CIRC * progress).toFixed(2);
+        if (fcTimerSec <= 0){
+          fcTimerStop(); fcTimerReady = true; fg.classList.add('done'); num.textContent = '✓';
+          msg.textContent = 'Now flip to check your answer!'; msg.classList.add('ready');
+          document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
+        } else { num.textContent = fcTimerSec; document.getElementById('fc-next').disabled = true; }
+      }, 1000);
+    }
+    function fcRender(){
+      if (!fcDeck.length) return;
+      var c = fcDeck[fcIdx];
+      document.getElementById('fc-term').textContent = c.t;
+      document.getElementById('fc-topic').textContent = 'Topic ' + c.topic;
+      document.getElementById('fc-def').textContent = c.d;
+      document.getElementById('fc-meta').textContent = 'Card ' + (fcIdx + 1) + ' of ' + fcDeck.length;
+      document.getElementById('fc-pbar').style.width = ((fcIdx + 1) / fcDeck.length * 100) + '%';
+      document.getElementById('fc-prev').disabled = (fcIdx === 0);
+      var card = document.getElementById('fc-card');
+      if (fcFlipped){ card.classList.remove('flipped'); fcFlipped = false; }
+      fcTimerStart();
+    }
+    fcRender();
+    document.getElementById('card-area').addEventListener('click', function(){
+      if (!fcTimerReady) return;
+      fcFlipped = !fcFlipped;
+      document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
+    });
+    document.getElementById('fc-prev').addEventListener('click', function(){ if (fcIdx > 0){ fcIdx--; fcRender(); } });
+    document.getElementById('fc-next').addEventListener('click', function(){ if (fcTimerReady && fcIdx < fcDeck.length - 1){ fcIdx++; fcRender(); } });
+    document.getElementById('fc-filter').addEventListener('change', function(){
+      var v = this.value;
+      fcDeck = (v === 'all') ? CARDS.slice() : CARDS.filter(function(c){ return c.topic === v; });
+      fcIdx = 0; fcRender();
+    });
+    document.getElementById('fc-shuffle-btn').addEventListener('click', function(){
+      for (var i = fcDeck.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = fcDeck[i]; fcDeck[i] = fcDeck[j]; fcDeck[j] = t; }
+      fcIdx = 0; fcRender();
+    });
+  })();
+  </script>
+</div>
+
 <div class="page" id="pg-brain">
   <div class="inner">
     <div class="pg-nav-row">

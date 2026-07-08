@@ -222,6 +222,39 @@ button{font-family:inherit;cursor:pointer}
 .match-success{text-align:center;padding:40px 20px}
 .match-success h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px}
 @media(max-width:640px){.match-board{flex-direction:column}}
+/* ── FLASHCARDS ── */
+.fc-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.fc-meta{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em}
+.fc-select-wrap{display:flex;gap:8px;flex-wrap:wrap}
+.fc-sel{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border:1.5px solid var(--border2);background:var(--white);color:var(--ink)}
+.fc-progress{background:var(--border);height:4px;margin-bottom:22px;border-radius:2px}
+.fc-pbar{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.card-area{perspective:1200px;margin-bottom:18px;cursor:pointer}
+.card-3d{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.card-3d.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:28px 26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shm)}
+.card-face.back{transform:rotateY(180deg);border-top-color:var(--green)}
+.card-tag{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;color:var(--red)}
+.back-tag{color:var(--green)!important}
+.card-term{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:6px}
+.card-topic{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.card-def{font-size:.92rem;line-height:1.72;color:var(--mid)}
+.card-hint{font-size:.76rem;color:var(--muted);margin-top:12px;font-style:italic}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.cn-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:8px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.cn-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.cn-btn:disabled{opacity:.3;cursor:default}
+.flip-hint{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.fc-timer-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.fc-timer-ring{position:relative;width:54px;height:54px;flex-shrink:0}
+.fc-timer-ring svg{transform:rotate(-90deg)}
+.fc-timer-ring circle{fill:none;stroke-width:4}
+.fc-timer-bg{stroke:var(--border)}
+.fc-timer-fg{stroke:var(--red);transition:stroke-dashoffset .95s linear,stroke .4s}
+.fc-timer-fg.done{stroke:var(--green)}
+.fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
+.fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+.fc-timer-msg.ready{color:var(--green)}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -322,6 +355,160 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- BRAIN DUMP PAGE -->
+<!-- FLASHCARDS PAGE -->
+<div class="page" id="pg-flash">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 4 Flashcards</div>
+      <h2>Key Terms &amp; Concepts</h2>
+      <p>Wait for the timer, think of the answer, then click the card to flip it. Navigate with the arrows or filter by topic.</p>
+    </div>
+    <div class="fc-controls">
+      <div class="fc-meta" id="fc-meta">Card 1 of 30</div>
+      <div class="fc-select-wrap">
+        <select class="fc-sel" id="fc-filter">
+          <option value="all">All Topics</option>
+          <option value="4.1">4.1 — Technological Innovations</option>
+          <option value="4.2">4.2 — Exploration</option>
+          <option value="4.3">4.3 — Columbian Exchange</option>
+          <option value="4.4">4.4 — Maritime Empires Established</option>
+          <option value="4.5">4.5 — Maritime Empires Maintained</option>
+          <option value="4.6">4.6 — Challenges to State Power</option>
+          <option value="4.7">4.7 — Social Hierarchies</option>
+          <option value="4.8">4.8 — Continuity &amp; Change</option>
+        </select>
+        <button type="button" class="fc-sel" id="fc-shuffle-btn">&#128256; Shuffle</button>
+      </div>
+    </div>
+    <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
+    <div class="fc-timer-wrap">
+      <div class="fc-timer-ring">
+        <svg width="54" height="54" viewBox="0 0 54 54">
+          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
+          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
+        </svg>
+        <div class="fc-timer-num" id="fc-timer-num">15</div>
+      </div>
+      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
+    </div>
+    <div class="card-area" id="card-area">
+      <div class="card-3d" id="fc-card">
+        <div class="card-face front">
+          <div class="card-tag">Term</div>
+          <div class="card-term" id="fc-term">Loading...</div>
+          <div class="card-topic" id="fc-topic">Topic 4.1</div>
+          <div class="card-hint">Think of the answer, then flip when the timer is done &darr;</div>
+        </div>
+        <div class="card-face back">
+          <div class="card-tag back-tag">Definition</div>
+          <div class="card-def" id="fc-def">Loading...</div>
+        </div>
+      </div>
+    </div>
+    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
+    <div class="card-nav">
+      <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
+      <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
+    </div>
+  </div>
+  <script type="application/json" id="u4-cards-data">
+[
+{"t":"Caravel","d":"Small, fast Portuguese ship with lateen sails well suited for ocean exploration.","topic":"4.1"},
+{"t":"Astrolabe","d":"Navigational instrument used to determine latitude from the position of the sun or stars.","topic":"4.1"},
+{"t":"Lateen Sail","d":"Triangular sail that allowed ships to sail against the wind.","topic":"4.1"},
+{"t":"Magnetic Compass","d":"Chinese navigational tool showing direction, later adopted by European sailors.","topic":"4.1"},
+{"t":"Christopher Columbus","d":"Explorer sailing for Spain who reached the Americas in 1492, opening sustained contact.","topic":"4.2"},
+{"t":"Ferdinand Magellan","d":"Led the first expedition to circumnavigate the globe, sailing for Spain.","topic":"4.2"},
+{"t":"Treaty of Tordesillas (1494)","d":"Agreement dividing newly explored lands between Spain and Portugal.","topic":"4.2"},
+{"t":"Motives for Exploration","d":"God, gold, and glory: spreading Christianity, seeking wealth, and winning prestige.","topic":"4.2"},
+{"t":"Columbian Exchange","d":"Transfer of plants, animals, people, and diseases between the Old and New Worlds after 1492.","topic":"4.3"},
+{"t":"Smallpox","d":"Old World disease that devastated Indigenous American populations who lacked immunity.","topic":"4.3"},
+{"t":"Cash Crops","d":"Crops like sugar and tobacco grown on plantations for profit, driving demand for labor.","topic":"4.3"},
+{"t":"New World Crops","d":"Maize, potatoes, and cassava that spread to Afro-Eurasia and fueled population growth.","topic":"4.3"},
+{"t":"Trading Post Empire","d":"Portuguese strategy of controlling commerce through fortified coastal ports like Goa and Malacca.","topic":"4.4"},
+{"t":"Atlantic Slave Trade","d":"Forced transport of millions of enslaved Africans to the Americas across the Middle Passage.","topic":"4.4"},
+{"t":"Middle Passage","d":"The brutal transatlantic voyage endured by enslaved Africans.","topic":"4.4"},
+{"t":"Encomienda","d":"Spanish system granting colonists the right to demand labor and tribute from Indigenous people.","topic":"4.4"},
+{"t":"Mit'a / Coerced Labor","d":"Adapted Incan labor draft used by the Spanish, especially in silver mines like Potosi.","topic":"4.4"},
+{"t":"Mercantilism","d":"Economic theory that colonies exist to enrich the mother country through favorable trade.","topic":"4.5"},
+{"t":"Joint-Stock Company","d":"Business like the Dutch VOC or British East India Company that pooled investor money for trade.","topic":"4.5"},
+{"t":"Silver Trade","d":"Global flow of American silver, much of it to Ming China, that linked world economies.","topic":"4.5"},
+{"t":"Triangular Trade","d":"Atlantic network exchanging manufactured goods, enslaved Africans, and cash crops.","topic":"4.5"},
+{"t":"Indigenous Resistance","d":"Native peoples resisting European encroachment, such as the Pueblo Revolt in North America.","topic":"4.6"},
+{"t":"Maroon Communities","d":"Settlements of escaped enslaved people who resisted plantation slavery.","topic":"4.6"},
+{"t":"Fronde","d":"Series of noble revolts against growing royal authority in France.","topic":"4.6"},
+{"t":"Queen Nzinga","d":"Ndongo and Matamba ruler who resisted Portuguese expansion in Central Africa.","topic":"4.6"},
+{"t":"Casta System","d":"Racial hierarchy in Spanish America ranking people by ancestry, from peninsulares to enslaved.","topic":"4.7"},
+{"t":"Peninsulares","d":"Spanish-born colonists who sat at the top of the casta hierarchy.","topic":"4.7"},
+{"t":"Mestizo","d":"Person of mixed European and Indigenous ancestry in Spanish America.","topic":"4.7"},
+{"t":"Syncretic Religions","d":"Blended faiths like Vodun and Santeria combining African and Christian beliefs.","topic":"4.7"},
+{"t":"New Global Economy","d":"Worldwide network linking the Americas, Europe, Africa, and Asia for the first time after 1450.","topic":"4.8"}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('u4-cards-data');
+    if (!dataEl) return;
+    var CARDS = JSON.parse(dataEl.textContent);
+    var fcDeck = CARDS.slice(), fcIdx = 0, fcFlipped = false;
+    var fcTimerInterval = null, fcTimerSec = 15, fcTimerReady = false;
+    var FC_TIMER_CIRC = 138.23;
+    function fcTimerStop(){ if (fcTimerInterval){ clearInterval(fcTimerInterval); fcTimerInterval = null; } }
+    function fcTimerStart(){
+      fcTimerStop(); fcTimerSec = 15; fcTimerReady = false;
+      document.getElementById('fc-next').disabled = true;
+      var fg = document.getElementById('fc-timer-fg'), num = document.getElementById('fc-timer-num'), msg = document.getElementById('fc-timer-msg');
+      fg.classList.remove('done'); fg.style.strokeDashoffset = '0'; num.textContent = '15';
+      msg.textContent = 'Think — what does this term mean?'; msg.classList.remove('ready');
+      fcTimerInterval = setInterval(function(){
+        fcTimerSec--;
+        var progress = (15 - fcTimerSec) / 15;
+        fg.style.strokeDashoffset = (FC_TIMER_CIRC * progress).toFixed(2);
+        if (fcTimerSec <= 0){
+          fcTimerStop(); fcTimerReady = true; fg.classList.add('done'); num.textContent = '✓';
+          msg.textContent = 'Now flip to check your answer!'; msg.classList.add('ready');
+          document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
+        } else { num.textContent = fcTimerSec; document.getElementById('fc-next').disabled = true; }
+      }, 1000);
+    }
+    function fcRender(){
+      if (!fcDeck.length) return;
+      var c = fcDeck[fcIdx];
+      document.getElementById('fc-term').textContent = c.t;
+      document.getElementById('fc-topic').textContent = 'Topic ' + c.topic;
+      document.getElementById('fc-def').textContent = c.d;
+      document.getElementById('fc-meta').textContent = 'Card ' + (fcIdx + 1) + ' of ' + fcDeck.length;
+      document.getElementById('fc-pbar').style.width = ((fcIdx + 1) / fcDeck.length * 100) + '%';
+      document.getElementById('fc-prev').disabled = (fcIdx === 0);
+      var card = document.getElementById('fc-card');
+      if (fcFlipped){ card.classList.remove('flipped'); fcFlipped = false; }
+      fcTimerStart();
+    }
+    fcRender();
+    document.getElementById('card-area').addEventListener('click', function(){
+      if (!fcTimerReady) return;
+      fcFlipped = !fcFlipped;
+      document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
+    });
+    document.getElementById('fc-prev').addEventListener('click', function(){ if (fcIdx > 0){ fcIdx--; fcRender(); } });
+    document.getElementById('fc-next').addEventListener('click', function(){ if (fcTimerReady && fcIdx < fcDeck.length - 1){ fcIdx++; fcRender(); } });
+    document.getElementById('fc-filter').addEventListener('change', function(){
+      var v = this.value;
+      fcDeck = (v === 'all') ? CARDS.slice() : CARDS.filter(function(c){ return c.topic === v; });
+      fcIdx = 0; fcRender();
+    });
+    document.getElementById('fc-shuffle-btn').addEventListener('click', function(){
+      for (var i = fcDeck.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = fcDeck[i]; fcDeck[i] = fcDeck[j]; fcDeck[j] = t; }
+      fcIdx = 0; fcRender();
+    });
+  })();
+  </script>
+</div>
+
 <div class="page" id="pg-brain">
   <div class="inner">
     <div class="pg-nav-row">

@@ -205,6 +205,39 @@ button{font-family:inherit;cursor:pointer}
 .match-success{text-align:center;padding:40px 20px}
 .match-success h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px}
 @media(max-width:640px){.match-board{flex-direction:column}}
+/* ── FLASHCARDS ── */
+.fc-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.fc-meta{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em}
+.fc-select-wrap{display:flex;gap:8px;flex-wrap:wrap}
+.fc-sel{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border:1.5px solid var(--border2);background:var(--white);color:var(--ink)}
+.fc-progress{background:var(--border);height:4px;margin-bottom:22px;border-radius:2px}
+.fc-pbar{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.card-area{perspective:1200px;margin-bottom:18px;cursor:pointer}
+.card-3d{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.card-3d.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:28px 26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shm)}
+.card-face.back{transform:rotateY(180deg);border-top-color:var(--green)}
+.card-tag{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;color:var(--red)}
+.back-tag{color:var(--green)!important}
+.card-term{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:6px}
+.card-topic{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.card-def{font-size:.92rem;line-height:1.72;color:var(--mid)}
+.card-hint{font-size:.76rem;color:var(--muted);margin-top:12px;font-style:italic}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.cn-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:8px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.cn-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.cn-btn:disabled{opacity:.3;cursor:default}
+.flip-hint{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.fc-timer-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.fc-timer-ring{position:relative;width:54px;height:54px;flex-shrink:0}
+.fc-timer-ring svg{transform:rotate(-90deg)}
+.fc-timer-ring circle{fill:none;stroke-width:4}
+.fc-timer-bg{stroke:var(--border)}
+.fc-timer-fg{stroke:var(--red);transition:stroke-dashoffset .95s linear,stroke .4s}
+.fc-timer-fg.done{stroke:var(--green)}
+.fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
+.fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+.fc-timer-msg.ready{color:var(--green)}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -313,6 +346,153 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- BRAIN DUMP PAGE -->
+<!-- FLASHCARDS PAGE -->
+<div class="page" id="pg-flash">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 3 Flashcards</div>
+      <h2>Key Terms &amp; Concepts</h2>
+      <p>Wait for the timer, think of the answer, then click the card to flip it. Navigate with the arrows or filter by topic.</p>
+    </div>
+    <div class="fc-controls">
+      <div class="fc-meta" id="fc-meta">Card 1 of 27</div>
+      <div class="fc-select-wrap">
+        <select class="fc-sel" id="fc-filter">
+          <option value="all">All Topics</option>
+          <option value="3.1">3.1 — Empires Expand</option>
+          <option value="3.2">3.2 — Administration</option>
+          <option value="3.3">3.3 — Belief Systems</option>
+          <option value="3.4">3.4 — Comparison</option>
+        </select>
+        <button type="button" class="fc-sel" id="fc-shuffle-btn">&#128256; Shuffle</button>
+      </div>
+    </div>
+    <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
+    <div class="fc-timer-wrap">
+      <div class="fc-timer-ring">
+        <svg width="54" height="54" viewBox="0 0 54 54">
+          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
+          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
+        </svg>
+        <div class="fc-timer-num" id="fc-timer-num">15</div>
+      </div>
+      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
+    </div>
+    <div class="card-area" id="card-area">
+      <div class="card-3d" id="fc-card">
+        <div class="card-face front">
+          <div class="card-tag">Term</div>
+          <div class="card-term" id="fc-term">Loading...</div>
+          <div class="card-topic" id="fc-topic">Topic 3.1</div>
+          <div class="card-hint">Think of the answer, then flip when the timer is done &darr;</div>
+        </div>
+        <div class="card-face back">
+          <div class="card-tag back-tag">Definition</div>
+          <div class="card-def" id="fc-def">Loading...</div>
+        </div>
+      </div>
+    </div>
+    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
+    <div class="card-nav">
+      <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
+      <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
+    </div>
+  </div>
+  <script type="application/json" id="u3-cards-data">
+[
+{"t":"Gunpowder Empires","d":"The Ottoman, Safavid, and Mughal empires, which used gunpowder weapons like cannons and muskets to conquer and control vast territory.","topic":"3.1"},
+{"t":"Ottoman Empire","d":"Sunni Muslim empire founded by Turks that captured Constantinople in 1453 and dominated the eastern Mediterranean.","topic":"3.1"},
+{"t":"Safavid Empire","d":"Shia Muslim Persian empire, founded by Shah Ismail, that rivaled the Sunni Ottomans and Mughals.","topic":"3.1"},
+{"t":"Mughal Empire","d":"Muslim empire ruling Hindu-majority South Asia, founded by Babur and expanded under Akbar.","topic":"3.1"},
+{"t":"Qing (Manchu) Dynasty","d":"Non-Han rulers from Manchuria who conquered Ming China in 1644 and greatly expanded Chinese territory.","topic":"3.1"},
+{"t":"Fall of Constantinople (1453)","d":"Ottoman conquest that ended the Byzantine Empire, achieved using massive gunpowder cannons.","topic":"3.1"},
+{"t":"Battle of Chaldiran (1514)","d":"Ottoman gunpowder victory over the Safavids that hardened the Sunni-Shia divide.","topic":"3.1"},
+{"t":"Songhai Empire","d":"Powerful West African Islamic empire that controlled trans-Saharan trade until the Moroccan invasion.","topic":"3.1"},
+{"t":"Devshirme","d":"Ottoman system of taking Christian boys to be trained as administrators or Janissary soldiers.","topic":"3.2"},
+{"t":"Janissaries","d":"Elite Ottoman infantry recruited through the devshirme and loyal directly to the sultan.","topic":"3.2"},
+{"t":"Zamindars","d":"Local landowners and tax collectors who administered the Mughal Empire's provinces.","topic":"3.2"},
+{"t":"Tax Farming","d":"System in which the state sold the right to collect taxes to private individuals to raise revenue.","topic":"3.2"},
+{"t":"Bureaucracy","d":"Salaried officials who carried out an empire's administration, such as China's scholar-gentry.","topic":"3.2"},
+{"t":"Salaried Samurai","d":"In Tokugawa Japan, warriors who became salaried bureaucrats during a long era of peace.","topic":"3.2"},
+{"t":"Tribute System","d":"Chinese practice requiring neighboring states to send gifts and acknowledge Chinese superiority.","topic":"3.2"},
+{"t":"Divine Right","d":"Belief that a monarch's authority to rule comes directly from God.","topic":"3.3"},
+{"t":"Sunni-Shia Rivalry","d":"Division within Islam; the Sunni Ottomans and Shia Safavids clashed over religious legitimacy.","topic":"3.3"},
+{"t":"Akbar","d":"Mughal ruler known for religious tolerance, abolishing the jizya and blending faiths in the Din-i Ilahi.","topic":"3.3"},
+{"t":"Jizya","d":"Tax on non-Muslims in Muslim empires; abolished by Akbar and later reimposed by Aurangzeb.","topic":"3.3"},
+{"t":"Aurangzeb","d":"Mughal emperor who reversed Akbar's tolerance, reimposed the jizya, and persecuted non-Muslims.","topic":"3.3"},
+{"t":"Sikhism","d":"Syncretic monotheistic religion blending Hindu and Muslim ideas that emerged in Mughal India.","topic":"3.3"},
+{"t":"Protestant Reformation","d":"Split in Western Christianity begun by Martin Luther that challenged the Catholic Church.","topic":"3.3"},
+{"t":"Catholic Counter-Reformation","d":"The Catholic Church's response to Protestantism, reaffirming doctrine at the Council of Trent.","topic":"3.3"},
+{"t":"Art and Architecture as Legitimacy","d":"Rulers used monuments like the Taj Mahal, Versailles, and the Suleymaniye Mosque to project power.","topic":"3.3"},
+{"t":"Absolutism","d":"Political system in which a monarch holds total centralized power, as with Louis XIV of France.","topic":"3.4"},
+{"t":"Methods of Legitimizing Power","d":"Empires used religion, art, bureaucracy, and tax systems to consolidate and justify their rule.","topic":"3.4"},
+{"t":"Comparison of Land-Based Empires","d":"Ottomans, Safavids, Mughals, Ming/Qing, and European monarchies all centralized power in similar ways.","topic":"3.4"}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('u3-cards-data');
+    if (!dataEl) return;
+    var CARDS = JSON.parse(dataEl.textContent);
+    var fcDeck = CARDS.slice(), fcIdx = 0, fcFlipped = false;
+    var fcTimerInterval = null, fcTimerSec = 15, fcTimerReady = false;
+    var FC_TIMER_CIRC = 138.23;
+    function fcTimerStop(){ if (fcTimerInterval){ clearInterval(fcTimerInterval); fcTimerInterval = null; } }
+    function fcTimerStart(){
+      fcTimerStop(); fcTimerSec = 15; fcTimerReady = false;
+      document.getElementById('fc-next').disabled = true;
+      var fg = document.getElementById('fc-timer-fg'), num = document.getElementById('fc-timer-num'), msg = document.getElementById('fc-timer-msg');
+      fg.classList.remove('done'); fg.style.strokeDashoffset = '0'; num.textContent = '15';
+      msg.textContent = 'Think — what does this term mean?'; msg.classList.remove('ready');
+      fcTimerInterval = setInterval(function(){
+        fcTimerSec--;
+        var progress = (15 - fcTimerSec) / 15;
+        fg.style.strokeDashoffset = (FC_TIMER_CIRC * progress).toFixed(2);
+        if (fcTimerSec <= 0){
+          fcTimerStop(); fcTimerReady = true; fg.classList.add('done'); num.textContent = '✓';
+          msg.textContent = 'Now flip to check your answer!'; msg.classList.add('ready');
+          document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
+        } else { num.textContent = fcTimerSec; document.getElementById('fc-next').disabled = true; }
+      }, 1000);
+    }
+    function fcRender(){
+      if (!fcDeck.length) return;
+      var c = fcDeck[fcIdx];
+      document.getElementById('fc-term').textContent = c.t;
+      document.getElementById('fc-topic').textContent = 'Topic ' + c.topic;
+      document.getElementById('fc-def').textContent = c.d;
+      document.getElementById('fc-meta').textContent = 'Card ' + (fcIdx + 1) + ' of ' + fcDeck.length;
+      document.getElementById('fc-pbar').style.width = ((fcIdx + 1) / fcDeck.length * 100) + '%';
+      document.getElementById('fc-prev').disabled = (fcIdx === 0);
+      var card = document.getElementById('fc-card');
+      if (fcFlipped){ card.classList.remove('flipped'); fcFlipped = false; }
+      fcTimerStart();
+    }
+    fcRender();
+    document.getElementById('card-area').addEventListener('click', function(){
+      if (!fcTimerReady) return;
+      fcFlipped = !fcFlipped;
+      document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
+    });
+    document.getElementById('fc-prev').addEventListener('click', function(){ if (fcIdx > 0){ fcIdx--; fcRender(); } });
+    document.getElementById('fc-next').addEventListener('click', function(){ if (fcTimerReady && fcIdx < fcDeck.length - 1){ fcIdx++; fcRender(); } });
+    document.getElementById('fc-filter').addEventListener('change', function(){
+      var v = this.value;
+      fcDeck = (v === 'all') ? CARDS.slice() : CARDS.filter(function(c){ return c.topic === v; });
+      fcIdx = 0; fcRender();
+    });
+    document.getElementById('fc-shuffle-btn').addEventListener('click', function(){
+      for (var i = fcDeck.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = fcDeck[i]; fcDeck[i] = fcDeck[j]; fcDeck[j] = t; }
+      fcIdx = 0; fcRender();
+    });
+  })();
+  </script>
+</div>
+
 <div class="page" id="pg-brain">
   <div class="inner">
     <div class="pg-nav-row">

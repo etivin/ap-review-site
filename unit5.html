@@ -512,6 +512,28 @@ button{font-family:inherit;cursor:pointer}
 .vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
 .vs-hipp-model.show{display:block}
 .vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
+/* ── SOURCE ANALYSIS (isolation drill) ── */
+.src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
+.src-doc-lbl{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.src-doc-src{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
+.src-doc-img{display:block;max-width:100%;max-height:60vh;margin:0 auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.src-doc-txt{font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.8;color:var(--ink)}
+.src-frame{background:#f5f0e6;border:2px dashed var(--border2);padding:20px 24px;margin:16px 0}
+.src-frame-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.src-frame-hint{font-size:.82rem;color:var(--mid);margin-bottom:12px;line-height:1.5}
+.src-lens-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.src-lens-btn{padding:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--border2);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
+.src-lens-btn:hover,.src-lens-btn.active{border-color:var(--red);background:#faf0f3;color:var(--red)}
+.src-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);padding:14px;font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.7;resize:vertical;box-sizing:border-box}
+.src-textarea:focus{border-color:var(--red);outline:none}
+.src-model{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-top:16px;display:none}
+.src-model.show{display:block}
+.src-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+.src-model-txt{font-family:'Source Serif 4',serif;font-size:.88rem;line-height:1.7;color:var(--ink)}
+.src-btn{padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
+.src-btn-red{background:var(--red);color:#fff}
+.src-btn-outline{background:none;border:1.5px solid var(--red);color:var(--red)}
+.src-btn:hover{opacity:.85}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -1164,6 +1186,168 @@ button{font-family:inherit;cursor:pointer}
         document.getElementById('vs-mc-explain-' + idx).classList.add('show');
       }
     });
+  })();
+  </script>
+</div>
+
+<!-- SOURCE ANALYSIS PAGE -->
+<div id="pg-source" class="page">
+  <div class="inner" style="max-width:820px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Sourcing Practice</div>
+      <h2>Go Beyond Identification</h2>
+      <p>Don&rsquo;t just name the source feature &mdash; explain <em>why it matters</em>. Practice the &ldquo;<strong>since it was written by a&hellip; it may therefore&hellip;</strong>&rdquo; move on documents from the DBQ on industrialization and women, then compare to the model.</p>
+    </div>
+    <div class="src-doc" id="sa-doc"></div>
+    <div class="src-frame">
+      <div class="src-frame-lbl">Choose a sourcing lens</div>
+      <div class="src-lens-bar" id="sa-lens">
+        <button type="button" class="src-lens-btn" data-lens="pov">Point of View</button>
+        <button type="button" class="src-lens-btn" data-lens="purpose">Purpose</button>
+        <button type="button" class="src-lens-btn" data-lens="situation">Historical Situation</button>
+        <button type="button" class="src-lens-btn" data-lens="audience">Audience</button>
+      </div>
+      <div class="src-frame-hint" id="sa-hint">Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.</div>
+      <textarea class="src-textarea" id="sa-text" placeholder="Write your sourcing sentence here&hellip;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
+      <button type="button" class="src-btn src-btn-red" id="sa-reveal">Show Model Answer</button>
+      <button type="button" class="src-btn src-btn-outline" id="sa-next">Next Document &rarr;</button>
+      <span id="sa-count" style="font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--muted)"></span>
+    </div>
+    <div class="src-model" id="sa-model">
+      <div class="src-model-lbl">Model Sourcing Sentence</div>
+      <div class="src-model-txt" id="sa-model-txt"></div>
+    </div>
+  </div>
+  <script type="application/json" id="sadata">
+[
+  {
+    "type": "Memoir",
+    "sl": "Vera Karelina, Russian woman labor activist, memoir (published 1926) describing her organizing of women factory workers in St. Petersburg in the 1890s.",
+    "excerpt": "I began the mass organization of women in the Factory Workers' Society. Each branch elected its own chairwoman. One chairwoman, Maria Soldatova, worked at a cigarette factory. She was forty and illiterate, but had inexhaustible energy and organizational ability. She often said, 'If only I could read and write, I could do so much more for the factory and the Society.' When someone offered to teach her, she studied diligently.",
+    "models": {
+      "pov": "Since this was written by a woman labor activist and revolutionary, it may highlight women's capacity for leadership and self-improvement, therefore it presents factory work as an opening for women's political awakening rather than only as exploitation.",
+      "purpose": "Because its purpose was to celebrate women workers' organizing, it emphasizes an inspiring example (Maria) to show that even illiterate working women could lead.",
+      "situation": "Since it recalls the 1890s but was published in 1926 in the USSR, it reflects a Soviet effort to portray the pre-revolutionary labor movement as the heroic origin of the revolution.",
+      "audience": "Because it was published for a Soviet reading public, it frames women's factory organizing as part of the story the new state wanted to tell about itself."
+    }
+  },
+  {
+    "type": "Photograph / Postcard",
+    "img": "images/u5-src-2.jpg",
+    "sl": "Ottoman postcard showing women and girls at a silk factory in Bursa, supervised by a male manager, 1902.",
+    "excerpt": "A postcard image of women and girls working at a silk-reeling factory in the Ottoman city of Bursa, watched over by a standing male manager in the background.",
+    "models": {
+      "pov": "Since this was produced as a commercial postcard, it may present factory work as orderly and respectable, therefore it shows how women's industrial labor was displayed to the public rather than the harsher conditions workers actually experienced.",
+      "purpose": "Because a postcard was made to be sold and circulated, its purpose was to depict the modern factory as a point of local pride, therefore it emphasizes a neat, closely supervised workforce.",
+      "situation": "Since it dates to 1902, when industrialization was spreading into the Ottoman Empire, it reflects the growing entry of women and girls into wage factory work well beyond Western Europe.",
+      "audience": "Because it was aimed at a general public who bought and sent postcards, it presents an image designed to look respectable and modern, not to expose labor conditions."
+    }
+  },
+  {
+    "type": "Political Essay",
+    "sl": "He-Yin Zhen, Chinese woman political activist, 'What Women Should Know About Communism,' published while she was a political exile in Japan, 1907.",
+    "excerpt": "Everywhere in Shanghai there are silk factories, cotton mills, and weaving factories employing thousands of women who work all day into the evening. The rich have stolen our property and forced the majority into poverty. Poor families send their daughters to work in factories. But factories are built by investors to make a profit, and if you work in a factory you remain at the mercy of its capitalist owners.",
+    "models": {
+      "pov": "Since this was written by a radical woman activist in exile, it may frame women's factory work as capitalist exploitation, therefore it presents industrialization as deepening women's oppression rather than liberating them.",
+      "purpose": "Because its purpose was to persuade women to embrace revolutionary and anti-capitalist ideas, it emphasizes suffering and injustice to build support for radical change.",
+      "situation": "Since it was written in 1907 as industrialization spread in China and revolutionary ideas circulated among exiles, it reflects early Chinese feminist and anarchist-communist critiques of the new factory economy.",
+      "audience": "Because it was aimed at Chinese women readers, it uses direct appeals ('my fellow women') to awaken them to their shared economic exploitation."
+    }
+  },
+  {
+    "type": "Government Survey",
+    "sl": "Report by the provincial governorate of the Vladimir District of the Russian Empire on the occupations of the rural population, 1912.",
+    "excerpt": "By the 1897 census, 52.2% of the district's men worked in manufacturing rather than farming. Because so many men work non-farming jobs, the women in these households must do the majority of the farm field work, traditionally a male task. In many areas women now take leading roles — they plow, plant, and gather grain, and many serve as village council leaders, members, and even tax collectors, positions previously reserved for men.",
+    "models": {
+      "pov": "Since this was written by government officials compiling statistics, it may aim to describe conditions neutrally, therefore it offers relatively reliable evidence that industrialization shifted farm labor and local authority onto rural women.",
+      "purpose": "Because its purpose was to survey occupations for the state, it documents social change matter-of-factly rather than to praise or criticize it.",
+      "situation": "Since it dates to 1912, when men were leaving villages for factory work, it captures how the spread of industry transformed gender roles even in the countryside.",
+      "audience": "Because the audience was government administrators, the report focuses on measurable occupational patterns useful for governing rather than on individual women's experiences."
+    }
+  },
+  {
+    "type": "Memoir",
+    "sl": "Toshio Takai, Japanese woman labor activist, memoir (published 1980) describing textile-factory work in the 1910s and 1920s.",
+    "excerpt": "I was about twelve in 1913 when a recruiter promised easy, pleasant work and thirteen sen a day, with food and dormitories. What we had heard was paradise; the reality was hell. After deductions for food, soap, and sandals, we were left with less than one sen a day. For twelve hours a day I stood among the machines; my legs became stiff and my feet were always swollen.",
+    "models": {
+      "pov": "Since this was written by a woman who became a labor activist, it may stress the exploitation of factory girls, therefore it exposes the gap between recruiters' promises and the grueling reality of industrial work.",
+      "purpose": "Because its purpose was to document the abuses of textile factories, it contrasts the recruiter's rosy pitch with harsh conditions to build sympathy for workers.",
+      "situation": "Since it describes the 1910s-20s (though published in 1980), it reflects Japan's rapid industrialization, which drew poor rural girls into brutal textile-mill labor.",
+      "audience": "Because it was published for a later Japanese public, it preserves and publicizes the experience of factory women whose voices had gone unheard at the time."
+    }
+  },
+  {
+    "type": "Autobiographical Statement",
+    "sl": "Johanna Cornelius, White South African labor activist, statement issued when she was elected a national organizer for a garment-workers' union, c. 1940.",
+    "excerpt": "By age 18 (in 1930) I left the farm for the clothing factories of Johannesburg to earn my own living. How proud I was of my first wages! But then the depression hit the industry and I was laid off. I could not become sentimental about the beauties of the countryside. I am not afraid of the towns nor of the march of progress. I refuse to remain a servant in the kitchen.",
+    "models": {
+      "pov": "Since this was written by a labor organizer, it may celebrate factory work as independence for women, therefore it presents industrial employment as liberating despite hardship.",
+      "purpose": "Because it was a press statement for her union election, its purpose was to inspire and represent working women, so it frames leaving domestic service for the factory as pride and progress.",
+      "situation": "Since it dates to around 1940, after the Great Depression struck South African industry, it reflects both the opportunities and the insecurity factory work offered women.",
+      "audience": "Because it was prepared for the press and union members, it presents Cornelius as a confident spokeswoman for working women's independence."
+    }
+  },
+  {
+    "type": "Autobiography",
+    "sl": "Ellen Kuzwayo, Black South African educator and women's rights activist, autobiography (published 1985) on the history of Johannesburg.",
+    "excerpt": "After gold was discovered in 1886, Black men streamed to the mines, leaving families to be cared for by the senior woman in each home. When communal land was taken from Black control, Black women were suddenly plunged into new roles — mothers, family administrators, community counselors. For many the burden proved too much, so they moved to the cities, often finding work as domestic servants at the back of White employers' houses.",
+    "models": {
+      "pov": "Since this was written by a Black South African women's rights activist, it may emphasize the burdens apartheid-era policies placed on Black women, therefore it shows how industrialization and racial land laws together disrupted Black family and women's lives.",
+      "purpose": "Because its purpose was to record and reflect on this history, it highlights the responsibilities forced onto Black women to build understanding and solidarity.",
+      "situation": "Since it was published in 1985 under apartheid, it reflects a critical account of how mining industrialization and land dispossession reshaped Black women's roles across the twentieth century.",
+      "audience": "Because it was aimed at a broad readership, including those sympathetic to the anti-apartheid struggle, it frames Black women's experience within a larger story of injustice and resilience."
+    }
+  }
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('sadata');
+    if (!dataEl) return;
+    var SRC_DOCS = JSON.parse(dataEl.textContent);
+    var BLANK = 'Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.';
+    var HINTS = {
+      pov: BLANK,
+      purpose: 'Because this document was created in order to <strong>[goal]</strong>, its purpose was <strong>[X]</strong>, therefore it <strong>[emphasizes or leaves out]</strong>.',
+      situation: 'Since this was written in <strong>[when / amid what events]</strong>, the historical situation is significant because <strong>[how that context shapes it]</strong>.',
+      audience: 'Because this was created for <strong>[who]</strong>, the audience is significant because <strong>[how that shapes the content or tone]</strong>.'
+    };
+    var idx = 0, lens = null;
+    function render(){
+      var d = SRC_DOCS[idx];
+      document.getElementById('sa-doc').innerHTML =
+        '<div class="src-doc-lbl">' + d.type + '</div>' +
+        '<div class="src-doc-src">' + d.sl + '</div>' +
+        (d.img ? '<img src="' + d.img + '" alt="' + d.type + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
+        (d.excerpt ? '<div class="src-doc-txt">' + d.excerpt + '</div>' : '');
+      document.getElementById('sa-text').value = '';
+      document.getElementById('sa-model').classList.remove('show');
+      document.getElementById('sa-model-txt').textContent = '';
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(b){ b.classList.remove('active'); });
+      lens = null;
+      document.getElementById('sa-hint').innerHTML = BLANK;
+      document.getElementById('sa-count').textContent = 'Document ' + (idx + 1) + ' of ' + SRC_DOCS.length;
+    }
+    document.getElementById('sa-lens').addEventListener('click', function(e){
+      var b = e.target.closest('.src-lens-btn'); if (!b) return;
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); lens = b.dataset.lens;
+      document.getElementById('sa-hint').innerHTML = HINTS[lens];
+    });
+    document.getElementById('sa-reveal').addEventListener('click', function(){
+      var d = SRC_DOCS[idx]; var L = lens || 'pov';
+      if (!lens){ document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.lens==='pov'); }); document.getElementById('sa-hint').innerHTML = HINTS.pov; lens='pov'; }
+      document.getElementById('sa-model-txt').textContent = d.models[L];
+      document.getElementById('sa-model').classList.add('show');
+    });
+    document.getElementById('sa-next').addEventListener('click', function(){ idx = (idx + 1) % SRC_DOCS.length; render(); });
+    render();
   })();
   </script>
 </div>

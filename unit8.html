@@ -490,6 +490,28 @@ button{font-family:inherit;cursor:pointer}
 .fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
 .fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
 .fc-timer-msg.ready{color:var(--green)}
+/* ── SOURCE ANALYSIS (isolation drill) ── */
+.src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
+.src-doc-lbl{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.src-doc-src{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
+.src-doc-img{display:block;max-width:100%;max-height:60vh;margin:0 auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.src-doc-txt{font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.8;color:var(--ink)}
+.src-frame{background:#f5f0e6;border:2px dashed var(--border2);padding:20px 24px;margin:16px 0}
+.src-frame-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.src-frame-hint{font-size:.82rem;color:var(--mid);margin-bottom:12px;line-height:1.5}
+.src-lens-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.src-lens-btn{padding:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--border2);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
+.src-lens-btn:hover,.src-lens-btn.active{border-color:var(--red);background:#faf0f3;color:var(--red)}
+.src-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);padding:14px;font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.7;resize:vertical;box-sizing:border-box}
+.src-textarea:focus{border-color:var(--red);outline:none}
+.src-model{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-top:16px;display:none}
+.src-model.show{display:block}
+.src-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+.src-model-txt{font-family:'Source Serif 4',serif;font-size:.88rem;line-height:1.7;color:var(--ink)}
+.src-btn{padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
+.src-btn-red{background:var(--red);color:#fff}
+.src-btn-outline{background:none;border:1.5px solid var(--red);color:var(--red)}
+.src-btn:hover{opacity:.85}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -1240,6 +1262,168 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- SPICE-T PAGE -->
+<!-- SOURCE ANALYSIS PAGE -->
+<div id="pg-source" class="page">
+  <div class="inner" style="max-width:820px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Sourcing Practice</div>
+      <h2>Go Beyond Identification</h2>
+      <p>Don&rsquo;t just name the source feature &mdash; explain <em>why it matters</em>. Practice the &ldquo;<strong>since it was written by a&hellip; it may therefore&hellip;</strong>&rdquo; move on documents from the DBQ on communism in the USSR and China, then compare to the model.</p>
+    </div>
+    <div class="src-doc" id="sa-doc"></div>
+    <div class="src-frame">
+      <div class="src-frame-lbl">Choose a sourcing lens</div>
+      <div class="src-lens-bar" id="sa-lens">
+        <button type="button" class="src-lens-btn" data-lens="pov">Point of View</button>
+        <button type="button" class="src-lens-btn" data-lens="purpose">Purpose</button>
+        <button type="button" class="src-lens-btn" data-lens="situation">Historical Situation</button>
+        <button type="button" class="src-lens-btn" data-lens="audience">Audience</button>
+      </div>
+      <div class="src-frame-hint" id="sa-hint">Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.</div>
+      <textarea class="src-textarea" id="sa-text" placeholder="Write your sourcing sentence here&hellip;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
+      <button type="button" class="src-btn src-btn-red" id="sa-reveal">Show Model Answer</button>
+      <button type="button" class="src-btn src-btn-outline" id="sa-next">Next Document &rarr;</button>
+      <span id="sa-count" style="font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--muted)"></span>
+    </div>
+    <div class="src-model" id="sa-model">
+      <div class="src-model-lbl">Model Sourcing Sentence</div>
+      <div class="src-model-txt" id="sa-model-txt"></div>
+    </div>
+  </div>
+  <script type="application/json" id="sadata">
+[
+  {
+    "type": "Propaganda Poster",
+    "img": "images/u8-src-1.jpg",
+    "sl": "S. M. Prokhorov, Soviet artist, 'Students from a Workers' School,' poster for public display, 1928.",
+    "excerpt": "A Soviet poster promoting workers' schools — evening adult-learning institutions that prepared factory workers to enroll in state-run universities.",
+    "models": {
+      "pov": "Since this was created by a Soviet state artist for public display, it may present an idealized image of communist life, therefore it shows how the state used art to advertise expanding education and opportunity for workers rather than to document reality.",
+      "purpose": "Because it is a propaganda poster, its purpose was to celebrate and encourage worker education, therefore it highlights the benefits of the new system while saying nothing about its costs.",
+      "situation": "Since it was made in 1928, early in Soviet rule as the state was rapidly expanding literacy and adult education, it reflects the regime's drive to build a modern, educated industrial workforce.",
+      "audience": "Because it was aimed at the general Soviet public, it uses accessible, uplifting imagery to build ordinary workers' enthusiasm for state programs."
+    }
+  },
+  {
+    "type": "Memoir",
+    "sl": "Ya. I. Drobinskiy, member of the Soviet Communist Party, memoir of his political detention and trial in the 1930s, recorded during the late-1950s de-Stalinization campaign but never published.",
+    "excerpt": "One of the inmates in our cell was an elderly peasant from a collective farm; the authorities were forcing his son to testify against him. When the old man saw his tortured son, something inside him broke and he told the investigator, 'It's true, all of it, I confess,' and signed the confession they had prepared for him.",
+    "models": {
+      "pov": "Since this was written by a Communist Party member who was himself imprisoned, it may focus on the cruelty and injustice of the purges, therefore it exposes the human cost of Stalin's terror from an insider's perspective.",
+      "purpose": "Because it was recorded during de-Stalinization to document Stalinist abuses, its purpose was to expose the terror, therefore it emphasizes coerced confessions and suffering rather than any achievements of the system.",
+      "situation": "Since it recalls the 1930s purges but was recorded in the late 1950s, it reflects the moment when the USSR was officially criticizing Stalin — yet the fact that it was 'never published' shows the limits of that openness.",
+      "audience": "Because it was recorded for a Soviet journalist during de-Stalinization but suppressed, it was aimed at a reform-minded audience the state ultimately decided was not ready to hear such accounts."
+    }
+  },
+  {
+    "type": "Political Essay",
+    "sl": "Alexandra Kollontai, Russian Marxist and politician, essay 'The Soviet Woman — a Full and Equal Citizen of Her Country,' 1946.",
+    "excerpt": "In opening up to women access to every sphere of creative activity, our state has ensured the conditions for her to fulfill her natural obligation — motherhood. Soviet law recognized that motherhood is not a private matter but a social duty. Women receive state benefits and paid maternity leave, and their jobs are kept open until they return.",
+    "models": {
+      "pov": "Since this was written by a committed Marxist politician, it may celebrate the regime's record on women, therefore it presents communism as having liberated women rather than examining where it fell short.",
+      "purpose": "Because its purpose was to promote the Soviet system's achievements for women, it emphasizes maternity benefits and equality while ignoring the 'double burden' of paid work plus housework that women still carried.",
+      "situation": "Since it was written in 1946, just after WWII when Soviet women had filled the workforce and the state needed to rebuild, it reflects official efforts to combine female labor with a renewed emphasis on motherhood and population growth.",
+      "audience": "Because it was aimed at both Soviet and foreign readers, it functions as propaganda showcasing communism as more progressive on women's rights than the capitalist West."
+    }
+  },
+  {
+    "type": "Newspaper Article",
+    "sl": "Article describing a 'contention meeting,' published in the Shenyang Daily, a regional Chinese newspaper, 1957.",
+    "excerpt": "At a meeting, two university party members raised 'how to abolish the absolute leadership of the Party.' One said: 'Outwardly we have democratic elections, but actually the Party exercises dictatorship... The Constitution is just a scrap of paper. The Party has become the emperor of China — a sacred body that all must obey.'",
+    "models": {
+      "pov": "Since these were Chinese citizens invited to criticize the Party during the brief Hundred Flowers period, their point of view is unusually critical, therefore the source reveals the resentment of Party dictatorship that communism's promises had not resolved.",
+      "purpose": "Because the speakers' purpose was to demand real democracy and limits on Party power, the article records a direct challenge to one-party rule — criticism the state would soon punish in the Anti-Rightist Campaign.",
+      "situation": "Since it appeared in 1957 during the Hundred Flowers Campaign, when Mao briefly encouraged open criticism, it captures a rare moment of permitted dissent that was quickly reversed.",
+      "audience": "Because it was published in a regional newspaper for a Chinese public, it briefly aired criticisms the Party would later use to identify and suppress its critics."
+    }
+  },
+  {
+    "type": "Government Report",
+    "sl": "General Office of the Central Committee of the Chinese Communist Party, internal summary report on food shortages, Beijing, 1958.",
+    "excerpt": "Anhui: 1.3 million people without food supplies. Hebei: over 474,000 families took part in food riots; entire families have become beggars. Shandong: over 150,000 people forced to flee. Local officials failed to discover the real food situation — afraid of being accused of disloyalty, they refused to believe complaints about shortages.",
+    "models": {
+      "pov": "Since this was an internal Party report not meant for the public, it may be more honest about the crisis than official propaganda, therefore it reveals the famine and administrative failures of the Great Leap Forward that the regime hid from the outside world.",
+      "purpose": "Because its purpose was to inform Party leaders of real conditions so they could respond, it frankly documents famine and riots rather than presenting the optimistic picture shown in public media.",
+      "situation": "Since it was written in 1958 at the start of the Great Leap Forward, it reflects the catastrophic food shortages caused by forced collectivization and unrealistic production targets.",
+      "audience": "Because the audience was the Party's own leadership, the report could admit that officials hid the truth out of fear — an admission never made in public sources."
+    }
+  },
+  {
+    "type": "Political Magazine Article",
+    "sl": "Xia Ping, Chinese woman member of the Communist Party, 'Make Energetic Efforts to Train Women Cadres,' in Hongqi (Red Banner), 1973.",
+    "excerpt": "Some of our men comrades claim that women's 'family complications' make it hard to promote them at work. The socialist system has in fact been liberating to Chinese women, most of whom now do productive labor. However, due to old ideas and anti-women prejudice, the problem of household chores has not been solved. Men and women must share household chores.",
+    "models": {
+      "pov": "Since this was written by a woman Party member, it may both praise communism and push for further change, therefore it shows that even loyal supporters admitted the revolution had not fully ended gender inequality.",
+      "purpose": "Because its purpose was to argue for promoting more women, it acknowledges lingering sexism in order to press the Party to live up to its stated ideals.",
+      "situation": "Since it was written in 1973, more than two decades after the communist revolution, it reflects both the real gains women had made and the persistence of traditional attitudes about housework.",
+      "audience": "Because it appeared in Hongqi, a leading Party theoretical magazine, its audience was Party members and officials it hoped to persuade to advance women."
+    }
+  },
+  {
+    "type": "Newspaper Article",
+    "sl": "Richard Kosolapov, Soviet journalist and former editor of the Party journal Kommunist, article in Pravda, 1983.",
+    "excerpt": "Some discussions favor moving toward 'private ownership' and 'private enterprise.' These are dangerous. Bribe takers, thieves, and parasites stand ready to steal the fruits of others' labor. These advocates of private ownership, materialism, and consumerism are enemies of the socialist state. Socialist society is a working society, not a consumer society.",
+    "models": {
+      "pov": "Since this was written by a hardline Party journalist, it may defend orthodox communism against reform, therefore it reveals the ideological anxiety within the late-Soviet leadership as pressures for economic change grew.",
+      "purpose": "Because its purpose was to warn against private enterprise and consumerism, it attacks reformers in order to reinforce central control over the economy.",
+      "situation": "Since it was written in 1983, as the Soviet economy was stagnating and debates about reform were emerging (just before Gorbachev), it reflects the struggle between defenders of the old system and those seeking change.",
+      "audience": "Because it appeared in Pravda, the main Party newspaper read across the USSR, its audience was the Soviet public, whom it sought to keep loyal to collectivist values."
+    }
+  }
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('sadata');
+    if (!dataEl) return;
+    var SRC_DOCS = JSON.parse(dataEl.textContent);
+    var BLANK = 'Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.';
+    var HINTS = {
+      pov: BLANK,
+      purpose: 'Because this document was created in order to <strong>[goal]</strong>, its purpose was <strong>[X]</strong>, therefore it <strong>[emphasizes or leaves out]</strong>.',
+      situation: 'Since this was written in <strong>[when / amid what events]</strong>, the historical situation is significant because <strong>[how that context shapes it]</strong>.',
+      audience: 'Because this was created for <strong>[who]</strong>, the audience is significant because <strong>[how that shapes the content or tone]</strong>.'
+    };
+    var idx = 0, lens = null;
+    function render(){
+      var d = SRC_DOCS[idx];
+      document.getElementById('sa-doc').innerHTML =
+        '<div class="src-doc-lbl">' + d.type + '</div>' +
+        '<div class="src-doc-src">' + d.sl + '</div>' +
+        (d.img ? '<img src="' + d.img + '" alt="' + d.type + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
+        (d.excerpt ? '<div class="src-doc-txt">' + d.excerpt + '</div>' : '');
+      document.getElementById('sa-text').value = '';
+      document.getElementById('sa-model').classList.remove('show');
+      document.getElementById('sa-model-txt').textContent = '';
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(b){ b.classList.remove('active'); });
+      lens = null;
+      document.getElementById('sa-hint').innerHTML = BLANK;
+      document.getElementById('sa-count').textContent = 'Document ' + (idx + 1) + ' of ' + SRC_DOCS.length;
+    }
+    document.getElementById('sa-lens').addEventListener('click', function(e){
+      var b = e.target.closest('.src-lens-btn'); if (!b) return;
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); lens = b.dataset.lens;
+      document.getElementById('sa-hint').innerHTML = HINTS[lens];
+    });
+    document.getElementById('sa-reveal').addEventListener('click', function(){
+      var d = SRC_DOCS[idx]; var L = lens || 'pov';
+      if (!lens){ document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.lens==='pov'); }); document.getElementById('sa-hint').innerHTML = HINTS.pov; lens='pov'; }
+      document.getElementById('sa-model-txt').textContent = d.models[L];
+      document.getElementById('sa-model').classList.add('show');
+    });
+    document.getElementById('sa-next').addEventListener('click', function(){ idx = (idx + 1) % SRC_DOCS.length; render(); });
+    render();
+  })();
+  </script>
+</div>
+
 <div class="page" id="pg-spice">
   <div class="inner">
     <div class="pg-nav-row">

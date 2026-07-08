@@ -205,11 +205,7 @@ button{font-family:inherit;cursor:pointer}
   </div>
   <nav class="sb-nav">
     <div class="sb-group-label">Sections</div>
-    <div class="nav-item active" data-target="pg-home" onclick="showTab('pg-home')"><span class="nav-dot"></span>Overview</div>
-    <div class="nav-item" data-target="pg-mcq" onclick="showTab('pg-mcq')"><span class="nav-dot"></span>MCQ Practice</div>
-    <div class="nav-item" data-target="pg-walk" onclick="showTab('pg-walk')"><span class="nav-dot"></span>MCQ Walkthrough</div>
-    <div class="nav-item" data-target="pg-brain" onclick="showTab('pg-brain')"><span class="nav-dot"></span>Brain Dump</div>
-    <div class="nav-item" data-target="pg-spice" onclick="showTab('pg-spice')"><span class="nav-dot"></span>SPICE-T Analysis</div>
+    <div id="sb-nav-items"></div>
   </nav>
   <div class="sb-footer">
     <a href="index.html" class="sb-back-btn">← All Units</a>
@@ -480,15 +476,84 @@ button{font-family:inherit;cursor:pointer}
 <script>
 /* ── PAGE NAV ── */
 var PAGE_TITLES = {'pg-home':'Overview','pg-writing':'Writing Drills','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
-function showTab(id) {
+/* ── Consolidated 6-group navigation (portable across all units) ── */
+var GROUPS = [
+  {label:'Overview',    pages:['pg-home']},
+  {label:'Practice',    pages:['pg-mcq','pg-walk','pg-web']},
+  {label:'Writing',     pages:['pg-write','pg-writing']},
+  {label:'Study Guide', pages:['pg-guide','pg-tips']},
+  {label:'Sources',     pages:['pg-source','pg-visual','pg-maps']},
+  {label:'Review & Recall', pages:['pg-flash','pg-brain','pg-spice','pg-games']}
+];
+var SUBLABELS = {
+  'pg-mcq':'Questions','pg-walk':'How to Attack an MCQ','pg-web':'Web Review',
+  'pg-guide':'Study Guide','pg-tips':'Exam Tips',
+  'pg-source':'Documents','pg-visual':'Visual Sources','pg-maps':'Maps',
+  'pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-spice':'SPICE-T','pg-games':'Games'
+};
+var GROUPS_LIVE = GROUPS.map(function(g){
+  return {label:g.label, pages:g.pages.filter(function(id){ return document.getElementById(id); })};
+}).filter(function(g){ return g.pages.length; });
+function groupOf(id){
+  for (var i=0;i<GROUPS_LIVE.length;i++){ if (GROUPS_LIVE[i].pages.indexOf(id)>-1) return GROUPS_LIVE[i]; }
+  return null;
+}
+(function injectSubtabCSS(){
+  if (document.getElementById('subtab-css')) return;
+  var s=document.createElement('style'); s.id='subtab-css';
+  s.textContent='.subtab-bar{display:flex;flex-wrap:wrap;align-items:center;gap:0 26px;background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:62px;z-index:90;box-shadow:0 1px 3px rgba(0,0,0,.04)}.subtab-bar:empty{display:none}.subtab{appearance:none;background:none;border:none;border-bottom:3px solid transparent;padding:11px 2px;font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:color .13s,border-color .13s;white-space:nowrap}.subtab:hover{color:var(--ink)}.subtab.active{color:var(--red);border-bottom-color:var(--red)}';
+  document.head.appendChild(s);
+})();
+(function ensureSubtabBar(){
+  if (document.getElementById('subtab-bar')) return;
+  var tb=document.querySelector('.top-bar');
+  if (!tb || !tb.parentNode) return;
+  var bar=document.createElement('div'); bar.id='subtab-bar'; bar.className='subtab-bar';
+  tb.parentNode.insertBefore(bar, tb.nextSibling);
+})();
+(function renderNav(){
+  var wrap=document.getElementById('sb-nav-items');
+  if (!wrap) return;
+  wrap.innerHTML='';
+  GROUPS_LIVE.forEach(function(g){
+    var it=document.createElement('div');
+    it.className='nav-item'; it.dataset.group=g.label;
+    var dot=document.createElement('span'); dot.className='nav-dot';
+    it.appendChild(dot); it.appendChild(document.createTextNode(g.label));
+    it.addEventListener('click', function(){ showTab(g.pages[0]); });
+    wrap.appendChild(it);
+  });
+})();
+function renderSubtabs(group, activeId){
+  var bar=document.getElementById('subtab-bar');
+  if (!bar) return;
+  bar.innerHTML='';
+  if (!group || group.pages.length<2) return;
+  group.pages.forEach(function(id){
+    var b=document.createElement('button'); b.type='button';
+    b.className='subtab'+(id===activeId?' active':'');
+    b.textContent=SUBLABELS[id]||(PAGE_TITLES[id]||id);
+    b.addEventListener('click', function(){ showTab(id); });
+    bar.appendChild(b);
+  });
+}
+function showTab(id){
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-  var el = document.getElementById(id);
-  if (el) el.classList.add('active');
-  document.querySelectorAll('.nav-item[data-target]').forEach(function(n){ n.classList.toggle('active', n.dataset.target === id); });
-  var tt = document.getElementById('top-title');
-  if (tt) tt.textContent = PAGE_TITLES[id] || '';
+  var t=document.getElementById(id);
+  if (t) t.classList.add('active');
+  var group=groupOf(id);
+  document.querySelectorAll('#sb-nav-items .nav-item').forEach(function(n){
+    n.classList.toggle('active', !!group && n.dataset.group===group.label);
+  });
+  renderSubtabs(group, id);
+  var tt=document.getElementById('top-title');
+  if (tt) tt.textContent=(group?group.label:(PAGE_TITLES[id]||''));
+  if (id==='pg-guide' && typeof renderGuide==='function') renderGuide();
+  if (id==='pg-progress' && typeof teacherUnlocked!=='undefined' && teacherUnlocked && typeof renderProgress==='function') renderProgress();
   window.scrollTo(0,0);
 }
+window.showTab=showTab;
+showTab('pg-home');
 document.querySelectorAll('[data-tab]').forEach(function(el){
   el.addEventListener('click', function(){ showTab(this.dataset.tab); });
 });

@@ -253,6 +253,23 @@ button{font-family:inherit;cursor:pointer}
 .top-bar-score{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(15,91,94,.25)}
 .top-bar-score strong{font-size:.8rem}
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}.top-bar{padding:0 18px}}
+/* ── EXAM TIPS (FRQ playbook) ── */
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:13px;margin-bottom:22px}
+.tip-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:18px}
+.tip-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:9px}
+.tip-card p,.tip-card li{font-size:.84rem;line-height:1.7;color:var(--mid)}
+.tip-card ul{padding-left:15px;margin-top:5px}
+.tip-card li{margin-bottom:3px}
+.tip-formula{background:var(--ink);color:#fff;padding:12px 15px;margin-top:13px;font-size:.81rem;line-height:1.65}
+.tip-formula em{color:#d4b84a;font-style:normal;font-family:'IBM Plex Mono',monospace}
+.tip-hipp{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+.tip-hipp-item{background:var(--paper);border:1px solid var(--border);padding:7px 9px}
+.tip-hipp-item strong{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:2px}
+.tip-hipp-item p{font-size:.77rem;color:var(--mid)}
+.complexity-box{background:var(--ink);color:#fff;padding:19px 21px;margin-top:6px}
+.complexity-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:9px}
+.complexity-body{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.85)}
+.complexity-note{color:rgba(255,255,255,.42);font-size:.78rem;margin-top:7px;display:block}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -568,6 +585,33 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- ══ SPICE-T ══ -->
+<!-- EXAM TIPS PAGE -->
+<div class="page" id="pg-tips">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Writing Tips</div>
+      <h2>Mr. T&rsquo;s FRQ Playbook</h2>
+      <p>Everything you need to write the SAQ, DBQ, and LEQ on exam day.</p>
+    </div>
+    <div class="tip-grid">
+      <div class="tip-card"><h3>&#128221; SAQ — Short Answer</h3><p>Answer ONLY what is asked. No intros, no conclusions.</p><ul><li><strong>Identify</strong> = 1–2 sentences</li><li><strong>Describe</strong> = 2 sentences</li><li><strong>Explain</strong> = 2–3 sentences with "because"</li></ul><p style="margin-top:9px">You must answer Q1 and Q2. Choose between Q3 or Q4 for the last one.</p></div>
+      <div class="tip-card"><h3>&#128196; Thesis Formula</h3><p>Works for both DBQ and LEQ. Must be historically defensible with a line of reasoning.</p><div class="tip-formula">&ldquo;The [subject] <em>[adverb]</em> affected [object] as seen through <em>[group 1]</em> and <em>[group 2]</em>.&rdquo;</div><p style="margin-top:9px">Adverb evaluates extent: <em>significantly, fundamentally, minimally, primarily, negatively…</em></p></div>
+      <div class="tip-card"><h3>&#128336; Contextualization</h3><p>A historical process before/during the prompt period that <em>led to</em> the topic.</p><ul><li>Don't start at "the dawn of man"</li><li>Stay within ~50 years of the prompt</li><li>Must be 2–3 full sentences</li><li>Explain HOW it connects to the prompt</li></ul></div>
+      <div class="tip-card"><h3>&#128196; DBQ Evidence</h3><ul><li><strong>Points 1–2:</strong> Accurately use 4+ of 7 docs.</li><li><strong>Point 3:</strong> Outside evidence — a relevant fact NOT in the documents</li></ul></div>
+      <div class="tip-card"><h3>&#128269; HIPP — Sourcing</h3><p>Apply to at least 2 documents. Pick ONE element per doc.</p><div class="tip-hipp"><div class="tip-hipp-item"><strong>H</strong><p>Historical Situation</p></div><div class="tip-hipp-item"><strong>I</strong><p>Intended Audience</p></div><div class="tip-hipp-item"><strong>P</strong><p>Point of View</p></div><div class="tip-hipp-item"><strong>P</strong><p>Purpose</p></div></div><p style="margin-top:9px;font-size:.79rem">End with: "This alters/supports my understanding because…"</p></div>
+      <div class="tip-card"><h3>&#128221; LEQ — Long Essay</h3><p>No documents — everything from memory.</p><ul><li><strong>Causation:</strong> What caused / what resulted</li><li><strong>CCOT:</strong> What changed and what stayed the same</li><li><strong>Comparison:</strong> Similarities and differences</li></ul></div>
+    </div>
+    <div class="complexity-box">
+      <div class="complexity-label">Complexity Point Options</div>
+      <div class="complexity-body">&#10022; Explain multiple causes/effects, similarities/differences, or continuities/changes<br/>&#10022; Explain both cause AND effect, or both similarity AND difference<br/>&#10022; Connect across time periods or geographic areas<br/>&#10022; Use all 7 documents effectively (DBQ) or HIPP 4+ documents<br/><span class="complexity-note">A counterargument paragraph can earn complexity — but only if it is a full paragraph with evidence, not just a sentence.</span></div>
+    </div>
+  </div>
+</div>
+
 <div class="page" id="pg-spice">
   <div class="inner">
     <div class="pg-nav-row">

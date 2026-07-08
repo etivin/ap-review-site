@@ -319,6 +319,28 @@ button{font-family:inherit;cursor:pointer}
 .vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
 .vs-hipp-model.show{display:block}
 .vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
+/* ── SOURCE ANALYSIS (isolation drill) ── */
+.src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
+.src-doc-lbl{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.src-doc-src{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
+.src-doc-img{display:block;max-width:100%;max-height:60vh;margin:0 auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.src-doc-txt{font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.8;color:var(--ink)}
+.src-frame{background:#f5f0e6;border:2px dashed var(--border2);padding:20px 24px;margin:16px 0}
+.src-frame-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.src-frame-hint{font-size:.82rem;color:var(--mid);margin-bottom:12px;line-height:1.5}
+.src-lens-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.src-lens-btn{padding:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--border2);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
+.src-lens-btn:hover,.src-lens-btn.active{border-color:var(--red);background:#faf0f3;color:var(--red)}
+.src-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);padding:14px;font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.7;resize:vertical;box-sizing:border-box}
+.src-textarea:focus{border-color:var(--red);outline:none}
+.src-model{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-top:16px;display:none}
+.src-model.show{display:block}
+.src-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+.src-model-txt{font-family:'Source Serif 4',serif;font-size:.88rem;line-height:1.7;color:var(--ink)}
+.src-btn{padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
+.src-btn-red{background:var(--red);color:#fff}
+.src-btn-outline{background:none;border:1.5px solid var(--red);color:var(--red)}
+.src-btn:hover{opacity:.85}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -740,6 +762,167 @@ button{font-family:inherit;cursor:pointer}
       <div class="complexity-body">&#10022; Explain multiple causes/effects, similarities/differences, or continuities/changes<br/>&#10022; Explain both cause AND effect, or both similarity AND difference<br/>&#10022; Connect across time periods or geographic areas<br/>&#10022; Use all 7 documents effectively (DBQ) or HIPP 4+ documents<br/><span class="complexity-note">A counterargument paragraph can earn complexity — but only if it is a full paragraph with evidence, not just a sentence.</span></div>
     </div>
   </div>
+</div>
+
+<!-- SOURCE ANALYSIS PAGE -->
+<div id="pg-source" class="page">
+  <div class="inner" style="max-width:820px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Sourcing Practice</div>
+      <h2>Go Beyond Identification</h2>
+      <p>Don&rsquo;t just name the source feature &mdash; explain <em>why it matters</em>. Practice the &ldquo;<strong>since it was written by a&hellip; it may therefore&hellip;</strong>&rdquo; move on these Unit 2 sources, then compare to the model.</p>
+    </div>
+    <div class="src-doc" id="sa-doc"></div>
+    <div class="src-frame">
+      <div class="src-frame-lbl">Choose a sourcing lens</div>
+      <div class="src-lens-bar" id="sa-lens">
+        <button type="button" class="src-lens-btn" data-lens="pov">Point of View</button>
+        <button type="button" class="src-lens-btn" data-lens="purpose">Purpose</button>
+        <button type="button" class="src-lens-btn" data-lens="situation">Historical Situation</button>
+        <button type="button" class="src-lens-btn" data-lens="audience">Audience</button>
+      </div>
+      <div class="src-frame-hint" id="sa-hint">Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.</div>
+      <textarea class="src-textarea" id="sa-text" placeholder="Write your sourcing sentence here&hellip;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
+      <button type="button" class="src-btn src-btn-red" id="sa-reveal">Show Model Answer</button>
+      <button type="button" class="src-btn src-btn-outline" id="sa-next">Next Document &rarr;</button>
+      <span id="sa-count" style="font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--muted)"></span>
+    </div>
+    <div class="src-model" id="sa-model">
+      <div class="src-model-lbl">Model Sourcing Sentence</div>
+      <div class="src-model-txt" id="sa-model-txt"></div>
+    </div>
+  </div>
+  <script type="application/json" id="sadata">
+[
+  {
+    "type": "Travel Account",
+    "sl": "Ibn Battuta, 14th-century Muslim traveler.",
+    "excerpt": "I, who have traveled through the lands of the Turks, the Persians, and the Indians, everywhere found brothers in the faith who welcomed me and honored the law of Islam.",
+    "models": {
+      "pov": "Since this was written by a devout Muslim traveler, it may emphasize the unity and hospitality of the Islamic world, therefore it shows how a shared faith (Dar al-Islam) connected distant regions along trade routes.",
+      "purpose": "Because Ibn Battuta wrote to record his travels for fellow Muslims, its purpose was to celebrate the reach of Islam, so it highlights welcome and shared law rather than conflict or difference.",
+      "situation": "Since it dates to the 14th century, when Islam had spread widely along trade and pilgrimage routes, it reflects the vast, interconnected Muslim world of the era.",
+      "audience": "Because it was aimed at educated Muslim readers, it stresses the bonds of faith they would recognize and value."
+    }
+  },
+  {
+    "type": "Historical Account",
+    "sl": "Account of Mansa Musa's pilgrimage through Cairo, 14th century.",
+    "excerpt": "So generous was the king in his gifts of gold as he passed through Cairo that the price of gold fell and did not recover for many years.",
+    "models": {
+      "pov": "Since this was recorded by observers dazzled by Mansa Musa's wealth, it may exaggerate his spending, therefore it reflects how the gold of Mali astonished the wider Islamic world and advertised West Africa's role in trans-Saharan trade.",
+      "purpose": "Because its purpose was to convey Mali's astonishing wealth, it dwells on the flood of gold and its effect on Cairo's economy.",
+      "situation": "Since it describes a 14th-century hajj, it reflects Mali's peak wealth from controlling trans-Saharan gold and salt and the spread of Islam in West Africa.",
+      "audience": "Because it circulated among Mediterranean and Islamic audiences, it fed a lasting reputation of Mali as a land of fabulous riches."
+    }
+  },
+  {
+    "type": "Travel Account",
+    "sl": "Traveler's account of the Mongol Empire.",
+    "excerpt": "Under the Great Khan the roads were made so safe that a maiden bearing a nugget of gold might travel from one end of the empire to the other without fear of harm.",
+    "models": {
+      "pov": "Since this is a traveler's account impressed by Mongol order, it may idealize the safety of the roads, therefore it emphasizes the Pax Mongolica that revived long-distance trade while downplaying the violence of Mongol conquest.",
+      "purpose": "Because its purpose was to convey how secure travel had become, it uses a striking image — a maiden with gold — to dramatize the safety of the trade routes.",
+      "situation": "Since it describes the era of Mongol rule, it reflects the Pax Mongolica, when a unified empire secured the Silk Roads and boosted Eurasian exchange.",
+      "audience": "Because it was meant for readers curious about distant lands, it emphasizes the order that made trade and travel possible."
+    }
+  },
+  {
+    "type": "Voyage Account",
+    "sl": "Account of an Indian Ocean voyage.",
+    "excerpt": "The captain waited for the turning of the winds, for only when they blew toward the west could he make the crossing to the coast of Africa, returning months later when they reversed.",
+    "models": {
+      "pov": "Since this is a sailor's or merchant's account, it may focus on the practical knowledge of the winds, therefore it shows how mastery of the monsoons structured the rhythm of Indian Ocean trade.",
+      "purpose": "Because its purpose was to describe how the crossing was timed, it emphasizes the seasonal winds that made planned voyages possible.",
+      "situation": "Since it describes Indian Ocean sailing, it reflects the monsoon-based trade network linking East Africa, Arabia, India, and China.",
+      "audience": "Because it was aimed at those interested in maritime trade, it stresses the technical know-how essential to the voyage."
+    }
+  },
+  {
+    "type": "Description",
+    "sl": "Description of an Indian Ocean port city.",
+    "excerpt": "Many of the merchants married local women and settled in the port, raising families who spoke both tongues and worshipped in new ways.",
+    "models": {
+      "pov": "Since this describes a cosmopolitan port, it may emphasize cultural blending, therefore it shows how Indian Ocean trade produced syncretic societies like the Swahili city-states.",
+      "purpose": "Because its purpose was to depict the mixing of peoples, it highlights intermarriage and new customs rather than conflict.",
+      "situation": "Since it describes an Indian Ocean trading port, it reflects the diasporic merchant communities and cultural syncretism created by long-distance maritime trade.",
+      "audience": "Because it was written to convey how connection changed local life, it emphasizes the blended language and religion that trade produced."
+    }
+  },
+  {
+    "type": "Description",
+    "sl": "Description of the spread of the Black Death.",
+    "excerpt": "The pestilence traveled with the caravans and the ships, carried by the fleas upon the rats, until it had emptied whole cities from Cathay to the shores of Europe.",
+    "models": {
+      "pov": "Since this describes the plague's spread across Eurasia, it may stress the link between trade and disease, therefore it shows the biological consequences of the same connectivity that carried goods and ideas.",
+      "purpose": "Because its purpose was to explain how the plague spread so far, it emphasizes the caravans and ships that carried it from China to Europe.",
+      "situation": "Since it describes the 14th-century Black Death, it reflects how trade networks revived under the Mongols also spread catastrophic disease across Afro-Eurasia.",
+      "audience": "Because it was meant to convey the scale of the disaster, it dramatizes whole cities emptied from Cathay to Europe."
+    }
+  },
+  {
+    "type": "Description",
+    "sl": "Description of a Song Chinese commercial innovation.",
+    "excerpt": "Merchants no longer needed to carry heavy strings of copper coins on the long roads. Instead they deposited their money and received a paper note that could be redeemed in distant cities.",
+    "models": {
+      "pov": "Since this describes a Chinese commercial innovation, it may highlight the sophistication of the Song economy, therefore it shows how financial tools like paper credit lubricated long-distance trade.",
+      "purpose": "Because its purpose was to explain the innovation, it emphasizes the convenience of paper notes over heavy coins.",
+      "situation": "Since it describes Song China, it reflects the commercial revolution — paper money, credit, and growing trade — that made China a hub of Eurasian commerce.",
+      "audience": "Because it was meant to inform readers about the innovation, it focuses on how the system made trade easier and safer."
+    }
+  }
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('sadata');
+    if (!dataEl) return;
+    var SRC_DOCS = JSON.parse(dataEl.textContent);
+    var BLANK = 'Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.';
+    var HINTS = {
+      pov: BLANK,
+      purpose: 'Because this document was created in order to <strong>[goal]</strong>, its purpose was <strong>[X]</strong>, therefore it <strong>[emphasizes or leaves out]</strong>.',
+      situation: 'Since this was written in <strong>[when / amid what events]</strong>, the historical situation is significant because <strong>[how that context shapes it]</strong>.',
+      audience: 'Because this was created for <strong>[who]</strong>, the audience is significant because <strong>[how that shapes the content or tone]</strong>.'
+    };
+    var idx = 0, lens = null;
+    function render(){
+      var d = SRC_DOCS[idx];
+      document.getElementById('sa-doc').innerHTML =
+        '<div class="src-doc-lbl">' + d.type + '</div>' +
+        '<div class="src-doc-src">' + d.sl + '</div>' +
+        (d.img ? '<img src="' + d.img + '" alt="' + d.type + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
+        (d.excerpt ? '<div class="src-doc-txt">' + d.excerpt + '</div>' : '');
+      document.getElementById('sa-text').value = '';
+      document.getElementById('sa-model').classList.remove('show');
+      document.getElementById('sa-model-txt').textContent = '';
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(b){ b.classList.remove('active'); });
+      lens = null;
+      document.getElementById('sa-hint').innerHTML = BLANK;
+      document.getElementById('sa-count').textContent = 'Document ' + (idx + 1) + ' of ' + SRC_DOCS.length;
+    }
+    document.getElementById('sa-lens').addEventListener('click', function(e){
+      var b = e.target.closest('.src-lens-btn'); if (!b) return;
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); lens = b.dataset.lens;
+      document.getElementById('sa-hint').innerHTML = HINTS[lens];
+    });
+    document.getElementById('sa-reveal').addEventListener('click', function(){
+      var d = SRC_DOCS[idx]; var L = lens || 'pov';
+      if (!lens){ document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.lens==='pov'); }); document.getElementById('sa-hint').innerHTML = HINTS.pov; lens='pov'; }
+      document.getElementById('sa-model-txt').textContent = d.models[L];
+      document.getElementById('sa-model').classList.add('show');
+    });
+    document.getElementById('sa-next').addEventListener('click', function(){ idx = (idx + 1) % SRC_DOCS.length; render(); });
+    render();
+  })();
+  </script>
 </div>
 
 <!-- VISUAL SOURCES PAGE -->

@@ -291,6 +291,28 @@ button{font-family:inherit;cursor:pointer}
 .vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
 .vs-hipp-model.show{display:block}
 .vs-hipp-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
+/* ── SOURCE ANALYSIS (isolation drill) ── */
+.src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
+.src-doc-lbl{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.src-doc-src{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
+.src-doc-img{display:block;max-width:100%;max-height:60vh;margin:0 auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.src-doc-txt{font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.8;color:var(--ink)}
+.src-frame{background:#f5f0e6;border:2px dashed var(--border2);padding:20px 24px;margin:16px 0}
+.src-frame-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.src-frame-hint{font-size:.82rem;color:var(--mid);margin-bottom:12px;line-height:1.5}
+.src-lens-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.src-lens-btn{padding:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--border2);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
+.src-lens-btn:hover,.src-lens-btn.active{border-color:var(--red);background:#faf0f3;color:var(--red)}
+.src-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);padding:14px;font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.7;resize:vertical;box-sizing:border-box}
+.src-textarea:focus{border-color:var(--red);outline:none}
+.src-model{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-top:16px;display:none}
+.src-model.show{display:block}
+.src-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+.src-model-txt{font-family:'Source Serif 4',serif;font-size:.88rem;line-height:1.7;color:var(--ink)}
+.src-btn{padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
+.src-btn-red{background:var(--red);color:#fff}
+.src-btn-outline{background:none;border:1.5px solid var(--red);color:var(--red)}
+.src-btn:hover{opacity:.85}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -770,6 +792,145 @@ button{font-family:inherit;cursor:pointer}
       <div class="complexity-body">&#10022; Explain multiple causes/effects, similarities/differences, or continuities/changes<br/>&#10022; Explain both cause AND effect, or both similarity AND difference<br/>&#10022; Connect across time periods or geographic areas<br/>&#10022; Use all 7 documents effectively (DBQ) or HIPP 4+ documents<br/><span class="complexity-note">A counterargument paragraph can earn complexity — but only if it is a full paragraph with evidence, not just a sentence.</span></div>
     </div>
   </div>
+</div>
+
+<!-- SOURCE ANALYSIS PAGE -->
+<div id="pg-source" class="page">
+  <div class="inner" style="max-width:820px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Sourcing Practice</div>
+      <h2>Go Beyond Identification</h2>
+      <p>Don&rsquo;t just name the source feature &mdash; explain <em>why it matters</em>. Practice the &ldquo;<strong>since it was written by a&hellip; it may therefore&hellip;</strong>&rdquo; move on these Unit 3 sources, then compare to the model.</p>
+    </div>
+    <div class="src-doc" id="sa-doc"></div>
+    <div class="src-frame">
+      <div class="src-frame-lbl">Choose a sourcing lens</div>
+      <div class="src-lens-bar" id="sa-lens">
+        <button type="button" class="src-lens-btn" data-lens="pov">Point of View</button>
+        <button type="button" class="src-lens-btn" data-lens="purpose">Purpose</button>
+        <button type="button" class="src-lens-btn" data-lens="situation">Historical Situation</button>
+        <button type="button" class="src-lens-btn" data-lens="audience">Audience</button>
+      </div>
+      <div class="src-frame-hint" id="sa-hint">Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.</div>
+      <textarea class="src-textarea" id="sa-text" placeholder="Write your sourcing sentence here&hellip;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
+      <button type="button" class="src-btn src-btn-red" id="sa-reveal">Show Model Answer</button>
+      <button type="button" class="src-btn src-btn-outline" id="sa-next">Next Document &rarr;</button>
+      <span id="sa-count" style="font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--muted)"></span>
+    </div>
+    <div class="src-model" id="sa-model">
+      <div class="src-model-lbl">Model Sourcing Sentence</div>
+      <div class="src-model-txt" id="sa-model-txt"></div>
+    </div>
+  </div>
+  <script type="application/json" id="sadata">
+[
+  {
+    "type": "Letter",
+    "sl": "François Bernier, French traveler, letter to the French finance minister Jean-Baptiste Colbert, 1670.",
+    "excerpt": "The Mughal emperor grants some of his lands to governors, in place of a salary, on condition that they pay him a sum annually out of any extra revenue. For his other lands he uses contractors to collect the taxes. These governors and contractors have an almost absolute authority over the peasantry and the artisans.",
+    "models": {
+      "pov": "Since Bernier was a European visitor writing to a French minister, he may compare Mughal rule unfavorably to European systems, therefore his account emphasizes what looked to him like arbitrary power over peasants — an outsider's critical view of Mughal administration.",
+      "purpose": "Because he was writing to Colbert, a royal minister interested in governance and economics, its purpose was to inform French policymakers, so it stresses how the Mughal tax system worked and how it affected ordinary people.",
+      "situation": "Since it was written in 1670, at the height of Mughal power under Aurangzeb, it reflects how land grants and tax farming funded the land-based empires.",
+      "audience": "Because his audience was a French official, Bernier framed the Mughal system in terms Europeans would judge, possibly exaggerating its harshness for readers used to French absolutism."
+    }
+  },
+  {
+    "type": "Treatise",
+    "sl": "Katip Çelebi, Ottoman official, 'The Balance of Truth,' a philosophical and scientific treatise, 1656.",
+    "excerpt": "Many Sunni religious scholars have labeled the Sufi whirling rituals as 'dancing' and pronounced them forbidden, branding those who approve of them as infidels. The Sufis counter that the rituals are not dancing but enliven the soul through music and movement. The common people flock to the Sufis, giving them offerings and gifts.",
+    "models": {
+      "pov": "Since Çelebi was an educated Ottoman official writing a balanced treatise, he may try to present both sides fairly, therefore his account reveals genuine religious debates within the Ottoman Empire rather than simple state propaganda.",
+      "purpose": "Because his purpose was to weigh a religious controversy thoughtfully, he lays out both the scholars' and the Sufis' arguments so readers can judge for themselves.",
+      "situation": "Since it was written in 1656, it reflects tensions within Ottoman Islam between orthodox Sunni scholars and popular Sufi practice — part of the religious diversity the empire had to manage.",
+      "audience": "Because it was aimed at educated Ottoman readers, it engages seriously with theological arguments rather than simply issuing a ruling."
+    }
+  },
+  {
+    "type": "Biography",
+    "sl": "Sai Mustafa Chelebi, Ottoman court official, biography of the architect Mimar Sinan, c. 1600.",
+    "excerpt": "Sultan Selim II ordered the building of a great mosque in Edirne. I, Sinan, prepared a design with four minarets at the corners of an enormous central prayer hall topped by a great dome. Each minaret had three balconies with separate staircases — surpassing all earlier Ottoman mosques.",
+    "models": {
+      "pov": "Since this was written to celebrate Sinan's genius, it may exaggerate the mosque's grandeur, therefore it shows how the Ottomans used monumental architecture to display the power and legitimacy of the sultan.",
+      "purpose": "Because its purpose was to honor Sinan and the sultan's patronage, it emphasizes the mosque's record-setting scale and innovation.",
+      "situation": "Since it describes the Selimiye Mosque under Selim II, it reflects how land-based empires used grand religious architecture to project imperial and religious authority.",
+      "audience": "Because it was written for the Ottoman court and elite, it presents the sultan's building projects as proof of the dynasty's greatness."
+    }
+  },
+  {
+    "type": "Speech",
+    "sl": "King James I, speech to Parliament, England, 1610.",
+    "excerpt": "The state of monarchy is the supremest thing upon earth; for kings are not only God's lieutenants upon earth and sit upon God's throne, but even by God himself are called gods. In the Scriptures kings are called gods, and so their power is compared to the divine power.",
+    "models": {
+      "pov": "Since this was spoken by a king asserting his own authority, it may overstate royal power, therefore it is a clear statement of the divine right of kings used to justify absolute monarchy.",
+      "purpose": "Because his purpose was to assert supreme authority over Parliament, he compares kings to gods in order to discourage any challenge to his rule.",
+      "situation": "Since it was delivered in 1610, amid rising tension between the English crown and Parliament, it reflects the era's debates over the limits of royal power.",
+      "audience": "Because his audience was Parliament itself, James used religious language to pressure the very body that might resist his claim to absolute power."
+    }
+  },
+  {
+    "type": "Sermon",
+    "sl": "Martin Luther, German theologian, sermon addressed to a German prince, 1528.",
+    "excerpt": "Pope Leo X condemned my statement that 'to fight against the Turk is the same thing as resisting God, who visits our sin upon us with this rod.' I confess this statement is mine. The popes and bishops called for war against the Turks in the name of Christ, yet Christ taught that Christians shall not resist evil with violence.",
+    "models": {
+      "pov": "Since Luther was challenging the Catholic Church, he may frame the war against the Turks to attack papal authority, therefore the sermon shows how the Protestant Reformation split Christendom even on the question of resisting the Ottomans.",
+      "purpose": "Because his purpose was to criticize the pope and bishops, he uses the issue of war against the Turks to expose what he sees as their hypocrisy.",
+      "situation": "Since it dates to 1528, as the Ottomans advanced toward Vienna and the Reformation divided Europe, it reflects how religious division weakened any unified Christian response.",
+      "audience": "Because it was addressed to a German prince, Luther aimed to win the support of secular rulers against both the Ottomans and the papacy."
+    }
+  }
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('sadata');
+    if (!dataEl) return;
+    var SRC_DOCS = JSON.parse(dataEl.textContent);
+    var BLANK = 'Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.';
+    var HINTS = {
+      pov: BLANK,
+      purpose: 'Because this document was created in order to <strong>[goal]</strong>, its purpose was <strong>[X]</strong>, therefore it <strong>[emphasizes or leaves out]</strong>.',
+      situation: 'Since this was written in <strong>[when / amid what events]</strong>, the historical situation is significant because <strong>[how that context shapes it]</strong>.',
+      audience: 'Because this was created for <strong>[who]</strong>, the audience is significant because <strong>[how that shapes the content or tone]</strong>.'
+    };
+    var idx = 0, lens = null;
+    function render(){
+      var d = SRC_DOCS[idx];
+      document.getElementById('sa-doc').innerHTML =
+        '<div class="src-doc-lbl">' + d.type + '</div>' +
+        '<div class="src-doc-src">' + d.sl + '</div>' +
+        (d.img ? '<img src="' + d.img + '" alt="' + d.type + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
+        (d.excerpt ? '<div class="src-doc-txt">' + d.excerpt + '</div>' : '');
+      document.getElementById('sa-text').value = '';
+      document.getElementById('sa-model').classList.remove('show');
+      document.getElementById('sa-model-txt').textContent = '';
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(b){ b.classList.remove('active'); });
+      lens = null;
+      document.getElementById('sa-hint').innerHTML = BLANK;
+      document.getElementById('sa-count').textContent = 'Document ' + (idx + 1) + ' of ' + SRC_DOCS.length;
+    }
+    document.getElementById('sa-lens').addEventListener('click', function(e){
+      var b = e.target.closest('.src-lens-btn'); if (!b) return;
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); lens = b.dataset.lens;
+      document.getElementById('sa-hint').innerHTML = HINTS[lens];
+    });
+    document.getElementById('sa-reveal').addEventListener('click', function(){
+      var d = SRC_DOCS[idx]; var L = lens || 'pov';
+      if (!lens){ document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.lens==='pov'); }); document.getElementById('sa-hint').innerHTML = HINTS.pov; lens='pov'; }
+      document.getElementById('sa-model-txt').textContent = d.models[L];
+      document.getElementById('sa-model').classList.add('show');
+    });
+    document.getElementById('sa-next').addEventListener('click', function(){ idx = (idx + 1) % SRC_DOCS.length; render(); });
+    render();
+  })();
+  </script>
 </div>
 
 <!-- VISUAL SOURCES PAGE -->

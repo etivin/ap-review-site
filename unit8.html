@@ -457,6 +457,61 @@ button{font-family:inherit;cursor:pointer}
 .spice-e{border-top-color:#6b4e71}.spice-e .spice-letter{color:#6b4e71}
 .spice-t{border-top-color:#2e5266}.spice-t .spice-letter{color:#2e5266}
 .unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
+/* ── FLASHCARDS ── */
+.fc-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.fc-meta{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em}
+.fc-select-wrap{display:flex;gap:8px;flex-wrap:wrap}
+.fc-sel{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border:1.5px solid var(--border2);background:var(--white);color:var(--ink)}
+.fc-progress{background:var(--border);height:4px;margin-bottom:22px;border-radius:2px}
+.fc-pbar{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.card-area{perspective:1200px;margin-bottom:18px;cursor:pointer}
+.card-3d{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.card-3d.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:28px 26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shm)}
+.card-face.back{transform:rotateY(180deg);border-top-color:var(--green)}
+.card-tag{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;color:var(--red)}
+.back-tag{color:var(--green)!important}
+.card-term{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:6px}
+.card-topic{font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.card-def{font-size:.92rem;line-height:1.72;color:var(--mid)}
+.card-hint{font-size:.76rem;color:var(--muted);margin-top:12px;font-style:italic}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.cn-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:8px 20px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.cn-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.cn-btn:disabled{opacity:.3;cursor:default}
+.flip-hint{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.fc-timer-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.fc-timer-ring{position:relative;width:54px;height:54px;flex-shrink:0}
+.fc-timer-ring svg{transform:rotate(-90deg)}
+.fc-timer-ring circle{fill:none;stroke-width:4}
+.fc-timer-bg{stroke:var(--border)}
+.fc-timer-fg{stroke:var(--red);transition:stroke-dashoffset .95s linear,stroke .4s}
+.fc-timer-fg.done{stroke:var(--green)}
+.fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--ink)}
+.fc-timer-msg{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+.fc-timer-msg.ready{color:var(--green)}
+/* ── SOURCE ANALYSIS (isolation drill) ── */
+.src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
+.src-doc-lbl{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.src-doc-src{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
+.src-doc-img{display:block;max-width:100%;max-height:60vh;margin:0 auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.src-doc-txt{font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.8;color:var(--ink)}
+.src-frame{background:#f5f0e6;border:2px dashed var(--border2);padding:20px 24px;margin:16px 0}
+.src-frame-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.src-frame-hint{font-size:.82rem;color:var(--mid);margin-bottom:12px;line-height:1.5}
+.src-lens-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.src-lens-btn{padding:6px 14px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--border2);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
+.src-lens-btn:hover,.src-lens-btn.active{border-color:var(--red);background:#faf0f3;color:var(--red)}
+.src-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);padding:14px;font-family:'Source Serif 4',serif;font-size:.92rem;line-height:1.7;resize:vertical;box-sizing:border-box}
+.src-textarea:focus{border-color:var(--red);outline:none}
+.src-model{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-top:16px;display:none}
+.src-model.show{display:block}
+.src-model-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+.src-model-txt{font-family:'Source Serif 4',serif;font-size:.88rem;line-height:1.7;color:var(--ink)}
+.src-btn{padding:10px 20px;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
+.src-btn-red{background:var(--red);color:#fff}
+.src-btn-outline{background:none;border:1.5px solid var(--red);color:var(--red)}
+.src-btn:hover{opacity:.85}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -559,6 +614,159 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- BRAIN DUMP PAGE -->
+<!-- FLASHCARDS PAGE -->
+<div class="page" id="pg-flash">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 8 Flashcards</div>
+      <h2>Key Terms &amp; Concepts</h2>
+      <p>Wait for the timer, think of the answer, then click the card to flip it. Navigate with the arrows or filter by topic.</p>
+    </div>
+    <div class="fc-controls">
+      <div class="fc-meta" id="fc-meta">Card 1 of 29</div>
+      <div class="fc-select-wrap">
+        <select class="fc-sel" id="fc-filter">
+          <option value="all">All Topics</option>
+          <option value="8.1">8.1 — Origins of the Cold War</option>
+          <option value="8.2">8.2 — The Cold War</option>
+          <option value="8.3">8.3 — Effects of the Cold War</option>
+          <option value="8.4">8.4 — Spread of Communism</option>
+          <option value="8.5">8.5 — Decolonization</option>
+          <option value="8.6">8.6 — Newly Independent States</option>
+          <option value="8.7">8.7 — Global Resistance</option>
+          <option value="8.8">8.8 — End of the Cold War</option>
+        </select>
+        <button type="button" class="fc-sel" id="fc-shuffle-btn">&#128256; Shuffle</button>
+      </div>
+    </div>
+    <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
+    <div class="fc-timer-wrap">
+      <div class="fc-timer-ring">
+        <svg width="54" height="54" viewBox="0 0 54 54">
+          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
+          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
+        </svg>
+        <div class="fc-timer-num" id="fc-timer-num">15</div>
+      </div>
+      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
+    </div>
+    <div class="card-area" id="card-area">
+      <div class="card-3d" id="fc-card">
+        <div class="card-face front">
+          <div class="card-tag">Term</div>
+          <div class="card-term" id="fc-term">Loading...</div>
+          <div class="card-topic" id="fc-topic">Topic 8.1</div>
+          <div class="card-hint">Think of the answer, then flip when the timer is done &darr;</div>
+        </div>
+        <div class="card-face back">
+          <div class="card-tag back-tag">Definition</div>
+          <div class="card-def" id="fc-def">Loading...</div>
+        </div>
+      </div>
+    </div>
+    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
+    <div class="card-nav">
+      <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
+      <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
+    </div>
+  </div>
+  <script type="application/json" id="u8-cards-data">
+[
+{"t":"Truman Doctrine","d":"1947 U.S. pledge to contain communism by aiding Greece and Turkey with military and economic support.","topic":"8.1"},
+{"t":"Iron Curtain","d":"Term for the ideological and physical divide separating Soviet-controlled Eastern Europe from the West after WWII.","topic":"8.1"},
+{"t":"Yalta Conference","d":"1945 meeting of Allied leaders (Roosevelt, Churchill, Stalin) that shaped the postwar division of Europe.","topic":"8.1"},
+{"t":"Containment","d":"U.S. Cold War strategy aimed at stopping the spread of communism without direct war with the USSR.","topic":"8.1"},
+{"t":"Marshall Plan","d":"U.S. program providing economic aid to rebuild Western Europe and prevent the spread of communism after WWII.","topic":"8.1"},
+{"t":"Superpowers","d":"Term for the U.S. and USSR, whose rival capitalist and communist ideologies dominated global politics after WWII.","topic":"8.2"},
+{"t":"Non-Aligned Movement","d":"Group of nations, including those led by Sukarno and Nkrumah, that refused to formally side with either Cold War bloc.","topic":"8.2"},
+{"t":"Bandung Conference","d":"1955 meeting of African and Asian states that promoted decolonization and independence from Cold War alliances.","topic":"8.2"},
+{"t":"NATO","d":"Military alliance formed by the U.S. and Western allies in 1949 to counter Soviet expansion.","topic":"8.3"},
+{"t":"Warsaw Pact","d":"Military alliance of the USSR and Eastern Bloc states formed in 1955 in response to NATO.","topic":"8.3"},
+{"t":"Proxy War","d":"Conflict in which major powers support opposing sides without direct military confrontation, such as the Korean War or Angolan Civil War.","topic":"8.3"},
+{"t":"Korean War","d":"1950–1953 proxy conflict between communist North Korea (backed by USSR/China) and South Korea (backed by the U.S.).","topic":"8.3"},
+{"t":"Great Leap Forward","d":"Mao Zedong's failed campaign to rapidly industrialize and collectivize China's economy, causing mass famine.","topic":"8.4"},
+{"t":"Chinese Communist Revolution","d":"Mao Zedong-led takeover of China in 1949 following internal tension and Japanese aggression.","topic":"8.4"},
+{"t":"Land Redistribution","d":"Policy used by communist and socialist movements in Africa, Asia, and Latin America to seize and reallocate land and resources.","topic":"8.4"},
+{"t":"Indian National Congress","d":"Nationalist party that led India's independence movement against British colonial rule.","topic":"8.5"},
+{"t":"Negotiated Independence","d":"Process by which colonies like India and the Gold Coast gained independence through political agreement rather than war.","topic":"8.5"},
+{"t":"Armed Struggle for Independence","d":"Path to independence taken by colonies like Algeria, Angola, and Vietnam through violent resistance.","topic":"8.5"},
+{"t":"Muslim League","d":"Political party representing India's Muslim minority that pushed for the creation of a separate state (Pakistan).","topic":"8.5"},
+{"t":"Partition of India","d":"1947 division of British India into India and Pakistan, causing mass displacement and violence.","topic":"8.6"},
+{"t":"Newly Independent States","d":"Nations like Israel, Cambodia, and Pakistan created through the redrawing of colonial boundaries after WWII.","topic":"8.6"},
+{"t":"State-Guided Economic Development","d":"Post-independence strategy where governments (e.g., Nasser in Egypt, Nyerere in Tanzania) took a strong role directing national economies.","topic":"8.6"},
+{"t":"Postcolonial Migration","d":"Movement of former colonial subjects (e.g., South Asians to Britain, Algerians to France) to the imperial metropole after decolonization.","topic":"8.6"},
+{"t":"Nonviolent Resistance","d":"Strategy used by figures like Gandhi, MLK, and Mandela to challenge existing power structures without violence.","topic":"8.7"},
+{"t":"Military-Industrial Complex","d":"Buildup of military and weapons industries that intensified conflict during the Cold War era.","topic":"8.7"},
+{"t":"Perestroika","d":"Gorbachev-era policy of economic restructuring in the USSR during the 1980s.","topic":"8.8"},
+{"t":"Glasnost","d":"Gorbachev-era policy of political openness and transparency in the USSR during the 1980s.","topic":"8.8"},
+{"t":"Soviet-Afghan War","d":"Costly, failed Soviet invasion (1979–1989) that contributed to the USSR's economic weakness and eventual collapse.","topic":"8.8"},
+{"t":"Fall of the Soviet Union","d":"1991 collapse of the USSR resulting from military overextension, economic weakness, and public discontent.","topic":"8.8"}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('u8-cards-data');
+    if (!dataEl) return;
+    var CARDS = JSON.parse(dataEl.textContent);
+    var fcDeck = CARDS.slice(), fcIdx = 0, fcFlipped = false;
+    var fcTimerInterval = null, fcTimerSec = 15, fcTimerReady = false;
+    var FC_TIMER_CIRC = 138.23;
+    function fcTimerStop(){ if (fcTimerInterval){ clearInterval(fcTimerInterval); fcTimerInterval = null; } }
+    function fcTimerStart(){
+      fcTimerStop(); fcTimerSec = 15; fcTimerReady = false;
+      document.getElementById('fc-next').disabled = true;
+      var fg = document.getElementById('fc-timer-fg'), num = document.getElementById('fc-timer-num'), msg = document.getElementById('fc-timer-msg');
+      fg.classList.remove('done'); fg.style.strokeDashoffset = '0'; num.textContent = '15';
+      msg.textContent = 'Think — what does this term mean?'; msg.classList.remove('ready');
+      fcTimerInterval = setInterval(function(){
+        fcTimerSec--;
+        var progress = (15 - fcTimerSec) / 15;
+        fg.style.strokeDashoffset = (FC_TIMER_CIRC * progress).toFixed(2);
+        if (fcTimerSec <= 0){
+          fcTimerStop(); fcTimerReady = true; fg.classList.add('done'); num.textContent = '✓';
+          msg.textContent = 'Now flip to check your answer!'; msg.classList.add('ready');
+          document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
+        } else { num.textContent = fcTimerSec; document.getElementById('fc-next').disabled = true; }
+      }, 1000);
+    }
+    function fcRender(){
+      if (!fcDeck.length) return;
+      var c = fcDeck[fcIdx];
+      document.getElementById('fc-term').textContent = c.t;
+      document.getElementById('fc-topic').textContent = 'Topic ' + c.topic;
+      document.getElementById('fc-def').textContent = c.d;
+      document.getElementById('fc-meta').textContent = 'Card ' + (fcIdx + 1) + ' of ' + fcDeck.length;
+      document.getElementById('fc-pbar').style.width = ((fcIdx + 1) / fcDeck.length * 100) + '%';
+      document.getElementById('fc-prev').disabled = (fcIdx === 0);
+      var card = document.getElementById('fc-card');
+      if (fcFlipped){ card.classList.remove('flipped'); fcFlipped = false; }
+      fcTimerStart();
+    }
+    fcRender();
+    document.getElementById('card-area').addEventListener('click', function(){
+      if (!fcTimerReady) return;
+      fcFlipped = !fcFlipped;
+      document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
+    });
+    document.getElementById('fc-prev').addEventListener('click', function(){ if (fcIdx > 0){ fcIdx--; fcRender(); } });
+    document.getElementById('fc-next').addEventListener('click', function(){ if (fcTimerReady && fcIdx < fcDeck.length - 1){ fcIdx++; fcRender(); } });
+    document.getElementById('fc-filter').addEventListener('change', function(){
+      var v = this.value;
+      fcDeck = (v === 'all') ? CARDS.slice() : CARDS.filter(function(c){ return c.topic === v; });
+      fcIdx = 0; fcRender();
+    });
+    document.getElementById('fc-shuffle-btn').addEventListener('click', function(){
+      for (var i = fcDeck.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = fcDeck[i]; fcDeck[i] = fcDeck[j]; fcDeck[j] = t; }
+      fcIdx = 0; fcRender();
+    });
+  })();
+  </script>
+</div>
+
 <div class="page" id="pg-brain">
   <div class="inner">
     <div class="pg-nav-row">
@@ -1054,6 +1262,168 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 <!-- SPICE-T PAGE -->
+<!-- SOURCE ANALYSIS PAGE -->
+<div id="pg-source" class="page">
+  <div class="inner" style="max-width:820px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Sourcing Practice</div>
+      <h2>Go Beyond Identification</h2>
+      <p>Don&rsquo;t just name the source feature &mdash; explain <em>why it matters</em>. Practice the &ldquo;<strong>since it was written by a&hellip; it may therefore&hellip;</strong>&rdquo; move on documents from the DBQ on communism in the USSR and China, then compare to the model.</p>
+    </div>
+    <div class="src-doc" id="sa-doc"></div>
+    <div class="src-frame">
+      <div class="src-frame-lbl">Choose a sourcing lens</div>
+      <div class="src-lens-bar" id="sa-lens">
+        <button type="button" class="src-lens-btn" data-lens="pov">Point of View</button>
+        <button type="button" class="src-lens-btn" data-lens="purpose">Purpose</button>
+        <button type="button" class="src-lens-btn" data-lens="situation">Historical Situation</button>
+        <button type="button" class="src-lens-btn" data-lens="audience">Audience</button>
+      </div>
+      <div class="src-frame-hint" id="sa-hint">Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.</div>
+      <textarea class="src-textarea" id="sa-text" placeholder="Write your sourcing sentence here&hellip;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
+      <button type="button" class="src-btn src-btn-red" id="sa-reveal">Show Model Answer</button>
+      <button type="button" class="src-btn src-btn-outline" id="sa-next">Next Document &rarr;</button>
+      <span id="sa-count" style="font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--muted)"></span>
+    </div>
+    <div class="src-model" id="sa-model">
+      <div class="src-model-lbl">Model Sourcing Sentence</div>
+      <div class="src-model-txt" id="sa-model-txt"></div>
+    </div>
+  </div>
+  <script type="application/json" id="sadata">
+[
+  {
+    "type": "Propaganda Poster",
+    "img": "images/u8-src-1.jpg",
+    "sl": "S. M. Prokhorov, Soviet artist, 'Students from a Workers' School,' poster for public display, 1928.",
+    "excerpt": "A Soviet poster promoting workers' schools — evening adult-learning institutions that prepared factory workers to enroll in state-run universities.",
+    "models": {
+      "pov": "Since this was created by a Soviet state artist for public display, it may present an idealized image of communist life, therefore it shows how the state used art to advertise expanding education and opportunity for workers rather than to document reality.",
+      "purpose": "Because it is a propaganda poster, its purpose was to celebrate and encourage worker education, therefore it highlights the benefits of the new system while saying nothing about its costs.",
+      "situation": "Since it was made in 1928, early in Soviet rule as the state was rapidly expanding literacy and adult education, it reflects the regime's drive to build a modern, educated industrial workforce.",
+      "audience": "Because it was aimed at the general Soviet public, it uses accessible, uplifting imagery to build ordinary workers' enthusiasm for state programs."
+    }
+  },
+  {
+    "type": "Memoir",
+    "sl": "Ya. I. Drobinskiy, member of the Soviet Communist Party, memoir of his political detention and trial in the 1930s, recorded during the late-1950s de-Stalinization campaign but never published.",
+    "excerpt": "One of the inmates in our cell was an elderly peasant from a collective farm; the authorities were forcing his son to testify against him. When the old man saw his tortured son, something inside him broke and he told the investigator, 'It's true, all of it, I confess,' and signed the confession they had prepared for him.",
+    "models": {
+      "pov": "Since this was written by a Communist Party member who was himself imprisoned, it may focus on the cruelty and injustice of the purges, therefore it exposes the human cost of Stalin's terror from an insider's perspective.",
+      "purpose": "Because it was recorded during de-Stalinization to document Stalinist abuses, its purpose was to expose the terror, therefore it emphasizes coerced confessions and suffering rather than any achievements of the system.",
+      "situation": "Since it recalls the 1930s purges but was recorded in the late 1950s, it reflects the moment when the USSR was officially criticizing Stalin — yet the fact that it was 'never published' shows the limits of that openness.",
+      "audience": "Because it was recorded for a Soviet journalist during de-Stalinization but suppressed, it was aimed at a reform-minded audience the state ultimately decided was not ready to hear such accounts."
+    }
+  },
+  {
+    "type": "Political Essay",
+    "sl": "Alexandra Kollontai, Russian Marxist and politician, essay 'The Soviet Woman — a Full and Equal Citizen of Her Country,' 1946.",
+    "excerpt": "In opening up to women access to every sphere of creative activity, our state has ensured the conditions for her to fulfill her natural obligation — motherhood. Soviet law recognized that motherhood is not a private matter but a social duty. Women receive state benefits and paid maternity leave, and their jobs are kept open until they return.",
+    "models": {
+      "pov": "Since this was written by a committed Marxist politician, it may celebrate the regime's record on women, therefore it presents communism as having liberated women rather than examining where it fell short.",
+      "purpose": "Because its purpose was to promote the Soviet system's achievements for women, it emphasizes maternity benefits and equality while ignoring the 'double burden' of paid work plus housework that women still carried.",
+      "situation": "Since it was written in 1946, just after WWII when Soviet women had filled the workforce and the state needed to rebuild, it reflects official efforts to combine female labor with a renewed emphasis on motherhood and population growth.",
+      "audience": "Because it was aimed at both Soviet and foreign readers, it functions as propaganda showcasing communism as more progressive on women's rights than the capitalist West."
+    }
+  },
+  {
+    "type": "Newspaper Article",
+    "sl": "Article describing a 'contention meeting,' published in the Shenyang Daily, a regional Chinese newspaper, 1957.",
+    "excerpt": "At a meeting, two university party members raised 'how to abolish the absolute leadership of the Party.' One said: 'Outwardly we have democratic elections, but actually the Party exercises dictatorship... The Constitution is just a scrap of paper. The Party has become the emperor of China — a sacred body that all must obey.'",
+    "models": {
+      "pov": "Since these were Chinese citizens invited to criticize the Party during the brief Hundred Flowers period, their point of view is unusually critical, therefore the source reveals the resentment of Party dictatorship that communism's promises had not resolved.",
+      "purpose": "Because the speakers' purpose was to demand real democracy and limits on Party power, the article records a direct challenge to one-party rule — criticism the state would soon punish in the Anti-Rightist Campaign.",
+      "situation": "Since it appeared in 1957 during the Hundred Flowers Campaign, when Mao briefly encouraged open criticism, it captures a rare moment of permitted dissent that was quickly reversed.",
+      "audience": "Because it was published in a regional newspaper for a Chinese public, it briefly aired criticisms the Party would later use to identify and suppress its critics."
+    }
+  },
+  {
+    "type": "Government Report",
+    "sl": "General Office of the Central Committee of the Chinese Communist Party, internal summary report on food shortages, Beijing, 1958.",
+    "excerpt": "Anhui: 1.3 million people without food supplies. Hebei: over 474,000 families took part in food riots; entire families have become beggars. Shandong: over 150,000 people forced to flee. Local officials failed to discover the real food situation — afraid of being accused of disloyalty, they refused to believe complaints about shortages.",
+    "models": {
+      "pov": "Since this was an internal Party report not meant for the public, it may be more honest about the crisis than official propaganda, therefore it reveals the famine and administrative failures of the Great Leap Forward that the regime hid from the outside world.",
+      "purpose": "Because its purpose was to inform Party leaders of real conditions so they could respond, it frankly documents famine and riots rather than presenting the optimistic picture shown in public media.",
+      "situation": "Since it was written in 1958 at the start of the Great Leap Forward, it reflects the catastrophic food shortages caused by forced collectivization and unrealistic production targets.",
+      "audience": "Because the audience was the Party's own leadership, the report could admit that officials hid the truth out of fear — an admission never made in public sources."
+    }
+  },
+  {
+    "type": "Political Magazine Article",
+    "sl": "Xia Ping, Chinese woman member of the Communist Party, 'Make Energetic Efforts to Train Women Cadres,' in Hongqi (Red Banner), 1973.",
+    "excerpt": "Some of our men comrades claim that women's 'family complications' make it hard to promote them at work. The socialist system has in fact been liberating to Chinese women, most of whom now do productive labor. However, due to old ideas and anti-women prejudice, the problem of household chores has not been solved. Men and women must share household chores.",
+    "models": {
+      "pov": "Since this was written by a woman Party member, it may both praise communism and push for further change, therefore it shows that even loyal supporters admitted the revolution had not fully ended gender inequality.",
+      "purpose": "Because its purpose was to argue for promoting more women, it acknowledges lingering sexism in order to press the Party to live up to its stated ideals.",
+      "situation": "Since it was written in 1973, more than two decades after the communist revolution, it reflects both the real gains women had made and the persistence of traditional attitudes about housework.",
+      "audience": "Because it appeared in Hongqi, a leading Party theoretical magazine, its audience was Party members and officials it hoped to persuade to advance women."
+    }
+  },
+  {
+    "type": "Newspaper Article",
+    "sl": "Richard Kosolapov, Soviet journalist and former editor of the Party journal Kommunist, article in Pravda, 1983.",
+    "excerpt": "Some discussions favor moving toward 'private ownership' and 'private enterprise.' These are dangerous. Bribe takers, thieves, and parasites stand ready to steal the fruits of others' labor. These advocates of private ownership, materialism, and consumerism are enemies of the socialist state. Socialist society is a working society, not a consumer society.",
+    "models": {
+      "pov": "Since this was written by a hardline Party journalist, it may defend orthodox communism against reform, therefore it reveals the ideological anxiety within the late-Soviet leadership as pressures for economic change grew.",
+      "purpose": "Because its purpose was to warn against private enterprise and consumerism, it attacks reformers in order to reinforce central control over the economy.",
+      "situation": "Since it was written in 1983, as the Soviet economy was stagnating and debates about reform were emerging (just before Gorbachev), it reflects the struggle between defenders of the old system and those seeking change.",
+      "audience": "Because it appeared in Pravda, the main Party newspaper read across the USSR, its audience was the Soviet public, whom it sought to keep loyal to collectivist values."
+    }
+  }
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('sadata');
+    if (!dataEl) return;
+    var SRC_DOCS = JSON.parse(dataEl.textContent);
+    var BLANK = 'Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.';
+    var HINTS = {
+      pov: BLANK,
+      purpose: 'Because this document was created in order to <strong>[goal]</strong>, its purpose was <strong>[X]</strong>, therefore it <strong>[emphasizes or leaves out]</strong>.',
+      situation: 'Since this was written in <strong>[when / amid what events]</strong>, the historical situation is significant because <strong>[how that context shapes it]</strong>.',
+      audience: 'Because this was created for <strong>[who]</strong>, the audience is significant because <strong>[how that shapes the content or tone]</strong>.'
+    };
+    var idx = 0, lens = null;
+    function render(){
+      var d = SRC_DOCS[idx];
+      document.getElementById('sa-doc').innerHTML =
+        '<div class="src-doc-lbl">' + d.type + '</div>' +
+        '<div class="src-doc-src">' + d.sl + '</div>' +
+        (d.img ? '<img src="' + d.img + '" alt="' + d.type + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
+        (d.excerpt ? '<div class="src-doc-txt">' + d.excerpt + '</div>' : '');
+      document.getElementById('sa-text').value = '';
+      document.getElementById('sa-model').classList.remove('show');
+      document.getElementById('sa-model-txt').textContent = '';
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(b){ b.classList.remove('active'); });
+      lens = null;
+      document.getElementById('sa-hint').innerHTML = BLANK;
+      document.getElementById('sa-count').textContent = 'Document ' + (idx + 1) + ' of ' + SRC_DOCS.length;
+    }
+    document.getElementById('sa-lens').addEventListener('click', function(e){
+      var b = e.target.closest('.src-lens-btn'); if (!b) return;
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); lens = b.dataset.lens;
+      document.getElementById('sa-hint').innerHTML = HINTS[lens];
+    });
+    document.getElementById('sa-reveal').addEventListener('click', function(){
+      var d = SRC_DOCS[idx]; var L = lens || 'pov';
+      if (!lens){ document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.lens==='pov'); }); document.getElementById('sa-hint').innerHTML = HINTS.pov; lens='pov'; }
+      document.getElementById('sa-model-txt').textContent = d.models[L];
+      document.getElementById('sa-model').classList.add('show');
+    });
+    document.getElementById('sa-next').addEventListener('click', function(){ idx = (idx + 1) % SRC_DOCS.length; render(); });
+    render();
+  })();
+  </script>
+</div>
+
 <div class="page" id="pg-spice">
   <div class="inner">
     <div class="pg-nav-row">

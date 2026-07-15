@@ -328,28 +328,10 @@
     var html = '<div class="wd-suite">';
     html += '<div class="wd-intro"><div class="wd-placeholder">Writing practice</div>' +
       '<div class="wd-intro-title">Writing Practice' + (unitLabel ? ' &mdash; ' + unitLabel : '') + '</div>' +
-      '<p>' + (examHTML ? 'Practice with <strong>real released AP exam prompts</strong> for this unit, then drill each rubric point below. ' : '') +
-      '<strong>Complexity, LEQ Reasoning, and SAQ Part C</strong> &mdash; the rows students lose the most points on &mdash; are coached with an honest self-check (checklist + models + sentence frames), because no tool can grade real reasoning from keywords.' +
-      (examHTML ? '' : ' The drill prompts are generic so the <em>skills</em> transfer to any topic.') + '</p></div>';
+      '<p>' + (examHTML ? 'Practice with <strong>real released AP exam prompts</strong> for this unit. Draft your response, then use the rubric guidance and models to self-assess &mdash; <strong>Complexity, LEQ Reasoning, and SAQ Part C</strong> are the rows students lose the most points on.' : 'Unit-specific writing prompts are coming soon.') + '</p></div>';
 
     html += examHTML;
 
-    html += '<div class="wd-section-hd">Skill Drills <span>&mdash; isolate one rubric point at a time</span></div>';
-    html += '<div class="wd-tabs">';
-    DRILLS.forEach(function (d, i) { html += '<button type="button" class="wd-tab' + (i === 0 ? ' active' : '') + '" data-k="' + d.key + '">' + d.label + '</button>'; });
-    html += '</div>';
-
-    DRILLS.forEach(function (d, i) {
-      html += '<div class="wd-panel' + (i === 0 ? ' active' : '') + '" data-panel="' + d.key + '">';
-      html += '<div class="wd-rubric"><div class="wd-rubric-title">What earns the point</div><ul>';
-      d.rubric.forEach(function (li) { html += '<li>' + li + '</li>'; });
-      html += '</ul></div>';
-      html += '<div class="wd-ctx">' + d.prompt + '</div>';
-      html += '<textarea class="wd-textarea" data-text="' + d.key + '" placeholder="' + d.placeholder + '"></textarea>';
-      html += '<button type="button" class="wd-check" data-check="' + d.key + '">Check ' + d.label + '</button>';
-      html += '<div class="wd-result" data-result="' + d.key + '"></div>';
-      html += '</div>';
-    });
     html += '</div>';
     mount.innerHTML = html;
 

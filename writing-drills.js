@@ -238,10 +238,60 @@
   }
 
   /* ---- Real exam prompts (from window.WRITING_PROMPTS) ---- */
+  var CUR_UNIT = 0; // set in examPromptsHTML, used to namespace checkbox storage
   function esc(s) { return (s == null ? '' : String(s)).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
   function exParas(text) { return esc(text).split(/\n\n+/).map(function (p) { return '<p class="wd-ex-p">' + p + '</p>'; }).join(''); }
 
+  /* ---- Reusable pieces for the checkable-breakdown format ---- */
+  function revealBlock(id, label, innerHTML) {
+    return '<button type="button" class="wd-reveal" data-reveal="' + id + '">' + label + '</button>' +
+      '<div class="wd-exemplar" data-exemplar="' + id + '" hidden>' + innerHTML + '</div>';
+  }
+  function checkLine(id, label) {
+    return '<label class="wd-pt-check"><input type="checkbox" data-pt="' + id + '"> <span>' + label + '</span></label>';
+  }
+  function scoreBar(base, total) {
+    return '<div class="wd-score" data-score="' + base + '" data-total="' + total + '">0 / ' + total + ' points marked</div>';
+  }
+  // Stimulus image with a graceful fallback if the file has not been added yet
+  function imageFigure(s) {
+    var alt = esc(s.imageAlt || s.source || 'Source image');
+    var credit = s.imageCredit ? '<figcaption class="wd-ex-credit">' + esc(s.imageCredit) + '</figcaption>' : '';
+    var fallback = '<div class="wd-img-missing">Stimulus image goes here &mdash; save it as <code>' + esc(s.image) + '</code> and it will appear automatically.</div>';
+    return '<figure class="wd-ex-figure">' +
+      '<img class="wd-ex-img" src="' + esc(s.image) + '" alt="' + alt + '" ' +
+      'onerror="this.style.display=\'none\';this.parentNode.classList.add(\'missing\');">' +
+      fallback + credit + '</figure>';
+  }
+
+  // SAQ broken into an individually checkable box per lettered part (a, b, c)
+  function renderSAQbreak(s, i) {
+    var base = 'u' + CUR_UNIT + '-saq' + i;
+    var letters = 'ABCDEFG';
+    var h = '<div class="wd-ex-item" data-scope="' + base + '">';
+    h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(s.year) + '</span> ' + esc(s.tag) + '</div>';
+    if (s.source) h += '<div class="wd-ex-src">Source: ' + esc(s.source) + '</div>';
+    if (s.image) h += imageFigure(s);
+    if (s.excerpt) h += '<div class="wd-ex-excerpt">' + exParas(s.excerpt) + '</div>';
+    h += '<div class="wd-break">';
+    s.parts.forEach(function (p, pi) {
+      var L = letters.charAt(pi);
+      var id = base + '-' + L.toLowerCase();
+      h += '<div class="wd-part">';
+      h += '<div class="wd-part-hd"><span class="wd-part-letter">' + L + '</span><span class="wd-part-q">' + esc(p) + '</span></div>';
+      h += '<textarea class="wd-textarea wd-part-ta" placeholder="Write part ' + L + '…"></textarea>';
+      h += revealBlock(id, 'Model answer for part ' + L, s.partExemplars[pi]);
+      h += checkLine(id, 'I earned this point');
+      h += '</div>';
+    });
+    h += '</div>';
+    h += scoreBar(base, s.parts.length);
+    h += '</div>';
+    return h;
+  }
+
   function renderSAQ(s, i) {
+    if (s.partExemplars && s.partExemplars.length) return renderSAQbreak(s, i);
     var h = '<div class="wd-ex-item">';
     h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(s.year) + '</span> ' + esc(s.tag) + '</div>';
     if (s.source) h += '<div class="wd-ex-src">Source: ' + esc(s.source) + '</div>';
@@ -254,7 +304,38 @@
     h += '<div class="wd-result" data-exam-result="saq-' + i + '"></div></div>';
     return h;
   }
+
+  // DBQ/LEQ broken into an individually checkable box per rubric point
+  function renderRubricBreak(d, base, kindLabel) {
+    var h = '<div class="wd-ex-item" data-scope="' + base + '">';
+    h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(d.year) + '</span> ' + esc(d.tag) + '</div>';
+    if (d.intro) h += '<div class="wd-ex-intro">' + esc(d.intro) + '</div>';
+    h += '<div class="wd-ex-prompt">' + esc(d.prompt) + '</div>';
+    if (d.documents) {
+      h += '<div class="wd-ex-docs">';
+      d.documents.forEach(function (doc) {
+        h += '<div class="wd-ex-doc"><div class="wd-ex-docn">Document ' + doc.n + '</div><div class="wd-ex-src">Source: ' + esc(doc.source) + '</div>' + (doc.image ? imageFigure(doc) : '') + exParas(doc.text) + '</div>';
+      });
+      h += '</div>';
+    }
+    h += '<div class="wd-break"><div class="wd-break-hd">Write each ' + kindLabel + ' component in its own box &mdash; then reveal the exemplar and check off the points you truly earned</div>';
+    d.rubric.forEach(function (r, ri) {
+      var id = base + '-' + r.key;
+      h += '<div class="wd-rrow">';
+      h += '<div class="wd-rrow-hd"><span class="wd-rrow-num">' + (ri + 1) + '</span><span class="wd-rrow-label">' + esc(r.label) + '</span><span class="wd-rrow-pts">' + esc(r.points) + '</span></div>';
+      h += '<div class="wd-rrow-req">' + r.requirement + '</div>';
+      h += '<textarea class="wd-textarea wd-part-ta" placeholder="Write your ' + esc(r.label) + ' here…"></textarea>';
+      h += revealBlock(id, 'Reveal exemplar', r.exemplar);
+      h += checkLine(id, 'I earned this point');
+      h += '</div>';
+    });
+    h += '</div>';
+    h += scoreBar(base, d.rubric.length);
+    h += '</div>';
+    return h;
+  }
   function renderLEQ(s, i) {
+    if (s.rubric && s.rubric.length) return renderRubricBreak(s, 'u' + CUR_UNIT + '-leq' + i, 'LEQ');
     var h = '<div class="wd-ex-item">';
     h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(s.year) + '</span> ' + esc(s.tag) + '</div>';
     if (s.intro) h += '<div class="wd-ex-intro">' + esc(s.intro) + '</div>';
@@ -265,6 +346,7 @@
     return h;
   }
   function renderDBQ(d) {
+    if (d.rubric && d.rubric.length) return renderRubricBreak(d, 'u' + CUR_UNIT + '-dbq', 'DBQ');
     var h = '<div class="wd-ex-item">';
     h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(d.year) + '</span> ' + esc(d.tag) + '</div>';
     h += '<div class="wd-ex-prompt">' + esc(d.prompt) + '</div>';
@@ -282,6 +364,7 @@
   function examPromptsHTML(n) {
     var P = window.WRITING_PROMPTS && window.WRITING_PROMPTS[n];
     if (!P) return '';
+    CUR_UNIT = n;
     var hasSAQ = P.saq && P.saq.length, hasLEQ = P.leq && P.leq.length, hasDBQ = !!P.dbq;
     if (!hasSAQ && !hasLEQ && !hasDBQ) return '';
     var kinds = [];
@@ -387,6 +470,43 @@
         out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
     });
+
+    // Checkable-breakdown: reveal-exemplar toggles
+    mount.querySelectorAll('.wd-reveal').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var ex = mount.querySelector('[data-exemplar="' + btn.getAttribute('data-reveal') + '"]');
+        if (!ex) return;
+        if (ex.hasAttribute('hidden')) { ex.removeAttribute('hidden'); btn.classList.add('open'); }
+        else { ex.setAttribute('hidden', ''); btn.classList.remove('open'); }
+      });
+    });
+
+    // Checkable-breakdown: per-point checkboxes (restore state, persist, tally)
+    mount.querySelectorAll('.wd-pt-check input[type="checkbox"]').forEach(function (cb) {
+      var key = ptKey(cb.getAttribute('data-pt'));
+      try { if (localStorage.getItem(key) === '1') cb.checked = true; } catch (e) {}
+      cb.addEventListener('change', function () {
+        try { localStorage.setItem(key, cb.checked ? '1' : '0'); } catch (e) {}
+        var item = closestItem(cb);
+        if (item) updateScore(item);
+      });
+    });
+    mount.querySelectorAll('.wd-ex-item[data-scope]').forEach(function (item) { updateScore(item); });
+  }
+
+  function ptKey(id) { return 'wd-check:' + (location.pathname || '') + ':' + id; }
+  function closestItem(el) {
+    while (el && el !== document) { if (el.classList && el.classList.contains('wd-ex-item')) return el; el = el.parentNode; }
+    return null;
+  }
+  function updateScore(item) {
+    var boxes = item.querySelectorAll('.wd-pt-check input[type="checkbox"]');
+    var sc = item.querySelector('.wd-score');
+    if (!sc || !boxes.length) return;
+    var checked = 0;
+    boxes.forEach(function (b) { if (b.checked) checked++; });
+    sc.textContent = checked + ' / ' + boxes.length + ' points marked';
+    sc.classList.toggle('full', checked === boxes.length);
   }
 
   function ensureCSS() {

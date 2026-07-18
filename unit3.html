@@ -1266,7 +1266,7 @@ if (tlList) {
   var tlHTML = '';
   TIMELINE.forEach(function(item, i) {
     var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
-    var fallback = '<div class="tl-img-fallback">' + item.year + '<br/>' + item.title + '</div>';
+    var fallback = '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>';
     var imgTag = item.img ? '<img src="' + item.img + '" alt="' + item.alt + '" style="object-position:top center" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' : '';
     tlHTML += '<div class="tl-item ' + side + '"><div class="tl-img-wrap">' + imgTag + fallback + '</div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-year-badge">' + item.year + '</div><div class="tl-topic-tag">' + item.topic + '</div><h3 class="tl-title">' + item.title + '</h3><p class="tl-desc">' + item.desc + '</p></div></div>';
   });

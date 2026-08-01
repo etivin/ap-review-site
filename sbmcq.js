@@ -168,7 +168,8 @@
     /* ============ UNIT 2 (added) ============ */
     {
       unit: 2, topic: '2.4', type: 'causation', test: 'Unit 2 · Topic 2.4',
-      stim: 'The map shows a network of <mark class="hs">caravan routes crossing the Sahara Desert</mark>, linking cities such as Sijilmasa, Timbuktu, Gao, and Djenné with the <mark class="hs">gold fields of West Africa</mark> and the Mediterranean coast.',
+      simg: 'images/u2-mcq-transsaharan.png',
+      stim: 'The map above shows a network of <mark class="hs">caravan routes crossing the Sahara Desert</mark>, linking cities such as Sijilmasa, Timbuktu, Gao, and Djenné with the <mark class="hs">gold fields of West Africa</mark> (Bambuk, Bouré) and the Mediterranean coast.',
       srcline: 'Map of trans-Saharan trade routes in West Africa, c. 1200–1450',
       src: [
         { tag: 'WHEN', since: 'it maps the routes of roughly 1200–1450', therefore: 'it fits the era when trans-Saharan trade was expanding fast' },
@@ -255,7 +256,7 @@
     /* ============ UNIT 3 (added) ============ */
     {
       unit: 3, topic: '3.2', type: 'purpose', test: 'Unit 3 · Topic 3.2',
-      stim: '“These governors and contractors have an almost absolute authority over the peasantry and nearly as much over the artisans and merchants. <mark class="hs">Nothing is crueler and more oppressive than the manner in which they exercise their authority.</mark>\n\nThere is no one before whom the oppressed peasant, artisan, or tradesman can pour out his just complaints. If a man manages to obtain wealth, he would rather bury it in the ground and continue to appear poor, than risk being dispossessed by the state.”',
+      stim: '“The Mughal emperor is not as wealthy as he might appear because he grants some of his lands to governors, in place of a salary, on condition that they pay a certain sum annually to the emperor out of any extra revenue that the land may yield. For his other lands, he has contractors collecting the taxes. Like the governors, they are bound to pay him an annual sum.\n\nThese governors and contractors have an almost absolute authority over the peasantry and nearly as much over the artisans and merchants. <mark class="hs">Nothing is crueler and more oppressive than the manner in which they exercise their authority.</mark>\n\nThere is no one before whom the oppressed peasant, artisan, or tradesman can pour out his just complaints. This debasing state of slavery obstructs the progress of trade and influences the manners and mode of life of every individual. If a man manages to obtain wealth, he would rather bury it in the ground and continue to appear poor, than risk being dispossessed by the state.”',
       srcline: 'François Bernier, French traveler, letter to the French finance minister Jean-Baptiste Colbert, 1670',
       src: [
         { tag: 'WHEN', since: 'it was written in 1670', therefore: 'it fits the era of the powerful Mughal Empire near its height' },
@@ -297,7 +298,8 @@
     },
     {
       unit: 3, topic: '3.2', type: 'similar', test: 'Unit 3 · Topic 3.2',
-      stim: '[Illustration in a manuscript celebrating the achievements of the Ottoman Sultan Suleiman the Magnificent, c. 1560. It shows Ottoman officials <mark class="hs">forcibly enlisting boys from the empire’s Christian subjects in the Balkans</mark> to train them for service in the Ottoman army and bureaucracy — the devshirme system.]',
+      simg: 'images/u3-vis-3.jpg',
+      stim: 'A manuscript illustration made to celebrate the achievements of the Ottoman Sultan Suleiman the Magnificent (c. 1560) shows Ottoman officials <mark class="hs">forcibly enlisting boys from the empire’s Christian subjects in the Balkans</mark> to train them for service in the Ottoman army and bureaucracy — the devshirme system.',
       srcline: 'Manuscript illustration of the Ottoman devshirme system, c. 1560',
       src: [
         { tag: 'WHEN', since: 'it dates to about 1560', therefore: 'it fits the Ottoman Empire at its height under Suleiman' },
@@ -318,7 +320,7 @@
     },
     {
       unit: 3, topic: '3.3', type: 'causation', test: 'Unit 3 · Topic 3.3',
-      stim: '“Many [Ottoman] Sunni religious scholars have labeled the Sufi whirling rituals as ‘dancing,’ and have pronounced them forbidden, branding those who approve of them as infidels. The common people flock to the Sufis, giving them offerings and gifts. The Sunni scholars have written many tracts against them, and <mark class="hs">this tug-of-war between the two parties has brought them into a vicious circle</mark>.”',
+      stim: '“Many [Ottoman] Sunni religious scholars have labeled the Sufi whirling rituals as ‘dancing,’ and have pronounced them forbidden, branding those who approve of them as infidels. The Sufis counter that these rituals are not dancing, arguing instead that they enliven the soul through a combination of music and movement, which allows them to focus on the spiritual aspects of religion. The common people flock to the Sufis, giving them offerings and gifts. Since their whirling rituals play a big part in their popularity, they will not abandon these practices anytime soon. The Sunni scholars have written many tracts and opinions against them, and <mark class="hs">this tug-of-war between the two parties has brought them into a vicious circle</mark>.”',
       srcline: 'Katip Çelebi, Ottoman official, The Balance of Truth, 1656',
       src: [
         { tag: 'WHEN', since: 'it was written in 1656', therefore: 'it fits an era of sharpening Sunni–Shia and orthodox–Sufi tension in the Ottoman world' },
@@ -341,29 +343,29 @@
 
     /* ============ UNIT 4 (added) ============ */
     {
-      unit: 4, topic: '4.4', type: 'purpose', test: 'Unit 4 · Topic 4.4',
-      stim: 'A Portuguese ivory plaque, made in Portuguese Goa on the coast of India, representing the Christ Child <mark class="hs">standing on top of a European sailing ship</mark>, early seventeenth century.',
-      srcline: 'Portuguese ivory plaque, Goa (southwestern coast of India), c. 1600–1625',
+      unit: 4, topic: '4.2', type: 'causation', test: 'Unit 4 · Topic 4.2',
+      stim: 'The Portuguese explorer Vasco da Gama reached India in 1498 by <mark class="hs">sailing around the southern tip of Africa</mark>, opening a direct sea route between Europe and Asia. This route bypassed the overland Silk Road networks controlled by Ottoman and other intermediaries.',
+      srcline: 'Historical context, Portuguese exploration, c. 1498',
       src: [
-        { tag: 'WHEN', since: 'it was made c. 1600–1625', therefore: 'it fits the height of Portuguese maritime expansion into the Indian Ocean' },
-        { tag: 'WHO', since: 'it was produced in a Portuguese trading colony (Goa)', therefore: 'it reflects Portuguese values, tying together faith and seafaring' },
-        { tag: 'WHAT', since: 'it is a religious art object showing Christ on a ship', therefore: 'it deliberately links Christianity to Portuguese voyaging' }
+        { tag: 'WHEN', since: 'it describes 1498', therefore: 'it fits the opening decades of European transoceanic exploration' },
+        { tag: 'WHO', since: 'it is a modern historical-context note', therefore: 'it is a neutral setup, with no viewpoint to decode' },
+        { tag: 'WHAT', since: 'it describes a new sea route that bypassed overland middlemen', therefore: 'it is about why Europeans wanted such a route' }
       ],
-      q: 'A <mark class="hq">likely purpose</mark> for including the religious figure on the plaque was to show that',
+      q: 'Which of the following best explains the <mark class="hq">primary motivation</mark> for Portuguese maritime exploration along the African coast in the fifteenth century?',
       options: [
-        'salvation for the Portuguese could be obtained only by rejecting material wealth',
-        'Portuguese naval activities in the Indian Ocean region were favored by divine forces',
-        'the Muslim inhabitants of Goa could also obtain salvation through Jesus',
-        'Jesus would provide the Portuguese with new sailing technologies if they followed him'
+        'To find a sea route to the Americas in order to establish settler colonies',
+        'To bypass Ottoman-controlled overland trade routes and reach Asian spice markets directly',
+        'To spread Christianity to sub-Saharan Africa as part of a crusade against Islam',
+        'To establish direct military control over Indian Ocean city-states'
       ],
       answer: 1, trapIdx: 2,
-      meaning: 'This is a purpose question: why put the Christ Child on top of a sailing ship? The maker is linking Portuguese voyages to God’s blessing.',
-      why: 'B. Placing the Christ Child atop a triumphant Portuguese ship suggests the voyages carried divine approval — a common Iberian idea that tied maritime expansion to God’s favor.',
-      trap: 'C (that Muslims too could gain salvation) is unrelated to a Christian devotional object celebrating Portuguese seafaring. In a purpose question, the answer must fit who made it and why.'
+      meaning: 'Da Gama’s route “bypassed the overland Silk Road networks controlled by Ottoman intermediaries.” The question asks why Portugal wanted that — what were they trying to reach, and around whom?',
+      why: 'B. Portugal sought to reach Asian spice markets directly, without paying the Ottoman and Italian middlemen who controlled the overland routes. That is the motive the passage points to.',
+      trap: 'C (a crusade to spread Christianity) was a real secondary motive of the era, but the passage stresses bypassing intermediaries to reach Asian trade — the economic driver. Match the cause the source actually highlights.'
     },
     {
       unit: 4, topic: '4.6', type: 'context', test: 'Unit 4 · Topic 4.6',
-      stim: '“Captain Quao, and several other Black officers under his command, surrendered under the following terms.\n\n2. Captain Quao and his people shall have a certain quantity of land given to them, to raise crops and stock, with sugarcanes excepted.\n\n4. Captain Quao and his people shall <mark class="hs">destroy all other rebellious Blacks</mark> in any part of Jamaica. They shall be paid to apprehend any runaway Blacks and return them to their respective owners.”',
+      stim: '“Colonel Robert Bennett, under the authority of the Governor of Jamaica, makes a treaty with the rebellious Blacks. Captain Quao, and several other Black officers under his command, surrendered under the following terms.\n\n1. All hostilities on both sides shall cease forever.\n\n2. Captain Quao and his people shall have a certain quantity of land given to them, in order to raise crops, hogs, fowls, goats, or whatsoever stock they may think proper, with sugarcanes excepted.\n\n3. Four White men shall constantly live and reside with them in their town, in order to keep a good correspondence.\n\n4. Captain Quao and his people shall <mark class="hs">destroy all other rebellious Blacks</mark> in any part of Jamaica. They shall be paid to apprehend any runaway Blacks and return them to their respective owners.”',
       srcline: 'Treaty between British colonial authorities and the Windward Maroons, Jamaica, 1739',
       src: [
         { tag: 'WHEN', since: 'it was signed in 1739', therefore: 'it fits the height of the Atlantic slave and plantation system in the Caribbean' },
@@ -383,29 +385,29 @@
       trap: 'B (impoverishment of indigenous populations) is about Native Americans, not enslaved Africans. Right era, wrong group — a context question needs the trend that these specific people were reacting to.'
     },
     {
-      unit: 4, topic: '4.3', type: 'causation', test: 'Unit 4 · Topic 4.3',
-      stim: 'A graph shows the population of central Mexico <mark class="hs">falling from about 25 million in 1519 to roughly 1.2 million by 1600</mark>, followed by a slow recovery.',
-      srcline: 'Demographic data, central Mexico, 1519–1700',
+      unit: 4, topic: '4.5', type: 'bestillustrates', test: 'Unit 4 · Topic 4.5',
+      stim: '“Seeing how vile and despicable the idol was, we went outside to ask why they cared about so crude and ungainly a thing. But they, astounded at our daring, defended the honor of their god and said that he was Pachacamac, the Maker of the World, who healed their infirmities. Seeing the evil of what was there and the blindness of all those people, we gathered together their leaders and enlightened them. And in the presence of all, the hut was opened and torn down and with much solemnity <mark class="hs">a tall cross was raised over the seat which for so long the devil had claimed as his own</mark>.”',
+      srcline: 'Miguel de Estete, Spanish mercenary soldier, account of an expedition to Peru, c. 1532',
       src: [
-        { tag: 'WHEN', since: 'the data begins in 1519', therefore: 'it starts exactly when the Spanish arrived and the Columbian Exchange began' },
-        { tag: 'WHO', since: 'it is demographic data, not a person’s account', therefore: 'it is a neutral record of population, with no argument to decode' },
-        { tag: 'WHAT', since: 'it shows a catastrophic collapse and then slow recovery', therefore: 'it is documenting a sudden mass die-off' }
+        { tag: 'WHEN', since: 'it dates to about 1532', therefore: 'it fits the Spanish conquest and forced Christianization of the Andes' },
+        { tag: 'WHO', since: 'it was written by a Spanish soldier on the expedition', therefore: 'he presents the destruction of the shrine as a righteous victory' },
+        { tag: 'WHAT', since: 'it describes tearing down a shrine and raising a cross', therefore: 'it is about the Spanish attempt to replace Andean religion with Christianity' }
       ],
-      q: 'The trend shown is <mark class="hq">best explained by</mark>',
+      q: 'Which long-term change in circa 1550–1700 best demonstrates that the actions described <mark class="hq">failed to fully achieve their goals</mark>?',
       options: [
-        'increased production of cash crops like sugar',
-        'the growth of silver mining in New Spain',
-        'the introduction of Old World diseases to which indigenous peoples had no immunity',
-        'African slave-trading kingdoms’ demand for European trade goods'
+        'The development of a global economy based on Spanish exports of Andean silver',
+        'American foods becoming staple crops across Eurasia',
+        'The emergence of syncretic religious practices in the Americas',
+        'The growing Spanish dependence on coerced labor in the Americas'
       ],
-      answer: 2, trapIdx: 1,
-      meaning: 'A population crashes from 25 million to about one million in 80 years, starting the moment Europeans arrive. What kills that many people that fast?',
-      why: 'C. The collapse was caused by Old World diseases — smallpox, measles, typhus — to which Native Americans had no immunity. This epidemic die-off was the central demographic consequence of the Columbian Exchange.',
-      trap: 'B (silver mining) did use brutal forced labor and killed many, but it cannot explain a ~95% population loss across all of central Mexico. Reach for a cause big enough to fit the size of the effect.'
+      answer: 2, trapIdx: 3,
+      meaning: 'De Estete’s goal was to replace Andean religion with Christianity by force. The question asks what later development shows that goal was NOT fully met.',
+      why: 'C. Indigenous beliefs survived by blending with Catholicism into syncretic practices — proof that the forced conversion de Estete describes never fully erased native religion.',
+      trap: 'D (dependence on coerced labor) is true of colonial Peru, but it is about the economy, not about whether religious conversion succeeded. Match the evidence to the specific goal in the passage.'
     },
     {
       unit: 4, topic: '4.3', type: 'bestillustrates', test: 'Unit 4 · Topic 4.3',
-      stim: '“The Dominican friars arrived, and thereafter our lord the Spaniards conquered all the towns. And then they converted the people to the Christian faith. Before the coming of the Spaniards, our ancestors <mark class="hs">were ignorant of the word and the commandments of God</mark>.”',
+      stim: '“In the course of the fifth year the terrible pestilence began. First there was a cough, then blood. The number of deaths at this time was truly terrible. In 1521 my father, the king, died. The elders and the priests died alike from the pestilence.\n\n[Years later] the Dominican friars arrived, and thereafter our lord the Spaniards conquered all the towns. And then they converted the people to the Christian faith. Before the coming of the Spaniards, our ancestors <mark class="hs">were ignorant of the word and the commandments of God</mark>.”',
       srcline: 'Anonymous Maya author, Annals of the Cakchiquels, sixteenth century',
       src: [
         { tag: 'WHEN', since: 'it describes the decades after the Spanish conquest', therefore: 'it fits the era of forced Christianization in the Americas' },
@@ -429,7 +431,7 @@
     /* ============ UNIT 5 (added) ============ */
     {
       unit: 5, topic: '5.1', type: 'purpose', test: 'Unit 5 · Topic 5.1',
-      stim: 'Source 1: “The free men of color should be granted the same rights of citizenship as other Frenchmen. The other Black slaves may enjoy a <mark class="hs">conditional liberty, namely that they remain on the land of their masters and work that land for a period ranging between 10 and 20 years</mark>.”\n\nSource 2: “This Black individual is free, because neither the nation nor the Supreme Being created slaves. He is your equal, because he is a man.”',
+      stim: 'Source 1: “It cannot be denied that when the French nation proclaimed these sacred words, ‘Men are born and remain free and equal in rights,’ it did not break the chains of humankind. The free men of color should be granted the same rights of citizenship as other Frenchmen. The artisan slaves should also be called to freedom on the condition that each slave pays a one-time tax for freedom. The other Black slaves may enjoy a <mark class="hs">conditional liberty, namely that they remain on the land of their masters and work that land for a period ranging between 10 and 20 years</mark>.”\n\nSource 2: “To bring the Blacks of Saint-Domingue back to their original condition of slavery is impossible: the writings of the philosophes have spread over the surface of the globe. This Black individual is free, because neither the nation nor the Supreme Being created slaves. He is your equal, because he is a man. He is a French citizen, because he serves the country.”',
       srcline: 'Source 1: Armand-Guy Kersaint, French deputy in the National Assembly, Paris, 1792. Source 2: H. D. de Saint-Maurice, French journalist, Saint-Domingue, 1793.',
       src: [
         { tag: 'WHEN', since: 'both date to 1792–93', therefore: 'they fit the French and Haitian revolutionary debates over slavery' },
@@ -450,7 +452,7 @@
     },
     {
       unit: 5, topic: '5.2', type: 'causation', test: 'Unit 5 · Topic 5.2',
-      stim: 'The theory that all peoples are equal and brothers is espoused mainly by Western Christian ministers. But when we look at the facts of international relations, we find them shockingly different... <mark class="hs">whether a treaty is honored or not depends entirely on the financial and military powers of the countries involved</mark>. International politics is the way of force rather than the way of virtue — and we should accept that.',
+      stim: 'In theory, all of the peoples of the world are created equal and are brothers before God. As universal love advances, the theory goes, the entire world will soon be at peace. This theory is currently espoused mainly by Western Christian ministers. However, when we leave this fiction and look at the facts regarding international relations today, we find them shockingly different. Do nations honor treaties? We find not the slightest evidence that they do. <mark class="hs">Whether a treaty is honored or not depends entirely on the financial and military powers of the countries involved</mark>. If others are violent, then I too must become violent. International politics is the way of force rather than the way of virtue — and we should accept that.',
       srcline: 'Yukichi Fukuzawa, Japanese intellectual, Commentary on the Current Problems, 1881',
       src: [
         { tag: 'WHEN', since: 'it was written in 1881', therefore: 'it fits Japan’s rapid Meiji-era response to Western pressure' },
@@ -470,25 +472,25 @@
       trap: 'B (peaceful Shinto and Buddhist traditions) points the opposite direction from Fukuzawa’s harsh conclusion. In causation, the cause must actually produce the view expressed, not contradict it.'
     },
     {
-      unit: 5, topic: '5.5', type: 'bestillustrates', test: 'Unit 5 · Topic 5.5',
-      stim: 'A table compiled from English banks and private lenders (1750–1800) lists the expected returns and risk of many investments — land in Britain, commercial enterprises in Britain, land in India, <mark class="hs">loans to European and to Indian or Chinese merchants in India and China, and financing for trading voyages to India, China, and Southeast Asia</mark>.',
-      srcline: 'Adapted from Jessica Hanser, on British commercial credit in Madras and Canton, 1750–1800',
+      unit: 5, topic: '5.1', type: 'bestillustrates', test: 'Unit 5 · Topic 5.1',
+      stim: 'Americans today, who live within the Spanish system, occupy a position in society no better than that of serfs destined for labor... surrounded with galling restrictions, such as being <mark class="hs">forbidden to grow European crops, or to establish factories</mark> of a type the Peninsula itself does not possess. To this add the exclusive trading privileges, even in articles of prime necessity, and the barriers between American provinces designed to prevent all exchange of trade. In short, do you wish to know what our future held? — simply the cultivation of fields, cattle raising, and mining gold.',
+      srcline: 'Simón Bolívar, Letter from Jamaica, 1815',
       src: [
-        { tag: 'WHEN', since: 'it covers 1750–1800', therefore: 'it fits the era of expanding global commerce and early European empire in Asia' },
-        { tag: 'WHO', since: 'the information came from English banks and lenders', therefore: 'it reflects where European capital was actually flowing' },
-        { tag: 'WHAT', since: 'it is a table of investment options across the globe', therefore: 'it is about the reach of financial activity, not any single deal' }
+        { tag: 'WHEN', since: 'it was written in 1815', therefore: 'it fits the Latin American wars of independence against Spain' },
+        { tag: 'WHO', since: 'it was written by Bolívar, a leader of the independence movement', therefore: 'he is building the case against Spanish rule' },
+        { tag: 'WHAT', since: 'it is an open letter listing colonial grievances', therefore: 'it is persuasive and one-sided by design' }
       ],
-      q: 'Which conclusion is <mark class="hq">best supported</mark> by the data in the table?',
+      q: 'The quotation best <mark class="hq">supports which conclusion</mark> about Bolívar’s motives for resisting Spanish rule?',
       options: [
-        'Traditional elites introduced complex financial practices.',
-        'Financial practices facilitated deeper global economic integration.',
-        'Transnational businesses incorporated local merchants into their companies.',
-        'Governments sought to stimulate economic activity through lending.'
+        'Bolívar opposed the use of Native Americans and Africans as forced laborers.',
+        'Bolívar rejected Spanish mercantilist policies that restricted free trade.',
+        'Bolívar was alarmed by excessive consumerism in the Spanish empire.',
+        'Bolívar hoped to undo the effects of the Columbian Exchange.'
       ],
-      answer: 1, trapIdx: 3,
-      meaning: 'English lenders are funding land, loans, and voyages stretching from Britain to India, China, and Southeast Asia. That web of cross-border money is the whole point of the table.',
-      why: 'B. The table shows European capital financing trade and loans across India, China, and Southeast Asia — a clear illustration of financial practices knitting the world into a more integrated global economy.',
-      trap: 'D (governments stimulating activity through lending) sounds plausible, but the lenders here are private banks and individuals, not governments. Stay inside what the table actually shows.'
+      answer: 1, trapIdx: 0,
+      meaning: 'Bolívar lists ban after ban — no European crops, no factories, no trade between provinces. Those are all one kind of policy. Which economic system do they add up to?',
+      why: 'B. Every restriction Bolívar names — forbidding crops, factories, and inter-colonial trade — is a feature of Spanish mercantilism, which kept the colony a raw-material supplier. That is the grievance driving him.',
+      trap: 'A (opposition to forced labor) is a real Enlightenment cause, but it is not what this passage lists — his complaints are all about trade and manufacturing restrictions. Match the conclusion to the evidence actually given.'
     },
     {
       unit: 5, topic: '5.2', type: 'context', test: 'Unit 5 · Topic 5.2',
@@ -537,7 +539,7 @@
     },
     {
       unit: 6, topic: '6.3', type: 'causation', test: 'Unit 6 · Topic 6.3',
-      stim: 'The Government of India Act of 1858 <mark class="hs">transferred sovereignty over India from the British East India Company to the British Crown</mark>. Queen Victoria was later proclaimed Empress of India in 1877.',
+      stim: 'The Government of India Act of 1858 <mark class="hs">transferred sovereignty over India from the British East India Company to the British Crown</mark>. Queen Victoria was proclaimed Empress of India in 1877. The Colonial Secretary noted: “We have 300 million subjects who regard our rule as the guarantee of peace, order, and prosperity they could not provide for themselves.”',
       srcline: 'Secondary source summary of the British Crown’s assumption of Indian governance, 1858',
       src: [
         { tag: 'WHEN', since: 'it dates to 1858', therefore: 'it comes immediately after a major crisis in British India' },
@@ -558,7 +560,7 @@
     },
     {
       unit: 6, topic: '6.4', type: 'bestillustrates', test: 'Unit 6 · Topic 6.4',
-      stim: 'By 1880 the British textile industry consumed most of Egypt’s raw cotton. Egyptian farmers who once grew food were <mark class="hs">shifted to cotton monoculture</mark> — profitable in good years, catastrophic when British mills cut their orders and global cotton prices fell.',
+      stim: 'The British cotton textile industry consumed 80% of Egypt’s raw cotton by 1880. Egyptian farmers who once grew food were <mark class="hs">shifted to cotton monoculture</mark> — profitable in good years, catastrophic when British mills reduced orders. When the global cotton price fell in 1873, Egyptian farmers faced bankruptcy while British manufacturers who bought their cotton at lower prices increased profits.',
       srcline: 'Secondary source analysis of Egypt’s cotton economy under British influence, c. 1880',
       src: [
         { tag: 'WHEN', since: 'it describes about 1880', therefore: 'it fits the age of industrial powers reshaping colonial economies' },
@@ -579,7 +581,7 @@
     },
     {
       unit: 6, topic: '6.6', type: 'causation', test: 'Unit 6 · Topic 6.6',
-      stim: 'Between 1848 and 1852, more than a million Irish people fled the potato famine to the United States. By the 1860s, Irish immigrants built the eastern transcontinental railroad while Chinese workers <mark class="hs">recruited from Guangdong province built the western half</mark>.',
+      stim: 'Between 1848 and 1852, more than one million Irish people emigrated to the United States, fleeing the potato famine that killed approximately one million more. They arrived as unskilled laborers concentrated in northeastern cities. By the 1860s, Irish immigrants provided labor for the eastern transcontinental railroad while Chinese workers — <mark class="hs">recruited directly from Guangdong province — built the western half</mark>.',
       srcline: 'Secondary source summary of mid-nineteenth-century labor migration to the United States',
       src: [
         { tag: 'WHEN', since: 'it covers the 1840s–60s', therefore: 'it fits the era of mass global migration and industrialization' },
@@ -603,7 +605,7 @@
     /* ============ UNIT 7 (added) ============ */
     {
       unit: 7, topic: '7.1', type: 'causation', test: 'Unit 7 · Topic 7.1',
-      stim: 'Of the non-white countries, Japan has taken the lead in adopting the best parts of European civilization... <mark class="hs">Although most Asiatic nations are fully peers of European nations, yet they are discriminated against because of the color of the skin.</mark>',
+      stim: 'When the proposal to proclaim the equality of races was rejected by the Peace Conference at Versailles, the Japanese representative made it known that Japan would reintroduce the proposal.\n\nOf the non-white countries, Japan has taken the lead in adopting the best parts of European civilization. Japan reformed her laws, her police and judicial systems, and her military and naval forces, placing herself almost on an equal footing with the European countries.\n\nSome whites regard the development of Japan as an unjustifiable encroachment upon their own rights. <mark class="hs">Although most Asiatic nations are fully peers of European nations, yet they are discriminated against because of the color of the skin.</mark>',
       srcline: 'Okuma Shigenobu, Japanese member of parliament and former prime minister, “Illusions of the White Race,” Tokyo, 1921',
       src: [
         { tag: 'WHEN', since: 'it was written in 1921', therefore: 'it fits the interwar period as Japan rose as a great power' },
@@ -624,7 +626,7 @@
     },
     {
       unit: 7, topic: '7.1', type: 'context', test: 'Unit 7 · Topic 7.1',
-      stim: 'The Turkish nation is not a nation that lives by begging from others. <mark class="hs">Sovereignty is not given, it is taken. Sovereignty belongs to the Turkish nation unconditionally and without reservation.</mark>',
+      stim: 'The Turkish nation is not a nation that lives by begging from others. The Turkish nation has an honored and elevated character. <mark class="hs">Sovereignty is not given, it is taken. Sovereignty belongs to the Turkish nation unconditionally and without reservation.</mark>\n\nThe Turkish Republic is founded not on sentiment, but on strength. Henceforth the Turkish state will belong to the Turks.',
       srcline: 'Mustafa Kemal Atatürk, founder and first president of the Republic of Turkey, speeches, 1920s',
       src: [
         { tag: 'WHEN', since: 'these are speeches of the early 1920s', therefore: 'they come right after WWI and the fall of the Ottoman Empire' },
@@ -645,7 +647,7 @@
     },
     {
       unit: 7, topic: '7.2', type: 'purpose', test: 'Unit 7 · Topic 7.2',
-      stim: 'The peace conditions imposed upon Germany are so hard, so humiliating... This “peace” offered to Germany is a mockery of <mark class="hs">President Wilson’s principles</mark>. Trusting in these, Germany surrendered. That confidence has been betrayed.',
+      stim: 'The peace conditions imposed upon Germany are so hard, so humiliating, that those who had even the tiniest hope for a “just peace” are bound to be deeply disappointed. But a condemnation of wartime actions must not amount to a lasting condemnation of an entire nation.\n\nThe Entente evidently desires the complete annihilation of Germany; the financial burden is so heavy that Germany is reduced to economic bondage.\n\nThis “peace” offered to Germany is a mockery of <mark class="hs">President Wilson’s principles</mark>. Trusting in these, Germany surrendered and accepted peace. That confidence has been betrayed.',
       srcline: 'Algemeen Handelsblad, Dutch liberal newspaper, editorial on the Treaty of Versailles, June 1919',
       src: [
         { tag: 'WHEN', since: 'it was written in June 1919', therefore: 'it responds directly to the just-signed Treaty of Versailles' },
@@ -666,7 +668,7 @@
     },
     {
       unit: 7, topic: '7.1', type: 'causation', test: 'Unit 7 · Topic 7.1',
-      stim: 'The twentieth century saw multiple mass atrocities — the Armenian Genocide, the Holocaust, and later Cambodia and Rwanda. In every case, <mark class="hs">dehumanizing propaganda preceded and accompanied the violence</mark>.',
+      stim: 'The twentieth century saw multiple mass atrocities: the Armenian Genocide (1915–16) killed 1–1.5 million Armenians; the Holocaust (1941–45) killed approximately 6 million Jews and 6 million others; the Cambodian Genocide (1975–79) killed roughly a quarter of Cambodia’s population; the Rwandan Genocide (1994) killed approximately 800,000 Tutsi in 100 days. In all cases, <mark class="hs">dehumanizing propaganda preceded and accompanied the violence</mark>.',
       srcline: 'Study guide: patterns in twentieth-century mass atrocities',
       src: [
         { tag: 'WHEN', since: 'it surveys twentieth-century genocides', therefore: 'it fits the era of racial and ethnic mass violence' },
@@ -690,7 +692,7 @@
     /* ============ UNIT 8 (added) ============ */
     {
       unit: 8, topic: '8.1', type: 'bestillustrates', test: 'Unit 8 · Topic 8.1',
-      stim: 'From Stettin in the Baltic to Trieste in the Adriatic, <mark class="hs">an iron curtain has descended across the Continent</mark>. Behind that line lie all the capitals of the ancient states of Central and Eastern Europe, subject to a very high and increasing measure of control from Moscow.',
+      stim: 'From Stettin in the Baltic to Trieste in the Adriatic, <mark class="hs">an iron curtain has descended across the Continent</mark>. Behind that line lie all the capitals of the ancient states of Central and Eastern Europe — Warsaw, Berlin, Prague, Vienna, Budapest, Belgrade, Bucharest and Sofia. All these famous cities and the populations around them lie in what I must call the Soviet sphere, and all are subject not only to Soviet influence but to a very high and in many cases increasing measure of control from Moscow.',
       srcline: 'Winston Churchill, “The Sinews of Peace,” Fulton, Missouri, March 5, 1946',
       src: [
         { tag: 'WHEN', since: 'it was delivered in March 1946', therefore: 'it comes just after WWII, as the wartime Allies split apart' },
@@ -711,7 +713,7 @@
     },
     {
       unit: 8, topic: '8.3', type: 'causation', test: 'Unit 8 · Topic 8.3',
-      stim: 'The Parties agree that <mark class="hs">an armed attack against one or more of them... shall be considered an attack against them all</mark>, and that each of them will assist the Party so attacked.',
+      stim: 'The Parties agree that <mark class="hs">an armed attack against one or more of them in Europe or North America shall be considered an attack against them all</mark>, and consequently they agree that, if such an armed attack occurs, each of them, in exercise of the right of individual or collective self-defence, will assist the Party or Parties so attacked.',
       srcline: 'North Atlantic Treaty (NATO Charter), Article 5, April 4, 1949',
       src: [
         { tag: 'WHEN', since: 'it was signed in 1949', therefore: 'it fits the early Cold War hardening of rival blocs' },
@@ -732,7 +734,7 @@
     },
     {
       unit: 8, topic: '8.4', type: 'purpose', test: 'Unit 8 · Topic 8.4',
-      stim: '“All men are created equal. They are endowed by their Creator with certain inalienable rights.” <mark class="hs">This immortal statement was made in the Declaration of Independence of the United States of America in 1776.</mark> In a broader sense, all the peoples of the earth are equal from birth.',
+      stim: '“All men are created equal. They are endowed by their Creator with certain inalienable rights; among these are Life, Liberty, and the pursuit of Happiness.” <mark class="hs">This immortal statement was made in the Declaration of Independence of the United States of America in 1776.</mark> In a broader sense, this means: all the peoples on the earth are equal from birth, all the peoples have a right to live, to be happy and free. Nevertheless, for more than eighty years, the French imperialists have violated our Fatherland and oppressed our fellow citizens.',
       srcline: 'Ho Chi Minh, Declaration of Independence of the Democratic Republic of Vietnam, September 2, 1945',
       src: [
         { tag: 'WHEN', since: 'it was issued in September 1945', therefore: 'it comes at the moment of Vietnam’s bid for independence after Japan’s defeat' },
@@ -753,7 +755,7 @@
     },
     {
       unit: 8, topic: '8.5', type: 'context', test: 'Unit 8 · Topic 8.5',
-      stim: 'There is a new African in the world! That new African is ready to fight his own battles and show that <mark class="hs">the black man is capable of managing his own affairs</mark>. We are no longer a colonial people. We are a free, sovereign people.',
+      stim: 'At long last, the battle has ended! And thus, Ghana, your beloved country, is free forever! There is a new African in the world! That new African is ready to fight his own battles and show that <mark class="hs">the black man is capable of managing his own affairs</mark>. We must change our attitudes, our minds. We must realize that from now on we are no longer a colonial people. We are a free, sovereign people.',
       srcline: 'Kwame Nkrumah, Independence Speech, Accra, Ghana, March 6, 1957',
       src: [
         { tag: 'WHEN', since: 'it was delivered in 1957 at Ghana’s independence', therefore: 'it fits the wave of post-war African decolonization' },
@@ -789,9 +791,10 @@
   }
 
   function stimHTML(ex) {
-    // split into paragraphs on blank lines; marks are trusted HTML already inside
-    var paras = ex.stim.split('\n\n');
-    return paras.map(function (p) { return '<p>' + p + '</p>'; }).join('');
+    // optional real image, then paragraphs split on blank lines; marks are trusted HTML already inside
+    var img = ex.simg ? '<img class="wk-stim-img" src="' + ex.simg + '" alt="" loading="lazy">' : '';
+    var paras = ex.stim ? ex.stim.split('\n\n') : [];
+    return img + paras.map(function (p) { return '<p>' + p + '</p>'; }).join('');
   }
 
   var TYPEWHY = {
@@ -853,31 +856,38 @@
       '<div class="wk-coach-step" data-for="4">' + s4 + '</div>';
   }
 
-  function cardHTML(ex) {
+  function cardHTML(ex, open) {
     var T = WT[ex.type];
-    return '<div class="wk" data-step="1">' +
-      '<div class="wk-head"><span class="walk-badge ' + T.cls + '">' + T.name + '</span>' +
-      '<span class="wk-topic">Unit ' + ex.unit + ' &middot; ' + esc(ex.test) + '</span></div>' +
+    var qplain = esc(String(ex.q).replace(/<[^>]+>/g, '')); // question stem, marks stripped, for the collapsed header
+    return '<div class="wk' + (open ? ' is-open' : '') + '" data-step="1">' +
+      '<button type="button" class="wk-summary">' +
+        '<span class="walk-badge ' + T.cls + '">' + T.name + '</span>' +
+        '<span class="wk-sum-topic">Unit ' + ex.unit + ' &middot; ' + esc(ex.test) + '</span>' +
+        '<span class="wk-chevron" aria-hidden="true">&#9654;</span>' +
+        '<span class="wk-sum-q">' + qplain + '</span>' +
+      '</button>' +
 
-      '<div class="wk-body">' +
-        '<div class="wk-doc">' +
-          '<div class="wk-stim">' + stimHTML(ex) + '</div>' +
-          '<div class="wk-srcbar"><span class="wk-srclabel">Source line</span><span class="wk-srctext">' + esc(ex.srcline) + '</span></div>' +
-          '<div class="wk-q">' + ex.q + '</div>' +
-          optionsHTML(ex) +
+      '<div class="wk-detail">' +
+        '<div class="wk-body">' +
+          '<div class="wk-doc">' +
+            '<div class="wk-stim">' + stimHTML(ex) + '</div>' +
+            '<div class="wk-srcbar"><span class="wk-srclabel">Source line</span><span class="wk-srctext">' + esc(ex.srcline) + '</span></div>' +
+            '<div class="wk-q">' + ex.q + '</div>' +
+            optionsHTML(ex) +
+          '</div>' +
+          '<aside class="wk-coach">' + coachSteps(ex) +
+            '<div class="wk-nav"><button type="button" class="wk-prev" disabled>← Back</button>' +
+            '<span class="wk-count">Step <b>1</b> of 4</span>' +
+            '<button type="button" class="wk-next">Next →</button></div>' +
+          '</aside>' +
         '</div>' +
-        '<aside class="wk-coach">' + coachSteps(ex) +
-          '<div class="wk-nav"><button type="button" class="wk-prev" disabled>← Back</button>' +
-          '<span class="wk-count">Step <b>1</b> of 4</span>' +
-          '<button type="button" class="wk-next">Next →</button></div>' +
-        '</aside>' +
-      '</div>' +
 
-      '<div class="wk-dots">' +
-        '<button type="button" class="wk-dot active" data-s="1">1. Source line</button>' +
-        '<button type="button" class="wk-dot" data-s="2">2. The question</button>' +
-        '<button type="button" class="wk-dot" data-s="3">3. What it asks</button>' +
-        '<button type="button" class="wk-dot" data-s="4">4. Answer &amp; trap</button>' +
+        '<div class="wk-dots">' +
+          '<button type="button" class="wk-dot active" data-s="1">1. Source line</button>' +
+          '<button type="button" class="wk-dot" data-s="2">2. The question</button>' +
+          '<button type="button" class="wk-dot" data-s="3">3. What it asks</button>' +
+          '<button type="button" class="wk-dot" data-s="4">4. Answer &amp; trap</button>' +
+        '</div>' +
       '</div>' +
     '</div>';
   }
@@ -899,6 +909,7 @@
     el.addEventListener('click', function (e) {
       var card = e.target.closest('.wk');
       if (!card) return;
+      if (e.target.closest('.wk-summary')) { card.classList.toggle('is-open'); return; }
       var cur = parseInt(card.getAttribute('data-step'), 10) || 1;
       if (e.target.closest('.wk-next')) { setStep(card, cur + 1); return; }
       if (e.target.closest('.wk-prev')) { setStep(card, cur - 1); return; }
@@ -942,7 +953,7 @@
       if (!items.length) {
         html += '<div class="walk-empty">Worked example for this unit is coming soon. Drop the unit test PDF into the repo and it will be added here.</div>';
       } else {
-        items.forEach(function (ex) { html += cardHTML(ex); });
+        items.forEach(function (ex, i) { html += cardHTML(ex, i === 0); });
       }
       html += '</section>';
     });

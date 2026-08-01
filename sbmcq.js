@@ -32,13 +32,13 @@
   };
 
   var UNIT_TITLES = {
-    2: 'Unit 2: Networks of Exchange',
-    3: 'Unit 3: Land-Based Empires',
-    4: 'Unit 4: Transoceanic Connections',
-    5: 'Unit 5: Revolutions',
-    6: 'Unit 6: Consequences of Industrialization',
-    7: 'Unit 7: Global Conflict',
-    8: 'Unit 8: Cold War and Decolonization'
+    2: 'Unit 2 &mdash; Networks of Exchange',
+    3: 'Unit 3 &mdash; Land-Based Empires',
+    4: 'Unit 4 &mdash; Transoceanic Interconnections',
+    5: 'Unit 5 &mdash; Revolutions',
+    6: 'Unit 6 &mdash; Consequences of Industrialization',
+    7: 'Unit 7 &mdash; Global Conflict',
+    8: 'Unit 8 &mdash; Cold War &amp; Decolonization'
   };
 
   function esc(s) {

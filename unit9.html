@@ -357,7 +357,7 @@ button{font-family:inherit;cursor:pointer}
       <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
       <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
     </div>
-    <div class="wd-mount" data-unit-label="Unit 9"></div>
+    <div class="wd-mount" data-unit="9" data-unit-label="Unit 9"></div>
   </div>
 </div>
 
@@ -1189,18 +1189,18 @@ button{font-family:inherit;cursor:pointer}
 
 <script>
 // ── PAGE NAV ──────────────────────────────────────
-var PAGE_TITLES = {'pg-home':'Overview','pg-writing':'Writing Drills','pg-web':'Web Review','pg-guide':'Study Guide','pg-tips':'Exam Tips','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
+var PAGE_TITLES = {'pg-home':'Overview','pg-writing':'Writing Drills','pg-web':'Globalization Web','pg-guide':'Study Guide','pg-tips':'Exam Tips','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
 /* ── Consolidated 6-group navigation (portable across all units) ── */
 var GROUPS = [
   {label:'Overview',    pages:['pg-home']},
   {label:'Practice',    pages:['pg-mcq','pg-walk','pg-web']},
-  {label:'Writing',     pages:['pg-write','pg-writing']},
+  {label:'Writing',     pages:['pg-writing']},
   {label:'Study Guide', pages:['pg-guide','pg-tips']},
   {label:'Sources',     pages:['pg-source','pg-visual','pg-maps']},
   {label:'Review & Recall', pages:['pg-flash','pg-brain','pg-spice','pg-games']}
 ];
 var SUBLABELS = {
-  'pg-mcq':'Questions','pg-walk':'How to Attack an MCQ','pg-web':'Web Review',
+  'pg-mcq':'Questions','pg-walk':'How to Attack an MCQ','pg-web':'Globalization Web',
   'pg-guide':'Study Guide','pg-tips':'Exam Tips',
   'pg-source':'Documents','pg-visual':'Visual Sources','pg-maps':'Maps',
   'pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-spice':'SPICE-T','pg-games':'Games'

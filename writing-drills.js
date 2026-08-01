@@ -406,7 +406,7 @@
   function build(mount) {
     var cfg = window.WRITING_DRILLS_CONFIG || {};
     var unitLabel = mount.getAttribute('data-unit-label') || cfg.unitLabel || '';
-    var n = parseInt((unitLabel.match(/\d+/) || [])[0], 10);
+    var n = parseInt(mount.getAttribute('data-unit') || (unitLabel.match(/\d+/) || [])[0], 10);
     var examHTML = isNaN(n) ? '' : examPromptsHTML(n);
     var html = '<div class="wd-suite">';
     html += '<div class="wd-intro"><div class="wd-placeholder">Writing practice</div>' +

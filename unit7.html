@@ -730,6 +730,13 @@ img{display:block;max-width:100%}
 .spice-e{border-top-color:#6b4e71}.spice-e .spice-letter{color:#6b4e71}
 .spice-t{border-top-color:#2e5266}.spice-t .spice-letter{color:#2e5266}
 .unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
+
+/* ── Back-to-top / sections affordance ── */
+.back-to-top{position:fixed;right:22px;bottom:22px;z-index:200;display:flex;align-items:center;gap:8px;padding:11px 16px;background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 24px rgba(0,0,0,.28);font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility .2s,background .15s}
+.back-to-top.show{opacity:1;visibility:visible;transform:none}
+.back-to-top:hover{background:var(--red)}
+.back-to-top .bt-arrow{font-size:.9rem;line-height:1}
+@media(max-width:520px){.back-to-top{right:14px;bottom:14px;padding:11px 13px}.back-to-top .bt-label{display:none}}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -2763,6 +2770,18 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initialize sidebar highlight + sub-tab bar for the default Overview page.
   showTab('pg-home');
 
+  // Floating back-to-top button: once the user scrolls deep into a long
+  // section, one tap returns them to the top — where each section's
+  // "Back to Home"/"All Units" row (and, on mobile, the section list) lives.
+  (function(){
+    var btt = document.getElementById('back-to-top');
+    if (!btt) return;
+    var onScroll = function(){ btt.classList.toggle('show', window.scrollY > 400); };
+    window.addEventListener('scroll', onScroll, { passive:true });
+    btt.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); });
+    onScroll();
+  })();
+
   document.getElementById('scroll-timeline-btn').addEventListener('click', function(){
     var tl = document.getElementById('timeline-section');
     if (tl) tl.scrollIntoView({ behavior: 'smooth' });
@@ -4148,6 +4167,7 @@ document.addEventListener('DOMContentLoaded', function () {
     progressData.studentName = n;
     saveProgress();
     document.getElementById('name-modal').style.display = 'none';
+    document.body.style.overflow = '';
     showGreeting(n);
   }
   document.getElementById('name-submit-btn').addEventListener('click', dismissNameModal);
@@ -4155,9 +4175,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Enter') dismissNameModal();
   });
 
-  // Show modal if no name saved; otherwise greet immediately
+  // Show modal (a load-time gate over the whole viewport) if no name saved;
+  // otherwise greet immediately. Locking body scroll keeps the page unusable
+  // until a name is entered, so progress tracking captures the whole session.
   if (!progressData.studentName) {
     document.getElementById('name-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
   } else {
     showGreeting(progressData.studentName);
   }
@@ -6188,7 +6211,7 @@ document.addEventListener('DOMContentLoaded', function () {
           <iframe src="unit%207%20slides.pdf" title="Unit 7 Class Slides" allowfullscreen></iframe>
         </div>
         <p style="font-size:.75rem;color:var(--muted);margin-top:8px;line-height:1.5">
-          If the slides don&rsquo;t load, <a href="unit%207%20slides.pdf" target="_blank" style="color:var(--red)">open them in a new tab &rarr;</a>
+          If the slides don&rsquo;t load, <a href="unit%207%20slides.pdf" target="_blank" style="color:var(--red)">open Unit&nbsp;7 Slides (PDF) in a new tab &rarr;</a>
         </p>
       </div>
 
@@ -6337,6 +6360,11 @@ document.addEventListener('DOMContentLoaded', function () {
     <button id="name-submit-btn" style="width:100%;padding:11px;background:#b0001c;color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Start Studying</button>
   </div>
 </div>
+
+<!-- ══ BACK TO TOP / SECTIONS ══ -->
+<button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top of page and section navigation">
+  <span class="bt-arrow" aria-hidden="true">&#8593;</span><span class="bt-label">Top</span>
+</button>
 
 </body>
 </html>

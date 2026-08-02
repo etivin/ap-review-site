@@ -124,6 +124,11 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
 .fig-cap{font-size:.82rem;color:var(--muted);margin-top:12px;line-height:1.5;text-align:center;max-width:520px;margin-left:auto;margin-right:auto}
 .fig-cap b{color:var(--mid);font-weight:600}
 
+/* THESIS QUOTE */
+.thesis{margin:24px 0 0;border-left:4px solid var(--gold-b);background:var(--gold-bg);padding:18px 22px}
+.thesis p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;line-height:1.4;color:var(--ink);margin:0}
+.thesis cite{display:block;margin-top:10px;font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
 /* CLOSING CTA */
 .full-course-tab{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--ink);border:3px solid var(--red);padding:24px 30px;margin-top:44px;text-decoration:none;color:#fff;box-shadow:var(--shm);transition:background .2s,transform .2s}
 .full-course-tab:hover{background:var(--red-d);transform:translateY(-3px)}
@@ -200,6 +205,10 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
     <div class="section-label">Mind, Brain &amp; Education Science</div>
     <h1 class="section-heading">You are the sculptor of your own brain.</h1>
     <p class="section-sub">This site is full of tools: MCQ practice, flashcards, writing drills, study guides, and games. But having tools is not the same as knowing how to use them. This guide moves you past the <em>illusion of mastery</em> (feeling like you know it) toward genuine, test-day expertise. Start with your problem below, then learn the science behind the fix.</p>
+    <div class="thesis">
+      <p>&ldquo;Learning is deeper and more durable when it's effortful.&rdquo;</p>
+      <cite>Brown, Roediger &amp; McDaniel &middot; Make It Stick</cite>
+    </div>
   </div>
 
   <!-- TROUBLESHOOTER -->
@@ -325,7 +334,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
             <p class="cause">Working memory only holds about <strong>seven items</strong> at once, so loose facts flood it fast.</p>
             <div class="ts-fix">
               <span class="tag">Fix</span>
-              <p><strong>Chunk.</strong> Use what you already know to bundle scattered facts into single meaningful units, like &lsquo;the Columbian Exchange&rsquo; instead of ten separate crops and diseases. Each chunk frees up mental space for the next idea.</p>
+              <p><strong>Chunk, then hook it.</strong> Use what you already know to bundle scattered facts into single meaningful units, like &lsquo;the Columbian Exchange&rsquo; instead of ten separate crops and diseases. For lists that must stay in order, add a mnemonic: an acronym, a rhyme, or a memory palace that walks the items through a place you know. Each chunk and hook frees up mental space for the next idea.</p>
             </div>
             <div class="ts-links">
               <span class="lbl">Do it now</span>
@@ -395,7 +404,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   <!-- FIVE MBE CARDS -->
   <div class="block-head">
     <div class="block-kicker">The Science Behind the Fixes</div>
-    <div class="block-title">Five Principles of <span class="n">Real</span> Learning</div>
+    <div class="block-title">Four Principles of <span class="n">Real</span> Learning</div>
   </div>
 
   <!-- Card 1 -->
@@ -496,7 +505,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
       <span class="mbe-chev">&#9656;</span>
     </button>
     <div class="mbe-body">
-      <p>To build lasting <strong>habit strength</strong> instead of momentary strength, change <em>how you schedule</em> your work, not just how hard you work.</p>
+      <p>To build lasting <strong>habit strength</strong> instead of momentary strength, change <em>how you schedule</em> your work, not just how hard you work. Psychologists call the productive struggles that follow <span class="term">desirable difficulties</span>: they slow you down now, but they are exactly what makes the learning last.</p>
       <div class="figure">
         <span class="fig-tag">Figure 3 &middot; The spacing effect</span>
         <svg viewBox="0 0 480 245" role="img" aria-label="Line chart showing spaced review keeps memory higher than studying once">
@@ -558,38 +567,35 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
         <li><strong>Elaboration</strong>Express new material in your own words and tie it to what you already know. Building these mental models lets you bundle many small steps into one reusable &ldquo;brain app.&rdquo;</li>
         <li><strong>The 4 C's of Story</strong>Your brain is hungry for narrative. Organize complex material around <span class="term">Causality</span>, <span class="term">Conflict</span>, <span class="term">Complications</span>, and <span class="term">Character</span> to make it memorable.</li>
         <li><strong>Chunking</strong>Working memory holds only about seven items. Use background knowledge to fuse separate facts into single meaningful units, which effectively expands your mental workspace.</li>
+        <li><strong>Mnemonic Devices</strong>For lists that must stay in order, give memory a hook. Build an acronym (like &ldquo;ROY G BIV&rdquo;), a rhyme, or a memory palace that walks the items through a place you know well. Perfect for a sequence of dynasties, the causes of a war, or the parts of an empire.</li>
       </ul>
     </div>
   </div>
 
-  <!-- Card 5 -->
-  <div class="mbe-card" id="mbe5" style="--cc:var(--ink)">
+  <!-- Protect Your Practice -->
+  <div class="block-head">
+    <div class="block-kicker">Protect Your Practice</div>
+    <div class="block-title">Check Your <span class="n">Instruments</span></div>
+  </div>
+
+  <div class="mbe-card" id="mbe6" style="--cc:var(--ink)">
     <button class="mbe-q" type="button" aria-expanded="false">
-      <span class="mbe-num">5</span>
+      <span class="mbe-num">&#9992;</span>
       <span class="mbe-qtext">
-        <span class="mbe-qtitle">The Pilot's Dashboard: Essential Success Habits</span>
-        <span class="mbe-hook">Calibration and biological support.</span>
+        <span class="mbe-qtitle">Calibration &amp; Focus</span>
+        <span class="mbe-hook">Great strategy still needs the right conditions.</span>
       </span>
       <span class="mbe-chev">&#9656;</span>
     </button>
     <div class="mbe-body">
-      <p>Even great strategy needs the right conditions. Check your instruments and support the biology that makes learning possible.</p>
       <div class="habit-grid">
         <div class="habit">
           <h4>Calibration</h4>
-          <p>Read your flight instruments. Take practice tests to see if you really know what you think you know, and clear away the &ldquo;unknown unknowns.&rdquo;</p>
+          <p>Read your flight instruments. Take practice tests to see if you really know what you think you know, and clear away the &ldquo;unknown unknowns&rdquo; that feel like mastery but are not.</p>
         </div>
         <div class="habit">
           <h4>No Multitasking</h4>
-          <p>Your brain does not multitask; it switches tasks at a heavy cost in speed and focus. Kill the toggling between social media and study.</p>
-        </div>
-        <div class="habit">
-          <h4>Sleep to Consolidate</h4>
-          <p>Sleep is not downtime. It is when your brain stabilizes and organizes memory traces. Skip it and you keep the <em>illusion</em> of learning.</p>
-        </div>
-        <div class="habit">
-          <h4>Primacy &amp; Recency</h4>
-          <p>You remember the <strong>beginning</strong> of a session best and the <strong>end</strong> second-best. Put your hardest material in those prime-time windows.</p>
+          <p>Your brain does not multitask; it switches tasks at a heavy cost in speed and focus. Kill the toggling between social media and study, and you will learn more in less time.</p>
         </div>
       </div>
     </div>
@@ -645,6 +651,6 @@ document.querySelectorAll('a.rc.ghost[href^="#mbe"]').forEach(function(a){
   btt.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
 })();
 </script>
-
+<script src="reflect.js" defer></script>
 </body>
 </html>

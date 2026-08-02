@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>The Brain Sculptor: How to Own Your Learning</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --sw:270px;
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --green:#1a6825;--green-bg:#eef7f0;--green-b:#8ec49a;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;--blue-b:#c8d6f5;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+}
+body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;line-height:1.65;min-height:100vh;display:flex}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-family:'IBM Plex Mono',monospace;font-size:.72rem;margin-top:4px}
+.sb-nav{padding:12px 0;flex:1}
+.sb-group-label{padding:14px 20px 4px;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none;text-decoration:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(176,0,28,.13)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sb-back{display:block;background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .15s}
+.sb-back:hover{background:var(--red-d)}
+
+/* MAIN */
+.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 36px;height:66px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.top-bar-title{font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;font-family:'Playfair Display',serif}
+.top-bar-sub{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
+.top-bar-tag{font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
+.page-content{padding:36px 40px 90px;flex:1;max-width:1080px}
+
+.section-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;margin-bottom:12px;line-height:1.1}
+.section-sub{color:var(--mid);font-size:1rem;margin-bottom:14px;max-width:660px}
+.section-sub em{font-style:italic;color:var(--red-d)}
+.hero{border-left:4px solid var(--red);padding:2px 0 2px 22px;margin-bottom:40px}
+
+.block-head{margin:44px 0 18px}
+.block-kicker{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.block-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;line-height:1.15}
+.block-title .n{color:var(--red)}
+
+/* TROUBLESHOOTER */
+.ts{background:var(--ink);border:1px solid var(--ink);box-shadow:var(--shm);margin-bottom:14px}
+.ts-head{padding:24px 28px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ts-kicker{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px}
+.ts-title{font-family:'Playfair Display',serif;color:#fff;font-size:1.55rem;font-weight:900;line-height:1.1}
+.ts-note{color:rgba(255,255,255,.5);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.06em;margin-top:8px}
+.ts-body{padding:20px 22px 24px}
+.ts-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ts-item{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.ts-q{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:15px 18px;color:#fff;font-family:'Source Serif 4',Georgia,serif;font-size:.98rem;line-height:1.4;transition:background .13s}
+.ts-q:hover{background:rgba(255,255,255,.06)}
+.ts-q .quote{color:rgba(255,255,255,.55);font-family:'Playfair Display',serif;font-size:1.5rem;line-height:0;flex-shrink:0;font-style:italic}
+.ts-q .qtext{flex:1}
+.ts-q .chev{margin-left:auto;flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:.9rem;color:rgba(255,255,255,.4);transition:transform .2s}
+.ts-item.open .ts-q{background:rgba(176,0,28,.22)}
+.ts-item.open .ts-q .chev{transform:rotate(90deg);color:#fff}
+.ts-detail{display:none;padding:0 18px 20px;color:rgba(255,255,255,.82);font-size:.92rem}
+.ts-item.open .ts-detail{display:block}
+.ts-detail .cause{color:rgba(255,255,255,.62);font-style:italic;margin-bottom:10px}
+.ts-fix{display:flex;gap:10px;margin-bottom:14px}
+.ts-fix .tag{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--red);padding:4px 9px;height:fit-content;margin-top:2px}
+.ts-fix p{flex:1}
+.ts-fix strong{color:#fff}
+.ts-links{display:flex;flex-wrap:wrap;gap:8px}
+.ts-links .lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);width:100%;margin-bottom:-2px}
+
+.rc{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:.76rem;padding:8px 15px;text-decoration:none;border:1px solid;transition:all .14s;white-space:nowrap;cursor:pointer;background:none}
+.rc.tool{background:var(--white);border-color:var(--white);color:var(--ink)}
+.rc.tool::before{content:'\2192';opacity:.55}
+.rc.tool:hover{background:var(--red);border-color:var(--red);color:#fff}
+.rc.ghost{background:transparent;border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.85)}
+.rc.ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+/* MBE CARDS */
+.mbe-card{background:var(--white);border:1px solid var(--border);border-top:5px solid var(--cc,var(--red));box-shadow:var(--sh);margin-bottom:14px;transition:box-shadow .2s}
+.mbe-card.open{box-shadow:var(--shm)}
+.mbe-q{display:flex;align-items:flex-start;gap:16px;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:22px 26px;font-family:inherit}
+.mbe-num{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;color:var(--cc,var(--red));background:var(--paper);border:1px solid var(--border);width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mbe-qtext{flex:1}
+.mbe-qtitle{font-family:'Playfair Display',serif;font-size:1.28rem;font-weight:700;line-height:1.2;color:var(--ink)}
+.mbe-hook{font-size:.88rem;color:var(--muted);margin-top:4px;font-style:italic}
+.mbe-chev{flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:1.1rem;color:var(--muted);transition:transform .2s;margin-top:4px}
+.mbe-card.open .mbe-chev{transform:rotate(90deg);color:var(--cc,var(--red))}
+.mbe-body{display:none;padding:0 26px 26px 76px}
+.mbe-card.open .mbe-body{display:block}
+.mbe-body p{margin-bottom:14px;color:var(--mid)}
+.mbe-body p:last-child{margin-bottom:0}
+.mbe-body strong{color:var(--ink)}
+.mbe-body .term{font-family:'IBM Plex Mono',monospace;font-size:.82em;background:var(--paper);border:1px solid var(--border);padding:1px 6px;color:var(--red-d);white-space:nowrap}
+.mbe-tactics{list-style:none;margin:6px 0 4px;display:flex;flex-direction:column;gap:12px}
+.mbe-tactics li{padding-left:20px;position:relative;color:var(--mid)}
+.mbe-tactics li::before{content:'';position:absolute;left:0;top:.62em;width:8px;height:8px;background:var(--cc,var(--red))}
+.mbe-tactics li strong{color:var(--ink);display:block;margin-bottom:1px}
+.pullbar{border-left:3px solid var(--cc,var(--red));background:var(--paper);padding:12px 16px;margin:16px 0 4px;font-family:'Playfair Display',serif;font-style:italic;font-size:1.02rem;color:var(--ink)}
+
+.habit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+.habit{border:1px solid var(--border);background:var(--paper);padding:14px 16px}
+.habit h4{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cc,var(--red));margin-bottom:6px}
+.habit p{font-size:.86rem;color:var(--mid);margin:0}
+
+/* FIGURES */
+.figure{margin:20px 0 6px;background:var(--paper);border:1px solid var(--border);padding:16px 18px 12px}
+.fig-tag{display:block;font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px;text-align:center}
+.figure svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+.fig-cap{font-size:.82rem;color:var(--muted);margin-top:12px;line-height:1.5;text-align:center;max-width:520px;margin-left:auto;margin-right:auto}
+.fig-cap b{color:var(--mid);font-weight:600}
+
+/* CLOSING CTA */
+.full-course-tab{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--ink);border:3px solid var(--red);padding:24px 30px;margin-top:44px;text-decoration:none;color:#fff;box-shadow:var(--shm);transition:background .2s,transform .2s}
+.full-course-tab:hover{background:var(--red-d);transform:translateY(-3px)}
+.fct-label{font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
+.fct-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;line-height:1.1;margin-bottom:6px}
+.fct-sub{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:rgba(255,255,255,.55)}
+.fct-badge{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;white-space:nowrap;flex-shrink:0}
+
+/* BACK TO TOP */
+.back-to-top{position:fixed;right:22px;bottom:22px;z-index:200;display:flex;align-items:center;gap:8px;padding:11px 16px;background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 24px rgba(0,0,0,.28);font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility .2s,background .15s}
+.back-to-top.show{opacity:1;visibility:visible;transform:none}
+.back-to-top:hover{background:var(--red)}
+.back-to-top .bt-arrow{font-size:.9rem;line-height:1}
+
+@media(max-width:900px){
+  body{flex-direction:column}
+  .sidebar{position:relative;width:100%;height:auto}
+  .main-wrap{margin-left:0}
+  .page-content{padding:24px 20px 70px}
+  .ts-grid{grid-template-columns:1fr}
+  .habit-grid{grid-template-columns:1fr}
+  .mbe-body{padding:0 22px 24px 22px}
+}
+@media(max-width:520px){.back-to-top{right:14px;bottom:14px;padding:11px 13px}.back-to-top .bt-label{display:none}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">The Brain Sculptor</div>
+    <div class="sb-sub">How to Own Your Learning</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Navigation</div>
+    <a href="index.html" class="nav-item"><span class="nav-dot"></span>All Units</a>
+    <a href="brain-sculptor.html" class="nav-item active"><span class="nav-dot"></span>How to Study</a>
+    <a href="resources.html" class="nav-item"><span class="nav-dot"></span>Review Resources</a>
+    <a href="sbmcq.html" class="nav-item"><span class="nav-dot"></span>Attack the Stimulus MCQ</a>
+    <a href="fullcourse.html" class="nav-item"><span class="nav-dot"></span>Course Narrative</a>
+    <div class="sb-divider"></div>
+    <div class="sb-group-label">Units</div>
+    <a href="unit1.html" class="nav-item"><span class="nav-dot"></span>Unit 1: The Global Tapestry</a>
+    <a href="unit2.html" class="nav-item"><span class="nav-dot"></span>Unit 2: Networks of Exchange</a>
+    <a href="unit3.html" class="nav-item"><span class="nav-dot"></span>Unit 3: Land-Based Empires</a>
+    <a href="unit4.html" class="nav-item"><span class="nav-dot"></span>Unit 4: Transoceanic Interconnections</a>
+    <a href="unit5.html" class="nav-item"><span class="nav-dot"></span>Unit 5: Revolutions</a>
+    <a href="unit6.html" class="nav-item"><span class="nav-dot"></span>Unit 6: Consequences of Industrialization</a>
+    <a href="unit7.html" class="nav-item"><span class="nav-dot"></span>Unit 7: Global Conflict</a>
+    <a href="unit8.html" class="nav-item"><span class="nav-dot"></span>Unit 8: Cold War &amp; Decolonization</a>
+    <a href="unit9.html" class="nav-item"><span class="nav-dot"></span>Unit 9: Globalization</a>
+  </nav>
+  <div class="sb-footer">
+    <a href="index.html" class="sb-back">&#8592; Back to All Units</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-wrap">
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title">The Brain Sculptor</div>
+    <div class="top-bar-sub">How to Own Your Learning &middot; MBE Science</div>
+  </div>
+  <span class="top-bar-tag">Study Skills</span>
+</div>
+
+<div class="page-content">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="section-label">Mind, Brain &amp; Education Science</div>
+    <h1 class="section-heading">You are the sculptor of your own brain.</h1>
+    <p class="section-sub">This site is full of tools: MCQ practice, flashcards, writing drills, study guides, and games. But having tools is not the same as knowing how to use them. This guide moves you past the <em>illusion of mastery</em> (feeling like you know it) toward genuine, test-day expertise. Start with your problem below, then learn the science behind the fix.</p>
+  </div>
+
+  <!-- TROUBLESHOOTER -->
+  <div class="block-head">
+    <div class="block-kicker">Start Here</div>
+    <div class="block-title">The <span class="n">Troubleshooter</span></div>
+  </div>
+
+  <div class="ts">
+    <div class="ts-head">
+      <div class="ts-kicker">Diagnose &amp; Fix</div>
+      <div class="ts-title">What are you struggling with?</div>
+      <div class="ts-note">Click the sentence that sounds like you. Get the fix, and the exact tool for it.</div>
+    </div>
+    <div class="ts-body">
+      <div class="ts-grid">
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">I reread and highlight, but go blank on the test.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause">You have hit the <strong>illusion of fluency</strong>: rereading feels easy, and you mistake that ease for real knowledge.</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Retrieve, don't review.</strong> Close the notes and pull the material out of memory. Try a quick self-quiz, or the <strong>Blank Sheet Method</strong> (write everything you remember on an empty page). Retrieval reconsolidates the memory and strengthens the pathway.</p>
+            </div>
+            <div class="ts-links">
+              <span class="lbl">Do it now</span>
+              <a class="rc tool" href="resources.html">Flashcards &amp; self-test</a>
+              <a class="rc tool" href="sbmcq.html">Quiz yourself: MCQ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">I cram the night before the test.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause"><strong>Massed practice</strong> (cramming) builds momentary strength that fades fast, and it skips the consolidation that only time and sleep provide.</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Space it out.</strong> Split a unit across several shorter sessions so a little forgetting happens between them. The rusty effort of getting it back is exactly what locks it in. Then <strong>sleep</strong>, because that is when your brain organizes the memory.</p>
+            </div>
+            <div class="ts-links">
+              <span class="lbl">Do it now</span>
+              <a class="rc tool" href="index.html">Plan units across the week</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">I keep mixing up empires and time periods.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause">Studying one unit in a solid block makes each feel clear in the moment, but your brain never learns to <strong>tell them apart</strong>.</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Interleave.</strong> Shuffle your practice by alternating between periods and question types instead of mastering one at a time. Mixing contexts trains your brain to discriminate, which is exactly what the test demands.</p>
+            </div>
+            <div class="ts-links">
+              <span class="lbl">Do it now</span>
+              <a class="rc tool" href="resources.html">Connections &amp; mixed games</a>
+              <a class="rc tool" href="sbmcq.html">Mixed-era MCQ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">I get it in class, but can't recall it later.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause"><strong>Memory is the residue of thought.</strong> You remember what you actively <em>think about</em>, not what merely passes in front of you.</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Elaborate.</strong> Put ideas in your own words and connect them to what you already know. Build the story (cause, conflict, complication, character) so the facts hang on a frame instead of floating loose.</p>
+            </div>
+            <div class="ts-links">
+              <span class="lbl">Do it now</span>
+              <a class="rc tool" href="fullcourse.html">Course Narrative (fill-in)</a>
+              <a class="rc tool" href="unit7.html">Unit Writing Drills</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">I freeze on the stimulus-based MCQs.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause">Waiting to be shown the method keeps your mind passive. It needs <strong>generative struggle</strong> first.</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Generate before you're shown.</strong> Attempt the question and commit to an answer <em>before</em> checking the explanation. Even a wrong guess primes your mind to absorb the right method when it arrives. That is the whole design of the MCQ trainer.</p>
+            </div>
+            <div class="ts-links">
+              <span class="lbl">Do it now</span>
+              <a class="rc tool" href="sbmcq.html">Attack the Stimulus MCQ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">It's just too much to hold in my head.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause">Working memory only holds about <strong>seven items</strong> at once, so loose facts flood it fast.</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Chunk.</strong> Use what you already know to bundle scattered facts into single meaningful units, like &lsquo;the Columbian Exchange&rsquo; instead of ten separate crops and diseases. Each chunk frees up mental space for the next idea.</p>
+            </div>
+            <div class="ts-links">
+              <span class="lbl">Do it now</span>
+              <a class="rc tool" href="resources.html">Themed study guides</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">I thought I was ready, then I bombed it.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause">You were <strong>unskilled and unaware</strong>. Feeling ready without a real check hides your &lsquo;unknown unknowns.&rsquo;</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Calibrate.</strong> Take practice tests to see whether you actually know what you think you know. A test is not just a grade; it is the instrument that shows you where the gaps really are, while there is still time to fix them.</p>
+            </div>
+            <div class="ts-links">
+              <span class="lbl">Do it now</span>
+              <a class="rc tool" href="sbmcq.html">Practice MCQ</a>
+              <a class="rc tool" href="unit7.html">Writing Drills</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">I study with my phone open next to me.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause">Your brain can't multitask. It <strong>task-switches</strong>, and every toggle to your phone carries a transaction cost in speed and focus.</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Single-task.</strong> Put the phone in another room for one focused block. You will learn faster and deeper in 25 clean minutes than in an hour of toggling. No tool needed, just distance from the distraction.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ts-item">
+          <button class="ts-q" type="button" aria-expanded="false">
+            <span class="quote">&ldquo;</span>
+            <span class="qtext">I'm just not a history person.</span>
+            <span class="chev">&#9656;</span>
+          </button>
+          <div class="ts-detail">
+            <p class="cause">You are treating ability as fixed. It is not. Every time you learn, you <strong>physically rewire your brain</strong>.</p>
+            <div class="ts-fix">
+              <span class="tag">Fix</span>
+              <p><strong>Add the word &lsquo;yet.&rsquo;</strong> You have not mastered it <em>yet</em>. Difficulty is not a verdict on your ability; it is the feeling of new neural pathways forming. A wrong answer is just information for your next attempt.</p>
+            </div>
+            <div class="ts-links">
+              <span class="lbl">Read the science</span>
+              <a class="rc ghost" href="#mbe1">Section 1: Your Brain is Malleable</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FIVE MBE CARDS -->
+  <div class="block-head">
+    <div class="block-kicker">The Science Behind the Fixes</div>
+    <div class="block-title">Five Principles of <span class="n">Real</span> Learning</div>
+  </div>
+
+  <!-- Card 1 -->
+  <div class="mbe-card" id="mbe1" style="--cc:var(--red)">
+    <button class="mbe-q" type="button" aria-expanded="false">
+      <span class="mbe-num">1</span>
+      <span class="mbe-qtext">
+        <span class="mbe-qtitle">The Foundation: Your Brain is Malleable</span>
+        <span class="mbe-hook">The biological reality of &ldquo;yet.&rdquo;</span>
+      </span>
+      <span class="mbe-chev">&#9656;</span>
+    </button>
+    <div class="mbe-body">
+      <p>Most students believe their intelligence is hardwired at birth. It is not. Every time you learn something new, you <strong>physically change your brain</strong>. Your brain holds nearly 100 billion <span class="term">neurons</span> that talk to each other across gaps called <span class="term">synapses</span>.</p>
+      <p>Through effortful learning, neurons sprout microscopic branches called <span class="term">axons</span> and <span class="term">dendrites</span> that build new pathways. Deliberate practice also drives <span class="term">myelination</span>: the fatty sheaths around your axons thicken, which sharply increases the speed of your mental recall.</p>
+      <div class="figure">
+        <span class="fig-tag">Figure 1 &middot; Practice rewires the neuron</span>
+        <svg viewBox="0 0 520 210" role="img" aria-label="Diagram comparing an untrained neuron with a trained neuron that has more dendrites and thicker myelin">
+          <line x1="260" y1="24" x2="260" y2="184" stroke="#ddd0b8" stroke-dasharray="3 4"/>
+          <text x="130" y="20" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#7a7860" letter-spacing="1">UNTRAINED</text>
+          <text x="390" y="20" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#b0001c" letter-spacing="1">AFTER PRACTICE</text>
+          <!-- panel 1 -->
+          <g stroke="#48483a" stroke-width="2" fill="none" stroke-linecap="round">
+            <path d="M55,108 L25,84"/><path d="M55,110 L20,110"/><path d="M55,112 L26,136"/>
+          </g>
+          <line x1="74" y1="110" x2="196" y2="110" stroke="#48483a" stroke-width="2"/>
+          <rect x="92" y="104" width="30" height="12" rx="6" fill="#e7cf7a" stroke="#c9a94a"/>
+          <rect x="138" y="104" width="30" height="12" rx="6" fill="#e7cf7a" stroke="#c9a94a"/>
+          <path d="M196,110 L210,100 M196,110 L210,120" stroke="#48483a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="60" cy="110" r="16" fill="#b0001c" fill-opacity="0.85" stroke="#850015"/>
+          <text x="130" y="168" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#7a7860">slow signal</text>
+          <!-- panel 2 -->
+          <g stroke="#48483a" stroke-width="2" fill="none" stroke-linecap="round">
+            <path d="M315,108 L280,80"/><path d="M315,109 L275,100"/><path d="M315,110 L273,116"/><path d="M315,111 L276,138"/><path d="M315,107 L295,64"/><path d="M315,113 L298,156"/>
+          </g>
+          <line x1="334" y1="110" x2="456" y2="110" stroke="#48483a" stroke-width="2"/>
+          <rect x="350" y="100" width="30" height="20" rx="9" fill="#d4b84a" stroke="#a8842a"/>
+          <rect x="392" y="100" width="30" height="20" rx="9" fill="#d4b84a" stroke="#a8842a"/>
+          <rect x="434" y="100" width="18" height="20" rx="9" fill="#d4b84a" stroke="#a8842a"/>
+          <path d="M456,110 L470,96 M456,110 L472,110 M456,110 L470,124" stroke="#48483a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="320" cy="110" r="16" fill="#b0001c" stroke="#850015"/>
+          <text x="390" y="168" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#1a6825">fast recall</text>
+          <text x="260" y="202" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860">more dendrites &middot; thicker myelin</text>
+        </svg>
+        <p class="fig-cap"><b>Effort is visible in the tissue.</b> Learning sprouts new dendrites and thickens the myelin around axons, so signals travel faster. Illustrative.</p>
+      </div>
+      <div class="pullbar">Intellectual development is not intelligence unfolding. It is the set of connections you build through struggle.</div>
+      <p>So if a concept feels hard, that is not a sign of inability. It is a sign you have not mastered it <strong>yet</strong>. Failure is not a verdict; it is information for your next strategy tweak.</p>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="mbe-card" id="mbe2" style="--cc:var(--gold-b)">
+    <button class="mbe-q" type="button" aria-expanded="false">
+      <span class="mbe-num">2</span>
+      <span class="mbe-qtext">
+        <span class="mbe-qtitle">The Retrieval Revolution: How to Study</span>
+        <span class="mbe-hook">Forget rereading and highlighting.</span>
+      </span>
+      <span class="mbe-chev">&#9656;</span>
+    </button>
+    <div class="mbe-body">
+      <p>Rereading and cramming are the most popular study strategies, and among the least productive. They create a <strong>familiarity trap</strong>: you mistake the ease of reading for real knowledge. The fix is to stop putting information <em>in</em> and start pulling it <em>out</em>.</p>
+      <div class="figure">
+        <span class="fig-tag">Figure 2 &middot; The testing effect</span>
+        <svg viewBox="0 0 460 240" role="img" aria-label="Bar chart showing more is recalled one week later after retrieval practice than after rereading">
+          <text x="230" y="20" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#48483a" letter-spacing="1">RECALLED ONE WEEK LATER</text>
+          <line x1="60" y1="42" x2="60" y2="192" stroke="#ddd0b8"/>
+          <line x1="60" y1="192" x2="430" y2="192" stroke="#b8a478"/>
+          <line x1="60" y1="117" x2="430" y2="117" stroke="#ddd0b8" stroke-dasharray="3 4"/>
+          <text x="52" y="121" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860">50%</text>
+          <text x="52" y="46" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860">100%</text>
+          <rect x="110" y="129" width="90" height="63" fill="#b8a478"/>
+          <rect x="250" y="81" width="90" height="111" fill="#b0001c"/>
+          <text x="155" y="121" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="#48483a">~42%</text>
+          <text x="295" y="73" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="#b0001c" font-weight="600">~74%</text>
+          <text x="155" y="211" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#48483a">Reread notes</text>
+          <text x="295" y="211" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#48483a">Retrieval (self-quiz)</text>
+        </svg>
+        <p class="fig-cap"><b>Pulling it out beats putting it in.</b> A single retrieval attempt reconsolidates the memory and strengthens the route to it. Illustrative of testing-effect research.</p>
+      </div>
+      <ul class="mbe-tactics">
+        <li><strong>Retrieval Practice</strong>Recalling a fact from memory beats reviewing it. A single simple quiz after a lecture outperforms rereading notes, because the act of retrieval reconsolidates the memory and strengthens the route to it.</li>
+        <li><strong>The Blank Sheet Method</strong>After a lesson, spend ten minutes with an empty page and write down everything you can remember, with no notes. This free recall forces you to search the whole forest of your memory for the path.</li>
+        <li><strong>Generation</strong>Try to answer <em>before</em> you are shown the solution. Even a wrong attempt, a bit of generative struggle, makes your mind far more receptive to the correct answer when it arrives.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="mbe-card" id="mbe3" style="--cc:var(--blue-b)">
+    <button class="mbe-q" type="button" aria-expanded="false">
+      <span class="mbe-num">3</span>
+      <span class="mbe-qtext">
+        <span class="mbe-qtitle">The Architecture of Practice: Spacing &amp; Interleaving</span>
+        <span class="mbe-hook">Embrace the &ldquo;rusty&rdquo; feeling.</span>
+      </span>
+      <span class="mbe-chev">&#9656;</span>
+    </button>
+    <div class="mbe-body">
+      <p>To build lasting <strong>habit strength</strong> instead of momentary strength, change <em>how you schedule</em> your work, not just how hard you work.</p>
+      <div class="figure">
+        <span class="fig-tag">Figure 3 &middot; The spacing effect</span>
+        <svg viewBox="0 0 480 245" role="img" aria-label="Line chart showing spaced review keeps memory higher than studying once">
+          <line x1="55" y1="40" x2="55" y2="195" stroke="#b8a478"/>
+          <line x1="55" y1="195" x2="455" y2="195" stroke="#b8a478"/>
+          <text x="26" y="120" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860" transform="rotate(-90 26 120)">MEMORY</text>
+          <text x="452" y="211" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860">TIME &#8594;</text>
+          <g stroke="#ddd0b8" stroke-dasharray="2 4">
+            <line x1="160" y1="45" x2="160" y2="195"/><line x1="270" y1="45" x2="270" y2="195"/><line x1="380" y1="45" x2="380" y2="195"/>
+          </g>
+          <path d="M55,70 Q200,186 450,190" fill="none" stroke="#b8a478" stroke-width="2.5" stroke-dasharray="5 5"/>
+          <path d="M55,70 Q108,100 160,120 L160,62 Q215,86 270,106 L270,54 Q325,78 380,90 L380,46 Q415,53 450,60" fill="none" stroke="#b0001c" stroke-width="2.5"/>
+          <g fill="#b0001c"><circle cx="160" cy="62" r="4"/><circle cx="270" cy="54" r="4"/><circle cx="380" cy="46" r="4"/></g>
+          <g font-family="IBM Plex Mono,monospace" font-size="9" fill="#b0001c" text-anchor="middle"><text x="160" y="52">review</text><text x="270" y="44">review</text><text x="380" y="36">review</text></g>
+          <line x1="70" y1="224" x2="95" y2="224" stroke="#b0001c" stroke-width="2.5"/><text x="100" y="228" font-family="IBM Plex Mono,monospace" font-size="10" fill="#48483a">Spaced review</text>
+          <line x1="240" y1="224" x2="265" y2="224" stroke="#b8a478" stroke-width="2.5" stroke-dasharray="5 5"/><text x="270" y="228" font-family="IBM Plex Mono,monospace" font-size="10" fill="#48483a">Study once</text>
+        </svg>
+        <p class="fig-cap"><b>Let a little forgetting set in, then retrieve.</b> Each spaced review resets the forgetting curve and flattens later decay. Illustrative of the spacing effect.</p>
+      </div>
+      <ul class="mbe-tactics">
+        <li><strong>Spaced Practice</strong>Spread sessions out so a little forgetting happens between them. When retrieval gets harder and you feel rusty, that added effort is exactly what triggers consolidation.</li>
+        <li><strong>Interleaved Practice</strong>Do not finish one problem type before the next. Shuffle them. Alternating periods or question types teaches your brain to tell contexts apart. Blocked practice gives fast gains that fade; interleaving gives durable mastery.</li>
+        <li><strong>Varied Practice</strong>Tossing beanbags from <em>different</em> distances makes you better at the target distance than only practicing that one distance. Varying your context makes learning more flexible and transferable.</li>
+      </ul>
+      <div class="figure">
+        <span class="fig-tag">Figure 4 &middot; Blocked vs. interleaved</span>
+        <svg viewBox="0 0 460 252" role="img" aria-label="Bar chart showing blocked practice performs better during study but interleaving performs better on the final test">
+          <text x="230" y="20" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#48483a" letter-spacing="1">PERFORMANCE</text>
+          <line x1="70" y1="52" x2="70" y2="192" stroke="#ddd0b8"/>
+          <line x1="70" y1="192" x2="430" y2="192" stroke="#b8a478"/>
+          <rect x="120" y="77" width="42" height="115" fill="#d4b84a"/>
+          <rect x="168" y="108" width="42" height="84" fill="#18336b"/>
+          <text x="165" y="211" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#48483a">During practice</text>
+          <rect x="270" y="139" width="42" height="53" fill="#d4b84a"/>
+          <rect x="318" y="83" width="42" height="109" fill="#18336b"/>
+          <text x="315" y="211" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#48483a">Final test</text>
+          <rect x="120" y="234" width="12" height="12" fill="#d4b84a"/><text x="137" y="244" font-family="IBM Plex Mono,monospace" font-size="10" fill="#48483a">Blocked</text>
+          <rect x="235" y="234" width="12" height="12" fill="#18336b"/><text x="252" y="244" font-family="IBM Plex Mono,monospace" font-size="10" fill="#48483a">Interleaved</text>
+        </svg>
+        <p class="fig-cap"><b>What feels best is not what works best.</b> Blocked practice looks stronger while you study, but interleaving wins on the test. Illustrative of interleaving research.</p>
+      </div>
+      <div class="pullbar">Blocked practice feels productive. Interleaving <em>is</em> productive.</div>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="mbe-card" id="mbe4" style="--cc:var(--green)">
+    <button class="mbe-q" type="button" aria-expanded="false">
+      <span class="mbe-num">4</span>
+      <span class="mbe-qtext">
+        <span class="mbe-qtitle">Meaning and Memory: How to Learn</span>
+        <span class="mbe-hook">Memory is the residue of thought.</span>
+      </span>
+      <span class="mbe-chev">&#9656;</span>
+    </button>
+    <div class="mbe-body">
+      <p>You remember what you <strong>think about</strong>, not simply what you see or hear. You have looked at a penny thousands of times, yet could not draw it from memory, because you never <em>thought</em> about its details. Give the material meaning and it sticks.</p>
+      <ul class="mbe-tactics">
+        <li><strong>Elaboration</strong>Express new material in your own words and tie it to what you already know. Building these mental models lets you bundle many small steps into one reusable &ldquo;brain app.&rdquo;</li>
+        <li><strong>The 4 C's of Story</strong>Your brain is hungry for narrative. Organize complex material around <span class="term">Causality</span>, <span class="term">Conflict</span>, <span class="term">Complications</span>, and <span class="term">Character</span> to make it memorable.</li>
+        <li><strong>Chunking</strong>Working memory holds only about seven items. Use background knowledge to fuse separate facts into single meaningful units, which effectively expands your mental workspace.</li>
+      </ul>
+      <div class="figure">
+        <span class="fig-tag">Figure 5 &middot; Chunking frees the workspace</span>
+        <svg viewBox="0 0 480 230" role="img" aria-label="Diagram showing loose facts overflow working memory while chunked units leave slots free">
+          <text x="70" y="30" font-family="IBM Plex Mono,monospace" font-size="11" fill="#b0001c" letter-spacing="1">LOOSE FACTS: OVERFLOW</text>
+          <g fill="#b0001c"><circle cx="235" cy="26" r="6"/><circle cx="262" cy="26" r="6"/><circle cx="289" cy="26" r="6"/><circle cx="316" cy="26" r="6"/><circle cx="343" cy="26" r="6"/></g>
+          <text x="360" y="30" font-family="IBM Plex Mono,monospace" font-size="10" fill="#b0001c">spills over</text>
+          <g>
+            <rect x="70" y="42" width="42" height="34" fill="#fff" stroke="#ddd0b8"/><circle cx="91" cy="59" r="6" fill="#48483a"/>
+            <rect x="122" y="42" width="42" height="34" fill="#fff" stroke="#ddd0b8"/><circle cx="143" cy="59" r="6" fill="#48483a"/>
+            <rect x="174" y="42" width="42" height="34" fill="#fff" stroke="#ddd0b8"/><circle cx="195" cy="59" r="6" fill="#48483a"/>
+            <rect x="226" y="42" width="42" height="34" fill="#fff" stroke="#ddd0b8"/><circle cx="247" cy="59" r="6" fill="#48483a"/>
+            <rect x="278" y="42" width="42" height="34" fill="#fff" stroke="#ddd0b8"/><circle cx="299" cy="59" r="6" fill="#48483a"/>
+            <rect x="330" y="42" width="42" height="34" fill="#fff" stroke="#ddd0b8"/><circle cx="351" cy="59" r="6" fill="#48483a"/>
+            <rect x="382" y="42" width="42" height="34" fill="#fff" stroke="#ddd0b8"/><circle cx="403" cy="59" r="6" fill="#48483a"/>
+          </g>
+          <text x="70" y="130" font-family="IBM Plex Mono,monospace" font-size="11" fill="#18336b" letter-spacing="1">CHUNKED: ROOM TO SPARE</text>
+          <g>
+            <rect x="70" y="142" width="42" height="34" fill="#eef2fb" stroke="#18336b"/>
+            <circle cx="81" cy="159" r="3" fill="#18336b"/><circle cx="91" cy="159" r="3" fill="#18336b"/><circle cx="101" cy="159" r="3" fill="#18336b"/>
+            <rect x="122" y="142" width="42" height="34" fill="#eef2fb" stroke="#18336b"/>
+            <circle cx="133" cy="159" r="3" fill="#18336b"/><circle cx="143" cy="159" r="3" fill="#18336b"/><circle cx="153" cy="159" r="3" fill="#18336b"/>
+            <rect x="174" y="142" width="42" height="34" fill="#eef2fb" stroke="#18336b"/>
+            <circle cx="185" cy="159" r="3" fill="#18336b"/><circle cx="195" cy="159" r="3" fill="#18336b"/><circle cx="205" cy="159" r="3" fill="#18336b"/>
+            <rect x="226" y="142" width="42" height="34" fill="#f9f6ef" stroke="#ddd0b8" stroke-dasharray="3 3"/><text x="247" y="163" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#7a7860">free</text>
+            <rect x="278" y="142" width="42" height="34" fill="#f9f6ef" stroke="#ddd0b8" stroke-dasharray="3 3"/><text x="299" y="163" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#7a7860">free</text>
+            <rect x="330" y="142" width="42" height="34" fill="#f9f6ef" stroke="#ddd0b8" stroke-dasharray="3 3"/><text x="351" y="163" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#7a7860">free</text>
+            <rect x="382" y="142" width="42" height="34" fill="#f9f6ef" stroke="#ddd0b8" stroke-dasharray="3 3"/><text x="403" y="163" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="#7a7860">free</text>
+          </g>
+          <text x="240" y="204" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860">each chunk = one meaningful unit (e.g. &ldquo;the Columbian Exchange&rdquo;)</text>
+        </svg>
+        <p class="fig-cap"><b>Bundle to expand.</b> Working memory holds only about seven items. Chunking loose facts into meaningful units frees space for new thinking.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 5 -->
+  <div class="mbe-card" id="mbe5" style="--cc:var(--ink)">
+    <button class="mbe-q" type="button" aria-expanded="false">
+      <span class="mbe-num">5</span>
+      <span class="mbe-qtext">
+        <span class="mbe-qtitle">The Pilot's Dashboard: Essential Success Habits</span>
+        <span class="mbe-hook">Calibration and biological support.</span>
+      </span>
+      <span class="mbe-chev">&#9656;</span>
+    </button>
+    <div class="mbe-body">
+      <p>Even great strategy needs the right conditions. Check your instruments and support the biology that makes learning possible.</p>
+      <div class="habit-grid">
+        <div class="habit">
+          <h4>Calibration</h4>
+          <p>Read your flight instruments. Take practice tests to see if you really know what you think you know, and clear away the &ldquo;unknown unknowns.&rdquo;</p>
+        </div>
+        <div class="habit">
+          <h4>No Multitasking</h4>
+          <p>Your brain does not multitask; it switches tasks at a heavy cost in speed and focus. Kill the toggling between social media and study.</p>
+        </div>
+        <div class="habit">
+          <h4>Sleep to Consolidate</h4>
+          <p>Sleep is not downtime. It is when your brain stabilizes and organizes memory traces. Skip it and you keep the <em>illusion</em> of learning.</p>
+        </div>
+        <div class="habit">
+          <h4>Primacy &amp; Recency</h4>
+          <p>You remember the <strong>beginning</strong> of a session best and the <strong>end</strong> second-best. Put your hardest material in those prime-time windows.</p>
+        </div>
+      </div>
+      <div class="figure">
+        <span class="fig-tag">Figure 6 &middot; The serial-position curve</span>
+        <svg viewBox="0 0 460 235" role="img" aria-label="U-shaped curve showing recall is highest at the start and end of a study session and lowest in the middle">
+          <rect x="60" y="45" width="72" height="140" fill="#1a6825" fill-opacity="0.12"/>
+          <rect x="348" y="45" width="72" height="140" fill="#1a6825" fill-opacity="0.12"/>
+          <line x1="55" y1="40" x2="55" y2="185" stroke="#b8a478"/>
+          <line x1="55" y1="185" x2="430" y2="185" stroke="#b8a478"/>
+          <text x="26" y="115" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860" transform="rotate(-90 26 115)">RECALL</text>
+          <path d="M78,80 C132,150 190,170 240,170 C290,170 350,148 404,76" fill="none" stroke="#b0001c" stroke-width="3"/>
+          <g fill="#b0001c"><circle cx="78" cy="80" r="4"/><circle cx="240" cy="170" r="4"/><circle cx="404" cy="76" r="4"/></g>
+          <text x="96" y="66" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#1a6825">primacy</text>
+          <text x="388" y="62" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#1a6825">recency</text>
+          <text x="240" y="192" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860">the dip</text>
+          <text x="96" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#1a6825">PRIME-TIME</text>
+          <text x="388" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="#1a6825">PRIME-TIME</text>
+          <text x="55" y="222" text-anchor="start" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860">START</text>
+          <text x="430" y="222" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="#7a7860">END of session</text>
+        </svg>
+        <p class="fig-cap"><b>Guard your prime-time.</b> Recall peaks at the start and end of a session. Tackle your toughest concepts in those windows, not in the sag in the middle.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING CTA -->
+  <a href="index.html" class="full-course-tab">
+    <div class="fct-left">
+      <div class="fct-label">Put it to work</div>
+      <div class="fct-title">Pick a unit and start retrieving</div>
+      <div class="fct-sub">Reading is review &nbsp;&bull;&nbsp; Retrieval is learning &nbsp;&bull;&nbsp; Open a unit and quiz yourself</div>
+    </div>
+    <div class="fct-badge">&#9654; Go to All Units</div>
+  </a>
+
+</div><!-- /page-content -->
+</div><!-- /main-wrap -->
+
+<button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top of page">
+  <span class="bt-arrow">&#8593;</span><span class="bt-label">Top</span>
+</button>
+
+<script>
+document.querySelectorAll('.ts-item .ts-q').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var item = btn.closest('.ts-item');
+    var open = item.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+
+document.querySelectorAll('.mbe-card .mbe-q').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var card = btn.closest('.mbe-card');
+    var open = card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+
+document.querySelectorAll('a.rc.ghost[href^="#mbe"]').forEach(function(a){
+  a.addEventListener('click', function(){
+    var card = document.querySelector(a.getAttribute('href'));
+    if(card){ card.classList.add('open'); card.querySelector('.mbe-q').setAttribute('aria-expanded','true'); }
+  });
+});
+
+(function(){
+  var btt = document.getElementById('back-to-top');
+  if(!btt) return;
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 480){ btt.classList.add('show'); } else { btt.classList.remove('show'); }
+  }, {passive:true});
+  btt.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+})();
+</script>
+
+</body>
+</html>

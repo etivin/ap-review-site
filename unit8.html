@@ -868,7 +868,14 @@ button{font-family:inherit;cursor:pointer}
       <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
       <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
     </div>
-    <div id="mcq-home">
+    <div class="pg-hero">
+      <div class="eyebrow">MCQ Review</div>
+      <h2>Stimulus-Based Questions</h2>
+      <p>AP-authentic questions using primary sources, speeches, and documents from Unit 8. Choose <strong>Quick Check</strong> for instant feedback, or <strong>Test Mode</strong> to answer a full set, rate your confidence, and reveal your score at the end &mdash; closer to real exam conditions.</p>
+    </div>
+    <div id="mcq-root"></div>
+    <a href="https://highschooltestprep.com/ap/world-history/unit-8-practice-test" target="_blank" rel="noopener noreferrer" class="btn-all" style="background:#1a7a4c;text-decoration:none;margin:16px 0;box-sizing:border-box;display:inline-block" onmouseover="this.style.background='#15633d'" onmouseout="this.style.background='#1a7a4c'">&#127760; More Practice &mdash; HighSchoolTestPrep Unit 8 Quiz &#8599;</a>
+    <div id="mcq-home" style="display:none">
       <div class="pg-hero">
         <div class="eyebrow">MCQ Review</div>
         <h2>Stimulus-Based Questions</h2>
@@ -2930,6 +2937,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </div><!-- /main-wrap -->
+<script src="mcq-bank.js"></script>
+<script src="mcq-engine.js"></script>
+<script src="bd-confidence.js"></script>
+<script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'8'});</script>
 <script src="writing-prompts.js"></script>
 <script src="writing-drills.js"></script>
 <!-- ══ BACK TO TOP / SECTIONS ══ -->

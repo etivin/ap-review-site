@@ -628,7 +628,9 @@ button{font-family:inherit;cursor:pointer}
       <h2>Stimulus-Based Questions</h2>
       <p>AP-authentic questions using primary sources and documents from Unit 6.</p>
     </div>
-    <div id="mcq-topics">
+    <div id="mcq-root"></div>
+    <a href="https://highschooltestprep.com/ap/world-history/unit-6-practice-test" target="_blank" rel="noopener noreferrer" class="btn-all" style="background:#1a7a4c;text-decoration:none;margin:16px 0;box-sizing:border-box;display:inline-block" onmouseover="this.style.background='#15633d'" onmouseout="this.style.background='#1a7a4c'">&#127760; More Practice &mdash; HighSchoolTestPrep Unit 6 Quiz &#8599;</a>
+    <div id="mcq-topics" style="display:none">
       <div class="topic-grid">
         <button class="tc" data-topic="6.1"><div class="tc-n">Topic 6.1</div><div class="tc-name">Rationales for Imperialism</div><div class="tc-cnt" id="cnt61"></div></button>
         <button class="tc" data-topic="6.2"><div class="tc-n">Topic 6.2</div><div class="tc-name">State Expansion</div><div class="tc-cnt" id="cnt62"></div></button>
@@ -3081,6 +3083,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </div><!-- /main-wrap -->
+<script src="mcq-bank.js"></script>
+<script src="mcq-engine.js"></script>
+<script src="bd-confidence.js"></script>
+<script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'6'});</script>
 <script src="writing-prompts.js"></script>
 <script src="writing-drills.js"></script>
 <!-- ══ BACK TO TOP / SECTIONS ══ -->

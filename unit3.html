@@ -669,34 +669,13 @@ button{font-family:inherit;cursor:pointer}
       <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
       <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
     </div>
-    <div id="mcq-home">
-      <div class="pg-hero">
-        <div class="eyebrow">MCQ Review</div>
-        <h2>Stimulus-Based Questions</h2>
-        <p>AP-authentic questions using primary sources, maps, images, and documents from Unit 3. All 30 questions sourced from the official AP scoring guide.</p>
-      </div>
-      <div class="topic-grid">
-        <button class="tc" data-topic="3.1"><div class="tc-n">Topic 3.1</div><div class="tc-name">Empires Expand</div><div class="tc-cnt" id="cnt31"></div></button>
-        <button class="tc" data-topic="3.2"><div class="tc-n">Topic 3.2</div><div class="tc-name">Empires: Administration</div><div class="tc-cnt" id="cnt32"></div></button>
-        <button class="tc" data-topic="3.3"><div class="tc-n">Topic 3.3</div><div class="tc-name">Empires: Belief Systems</div><div class="tc-cnt" id="cnt33"></div></button>
-        <button class="tc" data-topic="3.4"><div class="tc-n">Topic 3.4</div><div class="tc-name">Comparison: Land-Based Empires</div><div class="tc-cnt" id="cnt34"></div></button>
-      </div>
-      <button class="btn-mixed" id="mcq-mixed-btn">&#9889; Quick Mixed Quiz &mdash; 2 Questions Per Topic</button>
-      <button class="btn-all" id="mcq-all-btn">&#128203; Practice All Questions</button>
-      <a href="https://highschooltestprep.com/ap/world-history/unit-3-practice-test" target="_blank" rel="noopener noreferrer" class="btn-all" style="background:#1a7a4c;text-decoration:none;margin-top:8px;box-sizing:border-box" onmouseover="this.style.background='#15633d'" onmouseout="this.style.background='#1a7a4c'">&#127760; More Practice &mdash; HighSchoolTestPrep Unit 3 Quiz &#8599;</a>
+    <div class="pg-hero">
+      <div class="eyebrow">MCQ Review</div>
+      <h2>Stimulus-Based Questions</h2>
+      <p>AP-authentic questions using primary sources, maps, images, and documents from Unit 3. Choose <strong>Quick Check</strong> for instant feedback, or <strong>Test Mode</strong> to answer a full set, rate your confidence, and reveal your score at the end &mdash; closer to real exam conditions.</p>
     </div>
-    <div id="mcq-session" class="qsession">
-      <div class="qhdr">
-        <div class="qhdr-name" id="qhdr-name">All Questions</div>
-        <div class="qhdr-prog" id="qhdr-prog">0 answered</div>
-      </div>
-      <div class="qpbar"><div class="qpbf" id="qpbf" style="width:0%"></div></div>
-      <div id="qbody"></div>
-      <div class="btn-row">
-        <button class="btn btn-red" id="mcq-back-btn">&#8592; Back to Topics</button>
-        <button class="btn" id="mcq-reset-btn">Reset &amp; Retry</button>
-      </div>
-    </div>
+    <div id="mcq-root"></div>
+    <a href="https://highschooltestprep.com/ap/world-history/unit-3-practice-test" target="_blank" rel="noopener noreferrer" class="btn-all" style="background:#1a7a4c;text-decoration:none;margin-top:16px;box-sizing:border-box;display:inline-block" onmouseover="this.style.background='#15633d'" onmouseout="this.style.background='#1a7a4c'">&#127760; More Practice &mdash; HighSchoolTestPrep Unit 3 Quiz &#8599;</a>
   </div>
 </div>
 
@@ -1278,207 +1257,7 @@ if (tlList) {
   tlList.querySelectorAll('.tl-item').forEach(function(el){ tlObs.observe(el); });
 }
 
-/* ── MCQ DATA ── */
-var S_BERNIER = '“The Mughal emperor is not as wealthy as he might appear because he grants some of his lands to governors, in place of a salary, on condition that they pay a certain sum annually to the emperor out of any extra revenue that the land may yield. For his other lands, he has contractors collecting the taxes. Like the governors, they are bound to pay him an annual sum.\n\nThese governors and contractors have an almost absolute authority over the peasantry and nearly as much over the artisans and merchants. Nothing is crueler and more oppressive than the manner in which they exercise their authority.\n\nThere is no one before whom the oppressed peasant, artisan, or tradesman can pour out his just complaints. This debasing state of slavery obstructs the progress of trade and influences the manners and mode of life of every individual. There can be little encouragement to engage in commercial pursuits when success merely provokes the greed of a tyrannical official who has both the power and the desire to deprive any man of his wealth. If a man manages to obtain wealth, he would rather bury it in the ground and continue to appear poor, than risk being dispossessed by the state.”';
-var S_BERNIER_SL = 'François Bernier, French traveler, letter to French finance minister Jean-Baptiste Colbert, 1670';
 
-var S_CELEBI = '“Many [Ottoman] Sunni religious scholars have labeled the Sufi whirling rituals as ‘dancing,’ and have pronounced them forbidden, branding those who approve of them as infidels. The Sufis counter that these rituals are not dancing, arguing instead that they enliven the soul through a combination of music and movement, which, they say, allows them to focus on the spiritual aspects of religion. The common people flock to the Sufis, giving them offerings and gifts. Since their whirling rituals play a big part in their popularity, they will not abandon these practices anytime soon. The Sunni scholars have written many tracts and opinions against them … and this tug-of-war between the two parties has brought them into a vicious circle.”';
-var S_CELEBI_SL = 'Katip Çelebi, Ottoman official, The Balance of Truth, philosophical and scientific treatise, 1656';
-
-var S_MILITARY_IMAGES = '[Image 1: Ottoman soldiers reconquering a fortress in Greece from Venetian forces, miniature in a Venetian-produced book of history and diplomacy, circa 1665. The image shows soldiers with cannons storming a fortified city.]\n\n[Image 2: Mughal forces led by Emperor Aurangzeb capture the fortress of Golconda, capital of a rival Muslim Indian state, in 1687. Painting by an anonymous Indian artist, circa 1760. The image shows a vast Mughal army with elephants, cavalry, and artillery besieging a great fortress.]';
-var S_MILITARY_SL = 'Two historical images depicting military campaigns by land-based empires, c. 1665 and c. 1760';
-
-var S_DEVSHIRME = '[Image: Illustration in a manuscript written to celebrate the achievements of the Ottoman Sultan Suleiman the Magnificent, circa 1560. The image shows Ottoman officials forcibly enlisting boys from the empire’s Christian subjects in the Balkans to train them for service in the Ottoman army and bureaucracy (the devshirme system).]';
-var S_DEVSHIRME_SL = 'Manuscript illustration of the Ottoman devshirme system, c. 1560, from a celebration of Sultan Suleiman’s achievements';
-
-var S_TRADEMAP = '[Map: Major Afro-Eurasian Long-Distance Trade Routes, circa 1500 C.E. The map shows trade routes connecting Europe, the Middle East, Central Asia, South Asia, East Africa, and East Asia. Multiple routes converge through the Middle East and Anatolia. Trade routes shown include overland Silk Roads across Central Asia, Indian Ocean maritime routes, and Mediterranean sea routes.]';
-var S_TRADEMAP_SL = 'Map: Major Afro-Eurasian long-distance trade routes, circa 1500 C.E.';
-
-var S_SINAN = '“Sultan Selim II [reigned 1566–1574] ordered the building of a great mosque in the city of Edirne. I, Sinan, his humble servant, prepared for him a design showing four minaret towers, each standing at one of the four corners of an enormous central prayer hall topped by a great dome. Each of the four minarets had three balconies, with separate staircases leading to each balcony. Previously only one Ottoman mosque had a minaret with three balconies, and its one minaret is like a thick tower. But the minarets I designed for Sultan Selim’s mosque are slender and elegant. The difficulty of putting three staircases in such slender structures should be obvious to anyone.\n\nThose among the Christians who consider themselves architects used to say that no building can ever be covered by a dome that is larger than that of the Christian church of Hagia Sophia in Constantinople. They used to claim that no Muslim architect would ever be able to build a mosque whose dome even approaches in size that of the Hagia Sophia. Yet in the Selimiye mosque, with the help of God and with the support of His Majesty the Sultan, I was able to build a dome that is about 10 feet higher and 6 feet wider than the dome of the Hagia Sophia.”\n\n*Sinan himself was born into an Ottoman Greek Christian family, but was converted to Islam when he began training for government service as a young boy.';
-var S_SINAN_SL = 'Sai Mustafa Chelebi, Ottoman court official, biography of the famous Ottoman architect Mimar Sinan, written circa 1600';
-
-var S_JESUIT = '[Image: Jean-Baptiste Du Halde, French historian, engraving included in the Description of China, published in Paris, 1735. In the top panel, the engraving shows three Jesuit missionaries and scholars who served at the courts of Chinese emperors of the Ming and Qing dynasty in the sixteenth and seventeenth centuries, depicted as men of faith, science, and learning surrounded by astronomical instruments. In the bottom panel, the engraving shows two Chinese Christian converts: Xu Guangxi (left) and his granddaughter, Candida Xu (right).]';
-var S_JESUIT_SL = 'Jean-Baptiste Du Halde, French Jesuit historian, Description of China, 1735';
-
-var S_GOLCONDA_WEDDING = '[Image: Wall painting from the Palace of the rulers of the southern Indian state of Golkonda, circa 1650. The painting shows celebrations of the wedding of the Muslim ruler of Golkonda and his Hindu bride. The newlyweds are surrounded by attendants of both religions, depicting a scene of interfaith aristocratic union.]';
-var S_GOLCONDA_SL = 'Wall painting from the Palace of Golkonda, c. 1650';
-
-var S_JAMES = '“The state of monarchy is the supremest thing upon earth; for kings are not only God’s lieutenants upon earth, and sit upon God’s throne, but even by God himself are called gods. In the Scriptures kings are called gods, and so their power after a certain relation compared to the divine power.”';
-var S_JAMES_SL = 'King James I, speech to Parliament, England, 1610';
-
-var S_LUTHER = 'Pope Leo X, in the bull in which he put me under the ban, condemned my statement that ‘to fight against the Turk is the same thing as resisting God, who visits our sin upon us with this rod.’ I still confess freely that this statement is mine. The popes and bishops called for war against the Turks in the name of Christ. Yet because Christ taught that Christians shall not resist evil with violence or take revenge, it is against His name.\n\nIn how many wars against the Turks have the bishops and clergy prevented Christians from enduring heavy losses? Indeed, the king of Hungary and his bishops were beaten by the Turks at Varna [a reference to a failed Christian Crusade launched against the Ottoman Turks in 1444] and more recently a German army would perhaps have fought with more success, if it had not contained priests. If I were an emperor, a king, or a prince in a campaign against the Turks, I would encourage my bishops and priests to stay at home and mind the duties of their office, praying, fasting, saying mass, preaching, and caring for the poor, as not only Holy Scripture, but their own canon law teaches and requires.';
-var S_LUTHER_SL = 'Martin Luther, German theologian, sermon addressed to a German prince, 1528';
-
-var S_MOSQUE = '[Photograph: A sixteenth-century Mughal mosque in India, built during the reign of Emperor Akbar. The structure combines Persian Islamic architectural elements — large central dome, arched entrances, symmetrical gardens — with traditional Indian architectural features including local sandstone, decorative screens, and Hindu-influenced ornamentation. The building reflects the blending of two distinct architectural traditions.]';
-var S_MOSQUE_SL = 'Photograph of a Mughal mosque built by Akbar, sixteenth century, India';
-
-var S_MUGHAL_SIKH = '[Source 1: A Mughal painting depicting a Mughal official (the kneeling figure holding a piece of paper near the center of the image) and his companions meeting a group of Hindu holy men (sadhus), circa 1635 C.E. The painting reflects the Mughal court’s engagement with Hindu religious figures.]\n\n[Source 2: Sayings attributed to Guru Nanak, the founder of Sikhism, circa 1500 C.E.]\n• “Oh God, the tongue of man has given Thee numerous names; but ‘the Truth’ is Thy real name from time immemorial.”\n• “We human beings are neither Hindus nor Muslims; but are bodies and soul of the Supreme Being; call Him Allah, or call Him Rama.”\n• “Everyone is chanting: ‘Rama, Rama’; but mere repetition is no remembrance of Rama. Only when the heart of man becomes saturated with God is such remembrance fruitful.”\n• “Worthless is caste and worthless an exalted name; for all humankind there is but a single refuge in God.”';
-var S_MUGHAL_SIKH_SL = 'Source 1: Mughal painting, c. 1635. Source 2: Sayings of Guru Nanak, founder of Sikhism, c. 1500 C.E.';
-
-var S_OTTOMAN_SIEGES = '[Image 1: Fresco painted on the outer wall of the Moldovita Monastery in Romania depicting the Ottoman Siege of Constantinople in 1453. The monastery was built in 1532. The fresco shows Ottoman armies with cannons attacking the city walls.]\n\n[Image 2: Nakkash Osman, Ottoman court painter, miniature depicting an Ottoman siege of a European city during the reign of Sultan Süleyman I (1520–1566). The image was produced for an official history of the Ottoman Empire compiled circa 1585. It shows the Ottoman army encamped outside a fortified city.]';
-var S_OTTOMAN_SIEGES_SL = 'Two images of Ottoman military campaigns: Moldovita Monastery fresco (c. 1532) and miniature by Nakkash Osman (c. 1585)';
-
-var S_SELIM = '“This letter has been graciously issued by me, Sultan Selim, the most glorious sovereign, the Caliph of God Most High in this world, haloed in victory, the warrior in the path of God, the defender of the Faith — and is addressed to you, prince Ismail, the ruler of the kingdom of the Persians, the possessor of the land of tyranny and wickedness, the chief of the malicious, the usurper of the throne of the ancient Persian kings.\n\nI have heard repeatedly that you have subjected the upright Muslims under your rule to your devious will, that you have undermined the firm foundation of the Faith, and have incited your heretical faction to commit abominable deeds. Be informed, then, that both the opinion of the learned Islamic scholars and the consensus of the Sunni community agree that it is my obligation to extinguish and extirpate the evil heresy that you represent.\n\nBut should you take up a course of repentance and return to the sublime straight path, and should you proclaim your lands part of my Ottoman state, then you shall be granted my royal favor and imperial protection.”';
-var S_SELIM_SL = 'Letter by the Ottoman Sultan Selim I to the Safavid Shah Ismail I, circa 1514';
-
-var QB = {
-  '3.1': [
-    {s:S_MILITARY_IMAGES,sl:S_MILITARY_SL,simg:'images/u3-golconda.png',q:'Taken together, the two images best support which of the following claims regarding developments in the period from 1450 to 1750?',o:['European military technology was inferior to Asian military technology.','Rulers served as military commanders and typically led armies into battle themselves.','Gunpowder technology facilitated the expansion of land-based empires.','Religious divisions were not a significant source of military conflict.'],c:2,e:'Both images portray how the Ottoman and Mughal armies used cannons very effectively in the process of imperial expansion. Cannons were critical to the Ottoman capture of Constantinople and were similarly decisive in Mughal territorial expansion.'},
-    {s:S_MILITARY_IMAGES,sl:S_MILITARY_SL,simg:'images/u3-golconda.png',q:'Which of the following imperial expansions was most similar to those of the Ottoman and Mughal Empires?',o:['The Portuguese Empire in Brazil','The Dutch Empire in South Africa and Indonesia','The Spanish Empire in the Americas and Asia','The Manchu Empire in East Asia'],c:3,e:'Like the Ottomans and Mughals, the Manchus were seminomadic in origin, from the northern frontier of China (Manchuria), and they succeeded in establishing a large land-based empire through the use of heavy cavalry and gunpowder technology in Eurasia.'},
-    {s:S_TRADEMAP,sl:S_TRADEMAP_SL,q:'Which of the following about Afro-Eurasian trade is supported by the map?',o:['The states of the Middle East did not participate in the Indian Ocean trading system.','The Ottoman Empire was located at the intersections of major trading routes.','The Delhi Sultanate relied primarily on sea routes to participate in the silk trade across Asia.','The Islamic states of West Africa maintained close commercial ties with eastern Europe.'],c:1,e:'The map showing major Afro-Eurasian trade routes circa 1500 demonstrates that the Ottoman Empire’s territory sat at the crossroads of multiple major trading routes connecting Europe, the Middle East, and Asia — giving the Ottomans enormous strategic and economic leverage.'},
-    {s:S_MUGHAL_SIKH,sl:S_MUGHAL_SIKH_SL,q:'Based on your knowledge of world history, which of the following factors contributed most directly to the Mughal Empire’s territorial expansion in South Asia?',o:['The Mughals’ adoption and effective use of gunpowder weapons','The Mughals’ adoption of Sikhism','The Mughals’ friendly relations with neighboring states, such as the Safavid Empire and Tibet','The Mughal emperors’ claims that they were directly descended from Genghis Khan'],c:0,e:'The Mughals reorganized their militaries to take advantage of gunpowder technology, including field artillery and firearms, which allowed them to expand their territorial boundaries rapidly across the Indian subcontinent.'},
-    {s:S_OTTOMAN_SIEGES,sl:S_OTTOMAN_SIEGES_SL,simg:'images/u3-moldovita.jpg',q:'The Ottoman practices shown in the two images directly contributed to which of the following developments before 1600?',o:['A series of Ottoman defeats in wars against an expanding Russian Empire','Large-scale Ottoman conquests in the Middle East and North Africa','Weakening of the Ottoman economy as the empire failed to keep pace with an industrializing Europe','The consolidation of Sunni Islam as the state religion of the Ottoman Empire'],c:1,e:'The Ottoman Empire used the military practices illustrated in the images, including the use of field artillery, to defeat its rival Safavid Empire and greatly expand its territorial holdings in the Middle East and North Africa, beginning in the early 1500s.'},
-    {s:S_OTTOMAN_SIEGES,sl:S_OTTOMAN_SIEGES_SL,simg:'images/u3-moldovita.jpg',q:'In the sixteenth and seventeenth centuries, many states responded to threats of the type depicted in the two images by',o:['forcing Muslims within their territories to convert to Christianity','seeking to increase tax revenues and professionalize their militaries','recruiting large numbers of Ottoman military advisors','engaging in economic boycotts against Ottoman trade goods'],c:1,e:'Gunpowder technologies were expensive and depended on greater military coordination, so many states interested in adopting these methods required both increases in tax revenues and more professionalized militaries. This dynamic drove state-building across Eurasia.'},
-    {s:S_OTTOMAN_SIEGES,sl:S_OTTOMAN_SIEGES_SL,simg:'images/u3-moldovita.jpg',q:'Which of the following most likely explains the inclusion of Image 2 in a court history of the Ottoman Empire?',o:['To highlight the Ottoman sultans’ role as caliphs of the Muslim world','To illustrate the growing influence of Persian art and culture at the Ottoman court','To celebrate the ethnic and cultural diversity of the Ottoman court','To glorify imperial power by referring back to a celebrated era of Ottoman history'],c:3,e:'The miniature celebrates earlier victories of the Ottomans at a time when the empire reached the height of its territorial expansion under the reign of Sultan Süleyman I. Commissioning official histories and art that glorified imperial achievements was a standard technique rulers used to legitimize their rule.'},
-    {s:S_SELIM,sl:S_SELIM_SL,q:'A historian would most likely interpret the rhetoric in the passage as evidence that rulers of imperial states in the period circa 1450–1750 continued to',o:['use religious ideas to highlight their political legitimacy and attack the legitimacy of their enemies','prefer to resolve interstate conflicts through warfare rather than through diplomatic means','patronize religious establishments and preside over religious ceremonies','seek to unite forces to prevent the spread of secular ideas'],c:0,e:'Sultan Selim’s rhetoric presents a sharp contrast between the idealized, religiously charged terms in which he refers to himself (Caliph of God, defender of the Faith) and the disparaging religious terms he uses for his Safavid rival (heretic, usurper). This shows rulers continuing to use religious ideas to bolster their own legitimacy and attack that of their enemies.'},
-    {s:'[Standalone question: no image or text stimulus required.]\n\nBetween 1450 and 1750, Russia expanded dramatically across Eurasia, absorbing new territory in Siberia and pushing toward the Baltic and Black Seas.',sl:'Historical context, Russia, 1450–1750',q:'Which of the following contributed most to the emergence of Russia as an expanding Eurasian power in the period between 1450 and 1750?',o:['Its absorption of traditions and technology from the Byzantine Empire and western Europe','Its success in creating alliances with European powers to expel Turkish invaders from the south','The eradication of Islam from Central Asia','The fall of the kingdoms of Poland and Prussia'],c:0,e:'Russia drew heavily on Byzantine traditions (Orthodox Christianity, the title of tsar, imperial ideology) and, especially under Peter the Great, on western European military technology and administrative models. This absorption of external traditions and technology powered Russia’s emergence as a major Eurasian empire.'}
-  ],
-  '3.2': [
-    {s:S_BERNIER,sl:S_BERNIER_SL,q:'The actions of peasants, artisans, and merchants discussed in the third paragraph are an example of',o:['religious conflict in a multiethnic state','challenges to imperial legitimacy based on ideas of human rights','opportunities for upward mobility created by larger states','resistance against state attempts to collect revenue'],c:3,e:'The third paragraph references often futile efforts of peasants, artisans, and merchants to resist state tax collection efforts by concealing whatever wealth they had — hiding it in the ground to appear poor and avoid dispossession by tyrannical officials.'},
-    {s:S_BERNIER,sl:S_BERNIER_SL,q:'All the following statements about Bernier are factually accurate. Which would most increase historians’ confidence in the reliability of his account?',o:['He originally studied for a position in the Catholic Church, but then shifted to a nonreligious education.','He spent several years as an official at the Mughal imperial court.','He made extensive travels in Europe before going to India.','He wrote the description of Mughal administration at the request of Colbert, who founded the French East India Company.'],c:1,e:'Bernier’s account of conditions in the Mughal court has greater credibility to historians because he spent time at the Mughal court and observed the practices he describes firsthand, rather than acquired his information from other sources.'},
-    {s:S_DEVSHIRME,sl:S_DEVSHIRME_SL,simg:'images/u3-vis-3.jpg',q:'The Ottoman Empire’s recruitment of soldiers and bureaucrats through the system depicted in the image is most similar to which broader method that rulers used to strengthen their empires in the period 1450–1750?',o:['The collection of tribute','Establishment of religious uniformity','Abolition of feudal privileges','The granting of autonomy to minority groups'],c:0,e:'The image illustrates the Ottoman devshirme system, through which young boys were forcibly recruited to serve as soldiers or as officials in the Ottoman administration. Although the devshirme produced military and bureaucratic professionals rather than money or goods, it was similar to a tribute collection system in that it extracted resources from conquered or tributary regions for use of the state.'},
-    {s:S_DEVSHIRME,sl:S_DEVSHIRME_SL,simg:'images/u3-vis-3.jpg',q:'The recruitment depicted in the image is best understood in the context of which of the following developments in the period 1450–1750?',o:['Attempts by imperial states to expand their economic power','Attempts by imperial states to prevent religious conflict','Attempts by imperial states to centralize their authority','Attempts by imperial states to control population growth'],c:2,e:'The forced recruitment of soldiers and officials through practices such as the Ottoman devshirme increased the military and administrative capacity of states. In the Ottoman case, these soldiers and officials were solely dependent on the ruler’s favor and thereby helped expand and centralize state authority.'},
-    {s:S_DEVSHIRME,sl:S_DEVSHIRME_SL,simg:'images/u3-vis-3.jpg',q:'The inclusion of the image in the manuscript best illustrates which of the following features of the period 1450–1750?',o:['Rulers using art as a way to communicate with their illiterate subjects','Rulers using art to expand their territories','Rulers using art as a way to increase literacy','Rulers using art to legitimize their rule'],c:3,e:'The illustration was included in a manuscript intended to glorify the achievements of Suleiman the Magnificent and thereby demonstrate his legitimacy. The image illustrates how art was used by rulers to legitimize their rule in the period 1450–1750 — presenting even forced conscription as an achievement of the sultan.'},
-    {s:S_JAMES,sl:S_JAMES_SL,q:'The passage above is best understood in the context of which of the following?',o:['European monarchs’ continued use of religion to legitimize political authority','The influence of Islamic political thought on Europe after the Crusades','The establishment of theocracies throughout Eurasia','The differential treatment of Protestants and Catholics in England'],c:0,e:'King James I’s claim that kings sit upon God’s throne and are themselves called gods in scripture is a classic articulation of divine right monarchy — the theory that rulers derive their authority directly from God. This illustrates the continued use of religious justification for political authority by European monarchs in the period 1450–1750.'},
-    {s:'[Standalone question: no image or text stimulus required.]\n\nIn the seventeenth century, the Qing dynasty replaced the Ming dynasty in China. While the Manchu conquerors imposed certain new cultural requirements on the Chinese population (such as the queue hairstyle), they also maintained many existing Chinese administrative practices.',sl:'Historical context, China, seventeenth century',q:'Which of the following was an important continuity from the Ming Dynasty to the Qing dynasty in the seventeenth century?',o:['The ongoing assimilation of Manchu cultural traditions by the imperial elite','Maintenance of the Silk Roads to promote cultural exchanges with the Middle East','The use of the examination system and other Confucian bureaucratic practices','Financial support for maritime expeditions similar to those led by Zheng He'],c:2,e:'The Qing dynasty maintained the Confucian civil service examination system and other bureaucratic practices inherited from the Ming. This continuity helped the Manchu rulers legitimize their rule in the eyes of the Chinese literati class and allowed the massive Chinese administrative apparatus to continue functioning.'},
-    {s:'[Image: An eighteenth-century cityscape of St. Petersburg, Russia, showing neoclassical European-style palaces, broad avenues, and European architectural styles. The city was founded by Tsar Peter the Great in 1703 and built in the European Baroque style to serve as Russia’s new western-facing capital.]',sl:'Eighteenth-century cityscape of St. Petersburg, Russia (engraving after Mikhail Makhaev, 1753)',simg:'images/u3-stpetersburg.jpg',q:'Which of the following world history processes was most responsible for the eighteenth-century cityscape of St. Petersburg, Russia?',o:['Disease diffusion','World climate changes','Westernization','Democratization'],c:2,e:'St. Petersburg was deliberately built by Peter the Great in the European Baroque architectural style as a symbol of his program of Westernization — transforming Russia’s institutions, military, dress, and culture to conform to Western European models. The cityscape is the visual embodiment of this policy.'}
-  ],
-  '3.3': [
-    {s:S_CELEBI,sl:S_CELEBI_SL,q:'Which of the following most directly strengthened Sunni religious scholars’ role as official interpreters of Islamic doctrine within the Ottoman Empire, as suggested by the passage?',o:['The establishment of the Mughal Empire in India','The Ottoman conquest of Constantinople','Ottoman sultans’ extensive conquests in Europe','The Ottoman Empire’s rivalry with the Safavid Empire'],c:3,e:'Conflicts with the Shi‘a Safavid Empire, fueled by religious differences, led Sunni scholars in the Ottoman Empire to attempt to enforce stricter adherence to Sunni orthodoxy, contributing to their critical views of Sufism and strengthening their role as guardians of orthodox Islamic doctrine.'},
-    {s:S_CELEBI,sl:S_CELEBI_SL,q:'Outside of the Ottoman Empire, Sufis contributed most directly to which of the following during the period before 1750?',o:['Scientific exchanges between the Muslim world and the rest of Afro-Eurasia','The establishment of Arabic as the language of philosophy and theology in the Muslim world','The spread of Islam to new locations on the margins of the Muslim world, such as southeast Asia','The introduction of new practices for recruiting and training slave soldiers in Muslim states, such as the Mughal Empire'],c:2,e:'Sufis were instrumental in the spread of Islam to new locations in this period, both through the popularity of Sufi religious practices with merchants and through the ability of Sufi leaders to effect the conversion of political leaders in some regions on the margins of the Muslim world, including southeast Asia and sub-Saharan Africa.'},
-    {s:S_SINAN,sl:S_SINAN_SL,q:'Which of the following characteristics of the Ottoman Empire best explains why Sinan was determined to match the dimensions of the Hagia Sophia church, as discussed in the third paragraph?',o:['The Ottoman dynasty was descended from Turkic pastoralist nomads who did not have their own tradition of monumental architecture.','Ottoman art often illustrated the historical and spiritual connections between Islam and other monotheistic religions, such as Christianity and Judaism.','By the time the Ottoman Empire began to expand, the Byzantine Empire had already been dramatically reduced in size and geopolitical importance.','Bringing Constantinople, with its imperial traditions, under Islamic rule was one of the central pillars of Ottoman rulers’ claims to political legitimacy.'],c:3,e:'Surpassing the Hagia Sophia — the greatest church of the Byzantine Empire — was deeply meaningful because the Ottoman conquest of Constantinople and its transformation into an Islamic city was central to Ottoman imperial identity and claims to legitimate authority as heirs to Rome.'},
-    {s:S_SINAN,sl:S_SINAN_SL,q:'Based on the intended purpose of Sinan’s biography, it is most likely that the information in the passage might be',o:['overstating the extent of the architectural challenges Sinan faced in building the mosque','understating the extent of Ottoman royal support for the building of the mosque','overstating Christian architects’ achievements and their contributions to the building on the mosque','intentionally attributing the building of the mosque to Sinan even though he was not the architect'],c:0,e:'Because the biography was written to celebrate Sinan’s achievements and glorify the Ottoman court, it is most likely that Sinan’s account overstates the architectural difficulties he faced in designing and building the mosque, in order to make his accomplishment appear even more impressive.'},
-    {s:S_SINAN,sl:S_SINAN_SL,q:'Sinan’s service to the Ottoman state best illustrates the fact that land-based empires in the period 1450–1750 often relied on',o:['appointed bureaucrats to break the power of entrenched landed aristocracies','mass conscription of soldiers to carry out their territorial expansion','methods of recruitment of officials that made use of the ethnic and religious diversity of their subjects','members of the clergy to perform religious services, administer religious law, and oversee public order'],c:2,e:'Sinan was born into a Greek Christian family but was recruited through the devshirme system and converted to Islam, going on to become the greatest architect of the Ottoman Empire. His career illustrates how land-based empires like the Ottomans drew talent from the full ethnic and religious diversity of their subject populations.'},
-    {s:S_JESUIT,sl:S_JESUIT_SL,q:'Which of the following developments in Europe in the sixteenth and seventeenth centuries most directly helps to explain the presence of the scholars shown in the image of China?',o:['The Inquisition led to the expulsion of enemies of the Catholic Church from Europe.','The Protestant Reformation led the Catholic Church to seek new converts outside of Europe.','The wars of religion led many to question the role of religion in European society.','The expansion of the Ottoman Empire in Europe led many to leave their homes as refugees.'],c:1,e:'Because the Protestant Reformation dramatically reduced the number of Catholics in Europe, the Catholic Church commissioned the Jesuit order and other missionary organizations to convert new populations abroad, compensating for losses at home. The Jesuits shown in the image in China are a direct product of this counter-Reformation missionary effort.'},
-    {s:S_JESUIT,sl:S_JESUIT_SL,q:'All of the following statements about Du Halde are factually accurate. Which would most likely lead historians to question the objectivity of his portrayal of the scholars shown in the image?',o:['He was the confessor to an important French noble.','He never traveled to China.','He based his observations of China on unpublished translations of Chinese texts.','He was a Jesuit and based his book on Jesuit missionary reports.'],c:3,e:'The Jesuit scholars are portrayed in the image as illustrious men of faith, science, and wisdom. Because Du Halde had an institutional affiliation with the Jesuit order and based his book directly on Jesuit missionary reports, he was likely motivated to depict the Jesuit scholars positively. A historian would therefore consider the account potentially biased in favor of the Jesuits.'},
-    {s:S_LUTHER,sl:S_LUTHER_SL,q:'A historian interpreting the views expressed in the passage would likely explain that those views were most strongly influenced by Protestant desires to',o:['promote religious war against fellow Christians','encourage the creation of a united German state free of papal influence','demonstrate that an individual’s destiny was predetermined by God','reform Christian society by adhering more closely to Biblical teachings'],c:3,e:'In the passage, Luther claims that holy war against the Turks in the name of Jesus Christ is wrong because Jesus taught that Christians should not resist evil with violence or take revenge. He further states that scripture requires the bishops and clergy to mind the duties of their office. Luther’s arguments illustrate his belief that scripture was the foundation of faith and that adhering more closely to Biblical teachings would create a more just and pious Christian society.'},
-    {s:S_LUTHER,sl:S_LUTHER_SL,q:'A historian could best explain the arguments made in the passage regarding the pope and the clergy in the context of Protestant claims that the Catholic Church',o:['had not adequately supported earlier Crusades against Muslims in the Holy Land','had become corrupted by power','had become too heavily influenced by Renaissance Humanism','had failed to convert Muslims living in Europe to Christianity'],c:1,e:'One of Luther’s main arguments against the Catholic Church during the early stages of the Reformation is that it had become corrupted by worldly power. The passage illustrates Luther’s belief that the pope and the clergy were ignoring the most important duties of their offices in the pursuit of worldly political goals such as military campaigns.'},
-    {s:S_LUTHER,sl:S_LUTHER_SL,q:'A historian interpreting the passage would most likely explain that the audience of the sermon is an illustration of the fact that',o:['papal alliances with the Holy Roman emperors led to widespread religious persecutions in Germany','the Protestant German nobility was wary of confronting the Ottomans without Catholic support','political support from the German nobility aided in the development of the early Protestant community','the Protestant German nobility adopted pacifist attitudes during religious disputes with their Catholic and Muslim opponents'],c:2,e:'The fact that Luther wrote a highly critical sermon addressed to a German prince indicates that this prince supported Luther. Luther and early Protestant communities received protection from many members of the German nobility, either because they embraced the Protestant message of reform or because they wanted to limit the power of the Holy Roman emperor within Germany.'},
-    {s:S_MOSQUE,sl:S_MOSQUE_SL,simg:'images/u3-mosque-akbar.jpg',q:'The photograph of a sixteenth-century Mughal mosque in India built by Akbar is an example of which of the following?',o:['Emergence of capitalist economies','Expansion of coercive labor systems','Creation of a global trade network','Cultural syncretism'],c:3,e:'The Mughal mosque combines Persian Islamic architectural elements with traditional Indian architectural features, demonstrating how contact between different cultures produced syncretic results. Akbar’s patronage of architecture that blended Islamic and Hindu styles reflects his broader policy of religious accommodation and cultural synthesis within the diverse Mughal Empire.'},
-    {s:S_MUGHAL_SIKH,sl:S_MUGHAL_SIKH_SL,q:'Source 2 indicates that all of the following were likely factors contributing to Sikhism’s popularity in India EXCEPT:',o:['It offered a set of religious beliefs that combined elements of both Hinduism and Islam.','It advocated a direct and personal approach to God that paralleled Islamic beliefs.','It appealed to members of the lower socioeconomic strata by rejecting the rigid social hierarchy of Hinduism.','It offered a set of principles around which all Indians could rally in resisting British imperial encroachment.'],c:3,e:'Sikhism developed around 1500 C.E., prior to British imperial expansion in South Asia. Because British imperialism postdates Sikhism’s founding, resistance to British encroachment cannot have been a factor contributing to its original popularity. The statement is factually inaccurate for this period, making it the correct answer to the EXCEPT question.'}
-  ],
-  '3.4': [
-    {s:S_MILITARY_IMAGES,sl:S_MILITARY_SL,simg:'images/u3-golconda.png',q:'All of the following pieces of additional information regarding the events portrayed in Image 2 are factually accurate. Which would be most useful in evaluating the message that the image was intended to convey?',o:['Emperor Aurangzeb was a strong proponent of Sunni Islam, while the rulers of Golconda were supporters of Shiism.','Emperor Aurangzeb overthrew his father in order to become the Mughal emperor, while the ruler of Golconda succeeded his father peacefully.','Emperor Aurangzeb ruled over India during a time when it was the largest agricultural and manufacturing economy in the world.','Emperor Aurangzeb increased taxes on all non-Muslims in his empire which contributed to unrest in his multi-religious state.'],c:0,e:'The image portrays conflict between two rival Muslim states in India. An important part of the conflict resulted from differences between supporters of Sunni Islam in the Mughal Empire and Shi‘a Islam in Golconda. Knowing this religious dimension helps evaluate what message the image — a Mughal victory painting — was intended to communicate about religious legitimacy.'},
-    {s:S_GOLCONDA_WEDDING,sl:S_GOLCONDA_SL,q:'The particular event depicted in the painting was likely important to Golkonda rulers mostly because it',o:['could be used as a symbol of the union between the state’s ruling class and the majority of its population','provided a source of pride for Golkonda’s Muslim population by reminding them of the Muslim conquests of India','led to the decline of patriarchal social structures in the Indian subcontinent','illustrated the extent to which Golkonda elites relied on various forms of coerced labor'],c:0,e:'Because the painting depicts the union of the Muslim and Hindu ruling classes and shows both Hindu and Muslim attendants, it likely was important to Golkonda rulers to serve as a symbol of unity in a religiously divided society. The interfaith royal wedding demonstrated that the Muslim ruling class was not hostile to its Hindu majority population.'},
-    {s:S_GOLCONDA_WEDDING,sl:S_GOLCONDA_SL,q:'Which of the following most likely describes the fate of the Golkonda state after 1650?',o:['It expanded to control most of India.','It was conquered by the Portuguese.','It was conquered by the Mughal Empire.','It was conquered by the Ottoman Empire.'],c:2,e:'The Mughal Empire expanded rapidly in the late sixteenth and seventeenth centuries, eventually coming to rule almost all of present-day India and Pakistan. The Golkonda Sultanate was forced to recognize Mughal overlordship in 1636 and was fully conquered by the Mughals in 1687 — the very same event depicted in the military image of Aurangzeb’s forces at Golconda.'},
-    {s:S_MUGHAL_SIKH,sl:S_MUGHAL_SIKH_SL,q:'Source 1 and the context of Akbar’s reign suggest that Mughal emperors’ approaches to governing a religiously diverse empire were most similar to which of the following strategies used by other land-based empires in the period 1450–1750?',o:['The Ottoman practice of using the devshirme to recruit soldiers and officials from non-Muslim subject populations.','The Qing Dynasty practice of enforcing Manchu cultural norms on all subjects, including Chinese.','The Safavid practice of forcibly converting the population to Shi‘a Islam.','The Spanish practice of requiring all subjects to convert to Catholicism.'],c:0,e:'Both the Mughals and the Ottomans governed empires with enormous religious diversity by co-opting and incorporating members of non-Muslim communities into imperial administration. Akbar’s use of Hindu Rajput officials and the Ottoman devshirme’s recruitment of Christian-born soldiers and administrators both reflect this strategy of using diversity as a tool of empire-building rather than a problem to be eliminated.'},
-    {s:'[Standalone question: no image or text stimulus required.]',sl:'Comparison, Ottoman and Mughal empires, 1450–1750',q:'Which of the following is true of both the Ottoman Empire and the Mughal Empire between 1450 and 1750?',o:['The rulers of both believed in strictly separating secular and religious concerns.','The top administrators in both empires were chosen by a system of competitive examinations.','Christianity was prohibited in both empires.','Both empires were established by skilled warriors on horseback who came originally from Central Asia.'],c:3,e:'Both the Ottomans (Turkic peoples migrating from Central Asia into Anatolia) and the Mughals (founded by Babur, a Central Asian prince descended from Timur and Genghis Khan) were established by cavalry warriors of Central Asian origin. Neither separated religion from state, neither used competitive examinations for top posts, and both tolerated Christian subjects.'},
-    {s:'[Standalone question: no image or text stimulus required.]',sl:'Comparison, Mughal and Ottoman empires, sixteenth century',q:'Which of the following statements is true about both the Mughal and the Ottoman empires in the sixteenth century?',o:['In each, the majority of the people were Muslims.','Each had a powerful navy that engaged European navies.','Each had developed an efficient administrative structure.','Each enjoyed peaceful relations with its neighboring states.'],c:2,e:'Both empires built sophisticated administrative systems in the sixteenth century — the Ottomans through the devshirme-staffed bureaucracy and timar system, the Mughals through the mansabdar and zamindar systems under Akbar. The Mughals ruled a Hindu-majority population, lacked a serious navy, and both empires fought frequent wars with neighbors.'}
-  ]
-};
-
-/* ── MCQ ENGINE ── */
-var mcqMode = 'all', mcqQs = [], mcqMap = {}, mcqRight = 0, mcqMeta = [];
-
-function mcqInit() {
-  var keys = ['3.1','3.2','3.3','3.4'];
-  var ids  = ['31','32','33','34'];
-  var total = 0;
-  keys.forEach(function(k, i) {
-    var n = QB[k] ? QB[k].length : 0;
-    var el = document.getElementById('cnt' + ids[i]);
-    if (el) el.textContent = n + ' question' + (n !== 1 ? 's' : '');
-    total += n;
-  });
-  var ab = document.getElementById('mcq-all-btn');
-  if (ab) ab.textContent = '📋 Practice All ' + total + ' Questions';
-}
-
-function startMCQ(mode, topic) {
-  mcqMode = mode;
-  mcqQs = []; mcqMap = {}; mcqRight = 0; mcqMeta = [];
-  var order = ['3.1','3.2','3.3','3.4'];
-  if (mode === 'topic') {
-    mcqQs = (QB[topic] || []).slice();
-  } else if (mode === 'mixed') {
-    order.forEach(function(k) {
-      var pool = QB[k] || [];
-      var picked = pool.slice().sort(function(){ return Math.random()-.5; }).slice(0,2);
-      mcqQs = mcqQs.concat(picked);
-    });
-  } else {
-    order.forEach(function(k){ mcqQs = mcqQs.concat(QB[k] || []); });
-  }
-  var names = {'all':'All Unit 3 Questions','mixed':'⚡ Quick Mixed Quiz',
-    '3.1':'3.1 — Empires Expand','3.2':'3.2 — Empires: Administration',
-    '3.3':'3.3 — Empires: Belief Systems','3.4':'3.4 — Comparison in Land-Based Empires'};
-  document.getElementById('qhdr-name').textContent = names[topic || mode] || 'Questions';
-  document.getElementById('mcq-home').style.display = 'none';
-  document.getElementById('mcq-session').classList.add('active');
-  renderMCQ();
-}
-
-function renderMCQ() {
-  var el = document.getElementById('qbody');
-  var h = '', ls = null, sn = 0, L = ['A','B','C','D'];
-  mcqQs.forEach(function(q, i) {
-    if (q.s !== ls) {
-      if (ls !== null) h += '<hr class="sbr">';
-      sn++;
-      h += '<div class="stim"><div class="stim-lbl">Source ' + sn + '</div>';
-      h += '<div class="stim-src">' + (q.sl || '') + '</div>';
-      if (q.simg) h += '<img src="' + q.simg + '" alt="Source image" class="stim-img" loading="lazy" onerror="this.style.display=\'none\'">';
-      h += '<div class="stim-txt">' + q.s.replace(/\n/g,'<br>') + '</div></div>';
-      ls = q.s;
-    }
-    h += '<div class="qcard" id="qcard' + i + '">';
-    h += '<div class="qnum">Question ' + (i+1) + ' of ' + mcqQs.length + '</div>';
-    h += '<div class="qtxt">' + q.q + '</div><div class="opts">';
-    q.o.forEach(function(opt, j) {
-      h += '<button class="opt" data-i="' + i + '" data-j="' + j + '"><span class="ol">(' + L[j] + ')</span>' + opt + '</button>';
-    });
-    h += '</div><div class="fb" id="fb' + i + '"></div></div>';
-  });
-  el.innerHTML = h;
-  el.querySelectorAll('.opt').forEach(function(b){
-    b.addEventListener('click', function(){
-      var i = parseInt(this.dataset.i), j = parseInt(this.dataset.j);
-      onAnswer(i, j);
-    });
-  });
-  updateProg();
-}
-
-function onAnswer(i, j) {
-  if (mcqMap[i] !== undefined) return;
-  var q = mcqQs[i], ok = (j === q.c);
-  mcqMap[i] = ok;
-  if (ok) mcqRight++;
-  var card = document.getElementById('qcard' + i);
-  var L = ['A','B','C','D'];
-  card.querySelectorAll('.opt').forEach(function(b) {
-    var bj = parseInt(b.dataset.j);
-    b.disabled = true;
-    if (bj === q.c) b.classList.add('c');
-    else if (bj === j && !ok) b.classList.add('w');
-    else if (bj !== j) b.classList.add('rv');
-  });
-  var fb = document.getElementById('fb' + i);
-  fb.className = 'fb show ' + (ok ? 'ok' : 'bad');
-  fb.innerHTML = (ok ? '<strong>Correct.</strong> ' : '<strong>Incorrect.</strong> ') + (q.e || '');
-  updateProg();
-}
-
-function updateProg() {
-  var tot = Object.keys(mcqMap).length;
-  var pct = mcqQs.length ? (tot / mcqQs.length * 100) : 0;
-  document.getElementById('qpbf').style.width = pct + '%';
-  document.getElementById('qhdr-prog').textContent = tot + ' of ' + mcqQs.length + ' answered';
-}
-
-document.querySelectorAll('.tc').forEach(function(btn){
-  btn.addEventListener('click', function(){ startMCQ('topic', this.dataset.topic); });
-});
-document.getElementById('mcq-all-btn').addEventListener('click', function(){ startMCQ('all'); });
-document.getElementById('mcq-mixed-btn').addEventListener('click', function(){ startMCQ('mixed'); });
-document.getElementById('mcq-back-btn').addEventListener('click', function(){
-  document.getElementById('mcq-session').classList.remove('active');
-  document.getElementById('mcq-home').style.display = '';
-});
-document.getElementById('mcq-reset-btn').addEventListener('click', function(){
-  startMCQ(mcqMode, mcqMode === 'topic' ? (mcqMeta[0] || null) : null);
-});
-mcqInit();
 
 /* ── BRAIN DUMP ── */
 var bdTopic = null, bdTimerInterval = null;
@@ -1601,6 +1380,10 @@ document.getElementById('bd-reset-btn').addEventListener('click', function() {
   if (bdTimerInterval) clearInterval(bdTimerInterval);
 });
 </script>
+<script src="mcq-bank.js"></script>
+<script src="mcq-engine.js"></script>
+<script src="bd-confidence.js"></script>
+<script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'3'});</script>
 <script src="writing-prompts.js"></script>
 <script src="writing-drills.js"></script>
 <!-- ══ BACK TO TOP / SECTIONS ══ -->

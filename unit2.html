@@ -519,29 +519,13 @@ button{font-family:inherit;cursor:pointer}
       <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
       <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
     </div>
-    <div id="mcq-home">
-      <div class="pg-hero">
-        <div class="eyebrow">MCQ Review</div>
-        <h2>Stimulus-Based Questions</h2>
-        <p>AP-style questions built on primary and secondary sources. Pick a topic, a quick mixed quiz, or practice everything.</p>
-      </div>
-      <div class="topic-grid" id="mcq-topic-grid"></div>
-      <button type="button" class="btn-mixed" id="mcq-mixed-btn">&#9889; Quick Mixed Quiz &mdash; 1 Per Topic</button>
-      <button type="button" class="btn-all" id="mcq-all-btn">&#128203; Practice All Questions</button>
-      <a href="https://highschooltestprep.com/ap/world-history/unit-2-practice-test" target="_blank" rel="noopener noreferrer" class="btn-all" style="background:#1a7a4c;text-decoration:none;margin-top:8px;box-sizing:border-box" onmouseover="this.style.background='#15633d'" onmouseout="this.style.background='#1a7a4c'">&#127760; More Practice &mdash; HighSchoolTestPrep Unit 2 Quiz &#8599;</a>
+    <div class="pg-hero">
+      <div class="eyebrow">MCQ Review</div>
+      <h2>Stimulus-Based Questions</h2>
+      <p>AP-style questions built on primary and secondary sources. Choose <strong>Quick Check</strong> for instant feedback, or <strong>Test Mode</strong> to answer a full set, rate your confidence, and reveal your score at the end &mdash; closer to real exam conditions.</p>
     </div>
-    <div id="mcq-session" class="qsession">
-      <div class="qhdr">
-        <div class="qhdr-name" id="qhdr-name">All Questions</div>
-        <div class="qhdr-prog" id="qhdr-prog">0 answered</div>
-      </div>
-      <div class="qpbar"><div class="qpbf" id="qpbf"></div></div>
-      <div id="qbody"></div>
-      <div class="btn-row">
-        <button type="button" class="btn btn-red" id="mcq-back-btn">&#8592; Back to Topics</button>
-        <button type="button" class="btn" id="mcq-reset-btn">Reset &amp; Retry</button>
-      </div>
-    </div>
+    <div id="mcq-root"></div>
+    <a href="https://highschooltestprep.com/ap/world-history/unit-2-practice-test" target="_blank" rel="noopener noreferrer" class="btn-all" style="background:#1a7a4c;text-decoration:none;margin-top:16px;box-sizing:border-box;display:inline-block" onmouseover="this.style.background='#15633d'" onmouseout="this.style.background='#1a7a4c'">&#127760; More Practice &mdash; HighSchoolTestPrep Unit 2 Quiz &#8599;</a>
   </div>
 </div>
 
@@ -1219,43 +1203,6 @@ var CARDS = [
   {t:'Urbanization', d:'Growth of cities driven by expanded agriculture and trade during the era of intensified networks.', topic:'2.6'}
 ];
 
-var MCQ = {
-  '2.1': [
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'Afro-Eurasian trade, second half of the thirteenth century', q:'Which of the following factors helps explain the rise of urban centers and the increase in trade in Afro-Eurasia during the second half of the thirteenth century?', o:['The increase in all forms of coerced labor to build housing','The decline of the Mongol khanates across Asia','The reopening of Indian Ocean trade networks by Chinese explorers','The availability of safe and reliable transport along land-based trade routes'], c:3, e:'The Pax Mongolica made overland travel across Eurasia far safer and more reliable in the later thirteenth century. This security, plus commercial innovations like the caravanserai, encouraged long-distance trade and the growth of the cities along these routes.'},
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'The Mongol conquests and Silk Road trade, thirteenth century', q:'The Mongol conquests of much of Eurasia in the thirteenth century tended to encourage trade along the Silk Roads primarily by', o:['opening large new markets for both European and East Asian goods in Central Asia','increasing the demand for military supplies needed by the Mongol armies','decreasing the risk of bandit attacks and reducing the number of local rulers collecting tribute from trade caravans','discouraging seaborne trade along the Indian Ocean routes'], c:2, e:'By unifying Eurasia under a single authority, the Mongols reduced banditry and eliminated the patchwork of local rulers who each taxed passing caravans. This “Pax Mongolica” lowered the cost and risk of overland trade, encouraging Silk Road commerce.'},
-    {s:'“Merchants no longer needed to carry heavy strings of copper coins on the long roads. Instead they deposited their money and received a paper note that could be redeemed in distant cities.”', sl:'Description of a Song Chinese commercial innovation', q:'The innovation described in the passage is best identified as:', o:['The tribute system','Flying cash (paper credit)','The astrolabe','The mit’a system'], c:1, e:'“Flying cash” was a Chinese paper-credit system that made long-distance trade easier and inspired the growth of banking.'},
-    {s:'“Every hundred miles or so along the route stood an inn where caravans could find water, food, and shelter for both travelers and their camels before pressing on across the wastes.”', sl:'Account of overland trade in Central Asia', q:'The inns described most directly contributed to which of the following?', o:['The decline of the Silk Roads','The increased safety and volume of overland trade','The end of the money economy','The isolation of Central Asian cities'], c:1, e:'Caravanserai made overland travel safer and more reliable, increasing the flow of goods and ideas along the Silk Roads.'}
-  ],
-  '2.2': [
-    {s:'The map above shows a vast Eurasian empire at its greatest extent in the thirteenth century, stretching from Korea and China in the east across Central Asia to Persia and the edge of eastern Europe.', sl:'Map of an empire at its greatest thirteenth-century extent', simg:'images/u2-mcq-mongolmap.png', q:'The map above shows which of the following empires at its greatest extent?', o:['The empire of Alexander the Great','The Mongol Empire','The Russian Empire','The Byzantine Empire'], c:1, e:'The map shows the Mongol Empire — the largest contiguous land empire in history — reaching from the Pacific coast of Asia across Central Asia to Persia and eastern Europe by the late thirteenth century.'},
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'The fragmentation of the Mongol Empire', q:'Which of the following resulted from the fragmentation of the Mongol Empire following the death of Genghis Khan?', o:['The collapse of the Byzantine Empire','The development of khanates in Central Asia','The spread of Islam into East Asia','A permanent end to trade between Africa and Asia'], c:1, e:'After Genghis Khan’s death, the empire was divided among his heirs into several khanates — the Yuan in China, the Chagatai Khanate in Central Asia, the Ilkhanate in Persia, and the Golden Horde in Russia.'},
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'The Mongol Empire, thirteenth century', q:'Which of the following statements about the Mongol Empire of the thirteenth century is true?', o:['The invasion of Japan was attempted but was unsuccessful.','The number of Buddhists and Muslims in Asia dropped significantly as a result of Mongol persecution.','In China the Mongols eliminated the Chinese scholar-official class permanently.','The Mongols conquered Constantinople.'], c:0, e:'The Mongols twice attempted to invade Japan (1274 and 1281) but failed, in part because typhoons — remembered by the Japanese as the “kamikaze,” or divine winds — destroyed much of the invasion fleets.'},
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'The Mongol Empire', q:'Which of the following is an accurate statement about the Mongol Empire?', o:['It attempted to impose Mongol religious beliefs on all conquered peoples.','It reestablished and protected the Silk Road between East Asia and Europe.','It banned all merchants from non-Mongol territories.','It maintained clear rules of succession that ensured the empire’s lasting unity.'], c:1, e:'The Mongols were generally religiously tolerant, protected long-distance trade, and secured the Silk Roads across Eurasia (the Pax Mongolica), reviving direct commercial and cultural contact between East Asia and Europe.'},
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'The limits of Mongol conquest', q:'Which of the following did the Mongol armies fail to conquer, and why?', o:['Kievan Russia, because the Mongols could not endure the Russian winters','The Abbasid Caliphate, because the defenders flooded the Mesopotamian plains','Central Asia, because of the effective diplomacy of Timur','Japan, because severe storms aided the Japanese defenders'], c:3, e:'The Mongols conquered Russia and the Abbasid Caliphate (sacking Baghdad in 1258), but their two seaborne invasions of Japan failed when typhoons destroyed their fleets — the storms the Japanese called the kamikaze.'},
-    {s:'“Under the Great Khan the roads were made so safe that a maiden bearing a nugget of gold might travel from one end of the empire to the other without fear of harm.”', sl:'Traveler’s account of the Mongol Empire', q:'The passage most directly describes which of the following?', o:['The Pax Mongolica securing trade routes','The collapse of trade under Mongol rule','The forced conversion of merchants to Islam','The Chinese civil-service examination'], c:0, e:'The “Mongol Peace” (Pax Mongolica) secured the trade routes, encouraging commerce and exchange across Eurasia.'},
-    {s:'“The empire of the Great Khan was divided among his heirs: one ruled China, another Persia, and another the lands of the Rus.”', sl:'Description of the Mongol succession', q:'The division described resulted in which of the following states in Russia?', o:['The Yuan Dynasty','The Golden Horde','The Delhi Sultanate','The Il-Khanate'], c:1, e:'The Golden Horde ruled Russia; the Yuan ruled China and the Il-Khanate ruled Persia.'}
-  ],
-  '2.3': [
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'Middle Eastern trade, 1000–1450', q:'Which of the following best describes Middle Eastern trade in the period 1000 to 1450?', o:['A single unified Islamic empire eliminated all internal tariffs and encouraged trade.','The region engaged in regular trade with China, India, and sub-Saharan Africa.','The Ottoman Empire drained the region’s resources in wars with India.','The region ceased trading with Europe but continued trading only with sub-Saharan Africa.'], c:1, e:'The Middle East sat at the crossroads of the major trade networks of the era, engaged in regular and extensive commerce with China, India, and sub-Saharan Africa across both the Silk Roads and the Indian Ocean.'},
-    {s:'A map of Indian Ocean trade routes shows sea lanes linking East Africa, Arabia, Persia, India, Southeast Asia, and China, connected by seasonal monsoon winds.', sl:'Map of Indian Ocean trade routes, c. 1200–1450', q:'The map above demonstrates which of the following about the Indian Ocean trade?', o:['Monsoons prevented trade along the East African coast.','Europeans were the main carriers of goods across the Indian Ocean.','Trade involved most of the regions bordering the Indian Ocean as well as China.','The most important item traded across the Indian Ocean was silk.'], c:2, e:'Indian Ocean trade linked nearly all the regions bordering the ocean — East Africa, Arabia, Persia, India, and Southeast Asia — as well as China, forming the largest sea-based trade network of the era, powered by the predictable monsoon winds.'},
-    {s:'“The captain waited for the turning of the winds, for only when they blew toward the west could he make the crossing to the coast of Africa, returning months later when they reversed.”', sl:'Account of an Indian Ocean voyage', q:'The “winds” referenced in the passage were significant because they:', o:['Made ocean travel impossible','Allowed sailors to plan reliable round-trip voyages','Prevented the spread of Islam','Isolated the Swahili coast from trade'], c:1, e:'Knowledge of the predictable monsoon winds let Indian Ocean merchants time voyages out and back, enabling large-scale sea trade.'},
-    {s:'“Many of the merchants married local women and settled in the port, raising families who spoke both tongues and worshipped in new ways.”', sl:'Description of an Indian Ocean port city', q:'The passage best illustrates the development of which of the following?', o:['Diasporic merchant communities','The trans-Saharan caravan trade','The Mongol khanates','The European three-field system'], c:0, e:'Merchants settling far from home created diasporic communities that blended languages and cultures across the Indian Ocean world.'}
-  ],
-  '2.4': [
-    {s:'The map above shows a network of caravan routes crossing the Sahara Desert, linking cities such as Sijilmasa, Timbuktu, Gao, and Djenné with the gold fields of West Africa (Bambuk, Bouré) and the Mediterranean coast.', sl:'Map of trans-Saharan trade routes in West Africa', simg:'images/u2-mcq-transsaharan.png', q:'Which of the following led most directly to the development of the trading network on the map?', o:['The growth of trading cities on the Swahili Coast','Innovations in transportation and commercial technologies such as the caravanserai','The overall decline in the trade of goods along the Silk Roads','The emergence of the trans-Atlantic slave trade in West Africa'], c:1, e:'New transportation and commercial technologies — the camel saddle, caravan organization, and caravanserai/oasis rest stops — allowed merchants to cross the Sahara farther and more reliably, directly enabling the expansion of the trans-Saharan trade network shown on the map.'},
-    {s:'The photograph above shows the Great Mosque of Djenné, a large mud-brick mosque in the West African country of Mali. A mosque was first erected on the site in the fourteenth century.', sl:'Photograph of the Great Mosque of Djenné, Mali (fourteenth-century foundation)', simg:'images/u2-mcq-djenne.jpg', q:'The mosque shown above best exemplifies which of the following historical processes?', o:['Imposition of religion through military conquest','Spread of religion along trade routes','Abandonment of Indigenous cultural styles in the face of colonization','Conflict between local and universalizing religions'], c:1, e:'Islam spread into West Africa peacefully along the trans-Saharan trade routes, carried by Muslim merchants and Sufi missionaries. The mud-brick mosque at Djenné — built in a distinctly West African architectural style — reflects how the universalizing religion of Islam was adopted and localized through trade rather than conquest.'},
-    {s:'“So generous was the king in his gifts of gold as he passed through Cairo that the price of gold fell and did not recover for many years.”', sl:'Account of Mansa Musa’s pilgrimage, 14th c.', q:'The passage best illustrates which of the following about Mali?', o:['Its poverty and isolation from world trade','Its wealth derived from control of the trans-Saharan gold trade','Its rejection of Islam','Its reliance on Indian Ocean monsoon winds'], c:1, e:'Mali’s wealth came from taxing the trans-Saharan trade in gold and salt; Mansa Musa’s hajj famously displayed that wealth.'}
-  ],
-  '2.5': [
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'The Crusades and the diffusion of technology', q:'A historian researching the effects of the Crusades on the diffusion of technology would probably find which of the following sources most useful?', o:['European crusaders’ accounts of Islamic religious practices','Muslim accounts of European royal marriages','Monks’ translations of Arabic mathematics texts brought from conquered territories','Birth records from villages along the crusader routes'], c:2, e:'The Crusades brought Europeans into contact with the more advanced scholarship of the Islamic world. Monks’ translations of Arabic mathematical and scientific texts are the most useful source for studying how that knowledge and technology diffused into Europe.'},
-    {s:'[Standalone question: no image or text stimulus required.]', sl:'Global integration by the end of the thirteenth century', q:'Historians who argue that there was substantial global integration by the end of the thirteenth century would most likely cite which of the following as evidence?', o:['The political unification of the Mediterranean and East Asia under a single ruler','The widening and deepening of exchange networks linking Afro-Eurasia after the Mongol conquests','The spread of global capitalism from Europe to Africa','The creation of an Atlantic trade system based on plantation economies'], c:1, e:'The strongest evidence for thirteenth-century global integration is the intensification of the Afro-Eurasian trade networks — Silk Roads, Indian Ocean, and trans-Saharan routes — knit more tightly together by the Pax Mongolica, moving goods, people, ideas, and disease across the hemisphere.'},
-    {s:'A detailed thirteenth-century map of Constantinople depicts the city ringed by massive land and sea walls, with numerous towers and fortified gates guarding its harbor and approaches.', sl:'Thirteenth-century map of Constantinople', q:'The map of Constantinople shown above most directly indicates that the city', o:['was located on an island','was heavily fortified against outside attacks','looked down on trade and commerce','had abandoned its Roman heritage'], c:1, e:'The map’s emphasis on massive walls, towers, and fortified gates shows that Constantinople was one of the most heavily fortified cities in the world — defenses that helped it survive numerous sieges before finally falling to Ottoman cannon in 1453.'},
-    {s:'“I, who have traveled through the lands of the Turks, the Persians, and the Indians, everywhere found brothers in the faith who welcomed me and honored the law of Islam.”', sl:'Ibn Battuta, 14th-century traveler', q:'The passage is most useful to a historian as evidence of:', o:['The decline of Islam in Afro-Eurasia','The spread of a shared Islamic culture across trade networks','The isolation of Muslim communities','The rejection of travelers in Muslim lands'], c:1, e:'Ibn Battuta’s welcome across distant lands reflects how trade networks spread a connected, shared Islamic culture (dar al-Islam).'}
-  ],
-  '2.6': [
-    {s:'“The pestilence traveled with the caravans and the ships, carried by the fleas upon the rats, until it had emptied whole cities from Cathay to the shores of Europe.”', sl:'Description of the spread of the Black Death', q:'The passage best supports which of the following conclusions about trade networks?', o:['They spread only goods, not disease','They spread disease as well as goods and ideas','They had no effect on population','They prevented the spread of the plague'], c:1, e:'The same connected networks that carried goods and ideas also spread the bubonic plague, which devastated populations across Eurasia.'}
-  ]
-};
 
 var BRAIN = {
   '2.1':{stem:'The Silk Roads grew and intensified in this period because…', points:[
@@ -1408,64 +1355,6 @@ function toggleSG(hdr){
 var scoreRight=0, scoreTotal=0;
 function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textContent=scoreRight+'/'+scoreTotal;}
 
-/* ══ MCQ ═══════════════════════════════════════════════════ */
-(function(){
-  var grid=document.getElementById('mcq-topic-grid');
-  var names={'2.1':'The Silk Roads','2.2':'The Mongols','2.3':'Indian Ocean','2.4':'Trans-Saharan','2.5':'Cultural Effects','2.6':'Environmental Effects'};
-  grid.innerHTML=TOPICS.map(function(tp){
-    var n=(MCQ[tp.id]||[]).length;
-    return '<button type="button" class="tc" data-topic="'+tp.id+'"><div class="tc-n">Topic '+tp.id+'</div><div class="tc-name">'+names[tp.id]+'</div><div class="tc-cnt">'+n+' question'+(n===1?'':'s')+'</div></button>';
-  }).join('');
-
-  var mcqQs=[], mcqMap={};
-  function esc(s){return s?s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';}
-
-  function buildFrom(list){mcqQs=list.slice(); mcqMap={};}
-  function startTopic(id){buildFrom(MCQ[id]||[]); document.getElementById('qhdr-name').textContent='Topic '+id; render(); openSession();}
-  function startAll(){var all=[]; TOPICS.forEach(function(tp){(MCQ[tp.id]||[]).forEach(function(q){all.push(q);});}); buildFrom(all); document.getElementById('qhdr-name').textContent='All Questions'; render(); openSession();}
-  function startMixed(){var mix=[]; TOPICS.forEach(function(tp){var l=MCQ[tp.id]||[]; if(l.length)mix.push(l[Math.floor(Math.random()*l.length)]);}); buildFrom(mix); document.getElementById('qhdr-name').textContent='Quick Mixed Quiz'; render(); openSession();}
-
-  function openSession(){document.getElementById('mcq-home').style.display='none'; document.getElementById('mcq-session').classList.add('active');}
-  function closeSession(){document.getElementById('mcq-session').classList.remove('active'); document.getElementById('mcq-home').style.display='block';}
-
-  function render(){
-    var body=document.getElementById('qbody'), h='', ls=null, sn=0, L=['A','B','C','D'];
-    mcqQs.forEach(function(q,i){
-      if(q.s!==ls){ if(i>0)h+='<hr class="sbr"/>'; sn++; h+='<div class="sset-name">Stimulus Set '+sn+'</div>';
-        if(q.s)h+='<div class="stim"><div class="stim-lbl">&#128196; Source</div><div class="stim-src">'+esc(q.sl)+'</div>'+(q.simg?'<img src="'+q.simg+'" alt="Source image" class="stim-img" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<div class="stim-txt"><p>'+esc(q.s).replace(/\n/g,'</p><p>')+'</p></div></div>';
-        ls=q.s;}
-      h+='<div class="qcard"><div class="qnum">Question '+(i+1)+' of '+mcqQs.length+'</div><div class="qtxt">'+esc(q.q)+'</div><div class="opts">';
-      q.o.forEach(function(x,j){h+='<button type="button" class="opt" data-qi="'+i+'" data-j="'+j+'"><span class="ol">'+L[j]+'</span><span>'+esc(x)+'</span></button>';});
-      h+='</div><div class="fb" id="fb'+i+'"></div></div>';
-    });
-    body.innerHTML=h;
-    body.querySelectorAll('.opt').forEach(function(b){b.addEventListener('click',function(){pick(parseInt(this.dataset.qi),parseInt(this.dataset.j));});});
-    document.getElementById('qhdr-prog').textContent='0 of '+mcqQs.length+' answered';
-    document.getElementById('qpbf').style.width='0%';
-  }
-
-  function pick(i,j){
-    if(mcqMap[i])return; mcqMap[i]=true;
-    var q=mcqQs[i], ok=(j===q.c);
-    scoreTotal++; if(ok){scoreRight++;} updateScore();
-    document.querySelectorAll('.opt[data-qi="'+i+'"]').forEach(function(b){
-      var bj=parseInt(b.dataset.j); b.disabled=true;
-      if(bj===q.c)b.classList.add((ok&&bj===j)?'c':'rv');
-      if(bj===j&&!ok)b.classList.add('w');
-    });
-    var fb=document.getElementById('fb'+i);
-    if(fb){fb.className='fb show '+(ok?'ok':'bad'); fb.innerHTML='<strong>'+(ok?'✓ Correct!':'✗ Incorrect.')+'</strong> '+(q.e||'');}
-    var tot=Object.keys(mcqMap).length;
-    document.getElementById('qhdr-prog').textContent=tot+' of '+mcqQs.length+' answered';
-    document.getElementById('qpbf').style.width=(tot/mcqQs.length*100)+'%';
-  }
-
-  grid.querySelectorAll('.tc').forEach(function(b){b.addEventListener('click',function(){startTopic(this.dataset.topic);});});
-  document.getElementById('mcq-all-btn').addEventListener('click',startAll);
-  document.getElementById('mcq-mixed-btn').addEventListener('click',startMixed);
-  document.getElementById('mcq-back-btn').addEventListener('click',closeSession);
-  document.getElementById('mcq-reset-btn').addEventListener('click',function(){mcqMap={}; render();});
-})();
 
 /* ══ FLASHCARDS ════════════════════════════════════════════ */
 (function(){
@@ -1551,6 +1440,10 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
   });
 })();
 </script>
+<script src="mcq-bank.js"></script>
+<script src="mcq-engine.js"></script>
+<script src="bd-confidence.js"></script>
+<script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'2'});</script>
 <script src="writing-prompts.js"></script>
 <script src="writing-drills.js"></script>
 <!-- ══ BACK TO TOP / SECTIONS ══ -->

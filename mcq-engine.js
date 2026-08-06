@@ -47,13 +47,26 @@
     store.save(s);
   };
 
-  function recordAnswer(ref, q, userAnswer, correct) {
+  // Globally-unique, unit-qualified id — fixes the old topic_idx collision
+  // across units and matches the spaced-review item-id scheme (u{unit}_{topic}_{idx}).
+  function itemIdFor(ref) { return 'u' + ref.unit + '_' + ref.topic + '_' + ref.idx; }
+
+  function recordAnswer(ref, q, userAnswer, correct, confidence) {
     var s = store.load(); s.mcq = s.mcq || {};
-    s.mcq[ref.topic + '_' + ref.idx] = {
+    s.mcq[itemIdFor(ref)] = {
       unit: ref.unit, topic: ref.topic, topicIdx: ref.idx,
-      userAnswer: userAnswer, correctAnswer: q.c, correct: !!correct, ts: Date.now()
+      userAnswer: userAnswer, correctAnswer: q.c, correct: !!correct,
+      confidence: confidence || null, ts: Date.now()
     };
     store.save(s);
+  }
+
+  // Single spaced-review write path (spaced.js) + the legacy mcq log, together.
+  function recordReview(ref, q, userAnswer, correct, confidence) {
+    if (window.SPACED && window.SPACED.recordReview) {
+      window.SPACED.recordReview(itemIdFor(ref), !!correct, confidence || null);
+    }
+    recordAnswer(ref, q, userAnswer, correct, confidence);
   }
 
   /* ---- pool helpers ---- */
@@ -136,10 +149,21 @@
       '.mcqx-opt.mx-reveal{border-color:var(--mx-grn);background:var(--mx-grnbg)}',
       '.mcqx-opt.mx-wrong{border-color:var(--mx-red);background:var(--mx-redbg)}',
       '.mcqx-opt.mx-wrong .mx-ol{color:var(--mx-red)}',
-      '.mcqx-conf{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:11px;padding:9px 12px;background:var(--mx-paper);border:1px dashed var(--mx-line)}',
-      '.mcqx-conf .mx-clbl{font-family:"IBM Plex Mono",monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mx-mut)}',
-      '.mcqx-chip{padding:5px 12px;background:var(--mx-card);border:1px solid var(--mx-line);cursor:pointer;font-size:.78rem;color:var(--mx-mut);border-radius:14px;transition:all .12s}',
-      '.mcqx-chip.mx-on{background:var(--mx-ink);color:#fff;border-color:var(--mx-ink)}',
+      '.mcqx-conf{margin-top:11px;padding:10px 13px;background:var(--mx-paper);border:1px dashed var(--mx-line)}',
+      '.mcqx-conf.mcqx-conf-hide{display:none}',
+      '.mcqx-conf .mx-clbl{display:block;font-family:"IBM Plex Mono",monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mx-mut)}',
+      '.mcqx-chips{display:flex;gap:8px;margin-top:9px}',
+      '.mcqx-chip{flex:1;padding:9px 8px;background:var(--mx-card);border:1px solid var(--mx-line);cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mx-mut);text-align:center;transition:all .12s}',
+      '.mcqx-chip:hover:not(:disabled){border-color:var(--mx-red);color:var(--mx-ink)}',
+      '.mcqx-chip:disabled{cursor:default;opacity:.75}',
+      '.mcqx-chip.mx-on{background:var(--mx-red);color:#fff;border-color:var(--mx-red)}',
+      '.mcqx-reason{margin-top:10px;padding:11px 13px;background:var(--mx-card);border:1px solid var(--mx-line);border-left:3px solid var(--mx-mut)}',
+      '.mcqx-reason.mx-need{border-left-color:var(--mx-red)}',
+      '.mcqx-reason .mx-rst{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.05em;color:var(--mx-mut);margin-bottom:7px}',
+      '.mcqx-reason .mx-rst .mx-rok{color:var(--mx-grn);font-weight:600}',
+      '.mcqx-reason .mx-rst .mx-rbad{color:var(--mx-red);font-weight:600}',
+      '.mcqx-reason textarea{width:100%;font-family:inherit;font-size:.86rem;line-height:1.5;padding:8px 10px;border:1px solid var(--mx-line);background:var(--mx-paper);color:var(--mx-ink);resize:vertical;min-height:44px}',
+      '.mcqx-reason textarea:focus{outline:none;border-color:var(--mx-red)}',
       '.mcqx-fb{margin-top:11px;padding:0 13px;max-height:0;overflow:hidden;font-size:.86rem;line-height:1.55;border-left:3px solid transparent;transition:none}',
       '.mcqx-fb.mx-show{max-height:none;padding:11px 13px}',
       '.mcqx-fb.mx-ok{background:var(--mx-grnbg);border-left-color:var(--mx-grn)}',
@@ -151,9 +175,14 @@
       '.mcqx-summary{margin:4px 0 22px;padding:18px 20px;background:var(--mx-paper);border:1px solid var(--mx-line);border-top:4px solid var(--mx-red)}',
       '.mcqx-summary h4{font-family:"Playfair Display",serif;font-size:1.15rem;margin:0 0 10px}',
       '.mcqx-summary .mx-big{font-size:1.6rem;font-weight:700}',
-      '.mcqx-calib{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px}',
-      '.mcqx-cbucket{padding:8px 14px;background:var(--mx-card);border:1px solid var(--mx-line);font-size:.82rem}',
-      '.mcqx-cbucket b{font-family:"IBM Plex Mono",monospace}',
+      '.mcqx-cgrid{margin-top:14px;display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--mx-line)}',
+      '.mcqx-crow{display:grid;grid-template-columns:1fr auto 2fr;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid var(--mx-line);background:var(--mx-card)}',
+      '.mcqx-crow:last-child{border-bottom:none}',
+      '.mcqx-crow .mx-crl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mx-mut)}',
+      '.mcqx-crow .mx-crn{font-family:"IBM Plex Mono",monospace;font-size:1.05rem;font-weight:600;color:var(--mx-ink);text-align:right}',
+      '.mcqx-crow .mx-crt{font-size:.8rem;color:var(--mx-mut);line-height:1.4}',
+      '.mcqx-crow.mx-over{background:var(--mx-redbg);border-left:4px solid var(--mx-red)}',
+      '.mcqx-crow.mx-over .mx-crl,.mcqx-crow.mx-over .mx-crn,.mcqx-crow.mx-over .mx-crt{color:var(--mx-red)}',
       '.mcqx-gap{margin-top:12px;font-size:.86rem;line-height:1.55;color:var(--mx-ink)}',
       '.mcqx-hidden{display:none}'
     ].join('');
@@ -168,16 +197,19 @@
   ];
   var CONF_LBL = { confident: 'Confident', shaky: 'Shaky', guessing: 'Guessing' };
 
+  var CONF_UP = { confident: 'CONFIDENT', shaky: 'SHAKY', guessing: 'GUESSING' };
+
   /* ---- the session ---- */
   function runSession(ctx, pool, label) {
     var mode = ctx.mode;                 // 'quick' | 'test'
-    var calib = ctx.calibration && mode === 'test';
+    var calib = ctx.calibration !== false; // confidence tap is MANDATORY in BOTH modes
     var qs = pool.map(function (ref) { return { ref: ref, q: resolve(ref) }; })
                  .filter(function (o) { return o.q; });
     var answered = new Array(qs.length);   // chosen option index or undefined
     var conf = new Array(qs.length);       // confidence id
-    var locked = mode === 'quick';         // quick locks each on click; test locks all on reveal
-    var revealed = false;
+    var graded = new Array(qs.length);     // quick mode: this item revealed/scored
+    var reasoning = false;                 // test mode: in the reasoning-unlock stage
+    var revealed = false;                  // test mode: correct answers unlocked
 
     APWH.markSeen(pool.map(function (r) { return String(r.unit); }).filter(function (v, i, a) { return a.indexOf(v) === i; }));
 
@@ -192,20 +224,32 @@
     if (ctx.opts.regenerate) footHTML += '<button type="button" class="mcqx-newset">🎲 ' + esc(ctx.opts.newSetLabel || 'New Set') + '</button>';
     ctx.foot.innerHTML = footHTML;
 
+    function record(i) {
+      var o = qs[i], ok = answered[i] === o.q.c;
+      recordReview(o.ref, o.q, answered[i], ok, conf[i] || null);
+    }
+
     function progress() {
       var n = answered.filter(function (v) { return v != null; }).length;
       ctx.progEl.textContent = n + ' of ' + qs.length + ' answered';
       ctx.pbarF.style.width = qs.length ? (n / qs.length * 100) + '%' : '0%';
-      var rv = ctx.foot.querySelector('.mcqx-reveal');
-      if (rv) rv.disabled = n === 0;
       if (mode === 'quick') {
-        var right = 0; qs.forEach(function (o, i) { if (answered[i] === o.q.c) right++; });
-        ctx.scoreEl.textContent = right + ' / ' + n;
+        var right = 0, done = 0;
+        qs.forEach(function (o, i) { if (graded[i]) { done++; if (answered[i] === o.q.c) right++; } });
+        ctx.scoreEl.textContent = right + ' / ' + done;
+      } else if (!reasoning && !revealed) {
+        var rv = ctx.foot.querySelector('.mcqx-reveal');
+        if (rv) {
+          var missing = qs.some(function (o, i) { return answered[i] != null && !conf[i]; });
+          rv.disabled = (n === 0) || missing;
+          rv.title = missing ? 'Rate your confidence on every answered question first' : '';
+        }
       }
     }
 
     function render() {
-      var h = '', last = null, sn = 0;
+      var h = '<div class="mcqx-summary mcqx-hidden" id="' + ctx.uid + '-sum"></div>';
+      var last = null, sn = 0;
       qs.forEach(function (o, i) {
         var q = o.q;
         if (q.s !== last) {
@@ -229,10 +273,11 @@
         });
         h += '</div>';
         if (calib) {
-          h += '<div class="mcqx-conf" data-i="' + i + '"><span class="mx-clbl">Before you check &mdash; how sure?</span>';
-          CONF.forEach(function (c) { h += '<button type="button" class="mcqx-chip" data-i="' + i + '" data-conf="' + c.id + '">' + c.label + '</button>'; });
-          h += '</div>';
+          h += '<div class="mcqx-conf mcqx-conf-hide" data-i="' + i + '"><span class="mx-clbl">Before you check &mdash; how sure are you?</span><div class="mcqx-chips">';
+          CONF.forEach(function (c) { h += '<button type="button" class="mcqx-chip" data-i="' + i + '" data-conf="' + c.id + '">' + CONF_UP[c.id] + '</button>'; });
+          h += '</div></div>';
         }
+        h += '<div class="mcqx-reason mcqx-hidden" id="' + ctx.uid + '-rz' + i + '"></div>';
         h += '<div class="mcqx-fb" id="' + ctx.uid + '-fb' + i + '"></div></div>';
       });
       ctx.body.innerHTML = h;
@@ -246,13 +291,20 @@
     }
 
     function optsOf(i) { return ctx.body.querySelectorAll('.mcqx-opt[data-i="' + i + '"]'); }
+    function showConf(i) {
+      var c = ctx.body.querySelector('.mcqx-conf[data-i="' + i + '"]');
+      if (c) c.classList.remove('mcqx-conf-hide');
+    }
 
     function setConf(i, id) {
-      if (revealed) return;
+      if (revealed || reasoning) return;
+      if (mode === 'quick' && graded[i]) return;   // locked after grading
       conf[i] = id;
       ctx.body.querySelectorAll('.mcqx-chip[data-i="' + i + '"]').forEach(function (b) {
         b.classList.toggle('mx-on', b.dataset.conf === id);
       });
+      if (mode === 'quick') { if (answered[i] != null) gradeQuick(i); }
+      else { progress(); }
     }
 
     function showFeedback(i) {
@@ -275,68 +327,140 @@
       showFeedback(i);
     }
 
+    /* ---- QUICK CHECK: pick -> confidence tap -> grade ---- */
     function pick(i, j) {
       if (mode === 'quick') {
-        if (answered[i] != null) return;
-        answered[i] = j;
-        markGraded(i);
-        recordAnswer(qs[i].ref, qs[i].q, j, j === qs[i].q.c);
-        progress();
-      } else {
-        if (revealed) return;
+        if (graded[i]) return;
         answered[i] = j;
         optsOf(i).forEach(function (b) { b.classList.toggle('mx-sel', +b.dataset.j === j); });
+        showConf(i);                          // the confidence commitment is required next
+        if (conf[i]) gradeQuick(i);           // (only if already rated — normally not)
+        progress();
+      } else {
+        if (reasoning || revealed) return;
+        answered[i] = j;
+        optsOf(i).forEach(function (b) { b.classList.toggle('mx-sel', +b.dataset.j === j); });
+        showConf(i);
         progress();
       }
     }
 
-    function reveal() {
-      if (revealed) return;
-      revealed = true;
-      var right = 0, tot = 0;
-      var buckets = { confident: [0, 0], shaky: [0, 0], guessing: [0, 0], none: [0, 0] };
+    function gradeQuick(i) {
+      if (graded[i]) return;
+      graded[i] = true;
+      markGraded(i);
+      ctx.body.querySelectorAll('.mcqx-chip[data-i="' + i + '"]').forEach(function (b) { b.disabled = true; });
+      record(i);
+      progress();
+      updateSummary(false);                   // live calibration card, both modes
+    }
+
+    /* ---- TEST MODE: reveal -> reasoning gate -> unlock ---- */
+    function toReasoning() {
+      if (reasoning || revealed) return;
+      if (qs.some(function (o, i) { return answered[i] != null && !conf[i]; })) return; // guarded by disabled btn too
+      reasoning = true;
+      ctx.body.querySelectorAll('.mcqx-opt').forEach(function (b) { b.disabled = true; });
+      ctx.body.querySelectorAll('.mcqx-chip').forEach(function (b) { b.disabled = true; });
       qs.forEach(function (o, i) {
         if (answered[i] == null) return;
-        tot++;
         var ok = answered[i] === o.q.c;
-        if (ok) right++;
-        markGraded(i);
-        recordAnswer(o.ref, o.q, answered[i], ok);
-        var b = conf[i] || 'none';
-        buckets[b][1]++; if (ok) buckets[b][0]++;
-      });
-      // lock confidence chips
-      ctx.body.querySelectorAll('.mcqx-chip').forEach(function (b) { b.disabled = true; });
-      // summary
-      var pct = tot ? Math.round(right / tot * 100) : 0;
-      var sum = document.createElement('div');
-      sum.className = 'mcqx-summary';
-      var html = '<h4>Results</h4><div class="mx-big">' + right + ' / ' + tot + '  <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>';
-      if (calib) {
-        var parts = [];
-        CONF.forEach(function (c) {
-          var bk = buckets[c.id];
-          if (bk[1]) parts.push('<div class="mcqx-cbucket">' + c.label + ' &middot; <b>' + bk[0] + '/' + bk[1] + '</b> correct</div>');
-        });
-        if (buckets.none[1]) parts.push('<div class="mcqx-cbucket">No rating &middot; <b>' + buckets.none[0] + '/' + buckets.none[1] + '</b></div>');
-        html += '<div class="mcqx-calib">' + parts.join('') + '</div>';
-        var cb = buckets.confident;
-        if (cb[1]) {
-          var gap = cb[1] - cb[0];
-          html += '<div class="mcqx-gap">' + (gap === 0
-            ? 'You were <strong>Confident ' + cb[0] + ' times and right every time</strong> — your calibration is solid here.'
-            : 'You said <strong>Confident on ' + cb[1] + '</strong> question' + (cb[1] > 1 ? 's' : '') + ' but were right on <strong>' + cb[0] + '</strong>. That ' + gap + '-question gap is the illusion of mastery made visible — those confident misses are exactly what to review.') + '</div>';
+        var needNote = !ok || conf[i] === 'guessing';
+        var rz = document.getElementById(ctx.uid + '-rz' + i);
+        if (!rz) return;
+        var status = 'Your answer: <strong>' + L[answered[i]] + '</strong> &middot; Confidence: <strong>' +
+          (CONF_UP[conf[i]] || '—') + '</strong> &middot; ' +
+          (ok ? '<span class="mx-rok">&#10003; correct</span>' : '<span class="mx-rbad">&#10007; incorrect</span>');
+        var html = '<div class="mx-rst">' + status + '</div>';
+        if (needNote) {
+          html += '<textarea data-i="' + i + '" placeholder="One line — why did you pick that, or what made it a guess?"></textarea>';
         }
+        rz.className = 'mcqx-reason' + (needNote ? ' mx-need' : '');
+        rz.innerHTML = html;
+      });
+      ctx.body.querySelectorAll('.mcqx-reason textarea').forEach(function (t) {
+        t.addEventListener('input', validateNotes);
+      });
+      var rv = ctx.foot.querySelector('.mcqx-reveal');
+      if (rv) rv.textContent = 'Unlock Correct Answers';
+      // Banner note before the questions so the student knows what to do.
+      var sumEl = document.getElementById(ctx.uid + '-sum');
+      if (sumEl) {
+        sumEl.classList.remove('mcqx-hidden');
+        sumEl.innerHTML = '<h4>Before the answers unlock</h4><div class="mcqx-gap">Your answers are locked in. ' +
+          'For every question you got wrong or tapped <strong>Guessing</strong> on, write one line on what tripped you up — ' +
+          'then unlock the correct answers.</div>';
       }
-      sum.innerHTML = html;
-      ctx.body.insertBefore(sum, ctx.body.firstChild);
+      validateNotes();
+      var firstNeed = ctx.body.querySelector('.mcqx-reason.mx-need');
+      if (firstNeed) firstNeed.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function validateNotes() {
+      var ok = true;
+      ctx.body.querySelectorAll('.mcqx-reason.mx-need textarea').forEach(function (t) {
+        if (!t.value.trim()) ok = false;
+      });
+      var rv = ctx.foot.querySelector('.mcqx-reveal');
+      if (rv) rv.disabled = !ok;
+    }
+
+    function finalReveal() {
+      if (revealed) return;
+      revealed = true;
+      qs.forEach(function (o, i) {
+        if (answered[i] == null) return;
+        markGraded(i);
+        record(i);
+      });
+      updateSummary(true);
       var rv = ctx.foot.querySelector('.mcqx-reveal'); if (rv) rv.remove();
-      sum.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var sumEl = document.getElementById(ctx.uid + '-sum');
+      if (sumEl) sumEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ---- calibration summary (exact 2x2, both modes) ---- */
+    function crow(label, n, tag, over) {
+      return '<div class="mcqx-crow' + (over ? ' mx-over' : '') + '">' +
+        '<span class="mx-crl">' + label + '</span>' +
+        '<span class="mx-crn">' + n + '</span>' +
+        '<span class="mx-crt">' + (tag || '') + '</span></div>';
+    }
+    function updateSummary(scored) {
+      var sumEl = document.getElementById(ctx.uid + '-sum');
+      if (!sumEl) return;
+      var b = { confident: [0, 0], shaky: [0, 0], guessing: [0, 0] }; // [correct, total]
+      var right = 0, tot = 0;
+      qs.forEach(function (o, i) {
+        var counted = mode === 'quick' ? graded[i] : (revealed && answered[i] != null);
+        if (!counted) return;
+        tot++;
+        var ok = answered[i] === o.q.c; if (ok) right++;
+        var k = conf[i]; if (b[k]) { b[k][1]++; if (ok) b[k][0]++; }
+      });
+      if (!tot) { sumEl.classList.add('mcqx-hidden'); return; }
+      var c = b.confident, s = b.shaky, g = b.guessing;
+      var cWrong = c[1] - c[0], sWrong = s[1] - s[0], gWrong = g[1] - g[0];
+      var pct = Math.round(right / tot * 100);
+      var rows =
+        crow('CONFIDENT + Correct', c[0], c[0] ? '&#10003; well-calibrated' : '') +
+        crow('CONFIDENT + Wrong', cWrong, cWrong ? '&#9888; overconfident — worth a second look' : '', cWrong > 0) +
+        crow('SHAKY + Correct', s[0], '') +
+        crow('SHAKY + Wrong', sWrong, '') +
+        crow('GUESSING + Correct', g[0], g[0] ? 'lucky — treat as unlearned' : '') +
+        crow('GUESSING + Wrong', gWrong, '');
+      var head = scored
+        ? '<h4>Results &amp; Calibration</h4><div class="mx-big">' + right + ' / ' + tot +
+            ' <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>'
+        : '<h4>Calibration so far</h4><div class="mx-big">' + right + ' / ' + tot +
+            ' <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>';
+      sumEl.innerHTML = head + '<div class="mcqx-cgrid">' + rows + '</div>';
+      sumEl.classList.remove('mcqx-hidden');
     }
 
     ctx.foot.querySelector('.mcqx-reset').addEventListener('click', function () { runSession(ctx, pool, label); });
     var rvBtn = ctx.foot.querySelector('.mcqx-reveal');
-    if (rvBtn) rvBtn.addEventListener('click', reveal);
+    if (rvBtn) rvBtn.addEventListener('click', function () { if (!reasoning) toReasoning(); else finalReveal(); });
     var nsBtn = ctx.foot.querySelector('.mcqx-newset');
     if (nsBtn) nsBtn.addEventListener('click', function () {
       var np = ctx.opts.regenerate(); if (np && np.length) runSession(ctx, np, label);
@@ -372,8 +496,8 @@
       ctx.home.querySelectorAll('.mcqx-modebtn').forEach(function (b) { b.classList.toggle('active', b.dataset.mode === ctx.mode); });
       var hint = ctx.home.querySelector('.mcqx-modehint');
       if (hint) hint.textContent = ctx.mode === 'test'
-        ? 'Test Mode: answer the whole set, rate your confidence, and see nothing until you Reveal — closest to real exam conditions.'
-        : 'Quick Check: instant right/wrong after each question — good for a first pass through new material.';
+        ? 'Test Mode: answer the whole set, commit your confidence, and see nothing until you write a line on your misses and Unlock — closest to real exam conditions.'
+        : 'Quick Check: pick an answer, commit how sure you are, then get instant right/wrong — the confidence tap is what builds calibration.';
     }
     syncMode();
     ctx.home.querySelectorAll('.mcqx-modebtn').forEach(function (b) {

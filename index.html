@@ -115,6 +115,29 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
 .wm-actions{display:flex;gap:12px;flex-wrap:wrap}
 .wm-link{background:none;border:none;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 0}
 .wm-link:hover{color:var(--red)}
+/* session-start line + device switch */
+.wm-sessline{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.05em;color:var(--mid);background:var(--paper);border-left:3px solid var(--red);padding:9px 13px;margin-bottom:16px}
+.wm-dev{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.wm-dev-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.wm-dev-btn{font-family:'Source Serif 4',serif;font-size:.85rem;padding:7px 14px;border:1px solid var(--border);background:var(--white);color:var(--ink);cursor:pointer;transition:.14s}
+.wm-dev-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* laptop-side timer */
+.wm-ring-wrap{position:relative;width:min(62vw,250px);height:min(62vw,250px);margin:8px auto 16px}
+svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
+.wm-ring-bg{fill:none;stroke:var(--border);stroke-width:7}
+.wm-ring-fg{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .4s}
+.wm-ring-read{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+#wmClock{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.2rem,9vw,3.1rem);line-height:1;font-variant-numeric:tabular-nums}
+#wmSub{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+#wmLaptop.wm-done .wm-ring-fg{stroke:var(--gold)}
+#wmLaptop.wm-done #wmClock{color:var(--gold)}
+.wm-lap-summary{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--red);padding:14px 16px;margin-bottom:16px}
+.wm-lap-sum-line{font-size:.95rem;line-height:1.55;color:var(--ink)}
+.wm-lap-sum-line b{color:var(--red)}
+.wm-lap-streak{display:flex;align-items:center;gap:9px;margin-top:11px;padding-top:11px;border-top:1px solid var(--border)}
+.wm-lap-streak .wm-lap-dot{width:13px;height:13px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(176,0,28,.15);animation:wmDotPop .5s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes wmDotPop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.wm-lap-streak span{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)}
 .wm-hidden{display:none!important}
 @media(max-width:520px){.wm-card{padding:30px 24px 24px}}
 </style>
@@ -163,6 +186,7 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   <div class="section-label">All Units</div>
   <h2 class="section-heading">Choose Your Unit</h2>
   <p class="section-sub">Each unit includes MCQ practice, writing tools, study guides, games, and review resources.</p>
+  <div id="spx-dashboard"></div>
   <a href="sbmcq.html" class="full-course-tab">
     <div class="fct-left">
       <div class="fct-label">MCQ Skills</div>
@@ -285,7 +309,13 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
     <div id="wmAsk">
       <div class="wm-eyebrow">Welcome</div>
       <h2 class="wm-h" id="wmTitle">Hello! How long do you want to study?</h2>
-      <p class="wm-p">Pick a block and we'll put a countdown on your phone &mdash; so you can set it face-down and stay in the work until the time is up.</p>
+      <p class="wm-p">Pick a block and we'll run a countdown &mdash; on your phone so you can set it face-down, or right here on this laptop.</p>
+      <div class="wm-sessline" id="wmSessLine"></div>
+      <div class="wm-dev">
+        <span class="wm-dev-lbl">Timer on:</span>
+        <button type="button" class="wm-dev-btn active" data-dev="phone">&#128241; My phone</button>
+        <button type="button" class="wm-dev-btn" data-dev="laptop">&#128187; This laptop</button>
+      </div>
       <div class="wm-grid">
         <button class="wm-opt" data-min="15"><div class="wm-opt-min">15</div><div class="wm-opt-lbl">minutes</div></button>
         <button class="wm-opt" data-min="25"><div class="wm-opt-min">25</div><div class="wm-opt-lbl">minutes &bull; classic pomodoro</div></button>
@@ -318,9 +348,32 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
       </div>
     </div>
 
+    <!-- STEP 2b — LAPTOP TIMER -->
+    <div id="wmLaptop" class="wm-hidden">
+      <div class="wm-eyebrow">Focus block</div>
+      <h2 class="wm-h"><span id="wmLapMin">25</span>-minute study block</h2>
+      <div class="wm-ring-wrap">
+        <svg class="wm-ring" viewBox="0 0 120 120">
+          <circle class="wm-ring-bg" cx="60" cy="60" r="54"></circle>
+          <circle class="wm-ring-fg" id="wmRingFg" cx="60" cy="60" r="54"></circle>
+        </svg>
+        <div class="wm-ring-read">
+          <div id="wmClock">25:00</div>
+          <div id="wmSub">remaining</div>
+        </div>
+      </div>
+      <p class="wm-p" id="wmLapMsg" style="text-align:center;margin-bottom:16px">Put distractions away and get to work. This rings when your time is up.</p>
+      <div id="wmLapSummary" class="wm-lap-summary wm-hidden"></div>
+      <div class="wm-actions">
+        <button class="wm-link" id="wmLapEnd">End early</button>
+        <button class="wm-link" id="wmLapClose" style="margin-left:auto;color:var(--red)">Close</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
+<script src="spaced.js"></script>
 <script src="qrcode.min.js"></script>
 <script>
 (function(){
@@ -340,12 +393,26 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   var ask = document.getElementById('wmAsk');
   var qrView = document.getElementById('wmQr');
   var qrBox = document.getElementById('wmQrCode');
+  var lapView = document.getElementById('wmLaptop');
+  var device = 'phone';
 
-  function open(){ overlay.classList.remove('wm-hidden'); document.body.style.overflow = 'hidden'; }
+  function open(){ overlay.classList.remove('wm-hidden'); document.body.style.overflow = 'hidden'; fillSessLine(); }
   function close(){
+    lapStop();
     overlay.classList.add('wm-hidden');
     document.body.style.overflow = '';
   }
+
+  // Session-start line — "Today's session pulls from: N due · M new".
+  function fillSessLine(){
+    var el = document.getElementById('wmSessLine');
+    if (!el) return;
+    if (window.SPACED && SPACED.sessionStartText){ el.textContent = SPACED.sessionStartText(); el.style.display = ''; }
+    else { el.style.display = 'none'; }
+  }
+
+  // Where the timer runs: phone (QR hand-off) or this laptop (in-page).
+  function go(minutes){ if (device === 'laptop') startLaptop(minutes); else showQr(minutes); }
 
   function showQr(minutes){
     // Build the URL the phone will open. location.origin keeps it correct on any deploy domain.
@@ -371,13 +438,112 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   }
 
   function backToAsk(){
+    lapStop();
+    if (lapView) lapView.classList.remove('wm-done');
     qrView.classList.add('wm-hidden');
+    if (lapView) lapView.classList.add('wm-hidden');
     ask.classList.remove('wm-hidden');
   }
 
+  /* ── device switch (phone vs. this laptop) ── */
+  var devBtns = document.querySelectorAll('.wm-dev-btn');
+  Array.prototype.forEach.call(devBtns, function(b){
+    b.addEventListener('click', function(){
+      device = b.getAttribute('data-dev');
+      Array.prototype.forEach.call(devBtns, function(x){ x.classList.toggle('active', x === b); });
+    });
+  });
+
+  /* ── laptop-side study timer (records a completed session to the streak) ── */
+  var LC = 2 * Math.PI * 54;
+  var lapRingFg = document.getElementById('wmRingFg');
+  if (lapRingFg){ lapRingFg.style.strokeDasharray = LC; lapRingFg.style.strokeDashoffset = 0; }
+  var lapEndTime = null, lapTick = null, lapTotal = 0, lapWake = null, lapLogged = false, lapStartTime = 0;
+
+  function human(ms){
+    var t = Math.max(0, Math.round(ms/1000));
+    var h = Math.floor(t/3600), m = Math.floor((t%3600)/60), s = t%60;
+    var p = function(n){ return (n<10?'0':'')+n; };
+    return h>0 ? h+':'+p(m)+':'+p(s) : p(m)+':'+p(s);
+  }
+  function beep(){
+    try{
+      var Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return;
+      var ctx = new Ctx();
+      [0,.6,1.2].forEach(function(when){
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type='sine'; o.frequency.value=880; o.connect(g); g.connect(ctx.destination);
+        var t0 = ctx.currentTime + when;
+        g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(.5,t0+.04);
+        g.gain.exponentialRampToValueAtTime(.0001,t0+.5); o.start(t0); o.stop(t0+.52);
+      });
+    }catch(e){}
+  }
+  function buzz(){ try{ if (navigator.vibrate) navigator.vibrate([400,150,400,150,600]); }catch(e){} }
+  function lapWakeReq(){ try{ if ('wakeLock' in navigator) navigator.wakeLock.request('screen').then(function(w){ lapWake=w; }).catch(function(){}); }catch(e){} }
+
+  function lapRender(){
+    if (!lapEndTime) return;
+    var rem = lapEndTime - Date.now();
+    if (rem <= 0){ lapFinish(); return; }
+    document.getElementById('wmClock').textContent = human(rem);
+    if (lapRingFg) lapRingFg.style.strokeDashoffset = LC * (1 - rem/lapTotal);
+  }
+  function startLaptop(minutes){
+    lapTotal = minutes * 60000; lapLogged = false; lapStartTime = Date.now();
+    document.getElementById('wmLapMin').textContent = minutes;
+    var sumEl = document.getElementById('wmLapSummary'); if (sumEl) sumEl.classList.add('wm-hidden');
+    lapView.classList.remove('wm-done');
+    document.getElementById('wmSub').textContent = 'remaining';
+    document.getElementById('wmLapMsg').textContent = 'Put distractions away and get to work. This rings when your time is up.';
+    document.getElementById('wmLapEnd').textContent = 'End early';
+    document.getElementById('wmClock').textContent = human(lapTotal);
+    ask.classList.add('wm-hidden'); qrView.classList.add('wm-hidden'); lapView.classList.remove('wm-hidden');
+    lapEndTime = Date.now() + lapTotal;
+    lapRender();
+    clearInterval(lapTick); lapTick = setInterval(lapRender, 250);
+    lapWakeReq();
+  }
+  function lapStop(){
+    clearInterval(lapTick); lapTick = null; lapEndTime = null;
+    try{ if (lapWake){ lapWake.release(); lapWake = null; } }catch(e){}
+  }
+  function lapFinish(){
+    lapStop();
+    lapView.classList.add('wm-done');
+    document.getElementById('wmClock').textContent = '00:00';
+    if (lapRingFg) lapRingFg.style.strokeDashoffset = 0;
+    document.getElementById('wmSub').textContent = "time's up";
+    document.getElementById('wmLapMsg').textContent = 'Nice work — this session is logged to your streak.';
+    document.getElementById('wmLapEnd').textContent = 'Start another block';
+    if (!lapLogged){ lapLogged = true; try{ if (window.SPACED && SPACED.recordSession) SPACED.recordSession(); }catch(e){} }
+    renderLapSummary();
+    beep(); buzz();
+  }
+  // End-of-session summary: what moved during this block + today's streak dot.
+  function renderLapSummary(){
+    var el = document.getElementById('wmLapSummary');
+    if (!el || !(window.SPACED && SPACED.sessionSummary)) return;
+    var s = SPACED.sessionSummary(lapStartTime || 0);
+    var streak = SPACED.streakLength ? SPACED.streakLength() : 0;
+    var line = s.reviewed
+      ? '<b>' + s.reviewed + '</b> reviewed &middot; <b>' + s.resurface + '</b> will resurface sooner &middot; <b>' + s.pushed + '</b> pushed further out'
+      : 'No reviews logged this block — but showing up still counts.';
+    el.innerHTML = '<div class="wm-lap-sum-line">' + line + '</div>' +
+      '<div class="wm-lap-streak"><span class="wm-lap-dot"></span><span>Day ' + streak + ' of your streak — logged</span></div>';
+    el.classList.remove('wm-hidden');
+  }
+  function lapEnd(){
+    if (lapView.classList.contains('wm-done')){ backToAsk(); return; } // "Start another block"
+    if (!confirm('End this study block early? It won’t count toward your streak.')) return;
+    lapStop(); backToAsk();
+  }
+  // Recompute against the real clock after the tab was backgrounded.
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible' && lapEndTime) lapRender(); });
+
   // duration presets
   Array.prototype.forEach.call(document.querySelectorAll('.wm-opt'), function(btn){
-    btn.addEventListener('click', function(){ showQr(parseInt(btn.getAttribute('data-min'), 10)); });
+    btn.addEventListener('click', function(){ go(parseInt(btn.getAttribute('data-min'), 10)); });
   });
 
   // custom minutes
@@ -385,13 +551,15 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
     var v = parseInt(document.getElementById('wmCustom').value, 10);
     if (isNaN(v) || v < 1){ document.getElementById('wmCustom').focus(); return; }
     if (v > 240) v = 240;
-    showQr(v);
+    go(v);
   }
   document.getElementById('wmCustomGo').addEventListener('click', customGo);
   document.getElementById('wmCustom').addEventListener('keydown', function(e){ if (e.key === 'Enter') customGo(); });
 
   document.getElementById('wmBack').addEventListener('click', backToAsk);
   document.getElementById('wmDone').addEventListener('click', close);
+  document.getElementById('wmLapEnd').addEventListener('click', lapEnd);
+  document.getElementById('wmLapClose').addEventListener('click', close);
   document.getElementById('wmClose').addEventListener('click', close);
   document.getElementById('wmDistract').addEventListener('click', close);
   overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });

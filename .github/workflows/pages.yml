@@ -14,9 +14,10 @@ permissions:
   pages: write
   id-token: write
 
-# One deployment at a time; a newer run supersedes an older/stuck one.
+# Own concurrency group so a new run doesn't queue behind the old "pages"
+# runs that were left stuck waiting under the previous branch-based source.
 concurrency:
-  group: pages
+  group: pages-actions-deploy
   cancel-in-progress: true
 
 jobs:

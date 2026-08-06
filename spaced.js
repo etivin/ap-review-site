@@ -28,6 +28,13 @@
   var PKEY = 'apReview_v1';
   var DAY = 86400000;
   var BOX_INTERVALS = { 1: 1, 2: 3, 3: 7, 4: 14 };  // days
+  var STUDY_MIN_SEC = 60;   // a day counts as "studied" once this much time on-site is logged
+
+  // A day counts toward the streak / memory curve if the student put in real
+  // time on the site, ran a timed session, or reviewed anything that day.
+  function didStudy(e) {
+    return !!e && (((e.activeSeconds || 0) >= STUDY_MIN_SEC) || (e.sessionsCompleted || 0) > 0 || (e.itemsReviewed || 0) > 0);
+  }
 
   /* ---- storage (same blob APWH.store / unit7 use) ---- */
   function load() {
@@ -145,9 +152,32 @@
     return 100 * Math.exp(-((t - seg.t) / DAY) / seg.stab);
   }
 
-  // Dashboard aggregate curve: mean retention across ALL tracked items,
-  // trailingDays back + projectDays forward (projection = "if you stop
-  // studying", drawn dashed). Same visual grammar as the per-item sparkline.
+  // Turn the study log into memory-strength events — one per day the student
+  // put in real time on the site (or a session/review). Each study day lifts
+  // memory back toward 100%; the more time that day, the more storage strength
+  // (stability) it builds, so future decay is flatter. Days off = no event =
+  // the curve just keeps decaying. This is what makes the curve fall when they
+  // stop showing up, and climb when they do.
+  function studyEvents() {
+    var log = load().studyLog || {}, now = Date.now(), days = [];
+    for (var d in log) { if (didStudy(log[d])) days.push(d); }
+    days.sort();
+    var stab = 1, ev = [];
+    days.forEach(function (d) {
+      var secs = (log[d].activeSeconds || 0) + (log[d].sessionsCompleted || 0) * 600; // a timed session ~= 10 min
+      var factor = 1.35 + Math.min(0.55, (secs / 1800) * 0.55); // 1.35 (brief) … 1.9 (30+ min)
+      stab = stab * factor;
+      var t = new Date(d + 'T12:00:00').getTime();
+      if (isNaN(t)) return;
+      if (t > now) t = now;                 // today's spike shouldn't sit in the future
+      ev.push({ t: t, stab: stab });
+    });
+    return ev;
+  }
+
+  // Dashboard memory curve: overall retention driven by TIME SPENT REVIEWING,
+  // trailingDays back + projectDays forward (projection = "if you stop now",
+  // drawn dashed). Climbs on study days, decays on days off.
   SPACED.aggregateCurveSVG = function (opts) {
     opts = opts || {};
     var W = opts.w || 640, H = opts.h || 190, pad = 26, padT = 14, padB = 24;
@@ -164,32 +194,30 @@
     });
     var open = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H +
       '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" ';
-    var sp = load().spaced || {}, items = [];
-    for (var id in sp) { if (sp[id].reviewHistory && sp[id].reviewHistory.length) items.push(eventsOf(sp[id])); }
-    if (!items.length) {
+    var ev = studyEvents();
+    if (!ev.length) {
       return open + 'aria-label="No memory curve yet">' + grid +
-        '<text x="' + (W / 2) + '" y="' + (padT + innerH / 2) + '" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="var(--muted,#7a7860)">Review some cards or questions to start your memory curve</text></svg>';
+        '<text x="' + (W / 2) + '" y="' + (padT + innerH / 2) + '" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="var(--muted,#7a7860)">Spend time reviewing on the site to start your memory curve</text></svg>';
     }
-    var now = Date.now(), t0 = now - trailing * DAY, tEnd = now + project * DAY, N = 84;
+    var now = Date.now(), t0 = now - trailing * DAY, tEnd = now + project * DAY, N = 96;
     var past = [], future = [];
     for (var i = 0; i <= N; i++) {
-      var frac = i / N, t = t0 + frac * (tEnd - t0), sum = 0, cnt = 0;
-      for (var j = 0; j < items.length; j++) { var r = retentionAt(items[j], t); if (r != null) { sum += r; cnt++; } }
-      if (!cnt) continue;
-      var pt = xFor(frac).toFixed(1) + ',' + yFor(sum / cnt).toFixed(1);
+      var frac = i / N, t = t0 + frac * (tEnd - t0);
+      var r = retentionAt(ev, t);           // null only before the very first study day
+      if (r == null) continue;
+      var pt = xFor(frac).toFixed(1) + ',' + yFor(r).toFixed(1);
       if (t <= now) past.push(pt); else future.push(pt);
     }
     if (past.length && future.length) future.unshift(past[past.length - 1]); // continuity at "now"
-    function meanAt(t) { var s = 0, c = 0; for (var j = 0; j < items.length; j++) { var r = retentionAt(items[j], t); if (r != null) { s += r; c++; } } return c ? s / c : 0; }
-    var nowX = xFor((now - t0) / (tEnd - t0)), meanNow = meanAt(now);
-    return open + 'aria-label="Average retention across ' + items.length + ' items, currently ' + Math.round(meanNow) + ' percent">' + grid +
+    var nowX = xFor((now - t0) / (tEnd - t0)), curNow = retentionAt(ev, now) || 0;
+    return open + 'aria-label="Memory strength from time reviewing, currently ' + Math.round(curNow) + ' percent">' + grid +
       '<line x1="' + nowX.toFixed(1) + '" y1="' + padT + '" x2="' + nowX.toFixed(1) + '" y2="' + (H - padB) +
         '" stroke="var(--muted,#7a7860)" stroke-width="1" stroke-dasharray="2 3"/>' +
       '<text x="' + nowX.toFixed(1) + '" y="' + (H - padB + 15) + '" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="var(--muted,#7a7860)">now</text>' +
       (past.length ? '<polyline fill="none" stroke="var(--red,#b0001c)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" points="' + past.join(' ') + '"/>' : '') +
       (future.length ? '<polyline fill="none" stroke="var(--red,#b0001c)" stroke-width="2" stroke-dasharray="4 4" opacity=".55" points="' + future.join(' ') + '"/>' : '') +
-      '<circle cx="' + nowX.toFixed(1) + '" cy="' + yFor(meanNow).toFixed(1) + '" r="3.5" fill="var(--red,#b0001c)"/>' +
-      '<text x="' + (W - pad) + '" y="' + (padT + 11) + '" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="var(--red,#b0001c)">' + Math.round(meanNow) + '% avg</text></svg>';
+      '<circle cx="' + nowX.toFixed(1) + '" cy="' + yFor(curNow).toFixed(1) + '" r="3.5" fill="var(--red,#b0001c)"/>' +
+      '<text x="' + (W - pad) + '" y="' + (padT + 11) + '" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="var(--red,#b0001c)">' + Math.round(curNow) + '%</text></svg>';
   };
 
   // What moved during a study block: distinct items reviewed since sinceMs,
@@ -268,7 +296,7 @@
   SPACED.streakLength = function () {
     var log = load().studyLog || {};
     var d = new Date(); d.setHours(0, 0, 0, 0);
-    var done = function (dt) { var e = log[ymd(dt)]; return e && e.sessionsCompleted > 0; };
+    var done = function (dt) { return didStudy(log[ymd(dt)]); };
     // Grace: if today isn't done yet, count the run ending yesterday so the
     // streak still shows until midnight.
     if (!done(d)) d.setDate(d.getDate() - 1);
@@ -325,7 +353,7 @@
     var dots = '';
     for (var i = 0; i < 7; i++) {
       var key = ymd(week[i]);
-      var on = log[key] && log[key].sessionsCompleted > 0;
+      var on = didStudy(log[key]);
       var isToday = key === tKey;
       var cls = 'spx-dot' + (on ? ' on' : '') + (isToday ? ' today' : '') + (isToday && !on ? ' pulse' : '');
       dots += '<div class="spx-day"><span class="spx-dl">' + DOW[i] + '</span>' +
@@ -353,10 +381,11 @@
     el.className = 'spx-dash';
     el.innerHTML =
       '<div class="spx-dash-eyebrow">Your Memory</div>' +
-      '<h3 class="spx-dash-h">Retention curve</h3>' +
+      '<h3 class="spx-dash-h">Memory curve</h3>' +
       '<div class="spx-dash-svg">' + SPACED.aggregateCurveSVG({}) + '</div>' +
-      '<div class="spx-dash-cap">Average recall across everything you’ve reviewed — 14 days back, ' +
-        'projected forward (dashed) if you stop studying. Each review flattens the curve.</div>';
+      '<div class="spx-dash-cap">Built from your time on the site — 14 days back, projected forward ' +
+        '(dashed) if you stop. It climbs on the days you review and slips on the days you don’t; ' +
+        'study consistently and it decays more slowly.</div>';
   }
   SPACED.renderDashboard = renderDashboard;
 
@@ -380,6 +409,43 @@
       host.insertBefore(banner, host.firstChild);
     }
   }
+
+  /* ---- time-on-site tracker ----
+     Accumulates active seconds while a page is visible and folds them into
+     today's studyLog.activeSeconds. This is what feeds the memory curve:
+     time spent reviewing lifts it, days away let it decay. Writes are batched
+     (every ~20s and on hide/unload) to keep localStorage churn low. */
+  function bumpTime(sec) {
+    if (sec < 1) return;
+    var s = load(); s.studyLog = s.studyLog || {};
+    var k = todayKey(), e = s.studyLog[k] || { sessionsCompleted: 0, itemsReviewed: 0 };
+    e.activeSeconds = (e.activeSeconds || 0) + Math.round(sec);
+    s.studyLog[k] = e; save(s);
+  }
+  SPACED.recordTime = bumpTime;
+
+  (function trackTime() {
+    var last = Date.now(), unflushed = 0, everCrossed = false;
+    function visible() { return document.visibilityState !== 'hidden'; }
+    function flush(refresh) {
+      if (unflushed >= 1) { bumpTime(unflushed); unflushed = 0; }
+      // Refresh the banner/curve the first time we cross the "studied today"
+      // threshold, so the streak dot + curve react without a reload.
+      if (refresh) refreshBanner();
+    }
+    function tick() {
+      var now = Date.now(), dt = (now - last) / 1000; last = now;
+      if (visible() && dt > 0 && dt < 120) unflushed += dt;   // guard sleep/background gaps
+      var todayE = (load().studyLog || {})[todayKey()];
+      var crossedNow = didStudy(todayE) || (((todayE && todayE.activeSeconds) || 0) + unflushed) >= STUDY_MIN_SEC;
+      if (unflushed >= 20) flush(crossedNow && !everCrossed);
+      if (crossedNow) everCrossed = true;
+    }
+    setInterval(tick, 5000);
+    document.addEventListener('visibilitychange', function () { last = Date.now(); if (!visible()) flush(false); });
+    window.addEventListener('pagehide', function () { flush(false); });
+    window.addEventListener('beforeunload', function () { flush(false); });
+  })();
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountBanner);
   else mountBanner();

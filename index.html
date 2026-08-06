@@ -81,6 +81,42 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
 .fct-badge{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;white-space:nowrap;flex-shrink:0}
 
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}.page-content{padding:24px 20px 60px}}
+
+/* ── STUDY-TIMER WELCOME MODAL ── */
+.wm-overlay{position:fixed;inset:0;z-index:1000;background:rgba(20,18,10,.62);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;animation:wmFade .3s ease forwards}
+@keyframes wmFade{to{opacity:1}}
+.wm-card{background:var(--cream);border:1px solid var(--border2);border-top:6px solid var(--red);box-shadow:var(--shm);max-width:520px;width:100%;max-height:92vh;overflow-y:auto;padding:38px 40px 30px;position:relative;transform:translateY(10px);animation:wmRise .32s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes wmRise{to{transform:translateY(0)}}
+.wm-x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.5rem;line-height:1;color:var(--muted);cursor:pointer;padding:4px 8px;font-family:'Source Serif 4',serif}
+.wm-x:hover{color:var(--ink)}
+.wm-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.wm-h{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:900;line-height:1.12;margin-bottom:10px}
+.wm-p{color:var(--mid);font-size:.95rem;line-height:1.6;margin-bottom:22px}
+.wm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.wm-opt{background:var(--white);border:1px solid var(--border);padding:16px 14px;cursor:pointer;text-align:left;transition:.14s;font-family:'Source Serif 4',serif;color:var(--ink)}
+.wm-opt:hover{border-color:var(--red);box-shadow:var(--sh);transform:translateY(-2px)}
+.wm-opt-min{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:900;line-height:1;color:var(--red)}
+.wm-opt-lbl{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.wm-custom{display:flex;gap:10px;align-items:stretch;margin-bottom:22px}
+.wm-custom input{flex:1;font-family:'Source Serif 4',serif;font-size:1rem;padding:11px 14px;border:1px solid var(--border);background:var(--white);color:var(--ink)}
+.wm-custom input:focus{outline:none;border-color:var(--red)}
+.wm-btn{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:0 22px;cursor:pointer;transition:.14s;white-space:nowrap}
+.wm-btn:hover{background:var(--red-d)}
+.wm-distract{display:block;width:100%;text-align:center;background:none;border:none;border-top:1px solid var(--border);padding-top:18px;margin-top:4px;color:var(--muted);font-family:'Source Serif 4',serif;font-size:.9rem;font-style:italic;cursor:pointer}
+.wm-distract:hover{color:var(--ink);text-decoration:underline}
+/* QR view */
+.wm-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;margin:6px 0 20px}
+.wm-qr{background:#fff;padding:16px;border:1px solid var(--border);box-shadow:var(--sh);line-height:0}
+.wm-qr img,.wm-qr canvas{display:block;width:220px;height:220px;image-rendering:pixelated}
+.wm-qr-min{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+.wm-steps{list-style:none;counter-reset:s;margin:0 0 22px;padding:0}
+.wm-steps li{counter-increment:s;position:relative;padding:6px 0 6px 34px;font-size:.9rem;color:var(--mid);line-height:1.5}
+.wm-steps li::before{content:counter(s);position:absolute;left:0;top:5px;width:22px;height:22px;background:var(--red);color:#fff;border-radius:50%;font-family:'IBM Plex Mono',monospace;font-size:.66rem;display:flex;align-items:center;justify-content:center}
+.wm-actions{display:flex;gap:12px;flex-wrap:wrap}
+.wm-link{background:none;border:none;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 0}
+.wm-link:hover{color:var(--red)}
+.wm-hidden{display:none!important}
+@media(max-width:520px){.wm-card{padding:30px 24px 24px}}
 </style>
 </head>
 <body>
@@ -239,5 +275,127 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   </a>
 </div><!-- /page-content -->
 </div><!-- /main-wrap -->
+
+<!-- ── STUDY-TIMER WELCOME MODAL ── -->
+<div class="wm-overlay wm-hidden" id="wmOverlay" role="dialog" aria-modal="true" aria-labelledby="wmTitle">
+  <div class="wm-card">
+    <button class="wm-x" id="wmClose" aria-label="Close">&times;</button>
+
+    <!-- STEP 1 — ask -->
+    <div id="wmAsk">
+      <div class="wm-eyebrow">Welcome</div>
+      <h2 class="wm-h" id="wmTitle">Hello! How long do you want to study?</h2>
+      <p class="wm-p">Pick a block and we'll put a countdown on your phone &mdash; so you can set it face-down and stay in the work until the time is up.</p>
+      <div class="wm-grid">
+        <button class="wm-opt" data-min="15"><div class="wm-opt-min">15</div><div class="wm-opt-lbl">minutes</div></button>
+        <button class="wm-opt" data-min="25"><div class="wm-opt-min">25</div><div class="wm-opt-lbl">minutes &bull; classic pomodoro</div></button>
+        <button class="wm-opt" data-min="45"><div class="wm-opt-min">45</div><div class="wm-opt-lbl">minutes</div></button>
+        <button class="wm-opt" data-min="60"><div class="wm-opt-min">60</div><div class="wm-opt-lbl">minutes</div></button>
+      </div>
+      <div class="wm-custom">
+        <input type="number" id="wmCustom" min="1" max="240" placeholder="or enter your own (min)" aria-label="Custom minutes"/>
+        <button class="wm-btn" id="wmCustomGo">Set</button>
+      </div>
+      <button class="wm-distract" id="wmDistract">No, I would like to be distracted.</button>
+    </div>
+
+    <!-- STEP 2 — QR -->
+    <div id="wmQr" class="wm-hidden">
+      <div class="wm-eyebrow">Scan with your phone</div>
+      <h2 class="wm-h"><span id="wmQrMin">25</span>-minute study block</h2>
+      <div class="wm-qr-wrap">
+        <div class="wm-qr" id="wmQrCode"></div>
+        <div class="wm-qr-min">Point your camera here</div>
+      </div>
+      <ol class="wm-steps">
+        <li>Open your phone's camera and point it at this code.</li>
+        <li>Tap the link &mdash; a countdown opens on your phone.</li>
+        <li>Set the phone face-down and get to work. It rings when you're done.</li>
+      </ol>
+      <div class="wm-actions">
+        <button class="wm-link" id="wmBack">&larr; Pick a different time</button>
+        <button class="wm-link" id="wmDone" style="margin-left:auto;color:var(--red)">I'm set &mdash; close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="qrcode.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var overlay = document.getElementById('wmOverlay');
+  if (!overlay) return;
+
+  // Only greet on a laptop/desktop (fine pointer + roomy screen), and only once per browsing session.
+  var isLaptop = window.matchMedia('(min-width:768px) and (pointer:fine)').matches;
+  var alreadyGreeted = sessionStorage.getItem('apwh-welcomed') === '1';
+  if (!isLaptop || alreadyGreeted) return;
+
+  var ask = document.getElementById('wmAsk');
+  var qrView = document.getElementById('wmQr');
+  var qrBox = document.getElementById('wmQrCode');
+
+  function open(){ overlay.classList.remove('wm-hidden'); document.body.style.overflow = 'hidden'; }
+  function close(){
+    overlay.classList.add('wm-hidden');
+    document.body.style.overflow = '';
+    sessionStorage.setItem('apwh-welcomed', '1'); // don't re-nag while they browse the site
+  }
+
+  function showQr(minutes){
+    // Build the URL the phone will open. location.origin keeps it correct on any deploy domain.
+    var base = location.href.replace(/[^\/]*(\?.*)?$/, ''); // strip index.html / query -> directory URL
+    var url = base + 'timer.html?m=' + encodeURIComponent(minutes);
+
+    qrBox.innerHTML = '';
+    try{
+      var qr = qrcode(0, 'M');     // 0 = auto-size, M = ~15% error correction
+      qr.addData(url);
+      qr.make();
+      qrBox.innerHTML = qr.createImgTag(6, 0); // cellSize 6px, no internal margin (we pad via CSS)
+      var img = qrBox.querySelector('img');
+      if (img){ img.removeAttribute('width'); img.removeAttribute('height'); img.alt = 'QR code to open a ' + minutes + '-minute timer'; }
+    }catch(e){
+      // Fallback: a plain tappable link if QR generation ever fails.
+      qrBox.innerHTML = '<a href="' + url + '" style="font-family:monospace;font-size:.8rem;word-break:break-all;color:#b0001c">' + url + '</a>';
+    }
+
+    document.getElementById('wmQrMin').textContent = minutes;
+    ask.classList.add('wm-hidden');
+    qrView.classList.remove('wm-hidden');
+  }
+
+  function backToAsk(){
+    qrView.classList.add('wm-hidden');
+    ask.classList.remove('wm-hidden');
+  }
+
+  // duration presets
+  Array.prototype.forEach.call(document.querySelectorAll('.wm-opt'), function(btn){
+    btn.addEventListener('click', function(){ showQr(parseInt(btn.getAttribute('data-min'), 10)); });
+  });
+
+  // custom minutes
+  function customGo(){
+    var v = parseInt(document.getElementById('wmCustom').value, 10);
+    if (isNaN(v) || v < 1){ document.getElementById('wmCustom').focus(); return; }
+    if (v > 240) v = 240;
+    showQr(v);
+  }
+  document.getElementById('wmCustomGo').addEventListener('click', customGo);
+  document.getElementById('wmCustom').addEventListener('keydown', function(e){ if (e.key === 'Enter') customGo(); });
+
+  document.getElementById('wmBack').addEventListener('click', backToAsk);
+  document.getElementById('wmDone').addEventListener('click', close);
+  document.getElementById('wmClose').addEventListener('click', close);
+  document.getElementById('wmDistract').addEventListener('click', close);
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !overlay.classList.contains('wm-hidden')) close(); });
+
+  open();
+})();
+</script>
 </body>
 </html>

@@ -289,22 +289,25 @@
   function injectCSS() {
     if (document.getElementById('spx-css')) return;
     var css =
-      '.spx-banner{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;' +
-        'background:var(--white,#fff);border:1px solid var(--border,#ddd0b8);' +
-        'border-left:4px solid var(--red,#b0001c);padding:11px 20px;margin:0}' +
-      '.spx-week{display:flex;align-items:flex-end;gap:9px}' +
-      '.spx-day{display:flex;flex-direction:column;align-items:center;gap:4px}' +
-      '.spx-dl{font-family:"IBM Plex Mono",monospace;font-size:.52rem;letter-spacing:.08em;' +
+      '.spx-banner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;' +
+        'background:var(--paper,#f3ece0);border:1px solid var(--border,#ddd0b8);' +
+        'border-left:4px solid var(--red,#b0001c);padding:12px 22px;margin:0}' +
+      '.spx-lead{display:flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;' +
+        'font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red,#b0001c);font-weight:500}' +
+      '.spx-lead::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red,#b0001c)}' +
+      '.spx-week{display:flex;align-items:flex-end;gap:11px}' +
+      '.spx-day{display:flex;flex-direction:column;align-items:center;gap:5px}' +
+      '.spx-dl{font-family:"IBM Plex Mono",monospace;font-size:.54rem;letter-spacing:.08em;' +
         'text-transform:uppercase;color:var(--muted,#7a7860)}' +
-      '.spx-dot{width:11px;height:11px;border-radius:50%;box-sizing:border-box;' +
-        'border:1.5px solid var(--border2,#b8a478);background:transparent}' +
+      '.spx-dot{width:14px;height:14px;border-radius:50%;box-sizing:border-box;' +
+        'border:1.5px solid var(--border2,#b8a478);background:var(--white,#fff)}' +
       '.spx-dot.on{background:var(--red,#b0001c);border-color:var(--red,#b0001c)}' +
-      '.spx-dot.today{border-color:var(--red,#b0001c)}' +
+      '.spx-dot.today{border-color:var(--red,#b0001c);border-width:2px}' +
       '.spx-dot.today.pulse{animation:spxPulse 1.6s ease-in-out infinite}' +
-      '@keyframes spxPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.6}}' +
-      '.spx-sub{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.04em;' +
-        'color:var(--muted,#7a7860)}' +
-      '.spx-sub b{color:var(--ink,#1a1a12);font-weight:500}' +
+      '@keyframes spxPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.6}}' +
+      '.spx-sub{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.03em;' +
+        'color:var(--mid,#48483a)}' +
+      '.spx-sub b{color:var(--red,#b0001c);font-weight:600}' +
       '.spx-dash{background:var(--white,#fff);border:1px solid var(--border,#ddd0b8);border-top:4px solid var(--red,#b0001c);padding:18px 22px;margin:0 0 26px}' +
       '.spx-dash-eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red,#b0001c);margin-bottom:5px}' +
       '.spx-dash-h{font-family:"Playfair Display",Georgia,serif;font-size:1.25rem;font-weight:900;line-height:1.15;margin-bottom:12px}' +
@@ -331,7 +334,7 @@
     var due = SPACED.dueCount(), streak = SPACED.streakLength();
     var sub = '<b>' + due + '</b> term' + (due === 1 ? '' : 's') + ' ready for review · ' +
               '<b>' + streak + '</b>-day streak';
-    return '<div class="spx-week">' + dots + '</div><div class="spx-sub">' + sub + '</div>';
+    return '<div class="spx-lead">Study Streak</div><div class="spx-week">' + dots + '</div><div class="spx-sub">' + sub + '</div>';
   }
 
   function buildBanner() {

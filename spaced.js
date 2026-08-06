@@ -341,6 +341,10 @@
       '.spx-dash-h{font-family:"Playfair Display",Georgia,serif;font-size:1.25rem;font-weight:900;line-height:1.15;margin-bottom:12px}' +
       '.spx-dash-svg svg{display:block;width:100%;height:auto}' +
       '.spx-dash-cap{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.03em;color:var(--muted,#7a7860);margin-top:10px;line-height:1.5}' +
+      '.spx-dash-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px}' +
+      '.spx-leg{display:flex;align-items:center;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid,#48483a)}' +
+      '.spx-leg-line{width:24px;height:0;border-top:2.5px solid var(--red,#b0001c)}' +
+      '.spx-leg-dash{border-top-style:dashed;opacity:.7}' +
       '@media(max-width:520px){.spx-banner{padding:10px 16px}.spx-sub{font-size:.62rem}.spx-dash{padding:14px 16px}}';
     var st = document.createElement('style'); st.id = 'spx-css'; st.textContent = css;
     document.head.appendChild(st);
@@ -383,7 +387,11 @@
       '<div class="spx-dash-eyebrow">Your Memory</div>' +
       '<h3 class="spx-dash-h">Memory curve</h3>' +
       '<div class="spx-dash-svg">' + SPACED.aggregateCurveSVG({}) + '</div>' +
-      '<div class="spx-dash-cap">Built from your time on the site — 14 days back, projected forward ' +
+      '<div class="spx-dash-legend">' +
+        '<span class="spx-leg"><span class="spx-leg-line"></span>Studied so far</span>' +
+        '<span class="spx-leg"><span class="spx-leg-line spx-leg-dash"></span>If you stop now</span>' +
+      '</div>' +
+      '<div class="spx-dash-cap">Built from your time on the site — 14 days back (solid), projected forward ' +
         '(dashed) if you stop. It climbs on the days you review and slips on the days you don’t; ' +
         'study consistently and it decays more slowly.</div>';
   }

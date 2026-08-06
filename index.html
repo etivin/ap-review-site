@@ -328,10 +328,14 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   var overlay = document.getElementById('wmOverlay');
   if (!overlay) return;
 
-  // Only greet on a laptop/desktop (fine pointer + roomy screen), and only once per browsing session.
+  // Only greet on a laptop/desktop (fine pointer + roomy screen).
   var isLaptop = window.matchMedia('(min-width:768px) and (pointer:fine)').matches;
-  var alreadyGreeted = sessionStorage.getItem('apwh-welcomed') === '1';
-  if (!isLaptop || alreadyGreeted) return;
+  if (!isLaptop) return;
+  // Prompt every time the site is opened fresh (new tab, bookmark, typed URL, or a link
+  // from outside the site). Stay quiet only while navigating within the site, so clicking
+  // around the hub doesn't re-nag them.
+  var fromThisSite = document.referrer && document.referrer.indexOf(location.origin + '/') === 0;
+  if (fromThisSite) return;
 
   var ask = document.getElementById('wmAsk');
   var qrView = document.getElementById('wmQr');
@@ -341,7 +345,6 @@ body{background:var(--cream);color:var(--ink);font-family:'Source Serif 4',Georg
   function close(){
     overlay.classList.add('wm-hidden');
     document.body.style.overflow = '';
-    sessionStorage.setItem('apwh-welcomed', '1'); // don't re-nag while they browse the site
   }
 
   function showQr(minutes){

@@ -108,7 +108,7 @@
       return open + 'aria-label="Not yet reviewed">' + axis +
         '<line x1="' + pad + '" y1="' + yMid + '" x2="' + (W - pad) + '" y2="' + yMid +
         '" stroke="var(--muted,#7a7860)" stroke-width="1.5" stroke-dasharray="3 4" opacity=".5"/>' +
-        '<text x="' + (W / 2) + '" y="' + (yMid - 6) + '" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="8" fill="var(--muted,#7a7860)">not yet reviewed</text></svg>';
+        '<text x="' + (W / 2) + '" y="' + (yMid - 6) + '" text-anchor="middle" font-family="Lato,sans-serif" font-size="8" fill="var(--muted,#7a7860)">not yet reviewed</text></svg>';
     }
     var now = Date.now(), stab = 1, ev = [];
     item.reviewHistory.forEach(function (h) {
@@ -132,7 +132,7 @@
     return open + 'aria-label="Retention curve, currently ' + Math.round(curRet) + ' percent">' + axis +
       '<polyline class="fcx-line" fill="none" stroke="var(--red,#b0001c)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="' + op.toFixed(2) + '" points="' + pts.join(' ') + '"/>' +
       '<circle cx="' + nx.toFixed(1) + '" cy="' + yFor(curRet).toFixed(1) + '" r="3" fill="var(--red,#b0001c)" opacity="' + op.toFixed(2) + '"/>' +
-      '<text x="' + (W - pad) + '" y="' + (pad + 8) + '" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="8.5" fill="var(--red,#b0001c)" opacity="' + Math.max(0.5, op).toFixed(2) + '">' + Math.round(curRet) + '%</text></svg>';
+      '<text x="' + (W - pad) + '" y="' + (pad + 8) + '" text-anchor="end" font-family="Lato,sans-serif" font-size="8.5" fill="var(--red,#b0001c)" opacity="' + Math.max(0.5, op).toFixed(2) + '">' + Math.round(curRet) + '%</text></svg>';
   };
 
   // Replay a single item's review history into [{t, stab}] events (stability
@@ -190,14 +190,14 @@
       var y = yFor(v);
       grid += '<line x1="' + pad + '" y1="' + y + '" x2="' + (W - pad) + '" y2="' + y +
         '" stroke="var(--border,#ddd0b8)" stroke-width="1" opacity="' + (v === 0 ? '1' : '.45') + '"/>' +
-        '<text x="' + (pad - 6) + '" y="' + (y + 3) + '" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="9" fill="var(--muted,#7a7860)">' + v + '</text>';
+        '<text x="' + (pad - 6) + '" y="' + (y + 3) + '" text-anchor="end" font-family="Lato,sans-serif" font-size="9" fill="var(--muted,#7a7860)">' + v + '</text>';
     });
     var open = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H +
       '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" ';
     var ev = studyEvents();
     if (!ev.length) {
       return open + 'aria-label="No memory curve yet">' + grid +
-        '<text x="' + (W / 2) + '" y="' + (padT + innerH / 2) + '" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="var(--muted,#7a7860)">Spend time reviewing on the site to start your memory curve</text></svg>';
+        '<text x="' + (W / 2) + '" y="' + (padT + innerH / 2) + '" text-anchor="middle" font-family="Lato,sans-serif" font-size="11" fill="var(--muted,#7a7860)">Spend time reviewing on the site to start your memory curve</text></svg>';
     }
     var now = Date.now(), t0 = now - trailing * DAY, tEnd = now + project * DAY, N = 96;
     var past = [], future = [];
@@ -213,11 +213,11 @@
     return open + 'aria-label="Memory strength from time reviewing, currently ' + Math.round(curNow) + ' percent">' + grid +
       '<line x1="' + nowX.toFixed(1) + '" y1="' + padT + '" x2="' + nowX.toFixed(1) + '" y2="' + (H - padB) +
         '" stroke="var(--muted,#7a7860)" stroke-width="1" stroke-dasharray="2 3"/>' +
-      '<text x="' + nowX.toFixed(1) + '" y="' + (H - padB + 15) + '" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="9" fill="var(--muted,#7a7860)">now</text>' +
+      '<text x="' + nowX.toFixed(1) + '" y="' + (H - padB + 15) + '" text-anchor="middle" font-family="Lato,sans-serif" font-size="9" fill="var(--muted,#7a7860)">now</text>' +
       (past.length ? '<polyline fill="none" stroke="var(--red,#b0001c)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" points="' + past.join(' ') + '"/>' : '') +
       (future.length ? '<polyline fill="none" stroke="var(--red,#b0001c)" stroke-width="2" stroke-dasharray="4 4" opacity=".55" points="' + future.join(' ') + '"/>' : '') +
       '<circle cx="' + nowX.toFixed(1) + '" cy="' + yFor(curNow).toFixed(1) + '" r="3.5" fill="var(--red,#b0001c)"/>' +
-      '<text x="' + (W - pad) + '" y="' + (padT + 11) + '" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" fill="var(--red,#b0001c)">' + Math.round(curNow) + '%</text></svg>';
+      '<text x="' + (W - pad) + '" y="' + (padT + 11) + '" text-anchor="end" font-family="Lato,sans-serif" font-size="10" fill="var(--red,#b0001c)">' + Math.round(curNow) + '%</text></svg>';
   };
 
   // What moved during a study block: distinct items reviewed since sinceMs,
@@ -320,12 +320,12 @@
       '.spx-banner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;' +
         'background:var(--paper,#f3ece0);border:1px solid var(--border,#ddd0b8);' +
         'border-left:4px solid var(--red,#b0001c);padding:12px 22px;margin:0}' +
-      '.spx-lead{display:flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;' +
+      '.spx-lead{display:flex;align-items:center;gap:8px;font-family:Lato,system-ui,sans-serif;font-weight:700;' +
         'font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red,#b0001c);font-weight:500}' +
       '.spx-lead::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red,#b0001c)}' +
       '.spx-week{display:flex;align-items:flex-end;gap:11px}' +
       '.spx-day{display:flex;flex-direction:column;align-items:center;gap:5px}' +
-      '.spx-dl{font-family:"IBM Plex Mono",monospace;font-size:.54rem;letter-spacing:.08em;' +
+      '.spx-dl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.08em;' +
         'text-transform:uppercase;color:var(--muted,#7a7860)}' +
       '.spx-dot{width:14px;height:14px;border-radius:50%;box-sizing:border-box;' +
         'border:1.5px solid var(--border2,#b8a478);background:var(--white,#fff)}' +
@@ -333,16 +333,16 @@
       '.spx-dot.today{border-color:var(--red,#b0001c);border-width:2px}' +
       '.spx-dot.today.pulse{animation:spxPulse 1.6s ease-in-out infinite}' +
       '@keyframes spxPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.6}}' +
-      '.spx-sub{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.03em;' +
+      '.spx-sub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.03em;' +
         'color:var(--mid,#48483a)}' +
       '.spx-sub b{color:var(--red,#b0001c);font-weight:600}' +
       '.spx-dash{background:var(--white,#fff);border:1px solid var(--border,#ddd0b8);border-top:4px solid var(--red,#b0001c);padding:18px 22px;margin:0 0 26px}' +
-      '.spx-dash-eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red,#b0001c);margin-bottom:5px}' +
-      '.spx-dash-h{font-family:"Playfair Display",Georgia,serif;font-size:1.25rem;font-weight:900;line-height:1.15;margin-bottom:12px}' +
+      '.spx-dash-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red,#b0001c);margin-bottom:5px}' +
+      '.spx-dash-h{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.25rem;font-weight:900;line-height:1.15;margin-bottom:12px}' +
       '.spx-dash-svg svg{display:block;width:100%;height:auto}' +
-      '.spx-dash-cap{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.03em;color:var(--muted,#7a7860);margin-top:10px;line-height:1.5}' +
+      '.spx-dash-cap{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.03em;color:var(--muted,#7a7860);margin-top:10px;line-height:1.5}' +
       '.spx-dash-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px}' +
-      '.spx-leg{display:flex;align-items:center;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid,#48483a)}' +
+      '.spx-leg{display:flex;align-items:center;gap:7px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid,#48483a)}' +
       '.spx-leg-line{width:24px;height:0;border-top:2.5px solid var(--red,#b0001c)}' +
       '.spx-leg-dash{border-top-style:dashed;opacity:.7}' +
       '@media(max-width:520px){.spx-banner{padding:10px 16px}.spx-sub{font-size:.62rem}.spx-dash{padding:14px 16px}}';

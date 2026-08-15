@@ -37,9 +37,9 @@
       '.fcx-spark svg{display:block}' +
       '.fcx-spark.fcx-anim .fcx-line{stroke-dasharray:640;stroke-dashoffset:640;animation:fcxDraw .7s ease forwards}' +
       '@keyframes fcxDraw{to{stroke-dashoffset:0}}' +
-      '.fcx-meta{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.04em;line-height:1.5;color:var(--muted,#7a7860)}' +
+      '.fcx-meta{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.04em;line-height:1.5;color:var(--muted,#7a7860)}' +
       '.fcx-rate{display:flex;gap:8px;margin-top:11px}' +
-      '.fcx-btn{flex:1;padding:9px 8px;background:var(--white,#fff);border:1px solid var(--border,#ddd0b8);cursor:pointer;font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted,#7a7860);text-align:center;transition:all .12s}' +
+      '.fcx-btn{flex:1;padding:9px 8px;background:var(--white,#fff);border:1px solid var(--border,#ddd0b8);cursor:pointer;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted,#7a7860);text-align:center;transition:all .12s}' +
       '.fcx-btn:hover:not(:disabled){border-color:var(--red,#b0001c);color:var(--ink,#1a1a12)}' +
       '.fcx-btn:disabled{opacity:.5;cursor:default}' +
       '.fcx-btn.fcx-on{background:var(--red,#b0001c);border-color:var(--red,#b0001c);color:#fff}' +

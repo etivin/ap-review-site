@@ -79,6 +79,13 @@ body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-se
 .fct-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.45rem;font-weight:900;line-height:1.1;margin-bottom:6px}
 .fct-sub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.08em;color:rgba(255,255,255,.55)}
 .fct-badge{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;white-space:nowrap;flex-shrink:0}
+.doc-embed{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);margin-bottom:20px}
+.doc-embed-head{padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.doc-embed-head .de-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.doc-embed-head .de-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.25rem;font-weight:900;line-height:1.15}
+.doc-embed-head .de-desc{color:var(--mid);font-size:.9rem;line-height:1.5;margin-top:6px;max-width:640px}
+.doc-embed-open{flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;transition:background .15s}
+.doc-embed-open:hover{background:var(--red-d)}
 
 @media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}.page-content{padding:24px 20px 60px}}
 
@@ -175,6 +182,17 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
   <div class="section-label">All Units</div>
   <h2 class="section-heading">Choose Your Unit</h2>
   <p class="section-sub">Each unit includes MCQ practice, writing tools, study guides, games, and review resources.</p>
+  <div class="doc-embed">
+    <div class="doc-embed-head">
+      <div>
+        <div class="de-label">Start of Year Reading</div>
+        <div class="de-title">What Is History?</div>
+        <div class="de-desc">How should we learn about history if we are unsure about what actually happened?</div>
+      </div>
+      <a class="doc-embed-open" href="what-is-history.pdf" target="_blank" rel="noopener">Open PDF &#8599;</a>
+    </div>
+  </div>
+
   <a href="brain-sculptor.html" class="full-course-tab" style="border-color:var(--gold-b)">
     <div class="fct-left">
       <div class="fct-label">Study Smarter</div>

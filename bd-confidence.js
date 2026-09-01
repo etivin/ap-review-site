@@ -66,7 +66,15 @@
     // Reset the gate whenever the reveal is closed (new session / reset),
     // so the next brain dump asks for a fresh prediction.
     var mo = new MutationObserver(function () {
-      if (!rev.classList.contains('active')) rev.classList.remove('bdc-revealed');
+      // Only act when there is a real change to make, and disconnect while we
+      // write so our own class change can never re-enter this callback. Without
+      // the guard + disconnect, toggling `active` on #bd-reveal while the page
+      // is live-compositing spins the observer and hard-freezes the tab.
+      if (rev.classList.contains('active')) return;        // still open
+      if (!rev.classList.contains('bdc-revealed')) return; // already reset — no write
+      mo.disconnect();
+      rev.classList.remove('bdc-revealed');
+      mo.observe(rev, { attributes: true, attributeFilter: ['class'] });
     });
     mo.observe(rev, { attributes: true, attributeFilter: ['class'] });
   }

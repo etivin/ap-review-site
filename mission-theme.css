@@ -1,0 +1,64 @@
+/* ============================================================
+   mission-theme.css — shared "Mission Control" design language.
+
+   DORMANT BY DEFAULT. Every rule is scoped under html[data-mc="on"],
+   which mc-mode.js sets ONLY while the secret preview toggle is on.
+   So the published site keeps its original look until a teacher enables
+   Mission Control mode (click the "AP World History" box → password).
+
+   It re-skins the existing tokenized design system in place — TYPE,
+   PALETTE, ACCENTS only, never layout — by remapping the shared CSS
+   custom properties, so all pages (and the spaced.js streak banner)
+   recolor at once. Tweak here, not per page.
+
+   Palette:  navy #111a3f · blue #2d5deb · lime #d8f13a · coral #ff684c
+   Type:     Space Mono (body) · Archivo Black (display headings)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap');
+
+/* remap the site's shared tokens to the Mission Control palette (only when on) */
+html[data-mc="on"]{
+  --lime:#d8f13a; --coral:#ff684c; --navy:#111a3f;
+  --cream:#fbfcff; --white:#ffffff; --paper:#e8f0ff;
+  --border:#c9d5f5; --border2:#9aa8d8;
+  --ink:#111a3f; --mid:#33406b; --muted:#5c6a97;
+  --red:#2d5deb; --red-d:#1c40b8; --red-bg:#e9f0ff;
+  --blue:#1b2a63; --blue-bg:#eef2fb;
+  --gold:#c24a2e; --gold-bg:#fff0ec; --gold-b:#ff8a6e;
+  --green:#1a6825; --green-bg:#eef7f0;
+  --sh:3px 3px 0 rgba(17,26,63,.12);
+  --shm:6px 6px 0 rgba(17,26,63,.18);
+}
+
+/* ── TYPE ── */
+html[data-mc="on"] *{font-family:'Space Mono',ui-monospace,monospace !important}
+html[data-mc="on"] h1,
+html[data-mc="on"] h2,
+html[data-mc="on"] h3,
+html[data-mc="on"] h4,
+html[data-mc="on"] [class*="heading" i],
+html[data-mc="on"] [class*="title" i],
+html[data-mc="on"] .hero-inner h1,
+html[data-mc="on"] .hero h1,
+html[data-mc="on"] .wm-h,
+html[data-mc="on"] .pulse-num,
+html[data-mc="on"] .hero-period,
+html[data-mc="on"] .fct-badge{
+  font-family:'Archivo Black','Space Mono',sans-serif !important;
+  letter-spacing:-.03em;
+}
+html[data-mc="on"] .section-label,
+html[data-mc="on"] .sb-group-label,
+html[data-mc="on"] .unit-num,
+html[data-mc="on"] .unit-period,
+html[data-mc="on"] .eyebrow{font-weight:700 !important}
+
+/* ── CHROME ACCENTS ── */
+html[data-mc="on"] .nav-item.active{background:rgba(45,93,235,.15) !important;border-left-color:#2d5deb !important}
+html[data-mc="on"] .nav-item.active .nav-dot{background:#2d5deb !important}
+html[data-mc="on"] .sb-badge{background:var(--lime) !important;color:var(--navy) !important}
+html[data-mc="on"] .top-bar-tag{background:var(--red-bg) !important;color:var(--red) !important;border-color:rgba(45,93,235,.28) !important}
+html[data-mc="on"] .doc-embed-open:hover,
+html[data-mc="on"] .wm-btn:hover,
+html[data-mc="on"] .hero-btn-primary:hover,
+html[data-mc="on"] .button:hover{box-shadow:4px 4px 0 var(--navy)}

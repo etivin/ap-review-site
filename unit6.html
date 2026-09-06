@@ -488,6 +488,8 @@ button{font-family:inherit;cursor:pointer}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
+<link rel="stylesheet" href="mission-theme.css">
+<script src="mc-mode.js"></script>
 </head>
 <body>
 
@@ -1693,6 +1695,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   window.showTab=showTab;
   showTab('pg-home');
+  (function(){var goHash=function(){var h=(location.hash||'').replace(/^#/,'');var t=h&&document.getElementById(h);if(t&&t.classList&&t.classList.contains('page'))showTab(h);};goHash();window.addEventListener('hashchange',goHash);})();
   window.showTab = showTab;
   document.querySelectorAll('[data-tab]').forEach(function(el){
     el.addEventListener('click', function(){ showTab(this.dataset.tab); });

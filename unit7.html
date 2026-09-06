@@ -740,6 +740,8 @@ img{display:block;max-width:100%}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
+<link rel="stylesheet" href="mission-theme.css">
+<script src="mc-mode.js"></script>
 </head>
 <body>
 
@@ -2775,6 +2777,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize sidebar highlight + sub-tab bar for the default Overview page.
   showTab('pg-home');
+  (function(){var goHash=function(){var h=(location.hash||'').replace(/^#/,'');var t=h&&document.getElementById(h);if(t&&t.classList&&t.classList.contains('page'))showTab(h);};goHash();window.addEventListener('hashchange',goHash);})();
 
   // Floating back-to-top button: once the user scrolls deep into a long
   // section, one tap returns them to the top — where each section's

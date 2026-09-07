@@ -66,7 +66,7 @@
   // sidebar and sticky bars are pushed down so nothing overlaps.
   function injectTopBar() {
     if (!(on && !isDash) || document.getElementById('mc-bar')) return;
-    var H = 52;
+    var H = 46;
     var st = document.createElement('style'); st.id = 'mc-bar-css';
     st.textContent =
       '#mc-bar{position:fixed;top:0;left:0;right:0;height:' + H + 'px;z-index:1000;background:#111a3f;' +
@@ -85,8 +85,10 @@
       '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:4px 8px}' +
       'body{padding-top:' + H + 'px}' +
       '.sidebar{top:' + H + 'px!important}' +
-      '.top-bar{top:' + H + 'px!important}' +
-      '.subtab-bar{top:' + (H + 62) + 'px!important}' +
+      '.top-bar{top:' + H + 'px!important;height:44px!important;min-height:0!important}' +
+      '.top-bar .top-bar-title{font-size:1rem!important}' +
+      '.top-bar .top-bar-sub{display:none!important}' +
+      '.subtab-bar{top:' + (H + 44) + 'px!important}' +
       '@media(max-width:760px){#mc-bar .mcb-brand{display:none}}';
     document.head.appendChild(st);
 

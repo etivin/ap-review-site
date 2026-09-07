@@ -599,16 +599,30 @@ body{line-height:1.6}
   var comps = d.components || {};
   var UNIT_COMPONENTS = ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain','pg-spice'];
   function unitPct(u){
-    var comp = comps['u'+u] || {}, engaged = {};
-    UNIT_COMPONENTS.forEach(function(id){ if (comp[id]) engaged[id] = 1; });
-    // fold in prior review data so MCQ/flashcards done before this feature still count
+    var comp = comps['u'+u] || {};
+    // Real retrieval coverage: how many distinct MCQ / flashcard items reviewed.
+    var mcqDone = 0, fcDone = 0, pre = 'u'+u+'_';
     for (var key in sp){
-      if (key.indexOf('u'+u+'_') !== 0) continue;
-      if (key.indexOf('u'+u+'_fc_') === 0) engaged['pg-flash'] = 1; else engaged['pg-mcq'] = 1;
+      if (key.indexOf(pre) !== 0) continue;
+      if (key.indexOf(pre+'fc_') === 0) fcDone++; else mcqDone++;
     }
+    // Each component contributes 0–1: MCQ & flashcards as reviewed/total (real
+    // depth) where a total is known; other tools as engagement (opened).
+    function frac(id){
+      if (id === 'pg-mcq'   && comp.mcqTotal) return Math.min(1, mcqDone / comp.mcqTotal);
+      if (id === 'pg-flash' && comp.fcTotal ) return Math.min(1, fcDone  / comp.fcTotal );
+      if (id === 'pg-mcq'  ) return (mcqDone > 0 || comp[id]) ? 1 : 0;   // no total yet → engagement
+      if (id === 'pg-flash') return (fcDone  > 0 || comp[id]) ? 1 : 0;
+      return comp[id] ? 1 : 0;                                           // guide, writing, brain, spice
+    }
+    // Weight the retrieval tools (MCQ + flashcards) more heavily than the rest,
+    // so actual practice moves the ring faster than just opening reading tools.
+    var WEIGHT = { 'pg-mcq':3, 'pg-flash':3 };
+    function w(id){ return WEIGHT[id] || 1; }
     var denom = (comp.__all && comp.__all.length) ? comp.__all : ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain'];
-    var e = 0; denom.forEach(function(id){ if (engaged[id]) e++; });
-    return Math.round(e / denom.length * 100);
+    var sum = 0, tot = 0;
+    denom.forEach(function(id){ sum += w(id) * frac(id); tot += w(id); });
+    return tot ? Math.round(sum / tot * 100) : 0;
   }
   function ring(pct){
     var R = 34, C = 2 * Math.PI * R, off = C * (1 - pct/100);

@@ -452,7 +452,19 @@
     if (!present.length) return;
     var s = load(); s.components = s.components || {};
     var k = 'u' + unit, c = s.components[k] || {};
-    c.__all = present; s.components[k] = c; save(s);
+    c.__all = present;
+    // Record per-unit totals so the dashboard ring can show REAL coverage
+    // (items reviewed / total), not just "opened": MCQ from the bank, flashcards
+    // from the deck. Both globals exist on the unit page by the time this runs.
+    try {
+      if (window.APWH_MCQ && APWH_MCQ.units && APWH_MCQ.units[unit]) {
+        var q = APWH_MCQ.units[unit].questions || {}, n = 0;
+        for (var t in q) n += (q[t] || []).length;
+        if (n) c.mcqTotal = n;
+      }
+      if (window.CARDS && window.CARDS.length) c.fcTotal = window.CARDS.length;
+    } catch (e) {}
+    s.components[k] = c; save(s);
   };
   (function trackComponents() {
     var m = (location.pathname || '').match(/unit(\d+)/i);

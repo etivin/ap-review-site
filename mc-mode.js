@@ -60,6 +60,27 @@
       });
     });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wire);
-  else wire();
+  // In preview mode, add a clear, consistent "back to the dashboard" button at
+  // the TOP of each page (units, cumulative, etc.) so the way back is always in
+  // the same place — not buried at the bottom of the sidebar.
+  function injectBack() {
+    if (!(on && !isDash) || document.getElementById('mc-back')) return;
+    var st = document.createElement('style');
+    st.textContent =
+      '#mc-back{display:flex;align-items:center;justify-content:center;gap:8px;' +
+      'background:#d8f13a;color:#111a3f;font-weight:700;font-size:.82rem;letter-spacing:.05em;' +
+      'text-transform:uppercase;text-decoration:none;padding:14px 18px;' +
+      'border-bottom:2px solid #111a3f;cursor:pointer}#mc-back:hover{background:#fff}';
+    document.head.appendChild(st);
+    var a = document.createElement('a');
+    a.id = 'mc-back'; a.href = 'mission-control.html';
+    a.innerHTML = '&larr; Back to Dashboard';
+    var sb = document.querySelector('.sidebar');
+    if (sb) { sb.insertBefore(a, sb.firstChild); return; }
+    var tb = document.querySelector('.top-bar');
+    if (tb) tb.insertBefore(a, tb.firstChild);
+  }
+  function onReady() { wire(); injectBack(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady);
+  else onReady();
 })();

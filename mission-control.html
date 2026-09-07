@@ -88,8 +88,8 @@ a{color:inherit}
 .explain span{display:block;font-size:.65rem;color:var(--muted);margin-top:7px;line-height:1.45}
 
 /* ── TOOLS + UNITS ── */
-.tile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.tile{min-height:172px;border:2px solid var(--navy);padding:19px;text-decoration:none;color:var(--navy);background:#fff;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s}
+.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{min-height:200px;border:2px solid var(--navy);padding:26px 24px;text-decoration:none;color:var(--navy);background:#fff;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s}
 .tile:nth-child(2),.tile:nth-child(5){background:var(--sky)}
 .tile:nth-child(3){background:var(--lime)}
 .tile:hover,.unit-card:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--navy)}
@@ -97,8 +97,8 @@ a{color:inherit}
 .tile h3{font:1.2rem/1.02 'Archivo Black',sans-serif;letter-spacing:-.05em;margin:14px 0 8px}
 .tile span{font-size:.7rem;color:#4a5680;line-height:1.5}
 .tile strong{margin-top:auto;font-size:.64rem;text-transform:uppercase;letter-spacing:.06em}
-.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:11px}
-.unit-card{border:2px solid var(--navy);padding:15px;text-decoration:none;color:var(--navy);background:#fff;min-height:112px;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s}
+.unit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.unit-card{border:2px solid var(--navy);padding:24px 24px;text-decoration:none;color:var(--navy);background:#fff;min-height:158px;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s}
 .unit-card i{font-style:normal;font-size:.6rem;color:var(--blue);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .unit-card h3{font:1.02rem/1.05 'Archivo Black',sans-serif;letter-spacing:-.045em;margin:9px 0 5px}
 .unit-card .u-period{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
@@ -109,14 +109,14 @@ a{color:inherit}
 
 @media(max-width:820px){
   .slide{grid-template-columns:1fr}
-  .choices,.tool-explain{grid-template-columns:1fr 1fr}
+  .choices,.tool-explain,.tile-grid,.unit-grid{grid-template-columns:1fr 1fr}
   /* Keep the nav visible so "get back" is always one tap away — let the bar grow instead of hiding links. */
   .bar{height:auto;flex-direction:column;align-items:flex-start;gap:9px;padding:12px max(18px,4vw)}
   .links{justify-content:flex-start;gap:9px 14px}
   .links a{font-size:.62rem}
 }
 @media(max-width:520px){
-  .choices,.tool-explain{grid-template-columns:1fr}
+  .choices,.tool-explain,.tile-grid,.unit-grid{grid-template-columns:1fr}
   .recommend{flex-direction:column;align-items:flex-start}
   .unit-picker{flex-direction:column;align-items:flex-start}
   .ss-cta{margin-left:0}

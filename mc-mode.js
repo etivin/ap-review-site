@@ -60,27 +60,55 @@
       });
     });
   }
-  // In preview mode, add a clear, consistent "back to the dashboard" button at
-  // the TOP of each page (units, cumulative, etc.) so the way back is always in
-  // the same place — not buried at the bottom of the sidebar.
-  function injectBack() {
-    if (!(on && !isDash) || document.getElementById('mc-back')) return;
-    var st = document.createElement('style');
+  // In preview mode, give every page (units, cumulative, tools) the same top
+  // bar as the dashboard — brand + nav — so the chrome matches and the way back
+  // (Dashboard link + brand) is always in the same place. The page's fixed
+  // sidebar and sticky bars are pushed down so nothing overlaps.
+  function injectTopBar() {
+    if (!(on && !isDash) || document.getElementById('mc-bar')) return;
+    var H = 52;
+    var st = document.createElement('style'); st.id = 'mc-bar-css';
     st.textContent =
-      '#mc-back{display:flex;align-items:center;justify-content:center;gap:8px;' +
-      'background:#d8f13a;color:#111a3f;font-weight:700;font-size:.82rem;letter-spacing:.05em;' +
-      'text-transform:uppercase;text-decoration:none;padding:14px 18px;' +
-      'border-bottom:2px solid #111a3f;cursor:pointer}#mc-back:hover{background:#fff}';
+      '#mc-bar{position:fixed;top:0;left:0;right:0;height:' + H + 'px;z-index:1000;background:#111a3f;' +
+        'display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 max(16px,3vw);box-shadow:0 2px 0 #2d5deb}' +
+      '#mc-bar .mcb-brand{font-family:"Archivo Black",sans-serif!important;font-size:1rem;letter-spacing:-.04em;color:#fff;text-decoration:none;white-space:nowrap}' +
+      '#mc-bar .mcb-brand b{color:#d8f13a}' +
+      '#mc-bar .mcb-left{display:flex;align-items:center;gap:14px;flex-shrink:0}' +
+      '#mc-bar .mcb-back{display:inline-flex;align-items:center;gap:6px;background:#d8f13a;color:#111a3f;' +
+        'font-weight:700;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;' +
+        'padding:9px 14px;border:2px solid #d8f13a;white-space:nowrap}' +
+      '#mc-bar .mcb-back:hover{background:#fff;border-color:#fff}' +
+      '#mc-bar nav{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:15px;justify-content:flex-end;scrollbar-width:none}' +
+      '#mc-bar nav::-webkit-scrollbar{display:none}' +
+      '#mc-bar nav a{color:#fff;text-decoration:none;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:4px 1px}' +
+      '#mc-bar nav a:hover{color:#d8f13a;border-bottom-color:#d8f13a}' +
+      '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:4px 8px}' +
+      'body{padding-top:' + H + 'px}' +
+      '.sidebar{top:' + H + 'px!important}' +
+      '.top-bar{top:' + H + 'px!important}' +
+      '.subtab-bar{top:' + (H + 62) + 'px!important}' +
+      '@media(max-width:760px){#mc-bar .mcb-brand{display:none}}';
     document.head.appendChild(st);
-    var a = document.createElement('a');
-    a.id = 'mc-back'; a.href = 'mission-control.html';
-    a.innerHTML = '&larr; Back to Dashboard';
-    var sb = document.querySelector('.sidebar');
-    if (sb) { sb.insertBefore(a, sb.firstChild); return; }
-    var tb = document.querySelector('.top-bar');
-    if (tb) tb.insertBefore(a, tb.firstChild);
+
+    var here = location.pathname.replace(/^.*\//, '');
+    function lnk(href, label) { return '<a href="' + href + '"' + (href === here ? ' class="here"' : '') + '>' + label + '</a>'; }
+    var bar = document.createElement('header'); bar.id = 'mc-bar';
+    bar.innerHTML =
+      '<div class="mcb-left">' +
+        '<a class="mcb-back" href="mission-control.html">&larr; Back to Dashboard</a>' +
+        '<a class="mcb-brand" href="mission-control.html">APWH <b>/</b> MISSION CONTROL</a>' +
+      '</div>' +
+      '<nav>' +
+        '<a href="mission-control.html#units">Units</a>' +
+        lnk('brain-sculptor.html', 'How to Study') +
+        lnk('resources.html', 'Resources') +
+        lnk('sbmcq.html', 'Stimulus MCQ') +
+        lnk('cumulative.html', 'Cumulative') +
+        lnk('fullcourse.html', 'Narrative') +
+      '</nav>';
+    document.body.insertBefore(bar, document.body.firstChild);
   }
-  function onReady() { wire(); injectBack(); }
+  function onReady() { wire(); injectTopBar(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady);
   else onReady();
 })();

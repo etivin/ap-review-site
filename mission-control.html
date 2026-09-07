@@ -183,6 +183,38 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
 @keyframes wmDotPop{0%{transform:scale(0)}100%{transform:scale(1)}}
 .wm-lap-streak span{font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2a3560}
 @media(max-width:520px){.wm-card{padding:28px 22px 22px}}
+
+/* ── READABILITY PASS: larger, higher-contrast text across the dashboard ── */
+html{font-size:16.5px}
+body{line-height:1.6}
+.eyebrow{font-size:.68rem}
+.sec-head p{color:#33406b;font-size:.84rem;line-height:1.55}
+/* breaking-news card */
+.slide{align-items:start}
+.slides{min-height:230px}
+.slide h2{margin:6px 0 12px}
+.slide > div > p{color:#dbe2ff;font-size:.95rem;line-height:1.55}
+.lens{padding-left:20px}
+.lens b{font-size:.7rem}
+.lens > p{color:#f2f5ff;font-size:.9rem;font-weight:700;margin-top:8px;line-height:1.5}
+.lens-q{list-style:none;margin:13px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.lens-q li{position:relative;padding-left:17px;font-size:.86rem;line-height:1.5;color:#eef1ff}
+.lens-q li::before{content:"\203A";position:absolute;left:0;top:-1px;color:var(--lime);font-weight:700}
+.lens-q .norm{display:inline-block;background:var(--lime);color:var(--navy);font-weight:700;font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;margin-right:6px;vertical-align:baseline}
+.news-dots{display:flex;gap:8px;align-items:center}
+.news-src{color:#b8c2ea}
+/* signal strip */
+.ss-lbl{color:#cdd6f5;font-size:.6rem}
+/* roadmap */
+.choice b{font-size:.8rem}
+.choice span{color:#2f3b63;font-size:.7rem;line-height:1.4}
+.recommend p{color:#22305c;font-size:.84rem;line-height:1.5}
+.explain b{font-size:.76rem}
+.explain span{color:#3a4670;font-size:.72rem;line-height:1.5}
+/* tools + units */
+.tile span{color:#2f3b63;font-size:.76rem;line-height:1.55}
+.unit-card .u-period,.unit-card .u-conc{color:#4a5680}
+.foot{color:#4a5680;font-size:.7rem;line-height:1.7}
 </style>
 <script src="mc-mode.js"></script>
 </head>
@@ -211,7 +243,7 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     <div class="news-top">
       <span class="brk">Breaking</span>
       <span class="news-kicker">History &mdash; connect it to the course</span>
-      <span class="news-src">AP &middot; Sept 1&ndash;6, 2026</span>
+      <span class="news-src">Current events &middot; discuss &amp; analyze</span>
     </div>
     <div class="slides">
       <article class="slide active">
@@ -219,28 +251,95 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
           <h2>The U.N. endorses a map that shows Africa at its true relative size.</h2>
           <p>Member states backed a projection that corrects the familiar Mercator map&rsquo;s distortions of Africa&rsquo;s size.</p>
         </div>
-        <aside class="lens"><b>AP World lens &middot; Unit 6</b><p>Maps shape ideas about power. Connect this to imperialism, cartography, and who gets to define the world.</p></aside>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 6</b>
+          <p>Maps are arguments about power, not neutral pictures.</p>
+          <ul class="lens-q">
+            <li>How did Mercator-style maps travel with 19th-century empire and the &ldquo;Scramble for Africa&rdquo;?</li>
+            <li><span class="norm">Normative</span> Should schools and apps retire the Mercator projection &mdash; and who gets to decide?</li>
+            <li>Whose worldview does a map place at the center, and whose does it shrink?</li>
+          </ul>
+        </aside>
       </article>
       <article class="slide">
         <div>
           <h2>Floods on the Nepal&ndash;China border expose how geography shapes vulnerability.</h2>
           <p>A glacier-collapse flood damaged roads, homes, and hydropower infrastructure across Himalayan communities.</p>
         </div>
-        <aside class="lens"><b>AP World lens &middot; Unit 9</b><p>Use environmental change, migration, technology, and global response to analyze a present-day crisis.</p></aside>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 9</b>
+          <p>A natural trigger becomes an uneven disaster through geography and infrastructure.</p>
+          <ul class="lens-q">
+            <li>Why do the same floods hit some communities far harder than others?</li>
+            <li><span class="norm">Normative</span> Do wealthy, high-emitting nations owe climate support or reparations to vulnerable regions?</li>
+            <li>Trace the line from industrialization (Unit 6) to today&rsquo;s emissions and supply chains.</li>
+          </ul>
+        </aside>
       </article>
       <article class="slide">
         <div>
           <h2>The Strait of Hormuz is again at the center of global tension.</h2>
           <p>Conflict around a narrow waterway is affecting shipping and energy flows far beyond the Middle East.</p>
         </div>
-        <aside class="lens"><b>AP World lens &middot; Unit 4</b><p>Strategic chokepoints and maritime trade networks have shaped power since the early modern era.</p></aside>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 4</b>
+          <p>Whoever controls the chokepoint shapes trade far beyond it.</p>
+          <ul class="lens-q">
+            <li>Why have narrow straits (Hormuz, Malacca, Suez) shaped power since 1450?</li>
+            <li><span class="norm">Normative</span> Should any one state be able to close a waterway the whole world depends on?</li>
+            <li>Compare this to Portuguese and Dutch control of Indian Ocean routes.</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>AI tools spark new debates over the future of work.</h2>
+          <p>Rapid automation of white-collar and creative tasks is reshaping which jobs feel secure.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 9 &amp; 6</b>
+          <p>New technology reorganizes labor &mdash; and who holds power over it.</p>
+          <ul class="lens-q">
+            <li>How does today&rsquo;s automation rhyme with the Industrial Revolution&rsquo;s disruption of work?</li>
+            <li><span class="norm">Normative</span> What does a society owe workers displaced by technology &mdash; retraining, income, or nothing?</li>
+            <li>Luddites then, gig-worker and union organizing now: what has actually changed?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>Museums face growing pressure to return colonial-era artifacts.</h2>
+          <p>Former colonies are renewing calls for the return of objects taken during imperial rule.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 6 &amp; 4</b>
+          <p>Who owns the past &mdash; and who profited from taking it?</p>
+          <ul class="lens-q">
+            <li>How did imperial museums acquire their collections in the first place?</li>
+            <li><span class="norm">Normative</span> Should former colonizers repatriate cultural artifacts &mdash; always, or only sometimes?</li>
+            <li>Connect this to colonial extraction and the Columbian Exchange.</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>Nations spar over tariffs as new trade blocs take shape.</h2>
+          <p>Rival economic alliances and tariff disputes are redrawing the map of global trade.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 9 &amp; 3</b>
+          <p>States still fight to control trade &mdash; only the tools change.</p>
+          <ul class="lens-q">
+            <li>How do modern trade blocs resemble, or break from, mercantilism?</li>
+            <li><span class="norm">Normative</span> Should a government protect national industry or keep trade open &mdash; and for whose benefit?</li>
+            <li>Compare this to the state-backed trade of the land-based empires.</li>
+          </ul>
+        </aside>
       </article>
     </div>
     <div class="news-controls">
       <button class="arrow" id="prev" aria-label="Previous story">&larr;</button>
-      <button class="dot active" aria-label="Story 1"></button>
-      <button class="dot" aria-label="Story 2"></button>
-      <button class="dot" aria-label="Story 3"></button>
+      <span class="news-dots" id="newsDots"></span>
       <button class="arrow" id="next" aria-label="Next story">&rarr;</button>
     </div>
   </section>
@@ -486,6 +585,8 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
 
   /* ── NEWS CAROUSEL ── */
   var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var dotWrap = $('newsDots');
+  if (dotWrap){ slides.forEach(function(_, k){ var b = document.createElement('button'); b.className = 'dot' + (k===0?' active':''); b.setAttribute('aria-label','Story '+(k+1)); dotWrap.appendChild(b); }); }
   var dots = [].slice.call(document.querySelectorAll('.dot'));
   var i = 0, timer = null;
   function show(n){

@@ -215,6 +215,23 @@ body{line-height:1.6}
 .tile span{color:#2f3b63;font-size:.76rem;line-height:1.55}
 .unit-card .u-period,.unit-card .u-conc{color:#4a5680}
 .foot{color:#4a5680;font-size:.7rem;line-height:1.7}
+
+/* ── unit progress rings + larger card / tile type ── */
+.uc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.uc-id{min-width:0}
+.unit-card i{font-size:.66rem}
+.unit-card h3{font-size:1.28rem;line-height:1.1;margin:9px 0 0}
+.unit-card .u-period{font-size:.66rem;margin-top:12px}
+.unit-card .u-conc{font-size:.6rem}
+.unit-card .u-open{font-size:.68rem;padding-top:14px}
+.uc-ring{position:relative;width:58px;height:58px;flex-shrink:0}
+.uc-ring svg{display:block;width:58px;height:58px}
+.uc-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Archivo Black',sans-serif;font-size:.98rem;color:var(--navy);letter-spacing:-.02em}
+.uc-pct i{font-style:normal;font-size:.55rem;margin-left:1px;margin-top:3px;align-self:flex-start}
+.tile i{font-size:.64rem}
+.tile h3{font-size:1.35rem;margin:14px 0 9px}
+.tile span{font-size:.82rem;line-height:1.55}
+.tile strong{font-size:.68rem}
 </style>
 <script src="mc-mode.js"></script>
 </head>
@@ -567,13 +584,35 @@ body{line-height:1.6}
     });
   });
 
-  /* ── UNITS GRID ── */
+  /* ── UNITS GRID (per-unit progress ring across ALL components) ── */
+  var comps = d.components || {};
+  var UNIT_COMPONENTS = ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain','pg-spice'];
+  function unitPct(u){
+    var comp = comps['u'+u] || {}, engaged = {};
+    UNIT_COMPONENTS.forEach(function(id){ if (comp[id]) engaged[id] = 1; });
+    // fold in prior review data so MCQ/flashcards done before this feature still count
+    for (var key in sp){
+      if (key.indexOf('u'+u+'_') !== 0) continue;
+      if (key.indexOf('u'+u+'_fc_') === 0) engaged['pg-flash'] = 1; else engaged['pg-mcq'] = 1;
+    }
+    var denom = (comp.__all && comp.__all.length) ? comp.__all : ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain'];
+    var e = 0; denom.forEach(function(id){ if (engaged[id]) e++; });
+    return Math.round(e / denom.length * 100);
+  }
+  function ring(pct){
+    var R = 24, C = 2 * Math.PI * R, off = C * (1 - pct/100);
+    var col = pct >= 100 ? 'var(--lime)' : (pct > 0 ? 'var(--blue)' : 'var(--line)');
+    return '<div class="uc-ring" role="img" aria-label="'+pct+' percent reviewed">' +
+      '<svg viewBox="0 0 60 60">' +
+        '<circle cx="30" cy="30" r="'+R+'" fill="none" stroke="var(--line)" stroke-width="6"/>' +
+        '<circle cx="30" cy="30" r="'+R+'" fill="none" stroke="'+col+'" stroke-width="6" stroke-linecap="round" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 30 30)"/>' +
+      '</svg><span class="uc-pct">'+pct+'<i>%</i></span></div>';
+  }
   var grid = '';
   names.forEach(function(n,i){
     var u = i+1;
     grid += '<a class="unit-card" href="unit'+u+'.html">' +
-      '<i>Unit '+u+'</i>' +
-      '<h3>'+n+'</h3>' +
+      '<div class="uc-head"><div class="uc-id"><i>Unit '+u+'</i><h3>'+n+'</h3></div>' + ring(unitPct(u)) + '</div>' +
       '<div class="u-period">'+periods[i]+'</div>' +
       (concurrent[i] ? '<div class="u-conc">'+concurrent[i]+'</div>' : '') +
       '<div class="u-open">Open review →</div>' +

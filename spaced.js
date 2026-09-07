@@ -432,6 +432,40 @@
   }
   SPACED.recordTime = bumpTime;
 
+  /* ---- per-unit component engagement (feeds the dashboard progress rings) ----
+     Records which review tools a student has opened in each unit, uniformly
+     across ALL components (guide, MCQ, flashcards, writing, brain dump,
+     SPICE-T) — so the dashboard ring reflects the whole unit, not just MCQ.
+     Stored at apReview_v1.components['u'+n] = { <pageId>:1, __all:[present] }.
+     Only reads the DOM and writes localStorage, so it can never re-enter. */
+  var COMPONENT_PAGES = ['pg-guide', 'pg-mcq', 'pg-flash', 'pg-writing', 'pg-brain', 'pg-spice'];
+  SPACED.markComponent = function (unit, pageId) {
+    if (!unit || COMPONENT_PAGES.indexOf(pageId) < 0) return;
+    var s = load(); s.components = s.components || {};
+    var k = 'u' + unit, c = s.components[k] || {};
+    if (c[pageId]) return;                 // already recorded — skip the write
+    c[pageId] = 1; s.components[k] = c; save(s);
+  };
+  SPACED.recordUnitTabs = function (unit) {
+    if (!unit) return;
+    var present = COMPONENT_PAGES.filter(function (id) { return document.getElementById(id); });
+    if (!present.length) return;
+    var s = load(); s.components = s.components || {};
+    var k = 'u' + unit, c = s.components[k] || {};
+    c.__all = present; s.components[k] = c; save(s);
+  };
+  (function trackComponents() {
+    var m = (location.pathname || '').match(/unit(\d+)/i);
+    if (!m) return;                        // only on unit pages
+    var unit = m[1];
+    function markActive() { var a = document.querySelector('.page.active'); if (a && a.id) SPACED.markComponent(unit, a.id); }
+    function boot() { SPACED.recordUnitTabs(unit); markActive(); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(boot, 80); });
+    else setTimeout(boot, 80);
+    document.addEventListener('click', function () { setTimeout(markActive, 0); }, true);
+    window.addEventListener('hashchange', function () { setTimeout(markActive, 80); });
+  })();
+
   (function trackTime() {
     var last = Date.now(), unflushed = 0, everCrossed = false;
     function visible() { return document.visibilityState !== 'hidden'; }

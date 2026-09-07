@@ -453,6 +453,7 @@
     var s = load(); s.components = s.components || {};
     var k = 'u' + unit, c = s.components[k] || {};
     c.__all = present;
+    c.ts = Date.now();   // last-touched, used as a decay fallback for units without retrieval data
     // Record per-unit totals so the dashboard ring can show REAL coverage
     // (items reviewed / total), not just "opened": MCQ from the bank, flashcards
     // from the deck. Both globals exist on the unit page by the time this runs.

@@ -601,9 +601,11 @@ body{line-height:1.6}
   function unitPct(u){
     var comp = comps['u'+u] || {};
     // Real retrieval coverage: how many distinct MCQ / flashcard items reviewed.
-    var mcqDone = 0, fcDone = 0, pre = 'u'+u+'_';
+    var mcqDone = 0, fcDone = 0, pre = 'u'+u+'_', lastReview = 0;
     for (var key in sp){
       if (key.indexOf(pre) !== 0) continue;
+      var h = sp[key].reviewHistory;
+      if (h && h.length){ var rt = new Date(h[h.length-1].date).getTime(); if (rt > lastReview) lastReview = rt; }
       if (key.indexOf(pre+'fc_') === 0) fcDone++; else mcqDone++;
     }
     // Each component contributes 0–1: MCQ & flashcards as reviewed/total (real
@@ -622,16 +624,23 @@ body{line-height:1.6}
     var denom = (comp.__all && comp.__all.length) ? comp.__all : ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain'];
     var sum = 0, tot = 0;
     denom.forEach(function(id){ sum += w(id) * frac(id); tot += w(id); });
-    return tot ? Math.round(sum / tot * 100) : 0;
+    var coverage = tot ? (sum / tot * 100) : 0, DECAY_DAYS = 20;
+    // Freshness decay: the ring fades toward 0 as time passes since the last
+    // review, so a unit you stop reviewing visibly slips (and goes red below 50).
+    var touched = lastReview || (comp.ts || 0);
+    var days = touched ? (Date.now() - touched) / 86400000 : null;
+    var decay = (days == null) ? 1 : Math.exp(-Math.max(0, days) / DECAY_DAYS);
+    return Math.round(coverage * decay);
   }
   function ring(pct){
     var R = 34, C = 2 * Math.PI * R, off = C * (1 - pct/100);
-    var col = pct >= 100 ? 'var(--lime)' : (pct > 0 ? 'var(--blue)' : 'var(--line)');
-    return '<div class="uc-ring" role="img" aria-label="'+pct+' percent reviewed">' +
+    var low = pct > 0 && pct < 50;
+    var col = pct >= 100 ? 'var(--lime)' : (pct >= 50 ? 'var(--blue)' : (pct > 0 ? '#e5342b' : 'var(--line)'));
+    return '<div class="uc-ring" role="img" aria-label="'+pct+' percent retained">' +
       '<svg viewBox="0 0 84 84">' +
         '<circle cx="42" cy="42" r="'+R+'" fill="none" stroke="var(--line)" stroke-width="8"/>' +
         '<circle cx="42" cy="42" r="'+R+'" fill="none" stroke="'+col+'" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 42 42)"/>' +
-      '</svg><span class="uc-pct"><b>'+pct+'</b><i>%</i></span></div>';
+      '</svg><span class="uc-pct"'+(low?' style="color:#e5342b"':'')+'><b>'+pct+'</b><i>%</i></span></div>';
   }
   var grid = '';
   names.forEach(function(n,i){

@@ -84,7 +84,11 @@
       '#mc-bar nav a:hover{color:#d8f13a;border-bottom-color:#d8f13a}' +
       '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:4px 8px}' +
       'body{padding-top:' + H + 'px}' +
-      '.sidebar{top:' + H + 'px!important}' +
+      // Only offset the fixed desktop sidebar; on mobile it flows normally.
+      '@media(min-width:901px){.sidebar{top:' + H + 'px!important}}' +
+      // Trim redundancy: the top bar already carries the brand and the way back.
+      '.sidebar .sb-footer{display:none!important}' +
+      '.sidebar .sb-badge{display:none!important}' +
       '.top-bar{top:' + H + 'px!important;height:44px!important;min-height:0!important}' +
       '.top-bar .top-bar-title{font-size:1rem!important}' +
       '.top-bar .top-bar-sub{display:none!important}' +

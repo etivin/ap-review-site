@@ -71,7 +71,7 @@
     st.textContent =
       '#mc-bar{position:fixed;top:0;left:0;right:0;height:' + H + 'px;z-index:1000;background:#111a3f;' +
         'display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 max(16px,3vw);box-shadow:0 2px 0 #2d5deb}' +
-      '#mc-bar .mcb-brand{font-family:"Archivo Black",sans-serif!important;font-size:1rem;letter-spacing:-.04em;color:#fff;text-decoration:none;white-space:nowrap}' +
+      '#mc-bar .mcb-brand{font-family:"Lato",sans-serif!important;font-weight:900!important;font-size:1rem;letter-spacing:-.04em;color:#fff;text-decoration:none;white-space:nowrap}' +
       '#mc-bar .mcb-brand b{color:#d8f13a}' +
       '#mc-bar .mcb-left{display:flex;align-items:center;gap:14px;flex-shrink:0}' +
       '#mc-bar .mcb-back{display:inline-flex;align-items:center;gap:6px;background:#d8f13a;color:#111a3f;' +

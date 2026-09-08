@@ -12,9 +12,9 @@
    recolor at once. Tweak here, not per page.
 
    Palette:  navy #111a3f · blue #2d5deb · lime #d8f13a · coral #ff684c
-   Type:     Space Mono (body) · Archivo Black (display headings)
+   Type:     Lato (body) · Lato 900 (display headings)
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
 
 /* remap the site's shared tokens to the Mission Control palette (only when on) */
 html[data-mc="on"]{
@@ -31,7 +31,7 @@ html[data-mc="on"]{
 }
 
 /* ── TYPE ── */
-html[data-mc="on"] *{font-family:'Space Mono',ui-monospace,monospace !important}
+html[data-mc="on"] *{font-family:'Lato',-apple-system,'Segoe UI',sans-serif !important}
 html[data-mc="on"] h1,
 html[data-mc="on"] h2,
 html[data-mc="on"] h3,
@@ -44,7 +44,8 @@ html[data-mc="on"] .wm-h,
 html[data-mc="on"] .pulse-num,
 html[data-mc="on"] .hero-period,
 html[data-mc="on"] .fct-badge{
-  font-family:'Archivo Black','Space Mono',sans-serif !important;
+  font-family:'Lato',-apple-system,'Segoe UI',sans-serif !important;
+  font-weight:900 !important;
   letter-spacing:-.03em;
 }
 html[data-mc="on"] .section-label,

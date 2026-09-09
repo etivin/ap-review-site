@@ -18,10 +18,11 @@
 
 /* remap the site's shared tokens to the Mission Control palette (only when on) */
 html[data-mc="on"]{
+  font-size:18px; /* ~12% larger for readability; all page text is rem-based, so it scales uniformly */
   --lime:#d8f13a; --coral:#ff684c; --navy:#111a3f;
   --cream:#fbfcff; --white:#ffffff; --paper:#e8f0ff;
   --border:#c9d5f5; --border2:#9aa8d8;
-  --ink:#111a3f; --mid:#33406b; --muted:#5c6a97;
+  --ink:#111a3f; --mid:#33406b; --muted:#485586;
   --red:#2d5deb; --red-d:#1c40b8; --red-bg:#e9f0ff;
   --blue:#1b2a63; --blue-bg:#eef2fb;
   --gold:#c24a2e; --gold-bg:#fff0ec; --gold-b:#ff8a6e;

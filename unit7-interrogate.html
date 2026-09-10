@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 7 Interrogate — Fact / Myth Minesweeper</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#111a3f;--blue:#2d5deb;--sky:#e8f0ff;--lime:#d8f13a;--coral:#ff684c;
+  --white:#fbfcff;--muted:#485586;--line:#c9d5f5;--green:#1a8a4a
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-size:18px}
+body{margin:0;background:var(--white);color:var(--navy);font:1rem/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+a{color:inherit}
+
+.bar{height:66px;padding:0 max(20px,3vw);background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;position:sticky;top:0;z-index:60;box-shadow:0 2px 0 var(--blue)}
+.brand{font:900 16.8px 'Lato',sans-serif;letter-spacing:-.04em;text-decoration:none;color:#fff;white-space:nowrap}
+.brand b{color:var(--lime)}
+.links a{color:#fff;text-decoration:none;font-size:10.56px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 2px;border-bottom:2px solid transparent}
+.links a:hover{color:var(--lime);border-bottom-color:var(--lime)}
+
+.main{max-width:1100px;margin:auto;padding:26px max(20px,3vw) 70px}
+.eyebrow{font-size:.64rem;color:var(--blue);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-height:.98;font-size:2.1rem;margin:6px 0 8px}
+.sub{margin:0;color:var(--muted);max-width:680px;font-size:.82rem}
+
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:22px 0 4px}
+.how .card{border:2px solid var(--navy);background:#fff;padding:13px 14px}
+.how .card:nth-child(2){background:var(--sky)}
+.how b{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+.how span{display:block;font-size:.65rem;color:var(--muted);margin-top:5px;line-height:1.45}
+.how .k{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:.58rem;padding:2px 6px;letter-spacing:.04em;margin-right:4px}
+
+.play{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;margin-top:18px;align-items:start}
+
+.hud{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;background:var(--navy);color:#fff;padding:13px 18px;border:2px solid var(--navy)}
+.stat{display:flex;align-items:baseline;gap:7px}
+.stat .n{font:900 1.5rem 'Lato',sans-serif;color:var(--lime);min-width:1.4ch;text-align:right}
+.stat .l{font-size:.54rem;text-transform:uppercase;letter-spacing:.08em;color:#aeb9e6;line-height:1.1}
+.lives{letter-spacing:2px;font-size:1.05rem}
+.hud .spacer{flex:1}
+.sel{font:inherit;font-size:.72rem;font-weight:700;padding:9px 10px;border:2px solid var(--lime);background:var(--navy);color:#fff;cursor:pointer}
+.btn{display:inline-block;background:var(--lime);color:var(--navy);text-decoration:none;padding:10px 14px;text-transform:uppercase;font-size:.64rem;font-weight:700;letter-spacing:.08em;border:2px solid var(--navy);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+
+.boardwrap{border:2px solid var(--navy);background:var(--sky);padding:14px;margin-top:12px;overflow:auto}
+.boardwrap.over{opacity:.55;filter:grayscale(.3);pointer-events:none}
+.grid{display:grid;gap:4px;width:max-content;margin:auto}
+.cell{width:40px;height:40px;border:2px solid var(--navy);background:#fff;font:900 1.05rem 'Lato',sans-serif;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:background .1s,transform .08s;user-select:none}
+.cell:hover:not(.open):not(.flag){background:var(--sky);transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--navy)}
+.cell.open{background:var(--white);border-color:var(--line);cursor:default}
+.cell.open.zero{background:#eef3ff}
+.cell.factwrong{background:#eef3ff;border-color:var(--blue);color:var(--blue);cursor:default}
+.cell.flag{background:var(--lime);cursor:default}
+.cell.trip{background:var(--coral);color:#fff;cursor:default}
+.cell.pending{outline:3px solid var(--blue);outline-offset:-3px}
+.cell.blast{animation:blast .55s ease}
+@keyframes blast{0%,35%{background:var(--coral);color:#fff;transform:scale(1.12)}100%{background:var(--lime);color:var(--navy);transform:none}}
+.n1{color:#2d5deb}.n2{color:#1a8a4a}.n3{color:#ff684c}.n4{color:#7a2ee0}.n5{color:#c24a2e}.n6{color:#0f8a9c}.n7{color:#111a3f}.n8{color:#485586}
+
+.notes{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column;max-height:660px}
+.notes h3{margin:0;font:900 .8rem 'Lato',sans-serif;background:var(--navy);color:#fff;padding:12px 16px;text-transform:uppercase;letter-spacing:.04em}
+.notes .feed{padding:12px 14px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:9px}
+.notes .empty{color:var(--muted);font-size:.72rem;line-height:1.5}
+.notes-foot{border-top:2px solid var(--line);padding:9px 14px;font-size:.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.li{border-left:4px solid var(--green);background:#eef7f0;padding:9px 11px;font-size:.72rem;line-height:1.4;animation:pop .25s ease}
+.li.myth{border-left-color:var(--coral);background:#fff0ec}
+.li.review{border-left-color:#c98a00;background:#fff9e8}
+.li .tag{display:block;font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;color:var(--green)}
+.li.myth .tag{color:var(--coral)}
+.li.review .tag{color:#a76f00}
+.li .fix{display:block;margin-top:5px;color:var(--navy);font-weight:700}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.ov{position:fixed;inset:0;z-index:200;background:rgba(17,26,63,.72);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.ov.show{display:flex}
+.ovcard{background:var(--white);border:2px solid var(--navy);border-top:6px solid var(--blue);box-shadow:8px 8px 0 var(--navy);max-width:540px;width:100%;padding:26px 28px 22px;animation:pop .2s ease;margin:auto}
+.ovcard.correct{border-top-color:var(--green)}
+.ovcard.wrong{border-top-color:var(--coral)}
+.ov .eb{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.ov .clue{font-size:.62rem;font-weight:700;color:var(--muted);margin-bottom:12px}
+.ov .clue b{color:var(--coral)}
+.ov .q{font:900 1.18rem/1.3 'Lato',sans-serif;letter-spacing:-.02em;margin-bottom:18px}
+.ovbtns{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.ovbtns button{font:inherit;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding:15px;border:2px solid var(--navy);cursor:pointer;transition:transform .1s,box-shadow .1s}
+.ovbtns .fact{background:#e6f6ec;color:var(--green)}
+.ovbtns .myth{background:#fff0ec;color:var(--coral)}
+.ovbtns button:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+.ovresult{margin-top:16px;padding:13px 15px;font-size:.8rem;line-height:1.45;display:none}
+.ovresult.show{display:block}
+.ovresult.good{border-left:4px solid var(--green);background:#eef7f0}
+.ovresult.bad{border-left:4px solid var(--coral);background:#fff0ec}
+.ovresult.ask{border-left:4px solid var(--blue);background:var(--sky)}
+.ovresult .rt{display:block;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.ovresult.good .rt{color:var(--green)}.ovresult.bad .rt{color:var(--coral)}.ovresult.ask .rt{color:var(--blue)}
+.ovresult .fix{font-weight:700}
+.mc-q{font-weight:700;font-size:.8rem;margin-bottom:10px}
+.mc-opts{display:flex;flex-direction:column;gap:7px}
+.mc-opt{font:inherit;font-size:.75rem;line-height:1.35;text-align:left;padding:11px 12px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:background .1s}
+.mc-opt:hover:not(:disabled){background:var(--sky)}
+.mc-opt:disabled{cursor:default}
+.mc-opt.right{background:#e6f6ec;border-color:var(--green);color:var(--green);font-weight:700}
+.mc-opt.wrongpick{background:#fff0ec;border-color:var(--coral);color:var(--coral)}
+.ovnext{margin-top:14px;text-align:right;display:none}
+.ovnext.show{display:block}
+
+.banner{margin-top:12px;padding:15px 18px;border:2px solid var(--navy);font-weight:700;font-size:.8rem;display:none;align-items:center;gap:12px;flex-wrap:wrap}
+.banner.win{display:flex;background:var(--lime);color:var(--navy)}
+.banner.lose{display:flex;background:var(--coral);color:#fff}
+.banner .big{font:900 1.05rem 'Lato',sans-serif}
+
+.foot{margin-top:40px;border-top:2px solid var(--navy);padding-top:16px;font-size:.64rem;color:var(--muted);line-height:1.7}
+
+@media(max-width:900px){ .play{grid-template-columns:1fr} .how{grid-template-columns:1fr 1fr} .notes{max-height:none} }
+@media(max-width:560px){ .how{grid-template-columns:1fr} .cell{width:34px;height:34px;font-size:.9rem} }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="index.html">AP WORLD // <b>INTERROGATE</b></a>
+  <div class="links"><a href="unit7.html">← Unit 7 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 7 · Global Conflict · c. 1900 – present</div>
+  <h1>Interrogate — Fact / Myth Minesweeper</h1>
+  <p class="sub">A minefield of claims about Unit&nbsp;7. Click a square: <b>is it a true fact or a historical myth?</b> Facts are safe and reveal a number (how many myths touch them); myths are the mines. Spot a myth and you're not done — <b>you must then pick the real correction</b> from three options. The numbers point toward danger, but only knowing the history clears the field.</p>
+
+  <div class="how">
+    <div class="card"><b>Open a square</b><span><span class="k">CLICK</span>A claim appears. Answer <b>Fact</b> to clear it or <b>Myth</b> to defuse it.</span></div>
+    <div class="card"><b>Fix the myth</b><span>Defuse a myth and a follow-up asks: what's <b>actually</b> true? Pick the right correction from three — <b>miss it and the myth detonates</b> (−1 life).</span></div>
+    <div class="card"><b>Read the numbers</b><span>A cleared fact shows how many of its 8 neighbors are myths — your clue for where to probe next.</span></div>
+    <div class="card"><b>Survive &amp; clear</b><span>3 lives; a wrong Fact/Myth call costs one. Clear every fact and defuse every myth to win. Positions stay hidden.</span></div>
+  </div>
+
+  <div class="play">
+    <div class="left">
+      <div class="hud">
+        <div class="stat"><span class="n" id="mines">16</span><span class="l">Myths<br>left</span></div>
+        <div class="stat"><span class="n" id="fixes">0</span><span class="l">Fixes<br>nailed</span></div>
+        <div class="stat"><span class="n" id="time">0</span><span class="l">Sec</span></div>
+        <div class="stat"><span class="l">Lives</span><span class="n lives" id="lives">♥♥♥</span></div>
+        <div class="spacer"></div>
+        <select class="sel" id="diff" title="Difficulty">
+          <option value="easy">Cadet · 8×8 · 10 myths</option>
+          <option value="med" selected>Officer · 10×10 · 16 myths</option>
+          <option value="hard">Commander · 12×12 · 28 myths</option>
+        </select>
+        <button class="btn" id="newBtn">↻ New Field</button>
+      </div>
+      <div class="boardwrap" id="wrap"><div class="grid" id="grid" oncontextmenu="return false"></div></div>
+      <div class="banner" id="banner"></div>
+    </div>
+
+    <div class="notes">
+      <h3>Field Notes</h3>
+      <div class="feed" id="feed">
+        <div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix — <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>
+      </div>
+      <div class="notes-foot" id="notesFoot">Corrections: 0 / 0 nailed</div>
+    </div>
+  </div>
+
+  <div class="foot">Content from AP World History: Modern, Unit 1 (c. 1200–c. 1450). A study tool, not an official College Board product.</div>
+</div>
+
+<div class="ov" id="ov">
+  <div class="ovcard" id="ovcard">
+    <div class="eb">Intelligence intercept</div>
+    <div class="clue" id="ov-clue"></div>
+    <div class="q" id="ov-q"></div>
+    <div class="ovbtns" id="ov-btns">
+      <button class="fact" id="ov-fact">✓ Fact — clear it</button>
+      <button class="myth" id="ov-myth">✕ Myth — defuse it</button>
+    </div>
+    <div class="ovresult" id="ov-result"><span class="rt" id="ov-rt"></span><span id="ov-rtxt"></span></div>
+    <div class="ovnext" id="ov-next"><button class="btn" id="ov-next-btn">Continue →</button></div>
+  </div>
+</div>
+
+<script>
+/* ── CONTENT (grounded in the Unit 7 review site) ──
+   FACTS = safe squares.  MYTHS = mines; f = the real correction,
+   d = two hand-written distractors that look plausible.            */
+const FACTS = [
+  "WWI's underlying causes are summarized as Militarism, Alliances, Imperialism, and Nationalism (MAIN).",
+  "The assassination of Archduke Franz Ferdinand in 1914 sparked World War I.",
+  "Trench warfare on the Western Front produced a bloody stalemate.",
+  "Total war mobilized entire economies and societies for the war effort.",
+  "Governments used propaganda to sustain public support for war.",
+  "WWI introduced machine guns, poison gas, tanks, and aircraft.",
+  "The Russian Revolution of 1917 brought Lenin and the Bolsheviks to power.",
+  "The Treaty of Versailles (1919) blamed Germany and imposed harsh reparations.",
+  "The League of Nations formed after WWI but lacked enforcement power; the US never joined.",
+  "The Great Depression of the 1930s spread economic collapse worldwide.",
+  "Fascism, stressing extreme nationalism and dictatorship, rose in Italy under Mussolini.",
+  "Hitler and the Nazis took power in Germany during the Depression.",
+  "Stalin's Five-Year Plans forced rapid, state-directed Soviet industrialization.",
+  "Stalin's forced collectivization caused famines such as the Holodomor in Ukraine.",
+  "Appeasement conceded to Hitler's demands to avoid war (e.g., the Munich Agreement).",
+  "World War II in Europe began with Germany's invasion of Poland in 1939.",
+  "The Holocaust was the Nazi genocide of six million Jews and millions of others.",
+  "The Armenian Genocide during WWI killed over a million Armenians.",
+  "Japan's expansion and the attack on Pearl Harbor (1941) brought the US into WWII.",
+  "The atomic bombings of Hiroshima and Nagasaki (1945) ended WWII in the Pacific.",
+  "World War II was history's deadliest conflict, killing tens of millions.",
+  "Women took on factory and support roles during both world wars.",
+  "Colonized peoples fought for empires and then pressed for independence.",
+  "The United Nations formed in 1945 to promote international cooperation.",
+  "WWI redrew maps, creating new states and the mandate system.",
+  "Blitzkrieg ('lightning war') used fast, coordinated attacks in WWII.",
+  "Total war blurred the line between soldiers and civilians as targets.",
+  "Genocides in this era were often driven by extreme nationalism and racism."
+];
+const MYTHS = [
+  {m:"World War I began when Germany bombed Pearl Harbor.",
+   f:"WWI was sparked by the assassination of Archduke Franz Ferdinand in 1914.",
+   d:["It began with the invasion of Poland.","It began with the Russian Revolution."]},
+  {m:"Trench warfare produced quick, decisive victories.",
+   f:"Trench warfare produced a bloody stalemate.",
+   d:["It avoided casualties entirely.","It was fought only at sea."]},
+  {m:"Total war kept economies civilian and untouched.",
+   f:"It mobilized entire economies and societies for war.",
+   d:["It involved only professional soldiers.","It banned the use of factories."]},
+  {m:"The Treaty of Versailles rewarded Germany generously.",
+   f:"It blamed Germany and imposed harsh reparations.",
+   d:["It gave Germany new overseas colonies.","It was written by Germany alone."]},
+  {m:"The League of Nations had a strong army to enforce peace.",
+   f:"It lacked enforcement power, and the US never joined.",
+   d:["It was led by the Soviet Union.","It successfully prevented World War II."]},
+  {m:"The Russian Revolution of 1917 restored the tsar to power.",
+   f:"It brought Lenin and the Bolsheviks to power.",
+   d:["It made Russia a democracy under the tsar.","It installed Hitler in Russia."]},
+  {m:"Fascism promoted democracy and individual rights.",
+   f:"Fascism stressed extreme nationalism and dictatorship.",
+   d:["It called for worker-run communes.","It opposed all nationalism."]},
+  {m:"Appeasement was an aggressive policy of attacking Hitler early.",
+   f:"Appeasement conceded to Hitler's demands to avoid war.",
+   d:["It was Stalin's industrial plan.","It was a US isolationist law."]},
+  {m:"World War II in Europe began with the bombing of Hiroshima.",
+   f:"It began with Germany's invasion of Poland in 1939.",
+   d:["It began with the Treaty of Versailles.","It began with the attack on Pearl Harbor."]},
+  {m:"The Holocaust targeted only soldiers on the battlefield.",
+   f:"It was the Nazi genocide of six million Jews and millions of others.",
+   d:["It was a WWI trench campaign.","It was a Soviet industrial program."]},
+  {m:"Stalin's Five-Year Plans focused on expanding free markets.",
+   f:"They forced rapid, state-directed industrialization.",
+   d:["They privatized all Soviet farms.","They dissolved the Soviet government."]},
+  {m:"The atomic bombs were dropped on Berlin and Rome.",
+   f:"They were dropped on Hiroshima and Nagasaki, Japan.",
+   d:["They were dropped on London and Paris.","They were dropped on Moscow."]},
+  {m:"The attack on Pearl Harbor kept the United States out of WWII.",
+   f:"The 1941 attack on Pearl Harbor brought the US into the war.",
+   d:["It ended the war in the Pacific.","It started World War I."]},
+  {m:"The Armenian Genocide occurred during the Cold War.",
+   f:"It occurred during WWI, killing over a million Armenians.",
+   d:["It happened during the French Revolution.","It targeted Japanese civilians."]},
+  {m:"Propaganda played no role in the world wars.",
+   f:"Governments used propaganda to sustain support for war.",
+   d:["Propaganda was banned by both sides.","It was used only after the wars ended."]},
+  {m:"The Great Depression boosted prosperity worldwide.",
+   f:"It spread economic collapse and mass unemployment.",
+   d:["It affected only the United States.","It permanently ended all global trade."]},
+  {m:"Blitzkrieg was a slow, defensive trench strategy.",
+   f:"Blitzkrieg was fast, coordinated 'lightning war.'",
+   d:["It was a naval blockade tactic.","It was a propaganda campaign."]},
+  {m:"Mussolini founded communism in Italy.",
+   f:"Mussolini founded fascism in Italy.",
+   d:["He founded Italian democracy.","He led the Russian Revolution."]},
+  {m:"WWI featured only traditional swords and cavalry.",
+   f:"It introduced machine guns, poison gas, tanks, and aircraft.",
+   d:["It was fought entirely at sea.","It used no weapons at all."]},
+  {m:"The Holodomor was a natural famine unrelated to policy.",
+   f:"It stemmed from Stalin's forced collectivization in Ukraine.",
+   d:["It was caused by German bombing.","It was a WWI trench disease."]},
+  {m:"The United Nations was created before World War I.",
+   f:"The UN was created in 1945, after World War II.",
+   d:["It was created during the French Revolution.","It replaced the tsar in 1917."]},
+  {m:"The mandate system granted immediate independence to colonies.",
+   f:"It placed former territories under European administration.",
+   d:["It abolished all empires at once.","It created the Soviet Union."]},
+  {m:"Nationalism had nothing to do with WWI's outbreak.",
+   f:"Nationalism was a key underlying cause of WWI (part of MAIN).",
+   d:["The war was caused only by trade disputes.","The war had no real causes."]},
+  {m:"Colonized peoples refused to take part in the world wars.",
+   f:"They fought for empires and then pressed for independence.",
+   d:["They were forbidden from serving.","They fought only against each other."]},
+  {m:"The Nazis rose to power during an era of prosperity.",
+   f:"They rose amid the crisis of the Great Depression.",
+   d:["They rose to power in the 1990s.","They were installed by the League of Nations."]},
+  {m:"Total war spared civilians from harm.",
+   f:"It blurred the line between soldiers and civilians as targets.",
+   d:["It protected all cities by treaty.","It involved no bombing of any kind."]},
+  {m:"Franz Ferdinand's assassination ended World War I.",
+   f:"It helped spark World War I in 1914.",
+   d:["It ended the Russian Revolution.","It started the Cold War."]},
+  {m:"Hiroshima and Nagasaki were bombed to begin World War II.",
+   f:"They were bombed in 1945 to end WWII in the Pacific.",
+   d:["They were bombed during World War I.","They were bombed by Japan."]}
+];
+
+const LEVELS={easy:{r:8,c:8,m:10},med:{r:10,c:10,m:16},hard:{r:12,c:12,m:28}};
+let R,C,M,G,alive,started,firstClick,lives,t,tick,flagged,logged,fixRight,fixTotal;
+
+const gridEl=document.getElementById('grid'), wrapEl=document.getElementById('wrap');
+const minesEl=document.getElementById('mines'), timeEl=document.getElementById('time'), livesEl=document.getElementById('lives');
+const fixesEl=document.getElementById('fixes'), feedEl=document.getElementById('feed'), bannerEl=document.getElementById('banner'), footEl=document.getElementById('notesFoot');
+const ov=document.getElementById('ov');
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function mcOptions(myth){
+  return shuffle([{text:myth.f,correct:true},{text:myth.d[0],correct:false},{text:myth.d[1],correct:false}]);
+}
+
+function newGame(){
+  const lv=LEVELS[document.getElementById('diff').value];
+  R=lv.r;C=lv.c;M=lv.m;
+  alive=true;started=false;firstClick=true;lives=3;t=0;flagged=0;logged=new Set();fixRight=0;fixTotal=0;
+  clearInterval(tick);timeEl.textContent='0';fixesEl.textContent='0';
+  wrapEl.classList.remove('over');bannerEl.className='banner';ov.classList.remove('show');
+  feedEl.innerHTML='<div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix — <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>';
+  footEl.textContent='Corrections: 0 / 0 nailed';
+  const facts=shuffle(FACTS.slice());let fi=0;
+  G=[];for(let r=0;r<R;r++){const row=[];for(let c=0;c<C;c++)row.push({mine:false,open:false,flag:false,n:0,fact:facts[fi++%facts.length]});G.push(row);}
+  minesEl.textContent=M;livesUI();drawGrid();
+}
+function nb(r,c){const o=[];for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const nr=r+dr,nc=c+dc;if(nr>=0&&nr<R&&nc>=0&&nc<C)o.push([nr,nc]);}return o;}
+function el(r,c){return gridEl.children[r*C+c];}
+function placeMines(sr,sc){
+  const cells=[];for(let r=0;r<R;r++)for(let c=0;c<C;c++){if(Math.abs(r-sr)<=1&&Math.abs(c-sc)<=1)continue;cells.push([r,c]);}
+  shuffle(cells);const myths=shuffle(MYTHS.slice());
+  for(let i=0;i<M&&i<cells.length;i++){const[r,c]=cells[i];G[r][c].mine=true;G[r][c].myth=myths[i%myths.length];}
+  recount();
+}
+function recount(){for(let r=0;r<R;r++)for(let c=0;c<C;c++){if(G[r][c].mine)continue;G[r][c].n=nb(r,c).filter(([a,b])=>G[a][b].mine).length;}}
+function drawGrid(){
+  gridEl.style.gridTemplateColumns=`repeat(${C},1fr)`;gridEl.innerHTML='';
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    const b=document.createElement('button');b.className='cell';b.dataset.r=r;b.dataset.c=c;
+    b.addEventListener('click',()=>ask(r,c));
+    b.addEventListener('contextmenu',e=>{e.preventDefault();ask(r,c);});
+    gridEl.appendChild(b);
+  }
+  sync();
+}
+function sync(){
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    const g=G[r][c],e=el(r,c);e.className='cell';e.textContent='';
+    if(g.flag){e.classList.add('flag');e.textContent='⚑';continue;}
+    if(g.trip){e.classList.add('trip');e.textContent='✕';continue;}
+    if(g.factwrong){e.classList.add('factwrong');e.textContent='✓';continue;}
+    if(g.open){e.classList.add('open');if(g.n===0)e.classList.add('zero');else{e.textContent=g.n;e.classList.add('n'+g.n);}}
+  }
+}
+
+let pending=null;
+function ask(r,c){
+  if(!alive)return;const g=G[r][c];if(g.open||g.flag||g.trip||g.factwrong)return;
+  if(firstClick){placeMines(r,c);firstClick=false;}
+  pending=[r,c];el(r,c).classList.add('pending');
+  const stmt=g.mine?g.myth.m:g.fact;
+  const known=nb(r,c).filter(([a,b])=>G[a][b].open).some(([a,b])=>G[a][b].n>0);
+  document.getElementById('ov-clue').innerHTML = known
+    ? 'The numbers around this square hint at <b>danger</b> — but read the claim and decide for yourself.'
+    : 'No clues nearby yet. Judge this claim on the history alone.';
+  document.getElementById('ov-q').textContent=stmt;
+  document.getElementById('ov-btns').style.display='grid';
+  document.getElementById('ov-result').className='ovresult';
+  document.getElementById('ov-result').innerHTML='<span class="rt" id="ov-rt"></span><span id="ov-rtxt"></span>';
+  document.getElementById('ov-next').className='ovnext';
+  document.getElementById('ovcard').className='ovcard';
+  ov.classList.add('show');
+}
+function answer(saidFact){
+  if(!pending)return;const[r,c]=pending;const g=G[r][c];
+  if(!started){started=true;timer();}
+  document.getElementById('ov-btns').style.display='none';
+  el(r,c).classList.remove('pending');
+  const card=document.getElementById('ovcard');
+
+  if(saidFact && !g.mine){                         // ✓ cleared a fact
+    flood(r,c);card.classList.add('correct');
+    result('good','Correct — a true fact','Cleared. '+(g.n>0?`${g.n} of its neighbors ${g.n===1?'is a myth':'are myths'}.`:'No myths border it.'));
+    finishTurn();
+  } else if(!saidFact && g.mine){                  // ✓ defused a myth → pick the correction
+    g.flag=true;flagged++;sync();
+    startPick(g.myth,false);
+  } else if(saidFact && g.mine){                   // ✗ tripped a myth (still must pick the correction)
+    lives--;livesUI();
+    g.trip=true;g.mine=false;g.detonated=true;g.flag=false;recount();flagged++;sync();
+    card.classList.add('wrong');
+    startPick(g.myth,true);
+  } else {                                         // ✗ called a true fact a myth
+    lives--;livesUI();
+    g.factwrong=true;sync();
+    card.classList.add('wrong');
+    result('bad','Wrong — that was true','This is a real fact: '+g.fact);
+    logFact(g.fact);
+    finishTurn();
+  }
+  minesEl.textContent=Math.max(0,M-flagged);
+}
+function result(kind,tag,txt){
+  const res=document.getElementById('ov-result');
+  res.className='ovresult show '+kind;
+  document.getElementById('ov-rt').textContent=tag;
+  document.getElementById('ov-rtxt').innerHTML='<span class="fix">'+esc(txt)+'</span>';
+}
+function finishTurn(){document.getElementById('ov-next').className='ovnext show';}
+
+/* the core "pick the correction" step */
+function startPick(myth,tripped){
+  const res=document.getElementById('ov-result');
+  res.className='ovresult show ask';
+  document.getElementById('ov-rt').textContent = tripped ? 'That was a myth — now fix it' : 'Myth defused — now fix it';
+  const opts=mcOptions(myth);
+  let html='<div class="mc-q">What’s actually true?</div><div class="mc-opts">';
+  opts.forEach(o=>{html+=`<button class="mc-opt" data-correct="${o.correct}">${esc(o.text)}</button>`;});
+  html+='</div>';
+  document.getElementById('ov-rtxt').innerHTML=html;
+  document.querySelectorAll('#ov-rtxt .mc-opt').forEach(b=>b.addEventListener('click',()=>{
+    const correct=b.dataset.correct==='true';
+    document.querySelectorAll('#ov-rtxt .mc-opt').forEach(x=>{x.disabled=true;if(x.dataset.correct==='true')x.classList.add('right');});
+    if(!correct)b.classList.add('wrongpick');
+    const card=document.getElementById('ovcard');
+    if(correct){
+      res.className='ovresult show good';
+      document.getElementById('ov-rt').textContent='Correct — you nailed the fix ✓';
+    } else if(tripped){
+      // the square already detonated on the wrong Fact/Myth call; the pick is a teaching moment, no extra life
+      res.className='ovresult show bad';
+      document.getElementById('ov-rt').textContent='Still not the fix — the green one is right';
+    } else {
+      // correctly flagged the myth but couldn't correct it → it detonates
+      lives--; livesUI();
+      card.classList.remove('correct'); card.classList.add('wrong');
+      res.className='ovresult show bad';
+      document.getElementById('ov-rt').textContent='💥 Wrong fix — the myth detonates (−1 life)';
+      const pe=pending?el(pending[0],pending[1]):null; if(pe)pe.classList.add('blast');
+    }
+    fixTotal++; if(correct)fixRight++; fixesEl.textContent=fixRight; updateFoot();
+    logMyth(myth,correct);
+    finishTurn();
+  }));
+}
+
+function flood(r,c){
+  const st=[[r,c]];
+  while(st.length){const[cr,cc]=st.pop();const g=G[cr][cc];
+    if(g.open||g.flag||g.mine||g.trip||g.factwrong)continue;
+    g.open=true;logFact(g.fact);
+    if(g.n===0)nb(cr,cc).forEach(([nr,nc])=>{if(!G[nr][nc].open)st.push([nr,nc]);});
+  }
+  sync();
+}
+
+document.getElementById('ov-fact').addEventListener('click',()=>answer(true));
+document.getElementById('ov-myth').addEventListener('click',()=>answer(false));
+document.getElementById('ov-next-btn').addEventListener('click',()=>{
+  ov.classList.remove('show');pending=null;
+  if(lives<=0){lose();return;}
+  checkWin();
+});
+
+function livesUI(){livesEl.textContent='♥'.repeat(Math.max(0,lives))+'♡'.repeat(Math.max(0,3-lives));}
+function timer(){clearInterval(tick);tick=setInterval(()=>{t++;timeEl.textContent=t;},1000);}
+function updateFoot(){footEl.textContent=`Corrections: ${fixRight} / ${fixTotal} nailed`;}
+
+function checkWin(){
+  if(!alive)return;let ok=true;
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){const g=G[r][c];
+    if(!g.mine&&!g.open&&!g.factwrong&&!g.detonated)ok=false;
+    if(g.mine&&!g.flag)ok=false;}
+  if(ok)win();
+}
+function win(){ alive=false;clearInterval(tick);
+  bannerEl.className='banner win';
+  bannerEl.innerHTML=`<span class="big">✓ Field cleared.</span> Every myth defused in ${t}s with ${lives} ${lives===1?'life':'lives'} left — and you nailed <b>${fixRight} of ${fixTotal}</b> corrections.`;
+}
+function lose(){ alive=false;clearInterval(tick);wrapEl.classList.add('over');
+  bannerEl.className='banner lose';
+  bannerEl.innerHTML=`<span class="big">✕ Out of lives.</span> Remaining myths stay hidden — that's the point. You nailed ${fixRight} of ${fixTotal} corrections; review Field Notes, then hit New Field.`;
+}
+
+/* Field Notes */
+function clearEmpty(){const e=feedEl.querySelector('.empty');if(e)e.remove();}
+function logFact(text){if(logged.has('F'+text))return;logged.add('F'+text);clearEmpty();
+  const d=document.createElement('div');d.className='li';d.innerHTML=`<span class="tag">✓ Fact confirmed</span>${esc(text)}`;
+  feedEl.appendChild(d);feedEl.scrollTop=feedEl.scrollHeight;}
+function logMyth(myth,gotIt){clearEmpty();
+  const d=document.createElement('div');d.className='li '+(gotIt?'myth':'review');
+  d.innerHTML=`<span class="tag">✕ Myth — ${gotIt?'fix nailed ✓':'review this ↻'}</span>${esc(myth.m)}<span class="fix">Actually: ${esc(myth.f)}</span>`;
+  feedEl.appendChild(d);feedEl.scrollTop=feedEl.scrollHeight;}
+
+document.getElementById('newBtn').addEventListener('click',newGame);
+document.getElementById('diff').addEventListener('change',newGame);
+newGame();
+</script>
+</body>
+</html>

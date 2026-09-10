@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 4 Interrogate — Fact / Myth Minesweeper</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#111a3f;--blue:#2d5deb;--sky:#e8f0ff;--lime:#d8f13a;--coral:#ff684c;
+  --white:#fbfcff;--muted:#485586;--line:#c9d5f5;--green:#1a8a4a
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-size:18px}
+body{margin:0;background:var(--white);color:var(--navy);font:1rem/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+a{color:inherit}
+
+.bar{height:66px;padding:0 max(20px,3vw);background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;position:sticky;top:0;z-index:60;box-shadow:0 2px 0 var(--blue)}
+.brand{font:900 16.8px 'Lato',sans-serif;letter-spacing:-.04em;text-decoration:none;color:#fff;white-space:nowrap}
+.brand b{color:var(--lime)}
+.links a{color:#fff;text-decoration:none;font-size:10.56px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 2px;border-bottom:2px solid transparent}
+.links a:hover{color:var(--lime);border-bottom-color:var(--lime)}
+
+.main{max-width:1100px;margin:auto;padding:26px max(20px,3vw) 70px}
+.eyebrow{font-size:.64rem;color:var(--blue);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-height:.98;font-size:2.1rem;margin:6px 0 8px}
+.sub{margin:0;color:var(--muted);max-width:680px;font-size:.82rem}
+
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:22px 0 4px}
+.how .card{border:2px solid var(--navy);background:#fff;padding:13px 14px}
+.how .card:nth-child(2){background:var(--sky)}
+.how b{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+.how span{display:block;font-size:.65rem;color:var(--muted);margin-top:5px;line-height:1.45}
+.how .k{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:.58rem;padding:2px 6px;letter-spacing:.04em;margin-right:4px}
+
+.play{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;margin-top:18px;align-items:start}
+
+.hud{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;background:var(--navy);color:#fff;padding:13px 18px;border:2px solid var(--navy)}
+.stat{display:flex;align-items:baseline;gap:7px}
+.stat .n{font:900 1.5rem 'Lato',sans-serif;color:var(--lime);min-width:1.4ch;text-align:right}
+.stat .l{font-size:.54rem;text-transform:uppercase;letter-spacing:.08em;color:#aeb9e6;line-height:1.1}
+.lives{letter-spacing:2px;font-size:1.05rem}
+.hud .spacer{flex:1}
+.sel{font:inherit;font-size:.72rem;font-weight:700;padding:9px 10px;border:2px solid var(--lime);background:var(--navy);color:#fff;cursor:pointer}
+.btn{display:inline-block;background:var(--lime);color:var(--navy);text-decoration:none;padding:10px 14px;text-transform:uppercase;font-size:.64rem;font-weight:700;letter-spacing:.08em;border:2px solid var(--navy);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+
+.boardwrap{border:2px solid var(--navy);background:var(--sky);padding:14px;margin-top:12px;overflow:auto}
+.boardwrap.over{opacity:.55;filter:grayscale(.3);pointer-events:none}
+.grid{display:grid;gap:4px;width:max-content;margin:auto}
+.cell{width:40px;height:40px;border:2px solid var(--navy);background:#fff;font:900 1.05rem 'Lato',sans-serif;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:background .1s,transform .08s;user-select:none}
+.cell:hover:not(.open):not(.flag){background:var(--sky);transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--navy)}
+.cell.open{background:var(--white);border-color:var(--line);cursor:default}
+.cell.open.zero{background:#eef3ff}
+.cell.factwrong{background:#eef3ff;border-color:var(--blue);color:var(--blue);cursor:default}
+.cell.flag{background:var(--lime);cursor:default}
+.cell.trip{background:var(--coral);color:#fff;cursor:default}
+.cell.pending{outline:3px solid var(--blue);outline-offset:-3px}
+.cell.blast{animation:blast .55s ease}
+@keyframes blast{0%,35%{background:var(--coral);color:#fff;transform:scale(1.12)}100%{background:var(--lime);color:var(--navy);transform:none}}
+.n1{color:#2d5deb}.n2{color:#1a8a4a}.n3{color:#ff684c}.n4{color:#7a2ee0}.n5{color:#c24a2e}.n6{color:#0f8a9c}.n7{color:#111a3f}.n8{color:#485586}
+
+.notes{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column;max-height:660px}
+.notes h3{margin:0;font:900 .8rem 'Lato',sans-serif;background:var(--navy);color:#fff;padding:12px 16px;text-transform:uppercase;letter-spacing:.04em}
+.notes .feed{padding:12px 14px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:9px}
+.notes .empty{color:var(--muted);font-size:.72rem;line-height:1.5}
+.notes-foot{border-top:2px solid var(--line);padding:9px 14px;font-size:.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.li{border-left:4px solid var(--green);background:#eef7f0;padding:9px 11px;font-size:.72rem;line-height:1.4;animation:pop .25s ease}
+.li.myth{border-left-color:var(--coral);background:#fff0ec}
+.li.review{border-left-color:#c98a00;background:#fff9e8}
+.li .tag{display:block;font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;color:var(--green)}
+.li.myth .tag{color:var(--coral)}
+.li.review .tag{color:#a76f00}
+.li .fix{display:block;margin-top:5px;color:var(--navy);font-weight:700}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.ov{position:fixed;inset:0;z-index:200;background:rgba(17,26,63,.72);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.ov.show{display:flex}
+.ovcard{background:var(--white);border:2px solid var(--navy);border-top:6px solid var(--blue);box-shadow:8px 8px 0 var(--navy);max-width:540px;width:100%;padding:26px 28px 22px;animation:pop .2s ease;margin:auto}
+.ovcard.correct{border-top-color:var(--green)}
+.ovcard.wrong{border-top-color:var(--coral)}
+.ov .eb{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.ov .clue{font-size:.62rem;font-weight:700;color:var(--muted);margin-bottom:12px}
+.ov .clue b{color:var(--coral)}
+.ov .q{font:900 1.18rem/1.3 'Lato',sans-serif;letter-spacing:-.02em;margin-bottom:18px}
+.ovbtns{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.ovbtns button{font:inherit;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding:15px;border:2px solid var(--navy);cursor:pointer;transition:transform .1s,box-shadow .1s}
+.ovbtns .fact{background:#e6f6ec;color:var(--green)}
+.ovbtns .myth{background:#fff0ec;color:var(--coral)}
+.ovbtns button:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+.ovresult{margin-top:16px;padding:13px 15px;font-size:.8rem;line-height:1.45;display:none}
+.ovresult.show{display:block}
+.ovresult.good{border-left:4px solid var(--green);background:#eef7f0}
+.ovresult.bad{border-left:4px solid var(--coral);background:#fff0ec}
+.ovresult.ask{border-left:4px solid var(--blue);background:var(--sky)}
+.ovresult .rt{display:block;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.ovresult.good .rt{color:var(--green)}.ovresult.bad .rt{color:var(--coral)}.ovresult.ask .rt{color:var(--blue)}
+.ovresult .fix{font-weight:700}
+.mc-q{font-weight:700;font-size:.8rem;margin-bottom:10px}
+.mc-opts{display:flex;flex-direction:column;gap:7px}
+.mc-opt{font:inherit;font-size:.75rem;line-height:1.35;text-align:left;padding:11px 12px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:background .1s}
+.mc-opt:hover:not(:disabled){background:var(--sky)}
+.mc-opt:disabled{cursor:default}
+.mc-opt.right{background:#e6f6ec;border-color:var(--green);color:var(--green);font-weight:700}
+.mc-opt.wrongpick{background:#fff0ec;border-color:var(--coral);color:var(--coral)}
+.ovnext{margin-top:14px;text-align:right;display:none}
+.ovnext.show{display:block}
+
+.banner{margin-top:12px;padding:15px 18px;border:2px solid var(--navy);font-weight:700;font-size:.8rem;display:none;align-items:center;gap:12px;flex-wrap:wrap}
+.banner.win{display:flex;background:var(--lime);color:var(--navy)}
+.banner.lose{display:flex;background:var(--coral);color:#fff}
+.banner .big{font:900 1.05rem 'Lato',sans-serif}
+
+.foot{margin-top:40px;border-top:2px solid var(--navy);padding-top:16px;font-size:.64rem;color:var(--muted);line-height:1.7}
+
+@media(max-width:900px){ .play{grid-template-columns:1fr} .how{grid-template-columns:1fr 1fr} .notes{max-height:none} }
+@media(max-width:560px){ .how{grid-template-columns:1fr} .cell{width:34px;height:34px;font-size:.9rem} }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="index.html">AP WORLD // <b>INTERROGATE</b></a>
+  <div class="links"><a href="unit4.html">← Unit 4 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 4 · Transoceanic Interconnections · c. 1450 – c. 1750</div>
+  <h1>Interrogate — Fact / Myth Minesweeper</h1>
+  <p class="sub">A minefield of claims about Unit&nbsp;4. Click a square: <b>is it a true fact or a historical myth?</b> Facts are safe and reveal a number (how many myths touch them); myths are the mines. Spot a myth and you're not done — <b>you must then pick the real correction</b> from three options. The numbers point toward danger, but only knowing the history clears the field.</p>
+
+  <div class="how">
+    <div class="card"><b>Open a square</b><span><span class="k">CLICK</span>A claim appears. Answer <b>Fact</b> to clear it or <b>Myth</b> to defuse it.</span></div>
+    <div class="card"><b>Fix the myth</b><span>Defuse a myth and a follow-up asks: what's <b>actually</b> true? Pick the right correction from three — <b>miss it and the myth detonates</b> (−1 life).</span></div>
+    <div class="card"><b>Read the numbers</b><span>A cleared fact shows how many of its 8 neighbors are myths — your clue for where to probe next.</span></div>
+    <div class="card"><b>Survive &amp; clear</b><span>3 lives; a wrong Fact/Myth call costs one. Clear every fact and defuse every myth to win. Positions stay hidden.</span></div>
+  </div>
+
+  <div class="play">
+    <div class="left">
+      <div class="hud">
+        <div class="stat"><span class="n" id="mines">16</span><span class="l">Myths<br>left</span></div>
+        <div class="stat"><span class="n" id="fixes">0</span><span class="l">Fixes<br>nailed</span></div>
+        <div class="stat"><span class="n" id="time">0</span><span class="l">Sec</span></div>
+        <div class="stat"><span class="l">Lives</span><span class="n lives" id="lives">♥♥♥</span></div>
+        <div class="spacer"></div>
+        <select class="sel" id="diff" title="Difficulty">
+          <option value="easy">Cadet · 8×8 · 10 myths</option>
+          <option value="med" selected>Officer · 10×10 · 16 myths</option>
+          <option value="hard">Commander · 12×12 · 28 myths</option>
+        </select>
+        <button class="btn" id="newBtn">↻ New Field</button>
+      </div>
+      <div class="boardwrap" id="wrap"><div class="grid" id="grid" oncontextmenu="return false"></div></div>
+      <div class="banner" id="banner"></div>
+    </div>
+
+    <div class="notes">
+      <h3>Field Notes</h3>
+      <div class="feed" id="feed">
+        <div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix — <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>
+      </div>
+      <div class="notes-foot" id="notesFoot">Corrections: 0 / 0 nailed</div>
+    </div>
+  </div>
+
+  <div class="foot">Content from AP World History: Modern, Unit 1 (c. 1200–c. 1450). A study tool, not an official College Board product.</div>
+</div>
+
+<div class="ov" id="ov">
+  <div class="ovcard" id="ovcard">
+    <div class="eb">Intelligence intercept</div>
+    <div class="clue" id="ov-clue"></div>
+    <div class="q" id="ov-q"></div>
+    <div class="ovbtns" id="ov-btns">
+      <button class="fact" id="ov-fact">✓ Fact — clear it</button>
+      <button class="myth" id="ov-myth">✕ Myth — defuse it</button>
+    </div>
+    <div class="ovresult" id="ov-result"><span class="rt" id="ov-rt"></span><span id="ov-rtxt"></span></div>
+    <div class="ovnext" id="ov-next"><button class="btn" id="ov-next-btn">Continue →</button></div>
+  </div>
+</div>
+
+<script>
+/* ── CONTENT (grounded in the Unit 4 review site) ──
+   FACTS = safe squares.  MYTHS = mines; f = the real correction,
+   d = two hand-written distractors that look plausible.            */
+const FACTS = [
+  "The Columbian Exchange transferred plants, animals, diseases, people, and ideas between the Americas, Africa, and Eurasia after 1492.",
+  "Old World diseases like smallpox caused catastrophic demographic collapse among Native Americans.",
+  "New World crops such as potatoes and maize spread to the Old World, boosting populations.",
+  "The caravel was a small, maneuverable ship that aided Atlantic exploration.",
+  "The astrolabe and magnetic compass improved navigation on open seas.",
+  "The lateen sail let ships sail against the wind; the stern rudder improved steering.",
+  "Mercantilism held that a nation's wealth depended on hoarding bullion and a favorable trade balance.",
+  "Joint-stock companies like the Dutch VOC pooled investors' money and spread risk overseas.",
+  "The Atlantic slave trade forcibly transported millions of Africans to the Americas.",
+  "The encomienda system granted colonists the forced labor of Native peoples in Spanish America.",
+  "The hacienda was a large landed estate producing crops for profit.",
+  "The Spanish turned the Inca mit'a into coerced labor in silver mines like Potosí.",
+  "Silver from the Americas became a global currency, flowing especially toward China.",
+  "The Manila galleons crossed the Pacific, linking American silver with Asian goods.",
+  "Spanish America developed a casta system ranking people by ancestry.",
+  "Peninsulares (Iberian-born) sat atop the casta hierarchy, above American-born creoles.",
+  "Mestizos were people of mixed European and Indigenous ancestry.",
+  "Syncretic religions such as Vodun blended African and Christian beliefs.",
+  "Portugal built a trading-post empire controlling Indian Ocean sea routes.",
+  "Prince Henry the Navigator sponsored Portuguese exploration of Africa's coast.",
+  "Enslaved people resisted through revolts, sabotage, and forming maroon communities.",
+  "Bartolomé de las Casas criticized the abuse of Native peoples in the Americas.",
+  "The Pueblo Revolt (1680) temporarily drove the Spanish from New Mexico.",
+  "Motives for European exploration are summarized as 'God, Gold, and Glory.'",
+  "Tokugawa Japan adopted isolation (sakoku), tightly limiting foreign contact.",
+  "Chattel slavery treated the enslaved as inheritable property for life.",
+  "Sugar plantations in the Caribbean and Brazil relied heavily on enslaved African labor.",
+  "Creoles were people of European descent born in the Americas."
+];
+const MYTHS = [
+  {m:"The Columbian Exchange moved goods only from Europe to the Americas.",
+   f:"It flowed both ways among the Americas, Africa, and Eurasia.",
+   d:["It moved goods only within the Americas.","It involved only the trade of gold."]},
+  {m:"Most Native Americans died fighting conquistadors in battle.",
+   f:"Old World diseases like smallpox killed the vast majority.",
+   d:["Most died from Old World famine crops.","Most were killed by rival Native empires."]},
+  {m:"The potato and maize came from Europe to the Americas.",
+   f:"They were New World crops that spread to the Old World.",
+   d:["They came from Africa via the slave trade.","They came from China along the Silk Roads."]},
+  {m:"Mercantilism encouraged free trade with rival nations.",
+   f:"Mercantilism sought to hoard bullion and keep a favorable trade balance.",
+   d:["It abolished tariffs and colonies.","It shared wealth equally among classes."]},
+  {m:"Joint-stock companies were funded entirely by the king's treasury.",
+   f:"They pooled money from many private investors to spread risk.",
+   d:["They were charities that gave profits to the poor.","They were banned by all European monarchs."]},
+  {m:"The encomienda system paid Native workers fair wages.",
+   f:"It was a coercive grant of Native labor to colonists.",
+   d:["It freed Native peoples from all labor.","It applied only to European settlers."]},
+  {m:"American silver had little effect on global trade.",
+   f:"Silver became a global currency, flowing especially to China.",
+   d:["Silver was hoarded and never traded.","Silver was used only within the Americas."]},
+  {m:"In the casta system, American-born creoles outranked Iberian-born peninsulares.",
+   f:"Peninsulares sat above creoles at the top of the hierarchy.",
+   d:["Enslaved Africans ranked at the very top.","Mestizos ranked above every other group."]},
+  {m:"The caravel was a massive Chinese treasure ship.",
+   f:"The caravel was a small, maneuverable European ship for exploration.",
+   d:["It was a flat-bottomed river barge.","It was a Viking longship."]},
+  {m:"The Atlantic slave trade carried enslaved people from the Americas to Africa.",
+   f:"It forcibly carried Africans to the Americas.",
+   d:["It moved European servants to Africa.","It traded only goods, never people."]},
+  {m:"Encomienda and hacienda were forms of free peasant landownership.",
+   f:"They were coercive labor and estate systems in Spanish America.",
+   d:["They were joint-stock trading firms.","They were monastic religious orders."]},
+  {m:"Syncretic religions like Vodun rejected all African traditions.",
+   f:"They blended African beliefs with Christianity.",
+   d:["They blended Islam with Buddhism.","They were pure European Catholicism."]},
+  {m:"Portugal built a large settler empire across India's interior.",
+   f:"Portugal built a trading-post empire controlling sea routes.",
+   d:["Portugal conquered and settled all of China.","Portugal colonized the North American plains."]},
+  {m:"Under Spain, the mita freed workers from the silver mines.",
+   f:"The Spanish turned the mit'a into forced mine labor, as at Potosí.",
+   d:["The mita paid miners generous silver shares.","The mita applied only to Spanish colonists."]},
+  {m:"The Manila galleons crossed the Atlantic between Europe and Africa.",
+   f:"They crossed the Pacific, linking American silver and Asian goods.",
+   d:["They sailed the Indian Ocean to the Swahili coast.","They traveled the overland Silk Roads."]},
+  {m:"Chattel slavery treated the enslaved as temporary wage workers.",
+   f:"It treated them as inheritable property for life.",
+   d:["It freed the enslaved after seven years.","It applied only to prisoners of war."]},
+  {m:"Bartolomé de las Casas defended the harsh treatment of Native peoples.",
+   f:"He criticized the abuse of Native peoples in the Americas.",
+   d:["He organized the Atlantic slave trade.","He led the Pueblo Revolt."]},
+  {m:"The Pueblo Revolt permanently ended all European presence in the Americas.",
+   f:"It temporarily drove Spain from New Mexico in 1680.",
+   d:["It expelled the Portuguese from Brazil.","It overthrew the Aztec Empire."]},
+  {m:"Tokugawa Japan opened fully to European trade and missionaries.",
+   f:"Japan adopted sakoku, strictly limiting foreign contact.",
+   d:["Japan colonized the Philippines.","Japan joined the Atlantic slave trade."]},
+  {m:"Maroon communities were European trading posts on the African coast.",
+   f:"They were settlements of escaped enslaved people who resisted slavery.",
+   d:["They were Spanish silver-mining towns.","They were Jesuit mission schools."]},
+  {m:"New World foods had no impact on Old World populations.",
+   f:"Crops like the potato boosted Old World populations.",
+   d:["They caused famines that shrank Europe.","They were fed only to livestock."]},
+  {m:"Mestizos were people of purely European ancestry.",
+   f:"Mestizos were of mixed European and Indigenous ancestry.",
+   d:["Mestizos were enslaved Africans.","Mestizos were Asian migrants to Peru."]},
+  {m:"European exploration was driven only by scientific curiosity.",
+   f:"It was driven by 'God, Gold, and Glory' — religion, wealth, and prestige.",
+   d:["It was driven mainly by tourism.","It was forced on Europe by the Ottomans."]},
+  {m:"The VOC (Dutch East India Company) was a religious missionary order.",
+   f:"The VOC was a joint-stock trading company.",
+   d:["It was a Spanish silver fleet.","It was a West African kingdom."]},
+  {m:"Smallpox spread from the Americas and devastated Europe.",
+   f:"Old World smallpox devastated the Americas.",
+   d:["Smallpox originated in the Pacific islands.","Smallpox affected only livestock."]},
+  {m:"Prince Henry the Navigator personally sailed around the world.",
+   f:"He sponsored Portuguese voyages exploring Africa's coast.",
+   d:["He conquered the Aztec Empire.","He founded the Dutch VOC."]},
+  {m:"The Columbian Exchange spread crops but no diseases.",
+   f:"It spread deadly diseases like smallpox along with crops and animals.",
+   d:["It spread only gold and silver.","It spread only religious ideas."]},
+  {m:"Peninsulares were enslaved laborers at the bottom of colonial society.",
+   f:"Peninsulares were Iberian-born elites at the top of the casta system.",
+   d:["Peninsulares were mixed-ancestry farmers.","Peninsulares were Native American nobles."]}
+];
+
+const LEVELS={easy:{r:8,c:8,m:10},med:{r:10,c:10,m:16},hard:{r:12,c:12,m:28}};
+let R,C,M,G,alive,started,firstClick,lives,t,tick,flagged,logged,fixRight,fixTotal;
+
+const gridEl=document.getElementById('grid'), wrapEl=document.getElementById('wrap');
+const minesEl=document.getElementById('mines'), timeEl=document.getElementById('time'), livesEl=document.getElementById('lives');
+const fixesEl=document.getElementById('fixes'), feedEl=document.getElementById('feed'), bannerEl=document.getElementById('banner'), footEl=document.getElementById('notesFoot');
+const ov=document.getElementById('ov');
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function mcOptions(myth){
+  return shuffle([{text:myth.f,correct:true},{text:myth.d[0],correct:false},{text:myth.d[1],correct:false}]);
+}
+
+function newGame(){
+  const lv=LEVELS[document.getElementById('diff').value];
+  R=lv.r;C=lv.c;M=lv.m;
+  alive=true;started=false;firstClick=true;lives=3;t=0;flagged=0;logged=new Set();fixRight=0;fixTotal=0;
+  clearInterval(tick);timeEl.textContent='0';fixesEl.textContent='0';
+  wrapEl.classList.remove('over');bannerEl.className='banner';ov.classList.remove('show');
+  feedEl.innerHTML='<div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix — <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>';
+  footEl.textContent='Corrections: 0 / 0 nailed';
+  const facts=shuffle(FACTS.slice());let fi=0;
+  G=[];for(let r=0;r<R;r++){const row=[];for(let c=0;c<C;c++)row.push({mine:false,open:false,flag:false,n:0,fact:facts[fi++%facts.length]});G.push(row);}
+  minesEl.textContent=M;livesUI();drawGrid();
+}
+function nb(r,c){const o=[];for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const nr=r+dr,nc=c+dc;if(nr>=0&&nr<R&&nc>=0&&nc<C)o.push([nr,nc]);}return o;}
+function el(r,c){return gridEl.children[r*C+c];}
+function placeMines(sr,sc){
+  const cells=[];for(let r=0;r<R;r++)for(let c=0;c<C;c++){if(Math.abs(r-sr)<=1&&Math.abs(c-sc)<=1)continue;cells.push([r,c]);}
+  shuffle(cells);const myths=shuffle(MYTHS.slice());
+  for(let i=0;i<M&&i<cells.length;i++){const[r,c]=cells[i];G[r][c].mine=true;G[r][c].myth=myths[i%myths.length];}
+  recount();
+}
+function recount(){for(let r=0;r<R;r++)for(let c=0;c<C;c++){if(G[r][c].mine)continue;G[r][c].n=nb(r,c).filter(([a,b])=>G[a][b].mine).length;}}
+function drawGrid(){
+  gridEl.style.gridTemplateColumns=`repeat(${C},1fr)`;gridEl.innerHTML='';
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    const b=document.createElement('button');b.className='cell';b.dataset.r=r;b.dataset.c=c;
+    b.addEventListener('click',()=>ask(r,c));
+    b.addEventListener('contextmenu',e=>{e.preventDefault();ask(r,c);});
+    gridEl.appendChild(b);
+  }
+  sync();
+}
+function sync(){
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    const g=G[r][c],e=el(r,c);e.className='cell';e.textContent='';
+    if(g.flag){e.classList.add('flag');e.textContent='⚑';continue;}
+    if(g.trip){e.classList.add('trip');e.textContent='✕';continue;}
+    if(g.factwrong){e.classList.add('factwrong');e.textContent='✓';continue;}
+    if(g.open){e.classList.add('open');if(g.n===0)e.classList.add('zero');else{e.textContent=g.n;e.classList.add('n'+g.n);}}
+  }
+}
+
+let pending=null;
+function ask(r,c){
+  if(!alive)return;const g=G[r][c];if(g.open||g.flag||g.trip||g.factwrong)return;
+  if(firstClick){placeMines(r,c);firstClick=false;}
+  pending=[r,c];el(r,c).classList.add('pending');
+  const stmt=g.mine?g.myth.m:g.fact;
+  const known=nb(r,c).filter(([a,b])=>G[a][b].open).some(([a,b])=>G[a][b].n>0);
+  document.getElementById('ov-clue').innerHTML = known
+    ? 'The numbers around this square hint at <b>danger</b> — but read the claim and decide for yourself.'
+    : 'No clues nearby yet. Judge this claim on the history alone.';
+  document.getElementById('ov-q').textContent=stmt;
+  document.getElementById('ov-btns').style.display='grid';
+  document.getElementById('ov-result').className='ovresult';
+  document.getElementById('ov-result').innerHTML='<span class="rt" id="ov-rt"></span><span id="ov-rtxt"></span>';
+  document.getElementById('ov-next').className='ovnext';
+  document.getElementById('ovcard').className='ovcard';
+  ov.classList.add('show');
+}
+function answer(saidFact){
+  if(!pending)return;const[r,c]=pending;const g=G[r][c];
+  if(!started){started=true;timer();}
+  document.getElementById('ov-btns').style.display='none';
+  el(r,c).classList.remove('pending');
+  const card=document.getElementById('ovcard');
+
+  if(saidFact && !g.mine){                         // ✓ cleared a fact
+    flood(r,c);card.classList.add('correct');
+    result('good','Correct — a true fact','Cleared. '+(g.n>0?`${g.n} of its neighbors ${g.n===1?'is a myth':'are myths'}.`:'No myths border it.'));
+    finishTurn();
+  } else if(!saidFact && g.mine){                  // ✓ defused a myth → pick the correction
+    g.flag=true;flagged++;sync();
+    startPick(g.myth,false);
+  } else if(saidFact && g.mine){                   // ✗ tripped a myth (still must pick the correction)
+    lives--;livesUI();
+    g.trip=true;g.mine=false;g.detonated=true;g.flag=false;recount();flagged++;sync();
+    card.classList.add('wrong');
+    startPick(g.myth,true);
+  } else {                                         // ✗ called a true fact a myth
+    lives--;livesUI();
+    g.factwrong=true;sync();
+    card.classList.add('wrong');
+    result('bad','Wrong — that was true','This is a real fact: '+g.fact);
+    logFact(g.fact);
+    finishTurn();
+  }
+  minesEl.textContent=Math.max(0,M-flagged);
+}
+function result(kind,tag,txt){
+  const res=document.getElementById('ov-result');
+  res.className='ovresult show '+kind;
+  document.getElementById('ov-rt').textContent=tag;
+  document.getElementById('ov-rtxt').innerHTML='<span class="fix">'+esc(txt)+'</span>';
+}
+function finishTurn(){document.getElementById('ov-next').className='ovnext show';}
+
+/* the core "pick the correction" step */
+function startPick(myth,tripped){
+  const res=document.getElementById('ov-result');
+  res.className='ovresult show ask';
+  document.getElementById('ov-rt').textContent = tripped ? 'That was a myth — now fix it' : 'Myth defused — now fix it';
+  const opts=mcOptions(myth);
+  let html='<div class="mc-q">What’s actually true?</div><div class="mc-opts">';
+  opts.forEach(o=>{html+=`<button class="mc-opt" data-correct="${o.correct}">${esc(o.text)}</button>`;});
+  html+='</div>';
+  document.getElementById('ov-rtxt').innerHTML=html;
+  document.querySelectorAll('#ov-rtxt .mc-opt').forEach(b=>b.addEventListener('click',()=>{
+    const correct=b.dataset.correct==='true';
+    document.querySelectorAll('#ov-rtxt .mc-opt').forEach(x=>{x.disabled=true;if(x.dataset.correct==='true')x.classList.add('right');});
+    if(!correct)b.classList.add('wrongpick');
+    const card=document.getElementById('ovcard');
+    if(correct){
+      res.className='ovresult show good';
+      document.getElementById('ov-rt').textContent='Correct — you nailed the fix ✓';
+    } else if(tripped){
+      // the square already detonated on the wrong Fact/Myth call; the pick is a teaching moment, no extra life
+      res.className='ovresult show bad';
+      document.getElementById('ov-rt').textContent='Still not the fix — the green one is right';
+    } else {
+      // correctly flagged the myth but couldn't correct it → it detonates
+      lives--; livesUI();
+      card.classList.remove('correct'); card.classList.add('wrong');
+      res.className='ovresult show bad';
+      document.getElementById('ov-rt').textContent='💥 Wrong fix — the myth detonates (−1 life)';
+      const pe=pending?el(pending[0],pending[1]):null; if(pe)pe.classList.add('blast');
+    }
+    fixTotal++; if(correct)fixRight++; fixesEl.textContent=fixRight; updateFoot();
+    logMyth(myth,correct);
+    finishTurn();
+  }));
+}
+
+function flood(r,c){
+  const st=[[r,c]];
+  while(st.length){const[cr,cc]=st.pop();const g=G[cr][cc];
+    if(g.open||g.flag||g.mine||g.trip||g.factwrong)continue;
+    g.open=true;logFact(g.fact);
+    if(g.n===0)nb(cr,cc).forEach(([nr,nc])=>{if(!G[nr][nc].open)st.push([nr,nc]);});
+  }
+  sync();
+}
+
+document.getElementById('ov-fact').addEventListener('click',()=>answer(true));
+document.getElementById('ov-myth').addEventListener('click',()=>answer(false));
+document.getElementById('ov-next-btn').addEventListener('click',()=>{
+  ov.classList.remove('show');pending=null;
+  if(lives<=0){lose();return;}
+  checkWin();
+});
+
+function livesUI(){livesEl.textContent='♥'.repeat(Math.max(0,lives))+'♡'.repeat(Math.max(0,3-lives));}
+function timer(){clearInterval(tick);tick=setInterval(()=>{t++;timeEl.textContent=t;},1000);}
+function updateFoot(){footEl.textContent=`Corrections: ${fixRight} / ${fixTotal} nailed`;}
+
+function checkWin(){
+  if(!alive)return;let ok=true;
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){const g=G[r][c];
+    if(!g.mine&&!g.open&&!g.factwrong&&!g.detonated)ok=false;
+    if(g.mine&&!g.flag)ok=false;}
+  if(ok)win();
+}
+function win(){ alive=false;clearInterval(tick);
+  bannerEl.className='banner win';
+  bannerEl.innerHTML=`<span class="big">✓ Field cleared.</span> Every myth defused in ${t}s with ${lives} ${lives===1?'life':'lives'} left — and you nailed <b>${fixRight} of ${fixTotal}</b> corrections.`;
+}
+function lose(){ alive=false;clearInterval(tick);wrapEl.classList.add('over');
+  bannerEl.className='banner lose';
+  bannerEl.innerHTML=`<span class="big">✕ Out of lives.</span> Remaining myths stay hidden — that's the point. You nailed ${fixRight} of ${fixTotal} corrections; review Field Notes, then hit New Field.`;
+}
+
+/* Field Notes */
+function clearEmpty(){const e=feedEl.querySelector('.empty');if(e)e.remove();}
+function logFact(text){if(logged.has('F'+text))return;logged.add('F'+text);clearEmpty();
+  const d=document.createElement('div');d.className='li';d.innerHTML=`<span class="tag">✓ Fact confirmed</span>${esc(text)}`;
+  feedEl.appendChild(d);feedEl.scrollTop=feedEl.scrollHeight;}
+function logMyth(myth,gotIt){clearEmpty();
+  const d=document.createElement('div');d.className='li '+(gotIt?'myth':'review');
+  d.innerHTML=`<span class="tag">✕ Myth — ${gotIt?'fix nailed ✓':'review this ↻'}</span>${esc(myth.m)}<span class="fix">Actually: ${esc(myth.f)}</span>`;
+  feedEl.appendChild(d);feedEl.scrollTop=feedEl.scrollHeight;}
+
+document.getElementById('newBtn').addEventListener('click',newGame);
+document.getElementById('diff').addEventListener('change',newGame);
+newGame();
+</script>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 3 Interrogate — Fact / Myth Minesweeper</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#111a3f;--blue:#2d5deb;--sky:#e8f0ff;--lime:#d8f13a;--coral:#ff684c;
+  --white:#fbfcff;--muted:#485586;--line:#c9d5f5;--green:#1a8a4a
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-size:18px}
+body{margin:0;background:var(--white);color:var(--navy);font:1rem/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+a{color:inherit}
+
+.bar{height:66px;padding:0 max(20px,3vw);background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;position:sticky;top:0;z-index:60;box-shadow:0 2px 0 var(--blue)}
+.brand{font:900 16.8px 'Lato',sans-serif;letter-spacing:-.04em;text-decoration:none;color:#fff;white-space:nowrap}
+.brand b{color:var(--lime)}
+.links a{color:#fff;text-decoration:none;font-size:10.56px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 2px;border-bottom:2px solid transparent}
+.links a:hover{color:var(--lime);border-bottom-color:var(--lime)}
+
+.main{max-width:1100px;margin:auto;padding:26px max(20px,3vw) 70px}
+.eyebrow{font-size:.64rem;color:var(--blue);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-height:.98;font-size:2.1rem;margin:6px 0 8px}
+.sub{margin:0;color:var(--muted);max-width:680px;font-size:.82rem}
+
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:22px 0 4px}
+.how .card{border:2px solid var(--navy);background:#fff;padding:13px 14px}
+.how .card:nth-child(2){background:var(--sky)}
+.how b{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+.how span{display:block;font-size:.65rem;color:var(--muted);margin-top:5px;line-height:1.45}
+.how .k{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:.58rem;padding:2px 6px;letter-spacing:.04em;margin-right:4px}
+
+.play{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;margin-top:18px;align-items:start}
+
+.hud{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;background:var(--navy);color:#fff;padding:13px 18px;border:2px solid var(--navy)}
+.stat{display:flex;align-items:baseline;gap:7px}
+.stat .n{font:900 1.5rem 'Lato',sans-serif;color:var(--lime);min-width:1.4ch;text-align:right}
+.stat .l{font-size:.54rem;text-transform:uppercase;letter-spacing:.08em;color:#aeb9e6;line-height:1.1}
+.lives{letter-spacing:2px;font-size:1.05rem}
+.hud .spacer{flex:1}
+.sel{font:inherit;font-size:.72rem;font-weight:700;padding:9px 10px;border:2px solid var(--lime);background:var(--navy);color:#fff;cursor:pointer}
+.btn{display:inline-block;background:var(--lime);color:var(--navy);text-decoration:none;padding:10px 14px;text-transform:uppercase;font-size:.64rem;font-weight:700;letter-spacing:.08em;border:2px solid var(--navy);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+
+.boardwrap{border:2px solid var(--navy);background:var(--sky);padding:14px;margin-top:12px;overflow:auto}
+.boardwrap.over{opacity:.55;filter:grayscale(.3);pointer-events:none}
+.grid{display:grid;gap:4px;width:max-content;margin:auto}
+.cell{width:40px;height:40px;border:2px solid var(--navy);background:#fff;font:900 1.05rem 'Lato',sans-serif;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;transition:background .1s,transform .08s;user-select:none}
+.cell:hover:not(.open):not(.flag){background:var(--sky);transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--navy)}
+.cell.open{background:var(--white);border-color:var(--line);cursor:default}
+.cell.open.zero{background:#eef3ff}
+.cell.factwrong{background:#eef3ff;border-color:var(--blue);color:var(--blue);cursor:default}
+.cell.flag{background:var(--lime);cursor:default}
+.cell.trip{background:var(--coral);color:#fff;cursor:default}
+.cell.pending{outline:3px solid var(--blue);outline-offset:-3px}
+.cell.blast{animation:blast .55s ease}
+@keyframes blast{0%,35%{background:var(--coral);color:#fff;transform:scale(1.12)}100%{background:var(--lime);color:var(--navy);transform:none}}
+.n1{color:#2d5deb}.n2{color:#1a8a4a}.n3{color:#ff684c}.n4{color:#7a2ee0}.n5{color:#c24a2e}.n6{color:#0f8a9c}.n7{color:#111a3f}.n8{color:#485586}
+
+.notes{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column;max-height:660px}
+.notes h3{margin:0;font:900 .8rem 'Lato',sans-serif;background:var(--navy);color:#fff;padding:12px 16px;text-transform:uppercase;letter-spacing:.04em}
+.notes .feed{padding:12px 14px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:9px}
+.notes .empty{color:var(--muted);font-size:.72rem;line-height:1.5}
+.notes-foot{border-top:2px solid var(--line);padding:9px 14px;font-size:.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.li{border-left:4px solid var(--green);background:#eef7f0;padding:9px 11px;font-size:.72rem;line-height:1.4;animation:pop .25s ease}
+.li.myth{border-left-color:var(--coral);background:#fff0ec}
+.li.review{border-left-color:#c98a00;background:#fff9e8}
+.li .tag{display:block;font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;color:var(--green)}
+.li.myth .tag{color:var(--coral)}
+.li.review .tag{color:#a76f00}
+.li .fix{display:block;margin-top:5px;color:var(--navy);font-weight:700}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.ov{position:fixed;inset:0;z-index:200;background:rgba(17,26,63,.72);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.ov.show{display:flex}
+.ovcard{background:var(--white);border:2px solid var(--navy);border-top:6px solid var(--blue);box-shadow:8px 8px 0 var(--navy);max-width:540px;width:100%;padding:26px 28px 22px;animation:pop .2s ease;margin:auto}
+.ovcard.correct{border-top-color:var(--green)}
+.ovcard.wrong{border-top-color:var(--coral)}
+.ov .eb{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.ov .clue{font-size:.62rem;font-weight:700;color:var(--muted);margin-bottom:12px}
+.ov .clue b{color:var(--coral)}
+.ov .q{font:900 1.18rem/1.3 'Lato',sans-serif;letter-spacing:-.02em;margin-bottom:18px}
+.ovbtns{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.ovbtns button{font:inherit;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding:15px;border:2px solid var(--navy);cursor:pointer;transition:transform .1s,box-shadow .1s}
+.ovbtns .fact{background:#e6f6ec;color:var(--green)}
+.ovbtns .myth{background:#fff0ec;color:var(--coral)}
+.ovbtns button:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+.ovresult{margin-top:16px;padding:13px 15px;font-size:.8rem;line-height:1.45;display:none}
+.ovresult.show{display:block}
+.ovresult.good{border-left:4px solid var(--green);background:#eef7f0}
+.ovresult.bad{border-left:4px solid var(--coral);background:#fff0ec}
+.ovresult.ask{border-left:4px solid var(--blue);background:var(--sky)}
+.ovresult .rt{display:block;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.ovresult.good .rt{color:var(--green)}.ovresult.bad .rt{color:var(--coral)}.ovresult.ask .rt{color:var(--blue)}
+.ovresult .fix{font-weight:700}
+.mc-q{font-weight:700;font-size:.8rem;margin-bottom:10px}
+.mc-opts{display:flex;flex-direction:column;gap:7px}
+.mc-opt{font:inherit;font-size:.75rem;line-height:1.35;text-align:left;padding:11px 12px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;transition:background .1s}
+.mc-opt:hover:not(:disabled){background:var(--sky)}
+.mc-opt:disabled{cursor:default}
+.mc-opt.right{background:#e6f6ec;border-color:var(--green);color:var(--green);font-weight:700}
+.mc-opt.wrongpick{background:#fff0ec;border-color:var(--coral);color:var(--coral)}
+.ovnext{margin-top:14px;text-align:right;display:none}
+.ovnext.show{display:block}
+
+.banner{margin-top:12px;padding:15px 18px;border:2px solid var(--navy);font-weight:700;font-size:.8rem;display:none;align-items:center;gap:12px;flex-wrap:wrap}
+.banner.win{display:flex;background:var(--lime);color:var(--navy)}
+.banner.lose{display:flex;background:var(--coral);color:#fff}
+.banner .big{font:900 1.05rem 'Lato',sans-serif}
+
+.foot{margin-top:40px;border-top:2px solid var(--navy);padding-top:16px;font-size:.64rem;color:var(--muted);line-height:1.7}
+
+@media(max-width:900px){ .play{grid-template-columns:1fr} .how{grid-template-columns:1fr 1fr} .notes{max-height:none} }
+@media(max-width:560px){ .how{grid-template-columns:1fr} .cell{width:34px;height:34px;font-size:.9rem} }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="index.html">AP WORLD // <b>INTERROGATE</b></a>
+  <div class="links"><a href="unit3.html">← Unit 3 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 3 · Land-Based Empires · c. 1450 – c. 1750</div>
+  <h1>Interrogate — Fact / Myth Minesweeper</h1>
+  <p class="sub">A minefield of claims about Unit&nbsp;3. Click a square: <b>is it a true fact or a historical myth?</b> Facts are safe and reveal a number (how many myths touch them); myths are the mines. Spot a myth and you're not done — <b>you must then pick the real correction</b> from three options. The numbers point toward danger, but only knowing the history clears the field.</p>
+
+  <div class="how">
+    <div class="card"><b>Open a square</b><span><span class="k">CLICK</span>A claim appears. Answer <b>Fact</b> to clear it or <b>Myth</b> to defuse it.</span></div>
+    <div class="card"><b>Fix the myth</b><span>Defuse a myth and a follow-up asks: what's <b>actually</b> true? Pick the right correction from three — <b>miss it and the myth detonates</b> (−1 life).</span></div>
+    <div class="card"><b>Read the numbers</b><span>A cleared fact shows how many of its 8 neighbors are myths — your clue for where to probe next.</span></div>
+    <div class="card"><b>Survive &amp; clear</b><span>3 lives; a wrong Fact/Myth call costs one. Clear every fact and defuse every myth to win. Positions stay hidden.</span></div>
+  </div>
+
+  <div class="play">
+    <div class="left">
+      <div class="hud">
+        <div class="stat"><span class="n" id="mines">16</span><span class="l">Myths<br>left</span></div>
+        <div class="stat"><span class="n" id="fixes">0</span><span class="l">Fixes<br>nailed</span></div>
+        <div class="stat"><span class="n" id="time">0</span><span class="l">Sec</span></div>
+        <div class="stat"><span class="l">Lives</span><span class="n lives" id="lives">♥♥♥</span></div>
+        <div class="spacer"></div>
+        <select class="sel" id="diff" title="Difficulty">
+          <option value="easy">Cadet · 8×8 · 10 myths</option>
+          <option value="med" selected>Officer · 10×10 · 16 myths</option>
+          <option value="hard">Commander · 12×12 · 28 myths</option>
+        </select>
+        <button class="btn" id="newBtn">↻ New Field</button>
+      </div>
+      <div class="boardwrap" id="wrap"><div class="grid" id="grid" oncontextmenu="return false"></div></div>
+      <div class="banner" id="banner"></div>
+    </div>
+
+    <div class="notes">
+      <h3>Field Notes</h3>
+      <div class="feed" id="feed">
+        <div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix — <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>
+      </div>
+      <div class="notes-foot" id="notesFoot">Corrections: 0 / 0 nailed</div>
+    </div>
+  </div>
+
+  <div class="foot">Content from AP World History: Modern, Unit 1 (c. 1200–c. 1450). A study tool, not an official College Board product.</div>
+</div>
+
+<div class="ov" id="ov">
+  <div class="ovcard" id="ovcard">
+    <div class="eb">Intelligence intercept</div>
+    <div class="clue" id="ov-clue"></div>
+    <div class="q" id="ov-q"></div>
+    <div class="ovbtns" id="ov-btns">
+      <button class="fact" id="ov-fact">✓ Fact — clear it</button>
+      <button class="myth" id="ov-myth">✕ Myth — defuse it</button>
+    </div>
+    <div class="ovresult" id="ov-result"><span class="rt" id="ov-rt"></span><span id="ov-rtxt"></span></div>
+    <div class="ovnext" id="ov-next"><button class="btn" id="ov-next-btn">Continue →</button></div>
+  </div>
+</div>
+
+<script>
+/* ── CONTENT (grounded in the Unit 3 review site) ──
+   FACTS = safe squares.  MYTHS = mines; f = the real correction,
+   d = two hand-written distractors that look plausible.            */
+const FACTS = [
+  "The Ottoman, Safavid, and Mughal states are called 'gunpowder empires' for their use of cannons and firearms.",
+  "The Ottomans conquered Constantinople in 1453, ending the Byzantine Empire.",
+  "Janissaries were elite Ottoman infantry recruited as boys through the devshirme.",
+  "The devshirme took Christian boys from the Balkans to serve the Ottoman state and army.",
+  "Shah Ismail I founded the Safavid Empire in Persia (1501) and made Shi'a Islam the state religion.",
+  "Babur founded the Mughal Empire in 1526 after the Battle of Panipat.",
+  "Akbar promoted tolerance toward Hindus, including abolishing the jizya tax on non-Muslims.",
+  "The Mughals used zamindars — local landholders who collected taxes for the state.",
+  "Tax farming sold the right to collect taxes to private individuals in exchange for revenue.",
+  "The Qing Dynasty was founded by the Manchus, who conquered Ming China in 1644.",
+  "Russia expanded overland eastward across Siberia, building a vast land empire.",
+  "Peter the Great westernized Russia, reforming the military and founding St. Petersburg.",
+  "Rulers used art and monumental architecture to display power and legitimacy.",
+  "Suleiman the Magnificent expanded the Ottoman Empire to its height in the 1500s.",
+  "The Sunni–Shi'a split fueled conflict between the Sunni Ottomans and the Shi'a Safavids.",
+  "Sikhism arose in South Asia, blending elements of Hinduism and Islam.",
+  "Sufism, a mystical form of Islam, helped spread the faith and bridge cultures.",
+  "The Protestant Reformation split Western Christianity and challenged the Catholic Church.",
+  "Jesuit missionaries spread Catholicism in Asia and the Americas.",
+  "Divine right claimed monarchs received their authority to rule from God.",
+  "Louis XIV of France embodied absolutism, centralizing power at his palace of Versailles.",
+  "The Ottomans allowed self-governing religious communities (millets) rather than forced conversion.",
+  "The Taj Mahal, built by the Mughal ruler Shah Jahan, showcased imperial art and legitimacy.",
+  "The Qing kept the Confucian civil-service examination system to staff the bureaucracy.",
+  "Cultural syncretism blended traditions, as in Mughal art fusing Persian and Indian styles.",
+  "Gunpowder weapons let empires batter walled cities and centralize power.",
+  "The Safavid Empire was centered in Persia, in what is now modern Iran.",
+  "Akbar's court encouraged religious debate among Muslims, Hindus, and others."
+];
+const MYTHS = [
+  {m:"The Safavid Empire made Sunni Islam its official religion.",
+   f:"The Safavids made Shi'a Islam the state religion of Persia.",
+   d:["The Safavids made Sufism the only legal faith.","The Safavids adopted Catholic Christianity."]},
+  {m:"Janissaries were volunteer noble cavalry paid in land grants.",
+   f:"Janissaries were infantry of enslaved origin, recruited as boys through the devshirme.",
+   d:["They were Mongol horsemen hired as mercenaries.","They were Hindu warriors drawn from the zamindar class."]},
+  {m:"The devshirme recruited Muslim boys from Arabia.",
+   f:"The devshirme took Christian boys from the Balkans for state and military service.",
+   d:["It recruited girls to administer the imperial harem.","It drafted Chinese scholars for the bureaucracy."]},
+  {m:"The Ottomans tried and failed to capture Constantinople.",
+   f:"They conquered Constantinople in 1453, ending the Byzantine Empire.",
+   d:["They captured Baghdad in 1453 instead.","They captured Vienna in 1453."]},
+  {m:"Babur founded the Safavid Empire.",
+   f:"Babur founded the Mughal Empire in 1526.",
+   d:["Babur founded the Qing Dynasty.","Babur founded the Ottoman Empire."]},
+  {m:"Akbar persecuted Hindus and imposed the jizya tax on them.",
+   f:"Akbar promoted tolerance and abolished the jizya on non-Muslims.",
+   d:["Akbar forced all subjects to convert to Christianity.","Akbar banned Islam across his empire."]},
+  {m:"Zamindars were elite Ottoman naval officers.",
+   f:"Zamindars were Mughal local landholders who collected taxes for the state.",
+   d:["Zamindars were the Shi'a clergy of Safavid Persia.","Zamindars were Russian serfs bound to the land."]},
+  {m:"The Qing Dynasty was founded by native Han Chinese who expelled all foreigners.",
+   f:"The Qing were the Manchus, who conquered Ming China in 1644.",
+   d:["The Qing were Mongols returning to power in China.","The Qing were Japanese samurai who ruled China."]},
+  {m:"Peter the Great isolated Russia and rejected European ways.",
+   f:"He westernized Russia, importing European technology and customs.",
+   d:["He converted Russia to Islam.","He moved the capital deep into Siberia."]},
+  {m:"Tax farming meant the government collected every tax directly itself.",
+   f:"Tax farming sold the right to collect taxes to private individuals.",
+   d:["It taxed only farmers and exempted all merchants.","It abolished taxes on conquered peoples."]},
+  {m:"The Sunni–Shi'a rivalry pitted the Shi'a Ottomans against the Sunni Safavids.",
+   f:"The Sunni Ottomans fought the Shi'a Safavids.",
+   d:["Both empires were Buddhist rivals.","The split was between Catholics and Protestants."]},
+  {m:"Sikhism was a branch of Buddhism founded in China.",
+   f:"Sikhism arose in South Asia, blending Hindu and Islamic ideas.",
+   d:["Sikhism was the official religion of Safavid Persia.","Sikhism was a Christian reform movement in Europe."]},
+  {m:"The Protestant Reformation strengthened and unified the Catholic Church.",
+   f:"It split Western Christianity and challenged Catholic authority.",
+   d:["It converted the Ottomans to Christianity.","It ended organized religion in Europe."]},
+  {m:"Jesuits were Ottoman scholars who spread Islam.",
+   f:"Jesuits were Catholic missionaries who spread Christianity.",
+   d:["Jesuits were Protestant reformers opposing the Pope.","Jesuits were Mughal court poets."]},
+  {m:"The gunpowder empires shunned firearms and relied only on cavalry.",
+   f:"They used cannons and firearms to conquer cities and centralize power.",
+   d:["They fought only with naval fleets.","They banned gunpowder as sinful."]},
+  {m:"Suleiman the Magnificent ruled the Mughal Empire.",
+   f:"Suleiman ruled the Ottoman Empire at its height.",
+   d:["Suleiman ruled Safavid Persia.","Suleiman ruled Qing China."]},
+  {m:"Divine right claimed rulers were elected by the people.",
+   f:"Divine right claimed monarchs received their authority from God.",
+   d:["It claimed rulers answered to an elected parliament.","It claimed rulers were chosen by wealthy merchants."]},
+  {m:"The Mughal Empire was a Hindu state hostile to Islam.",
+   f:"The Mughals were a Muslim dynasty ruling a Hindu-majority population.",
+   d:["The Mughals were a Buddhist empire.","The Mughals were Christian crusaders."]},
+  {m:"The Taj Mahal was built by the Ottomans in Istanbul.",
+   f:"The Taj Mahal was built by the Mughal ruler Shah Jahan in India.",
+   d:["It was built by the Safavids in Isfahan.","It was built by the Qing in Beijing."]},
+  {m:"Shah Ismail founded the Ottoman Empire.",
+   f:"Shah Ismail founded the Safavid Empire in Persia.",
+   d:["Shah Ismail founded the Mughal Empire.","Shah Ismail founded the Russian Empire."]},
+  {m:"The Ottomans forced every subject to convert to Islam.",
+   f:"They allowed self-governing religious communities called millets.",
+   d:["They expelled everyone who was not Turkish.","They banned Christianity throughout the empire."]},
+  {m:"The Manchus abolished the Confucian examination system.",
+   f:"The Qing kept the civil-service exam to staff the bureaucracy.",
+   d:["The Qing replaced it with a random lottery.","The Qing reserved every office for Manchus alone."]},
+  {m:"Russia built its empire mainly by sailing across the Atlantic.",
+   f:"Russia expanded overland eastward across Siberia.",
+   d:["Russia expanded south by conquering Africa.","Russia expanded by colonizing the Americas."]},
+  {m:"Absolutist kings like Louis XIV shared power with elected assemblies.",
+   f:"They centralized power and claimed absolute authority.",
+   d:["They abolished monarchy in favor of republics.","They handed political power to the Catholic Church."]},
+  {m:"Cultural syncretism meant empires kept all cultures strictly separate.",
+   f:"Syncretism meant blending traditions, like Persian-Indian Mughal art.",
+   d:["It meant banning all foreign culture.","It meant forcing everyone into one religion."]},
+  {m:"The 'gunpowder empires' were the European colonial powers.",
+   f:"They were the Ottoman, Safavid, and Mughal land-based empires.",
+   d:["They were the Ming, Qing, and Tokugawa states.","They were Spain, Portugal, and England."]},
+  {m:"The Battle of Panipat (1526) established the Qing Dynasty.",
+   f:"The Battle of Panipat led to Babur founding the Mughal Empire.",
+   d:["It founded the Ottoman Empire.","It founded Safavid Persia."]},
+  {m:"Akbar was an Ottoman sultan who ruled from Istanbul.",
+   f:"Akbar was a Mughal emperor who ruled in South Asia.",
+   d:["Akbar was a Safavid shah in Persia.","Akbar was a Qing emperor in China."]}
+];
+
+const LEVELS={easy:{r:8,c:8,m:10},med:{r:10,c:10,m:16},hard:{r:12,c:12,m:28}};
+let R,C,M,G,alive,started,firstClick,lives,t,tick,flagged,logged,fixRight,fixTotal;
+
+const gridEl=document.getElementById('grid'), wrapEl=document.getElementById('wrap');
+const minesEl=document.getElementById('mines'), timeEl=document.getElementById('time'), livesEl=document.getElementById('lives');
+const fixesEl=document.getElementById('fixes'), feedEl=document.getElementById('feed'), bannerEl=document.getElementById('banner'), footEl=document.getElementById('notesFoot');
+const ov=document.getElementById('ov');
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function mcOptions(myth){
+  return shuffle([{text:myth.f,correct:true},{text:myth.d[0],correct:false},{text:myth.d[1],correct:false}]);
+}
+
+function newGame(){
+  const lv=LEVELS[document.getElementById('diff').value];
+  R=lv.r;C=lv.c;M=lv.m;
+  alive=true;started=false;firstClick=true;lives=3;t=0;flagged=0;logged=new Set();fixRight=0;fixTotal=0;
+  clearInterval(tick);timeEl.textContent='0';fixesEl.textContent='0';
+  wrapEl.classList.remove('over');bannerEl.className='banner';ov.classList.remove('show');
+  feedEl.innerHTML='<div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix — <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>';
+  footEl.textContent='Corrections: 0 / 0 nailed';
+  const facts=shuffle(FACTS.slice());let fi=0;
+  G=[];for(let r=0;r<R;r++){const row=[];for(let c=0;c<C;c++)row.push({mine:false,open:false,flag:false,n:0,fact:facts[fi++%facts.length]});G.push(row);}
+  minesEl.textContent=M;livesUI();drawGrid();
+}
+function nb(r,c){const o=[];for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const nr=r+dr,nc=c+dc;if(nr>=0&&nr<R&&nc>=0&&nc<C)o.push([nr,nc]);}return o;}
+function el(r,c){return gridEl.children[r*C+c];}
+function placeMines(sr,sc){
+  const cells=[];for(let r=0;r<R;r++)for(let c=0;c<C;c++){if(Math.abs(r-sr)<=1&&Math.abs(c-sc)<=1)continue;cells.push([r,c]);}
+  shuffle(cells);const myths=shuffle(MYTHS.slice());
+  for(let i=0;i<M&&i<cells.length;i++){const[r,c]=cells[i];G[r][c].mine=true;G[r][c].myth=myths[i%myths.length];}
+  recount();
+}
+function recount(){for(let r=0;r<R;r++)for(let c=0;c<C;c++){if(G[r][c].mine)continue;G[r][c].n=nb(r,c).filter(([a,b])=>G[a][b].mine).length;}}
+function drawGrid(){
+  gridEl.style.gridTemplateColumns=`repeat(${C},1fr)`;gridEl.innerHTML='';
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    const b=document.createElement('button');b.className='cell';b.dataset.r=r;b.dataset.c=c;
+    b.addEventListener('click',()=>ask(r,c));
+    b.addEventListener('contextmenu',e=>{e.preventDefault();ask(r,c);});
+    gridEl.appendChild(b);
+  }
+  sync();
+}
+function sync(){
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    const g=G[r][c],e=el(r,c);e.className='cell';e.textContent='';
+    if(g.flag){e.classList.add('flag');e.textContent='⚑';continue;}
+    if(g.trip){e.classList.add('trip');e.textContent='✕';continue;}
+    if(g.factwrong){e.classList.add('factwrong');e.textContent='✓';continue;}
+    if(g.open){e.classList.add('open');if(g.n===0)e.classList.add('zero');else{e.textContent=g.n;e.classList.add('n'+g.n);}}
+  }
+}
+
+let pending=null;
+function ask(r,c){
+  if(!alive)return;const g=G[r][c];if(g.open||g.flag||g.trip||g.factwrong)return;
+  if(firstClick){placeMines(r,c);firstClick=false;}
+  pending=[r,c];el(r,c).classList.add('pending');
+  const stmt=g.mine?g.myth.m:g.fact;
+  const known=nb(r,c).filter(([a,b])=>G[a][b].open).some(([a,b])=>G[a][b].n>0);
+  document.getElementById('ov-clue').innerHTML = known
+    ? 'The numbers around this square hint at <b>danger</b> — but read the claim and decide for yourself.'
+    : 'No clues nearby yet. Judge this claim on the history alone.';
+  document.getElementById('ov-q').textContent=stmt;
+  document.getElementById('ov-btns').style.display='grid';
+  document.getElementById('ov-result').className='ovresult';
+  document.getElementById('ov-result').innerHTML='<span class="rt" id="ov-rt"></span><span id="ov-rtxt"></span>';
+  document.getElementById('ov-next').className='ovnext';
+  document.getElementById('ovcard').className='ovcard';
+  ov.classList.add('show');
+}
+function answer(saidFact){
+  if(!pending)return;const[r,c]=pending;const g=G[r][c];
+  if(!started){started=true;timer();}
+  document.getElementById('ov-btns').style.display='none';
+  el(r,c).classList.remove('pending');
+  const card=document.getElementById('ovcard');
+
+  if(saidFact && !g.mine){                         // ✓ cleared a fact
+    flood(r,c);card.classList.add('correct');
+    result('good','Correct — a true fact','Cleared. '+(g.n>0?`${g.n} of its neighbors ${g.n===1?'is a myth':'are myths'}.`:'No myths border it.'));
+    finishTurn();
+  } else if(!saidFact && g.mine){                  // ✓ defused a myth → pick the correction
+    g.flag=true;flagged++;sync();
+    startPick(g.myth,false);
+  } else if(saidFact && g.mine){                   // ✗ tripped a myth (still must pick the correction)
+    lives--;livesUI();
+    g.trip=true;g.mine=false;g.detonated=true;g.flag=false;recount();flagged++;sync();
+    card.classList.add('wrong');
+    startPick(g.myth,true);
+  } else {                                         // ✗ called a true fact a myth
+    lives--;livesUI();
+    g.factwrong=true;sync();
+    card.classList.add('wrong');
+    result('bad','Wrong — that was true','This is a real fact: '+g.fact);
+    logFact(g.fact);
+    finishTurn();
+  }
+  minesEl.textContent=Math.max(0,M-flagged);
+}
+function result(kind,tag,txt){
+  const res=document.getElementById('ov-result');
+  res.className='ovresult show '+kind;
+  document.getElementById('ov-rt').textContent=tag;
+  document.getElementById('ov-rtxt').innerHTML='<span class="fix">'+esc(txt)+'</span>';
+}
+function finishTurn(){document.getElementById('ov-next').className='ovnext show';}
+
+/* the core "pick the correction" step */
+function startPick(myth,tripped){
+  const res=document.getElementById('ov-result');
+  res.className='ovresult show ask';
+  document.getElementById('ov-rt').textContent = tripped ? 'That was a myth — now fix it' : 'Myth defused — now fix it';
+  const opts=mcOptions(myth);
+  let html='<div class="mc-q">What’s actually true?</div><div class="mc-opts">';
+  opts.forEach(o=>{html+=`<button class="mc-opt" data-correct="${o.correct}">${esc(o.text)}</button>`;});
+  html+='</div>';
+  document.getElementById('ov-rtxt').innerHTML=html;
+  document.querySelectorAll('#ov-rtxt .mc-opt').forEach(b=>b.addEventListener('click',()=>{
+    const correct=b.dataset.correct==='true';
+    document.querySelectorAll('#ov-rtxt .mc-opt').forEach(x=>{x.disabled=true;if(x.dataset.correct==='true')x.classList.add('right');});
+    if(!correct)b.classList.add('wrongpick');
+    const card=document.getElementById('ovcard');
+    if(correct){
+      res.className='ovresult show good';
+      document.getElementById('ov-rt').textContent='Correct — you nailed the fix ✓';
+    } else if(tripped){
+      // the square already detonated on the wrong Fact/Myth call; the pick is a teaching moment, no extra life
+      res.className='ovresult show bad';
+      document.getElementById('ov-rt').textContent='Still not the fix — the green one is right';
+    } else {
+      // correctly flagged the myth but couldn't correct it → it detonates
+      lives--; livesUI();
+      card.classList.remove('correct'); card.classList.add('wrong');
+      res.className='ovresult show bad';
+      document.getElementById('ov-rt').textContent='💥 Wrong fix — the myth detonates (−1 life)';
+      const pe=pending?el(pending[0],pending[1]):null; if(pe)pe.classList.add('blast');
+    }
+    fixTotal++; if(correct)fixRight++; fixesEl.textContent=fixRight; updateFoot();
+    logMyth(myth,correct);
+    finishTurn();
+  }));
+}
+
+function flood(r,c){
+  const st=[[r,c]];
+  while(st.length){const[cr,cc]=st.pop();const g=G[cr][cc];
+    if(g.open||g.flag||g.mine||g.trip||g.factwrong)continue;
+    g.open=true;logFact(g.fact);
+    if(g.n===0)nb(cr,cc).forEach(([nr,nc])=>{if(!G[nr][nc].open)st.push([nr,nc]);});
+  }
+  sync();
+}
+
+document.getElementById('ov-fact').addEventListener('click',()=>answer(true));
+document.getElementById('ov-myth').addEventListener('click',()=>answer(false));
+document.getElementById('ov-next-btn').addEventListener('click',()=>{
+  ov.classList.remove('show');pending=null;
+  if(lives<=0){lose();return;}
+  checkWin();
+});
+
+function livesUI(){livesEl.textContent='♥'.repeat(Math.max(0,lives))+'♡'.repeat(Math.max(0,3-lives));}
+function timer(){clearInterval(tick);tick=setInterval(()=>{t++;timeEl.textContent=t;},1000);}
+function updateFoot(){footEl.textContent=`Corrections: ${fixRight} / ${fixTotal} nailed`;}
+
+function checkWin(){
+  if(!alive)return;let ok=true;
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){const g=G[r][c];
+    if(!g.mine&&!g.open&&!g.factwrong&&!g.detonated)ok=false;
+    if(g.mine&&!g.flag)ok=false;}
+  if(ok)win();
+}
+function win(){ alive=false;clearInterval(tick);
+  bannerEl.className='banner win';
+  bannerEl.innerHTML=`<span class="big">✓ Field cleared.</span> Every myth defused in ${t}s with ${lives} ${lives===1?'life':'lives'} left — and you nailed <b>${fixRight} of ${fixTotal}</b> corrections.`;
+}
+function lose(){ alive=false;clearInterval(tick);wrapEl.classList.add('over');
+  bannerEl.className='banner lose';
+  bannerEl.innerHTML=`<span class="big">✕ Out of lives.</span> Remaining myths stay hidden — that's the point. You nailed ${fixRight} of ${fixTotal} corrections; review Field Notes, then hit New Field.`;
+}
+
+/* Field Notes */
+function clearEmpty(){const e=feedEl.querySelector('.empty');if(e)e.remove();}
+function logFact(text){if(logged.has('F'+text))return;logged.add('F'+text);clearEmpty();
+  const d=document.createElement('div');d.className='li';d.innerHTML=`<span class="tag">✓ Fact confirmed</span>${esc(text)}`;
+  feedEl.appendChild(d);feedEl.scrollTop=feedEl.scrollHeight;}
+function logMyth(myth,gotIt){clearEmpty();
+  const d=document.createElement('div');d.className='li '+(gotIt?'myth':'review');
+  d.innerHTML=`<span class="tag">✕ Myth — ${gotIt?'fix nailed ✓':'review this ↻'}</span>${esc(myth.m)}<span class="fix">Actually: ${esc(myth.f)}</span>`;
+  feedEl.appendChild(d);feedEl.scrollTop=feedEl.scrollHeight;}
+
+document.getElementById('newBtn').addEventListener('click',newGame);
+document.getElementById('diff').addEventListener('change',newGame);
+newGame();
+</script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 /* ============================================================
    mc-mode.js — secret "Mission Control" preview toggle.
 
-   Loaded (synchronously, in <head>) on every page. The published site
-   looks completely normal by default. A teacher enables the Mission
-   Control preview by clicking the "AP World History" box in the top bar
-   and entering the access code; a second time turns it back off. The
-   choice is remembered per-device in localStorage.
+   Loaded (synchronously, in <head>) on every page. Mission Control is now
+   the DEFAULT experience: every visitor gets it unless it has been explicitly
+   turned off on that device. A teacher can toggle it off (and back on) by
+   clicking the "AP World History" box in the top bar and entering the access
+   code. The choice is remembered per-device in localStorage.
 
    When ON:
      • the home (index.html) routes to the dashboard (mission-control.html)
@@ -22,7 +22,9 @@
   var PW  = 'missioncontrol';
   var KEY = 'apMissionControl';
 
-  function isOn()  { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
+  // Mission Control is now the DEFAULT: on unless a teacher has explicitly
+  // turned it off (flag === '0'). A student arriving with no flag set gets it.
+  function isOn()  { try { return localStorage.getItem(KEY) !== '0'; } catch (e) { return true; } }
   function setOn(v){ try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
 
   var p = location.pathname;

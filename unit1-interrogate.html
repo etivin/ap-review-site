@@ -57,6 +57,8 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
 .cell.flag{background:var(--lime);cursor:default}
 .cell.trip{background:var(--coral);color:#fff;cursor:default}
 .cell.pending{outline:3px solid var(--blue);outline-offset:-3px}
+.cell.blast{animation:blast .55s ease}
+@keyframes blast{0%,35%{background:var(--coral);color:#fff;transform:scale(1.12)}100%{background:var(--lime);color:var(--navy);transform:none}}
 .n1{color:#2d5deb}.n2{color:#1a8a4a}.n3{color:#ff684c}.n4{color:#7a2ee0}.n5{color:#c24a2e}.n6{color:#0f8a9c}.n7{color:#111a3f}.n8{color:#485586}
 
 .notes{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column;max-height:660px}
@@ -130,7 +132,7 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
 
   <div class="how">
     <div class="card"><b>Open a square</b><span><span class="k">CLICK</span>A claim appears. Answer <b>Fact</b> to clear it or <b>Myth</b> to defuse it.</span></div>
-    <div class="card"><b>Fix the myth</b><span>Defuse a myth and a follow-up asks: what's <b>actually</b> true? Pick the right correction from three.</span></div>
+    <div class="card"><b>Fix the myth</b><span>Defuse a myth and a follow-up asks: what's <b>actually</b> true? Pick the right correction from three — <b>miss it and the myth detonates</b> (−1 life).</span></div>
     <div class="card"><b>Read the numbers</b><span>A cleared fact shows how many of its 8 neighbors are myths — your clue for where to probe next.</span></div>
     <div class="card"><b>Survive &amp; clear</b><span>3 lives; a wrong Fact/Myth call costs one. Clear every fact and defuse every myth to win. Positions stay hidden.</span></div>
   </div>
@@ -426,8 +428,22 @@ function startPick(myth,tripped){
     const correct=b.dataset.correct==='true';
     document.querySelectorAll('#ov-rtxt .mc-opt').forEach(x=>{x.disabled=true;if(x.dataset.correct==='true')x.classList.add('right');});
     if(!correct)b.classList.add('wrongpick');
-    res.className='ovresult show '+(correct?'good':'bad');
-    document.getElementById('ov-rt').textContent = correct ? 'Correct — you nailed the fix ✓' : 'Not quite — the green one is right';
+    const card=document.getElementById('ovcard');
+    if(correct){
+      res.className='ovresult show good';
+      document.getElementById('ov-rt').textContent='Correct — you nailed the fix ✓';
+    } else if(tripped){
+      // the square already detonated on the wrong Fact/Myth call; the pick is a teaching moment, no extra life
+      res.className='ovresult show bad';
+      document.getElementById('ov-rt').textContent='Still not the fix — the green one is right';
+    } else {
+      // correctly flagged the myth but couldn't correct it → it detonates
+      lives--; livesUI();
+      card.classList.remove('correct'); card.classList.add('wrong');
+      res.className='ovresult show bad';
+      document.getElementById('ov-rt').textContent='💥 Wrong fix — the myth detonates (−1 life)';
+      const pe=pending?el(pending[0],pending[1]):null; if(pe)pe.classList.add('blast');
+    }
     fixTotal++; if(correct)fixRight++; fixesEl.textContent=fixRight; updateFoot();
     logMyth(myth,correct);
     finishTurn();

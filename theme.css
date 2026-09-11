@@ -1,0 +1,101 @@
+/* ══════════════════════════════════════════════════════════════
+   Site-wide dark mode + the toggle control.
+   Loaded on every page (except Mission Control, which is
+   self-contained). The toggle markup is injected by theme.js.
+
+   Approach: the pages use CSS custom properties consistently, so
+   dark mode is mostly a redefinition of the palette tokens under
+   :root[data-theme="dark"], plus targeted fixes for the handful of
+   surfaces that hard-code light colors or reuse the "ink"/"navy"
+   token as a dark chrome background.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── THE TOGGLE (adapts to any bar via currentColor) ───────────── */
+.theme-toggle{
+  position:relative;display:inline-flex;align-items:center;flex:0 0 auto;
+  width:54px;height:28px;padding:0;vertical-align:middle;
+  border:2px solid currentColor;border-radius:999px;background:transparent;
+  color:inherit;cursor:pointer;opacity:.72;transition:opacity .2s}
+.theme-toggle:hover{opacity:1}
+.theme-toggle:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.theme-toggle .tt-ico{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:11px;line-height:1;pointer-events:none;opacity:.85}
+.theme-toggle .tt-sun{left:5px}
+.theme-toggle .tt-moon{right:5px}
+.theme-toggle .tt-knob{
+  position:absolute;top:50%;left:2px;transform:translateY(-50%);
+  width:20px;height:20px;border-radius:50%;background:currentColor;
+  transition:left .22s cubic-bezier(.3,.8,.3,1);pointer-events:none}
+:root[data-theme="dark"] .theme-toggle .tt-knob{left:28px}
+.tt-barwrap{display:flex;align-items:center;gap:16px}
+.links .theme-toggle{margin-left:8px}
+.theme-toggle.tt-float{position:fixed;top:12px;right:12px;z-index:9999;
+  background:rgba(127,127,127,.15);backdrop-filter:blur(4px)}
+
+/* ══ DARK PALETTE (shared tokens) ══════════════════════════════ */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --cream:#0f1117;--bg:#0f1117;      /* page background */
+  --white:#171a22;                    /* cards / (navy family) page bg */
+  --paper:#1c2029;                    /* panels */
+  --border:#333a49;--border2:#454e62; /* lines */
+  --line:#2f3647;
+  --ink:#eceff7;--mid:#c4cad7;--muted:#9299ac; /* text ramp (cream family) */
+  --sky:#182140;                      /* navy family tint */
+  /* light accent tints -> faint neutral panels */
+  --red-bg:rgba(255,255,255,.06);
+  --blue-bg:rgba(255,255,255,.06);
+  --gold-bg:rgba(255,255,255,.06);
+  --green-bg:rgba(255,255,255,.06);
+}
+/* Baseline: page + text. Specific elements below/inline still win. */
+:root[data-theme="dark"] body{background:var(--cream);color:#e8ecf5}
+
+/* ── CREAM/PAPER FAMILY: re-darken chrome that used --ink as a bg ─ */
+:root[data-theme="dark"] .sidebar{background:#12141b}
+:root[data-theme="dark"] .full-course-tab{background:#171a22}
+:root[data-theme="dark"] .btn-all{background:#2a3040}
+:root[data-theme="dark"] .btn-all:hover{background:#343b4d}
+:root[data-theme="dark"] .pg-nav-btn:hover{background:#2a3040;color:#fff;border-color:#2a3040}
+:root[data-theme="dark"] .hero-btn-outline:hover{background:#2a3040;color:#fff}
+:root[data-theme="dark"] .wm-dev-btn.active{background:#2a3040;border-color:#2a3040;color:#fff}
+
+/* top bar */
+:root[data-theme="dark"] .top-bar{box-shadow:0 1px 0 rgba(255,255,255,.06)}
+
+/* unit-hub hero: photo/gradient banners get a dark scrim so light text reads */
+:root[data-theme="dark"] .hero{position:relative}
+:root[data-theme="dark"] .hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(10,12,18,.74),rgba(10,12,18,.9))}
+:root[data-theme="dark"] .hero>*{position:relative;z-index:1}
+:root[data-theme="dark"] .hero-eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25)}
+:root[data-theme="dark"] .hero-btn-outline{background:rgba(255,255,255,.08)!important;color:#e8ecf5}
+
+/* QR code always needs a light quiet-zone */
+:root[data-theme="dark"] .wm-qr{background:#fff}
+
+/* ── NAVY FAMILY (interrogate games): hard-coded light surfaces ── */
+:root[data-theme="dark"] .how .card,
+:root[data-theme="dark"] .notes,
+:root[data-theme="dark"] .ovcard,
+:root[data-theme="dark"] .mc-opt,
+:root[data-theme="dark"] .cell{background:#1b1f2a;border-color:#39415a;color:#e8ecf5}
+:root[data-theme="dark"] .cell:hover:not(.open):not(.flag){background:#232a3d}
+:root[data-theme="dark"] .cell.open{background:#12151d;border-color:#2b3244}
+:root[data-theme="dark"] .cell.open.zero{background:#0e1119}
+:root[data-theme="dark"] .cell.factwrong{background:#16213f;border-color:var(--blue);color:#9db8ff}
+:root[data-theme="dark"] .cell.flag{background:var(--lime);color:var(--navy)}
+:root[data-theme="dark"] .cell.trip{background:var(--coral);color:#fff}
+:root[data-theme="dark"] .li{background:rgba(70,190,130,.12)}
+:root[data-theme="dark"] .li.myth{background:rgba(255,104,76,.12)}
+:root[data-theme="dark"] .li.review{background:rgba(201,138,0,.16)}
+:root[data-theme="dark"] .li .fix{color:#e8ecf5}
+:root[data-theme="dark"] .ovbtns .fact{background:rgba(70,190,130,.16)}
+:root[data-theme="dark"] .ovbtns .myth{background:rgba(255,104,76,.16)}
+:root[data-theme="dark"] .ovresult.good{background:rgba(70,190,130,.14)}
+:root[data-theme="dark"] .ovresult.bad{background:rgba(255,104,76,.14)}
+:root[data-theme="dark"] .mc-opt:hover:not(:disabled){background:#232a3d}
+:root[data-theme="dark"] .mc-opt.right{background:rgba(70,190,130,.16);border-color:var(--green);color:#7fe0a8}
+:root[data-theme="dark"] .mc-opt.wrongpick{background:rgba(255,104,76,.16);border-color:var(--coral);color:#ff9d88}

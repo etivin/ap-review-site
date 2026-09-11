@@ -128,3 +128,46 @@
 /* hero-title emphasis is a bare <em>, so [class] misses it — keep it light */
 :root[data-theme="dark"] .hero h1 em,
 :root[data-theme="dark"] .pg-hero h2 em{color:#fff}
+
+/* ── UNIT-HUB GAMES & TOOLS: hard-coded light backgrounds ───────
+   The mini-games and source tools (shared across units 2–9) use
+   light hex fills for their correct/wrong/selected states, panels,
+   and modals — those would be white boxes with (forced-light) text.
+   Darken them centrally. */
+/* correct / matched / earned / placed / model-answer (were light green) */
+:root[data-theme="dark"] .vs-mc-option.vs-mc-correct,
+:root[data-theme="dark"] .vs-hipp-model,
+:root[data-theme="dark"] .src-model,
+:root[data-theme="dark"] .warmup-model,
+:root[data-theme="dark"] .jeop-modal-answer,
+:root[data-theme="dark"] .match-card.matched,
+:root[data-theme="dark"] .sortit-btn.earns,
+:root[data-theme="dark"] .sq-choice.sq-correct,
+:root[data-theme="dark"] .tl-placed,
+:root[data-theme="dark"] .rg-v-btn.earns:hover,
+:root[data-theme="dark"] .rg-v-btn.earns.picked,
+:root[data-theme="dark"] .rg-card.correct,
+:root[data-theme="dark"] .drill-sample-pass{background:rgba(70,190,130,.16);border-color:#3fbf7a;color:#e7ebf5}
+/* wrong / nope / failed (were light red / pink) */
+:root[data-theme="dark"] .vs-mc-option.vs-mc-wrong,
+:root[data-theme="dark"] .sortit-btn.nope,
+:root[data-theme="dark"] .sq-choice.sq-wrong,
+:root[data-theme="dark"] .rg-v-btn.no:hover,
+:root[data-theme="dark"] .rg-v-btn.no.picked,
+:root[data-theme="dark"] .rg-card.wrong,
+:root[data-theme="dark"] .drill-sample-fail{background:rgba(255,90,90,.15);border-color:#ff8f8f;color:#e7ebf5}
+:root[data-theme="dark"] .match-card.selected{background:rgba(255,255,255,.09);color:#e7ebf5}
+:root[data-theme="dark"] .tl-wrong-anim{background:rgba(255,90,90,.16)!important;border-color:#ff8f8f!important}
+/* light parchment / cream panels + game modals */
+:root[data-theme="dark"] .src-frame{background:#1c2029;border-color:#454e62}
+:root[data-theme="dark"] .jeop-modal-inner{background:#171a22;border-color:#333a49}
+:root[data-theme="dark"] .src-lens-btn:hover,
+:root[data-theme="dark"] .src-lens-btn.active{background:rgba(255,90,90,.15);border-color:#ff8f8f;color:#ff9d88}
+/* inline text highlight + light CTA pill (keep dark text on its light fill) */
+:root[data-theme="dark"] .pu-highlight{background:rgba(212,184,74,.3);color:#f4eccf}
+:root[data-theme="dark"] .cta-btn{color:#14181f}
+/* JS-injected inline light backgrounds (Perfect-timeline box, name-entry modal, its input) */
+:root[data-theme="dark"] [style*="#e8f5e9"]{background:rgba(70,190,130,.16)!important;border-color:#3fbf7a!important}
+:root[data-theme="dark"] [style*="#f9f6ef"],
+:root[data-theme="dark"] [style*="#F4F1E8"]{background:#171a22!important;border-color:#333a49!important}
+:root[data-theme="dark"] input[style*="background:#fff"]{background:#1b1f2a!important;color:#e7ebf5!important;border-color:#454e62!important}

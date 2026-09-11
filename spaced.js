@@ -152,21 +152,49 @@
     return 100 * Math.exp(-((t - seg.t) / DAY) / seg.stab);
   }
 
+  // Reviews you actually graded, bucketed by local day: { "YYYY-MM-DD":
+  // { n, correct } }. Lets the memory curve reward days you RECALLED, not just
+  // days you were on the page. Days with no graded reviews aren't listed.
+  function dailyAccuracy() {
+    var sp = load().spaced || {}, by = {};
+    for (var id in sp) {
+      (sp[id].reviewHistory || []).forEach(function (h) {
+        var t = new Date(h.date); if (isNaN(t)) return;
+        var k = ymd(t), b = by[k] || (by[k] = { n: 0, correct: 0 });
+        b.n++; if (h.correct) b.correct++;
+      });
+    }
+    return by;
+  }
+
   // Turn the study log into memory-strength events — one per day the student
   // put in real time on the site (or a session/review). Each study day lifts
   // memory back toward 100%; the more time that day, the more storage strength
   // (stability) it builds, so future decay is flatter. Days off = no event =
   // the curve just keeps decaying. This is what makes the curve fall when they
   // stop showing up, and climb when they do.
+  //
+  // Two guards keep the curve honest:
+  //   • STAB_CAP ceils the time constant so even a long streak still visibly
+  //     forgets when studying stops (without it, stability compounds without
+  //     bound and the "if you stop" projection flattens to a straight line).
+  //   • On days with graded reviews, the strength gained is scaled by that
+  //     day's recall accuracy — showing up and getting everything wrong no
+  //     longer builds the same durability as actually remembering.
+  var STAB_CAP = 30;   // days; ~72% retained 10 days off, ~50% at ~3 weeks off
   function studyEvents() {
-    var log = load().studyLog || {}, now = Date.now(), days = [];
+    var log = load().studyLog || {}, acc = dailyAccuracy(), now = Date.now(), days = [];
     for (var d in log) { if (didStudy(log[d])) days.push(d); }
     days.sort();
     var stab = 1, ev = [];
     days.forEach(function (d) {
       var secs = (log[d].activeSeconds || 0) + (log[d].sessionsCompleted || 0) * 600; // a timed session ~= 10 min
       var factor = 1.35 + Math.min(0.55, (secs / 1800) * 0.55); // 1.35 (brief) … 1.9 (30+ min)
-      stab = stab * factor;
+      // Weight the day's strength gain by recall accuracy. No graded reviews
+      // (pure time-on-site) stays neutral; all-wrong days add nothing.
+      var a = acc[d];
+      if (a && a.n) factor = 1 + (factor - 1) * (a.correct / a.n);
+      stab = Math.min(stab * factor, STAB_CAP);
       var t = new Date(d + 'T12:00:00').getTime();
       if (isNaN(t)) return;
       if (t > now) t = now;                 // today's spike shouldn't sit in the future

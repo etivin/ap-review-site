@@ -7,3 +7,11 @@ images/frq-*.png
 !.dev.vars.example
 .env*
 !.env.example
+
+# local tooling and drafts (kept on disk, out of the repo)
+.claude/
+mockups/
+SECURITY-NOTES.md
+
+# AP scoring guideline PDFs (reference material, not site content)
+ap*-sg-world-history-modern-*.pdf

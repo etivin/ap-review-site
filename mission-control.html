@@ -238,7 +238,63 @@ body{line-height:1.6}
 .tile h3{font-size:1.35rem;margin:14px 0 9px}
 .tile span{font-size:.82rem;line-height:1.55}
 .tile strong{font-size:.68rem}
+
+/* ── DARK-MODE TOGGLE (oval switch in the top bar) ── */
+.theme-toggle{position:relative;width:54px;height:27px;flex-shrink:0;border-radius:999px;border:2px solid var(--lime);background:rgba(216,241,58,.14);cursor:pointer;padding:0;transition:background .2s}
+.theme-toggle:hover{background:rgba(216,241,58,.28)}
+.theme-toggle:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.theme-toggle .tt-knob{position:absolute;top:50%;left:2px;transform:translateY(-50%);width:19px;height:19px;border-radius:50%;background:var(--lime);color:var(--navy);font-size:11px;line-height:19px;text-align:center;transition:left .22s cubic-bezier(.3,.8,.3,1)}
+html[data-theme="dark"] .theme-toggle .tt-knob{left:31px}
+
+/* ── DARK MODE ── */
+html[data-theme="dark"]{
+  --white:#0b1130;   /* page + card base */
+  --sky:#1c2650;     /* tinted panels */
+  --line:#333e78;
+  --muted:#9fabda;
+}
+html[data-theme="dark"] body{background:var(--white);color:#e9eeff}
+html[data-theme="dark"] .roadmap{background:#0f1638;border-color:#333e78}
+html[data-theme="dark"] .choice,
+html[data-theme="dark"] .tile,
+html[data-theme="dark"] .unit-card,
+html[data-theme="dark"] .explain,
+html[data-theme="dark"] .unit-picker select{background:#141c44;color:#e9eeff;border-color:#333e78}
+html[data-theme="dark"] .choice:hover{background:var(--sky)}
+html[data-theme="dark"] .choice.active{background:var(--lime);color:var(--navy);border-color:var(--lime)}
+html[data-theme="dark"] .choice.active span{color:#2a3560}
+html[data-theme="dark"] .choice span,
+html[data-theme="dark"] .tile span,
+html[data-theme="dark"] .recommend p{color:#c3cdf2}
+html[data-theme="dark"] .explain span{color:#aab5e2}
+html[data-theme="dark"] .explain b,
+html[data-theme="dark"] .uc-pct{color:#e9eeff}
+html[data-theme="dark"] .sec-head p{color:#aab5e2}
+html[data-theme="dark"] .recommend{background:#141c44}
+html[data-theme="dark"] .unit-card .u-period,
+html[data-theme="dark"] .unit-card .u-conc{color:#9fabda}
+html[data-theme="dark"] .foot{border-top-color:#333e78}
+html[data-theme="dark"] .tile:hover,
+html[data-theme="dark"] .unit-card:hover,
+html[data-theme="dark"] .choice:hover{box-shadow:5px 5px 0 var(--blue)}
+html[data-theme="dark"] .button:hover{box-shadow:4px 4px 0 #000}
+/* welcome/study-timer modal */
+html[data-theme="dark"] .wm-card{background:#0f1638;border-color:#333e78;box-shadow:8px 8px 0 #000}
+html[data-theme="dark"] .wm-h,
+html[data-theme="dark"] #wmClock,
+html[data-theme="dark"] .wm-lap-sum-line{color:#e9eeff}
+html[data-theme="dark"] .wm-p,
+html[data-theme="dark"] .wm-steps li,
+html[data-theme="dark"] .wm-lap-streak span{color:#c3cdf2}
+html[data-theme="dark"] .wm-sessline,
+html[data-theme="dark"] .wm-opt,
+html[data-theme="dark"] .wm-lap-summary{background:var(--sky);color:#e9eeff;border-color:#333e78}
+html[data-theme="dark"] .wm-opt:hover{background:var(--lime);color:var(--navy)}
+html[data-theme="dark"] .wm-dev-btn,
+html[data-theme="dark"] .wm-custom input{background:#141c44;color:#e9eeff;border-color:#333e78}
+html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--navy)}
 </style>
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <script src="mc-mode.js"></script>
 </head>
 <body>
@@ -254,6 +310,7 @@ body{line-height:1.6}
     <a href="cumulative.html">Cumulative</a>
     <a href="fullcourse.html">Narrative</a>
     <button type="button" class="mc-exit" data-mc-toggle title="Turn off Mission Control preview">AP World History</button>
+    <button type="button" class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-knob" id="ttKnob">&#9728;</span></button>
   </nav>
 </header>
 
@@ -843,6 +900,27 @@ body{line-height:1.6}
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !overlay.classList.contains('wm-hidden')) close(); });
 
   open();
+})();
+</script>
+<script>
+/* ── DARK-MODE TOGGLE ── */
+(function(){
+  "use strict";
+  var root = document.documentElement, btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  var knob = document.getElementById('ttKnob');
+  function paint(){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    btn.setAttribute('aria-checked', dark ? 'true' : 'false');
+    if (knob) knob.innerHTML = dark ? '&#9790;' : '&#9728;'; // moon : sun
+  }
+  paint();
+  btn.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    if (dark) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', 'dark');
+    try{ localStorage.setItem('mcTheme', dark ? 'light' : 'dark'); }catch(e){}
+    paint();
+  });
 })();
 </script>
 </body>

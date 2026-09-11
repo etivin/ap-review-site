@@ -99,3 +99,25 @@
 :root[data-theme="dark"] .mc-opt:hover:not(:disabled){background:#232a3d}
 :root[data-theme="dark"] .mc-opt.right{background:rgba(70,190,130,.16);border-color:var(--green);color:#7fe0a8}
 :root[data-theme="dark"] .mc-opt.wrongpick{background:rgba(255,104,76,.16);border-color:var(--coral);color:#ff9d88}
+
+/* ── READABILITY: keep all text white / gray in dark mode ───────
+   Several pages use dark accent colors (navy-blue, gold, teal,
+   crimson) for eyebrows and labels — unreadable on a dark ground.
+   Force text light everywhere (this high-specificity rule beats the
+   pages' single-class color rules), then restore dark text only where
+   it sits on a light lime chip or button. Semantic answer colors set
+   above (lighter green/red) are more specific and survive. */
+:root[data-theme="dark"] [class]{color:#e7ebf5}
+:root[data-theme="dark"] .sub,
+:root[data-theme="dark"] .top-bar-sub,
+:root[data-theme="dark"] .muted{color:#aab2c8}
+/* dark text stays on light (lime) surfaces */
+:root[data-theme="dark"] .btn,
+:root[data-theme="dark"] .cell.flag,
+:root[data-theme="dark"] .banner.win{color:#14181f}
+/* modal close links carry an inline dark-coral color */
+:root[data-theme="dark"] #wmDone,
+:root[data-theme="dark"] #wmLapClose{color:#ff8f8f!important}
+/* hero-title emphasis is a bare <em>, so [class] misses it — keep it light */
+:root[data-theme="dark"] .hero h1 em,
+:root[data-theme="dark"] .pg-hero h2 em{color:#fff}

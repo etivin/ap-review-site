@@ -41,7 +41,10 @@
   --paper:#1c2029;                    /* panels */
   --border:#333a49;--border2:#454e62; /* lines */
   --line:#2f3647;
-  --ink:#eceff7;--mid:#c4cad7;--muted:#9299ac; /* text ramp (cream family) */
+  /* --ink is reused as a DARK chrome background (sidebar, troubleshooter,
+     full-course tab, dark timelines...), so it must stay dark. Text that
+     uses --ink is forced light by the readability rule further down. */
+  --ink:#12141b;--mid:#c4cad7;--muted:#9299ac;
   --sky:#182140;                      /* navy family tint */
   /* light accent tints -> faint neutral panels */
   --red-bg:rgba(255,255,255,.06);
@@ -108,6 +111,10 @@
    it sits on a light lime chip or button. Semantic answer colors set
    above (lighter green/red) are more specific and survive. */
 :root[data-theme="dark"] [class]{color:#e7ebf5}
+/* also catch bare inline/text elements (no class) colored via descendant
+   selectors, e.g. `.us-body strong{color:var(--ink)}` — kept below the
+   lime-chip exceptions in specificity so those still win */
+:root[data-theme="dark"] :is(h1,h2,h3,h4,h5,h6,p,li,span,strong,b,em,i,a,td,th,dt,dd,cite,small,label,blockquote,figcaption){color:#e7ebf5}
 :root[data-theme="dark"] .sub,
 :root[data-theme="dark"] .top-bar-sub,
 :root[data-theme="dark"] .muted{color:#aab2c8}

@@ -171,3 +171,30 @@
 :root[data-theme="dark"] [style*="#f9f6ef"],
 :root[data-theme="dark"] [style*="#F4F1E8"]{background:#171a22!important;border-color:#333a49!important}
 :root[data-theme="dark"] input[style*="background:#fff"]{background:#1b1f2a!important;color:#e7ebf5!important;border-color:#454e62!important}
+
+/* ── HEX WEB (hexagonal-thinking game, unitN-hexweb.html) ───────
+   Shared across every unit's Hex Web. Its panels, hex tiles, and
+   modal use hard-coded light fills; darken them centrally. The SVG
+   hex fills come from CSS classes (not attributes) so tokens apply. */
+:root[data-theme="dark"] .leg,
+:root[data-theme="dark"] .bank,
+:root[data-theme="dark"] .log{background:#171a22;border-color:#39415a}
+:root[data-theme="dark"] .leg{border-color:#39415a}
+:root[data-theme="dark"] .clog{background:rgba(255,255,255,.05)}
+:root[data-theme="dark"] .clog .pair{color:#e7ebf5}
+/* board hexes */
+:root[data-theme="dark"] .hexpoly.empty{fill:#0e1017;stroke:#4a5470}
+:root[data-theme="dark"] .hexpoly.hot{stroke:var(--blue)}
+:root[data-theme="dark"] .hexpoly.occ{fill:#232c4d;stroke:#8a97c9}
+/* junction buttons */
+:root[data-theme="dark"] .jbtn{background:#1b1f2a;border-color:#454e62;box-shadow:1px 1px 0 #000}
+:root[data-theme="dark"] .jbtn.empty{color:#9299ac}
+/* idea-bank tiles: --sky already darkens; fix the lime "selected" + hover */
+:root[data-theme="dark"] .hexchip.sel{color:#14181f}
+:root[data-theme="dark"] .hexchip:hover{background:#232a3d}
+/* connection + review modals */
+:root[data-theme="dark"] .tyopt{background:#1b1f2a;border-color:#39415a;color:#e8ecf5}
+:root[data-theme="dark"] .tyopt:hover,
+:root[data-theme="dark"] .tyopt.on{background:#232a3d}
+:root[data-theme="dark"] .note-wrap textarea{background:#1b1f2a;color:#e7ebf5;border-color:#454e62}
+:root[data-theme="dark"] .rvlist li{background:rgba(255,255,255,.05)}

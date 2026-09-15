@@ -24,6 +24,15 @@ a{color:inherit}
 .links a{color:#fff;text-decoration:none;font-size:10.56px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 2px;border-bottom:2px solid transparent}
 .links a:hover{color:var(--lime);border-bottom-color:var(--lime)}
 .links a.here{color:var(--navy);background:var(--lime);padding:6px 9px;border-bottom-color:var(--lime)}
+/* grouped dropdowns (Units / How to / Review) */
+.dd{position:relative}
+.dd-t{font:inherit;color:#fff;background:none;border:none;cursor:pointer;font-size:10.56px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 2px;border-bottom:2px solid transparent;display:inline-flex;align-items:center;gap:5px}
+.dd-t .cv{font-size:.72em;line-height:1}
+.dd:hover .dd-t,.dd:focus-within .dd-t{color:var(--lime);border-bottom-color:var(--lime)}
+.dd-m{position:absolute;top:100%;right:0;min-width:186px;background:var(--navy);border:1px solid var(--blue);box-shadow:0 10px 24px rgba(0,0,0,.35);display:none;flex-direction:column;padding:5px 0;z-index:70}
+.dd:hover .dd-m,.dd:focus-within .dd-m{display:flex}
+.dd-m a{display:block;padding:10px 16px;border-bottom:none;white-space:nowrap;font-size:10.56px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.dd-m a:hover{background:var(--blue);color:#fff;border-bottom:none}
 
 .main{max-width:none;margin:auto;padding:26px max(20px,3vw) 70px}
 .eyebrow{font-size:.64rem;color:var(--blue);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
@@ -312,13 +321,23 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
 <header class="bar">
   <a class="brand" href="mission-control.html">APWH <b>/</b> MISSION CONTROL</a>
   <nav class="links">
-    <a href="mission-control.html" class="here">Dashboard</a>
     <a href="#units">Units</a>
-    <a href="brain-sculptor.html">How to Study</a>
-    <a href="resources.html">Resources</a>
-    <a href="sbmcq.html">Stimulus MCQ</a>
-    <a href="cumulative.html">Cumulative</a>
-    <a href="fullcourse.html">Narrative</a>
+    <div class="dd">
+      <button type="button" class="dd-t">How to <span class="cv">&#9662;</span></button>
+      <div class="dd-m">
+        <a href="sbmcq.html">How to Stimulus MCQ</a>
+        <a href="brain-sculptor.html">How to Study</a>
+        <a href="writing-guide.html">How to Write</a>
+      </div>
+    </div>
+    <div class="dd">
+      <button type="button" class="dd-t">Review <span class="cv">&#9662;</span></button>
+      <div class="dd-m">
+        <a href="resources.html">Resources</a>
+        <a href="cumulative.html">Cumulative</a>
+        <a href="fullcourse.html">Narrative</a>
+      </div>
+    </div>
     <button type="button" class="mc-exit" data-mc-toggle title="Turn off Mission Control preview">AP World History</button>
     <button type="button" class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-knob" id="ttKnob">&#9728;</span></button>
   </nav>
@@ -482,6 +501,7 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
       <a class="tile" href="resources.html"><i>Resources</i><h3>Review Resources</h3><span>Use when you need a clearer explanation, a visual, or a trusted source before you practice.</span><strong>Explore &rarr;</strong></a>
       <a class="tile" href="brain-sculptor.html"><i>Study</i><h3>The Brain Sculptor</h3><span>Use when rereading feels productive but recall is weak. It shows how to change the habit.</span><strong>Study smarter &rarr;</strong></a>
       <a class="tile" href="sbmcq.html"><i>Skills</i><h3>Attack the Stimulus MCQ</h3><span>Use when a source, graph, or quotation slows you down. Learn the four-step method.</span><strong>Learn the method &rarr;</strong></a>
+      <a class="tile" href="writing-guide.html"><i>Writing</i><h3>How to Write the Essays</h3><span>Use before an SAQ, LEQ, or DBQ. Every rubric point, HIPP sourcing, and how to build a thesis.</span><strong>Learn to write &rarr;</strong></a>
       <a class="tile" href="fullcourse.html"><i>Connections</i><h3>Course Narrative</h3><span>Use before a test or essay to connect each unit to the long story of AP World.</span><strong>Open narrative &rarr;</strong></a>
       <a class="tile" id="selected-unit-tile" href="unit1.html"><i>Current unit</i><h3>Unit Review</h3><span>Overview, MCQ practice, writing, flashcards, brain dump, and study guide in one place.</span><strong id="selected-unit-strong">Open Unit 1 &rarr;</strong></a>
     </div>

@@ -80,11 +80,20 @@
         'font-weight:700;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;' +
         'padding:9px 14px;border:2px solid #d8f13a;white-space:nowrap}' +
       '#mc-bar .mcb-back:hover{background:#fff;border-color:#fff}' +
-      '#mc-bar nav{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:15px;justify-content:flex-end;scrollbar-width:none}' +
-      '#mc-bar nav::-webkit-scrollbar{display:none}' +
+      '#mc-bar nav{display:flex;flex-wrap:nowrap;gap:15px;justify-content:flex-end}' +
       '#mc-bar nav a{color:#fff;text-decoration:none;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:4px 1px}' +
       '#mc-bar nav a:hover{color:#d8f13a;border-bottom-color:#d8f13a}' +
       '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:4px 8px}' +
+      '#mc-bar .dd{position:relative}' +
+      '#mc-bar .dd-t{font:inherit;color:#fff;background:none;border:none;cursor:pointer;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:4px 1px;display:inline-flex;align-items:center;gap:4px}' +
+      '#mc-bar .dd-t .cv{font-size:.72em;line-height:1}' +
+      '#mc-bar .dd:hover .dd-t,#mc-bar .dd:focus-within .dd-t{color:#d8f13a;border-bottom-color:#d8f13a}' +
+      '#mc-bar .dd.has-here .dd-t{color:#111a3f;background:#d8f13a;padding:4px 8px}' +
+      '#mc-bar .dd-m{position:absolute;top:100%;right:0;min-width:172px;background:#111a3f;border:1px solid #2d5deb;box-shadow:0 10px 22px rgba(0,0,0,.45);display:none;flex-direction:column;padding:5px 0;z-index:1001}' +
+      '#mc-bar .dd:hover .dd-m,#mc-bar .dd:focus-within .dd-m{display:flex}' +
+      '#mc-bar .dd-m a{display:block;padding:9px 15px;border-bottom:none}' +
+      '#mc-bar .dd-m a:hover{background:#2d5deb;color:#fff;border-bottom:none}' +
+      '#mc-bar .dd-m a.here{color:#111a3f;background:#d8f13a}' +
       'body{padding-top:' + H + 'px}' +
       // Only offset the fixed desktop sidebar; on mobile it flows normally.
       '@media(min-width:901px){.sidebar{top:' + H + 'px!important}}' +
@@ -99,7 +108,14 @@
     document.head.appendChild(st);
 
     var here = location.pathname.replace(/^.*\//, '');
-    function lnk(href, label) { return '<a href="' + href + '"' + (href === here ? ' class="here"' : '') + '>' + label + '</a>'; }
+    function subLnk(href, label) { return '<a href="' + href + '"' + (href === here ? ' class="here"' : '') + '>' + label + '</a>'; }
+    function group(label, items) {
+      var has = items.some(function (i) { return i[0] === here; });
+      var menu = items.map(function (i) { return subLnk(i[0], i[1]); }).join('');
+      return '<div class="dd' + (has ? ' has-here' : '') + '">' +
+        '<button type="button" class="dd-t">' + label + ' <span class="cv">&#9662;</span></button>' +
+        '<div class="dd-m">' + menu + '</div></div>';
+    }
     var bar = document.createElement('header'); bar.id = 'mc-bar';
     bar.innerHTML =
       '<div class="mcb-left">' +
@@ -108,12 +124,8 @@
       '</div>' +
       '<nav>' +
         '<a href="mission-control.html#units">Units</a>' +
-        lnk('brain-sculptor.html', 'How to Study') +
-        lnk('writing-guide.html', 'How to Write') +
-        lnk('resources.html', 'Resources') +
-        lnk('sbmcq.html', 'Stimulus MCQ') +
-        lnk('cumulative.html', 'Cumulative') +
-        lnk('fullcourse.html', 'Narrative') +
+        group('How to', [['sbmcq.html', 'How to Stimulus MCQ'], ['brain-sculptor.html', 'How to Study'], ['writing-guide.html', 'How to Write']]) +
+        group('Review', [['resources.html', 'Resources'], ['cumulative.html', 'Cumulative'], ['fullcourse.html', 'Narrative']]) +
       '</nav>';
     document.body.insertBefore(bar, document.body.firstChild);
   }

@@ -109,6 +109,7 @@
       '<nav>' +
         '<a href="mission-control.html#units">Units</a>' +
         lnk('brain-sculptor.html', 'How to Study') +
+        lnk('writing-guide.html', 'How to Write') +
         lnk('resources.html', 'Resources') +
         lnk('sbmcq.html', 'Stimulus MCQ') +
         lnk('cumulative.html', 'Cumulative') +

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>How to Write the AP World Essays</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --sw:270px;
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --green:#1a6825;--green-bg:#eef7f0;--green-b:#8ec49a;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;--blue-b:#c8d6f5;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.65;min-height:100vh;display:flex}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;margin-top:4px}
+.sb-nav{padding:12px 0;flex:1}
+.sb-group-label{padding:14px 20px 4px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none;text-decoration:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(176,0,28,.13)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sb-back{display:block;background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .15s}
+.sb-back:hover{background:var(--red-d)}
+
+/* MAIN */
+.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 36px;height:66px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.top-bar-title{font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em}
+.top-bar-sub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
+.top-bar-tag{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
+.page-content{padding:36px 40px 90px;flex:1;max-width:1000px}
+
+.section-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;margin-bottom:12px;line-height:1.1}
+.section-sub{color:var(--mid);font-size:1rem;margin-bottom:14px;max-width:680px}
+.section-sub em{font-style:italic;color:var(--red-d)}
+.hero{border-left:4px solid var(--red);padding:2px 0 2px 22px;margin-bottom:34px}
+.thesis{background:var(--ink);color:#fff;padding:18px 22px;margin-top:20px;max-width:680px}
+.thesis p{font-family:Lato,system-ui,sans-serif;letter-spacing:-.01em;font-style:italic;font-size:1.05rem;line-height:1.5}
+.thesis cite{display:block;margin-top:9px;font-style:normal;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:700}
+
+/* JUMP NAV */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 40px}
+.jump a{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--mid);background:var(--white);border:1px solid var(--border);padding:8px 14px;transition:all .14s}
+.jump a:hover{border-color:var(--red);color:var(--red)}
+
+/* BLOCK HEADS */
+.block-head{margin:52px 0 18px;padding-top:12px}
+.block-kicker{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.block-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.55rem;font-weight:900;line-height:1.15}
+.block-title .n{color:var(--cc,var(--red))}
+.lead{color:var(--mid);font-size:.98rem;max-width:720px;margin-bottom:18px}
+
+/* COMPARE TABLE */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);box-shadow:var(--sh);margin-bottom:14px}
+table.cmp{border-collapse:collapse;width:100%;min-width:560px;background:var(--white);font-size:.86rem}
+table.cmp th,table.cmp td{text-align:left;padding:12px 15px;border-bottom:1px solid var(--border);vertical-align:top}
+table.cmp thead th{background:var(--ink);color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase}
+table.cmp tbody th{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--paper);white-space:nowrap}
+table.cmp td strong{color:var(--ink)}
+table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
+.pill{display:inline-block;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;color:#fff}
+.pill.saq{background:var(--blue)}.pill.leq{background:var(--gold)}.pill.dbq{background:var(--red)}
+
+/* VERB / SKILL CARDS */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:14px}
+.vcard{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--cc,var(--red));padding:14px 16px}
+.vcard h4{font-family:Lato,system-ui,sans-serif;font-weight:900;letter-spacing:-.01em;font-size:1.02rem;color:var(--ink);margin-bottom:3px}
+.vcard .task{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cc,var(--red));margin-bottom:7px}
+.vcard p{font-size:.85rem;color:var(--mid);margin:0}
+.vcard p + p{margin-top:7px}
+.vcard em{font-style:italic;color:var(--ink)}
+
+/* ESSAY SECTION SHELL */
+.essay{background:var(--white);border:1px solid var(--border);border-top:5px solid var(--cc,var(--red));box-shadow:var(--sh);padding:26px 28px;margin-bottom:16px}
+.essay-tag{display:inline-block;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--cc,var(--red));padding:4px 11px;margin-bottom:12px}
+.essay h3{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.5rem;font-weight:900;line-height:1.1;margin-bottom:6px}
+.essay .facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:10px 0 16px;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.essay .facts div{font-size:.8rem;color:var(--mid)}
+.essay .facts b{display:block;font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:1.05rem;color:var(--cc,var(--red));letter-spacing:-.01em}
+.essay p{color:var(--mid);margin-bottom:12px}
+.essay p:last-child{margin-bottom:0}
+.essay strong{color:var(--ink)}
+.subh{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin:22px 0 10px;padding-top:14px;border-top:1px dashed var(--border2)}
+
+/* STEP LIST */
+.steps{list-style:none;counter-reset:s;margin:4px 0 6px}
+.steps li{counter-increment:s;position:relative;padding:4px 0 14px 42px;color:var(--mid);font-size:.9rem}
+.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:27px;height:27px;background:var(--cc,var(--red));color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.steps li strong{color:var(--ink)}
+.steps li:last-child{padding-bottom:0}
+
+/* RUBRIC CHECKLIST */
+.rubric{list-style:none;margin:6px 0 4px}
+.rubric li{display:flex;gap:12px;padding:13px 15px;background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--cc,var(--red));margin-bottom:8px}
+.rubric li.spot{border-left-width:6px;background:var(--blue-bg);border-color:var(--blue-b)}
+.rubric .pts{flex-shrink:0;width:44px;height:24px;display:flex;align-items:center;justify-content:center;background:var(--cc,var(--red));color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.7rem}
+.rubric li.spot .pts{background:var(--blue)}
+.rubric .rb-body{flex:1}
+.rubric .rb-name{font-family:Lato,system-ui,sans-serif;font-weight:900;letter-spacing:-.01em;font-size:.98rem;color:var(--ink);margin-bottom:2px}
+.rubric .rb-desc{font-size:.84rem;color:var(--mid)}
+.rubric .rb-desc em{font-style:italic;color:var(--red-d)}
+
+/* CALLOUTS */
+.callout{padding:12px 16px 12px 15px;margin:14px 0;font-size:.87rem;line-height:1.6;border-left:4px solid}
+.callout .lb{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:5px}
+.callout.tip{background:var(--blue-bg);border-color:var(--blue)}
+.callout.tip .lb{color:var(--blue)}
+.callout.do{background:var(--green-bg);border-color:var(--green)}
+.callout.do .lb{color:var(--green)}
+.callout.dont{background:var(--red-bg);border-color:var(--red)}
+.callout.dont .lb{color:var(--red-d)}
+.callout strong{color:var(--ink)}
+
+/* CONTEXTUALIZATION SPOTLIGHT */
+.ctx{background:var(--blue-bg);border:1px solid var(--blue-b);border-top:4px solid var(--blue);padding:18px 20px;margin:16px 0}
+.ctx .cx-lb{font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:9px}
+.ctx h5{font-family:Lato,system-ui,sans-serif;letter-spacing:-.01em;font-size:1.15rem;font-weight:900;color:var(--ink);margin-bottom:8px}
+.ctx p{font-size:.88rem;color:var(--mid);margin-bottom:11px}
+.ctx p:last-child{margin-bottom:0}
+.ctx strong{color:var(--ink)}
+.ctx .formula{background:var(--white);border:1px solid var(--blue-b);border-left:3px solid var(--blue);padding:11px 14px;font-size:.87rem;line-height:1.6;color:var(--ink);margin-bottom:11px}
+.ctx .formula b{color:var(--blue)}
+.cx-mini{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin:2px 0 6px}
+
+/* WORKED EXAMPLE */
+.worked{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:3px solid var(--gold);padding:14px 16px;margin:14px 0;font-size:.87rem;line-height:1.65;color:var(--ink)}
+.worked .wk-lb{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:7px}
+.worked .quote{font-style:italic;color:var(--ink)}
+.worked .why{display:block;margin-top:8px;padding-top:8px;border-top:1px dashed var(--gold-b);font-size:.82rem;color:var(--mid)}
+
+/* TWO-COL DO/DONT */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.dd .col{border:1px solid var(--border);padding:13px 15px}
+.dd .col.win{border-top:4px solid var(--green);background:var(--white)}
+.dd .col.lose{border-top:4px solid var(--red);background:var(--white)}
+.dd .col h5{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.dd .col.win h5{color:var(--green)}
+.dd .col.lose h5{color:var(--red-d)}
+.dd .col ul{list-style:none;margin:0}
+.dd .col li{font-size:.84rem;color:var(--mid);padding-left:18px;position:relative;margin-bottom:7px;line-height:1.5}
+.dd .col.win li::before{content:'\2713';position:absolute;left:0;color:var(--green);font-weight:900}
+.dd .col.lose li::before{content:'\2717';position:absolute;left:0;color:var(--red);font-weight:900}
+.dd .col li:last-child{margin-bottom:0}
+
+/* ACCORDION */
+.acc{border:1px solid var(--border);background:var(--white);margin-bottom:8px}
+.acc-q{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:14px 17px;font-family:inherit;color:var(--ink)}
+.acc-q:hover{background:var(--paper)}
+.acc-q .qt{flex:1;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.95rem;line-height:1.35}
+.acc-q .chev{flex-shrink:0;font-family:Lato,system-ui,sans-serif;font-weight:700;color:var(--muted);transition:transform .2s}
+.acc.open .acc-q .chev{transform:rotate(90deg);color:var(--red)}
+.acc.open .acc-q{background:var(--paper)}
+.acc-a{display:none;padding:0 17px 16px;color:var(--mid);font-size:.87rem;line-height:1.65}
+.acc.open .acc-a{display:block}
+.acc-a strong{color:var(--ink)}
+
+/* CTA */
+.cta{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--ink);border:3px solid var(--red);padding:22px 28px;margin-top:34px;text-decoration:none;color:#fff;box-shadow:var(--shm);transition:background .2s,transform .2s;flex-wrap:wrap}
+.cta:hover{background:var(--red-d);transform:translateY(-3px)}
+.cta .cl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
+.cta .ct{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.35rem;font-weight:900;line-height:1.1;margin-bottom:6px}
+.cta .cs{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.08em;color:rgba(255,255,255,.55)}
+.cta .cb{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;white-space:nowrap}
+
+/* BACK TO TOP */
+.back-to-top{position:fixed;right:26px;bottom:26px;z-index:200;display:flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border:none;cursor:pointer;padding:12px 16px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;box-shadow:var(--shm);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;transform:translateY(8px)}
+.back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.back-to-top:hover{background:var(--red)}
+
+@media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}.page-content{padding:24px 20px 60px}.dd{grid-template-columns:1fr}}
+@media(max-width:520px){.back-to-top{right:14px;bottom:14px}.back-to-top .bt-label{display:none}}
+</style>
+<link rel="stylesheet" href="mission-theme.css">
+<script src="mc-mode.js"></script>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="bedtime.js"></script></head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">How to Write</div>
+    <div class="sb-sub">The AP World Essays</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Navigation</div>
+    <a href="index.html" class="nav-item"><span class="nav-dot"></span>All Units</a>
+    <a href="brain-sculptor.html" class="nav-item"><span class="nav-dot"></span>How to Study</a>
+    <a href="writing-guide.html" class="nav-item active"><span class="nav-dot"></span>How to Write</a>
+    <a href="resources.html" class="nav-item"><span class="nav-dot"></span>Review Resources</a>
+    <a href="sbmcq.html" class="nav-item"><span class="nav-dot"></span>Attack the Stimulus MCQ</a>
+    <a href="cumulative.html" class="nav-item"><span class="nav-dot"></span>Cumulative Review</a>
+    <a href="fullcourse.html" class="nav-item"><span class="nav-dot"></span>Course Narrative</a>
+    <div class="sb-divider"></div>
+    <div class="sb-group-label">Units</div>
+    <a href="unit1.html" class="nav-item"><span class="nav-dot"></span>Unit 1: The Global Tapestry</a>
+    <a href="unit2.html" class="nav-item"><span class="nav-dot"></span>Unit 2: Networks of Exchange</a>
+    <a href="unit3.html" class="nav-item"><span class="nav-dot"></span>Unit 3: Land-Based Empires</a>
+    <a href="unit4.html" class="nav-item"><span class="nav-dot"></span>Unit 4: Transoceanic Interconnections</a>
+    <a href="unit5.html" class="nav-item"><span class="nav-dot"></span>Unit 5: Revolutions</a>
+    <a href="unit6.html" class="nav-item"><span class="nav-dot"></span>Unit 6: Consequences of Industrialization</a>
+    <a href="unit7.html" class="nav-item"><span class="nav-dot"></span>Unit 7: Global Conflict</a>
+    <a href="unit8.html" class="nav-item"><span class="nav-dot"></span>Unit 8: Cold War &amp; Decolonization</a>
+    <a href="unit9.html" class="nav-item"><span class="nav-dot"></span>Unit 9: Globalization</a>
+  </nav>
+  <div class="sb-footer">
+    <a href="index.html" class="sb-back">&#8592; Back to All Units</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-wrap">
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title">How to Write the Essays</div>
+    <div class="top-bar-sub">SAQ &middot; LEQ &middot; DBQ &middot; The rules, the moves, the points</div>
+  </div>
+  <span class="top-bar-tag">Writing Skills</span>
+</div>
+
+<div class="page-content">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="section-label">The Free-Response Section</div>
+    <h1 class="section-heading">The essays are a game with published rules.</h1>
+    <p class="section-sub">You are not being asked to write a beautiful essay. You are being asked to <em>earn specific points off a checklist a reader is holding</em>. Once you know exactly what each point requires, the essays stop being mysterious. This guide walks you through all three writing tasks (the <strong>SAQ</strong>, the <strong>LEQ</strong>, and the <strong>DBQ</strong>): what each one is, how to build it, and how to win every point on the rubric.</p>
+    <div class="thesis">
+      <p>&ldquo;A grader spends about two minutes on your essay. Your job is to make every point obvious, in order, so they never have to hunt for it.&rdquo;</p>
+      <cite>The one idea behind this whole guide</cite>
+    </div>
+  </div>
+
+  <!-- JUMP NAV -->
+  <div class="jump">
+    <a href="#land">The Landscape</a>
+    <a href="#verbs">Command Words</a>
+    <a href="#saq">The SAQ</a>
+    <a href="#leq">The LEQ</a>
+    <a href="#dbq">The DBQ</a>
+    <a href="#timing">Test-Day Timing</a>
+  </div>
+
+  <!-- ============ SECTION 1: THE LANDSCAPE ============ -->
+  <div class="block-head" id="land" style="--cc:var(--ink)">
+    <div class="block-kicker">Start Here</div>
+    <div class="block-title"><span class="n">01.</span> &nbsp;The landscape: three essays, one exam</div>
+  </div>
+  <p class="lead">The free-response half of the AP exam has three writing tasks. They test the same historical thinking, but they ask for it in very different sizes. Know what you are walking into before you learn the moves.</p>
+
+  <div class="tbl-wrap">
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th></th>
+          <th><span class="pill saq">SAQ</span> Short-Answer</th>
+          <th><span class="pill leq">LEQ</span> Long Essay</th>
+          <th><span class="pill dbq">DBQ</span> Document-Based</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th>What it is</th>
+          <td>3 short questions, each with parts <strong>a, b, c</strong>, <strong>all required</strong>. Bullet-style answers, no essay.</td>
+          <td><strong>One required essay</strong> from a single broad prompt (the 2027 exam no longer gives a choice of three). No documents; you supply the evidence.</td>
+          <td>One essay built from <strong>7 provided documents</strong> plus your own knowledge.</td></tr>
+        <tr><th>Points</th>
+          <td><strong>3 points</strong> (1 per part)</td>
+          <td><strong>6 points</strong></td>
+          <td><strong>7 points</strong></td>
+        </tr>
+        <tr><th>Share of exam</th>
+          <td>20%</td>
+          <td>15%</td>
+          <td>25%</td></tr>
+        <tr><th>Time</th>
+          <td>~40 min for all 3 (about 12&ndash;13 min each)</td>
+          <td>~40 min</td>
+          <td>~60 min (includes a 15-min reading period)</td></tr>
+        <tr><th>Thesis?</th>
+          <td>No. Just answer the task.</td>
+          <td><strong>Yes</strong>, required and scored</td>
+          <td><strong>Yes</strong>, required and scored</td></tr>
+        <tr><th>The one-line goal</th>
+          <td><strong>Answer, Cite, Explain.</strong> Fast, specific, done.</td>
+          <td><strong>Build and defend an argument</strong> with your own evidence, framed by a reasoning skill.</td>
+          <td><strong>Build an argument</strong> using the documents <em>and</em> outside knowledge, and analyze the sources.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout tip"><span class="lb">Read the weighting again</span>The three writing tasks together are <strong>60% of your entire exam score</strong>, more than the multiple choice. This is where the exam is won or lost.</div>
+  <div class="callout do"><span class="lb">Built for the 2027 exam redesign</span>College Board updated the AP History free-response section starting with the <strong>2027 exam</strong>. The two biggest changes: you now answer <strong>all three SAQs</strong> (no more skipping one), and the <strong>LEQ is a single required prompt</strong> instead of a choice of three. The point thresholds below reflect the updated rubrics your class uses.</div>
+
+  <!-- ============ SECTION 2: COMMAND WORDS ============ -->
+  <div class="block-head" id="verbs" style="--cc:var(--blue)">
+    <div class="block-kicker">The Master Key</div>
+    <div class="block-title" style="--cc:var(--blue)"><span class="n">02.</span> &nbsp;The words that tell you what to do</div>
+  </div>
+  <p class="lead">Every prompt is built from a small set of <strong>command verbs</strong> and <strong>reasoning skills</strong>. Most lost points come from doing the wrong <em>task</em>: describing when you were told to explain, listing when you were told to argue. Learn these once and every prompt on every exam becomes readable.</p>
+
+  <div class="subh" style="border:none;padding:0;margin-top:6px">A. Command verbs: the size of the answer</div>
+  <div class="vgrid">
+    <div class="vcard" style="--cc:var(--blue)">
+      <div class="task">One sentence</div>
+      <h4>Identify</h4>
+      <p>State a correct fact. No explanation needed. Just name the thing the prompt asks for.</p>
+      <p><em>&ldquo;Identify one cause of&hellip;&rdquo;</em></p>
+    </div>
+    <div class="vcard" style="--cc:var(--blue)">
+      <div class="task">1 to 2 sentences</div>
+      <h4>Describe</h4>
+      <p>Give the specific features or details of a thing. More than a name, but no cause-and-effect required.</p>
+      <p><em>&ldquo;Describe one similarity between&hellip;&rdquo;</em></p>
+    </div>
+    <div class="vcard" style="--cc:var(--blue)">
+      <div class="task">2 to 3 sentences</div>
+      <h4>Explain</h4>
+      <p>Show <strong>how or why</strong>, connecting a cause to an effect with a mechanism. This is where most SAQ points are lost.</p>
+      <p><em>&ldquo;Explain one reason why&hellip;&rdquo;</em></p>
+    </div>
+    <div class="vcard" style="--cc:var(--gold)">
+      <div class="task">A whole essay</div>
+      <h4>Evaluate / Explain how</h4>
+      <p>The essay prompts ask you to <strong>build and defend an argument</strong>. A DBQ usually says &ldquo;evaluate the extent to which&rdquo; (take a position on how much); a 2027 LEQ may instead say &ldquo;explain how.&rdquo; Either way, argue a claim, do not just describe.</p>
+      <p><em>&ldquo;Evaluate the extent to which&hellip;&rdquo; &middot; &ldquo;Explain how&hellip;&rdquo;</em></p>
+    </div>
+  </div>
+  <div class="callout do"><span class="lb">The tell</span>If you see <strong>&ldquo;Evaluate the extent to which,&rdquo;</strong> the reader wants a judgment with a qualifier: <em>largely, primarily, to a limited extent, more than.</em> A flat answer with no degree of judgment cannot earn the thesis point.</div>
+
+  <div class="subh">B. Reasoning skills: the shape of the argument</div>
+  <p class="lead" style="margin-bottom:12px">An LEQ or DBQ is built on a <strong>reasoning skill that structures the whole thing</strong>. Pick one and build your body paragraphs around it.</p>
+  <div class="vgrid">
+    <div class="vcard" style="--cc:var(--gold)">
+      <div class="task">Cause and effect</div>
+      <h4>Causation</h4>
+      <p>Argues what led to what, and why. Organize around causes and their consequences.</p>
+      <p><em>Because X happened, Y followed&hellip;</em></p>
+    </div>
+    <div class="vcard" style="--cc:var(--gold)">
+      <div class="task">Then vs. now</div>
+      <h4>Continuity &amp; Change</h4>
+      <p>Argues what stayed the same and what shifted across the period. Organize around before and after.</p>
+      <p><em>Early on X; by the end this had become Y&hellip;</em></p>
+    </div>
+    <div class="vcard" style="--cc:var(--gold)">
+      <div class="task">A vs. B</div>
+      <h4>Comparison</h4>
+      <p>Argues similarities <em>and</em> differences between regions, groups, or eras, and why they differ.</p>
+      <p><em>Whereas A did X, B did Y, revealing&hellip;</em></p>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 3: THE SAQ ============ -->
+  <div class="block-head" id="saq" style="--cc:var(--blue)">
+    <div class="block-kicker">Task One</div>
+    <div class="block-title" style="--cc:var(--blue)"><span class="n">03.</span> &nbsp;The SAQ: Short-Answer Question</div>
+  </div>
+
+  <div class="essay" style="--cc:var(--blue)">
+    <span class="essay-tag">The Warm-Up That Counts</span>
+    <h3>Answer, Cite, Explain</h3>
+    <div class="facts">
+      <div><b>3</b> parts (a, b, c)</div>
+      <div><b>3</b> points total</div>
+      <div><b>~13</b> min each</div>
+      <div><b>No</b> thesis needed</div>
+    </div>
+    <p>The SAQ is the most winnable task on the exam and the fastest to master. There is <strong>no thesis, no introduction, no conclusion</strong>, so do not write any. You answer parts a, b, and c directly, in complete sentences, and move on. Label your answers <strong>(a) (b) (c)</strong> so the reader can find each point instantly.</p>
+
+    <div class="callout tip"><span class="lb">The three SAQs (2027)</span>You answer <strong>all three</strong> now, and each is anchored to a different kind of stimulus and a different era between 1200 and 2001: <strong>SAQ 1</strong> uses a <em>secondary</em> source (a historian's argument), <strong>SAQ 2</strong> uses a <em>primary</em> source, and <strong>SAQ 3</strong> uses a <em>non-text</em> source (a map, chart, image, or cartoon). Some parts are pure reading comprehension; others ask you to bring in your own knowledge or to source the author's point of view.</div>
+
+    <div class="subh">The A.C.E. move for every part</div>
+    <ol class="steps" style="--cc:var(--blue)">
+      <li><strong>Answer</strong> the exact task in the first sentence. Restate a piece of the question so it is unmistakable you are on target.</li>
+      <li><strong>Cite</strong> a specific piece of evidence: a name, place, policy, event, or date. Specific beats vague every time.</li>
+      <li><strong>Explain</strong> (for parts that say &ldquo;explain&rdquo; only): connect your evidence to the task with <em>how</em> or <em>why</em>. One good causal sentence usually seals the point.</li>
+    </ol>
+
+    <div class="subh">Read the verb in each part</div>
+    <p>Parts a and b usually say <strong>identify</strong> or <strong>describe</strong>, which are quick. Part c almost always says <strong>explain</strong>, and that is the point students lose the most. &ldquo;Explain&rdquo; means show the mechanism, not just name a fact.</p>
+
+    <div class="callout do"><span class="lb">Class rules that win SAQ points</span>Write in <strong>past tense</strong>, in complete sentences, and label each answer <strong>(a) (b) (c)</strong>. Never quote or simply reword the stimulus: add something <em>new</em> (an example, an analysis, an interpretation). There is <strong>no partial credit</strong>, so make each part unmistakably complete. Before you write, check three things in the prompt: the <strong>time period</strong>, the <strong>geographic limit</strong> (Eurasia, the Americas, and so on), and the <strong>SPICE-T theme</strong> it targets.</div>
+
+    <div class="worked">
+      <span class="wk-lb">Worked example: a Part C that earns</span>
+      <span class="quote">Task: &ldquo;Explain one reason why demand for enslaved labor increased in the Americas, c. 1450&ndash;1750.&rdquo;</span><br><br>
+      &ldquo;The spread of labor-intensive <strong>sugar plantations</strong> in Brazil and the Caribbean created enormous demand for workers, and <strong>because</strong> Native populations had collapsed from disease, planters turned to enslaved Africans to keep the plantations running.&rdquo;
+      <span class="why">Why it earns: it names specific evidence (sugar plantations, disease collapse) <em>and</em> explains the mechanism with &ldquo;because.&rdquo; A reader who never saw the source could follow the cause and effect.</span>
+    </div>
+
+    <div class="dd">
+      <div class="col win">
+        <h5>Wins the point</h5>
+        <ul>
+          <li>Answers the exact task asked</li>
+          <li>Uses a specific, correct example</li>
+          <li>Part C shows <em>how/why</em>, not just <em>what</em></li>
+          <li>Labeled (a)(b)(c), complete sentences</li>
+        </ul>
+      </div>
+      <div class="col lose">
+        <h5>Loses the point</h5>
+        <ul>
+          <li>Writes a thesis or intro (wastes time)</li>
+          <li>Vague: &ldquo;people were unhappy&rdquo;</li>
+          <li>Restates the source instead of explaining</li>
+          <li>Answers a nearby fact, not the task</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout tip"><span class="lb">Time discipline</span>Budget about 12 to 13 minutes per SAQ. If a part is not coming to you, write your best specific sentence and move on. A partial, specific answer beats a perfect answer you never reach on the next question.</div>
+  </div>
+
+  <!-- ============ SECTION 4: THE LEQ ============ -->
+  <div class="block-head" id="leq" style="--cc:var(--gold)">
+    <div class="block-kicker">Task Two</div>
+    <div class="block-title" style="--cc:var(--gold)"><span class="n">04.</span> &nbsp;The LEQ: Long Essay Question</div>
+  </div>
+
+  <div class="essay" style="--cc:var(--gold)">
+    <span class="essay-tag">Your Argument, Your Evidence</span>
+    <h3>Six points, one argument</h3>
+    <div class="facts">
+      <div><b>6</b> points</div>
+      <div><b>~40</b> min</div>
+      <div><b>1</b> required prompt</div>
+      <div><b>No</b> documents</div>
+    </div>
+    <p>On the 2027 exam you get <strong>one required prompt</strong> (no more choosing among three) plus a brief introductory statement that orients you to the task. You write a full essay from your own knowledge, since there are no documents to lean on. You are <strong>not expected to cover the entire time period</strong>: pick the one or two examples you know best and build your argument there.</p>
+
+    <div class="subh">The 6-point rubric: what each point requires</div>
+    <ul class="rubric" style="--cc:var(--gold)">
+      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Thesis / Claim</div><div class="rb-desc">A historically defensible claim that responds to the prompt and <em>establishes a line of reasoning</em>. One or two sentences in the intro or conclusion. Must be more than a restatement of the prompt.</div></div></li>
+      <li class="spot"><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Contextualization &nbsp;&#9733;</div><div class="rb-desc">Describe a broader historical situation (events before or around the topic) that is relevant to the prompt. Must be <em>more than a phrase</em>, usually a few sentences. This is a free, learnable point that too many students throw away. See the full breakdown below.</div></div></li>
+      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Evidence: PROVIDE two examples</div><div class="rb-desc">Provide at least <strong>two specific, relevant</strong> historical examples (names, events, policies). This is the low bar: naming accurate evidence on the topic earns it. Aim for <strong>3 to 5</strong> so one weak example does not sink you.</div></div></li>
+      <li><span class="pts">+1 pt</span><div class="rb-body"><div class="rb-name">Evidence: SUPPORT the argument</div><div class="rb-desc">Use those examples <em>to support your argument</em>, not merely list them. Each piece must do a job for your thesis. Evidence sitting in your context paragraph does not count here, so re-use it in the body.</div></div></li>
+      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Historical reasoning</div><div class="rb-desc">Use <strong>comparison, causation, or continuity &amp; change</strong> to <em>frame and structure</em> the whole response, not as a stray transition word.</div></div></li>
+      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Complexity</div><div class="rb-desc">Show a complex understanding (nuance, a qualification, multiple causes/effects, or an insightful connection) <em>developed with evidence</em> and sustained across the essay. The hardest point on the exam.</div></div></li>
+    </ul>
+
+    <!-- CONTEXTUALIZATION SPOTLIGHT (LEQ) -->
+    <div class="ctx">
+      <span class="cx-lb">Point worth harping on &#9733; Contextualization</span>
+      <h5>Set the stage before you make your case.</h5>
+      <p>Contextualization is one paragraph, usually at the <strong>start of your essay, right before your thesis</strong>, where you zoom out and describe the <strong>bigger historical situation</strong> your topic sits inside. Think of it the way your class does: it is the <strong>opening crawl of <em>Star Wars</em></strong>, the <strong>prologue of <em>Romeo and Juliet</em></strong>, or the &ldquo;previously on&hellip;&rdquo; recap before a new episode. It gives the reader the background they need before the story starts. It is one of the easiest points to earn <em>and</em> one of the most commonly lost, because students give a single phrase instead of a real, developed description.</p>
+      <div class="cx-mini">What earns the point</div>
+      <p>You must <strong>describe</strong> a relevant broader development (before, during, or just after the period) in <strong>more than a phrase</strong>. Aim for <strong>2 to 4 full sentences</strong>. Start <strong>broad and narrow down</strong> to the prompt, stay within about <strong>100 years</strong> of your topic, and remember you <strong>cannot earn evidence points inside your context</strong>, so save your specific proof for the body.</p>
+      <div class="cx-mini">A reliable formula</div>
+      <div class="formula"><b>Before / around [the period],</b> [describe a broad, relevant development in a couple of sentences]. <b>This set the stage for</b> [the prompt's topic] <b>because</b> [one sentence linking the background to what you will argue].</div>
+      <div class="worked" style="margin-top:0">
+        <span class="wk-lb">Worked example: LEQ on the Atlantic Revolutions</span>
+        &ldquo;In the century before the Atlantic Revolutions, <strong>Enlightenment thinkers such as Locke and Rousseau</strong> spread the idea that government should rest on the consent of the governed rather than the divine right of kings. These ideas circulated through books, salons, and pamphlets across Europe and its colonies, and they gave educated elites a new language for questioning absolute rule. This set the stage for the revolutions of the period, because reformers now had a framework to justify overthrowing monarchs.&rdquo;
+        <span class="why">Why it earns: it describes a real, relevant development across several sentences, and the last line steers it into the argument. It is background, not the argument itself.</span>
+      </div>
+      <div class="cx-mini">Where students throw it away</div>
+      <p style="margin-bottom:0">A <strong>passing phrase</strong> (&ldquo;During the Enlightenment&hellip;&rdquo;) is not enough. A <strong>name-drop list</strong> with no development does not count. Context that <strong>never connects</strong> to the prompt does not count. And do not put your <strong>thesis or specific evidence</strong> in this slot: context is the wide backdrop, not your argument.</p>
+    </div>
+
+    <div class="subh">Build it in this order</div>
+    <ol class="steps" style="--cc:var(--gold)">
+      <li><strong>Deconstruct the prompt</strong> (1 min). Read the intro statement, then circle the command verb, the topic, any region, and the time frame. Watch for &ldquo;and/or&rdquo;: &ldquo;social and/or cultural&rdquo; means you may write about either or both.</li>
+      <li><strong>Brainstorm and prewrite</strong> (5 min). Sketch a quick <strong>Venn diagram</strong> (comparison), <strong>T-chart</strong> (continuity &amp; change), or <strong>fishbone</strong> (causation), and list every specific fact you know before you write. Do not skip this.</li>
+      <li><strong>Write contextualization</strong> first (see the spotlight above): a few sentences of the bigger picture that lead into your thesis.</li>
+      <li><strong>Write the thesis</strong>: a claim with a qualifier and a line of reasoning (see the formula below).</li>
+      <li><strong>Write 2 to 3 body paragraphs</strong>, each organized by your reasoning skill, each using specific evidence to prove a piece of the claim.</li>
+      <li><strong>Land the complexity</strong>: weave in a counter-case, a limit, or a comparison and explain why it matters. Not a tacked-on last sentence.</li>
+    </ol>
+
+    <div class="worked">
+      <span class="wk-lb">Thesis formula that earns the point</span>
+      <strong>Although</strong> [acknowledge the other side], [your position] <strong>to a [large/limited] extent</strong>, <strong>because</strong> [reason 1] <strong>and</strong> [reason 2].
+      <span class="why">Example: &ldquo;<em>Although</em> internal rebellions weakened the Qing, foreign involvement was the <em>primary</em> cause of its collapse, <em>because</em> Western economic imperialism drained its silver and unequal treaties stripped its sovereignty.&rdquo; That gives a defensible position, a qualifier, and two categories that become your body paragraphs.</span>
+    </div>
+
+    <div class="callout tip"><span class="lb">Two class-tested thesis tricks</span><strong>1.</strong> Pretend the prompt is an SAQ: if you covered up the rest of your essay, your thesis alone should fully answer the question. <strong>2.</strong> Use the <strong>language of the prompt</strong>. And if your opening thesis came out clumsy, <strong>rewrite a sharper version in your conclusion</strong>; the reader will credit the better one.</div>
+
+    <div class="callout dont"><span class="lb">The most common LEQ misses</span><strong>Evidence that just sits there</strong> (named but never tied to the claim) and <strong>a reasoning skill that never structures anything</strong> (one &ldquo;because&rdquo; buried in paragraph three). Make your reasoning the skeleton of the whole essay, and after every fact ask &ldquo;how does this prove my thesis?&rdquo;</div>
+  </div>
+
+  <!-- ============ SECTION 5: THE DBQ ============ -->
+  <div class="block-head" id="dbq" style="--cc:var(--red)">
+    <div class="block-kicker">Task Three</div>
+    <div class="block-title"><span class="n">05.</span> &nbsp;The DBQ: Document-Based Question</div>
+  </div>
+
+  <div class="essay" style="--cc:var(--red)">
+    <span class="essay-tag">The Big One: 25% of the Exam</span>
+    <h3>Seven documents, seven points</h3>
+    <div class="facts">
+      <div><b>7</b> points</div>
+      <div><b>~60</b> min</div>
+      <div><b>7</b> documents</div>
+      <div><b>15</b>-min reading period</div>
+    </div>
+    <p>The DBQ is the LEQ plus a stack of evidence and a sourcing skill. You get <strong>seven documents</strong> (text and images) and you build an argument that uses them <em>and</em> your own outside knowledge. It is the single most valuable essay on the exam, so it is worth a deliberate routine.</p>
+
+    <div class="subh">Use the 15-minute reading period like a pro</div>
+    <ol class="steps" style="--cc:var(--red)">
+      <li><strong>Read the prompt first</strong> and decide a rough position before you touch a document.</li>
+      <li><strong>Annotate each document</strong> as you read. Write one margin note for its <em>main idea</em>, and note the <strong>author, their situation, and their purpose</strong> from the source line (you will need this for sourcing).</li>
+      <li><strong>Group the documents</strong> into 2 or 3 buckets that will become your body paragraphs (for and against, or by reasoning category). Plan to <strong>use at least 6 of the 7</strong>.</li>
+      <li><strong>Jot outside evidence</strong> in the margin: a fact you know that is not in any document. You need at least one, it must be different from your contextualization, and it should stay in the same region and period as the documents.</li>
+    </ol>
+
+    <div class="subh">The 7-point rubric: where the extra points live</div>
+    <ul class="rubric" style="--cc:var(--red)">
+      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Thesis / Claim</div><div class="rb-desc">Same as the LEQ: a defensible claim with a line of reasoning that takes a position on the <em>extent</em>.</div></div></li>
+      <li class="spot"><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Contextualization &nbsp;&#9733;</div><div class="rb-desc">A broader historical situation relevant to the prompt, described in more than a phrase, before you dive into the documents. Same skill as the LEQ, and just as free. See the full breakdown below.</div></div></li>
+      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Evidence from the documents: USE 3</div><div class="rb-desc">Accurately <em>describe the content</em> (not just quote) of at least <strong>three</strong> documents relevant to the prompt. The low bar: it shows you understood them.</div></div></li>
+      <li><span class="pts">+1 pt</span><div class="rb-body"><div class="rb-name">Documents SUPPORT the argument: use 4</div><div class="rb-desc">Use the content of at least <strong>four</strong> documents to <em>support your argument</em>, not just describe them. Strategy: actually use <strong>6 or 7</strong>, which also helps earn complexity.</div></div></li>
+      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Evidence beyond the documents</div><div class="rb-desc">Use at least <strong>one specific</strong> piece of outside knowledge, relevant to the argument and <em>different from your contextualization</em>. Keep it in the <strong>same region and time period</strong> as the documents.</div></div></li>
+      <li class="spot"><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Sourcing / HIPP: source 2 &nbsp;&#9733;</div><div class="rb-desc">For at least <strong>two</strong> documents, explain how or why the source's point of view, purpose, historical situation, or audience is <em>relevant to your argument</em>. Explain <em>why it matters</em>, do not just name it. Strategy: <strong>source 4</strong>, which helps earn complexity. See the full breakdown below.</div></div></li>
+      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Complexity</div><div class="rb-desc">A sophisticated argument, sustained across the essay. Common ways in: use <strong>all 7 documents</strong> to support the argument, <strong>source 4</strong> documents, explain multiple perspectives or both cause <em>and</em> effect, or connect across regions and periods.</div></div></li>
+    </ul>
+
+    <!-- CONTEXTUALIZATION SPOTLIGHT (DBQ) -->
+    <div class="ctx">
+      <span class="cx-lb">Point worth harping on &#9733; Contextualization</span>
+      <h5>Same skill as the LEQ. Do not skip it here either.</h5>
+      <p>Contextualization on the DBQ works exactly like the LEQ version: a <strong>developed paragraph of broader background</strong> (2 to 4 sentences) placed before you start using documents. The trap unique to the DBQ is confusing three different things, so keep them straight:</p>
+      <p style="margin-bottom:11px"><strong>Contextualization</strong> is the wide backdrop you supply from your own knowledge. <strong>Outside evidence</strong> is <em>one specific fact</em> inside your argument that is not in the documents (and must be different from your context). <strong>Document evidence</strong> comes from the seven sources. Three separate points, so use three different pieces of information.</p>
+      <div class="cx-mini">A reliable formula</div>
+      <div class="formula"><b>In the [decades] surrounding this topic,</b> [describe a broad, relevant trend in a couple of sentences]. <b>This wider situation</b> is the backdrop against which [the documents / the events in the prompt] should be understood.</div>
+      <div class="worked" style="margin-top:0">
+        <span class="wk-lb">Worked example: DBQ on the collapse of the Qing</span>
+        &ldquo;By the second half of the 1800s, <strong>industrialized Western powers were using military force and economic pressure to extract concessions from weaker states across Asia</strong>, from the Ottoman Empire to Qing China. Gunboats, unequal treaties, and demands for open trade steadily eroded these states' control over their own affairs. This wider wave of imperialism is the backdrop against which the Qing dynasty's mounting troubles must be understood.&rdquo;
+        <span class="why">Why it earns: several sentences describing a genuinely broader development, clearly tied to the prompt's topic and era, and it does not reuse a document or the outside-evidence fact.</span>
+      </div>
+      <div class="cx-mini">Where students throw it away</div>
+      <p style="margin-bottom:0">A single phrase, a bare name-drop, background that never connects to the prompt, or <strong>reusing the same fact</strong> for context and for outside evidence (which costs you the second point). Context is broad and general; outside evidence is one narrow, specific fact.</p>
+    </div>
+
+    <!-- HIPP SOURCING SPOTLIGHT -->
+    <div class="subh">Sourcing done right: the H.I.P.P. move</div>
+    <p>Sourcing is the DBQ's signature skill and the point most students fumble. It is really <strong>one good sentence attached to a document</strong>: you name a feature of the <em>source</em> (not its content), explain how that feature shapes what the document says, and connect it to your argument. You must do this accurately for at least <strong>two documents</strong> to earn the point, but <strong>aim for four</strong>: it is a safety net if you slip on one, and sourcing four helps earn the complexity point.</p>
+
+    <div class="vgrid">
+      <div class="vcard" style="--cc:var(--red)"><div class="task">H</div><h4>Historical situation</h4><p>What was happening in the world when and where this was made? Ask: how does that moment shape the message?</p></div>
+      <div class="vcard" style="--cc:var(--red)"><div class="task">I</div><h4>Intended audience</h4><p>Who was the author speaking or writing <em>to</em>? Ask: how would the author shape the message for those specific readers?</p></div>
+      <div class="vcard" style="--cc:var(--red)"><div class="task">P</div><h4>Purpose</h4><p>Why did the author create this? Ask: what were they trying to make happen, and how does that goal color what they include?</p></div>
+      <div class="vcard" style="--cc:var(--red)"><div class="task">P</div><h4>Point of view</h4><p>Who is the author (their job, class, nationality, religion, group)? Ask: how does that position bias what they emphasize or leave out?</p></div>
+    </div>
+
+    <div class="callout tip"><span class="lb">The 3-move sourcing sentence</span><strong>1. Identify</strong> a specific HIPP feature, pulling detail from the source line above the document. <strong>2. Explain</strong> with a &ldquo;<strong>which means&hellip;</strong>&rdquo; or &ldquo;<strong>therefore&hellip;</strong>&rdquo; bridge: how does that feature shape what the source stresses, includes, or omits? <strong>3. Connect</strong> it to your argument about the prompt. Miss any of the three and the point does not count.</div>
+
+    <div class="callout tip"><span class="lb">What to actually look for in the source line</span>The italic <strong>source line</strong> above each document is where sourcing lives. For <strong>point of view</strong>, note the author's role, nationality, religion, class, or occupation. For <strong>purpose and audience</strong>, note the <em>type</em> of document: a letter to an official, a government decree, a newspaper article, a private diary, a political poster, a work of art. For <strong>reliability</strong>, compare the date it was made to when the events happened: a memoir written decades later is shaped by hindsight.</div>
+
+    <div class="callout do"><span class="lb">Where the sourcing sentence goes</span>Do not source in a separate paragraph. When you use a document as evidence, add the sourcing sentence <strong>right after it</strong>: give the evidence, then explain the HIPP feature and why it shapes what the document does or does not say.</div>
+
+    <div class="worked">
+      <span class="wk-lb">Worked example A: sourcing by Point of View</span>
+      &ldquo;Because this document is a <strong>revolutionary proclamation written by young Chinese students studying abroad</strong> (point of view), its authors were committed opponents of Manchu rule, <strong>which means</strong> it deliberately frames the dynasty's fall as an internal, patriotic uprising and downplays foreign pressure. This supports my argument that the collapse was driven as much from within as from outside.&rdquo;
+      <span class="why">Why it earns: it names the POV using detail from the source line, explains how that shapes the content with &ldquo;which means,&rdquo; and ties it to the argument. Three moves, one point.</span>
+    </div>
+    <div class="worked">
+      <span class="wk-lb">Worked example B: sourcing by Purpose</span>
+      &ldquo;This political cartoon was published in a Shanghai newspaper <strong>to warn the Chinese public</strong> that Western powers were carving up their country (purpose), <strong>therefore</strong> it exaggerates China's helplessness to stir alarm and national feeling, which strengthens the case that fear of foreign domination was fueling calls for change.&rdquo;
+      <span class="why">Why it earns: purpose is named and, crucially, the sentence explains how that purpose bends the message, then links it to the argument.</span>
+    </div>
+
+    <div class="dd">
+      <div class="col win">
+        <h5>Accurate sourcing</h5>
+        <ul>
+          <li>Names a feature of the <em>source</em>, not its content</li>
+          <li>Uses detail from the source line (who, when, why)</li>
+          <li>Explains <em>how</em> that feature shapes the document</li>
+          <li>Connects the point to your argument</li>
+          <li>Done for 3 different documents</li>
+        </ul>
+      </div>
+      <div class="col lose">
+        <h5>Sourcing that earns nothing</h5>
+        <ul>
+          <li>Just naming it: &ldquo;The audience is the government.&rdquo;</li>
+          <li>&ldquo;The author is biased&rdquo; with no <em>how</em> or <em>why</em></li>
+          <li>Summarizing what the document says</li>
+          <li>Sourcing only 1 or 2 documents</li>
+          <li>No link back to the argument</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout do"><span class="lb">Fast way to remember it</span>Content answers &ldquo;what does the document say?&rdquo; Sourcing answers &ldquo;<strong>why should I trust it, and what is it shaped by?</strong>&rdquo; If your sentence could be written by someone who only read the source line and never read the document body, you are sourcing. If it retells the document, you are not.</div>
+
+    <div class="callout dont"><span class="lb">The classic DBQ trap</span><strong>Summarizing the documents in order</strong> (&ldquo;Document 1 says&hellip; Document 2 says&hellip;&rdquo;). That is a book report, not an argument. Instead, group documents by what they prove, cite two or three together in a single sentence to back one claim, and keep your thesis driving every paragraph.</div>
+  </div>
+
+  <!-- ============ SECTION 6: TIMING ============ -->
+  <div class="block-head" id="timing" style="--cc:var(--ink)">
+    <div class="block-kicker">Test Day</div>
+    <div class="block-title"><span class="n">06.</span> &nbsp;The game plan and the questions everyone asks</div>
+  </div>
+  <p class="lead">Section II gives you <strong>100 minutes</strong> for the DBQ and LEQ together, and the proctor will suggest a split. Here is the plan that keeps you from running out of time on the essay worth the most.</p>
+
+  <div class="tbl-wrap">
+    <table class="cmp">
+      <thead><tr><th>Block</th><th>Task</th><th>How to spend it</th></tr></thead>
+      <tbody>
+        <tr><th>0&ndash;15 min</th><td><span class="pill dbq">DBQ</span> reading</td><td>Read prompt, annotate all 7 docs, group them, jot outside evidence and a thesis.</td></tr>
+        <tr><th>15&ndash;60 min</th><td><span class="pill dbq">DBQ</span> writing</td><td>About 45 min to write. Context, then thesis, then grouped body paragraphs with sourcing, then complexity.</td></tr>
+        <tr><th>60&ndash;100 min</th><td><span class="pill leq">LEQ</span></td><td>About 40 min. Read the prompt and its intro statement, prewrite for 5, write for about 33, leave 2 to sharpen the thesis in your conclusion.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:22px">
+    <div class="acc"><button class="acc-q"><span class="qt">Do I have to write in the exact order of the rubric?</span><span class="chev">&#8250;</span></button><div class="acc-a">No, but it helps you and the reader. A reliable structure is a <strong>context paragraph, then thesis, then body paragraphs, then complexity woven through and reinforced at the end</strong>. Putting each point where the reader expects it means they never have to hunt, and a two-minute grader who cannot find your point cannot award it.</div></div>
+    <div class="acc"><button class="acc-q"><span class="qt">How long should each essay actually be?</span><span class="chev">&#8250;</span></button><div class="acc-a">Length is not scored; <strong>points are</strong>. That said, a full DBQ or LEQ that earns most of its points is usually four to six solid paragraphs. Do not pad. A tight essay that nails every rubric line beats a long one that wanders. Spend your words on specific evidence, not adjectives.</div></div>
+    <div class="acc"><button class="acc-q"><span class="qt">What is the single fastest way to raise my score?</span><span class="chev">&#8250;</span></button><div class="acc-a">Get <strong>specific</strong>. The gap between a mid essay and a high one is almost always concrete evidence (real names, dates, policies, and places) used to prove a claim, instead of vague generalizations. &ldquo;Trade increased&rdquo; earns little; &ldquo;the Mongol <em>yam</em> relay system secured the Silk Roads, reviving caravan trade between China and Persia&rdquo; earns a lot.</div></div>
+    <div class="acc"><button class="acc-q"><span class="qt">Which point should I stop stressing about?</span><span class="chev">&#8250;</span></button><div class="acc-a"><strong>Complexity</strong> is the least-earned point on the whole exam, and chasing it can wreck your timing. Lock in the reliable points first (thesis, context, evidence, sourcing). Then reach for complexity by <em>qualifying your own argument</em> with real evidence (&ldquo;although&hellip;&rdquo; or a cross-region comparison) rather than a hollow &ldquo;it was complicated&rdquo; sentence.</div></div>
+    <div class="acc"><button class="acc-q"><span class="qt">What is the difference between contextualization and outside evidence?</span><span class="chev">&#8250;</span></button><div class="acc-a">They are two <strong>different points</strong> that must be two <strong>different facts</strong>. <strong>Contextualization</strong> is broad background that sets the stage, a paragraph before your argument. <strong>Outside evidence</strong> is one specific fact inside your argument that is not in any document. Reusing the same fact for both costs you one of the points, so plan them as separate pieces of information.</div></div>
+    <div class="acc"><button class="acc-q"><span class="qt">Can I use the documents as my outside evidence?</span><span class="chev">&#8250;</span></button><div class="acc-a">No. Outside evidence must come from <em>your</em> knowledge, not from any of the seven documents, and it must be different from your contextualization. Think of it as: &ldquo;here is a relevant fact the test-writers did not give me, and I am bringing it in to strengthen my case.&rdquo;</div></div>
+  </div>
+
+  <!-- CTA -->
+  <a href="unit1.html" class="cta">
+    <div>
+      <div class="cl">Now Practice</div>
+      <div class="ct">Every unit has live Writing Practice</div>
+      <div class="cs">Real released AP prompts &middot; rubric-by-rubric self-scoring &middot; model answers</div>
+    </div>
+    <div class="cb">&#9654; Open a Unit</div>
+  </a>
+
+</div><!-- /page-content -->
+</div><!-- /main-wrap -->
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">&#8593; <span class="bt-label">Top</span></button>
+
+<script>
+// Accordion
+document.querySelectorAll('.acc-q').forEach(function(btn){
+  btn.addEventListener('click', function(){ btn.closest('.acc').classList.toggle('open'); });
+});
+// Back to top
+(function(){
+  var btt = document.getElementById('back-to-top');
+  if(!btt) return;
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 480){ btt.classList.add('show'); } else { btt.classList.remove('show'); }
+  }, {passive:true});
+  btt.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+})();
+</script>
+<script src="spaced.js"></script>
+</body>
+</html>

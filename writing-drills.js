@@ -147,9 +147,9 @@
       rubric: ['<strong>1 pt:</strong> at least <strong>two specific</strong> examples relevant to the prompt', '<strong>2 pts:</strong> use those examples to <strong>support an argument</strong> &mdash; each connects to a claim', 'Evidence must be specific (names, dates, events) and <strong>described AND explained</strong>'],
       prompt: 'Write an evidence paragraph using two specific examples to support a claim.',
       placeholder: 'Write an evidence paragraph with 2+ specific examples…' },
-    { key: 'happ', label: 'Sourcing / HAPP', mode: 'keyword',
-      rubric: ['For <strong>2+ documents</strong>, explain how <strong>H</strong>istorical situation, <strong>A</strong>udience, <strong>P</strong>urpose, or <strong>P</strong>oint of View is relevant to an argument', 'Must <strong>explain HOW/WHY</strong> using a &ldquo;which means&hellip;&rdquo; move &mdash; not just identify', 'The sourcing must connect to your <strong>argument</strong>, not just exist'],
-      prompt: 'Take any two sources you know and source them: identify a HAPP feature and explain why it matters.',
+    { key: 'happ', label: 'Sourcing / HIPP', mode: 'keyword',
+      rubric: ['For <strong>2+ documents</strong>, explain how <strong>H</strong>istorical situation, <strong>I</strong>ntended audience, <strong>P</strong>oint of view, or <strong>P</strong>urpose is relevant to an argument', 'Must <strong>explain HOW/WHY</strong> using a &ldquo;which means&hellip;&rdquo; move &mdash; not just identify', 'The sourcing must connect to your <strong>argument</strong>, not just exist'],
+      prompt: 'Take any two sources you know and source them: identify a HIPP feature and explain why it matters.',
       placeholder: 'Doc 1: … which means … / Doc 2: … which means …' },
     { key: 'complexity', label: 'Complexity', mode: 'self',
       rubric: ['<strong>Qualify or modify</strong> your argument &mdash; nuance, exceptions, counterevidence', 'Analyze <strong>multiple causes/effects</strong> or diverse perspectives', 'Make <strong>insightful connections across time or geography</strong>, tied to your argument', 'Must be part of the <strong>argument</strong>, not a closing phrase'],
@@ -195,10 +195,10 @@
     var identify = contains(t, ['point of view', 'purpose', 'historical situation', 'audience', 'intended audience', 'written by', 'published in', 'the author', 'this source', 'this document', 'because the author']);
     var explain = contains(t, ['which means', 'significant because', 'relevant because', 'this affects', 'this means', 'therefore', 'this suggests', 'this reveals', 'this makes the source']);
     var two = (t.match(/doc\s*\d|document\s*\d/g) || []).length >= 2 || (t.match(/source/g) || []).length >= 2;
-    if (identify && explain && two) return res('pass', 'HAPP — likely earns the point', 'You identify a HAPP feature for 2+ sources AND explain its significance. Make sure each explanation connects to your argument.');
-    if (identify && explain) return res('partial', 'Source a second document', 'Strong single sourcing — the point needs HAPP analysis on at least TWO different sources.');
+    if (identify && explain && two) return res('pass', 'HIPP — likely earns the point', 'You identify a HIPP feature for 2+ sources AND explain its significance. Make sure each explanation connects to your argument.');
+    if (identify && explain) return res('partial', 'Source a second document', 'Strong single sourcing — the point needs HIPP analysis on at least TWO different sources.');
     if (identify) return res('partial', 'Explain the significance', 'You identify a feature but need the second move: “…which means the source likely emphasizes/omits…,” connected to your argument.');
-    return res('fail', 'No HAPP analysis found', 'Pick two sources; for each, name Historical situation, Audience, Purpose, or Point of View, then explain WHY it matters using “which means….”');
+    return res('fail', 'No HIPP analysis found', 'Pick two sources; for each, name Historical situation, Intended audience, Point of view, or Purpose, then explain WHY it matters using “which means….”');
   }
 
   function res(label, head, note) { return { label: label, head: head, note: note }; }

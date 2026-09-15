@@ -68,7 +68,7 @@
   // sidebar and sticky bars are pushed down so nothing overlaps.
   function injectTopBar() {
     if (!(on && !isDash) || document.getElementById('mc-bar')) return;
-    var H = 46;
+    var H = 54;
     var st = document.createElement('style'); st.id = 'mc-bar-css';
     st.textContent =
       '#mc-bar{position:fixed;top:0;left:0;right:0;height:' + H + 'px;z-index:1000;background:#111a3f;' +
@@ -81,17 +81,18 @@
         'padding:9px 14px;border:2px solid #d8f13a;white-space:nowrap}' +
       '#mc-bar .mcb-back:hover{background:#fff;border-color:#fff}' +
       '#mc-bar nav{display:flex;flex-wrap:nowrap;gap:15px;justify-content:flex-end}' +
-      '#mc-bar nav a{color:#fff;text-decoration:none;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:4px 1px}' +
+      '#mc-bar nav a{color:#fff;text-decoration:none;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:8px 4px}' +
       '#mc-bar nav a:hover{color:#d8f13a;border-bottom-color:#d8f13a}' +
-      '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:4px 8px}' +
+      '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:8px 9px}' +
       '#mc-bar .dd{position:relative}' +
-      '#mc-bar .dd-t{font:inherit;color:#fff;background:none;border:none;cursor:pointer;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:4px 1px;display:inline-flex;align-items:center;gap:4px}' +
-      '#mc-bar .dd-t .cv{font-size:.72em;line-height:1}' +
-      '#mc-bar .dd:hover .dd-t,#mc-bar .dd:focus-within .dd-t{color:#d8f13a;border-bottom-color:#d8f13a}' +
-      '#mc-bar .dd.has-here .dd-t{color:#111a3f;background:#d8f13a;padding:4px 8px}' +
-      '#mc-bar .dd-m{position:absolute;top:100%;right:0;min-width:172px;background:#111a3f;border:1px solid #2d5deb;box-shadow:0 10px 22px rgba(0,0,0,.45);display:none;flex-direction:column;padding:5px 0;z-index:1001}' +
-      '#mc-bar .dd:hover .dd-m,#mc-bar .dd:focus-within .dd-m{display:flex}' +
-      '#mc-bar .dd-m a{display:block;padding:9px 15px;border-bottom:none}' +
+      '#mc-bar .dd-t{font:inherit;color:#fff;background:none;border:none;cursor:pointer;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:8px 4px;display:inline-flex;align-items:center;gap:5px}' +
+      '#mc-bar .dd-t .cv{font-size:.72em;line-height:1;transition:transform .15s}' +
+      '#mc-bar .dd:hover .dd-t,#mc-bar .dd.open .dd-t{color:#d8f13a;border-bottom-color:#d8f13a}' +
+      '#mc-bar .dd.open .dd-t .cv{transform:rotate(180deg)}' +
+      '#mc-bar .dd.has-here .dd-t{color:#111a3f;background:#d8f13a;padding:8px 9px}' +
+      '#mc-bar .dd-m{position:absolute;top:100%;right:0;min-width:190px;background:#111a3f;border:1px solid #2d5deb;box-shadow:0 10px 22px rgba(0,0,0,.45);display:none;flex-direction:column;padding:6px 0;z-index:1001}' +
+      '#mc-bar .dd.open .dd-m{display:flex}' +
+      '#mc-bar .dd-m a{display:block;padding:11px 17px;border-bottom:none}' +
       '#mc-bar .dd-m a:hover{background:#2d5deb;color:#fff;border-bottom:none}' +
       '#mc-bar .dd-m a.here{color:#111a3f;background:#d8f13a}' +
       'body{padding-top:' + H + 'px}' +
@@ -104,7 +105,11 @@
       '.top-bar .top-bar-title{font-size:1rem!important}' +
       '.top-bar .top-bar-sub{display:none!important}' +
       '.subtab-bar{top:' + (H + 44) + 'px!important}' +
-      '@media(max-width:760px){#mc-bar .mcb-brand{display:none}}';
+      '@media(max-width:760px){#mc-bar .mcb-brand{display:none}}' +
+      '@media(max-width:620px){#mc-bar{gap:6px;padding:0 12px}#mc-bar nav{gap:12px}' +
+        '#mc-bar .mcb-back{font-size:.56rem;padding:8px 10px;gap:4px}' +
+        '#mc-bar nav a,#mc-bar .dd-t{font-size:.64rem;padding:7px 3px}' +
+        '#mc-bar nav a.here,#mc-bar .dd.has-here .dd-t{padding:7px 7px}}';
     document.head.appendChild(st);
 
     var here = location.pathname.replace(/^.*\//, '');
@@ -119,7 +124,7 @@
     var bar = document.createElement('header'); bar.id = 'mc-bar';
     bar.innerHTML =
       '<div class="mcb-left">' +
-        '<a class="mcb-back" href="mission-control.html">&larr; Back to Dashboard</a>' +
+        '<a class="mcb-back" href="mission-control.html">&larr; Dashboard</a>' +
         '<a class="mcb-brand" href="mission-control.html">APWH <b>/</b> MISSION CONTROL</a>' +
       '</div>' +
       '<nav>' +
@@ -128,6 +133,30 @@
         group('Review', [['resources.html', 'Resources'], ['cumulative.html', 'Cumulative'], ['fullcourse.html', 'Narrative']]) +
       '</nav>';
     document.body.insertBefore(bar, document.body.firstChild);
+
+    // Dropdowns: click to toggle, click away (or Esc) to close.
+    var dds = Array.prototype.slice.call(bar.querySelectorAll('.dd'));
+    function closeAll(except) {
+      dds.forEach(function (d) {
+        if (d === except) return;
+        d.classList.remove('open');
+        var t = d.querySelector('.dd-t'); if (t) t.setAttribute('aria-expanded', 'false');
+      });
+    }
+    dds.forEach(function (dd) {
+      var trig = dd.querySelector('.dd-t'); if (!trig) return;
+      trig.setAttribute('aria-haspopup', 'true');
+      trig.setAttribute('aria-expanded', 'false');
+      trig.addEventListener('click', function (e) {
+        e.preventDefault(); e.stopPropagation();
+        var open = !dd.classList.contains('open');
+        closeAll(dd);
+        dd.classList.toggle('open', open);
+        trig.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+    document.addEventListener('click', function (e) { if (!e.target.closest('.dd')) closeAll(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
   }
   function onReady() { wire(); injectTopBar(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady);

@@ -114,20 +114,59 @@
 /* also catch bare inline/text elements (no class) colored via descendant
    selectors, e.g. `.us-body strong{color:var(--ink)}` — kept below the
    lime-chip exceptions in specificity so those still win */
-:root[data-theme="dark"] :is(h1,h2,h3,h4,h5,h6,p,li,span,strong,b,em,i,a,td,th,dt,dd,cite,small,label,blockquote,figcaption){color:#e7ebf5}
+:root[data-theme="dark"] :is(h1,h2,h3,h4,h5,h6,p,li,span,strong,b,em,i,a,td,th,dt,dd,cite,small,label,blockquote,figcaption,button){color:#e7ebf5}
 :root[data-theme="dark"] .sub,
 :root[data-theme="dark"] .top-bar-sub,
 :root[data-theme="dark"] .muted{color:#aab2c8}
-/* dark text stays on light (lime) surfaces */
+/* dark text stays on light surfaces. `.btn` is a light button almost
+   everywhere it's used — lime on the interrogate + hex-web games, white
+   on the hex-web ghost/delete controls — so it keeps dark text. The one
+   exception is the unit-hub MCQ "Back to Topics" / "Reset" pair, whose
+   button sits on the dark cream/accent ground; those are relit by id
+   just below. */
 :root[data-theme="dark"] .btn,
 :root[data-theme="dark"] .cell.flag,
 :root[data-theme="dark"] .banner.win{color:#14181f}
+/* the two unit-hub MCQ .btn buttons (dark accent / cream ground) need
+   light text instead — their ids beat the .btn rule above. */
+:root[data-theme="dark"] #mcq-back-btn,
+:root[data-theme="dark"] #mcq-reset-btn{color:#e7ebf5}
 /* modal close links carry an inline dark-coral color */
 :root[data-theme="dark"] #wmDone,
 :root[data-theme="dark"] #wmLapClose{color:#ff8f8f!important}
+/* In Mission Control mode, mission-theme.css forces the top-bar tag to
+   the blue accent (--red) with !important — unreadable on the dark
+   ground. Relight it in dark+MC with a rule specific enough to win. */
+html[data-theme="dark"][data-mc="on"] .top-bar-tag{color:#8aa9ff!important}
+/* resources "gold" link chip sets color:var(--gold) at (0,4,0) — high
+   enough to slip past the global rule — so it stays a dark accent on
+   the dark ground (esp. in MC mode where --gold is a coral). Relight
+   the chip label with an equally specific rule. */
+:root[data-theme="dark"] .g-card .res-links .rc.gm{color:#e0a86a}
 /* hero-title emphasis is a bare <em>, so [class] misses it — keep it light */
 :root[data-theme="dark"] .hero h1 em,
 :root[data-theme="dark"] .pg-hero h2 em{color:#fff}
+
+/* ── UNIT-HUB GAMES: dark accent labels that beat the global rule ─
+   A few kicker labels / headings are colored with dark accents via
+   an #pg-games id-scope or !important, so the readability rule can't
+   reach them — they'd sit dim on the dark ground. Relight them with
+   matching-or-higher specificity. */
+:root[data-theme="dark"] #pg-games .igame-txt h3{color:#e7ebf5}
+:root[data-theme="dark"] #pg-games .igame-tag{color:#9db4ff}
+:root[data-theme="dark"] .back-tag{color:#7fe0a8!important}
+/* the games' "← Back to Games" / "End Game" text links carry an INLINE
+   color:var(--red) (a dark per-unit accent) on a transparent ground —
+   inline styling needs !important to relight. Scope to background:none
+   so it never touches the FILLED accent buttons (e.g. "Start Game",
+   which is white-on-var(--red) and already reads fine). */
+:root[data-theme="dark"] #pg-games button[style*="background:none"][style*="color:var(--red)"]{color:#aab2c8!important}
+/* writing-drills metadata chips are white on the unit's --gold accent,
+   which lands just under AA on the warmer units — deepen the chip fill
+   in dark so the white text clears the bar on every unit. */
+:root[data-theme="dark"] .wd-placeholder,
+:root[data-theme="dark"] .wd-ex-badge,
+:root[data-theme="dark"] .wd-rrow-pts{background:#7a3d1e}
 
 /* ── UNIT-HUB GAMES & TOOLS: hard-coded light backgrounds ───────
    The mini-games and source tools (shared across units 2–9) use

@@ -273,7 +273,16 @@ html[data-theme="dark"] .sec-head p{color:#aab5e2}
 html[data-theme="dark"] .recommend{background:#141c44}
 html[data-theme="dark"] .unit-card .u-period,
 html[data-theme="dark"] .unit-card .u-conc{color:#9fabda}
-html[data-theme="dark"] .foot{border-top-color:#333e78}
+html[data-theme="dark"] .foot{border-top-color:#333e78;color:#9098c2}
+/* --blue (#2d5deb) is too dark for small text on the dark navy cards
+   (fails contrast). Lighten only the text/kicker uses; the token is
+   left alone so it still backs white-text buttons and accent borders. */
+html[data-theme="dark"] .eyebrow,
+html[data-theme="dark"] .wm-eyebrow,
+html[data-theme="dark"] .tile i,
+html[data-theme="dark"] .unit-card i,
+html[data-theme="dark"] .unit-card .u-open,
+html[data-theme="dark"] .wm-opt-min{color:#8aa9ff}
 html[data-theme="dark"] .tile:hover,
 html[data-theme="dark"] .unit-card:hover,
 html[data-theme="dark"] .choice:hover{box-shadow:5px 5px 0 var(--blue)}

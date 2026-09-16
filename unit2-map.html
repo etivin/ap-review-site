@@ -45,7 +45,7 @@ a{color:inherit}
 .wrap{flex:1;display:flex;min-height:0}
 .panel{width:360px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin}
 .mapcol{flex:1;position:relative;min-width:0}
-#map{position:absolute;inset:0;background:#dfe6e8}
+#map{position:absolute;inset:0;background:#eae8e1}
 .map-hint{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(16,32,31,.82);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.04em;padding:6px 11px;border-radius:4px;pointer-events:none;max-width:260px;line-height:1.5}
 
 /* ── PANEL: route chooser ── */
@@ -147,7 +147,7 @@ a{color:inherit}
 :root[data-theme="dark"] .chip{background:#1c2029;color:#e7ebf5}
 :root[data-theme="dark"] .place:hover,:root[data-theme="dark"] .rb:hover{background:#232a3d}
 :root[data-theme="dark"] .legend{background:#171a22}
-:root[data-theme="dark"] #map{background:#0b0d12}
+:root[data-theme="dark"] #map{background:#23262b}
 :root[data-theme="dark"] .leaflet-popup-content-wrapper,:root[data-theme="dark"] .leaflet-popup-tip{background:#171a22;color:#e7ebf5}
 :root[data-theme="dark"] .pop-note{color:#c4cad7}
 </style>
@@ -253,35 +253,64 @@ var ROUTES = {
   indian: {
     name:'Indian Ocean Trade', sub:'Monsoon sea lanes · c. 1200–1450',
     colorVar:'--indian', dash:true,
-    blurb:'The era’s largest trade network — seasonal monsoon winds carried dhows between East Africa, Arabia, India, Southeast Asia, and China, moving bulk goods and building diasporic merchant communities.',
+    blurb:'The era’s largest and busiest trade network. Predictable monsoon winds carried dhows and junks around a vast rim linking the Swahili coast, the Red Sea and Persian Gulf, the Indian subcontinent, the Southeast Asian straits and spice islands, and the ports of Song–Yuan–Ming China — moving bulk goods and weaving together diasporic merchant communities.',
     segments:[
-      [[-8.96,39.51],[-4.04,39.66],[2.04,45.34],[12.79,45.02],[11.25,75.78],[6.93,79.85],[2.19,102.25],[23.13,113.26]],
-      [[12.79,45.02],[27.10,56.45]]
+      /* East African (Swahili) coast, south to north */
+      [[-20.17,34.74],[-8.96,39.51],[-6.17,39.19],[-4.04,39.66],[2.04,45.34],[12.79,45.02]],
+      /* Red Sea branch to Egypt (Aden → Jeddah → toward Suez/Cairo) */
+      [[12.79,45.02],[21.49,39.19],[27.18,33.70],[30.04,31.24]],
+      /* Persian Gulf branch (Aden → Hormuz → Basra, gateway to the Silk Roads) */
+      [[12.79,45.02],[27.10,56.45],[30.50,47.81]],
+      /* Arabian Sea monsoon crossings to India */
+      [[12.79,45.02],[22.29,72.62]],
+      [[27.10,56.45],[22.29,72.62]],
+      /* Indian west coast + Sri Lanka */
+      [[22.29,72.62],[11.25,75.78],[6.93,79.85]],
+      /* Bay of Bengal crossings to the Malacca Strait */
+      [[6.93,79.85],[2.19,102.25]],
+      [[11.25,75.78],[2.19,102.25]],
+      /* Southeast Asian hubs and the spice islands */
+      [[2.19,102.25],[-2.99,104.76]],
+      [[2.19,102.25],[-6.17,106.83]],
+      [[2.19,102.25],[0.79,127.38]],
+      /* South China Sea to the great Chinese ports */
+      [[2.19,102.25],[23.13,113.26],[24.87,118.58]]
     ],
     places:[
-      {n:'Kilwa',c:[-8.96,39.51],note:'Southernmost great Swahili city-state; taxed the gold trade flowing from Great Zimbabwe.'},
-      {n:'Mombasa',c:[-4.04,39.66],note:'Swahili coast port trading ivory, gold, and enslaved people for Asian manufactures.'},
-      {n:'Mogadishu',c:[2.04,45.34],note:'Prosperous northern Swahili trading city visited by Ibn Battuta.'},
-      {n:'Aden',c:[12.79,45.02],note:'Yemeni chokepoint controlling the Red Sea mouth and Indian Ocean crossings.'},
-      {n:'Hormuz',c:[27.10,56.45],note:'Persian Gulf entrepôt linking Indian Ocean trade to Persia and the Silk Roads.'},
-      {n:'Calicut',c:[11.25,75.78],note:'Great pepper and spice port of India’s Malabar coast; hub for cotton textiles.'},
-      {n:'Malacca',c:[2.19,102.25],note:'Strait city taxing all traffic between the Indian Ocean and the South China Sea.'},
-      {n:'Guangzhou',c:[23.13,113.26],note:'Chinese port exporting porcelain and silk; endpoint of Zheng He’s treasure fleets.'}
+      {n:'Sofala',c:[-20.17,34.74],note:'Southern gold port funneling the wealth of Great Zimbabwe into the Swahili trade.'},
+      {n:'Kilwa',c:[-8.96,39.51],note:'Richest Swahili city-state; taxed the gold flowing north from Sofala. Its Great Mosque and Husuni Kubwa palace awed Ibn Battuta.'},
+      {n:'Mombasa',c:[-4.04,39.66],note:'Swahili stone-town port trading ivory, gold, and enslaved people for Asian cloth and porcelain.'},
+      {n:'Mogadishu',c:[2.04,45.34],note:'Prosperous northern Swahili city famed for its cloth; visited by Ibn Battuta.'},
+      {n:'Aden',c:[12.79,45.02],note:'Yemeni chokepoint controlling the Red Sea mouth — the great hinge between Egypt, Africa, and India.'},
+      {n:'Jeddah',c:[21.49,39.19],note:'Red Sea port for Mecca; gateway funneling Indian Ocean goods toward Cairo and the Mediterranean.'},
+      {n:'Hormuz',c:[27.10,56.45],note:'Fabulously wealthy Persian Gulf entrepôt linking the sea lanes to Persia and the overland Silk Roads.'},
+      {n:'Basra',c:[30.50,47.81],note:'Head of the Persian Gulf; transshipment point to Baghdad and the Silk Roads.'},
+      {n:'Cambay',c:[22.29,72.62],note:'Gujarat’s great port — India’s leading exporter of cotton textiles and a hub of Muslim merchants.'},
+      {n:'Calicut',c:[11.25,75.78],note:'Chief pepper and spice port of the Malabar coast; ruled by the Zamorin and later reached by Zheng He and da Gama.'},
+      {n:'Colombo (Sri Lanka)',c:[6.93,79.85],note:'Island crossroads for cinnamon, gems, and pearls at the pivot of the ocean’s two halves.'},
+      {n:'Malacca',c:[2.19,102.25],note:'Strait city that taxed all traffic between the Indian Ocean and South China Sea; became a great Muslim sultanate.'},
+      {n:'Srivijaya (Palembang)',c:[-2.99,104.76],note:'Earlier Sumatran maritime power whose straits monopoly Malacca inherited.'},
+      {n:'Majapahit (Java)',c:[-6.17,106.83],note:'Powerful Hindu-Buddhist Javanese empire commanding the spice trade of the archipelago.'},
+      {n:'Spice Islands (Maluku)',c:[0.79,127.38],note:'The world’s only source of cloves, nutmeg, and mace — the ultimate origin of the spice trade.'},
+      {n:'Guangzhou',c:[23.13,113.26],note:'Southern Chinese port exporting silk and porcelain; a departure point for Zheng He’s treasure fleets.'},
+      {n:'Quanzhou',c:[24.87,118.58],note:'Marco Polo’s “Zaytun” — under the Song and Yuan one of the largest ports on Earth, with resident foreign merchants.'}
     ],
     tech:[
-      {name:'Lateen sail',what:'A triangular sail that let ships sail at an angle into the wind.',impact:'Made ships far more maneuverable, letting them exploit shifting monsoon winds.'},
-      {name:'Dhow & junk ships',what:'Arab dhows and large Chinese junks with multiple masts and watertight bulkheads.',impact:'Carried bulk cargo across open ocean, raising the scale of maritime trade.'},
-      {name:'Astrolabe',what:'An instrument measuring the angle of the sun or stars to find latitude.',impact:'Let sailors navigate the open ocean out of sight of land.'},
-      {name:'Monsoon knowledge',what:'Understanding that winds blow northeast in summer and southwest in winter.',impact:'Let merchants time voyages precisely — the backbone of the whole network.'},
-      {name:'Stern rudder',what:'A rear-mounted rudder for steering large vessels.',impact:'Improved control of big cargo ships on long ocean voyages.'}
+      {name:'Monsoon knowledge',what:'The seasonal reversal of winds — southwest in summer, northeast in winter — mapped onto a reliable sailing calendar.',impact:'The backbone of the entire network: merchants timed voyages to ride the winds out and back, making long-distance trade predictable.'},
+      {name:'Lateen sail',what:'A triangular sail rigged fore-and-aft that let ships sail at an angle into the wind.',impact:'Made ships far more maneuverable, letting them exploit shifting monsoon winds rather than only running before them.'},
+      {name:'Dhow & Chinese junk',what:'Arab/Swahili dhows with sewn-plank hulls, and huge multi-masted Chinese junks with watertight bulkheads and up to a thousand tons of cargo.',impact:'Carried bulk cargo across open ocean, raising the scale of trade from luxuries to everyday goods like grain and timber.'},
+      {name:'Astrolabe & kamal',what:'Instruments measuring the angle of the sun or a star above the horizon to fix a ship’s latitude.',impact:'Let sailors navigate the open ocean out of sight of land, opening direct monsoon crossings.'},
+      {name:'Magnetic compass',what:'A Chinese invention giving reliable direction that spread west along the sea lanes.',impact:'Freed navigation from clear skies and known coastlines, extending the reach and safety of voyages.'},
+      {name:'Sternpost rudder',what:'A rear-mounted rudder (Chinese in origin) for steering large vessels.',impact:'Gave precise control of big cargo ships, enabling the giant junks of the China trade.'}
     ],
-    goods:['Spices','Cotton textiles','Porcelain','Ivory','Gold','Enslaved people','Timber','Pearls','Incense'],
+    goods:['Spices (pepper, cloves, nutmeg)','Cotton textiles','Silk','Porcelain','Ivory','Gold','Enslaved people','Timber','Pearls & gems','Cinnamon','Incense & frankincense','Horses'],
     cultural:[
-      {t:'Islam',d:'spread by Muslim merchants to East Africa, coastal India, and Southeast Asia (Malacca).'},
-      {t:'Swahili language & culture',d:'emerged as a Bantu language enriched with Arabic — a synthesis born of trade.'},
-      {t:'Diasporic communities',d:'Arab, Persian, Indian, and Chinese merchants settled foreign ports and intermarried.'},
-      {t:'Zheng He’s voyages',d:'Ming China’s treasure fleets projected power and trade across the ocean (1405–1433).'},
-      {t:'Urbanization',d:'port cities like Kilwa, Calicut, and Malacca grew rich and cosmopolitan.'}
+      {t:'Islam',d:'became the shared faith of the trading rim — carried by Muslim merchants to the Swahili coast, Gujarat and Malabar, and Southeast Asia, where Malacca became a powerful sultanate.'},
+      {t:'Swahili language & culture',d:'emerged on the East African coast as a Bantu language enriched with Arabic and Persian loanwords — a civilization born of trade, with coral-stone cities and Islamic courts.'},
+      {t:'Diasporic merchant communities',d:'Arab, Persian, Gujarati, Tamil, and Chinese traders settled in foreign ports, intermarried, and formed permanent enclaves that spread language, religion, and cuisine.'},
+      {t:'Gold of Great Zimbabwe',d:'inland African gold reached the world market through Sofala and Kilwa, tying the southern African interior into Indian Ocean commerce.'},
+      {t:'Zheng He’s voyages',d:'Ming China’s treasure fleets (1405–1433) sailed as far as East Africa, projecting Chinese power and trade across the whole ocean before the voyages were halted.'},
+      {t:'Urbanization & cosmopolitan ports',d:'Kilwa, Aden, Hormuz, Cambay, Calicut, Malacca, and Quanzhou grew into wealthy, multi-ethnic cities that were among the largest in the world.'}
     ]
   },
 
@@ -320,16 +349,17 @@ var ROUTES = {
 };
 
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
-var LIGHT_TILES='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-var DARK_TILES='https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-var ATTR='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+/* Esri ArcGIS Online gray-canvas basemaps — genuinely keyless, no watermark, clean muted geography. */
+var LIGHT_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+var DARK_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+var ATTR='Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors';
 
-var map=L.map('map',{center:[26,58],zoom:3,minZoom:2,maxZoom:8,worldCopyJump:true,
+var map=L.map('map',{center:[20,66],zoom:3,minZoom:2,maxZoom:8,worldCopyJump:true,
   attributionControl:true});
 map.setMaxBounds([[-60,-40],[75,160]]);
 
 function isDark(){return document.documentElement.getAttribute('data-theme')==='dark';}
-var tileLayer=L.tileLayer(isDark()?DARK_TILES:LIGHT_TILES,{attribution:ATTR,subdomains:'abcd',maxZoom:8,detectRetina:true}).addTo(map);
+var tileLayer=L.tileLayer(isDark()?DARK_TILES:LIGHT_TILES,{attribution:ATTR,maxZoom:8,maxNativeZoom:16}).addTo(map);
 function refreshTiles(){tileLayer.setUrl(isDark()?DARK_TILES:LIGHT_TILES);}
 
 function cssVar(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}

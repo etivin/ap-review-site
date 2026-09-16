@@ -468,6 +468,37 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
 
+  <!-- INTERACTIVE MAP -->
+  <section class="home-map-section">
+    <style>
+      .home-map-section{background:var(--paper);padding:56px 24px 60px;border-bottom:2px solid var(--border)}
+      .hm-inner{max-width:1120px;margin:0 auto}
+      .hm-head{text-align:center;max-width:660px;margin:0 auto 26px}
+      .hm-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+      .hm-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:10px;line-height:1.15}
+      .hm-sub{color:var(--muted);font-size:.9rem;line-height:1.65}
+      .hm-embed{position:relative;height:74vh;min-height:540px;border:1px solid var(--border2);box-shadow:var(--shm);background:var(--white)}
+      .hm-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+      .hm-openbar{display:flex;justify-content:flex-end;margin-top:12px}
+      .hm-open{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:11px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s}
+      .hm-open:hover{background:var(--red-d)}
+      @media(max-width:640px){.hm-embed{height:82vh;min-height:500px}}
+    </style>
+    <div class="hm-inner">
+      <div class="hm-head">
+        <div class="hm-eyebrow">Interactive Reference Map</div>
+        <h2 class="hm-title">Trade Routes &amp; States of Afro-Eurasia</h2>
+        <p class="hm-sub">Highlight each network &mdash; the Silk Roads, Indian Ocean, and trans-Saharan trade &mdash; and the era&rsquo;s great states and regions, from Mali and the Swahili coast to the Mongol khanates, Delhi, and Srivijaya. Click anything to load its technology, goods, notable places, and cultural diffusion.</p>
+      </div>
+      <div class="hm-embed">
+        <iframe src="unit2-map.html" title="Interactive Afro-Eurasia trade route map" loading="lazy"></iframe>
+      </div>
+      <div class="hm-openbar">
+        <a class="hm-open" href="unit2-map.html" target="_blank" rel="noopener noreferrer">&#8599; Open the map full screen</a>
+      </div>
+    </div>
+  </section>
+
   <!-- VIDEO REVIEW -->
   <section class="video-section">
     <div class="video-inner">

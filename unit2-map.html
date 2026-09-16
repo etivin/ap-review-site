@@ -107,8 +107,32 @@ a{color:inherit}
 
 .cul-list{list-style:none;display:flex;flex-direction:column;gap:9px}
 .cul-list li{position:relative;padding-left:18px;font-size:.8rem;line-height:1.6;color:var(--mid)}
-.cul-list li::before{content:'';position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.cul-list li::before{content:'';position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--red))}
 .cul-list li b{color:var(--ink)}
+
+/* ── STATES & REGIONS (polity chooser) ── */
+.region-wrap{padding:14px 16px;border-bottom:1px solid var(--border)}
+.region-head{font-weight:900;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.pol-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.pol-chip{display:flex;align-items:center;gap:8px;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:7px 9px;transition:all .13s;min-width:0}
+.pol-chip:hover{border-color:var(--border2);background:var(--paper)}
+.pol-chip .pc-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.pol-chip .pc-name{font-weight:700;font-size:.72rem;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pol-chip.active{border-color:var(--ink);background:var(--ink);color:#fff}
+.pol-chip.active .pc-name{color:#fff}
+
+/* polity facts + role */
+.facts{display:flex;flex-direction:column;margin-top:2px}
+.fact{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.79rem;line-height:1.45}
+.fact .fk{font-weight:900;color:var(--ink);flex:0 0 92px;letter-spacing:-.01em}
+.fact .fv{color:var(--mid)}
+.role-txt{font-size:.82rem;color:var(--mid);line-height:1.7}
+
+/* map region label */
+.leaflet-tooltip.pol-label{background:rgba(16,32,31,.88);color:#fff;border:none;border-radius:4px;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.72rem;letter-spacing:.01em;padding:3px 9px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.leaflet-tooltip.pol-label::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.pol-label{background:rgba(230,235,245,.92);color:#12141b}
 
 /* ── LEGEND (on map) ── */
 .legend{position:absolute;top:12px;right:12px;z-index:500;background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);padding:10px 12px;font-size:.7rem}
@@ -117,6 +141,8 @@ a{color:inherit}
 .legend .lg-row:last-child{margin-bottom:0}
 .legend .lg-line{width:22px;height:0;border-top:3px solid;flex-shrink:0}
 .legend .lg-line.dash{border-top-style:dashed}
+.legend .lg-fill{width:20px;height:12px;border-radius:3px;background:rgba(120,120,120,.35);border:1.5px solid var(--muted);flex-shrink:0}
+.legend .lg-div{height:1px;background:var(--border);margin:7px 0}
 
 .leaflet-popup-content{font-family:Lato,system-ui,sans-serif;margin:11px 14px;line-height:1.5}
 .pop-name{font-weight:900;font-size:.92rem;letter-spacing:-.01em;margin-bottom:3px}
@@ -146,6 +172,10 @@ a{color:inherit}
 :root[data-theme="dark"] .tech-card{background:#1c2029}
 :root[data-theme="dark"] .chip{background:#1c2029;color:#e7ebf5}
 :root[data-theme="dark"] .place:hover,:root[data-theme="dark"] .rb:hover{background:#232a3d}
+:root[data-theme="dark"] .pol-chip{background:#1c2029}
+:root[data-theme="dark"] .pol-chip:hover{background:#232a3d}
+:root[data-theme="dark"] .pol-chip.active{background:#e7ebf5;border-color:#e7ebf5}
+:root[data-theme="dark"] .pol-chip.active .pc-name{color:#12141b}
 :root[data-theme="dark"] .legend{background:#171a22}
 :root[data-theme="dark"] #map{background:#23262b}
 :root[data-theme="dark"] .leaflet-popup-content-wrapper,:root[data-theme="dark"] .leaflet-popup-tip{background:#171a22;color:#e7ebf5}
@@ -175,8 +205,8 @@ a{color:inherit}
   <aside class="panel">
     <div class="p-intro">
       <div class="p-eyebrow">Reference Map</div>
-      <h1>Highlight a Network</h1>
-      <p>Pick a route to light it up on the map and load its technology, goods, notable places, and cultural diffusion. Click any place to fly there.</p>
+      <h1>Highlight the Networks</h1>
+      <p>Pick a trade route or a state to light it up on the map and load its details — technology, goods, notable places, and cultural diffusion. Click anything on the map to explore.</p>
     </div>
 
     <div class="route-btns" id="route-btns">
@@ -184,9 +214,14 @@ a{color:inherit}
       <button class="rb" data-r="indian"><span class="rb-dot"></span><span><span class="rb-name">Indian Ocean Trade</span><span class="rb-yrs" style="display:block">Monsoon sea lanes</span></span></button>
       <button class="rb" data-r="sahara"><span class="rb-dot"></span><span><span class="rb-name">Trans-Saharan Trade</span><span class="rb-yrs" style="display:block">Desert caravans</span></span></button>
       <div class="rb-all">
-        <button type="button" id="btn-all">Show all</button>
+        <button type="button" id="btn-all">Show all routes</button>
         <button type="button" id="btn-reset">Reset view</button>
       </div>
+    </div>
+
+    <div class="region-wrap">
+      <div class="region-head">States &amp; Regions</div>
+      <div class="pol-grid" id="pol-grid"></div>
     </div>
 
     <div class="p-body" id="p-body">
@@ -201,10 +236,12 @@ a{color:inherit}
   <div class="mapcol">
     <div id="map"></div>
     <div class="legend" id="legend">
-      <div class="lg-t">Trade Networks</div>
+      <div class="lg-t">Map Key</div>
       <div class="lg-row"><span class="lg-line" style="border-color:var(--silk)"></span>Silk Roads</div>
       <div class="lg-row"><span class="lg-line dash" style="border-color:var(--indian)"></span>Indian Ocean</div>
       <div class="lg-row"><span class="lg-line" style="border-color:var(--sahara)"></span>Trans-Saharan</div>
+      <div class="lg-div"></div>
+      <div class="lg-row"><span class="lg-fill"></span>State / region</div>
     </div>
     <div class="map-hint">Tip: dashed lines are open-sea monsoon crossings. Drag to pan, scroll to zoom.</div>
   </div>
@@ -348,13 +385,133 @@ var ROUTES = {
   }
 };
 
+/* ══════════════════════════════════════════════════════════════
+   STATES & REGIONS — polities that anchored the networks. Each has
+   an approximate polygon (not exact borders), a label center, and
+   study content: at-a-glance facts, role in trade, legacy/culture.
+   ══════════════════════════════════════════════════════════════ */
+var POLITIES = {
+  mali: {
+    name:'Mali Empire', sub:'West Africa · c. 1235–1600', color:'#c99a2e',
+    poly:[[17,-12.2],[17.6,-4],[16.8,1.8],[13,2.3],[10.4,-3.5],[10.8,-11.8],[14,-13.2]],
+    blurb:'A vast, fabulously wealthy West African empire built on the trans-Saharan gold and salt trade. Its ruler Mansa Musa put Mali on the world’s maps with his lavish 1324 pilgrimage to Mecca.',
+    facts:[['Founded','c. 1235, by Sundiata Keita'],['Capital','Niani'],['Religion','Islam (rulers) over traditional beliefs'],['Wealth','Gold from the Bambuk & Bure fields']],
+    role:'Controlled the southern end of the trans-Saharan trade, exchanging gold, ivory, and enslaved people for salt, cloth, and horses from North Africa. Timbuktu grew into a great commercial and Islamic learning center.',
+    legacy:[
+      {t:'Mansa Musa’s hajj (1324)',d:'displayed Mali’s wealth so lavishly it disrupted Egypt’s gold prices for years.'},
+      {t:'Timbuktu',d:'the Sankore mosque-university made it a hub of Islamic scholarship and the book trade.'},
+      {t:'Spread of Islam',d:'took root in the cities and courts of West Africa.'},
+      {t:'Sundiata epic',d:'preserved by griot oral tradition as a founding legend.'}
+    ]
+  },
+  swahili: {
+    name:'Swahili Coast', sub:'East African coast · c. 1100–1500', color:'#0e8a8f',
+    poly:[[2.6,45.9],[-4,40.9],[-9,40.9],[-20.6,36.2],[-20.6,34.3],[-9,38.6],[-4,38.7],[1.6,44.2]],
+    blurb:'A string of independent, cosmopolitan city-states — Kilwa, Mombasa, Mogadishu, and others — along the East African coast. They were the African hinge of the Indian Ocean trade.',
+    facts:[['Type','Independent Muslim city-states'],['Language','Swahili (Bantu + Arabic)'],['Religion','Islam'],['Richest city','Kilwa']],
+    role:'Exported gold (funneled from Great Zimbabwe through Sofala), ivory, and enslaved people; imported porcelain, cotton cloth, and manufactured goods from Arabia, India, and China.',
+    legacy:[
+      {t:'Swahili culture',d:'a new coastal civilization fusing Bantu, Arab, and Persian influences.'},
+      {t:'Coral-stone cities',d:'mosques and palaces like Kilwa’s Great Mosque and Husuni Kubwa.'},
+      {t:'Islam',d:'the shared faith of merchants and ruling elites along the coast.'},
+      {t:'Famous visitors',d:'Ibn Battuta and, later, Zheng He’s fleets called at these ports.'}
+    ]
+  },
+  zimbabwe: {
+    name:'Great Zimbabwe', sub:'Southern Africa · c. 1100–1450', color:'#9c5a2c',
+    poly:[[-16.8,29.3],[-16.8,32.2],[-19.6,32.7],[-22.6,31.2],[-22.2,28.8],[-19,28.3]],
+    blurb:'A powerful inland kingdom on the plateau between the Zambezi and Limpopo rivers, famous for its massive dry-stone Great Enclosure — built without mortar.',
+    facts:[['Capital','Great Zimbabwe (stone city)'],['Economy','Cattle & gold'],['Peak pop.','~18,000'],['Trade outlet','Sofala, on the coast']],
+    role:'Mined and controlled the gold that flowed east to the Swahili coast at Sofala, tying the southern African interior into the Indian Ocean network. Chinese porcelain and Persian glass have been excavated at the site.',
+    legacy:[
+      {t:'The Great Enclosure',d:'the largest ancient stone structure south of the Sahara, mortarless masonry.'},
+      {t:'Shona civilization',d:'built and ruled the kingdom; its descendants live in the region today.'},
+      {t:'National symbol',d:'the site’s soapstone birds appear on modern Zimbabwe’s flag.'}
+    ]
+  },
+  yuan: {
+    name:'Yuan Dynasty', sub:'Mongol China · 1271–1368', color:'#b3402f',
+    poly:[[52,97],[50,116],[47,122],[40,124],[30,122],[22,110],[24,100],[29,99],[36,92],[45,89]],
+    blurb:'The Mongol dynasty of China, founded by Kublai Khan. As the eastern anchor of the Mongol Empire, it reopened and protected overland trade during the Pax Mongolica.',
+    facts:[['Founder','Kublai Khan'],['Capital','Dadu (Beijing)'],['Part of','The Mongol Empire'],['Fell','1368, to the Ming']],
+    role:'Secured the Silk Roads, welcomed foreign merchants (Marco Polo served the court), used paper money, and boosted maritime trade through ports like Quanzhou and Guangzhou.',
+    legacy:[
+      {t:'Pax Mongolica',d:'a century of stability that made Eurasian trade safer and faster.'},
+      {t:'Cultural exchange',d:'Marco Polo, missionaries, and technologies moved across the empire.'},
+      {t:'Ethnic hierarchy',d:'Mongols ruled over a Han Chinese majority kept from top offices.'}
+    ]
+  },
+  horde: {
+    name:'Golden Horde', sub:'Mongol khanate · c. 1242–1502', color:'#c9a227',
+    poly:[[57,32],[57,56],[52,70],[46,66],[44,48],[45,38],[49,31],[53,30]],
+    blurb:'The northwestern Mongol khanate, ruling the Russian principalities and the Pontic–Caspian steppe from its capital at Sarai on the Volga.',
+    facts:[['Capital','Sarai (Volga River)'],['Ruled','The Russian principalities'],['Religion','Adopted Islam'],['Income','Tribute from Russian princes']],
+    role:'Controlled the northern steppe branch of the Silk Roads and the Volga river trade, linking Baltic and Black Sea commerce to Central Asia.',
+    legacy:[
+      {t:'The “Mongol yoke”',d:'two centuries of Mongol overlordship shaped Russian history.'},
+      {t:'Rise of Moscow',d:'its princes grew powerful as the Horde’s tax collectors.'},
+      {t:'Islamization',d:'the khanate converted to Islam in the early 14th century.'}
+    ]
+  },
+  ilkhanate: {
+    name:'Ilkhanate', sub:'Mongol Persia · 1256–1335', color:'#7b5ea7',
+    poly:[[40.5,44],[39.5,60],[36,62],[29,60],[27,52],[30,45],[34,42],[38,40.5]],
+    blurb:'The Mongol khanate ruling Persia and the Middle East, founded by Hülegü, grandson of Genghis Khan, who sacked Baghdad in 1258.',
+    facts:[['Founder','Hülegü Khan'],['Capital','Tabriz'],['Region','Persia, Iraq, the Caucasus'],['Religion','Adopted Islam (1295)']],
+    role:'Linked the Silk Roads with Persian Gulf and Indian Ocean trade; exchanged goods, artists, and administrative ideas with Yuan China across the Mongol world.',
+    legacy:[
+      {t:'Sack of Baghdad (1258)',d:'ended the Abbasid Caliphate and shocked the Islamic world.'},
+      {t:'Persian renaissance',d:'patronized history, astronomy, and the arts at Tabriz and Maragha.'},
+      {t:'Conversion to Islam',d:'the Mongol rulers adopted the faith of their subjects.'}
+    ]
+  },
+  delhi: {
+    name:'Delhi Sultanate', sub:'North India · 1206–1526', color:'#2f8f4e',
+    poly:[[32.5,72],[31.5,79],[28,84],[24,88],[22,81],[23,73],[27.5,70]],
+    blurb:'A succession of Muslim dynasties ruling northern India from Delhi — the first major Islamic state on the subcontinent, bridging the Islamic world and Hindu India.',
+    facts:[['Capital','Delhi'],['Founded','1206 (Mamluk dynasty)'],['Religion','Islam (rulers) over a Hindu majority'],['Notable','Repelled Mongol invasions']],
+    role:'Connected overland trade from Central Asia to the Indian Ocean ports of Gujarat and the Malabar coast; Indian cotton textiles flowed into the sea trade.',
+    legacy:[
+      {t:'Islam in South Asia',d:'took lasting root, reshaping the subcontinent’s religious map.'},
+      {t:'Indo-Islamic architecture',d:'monuments like the Qutb Minar fused Persian and Indian styles.'},
+      {t:'Shield against the Mongols',d:'its armies blocked Mongol expansion into India.'}
+    ]
+  },
+  malacca: {
+    name:'Strait of Malacca', sub:'Maritime chokepoint · SE Asia', color:'#d9822b',
+    poly:[[6,99.4],[4.2,100.9],[1.4,103.3],[0.2,104],[1,102.3],[3.6,99.4],[5.6,98.4]],
+    blurb:'The narrow sea passage between Sumatra and the Malay Peninsula — the single most important chokepoint linking the Indian Ocean to the South China Sea.',
+    facts:[['Between','Sumatra & the Malay Peninsula'],['Controlled by','Srivijaya, then Malacca'],['Function','Toll & transshipment chokepoint'],['Today','Still a vital global shipping lane']],
+    role:'Every ship moving between the Indian Ocean and China had to pass through the strait. Whoever controlled it grew rich taxing the traffic — first Srivijaya, then the Malacca Sultanate.',
+    legacy:[
+      {t:'Malacca Sultanate',d:'rose in the 1400s into a great Muslim trading power.'},
+      {t:'Islam in Southeast Asia',d:'spread through the strait’s ports into the archipelago.'},
+      {t:'Strategic prize',d:'control of the strait meant control of the east–west sea trade.'}
+    ]
+  },
+  srivijaya: {
+    name:'Srivijaya', sub:'Maritime SE Asia · c. 670–1275', color:'#1d4ed8',
+    poly:[[5.5,97],[6,100.5],[3,104],[-3,106],[-6,105],[-4,100.5],[1,97.8]],
+    blurb:'A Buddhist maritime empire based on Sumatra that dominated the Strait of Malacca and the sea trade between India and China — though in decline by this era.',
+    facts:[['Base','Palembang (Sumatra)'],['Type','Thalassocracy (sea empire)'],['Religion','Mahayana Buddhism'],['Controlled','The Strait of Malacca']],
+    role:'Grew wealthy taxing and protecting shipping through the strait, and served as a great center of Buddhist learning that drew monks and scholars from across Asia.',
+    legacy:[
+      {t:'Buddhist scholarship',d:'Palembang was a renowned stop for pilgrims studying en route to India.'},
+      {t:'A model for Malacca',d:'later powers inherited its strait-based control of trade.'},
+      {t:'Indianized culture',d:'spread Sanskrit, Hindu-Buddhist ideas, and art across Southeast Asia.'}
+    ]
+  }
+};
+/* order shown in the sidebar */
+var POLITY_ORDER = ['mali','swahili','zimbabwe','delhi','srivijaya','malacca','yuan','ilkhanate','horde'];
+
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
 /* Esri ArcGIS Online gray-canvas basemaps — genuinely keyless, no watermark, clean muted geography. */
 var LIGHT_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
 var DARK_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
 var ATTR='Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors';
 
-var map=L.map('map',{center:[20,66],zoom:3,minZoom:2,maxZoom:8,worldCopyJump:true,
+var map=L.map('map',{center:[20,66],zoom:3,minZoom:2,maxZoom:8,
   attributionControl:true});
 map.setMaxBounds([[-60,-40],[75,160]]);
 
@@ -387,7 +544,22 @@ function buildRoute(key){
 }
 Object.keys(ROUTES).forEach(buildRoute);
 
-var current=null; // null = none selected (all shown faded on load? we show all)
+/* Build a polygon layer for every polity (not added to the map until selected) */
+var polLayers={};
+function buildPolity(key){
+  var p=POLITIES[key];
+  var poly=L.polygon(p.poly,{color:p.color,weight:2.5,opacity:.95,fillColor:p.color,fillOpacity:.30,lineJoin:'round'});
+  poly.on('click',function(){selectPolity(key,true);});
+  polLayers[key]={poly:poly,bounds:poly.getBounds(),color:p.color};
+}
+Object.keys(POLITIES).forEach(buildPolity);
+function hidePolities(){
+  Object.keys(polLayers).forEach(function(k){ if(map.hasLayer(polLayers[k].poly)) map.removeLayer(polLayers[k].poly); });
+  document.querySelectorAll('.pol-chip').forEach(function(c){c.classList.remove('active');});
+}
+
+var current=null;      // key of the selected route or polity
+var currentType=null;  // 'route' | 'polity' | null (=all routes)
 
 function setRouteVisual(key,mode){
   // mode: 'full' | 'dim' | 'hidden'
@@ -404,7 +576,8 @@ function setRouteVisual(key,mode){
 function showAllOnMap(){Object.keys(layers).forEach(function(k){layers[k].group.addTo(map);});}
 
 function selectRoute(key,keepView){
-  current=key;
+  current=key; currentType='route';
+  hidePolities();
   showAllOnMap();
   Object.keys(layers).forEach(function(k){ setRouteVisual(k, k===key?'full':'dim'); });
   // buttons
@@ -414,12 +587,31 @@ function selectRoute(key,keepView){
 }
 
 function showAll(){
-  current=null;
+  current=null; currentType=null;
+  hidePolities();
   showAllOnMap();
   Object.keys(layers).forEach(function(k){ setRouteVisual(k,'full'); });
   document.querySelectorAll('.rb').forEach(function(b){b.classList.remove('active');});
   renderAllPanel();
-  map.flyTo([26,58],3,{duration:.7});
+  map.flyTo([20,66],3,{duration:.7});
+}
+
+function selectPolity(key,keepView){
+  current=key; currentType='polity';
+  // clear/hide routes and other regions
+  Object.keys(layers).forEach(function(k){ setRouteVisual(k,'hidden'); });
+  document.querySelectorAll('.rb').forEach(function(b){b.classList.remove('active');});
+  Object.keys(polLayers).forEach(function(k){
+    if(k===key){
+      if(!map.hasLayer(polLayers[k].poly)) polLayers[k].poly.addTo(map);
+      if(!polLayers[k].poly.getTooltip()) polLayers[k].poly.bindTooltip(POLITIES[k].name,{permanent:true,direction:'center',className:'pol-label'});
+      polLayers[k].poly.openTooltip();
+    }
+    else if(map.hasLayer(polLayers[k].poly)){ map.removeLayer(polLayers[k].poly); }
+  });
+  document.querySelectorAll('.pol-chip').forEach(function(c){c.classList.toggle('active',c.dataset.p===key);});
+  renderPolityPanel(key);
+  if(!keepView){ try{map.flyToBounds(polLayers[key].bounds,{padding:[60,60],duration:.7,maxZoom:5});}catch(e){} }
 }
 
 /* ══ PANEL RENDER ════════════════════════════════════════════ */
@@ -486,26 +678,79 @@ function renderAllPanel(){
   });
 }
 
+function renderPolityPanel(key){
+  var p=POLITIES[key], color=p.color;
+  var h='';
+  h+='<div class="rt-head" style="border-bottom-color:'+color+'"><div class="rt-title">'+p.name+'</div><div class="rt-sub">'+p.sub+'</div><div class="rt-blurb">'+p.blurb+'</div></div>';
+
+  // At a glance
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">📋</span>At a Glance</div><div class="facts">';
+  p.facts.forEach(function(f){ h+='<div class="fact"><span class="fk">'+f[0]+'</span><span class="fv">'+f[1]+'</span></div>'; });
+  h+='</div></div>';
+
+  // Role in the networks
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">🔗</span>Role in the Networks</div><p class="role-txt">'+p.role+'</p></div>';
+
+  // Legacy & culture
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">🏛️</span>Legacy &amp; Culture</div><ul class="cul-list">';
+  p.legacy.forEach(function(c){ h+='<li style="--dot:'+color+'"><b>'+c.t+'</b> — '+c.d+'</li>'; });
+  h+='</ul></div>';
+
+  body.innerHTML=h;
+}
+
+/* Render the States & Regions chips into the sidebar */
+(function renderPolityChips(){
+  var grid=document.getElementById('pol-grid');
+  if(!grid) return;
+  POLITY_ORDER.forEach(function(key){
+    var p=POLITIES[key];
+    var b=document.createElement('button');
+    b.type='button'; b.className='pol-chip'; b.dataset.p=key;
+    b.innerHTML='<span class="pc-dot" style="background:'+p.color+'"></span><span class="pc-name">'+p.name+'</span>';
+    b.title=p.name+' — '+p.sub;
+    b.addEventListener('click',function(){selectPolity(key);});
+    grid.appendChild(b);
+  });
+})();
+
 /* ══ WIRE UP ═════════════════════════════════════════════════ */
 document.querySelectorAll('.rb').forEach(function(b){
   b.addEventListener('click',function(){selectRoute(this.dataset.r);});
 });
 document.getElementById('btn-all').addEventListener('click',showAll);
 document.getElementById('btn-reset').addEventListener('click',function(){
-  if(current) selectRoute(current); else map.flyTo([26,58],3,{duration:.6});
+  if(currentType==='polity') selectPolity(current);
+  else if(currentType==='route') selectRoute(current);
+  else map.flyTo([20,66],3,{duration:.6});
 });
 
-// Start: show all three, faded-in, with the compare panel
-showAll();
+function reRenderPanel(){
+  if(currentType==='polity') renderPolityPanel(current);
+  else if(currentType==='route') renderPanel(current);
+  else renderAllPanel();
+}
 
 // Keep tiles + colors in sync if the shared dark-mode toggle flips (this tab or another)
 window.addEventListener('storage',function(e){ if(e.key==='mcTheme'){ document.documentElement.setAttribute('data-theme', e.newValue==='dark'?'dark':'light'); }});
-var _mo=new MutationObserver(function(){refreshTiles(); if(current)renderPanel(current); else renderAllPanel();});
+var _mo=new MutationObserver(function(){refreshTiles(); reRenderPanel();});
 _mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-// Fix sizing when embedded in an iframe / after layout settles
-setTimeout(function(){map.invalidateSize();},200);
-window.addEventListener('resize',function(){map.invalidateSize();});
+// Start only once the map container has a real size — animating before the
+// map is laid out (e.g. inside an iframe that just mounted) makes Leaflet's
+// fly math divide by a zero container size and throw "Invalid LatLng (NaN)".
+var _started=false;
+function initView(){
+  if(_started) return;
+  var s=map.getSize();
+  if(!s.x || !s.y){ return setTimeout(initView,120); }
+  _started=true;
+  map.invalidateSize();
+  showAll();
+}
+if(document.readyState==='complete') requestAnimationFrame(initView);
+else window.addEventListener('load',function(){ requestAnimationFrame(initView); });
+window.addEventListener('resize',function(){ map.invalidateSize(); });
 </script>
 </body>
 </html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 2 — Interactive Trade Route Map | AP World History</title>
+<meta name="description" content="Interactive Afro-Eurasia map of the Silk Roads, Indian Ocean, and Trans-Saharan trade networks — highlight each route to study its technology, goods, notable places, and cultural diffusion."/>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#10201f;--mid:#3a4746;--muted:#6c7a78;
+  --red:#0f5b5e;--red-d:#0a4144;--red-bg:#e9f4f3;
+  --gold:#7a5500;--gold-b:#d4b84a;
+  /* Route accents */
+  --silk:#b3402f;--silk-bg:#fbeceb;
+  --indian:#1d4ed8;--indian-bg:#eaf0fe;
+  --sahara:#c07800;--sahara-bg:#fcf3e2;
+  --sh:0 1px 4px rgba(0,0,0,.08);--shm:0 8px 30px rgba(0,0,0,.16);
+}
+html,body{height:100%}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+
+/* ── TOP BAR (navy chrome, matches games) ── */
+.bar{background:#10201f;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:58px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:1000;position:relative}
+.bar .brand{display:flex;align-items:center;gap:12px;min-width:0}
+.bar .badge{background:var(--red);color:#fff;font-weight:900;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:5px 9px;flex-shrink:0}
+.bar .btitle{font-weight:900;font-size:.98rem;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .bsub{color:rgba(255,255,255,.5);font-weight:700;font-size:.62rem;letter-spacing:.06em;white-space:nowrap}
+.bar .links{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.bar .links a{color:rgba(255,255,255,.72);text-decoration:none;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;transition:color .15s;white-space:nowrap}
+.bar .links a:hover{color:#fff}
+@media(max-width:640px){.bar .bsub{display:none}.bar{padding:0 14px}.bar .links{gap:10px}}
+
+/* ── LAYOUT ── */
+.wrap{flex:1;display:flex;min-height:0}
+.panel{width:360px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin}
+.mapcol{flex:1;position:relative;min-width:0}
+#map{position:absolute;inset:0;background:#dfe6e8}
+.map-hint{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(16,32,31,.82);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.04em;padding:6px 11px;border-radius:4px;pointer-events:none;max-width:260px;line-height:1.5}
+
+/* ── PANEL: route chooser ── */
+.p-intro{padding:18px 20px 14px;border-bottom:1px solid var(--border)}
+.p-eyebrow{font-weight:700;font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.p-intro h1{font-size:1.15rem;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
+.p-intro p{font-size:.78rem;color:var(--muted);line-height:1.55}
+
+.route-btns{padding:14px 16px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--border)}
+.rb{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:11px 13px;transition:all .15s;border-left-width:5px}
+.rb:hover{border-color:var(--border2);transform:translateX(2px)}
+.rb .rb-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.rb .rb-name{font-weight:900;font-size:.82rem;letter-spacing:-.01em;line-height:1.15}
+.rb .rb-yrs{font-weight:700;font-size:.58rem;color:var(--muted);letter-spacing:.04em;margin-top:1px}
+.rb[data-r="silk"]{border-left-color:var(--silk)}
+.rb[data-r="indian"]{border-left-color:var(--indian)}
+.rb[data-r="sahara"]{border-left-color:var(--sahara)}
+.rb[data-r="silk"] .rb-dot{background:var(--silk)}
+.rb[data-r="indian"] .rb-dot{background:var(--indian)}
+.rb[data-r="sahara"] .rb-dot{background:var(--sahara)}
+.rb.active[data-r="silk"]{background:var(--silk-bg);border-color:var(--silk)}
+.rb.active[data-r="indian"]{background:var(--indian-bg);border-color:var(--indian)}
+.rb.active[data-r="sahara"]{background:var(--sahara-bg);border-color:var(--sahara)}
+.rb.active .rb-name{color:inherit}
+.rb-all{display:flex;gap:8px}
+.rb-all button{flex:1;background:none;border:1.5px solid var(--border2);color:var(--mid);font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;transition:all .15s}
+.rb-all button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ── PANEL: reference content ── */
+.p-body{padding:16px 20px 40px}
+.p-empty{color:var(--muted);font-size:.82rem;line-height:1.7;padding:8px 2px}
+.p-empty strong{color:var(--ink)}
+.rt-head{padding-bottom:12px;margin-bottom:14px;border-bottom:2px solid var(--border)}
+.rt-title{font-size:1.3rem;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+.rt-sub{font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.rt-blurb{font-size:.82rem;color:var(--mid);line-height:1.7;margin-top:10px}
+
+.sec{margin-top:20px}
+.sec-lbl{display:flex;align-items:center;gap:8px;font-weight:900;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.sec-lbl .ico{font-size:.85rem}
+
+.tech-card{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--red);padding:10px 12px;margin-bottom:8px}
+.tech-name{font-weight:900;font-size:.82rem;letter-spacing:-.01em;margin-bottom:3px}
+.tech-what{font-size:.76rem;color:var(--mid);line-height:1.55}
+.tech-impact{font-size:.76rem;color:var(--ink);line-height:1.55;margin-top:5px}
+.tech-impact b{color:var(--red);font-weight:900;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:1px}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--paper);border:1px solid var(--border2);color:var(--ink);font-weight:700;font-size:.72rem;padding:5px 10px;border-radius:3px}
+
+.place-list{display:flex;flex-direction:column;gap:2px}
+.place{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;border:none;padding:8px 6px;border-bottom:1px solid var(--border);transition:background .12s}
+.place:hover{background:var(--cream)}
+.place .pin{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:4px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.place .p-name{font-weight:900;font-size:.8rem;letter-spacing:-.01em}
+.place .p-note{font-size:.73rem;color:var(--muted);line-height:1.45;margin-top:1px}
+.place .p-go{margin-left:auto;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);flex-shrink:0;opacity:0;transition:opacity .12s;padding-top:3px}
+.place:hover .p-go{opacity:1}
+
+.cul-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.cul-list li{position:relative;padding-left:18px;font-size:.8rem;line-height:1.6;color:var(--mid)}
+.cul-list li::before{content:'';position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.cul-list li b{color:var(--ink)}
+
+/* ── LEGEND (on map) ── */
+.legend{position:absolute;top:12px;right:12px;z-index:500;background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);padding:10px 12px;font-size:.7rem}
+.legend .lg-t{font-weight:900;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.legend .lg-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-weight:700;color:var(--ink)}
+.legend .lg-row:last-child{margin-bottom:0}
+.legend .lg-line{width:22px;height:0;border-top:3px solid;flex-shrink:0}
+.legend .lg-line.dash{border-top-style:dashed}
+
+.leaflet-popup-content{font-family:Lato,system-ui,sans-serif;margin:11px 14px;line-height:1.5}
+.pop-name{font-weight:900;font-size:.92rem;letter-spacing:-.01em;margin-bottom:3px}
+.pop-tag{font-weight:700;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+.pop-note{font-size:.78rem;color:#3a4746}
+
+/* ── MOBILE ── */
+@media(max-width:820px){
+  .wrap{flex-direction:column-reverse}
+  .panel{width:100%;max-height:none;border-right:none;border-top:1px solid var(--border)}
+  .mapcol{height:56vh;flex:none}
+  .legend{top:8px;right:8px;padding:7px 9px}
+  .map-hint{display:none}
+}
+
+/* ── DARK MODE (map page owns its overrides) ── */
+:root[data-theme="dark"]{
+  --cream:#0f1117;--white:#171a22;--paper:#1c2029;--border:#333a49;--border2:#454e62;
+  --ink:#e7ebf5;--mid:#c4cad7;--muted:#9299ac;--red:#5fd0d4;--red-bg:rgba(255,255,255,.06);
+  --silk:#ff8a72;--indian:#7aa2ff;--sahara:#f0b24a;
+  --silk-bg:rgba(255,138,114,.12);--indian-bg:rgba(122,162,255,.12);--sahara-bg:rgba(240,178,74,.12);
+  color-scheme:dark;
+}
+:root[data-theme="dark"] body{background:#0f1117;color:#e7ebf5}
+:root[data-theme="dark"] .bar{background:#12141b}
+:root[data-theme="dark"] .rb{background:#1c2029}
+:root[data-theme="dark"] .tech-card{background:#1c2029}
+:root[data-theme="dark"] .chip{background:#1c2029;color:#e7ebf5}
+:root[data-theme="dark"] .place:hover,:root[data-theme="dark"] .rb:hover{background:#232a3d}
+:root[data-theme="dark"] .legend{background:#171a22}
+:root[data-theme="dark"] #map{background:#0b0d12}
+:root[data-theme="dark"] .leaflet-popup-content-wrapper,:root[data-theme="dark"] .leaflet-popup-tip{background:#171a22;color:#e7ebf5}
+:root[data-theme="dark"] .pop-note{color:#c4cad7}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand">
+    <span class="badge">Unit 2</span>
+    <div style="min-width:0">
+      <div class="btitle">Trade Routes of Afro-Eurasia</div>
+      <div class="bsub">Interactive Map &middot; c. 1200 – 1450</div>
+    </div>
+  </div>
+  <nav class="links">
+    <a href="unit2.html">&#8592; Unit 2 Hub</a>
+    <a href="index.html">All Units</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <!-- LEFT: controls + reference -->
+  <aside class="panel">
+    <div class="p-intro">
+      <div class="p-eyebrow">Reference Map</div>
+      <h1>Highlight a Network</h1>
+      <p>Pick a route to light it up on the map and load its technology, goods, notable places, and cultural diffusion. Click any place to fly there.</p>
+    </div>
+
+    <div class="route-btns" id="route-btns">
+      <button class="rb" data-r="silk"><span class="rb-dot"></span><span><span class="rb-name">The Silk Roads</span><span class="rb-yrs" style="display:block">Overland Eurasia</span></span></button>
+      <button class="rb" data-r="indian"><span class="rb-dot"></span><span><span class="rb-name">Indian Ocean Trade</span><span class="rb-yrs" style="display:block">Monsoon sea lanes</span></span></button>
+      <button class="rb" data-r="sahara"><span class="rb-dot"></span><span><span class="rb-name">Trans-Saharan Trade</span><span class="rb-yrs" style="display:block">Desert caravans</span></span></button>
+      <div class="rb-all">
+        <button type="button" id="btn-all">Show all</button>
+        <button type="button" id="btn-reset">Reset view</button>
+      </div>
+    </div>
+
+    <div class="p-body" id="p-body">
+      <div class="p-empty">
+        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450 — moving silk and salt, faiths and inventions, merchants and microbes.</p>
+        <p style="margin-top:10px">Select a route above, or <strong>Show all</strong> to compare them, then click the colored lines and dots on the map.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- RIGHT: the real map -->
+  <div class="mapcol">
+    <div id="map"></div>
+    <div class="legend" id="legend">
+      <div class="lg-t">Trade Networks</div>
+      <div class="lg-row"><span class="lg-line" style="border-color:var(--silk)"></span>Silk Roads</div>
+      <div class="lg-row"><span class="lg-line dash" style="border-color:var(--indian)"></span>Indian Ocean</div>
+      <div class="lg-row"><span class="lg-line" style="border-color:var(--sahara)"></span>Trans-Saharan</div>
+    </div>
+    <div class="map-hint">Tip: dashed lines are open-sea monsoon crossings. Drag to pan, scroll to zoom.</div>
+  </div>
+</div>
+
+<script defer src="theme.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   DATA — three trade networks. Coordinates are [lat, lng].
+   Each route: color, path segments, place markers, and the four
+   study categories (tech / goods / places / cultural diffusion).
+   ══════════════════════════════════════════════════════════════ */
+var ROUTES = {
+  silk: {
+    name:'The Silk Roads', sub:'Overland Eurasia · revived c. 1200–1450',
+    colorVar:'--silk', dash:false,
+    blurb:'Overland caravan routes linking China to the Mediterranean through the oasis cities of Central Asia. Revived under the Abbasids, Tang–Song China, and the stability of the Mongols’ Pax Mongolica.',
+    segments:[
+      [[34.34,108.94],[36.06,103.83],[40.14,94.66],[42.95,89.18],[39.47,75.99],[39.65,66.96],[39.77,64.42],[37.66,61.83],[35.70,51.42],[33.31,44.36],[34.55,38.27],[36.20,36.16],[41.01,28.98]]
+    ],
+    places:[
+      {n:'Chang’an (Xi’an)',c:[34.34,108.94],note:'Eastern terminus and Tang/Song capital — where silk and porcelain entered the road.'},
+      {n:'Dunhuang',c:[40.14,94.66],note:'Oasis gateway on the edge of the Taklamakan; Mogao Buddhist cave temples.'},
+      {n:'Kashgar',c:[39.47,75.99],note:'Great oasis crossroads where northern and southern desert routes rejoined.'},
+      {n:'Samarkand',c:[39.65,66.96],note:'Wealthy Sogdian trade city; a hub of papermaking and later Timur’s capital.'},
+      {n:'Merv',c:[37.66,61.83],note:'Major caravan city of Khorasan and a center of Islamic scholarship.'},
+      {n:'Baghdad',c:[33.31,44.36],note:'Abbasid capital and House of Wisdom — funneled Eastern goods to the Mediterranean.'},
+      {n:'Constantinople',c:[41.01,28.98],note:'Byzantine gateway where Silk Road goods reached European markets.'}
+    ],
+    tech:[
+      {name:'Caravanserai',what:'Roadside inns spaced roughly a day’s travel (~100 mi) apart, offering shelter, water, and stables.',impact:'Made long-distance overland travel safe and predictable, sharply increasing the volume of trade.'},
+      {name:'Camel saddle',what:'Improved saddles (Bactrian and dromedary) that let camels carry heavy loads across arid terrain.',impact:'Made caravans cheaper and more reliable than wheeled carts on desert and steppe routes.'},
+      {name:'Paper money & “flying cash”',what:'Chinese forms of paper credit that let merchants deposit coin in one city and withdraw it in another.',impact:'Spurred banking and credit, letting traders move value without hauling heavy coin.'},
+      {name:'Magnetic compass',what:'Chinese navigational invention that spread west along the roads.',impact:'Improved navigation on land and sea, extending the reach of merchants.'}
+    ],
+    goods:['Silk','Porcelain','Tea','Paper','Gunpowder','Spices','Horses','Precious metals','Furs'],
+    cultural:[
+      {t:'Buddhism',d:'spread east from India into China and Central Asia along the road (Dunhuang cave temples).'},
+      {t:'Islam',d:'expanded through Central Asia’s trading cities, carried by merchants and scholars.'},
+      {t:'Technology transfer',d:'papermaking and gunpowder diffused westward toward the Islamic world and Europe.'},
+      {t:'Travelers',d:'Marco Polo journeyed to Yuan China and returned with accounts that fascinated Europe.'},
+      {t:'Disease',d:'the Black Death (bubonic plague) traveled the routes westward in the 14th century.'}
+    ]
+  },
+
+  indian: {
+    name:'Indian Ocean Trade', sub:'Monsoon sea lanes · c. 1200–1450',
+    colorVar:'--indian', dash:true,
+    blurb:'The era’s largest trade network — seasonal monsoon winds carried dhows between East Africa, Arabia, India, Southeast Asia, and China, moving bulk goods and building diasporic merchant communities.',
+    segments:[
+      [[-8.96,39.51],[-4.04,39.66],[2.04,45.34],[12.79,45.02],[11.25,75.78],[6.93,79.85],[2.19,102.25],[23.13,113.26]],
+      [[12.79,45.02],[27.10,56.45]]
+    ],
+    places:[
+      {n:'Kilwa',c:[-8.96,39.51],note:'Southernmost great Swahili city-state; taxed the gold trade flowing from Great Zimbabwe.'},
+      {n:'Mombasa',c:[-4.04,39.66],note:'Swahili coast port trading ivory, gold, and enslaved people for Asian manufactures.'},
+      {n:'Mogadishu',c:[2.04,45.34],note:'Prosperous northern Swahili trading city visited by Ibn Battuta.'},
+      {n:'Aden',c:[12.79,45.02],note:'Yemeni chokepoint controlling the Red Sea mouth and Indian Ocean crossings.'},
+      {n:'Hormuz',c:[27.10,56.45],note:'Persian Gulf entrepôt linking Indian Ocean trade to Persia and the Silk Roads.'},
+      {n:'Calicut',c:[11.25,75.78],note:'Great pepper and spice port of India’s Malabar coast; hub for cotton textiles.'},
+      {n:'Malacca',c:[2.19,102.25],note:'Strait city taxing all traffic between the Indian Ocean and the South China Sea.'},
+      {n:'Guangzhou',c:[23.13,113.26],note:'Chinese port exporting porcelain and silk; endpoint of Zheng He’s treasure fleets.'}
+    ],
+    tech:[
+      {name:'Lateen sail',what:'A triangular sail that let ships sail at an angle into the wind.',impact:'Made ships far more maneuverable, letting them exploit shifting monsoon winds.'},
+      {name:'Dhow & junk ships',what:'Arab dhows and large Chinese junks with multiple masts and watertight bulkheads.',impact:'Carried bulk cargo across open ocean, raising the scale of maritime trade.'},
+      {name:'Astrolabe',what:'An instrument measuring the angle of the sun or stars to find latitude.',impact:'Let sailors navigate the open ocean out of sight of land.'},
+      {name:'Monsoon knowledge',what:'Understanding that winds blow northeast in summer and southwest in winter.',impact:'Let merchants time voyages precisely — the backbone of the whole network.'},
+      {name:'Stern rudder',what:'A rear-mounted rudder for steering large vessels.',impact:'Improved control of big cargo ships on long ocean voyages.'}
+    ],
+    goods:['Spices','Cotton textiles','Porcelain','Ivory','Gold','Enslaved people','Timber','Pearls','Incense'],
+    cultural:[
+      {t:'Islam',d:'spread by Muslim merchants to East Africa, coastal India, and Southeast Asia (Malacca).'},
+      {t:'Swahili language & culture',d:'emerged as a Bantu language enriched with Arabic — a synthesis born of trade.'},
+      {t:'Diasporic communities',d:'Arab, Persian, Indian, and Chinese merchants settled foreign ports and intermarried.'},
+      {t:'Zheng He’s voyages',d:'Ming China’s treasure fleets projected power and trade across the ocean (1405–1433).'},
+      {t:'Urbanization',d:'port cities like Kilwa, Calicut, and Malacca grew rich and cosmopolitan.'}
+    ]
+  },
+
+  sahara: {
+    name:'Trans-Saharan Trade', sub:'Desert caravans · c. 1200–1450',
+    colorVar:'--sahara', dash:false,
+    blurb:'Camel caravans crossed the Sahara to link West African gold fields with North Africa and the Mediterranean. The trade built the wealth of Mali and made Timbuktu a center of Islamic learning.',
+    segments:[
+      [[31.28,-4.28],[23.60,-5.00],[16.77,-3.00],[16.27,0.04]],
+      [[16.77,-3.00],[13.90,-4.55],[11.40,-8.70]],
+      [[16.27,0.04],[18.68,12.92],[30.04,31.24]]
+    ],
+    places:[
+      {n:'Sijilmasa',c:[31.28,-4.28],note:'Northern caravan gateway in Morocco where Saharan gold met Mediterranean trade.'},
+      {n:'Taghaza',c:[23.60,-5.00],note:'Saharan salt-mining town — salt was so scarce in the south it traded near-evenly for gold.'},
+      {n:'Timbuktu',c:[16.77,-3.00],note:'Mali’s fabled trade city and home to the Sankore mosque-university and vast book markets.'},
+      {n:'Gao',c:[16.27,0.04],note:'Niger River trade city, later capital of the Songhai Empire.'},
+      {n:'Djenné',c:[13.90,-4.55],note:'Southern trade and learning center famous for its great mudbrick mosque.'},
+      {n:'Niani',c:[11.40,-8.70],note:'Capital of Mali near the gold-rich Bambuk and Bure fields.'},
+      {n:'Cairo',c:[30.04,31.24],note:'Where Mansa Musa’s 1324 hajj spent so much gold it disrupted Egypt’s economy for years.'}
+    ],
+    tech:[
+      {name:'Camel & camel saddle',what:'Dromedary camels with specialized saddles that carried heavy loads and went days without water.',impact:'The essential technology — nothing else could cross the Sahara at scale; opened the whole trade.'},
+      {name:'Caravan organization',what:'Large caravans (sometimes thousands of camels) with guides, guards, and staged desert wells.',impact:'Provided safety in numbers against raiders and the desert, enabling regular long-haul trade.'},
+      {name:'Oasis & desert navigation',what:'Knowledge of star positions, dunes, and the network of wells and oasis stops.',impact:'Let caravans cross a route with no roads and few landmarks and survive the journey.'}
+    ],
+    goods:['Gold','Salt','Ivory','Enslaved people','Kola nuts','Copper','Textiles','Horses','Books'],
+    cultural:[
+      {t:'Islam',d:'spread into West Africa’s cities and courts; rulers adopted the faith while villages often kept traditional beliefs.'},
+      {t:'Mansa Musa’s hajj',d:'the 1324 pilgrimage displayed Mali’s wealth and put the empire on European and Arab maps.'},
+      {t:'Timbuktu as a learning hub',d:'the Sankore university and book trade made it a center of Islamic scholarship.'},
+      {t:'Arabic literacy',d:'Arabic spread as a language of religion, administration, and long-distance commerce.'},
+      {t:'Urban growth',d:'trade wealth built cities like Timbuktu, Gao, and Djenné into cosmopolitan centers.'}
+    ]
+  }
+};
+
+/* ══ MAP SETUP ═══════════════════════════════════════════════ */
+var LIGHT_TILES='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+var DARK_TILES='https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+var ATTR='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
+var map=L.map('map',{center:[26,58],zoom:3,minZoom:2,maxZoom:8,worldCopyJump:true,
+  attributionControl:true});
+map.setMaxBounds([[-60,-40],[75,160]]);
+
+function isDark(){return document.documentElement.getAttribute('data-theme')==='dark';}
+var tileLayer=L.tileLayer(isDark()?DARK_TILES:LIGHT_TILES,{attribution:ATTR,subdomains:'abcd',maxZoom:8,detectRetina:true}).addTo(map);
+function refreshTiles(){tileLayer.setUrl(isDark()?DARK_TILES:LIGHT_TILES);}
+
+function cssVar(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+
+/* Build layers for every route */
+var layers={}; // key -> {group, lines[], markers[], bounds}
+function buildRoute(key){
+  var r=ROUTES[key], color=cssVar(r.colorVar), group=L.layerGroup();
+  var lines=[], markers=[], allPts=[];
+  r.segments.forEach(function(seg){
+    // glow underlay + main line
+    L.polyline(seg,{color:'#000',opacity:.10,weight:9}).addTo(group);
+    var pl=L.polyline(seg,{color:color,weight:4,opacity:.9,
+      dashArray:r.dash?'2 9':null,lineCap:'round',lineJoin:'round'}).addTo(group);
+    pl.on('click',function(){selectRoute(key);});
+    lines.push(pl); seg.forEach(function(p){allPts.push(p);});
+  });
+  r.places.forEach(function(p){
+    var m=L.circleMarker(p.c,{radius:6,color:'#fff',weight:2,fillColor:color,fillOpacity:1});
+    m.bindPopup('<div class="pop-name">'+p.n+'</div><div class="pop-tag" style="color:'+color+'">'+r.name+'</div><div class="pop-note">'+p.note+'</div>');
+    m.on('click',function(){selectRoute(key,true);});
+    m.addTo(group); markers.push(m); allPts.push(p.c);
+  });
+  layers[key]={group:group,lines:lines,markers:markers,bounds:L.latLngBounds(allPts)};
+}
+Object.keys(ROUTES).forEach(buildRoute);
+
+var current=null; // null = none selected (all shown faded on load? we show all)
+
+function setRouteVisual(key,mode){
+  // mode: 'full' | 'dim' | 'hidden'
+  var L1=layers[key];
+  var op = mode==='full'?0.92:(mode==='dim'?0.18:0);
+  var w  = mode==='full'?4:3;
+  L1.lines.forEach(function(pl){pl.setStyle({opacity:op,weight:w});});
+  L1.markers.forEach(function(m){
+    if(mode==='hidden'){m.setStyle({opacity:0,fillOpacity:0});m.closePopup();}
+    else m.setStyle({opacity:mode==='full'?1:.35,fillOpacity:mode==='full'?1:.3,radius:mode==='full'?6:5});
+  });
+}
+
+function showAllOnMap(){Object.keys(layers).forEach(function(k){layers[k].group.addTo(map);});}
+
+function selectRoute(key,keepView){
+  current=key;
+  showAllOnMap();
+  Object.keys(layers).forEach(function(k){ setRouteVisual(k, k===key?'full':'dim'); });
+  // buttons
+  document.querySelectorAll('.rb').forEach(function(b){b.classList.toggle('active',b.dataset.r===key);});
+  renderPanel(key);
+  if(!keepView){ try{map.flyToBounds(layers[key].bounds,{padding:[50,50],duration:.7,maxZoom:5});}catch(e){} }
+}
+
+function showAll(){
+  current=null;
+  showAllOnMap();
+  Object.keys(layers).forEach(function(k){ setRouteVisual(k,'full'); });
+  document.querySelectorAll('.rb').forEach(function(b){b.classList.remove('active');});
+  renderAllPanel();
+  map.flyTo([26,58],3,{duration:.7});
+}
+
+/* ══ PANEL RENDER ════════════════════════════════════════════ */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+var body=document.getElementById('p-body');
+
+function renderPanel(key){
+  var r=ROUTES[key], color=cssVar(r.colorVar);
+  var h='';
+  h+='<div class="rt-head"><div class="rt-title">'+r.name+'</div><div class="rt-sub">'+r.sub+'</div><div class="rt-blurb">'+r.blurb+'</div></div>';
+
+  // Tech
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">⚙️</span>Technology &amp; Innovation</div>';
+  r.tech.forEach(function(t){
+    h+='<div class="tech-card" style="border-left-color:'+color+'"><div class="tech-name">'+t.name+'</div>'+
+       '<div class="tech-what">'+t.what+'</div>'+
+       '<div class="tech-impact"><b style="color:'+color+'">Impact</b>'+t.impact+'</div></div>';
+  });
+  h+='</div>';
+
+  // Goods
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">📦</span>Goods Traded</div><div class="chips">';
+  r.goods.forEach(function(g){h+='<span class="chip">'+g+'</span>';});
+  h+='</div></div>';
+
+  // Places
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">📍</span>Notable Places</div><div class="place-list">';
+  r.places.forEach(function(p,i){
+    h+='<button class="place" data-key="'+key+'" data-i="'+i+'"><span class="pin" style="background:'+color+'"></span>'+
+       '<span><span class="p-name">'+p.n+'</span><span class="p-note">'+p.note+'</span></span>'+
+       '<span class="p-go">Fly →</span></button>';
+  });
+  h+='</div></div>';
+
+  // Cultural diffusion
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">🕌</span>Cultural Diffusion</div><ul class="cul-list">';
+  r.cultural.forEach(function(c){h+='<li><b>'+c.t+'</b> — '+c.d+'</li>';});
+  h+='</ul></div>';
+
+  body.innerHTML=h;
+  body.querySelectorAll('.place').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var k=this.dataset.key, i=+this.dataset.i, p=ROUTES[k].places[i];
+      map.flyTo(p.c,5,{duration:.6});
+      layers[k].markers[i].openPopup();
+    });
+  });
+}
+
+function renderAllPanel(){
+  var h='<div class="rt-head"><div class="rt-title">All Three Networks</div><div class="rt-sub">Afro-Eurasia · c. 1200–1450</div>'+
+    '<div class="rt-blurb">Compare the three great trade networks side by side. Each is highlighted on the map — click a colored line or dot, or pick a single route above to load its full breakdown.</div></div>';
+  Object.keys(ROUTES).forEach(function(k){
+    var r=ROUTES[k], color=cssVar(r.colorVar);
+    h+='<button class="place" data-r="'+k+'" style="border-bottom:1px solid var(--border);padding:12px 6px">'+
+       '<span class="pin" style="background:'+color+';width:13px;height:13px"></span>'+
+       '<span><span class="p-name" style="font-size:.9rem">'+r.name+'</span>'+
+       '<span class="p-note">'+r.goods.slice(0,4).join(' · ')+' &hellip;</span></span>'+
+       '<span class="p-go" style="opacity:1">Open →</span></button>';
+  });
+  body.innerHTML=h;
+  body.querySelectorAll('.place[data-r]').forEach(function(b){
+    b.addEventListener('click',function(){selectRoute(this.dataset.r);});
+  });
+}
+
+/* ══ WIRE UP ═════════════════════════════════════════════════ */
+document.querySelectorAll('.rb').forEach(function(b){
+  b.addEventListener('click',function(){selectRoute(this.dataset.r);});
+});
+document.getElementById('btn-all').addEventListener('click',showAll);
+document.getElementById('btn-reset').addEventListener('click',function(){
+  if(current) selectRoute(current); else map.flyTo([26,58],3,{duration:.6});
+});
+
+// Start: show all three, faded-in, with the compare panel
+showAll();
+
+// Keep tiles + colors in sync if the shared dark-mode toggle flips (this tab or another)
+window.addEventListener('storage',function(e){ if(e.key==='mcTheme'){ document.documentElement.setAttribute('data-theme', e.newValue==='dark'?'dark':'light'); }});
+var _mo=new MutationObserver(function(){refreshTiles(); if(current)renderPanel(current); else renderAllPanel();});
+_mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+// Fix sizing when embedded in an iframe / after layout settles
+setTimeout(function(){map.invalidateSize();},200);
+window.addEventListener('resize',function(){map.invalidateSize();});
+</script>
+</body>
+</html>

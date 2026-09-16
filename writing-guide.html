@@ -61,7 +61,21 @@ body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-se
 .jump a:hover{border-color:var(--red);color:var(--red)}
 
 /* BLOCK HEADS */
-.block-head{margin:52px 0 18px;padding-top:12px}
+.block-head{margin:58px 0 18px;padding-top:30px;border-top:1px solid var(--border);position:relative}
+.block-head::before{content:"";position:absolute;top:-2px;left:0;width:54px;height:4px;background:var(--cc,var(--red))}
+/* points-at-a-glance track */
+.ptrack{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:2px 0 16px}
+.ptrack .pk{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.pchip{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.03em;background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--cc,var(--red));padding:7px 11px;color:var(--ink);white-space:nowrap}
+.pchip b{color:var(--cc,var(--red))}
+.pchip.tot{background:var(--cc,var(--red));color:#fff;border-color:var(--cc,var(--red))}
+/* describe -> source -> support beat strip */
+.beats{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:14px 0}
+.beat{display:flex;flex-direction:column;gap:3px;justify-content:center;background:var(--white);border:1px solid var(--border);border-top:3px solid var(--cc,var(--red));padding:11px 15px;min-width:150px;flex:1;box-shadow:var(--sh)}
+.beat b{font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.98rem;color:var(--ink);letter-spacing:-.01em}
+.beat span{font-size:.78rem;line-height:1.4;color:var(--mid)}
+.beat-arrow{display:flex;align-items:center;font-family:Lato,system-ui,sans-serif;font-weight:900;color:var(--cc,var(--red));font-size:1.2rem}
+@media(max-width:620px){.beat-arrow{transform:rotate(90deg)}.beat{width:100%}}
 .block-kicker{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
 .block-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.55rem;font-weight:900;line-height:1.15}
 .block-title .n{color:var(--cc,var(--red))}
@@ -391,6 +405,13 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
     <div class="callout tip"><span class="lb">The three SAQs (2027)</span>You answer <strong>all three</strong> now, and each is anchored to a different kind of stimulus and a different era between 1200 and 2001: <strong>SAQ 1</strong> uses a <em>secondary</em> source (a historian's argument), <strong>SAQ 2</strong> uses a <em>primary</em> source, and <strong>SAQ 3</strong> uses a <em>non-text</em> source (a map, chart, image, or cartoon). Some parts are pure reading comprehension; others ask you to bring in your own knowledge or to source the author's point of view.</div>
 
     <div class="subh">The A.C.E. move for every part</div>
+    <div class="beats" style="--cc:var(--blue)">
+      <div class="beat"><b>Answer</b><span>Restate the task and answer it in sentence one.</span></div>
+      <span class="beat-arrow">&rarr;</span>
+      <div class="beat"><b>Cite</b><span>A specific name, place, policy, or event.</span></div>
+      <span class="beat-arrow">&rarr;</span>
+      <div class="beat"><b>Explain</b><span>Show the how or why (this is Part C).</span></div>
+    </div>
     <ol class="steps" style="--cc:var(--blue)">
       <li><strong>Answer</strong> the exact task in the first sentence. Restate a piece of the question so it is unmistakable you are on target.</li>
       <li><strong>Cite</strong> a specific piece of evidence: a name, place, policy, event, or date. Specific beats vague every time.</li>
@@ -450,6 +471,14 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
     <p>On the 2027 exam you get <strong>one required prompt</strong> (no more choosing among three) plus a brief introductory statement that orients you to the task. You write a full essay from your own knowledge, since there are no documents to lean on. You are <strong>not expected to cover the entire time period</strong>: pick the one or two examples you know best and build your argument there.</p>
 
     <div class="subh">The 6-point rubric: what each point requires</div>
+    <div class="ptrack" style="--cc:var(--gold)"><span class="pk">6 points</span>
+      <span class="pchip">Thesis</span>
+      <span class="pchip">Context</span>
+      <span class="pchip">Evidence <b>&times;2</b></span>
+      <span class="pchip">Reasoning</span>
+      <span class="pchip">Complexity</span>
+      <span class="pchip tot">6 total</span>
+    </div>
     <ul class="rubric" style="--cc:var(--gold)">
       <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Thesis / Claim</div><div class="rb-desc">A historically defensible claim that responds to the prompt and <em>establishes a line of reasoning</em>. One or two sentences in the intro or conclusion. Must be more than a restatement of the prompt.</div></div></li>
       <li class="spot"><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Contextualization &nbsp;&#9733;</div><div class="rb-desc">Describe a broader historical situation (events before or around the topic) that is relevant to the prompt. Must be <em>more than a phrase</em>, usually a few sentences. This is a free, learnable point that too many students throw away. See the full breakdown below.</div></div></li>
@@ -549,6 +578,15 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
     </ol>
 
     <div class="subh">The 7-point rubric: where the extra points live</div>
+    <div class="ptrack" style="--cc:var(--red)"><span class="pk">7 points</span>
+      <span class="pchip">Thesis</span>
+      <span class="pchip">Context</span>
+      <span class="pchip">Docs <b>&times;2</b></span>
+      <span class="pchip">Outside evidence</span>
+      <span class="pchip">Sourcing</span>
+      <span class="pchip">Complexity</span>
+      <span class="pchip tot">7 total</span>
+    </div>
     <ul class="rubric" style="--cc:var(--red)">
       <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Thesis / Claim</div><div class="rb-desc">Same as the LEQ: a defensible claim with a line of reasoning that takes a position on the <em>extent</em>.</div></div></li>
       <li class="spot"><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Contextualization &nbsp;&#9733;</div><div class="rb-desc">A broader historical situation relevant to the prompt, described in more than a phrase, before you dive into the documents. Same skill as the LEQ, and just as free. See the full breakdown below.</div></div></li>
@@ -644,6 +682,13 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
 
     <div class="subh">The DBQ paragraph blueprint</div>
     <p>Here is the shape of the whole essay, mapped the way your class draws it. The key idea: <strong>every document gets the same three beats</strong>: describe it, source it, then explain how it supports your thesis.</p>
+    <div class="beats" style="--cc:var(--red)">
+      <div class="beat"><b>Describe</b><span>Say what the document shows, do not quote.</span></div>
+      <span class="beat-arrow">&rarr;</span>
+      <div class="beat"><b>Source</b><span>POV or purpose, and why it matters.</span></div>
+      <span class="beat-arrow">&rarr;</span>
+      <div class="beat"><b>Support</b><span>Tie it back to your thesis.</span></div>
+    </div>
     <ol class="steps" style="--cc:var(--red)">
       <li><strong>Intro.</strong> Context (what else is going on this period), then a thesis that answers &ldquo;to what extent,&rdquo; with your outside knowledge ready to drop into a body paragraph.</li>
       <li><strong>Body 1 (Argument 1).</strong> One theme or pattern in the documents that supports your thesis. Bring in about 2 documents. For each one: <strong>describe</strong> it (do not quote), <strong>source</strong> it (POV or purpose, and why that matters), then <strong>support</strong> (explain how it proves your thesis).</li>

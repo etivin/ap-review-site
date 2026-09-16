@@ -43,16 +43,17 @@ a{color:inherit}
 
 /* ── LAYOUT ── */
 .wrap{flex:1;display:flex;min-height:0}
-.panel{width:360px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin}
+.panel{width:440px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin}
+@media(max-width:1100px){.panel{width:380px}}
 .mapcol{flex:1;position:relative;min-width:0}
 #map{position:absolute;inset:0;background:#eae8e1}
 .map-hint{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(16,32,31,.82);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.04em;padding:6px 11px;border-radius:4px;pointer-events:none;max-width:260px;line-height:1.5}
 
 /* ── PANEL: route chooser ── */
-.p-intro{padding:18px 20px 14px;border-bottom:1px solid var(--border)}
-.p-eyebrow{font-weight:700;font-size:.56rem;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
-.p-intro h1{font-size:1.15rem;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
-.p-intro p{font-size:.78rem;color:var(--muted);line-height:1.55}
+.p-intro{padding:20px 22px 16px;border-bottom:1px solid var(--border)}
+.p-eyebrow{font-weight:700;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.p-intro h1{font-size:1.32rem;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
+.p-intro p{font-size:.85rem;color:var(--muted);line-height:1.6}
 
 .route-btns{padding:14px 16px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--border)}
 .rb{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:11px 13px;transition:all .15s;border-left-width:5px}
@@ -79,60 +80,91 @@ a{color:inherit}
 .p-empty{color:var(--muted);font-size:.82rem;line-height:1.7;padding:8px 2px}
 .p-empty strong{color:var(--ink)}
 .rt-head{padding-bottom:12px;margin-bottom:14px;border-bottom:2px solid var(--border)}
-.rt-title{font-size:1.3rem;font-weight:900;letter-spacing:-.02em;line-height:1.15}
-.rt-sub{font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
-.rt-blurb{font-size:.82rem;color:var(--mid);line-height:1.7;margin-top:10px}
+.rt-title{font-size:1.5rem;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+.rt-sub{font-weight:700;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.rt-blurb{font-size:.88rem;color:var(--mid);line-height:1.72;margin-top:10px}
 
-.sec{margin-top:20px}
-.sec-lbl{display:flex;align-items:center;gap:8px;font-weight:900;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.sec-lbl .ico{font-size:.85rem}
+.sec{margin-top:22px}
+.sec-lbl{display:flex;align-items:center;gap:8px;font-weight:900;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:11px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.sec-lbl .ico{font-size:.95rem}
 
-.tech-card{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--red);padding:10px 12px;margin-bottom:8px}
-.tech-name{font-weight:900;font-size:.82rem;letter-spacing:-.01em;margin-bottom:3px}
-.tech-what{font-size:.76rem;color:var(--mid);line-height:1.55}
-.tech-impact{font-size:.76rem;color:var(--ink);line-height:1.55;margin-top:5px}
-.tech-impact b{color:var(--red);font-weight:900;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:1px}
+.tech-card{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--red);padding:11px 13px;margin-bottom:9px}
+.tech-name{font-weight:900;font-size:.9rem;letter-spacing:-.01em;margin-bottom:3px}
+.tech-what{font-size:.82rem;color:var(--mid);line-height:1.55}
+.tech-impact{font-size:.82rem;color:var(--ink);line-height:1.55;margin-top:5px}
+.tech-impact b{color:var(--red);font-weight:900;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:1px}
 
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{background:var(--paper);border:1px solid var(--border2);color:var(--ink);font-weight:700;font-size:.72rem;padding:5px 10px;border-radius:3px}
+.chip{background:var(--paper);border:1px solid var(--border2);color:var(--ink);font-weight:700;font-size:.8rem;padding:6px 11px;border-radius:3px}
 
 .place-list{display:flex;flex-direction:column;gap:2px}
 .place{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;border:none;padding:8px 6px;border-bottom:1px solid var(--border);transition:background .12s}
 .place:hover{background:var(--cream)}
 .place .pin{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:4px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
-.place .p-name{font-weight:900;font-size:.8rem;letter-spacing:-.01em}
-.place .p-note{font-size:.73rem;color:var(--muted);line-height:1.45;margin-top:1px}
-.place .p-go{margin-left:auto;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);flex-shrink:0;opacity:0;transition:opacity .12s;padding-top:3px}
+.place .p-name{font-weight:900;font-size:.87rem;letter-spacing:-.01em}
+.place .p-note{font-size:.79rem;color:var(--muted);line-height:1.45;margin-top:1px}
+.place .p-go{margin-left:auto;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);flex-shrink:0;opacity:0;transition:opacity .12s;padding-top:3px}
 .place:hover .p-go{opacity:1}
 
-.cul-list{list-style:none;display:flex;flex-direction:column;gap:9px}
-.cul-list li{position:relative;padding-left:18px;font-size:.8rem;line-height:1.6;color:var(--mid)}
+.cul-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cul-list li{position:relative;padding-left:18px;font-size:.86rem;line-height:1.6;color:var(--mid)}
 .cul-list li::before{content:'';position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--red))}
 .cul-list li b{color:var(--ink)}
 
 /* ── STATES & REGIONS (polity chooser) ── */
-.region-wrap{padding:14px 16px;border-bottom:1px solid var(--border)}
-.region-head{font-weight:900;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
-.pol-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.pol-chip{display:flex;align-items:center;gap:8px;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:7px 9px;transition:all .13s;min-width:0}
+.region-wrap{padding:15px 18px;border-bottom:1px solid var(--border)}
+.region-head{font-weight:900;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.region-head .rh-hint{font-weight:700;font-size:.58rem;letter-spacing:.02em;text-transform:none;color:var(--muted);opacity:.8}
+.pol-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.pol-chip{display:flex;align-items:center;gap:8px;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:9px 10px;transition:all .13s;min-width:0}
 .pol-chip:hover{border-color:var(--border2);background:var(--paper)}
-.pol-chip .pc-dot{width:11px;height:11px;border-radius:3px;flex-shrink:0}
-.pol-chip .pc-name{font-weight:700;font-size:.72rem;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pol-chip .pc-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.pol-chip .pc-name{font-weight:700;font-size:.8rem;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pol-chip.active{border-color:var(--ink);background:var(--ink);color:#fff}
 .pol-chip.active .pc-name{color:#fff}
 
+/* ── ANNOTATION / THEME toggles (goods, cities, religions, monsoon, disease) ── */
+.thm-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.thm-chip{display:flex;align-items:center;gap:8px;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:9px 10px;transition:all .13s;min-width:0}
+.thm-chip:hover{border-color:var(--border2);background:var(--paper)}
+.thm-chip .tc-ic{font-size:1rem;flex-shrink:0;line-height:1}
+.thm-chip .tc-name{font-weight:700;font-size:.78rem;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thm-chip .tc-check{margin-left:auto;width:16px;height:16px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;position:relative}
+.thm-chip.on{border-color:var(--red);background:var(--red-bg)}
+.thm-chip.on .tc-check{background:var(--red);border-color:var(--red)}
+.thm-chip.on .tc-check::after{content:'✓';position:absolute;inset:0;color:#fff;font-size:.72rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+.thm-clear{margin-top:8px;width:100%;background:none;border:1.5px solid var(--border2);color:var(--mid);font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:8px;transition:all .15s}
+.thm-clear:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
 /* polity facts + role */
 .facts{display:flex;flex-direction:column;margin-top:2px}
-.fact{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.79rem;line-height:1.45}
-.fact .fk{font-weight:900;color:var(--ink);flex:0 0 92px;letter-spacing:-.01em}
+.fact{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem;line-height:1.45}
+.fact .fk{font-weight:900;color:var(--ink);flex:0 0 100px;letter-spacing:-.01em}
 .fact .fv{color:var(--mid)}
-.role-txt{font-size:.82rem;color:var(--mid);line-height:1.7}
+.role-txt{font-size:.88rem;color:var(--mid);line-height:1.72}
 
 /* map region label */
 .leaflet-tooltip.pol-label{background:rgba(16,32,31,.88);color:#fff;border:none;border-radius:4px;
-  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.72rem;letter-spacing:.01em;padding:3px 9px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.01em;padding:4px 11px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .leaflet-tooltip.pol-label::before{display:none}
 :root[data-theme="dark"] .leaflet-tooltip.pol-label{background:rgba(230,235,245,.92);color:#12141b}
+
+/* map annotation labels (goods words, city names, monsoon arrows) */
+.leaflet-tooltip.goods-tip{background:transparent;border:none;box-shadow:none;color:#7a5410;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.86rem;letter-spacing:.03em;
+  text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 4px #fff,0 0 4px #fff,0 0 4px #fff}
+.leaflet-tooltip.goods-tip::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.goods-tip{color:#f0c674;text-shadow:0 0 3px #000,0 0 4px #000,0 0 5px #000}
+.leaflet-tooltip.city-tip{background:rgba(255,255,255,.92);border:1px solid var(--border2);border-radius:3px;color:#10201f;
+  font-family:Lato,system-ui,sans-serif;font-weight:800;font-size:.72rem;padding:1px 6px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.leaflet-tooltip.city-tip::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.city-tip{background:rgba(23,26,34,.92);border-color:#454e62;color:#e7ebf5}
+.monsoon-arrow{font-size:1.9rem;line-height:1;color:#1d4ed8;text-shadow:0 0 3px #fff,0 0 4px #fff}
+.monsoon-arrow span{display:inline-block}
+:root[data-theme="dark"] .monsoon-arrow{color:#7aa2ff;text-shadow:0 0 3px #000,0 0 4px #000}
+.leaflet-tooltip.disease-tip{background:rgba(109,63,156,.92);color:#fff;border:none;border-radius:4px;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.74rem;letter-spacing:.02em;padding:3px 9px}
+.leaflet-tooltip.disease-tip::before{display:none}
 
 /* ── LEGEND (on map) ── */
 .legend{position:absolute;top:12px;right:12px;z-index:500;background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);padding:10px 12px;font-size:.7rem}
@@ -176,6 +208,11 @@ a{color:inherit}
 :root[data-theme="dark"] .pol-chip:hover{background:#232a3d}
 :root[data-theme="dark"] .pol-chip.active{background:#e7ebf5;border-color:#e7ebf5}
 :root[data-theme="dark"] .pol-chip.active .pc-name{color:#12141b}
+:root[data-theme="dark"] .thm-chip{background:#1c2029}
+:root[data-theme="dark"] .thm-chip:hover{background:#232a3d}
+:root[data-theme="dark"] .thm-chip.on{border-color:#5fd0d4;background:rgba(95,208,212,.12)}
+:root[data-theme="dark"] .thm-chip.on .tc-check{background:#5fd0d4;border-color:#5fd0d4}
+:root[data-theme="dark"] .thm-chip.on .tc-check::after{color:#12141b}
 :root[data-theme="dark"] .legend{background:#171a22}
 :root[data-theme="dark"] #map{background:#23262b}
 :root[data-theme="dark"] .leaflet-popup-content-wrapper,:root[data-theme="dark"] .leaflet-popup-tip{background:#171a22;color:#e7ebf5}
@@ -206,7 +243,7 @@ a{color:inherit}
     <div class="p-intro">
       <div class="p-eyebrow">Reference Map</div>
       <h1>Highlight the Networks</h1>
-      <p>Pick a trade route or a state to light it up on the map and load its details — technology, goods, notable places, and cultural diffusion. Click anything on the map to explore.</p>
+      <p>Pick a trade route or a state to light it up and load its details. Then layer on the <strong>trade goods, cities, religions, monsoon winds, and the Black Death</strong>. Click anything on the map to read more.</p>
     </div>
 
     <div class="route-btns" id="route-btns">
@@ -222,6 +259,12 @@ a{color:inherit}
     <div class="region-wrap">
       <div class="region-head">States &amp; Regions</div>
       <div class="pol-grid" id="pol-grid"></div>
+    </div>
+
+    <div class="region-wrap">
+      <div class="region-head">Trade Goods &amp; Annotations <span class="rh-hint">layer any on</span></div>
+      <div class="thm-grid" id="thm-grid"></div>
+      <button type="button" class="thm-clear" id="thm-clear">Clear annotations</button>
     </div>
 
     <div class="p-body" id="p-body">
@@ -505,6 +548,101 @@ var POLITIES = {
 /* order shown in the sidebar */
 var POLITY_ORDER = ['mali','swahili','zimbabwe','delhi','srivijaya','malacca','yuan','ilkhanate','horde'];
 
+/* ══════════════════════════════════════════════════════════════
+   ANNOTATIONS — the essay-prep overlays (trade goods, key cities,
+   the spread of the three faiths, monsoon winds, and the Black
+   Death). Each is an independent on/off overlay so students can
+   layer them onto the map like the annotation activity.
+   ══════════════════════════════════════════════════════════════ */
+var THEMES = {
+  goods: {
+    name:'Trade Goods', color:'#a6791f', icon:'📦', kind:'labels',
+    items:[
+      {n:'SILK', c:[35.5,110.5], note:'China’s signature luxury export — so prized in Europe it was worth its weight in gold and served almost as money on the Silk Roads.'},
+      {n:'PORCELAIN', c:[28.2,117.8], note:'Perfected in Tang–Song China; Japan and Korea copied the kiln and glazing techniques but could not match Chinese quality.'},
+      {n:'RICE', c:[15.5,107.6], note:'Champa rice — a quick-maturing, drought-resistant strain from Vietnam sent as tribute to Song China; it cut growing time in half and helped push China past 200 million people.'},
+      {n:'CLOVES & NUTMEG', c:[-1.5,127.8], note:'The Spice Islands (Maluku) were the world’s only source of cloves and nutmeg — the most valuable goods of Southeast Asia.'},
+      {n:'CINNAMON', c:[7.6,80.9], note:'Grown in Sri Lanka and south India; one of the most sought-after spices of the Indian Ocean trade.'},
+      {n:'PEPPER', c:[10.4,76.2], note:'India’s Malabar coast, centered on Calicut, was the great source of pepper.'},
+      {n:'COTTON', c:[21.8,73.5], note:'India made the finest cotton textiles in the world; roller gins and spinning wheels fed a booming rural cottage industry.'},
+      {n:'SUGAR', c:[17.0,79.5], note:'Sugarcane crystallization spread from Gupta India along the trade routes to China, the Middle East, and (via the Crusades) Europe.'},
+      {n:'SALT', c:[24.5,2.5], note:'Mined in the Sahara (e.g. Taghaza) and carried south by caravan — so scarce in West Africa it traded nearly pound-for-pound with gold.'},
+      {n:'GOLD', c:[12.5,-6.5], note:'West Africa’s Bambuk and Bure fields supplied the gold that powered the trans-Saharan trade and Mali’s legendary wealth.'},
+      {n:'FURS', c:[59,50], note:'Russian furs were a staple of the northern European (Hanseatic) trade.'},
+      {n:'TIMBER', c:[62.5,13], note:'Scandinavian timber, needed for shipbuilding, was a key good of the Baltic and North Sea trade.'},
+      {n:'BANANA & COCONUT', c:[-19.5,46.8], note:'Carried to Madagascar and Africa by Austronesian migrants from Southeast Asia; these new foods boosted African populations.'}
+    ],
+    arrows:[{from:[16,108],to:[29.5,113],label:'Champa rice → China'}]
+  },
+  cities: {
+    name:'Key Cities & Ports', color:'#0f5b5e', icon:'🏙️', kind:'cities',
+    items:[
+      {n:'Hangzhou', c:[30.25,120.15], note:'Southern Song capital on the Grand Canal and a departure point for Chinese goods; the largest city in the world (~1 million) from 1180 to 1378.'},
+      {n:'Malacca', c:[2.19,102.25], note:'Strait city that taxed all traffic between the Indian Ocean and the South China Sea.'},
+      {n:'Palembang', c:[-2.99,104.76], note:'Capital of Srivijaya — a reported floating city that controlled the strait.'},
+      {n:'Calicut', c:[11.25,75.78], note:'The “City of Spices” on India’s Malabar coast — heart of the pepper and spice trade.'},
+      {n:'Mogadishu', c:[2.04,45.34], note:'Northern Swahili city-state trading with Arabia, Persia, and India.'},
+      {n:'Manda', c:[-2.10,40.98], note:'Swahili trading town of the Lamu archipelago on the East African coast.'},
+      {n:'Kilwa', c:[-8.96,39.51], note:'Richest Swahili city-state; taxed the gold trade carried from the interior via Sofala.'},
+      {n:'Sofala', c:[-20.17,34.74], note:'Southern port funneling Great Zimbabwe’s gold into the Indian Ocean trade.'},
+      {n:'Timbuktu', c:[16.77,-3.0], note:'Mali’s trans-Saharan trade and Islamic learning center on the Niger River.'},
+      {n:'Alexandria', c:[31.2,29.9], note:'Egypt’s great port where Venetian and Genoese merchants bought spices for Europe.'},
+      {n:'Constantinople', c:[41.01,28.98], note:'Byzantine gateway between Europe and the Asian trade routes.'},
+      {n:'Baghdad', c:[33.31,44.36], note:'Former Abbasid capital; a great inland commercial and cultural hub.'},
+      {n:'Venice', c:[45.44,12.34], note:'Italian city-state that grew rich hauling spices from Alexandria to Europe.'},
+      {n:'Genoa', c:[44.41,8.93], note:'Italian rival of Venice; dominant in the Black Sea slave trade.'},
+      {n:'Lübeck', c:[53.87,10.69], note:'Leading city of the Hanseatic League in northern Germany.'},
+      {n:'Bergen', c:[60.39,5.32], note:'Hanseatic trading city in Norway — fish and timber.'},
+      {n:'Novgorod', c:[58.52,31.27], note:'Hanseatic outpost in Russia — furs and forest goods.'}
+    ]
+  },
+  islam: {
+    name:'Spread of Islam', color:'#1e874b', icon:'★', kind:'religion',
+    note:'Islam spread along the trade routes — carried by Persian and Arab merchants and by Sufi mystics who blended it with local customs — into Southeast Asia, East Africa, West Africa, and India.',
+    items:[
+      {n:'Malacca', c:[2.19,102.25]},{n:'Aceh (Sumatra)', c:[5.5,95.3]},{n:'Java', c:[-6.9,109.7]},
+      {n:'Mogadishu', c:[2.04,45.34]},{n:'Kilwa', c:[-8.96,39.51]},{n:'Swahili coast', c:[-6.5,39.2]},
+      {n:'Timbuktu', c:[16.77,-3.0]},{n:'Gao', c:[16.27,0.04]},{n:'Delhi', c:[28.6,77.2]}
+    ]
+  },
+  buddhism: {
+    name:'Spread of Buddhism', color:'#c98a00', icon:'☸', kind:'religion',
+    note:'Buddhism spread with trade and empire-building. Srivijaya was a great center of Buddhist learning, and Java’s Borobudur is one of the finest Buddhist temples in the world.',
+    items:[
+      {n:'Srivijaya (Palembang)', c:[-2.99,104.76]},{n:'Borobudur (Java)', c:[-7.61,110.2]},
+      {n:'Angkor region', c:[13.6,104.1]},{n:'Sri Lanka', c:[7.9,80.7]},{n:'Central Asia', c:[39.6,66.5]}
+    ]
+  },
+  hinduism: {
+    name:'Spread of Hinduism', color:'#d15a1e', icon:'ॐ', kind:'religion',
+    note:'Hinduism was the first faith to reach Southeast Asia, carried by Indian merchants — the Khmer built the great temple complex of Angkor Wat in Cambodia.',
+    items:[
+      {n:'Angkor / Khmer (Cambodia)', c:[13.41,103.87]},{n:'Java', c:[-7.9,110.6]},
+      {n:'Sumatra', c:[-0.6,101.5]},{n:'Bali', c:[-8.4,115.2]},{n:'Champa (Vietnam)', c:[13.9,109.2]}
+    ]
+  },
+  monsoon: {
+    name:'Monsoon Winds', color:'#1d4ed8', icon:'🌀', kind:'arrows',
+    note:'Predictable monsoon winds blew from the southwest in summer and the northeast in winter. Merchants timed voyages to ride them out and back, so goods often changed ships two or three times crossing the ocean.',
+    items:[
+      {c:[7,66], rot:60, label:'Summer: SW monsoon blows toward India & China'},
+      {c:[0,80], rot:55, label:'Summer: SW monsoon (NE-bound)'},
+      {c:[13,60], rot:240, label:'Winter: NE monsoon blows toward Arabia & Africa'},
+      {c:[4,90], rot:235, label:'Winter: NE monsoon (SW-bound)'}
+    ]
+  },
+  disease: {
+    name:'Spread of Disease', color:'#6d3f9c', icon:'☠', kind:'disease',
+    note:'Trade also spread disease. The bubonic plague — the Black Death — travelled the trade routes westward out of Asia in the 14th century, devastating the Middle East and Europe.',
+    label:'Black Death',
+    segments:[
+      [[40,113],[43,90],[43,60],[46,42],[41,29]],
+      [[46,42],[45,13],[43,4],[48.5,2],[51.5,0]]
+    ]
+  }
+};
+var THEME_ORDER = ['goods','cities','islam','buddhism','hinduism','monsoon','disease'];
+
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
 /* Esri ArcGIS Online gray-canvas basemaps — genuinely keyless, no watermark, clean muted geography. */
 var LIGHT_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
@@ -557,6 +695,63 @@ function hidePolities(){
   Object.keys(polLayers).forEach(function(k){ if(map.hasLayer(polLayers[k].poly)) map.removeLayer(polLayers[k].poly); });
   document.querySelectorAll('.pol-chip').forEach(function(c){c.classList.remove('active');});
 }
+
+/* Build an on/off overlay layer for every annotation theme (independent of the
+   route/polity single-selection — students layer these on top). */
+var themeLayers={}, themeOn={};
+function popup(name,note,tagColor,tag){
+  return '<div class="pop-name">'+name+'</div>'+
+    (tag?'<div class="pop-tag" style="color:'+tagColor+'">'+tag+'</div>':'')+
+    (note?'<div class="pop-note">'+note+'</div>':'');
+}
+function buildTheme(key){
+  var t=THEMES[key], g=L.layerGroup();
+  if(t.kind==='labels'){
+    t.items.forEach(function(it){
+      L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:1})
+        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'goods-tip'})
+        .bindPopup(popup(it.n,it.note)).addTo(g);
+    });
+    (t.arrows||[]).forEach(function(a){
+      L.polyline([a.from,a.to],{color:t.color,weight:3,opacity:.85,dashArray:'1 8',lineCap:'round'})
+        .bindTooltip(a.label,{direction:'top',className:'city-tip'}).addTo(g);
+      L.marker(a.to,{icon:L.divIcon({className:'monsoon-arrow',html:'<span style="transform:rotate(35deg);color:'+t.color+'">➤</span>',iconSize:[30,30],iconAnchor:[15,15]})}).addTo(g);
+    });
+  } else if(t.kind==='cities'){
+    t.items.forEach(function(it){
+      L.circleMarker(it.c,{radius:5,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
+        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'city-tip'})
+        .bindPopup(popup(it.n,it.note)).addTo(g);
+    });
+  } else if(t.kind==='religion'){
+    t.items.forEach(function(it){
+      L.circleMarker(it.c,{radius:7,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:.9})
+        .bindPopup(popup(it.n,t.note,t.color,t.name)).addTo(g);
+    });
+  } else if(t.kind==='arrows'){
+    t.items.forEach(function(it){
+      L.marker(it.c,{icon:L.divIcon({className:'monsoon-arrow',html:'<span style="transform:rotate('+it.rot+'deg)">➤</span>',iconSize:[34,34],iconAnchor:[17,17]})})
+        .bindTooltip(it.label,{direction:'top',className:'city-tip'})
+        .bindPopup(popup(t.name,t.note)).addTo(g);
+    });
+  } else if(t.kind==='disease'){
+    t.segments.forEach(function(seg,i){
+      var pl=L.polyline(seg,{color:t.color,weight:3.5,opacity:.9,dashArray:'7 6',lineCap:'round'})
+        .bindPopup(popup(t.name,t.note));
+      if(i===0) pl.bindTooltip(t.label,{permanent:true,direction:'top',className:'disease-tip'});
+      pl.addTo(g);
+    });
+  }
+  themeLayers[key]=g; themeOn[key]=false;
+}
+THEME_ORDER.forEach(buildTheme);
+
+function toggleTheme(key,on){
+  themeOn[key]=on;
+  if(on){ themeLayers[key].addTo(map); } else if(map.hasLayer(themeLayers[key])){ map.removeLayer(themeLayers[key]); }
+  document.querySelectorAll('.thm-chip[data-t="'+key+'"]').forEach(function(c){c.classList.toggle('on',on);});
+}
+function clearThemes(){ THEME_ORDER.forEach(function(k){ toggleTheme(k,false); }); }
 
 var current=null;      // key of the selected route or polity
 var currentType=null;  // 'route' | 'polity' | null (=all routes)
@@ -712,6 +907,23 @@ function renderPolityPanel(key){
     b.addEventListener('click',function(){selectPolity(key);});
     grid.appendChild(b);
   });
+})();
+
+/* Render the annotation (theme) toggle chips */
+(function renderThemeChips(){
+  var grid=document.getElementById('thm-grid');
+  if(!grid) return;
+  THEME_ORDER.forEach(function(key){
+    var t=THEMES[key];
+    var b=document.createElement('button');
+    b.type='button'; b.className='thm-chip'; b.dataset.t=key;
+    b.innerHTML='<span class="tc-ic" style="color:'+t.color+'">'+t.icon+'</span>'+
+      '<span class="tc-name">'+t.name+'</span><span class="tc-check"></span>';
+    b.addEventListener('click',function(){ toggleTheme(key,!themeOn[key]); });
+    grid.appendChild(b);
+  });
+  var clr=document.getElementById('thm-clear');
+  if(clr) clr.addEventListener('click',clearThemes);
 })();
 
 /* ══ WIRE UP ═════════════════════════════════════════════════ */

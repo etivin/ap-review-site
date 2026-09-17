@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 4 — Interactive Exploration & Trade Map | AP World History</title>
+<meta name="description" content="Interactive world map of Unit 4 (c. 1450–1750): the voyages of exploration, maritime empires, the Columbian Exchange, the Atlantic slave trade, and the global silver trade."/>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#10201f;--mid:#3a4746;--muted:#6c7a78;
+  --red:#0d2960;--red-d:#091e47;--red-bg:#eef2fb;
+  --gold:#7a5500;--gold-b:#d4b84a;
+  /* Route accents — the exploring powers */
+  --silk:#0d7a3a;--silk-bg:#e9f6ee;
+  --indian:#b3402f;--indian-bg:#fbeceb;
+  --sahara:#c07800;--sahara-bg:#fcf3e2;
+  --eng:#6b3fa0;--eng-bg:#f1ecf9;
+  --sh:0 1px 4px rgba(0,0,0,.08);--shm:0 8px 30px rgba(0,0,0,.16);
+}
+html,body{height:100%}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+
+/* ── TOP BAR (navy chrome, matches games) ── */
+.bar{background:#10201f;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:58px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:1000;position:relative}
+.bar .brand{display:flex;align-items:center;gap:12px;min-width:0}
+.bar .badge{background:var(--red);color:#fff;font-weight:900;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:5px 9px;flex-shrink:0}
+.bar .btitle{font-weight:900;font-size:.98rem;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .bsub{color:rgba(255,255,255,.5);font-weight:700;font-size:.62rem;letter-spacing:.06em;white-space:nowrap}
+.bar .links{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.bar .links a{color:rgba(255,255,255,.72);text-decoration:none;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;transition:color .15s;white-space:nowrap}
+.bar .links a:hover{color:#fff}
+@media(max-width:640px){.bar .bsub{display:none}.bar{padding:0 14px}.bar .links{gap:10px}}
+
+/* ── LAYOUT ── */
+.wrap{flex:1;display:flex;min-height:0}
+.panel{width:440px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin}
+@media(max-width:1100px){.panel{width:380px}}
+.mapcol{flex:1;position:relative;min-width:0}
+#map{position:absolute;inset:0;background:#eae8e1}
+.map-hint{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(16,32,31,.82);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.04em;padding:6px 11px;border-radius:4px;pointer-events:none;max-width:260px;line-height:1.5}
+
+/* ── PANEL: route chooser ── */
+.p-intro{padding:20px 22px 16px;border-bottom:1px solid var(--border)}
+.p-eyebrow{font-weight:700;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.p-intro h1{font-size:1.32rem;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
+.p-intro p{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+.route-btns{padding:14px 16px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--border)}
+.rb{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:11px 13px;transition:all .15s;border-left-width:5px}
+.rb:hover{border-color:var(--border2);transform:translateX(2px)}
+.rb .rb-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.rb .rb-name{font-weight:900;font-size:.82rem;letter-spacing:-.01em;line-height:1.15}
+.rb .rb-yrs{font-weight:700;font-size:.58rem;color:var(--muted);letter-spacing:.04em;margin-top:1px}
+.rb[data-r="portugal"]{border-left-color:var(--silk)}
+.rb[data-r="spain"]{border-left-color:var(--indian)}
+.rb[data-r="dutch"]{border-left-color:var(--sahara)}
+.rb[data-r="england"]{border-left-color:var(--eng)}
+.rb[data-r="portugal"] .rb-dot{background:var(--silk)}
+.rb[data-r="spain"] .rb-dot{background:var(--indian)}
+.rb[data-r="dutch"] .rb-dot{background:var(--sahara)}
+.rb[data-r="england"] .rb-dot{background:var(--eng)}
+.rb.active[data-r="portugal"]{background:var(--silk-bg);border-color:var(--silk)}
+.rb.active[data-r="spain"]{background:var(--indian-bg);border-color:var(--indian)}
+.rb.active[data-r="dutch"]{background:var(--sahara-bg);border-color:var(--sahara)}
+.rb.active[data-r="england"]{background:var(--eng-bg);border-color:var(--eng)}
+.rb.active .rb-name{color:inherit}
+.rb-all{display:flex;gap:8px}
+.rb-all button{flex:1;background:none;border:1.5px solid var(--border2);color:var(--mid);font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;transition:all .15s}
+.rb-all button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ── PANEL: reference content ── */
+.p-body{padding:16px 20px 40px}
+.p-empty{color:var(--muted);font-size:.82rem;line-height:1.7;padding:8px 2px}
+.p-empty strong{color:var(--ink)}
+.rt-head{padding-bottom:12px;margin-bottom:14px;border-bottom:2px solid var(--border)}
+.rt-title{font-size:1.5rem;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+.rt-sub{font-weight:700;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.rt-blurb{font-size:.88rem;color:var(--mid);line-height:1.72;margin-top:10px}
+
+.sec{margin-top:22px}
+.sec-lbl{display:flex;align-items:center;gap:8px;font-weight:900;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:11px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.sec-lbl .ico{font-size:.95rem}
+
+.tech-card{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--red);padding:11px 13px;margin-bottom:9px}
+.tech-name{font-weight:900;font-size:.9rem;letter-spacing:-.01em;margin-bottom:3px}
+.tech-what{font-size:.82rem;color:var(--mid);line-height:1.55}
+.tech-impact{font-size:.82rem;color:var(--ink);line-height:1.55;margin-top:5px}
+.tech-impact b{color:var(--red);font-weight:900;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:1px}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--paper);border:1px solid var(--border2);color:var(--ink);font-weight:700;font-size:.8rem;padding:6px 11px;border-radius:3px}
+
+.place-list{display:flex;flex-direction:column;gap:2px}
+.place{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;border:none;padding:8px 6px;border-bottom:1px solid var(--border);transition:background .12s}
+.place:hover{background:var(--cream)}
+.place .pin{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:4px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.place .p-name{font-weight:900;font-size:.87rem;letter-spacing:-.01em}
+.place .p-note{font-size:.79rem;color:var(--muted);line-height:1.45;margin-top:1px}
+.place .p-go{margin-left:auto;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);flex-shrink:0;opacity:0;transition:opacity .12s;padding-top:3px}
+.place:hover .p-go{opacity:1}
+
+.cul-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cul-list li{position:relative;padding-left:18px;font-size:.86rem;line-height:1.6;color:var(--mid)}
+.cul-list li::before{content:'';position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--red))}
+.cul-list li b{color:var(--ink)}
+
+/* ── STATES & REGIONS (polity chooser) ── */
+.region-wrap{padding:15px 18px;border-bottom:1px solid var(--border)}
+.region-head{font-weight:900;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.region-head .rh-hint{font-weight:700;font-size:.58rem;letter-spacing:.02em;text-transform:none;color:var(--muted);opacity:.8}
+.pol-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.pol-chip{display:flex;align-items:center;gap:8px;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:9px 10px;transition:all .13s;min-width:0}
+.pol-chip:hover{border-color:var(--border2);background:var(--paper)}
+.pol-chip .pc-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.pol-chip .pc-name{font-weight:700;font-size:.8rem;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.pol-chip .tc-check{margin-left:auto;width:16px;height:16px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;position:relative}
+.pol-chip.on{border-color:var(--red);background:var(--red-bg)}
+.pol-chip.on .tc-check{background:var(--red);border-color:var(--red)}
+.pol-chip.on .tc-check::after{content:'✓';position:absolute;inset:0;color:#fff;font-size:.72rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+
+/* ── ANNOTATION / THEME toggles (goods, cities, religions, monsoon, disease) ── */
+.thm-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.thm-chip{display:flex;align-items:center;gap:8px;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:9px 10px;transition:all .13s;min-width:0}
+.thm-chip:hover{border-color:var(--border2);background:var(--paper)}
+.thm-chip .tc-ic{font-size:1rem;flex-shrink:0;line-height:1}
+.thm-chip .tc-name{font-weight:700;font-size:.78rem;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thm-chip .tc-check{margin-left:auto;width:16px;height:16px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;position:relative}
+.thm-chip.on{border-color:var(--red);background:var(--red-bg)}
+.thm-chip.on .tc-check{background:var(--red);border-color:var(--red)}
+.thm-chip.on .tc-check::after{content:'✓';position:absolute;inset:0;color:#fff;font-size:.72rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+.thm-clear{margin-top:8px;width:100%;background:none;border:1.5px solid var(--border2);color:var(--mid);font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:8px;transition:all .15s}
+.thm-clear:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* polity facts + role */
+.facts{display:flex;flex-direction:column;margin-top:2px}
+.fact{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem;line-height:1.45}
+.fact .fk{font-weight:900;color:var(--ink);flex:0 0 100px;letter-spacing:-.01em}
+.fact .fv{color:var(--mid)}
+.role-txt{font-size:.88rem;color:var(--mid);line-height:1.72}
+
+/* map region label */
+.leaflet-tooltip.pol-label{background:rgba(16,32,31,.88);color:#fff;border:none;border-radius:4px;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.01em;padding:4px 11px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.leaflet-tooltip.pol-label::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.pol-label{background:rgba(230,235,245,.92);color:#12141b}
+
+/* map annotation labels (goods words, city names, monsoon arrows) */
+.leaflet-tooltip.goods-tip{background:transparent;border:none;box-shadow:none;color:#7a5410;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.86rem;letter-spacing:.03em;
+  text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 4px #fff,0 0 4px #fff,0 0 4px #fff}
+.leaflet-tooltip.goods-tip::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.goods-tip{color:#f0c674;text-shadow:0 0 3px #000,0 0 4px #000,0 0 5px #000}
+.leaflet-tooltip.city-tip{background:rgba(255,255,255,.92);border:1px solid var(--border2);border-radius:3px;color:#10201f;
+  font-family:Lato,system-ui,sans-serif;font-weight:800;font-size:.72rem;padding:1px 6px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.leaflet-tooltip.city-tip::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.city-tip{background:rgba(23,26,34,.92);border-color:#454e62;color:#e7ebf5}
+.monsoon-arrow{font-size:1.9rem;line-height:1;color:#1d4ed8;text-shadow:0 0 3px #fff,0 0 4px #fff}
+.monsoon-arrow span{display:inline-block}
+:root[data-theme="dark"] .monsoon-arrow{color:#7aa2ff;text-shadow:0 0 3px #000,0 0 4px #000}
+.leaflet-tooltip.disease-tip{background:rgba(109,63,156,.92);color:#fff;border:none;border-radius:4px;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.74rem;letter-spacing:.02em;padding:3px 9px}
+.leaflet-tooltip.disease-tip::before{display:none}
+
+/* ── LEGEND (on map) ── */
+.legend{position:absolute;top:12px;right:12px;z-index:500;background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);padding:10px 12px;font-size:.7rem}
+.legend .lg-t{font-weight:900;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.legend .lg-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-weight:700;color:var(--ink)}
+.legend .lg-row:last-child{margin-bottom:0}
+.legend .lg-line{width:22px;height:0;border-top:3px solid;flex-shrink:0}
+.legend .lg-line.dash{border-top-style:dashed}
+.legend .lg-fill{width:20px;height:12px;border-radius:3px;background:rgba(120,120,120,.35);border:1.5px solid var(--muted);flex-shrink:0}
+.legend .lg-div{height:1px;background:var(--border);margin:7px 0}
+
+/* swooping "spread of…" arrowhead */
+.swoop-head{font-size:1.15rem;line-height:1;text-shadow:0 0 3px #fff,0 0 4px #fff}
+.swoop-head span{display:inline-block}
+:root[data-theme="dark"] .swoop-head{text-shadow:0 0 3px #000,0 0 4px #000}
+
+.leaflet-popup-content{font-family:Lato,system-ui,sans-serif;margin:11px 14px;line-height:1.5}
+.pop-name{font-weight:900;font-size:.92rem;letter-spacing:-.01em;margin-bottom:3px}
+.pop-tag{font-weight:700;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+.pop-note{font-size:.78rem;color:#3a4746}
+.polity-pop .leaflet-popup-content{max-height:320px;overflow-y:auto}
+.pop-facts{margin:7px 0;font-size:.75rem;color:#3a4746;line-height:1.55}
+.pop-facts b{color:#10201f}
+.pop-sub{font-size:.76rem;color:#3a4746;line-height:1.55;margin-top:6px;padding-top:6px;border-top:1px solid #e5ddcb}
+.pop-sub b{color:#10201f}
+:root[data-theme="dark"] .pop-note,:root[data-theme="dark"] .pop-facts,:root[data-theme="dark"] .pop-sub{color:#c4cad7}
+:root[data-theme="dark"] .pop-facts b,:root[data-theme="dark"] .pop-sub b{color:#e7ebf5}
+:root[data-theme="dark"] .pop-sub{border-top-color:#333a49}
+
+/* ── MOBILE ── */
+@media(max-width:820px){
+  .wrap{flex-direction:column-reverse}
+  .panel{width:100%;max-height:none;border-right:none;border-top:1px solid var(--border)}
+  .mapcol{height:56vh;flex:none}
+  .legend{top:8px;right:8px;padding:7px 9px}
+  .map-hint{display:none}
+}
+
+/* ── DARK MODE (map page owns its overrides) ── */
+:root[data-theme="dark"]{
+  --cream:#0f1117;--white:#171a22;--paper:#1c2029;--border:#333a49;--border2:#454e62;
+  --ink:#e7ebf5;--mid:#c4cad7;--muted:#9299ac;--red:#5fd0d4;--red-bg:rgba(255,255,255,.06);
+  --silk:#4cc985;--indian:#ff8a72;--sahara:#f0b24a;--eng:#b79be6;
+  --silk-bg:rgba(76,201,133,.12);--indian-bg:rgba(255,138,114,.12);--sahara-bg:rgba(240,178,74,.12);--eng-bg:rgba(183,155,230,.12);
+  color-scheme:dark;
+}
+:root[data-theme="dark"] body{background:#0f1117;color:#e7ebf5}
+:root[data-theme="dark"] .bar{background:#12141b}
+:root[data-theme="dark"] .rb{background:#1c2029}
+:root[data-theme="dark"] .tech-card{background:#1c2029}
+:root[data-theme="dark"] .chip{background:#1c2029;color:#e7ebf5}
+:root[data-theme="dark"] .place:hover,:root[data-theme="dark"] .rb:hover{background:#232a3d}
+:root[data-theme="dark"] .pol-chip{background:#1c2029}
+:root[data-theme="dark"] .pol-chip:hover{background:#232a3d}
+:root[data-theme="dark"] .pol-chip.on{border-color:#5fd0d4;background:rgba(95,208,212,.12)}
+:root[data-theme="dark"] .pol-chip.on .tc-check{background:#5fd0d4;border-color:#5fd0d4}
+:root[data-theme="dark"] .pol-chip.on .tc-check::after{color:#12141b}
+:root[data-theme="dark"] .thm-chip{background:#1c2029}
+:root[data-theme="dark"] .thm-chip:hover{background:#232a3d}
+:root[data-theme="dark"] .thm-chip.on{border-color:#5fd0d4;background:rgba(95,208,212,.12)}
+:root[data-theme="dark"] .thm-chip.on .tc-check{background:#5fd0d4;border-color:#5fd0d4}
+:root[data-theme="dark"] .thm-chip.on .tc-check::after{color:#12141b}
+:root[data-theme="dark"] .legend{background:#171a22}
+:root[data-theme="dark"] #map{background:#23262b}
+:root[data-theme="dark"] .leaflet-popup-content-wrapper,:root[data-theme="dark"] .leaflet-popup-tip{background:#171a22;color:#e7ebf5}
+:root[data-theme="dark"] .pop-note{color:#c4cad7}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand">
+    <span class="badge">Unit 4</span>
+    <div style="min-width:0">
+      <div class="btitle">Exploration &amp; the New Global Economy</div>
+      <div class="bsub">Interactive Map &middot; c. 1450 – 1750</div>
+    </div>
+  </div>
+  <nav class="links">
+    <a href="unit4.html">&#8592; Unit 4 Hub</a>
+    <a href="index.html">All Units</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <!-- LEFT: controls + reference -->
+  <aside class="panel">
+    <div class="p-intro">
+      <div class="p-eyebrow">Reference Map</div>
+      <h1>Explore the New Global Age</h1>
+      <p>Start with a <strong>power&rsquo;s voyages of exploration</strong> as your base. Then layer on the maritime empires, and the great exchanges — goods, the Columbian Exchange, silver, the Atlantic slave trade, and disease — each shown as a <strong>swooping arrow from where it began</strong>. Click anything to read more.</p>
+    </div>
+
+    <div class="route-btns" id="route-btns">
+      <button class="rb" data-r="portugal"><span class="rb-dot"></span><span><span class="rb-name">Portugal</span><span class="rb-yrs" style="display:block">Around Africa to Asia</span></span></button>
+      <button class="rb" data-r="spain"><span class="rb-dot"></span><span><span class="rb-name">Spain</span><span class="rb-yrs" style="display:block">Atlantic &amp; the Pacific galleon</span></span></button>
+      <button class="rb" data-r="dutch"><span class="rb-dot"></span><span><span class="rb-name">The Dutch (VOC)</span><span class="rb-yrs" style="display:block">Spice route to Indonesia</span></span></button>
+      <button class="rb" data-r="england"><span class="rb-dot"></span><span><span class="rb-name">England &amp; France</span><span class="rb-yrs" style="display:block">North Atlantic &amp; India</span></span></button>
+      <div class="rb-all">
+        <button type="button" id="btn-all">Show all routes</button>
+        <button type="button" id="btn-reset">Reset view</button>
+      </div>
+    </div>
+
+    <div class="region-wrap">
+      <div class="region-head">Maritime Empires <span class="rh-hint">layer any on</span></div>
+      <div class="pol-grid" id="pol-grid"></div>
+      <button type="button" class="thm-clear" id="pol-clear">Clear empires</button>
+    </div>
+
+    <div class="region-wrap">
+      <div class="region-head">Trade Goods &amp; Annotations <span class="rh-hint">layer any on</span></div>
+      <div class="thm-grid" id="thm-grid"></div>
+      <button type="button" class="thm-clear" id="thm-clear">Clear annotations</button>
+    </div>
+
+    <div class="p-body" id="p-body">
+      <div class="p-empty">
+        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450 — moving silk and salt, faiths and inventions, merchants and microbes.</p>
+        <p style="margin-top:10px">Select a route above, or <strong>Show all</strong> to compare them, then click the colored lines and dots on the map.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- RIGHT: the real map -->
+  <div class="mapcol">
+    <div id="map"></div>
+    <div class="legend" id="legend">
+      <div class="lg-t">Map Key</div>
+      <div class="lg-row"><span class="lg-line" style="border-color:var(--silk)"></span>Portugal</div>
+      <div class="lg-row"><span class="lg-line" style="border-color:var(--indian)"></span>Spain</div>
+      <div class="lg-row"><span class="lg-line" style="border-color:var(--sahara)"></span>Dutch</div>
+      <div class="lg-row"><span class="lg-line" style="border-color:var(--eng)"></span>England &amp; France</div>
+      <div class="lg-div"></div>
+      <div class="lg-row"><span class="lg-fill"></span>Maritime empire</div>
+    </div>
+    <div class="map-hint">Tip: turn on the Columbian Exchange to see what crossed the Atlantic. Drag to pan, scroll to zoom.</div>
+  </div>
+</div>
+
+<script defer src="theme.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   DATA — Unit 4, c. 1450–1750. Coordinates are [lat, lng].
+   ROUTES = the exploring powers' voyages (single-select base layer).
+   ══════════════════════════════════════════════════════════════ */
+var ROUTES = {
+  portugal: {
+    name:'Portugal', sub:'Around Africa to Asia · from 1498', colorVar:'--silk', dash:false,
+    blurb:'The first Europeans to reach Asia by sea. Sailing down the African coast and around the Cape of Good Hope, the Portuguese built a chain of coastal trading posts — a seaborne "Estado da Índia" that broke the old Venetian–Muslim spice monopoly.',
+    segments:[
+      [[38.72,-9.14],[14.66,-17.43],[5.08,-1.35],[-8.8,13.2],[-34.36,18.47],[-25.97,32.58],[-4.04,39.66],[15.5,73.83],[11.25,75.78],[2.19,102.25],[22.19,113.54]]
+    ],
+    places:[
+      {n:'Lisbon',c:[38.72,-9.14],note:'Home port of Portugal’s voyages, funded by Prince Henry “the Navigator.”'},
+      {n:'Elmina',c:[5.08,-1.35],note:'Fortified gold- and slave-trading post on the West African (Gold) coast.'},
+      {n:'Cape of Good Hope',c:[-34.36,18.47],note:'Rounded by Bartolomeu Dias (1488), opening the sea route to the Indian Ocean.'},
+      {n:'Goa',c:[15.5,73.83],note:'Capital of Portugal’s Estado da Índia on the west coast of India.'},
+      {n:'Calicut',c:[11.25,75.78],note:'Where Vasco da Gama landed in 1498 — the first all-sea route from Europe to India.'},
+      {n:'Malacca',c:[2.19,102.25],note:'Seized in 1511 to control the strait and the spice trade to the east.'},
+      {n:'Macau',c:[22.19,113.54],note:'Portuguese trading enclave on the China coast (from 1557) — silk and porcelain.'}
+    ],
+    tech:[
+      {name:'Caravel & carrack',what:'Small, nimble caravels for exploring and larger carracks (naus) for cargo, combining square and lateen sails.',impact:'Let ships sail into the wind and carry enough cargo and cannon for long ocean voyages.'},
+      {name:'Astrolabe & compass',what:'The magnetic compass plus the mariner’s astrolabe for finding latitude from the sun or stars.',impact:'Made open-ocean navigation out of sight of land possible.'},
+      {name:'Volta do mar',what:'Knowledge of the Atlantic wind circle — sailing far out to catch favorable winds home.',impact:'Turned the Atlantic’s winds into a reliable round-trip highway.'}
+    ],
+    goods:['Gold','Pepper & spices','Enslaved people','Ivory','Chinese porcelain','Silk'],
+    cultural:[
+      {t:'The all-sea route to Asia',d:'broke the Venetian and Muslim monopoly on the spice trade.'},
+      {t:'Trading-post empire',d:'Portugal ruled the sea lanes and forts, not large territories — a new model of empire.'},
+      {t:'Christian missions',d:'Jesuits like Francis Xavier followed the routes to India, Japan, and China.'}
+    ]
+  },
+  spain: {
+    name:'Spain', sub:'The Atlantic & the Pacific galleon · from 1492', colorVar:'--indian', dash:false,
+    blurb:'Sailing west for Asia, Columbus reached the Americas in 1492. Spain conquered the Aztec and Inca, mined vast silver, and — with the Manila galleon — linked the Americas to Asia, creating the first truly global trade network.',
+    segments:[
+      [[37.39,-5.99],[28.3,-15.4],[19.0,-70.7],[19.19,-96.14]],
+      [[19.19,-96.14],[9.55,-79.65],[-12.05,-77.13],[-19.58,-65.75]],
+      [[16.86,-99.89],[14.6,120.98],[23.13,113.26]]
+    ],
+    places:[
+      {n:'Seville',c:[37.39,-5.99],note:'Spain’s gateway port; its Casa de Contratación controlled all trade with the Americas.'},
+      {n:'Hispaniola',c:[19.0,-70.7],note:'Columbus’s first base; the model for Caribbean sugar and encomienda labor.'},
+      {n:'Tenochtitlán / Mexico City',c:[19.43,-99.13],note:'Aztec capital conquered by Cortés (1521); heart of New Spain.'},
+      {n:'Potosí',c:[-19.58,-65.75],note:'The great silver mountain in the Andes — worked with brutal mita labor.'},
+      {n:'Acapulco',c:[16.86,-99.89],note:'Pacific port where the Manila galleon carried silver west and Asian goods east.'},
+      {n:'Manila',c:[14.6,120.98],note:'Spanish hub in the Philippines where American silver was traded for Chinese silk and porcelain.'}
+    ],
+    tech:[
+      {name:'Galleon',what:'Large armed sailing ship for both war and long-haul cargo across open oceans.',impact:'Carried the silver and Asian goods of the Manila galleon route for 250 years.'},
+      {name:'Quadrant & dead reckoning',what:'Instruments and methods for estimating position and latitude at sea.',impact:'Enabled repeated transoceanic crossings of the Atlantic and Pacific.'},
+      {name:'Joint-stock & royal charter',what:'Crown-licensed monopolies and financing for costly voyages.',impact:'Spread the risk and funded conquest and long-distance trade.'}
+    ],
+    goods:['Silver','Gold','Sugar','Tobacco','Chinese silk & porcelain','Enslaved people'],
+    cultural:[
+      {t:'Conquest of the Aztec & Inca',d:'gave Spain a vast land empire in the Americas.'},
+      {t:'Silver & the global economy',d:'Potosí silver flowed to Europe and (via Manila) to China, whose demand drove world trade.'},
+      {t:'The Columbian Exchange',d:'began here — crops, animals, people, and diseases crossing the Atlantic.'},
+      {t:'Casta system & missions',d:'a racial hierarchy and Catholic conversion reshaped American societies.'}
+    ]
+  },
+  dutch: {
+    name:'The Dutch (VOC)', sub:'Spice route to the East Indies · from 1602', colorVar:'--sahara', dash:false,
+    blurb:'The Dutch East India Company (VOC) — the world’s first joint-stock multinational — muscled Portugal out of the spice trade, seized the Spice Islands, and ran a commercial empire from its hub at Batavia.',
+    segments:[
+      [[52.37,4.90],[-33.92,18.42],[6.93,79.85],[-6.2,106.85],[0.79,127.38]],
+      [[-6.2,106.85],[32.74,129.87]]
+    ],
+    places:[
+      {n:'Amsterdam',c:[52.37,4.90],note:'Home of the VOC and Europe’s leading financial and shipping center.'},
+      {n:'Cape Town',c:[-33.92,18.42],note:'Dutch supply station (from 1652) at the halfway point to Asia.'},
+      {n:'Batavia (Jakarta)',c:[-6.2,106.85],note:'Fortified VOC capital in Java, center of its Asian trade network.'},
+      {n:'Spice Islands (Maluku)',c:[0.79,127.38],note:'The VOC seized a monopoly on nutmeg, cloves, and mace here.'},
+      {n:'Deshima (Nagasaki)',c:[32.74,129.87],note:'The only Europeans allowed to trade with isolationist Tokugawa Japan.'},
+      {n:'Colombo (Ceylon)',c:[6.93,79.85],note:'Dutch base controlling the cinnamon of Sri Lanka.'}
+    ],
+    tech:[
+      {name:'Joint-stock company',what:'The VOC pooled many investors’ money and shares in one permanent, tradable company.',impact:'Raised huge capital and spread risk — a template for modern corporations and stock markets.'},
+      {name:'Fluyt',what:'A cheap, roomy Dutch cargo ship needing a small crew.',impact:'Cut shipping costs and helped the Dutch dominate carrying trade.'},
+      {name:'Chartered monopoly',what:'The state granted the VOC powers to wage war, build forts, and make treaties.',impact:'Let a company act like a state to control the spice trade.'}
+    ],
+    goods:['Nutmeg, cloves & mace','Pepper','Cinnamon','Coffee','Textiles','Porcelain'],
+    cultural:[
+      {t:'The first multinational corporation',d:'the VOC blurred the line between company and empire.'},
+      {t:'Spice monopoly',d:'the Dutch controlled the Spice Islands, even wiping out rivals (Banda, Amboyna).'},
+      {t:'Global finance',d:'Amsterdam’s stock exchange and banking financed world trade.'}
+    ]
+  },
+  england: {
+    name:'England & France', sub:'North Atlantic, the Caribbean & India', colorVar:'--eng', dash:false,
+    blurb:'Latecomers who built settler colonies in North America, sugar islands in the Caribbean, and trading footholds in India through their East India Companies — the seeds of later global empires.',
+    segments:[
+      [[51.5,-0.1],[37.2,-76.8]],
+      [[51.5,-0.1],[13.1,-59.6]],
+      [[51.5,-0.1],[-34.36,18.47],[19.08,72.88],[13.08,80.27],[22.57,88.36]],
+      [[48.85,2.35],[46.81,-71.2]],
+      [[48.85,2.35],[11.93,79.83]]
+    ],
+    places:[
+      {n:'London',c:[51.5,-0.1],note:'Base of the English East India Company (1600) and Atlantic trade.'},
+      {n:'Jamestown',c:[37.2,-76.8],note:'First permanent English colony (1607); tobacco made it profitable.'},
+      {n:'Barbados',c:[13.1,-59.6],note:'English sugar island worked by enslaved Africans — hugely profitable.'},
+      {n:'Bombay / Madras / Calcutta',c:[19.08,72.88],note:'English East India Company trading posts on the Indian coast.'},
+      {n:'Québec',c:[46.81,-71.2],note:'Heart of New France and the North American fur trade.'},
+      {n:'Pondicherry',c:[11.93,79.83],note:'Main French trading post in India.'}
+    ],
+    tech:[
+      {name:'East India Companies',what:'English (1600) and French (1664) joint-stock companies chartered for Asian trade.',impact:'Privately financed the footholds that later grew into territorial empires.'},
+      {name:'Settler colonies',what:'Permanent farming and plantation colonies rather than just trading posts.',impact:'Created large European populations overseas and demand for coerced labor.'},
+      {name:'Naval gunnery',what:'Cannon-armed ships and growing state navies.',impact:'Let England contest and eventually surpass Dutch and Spanish sea power.'}
+    ],
+    goods:['Sugar','Tobacco','Furs','Cotton textiles','Tea','Enslaved people'],
+    cultural:[
+      {t:'Settler societies',d:'in North America grew large European populations and displaced Native peoples.'},
+      {t:'Plantation economy',d:'Caribbean and southern sugar/tobacco depended on enslaved African labor.'},
+      {t:'Fur-trade alliances',d:'the French allied with Native nations across Canada and the Great Lakes.'},
+      {t:'Companies to empire',d:'the East India Companies laid the groundwork for later British and French rule.'}
+    ]
+  }
+};
+
+/* ══════════════════════════════════════════════════════════════
+   MARITIME & LAND EMPIRES — toggle polygons (approximate cores).
+   ══════════════════════════════════════════════════════════════ */
+var POLITIES = {
+  spain_e: {
+    name:'Spanish Empire', sub:'The Americas & the Philippines', color:'#b3402f',
+    poly:[[25,-107],[19,-96],[9,-83],[0,-79],[-18,-70],[-38,-72],[-32,-60],[-12,-64],[6,-73],[20,-99]],
+    blurb:'The largest early-modern empire — Mexico, Central America, the Andes, the Caribbean, and the Philippines — built on conquest, silver, and Catholic missions.',
+    facts:[['Core','New Spain (Mexico) & Peru'],['Also','Caribbean, the Philippines'],['Wealth','Silver from Potosí & Zacatecas'],['Labor','Encomienda & the mita']],
+    role:'American silver flowed through Seville to Europe and through Manila to China, tying the whole world into one trade system for the first time.',
+    legacy:[{t:'Casta system'},{t:'Catholic conversion'},{t:'Global silver economy'}]
+  },
+  portugal_e: {
+    name:'Portuguese Empire', sub:'Brazil & the Indian Ocean', color:'#0d7a3a',
+    poly:[[0,-50],[-2,-42],[-13,-38],[-23,-41],[-30,-52],[-24,-57],[-9,-58],[-1,-55]],
+    blurb:'A seaborne empire of coastal trading posts from Brazil to Africa to Asia (Goa, Malacca, Macau), plus the sugar plantations of Brazil.',
+    facts:[['Type','Trading-post (feitoria) empire'],['Colony','Brazil (sugar)'],['Asian posts','Goa, Malacca, Macau, Hormuz'],['African posts','Elmina, Mozambique']],
+    role:'Controlled the sea route around Africa and the flow of spices, gold, and enslaved Africans; pioneered the Atlantic sugar-plantation model in Brazil.',
+    legacy:[{t:'Sugar & slavery in Brazil'},{t:'Estado da Índia'},{t:'Jesuit missions'}]
+  },
+  dutch_e: {
+    name:'Dutch Empire (VOC)', sub:'The East Indies', color:'#c07800',
+    poly:[[6,95],[5,119],[-1,132],[-9,122],[-8,104],[-5,96]],
+    blurb:'A commercial empire run by the VOC — the Spice Islands, Java (Batavia), Ceylon, and the Cape — squeezing rivals out of the spice trade.',
+    facts:[['Run by','The VOC (joint-stock company)'],['Capital','Batavia (Jakarta)'],['Monopoly','Nutmeg, cloves, mace'],['Also','Cape Town, Ceylon, Deshima']],
+    role:'Dominated the spice trade and the carrying trade of Asia, and held the sole European trading right with Tokugawa Japan.',
+    legacy:[{t:'Spice monopoly'},{t:'Corporate empire'},{t:'Amsterdam finance'}]
+  },
+  english_e: {
+    name:'English Empire', sub:'Atlantic coast, Caribbean & India', color:'#6b3fa0',
+    poly:[[45,-70],[43,-73],[37,-76],[31,-81],[31,-84],[37,-83],[42,-75]],
+    blurb:'Settler colonies along the North American seaboard, profitable sugar islands in the Caribbean, and East India Company posts in India.',
+    facts:[['N. America','The Thirteen Colonies'],['Caribbean','Barbados, Jamaica (sugar)'],['India','Bombay, Madras, Calcutta'],['Run partly by','The English East India Company']],
+    role:'Grew large settler populations and plantation economies dependent on enslaved labor, and built the trading footholds that became the British Empire.',
+    legacy:[{t:'Settler colonialism'},{t:'Plantation slavery'},{t:'East India Company'}]
+  },
+  french_e: {
+    name:'French Empire', sub:'New France, Louisiana & India', color:'#1d4ed8',
+    poly:[[52,-79],[49,-64],[45,-71],[46,-84],[50,-95],[53,-88]],
+    blurb:'A fur-trading and settler empire in Canada and the Mississippi valley, sugar colonies in the Caribbean (Saint-Domingue), and posts in India.',
+    facts:[['N. America','New France (Canada), Louisiana'],['Caribbean','Saint-Domingue (Haiti)'],['India','Pondicherry'],['Economy','Fur trade & sugar']],
+    role:'Built alliances with Native nations for the fur trade, and ran some of the richest sugar plantations in the Caribbean.',
+    legacy:[{t:'Fur-trade alliances'},{t:'Saint-Domingue sugar'},{t:'French–British rivalry'}]
+  },
+  ottoman_e: {
+    name:'Ottoman Empire', sub:'A land empire that persisted', color:'#8a6d1f',
+    poly:[[41,28],[40,42],[37,45],[31,47],[29,35],[24,37],[31,25],[33,15],[35,10],[37,11],[40,20]],
+    blurb:'A reminder that great land-based empires flourished alongside the new sea empires — the Ottomans controlled the eastern Mediterranean and the old overland trade routes.',
+    facts:[['Type','Land-based gunpowder empire'],['Capital','Istanbul'],['Controlled','The eastern Mediterranean'],['Religion','Sunni Islam']],
+    role:'Taxed the overland Europe–Asia trade — a key reason Europeans sought sea routes to bypass Ottoman middlemen.',
+    legacy:[{t:'Overland trade tolls'},{t:'A spur to European exploration'}]
+  },
+  mughal_e: {
+    name:'Mughal Empire', sub:'The wealth of India', color:'#c99a2e',
+    poly:[[32,71],[30,79],[25,88],[20,84],[16,75],[22,70],[28,68]],
+    blurb:'The vast, rich land empire of the Indian subcontinent — the source of the cotton textiles that Europeans crossed oceans to buy.',
+    facts:[['Type','Land-based gunpowder empire'],['Capital','Delhi / Agra'],['Export','Cotton textiles'],['Peak ruler','Akbar; later Aurangzeb']],
+    role:'Produced the world’s finest cotton cloth; European companies set up coastal posts to buy Indian textiles for the global trade.',
+    legacy:[{t:'Indian cotton trade'},{t:'European coastal posts'}]
+  }
+};
+var POLITY_ORDER = ['spain_e','portugal_e','dutch_e','english_e','french_e','ottoman_e','mughal_e'];
+
+/* ══════════════════════════════════════════════════════════════
+   ANNOTATIONS — the great exchanges of the era. "Spread" layers are
+   swooping arrows from an origin out to where the thing travelled.
+   ══════════════════════════════════════════════════════════════ */
+var THEMES = {
+  goods: {
+    name:'Trade Goods', color:'#a6791f', icon:'📦', kind:'labels',
+    items:[
+      {n:'SILVER', c:[-19.58,-65.75], note:'Mined at Potosí and in Mexico — the money of the new global economy, most of it ending up in China.'},
+      {n:'SUGAR', c:[14.5,-61], note:'Grown on Caribbean and Brazilian plantations by enslaved Africans — the great cash crop of the Atlantic.'},
+      {n:'TOBACCO', c:[36.5,-78], note:'The cash crop that made England’s Virginia colony profitable.'},
+      {n:'FURS', c:[49,-85], note:'Beaver and other furs from Canada, traded by the French and English with Native nations.'},
+      {n:'SPICES', c:[-1,128], note:'Nutmeg, cloves, and mace from the Spice Islands — monopolized by the Dutch VOC.'},
+      {n:'COTTON', c:[21,76], note:'India’s cotton textiles were prized worldwide and bought by the European companies.'},
+      {n:'TEA & PORCELAIN', c:[28,113], note:'Chinese exports Europeans paid for largely in American silver.'},
+      {n:'GOLD', c:[6.5,-1.5], note:'West African gold from the Gold Coast (Elmina).'}
+    ]
+  },
+  cities: {
+    name:'Key Ports & Cities', color:'#0f5b5e', icon:'🏙️', kind:'cities',
+    items:[
+      {n:'Lisbon', c:[38.72,-9.14], note:'Portugal’s launch port for the route around Africa.'},
+      {n:'Seville', c:[37.39,-5.99], note:'Spain’s monopoly port for the Americas trade.'},
+      {n:'Amsterdam', c:[52.37,4.90], note:'Financial capital of Europe and home of the VOC.'},
+      {n:'London', c:[51.5,-0.1], note:'Base of the English East India Company and Atlantic trade.'},
+      {n:'Potosí', c:[-19.58,-65.75], note:'The silver city high in the Andes.'},
+      {n:'Manila', c:[14.6,120.98], note:'Where American silver met Chinese silk on the Pacific galleon.'},
+      {n:'Batavia', c:[-6.2,106.85], note:'VOC capital in Java.'},
+      {n:'Goa', c:[15.5,73.83], note:'Capital of Portuguese India.'},
+      {n:'Macau', c:[22.19,113.54], note:'Portuguese enclave on the China coast.'},
+      {n:'Cape Town', c:[-33.92,18.42], note:'Dutch resupply station at the tip of Africa.'},
+      {n:'Elmina', c:[5.08,-1.35], note:'West African fort for gold and enslaved people.'},
+      {n:'Veracruz', c:[19.19,-96.14], note:'Main Atlantic port of New Spain.'},
+      {n:'Havana', c:[23.13,-82.38], note:'Fortified hub of the Spanish treasure fleets.'},
+      {n:'Jamestown', c:[37.2,-76.8], note:'First permanent English colony.'},
+      {n:'Québec', c:[46.81,-71.2], note:'Heart of the New France fur trade.'},
+      {n:'Nagasaki', c:[32.74,129.87], note:'Deshima — the Dutch window into closed Japan.'}
+    ]
+  },
+  oldnew: {
+    name:'Columbian Exchange: Old → New', color:'#1e874b', icon:'➡', kind:'spread',
+    note:'From the Old World to the Americas came wheat, sugar cane, coffee, and — most transformative — horses, cattle, and pigs, which reshaped Native economies and the American landscape.',
+    origin:{n:'Europe & Africa (Old World)', c:[33,-12]},
+    items:[
+      {n:'Horses → Great Plains', c:[41,-100]},{n:'Cattle & pigs → Mexico', c:[22,-101]},
+      {n:'Wheat → the Andes', c:[-16,-71]},{n:'Sugar cane → Caribbean', c:[18,-73]},
+      {n:'Sugar & coffee → Brazil', c:[-10,-45]},{n:'Bananas → the tropics', c:[8,-75]}
+    ]
+  },
+  newold: {
+    name:'Columbian Exchange: New → Old', color:'#c98a00', icon:'⬅', kind:'spread',
+    note:'From the Americas came calorie-rich crops — maize, the potato, cassava — plus tomatoes, cacao, and tobacco. They fed a population boom across Afro-Eurasia.',
+    origin:{n:'The Americas (New World)', c:[8,-72]},
+    items:[
+      {n:'Potato → Europe', c:[50,8]},{n:'Maize → Africa & China', c:[8,20]},
+      {n:'Maize → China', c:[30,112]},{n:'Tomato → Mediterranean', c:[42,13]},
+      {n:'Cacao → Europe', c:[46,2]},{n:'Tobacco → the world', c:[40,30]}
+    ]
+  },
+  silver: {
+    name:'Global Silver Trade', color:'#5a6b7a', icon:'🪙', kind:'spread',
+    note:'American silver became the money of the world. It flowed east across the Atlantic to Europe and west across the Pacific (the Manila galleon) to China, whose demand for silver drove the whole global economy.',
+    origin:{n:'Spanish America (Potosí & Mexico)', c:[-8,-78]},
+    items:[
+      {n:'→ Seville (Europe)', c:[37.39,-5.99]},{n:'→ Manila', c:[14.6,120.98]},
+      {n:'→ China (silver sink)', c:[30,112]}
+    ]
+  },
+  slavetrade: {
+    name:'Atlantic Slave Trade', color:'#7a2f2f', icon:'⛓', kind:'spread',
+    note:'Some 12 million enslaved Africans were shipped across the Atlantic in the brutal Middle Passage to work the plantations and mines of the Americas — the labor foundation of the Atlantic economy.',
+    origin:{n:'West & Central Africa', c:[3,6]},
+    items:[
+      {n:'→ Brazil', c:[-12,-40]},{n:'→ Caribbean', c:[17,-70]},
+      {n:'→ British North America', c:[33,-79]},{n:'→ Spanish America', c:[8,-75]}
+    ]
+  },
+  disease: {
+    name:'Spread of Disease', color:'#6d3f9c', icon:'☠', kind:'spread',
+    note:'Old World diseases — above all smallpox — crossed the Atlantic with Europeans. Native Americans had no immunity, and up to 90% died in the “Great Dying,” collapsing the Aztec, Inca, and countless other societies.',
+    origin:{n:'Europe (across the Atlantic)', c:[34,-30]},
+    items:[
+      {n:'Hispaniola', c:[19.0,-70.7]},{n:'Aztec (Mexico)', c:[19.43,-99.13]},
+      {n:'Inca (Peru)', c:[-13.5,-72]},{n:'North America', c:[38,-85]}
+    ]
+  }
+};
+var THEME_ORDER = ['goods','cities','oldnew','newold','silver','slavetrade','disease'];
+
+/* ══ MAP SETUP ═══════════════════════════════════════════════ */
+/* Esri ArcGIS Online gray-canvas basemaps — genuinely keyless, no watermark, clean muted geography. */
+var LIGHT_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+var DARK_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+var ATTR='Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors';
+
+var map=L.map('map',{center:[15,-25],zoom:2,minZoom:2,maxZoom:8,worldCopyJump:true,
+  attributionControl:true});
+map.setMaxBounds([[-72,-170],[80,175]]);
+
+function isDark(){return document.documentElement.getAttribute('data-theme')==='dark';}
+var tileLayer=L.tileLayer(isDark()?DARK_TILES:LIGHT_TILES,{attribution:ATTR,maxZoom:8,maxNativeZoom:16}).addTo(map);
+function refreshTiles(){tileLayer.setUrl(isDark()?DARK_TILES:LIGHT_TILES);}
+
+function cssVar(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+
+/* Build layers for every route */
+var layers={}; // key -> {group, lines[], markers[], bounds}
+function buildRoute(key){
+  var r=ROUTES[key], color=cssVar(r.colorVar), group=L.layerGroup();
+  var lines=[], markers=[], allPts=[];
+  r.segments.forEach(function(seg){
+    // glow underlay + main line
+    L.polyline(seg,{color:'#000',opacity:.10,weight:9}).addTo(group);
+    var pl=L.polyline(seg,{color:color,weight:4,opacity:.9,
+      dashArray:r.dash?'2 9':null,lineCap:'round',lineJoin:'round'}).addTo(group);
+    pl.on('click',function(){selectRoute(key);});
+    lines.push(pl); seg.forEach(function(p){allPts.push(p);});
+  });
+  r.places.forEach(function(p){
+    var m=L.circleMarker(p.c,{radius:6,color:'#fff',weight:2,fillColor:color,fillOpacity:1});
+    m.bindPopup('<div class="pop-name">'+p.n+'</div><div class="pop-tag" style="color:'+color+'">'+r.name+'</div><div class="pop-note">'+p.note+'</div>');
+    m.on('click',function(){selectRoute(key,true);});
+    m.addTo(group); markers.push(m); allPts.push(p.c);
+  });
+  layers[key]={group:group,lines:lines,markers:markers,bounds:L.latLngBounds(allPts)};
+}
+Object.keys(ROUTES).forEach(buildRoute);
+
+/* Build a togglable polygon overlay for every polity (state/region).
+   Each carries a permanent label and a rich popup; toggled on/off independently. */
+var polLayers={}, polOn={};
+function polityPopupHTML(key){
+  var p=POLITIES[key];
+  var h='<div class="pop-name">'+p.name+'</div><div class="pop-tag" style="color:'+p.color+'">'+p.sub+'</div>';
+  h+='<div class="pop-note">'+p.blurb+'</div><div class="pop-facts">';
+  p.facts.forEach(function(f){ h+='<div><b>'+f[0]+':</b> '+f[1]+'</div>'; });
+  h+='</div><div class="pop-sub"><b>Role in trade:</b> '+p.role+'</div>';
+  h+='<div class="pop-sub"><b>Legacy:</b> '+p.legacy.map(function(c){return c.t;}).join(' · ')+'</div>';
+  return h;
+}
+function buildPolity(key){
+  var p=POLITIES[key];
+  var poly=L.polygon(p.poly,{color:p.color,weight:2.5,opacity:.95,fillColor:p.color,fillOpacity:.28,lineJoin:'round'});
+  poly.bindTooltip(p.name,{permanent:true,direction:'center',className:'pol-label'});
+  poly.bindPopup(polityPopupHTML(key),{className:'polity-pop',maxWidth:280});
+  polLayers[key]={poly:poly,bounds:poly.getBounds(),color:p.color};
+}
+Object.keys(POLITIES).forEach(buildPolity);
+function togglePolity(key,on){
+  polOn[key]=on;
+  if(on){ if(!map.hasLayer(polLayers[key].poly)) polLayers[key].poly.addTo(map); }
+  else if(map.hasLayer(polLayers[key].poly)){ map.removeLayer(polLayers[key].poly); }
+  document.querySelectorAll('.pol-chip[data-p="'+key+'"]').forEach(function(c){c.classList.toggle('on',on);});
+}
+function clearPolities(){ Object.keys(polLayers).forEach(function(k){ togglePolity(k,false); }); }
+
+/* Build an on/off overlay layer for every annotation theme (independent of the
+   route/polity single-selection — students layer these on top). */
+var themeLayers={}, themeOn={};
+function popup(name,note,tagColor,tag){
+  return '<div class="pop-name">'+name+'</div>'+
+    (tag?'<div class="pop-tag" style="color:'+tagColor+'">'+tag+'</div>':'')+
+    (note?'<div class="pop-note">'+note+'</div>':'');
+}
+/* Quadratic-bezier "swoop" between two points, bowed perpendicular to the line. */
+function bezierPts(from,to,curv){
+  var la1=from[0],ln1=from[1],la2=to[0],ln2=to[1];
+  var mx=(la1+la2)/2, my=(ln1+ln2)/2, dx=la2-la1, dy=ln2-ln1;
+  var len=Math.sqrt(dx*dx+dy*dy)||1, px=-dy/len, py=dx/len, off=(curv==null?0.2:curv)*len;
+  var cx=mx+px*off, cy=my+py*off, pts=[];
+  for(var t=0;t<=1.0001;t+=0.04){ var a=(1-t)*(1-t), b=2*(1-t)*t, c=t*t;
+    pts.push([a*la1+b*cx+c*la2, a*ln1+b*cy+c*ln2]); }
+  return pts;
+}
+/* Draw a swooping arrow (curved line + rotated arrowhead) into a group; returns the line. */
+function addSwoop(group,from,to,color,curv,weight){
+  var pts=bezierPts(from,to,curv);
+  var line=L.polyline(pts,{color:color,weight:weight||3,opacity:.9,lineCap:'round'}).addTo(group);
+  var p1=pts[pts.length-2], p2=pts[pts.length-1];
+  var ang=Math.atan2(-(p2[0]-p1[0]),(p2[1]-p1[1]))*180/Math.PI;
+  L.marker(p2,{interactive:false,icon:L.divIcon({className:'swoop-head',
+    html:'<span style="transform:rotate('+ang+'deg);color:'+color+'">➤</span>',iconSize:[20,20],iconAnchor:[10,10]})}).addTo(group);
+  return line;
+}
+function buildTheme(key){
+  var t=THEMES[key], g=L.layerGroup();
+  if(t.kind==='labels'){
+    t.items.forEach(function(it){
+      L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:1})
+        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'goods-tip'})
+        .bindPopup(popup(it.n,it.note)).addTo(g);
+    });
+    (t.arrows||[]).forEach(function(a){
+      addSwoop(g,a.from,a.to,t.color,0.25,3).bindTooltip(a.label,{direction:'top',className:'city-tip'});
+    });
+  } else if(t.kind==='cities'){
+    t.items.forEach(function(it){
+      L.circleMarker(it.c,{radius:5,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
+        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'city-tip'})
+        .bindPopup(popup(it.n,it.note)).addTo(g);
+    });
+  } else if(t.kind==='spread'){
+    // origin marker + a swooping arrow out to each place the thing spread
+    L.circleMarker(t.origin.c,{radius:7,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
+      .bindTooltip(t.origin.n+' (origin)',{permanent:true,direction:'top',className:'city-tip'})
+      .bindPopup(popup(t.name+' — origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
+    t.items.forEach(function(it,i){
+      addSwoop(g,t.origin.c,it.c,t.color, i%2===0?0.22:0.14, 3);
+      L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:.95})
+        .bindTooltip(it.n,{direction:'right',offset:[6,0],className:'city-tip'})
+        .bindPopup(popup(it.n,t.note,t.color,t.name)).addTo(g);
+    });
+  } else if(t.kind==='arrows'){
+    t.items.forEach(function(it){
+      L.marker(it.c,{icon:L.divIcon({className:'monsoon-arrow',html:'<span style="transform:rotate('+it.rot+'deg)">➤</span>',iconSize:[34,34],iconAnchor:[17,17]})})
+        .bindTooltip(it.label,{direction:'top',className:'city-tip'})
+        .bindPopup(popup(t.name,t.note)).addTo(g);
+    });
+  }
+  themeLayers[key]=g; themeOn[key]=false;
+}
+THEME_ORDER.forEach(buildTheme);
+
+function toggleTheme(key,on){
+  themeOn[key]=on;
+  if(on){ themeLayers[key].addTo(map); } else if(map.hasLayer(themeLayers[key])){ map.removeLayer(themeLayers[key]); }
+  document.querySelectorAll('.thm-chip[data-t="'+key+'"]').forEach(function(c){c.classList.toggle('on',on);});
+}
+function clearThemes(){ THEME_ORDER.forEach(function(k){ toggleTheme(k,false); }); }
+
+var current=null;      // key of the selected route (null = all)
+var currentType=null;  // 'route' | null
+
+function setRouteVisual(key,mode){
+  // mode: 'full' | 'dim' | 'hidden'
+  var L1=layers[key];
+  var op = mode==='full'?0.92:(mode==='dim'?0.18:0);
+  var w  = mode==='full'?4:3;
+  L1.lines.forEach(function(pl){pl.setStyle({opacity:op,weight:w});});
+  L1.markers.forEach(function(m){
+    if(mode==='hidden'){m.setStyle({opacity:0,fillOpacity:0});m.closePopup();}
+    else m.setStyle({opacity:mode==='full'?1:.35,fillOpacity:mode==='full'?1:.3,radius:mode==='full'?6:5});
+  });
+}
+
+function showAllOnMap(){Object.keys(layers).forEach(function(k){layers[k].group.addTo(map);});}
+
+function selectRoute(key,keepView){
+  current=key; currentType='route';
+  showAllOnMap();
+  Object.keys(layers).forEach(function(k){ setRouteVisual(k, k===key?'full':'dim'); });
+  // buttons
+  document.querySelectorAll('.rb').forEach(function(b){b.classList.toggle('active',b.dataset.r===key);});
+  renderPanel(key);
+  if(!keepView){ try{map.flyToBounds(layers[key].bounds,{padding:[50,50],duration:.7,maxZoom:5});}catch(e){} }
+}
+
+function showAll(){
+  current=null; currentType=null;
+  showAllOnMap();
+  Object.keys(layers).forEach(function(k){ setRouteVisual(k,'full'); });
+  document.querySelectorAll('.rb').forEach(function(b){b.classList.remove('active');});
+  renderAllPanel();
+  map.flyTo([15,-25],2,{duration:.7});
+}
+
+/* ══ PANEL RENDER ════════════════════════════════════════════ */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+var body=document.getElementById('p-body');
+
+function renderPanel(key){
+  var r=ROUTES[key], color=cssVar(r.colorVar);
+  var h='';
+  h+='<div class="rt-head"><div class="rt-title">'+r.name+'</div><div class="rt-sub">'+r.sub+'</div><div class="rt-blurb">'+r.blurb+'</div></div>';
+
+  // Tech
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">⚙️</span>Technology &amp; Innovation</div>';
+  r.tech.forEach(function(t){
+    h+='<div class="tech-card" style="border-left-color:'+color+'"><div class="tech-name">'+t.name+'</div>'+
+       '<div class="tech-what">'+t.what+'</div>'+
+       '<div class="tech-impact"><b style="color:'+color+'">Impact</b>'+t.impact+'</div></div>';
+  });
+  h+='</div>';
+
+  // Goods
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">📦</span>Goods Traded</div><div class="chips">';
+  r.goods.forEach(function(g){h+='<span class="chip">'+g+'</span>';});
+  h+='</div></div>';
+
+  // Places
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">📍</span>Notable Places</div><div class="place-list">';
+  r.places.forEach(function(p,i){
+    h+='<button class="place" data-key="'+key+'" data-i="'+i+'"><span class="pin" style="background:'+color+'"></span>'+
+       '<span><span class="p-name">'+p.n+'</span><span class="p-note">'+p.note+'</span></span>'+
+       '<span class="p-go">Fly →</span></button>';
+  });
+  h+='</div></div>';
+
+  // Cultural diffusion
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">&#9875;</span>Impact &amp; Consequences</div><ul class="cul-list">';
+  r.cultural.forEach(function(c){h+='<li><b>'+c.t+'</b> — '+c.d+'</li>';});
+  h+='</ul></div>';
+
+  body.innerHTML=h;
+  body.querySelectorAll('.place').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var k=this.dataset.key, i=+this.dataset.i, p=ROUTES[k].places[i];
+      map.flyTo(p.c,5,{duration:.6});
+      layers[k].markers[i].openPopup();
+    });
+  });
+}
+
+function renderAllPanel(){
+  var h='<div class="rt-head"><div class="rt-title">The Exploring Powers</div><div class="rt-sub">A New Global Age · c. 1450–1750</div>'+
+    '<div class="rt-blurb">Compare the voyages of the four great sea powers. Each is drawn on the map — click a colored route or a port, or pick a single power above to load its ships, goods, and impact.</div></div>';
+  Object.keys(ROUTES).forEach(function(k){
+    var r=ROUTES[k], color=cssVar(r.colorVar);
+    h+='<button class="place" data-r="'+k+'" style="border-bottom:1px solid var(--border);padding:12px 6px">'+
+       '<span class="pin" style="background:'+color+';width:13px;height:13px"></span>'+
+       '<span><span class="p-name" style="font-size:.9rem">'+r.name+'</span>'+
+       '<span class="p-note">'+r.goods.slice(0,4).join(' · ')+' &hellip;</span></span>'+
+       '<span class="p-go" style="opacity:1">Open →</span></button>';
+  });
+  body.innerHTML=h;
+  body.querySelectorAll('.place[data-r]').forEach(function(b){
+    b.addEventListener('click',function(){selectRoute(this.dataset.r);});
+  });
+}
+
+/* Render the States & Regions toggle chips into the sidebar */
+(function renderPolityChips(){
+  var grid=document.getElementById('pol-grid');
+  if(!grid) return;
+  POLITY_ORDER.forEach(function(key){
+    var p=POLITIES[key];
+    var b=document.createElement('button');
+    b.type='button'; b.className='pol-chip'; b.dataset.p=key;
+    b.innerHTML='<span class="pc-dot" style="background:'+p.color+'"></span>'+
+      '<span class="pc-name">'+p.name+'</span><span class="tc-check"></span>';
+    b.title=p.name+' — '+p.sub;
+    b.addEventListener('click',function(){ togglePolity(key,!polOn[key]); });
+    grid.appendChild(b);
+  });
+  var clr=document.getElementById('pol-clear');
+  if(clr) clr.addEventListener('click',clearPolities);
+})();
+
+/* Render the annotation (theme) toggle chips */
+(function renderThemeChips(){
+  var grid=document.getElementById('thm-grid');
+  if(!grid) return;
+  THEME_ORDER.forEach(function(key){
+    var t=THEMES[key];
+    var b=document.createElement('button');
+    b.type='button'; b.className='thm-chip'; b.dataset.t=key;
+    b.innerHTML='<span class="tc-ic" style="color:'+t.color+'">'+t.icon+'</span>'+
+      '<span class="tc-name">'+t.name+'</span><span class="tc-check"></span>';
+    b.addEventListener('click',function(){ toggleTheme(key,!themeOn[key]); });
+    grid.appendChild(b);
+  });
+  var clr=document.getElementById('thm-clear');
+  if(clr) clr.addEventListener('click',clearThemes);
+})();
+
+/* ══ WIRE UP ═════════════════════════════════════════════════ */
+document.querySelectorAll('.rb').forEach(function(b){
+  b.addEventListener('click',function(){selectRoute(this.dataset.r);});
+});
+document.getElementById('btn-all').addEventListener('click',showAll);
+document.getElementById('btn-reset').addEventListener('click',function(){
+  if(currentType==='route') selectRoute(current);
+  else map.flyTo([15,-25],2,{duration:.6});
+});
+
+function reRenderPanel(){
+  if(currentType==='route') renderPanel(current);
+  else renderAllPanel();
+}
+
+// Keep tiles + colors in sync if the shared dark-mode toggle flips (this tab or another)
+window.addEventListener('storage',function(e){ if(e.key==='mcTheme'){ document.documentElement.setAttribute('data-theme', e.newValue==='dark'?'dark':'light'); }});
+var _mo=new MutationObserver(function(){refreshTiles(); reRenderPanel();});
+_mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+// Start only once the map container has a real size — animating before the
+// map is laid out (e.g. inside an iframe that just mounted) makes Leaflet's
+// fly math divide by a zero container size and throw "Invalid LatLng (NaN)".
+var _started=false;
+function initView(){
+  if(_started) return;
+  var s=map.getSize();
+  if(!s.x || !s.y){ return setTimeout(initView,120); }
+  _started=true;
+  map.invalidateSize();
+  showAll();
+}
+if(document.readyState==='complete') requestAnimationFrame(initView);
+else window.addEventListener('load',function(){ requestAnimationFrame(initView); });
+window.addEventListener('resize',function(){ map.invalidateSize(); });
+</script>
+</body>
+</html>

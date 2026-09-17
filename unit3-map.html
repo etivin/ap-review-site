@@ -510,10 +510,13 @@ function bezierPts(from,to,curv){
 function addSwoop(group,from,to,color,curv,weight){
   var pts=bezierPts(from,to,curv);
   var line=L.polyline(pts,{color:color,weight:weight||3,opacity:.9,lineCap:'round'}).addTo(group);
-  var p1=pts[pts.length-2], p2=pts[pts.length-1];
-  var ang=Math.atan2(-(p2[0]-p1[0]),(p2[1]-p1[1]))*180/Math.PI;
-  L.marker(p2,{interactive:false,icon:L.divIcon({className:'swoop-head',
-    html:'<span style="transform:rotate('+ang+'deg);color:'+color+'">➤</span>',iconSize:[20,20],iconAnchor:[10,10]})}).addTo(group);
+  // place the arrowhead ~85% along the arc so it points at the destination
+  // without sitting on top of the endpoint dot or its name label
+  var iH=Math.max(1,Math.round((pts.length-1)*0.85));
+  var pA=pts[iH-1], pB=pts[iH];
+  var ang=Math.atan2(-(pB[0]-pA[0]),(pB[1]-pA[1]))*180/Math.PI;
+  L.marker(pB,{interactive:false,icon:L.divIcon({className:'swoop-head',
+    html:'<span style="transform:rotate('+ang+'deg);color:'+color+'">➤</span>',iconSize:[18,18],iconAnchor:[9,9]})}).addTo(group);
   return line;
 }
 function buildTheme(key){
@@ -591,7 +594,7 @@ function showAll(){
   Object.keys(layers).forEach(function(k){ setRouteVisual(k,'full'); });
   markActiveEmpire(null);
   renderAllPanel();
-  map.flyTo([34,52],3,{duration:.7});
+  try{map.flyTo([34,52],3,{duration:.7});}catch(e){}
 }
 
 /* Empire selector buttons (rendered from data so colors match) */
@@ -701,8 +704,11 @@ function renderAllPanel(){
 /* ══ WIRE UP ═════════════════════════════════════════════════ */
 document.getElementById('btn-all').addEventListener('click',showAll);
 document.getElementById('btn-reset').addEventListener('click',function(){
-  if(currentType==='route') selectRoute(current);
-  else map.flyTo([34,52],3,{duration:.6});
+  // full reset: clear every overlay, deselect, and recenter
+  if(typeof clearThemes==='function') clearThemes();
+  if(typeof clearPolities==='function') clearPolities();
+  map.closePopup();
+  showAll();
 });
 
 function reRenderPanel(){

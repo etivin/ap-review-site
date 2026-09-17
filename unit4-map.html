@@ -324,7 +324,7 @@ var ROUTES = {
     name:'Portugal', sub:'Around Africa to Asia · from 1498', colorVar:'--silk', dash:false,
     blurb:'The first Europeans to reach Asia by sea. Sailing down the African coast and around the Cape of Good Hope, the Portuguese built a chain of coastal trading posts — a seaborne "Estado da Índia" that broke the old Venetian–Muslim spice monopoly.',
     segments:[
-      [[38.72,-9.14],[14.66,-17.43],[5.08,-1.35],[-8.8,13.2],[-34.36,18.47],[-25.97,32.58],[-4.04,39.66],[15.5,73.83],[11.25,75.78],[2.19,102.25],[22.19,113.54]]
+      [[38.72,-9.14],[33,-11],[20,-19],[8,-17],[2,-7],[-6,5],[-20,9],[-34.5,17],[-35,26],[-26,36],[-8,48],[2,58],[13,68],[15.5,73.83],[11.25,75.78],[6,82],[6,96],[2.19,102.25],[9,108],[22.19,113.54]]
     ],
     places:[
       {n:'Lisbon',c:[38.72,-9.14],note:'Home port of Portugal’s voyages, funded by Prince Henry “the Navigator.”'},
@@ -351,9 +351,9 @@ var ROUTES = {
     name:'Spain', sub:'The Atlantic & the Pacific galleon · from 1492', colorVar:'--indian', dash:false,
     blurb:'Sailing west for Asia, Columbus reached the Americas in 1492. Spain conquered the Aztec and Inca, mined vast silver, and — with the Manila galleon — linked the Americas to Asia, creating the first truly global trade network.',
     segments:[
-      [[37.39,-5.99],[28.3,-15.4],[19.0,-70.7],[19.19,-96.14]],
-      [[19.19,-96.14],[9.55,-79.65],[-12.05,-77.13],[-19.58,-65.75]],
-      [[16.86,-99.89],[14.6,120.98],[23.13,113.26]]
+      [[37.39,-5.99],[35,-9],[28.3,-16.5],[22,-45],[19,-68],[19.0,-70.7],[22,-79],[23.13,-82.38],[21,-92],[19.19,-96.14]],
+      [[16.86,-99.89],[16,-125],[15,-155],[14.6,-177]],
+      [[14.6,120.98],[19,116],[23.13,113.26]]
     ],
     places:[
       {n:'Seville',c:[37.39,-5.99],note:'Spain’s gateway port; its Casa de Contratación controlled all trade with the Americas.'},
@@ -380,8 +380,8 @@ var ROUTES = {
     name:'The Dutch (VOC)', sub:'Spice route to the East Indies · from 1602', colorVar:'--sahara', dash:false,
     blurb:'The Dutch East India Company (VOC) — the world’s first joint-stock multinational — muscled Portugal out of the spice trade, seized the Spice Islands, and ran a commercial empire from its hub at Batavia.',
     segments:[
-      [[52.37,4.90],[-33.92,18.42],[6.93,79.85],[-6.2,106.85],[0.79,127.38]],
-      [[-6.2,106.85],[32.74,129.87]]
+      [[52.37,4.90],[48,-6],[35,-11],[18,-19],[6,-16],[-6,5],[-20,9],[-34.5,17],[-35,26],[-26,38],[-12,50],[0,68],[6.93,79.85],[3,90],[-3,100],[-6.2,106.85],[0.79,127.38]],
+      [[-6.2,106.85],[10,115],[22,120],[32.74,129.87]]
     ],
     places:[
       {n:'Amsterdam',c:[52.37,4.90],note:'Home of the VOC and Europe’s leading financial and shipping center.'},
@@ -407,11 +407,11 @@ var ROUTES = {
     name:'England & France', sub:'North Atlantic, the Caribbean & India', colorVar:'--eng', dash:false,
     blurb:'Latecomers who built settler colonies in North America, sugar islands in the Caribbean, and trading footholds in India through their East India Companies — the seeds of later global empires.',
     segments:[
-      [[51.5,-0.1],[37.2,-76.8]],
-      [[51.5,-0.1],[13.1,-59.6]],
-      [[51.5,-0.1],[-34.36,18.47],[19.08,72.88],[13.08,80.27],[22.57,88.36]],
-      [[48.85,2.35],[46.81,-71.2]],
-      [[48.85,2.35],[11.93,79.83]]
+      [[51.5,-0.1],[49.5,-6],[45,-30],[40,-60],[37.2,-76.8]],
+      [[50,-6],[38,-24],[22,-48],[13.1,-59.6]],
+      [[50,-6],[43,-13],[28,-19],[8,-19],[-6,5],[-20,9],[-34.5,17],[-35,28],[-20,46],[0,66],[10,73],[19.08,72.88],[9,73],[5,80],[13.08,80.27],[18,86],[22.57,88.36]],
+      [[48.3,-4.6],[47,-22],[47,-48],[48,-62],[46.81,-71.2]],
+      [[48.3,-4.6],[43,-13],[28,-19],[8,-19],[-6,5],[-20,9],[-34.5,17],[-35,28],[-20,46],[0,66],[8,74],[5,80],[11.93,79.83]]
     ],
     places:[
       {n:'London',c:[51.5,-0.1],note:'Base of the English East India Company (1600) and Atlantic trade.'},
@@ -538,33 +538,53 @@ var THEMES = {
       {n:'Nagasaki', c:[32.74,129.87], note:'Deshima — the Dutch window into closed Japan.'}
     ]
   },
+  atlanticwinds: {
+    name:'Atlantic Winds', color:'#1d4ed8', icon:'🌀', kind:'arrows',
+    note:'The Atlantic winds blow in a giant clockwise circle, or "gyre." Near the equator the trade winds push east→west toward the Americas; farther north the westerlies push west→east back toward Europe. Sailing this circle — the "volta do mar" — let ships ride the wind out and home.',
+    items:[
+      {c:[16,-42], rot:198, label:'Trade winds — blow WEST toward the Americas'},
+      {c:[7,-26], rot:210, label:'Trade winds (from the NE)'},
+      {c:[43,-42], rot:28, label:'Westerlies — blow EAST back toward Europe'},
+      {c:[50,-24], rot:36, label:'Westerlies (from the SW)'}
+    ]
+  },
   oldnew: {
     name:'Columbian Exchange: Old → New', color:'#1e874b', icon:'➡', kind:'spread',
-    note:'From the Old World to the Americas came wheat, sugar cane, coffee, and — most transformative — horses, cattle, and pigs, which reshaped Native economies and the American landscape.',
-    origin:{n:'Europe & Africa (Old World)', c:[33,-12]},
+    note:'The Columbian Exchange was the BIOLOGICAL transfer of living things across the Atlantic. From the Old World to the Americas came ANIMALS — horses, cattle, pigs, sheep, chickens — and CROPS — wheat, rice, sugar cane, coffee, bananas, grapes — plus deadly diseases (see the Disease layer).',
+    origin:{n:'Europe & Africa (Old World)', c:[33,-14]},
     items:[
-      {n:'Horses → Great Plains', c:[41,-100]},{n:'Cattle & pigs → Mexico', c:[22,-101]},
-      {n:'Wheat → the Andes', c:[-16,-71]},{n:'Sugar cane → Caribbean', c:[18,-73]},
-      {n:'Sugar & coffee → Brazil', c:[-10,-45]},{n:'Bananas → the tropics', c:[8,-75]}
+      {n:'Horses → Great Plains', c:[41,-100]},{n:'Cattle, pigs & sheep → Mexico', c:[22,-101]},
+      {n:'Wheat & grapes → the Andes', c:[-16,-71]},{n:'Sugar cane → Caribbean', c:[18,-73]},
+      {n:'Sugar & coffee → Brazil', c:[-10,-45]},{n:'Rice & bananas → the tropics', c:[6,-58]}
     ]
   },
   newold: {
     name:'Columbian Exchange: New → Old', color:'#c98a00', icon:'⬅', kind:'spread',
-    note:'From the Americas came calorie-rich crops — maize, the potato, cassava — plus tomatoes, cacao, and tobacco. They fed a population boom across Afro-Eurasia.',
-    origin:{n:'The Americas (New World)', c:[8,-72]},
+    note:'The biological exchange the other way: calorie-rich American crops spread to Afro-Eurasia and fueled a population boom. From the Americas came maize (corn), potatoes, sweet potatoes, cassava (manioc), tomatoes, cacao (chocolate), chili peppers, peanuts, pineapple, vanilla — and tobacco.',
+    origin:{n:'The Americas (New World)', c:[6,-70]},
     items:[
-      {n:'Potato → Europe', c:[50,8]},{n:'Maize → Africa & China', c:[8,20]},
-      {n:'Maize → China', c:[30,112]},{n:'Tomato → Mediterranean', c:[42,13]},
-      {n:'Cacao → Europe', c:[46,2]},{n:'Tobacco → the world', c:[40,30]}
+      {n:'Potato → Europe', c:[50,8]},{n:'Maize → West Africa', c:[8,3]},
+      {n:'Maize & sweet potato → China', c:[30,112]},{n:'Tomato & peppers → Mediterranean', c:[41,14]},
+      {n:'Cacao → Europe', c:[46,2]},{n:'Cassava → Africa', c:[-6,22]}
+    ]
+  },
+  disease: {
+    name:'Disease (Columbian Exchange)', color:'#6d3f9c', icon:'☠', kind:'spread',
+    note:'The deadliest part of the biological exchange. Old World diseases — SMALLPOX (the biggest killer), MEASLES, INFLUENZA, TYPHUS, bubonic plague, and whooping cough, plus malaria and yellow fever carried with the slave trade — crossed the Atlantic. Native Americans had no immunity, so up to 90% died in the "Great Dying," which helped topple the Aztec and Inca.',
+    origin:{n:'Europe & Africa (Old World)', c:[32,-24]},
+    items:[
+      {n:'Smallpox → Hispaniola', c:[19.0,-70.7]},{n:'Smallpox → Aztec (Mexico)', c:[19.43,-99.13]},
+      {n:'Smallpox & measles → Inca (Peru)', c:[-13.5,-72]},{n:'Epidemics → North America', c:[38,-85]},
+      {n:'Malaria & yellow fever → Brazil', c:[-8,-45]}
     ]
   },
   silver: {
-    name:'Global Silver Trade', color:'#5a6b7a', icon:'🪙', kind:'spread',
-    note:'American silver became the money of the world. It flowed east across the Atlantic to Europe and west across the Pacific (the Manila galleon) to China, whose demand for silver drove the whole global economy.',
-    origin:{n:'Spanish America (Potosí & Mexico)', c:[-8,-78]},
-    items:[
-      {n:'→ Seville (Europe)', c:[37.39,-5.99]},{n:'→ Manila', c:[14.6,120.98]},
-      {n:'→ China (silver sink)', c:[30,112]}
+    name:'Silver: New World → Europe → China', color:'#5a6b7a', icon:'🪙', kind:'chain',
+    note:'American silver was the money of the age. Most of it went from the New World mines FIRST across the Atlantic to Europe (Seville) — and from there Europeans spent it buying silk, porcelain, and tea from China, the world’s great "silver sink." (Some Mexican silver also crossed the Pacific directly on the Manila galleon.)',
+    path:[
+      {n:'Potosí & Mexico (mined)', c:[-14,-72]},
+      {n:'Seville — Europe (1st stop)', c:[37.39,-5.99]},
+      {n:'China (buys silk & porcelain)', c:[30,112]}
     ]
   },
   slavetrade: {
@@ -575,18 +595,9 @@ var THEMES = {
       {n:'→ Brazil', c:[-12,-40]},{n:'→ Caribbean', c:[17,-70]},
       {n:'→ British North America', c:[33,-79]},{n:'→ Spanish America', c:[8,-75]}
     ]
-  },
-  disease: {
-    name:'Spread of Disease', color:'#6d3f9c', icon:'☠', kind:'spread',
-    note:'Old World diseases — above all smallpox — crossed the Atlantic with Europeans. Native Americans had no immunity, and up to 90% died in the “Great Dying,” collapsing the Aztec, Inca, and countless other societies.',
-    origin:{n:'Europe (across the Atlantic)', c:[34,-30]},
-    items:[
-      {n:'Hispaniola', c:[19.0,-70.7]},{n:'Aztec (Mexico)', c:[19.43,-99.13]},
-      {n:'Inca (Peru)', c:[-13.5,-72]},{n:'North America', c:[38,-85]}
-    ]
   }
 };
-var THEME_ORDER = ['goods','cities','oldnew','newold','silver','slavetrade','disease'];
+var THEME_ORDER = ['goods','cities','atlanticwinds','oldnew','newold','disease','silver','slavetrade'];
 
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
 /* Esri ArcGIS Online gray-canvas basemaps — genuinely keyless, no watermark, clean muted geography. */
@@ -677,10 +688,13 @@ function bezierPts(from,to,curv){
 function addSwoop(group,from,to,color,curv,weight){
   var pts=bezierPts(from,to,curv);
   var line=L.polyline(pts,{color:color,weight:weight||3,opacity:.9,lineCap:'round'}).addTo(group);
-  var p1=pts[pts.length-2], p2=pts[pts.length-1];
-  var ang=Math.atan2(-(p2[0]-p1[0]),(p2[1]-p1[1]))*180/Math.PI;
-  L.marker(p2,{interactive:false,icon:L.divIcon({className:'swoop-head',
-    html:'<span style="transform:rotate('+ang+'deg);color:'+color+'">➤</span>',iconSize:[20,20],iconAnchor:[10,10]})}).addTo(group);
+  // place the arrowhead ~85% along the arc so it points at the destination
+  // without sitting on top of the endpoint dot or its name label
+  var iH=Math.max(1,Math.round((pts.length-1)*0.85));
+  var pA=pts[iH-1], pB=pts[iH];
+  var ang=Math.atan2(-(pB[0]-pA[0]),(pB[1]-pA[1]))*180/Math.PI;
+  L.marker(pB,{interactive:false,icon:L.divIcon({className:'swoop-head',
+    html:'<span style="transform:rotate('+ang+'deg);color:'+color+'">➤</span>',iconSize:[18,18],iconAnchor:[9,9]})}).addTo(group);
   return line;
 }
 function buildTheme(key){
@@ -716,6 +730,15 @@ function buildTheme(key){
       L.marker(it.c,{icon:L.divIcon({className:'monsoon-arrow',html:'<span style="transform:rotate('+it.rot+'deg)">➤</span>',iconSize:[34,34],iconAnchor:[17,17]})})
         .bindTooltip(it.label,{direction:'top',className:'city-tip'})
         .bindPopup(popup(t.name,t.note)).addTo(g);
+    });
+  } else if(t.kind==='chain'){
+    // a sequential flow: one hop after another (silver New World → Europe → China)
+    var pth=t.path;
+    pth.forEach(function(p,i){
+      if(i>0) addSwoop(g,pth[i-1].c,p.c,t.color,0.16,3.5);
+      L.circleMarker(p.c,{radius:i===0?7:5,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
+        .bindTooltip((i+1)+'. '+p.n,{permanent:true,direction:'top',className:'city-tip'})
+        .bindPopup(popup(p.n,t.note,t.color,t.name)).addTo(g);
     });
   }
   themeLayers[key]=g; themeOn[key]=false;
@@ -762,7 +785,7 @@ function showAll(){
   Object.keys(layers).forEach(function(k){ setRouteVisual(k,'full'); });
   document.querySelectorAll('.rb').forEach(function(b){b.classList.remove('active');});
   renderAllPanel();
-  map.flyTo([15,-25],2,{duration:.7});
+  try{map.flyTo([15,-25],2,{duration:.7});}catch(e){}
 }
 
 /* ══ PANEL RENDER ════════════════════════════════════════════ */
@@ -870,8 +893,11 @@ document.querySelectorAll('.rb').forEach(function(b){
 });
 document.getElementById('btn-all').addEventListener('click',showAll);
 document.getElementById('btn-reset').addEventListener('click',function(){
-  if(currentType==='route') selectRoute(current);
-  else map.flyTo([15,-25],2,{duration:.6});
+  // full reset: clear every overlay, deselect, and recenter
+  if(typeof clearThemes==='function') clearThemes();
+  if(typeof clearPolities==='function') clearPolities();
+  map.closePopup();
+  showAll();
 });
 
 function reRenderPanel(){

@@ -506,6 +506,7 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
       <a class="tile" href="sbmcq.html"><i>Skills</i><h3>Attack the Stimulus MCQ</h3><span>Use when a source, graph, or quotation slows you down. Learn the four-step method.</span><strong>Learn the method &rarr;</strong></a>
       <a class="tile" href="writing-guide.html"><i>Writing</i><h3>How to Write the Essays</h3><span>Use before an SAQ, LEQ, or DBQ. Every rubric point, HIPP sourcing, and how to build a thesis.</span><strong>Learn to write &rarr;</strong></a>
       <a class="tile" href="fullcourse.html"><i>Connections</i><h3>Course Narrative</h3><span>Use before a test or essay to connect each unit to the long story of AP World.</span><strong>Open narrative &rarr;</strong></a>
+      <a class="tile" id="maps-tile" href="unit2-map.html"><i>Explore</i><h3>Interactive Maps</h3><span id="maps-tile-desc">Trace the trade routes, empires, and global exchanges on a real map you can highlight.</span><strong id="maps-tile-strong">Open the map &rarr;</strong></a>
       <a class="tile" id="selected-unit-tile" href="unit1.html"><i>Current unit</i><h3>Unit Review</h3><span>Overview, MCQ practice, writing, flashcards, brain dump, and study guide in one place.</span><strong id="selected-unit-strong">Open Unit 1 &rarr;</strong></a>
     </div>
   </section>
@@ -659,6 +660,24 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
     $('rec-link').innerHTML = 'Open ' + label + ' →';
     $('selected-unit-tile').setAttribute('href', home);
     $('selected-unit-strong').innerHTML = 'Open Unit ' + u + ' →';
+    // Interactive maps exist for Units 2–4; the tile follows the selected unit.
+    var mapDesc = {
+      2:'Highlight the Silk Roads, Indian Ocean, and trans-Saharan trade — plus goods, cities, and the spread of religions and disease.',
+      3:'Compare the land empires — Ottoman, Safavid, Mughal, Ming–Qing, Russia — and the spread of gunpowder.',
+      4:'Trace the voyages, maritime empires, the Columbian Exchange, the silver trade, and the Atlantic slave trade.'
+    };
+    var mt = $('maps-tile'), mtD = $('maps-tile-desc'), mtS = $('maps-tile-strong');
+    if (mt){
+      if (mapDesc[u]){
+        mt.setAttribute('href','unit'+u+'-map.html');
+        mtD.textContent = mapDesc[u];
+        mtS.innerHTML = 'Open the Unit ' + u + ' map →';
+      } else {
+        mt.setAttribute('href','unit2-map.html');
+        mtD.textContent = 'Interactive maps for Units 2–4 — trade routes, land empires, and the age of exploration on a real map you can highlight.';
+        mtS.innerHTML = 'Explore the maps →';
+      }
+    }
   }
   select.addEventListener('change', update);
   Array.prototype.forEach.call(document.querySelectorAll('.choice'), function(c){

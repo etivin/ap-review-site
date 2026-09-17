@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 3 — Interactive Land Empires Map | AP World History</title>
+<meta name="description" content="Interactive map of the land-based empires of c. 1450–1750 — the Ottomans, Safavids, Mughals, Ming–Qing China, Russia, Tokugawa Japan, and Songhai: their expansion, administration, and belief systems."/>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#10201f;--mid:#3a4746;--muted:#6c7a78;
+  --red:#8c1212;--red-d:#6b0e0e;--red-bg:#faf0f0;
+  --gold:#7a5500;--gold-b:#d4b84a;
+  /* (empire colors are set per-empire in the data) */
+  --silk:#b3402f;--silk-bg:#fbeceb;
+  --indian:#1d4ed8;--indian-bg:#eaf0fe;
+  --sahara:#c07800;--sahara-bg:#fcf3e2;
+  --sh:0 1px 4px rgba(0,0,0,.08);--shm:0 8px 30px rgba(0,0,0,.16);
+}
+html,body{height:100%}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+
+/* ── TOP BAR (navy chrome, matches games) ── */
+.bar{background:#10201f;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:58px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:1000;position:relative}
+.bar .brand{display:flex;align-items:center;gap:12px;min-width:0}
+.bar .badge{background:var(--red);color:#fff;font-weight:900;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:5px 9px;flex-shrink:0}
+.bar .btitle{font-weight:900;font-size:.98rem;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .bsub{color:rgba(255,255,255,.5);font-weight:700;font-size:.62rem;letter-spacing:.06em;white-space:nowrap}
+.bar .links{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.bar .links a{color:rgba(255,255,255,.72);text-decoration:none;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;transition:color .15s;white-space:nowrap}
+.bar .links a:hover{color:#fff}
+@media(max-width:640px){.bar .bsub{display:none}.bar{padding:0 14px}.bar .links{gap:10px}}
+
+/* ── LAYOUT ── */
+.wrap{flex:1;display:flex;min-height:0}
+.panel{width:440px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin}
+@media(max-width:1100px){.panel{width:380px}}
+.mapcol{flex:1;position:relative;min-width:0}
+#map{position:absolute;inset:0;background:#eae8e1}
+.map-hint{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(16,32,31,.82);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.04em;padding:6px 11px;border-radius:4px;pointer-events:none;max-width:260px;line-height:1.5}
+
+/* ── PANEL: route chooser ── */
+.p-intro{padding:20px 22px 16px;border-bottom:1px solid var(--border)}
+.p-eyebrow{font-weight:700;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.p-intro h1{font-size:1.32rem;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
+.p-intro p{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+.route-btns{padding:14px 16px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--border)}
+.rb{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:11px 13px;transition:all .15s;border-left-width:5px}
+.rb:hover{border-color:var(--border2);transform:translateX(2px)}
+.rb .rb-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+.rb .rb-name{font-weight:900;font-size:.82rem;letter-spacing:-.01em;line-height:1.15}
+.rb .rb-yrs{font-weight:700;font-size:.58rem;color:var(--muted);letter-spacing:.04em;margin-top:1px}
+.rb[data-r="silk"]{border-left-color:var(--silk)}
+.rb[data-r="indian"]{border-left-color:var(--indian)}
+.rb[data-r="sahara"]{border-left-color:var(--sahara)}
+.rb[data-r="silk"] .rb-dot{background:var(--silk)}
+.rb[data-r="indian"] .rb-dot{background:var(--indian)}
+.rb[data-r="sahara"] .rb-dot{background:var(--sahara)}
+.rb.active[data-r="silk"]{background:var(--silk-bg);border-color:var(--silk)}
+.rb.active[data-r="indian"]{background:var(--indian-bg);border-color:var(--indian)}
+.rb.active[data-r="sahara"]{background:var(--sahara-bg);border-color:var(--sahara)}
+.rb.active .rb-name{color:inherit}
+.rb-all{display:flex;gap:8px}
+.rb-all button{flex:1;background:none;border:1.5px solid var(--border2);color:var(--mid);font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;transition:all .15s}
+.rb-all button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ── PANEL: reference content ── */
+.p-body{padding:16px 20px 40px}
+.p-empty{color:var(--muted);font-size:.82rem;line-height:1.7;padding:8px 2px}
+.p-empty strong{color:var(--ink)}
+.rt-head{padding-bottom:12px;margin-bottom:14px;border-bottom:2px solid var(--border)}
+.rt-title{font-size:1.5rem;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+.rt-sub{font-weight:700;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.rt-blurb{font-size:.88rem;color:var(--mid);line-height:1.72;margin-top:10px}
+
+.sec{margin-top:22px}
+.sec-lbl{display:flex;align-items:center;gap:8px;font-weight:900;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:11px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.sec-lbl .ico{font-size:.95rem}
+
+.tech-card{background:var(--cream);border:1px solid var(--border);border-left:3px solid var(--red);padding:11px 13px;margin-bottom:9px}
+.tech-name{font-weight:900;font-size:.9rem;letter-spacing:-.01em;margin-bottom:3px}
+.tech-what{font-size:.82rem;color:var(--mid);line-height:1.55}
+.tech-impact{font-size:.82rem;color:var(--ink);line-height:1.55;margin-top:5px}
+.tech-impact b{color:var(--red);font-weight:900;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:1px}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--paper);border:1px solid var(--border2);color:var(--ink);font-weight:700;font-size:.8rem;padding:6px 11px;border-radius:3px}
+
+.place-list{display:flex;flex-direction:column;gap:2px}
+.place{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;border:none;padding:8px 6px;border-bottom:1px solid var(--border);transition:background .12s}
+.place:hover{background:var(--cream)}
+.place .pin{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:4px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.place .p-name{font-weight:900;font-size:.87rem;letter-spacing:-.01em}
+.place .p-note{font-size:.79rem;color:var(--muted);line-height:1.45;margin-top:1px}
+.place .p-go{margin-left:auto;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);flex-shrink:0;opacity:0;transition:opacity .12s;padding-top:3px}
+.place:hover .p-go{opacity:1}
+
+.cul-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cul-list li{position:relative;padding-left:18px;font-size:.86rem;line-height:1.6;color:var(--mid)}
+.cul-list li::before{content:'';position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--red))}
+.cul-list li b{color:var(--ink)}
+
+/* ── STATES & REGIONS (polity chooser) ── */
+.region-wrap{padding:15px 18px;border-bottom:1px solid var(--border)}
+.region-head{font-weight:900;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.region-head .rh-hint{font-weight:700;font-size:.58rem;letter-spacing:.02em;text-transform:none;color:var(--muted);opacity:.8}
+.pol-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.pol-chip{display:flex;align-items:center;gap:8px;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:9px 10px;transition:all .13s;min-width:0}
+.pol-chip:hover{border-color:var(--border2);background:var(--paper)}
+.pol-chip .pc-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.pol-chip .pc-name{font-weight:700;font-size:.8rem;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.pol-chip .tc-check{margin-left:auto;width:16px;height:16px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;position:relative}
+.pol-chip.on{border-color:var(--red);background:var(--red-bg)}
+.pol-chip.on .tc-check{background:var(--red);border-color:var(--red)}
+.pol-chip.on .tc-check::after{content:'✓';position:absolute;inset:0;color:#fff;font-size:.72rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+
+/* ── ANNOTATION / THEME toggles (goods, cities, religions, monsoon, disease) ── */
+.thm-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.thm-chip{display:flex;align-items:center;gap:8px;text-align:left;background:var(--cream);border:1.5px solid var(--border);padding:9px 10px;transition:all .13s;min-width:0}
+.thm-chip:hover{border-color:var(--border2);background:var(--paper)}
+.thm-chip .tc-ic{font-size:1rem;flex-shrink:0;line-height:1}
+.thm-chip .tc-name{font-weight:700;font-size:.78rem;letter-spacing:-.01em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thm-chip .tc-check{margin-left:auto;width:16px;height:16px;border:1.5px solid var(--border2);border-radius:3px;flex-shrink:0;position:relative}
+.thm-chip.on{border-color:var(--red);background:var(--red-bg)}
+.thm-chip.on .tc-check{background:var(--red);border-color:var(--red)}
+.thm-chip.on .tc-check::after{content:'✓';position:absolute;inset:0;color:#fff;font-size:.72rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+.thm-clear{margin-top:8px;width:100%;background:none;border:1.5px solid var(--border2);color:var(--mid);font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:8px;transition:all .15s}
+.thm-clear:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* polity facts + role */
+.facts{display:flex;flex-direction:column;margin-top:2px}
+.fact{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem;line-height:1.45}
+.fact .fk{font-weight:900;color:var(--ink);flex:0 0 100px;letter-spacing:-.01em}
+.fact .fv{color:var(--mid)}
+.role-txt{font-size:.88rem;color:var(--mid);line-height:1.72}
+
+/* map region label */
+.leaflet-tooltip.pol-label{background:rgba(16,32,31,.88);color:#fff;border:none;border-radius:4px;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.01em;padding:4px 11px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.leaflet-tooltip.pol-label::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.pol-label{background:rgba(230,235,245,.92);color:#12141b}
+
+/* map annotation labels (goods words, city names, monsoon arrows) */
+.leaflet-tooltip.goods-tip{background:transparent;border:none;box-shadow:none;color:#7a5410;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.86rem;letter-spacing:.03em;
+  text-shadow:0 0 3px #fff,0 0 3px #fff,0 0 4px #fff,0 0 4px #fff,0 0 4px #fff}
+.leaflet-tooltip.goods-tip::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.goods-tip{color:#f0c674;text-shadow:0 0 3px #000,0 0 4px #000,0 0 5px #000}
+.leaflet-tooltip.city-tip{background:rgba(255,255,255,.92);border:1px solid var(--border2);border-radius:3px;color:#10201f;
+  font-family:Lato,system-ui,sans-serif;font-weight:800;font-size:.72rem;padding:1px 6px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.leaflet-tooltip.city-tip::before{display:none}
+:root[data-theme="dark"] .leaflet-tooltip.city-tip{background:rgba(23,26,34,.92);border-color:#454e62;color:#e7ebf5}
+.monsoon-arrow{font-size:1.9rem;line-height:1;color:#1d4ed8;text-shadow:0 0 3px #fff,0 0 4px #fff}
+.monsoon-arrow span{display:inline-block}
+:root[data-theme="dark"] .monsoon-arrow{color:#7aa2ff;text-shadow:0 0 3px #000,0 0 4px #000}
+.leaflet-tooltip.disease-tip{background:rgba(109,63,156,.92);color:#fff;border:none;border-radius:4px;
+  font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.74rem;letter-spacing:.02em;padding:3px 9px}
+.leaflet-tooltip.disease-tip::before{display:none}
+
+/* ── LEGEND (on map) ── */
+.legend{position:absolute;top:12px;right:12px;z-index:500;background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);padding:10px 12px;font-size:.7rem}
+.legend .lg-t{font-weight:900;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.legend .lg-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-weight:700;color:var(--ink)}
+.legend .lg-row:last-child{margin-bottom:0}
+.legend .lg-line{width:22px;height:0;border-top:3px solid;flex-shrink:0}
+.legend .lg-line.dash{border-top-style:dashed}
+.legend .lg-fill{width:20px;height:12px;border-radius:3px;background:rgba(120,120,120,.35);border:1.5px solid var(--muted);flex-shrink:0}
+.legend .lg-div{height:1px;background:var(--border);margin:7px 0}
+
+/* swooping "spread of…" arrowhead */
+.swoop-head{font-size:1.15rem;line-height:1;text-shadow:0 0 3px #fff,0 0 4px #fff}
+.swoop-head span{display:inline-block}
+:root[data-theme="dark"] .swoop-head{text-shadow:0 0 3px #000,0 0 4px #000}
+
+.leaflet-popup-content{font-family:Lato,system-ui,sans-serif;margin:11px 14px;line-height:1.5}
+.pop-name{font-weight:900;font-size:.92rem;letter-spacing:-.01em;margin-bottom:3px}
+.pop-tag{font-weight:700;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}
+.pop-note{font-size:.78rem;color:#3a4746}
+.polity-pop .leaflet-popup-content{max-height:320px;overflow-y:auto}
+.pop-facts{margin:7px 0;font-size:.75rem;color:#3a4746;line-height:1.55}
+.pop-facts b{color:#10201f}
+.pop-sub{font-size:.76rem;color:#3a4746;line-height:1.55;margin-top:6px;padding-top:6px;border-top:1px solid #e5ddcb}
+.pop-sub b{color:#10201f}
+:root[data-theme="dark"] .pop-note,:root[data-theme="dark"] .pop-facts,:root[data-theme="dark"] .pop-sub{color:#c4cad7}
+:root[data-theme="dark"] .pop-facts b,:root[data-theme="dark"] .pop-sub b{color:#e7ebf5}
+:root[data-theme="dark"] .pop-sub{border-top-color:#333a49}
+
+/* ── MOBILE ── */
+@media(max-width:820px){
+  .wrap{flex-direction:column-reverse}
+  .panel{width:100%;max-height:none;border-right:none;border-top:1px solid var(--border)}
+  .mapcol{height:56vh;flex:none}
+  .legend{top:8px;right:8px;padding:7px 9px}
+  .map-hint{display:none}
+}
+
+/* ── DARK MODE (map page owns its overrides) ── */
+:root[data-theme="dark"]{
+  --cream:#0f1117;--white:#171a22;--paper:#1c2029;--border:#333a49;--border2:#454e62;
+  --ink:#e7ebf5;--mid:#c4cad7;--muted:#9299ac;--red:#5fd0d4;--red-bg:rgba(255,255,255,.06);
+  --silk:#ff8a72;--indian:#7aa2ff;--sahara:#f0b24a;
+  --silk-bg:rgba(255,138,114,.12);--indian-bg:rgba(122,162,255,.12);--sahara-bg:rgba(240,178,74,.12);
+  color-scheme:dark;
+}
+:root[data-theme="dark"] body{background:#0f1117;color:#e7ebf5}
+:root[data-theme="dark"] .bar{background:#12141b}
+:root[data-theme="dark"] .rb{background:#1c2029}
+:root[data-theme="dark"] .tech-card{background:#1c2029}
+:root[data-theme="dark"] .chip{background:#1c2029;color:#e7ebf5}
+:root[data-theme="dark"] .place:hover,:root[data-theme="dark"] .rb:hover{background:#232a3d}
+:root[data-theme="dark"] .pol-chip{background:#1c2029}
+:root[data-theme="dark"] .pol-chip:hover{background:#232a3d}
+:root[data-theme="dark"] .pol-chip.on{border-color:#5fd0d4;background:rgba(95,208,212,.12)}
+:root[data-theme="dark"] .pol-chip.on .tc-check{background:#5fd0d4;border-color:#5fd0d4}
+:root[data-theme="dark"] .pol-chip.on .tc-check::after{color:#12141b}
+:root[data-theme="dark"] .thm-chip{background:#1c2029}
+:root[data-theme="dark"] .thm-chip:hover{background:#232a3d}
+:root[data-theme="dark"] .thm-chip.on{border-color:#5fd0d4;background:rgba(95,208,212,.12)}
+:root[data-theme="dark"] .thm-chip.on .tc-check{background:#5fd0d4;border-color:#5fd0d4}
+:root[data-theme="dark"] .thm-chip.on .tc-check::after{color:#12141b}
+:root[data-theme="dark"] .legend{background:#171a22}
+:root[data-theme="dark"] #map{background:#23262b}
+:root[data-theme="dark"] .leaflet-popup-content-wrapper,:root[data-theme="dark"] .leaflet-popup-tip{background:#171a22;color:#e7ebf5}
+:root[data-theme="dark"] .pop-note{color:#c4cad7}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+
+<header class="bar">
+  <div class="brand">
+    <span class="badge">Unit 3</span>
+    <div style="min-width:0">
+      <div class="btitle">The Land-Based Empires</div>
+      <div class="bsub">Interactive Map &middot; c. 1450 – 1750</div>
+    </div>
+  </div>
+  <nav class="links">
+    <a href="unit3.html">&#8592; Unit 3 Hub</a>
+    <a href="index.html">All Units</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <!-- LEFT: controls + reference -->
+  <aside class="panel">
+    <div class="p-intro">
+      <div class="p-eyebrow">Reference Map</div>
+      <h1>Compare the Empires</h1>
+      <p>Pick a <strong>land-based empire</strong> to light up its territory and load how it expanded, ruled, and what it believed. Then layer on capitals, belief systems, and the spread of gunpowder — shown as <strong>arrows from where it began</strong>. Click anything to read more.</p>
+    </div>
+
+    <div class="route-btns" id="route-btns">
+      <div id="emp-list"></div>
+      <div class="rb-all">
+        <button type="button" id="btn-all">Show all empires</button>
+        <button type="button" id="btn-reset">Reset view</button>
+      </div>
+    </div>
+
+    <div class="region-wrap">
+      <div class="region-head">Annotations <span class="rh-hint">layer any on</span></div>
+      <div class="thm-grid" id="thm-grid"></div>
+      <button type="button" class="thm-clear" id="thm-clear">Clear annotations</button>
+    </div>
+
+    <div class="p-body" id="p-body">
+      <div class="p-empty">
+        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450 — moving silk and salt, faiths and inventions, merchants and microbes.</p>
+        <p style="margin-top:10px">Select a route above, or <strong>Show all</strong> to compare them, then click the colored lines and dots on the map.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- RIGHT: the real map -->
+  <div class="mapcol">
+    <div id="map"></div>
+    <div class="legend" id="legend">
+      <div class="lg-t">Map Key</div>
+      <div class="lg-row"><span class="lg-fill" style="background:rgba(140,18,18,.28);border-color:#8c1212"></span>Selected empire</div>
+      <div class="lg-row"><span class="lg-fill"></span>Other empires</div>
+    </div>
+    <div class="map-hint">Tip: click an empire on the map, or pick one at left. Drag to pan, scroll to zoom.</div>
+  </div>
+</div>
+
+<script defer src="theme.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   DATA — Unit 3, c. 1450–1750. Coordinates are [lat, lng].
+   ROUTES holds the EMPIRES: each has a polygon territory and the
+   comparative fields (expansion / rule / belief / legacy).
+   ══════════════════════════════════════════════════════════════ */
+var ROUTES = {
+  ottoman: {
+    name:'Ottoman Empire', sub:'Sunni gunpowder empire · peak c. 1450–1700', color:'#2e7d32',
+    poly:[[47,18],[46,29],[41,41],[37,44],[31,47],[25,39],[14,43],[22,35],[31,25],[31,19],[34,10],[37,9],[42,19]],
+    blurb:'The most powerful Islamic empire of the age — straddling Europe, Asia, and Africa. It seized Constantinople in 1453 and reached its height under Suleiman the Magnificent.',
+    facts:[['Capital','Istanbul (Constantinople)'],['Religion','Sunni Islam'],['Peak ruler','Suleiman the Magnificent'],['Elite corps','Janissaries']],
+    expansion:'Took Constantinople in 1453 with massive gunpowder cannon, then expanded into the Balkans, the Middle East, and North Africa. The Janissaries — elite gunpowder infantry recruited through the devshirme — were the heart of the army.',
+    rule:'Ruled a diverse empire through the millet system, letting religious communities govern themselves. The devshirme took Christian boys for the army and bureaucracy. Sultans legitimized power through Islam, grand mosques, and patronage of the arts.',
+    belief:'Sunni Islam — the sultan also claimed the title of caliph, protector of the faith.',
+    legacy:[{t:'Fall of Constantinople (1453)',d:'ended the Byzantine Empire and stunned Europe.'},{t:'Devshirme & Janissaries',d:'a slave-elite that ran the army and state.'},{t:'Suleiman',d:'law-giver and builder at the empire’s golden age.'}]
+  },
+  safavid: {
+    name:'Safavid Empire', sub:'Shia gunpowder empire · 1501–1736', color:'#6a1b9a',
+    poly:[[40,44],[39,55],[36,61],[29,62],[26,55],[28,48],[32,45],[37,44]],
+    blurb:'The Persian empire that made Twelver Shia Islam the state religion — setting off a lasting Sunni–Shia rivalry with the Ottomans to its west.',
+    facts:[['Capital','Isfahan'],['Religion','Shia Islam (state faith)'],['Peak ruler','Shah Abbas the Great'],['Great rival','The Ottomans']],
+    expansion:'Founded by Shah Ismail, who imposed Shia Islam by force. Shah Abbas modernized the army with gunpowder and enslaved-soldier corps (ghulams) and fought the Ottomans for Mesopotamia and the Caucasus.',
+    rule:'Shah Abbas built a magnificent capital at Isfahan (“half the world”), promoted the silk trade, and used ghulam slave-officials to check the tribal Qizilbash. Rulers claimed descent from Ali and divine right.',
+    belief:'Twelver Shia Islam — imposed as the state religion, defining Persian identity to this day.',
+    legacy:[{t:'Sunni–Shia divide',d:'hardened into a lasting Ottoman–Safavid rivalry.'},{t:'Isfahan',d:'a jewel of Persian art and architecture.'},{t:'Shia Iran',d:'the root of modern Iran’s religious identity.'}]
+  },
+  mughal: {
+    name:'Mughal Empire', sub:'Muslim rule over Hindu India · 1526–1857', color:'#c9a227',
+    poly:[[33,71],[31,78],[27,89],[22,90],[17,79],[15,74],[21,70],[28,67]],
+    blurb:'The gunpowder empire that unified most of the Indian subcontinent — a Muslim dynasty ruling a Hindu majority, famed for its wealth, art, and the Taj Mahal.',
+    facts:[['Capital','Delhi / Agra'],['Religion','Islam over a Hindu majority'],['Peak ruler','Akbar the Great'],['Founder','Babur (1526)']],
+    expansion:'Babur used gunpowder artillery to win the Battle of Panipat (1526). Akbar expanded across the subcontinent, and Aurangzeb later pushed the empire to its greatest — but overstretched — extent.',
+    rule:'Akbar ruled with tolerance — abolishing the jizya tax on non-Muslims, marrying a Hindu princess, and hosting a syncretic court. He built a centralized bureaucracy (zabt taxes, mansabdar officials). Aurangzeb reversed this tolerance, straining the empire.',
+    belief:'Islam — but under Akbar a striking policy of tolerance toward Hinduism; the tension between tolerance and orthodoxy shaped the empire.',
+    legacy:[{t:'Akbar’s tolerance',d:'held a diverse empire together.'},{t:'Taj Mahal',d:'built by Shah Jahan — the peak of Indo-Islamic art.'},{t:'Aurangzeb’s reversal',d:'renewed the jizya and sparked revolts.'}]
+  },
+  china: {
+    name:'Ming & Qing China', sub:'The Middle Kingdom · 1368–1912', color:'#b3402f',
+    poly:[[50,122],[42,124],[31,122],[22,110],[24,100],[29,99],[34,101],[41,98],[47,116]],
+    blurb:'China under the Ming and then the Manchu Qing — a vast, centralized empire run by a Confucian scholar-bureaucracy and defended by the Great Wall.',
+    facts:[['Capital','Beijing (Forbidden City)'],['Belief','Confucianism'],['Ming ruler','Yongle'],['Qing ruler','Kangxi (Manchu)']],
+    expansion:'The Ming rebuilt the Great Wall and briefly sent Zheng He’s fleets before turning inward. The Manchus conquered China in 1644, founding the Qing and later expanding into Mongolia, Tibet, and Xinjiang.',
+    rule:'Governed through the civil-service examination system, which chose scholar-officials by merit on the Confucian classics. The emperor ruled by the Mandate of Heaven. The Qing Manchus kept Chinese institutions while preserving their own identity.',
+    belief:'Confucianism ordered state and society; Buddhism and Daoism also flourished.',
+    legacy:[{t:'Examination system',d:'a merit bureaucracy that outlasted dynasties.'},{t:'Manchu Qing',d:'a foreign dynasty ruling through Chinese institutions.'},{t:'The Forbidden City',d:'the ceremonial heart of imperial China.'}]
+  },
+  russia: {
+    name:'Russia (Tsardom)', sub:'The expanding Orthodox empire · 1547–1917', color:'#1565c0',
+    poly:[[68,38],[66,78],[62,132],[54,140],[50,108],[52,62],[46,48],[50,37],[60,30],[66,33]],
+    blurb:'The Orthodox Christian empire that expanded across Eurasia all the way to the Pacific, ruled by autocratic tsars over a society bound by serfdom.',
+    facts:[['Capital','Moscow (later St. Petersburg)'],['Religion','Russian Orthodox Christianity'],['Early ruler','Ivan IV “the Terrible”'],['Later ruler','Peter the Great']],
+    expansion:'Ivan the Terrible crowned himself tsar and pushed east, conquering the Muslim khanates of Kazan and Astrakhan and opening Siberia to fur-trading expansion all the way to the Pacific.',
+    rule:'Tsars ruled as absolute autocrats, crushing the noble boyars and binding peasants to the land as serfs. The Orthodox Church legitimized the tsar as God’s chosen. Peter the Great later forced Westernization from the top down.',
+    belief:'Russian Orthodox Christianity — Moscow saw itself as the “Third Rome,” heir to Byzantium.',
+    legacy:[{t:'Conquest of Siberia',d:'built the largest land empire on Earth.'},{t:'Serfdom',d:'tied peasants to the land as the economic base.'},{t:'Autocracy',d:'the tsar’s absolute power shaped Russian history.'}]
+  },
+  tokugawa: {
+    name:'Tokugawa Japan', sub:'The shogunate & sakoku · 1603–1868', color:'#ad1457',
+    poly:[[42,140],[41,143],[35,141],[33,131],[34,129],[37,137],[40,140]],
+    blurb:'A centralized feudal Japan unified under the Tokugawa shoguns, who imposed peace, controlled the daimyo, and largely sealed the country off from the outside world.',
+    facts:[['Capital','Edo (Tokyo)'],['Ruler','The Tokugawa shogun'],['Policy','Sakoku (“closed country”)'],['Belief','Neo-Confucianism & Shinto']],
+    expansion:'After a century of civil war, the Tokugawa unified Japan and ended the fighting. Rather than expand abroad, they turned inward and banned most foreign contact.',
+    rule:'The shogun controlled the daimyo through alternate attendance (sankin-kotai), requiring them to spend alternate years in Edo. A rigid hierarchy placed samurai at the top. Christianity was banned and foreign trade limited to the Dutch at Deshima.',
+    belief:'A Neo-Confucian social order alongside Shinto and Buddhism; Christianity was suppressed.',
+    legacy:[{t:'Sakoku isolation',d:'kept Japan largely closed for over 200 years.'},{t:'The long peace',d:'let cities, arts, and a merchant class flourish.'},{t:'Alternate attendance',d:'bound the daimyo to the shogun.'}]
+  },
+  songhai: {
+    name:'Songhai Empire', sub:'West African Islamic empire · c. 1464–1591', color:'#8a6d1f',
+    poly:[[19,-7],[18,4],[14,5],[12,-1],[13,-8],[16,-9]],
+    blurb:'The largest empire in West African history, built on the trans-Saharan gold and salt trade and centered on the Islamic learning of Timbuktu.',
+    facts:[['Capital','Gao'],['Religion','Islam'],['Peak ruler','Askia Muhammad'],['Ended','1591 (Moroccan invasion)']],
+    expansion:'Sunni Ali built the empire by conquering Timbuktu and Djenné; Askia Muhammad expanded it further and organized its administration.',
+    rule:'Askia Muhammad centralized the government, promoted Islam, and made a famous pilgrimage to Mecca. Timbuktu’s Sankore university drew scholars from across the Muslim world.',
+    belief:'Islam among the ruling class and in the cities, alongside traditional beliefs in rural areas.',
+    legacy:[{t:'Timbuktu learning',d:'a center of Islamic scholarship and books.'},{t:'Gold–salt wealth',d:'control of the trans-Saharan trade.'},{t:'Fall to gunpowder',d:'Moroccan muskets destroyed it in 1591.'}]
+  }
+};
+var ROUTE_ORDER = ['ottoman','safavid','mughal','china','russia','tokugawa','songhai'];
+
+/* No separate toggle-region layer for Unit 3 — the empires ARE the regions. */
+var POLITIES = {};
+var POLITY_ORDER = [];
+
+/* ══════════════════════════════════════════════════════════════
+   ANNOTATIONS — toggle overlays. "Spread" layers are swooping
+   arrows from an origin out to where the thing travelled.
+   ══════════════════════════════════════════════════════════════ */
+var THEMES = {
+  capitals: {
+    name:'Imperial Capitals', color:'#0f5b5e', icon:'🏙️', kind:'cities',
+    items:[
+      {n:'Istanbul', c:[41.01,28.98], note:'Ottoman capital — the conquered Byzantine Constantinople.'},
+      {n:'Isfahan', c:[32.65,51.67], note:'Safavid capital, rebuilt by Shah Abbas as “half the world.”'},
+      {n:'Delhi & Agra', c:[28.6,77.2], note:'Mughal capitals; Agra holds the Taj Mahal.'},
+      {n:'Beijing', c:[39.9,116.4], note:'Ming and Qing capital, site of the Forbidden City.'},
+      {n:'Moscow', c:[55.75,37.62], note:'Heart of the Russian Tsardom (before St. Petersburg).'},
+      {n:'St. Petersburg', c:[59.94,30.31], note:'Peter the Great’s new “window on the West.”'},
+      {n:'Edo (Tokyo)', c:[35.68,139.77], note:'Seat of the Tokugawa shogunate.'},
+      {n:'Gao', c:[16.27,0.04], note:'Capital of the Songhai Empire on the Niger.'}
+    ]
+  },
+  belief: {
+    name:'Belief Systems', color:'#7b5ea7', icon:'☪', kind:'cities',
+    items:[
+      {n:'Sunni Islam (Ottoman)', c:[39,34], note:'The Ottoman state faith; the sultan claimed the caliphate.'},
+      {n:'Shia Islam (Safavid)', c:[32,53], note:'Twelver Shia Islam, imposed as Persia’s state religion.'},
+      {n:'Islam + tolerance (Mughal)', c:[23,78], note:'Muslim rulers over a Hindu majority; Akbar practiced tolerance.'},
+      {n:'Confucianism (China)', c:[34,109], note:'Ordered the state and the civil-service exam system.'},
+      {n:'Orthodox Christianity (Russia)', c:[57,45], note:'Legitimized the tsar; Moscow as the “Third Rome.”'},
+      {n:'Neo-Confucian & Shinto (Japan)', c:[37,138], note:'Ordered Tokugawa society; Christianity was banned.'}
+    ]
+  },
+  gunpowder: {
+    name:'Spread of Gunpowder', color:'#7a2f2f', icon:'⚙', kind:'spread',
+    note:'Gunpowder weapons — cannon and muskets — spread from China across Eurasia. The empires that mastered them (the Ottomans, Safavids, Mughals, Russia, Ming/Qing) are called the “gunpowder empires.”',
+    origin:{n:'China (origin of gunpowder)', c:[32,112]},
+    items:[
+      {n:'Ottoman cannon', c:[41.01,28.98]},{n:'Safavid muskets', c:[32.65,51.67]},
+      {n:'Mughal artillery', c:[28.6,77.2]},{n:'Russian firearms', c:[55.75,37.62]},
+      {n:'European guns', c:[48,8]}
+    ]
+  },
+  trade: {
+    name:'Trade Still Flowing', color:'#a6791f', icon:'📦', kind:'labels',
+    items:[
+      {n:'SILK ROAD', c:[41,66], note:'Overland Eurasian trade revived under the stability of the great land empires.'},
+      {n:'INDIAN OCEAN', c:[-2,73], note:'Sea trade in spices and cotton continued, now with Europeans joining in.'},
+      {n:'GOLD & SALT', c:[19,1], note:'The trans-Saharan trade still carried West African gold north.'},
+      {n:'SILVER IN', c:[30,105], note:'New World silver poured into China to pay for silk, tea, and porcelain.'}
+    ]
+  }
+};
+var THEME_ORDER = ['capitals','belief','gunpowder','trade'];
+
+/* ══ MAP SETUP ═══════════════════════════════════════════════ */
+/* Esri ArcGIS Online gray-canvas basemaps — genuinely keyless, no watermark, clean muted geography. */
+var LIGHT_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+var DARK_TILES='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+var ATTR='Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors';
+
+var map=L.map('map',{center:[34,52],zoom:3,minZoom:2,maxZoom:8,
+  attributionControl:true});
+map.setMaxBounds([[-20,-30],[82,165]]);
+
+function isDark(){return document.documentElement.getAttribute('data-theme')==='dark';}
+var tileLayer=L.tileLayer(isDark()?DARK_TILES:LIGHT_TILES,{attribution:ATTR,maxZoom:8,maxNativeZoom:16}).addTo(map);
+function refreshTiles(){tileLayer.setUrl(isDark()?DARK_TILES:LIGHT_TILES);}
+
+function cssVar(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+
+/* Build a polygon territory for every empire (the single-select base layer). */
+var layers={}; // key -> {group, poly, bounds, color}
+function buildRoute(key){
+  var r=ROUTES[key], color=r.color, group=L.layerGroup();
+  var poly=L.polygon(r.poly,{color:color,weight:2.5,opacity:.9,fillColor:color,fillOpacity:.28,lineJoin:'round'});
+  poly.on('click',function(){selectRoute(key);});
+  poly.bindTooltip(r.name,{permanent:true,direction:'center',className:'pol-label'});
+  poly.addTo(group);
+  layers[key]={group:group,poly:poly,bounds:poly.getBounds(),color:color};
+}
+ROUTE_ORDER.forEach(buildRoute);
+
+/* Build a togglable polygon overlay for every polity (state/region).
+   Each carries a permanent label and a rich popup; toggled on/off independently. */
+var polLayers={}, polOn={};
+function polityPopupHTML(key){
+  var p=POLITIES[key];
+  var h='<div class="pop-name">'+p.name+'</div><div class="pop-tag" style="color:'+p.color+'">'+p.sub+'</div>';
+  h+='<div class="pop-note">'+p.blurb+'</div><div class="pop-facts">';
+  p.facts.forEach(function(f){ h+='<div><b>'+f[0]+':</b> '+f[1]+'</div>'; });
+  h+='</div><div class="pop-sub"><b>Role in trade:</b> '+p.role+'</div>';
+  h+='<div class="pop-sub"><b>Legacy:</b> '+p.legacy.map(function(c){return c.t;}).join(' · ')+'</div>';
+  return h;
+}
+function buildPolity(key){
+  var p=POLITIES[key];
+  var poly=L.polygon(p.poly,{color:p.color,weight:2.5,opacity:.95,fillColor:p.color,fillOpacity:.28,lineJoin:'round'});
+  poly.bindTooltip(p.name,{permanent:true,direction:'center',className:'pol-label'});
+  poly.bindPopup(polityPopupHTML(key),{className:'polity-pop',maxWidth:280});
+  polLayers[key]={poly:poly,bounds:poly.getBounds(),color:p.color};
+}
+Object.keys(POLITIES).forEach(buildPolity);
+function togglePolity(key,on){
+  polOn[key]=on;
+  if(on){ if(!map.hasLayer(polLayers[key].poly)) polLayers[key].poly.addTo(map); }
+  else if(map.hasLayer(polLayers[key].poly)){ map.removeLayer(polLayers[key].poly); }
+  document.querySelectorAll('.pol-chip[data-p="'+key+'"]').forEach(function(c){c.classList.toggle('on',on);});
+}
+function clearPolities(){ Object.keys(polLayers).forEach(function(k){ togglePolity(k,false); }); }
+
+/* Build an on/off overlay layer for every annotation theme (independent of the
+   route/polity single-selection — students layer these on top). */
+var themeLayers={}, themeOn={};
+function popup(name,note,tagColor,tag){
+  return '<div class="pop-name">'+name+'</div>'+
+    (tag?'<div class="pop-tag" style="color:'+tagColor+'">'+tag+'</div>':'')+
+    (note?'<div class="pop-note">'+note+'</div>':'');
+}
+/* Quadratic-bezier "swoop" between two points, bowed perpendicular to the line. */
+function bezierPts(from,to,curv){
+  var la1=from[0],ln1=from[1],la2=to[0],ln2=to[1];
+  var mx=(la1+la2)/2, my=(ln1+ln2)/2, dx=la2-la1, dy=ln2-ln1;
+  var len=Math.sqrt(dx*dx+dy*dy)||1, px=-dy/len, py=dx/len, off=(curv==null?0.2:curv)*len;
+  var cx=mx+px*off, cy=my+py*off, pts=[];
+  for(var t=0;t<=1.0001;t+=0.04){ var a=(1-t)*(1-t), b=2*(1-t)*t, c=t*t;
+    pts.push([a*la1+b*cx+c*la2, a*ln1+b*cy+c*ln2]); }
+  return pts;
+}
+/* Draw a swooping arrow (curved line + rotated arrowhead) into a group; returns the line. */
+function addSwoop(group,from,to,color,curv,weight){
+  var pts=bezierPts(from,to,curv);
+  var line=L.polyline(pts,{color:color,weight:weight||3,opacity:.9,lineCap:'round'}).addTo(group);
+  var p1=pts[pts.length-2], p2=pts[pts.length-1];
+  var ang=Math.atan2(-(p2[0]-p1[0]),(p2[1]-p1[1]))*180/Math.PI;
+  L.marker(p2,{interactive:false,icon:L.divIcon({className:'swoop-head',
+    html:'<span style="transform:rotate('+ang+'deg);color:'+color+'">➤</span>',iconSize:[20,20],iconAnchor:[10,10]})}).addTo(group);
+  return line;
+}
+function buildTheme(key){
+  var t=THEMES[key], g=L.layerGroup();
+  if(t.kind==='labels'){
+    t.items.forEach(function(it){
+      L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:1})
+        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'goods-tip'})
+        .bindPopup(popup(it.n,it.note)).addTo(g);
+    });
+    (t.arrows||[]).forEach(function(a){
+      addSwoop(g,a.from,a.to,t.color,0.25,3).bindTooltip(a.label,{direction:'top',className:'city-tip'});
+    });
+  } else if(t.kind==='cities'){
+    t.items.forEach(function(it){
+      L.circleMarker(it.c,{radius:5,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
+        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'city-tip'})
+        .bindPopup(popup(it.n,it.note)).addTo(g);
+    });
+  } else if(t.kind==='spread'){
+    // origin marker + a swooping arrow out to each place the thing spread
+    L.circleMarker(t.origin.c,{radius:7,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
+      .bindTooltip(t.origin.n+' (origin)',{permanent:true,direction:'top',className:'city-tip'})
+      .bindPopup(popup(t.name+' — origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
+    t.items.forEach(function(it,i){
+      addSwoop(g,t.origin.c,it.c,t.color, i%2===0?0.22:0.14, 3);
+      L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:.95})
+        .bindTooltip(it.n,{direction:'right',offset:[6,0],className:'city-tip'})
+        .bindPopup(popup(it.n,t.note,t.color,t.name)).addTo(g);
+    });
+  } else if(t.kind==='arrows'){
+    t.items.forEach(function(it){
+      L.marker(it.c,{icon:L.divIcon({className:'monsoon-arrow',html:'<span style="transform:rotate('+it.rot+'deg)">➤</span>',iconSize:[34,34],iconAnchor:[17,17]})})
+        .bindTooltip(it.label,{direction:'top',className:'city-tip'})
+        .bindPopup(popup(t.name,t.note)).addTo(g);
+    });
+  }
+  themeLayers[key]=g; themeOn[key]=false;
+}
+THEME_ORDER.forEach(buildTheme);
+
+function toggleTheme(key,on){
+  themeOn[key]=on;
+  if(on){ themeLayers[key].addTo(map); } else if(map.hasLayer(themeLayers[key])){ map.removeLayer(themeLayers[key]); }
+  document.querySelectorAll('.thm-chip[data-t="'+key+'"]').forEach(function(c){c.classList.toggle('on',on);});
+}
+function clearThemes(){ THEME_ORDER.forEach(function(k){ toggleTheme(k,false); }); }
+
+var current=null;      // key of the selected route (null = all)
+var currentType=null;  // 'route' | null
+
+function setRouteVisual(key,mode){
+  // mode: 'full' | 'dim' | 'hidden'  (empires are filled polygons)
+  var L1=layers[key];
+  var fill = mode==='full'?0.34:(mode==='dim'?0.07:0);
+  var op   = mode==='hidden'?0:(mode==='full'?0.95:0.4);
+  L1.poly.setStyle({fillOpacity:fill,opacity:op,weight:mode==='full'?2.5:1.5});
+  var tt=L1.poly.getTooltip(); if(tt) tt.setOpacity(mode==='full'?1:(mode==='dim'?0.55:0));
+}
+
+function showAllOnMap(){Object.keys(layers).forEach(function(k){layers[k].group.addTo(map);});}
+
+function selectRoute(key,keepView){
+  current=key; currentType='route';
+  showAllOnMap();
+  Object.keys(layers).forEach(function(k){ setRouteVisual(k, k===key?'full':'dim'); });
+  markActiveEmpire(key);
+  renderPanel(key);
+  if(!keepView){ try{map.flyToBounds(layers[key].bounds,{padding:[50,50],duration:.7,maxZoom:5});}catch(e){} }
+}
+
+function showAll(){
+  current=null; currentType=null;
+  showAllOnMap();
+  Object.keys(layers).forEach(function(k){ setRouteVisual(k,'full'); });
+  markActiveEmpire(null);
+  renderAllPanel();
+  map.flyTo([34,52],3,{duration:.7});
+}
+
+/* Empire selector buttons (rendered from data so colors match) */
+function markActiveEmpire(key){
+  document.querySelectorAll('#emp-list .rb').forEach(function(b){
+    var on=b.dataset.r===key;
+    b.classList.toggle('active',on);
+    b.style.background = on ? (ROUTES[b.dataset.r].color+'1e') : 'var(--cream)';
+    b.style.borderColor = on ? ROUTES[b.dataset.r].color : 'var(--border)';
+  });
+}
+(function renderEmpireButtons(){
+  var wrap=document.getElementById('emp-list'); if(!wrap) return;
+  ROUTE_ORDER.forEach(function(key){
+    var r=ROUTES[key], b=document.createElement('button');
+    b.type='button'; b.className='rb'; b.dataset.r=key;
+    b.style.borderLeftColor=r.color; b.style.marginBottom='8px';
+    b.innerHTML='<span class="rb-dot" style="background:'+r.color+'"></span>'+
+      '<span><span class="rb-name">'+r.name+'</span><span class="rb-yrs" style="display:block">'+r.sub.split(' · ')[0]+'</span></span>';
+    b.addEventListener('click',function(){selectRoute(key);});
+    wrap.appendChild(b);
+  });
+})();
+
+/* ══ PANEL RENDER ════════════════════════════════════════════ */
+var body=document.getElementById('p-body');
+
+function renderPanel(key){
+  var r=ROUTES[key], color=r.color;
+  var h='';
+  h+='<div class="rt-head" style="border-bottom-color:'+color+'"><div class="rt-title">'+r.name+'</div><div class="rt-sub">'+r.sub+'</div><div class="rt-blurb">'+r.blurb+'</div></div>';
+
+  // At a glance
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">📋</span>At a Glance</div><div class="facts">';
+  r.facts.forEach(function(f){ h+='<div class="fact"><span class="fk">'+f[0]+'</span><span class="fv">'+f[1]+'</span></div>'; });
+  h+='</div></div>';
+
+  // Expansion & military
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">⚔️</span>Expansion &amp; Military</div><p class="role-txt">'+r.expansion+'</p></div>';
+
+  // Rule & legitimacy
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">👑</span>Rule &amp; Legitimacy</div><p class="role-txt">'+r.rule+'</p></div>';
+
+  // Belief system
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">🕌</span>Belief System</div><p class="role-txt">'+r.belief+'</p></div>';
+
+  // Legacy
+  h+='<div class="sec"><div class="sec-lbl"><span class="ico">🏛️</span>Legacy</div><ul class="cul-list">';
+  r.legacy.forEach(function(c){h+='<li style="--dot:'+color+'"><b>'+c.t+'</b> — '+c.d+'</li>';});
+  h+='</ul></div>';
+
+  body.innerHTML=h;
+}
+
+function renderAllPanel(){
+  var h='<div class="rt-head"><div class="rt-title">The Land Empires</div><div class="rt-sub">Eurasia &amp; Africa · c. 1450–1750</div>'+
+    '<div class="rt-blurb">Great land-based empires — many built on gunpowder — ruled most of the connected world. Pick one to compare how it expanded, ruled, and what it believed, or click its territory on the map.</div></div>';
+  ROUTE_ORDER.forEach(function(k){
+    var r=ROUTES[k];
+    h+='<button class="place" data-r="'+k+'" style="border-bottom:1px solid var(--border);padding:12px 6px">'+
+       '<span class="pin" style="background:'+r.color+';width:13px;height:13px"></span>'+
+       '<span><span class="p-name" style="font-size:.9rem">'+r.name+'</span>'+
+       '<span class="p-note">'+r.facts[0][1]+' · '+r.facts[1][1]+'</span></span>'+
+       '<span class="p-go" style="opacity:1">Open →</span></button>';
+  });
+  body.innerHTML=h;
+  body.querySelectorAll('.place[data-r]').forEach(function(b){
+    b.addEventListener('click',function(){selectRoute(this.dataset.r);});
+  });
+}
+
+/* Render the States & Regions toggle chips into the sidebar */
+(function renderPolityChips(){
+  var grid=document.getElementById('pol-grid');
+  if(!grid) return;
+  POLITY_ORDER.forEach(function(key){
+    var p=POLITIES[key];
+    var b=document.createElement('button');
+    b.type='button'; b.className='pol-chip'; b.dataset.p=key;
+    b.innerHTML='<span class="pc-dot" style="background:'+p.color+'"></span>'+
+      '<span class="pc-name">'+p.name+'</span><span class="tc-check"></span>';
+    b.title=p.name+' — '+p.sub;
+    b.addEventListener('click',function(){ togglePolity(key,!polOn[key]); });
+    grid.appendChild(b);
+  });
+  var clr=document.getElementById('pol-clear');
+  if(clr) clr.addEventListener('click',clearPolities);
+})();
+
+/* Render the annotation (theme) toggle chips */
+(function renderThemeChips(){
+  var grid=document.getElementById('thm-grid');
+  if(!grid) return;
+  THEME_ORDER.forEach(function(key){
+    var t=THEMES[key];
+    var b=document.createElement('button');
+    b.type='button'; b.className='thm-chip'; b.dataset.t=key;
+    b.innerHTML='<span class="tc-ic" style="color:'+t.color+'">'+t.icon+'</span>'+
+      '<span class="tc-name">'+t.name+'</span><span class="tc-check"></span>';
+    b.addEventListener('click',function(){ toggleTheme(key,!themeOn[key]); });
+    grid.appendChild(b);
+  });
+  var clr=document.getElementById('thm-clear');
+  if(clr) clr.addEventListener('click',clearThemes);
+})();
+
+/* ══ WIRE UP ═════════════════════════════════════════════════ */
+document.getElementById('btn-all').addEventListener('click',showAll);
+document.getElementById('btn-reset').addEventListener('click',function(){
+  if(currentType==='route') selectRoute(current);
+  else map.flyTo([34,52],3,{duration:.6});
+});
+
+function reRenderPanel(){
+  if(currentType==='route') renderPanel(current);
+  else renderAllPanel();
+}
+
+// Keep tiles + colors in sync if the shared dark-mode toggle flips (this tab or another)
+window.addEventListener('storage',function(e){ if(e.key==='mcTheme'){ document.documentElement.setAttribute('data-theme', e.newValue==='dark'?'dark':'light'); }});
+var _mo=new MutationObserver(function(){refreshTiles(); reRenderPanel();});
+_mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+
+// Start only once the map container has a real size — animating before the
+// map is laid out (e.g. inside an iframe that just mounted) makes Leaflet's
+// fly math divide by a zero container size and throw "Invalid LatLng (NaN)".
+var _started=false;
+function initView(){
+  if(_started) return;
+  var s=map.getSize();
+  if(!s.x || !s.y){ return setTimeout(initView,120); }
+  _started=true;
+  map.invalidateSize();
+  showAll();
+}
+if(document.readyState==='complete') requestAnimationFrame(initView);
+else window.addEventListener('load',function(){ requestAnimationFrame(initView); });
+window.addEventListener('resize',function(){ map.invalidateSize(); });
+</script>
+</body>
+</html>

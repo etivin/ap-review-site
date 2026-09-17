@@ -428,6 +428,37 @@ button{font-family:inherit;cursor:pointer}
     </div>
   </section>
 
+  <!-- INTERACTIVE MAP -->
+  <section class="home-map-section">
+    <style>
+      .home-map-section{background:var(--paper);padding:56px 24px 60px;border-bottom:2px solid var(--border)}
+      .hm-inner{max-width:1120px;margin:0 auto}
+      .hm-head{text-align:center;max-width:680px;margin:0 auto 26px}
+      .hm-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+      .hm-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:10px;line-height:1.15}
+      .hm-sub{color:var(--muted);font-size:.9rem;line-height:1.65}
+      .hm-embed{position:relative;height:86vh;min-height:660px;border:1px solid var(--border2);box-shadow:var(--shm);background:var(--white)}
+      .hm-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+      .hm-openbar{display:flex;justify-content:flex-end;margin-top:12px}
+      .hm-open{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:11px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s}
+      .hm-open:hover{background:var(--red-d)}
+      @media(max-width:640px){.hm-embed{height:88vh;min-height:560px}}
+    </style>
+    <div class="hm-inner">
+      <div class="hm-head">
+        <div class="hm-eyebrow">Interactive Reference Map</div>
+        <h2 class="hm-title">The Land-Based Empires</h2>
+        <p class="hm-sub">Pick any land empire &mdash; the Ottomans, Safavids, Mughals, Ming&ndash;Qing China, Russia, Tokugawa Japan, or Songhai &mdash; to light up its territory and compare how it expanded, ruled, and what it believed. Then layer on capitals, belief systems, and the spread of gunpowder.</p>
+      </div>
+      <div class="hm-embed">
+        <iframe src="unit3-map.html" title="Interactive Unit 3 land empires map" loading="lazy"></iframe>
+      </div>
+      <div class="hm-openbar">
+        <a class="hm-open" href="unit3-map.html" target="_blank" rel="noopener noreferrer">&#8599; Open the map full screen</a>
+      </div>
+    </div>
+  </section>
+
   <!-- VIDEO REVIEW -->
   <section class="video-section">
     <div class="video-inner">
@@ -663,6 +694,35 @@ button{font-family:inherit;cursor:pointer}
         <div class="bd-card-list" id="bd-card-list"></div>
         <button class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAPS (interactive land empires) ══ -->
+<div class="page" id="pg-maps">
+  <div class="inner" style="max-width:1180px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Interactive Reference Map</div>
+      <h2>The Land-Based Empires</h2>
+      <p>A real map of Unit 3 &mdash; the <strong>Ottoman</strong>, <strong>Safavid</strong>, <strong>Mughal</strong>, <strong>Ming&ndash;Qing</strong>, <strong>Russian</strong>, <strong>Tokugawa</strong>, and <strong>Songhai</strong> empires. Click one to compare its expansion, administration, and belief system, then layer on capitals, belief systems, and the spread of gunpowder.</p>
+    </div>
+    <style>
+      #pg-maps .map-embed{position:relative;width:100%;height:88vh;min-height:680px;border:1px solid var(--border2);box-shadow:var(--shm);background:var(--paper)}
+      #pg-maps .map-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+      #pg-maps .map-openbar{display:flex;justify-content:flex-end;margin-top:12px}
+      #pg-maps .map-open{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:11px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s}
+      #pg-maps .map-open:hover{background:var(--red-d)}
+      @media(max-width:640px){#pg-maps .map-embed{height:88vh;min-height:560px}}
+    </style>
+    <div class="map-embed">
+      <iframe src="unit3-map.html" title="Interactive Unit 3 land empires map" loading="lazy"></iframe>
+    </div>
+    <div class="map-openbar">
+      <a class="map-open" href="unit3-map.html" target="_blank" rel="noopener noreferrer">&#8599; Open the map full screen</a>
     </div>
   </div>
 </div>

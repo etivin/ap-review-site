@@ -76,6 +76,15 @@ body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-se
 .beat span{font-size:.78rem;line-height:1.4;color:var(--mid)}
 .beat-arrow{display:flex;align-items:center;font-family:Lato,system-ui,sans-serif;font-weight:900;color:var(--cc,var(--red));font-size:1.2rem}
 @media(max-width:620px){.beat-arrow{transform:rotate(90deg)}.beat{width:100%}}
+/* document-grouping map */
+.gmap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.gcol{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--cc,var(--red));padding:14px 16px;box-shadow:var(--sh)}
+.gcol .gsub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cc,var(--red));margin-bottom:6px}
+.gcol .gtheme{font-family:Lato,system-ui,sans-serif;font-weight:900;letter-spacing:-.01em;font-size:1.02rem;color:var(--ink);margin-bottom:8px}
+.gdocs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:9px}
+.gdoc{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.03em;background:var(--paper);border:1px solid var(--border);padding:5px 9px;color:var(--ink);white-space:nowrap}
+.gcol p{font-size:.82rem;line-height:1.55;color:var(--mid);margin:0}
+@media(max-width:620px){.gmap{grid-template-columns:1fr}}
 .block-kicker{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
 .block-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.55rem;font-weight:900;line-height:1.15}
 .block-title .n{color:var(--cc,var(--red))}
@@ -273,6 +282,7 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
     <a href="#leq">The LEQ</a>
     <a href="#thesis">Thesis Builder</a>
     <a href="#dbq">The DBQ</a>
+    <a href="#grouping">Grouping Docs</a>
     <a href="#hipp">Sourcing (HIPP)</a>
     <a href="#timing">Test-Day Timing</a>
   </div>
@@ -679,6 +689,54 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
     <div class="callout do"><span class="lb">Fast way to remember it</span>Content answers &ldquo;what does the document say?&rdquo; Sourcing answers &ldquo;<strong>why should I trust it, and what is it shaped by?</strong>&rdquo; If your sentence could be written by someone who only read the source line and never read the document body, you are sourcing. If it retells the document, you are not.</div>
 
     <div class="callout dont"><span class="lb">The classic DBQ trap</span><strong>Summarizing the documents in order</strong> (&ldquo;Document 1 says&hellip; Document 2 says&hellip;&rdquo;). That is a book report, not an argument. Instead, group documents by what they prove, cite two or three together in a single sentence to back one claim, and keep your thesis driving every paragraph.</div>
+
+    <div class="subh" id="grouping">How to group the documents by theme and impact</div>
+    <p>The single biggest DBQ upgrade is refusing to go document by document. Before you write, sort the 7 documents into <strong>2 or 3 groups</strong>, where each group is a <strong>theme or type of impact that supports part of your answer</strong>. Each group becomes one body paragraph, and its theme becomes that paragraph's topic sentence.</p>
+
+    <div class="subh" style="border:none;padding:0;margin:16px 0 8px">Do it in five moves</div>
+    <ol class="steps" style="--cc:var(--red)">
+      <li><strong>Answer the prompt first.</strong> Decide your position on the &ldquo;to what extent&rdquo; before you sort, so you know what each group has to prove.</li>
+      <li><strong>Tag every document.</strong> Read each one once and jot its main idea and which side or theme it leans toward.</li>
+      <li><strong>Find the patterns.</strong> Which documents make the same kind of point, or show the same kind of impact? Those cluster together.</li>
+      <li><strong>Name each cluster</strong> with a theme that answers the prompt, not a list of numbers: &ldquo;economic damage from foreign trade,&rdquo; not &ldquo;Documents 2, 3, and 6.&rdquo;</li>
+      <li><strong>Check your coverage.</strong> Aim to place <strong>6 or 7</strong> of the documents into a group. A document can sit in two groups if it does two jobs.</li>
+    </ol>
+
+    <div class="subh" style="border:none;padding:0;margin:18px 0 8px">Ways to group (pick what the prompt invites)</div>
+    <div class="vgrid">
+      <div class="vcard" style="--cc:var(--red)"><div class="task">For a &ldquo;to what extent&rdquo; prompt</div><h4>By side</h4><p>One group of documents that <em>supports</em> the claim, one that <em>limits</em> it. That contrast is what lets you argue the degree.</p></div>
+      <div class="vcard" style="--cc:var(--red)"><div class="task">SPICE-T</div><h4>By type of impact</h4><p>Group by political, economic, social, or cultural effects, whichever the prompt is asking about.</p></div>
+      <div class="vcard" style="--cc:var(--red)"><div class="task">Perspective</div><h4>By who is affected</h4><p>Rulers versus common people, one region versus another, supporters versus opponents.</p></div>
+    </div>
+
+    <div class="ctx">
+      <span class="cx-lb">Worked example: grouping a real DBQ</span>
+      <h5>Prompt: evaluate the extent to which foreign involvement caused the collapse of the Qing.</h5>
+      <p>Sort the 7 documents into two impact groups that each answer the prompt from one side:</p>
+      <div class="gmap">
+        <div class="gcol" style="--cc:var(--red)">
+          <div class="gsub">Group A &middot; one body paragraph</div>
+          <div class="gtheme">Foreign pressure (external cause)</div>
+          <div class="gdocs"><span class="gdoc">Doc 2</span><span class="gdoc">Doc 3</span><span class="gdoc">Doc 6</span></div>
+          <p>Opium and British trade draining silver (2), foreigners ignoring Chinese law (3), and the cartoon of the West carving up China (6) all show outside forces weakening the dynasty.</p>
+        </div>
+        <div class="gcol" style="--cc:var(--gold)">
+          <div class="gsub">Group B &middot; one body paragraph</div>
+          <div class="gtheme">Internal breakdown (domestic cause)</div>
+          <div class="gdocs"><span class="gdoc">Doc 1</span><span class="gdoc">Doc 4</span><span class="gdoc">Doc 5</span><span class="gdoc">Doc 7</span></div>
+          <p>Rebels seizing districts (1), rural poverty and banditry (4), Han nationalist revolutionaries (5), and the abdication citing an internal uprising (7) show the collapse also came from within.</p>
+        </div>
+      </div>
+      <p style="margin-bottom:0">Setting the two groups side by side is what lets you argue the <em>extent</em>: for instance, that foreign pressure mattered mainly because it <strong>amplified</strong> an internal weakness that was already there.</p>
+    </div>
+
+    <div class="worked">
+      <span class="wk-lb">Topic-sentence frame for each group</span>
+      &ldquo;One way [foreign involvement] [weakened the Qing] was through [theme], <strong>as seen in</strong> Documents [X], [Y], and [Z], which show [what they share].&rdquo;
+      <span class="why">Name the theme, then cite the whole group together in one sentence. That is the opposite of walking through documents one at a time.</span>
+    </div>
+
+    <div class="callout dont"><span class="lb">Grouping mistakes that cost points</span><strong>Grouping by number</strong> (&ldquo;my first paragraph covers Docs 1 to 3&rdquo;) instead of by idea; a <strong>group that never connects to the prompt</strong>; and leaving documents <strong>unused</strong>. Every group should name an impact or theme that helps answer the question.</div>
 
     <div class="subh">The DBQ paragraph blueprint</div>
     <p>Here is the shape of the whole essay, mapped the way your class draws it. The key idea: <strong>every document gets the same three beats</strong>: describe it, source it, then explain how it supports your thesis.</p>

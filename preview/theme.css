@@ -1,0 +1,239 @@
+/* ══════════════════════════════════════════════════════════════
+   Site-wide dark mode + the toggle control.
+   Loaded on every page (except Mission Control, which is
+   self-contained). The toggle markup is injected by theme.js.
+
+   Approach: the pages use CSS custom properties consistently, so
+   dark mode is mostly a redefinition of the palette tokens under
+   :root[data-theme="dark"], plus targeted fixes for the handful of
+   surfaces that hard-code light colors or reuse the "ink"/"navy"
+   token as a dark chrome background.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── THE TOGGLE (adapts to any bar via currentColor) ───────────── */
+.theme-toggle{
+  position:relative;display:inline-flex;align-items:center;flex:0 0 auto;
+  width:54px;height:28px;padding:0;vertical-align:middle;
+  border:2px solid currentColor;border-radius:999px;background:transparent;
+  color:inherit;cursor:pointer;opacity:.72;transition:opacity .2s}
+.theme-toggle:hover{opacity:1}
+.theme-toggle:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.theme-toggle .tt-ico{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:11px;line-height:1;pointer-events:none;opacity:.85}
+.theme-toggle .tt-sun{left:5px}
+.theme-toggle .tt-moon{right:5px}
+.theme-toggle .tt-knob{
+  position:absolute;top:50%;left:2px;transform:translateY(-50%);
+  width:20px;height:20px;border-radius:50%;background:currentColor;
+  transition:left .22s cubic-bezier(.3,.8,.3,1);pointer-events:none}
+:root[data-theme="dark"] .theme-toggle .tt-knob{left:28px}
+.tt-barwrap{display:flex;align-items:center;gap:16px}
+.links .theme-toggle{margin-left:8px}
+.theme-toggle.tt-float{position:fixed;top:12px;right:12px;z-index:9999;
+  background:rgba(127,127,127,.15);backdrop-filter:blur(4px)}
+
+/* ══ DARK PALETTE (shared tokens) ══════════════════════════════ */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --cream:#0f1117;--bg:#0f1117;      /* page background */
+  --white:#171a22;                    /* cards / (navy family) page bg */
+  --paper:#1c2029;                    /* panels */
+  --border:#333a49;--border2:#454e62; /* lines */
+  --line:#2f3647;
+  /* --ink is reused as a DARK chrome background (sidebar, troubleshooter,
+     full-course tab, dark timelines...), so it must stay dark. Text that
+     uses --ink is forced light by the readability rule further down. */
+  --ink:#12141b;--mid:#c4cad7;--muted:#9299ac;
+  --sky:#182140;                      /* navy family tint */
+  /* light accent tints -> faint neutral panels */
+  --red-bg:rgba(255,255,255,.06);
+  --blue-bg:rgba(255,255,255,.06);
+  --gold-bg:rgba(255,255,255,.06);
+  --green-bg:rgba(255,255,255,.06);
+}
+/* Baseline: page + text. Specific elements below/inline still win. */
+:root[data-theme="dark"] body{background:var(--cream);color:#e8ecf5}
+
+/* ── CREAM/PAPER FAMILY: re-darken chrome that used --ink as a bg ─ */
+:root[data-theme="dark"] .sidebar{background:#12141b}
+:root[data-theme="dark"] .full-course-tab{background:#171a22}
+:root[data-theme="dark"] .btn-all{background:#2a3040}
+:root[data-theme="dark"] .btn-all:hover{background:#343b4d}
+:root[data-theme="dark"] .pg-nav-btn:hover{background:#2a3040;color:#fff;border-color:#2a3040}
+:root[data-theme="dark"] .hero-btn-outline:hover{background:#2a3040;color:#fff}
+:root[data-theme="dark"] .wm-dev-btn.active{background:#2a3040;border-color:#2a3040;color:#fff}
+
+/* top bar */
+:root[data-theme="dark"] .top-bar{box-shadow:0 1px 0 rgba(255,255,255,.06)}
+
+/* unit-hub hero: photo/gradient banners get a dark scrim so light text reads */
+:root[data-theme="dark"] .hero{position:relative}
+:root[data-theme="dark"] .hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(10,12,18,.74),rgba(10,12,18,.9))}
+:root[data-theme="dark"] .hero>*{position:relative;z-index:1}
+:root[data-theme="dark"] .hero-eyebrow{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25)}
+:root[data-theme="dark"] .hero-btn-outline{background:rgba(255,255,255,.08)!important;color:#e8ecf5}
+
+/* QR code always needs a light quiet-zone */
+:root[data-theme="dark"] .wm-qr{background:#fff}
+
+/* ── NAVY FAMILY (interrogate games): hard-coded light surfaces ── */
+:root[data-theme="dark"] .how .card,
+:root[data-theme="dark"] .notes,
+:root[data-theme="dark"] .ovcard,
+:root[data-theme="dark"] .mc-opt,
+:root[data-theme="dark"] .cell{background:#1b1f2a;border-color:#39415a;color:#e8ecf5}
+:root[data-theme="dark"] .cell:hover:not(.open):not(.flag){background:#232a3d}
+:root[data-theme="dark"] .cell.open{background:#12151d;border-color:#2b3244}
+:root[data-theme="dark"] .cell.open.zero{background:#0e1119}
+:root[data-theme="dark"] .cell.factwrong{background:#16213f;border-color:var(--blue);color:#9db8ff}
+:root[data-theme="dark"] .cell.flag{background:var(--lime);color:var(--navy)}
+:root[data-theme="dark"] .cell.trip{background:var(--coral);color:#fff}
+:root[data-theme="dark"] .li{background:rgba(70,190,130,.12)}
+:root[data-theme="dark"] .li.myth{background:rgba(255,104,76,.12)}
+:root[data-theme="dark"] .li.review{background:rgba(201,138,0,.16)}
+:root[data-theme="dark"] .li .fix{color:#e8ecf5}
+:root[data-theme="dark"] .ovbtns .fact{background:rgba(70,190,130,.16)}
+:root[data-theme="dark"] .ovbtns .myth{background:rgba(255,104,76,.16)}
+:root[data-theme="dark"] .ovresult.good{background:rgba(70,190,130,.14)}
+:root[data-theme="dark"] .ovresult.bad{background:rgba(255,104,76,.14)}
+:root[data-theme="dark"] .mc-opt:hover:not(:disabled){background:#232a3d}
+:root[data-theme="dark"] .mc-opt.right{background:rgba(70,190,130,.16);border-color:var(--green);color:#7fe0a8}
+:root[data-theme="dark"] .mc-opt.wrongpick{background:rgba(255,104,76,.16);border-color:var(--coral);color:#ff9d88}
+
+/* ── READABILITY: keep all text white / gray in dark mode ───────
+   Several pages use dark accent colors (navy-blue, gold, teal,
+   crimson) for eyebrows and labels — unreadable on a dark ground.
+   Force text light everywhere (this high-specificity rule beats the
+   pages' single-class color rules), then restore dark text only where
+   it sits on a light lime chip or button. Semantic answer colors set
+   above (lighter green/red) are more specific and survive. */
+:root[data-theme="dark"] [class]{color:#e7ebf5}
+/* also catch bare inline/text elements (no class) colored via descendant
+   selectors, e.g. `.us-body strong{color:var(--ink)}` — kept below the
+   lime-chip exceptions in specificity so those still win */
+:root[data-theme="dark"] :is(h1,h2,h3,h4,h5,h6,p,li,span,strong,b,em,i,a,td,th,dt,dd,cite,small,label,blockquote,figcaption,button){color:#e7ebf5}
+:root[data-theme="dark"] .sub,
+:root[data-theme="dark"] .top-bar-sub,
+:root[data-theme="dark"] .muted{color:#aab2c8}
+/* dark text stays on light surfaces. `.btn` is a light button almost
+   everywhere it's used — lime on the interrogate + hex-web games, white
+   on the hex-web ghost/delete controls — so it keeps dark text. The one
+   exception is the unit-hub MCQ "Back to Topics" / "Reset" pair, whose
+   button sits on the dark cream/accent ground; those are relit by id
+   just below. */
+:root[data-theme="dark"] .btn,
+:root[data-theme="dark"] .cell.flag,
+:root[data-theme="dark"] .banner.win{color:#14181f}
+/* the two unit-hub MCQ .btn buttons (dark accent / cream ground) need
+   light text instead — their ids beat the .btn rule above. */
+:root[data-theme="dark"] #mcq-back-btn,
+:root[data-theme="dark"] #mcq-reset-btn{color:#e7ebf5}
+/* modal close links carry an inline dark-coral color */
+:root[data-theme="dark"] #wmDone,
+:root[data-theme="dark"] #wmLapClose{color:#ff8f8f!important}
+/* In Mission Control mode, mission-theme.css forces the top-bar tag to
+   the blue accent (--red) with !important — unreadable on the dark
+   ground. Relight it in dark+MC with a rule specific enough to win. */
+html[data-theme="dark"][data-mc="on"] .top-bar-tag{color:#8aa9ff!important}
+/* resources "gold" link chip sets color:var(--gold) at (0,4,0) — high
+   enough to slip past the global rule — so it stays a dark accent on
+   the dark ground (esp. in MC mode where --gold is a coral). Relight
+   the chip label with an equally specific rule. */
+:root[data-theme="dark"] .g-card .res-links .rc.gm{color:#e0a86a}
+/* hero-title emphasis is a bare <em>, so [class] misses it — keep it light */
+:root[data-theme="dark"] .hero h1 em,
+:root[data-theme="dark"] .pg-hero h2 em{color:#fff}
+
+/* ── UNIT-HUB GAMES: dark accent labels that beat the global rule ─
+   A few kicker labels / headings are colored with dark accents via
+   an #pg-games id-scope or !important, so the readability rule can't
+   reach them — they'd sit dim on the dark ground. Relight them with
+   matching-or-higher specificity. */
+:root[data-theme="dark"] #pg-games .igame-txt h3{color:#e7ebf5}
+:root[data-theme="dark"] #pg-games .igame-tag{color:#9db4ff}
+:root[data-theme="dark"] .back-tag{color:#7fe0a8!important}
+/* the games' "← Back to Games" / "End Game" text links carry an INLINE
+   color:var(--red) (a dark per-unit accent) on a transparent ground —
+   inline styling needs !important to relight. Scope to background:none
+   so it never touches the FILLED accent buttons (e.g. "Start Game",
+   which is white-on-var(--red) and already reads fine). */
+:root[data-theme="dark"] #pg-games button[style*="background:none"][style*="color:var(--red)"]{color:#aab2c8!important}
+/* writing-drills metadata chips are white on the unit's --gold accent,
+   which lands just under AA on the warmer units — deepen the chip fill
+   in dark so the white text clears the bar on every unit. */
+:root[data-theme="dark"] .wd-placeholder,
+:root[data-theme="dark"] .wd-ex-badge,
+:root[data-theme="dark"] .wd-rrow-pts{background:#7a3d1e}
+
+/* ── UNIT-HUB GAMES & TOOLS: hard-coded light backgrounds ───────
+   The mini-games and source tools (shared across units 2–9) use
+   light hex fills for their correct/wrong/selected states, panels,
+   and modals — those would be white boxes with (forced-light) text.
+   Darken them centrally. */
+/* correct / matched / earned / placed / model-answer (were light green) */
+:root[data-theme="dark"] .vs-mc-option.vs-mc-correct,
+:root[data-theme="dark"] .vs-hipp-model,
+:root[data-theme="dark"] .src-model,
+:root[data-theme="dark"] .warmup-model,
+:root[data-theme="dark"] .jeop-modal-answer,
+:root[data-theme="dark"] .match-card.matched,
+:root[data-theme="dark"] .sortit-btn.earns,
+:root[data-theme="dark"] .sq-choice.sq-correct,
+:root[data-theme="dark"] .tl-placed,
+:root[data-theme="dark"] .rg-v-btn.earns:hover,
+:root[data-theme="dark"] .rg-v-btn.earns.picked,
+:root[data-theme="dark"] .rg-card.correct,
+:root[data-theme="dark"] .drill-sample-pass{background:rgba(70,190,130,.16);border-color:#3fbf7a;color:#e7ebf5}
+/* wrong / nope / failed (were light red / pink) */
+:root[data-theme="dark"] .vs-mc-option.vs-mc-wrong,
+:root[data-theme="dark"] .sortit-btn.nope,
+:root[data-theme="dark"] .sq-choice.sq-wrong,
+:root[data-theme="dark"] .rg-v-btn.no:hover,
+:root[data-theme="dark"] .rg-v-btn.no.picked,
+:root[data-theme="dark"] .rg-card.wrong,
+:root[data-theme="dark"] .drill-sample-fail{background:rgba(255,90,90,.15);border-color:#ff8f8f;color:#e7ebf5}
+:root[data-theme="dark"] .match-card.selected{background:rgba(255,255,255,.09);color:#e7ebf5}
+:root[data-theme="dark"] .tl-wrong-anim{background:rgba(255,90,90,.16)!important;border-color:#ff8f8f!important}
+/* light parchment / cream panels + game modals */
+:root[data-theme="dark"] .src-frame{background:#1c2029;border-color:#454e62}
+:root[data-theme="dark"] .jeop-modal-inner{background:#171a22;border-color:#333a49}
+:root[data-theme="dark"] .src-lens-btn:hover,
+:root[data-theme="dark"] .src-lens-btn.active{background:rgba(255,90,90,.15);border-color:#ff8f8f;color:#ff9d88}
+/* inline text highlight + light CTA pill (keep dark text on its light fill) */
+:root[data-theme="dark"] .pu-highlight{background:rgba(212,184,74,.3);color:#f4eccf}
+:root[data-theme="dark"] .cta-btn{color:#14181f}
+/* JS-injected inline light backgrounds (Perfect-timeline box, name-entry modal, its input) */
+:root[data-theme="dark"] [style*="#e8f5e9"]{background:rgba(70,190,130,.16)!important;border-color:#3fbf7a!important}
+:root[data-theme="dark"] [style*="#f9f6ef"],
+:root[data-theme="dark"] [style*="#F4F1E8"]{background:#171a22!important;border-color:#333a49!important}
+:root[data-theme="dark"] input[style*="background:#fff"]{background:#1b1f2a!important;color:#e7ebf5!important;border-color:#454e62!important}
+
+/* ── HEX WEB (hexagonal-thinking game, unitN-hexweb.html) ───────
+   Shared across every unit's Hex Web. Its panels, hex tiles, and
+   modal use hard-coded light fills; darken them centrally. The SVG
+   hex fills come from CSS classes (not attributes) so tokens apply. */
+:root[data-theme="dark"] .leg,
+:root[data-theme="dark"] .bank,
+:root[data-theme="dark"] .log{background:#171a22;border-color:#39415a}
+:root[data-theme="dark"] .leg{border-color:#39415a}
+:root[data-theme="dark"] .clog{background:rgba(255,255,255,.05)}
+:root[data-theme="dark"] .clog .pair{color:#e7ebf5}
+/* board hexes */
+:root[data-theme="dark"] .hexpoly.empty{fill:#0e1017;stroke:#4a5470}
+:root[data-theme="dark"] .hexpoly.hot{stroke:var(--blue)}
+:root[data-theme="dark"] .hexpoly.occ{fill:#232c4d;stroke:#8a97c9}
+/* junction buttons */
+:root[data-theme="dark"] .jbtn{background:#1b1f2a;border-color:#454e62;box-shadow:1px 1px 0 #000}
+:root[data-theme="dark"] .jbtn.empty{color:#9299ac}
+/* idea-bank tiles: --sky already darkens; fix the lime "selected" + hover */
+:root[data-theme="dark"] .hexchip.sel{color:#14181f}
+:root[data-theme="dark"] .hexchip:hover{background:#232a3d}
+/* connection + review modals */
+:root[data-theme="dark"] .tyopt{background:#1b1f2a;border-color:#39415a;color:#e8ecf5}
+:root[data-theme="dark"] .tyopt:hover,
+:root[data-theme="dark"] .tyopt.on{background:#232a3d}
+:root[data-theme="dark"] .note-wrap textarea{background:#1b1f2a;color:#e7ebf5;border-color:#454e62}
+:root[data-theme="dark"] .rvlist li{background:rgba(255,255,255,.05)}

@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 2 Hex Web — Hexagonal Thinking</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#111a3f;--blue:#2d5deb;--sky:#e8f0ff;--lime:#d8f13a;--coral:#ff684c;
+  --white:#fbfcff;--muted:#485586;--line:#c9d5f5;--green:#1a8a4a;
+  /* connection-type colors */
+  --t-cont:#1a8a4a;--t-chg:#2d5deb;--t-ce:#ff684c;--t-cmp:#7a2ee0;--t-grp:#0f8a9c
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-size:18px}
+body{margin:0;background:var(--white);color:var(--navy);font:1rem/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+a{color:inherit}
+
+.bar{height:66px;padding:0 max(20px,3vw);background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;position:sticky;top:0;z-index:60;box-shadow:0 2px 0 var(--blue)}
+.brand{font:900 16.8px 'Lato',sans-serif;letter-spacing:-.04em;text-decoration:none;color:#fff;white-space:nowrap}
+.brand b{color:var(--lime)}
+.links a{color:#fff;text-decoration:none;font-size:10.56px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 2px;border-bottom:2px solid transparent}
+.links a:hover{color:var(--lime);border-bottom-color:var(--lime)}
+
+.main{max-width:1180px;margin:auto;padding:26px max(20px,3vw) 70px}
+.eyebrow{font-size:.64rem;color:var(--blue);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-height:.98;font-size:2.1rem;margin:6px 0 8px}
+.sub{margin:0;color:var(--muted);max-width:760px;font-size:.82rem}
+
+.how{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:22px 0 4px}
+.how .card{border:2px solid var(--navy);background:#fff;padding:13px 14px}
+.how .card:nth-child(2){background:var(--sky)}
+.how b{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+.how span{display:block;font-size:.65rem;color:var(--muted);margin-top:5px;line-height:1.45}
+.how .k{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:.58rem;padding:2px 6px;letter-spacing:.04em;margin-right:4px}
+
+/* legend of connection types */
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 4px}
+.leg{display:flex;align-items:flex-start;gap:8px;border:2px solid var(--navy);background:#fff;padding:8px 11px;flex:1 1 200px;min-width:200px}
+.leg .dot{width:15px;height:15px;flex-shrink:0;margin-top:2px;border:2px solid var(--navy)}
+.leg b{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.03em}
+.leg span{display:block;font-size:.6rem;color:var(--muted);line-height:1.4;margin-top:2px}
+
+.play{display:grid;grid-template-columns:230px minmax(0,1fr) 300px;gap:18px;margin-top:18px;align-items:start}
+
+/* term bank */
+.bank{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column;max-height:640px}
+.bank h3{margin:0;font:900 .74rem 'Lato',sans-serif;background:var(--navy);color:#fff;padding:11px 14px;text-transform:uppercase;letter-spacing:.04em}
+.bank .binner{padding:12px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start}
+.hexchip{position:relative;width:100px;height:88px;flex:0 0 auto;border:none;background:var(--sky);color:var(--navy);font:700 .58rem/1.15 'Lato',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 15px;clip-path:polygon(0% 50%,25% 0%,75% 0%,100% 50%,75% 100%,25% 100%);transition:transform .1s,background .12s}
+.hexchip:hover{background:#d6e4ff;transform:translateY(-2px)}
+.hexchip.sel{background:var(--lime)}
+.hexchip.used{opacity:.32;pointer-events:none}
+.bank-foot{border-top:2px solid var(--line);padding:9px 12px;font-size:.58rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+
+/* board */
+.stage{position:relative;display:flex;flex-direction:column;gap:10px}
+.hud{display:flex;flex-wrap:wrap;align-items:center;gap:9px 14px;background:var(--navy);color:#fff;padding:11px 15px;border:2px solid var(--navy)}
+.stat{display:flex;align-items:baseline;gap:6px}
+.stat .n{font:900 1.35rem 'Lato',sans-serif;color:var(--lime);min-width:1.2ch;text-align:right}
+.stat .l{font-size:.52rem;text-transform:uppercase;letter-spacing:.07em;color:#aeb9e6;line-height:1.1}
+.stat.score{padding-right:14px;margin-right:2px;border-right:2px solid #2c3766}
+.stat.score .n{font-size:2rem;line-height:.9}
+.stat.score .l{font-size:.56rem;font-weight:700;color:var(--lime)}
+.ptoast{position:absolute;top:48px;right:14px;z-index:8;background:var(--lime);color:var(--navy);font:900 .82rem 'Lato',sans-serif;padding:4px 11px;border:2px solid var(--navy);pointer-events:none;animation:floatup .95s ease forwards}
+@keyframes floatup{0%{opacity:0;transform:translateY(8px)}22%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-16px)}}
+.hud .spacer{flex:1}
+.goal{font-size:.56rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:6px 10px;border:2px solid var(--lime);color:var(--lime)}
+.goal.done{background:var(--lime);color:var(--navy)}
+.btn{display:inline-block;background:var(--lime);color:var(--navy);text-decoration:none;padding:9px 13px;text-transform:uppercase;font-size:.6rem;font-weight:700;letter-spacing:.07em;border:2px solid var(--navy);cursor:pointer;transition:transform .12s,box-shadow .12s;font-family:inherit}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+.btn.ghost{background:#fff}
+.btn.ghost.arm{background:var(--coral);color:#fff;border-color:var(--navy)}
+
+.boardwrap{border:2px solid var(--navy);background:var(--sky);padding:10px;overflow:auto}
+.board{position:relative;margin:auto}
+.board svg{position:absolute;inset:0;overflow:visible}
+.hexpoly{cursor:pointer;stroke-width:2}
+.hexpoly.empty{fill:#ffffff;stroke:var(--line);stroke-dasharray:5 4}
+.hexpoly.hot{stroke:var(--blue);stroke-width:3}
+.hexpoly.occ{fill:var(--sky);stroke:var(--navy);stroke-dasharray:none}
+.weld{stroke-width:9;stroke-linecap:round}
+.label{position:absolute;pointer-events:none;display:flex;align-items:center;justify-content:center;text-align:center;font:700 .6rem/1.12 'Lato',sans-serif;color:var(--navy);padding:0 16px}
+.jbtn{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;border:2px solid var(--navy);background:#fff;color:var(--navy);font:900 .52rem 'Lato',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:5;padding:0;transition:transform .1s;box-shadow:1px 1px 0 var(--navy)}
+.jbtn:hover{transform:translate(-50%,-50%) scale(1.15)}
+.jbtn.empty{color:var(--muted);font-size:.8rem;border-style:dashed;background:#fff}
+.hint{font-size:.62rem;color:var(--muted);text-align:center;font-weight:700}
+
+/* connections log */
+.log{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column;max-height:640px}
+.log h3{margin:0;font:900 .74rem 'Lato',sans-serif;background:var(--navy);color:#fff;padding:11px 14px;text-transform:uppercase;letter-spacing:.04em}
+.log .feed{padding:11px 12px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:8px}
+.log .empty{color:var(--muted);font-size:.68rem;line-height:1.5}
+.clog{border-left:4px solid var(--muted);background:#f4f7ff;padding:8px 10px;font-size:.68rem;line-height:1.35;cursor:pointer}
+.clog .pair{font-weight:700;color:var(--navy)}
+.clog .ty{display:block;font-size:.52rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:3px 0}
+.clog .nt{display:block;color:var(--muted);font-size:.64rem;margin-top:2px}
+.log-foot{border-top:2px solid var(--line);padding:9px 12px;display:flex;gap:7px}
+.log-foot .btn{flex:1;text-align:center}
+
+/* modal */
+.ov{position:fixed;inset:0;z-index:200;background:rgba(17,26,63,.72);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.ov.show{display:flex}
+.ovcard{background:var(--white);border:2px solid var(--navy);border-top:6px solid var(--blue);box-shadow:8px 8px 0 var(--navy);max-width:560px;width:100%;padding:24px 26px 20px;margin:auto}
+.ov .eb{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.ov .pairq{font:900 1.12rem/1.3 'Lato',sans-serif;letter-spacing:-.02em;margin-bottom:4px}
+.ov .pairq .amp{color:var(--muted);font-weight:700;margin:0 6px}
+.ov .askq{font-size:.7rem;color:var(--muted);margin-bottom:14px}
+.tychoices{display:flex;flex-direction:column;gap:8px}
+.tyopt{font:inherit;text-align:left;padding:11px 13px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;display:flex;gap:11px;align-items:flex-start;transition:background .1s}
+.tyopt:hover{background:var(--sky)}
+.tyopt .sw{width:16px;height:16px;flex-shrink:0;margin-top:2px;border:2px solid var(--navy)}
+.tyopt b{font-size:.76rem}
+.tyopt span{display:block;font-size:.62rem;color:var(--muted);line-height:1.4;margin-top:2px}
+.tyopt.on{background:var(--sky);box-shadow:inset 0 0 0 2px var(--blue)}
+.note-wrap{margin-top:14px}
+.note-wrap label{display:block;font-size:.58rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.note-wrap textarea{width:100%;min-height:66px;border:2px solid var(--line);padding:9px 11px;font:inherit;font-size:.76rem;resize:vertical;color:var(--navy);background:#fff}
+.note-wrap textarea:focus{outline:none;border-color:var(--blue)}
+.ovbtns{display:flex;gap:9px;margin-top:16px;flex-wrap:wrap}
+.ovbtns .spacer{flex:1}
+.btn.del{background:#fff;border-color:var(--coral);color:var(--coral)}
+.btn.del:hover{box-shadow:4px 4px 0 var(--coral)}
+
+/* review modal */
+.rvcard{max-width:640px}
+.rvlist{margin:10px 0 0;padding:0;list-style:none;max-height:52vh;overflow-y:auto}
+.rvlist li{border-left:4px solid var(--muted);padding:8px 12px;margin-bottom:8px;background:#f4f7ff;font-size:.74rem;line-height:1.4}
+.rvlist .pair{font-weight:700}
+.rvlist .ty{font-size:.54rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.rvlist .nt{color:var(--muted);font-size:.68rem;display:block;margin-top:3px}
+.rvempty{color:var(--muted);font-size:.78rem}
+.rv-score{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:2px 0 4px;padding:10px 12px;background:var(--navy);color:#fff;border:2px solid var(--navy)}
+.rv-score .pts{font:900 1.5rem 'Lato',sans-serif;color:var(--lime)}
+.rv-score .bd{font-size:.62rem;color:#c3cdf0;line-height:1.5}
+.rv-score .bd b{color:#fff}
+
+.foot{margin-top:40px;border-top:2px solid var(--navy);padding-top:16px;font-size:.64rem;color:var(--muted);line-height:1.7}
+
+@media(max-width:1000px){ .play{grid-template-columns:1fr} .bank{max-height:none} .bank .binner{max-height:320px} .log{max-height:none} }
+@media(max-width:700px){ .how{grid-template-columns:1fr 1fr} .legend .leg{flex:1 1 100%} }
+@media(max-width:520px){ .how{grid-template-columns:1fr} }
+@media print{ .bar,.how,.legend,.play,.foot,.eyebrow,.sub{display:none!important} }
+</style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="bedtime.js"></script>
+<link rel="stylesheet" href="preview-palette.css"><script defer src="preview-logo.js"></script>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="index.html">AP WORLD // <b>HEX WEB</b></a>
+  <div class="links"><a href="unit2.html">← Unit 2 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 2 · Networks of Exchange · c. 1200 – c. 1450</div>
+  <h1>Hex Web — Hexagonal Thinking</h1>
+  <p class="sub">Every Unit&nbsp;2 idea is a hexagon. Start from the center and <b>branch outward</b> — each hexagon can touch up to six others, so your web can grow in any direction. Wherever two hexagons share an edge, a <b>connection point</b> appears; click it and say <b>how</b> the two ideas are linked. You <b>earn points</b> for every connection you explain — more for writing your reasoning, using different connection types, and building <b>hub</b> ideas that branch three or more ways. There's no single right map: the thinking is in the connections you can defend.</p>
+
+  <div class="how">
+    <div class="card"><b>Pick an idea</b><span><span class="k">CLICK</span>a hexagon in the Idea Bank, then click an open slot on the board to place it.</span></div>
+    <div class="card"><b>Branch outward</b><span>Place related ideas next to ones already down — branch in any direction. A <b>+</b> appears on every shared edge.</span></div>
+    <div class="card"><b>Explain the link</b><span>Click a <b>+</b>. Choose one of the 5 connection types and write a sentence defending it to <b>score points</b>.</span></div>
+    <div class="card"><b>Rack up points</b><span><b>+10</b> a link, <b>+5</b> with reasoning, <b>+15</b> each new type, <b>+20</b> per hub (3+ links). Hit <b>Review Web</b> to copy your map.</span></div>
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="play">
+    <div class="bank">
+      <h3>Idea Bank</h3>
+      <div class="binner" id="bank"></div>
+      <div class="bank-foot" id="bankFoot">Tap a hexagon, then tap a slot</div>
+    </div>
+
+    <div class="stage">
+      <div class="hud">
+        <div class="stat score" title="+10 per link · +5 with a reason · +15 per new type · +20 per hub (3+ links)"><span class="n" id="score">0</span><span class="l">Points</span></div>
+        <div class="stat"><span class="n" id="conns">0</span><span class="l">Links<br>explained</span></div>
+        <div class="stat"><span class="n" id="types">0</span><span class="l">Types<br>used</span></div>
+        <div class="stat"><span class="n" id="placed">0</span><span class="l">Hexes<br>placed</span></div>
+        <div class="spacer"></div>
+        <span class="goal" id="goal">Goal: 6 links · 3 types</span>
+        <button class="btn ghost" id="resetBtn">↻ Reset</button>
+      </div>
+      <div class="boardwrap"><div class="board" id="board"></div></div>
+      <div class="hint" id="hint">Select an idea from the bank, then click a glowing slot to place it.</div>
+    </div>
+
+    <div class="log">
+      <h3>Connections</h3>
+      <div class="feed" id="feed">
+        <div class="empty">Each link you explain shows up here — click one to edit it. Colors match the connection type.</div>
+      </div>
+      <div class="log-foot">
+        <button class="btn" id="reviewBtn">Review Web</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">Hexagonal thinking is an open-ended review routine — there is no single correct arrangement. Content from AP World History: Modern, Unit 2 (c. 1200–c. 1450). A study tool, not an official College Board product.</div>
+</div>
+
+<!-- connection modal -->
+<div class="ov" id="ov">
+  <div class="ovcard">
+    <div class="eb">Connection point</div>
+    <div class="pairq" id="ov-pair"></div>
+    <div class="askq">How are these two ideas connected? Pick the best type, then defend it in a sentence.</div>
+    <div class="tychoices" id="ov-types"></div>
+    <div class="note-wrap">
+      <label for="ov-note">Your reasoning</label>
+      <textarea id="ov-note" placeholder="e.g. The camel saddle made trans-Saharan caravans possible — one directly enabled the other…"></textarea>
+    </div>
+    <div class="ovbtns">
+      <button class="btn del" id="ov-del">Delete link</button>
+      <div class="spacer"></div>
+      <button class="btn ghost" id="ov-cancel">Cancel</button>
+      <button class="btn" id="ov-save">Save link</button>
+    </div>
+  </div>
+</div>
+
+<!-- review modal -->
+<div class="ov" id="rv">
+  <div class="ovcard rvcard">
+    <div class="eb">Your Unit 2 Hex Web</div>
+    <div class="pairq" id="rv-head">Connections</div>
+    <div class="rv-score" id="rv-score"></div>
+    <ul class="rvlist" id="rv-list"></ul>
+    <div class="ovbtns">
+      <button class="btn del" id="rv-close" style="border-color:var(--navy);color:var(--navy)">Close</button>
+      <div class="spacer"></div>
+      <button class="btn ghost" id="rv-print">Print</button>
+      <button class="btn" id="rv-copy">Copy to clipboard</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── CONNECTION TYPES (exact framing from the assignment) ── */
+const TYPES=[
+  {id:'cont', name:'Continuity',  short:'CONT', color:'var(--t-cont)',
+   desc:'The two items show something that stayed the SAME across a historical period.'},
+  {id:'chg',  name:'Change',      short:'CHG',  color:'var(--t-chg)',
+   desc:'The two items show something that CHANGED over a historical period.'},
+  {id:'ce',   name:'Cause & Effect', short:'C→E', color:'var(--t-ce)',
+   desc:'One item helped CAUSE or led to the other.'},
+  {id:'cmp',  name:'Comparison / Contrast', short:'CMP', color:'var(--t-cmp)',
+   desc:'The two are ALIKE (comparison) or DIFFERENT (contrast) — concepts, groups, or figures.'},
+  {id:'grp',  name:'Categorical grouping', short:'GRP', color:'var(--t-grp)',
+   desc:'Both belong to the same CATEGORY or theme (e.g. two technologies that aided trade).'}
+];
+const TYPE=Object.fromEntries(TYPES.map(t=>[t.id,t]));
+
+/* ── UNIT 2 IDEAS (swap this array to build the game for another unit) ── */
+const TERMS=[
+  {id:'silk',  label:'Silk Roads',          tip:'Overland routes linking China to Europe.'},
+  {id:'carav', label:'Caravanserai',        tip:'Roadside inns for Silk Road merchants.'},
+  {id:'cash',  label:'Flying cash',         tip:'Chinese paper credit / early banking.'},
+  {id:'champa',label:'Champa rice',         tip:'Fast-ripening rice; spread to China.'},
+  {id:'banana',label:'Banana spread',       tip:'Bananas boosted farming in Sub-Saharan Africa.'},
+  {id:'saddle',label:'Camel saddle',        tip:'Enabled large trans-Saharan caravans.'},
+  {id:'monsoon',label:'Monsoon winds',      tip:'Seasonal winds; round-trip Indian Ocean voyages.'},
+  {id:'lateen',label:'Lateen sail',         tip:'Triangular sail; sail against the wind.'},
+  {id:'astro', label:'Astrolabe',           tip:'Found latitude from the stars.'},
+  {id:'junk',  label:'Chinese junk',        tip:'Large ship for long-distance sea trade.'},
+  {id:'sahara',label:'Trans-Saharan trade', tip:'Gold-and-salt trade across the Sahara.'},
+  {id:'mali',  label:'Mali Empire',         tip:'West African empire built on gold trade.'},
+  {id:'musa',  label:'Mansa Musa',          tip:'Mali ruler; 1324 hajj showed vast gold.'},
+  {id:'timb',  label:'Timbuktu',            tip:'Hub of trade and Islamic learning.'},
+  {id:'swahili',label:'Swahili coast',      tip:'East African Indian-Ocean city-states.'},
+  {id:'genghis',label:'Genghis Khan',       tip:'United the Mongols; founded the empire.'},
+  {id:'pax',   label:'Pax Mongolica',       tip:'Mongol peace; secured Eurasian trade.'},
+  {id:'yuan',  label:'Yuan Dynasty',        tip:'Mongol dynasty ruling China (Kublai Khan).'},
+  {id:'plague',label:'Black Death',         tip:'Plague spread along trade/Mongol routes.'},
+  {id:'gunpow',label:'Gunpowder & paper',   tip:'Diffused from China westward.'},
+  {id:'zheng', label:'Zheng He',            tip:'Ming admiral; Indian Ocean treasure fleets.'},
+  {id:'battuta',label:'Ibn Battuta',        tip:'Muslim scholar-traveler of the Islamic world.'},
+  {id:'polo',  label:'Marco Polo',          tip:'Venetian traveler; sparked interest in Asia.'},
+  {id:'islam', label:'Spread of Islam',     tip:'Dar al-Islam expanded along trade routes.'},
+  {id:'grandcanal',label:'Grand Canal',     tip:'Canal linking northern and southern China for trade.'},
+  {id:'song',  label:'Song China',          tip:'Song commercial revolution and export economy.'},
+  {id:'neoconf',label:'Neo-Confucianism',   tip:'Revived Confucian philosophy; spread in East Asia.'},
+  {id:'footbind',label:'Foot binding',      tip:'Elite Chinese practice restricting womens mobility.'},
+  {id:'wisdom',label:'House of Wisdom',      tip:'Baghdad hub of learning and translation.'},
+  {id:'abbasid',label:'Abbasid Caliphate',  tip:'Islamic caliphate that fragmented in this era.'},
+  {id:'sufism',label:'Sufism',              tip:'Mystical Islam that spread the faith along trade routes.'},
+  {id:'delhi', label:'Delhi Sultanate',     tip:'Muslim-ruled state in northern India.'},
+  {id:'majapahit',label:'Majapahit',        tip:'Java-based maritime empire on Indian Ocean trade.'},
+  {id:'zimbabwe',label:'Great Zimbabwe',    tip:'Southern African city built on gold and cattle wealth.'},
+  {id:'hausa', label:'Hausa Kingdoms',      tip:'West African city-states in trans-Saharan trade.'},
+  {id:'horde', label:'Golden Horde',        tip:'Mongol khanate that ruled Russia.'},
+  {id:'yam',   label:'Yam system',          tip:'Mongol relay stations for couriers and trade.'},
+  {id:'bill',  label:'Bill of exchange',    tip:'Credit note enabling long-distance trade.'},
+  {id:'compass',label:'Magnetic compass',   tip:'Chinese invention aiding sea navigation.'},
+  {id:'griots',label:'Griots',              tip:'West African oral historians and storytellers.'}
+];
+const TERM=Object.fromEntries(TERMS.map(t=>[t.id,t]));
+
+/* ── HEX GEOMETRY (flat-top, axial coords) ── */
+const R=46, RADIUS=3, PAD=16;
+const SQ3=Math.sqrt(3), HEXH=SQ3*R;
+const NB=[[1,0],[1,-1],[0,-1],[-1,0],[-1,1],[0,1]];
+
+function slotKey(q,r){return q+','+r;}
+function connKey(a,b){return [a,b].sort().join('|');}
+
+// build slots within hexagonal radius
+const slots=[];
+for(let q=-RADIUS;q<=RADIUS;q++)
+  for(let r=-RADIUS;r<=RADIUS;r++)
+    if(Math.abs(q+r)<=RADIUS) slots.push({q,r});
+
+// raw pixel centers
+slots.forEach(s=>{ s.rx=1.5*R*s.q; s.ry=SQ3*R*(s.r+s.q/2); });
+const minX=Math.min(...slots.map(s=>s.rx)), maxX=Math.max(...slots.map(s=>s.rx));
+const minY=Math.min(...slots.map(s=>s.ry)), maxY=Math.max(...slots.map(s=>s.ry));
+slots.forEach(s=>{ s.cx=(s.rx-minX)+R+PAD; s.cy=(s.ry-minY)+HEXH/2+PAD; });
+const boardW=(maxX-minX)+2*R+2*PAD, boardH=(maxY-minY)+HEXH+2*PAD;
+const slotAt=Object.fromEntries(slots.map(s=>[slotKey(s.q,s.r),s]));
+
+function hexVertices(cx,cy){const v=[];for(let i=0;i<6;i++){const a=Math.PI/180*(60*i);v.push([cx+R*Math.cos(a),cy+R*Math.sin(a)]);}return v;}
+function sharedEdge(A,B){ // two vertices of A nearest to B's center = shared edge
+  const vs=hexVertices(A.cx,A.cy).map(p=>({p,d:(p[0]-B.cx)**2+(p[1]-B.cy)**2}));
+  vs.sort((x,y)=>x.d-y.d); return [vs[0].p,vs[1].p];
+}
+
+/* ── STATE ── */
+let placed={};       // slotKey -> termId
+let conns={};        // connKey -> {type, note}
+let selTerm=null;    // termId selected in bank
+let editing=null;    // {key,a,b} currently in modal
+let curType=null;    // type chosen in modal
+
+const boardEl=document.getElementById('board');
+const bankEl=document.getElementById('bank');
+const feedEl=document.getElementById('feed');
+const hintEl=document.getElementById('hint');
+const SVGNS='http://www.w3.org/2000/svg';
+
+/* ── LEGEND & BANK ── */
+function buildLegend(){
+  document.getElementById('legend').innerHTML=TYPES.map(t=>
+    `<div class="leg"><span class="dot" style="background:${t.color}"></span><div><b>${t.name}</b><span>${t.desc}</span></div></div>`
+  ).join('');
+}
+function buildBank(){
+  bankEl.innerHTML='';
+  TERMS.forEach(t=>{
+    const b=document.createElement('button');
+    b.className='hexchip'; b.textContent=t.label; b.title=t.tip; b.dataset.id=t.id;
+    b.addEventListener('click',()=>selectTerm(t.id));
+    bankEl.appendChild(b);
+  });
+}
+function usedTermIds(){return new Set(Object.values(placed));}
+function refreshBank(){
+  const used=usedTermIds();
+  [...bankEl.children].forEach(b=>{
+    b.classList.toggle('used',used.has(b.dataset.id));
+    b.classList.toggle('sel',b.dataset.id===selTerm);
+  });
+}
+function selectTerm(id){
+  selTerm=(selTerm===id)?null:id;
+  refreshBank(); renderBoard();
+  hintEl.textContent = selTerm ? `“${TERM[selTerm].label}” selected — click a glowing slot to place it.`
+                               : 'Select an idea from the bank, then click a glowing slot to place it.';
+}
+
+/* ── BOARD RENDER ── */
+// Frontier = where a new hex may go: the empty neighbours of what's placed,
+// so the web grows and branches outward. Empty board → just the centre.
+function frontierSet(){
+  const f=new Set();
+  if(!Object.keys(placed).length){ f.add('0,0'); return f; }
+  Object.keys(placed).forEach(k=>{
+    const [q,r]=k.split(',').map(Number);
+    NB.forEach(([dq,dr])=>{ const nk=slotKey(q+dq,r+dr); if(slotAt[nk]&&!placed[nk]) f.add(nk); });
+  });
+  return f;
+}
+function renderBoard(){
+  boardEl.style.width=boardW+'px'; boardEl.style.height=boardH+'px';
+  boardEl.innerHTML='';
+  const svg=document.createElementNS(SVGNS,'svg');
+  svg.setAttribute('width',boardW); svg.setAttribute('height',boardH);
+
+  // hex polygons — draw placed tiles + only the frontier's ghost slots
+  const front=frontierSet();
+  slots.forEach(s=>{
+    const key=slotKey(s.q,s.r), occ=placed[key];
+    if(!occ && !front.has(key)) return;               // hide far-off empties
+    const poly=document.createElementNS(SVGNS,'polygon');
+    poly.setAttribute('points',hexVertices(s.cx,s.cy).map(p=>p.join(',')).join(' '));
+    poly.setAttribute('class','hexpoly '+(occ?'occ':(selTerm?'empty hot':'empty')));
+    poly.addEventListener('click',()=>onSlotClick(s.q,s.r));
+    svg.appendChild(poly);
+  });
+
+  // colored welds on explained edges
+  Object.keys(conns).forEach(k=>{
+    const [ka,kb]=k.split('|'); const A=slotAt[ka], B=slotAt[kb];
+    if(!A||!B||!placed[ka]||!placed[kb])return;
+    const [p1,p2]=sharedEdge(A,B);
+    const ln=document.createElementNS(SVGNS,'line');
+    ln.setAttribute('class','weld');
+    ln.setAttribute('x1',p1[0]);ln.setAttribute('y1',p1[1]);
+    ln.setAttribute('x2',p2[0]);ln.setAttribute('y2',p2[1]);
+    ln.style.stroke=TYPE[conns[k].type].color;
+    svg.appendChild(ln);
+  });
+  boardEl.appendChild(svg);
+
+  // labels
+  slots.forEach(s=>{
+    const occ=placed[slotKey(s.q,s.r)]; if(!occ)return;
+    const d=document.createElement('div');
+    d.className='label';
+    d.style.left=(s.cx-R)+'px'; d.style.top=(s.cy-HEXH/2)+'px';
+    d.style.width=(2*R)+'px'; d.style.height=HEXH+'px';
+    d.textContent=TERM[occ].label;
+    boardEl.appendChild(d);
+  });
+
+  // junction buttons on every adjacent occupied pair
+  const seen=new Set();
+  slots.forEach(s=>{
+    const ka=slotKey(s.q,s.r); if(!placed[ka])return;
+    NB.forEach(([dq,dr])=>{
+      const nk=slotKey(s.q+dq,s.r+dr), N=slotAt[nk];
+      if(!N||!placed[nk])return;
+      const key=connKey(ka,nk); if(seen.has(key))return; seen.add(key);
+      const [p1,p2]=sharedEdge(s,N);
+      const mx=(p1[0]+p2[0])/2, my=(p1[1]+p2[1])/2;
+      const btn=document.createElement('button');
+      const def=conns[key];
+      btn.className='jbtn'+(def?'':' empty');
+      btn.style.left=mx+'px'; btn.style.top=my+'px';
+      if(def){ btn.textContent=TYPE[def.type].short; btn.style.borderColor=TYPE[def.type].color;
+               btn.style.color=TYPE[def.type].color; btn.title=TYPE[def.type].name+(def.note?': '+def.note:''); }
+      else{ btn.textContent='+'; btn.title='Explain this connection'; }
+      btn.addEventListener('click',e=>{e.stopPropagation();openConn(ka,nk);});
+      boardEl.appendChild(btn);
+    });
+  });
+}
+
+function onSlotClick(q,r){
+  const key=slotKey(q,r);
+  if(placed[key]){ // remove hex + its connections
+    const id=placed[key];
+    delete placed[key];
+    Object.keys(conns).forEach(k=>{ if(k.split('|').includes(key)) delete conns[k]; });
+    if(selTerm===null){ hintEl.textContent=`Removed “${TERM[id].label}.” It's back in the bank.`; }
+    afterChange();
+    return;
+  }
+  if(!selTerm){ hintEl.textContent='Pick an idea from the bank first, then click a glowing slot.'; return; }
+  if(!frontierSet().has(key)){ hintEl.textContent='Branch out from a hexagon already on the board — place next to one.'; return; }
+  placed[key]=selTerm;
+  const lbl=TERM[selTerm].label; selTerm=null;
+  hintEl.textContent=`Placed “${lbl}.” Place ideas beside it, then click a + to explain the link.`;
+  afterChange();
+}
+function afterChange(){ renderBoard(); refreshBank(); renderFeed(); updateStats(); }
+
+/* ── CONNECTION MODAL ── */
+const ov=document.getElementById('ov');
+function openConn(ka,kb){
+  const key=connKey(ka,kb); editing={key,a:ka,b:kb};
+  const A=TERM[placed[ka]].label, B=TERM[placed[kb]].label;
+  document.getElementById('ov-pair').innerHTML=`${esc(A)}<span class="amp">↔</span>${esc(B)}`;
+  const existing=conns[key]; curType=existing?existing.type:null;
+  document.getElementById('ov-note').value=existing?existing.note:'';
+  document.getElementById('ov-del').style.display=existing?'':'none';
+  const box=document.getElementById('ov-types');
+  box.innerHTML=TYPES.map(t=>
+    `<button class="tyopt${curType===t.id?' on':''}" data-t="${t.id}">
+       <span class="sw" style="background:${t.color}"></span>
+       <span><b>${t.name}</b><span>${t.desc}</span></span>
+     </button>`).join('');
+  box.querySelectorAll('.tyopt').forEach(b=>b.addEventListener('click',()=>{
+    curType=b.dataset.t;
+    box.querySelectorAll('.tyopt').forEach(x=>x.classList.toggle('on',x.dataset.t===curType));
+  }));
+  ov.classList.add('show');
+}
+function closeConn(){ ov.classList.remove('show'); editing=null; curType=null; }
+document.getElementById('ov-cancel').addEventListener('click',closeConn);
+document.getElementById('ov-save').addEventListener('click',()=>{
+  if(!editing)return;
+  if(!curType){ shake(document.getElementById('ov-types')); return; }
+  conns[editing.key]={type:curType,note:document.getElementById('ov-note').value.trim()};
+  closeConn(); afterChange();
+});
+document.getElementById('ov-del').addEventListener('click',()=>{
+  if(editing) delete conns[editing.key];
+  closeConn(); afterChange();
+});
+ov.addEventListener('click',e=>{if(e.target===ov)closeConn();});
+function shake(el){el.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:260});}
+
+/* ── FEED / STATS ── */
+function connEntries(){ // ordered list of [key,def,A,B]
+  return Object.keys(conns).map(k=>{
+    const [ka,kb]=k.split('|');
+    if(!placed[ka]||!placed[kb])return null;
+    return {k,def:conns[k],A:TERM[placed[ka]].label,B:TERM[placed[kb]].label,a:ka,b:kb};
+  }).filter(Boolean);
+}
+function renderFeed(){
+  const list=connEntries();
+  if(!list.length){ feedEl.innerHTML='<div class="empty">Each link you explain shows up here — click one to edit it. Colors match the connection type.</div>'; return; }
+  feedEl.innerHTML='';
+  list.forEach(e=>{
+    const t=TYPE[e.def.type];
+    const d=document.createElement('div'); d.className='clog';
+    d.style.borderLeftColor=t.color;
+    d.innerHTML=`<span class="pair">${esc(e.A)} ↔ ${esc(e.B)}</span>
+      <span class="ty" style="color:${t.color}">${t.name}</span>
+      ${e.def.note?`<span class="nt">${esc(e.def.note)}</span>`:'<span class="nt" style="font-style:italic">(no reasoning yet — click to add)</span>'}`;
+    d.addEventListener('click',()=>openConn(e.a,e.b));
+    feedEl.appendChild(d);
+  });
+}
+/* ── SCORING ──
+   +10 per explained link, +5 if it carries a written reason,
+   +15 the first time each connection type is used (variety),
+   +20 per "hub" (an idea branching to 3+ explained links).      */
+function scoreBreakdown(){
+  const list=connEntries();
+  const base=list.length*10;
+  const reasons=list.filter(e=>e.def.note&&e.def.note.trim().length>0).length;
+  const reason=reasons*5;
+  const nT=new Set(list.map(e=>e.def.type)).size;
+  const variety=nT*15;
+  const deg={};
+  list.forEach(e=>{deg[e.a]=(deg[e.a]||0)+1;deg[e.b]=(deg[e.b]||0)+1;});
+  const hubs=Object.values(deg).filter(d=>d>=3).length;
+  const hubBonus=hubs*20;
+  return {list,base,reasons,reason,nT,variety,hubs,hubBonus,total:base+reason+variety+hubBonus};
+}
+let prevScore=0;
+function popPoints(delta){
+  const st=document.querySelector('.stage'); if(!st)return;
+  const t=document.createElement('div'); t.className='ptoast'; t.textContent='+'+delta;
+  st.appendChild(t); setTimeout(()=>t.remove(),950);
+}
+function updateStats(){
+  const sb=scoreBreakdown();
+  document.getElementById('placed').textContent=Object.keys(placed).length;
+  document.getElementById('conns').textContent=sb.list.length;
+  document.getElementById('types').textContent=sb.nT;
+  document.getElementById('score').textContent=sb.total;
+  if(sb.total>prevScore) popPoints(sb.total-prevScore);
+  prevScore=sb.total;
+  const goal=document.getElementById('goal');
+  const done=sb.list.length>=6&&sb.nT>=3;
+  goal.classList.toggle('done',done);
+  goal.textContent = done ? '✓ Goal reached — keep branching!' : `Goal: ${Math.min(sb.list.length,6)}/6 links · ${Math.min(sb.nT,3)}/3 types`;
+}
+
+/* ── REVIEW MODAL ── */
+const rv=document.getElementById('rv');
+function openReview(){
+  const list=connEntries();
+  const sb=scoreBreakdown();
+  const head=document.getElementById('rv-head');
+  const scoreEl=document.getElementById('rv-score');
+  const ul=document.getElementById('rv-list'); ul.innerHTML='';
+  if(!list.length){ scoreEl.innerHTML=''; head.textContent='No connections yet'; ul.innerHTML='<li class="rvempty">Place some hexagons so they touch, then click the + on a shared edge to explain how the ideas connect.</li>'; }
+  else{
+    head.textContent=`${list.length} connection${list.length===1?'':'s'} across ${Object.keys(placed).length} ideas`;
+    scoreEl.innerHTML=`<span class="pts">${sb.total} pts</span><span class="bd">`+
+      `<b>${sb.base}</b> from ${sb.list.length} link${sb.list.length===1?'':'s'} · `+
+      `<b>+${sb.reason}</b> reasoning (${sb.reasons}) · `+
+      `<b>+${sb.variety}</b> variety (${sb.nT} type${sb.nT===1?'':'s'}) · `+
+      `<b>+${sb.hubBonus}</b> hub${sb.hubs===1?'':'s'} (${sb.hubs})</span>`;
+    list.forEach(e=>{
+      const t=TYPE[e.def.type];
+      const li=document.createElement('li'); li.style.borderLeftColor=t.color;
+      li.innerHTML=`<span class="pair">${esc(e.A)} ↔ ${esc(e.B)}</span> — <span class="ty" style="color:${t.color}">${t.name}</span>
+        ${e.def.note?`<span class="nt">${esc(e.def.note)}</span>`:'<span class="nt" style="font-style:italic">(no reasoning written)</span>'}`;
+      ul.appendChild(li);
+    });
+  }
+  rv.classList.add('show');
+}
+function reviewText(){
+  const list=connEntries();
+  let out='UNIT 2 HEX WEB — my connections\n';
+  if(!list.length)return out+'\n(no connections yet)';
+  out+=`Score: ${scoreBreakdown().total} pts\n\n`;
+  list.forEach((e,i)=>{ const t=TYPE[e.def.type];
+    out+=`${i+1}. ${e.A} — [${t.name}] — ${e.B}\n   ${e.def.note||'(no reasoning written)'}\n\n`; });
+  return out.trim();
+}
+document.getElementById('reviewBtn').addEventListener('click',openReview);
+document.getElementById('rv-close').addEventListener('click',()=>rv.classList.remove('show'));
+rv.addEventListener('click',e=>{if(e.target===rv)rv.classList.remove('show');});
+document.getElementById('rv-print').addEventListener('click',()=>window.print());
+document.getElementById('rv-copy').addEventListener('click',async()=>{
+  const btn=document.getElementById('rv-copy');
+  try{ await navigator.clipboard.writeText(reviewText()); btn.textContent='Copied ✓'; }
+  catch(e){ btn.textContent='Copy failed'; }
+  setTimeout(()=>btn.textContent='Copy to clipboard',1600);
+});
+
+/* ── UTIL ── */
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+/* Reset: two-step inline confirm (no native confirm() — it's blocked in
+   sandboxed/embedded contexts and once a browser's "stop creating dialogs"
+   box is checked). First click arms; second click within 3s clears. */
+const resetBtn=document.getElementById('resetBtn');
+let resetArmed=false, resetTimer=null;
+function disarmReset(){resetArmed=false;resetBtn.classList.remove('arm');resetBtn.textContent='↻ Reset';clearTimeout(resetTimer);}
+function armReset(){resetArmed=true;resetBtn.classList.add('arm');resetBtn.textContent='↻ Clear all?';clearTimeout(resetTimer);resetTimer=setTimeout(disarmReset,3000);}
+function doReset(){placed={};conns={};selTerm=null;prevScore=0;disarmReset();
+  hintEl.textContent='Select an idea from the bank, then click a glowing slot to place it.';afterChange();}
+resetBtn.addEventListener('click',()=>{
+  if(!Object.keys(placed).length && !Object.keys(conns).length){doReset();return;}
+  if(resetArmed) doReset(); else armReset();
+});
+
+/* ── INIT ── */
+buildLegend(); buildBank(); afterChange();
+</script>
+</body>
+</html>

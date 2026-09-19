@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 3 Review — AP World History: Modern</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --sw:270px;
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#8c1212;--red-d:#6b0e0e;--red-bg:#faf0f0;
+  --green:#1a6825;--green-bg:#eef7f0;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.65;min-height:100vh;display:flex}
+button{font-family:inherit;cursor:pointer}
+.page{display:none}
+.page.active{display:block;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.inner{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+.pg-hero{text-align:center;padding:32px 0 28px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.pg-hero h2{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.1;margin-bottom:8px}
+.pg-hero p{color:var(--muted);font-size:.92rem;max-width:520px;margin:0 auto}
+.hero{position:relative;display:flex;align-items:center;justify-content:center;background:linear-gradient(to bottom,rgba(249,246,239,.9) 0%,rgba(243,236,224,.85) 50%,rgba(243,236,224,.96) 100%),url("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Babur_receives_a_courtier.jpg/1280px-Babur_receives_a_courtier.jpg") center/cover no-repeat;padding:48px 24px 40px;border-bottom:3px solid var(--border2)}
+.hero-inner{text-align:center;max-width:720px;margin:0 auto}
+.hero-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:16px;border:1px solid rgba(140,18,18,.35);display:inline-block;padding:4px 14px;background:rgba(255,255,255,.6)}
+.hero h1{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1.0;color:var(--ink);margin-bottom:18px}
+.hero h1 em{color:var(--red);font-style:italic}
+.hero-rule{width:70px;height:3px;background:var(--red);margin:0 auto 20px}
+.hero-sub{color:var(--mid);font-size:clamp(.9rem,2vw,1.1rem);max-width:560px;line-height:1.7;margin:0 auto 28px}
+.hero-period{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:12px}
+.hero-btn{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;border:none;transition:all .2s}
+.hero-btn-primary{background:var(--red);color:#fff}
+.hero-btn-primary:hover{background:var(--red-d);transform:translateY(-2px)}
+.hero-btn-outline{background:rgba(255,255,255,.7);color:var(--ink);border:1.5px solid var(--border2)!important}
+.hero-btn-outline:hover{background:var(--ink);color:#fff}
+.features{background:var(--white);padding:52px 24px;border-bottom:2px solid var(--border)}
+.features-inner{max-width:900px;margin:0 auto}
+.section-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;margin-bottom:28px;line-height:1.1}
+.pg-nav-row{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.pg-nav-btn{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1.5px solid var(--border2);background:none;color:var(--ink);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.pg-nav-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pg-nav-all{background:var(--red);color:#fff;border-color:var(--red)}
+.pg-nav-all:hover{background:var(--red-d);border-color:var(--red-d)}
+/* MCQ */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:18px}
+.tc{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--red);padding:16px 18px;text-align:left;transition:box-shadow .18s,transform .18s}
+.tc:hover{box-shadow:var(--shm);transform:translateY(-2px)}
+.tc-n{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.tc-name{font-size:.93rem;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.3}
+.tc-cnt{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;color:var(--muted);letter-spacing:.08em}
+.btn-all{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;transition:background .15s}
+.btn-all:hover{background:var(--red)}
+.btn-mixed{display:block;width:100%;background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-b);padding:12px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-top:10px;transition:background .15s}
+.btn-mixed:hover{background:var(--gold-b);color:var(--ink)}
+.qsession{display:none}
+.qsession.active{display:block}
+.qhdr{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.qhdr-name{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.1rem;font-weight:700}
+.qhdr-prog{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;color:var(--muted);letter-spacing:.08em}
+.qpbar{background:var(--border);height:4px;margin-bottom:24px;border-radius:2px}
+.qpbf{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.sset-name{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px}
+.stim{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--red);padding:18px 20px;margin-bottom:18px}
+.stim-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.stim-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.06em;color:var(--muted);margin-bottom:10px;font-style:italic}
+.stim-txt{font-size:.9rem;line-height:1.75;color:var(--mid)}
+.stim-txt p+p{margin-top:.6em}
+.stim-img{display:block;max-width:100%;max-height:440px;margin:10px auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.qcard{background:var(--white);border:1px solid var(--border);padding:20px 22px;margin-bottom:14px}
+.qnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.qtxt{font-size:.95rem;line-height:1.65;margin-bottom:14px;color:var(--ink)}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{background:var(--cream);border:1.5px solid var(--border);padding:11px 14px;text-align:left;display:flex;gap:10px;align-items:flex-start;font-size:.88rem;line-height:1.5;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.opt:disabled{cursor:default}
+.opt.c{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.w{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.opt.rv{background:var(--green-bg);border-color:var(--green);opacity:.7}
+.ol{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;font-weight:600;flex-shrink:0;margin-top:2px;color:var(--muted)}
+.fb{display:none;margin-top:12px;padding:11px 14px;font-size:.86rem;line-height:1.6;border-left:3px solid transparent}
+.fb.show{display:block}
+.fb.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.fb.bad{background:var(--red-bg);border-color:var(--red);color:var(--mid)}
+.sbr{border:none;border-top:2px solid var(--border);margin:28px 0 20px}
+.btn-row{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{background:var(--cream);border:1px solid var(--border);padding:10px 20px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;transition:all .15s}
+.btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-red:hover{background:var(--red-d)}
+/* BRAIN DUMP */
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:14px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:4px;transition:background .15s}
+.bd-start-btn:hover:not(:disabled){background:var(--red)}
+.bd-start-btn:disabled{opacity:.4;cursor:not-allowed}
+.bd-session{display:none}
+.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 18px;margin-bottom:14px}
+.bd-topic-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
+.bd-countdown{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.4rem;font-weight:700;letter-spacing:.06em;color:#fff;transition:color .3s}
+.bd-countdown.warning{color:#f4b942}
+.bd-countdown.expired{color:var(--red)}
+.bd-stem{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-bottom:16px}
+.bd-stem-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
+.bd-textarea{width:100%;border:2px solid var(--border2);padding:14px 16px;font-family:Lato,system-ui,sans-serif;font-size:.93rem;line-height:1.7;resize:vertical;min-height:180px;background:var(--white);transition:border-color .15s}
+.bd-textarea:focus{outline:none;border-color:var(--red)}
+.bd-word-count{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;text-align:right}
+.bd-reveal{display:none;margin-top:28px}
+.bd-reveal.active{display:block}
+.bd-reveal-hdr{background:var(--green-bg);border:1px solid var(--green);border-left:4px solid var(--green);padding:14px 18px;font-size:.9rem;color:var(--green);margin-bottom:20px}
+.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:20px}
+.bd-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:16px 18px}
+.bd-card-term{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.bd-card-def{font-size:.82rem;line-height:1.6;color:var(--mid)}
+.bd-reset-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;transition:background .15s}
+.bd-reset-btn:hover{background:var(--red)}
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;margin-top:4px}
+.sb-nav{padding:12px 0;flex:1}
+.sb-group-label{padding:14px 20px 4px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(140,18,18,.13)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
+.sb-footer{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+.sb-back-btn{display:block;background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .15s}
+.sb-back-btn:hover{background:var(--red-d)}
+.sb-link{display:flex;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.4);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;text-decoration:none;transition:color .15s;padding:2px 0}
+.sb-link:hover{color:#fff}
+/* MAIN WRAP */
+.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+/* TOP BAR */
+.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.top-bar-title{font-size:1.1rem;font-weight:700;color:var(--ink);line-height:1.2}
+.top-bar-sub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
+.top-bar-tag{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(140,18,18,.18)}
+@media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}}
+@media(max-width:600px){.topic-grid{grid-template-columns:1fr}.hero{min-height:55vh}}
+/* UNIT SUMMARY */
+.unit-summary{background:var(--white);padding:64px 24px;border-bottom:2px solid var(--border)}.us-inner{max-width:1100px;margin:0 auto}.us-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}.us-col-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}.us-heading{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:18px;line-height:1.15}.us-body{color:var(--mid);font-size:.9rem;line-height:1.85;margin-bottom:14px}.us-themes-list{display:flex;flex-direction:column}.us-theme{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.us-theme:last-child{border-bottom:none}.us-theme-num{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;color:var(--red);font-weight:700;min-width:26px;padding-top:2px;letter-spacing:.05em;flex-shrink:0}.us-theme-name{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:3px}.us-theme-detail{font-size:.79rem;color:var(--muted);line-height:1.6}@media(max-width:860px){.us-grid{grid-template-columns:1fr;gap:36px}}
+/* SPICE-T */
+.spice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:20px}
+.spice-card{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:24px 22px}
+.spice-letter{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:2rem;font-weight:700;line-height:1;margin-bottom:4px;color:var(--red)}
+.spice-cat{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.spice-desc{font-size:.76rem;color:var(--muted);line-height:1.55;margin-bottom:12px;font-style:italic;border-bottom:1px solid var(--border);padding-bottom:11px}
+.spice-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+.spice-list li{font-size:.84rem;line-height:1.6;color:var(--mid);padding-left:14px;position:relative}
+.spice-list li::before{content:'›';position:absolute;left:0;color:var(--red);font-weight:700}
+.spice-s{border-top-color:var(--blue)}.spice-s .spice-letter{color:var(--blue)}
+.spice-p{border-top-color:var(--red)}.spice-p .spice-letter{color:var(--red)}
+.spice-i{border-top-color:var(--green)}.spice-i .spice-letter{color:var(--green)}
+.spice-c{border-top-color:var(--gold)}.spice-c .spice-letter{color:var(--gold)}
+.spice-e{border-top-color:#6b4e71}.spice-e .spice-letter{color:#6b4e71}
+.spice-t{border-top-color:#2e5266}.spice-t .spice-letter{color:#2e5266}
+/* TIMELINE */
+.tl-section{background:#2a2a1e;padding:72px 24px 80px;overflow:hidden}.tl-inner{max-width:1100px;margin:0 auto}.tl-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(140,18,18,.8);margin-bottom:8px}.tl-heading{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:10px;line-height:1.1}.tl-sub{font-size:.93rem;color:rgba(255,255,255,.45);margin-bottom:56px;max-width:540px}.tl-list{position:relative;padding:0 0 10px}.tl-list::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,rgba(140,18,18,.8),rgba(140,18,18,.15));transform:translateX(-50%)}.tl-item{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;margin-bottom:64px;opacity:0;transition:opacity .7s ease,transform .7s ease}.tl-item.tl-left{transform:translateX(-40px)}.tl-item.tl-right{transform:translateX(40px)}.tl-item.visible{opacity:1;transform:none}.tl-item.tl-left .tl-img-wrap{order:1}.tl-item.tl-left .tl-spine{order:2}.tl-item.tl-left .tl-content{order:3}.tl-item.tl-right .tl-img-wrap{order:3}.tl-item.tl-right .tl-spine{order:2}.tl-item.tl-right .tl-content{order:1;text-align:right}.tl-img-wrap{aspect-ratio:4/3;overflow:hidden;background:#111;box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative}.tl-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.tl-img-wrap .tl-img-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a0e,#2a2a1e);color:rgba(255,255,255,.25);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;padding:16px}.tl-item:hover .tl-img-wrap img{transform:scale(1.04)}.tl-spine{display:flex;justify-content:center;align-items:center;z-index:2;position:relative}.tl-dot{width:16px;height:16px;background:var(--red);border:3px solid #2a2a1e;border-radius:50%;box-shadow:0 0 0 3px rgba(140,18,18,.4);transition:transform .3s}.tl-item:hover .tl-dot{transform:scale(1.4)}.tl-content{padding:0 28px}.tl-year-badge{display:inline-block;background:var(--red);color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;font-weight:500;letter-spacing:.1em;padding:4px 12px;margin-bottom:8px}.tl-item.tl-right .tl-year-badge{float:right}.tl-item.tl-right .tl-content::after{content:'';display:table;clear:both}.tl-topic-tag{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;clear:both;display:block}.tl-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.25rem;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.2}.tl-desc{font-size:.83rem;line-height:1.75;color:rgba(255,255,255,.55)}@media(max-width:700px){.tl-list::before{left:24px}.tl-item,.tl-item.tl-right,.tl-item.tl-left{grid-template-columns:48px 1fr;grid-template-rows:auto auto;align-items:start}.tl-img-wrap,.tl-item.tl-left .tl-img-wrap,.tl-item.tl-right .tl-img-wrap{order:1!important;grid-column:1/-1;grid-row:1;aspect-ratio:16/7;margin-bottom:0}.tl-spine,.tl-item.tl-left .tl-spine,.tl-item.tl-right .tl-spine{order:2!important;grid-column:1;grid-row:2;justify-content:center;padding-top:18px}.tl-content,.tl-item.tl-left .tl-content,.tl-item.tl-right .tl-content{order:3!important;grid-column:2;grid-row:2;text-align:left!important;padding:12px 0 12px 16px}.tl-item.tl-right .tl-year-badge{float:none}}
+/* ── EXAM TIPS (FRQ playbook) ── */
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:13px;margin-bottom:22px}
+.tip-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:18px}
+.tip-card h3{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;font-weight:700;margin-bottom:9px}
+.tip-card p,.tip-card li{font-size:.84rem;line-height:1.7;color:var(--mid)}
+.tip-card ul{padding-left:15px;margin-top:5px}
+.tip-card li{margin-bottom:3px}
+.tip-formula{background:var(--ink);color:#fff;padding:12px 15px;margin-top:13px;font-size:.81rem;line-height:1.65}
+.tip-formula em{color:#d4b84a;font-style:normal;font-family:Lato,system-ui,sans-serif;font-weight:700}
+.tip-hipp{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+.tip-hipp-item{background:var(--paper);border:1px solid var(--border);padding:7px 9px}
+.tip-hipp-item strong{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:2px}
+.tip-hipp-item p{font-size:.77rem;color:var(--mid)}
+.complexity-box{background:var(--ink);color:#fff;padding:19px 21px;margin-top:6px}
+.complexity-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:9px}
+.complexity-body{font-size:.87rem;line-height:1.8;color:rgba(255,255,255,.85)}
+.complexity-note{color:rgba(255,255,255,.42);font-size:.78rem;margin-top:7px;display:block}
+/* ── GAMES: narrative matching ── */
+.match-board{display:flex;gap:20px;max-width:900px;margin:0 auto}
+.match-col{flex:1;display:flex;flex-direction:column;gap:10px}
+.match-col-hdr{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;text-align:center}
+.match-card{background:var(--white);border:2px solid var(--border2);padding:14px 16px;font-size:.84rem;line-height:1.5;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.match-card:hover{border-color:var(--red);transform:translateY(-1px)}
+.match-card.selected{border-color:var(--red);background:#faf3ee}
+.match-card.matched{background:#e8f5e9;border-color:#1a6825;cursor:default;opacity:.8}
+.match-card.wrong{animation:matchShake .4s ease-out}
+@keyframes matchShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.match-counter{text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;color:var(--muted);margin:20px 0}
+.match-success{text-align:center;padding:40px 20px}
+.match-success h3{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.6rem;margin-bottom:8px}
+@media(max-width:640px){.match-board{flex-direction:column}}
+/* ── FLASHCARDS ── */
+.fc-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.fc-meta{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;color:var(--muted);letter-spacing:.1em}
+.fc-select-wrap{display:flex;gap:8px;flex-wrap:wrap}
+.fc-sel{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border:1.5px solid var(--border2);background:var(--white);color:var(--ink)}
+.fc-progress{background:var(--border);height:4px;margin-bottom:22px;border-radius:2px}
+.fc-pbar{height:100%;background:var(--red);transition:width .35s ease;border-radius:2px}
+.card-area{perspective:1200px;margin-bottom:18px;cursor:pointer}
+.card-3d{width:100%;min-height:260px;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.card-3d.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:28px 26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shm)}
+.card-face.back{transform:rotateY(180deg);border-top-color:var(--green)}
+.card-tag{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;color:var(--red)}
+.back-tag{color:var(--green)!important}
+.card-term{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:6px}
+.card-topic{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.card-def{font-size:.92rem;line-height:1.72;color:var(--mid)}
+.card-hint{font-size:.76rem;color:var(--muted);margin-top:12px;font-style:italic}
+.card-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px}
+.cn-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:8px 20px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;transition:all .18s}
+.cn-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.cn-btn:disabled{opacity:.3;cursor:default}
+.flip-hint{text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.fc-timer-wrap{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.fc-timer-ring{position:relative;width:54px;height:54px;flex-shrink:0}
+.fc-timer-ring svg{transform:rotate(-90deg)}
+.fc-timer-ring circle{fill:none;stroke-width:4}
+.fc-timer-bg{stroke:var(--border)}
+.fc-timer-fg{stroke:var(--red);transition:stroke-dashoffset .95s linear,stroke .4s}
+.fc-timer-fg.done{stroke:var(--green)}
+.fc-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;font-weight:500;color:var(--ink)}
+.fc-timer-msg{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+.fc-timer-msg.ready{color:var(--green)}
+/* ── STUDY GUIDE ── */
+.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
+.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;transition:background .15s;gap:12px}
+.sg-hdr:hover{background:var(--cream)}
+.sg-hdr.open{background:var(--ink);color:#fff}
+.sg-htitle{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;font-weight:700;line-height:1.3}
+.sg-hmeta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.sg-hnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.5)}
+.sg-arr{font-size:.7rem;color:var(--muted);transition:transform .2s}
+.sg-hdr.open .sg-arr{transform:rotate(180deg);color:#fff}
+.sg-body{display:none;padding:22px 24px;border-top:1px solid var(--border);font-size:.88rem;line-height:1.8}
+.sg-body.open{display:block}
+.sg-body p{margin-bottom:12px}
+.sg-body p:last-of-type{margin-bottom:0}
+.sg-body strong{color:var(--ink)}
+.sg-kws{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.sg-kw{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;background:var(--paper);border:1px solid var(--border);padding:3px 9px;color:var(--mid)}
+/* ── VISUAL SOURCES ── */
+.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
+.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.vs-tab{background:none;border:1.5px solid var(--border);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
+.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.vs-card{display:none;padding:24px 32px}
+.vs-card.active{display:block}
+.vs-card-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.vs-card-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.1rem;margin-bottom:8px}
+.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:16px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
+.vs-source-img{display:block;width:auto;max-width:100%;max-height:70vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.vs-step-hdr{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
+.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
+.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
+.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
+.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
+.vs-mc-option.vs-mc-wrong{background:#faf3ee;border-color:var(--red);color:var(--red)}
+.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
+.vs-mc-explain.show{display:block}
+.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
+.vs-btn{background:none;border:1.5px solid var(--ink);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
+.vs-btn:hover{background:var(--ink);color:#fff}
+.vs-btn-red{border-color:var(--red);color:var(--red)}
+.vs-btn-red:hover{background:var(--red);color:#fff}
+.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
+.vs-hipp-area.show{display:block}
+.vs-hipp-section{margin-bottom:18px}
+.vs-hipp-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
+.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px;padding-left:18px}
+.vs-guide li{margin-bottom:2px}
+.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
+.vs-hipp-input:focus{border-color:var(--red);outline:none}
+.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
+.vs-hipp-model.show{display:block}
+.vs-hipp-model-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
+/* ── SOURCE ANALYSIS (isolation drill) ── */
+.src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
+.src-doc-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.src-doc-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
+.src-doc-img{display:block;max-width:100%;max-height:60vh;margin:0 auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.src-doc-txt{font-family:Lato,system-ui,sans-serif;font-size:.92rem;line-height:1.8;color:var(--ink)}
+.src-frame{background:#f5f0e6;border:2px dashed var(--border2);padding:20px 24px;margin:16px 0}
+.src-frame-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.src-frame-hint{font-size:.82rem;color:var(--mid);margin-bottom:12px;line-height:1.5}
+.src-lens-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.src-lens-btn{padding:6px 14px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--border2);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
+.src-lens-btn:hover,.src-lens-btn.active{border-color:var(--red);background:#faf0f3;color:var(--red)}
+.src-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);padding:14px;font-family:Lato,system-ui,sans-serif;font-size:.92rem;line-height:1.7;resize:vertical;box-sizing:border-box}
+.src-textarea:focus{border-color:var(--red);outline:none}
+.src-model{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-top:16px;display:none}
+.src-model.show{display:block}
+.src-model-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
+.src-model-txt{font-family:Lato,system-ui,sans-serif;font-size:.88rem;line-height:1.7;color:var(--ink)}
+.src-btn{padding:10px 20px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
+.src-btn-red{background:var(--red);color:#fff}
+.src-btn-outline{background:none;border:1.5px solid var(--red);color:var(--red)}
+.src-btn:hover{opacity:.85}
+/* ── VIDEO REVIEW ── */
+.video-section{background:var(--ink);padding:64px 24px;border-top:1px solid rgba(255,255,255,.08)}
+.video-inner{max-width:1100px;margin:0 auto;text-align:center}
+.video-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-b);margin-bottom:10px}
+.video-heading{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.6rem,3vw,2.3rem);color:#fff;margin:0 0 8px}
+.video-subtitle{font-size:.92rem;color:rgba(255,255,255,.55);margin:0 auto 34px;max-width:640px;line-height:1.6}
+.video-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:26px;max-width:1040px;margin:0 auto}
+.video-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-top:3px solid var(--red);text-align:left;flex:0 1 calc(50% - 13px);min-width:300px}
+.video-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6);padding:13px 16px 10px}
+.video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.video-desc{font-size:.83rem;color:rgba(255,255,255,.5);line-height:1.65;padding:12px 16px 16px}
+</style>
+<link rel="stylesheet" href="sbmcq.css"/>
+<script src="sbmcq.js"></script>
+<link rel="stylesheet" href="mission-theme.css">
+<script src="mc-mode.js"></script>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="bedtime.js"></script>
+<link rel="stylesheet" href="preview-palette.css"><script defer src="preview-logo.js"></script>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">Unit 3 — Land-Based Empires</div>
+    <div class="sb-sub">c. 1450 – c. 1750</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Sections</div>
+    <div id="sb-nav-items"></div>
+  </nav>
+  <div class="sb-footer">
+    <a href="index.html" class="sb-back-btn">&#8592; All Units</a>
+    <a href="resources.html" class="sb-link">&#8594; Resources</a>
+  </div>
+</aside>
+
+<div class="main-wrap">
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title" id="top-title">Overview</div>
+    <div class="top-bar-sub">Unit 3 &mdash; Land-Based Empires &mdash; c. 1450&ndash;c. 1750</div>
+  </div>
+  <div class="top-bar-tag">31 MCQs</div>
+</div>
+
+<!-- HOME PAGE -->
+<div class="page sbmcq-root" id="pg-walk">
+  <div style="max-width:1080px;margin:0 auto">
+    <div class="walk-intro">
+      <h3>How to attack a stimulus-based MCQ</h3>
+      <p>Most of these questions are not really about history. They are about decoding what is being asked. Learn the four-step habit, then watch it worked step by step on a real test question. Use Back and Next to move through the highlighting.</p>
+    </div>
+    <div id="walk-cheat"></div>
+    <div id="walk-body"></div>
+    <p style="margin-top:26px"><a class="walk-cta" href="sbmcq.html">Practice every unit on the full &ldquo;Attack the Stimulus MCQ&rdquo; page &rarr;</a></p>
+  </div>
+  <script>(function(){if(!window.renderWalk)return;renderCheatsheet(document.getElementById('walk-cheat'));renderWalk(document.getElementById('walk-body'),{unit:3});})();</script>
+</div>
+
+<!-- ══ WRITING DRILLS ══ -->
+<div class="page" id="pg-writing">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="wd-mount" data-unit="3" data-unit-label="Unit 3"></div>
+  </div>
+</div>
+
+<div class="page active" id="pg-home">
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Unit 3 &mdash; c. 1450 to c. 1750</p>
+      <h1>Land-Based <em>Empires</em></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">Gunpowder empires, bureaucratic expansion, the devshirme system, Sunni&ndash;Shi&lsquo;a rivalry, Jesuit missionaries, and the art of political legitimacy across the Ottoman, Mughal, Safavid, and Qing worlds.</p>
+      <div class="hero-btns" style="margin-top:24px">
+        <button class="hero-btn hero-btn-primary" data-tab="pg-mcq">&#128203; Start MCQ Practice</button>
+        <button class="hero-btn hero-btn-outline" data-tab="pg-brain">&#129504; Brain Dump</button>
+        <button type="button" class="hero-btn hero-btn-outline" id="scroll-timeline-btn">&#9660; View Timeline</button>
+      </div>
+      <p class="hero-period">AP World History: Modern &mdash; Period 2</p>
+    </div>
+  </section>
+
+  <section class="unit-summary">
+    <div class="us-inner">
+      <div class="us-grid">
+        <div>
+          <div class="us-col-label">Unit Overview</div>
+          <h2 class="us-heading">Empires Built on Gunpowder and Bureaucracy</h2>
+          <p class="us-body">Between 1450 and 1750, a new kind of empire reshaped Afro-Eurasia. The Ottoman, Safavid, Mughal, and Qing states &mdash; along with a resurgent Russia and a unified Japan &mdash; harnessed gunpowder technology, professional armies, and sophisticated administrative systems to build the largest land empires the world had ever seen.</p>
+          <p class="us-body">The Ottomans seized Constantinople in 1453, ending the Byzantine Empire and claiming the imperial tradition of Rome. Their devshirme system recruited elite soldiers and administrators from conquered Christian populations, building a bureaucracy personally loyal to the sultan. Their rival, the Shi&lsquo;a Safavid Empire, turned religious difference into a tool of state identity &mdash; forcing Sunni scholars within the Ottoman Empire to defend orthodoxy and sharpening the Sunni&ndash;Shi&lsquo;a divide that still shapes the Middle East today.</p>
+          <p class="us-body">The Mughal emperors ruled a religiously diverse India that included over 100 million people, requiring constant negotiation between Muslim rulers and a Hindu majority. Akbar pursued a policy of religious tolerance and cultural synthesis; Aurangzeb reversed it, reimposing the jizya tax on non-Muslims and triggering the revolts that ultimately fragmented the empire. Meanwhile, Jesuit missionaries in China and Japan demonstrated how religious competition triggered by the Protestant Reformation rippled out across the globe.</p>
+        </div>
+        <div>
+          <div class="us-col-label">Core Themes</div>
+          <div class="us-themes-list">
+            <div class="us-theme"><div class="us-theme-num">01</div><div><div class="us-theme-name">Gunpowder &amp; Military Expansion</div><div class="us-theme-detail">Cannons and firearms enabled the rapid expansion of the Ottoman, Mughal, and Manchu empires. Gunpowder weapons were the great equalizers &mdash; states that mastered them conquered those that did not.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">02</div><div><div class="us-theme-name">Imperial Administration</div><div class="us-theme-detail">Empires developed sophisticated tools to govern vast, diverse populations: the Ottoman devshirme, Mughal zamindar tax system, Qing examination bureaucracy, and European divine-right monarchy.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">03</div><div><div class="us-theme-name">Religion &amp; State Legitimacy</div><div class="us-theme-detail">Rulers used religion to justify their power. Sultans claimed caliphate authority; Mughal emperors balanced Hindu and Muslim identities; European monarchs claimed divine right; the Protestant Reformation destabilized these claims across Europe.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">04</div><div><div class="us-theme-name">Sunni&ndash;Shi&lsquo;a Rivalry</div><div class="us-theme-detail">The Ottoman (Sunni) and Safavid (Shi&lsquo;a) empires clashed repeatedly over theology and territory, forcing each to define and defend religious orthodoxy more sharply than before.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">05</div><div><div class="us-theme-name">Cultural Syncretism</div><div class="us-theme-detail">Contact between different cultures and faiths produced syncretic results: Mughal architecture blended Islamic and Hindu styles; Sikhism synthesized elements of Hinduism and Islam; Jesuit missionaries adapted Christian teaching to local contexts.</div></div></div>
+            <div class="us-theme"><div class="us-theme-num">06</div><div><div class="us-theme-name">Art as Political Power</div><div class="us-theme-detail">Rulers across cultures commissioned art, architecture, and manuscripts to legitimize their rule &mdash; from the Selimiye Mosque surpassing the Hagia Sophia to Mughal court paintings glorifying imperial power.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE MAP -->
+  <section class="home-map-section">
+    <style>
+      .home-map-section{background:var(--paper);padding:56px 24px 60px;border-bottom:2px solid var(--border)}
+      .hm-inner{max-width:1120px;margin:0 auto}
+      .hm-head{text-align:center;max-width:680px;margin:0 auto 26px}
+      .hm-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+      .hm-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:10px;line-height:1.15}
+      .hm-sub{color:var(--muted);font-size:.9rem;line-height:1.65}
+      .hm-embed{position:relative;height:86vh;min-height:660px;border:1px solid var(--border2);box-shadow:var(--shm);background:var(--white)}
+      .hm-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+      .hm-openbar{display:flex;justify-content:flex-end;margin-top:12px}
+      .hm-open{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:11px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s}
+      .hm-open:hover{background:var(--red-d)}
+      @media(max-width:640px){.hm-embed{height:88vh;min-height:560px}}
+    </style>
+    <div class="hm-inner">
+      <div class="hm-head">
+        <div class="hm-eyebrow">Interactive Reference Map</div>
+        <h2 class="hm-title">The Land-Based Empires</h2>
+        <p class="hm-sub">Pick any land empire &mdash; the Ottomans, Safavids, Mughals, Ming&ndash;Qing China, Russia, Tokugawa Japan, or Songhai &mdash; to light up its territory and compare how it expanded, ruled, and what it believed. Then layer on capitals, belief systems, and the spread of gunpowder.</p>
+      </div>
+      <div class="hm-embed">
+        <iframe src="unit3-map.html" title="Interactive Unit 3 land empires map" loading="lazy"></iframe>
+      </div>
+      <div class="hm-openbar">
+        <a class="hm-open" href="unit3-map.html" target="_blank" rel="noopener noreferrer">&#8599; Open the map full screen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO REVIEW -->
+  <section class="video-section">
+    <div class="video-inner">
+      <div class="video-eyebrow">Watch &amp; Review</div>
+      <h2 class="video-heading">Full Unit Video Review</h2>
+      <p class="video-subtitle">A complete video walkthrough of Unit 3 &mdash; the Ottoman, Safavid, Mughal, and Qing land-based empires and how they built and maintained power, c. 1450&ndash;1750.</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-label">&#127909; Unit 3 Full Review &mdash; c. 1450&ndash;1750</div>
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/xADCThEiuAo" title="AP World History Unit 3 Review" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-desc">Covers imperial expansion, methods of administration, belief systems, and the gunpowder empires of Eurasia.</div>
+        </div>
+        <div class="video-card">
+          <div class="video-label">&#127909; Ben Freeman Review &mdash; Freeman-pedia</div>
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/CbJbNIH7ZKg" title="AP World History Unit 3 Review — Freeman-pedia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-desc">Ben Freeman&rsquo;s (Freeman-pedia) full unit walkthrough &mdash; the Ottoman, Safavid, Mughal, Russian, and Qing land-based empires.</div>
+        </div>
+        <div class="video-card">
+          <div class="video-label">&#127909; Jim Rhoades Review &mdash; Unit 3</div>
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/zPXx1C-ddcU" title="APWH Modern Unit 3 Review — Jim Rhoades" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-desc">Jim Rhoades&rsquo; full content review of Unit 3 &mdash; a structured walkthrough of the unit&rsquo;s key developments.</div>
+        </div>
+        <div class="video-card">
+          <div class="video-label">&#127909; Jim Rhoades Thematic Review &mdash; Unit 3</div>
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/YC7A5DiPUpQ" title="APWH Modern Unit 3 Thematic Review — Jim Rhoades" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-desc">Jim Rhoades&rsquo; thematic review of Unit 3 &mdash; the same material organized around the AP course themes.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tl-section" id="timeline-section">
+    <div class="tl-inner">
+      <div class="tl-label">Unit 3 at a Glance</div>
+      <h2 class="tl-heading">From Constantinople to the Qing</h2>
+      <p class="tl-sub">Eight turning points from 1453 to 1703 &mdash; scroll to explore.</p>
+      <div class="tl-list" id="tl-list"></div>
+    </div>
+  </section>
+</div>
+
+<!-- BRAIN DUMP PAGE -->
+<!-- FLASHCARDS PAGE -->
+<div class="page" id="pg-flash">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Unit 3 Flashcards</div>
+      <h2>Key Terms &amp; Concepts</h2>
+      <p>Wait for the timer, think of the answer, then click the card to flip it. Navigate with the arrows or filter by topic.</p>
+    </div>
+    <div class="fc-controls">
+      <div class="fc-meta" id="fc-meta">Card 1 of 27</div>
+      <div class="fc-select-wrap">
+        <select class="fc-sel" id="fc-filter">
+          <option value="all">All Topics</option>
+          <option value="3.1">3.1 — Empires Expand</option>
+          <option value="3.2">3.2 — Administration</option>
+          <option value="3.3">3.3 — Belief Systems</option>
+          <option value="3.4">3.4 — Comparison</option>
+        </select>
+        <button type="button" class="fc-sel" id="fc-shuffle-btn">&#128256; Shuffle</button>
+      </div>
+    </div>
+    <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
+    <div class="fc-timer-wrap">
+      <div class="fc-timer-ring">
+        <svg width="54" height="54" viewBox="0 0 54 54">
+          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
+          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
+        </svg>
+        <div class="fc-timer-num" id="fc-timer-num">15</div>
+      </div>
+      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
+    </div>
+    <div class="card-area" id="card-area">
+      <div class="card-3d" id="fc-card">
+        <div class="card-face front">
+          <div class="card-tag">Term</div>
+          <div class="card-term" id="fc-term">Loading...</div>
+          <div class="card-topic" id="fc-topic">Topic 3.1</div>
+          <div class="card-hint">Think of the answer, then flip when the timer is done &darr;</div>
+        </div>
+        <div class="card-face back">
+          <div class="card-tag back-tag">Definition</div>
+          <div class="card-def" id="fc-def">Loading...</div>
+        </div>
+      </div>
+    </div>
+    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
+    <div class="card-nav">
+      <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
+      <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
+    </div>
+  </div>
+  <script type="application/json" id="u3-cards-data">
+[
+{"t":"Gunpowder Empires","d":"The Ottoman, Safavid, and Mughal empires, which used gunpowder weapons like cannons and muskets to conquer and control vast territory.","topic":"3.1"},
+{"t":"Ottoman Empire","d":"Sunni Muslim empire founded by Turks that captured Constantinople in 1453 and dominated the eastern Mediterranean.","topic":"3.1"},
+{"t":"Safavid Empire","d":"Shia Muslim Persian empire, founded by Shah Ismail, that rivaled the Sunni Ottomans and Mughals.","topic":"3.1"},
+{"t":"Mughal Empire","d":"Muslim empire ruling Hindu-majority South Asia, founded by Babur and expanded under Akbar.","topic":"3.1"},
+{"t":"Qing (Manchu) Dynasty","d":"Non-Han rulers from Manchuria who conquered Ming China in 1644 and greatly expanded Chinese territory.","topic":"3.1"},
+{"t":"Fall of Constantinople (1453)","d":"Ottoman conquest that ended the Byzantine Empire, achieved using massive gunpowder cannons.","topic":"3.1"},
+{"t":"Battle of Chaldiran (1514)","d":"Ottoman gunpowder victory over the Safavids that hardened the Sunni-Shia divide.","topic":"3.1"},
+{"t":"Songhai Empire","d":"Powerful West African Islamic empire that controlled trans-Saharan trade until the Moroccan invasion.","topic":"3.1"},
+{"t":"Devshirme","d":"Ottoman system of taking Christian boys to be trained as administrators or Janissary soldiers.","topic":"3.2"},
+{"t":"Janissaries","d":"Elite Ottoman infantry recruited through the devshirme and loyal directly to the sultan.","topic":"3.2"},
+{"t":"Zamindars","d":"Local landowners and tax collectors who administered the Mughal Empire's provinces.","topic":"3.2"},
+{"t":"Tax Farming","d":"System in which the state sold the right to collect taxes to private individuals to raise revenue.","topic":"3.2"},
+{"t":"Bureaucracy","d":"Salaried officials who carried out an empire's administration, such as China's scholar-gentry.","topic":"3.2"},
+{"t":"Salaried Samurai","d":"In Tokugawa Japan, warriors who became salaried bureaucrats during a long era of peace.","topic":"3.2"},
+{"t":"Tribute System","d":"Chinese practice requiring neighboring states to send gifts and acknowledge Chinese superiority.","topic":"3.2"},
+{"t":"Divine Right","d":"Belief that a monarch's authority to rule comes directly from God.","topic":"3.3"},
+{"t":"Sunni-Shia Rivalry","d":"Division within Islam; the Sunni Ottomans and Shia Safavids clashed over religious legitimacy.","topic":"3.3"},
+{"t":"Akbar","d":"Mughal ruler known for religious tolerance, abolishing the jizya and blending faiths in the Din-i Ilahi.","topic":"3.3"},
+{"t":"Jizya","d":"Tax on non-Muslims in Muslim empires; abolished by Akbar and later reimposed by Aurangzeb.","topic":"3.3"},
+{"t":"Aurangzeb","d":"Mughal emperor who reversed Akbar's tolerance, reimposed the jizya, and persecuted non-Muslims.","topic":"3.3"},
+{"t":"Sikhism","d":"Syncretic monotheistic religion blending Hindu and Muslim ideas that emerged in Mughal India.","topic":"3.3"},
+{"t":"Protestant Reformation","d":"Split in Western Christianity begun by Martin Luther that challenged the Catholic Church.","topic":"3.3"},
+{"t":"Catholic Counter-Reformation","d":"The Catholic Church's response to Protestantism, reaffirming doctrine at the Council of Trent.","topic":"3.3"},
+{"t":"Art and Architecture as Legitimacy","d":"Rulers used monuments like the Taj Mahal, Versailles, and the Suleymaniye Mosque to project power.","topic":"3.3"},
+{"t":"Absolutism","d":"Political system in which a monarch holds total centralized power, as with Louis XIV of France.","topic":"3.4"},
+{"t":"Methods of Legitimizing Power","d":"Empires used religion, art, bureaucracy, and tax systems to consolidate and justify their rule.","topic":"3.4"},
+{"t":"Comparison of Land-Based Empires","d":"Ottomans, Safavids, Mughals, Ming/Qing, and European monarchies all centralized power in similar ways.","topic":"3.4"}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('u3-cards-data');
+    if (!dataEl) return;
+    var CARDS = JSON.parse(dataEl.textContent);
+    var fcDeck = CARDS.slice(), fcIdx = 0, fcFlipped = false;
+    var fcTimerInterval = null, fcTimerSec = 15, fcTimerReady = false;
+    var FC_TIMER_CIRC = 138.23;
+    function fcTimerStop(){ if (fcTimerInterval){ clearInterval(fcTimerInterval); fcTimerInterval = null; } }
+    function fcTimerStart(){
+      fcTimerStop(); fcTimerSec = 15; fcTimerReady = false;
+      document.getElementById('fc-next').disabled = true;
+      var fg = document.getElementById('fc-timer-fg'), num = document.getElementById('fc-timer-num'), msg = document.getElementById('fc-timer-msg');
+      fg.classList.remove('done'); fg.style.strokeDashoffset = '0'; num.textContent = '15';
+      msg.textContent = 'Think — what does this term mean?'; msg.classList.remove('ready');
+      fcTimerInterval = setInterval(function(){
+        fcTimerSec--;
+        var progress = (15 - fcTimerSec) / 15;
+        fg.style.strokeDashoffset = (FC_TIMER_CIRC * progress).toFixed(2);
+        if (fcTimerSec <= 0){
+          fcTimerStop(); fcTimerReady = true; fg.classList.add('done'); num.textContent = '✓';
+          msg.textContent = 'Now flip to check your answer!'; msg.classList.add('ready');
+          document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
+        } else { num.textContent = fcTimerSec; document.getElementById('fc-next').disabled = true; }
+      }, 1000);
+    }
+    function fcRender(){
+      if (!fcDeck.length) return;
+      var c = fcDeck[fcIdx];
+      document.getElementById('fc-term').textContent = c.t;
+      document.getElementById('fc-topic').textContent = 'Topic ' + c.topic;
+      document.getElementById('fc-def').textContent = c.d;
+      document.getElementById('fc-meta').textContent = 'Card ' + (fcIdx + 1) + ' of ' + fcDeck.length;
+      document.getElementById('fc-pbar').style.width = ((fcIdx + 1) / fcDeck.length * 100) + '%';
+      document.getElementById('fc-prev').disabled = (fcIdx === 0);
+      var card = document.getElementById('fc-card');
+      if (fcFlipped){ card.classList.remove('flipped'); fcFlipped = false; }
+      fcTimerStart();
+    }
+    fcRender();
+    document.getElementById('card-area').addEventListener('click', function(){
+      if (!fcTimerReady) return;
+      fcFlipped = !fcFlipped;
+      document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
+    });
+    document.getElementById('fc-prev').addEventListener('click', function(){ if (fcIdx > 0){ fcIdx--; fcRender(); } });
+    document.getElementById('fc-next').addEventListener('click', function(){ if (fcTimerReady && fcIdx < fcDeck.length - 1){ fcIdx++; fcRender(); } });
+    document.getElementById('fc-filter').addEventListener('change', function(){
+      var v = this.value;
+      fcDeck = (v === 'all') ? CARDS.slice() : CARDS.filter(function(c){ return c.topic === v; });
+      fcIdx = 0; fcRender();
+    });
+    document.getElementById('fc-shuffle-btn').addEventListener('click', function(){
+      for (var i = fcDeck.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = fcDeck[i]; fcDeck[i] = fcDeck[j]; fcDeck[j] = t; }
+      fcIdx = 0; fcRender();
+    });
+  })();
+  </script>
+</div>
+
+<div class="page" id="pg-brain">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Brain Dump</div>
+      <h2>Write What You Know</h2>
+      <p>Pick a topic, then write everything you remember for 5 minutes. When time&rsquo;s up, we&rsquo;ll show you all the content so you can compare.</p>
+    </div>
+
+    <div class="bd-setup" id="bd-setup">
+      <div class="bd-topic-grid">
+        <button class="bd-topic-btn" data-topic="3.1">3.1 &mdash; Empires Expand</button>
+        <button class="bd-topic-btn" data-topic="3.2">3.2 &mdash; Empires: Administration</button>
+        <button class="bd-topic-btn" data-topic="3.3">3.3 &mdash; Empires: Belief Systems</button>
+        <button class="bd-topic-btn" data-topic="3.4">3.4 &mdash; Comparison in Land-Based Empires</button>
+      </div>
+      <button class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
+    </div>
+
+    <div class="bd-session" id="bd-session">
+      <div class="bd-timer-bar">
+        <div class="bd-topic-label">Topic<strong id="bd-active-topic">&mdash;</strong></div>
+        <div class="bd-countdown" id="bd-countdown">5:00</div>
+      </div>
+      <div class="bd-stem" id="bd-stem">
+        <div class="bd-stem-lbl">&#9997; Sentence Stem &mdash; start here if you need a push</div>
+        <div class="bd-stem-txt" id="bd-stem-txt"></div>
+      </div>
+      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic &mdash; key terms, events, causes, effects, people&hellip; don&rsquo;t stop writing!"></textarea>
+      <div class="bd-word-count" id="bd-word-count">0 words</div>
+      <div class="bd-reveal" id="bd-reveal">
+        <div class="bd-reveal-hdr">&#9989; Time&rsquo;s up! Here&rsquo;s everything from this topic &mdash; compare it to what you wrote.</div>
+        <div class="bd-card-list" id="bd-card-list"></div>
+        <button class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAPS (interactive land empires) ══ -->
+<div class="page" id="pg-maps">
+  <div class="inner" style="max-width:1180px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Overview</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Interactive Reference Map</div>
+      <h2>The Land-Based Empires</h2>
+      <p>A real map of Unit 3 &mdash; the <strong>Ottoman</strong>, <strong>Safavid</strong>, <strong>Mughal</strong>, <strong>Ming&ndash;Qing</strong>, <strong>Russian</strong>, <strong>Tokugawa</strong>, and <strong>Songhai</strong> empires. Click one to compare its expansion, administration, and belief system, then layer on capitals, belief systems, and the spread of gunpowder.</p>
+    </div>
+    <style>
+      #pg-maps .map-embed{position:relative;width:100%;height:88vh;min-height:680px;border:1px solid var(--border2);box-shadow:var(--shm);background:var(--paper)}
+      #pg-maps .map-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+      #pg-maps .map-openbar{display:flex;justify-content:flex-end;margin-top:12px}
+      #pg-maps .map-open{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:11px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s}
+      #pg-maps .map-open:hover{background:var(--red-d)}
+      @media(max-width:640px){#pg-maps .map-embed{height:88vh;min-height:560px}}
+    </style>
+    <div class="map-embed">
+      <iframe src="unit3-map.html" title="Interactive Unit 3 land empires map" loading="lazy"></iframe>
+    </div>
+    <div class="map-openbar">
+      <a class="map-open" href="unit3-map.html" target="_blank" rel="noopener noreferrer">&#8599; Open the map full screen</a>
+    </div>
+  </div>
+</div>
+
+<!-- MCQ PAGE -->
+<div class="page" id="pg-mcq">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">MCQ Review</div>
+      <h2>Stimulus-Based Questions</h2>
+      <p>AP-authentic questions using primary sources, maps, images, and documents from Unit 3. Choose <strong>Quick Check</strong> for instant feedback, or <strong>Test Mode</strong> to answer a full set, rate your confidence, and reveal your score at the end &mdash; closer to real exam conditions.</p>
+    </div>
+    <div id="mcq-root"></div>
+    <a href="https://highschooltestprep.com/ap/world-history/unit-3-practice-test" target="_blank" rel="noopener noreferrer" class="btn-all" style="background:#1a7a4c;text-decoration:none;margin-top:16px;box-sizing:border-box;display:inline-block" onmouseover="this.style.background='#15633d'" onmouseout="this.style.background='#1a7a4c'">&#127760; More Practice &mdash; HighSchoolTestPrep Unit 3 Quiz &#8599;</a>
+  </div>
+</div>
+
+<!-- SPICE-T PAGE -->
+<!-- GAMES PAGE -->
+<div class="page" id="pg-games">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <style>
+    #pg-games .igame{max-width:820px;margin:0 auto 26px;background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);padding:22px 24px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+    #pg-games .igame-txt{flex:1;min-width:230px}
+    #pg-games .igame-tag{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+    #pg-games .igame-txt h3{margin:0 0 6px;font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink)}
+    #pg-games .igame-txt p{margin:0;color:var(--mid);font-size:.86rem;line-height:1.5}
+    #pg-games .igame-play{flex-shrink:0;display:inline-block;background:var(--ink);color:#fff;text-decoration:none;padding:14px 24px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;transition:background .15s}
+    #pg-games .igame-play:hover{background:var(--red)}
+    </style>
+    <div class="igame">
+      <div class="igame-txt">
+        <div class="igame-tag">Featured &middot; Fact vs. Myth Minesweeper</div>
+        <h3>Myth Sweeper: Interrogate</h3>
+        <p>Sweep a minefield of Unit 3 claims &mdash; judge each Fact or Myth, then pick the real correction. Miss a fix and the myth detonates.</p>
+      </div>
+      <a class="igame-play" href="unit3-interrogate.html">&#9654; Play Interrogate</a>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Review Game</div>
+      <h2>Reconstruct the Unit 3 Narrative</h2>
+      <p>Match each cause or event on the left with its effect or significance on the right. Click one on each side &mdash; correct pairs lock in green.</p>
+    </div>
+    <div class="match-counter" id="ng-counter">0 of 12 matched</div>
+    <div class="match-board" id="ng-board">
+      <div class="match-col" id="ng-left"><div class="match-col-hdr">Cause / Event</div></div>
+      <div class="match-col" id="ng-right"><div class="match-col-hdr">Effect / Significance</div></div>
+    </div>
+    <div class="match-success" id="ng-success" style="display:none">
+      <h3>You reconstructed the Unit 3 narrative!</h3>
+      <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px">From gunpowder empires to religious rivalries &mdash; every connection made.</p>
+      <button type="button" id="ng-replay" style="padding:12px 24px;background:var(--red);color:#fff;border:none;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
+    </div>
+  </div>
+  <script type="application/json" id="ng-data">
+[
+{"left":"Use of gunpowder cannons and muskets","right":"Rise of the gunpowder empires: Ottoman, Safavid, and Mughal"},
+{"left":"Ottoman devshirme system","right":"Created the Janissary corps of soldiers loyal to the sultan"},
+{"left":"Ottoman conquest of Constantinople (1453)","right":"End of the Byzantine Empire and Ottoman control of key trade routes"},
+{"left":"Safavid adoption of Shia Islam","right":"Sunni-Shia religious rivalry with the Ottoman Empire"},
+{"left":"Akbar's policy of religious tolerance","right":"Reduced Hindu-Muslim tension in Mughal India, including abolishing the jizya"},
+{"left":"Aurangzeb reimposes the jizya tax","right":"Rising unrest that weakened the Mughal Empire"},
+{"left":"European rulers claim divine right","right":"Absolute monarchy, such as Louis XIV and Versailles"},
+{"left":"Tax farming and land grants (zamindars, timars)","right":"Funded imperial armies and rewarded loyal elites"},
+{"left":"Monumental architecture (Taj Mahal, Suleymaniye Mosque)","right":"Projected imperial power, wealth, and religious legitimacy"},
+{"left":"Manchu (Qing) conquest of Ming China","right":"A non-Han dynasty rules China and expands into Central Asia"},
+{"left":"Russian expansion under the tsars","right":"Conquest of Siberia and tighter control over the boyars"},
+{"left":"Songhai control of trans-Saharan trade","right":"Wealth and expansion of a powerful West African Islamic empire"}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('ng-data'); if (!dataEl) return;
+    var PAIRS = JSON.parse(dataEl.textContent);
+    var sel = {left:null,right:null}, matched = 0;
+    function shuffle(a){ a=a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function updateCounter(){ document.getElementById('ng-counter').textContent = matched + ' of ' + PAIRS.length + ' matched'; }
+    function render(){
+      sel = {left:null,right:null}; matched = 0;
+      document.getElementById('ng-success').style.display = 'none';
+      document.getElementById('ng-board').style.display = 'flex';
+      var L = document.getElementById('ng-left'), R = document.getElementById('ng-right');
+      L.innerHTML = '<div class="match-col-hdr">Cause / Event</div>';
+      R.innerHTML = '<div class="match-col-hdr">Effect / Significance</div>';
+      shuffle(PAIRS.map(function(_,i){return i;})).forEach(function(idx){ var c=document.createElement('div'); c.className='match-card'; c.textContent=PAIRS[idx].left; c.dataset.idx=idx; c.dataset.side='left'; L.appendChild(c); });
+      shuffle(PAIRS.map(function(_,i){return i;})).forEach(function(idx){ var c=document.createElement('div'); c.className='match-card'; c.textContent=PAIRS[idx].right; c.dataset.idx=idx; c.dataset.side='right'; R.appendChild(c); });
+      updateCounter();
+    }
+    document.getElementById('ng-board').addEventListener('click', function(e){
+      var card = e.target.closest('.match-card'); if (!card || card.classList.contains('matched')) return;
+      var side = card.dataset.side;
+      document.querySelectorAll('#ng-' + side + ' .match-card.selected').forEach(function(x){ x.classList.remove('selected'); });
+      card.classList.add('selected'); sel[side] = card;
+      if (sel.left && sel.right){
+        var l = sel.left, r = sel.right;
+        if (l.dataset.idx === r.dataset.idx){
+          l.classList.add('matched'); r.classList.add('matched'); l.classList.remove('selected'); r.classList.remove('selected');
+          matched++; updateCounter(); sel = {left:null,right:null};
+          if (matched === PAIRS.length){ setTimeout(function(){ document.getElementById('ng-board').style.display='none'; document.getElementById('ng-success').style.display='block'; }, 450); }
+        } else {
+          l.classList.add('wrong'); r.classList.add('wrong');
+          setTimeout(function(){ l.classList.remove('wrong','selected'); r.classList.remove('wrong','selected'); }, 430);
+          sel = {left:null,right:null};
+        }
+      }
+    });
+    document.getElementById('ng-replay').addEventListener('click', render);
+    render();
+  })();
+  </script>
+</div>
+
+<!-- STUDY GUIDE PAGE -->
+<div class="page" id="pg-guide">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Study Guide</div>
+      <h2>Unit 3: Land-Based Empires</h2>
+      <p>Click each topic to expand the full summary and key terms.</p>
+    </div>
+    <div id="sg-content"></div>
+  </div>
+  <script>
+  (function(){
+    var SG = [
+      {n:"Topic 3.1 — Empires Expand", kw:8, body:"<p>Between 1450 and 1750, several large <strong>land-based empires</strong> expanded dramatically by using <strong>gunpowder weapons</strong> &mdash; cannons and muskets &mdash; to conquer rivals and centralize power. Historians call the Ottoman, Safavid, and Mughal states the <strong>gunpowder empires</strong>.</p><p>The <strong>Ottoman Empire</strong> (Sunni Muslim) captured <strong>Constantinople in 1453</strong> using massive siege cannons, ending the Byzantine Empire and seizing key trade routes. The <strong>Safavid Empire</strong> in Persia adopted <strong>Shia Islam</strong>, creating a lasting rivalry with its Sunni neighbors seen at the <strong>Battle of Chaldiran (1514)</strong>. The <strong>Mughal Empire</strong>, founded by Babur, ruled a Hindu-majority population in South Asia.</p><p>In East Asia the <strong>Ming</strong> and then the <strong>Manchu (Qing)</strong> dynasties governed China; the Qing were a non-Han people who conquered China in 1644 and expanded its borders. In West Africa the <strong>Songhai Empire</strong> grew wealthy controlling trans-Saharan trade.</p><div class='sg-kws'><span class='sg-kw'>Gunpowder Empires</span><span class='sg-kw'>Ottoman</span><span class='sg-kw'>Safavid</span><span class='sg-kw'>Mughal</span><span class='sg-kw'>Qing</span><span class='sg-kw'>Constantinople 1453</span><span class='sg-kw'>Chaldiran</span><span class='sg-kw'>Songhai</span></div>"},
+      {n:"Topic 3.2 — Administration of Empires", kw:8, body:"<p>Ruling a large empire required a sophisticated <strong>bureaucracy</strong> and reliable ways to raise revenue and command loyalty from diverse populations.</p><p>The Ottomans used the <strong>devshirme</strong>, taking Christian boys from the Balkans, converting them to Islam, and training them as administrators or elite <strong>Janissary</strong> soldiers loyal directly to the sultan. The Mughals relied on <strong>zamindars</strong> &mdash; local landowners who collected taxes. Many empires used <strong>tax farming</strong>, selling the right to collect taxes to private individuals.</p><p>China maintained a merit-based <strong>scholar-gentry bureaucracy</strong> chosen by civil-service exam. In Tokugawa Japan, <strong>samurai</strong> became salaried bureaucrats during a long era of peace. China also used the <strong>tribute system</strong> to manage relations with neighboring states.</p><div class='sg-kws'><span class='sg-kw'>Devshirme</span><span class='sg-kw'>Janissaries</span><span class='sg-kw'>Zamindars</span><span class='sg-kw'>Tax Farming</span><span class='sg-kw'>Bureaucracy</span><span class='sg-kw'>Scholar-Gentry</span><span class='sg-kw'>Salaried Samurai</span><span class='sg-kw'>Tribute System</span></div>"},
+      {n:"Topic 3.3 — Belief Systems &amp; Legitimacy", kw:9, body:"<p>Rulers legitimized their power through <strong>religion</strong>, monumental <strong>art and architecture</strong>, and claims of divine favor.</p><p>European monarchs claimed the <strong>divine right of kings</strong> &mdash; that their authority came from God. Muslim empires drew legitimacy from Islam, though the <strong>Sunni-Shia</strong> split divided them. The Mughal emperor <strong>Akbar</strong> promoted religious tolerance, abolishing the <strong>jizya</strong> tax on non-Muslims and creating a syncretic faith. His descendant <strong>Aurangzeb</strong> reversed this, reimposing the jizya and persecuting non-Muslims, which weakened the empire. The syncretic religion of <strong>Sikhism</strong> also emerged in this environment.</p><p>In Europe the <strong>Protestant Reformation</strong>, begun by Martin Luther, split Western Christianity and prompted the Catholic <strong>Counter-Reformation</strong>. Rulers everywhere built monuments &mdash; the <strong>Taj Mahal</strong>, <strong>Versailles</strong>, the <strong>Suleymaniye Mosque</strong> &mdash; to display wealth and legitimacy.</p><div class='sg-kws'><span class='sg-kw'>Divine Right</span><span class='sg-kw'>Sunni-Shia</span><span class='sg-kw'>Akbar</span><span class='sg-kw'>Jizya</span><span class='sg-kw'>Aurangzeb</span><span class='sg-kw'>Sikhism</span><span class='sg-kw'>Reformation</span><span class='sg-kw'>Counter-Reformation</span><span class='sg-kw'>Taj Mahal</span></div>"},
+      {n:"Topic 3.4 — Comparison in Land-Based Empires", kw:6, body:"<p>The AP skill of <strong>comparison</strong> asks you to analyze similarities and differences in how these empires expanded and governed.</p><p>All of the land-based empires <strong>centralized power</strong>, but they used different tools. They legitimized rule through <strong>religion</strong> (Islam, Christianity, the Mandate of Heaven), <strong>art and architecture</strong>, and elaborate <strong>bureaucracies</strong>, and they funded their states through <strong>tax systems</strong> such as tax farming, zamindars, and tribute.</p><p>A key difference lay in <strong>religious policy</strong>: some rulers (Akbar) embraced tolerance to govern diverse subjects, while others (Aurangzeb, or Spain's Catholic monarchs) enforced conformity. Comparing these choices reveals how rulers balanced the needs of diverse populations against the desire for unity.</p><div class='sg-kws'><span class='sg-kw'>Centralization</span><span class='sg-kw'>Legitimacy</span><span class='sg-kw'>Comparison</span><span class='sg-kw'>Bureaucracy</span><span class='sg-kw'>Religious Policy</span><span class='sg-kw'>Absolutism</span></div>"}
+    ];
+    var el = document.getElementById('sg-content');
+    if (el && !el.innerHTML){
+      el.innerHTML = SG.map(function(s, i){
+        return '<div class="sg-section"><div class="sg-hdr" data-idx="' + i + '"><div class="sg-htitle">' + s.n + '</div><div class="sg-hmeta"><span class="sg-hnum">' + s.kw + ' key terms</span><span class="sg-arr">▼</span></div></div><div class="sg-body" id="sgb' + i + '">' + s.body + '</div></div>';
+      }).join('');
+      el.querySelectorAll('.sg-hdr').forEach(function(hdr){
+        hdr.addEventListener('click', function(){
+          var idx = this.dataset.idx, body = document.getElementById('sgb' + idx), open = body.classList.contains('open');
+          this.classList.toggle('open', !open); body.classList.toggle('open', !open);
+        });
+      });
+    }
+  })();
+  </script>
+</div>
+
+<!-- EXAM TIPS PAGE -->
+<div class="page" id="pg-tips">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Writing Tips</div>
+      <h2>Mr. T&rsquo;s FRQ Playbook</h2>
+      <p>Everything you need to write the SAQ, DBQ, and LEQ on exam day.</p>
+    </div>
+    <div class="tip-grid">
+      <div class="tip-card"><h3>&#128221; SAQ — Short Answer</h3><p>Answer ONLY what is asked. No intros, no conclusions.</p><ul><li><strong>Identify</strong> = 1–2 sentences</li><li><strong>Describe</strong> = 2 sentences</li><li><strong>Explain</strong> = 2–3 sentences with "because"</li></ul><p style="margin-top:9px">You must answer Q1 and Q2. Choose between Q3 or Q4 for the last one.</p></div>
+      <div class="tip-card"><h3>&#128196; Thesis Formula</h3><p>Works for both DBQ and LEQ. Must be historically defensible with a line of reasoning.</p><div class="tip-formula">&ldquo;The [subject] <em>[adverb]</em> affected [object] as seen through <em>[group 1]</em> and <em>[group 2]</em>.&rdquo;</div><p style="margin-top:9px">Adverb evaluates extent: <em>significantly, fundamentally, minimally, primarily, negatively…</em></p></div>
+      <div class="tip-card"><h3>&#128336; Contextualization</h3><p>A historical process before/during the prompt period that <em>led to</em> the topic.</p><ul><li>Don't start at "the dawn of man"</li><li>Stay within ~50 years of the prompt</li><li>Must be 2–3 full sentences</li><li>Explain HOW it connects to the prompt</li></ul></div>
+      <div class="tip-card"><h3>&#128196; DBQ Evidence</h3><ul><li><strong>Points 1–2:</strong> Accurately use 4+ of 7 docs.</li><li><strong>Point 3:</strong> Outside evidence — a relevant fact NOT in the documents</li></ul></div>
+      <div class="tip-card"><h3>&#128269; HIPP — Sourcing</h3><p>Apply to at least 2 documents. Pick ONE element per doc.</p><div class="tip-hipp"><div class="tip-hipp-item"><strong>H</strong><p>Historical Situation</p></div><div class="tip-hipp-item"><strong>I</strong><p>Intended Audience</p></div><div class="tip-hipp-item"><strong>P</strong><p>Point of View</p></div><div class="tip-hipp-item"><strong>P</strong><p>Purpose</p></div></div><p style="margin-top:9px;font-size:.79rem">End with: "This alters/supports my understanding because…"</p></div>
+      <div class="tip-card"><h3>&#128221; LEQ — Long Essay</h3><p>No documents — everything from memory.</p><ul><li><strong>Causation:</strong> What caused / what resulted</li><li><strong>CCOT:</strong> What changed and what stayed the same</li><li><strong>Comparison:</strong> Similarities and differences</li></ul></div>
+    </div>
+    <div class="complexity-box">
+      <div class="complexity-label">Complexity Point Options</div>
+      <div class="complexity-body">&#10022; Explain multiple causes/effects, similarities/differences, or continuities/changes<br/>&#10022; Explain both cause AND effect, or both similarity AND difference<br/>&#10022; Connect across time periods or geographic areas<br/>&#10022; Use all 7 documents effectively (DBQ) or HIPP 4+ documents<br/><span class="complexity-note">A counterargument paragraph can earn complexity — but only if it is a full paragraph with evidence, not just a sentence.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SOURCE ANALYSIS PAGE -->
+<div id="pg-source" class="page">
+  <div class="inner" style="max-width:820px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Sourcing Practice</div>
+      <h2>Go Beyond Identification</h2>
+      <p>Don&rsquo;t just name the source feature &mdash; explain <em>why it matters</em>. Practice the &ldquo;<strong>since it was written by a&hellip; it may therefore&hellip;</strong>&rdquo; move on these Unit 3 sources, then compare to the model.</p>
+    </div>
+    <div class="src-doc" id="sa-doc"></div>
+    <div class="src-frame">
+      <div class="src-frame-lbl">Choose a sourcing lens</div>
+      <div class="src-lens-bar" id="sa-lens">
+        <button type="button" class="src-lens-btn" data-lens="pov">Point of View</button>
+        <button type="button" class="src-lens-btn" data-lens="purpose">Purpose</button>
+        <button type="button" class="src-lens-btn" data-lens="situation">Historical Situation</button>
+        <button type="button" class="src-lens-btn" data-lens="audience">Audience</button>
+      </div>
+      <div class="src-frame-hint" id="sa-hint">Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.</div>
+      <textarea class="src-textarea" id="sa-text" placeholder="Write your sourcing sentence here&hellip;"></textarea>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
+      <button type="button" class="src-btn src-btn-red" id="sa-reveal">Show Model Answer</button>
+      <button type="button" class="src-btn src-btn-outline" id="sa-next">Next Document &rarr;</button>
+      <span id="sa-count" style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;color:var(--muted)"></span>
+    </div>
+    <div class="src-model" id="sa-model">
+      <div class="src-model-lbl">Model Sourcing Sentence</div>
+      <div class="src-model-txt" id="sa-model-txt"></div>
+    </div>
+  </div>
+  <script type="application/json" id="sadata">
+[
+  {
+    "type": "Letter",
+    "sl": "François Bernier, French traveler, letter to the French finance minister Jean-Baptiste Colbert, 1670.",
+    "excerpt": "The Mughal emperor grants some of his lands to governors, in place of a salary, on condition that they pay him a sum annually out of any extra revenue. For his other lands he uses contractors to collect the taxes. These governors and contractors have an almost absolute authority over the peasantry and the artisans.",
+    "models": {
+      "pov": "Since Bernier was a European visitor writing to a French minister, he may compare Mughal rule unfavorably to European systems, therefore his account emphasizes what looked to him like arbitrary power over peasants — an outsider's critical view of Mughal administration.",
+      "purpose": "Because he was writing to Colbert, a royal minister interested in governance and economics, its purpose was to inform French policymakers, so it stresses how the Mughal tax system worked and how it affected ordinary people.",
+      "situation": "Since it was written in 1670, at the height of Mughal power under Aurangzeb, it reflects how land grants and tax farming funded the land-based empires.",
+      "audience": "Because his audience was a French official, Bernier framed the Mughal system in terms Europeans would judge, possibly exaggerating its harshness for readers used to French absolutism."
+    }
+  },
+  {
+    "type": "Treatise",
+    "sl": "Katip Çelebi, Ottoman official, 'The Balance of Truth,' a philosophical and scientific treatise, 1656.",
+    "excerpt": "Many Sunni religious scholars have labeled the Sufi whirling rituals as 'dancing' and pronounced them forbidden, branding those who approve of them as infidels. The Sufis counter that the rituals are not dancing but enliven the soul through music and movement. The common people flock to the Sufis, giving them offerings and gifts.",
+    "models": {
+      "pov": "Since Çelebi was an educated Ottoman official writing a balanced treatise, he may try to present both sides fairly, therefore his account reveals genuine religious debates within the Ottoman Empire rather than simple state propaganda.",
+      "purpose": "Because his purpose was to weigh a religious controversy thoughtfully, he lays out both the scholars' and the Sufis' arguments so readers can judge for themselves.",
+      "situation": "Since it was written in 1656, it reflects tensions within Ottoman Islam between orthodox Sunni scholars and popular Sufi practice — part of the religious diversity the empire had to manage.",
+      "audience": "Because it was aimed at educated Ottoman readers, it engages seriously with theological arguments rather than simply issuing a ruling."
+    }
+  },
+  {
+    "type": "Biography",
+    "sl": "Sai Mustafa Chelebi, Ottoman court official, biography of the architect Mimar Sinan, c. 1600.",
+    "excerpt": "Sultan Selim II ordered the building of a great mosque in Edirne. I, Sinan, prepared a design with four minarets at the corners of an enormous central prayer hall topped by a great dome. Each minaret had three balconies with separate staircases — surpassing all earlier Ottoman mosques.",
+    "models": {
+      "pov": "Since this was written to celebrate Sinan's genius, it may exaggerate the mosque's grandeur, therefore it shows how the Ottomans used monumental architecture to display the power and legitimacy of the sultan.",
+      "purpose": "Because its purpose was to honor Sinan and the sultan's patronage, it emphasizes the mosque's record-setting scale and innovation.",
+      "situation": "Since it describes the Selimiye Mosque under Selim II, it reflects how land-based empires used grand religious architecture to project imperial and religious authority.",
+      "audience": "Because it was written for the Ottoman court and elite, it presents the sultan's building projects as proof of the dynasty's greatness."
+    }
+  },
+  {
+    "type": "Speech",
+    "sl": "King James I, speech to Parliament, England, 1610.",
+    "excerpt": "The state of monarchy is the supremest thing upon earth; for kings are not only God's lieutenants upon earth and sit upon God's throne, but even by God himself are called gods. In the Scriptures kings are called gods, and so their power is compared to the divine power.",
+    "models": {
+      "pov": "Since this was spoken by a king asserting his own authority, it may overstate royal power, therefore it is a clear statement of the divine right of kings used to justify absolute monarchy.",
+      "purpose": "Because his purpose was to assert supreme authority over Parliament, he compares kings to gods in order to discourage any challenge to his rule.",
+      "situation": "Since it was delivered in 1610, amid rising tension between the English crown and Parliament, it reflects the era's debates over the limits of royal power.",
+      "audience": "Because his audience was Parliament itself, James used religious language to pressure the very body that might resist his claim to absolute power."
+    }
+  },
+  {
+    "type": "Sermon",
+    "sl": "Martin Luther, German theologian, sermon addressed to a German prince, 1528.",
+    "excerpt": "Pope Leo X condemned my statement that 'to fight against the Turk is the same thing as resisting God, who visits our sin upon us with this rod.' I confess this statement is mine. The popes and bishops called for war against the Turks in the name of Christ, yet Christ taught that Christians shall not resist evil with violence.",
+    "models": {
+      "pov": "Since Luther was challenging the Catholic Church, he may frame the war against the Turks to attack papal authority, therefore the sermon shows how the Protestant Reformation split Christendom even on the question of resisting the Ottomans.",
+      "purpose": "Because his purpose was to criticize the pope and bishops, he uses the issue of war against the Turks to expose what he sees as their hypocrisy.",
+      "situation": "Since it dates to 1528, as the Ottomans advanced toward Vienna and the Reformation divided Europe, it reflects how religious division weakened any unified Christian response.",
+      "audience": "Because it was addressed to a German prince, Luther aimed to win the support of secular rulers against both the Ottomans and the papacy."
+    }
+  }
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('sadata');
+    if (!dataEl) return;
+    var SRC_DOCS = JSON.parse(dataEl.textContent);
+    var BLANK = 'Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.';
+    var HINTS = {
+      pov: BLANK,
+      purpose: 'Because this document was created in order to <strong>[goal]</strong>, its purpose was <strong>[X]</strong>, therefore it <strong>[emphasizes or leaves out]</strong>.',
+      situation: 'Since this was written in <strong>[when / amid what events]</strong>, the historical situation is significant because <strong>[how that context shapes it]</strong>.',
+      audience: 'Because this was created for <strong>[who]</strong>, the audience is significant because <strong>[how that shapes the content or tone]</strong>.'
+    };
+    var idx = 0, lens = null;
+    function render(){
+      var d = SRC_DOCS[idx];
+      document.getElementById('sa-doc').innerHTML =
+        '<div class="src-doc-lbl">' + d.type + '</div>' +
+        '<div class="src-doc-src">' + d.sl + '</div>' +
+        (d.img ? '<img src="' + d.img + '" alt="' + d.type + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
+        (d.excerpt ? '<div class="src-doc-txt">' + d.excerpt + '</div>' : '');
+      document.getElementById('sa-text').value = '';
+      document.getElementById('sa-model').classList.remove('show');
+      document.getElementById('sa-model-txt').textContent = '';
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(b){ b.classList.remove('active'); });
+      lens = null;
+      document.getElementById('sa-hint').innerHTML = BLANK;
+      document.getElementById('sa-count').textContent = 'Document ' + (idx + 1) + ' of ' + SRC_DOCS.length;
+    }
+    document.getElementById('sa-lens').addEventListener('click', function(e){
+      var b = e.target.closest('.src-lens-btn'); if (!b) return;
+      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active'); lens = b.dataset.lens;
+      document.getElementById('sa-hint').innerHTML = HINTS[lens];
+    });
+    document.getElementById('sa-reveal').addEventListener('click', function(){
+      var d = SRC_DOCS[idx]; var L = lens || 'pov';
+      if (!lens){ document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.lens==='pov'); }); document.getElementById('sa-hint').innerHTML = HINTS.pov; lens='pov'; }
+      document.getElementById('sa-model-txt').textContent = d.models[L];
+      document.getElementById('sa-model').classList.add('show');
+    });
+    document.getElementById('sa-next').addEventListener('click', function(){ idx = (idx + 1) % SRC_DOCS.length; render(); });
+    render();
+  })();
+  </script>
+</div>
+
+<!-- VISUAL SOURCES PAGE -->
+<div class="page" id="pg-visual">
+  <div class="inner" style="max-width:1100px;margin:0 auto;padding:40px 20px 60px">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">Skill Practice</div>
+      <h2>Visual Sources &amp; HIPP Analysis</h2>
+      <p>Study each primary-source image, answer the AP question, then write your own HIPP analysis and compare it to the exemplar.</p>
+    </div>
+    <div class="vs-panel">
+      <div class="vs-tab-row" id="vs-tabs"></div>
+      <div id="vs-cards"></div>
+    </div>
+  </div>
+  <script type="application/json" id="vsdata">
+[
+{"num":1,"img":"images/u3-vis-1.jpg","title":"Ottoman Janissaries with Muskets at the Siege of Rhodes (1522)","source":"Ottoman miniature depicting Janissaries firing muskets during the Siege of Rhodes, 1522.","desc":"Elite Ottoman Janissary infantry fire gunpowder muskets at fortified walls defended by the Knights of St. John — a scene of the firearms that made the Ottomans a leading gunpowder empire.","q":"The image best illustrates which development in the period 1450–1750?","o":["The use of gunpowder weapons to build and expand large empires","The decline of infantry in favor of cavalry warfare","The rejection of firearms by Islamic empires","The purely naval basis of Ottoman military power"],"c":0,"e":"The Ottomans, Safavids, and Mughals are called gunpowder empires because they used cannons and firearms to conquer rivals and centralize power. The disciplined, musket-armed Janissaries were central to Ottoman military dominance.","hipp":{"h":"Made in the Ottoman Empire in the 16th century, when the Ottomans were expanding aggressively and the Janissaries were the most feared infantry in Europe and the Middle East.","i":"As a manuscript illustration, it was created for the sultan and elite court audience to celebrate Ottoman victories.","p":"Its purpose was to glorify Ottoman military power and commemorate a triumph, not to give an objective account of the battle.","pov":"From an official Ottoman perspective, it emphasizes Ottoman strength and discipline and portrays the campaign as a heroic success."}},
+{"num":2,"img":"images/u3-vis-2.jpg","title":"The Enthronement of Sultan Suleiman I","source":"Ottoman miniature depicting the enthronement of Sultan Suleiman the Magnificent, 16th century.","desc":"Suleiman I sits on a golden throne beneath a canopy, surrounded by turbaned officials and viziers — an image designed to display the sultan's supreme authority and the hierarchy of the Ottoman state.","q":"This image best reflects how land-based empires in this period sought to:","o":["Share power equally among competing noble families","Project the ruler's legitimacy and centralized authority","Replace religion with secular government","Limit the ruler's power through written constitutions"],"c":1,"e":"Rulers of land-based empires used ceremony, art, and imagery to legitimize centralized power. The composition — the sultan elevated and enthroned above his officials — visually communicates a strict hierarchy with the ruler at its apex.","hipp":{"h":"Produced during or after the reign of Suleiman (r. 1520–1566), the height of Ottoman wealth and power.","i":"Made for the court and the sultan himself; the audience was the imperial elite.","p":"Its purpose was to legitimize and glorify the sultan's rule, presenting his authority as majestic and God-given.","pov":"As court-commissioned art, it offers an idealized, flattering image of royal power rather than a neutral record."}},
+{"num":3,"img":"images/u3-vis-3.jpg","title":"The Devshirme: Recruiting Boys in the Balkans","source":"Miniature from the Süleymanname depicting the devshirme, the collection of Christian boys for imperial service, 16th century.","desc":"An Ottoman official registers Christian boys (in red) taken from Balkan families, who look on. These recruits would be converted to Islam and trained as administrators or elite Janissary soldiers.","q":"The system depicted here is best understood as a method by which the Ottoman Empire:","o":["Recruited and trained loyal administrators and soldiers for the state","Expelled religious minorities from the empire","Encouraged voluntary migration to the capital","Granted local Christian lords full autonomy"],"c":0,"e":"The devshirme took Christian boys from the Balkans, converted them, and trained them as bureaucrats or Janissaries loyal directly to the sultan. It was a distinctive Ottoman method of building a capable, dependent administrative and military class.","hipp":{"h":"Created in the 16th century, when the devshirme was a central institution of Ottoman administration and the empire ruled a large Christian population in the Balkans.","i":"As official court art, it was meant for the sultan and elite, presenting the system as orderly and legitimate.","p":"Its purpose was to document and normalize a key institution of imperial governance.","pov":"From the Ottoman state's perspective the scene appears orderly and dignified; it does not show the perspective of the families losing their sons."}},
+{"num":4,"img":"images/u3-vis-4.jpg","title":"The Taj Mahal, Agra","source":"The Taj Mahal, a mausoleum commissioned by Mughal emperor Shah Jahan, completed c. 1653 (modern photograph).","desc":"A vast white marble mausoleum with a central dome, minarets, and formal gardens, built by Shah Jahan for his wife — one of the most famous examples of Mughal imperial architecture.","q":"Monumental structures like the one shown were most often used by rulers to:","o":["Provide practical housing for the urban poor","Display imperial wealth, power, and legitimacy","Serve mainly as fortifications against invasion","Replace religious institutions with secular ones"],"c":1,"e":"Rulers of land-based empires used monumental art and architecture to project wealth, power, and legitimacy. The Taj Mahal blends Persian, Islamic, and Indian styles and demonstrated the Mughal dynasty's resources and grandeur.","hipp":{"h":"Built in the mid-17th century at the height of Mughal wealth under Shah Jahan.","i":"Its audience was both contemporaries and posterity — subjects, rivals, and future generations who would associate the monument with Mughal greatness.","p":"Its purpose was to memorialize the emperor's wife and, at the same time, glorify the power and legitimacy of the dynasty.","pov":"As an imperial commission, it reflects the perspective and priorities of the Mughal ruling elite and their command of vast resources and labor."}}
+]
+  </script>
+  <script>
+  (function(){
+    var dataEl = document.getElementById('vsdata'); if (!dataEl) return;
+    var VISUAL_DATA = JSON.parse(dataEl.textContent);
+    var HIPP_KEYS = [
+      {key:'h',label:'Historical Context',guides:['When and where was this source created?','What major events or tensions were happening at this time?','How does the historical moment explain why this source exists?']},
+      {key:'i',label:'Intended Audience',guides:['Who was this source originally created for?','What details (language, imagery, style) hint at who it was aimed at?','Would that audience have agreed with the message?']},
+      {key:'p',label:'Purpose',guides:['Why did the creator make this — to persuade, inform, document, or commemorate?','What reaction or action did the creator want?','Who benefits if the message is accepted?']},
+      {key:'pov',label:'Point of View',guides:['Who created this source? What is their background or position?','How does their identity shape what they emphasize or leave out?','Why should a historian weigh this perspective?']}
+    ];
+    var tabRow = document.getElementById('vs-tabs'), cardsEl = document.getElementById('vs-cards');
+    VISUAL_DATA.forEach(function(item, idx){
+      var tab = document.createElement('button'); tab.type = 'button';
+      tab.className = 'vs-tab' + (idx === 0 ? ' active' : ''); tab.textContent = 'Image ' + item.num;
+      tab.addEventListener('click', function(){
+        document.querySelectorAll('#vs-tabs .vs-tab').forEach(function(t){ t.classList.remove('active'); });
+        tab.classList.add('active');
+        document.querySelectorAll('#vs-cards .vs-card').forEach(function(c){ c.classList.remove('active'); });
+        document.getElementById('vs-card-' + idx).classList.add('active');
+      });
+      tabRow.appendChild(tab);
+      var mcHTML = '';
+      item.o.forEach(function(opt, oi){ mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>'; });
+      var hippHTML = '';
+      HIPP_KEYS.forEach(function(hk){
+        var g = hk.guides.map(function(x){ return '<li>' + x + '</li>'; }).join('');
+        hippHTML += '<div class="vs-hipp-section"><div class="vs-hipp-lbl">' + hk.label + '</div><ul class="vs-guide">' + g + '</ul><textarea class="vs-hipp-input" placeholder="Write your analysis here…" rows="3"></textarea><div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '"><div class="vs-hipp-model-lbl">Exemplar — ' + hk.label + '</div>' + item.hipp[hk.key] + '</div></div>';
+      });
+      var card = document.createElement('div'); card.className = 'vs-card' + (idx === 0 ? ' active' : ''); card.id = 'vs-card-' + idx;
+      card.innerHTML =
+        '<div class="vs-card-src">' + item.source + '</div>' +
+        '<div class="vs-card-title">' + item.title + '</div>' +
+        '<div class="vs-card-desc">' + item.desc + '</div>' +
+        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
+        '<div class="vs-step-hdr">Step 1 — Answer the AP Question</div>' +
+        '<div class="vs-mc-q">' + item.q + '</div>' + mcHTML +
+        '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
+        '<div class="vs-btn-row"><button type="button" class="vs-btn" data-hippshow="' + idx + '">Step 2 — Analyze this Source (HIPP) →</button></div>' +
+        '<div class="vs-hipp-area" id="vs-hipp-' + idx + '"><div class="vs-step-hdr" style="margin-bottom:12px">Step 2 — HIPP Analysis</div><p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Use the guiding questions to write your own analysis, then compare to the exemplar.</p>' + hippHTML + '<div class="vs-btn-row"><button type="button" class="vs-btn vs-btn-red" data-compare="' + idx + '">Compare to Exemplar HIPP →</button></div></div>';
+      cardsEl.appendChild(card);
+    });
+    cardsEl.addEventListener('click', function(e){
+      var hb = e.target.closest('[data-hippshow]');
+      if (hb){ document.getElementById('vs-hipp-' + hb.dataset.hippshow).classList.add('show'); hb.style.display = 'none'; return; }
+      var cb = e.target.closest('[data-compare]');
+      if (cb){ var i = cb.dataset.compare; HIPP_KEYS.forEach(function(hk){ document.getElementById('vs-model-' + hk.key + '-' + i).classList.add('show'); }); cb.style.display = 'none'; return; }
+      var opt = e.target.closest('.vs-mc-option');
+      if (opt && !opt.disabled){
+        var card = opt.closest('.vs-card'); var idx = card.id.replace('vs-card-', ''); var item = VISUAL_DATA[parseInt(idx)]; var oi = parseInt(opt.dataset.oi);
+        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi){ b.disabled = true; if (bi === item.c) b.classList.add('vs-mc-correct'); else if (bi === oi) b.classList.add('vs-mc-wrong'); });
+        document.getElementById('vs-mc-explain-' + idx).classList.add('show');
+      }
+    });
+  })();
+  </script>
+</div>
+
+<div class="page" id="pg-spice">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="index.html" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="pg-hero">
+      <div class="eyebrow">AP Framework</div>
+      <h2>SPICE-T Analysis</h2>
+      <p>Unit 3 &mdash; Land-Based Empires (c. 1450&ndash;c. 1750) through the AP World History thematic lens.</p>
+    </div>
+    <div class="spice-grid">
+      <div class="spice-card spice-s">
+        <div class="spice-letter">S</div>
+        <div class="spice-cat">Social</div>
+        <div class="spice-desc">Socioeconomic groups, class/caste, gender roles, unfree labor, religious communities</div>
+        <ul class="spice-list">
+          <li>Devshirme recruited Christian boys into Ottoman service as Janissaries and bureaucrats</li>
+          <li>Millet system granted religious minorities legal autonomy within the Ottoman Empire</li>
+          <li>Mughal mansabdar system tied noble rank and privileges to military service</li>
+          <li>Nur Jahan wielded exceptional political influence in the Mughal court</li>
+          <li>Enslaved soldiers and administrators held significant power across multiple empires</li>
+          <li>Sunni&ndash;Shi&lsquo;a divisions created deep social and religious tensions between Ottomans and Safavids</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-p">
+        <div class="spice-letter">P</div>
+        <div class="spice-cat">Political</div>
+        <div class="spice-desc">Political structures, governance, power, state legitimacy, revolts, empires</div>
+        <ul class="spice-list">
+          <li>Ottoman sultans claimed universal Islamic authority; the Grand Vizier managed daily governance</li>
+          <li>Safavid shahs fused political and religious authority as heads of Twelver Shi&lsquo;a Islam</li>
+          <li>Akbar&rsquo;s policy of religious tolerance (Din-i-Ilahi) stabilized multi-ethnic Mughal rule</li>
+          <li>Qing Manchus preserved Ming administrative structures while imposing distinct Manchu customs</li>
+          <li>All four empires relied on gunpowder weapons to expand and consolidate territory</li>
+          <li>Monumental architecture (Taj Mahal, S&uuml;leymaniye Mosque) served as propaganda for imperial legitimacy</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-i">
+        <div class="spice-letter">I</div>
+        <div class="spice-cat">Interaction w/ Environment</div>
+        <div class="spice-desc">Human-environment relations, demography, disease, resources, settlement</div>
+        <ul class="spice-list">
+          <li>Empires controlled river valleys and trade routes to extract agricultural surplus and revenue</li>
+          <li>The Zagros Mountains defined the contested border between the Ottoman and Safavid empires</li>
+          <li>Plague outbreaks periodically disrupted Ottoman population density and administrative capacity</li>
+          <li>Control of Silk Road routes provided critical economic and military-logistical advantages</li>
+          <li>Qing expansion into Central Asia brought vast new agricultural and pastoral zones under control</li>
+          <li>Large-scale irrigation projects in Mughal India sustained dense rural populations</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-c">
+        <div class="spice-letter">C</div>
+        <div class="spice-cat">Cultural</div>
+        <div class="spice-desc">Arts, literature, architecture, belief systems, science, ideologies</div>
+        <ul class="spice-list">
+          <li>Persian served as the literary and court language of both Mughal and Safavid courts</li>
+          <li>Mughal miniature painting blended Persian, Indian, and European artistic traditions</li>
+          <li>Ottoman architecture synthesized Byzantine and Islamic forms (conversion of Hagia Sophia)</li>
+          <li>Jesuit missionaries visited Akbar&rsquo;s court, sparking comparative theological debates</li>
+          <li>Confucian ideology and civil examinations underpinned Qing bureaucratic legitimacy</li>
+          <li>Syncretic art and architecture reflected the multicultural foundations of empire building</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-e">
+        <div class="spice-letter">E</div>
+        <div class="spice-cat">Economic</div>
+        <div class="spice-desc">Economic systems, trade, labor, resources, agriculture, commerce</div>
+        <ul class="spice-list">
+          <li>Agricultural taxation was the primary revenue source for all land-based empires</li>
+          <li>Ottoman tax farming (iltizam) delegated collection to private contractors for upfront payments</li>
+          <li>Mughal zamindars collected taxes from peasant farmers, retaining a portion as compensation</li>
+          <li>Long-distance Silk Road trade connected empires to emerging global silver networks</li>
+          <li>Artisan guilds (Ottoman esnafs) organized and regulated urban craft production</li>
+          <li>Influx of American silver eventually destabilized Ottoman and Mughal price systems</li>
+        </ul>
+      </div>
+      <div class="spice-card spice-t">
+        <div class="spice-letter">T</div>
+        <div class="spice-cat">Technology</div>
+        <div class="spice-desc">Creation and use of new technologies; their impact on society and empire</div>
+        <ul class="spice-list">
+          <li>Gunpowder weapons (cannons, muskets) defined conquest &mdash; giving these the &ldquo;Gunpowder Empires&rdquo; label</li>
+          <li>Ottoman siege cannons breached Constantinople&rsquo;s walls in 1453, ending the Byzantine Empire</li>
+          <li>Architectural innovations: massive domes (S&uuml;leymaniye, Taj Mahal) required advanced engineering</li>
+          <li>Irrigation and water management infrastructure sustained large agricultural populations</li>
+          <li>Ottomans banned Arabic-script printing until 1727, slowing the diffusion of knowledge</li>
+          <li>Safavid tilework, carpet weaving, and metalwork represented advanced craft technologies</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── PAGE NAV ── */
+var PAGE_TITLES = {'pg-home':'Overview','pg-writing':'Writing Drills','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-brain':'Brain Dump','pg-spice':'SPICE-T Analysis'};
+/* ── Consolidated 6-group navigation (portable across all units) ── */
+var GROUPS = [
+  {label:'Overview',    pages:['pg-home']},
+  {label:'Practice',    pages:['pg-mcq','pg-walk','pg-web']},
+  {label:'Writing',     pages:['pg-write','pg-writing']},
+  {label:'Study Guide', pages:['pg-guide','pg-tips']},
+  {label:'Sources',     pages:['pg-source','pg-visual','pg-maps']},
+  {label:'Review & Recall', pages:['pg-flash','pg-brain','pg-spice','pg-games']}
+];
+var SUBLABELS = {
+  'pg-mcq':'Questions','pg-walk':'How to Attack an MCQ','pg-web':'Web Review',
+  'pg-guide':'Study Guide','pg-tips':'Exam Tips',
+  'pg-source':'Documents','pg-visual':'Visual Sources','pg-maps':'Maps',
+  'pg-flash':'Flashcards','pg-brain':'Brain Dump','pg-spice':'SPICE-T','pg-games':'Games'
+};
+var GROUPS_LIVE = GROUPS.map(function(g){
+  return {label:g.label, pages:g.pages.filter(function(id){ return document.getElementById(id); })};
+}).filter(function(g){ return g.pages.length; });
+function groupOf(id){
+  for (var i=0;i<GROUPS_LIVE.length;i++){ if (GROUPS_LIVE[i].pages.indexOf(id)>-1) return GROUPS_LIVE[i]; }
+  return null;
+}
+(function injectSubtabCSS(){
+  if (document.getElementById('subtab-css')) return;
+  var s=document.createElement('style'); s.id='subtab-css';
+  s.textContent='.subtab-bar{display:flex;flex-wrap:wrap;align-items:center;gap:0 26px;background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:62px;z-index:90;box-shadow:0 1px 3px rgba(0,0,0,.04)}.subtab-bar:empty{display:none}.subtab{appearance:none;background:none;border:none;border-bottom:3px solid transparent;padding:11px 2px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:color .13s,border-color .13s;white-space:nowrap}.subtab:hover{color:var(--ink)}.subtab.active{color:var(--red);border-bottom-color:var(--red)}';
+  document.head.appendChild(s);
+})();
+(function ensureSubtabBar(){
+  if (document.getElementById('subtab-bar')) return;
+  var tb=document.querySelector('.top-bar');
+  if (!tb || !tb.parentNode) return;
+  var bar=document.createElement('div'); bar.id='subtab-bar'; bar.className='subtab-bar';
+  tb.parentNode.insertBefore(bar, tb.nextSibling);
+})();
+(function renderNav(){
+  var wrap=document.getElementById('sb-nav-items');
+  if (!wrap) return;
+  wrap.innerHTML='';
+  GROUPS_LIVE.forEach(function(g){
+    var it=document.createElement('div');
+    it.className='nav-item'; it.dataset.group=g.label;
+    var dot=document.createElement('span'); dot.className='nav-dot';
+    it.appendChild(dot); it.appendChild(document.createTextNode(g.label));
+    it.addEventListener('click', function(){ showTab(g.pages[0]); });
+    wrap.appendChild(it);
+  });
+})();
+function renderSubtabs(group, activeId){
+  var bar=document.getElementById('subtab-bar');
+  if (!bar) return;
+  bar.innerHTML='';
+  if (!group || group.pages.length<2) return;
+  group.pages.forEach(function(id){
+    var b=document.createElement('button'); b.type='button';
+    b.className='subtab'+(id===activeId?' active':'');
+    b.textContent=SUBLABELS[id]||(PAGE_TITLES[id]||id);
+    b.addEventListener('click', function(){ showTab(id); });
+    bar.appendChild(b);
+  });
+}
+function showTab(id){
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var t=document.getElementById(id);
+  if (t) t.classList.add('active');
+  var group=groupOf(id);
+  document.querySelectorAll('#sb-nav-items .nav-item').forEach(function(n){
+    n.classList.toggle('active', !!group && n.dataset.group===group.label);
+  });
+  renderSubtabs(group, id);
+  var tt=document.getElementById('top-title');
+  if (tt) tt.textContent=(group?group.label:(PAGE_TITLES[id]||''));
+  if (id==='pg-guide' && typeof renderGuide==='function') renderGuide();
+  if (id==='pg-progress' && typeof teacherUnlocked!=='undefined' && teacherUnlocked && typeof renderProgress==='function') renderProgress();
+  window.scrollTo(0,0);
+}
+window.showTab=showTab;
+showTab('pg-home');
+(function(){var goHash=function(){var h=(location.hash||'').replace(/^#/,'');var t=h&&document.getElementById(h);if(t&&t.classList&&t.classList.contains('page'))showTab(h);};goHash();window.addEventListener('hashchange',goHash);})();
+document.querySelectorAll('[data-tab]').forEach(function(el){
+  el.addEventListener('click', function(){ showTab(this.dataset.tab); });
+});
+
+/* ── TIMELINE ── */
+document.getElementById('scroll-timeline-btn').addEventListener('click', function(){
+  var tl = document.getElementById('timeline-section');
+  if (tl) tl.scrollIntoView({ behavior: 'smooth' });
+});
+var TIMELINE = [
+  { year:'1453', title:'Fall of Constantinople', topic:'Topic 3.1 — Empires Expand', desc:'Ottoman Sultan Mehmed II captures Constantinople using massive cannons, ending the Byzantine Empire after 1,000 years. The city is renamed Istanbul and becomes the Ottoman capital. The conquest demonstrates the decisive power of gunpowder artillery and establishes the Ottomans as heirs to Roman imperial tradition — a claim central to their legitimacy for centuries.', img:'images/tl/u3-tl-1.jpg', alt:'Mehmed II enters Constantinople, painting by Fausto Zonaro' },
+  { year:'1501', title:'Safavid Empire Founded', topic:'Topic 3.3 — Belief Systems', desc:'Shah Ismail I establishes the Safavid dynasty in Persia and forcibly converts Sunni Persia to Twelver Shi‘a Islam. This creates a permanent religious fault line with the Sunni Ottoman Empire and triggers a century of warfare. The Sunni–Shi‘a rivalry shapes Ottoman religious policy, forcing Sunni scholars to police orthodoxy and marginalize Sufi practices within the empire.', img:'images/tl/u3-tl-2.jpg', alt:'Shah Ismail I at the Battle of Chaldiran' },
+  { year:'1526', title:'Mughal Empire Founded', topic:'Topic 3.1 — Empires Expand', desc:'Babur defeats Ibrahim Lodi at the First Battle of Panipat using field artillery and mobile cavalry tactics. His victory establishes the Mughal dynasty in northern India. The Mughals inherit the challenge of ruling a predominantly Hindu population with a Muslim ruling class — a tension that would define the empire for generations, resolved differently by each successive emperor.', img:'images/tl/u3-tl-3.jpg', alt:'Idealized portrait of Babur, founder of the Mughal Empire' },
+  { year:'1556', title:'Akbar\'s Reign Begins', topic:'Topic 3.2 — Administration', desc:'Akbar becomes Mughal emperor at age 13 and goes on to build the most sophisticated administrative system in Asia. He abolishes the jizya tax on non-Muslims, marries Hindu Rajput princesses, employs Hindus in the highest offices of state, and commissions a new syncretic religion, Din-i-Ilahi. His reign exemplifies how successful land-based empires often required religious accommodation rather than coercion.', img:'images/tl/u3-tl-4.jpg', alt:'Emperor Akbar with lion and calf, by Govardhan' },
+  { year:'1566', title:'Death of Suleiman the Magnificent', topic:'Topic 3.1 — Empires Expand', desc:'Suleiman I dies on campaign in Hungary, having presided over the Ottoman Empire at its greatest extent — stretching from Vienna to the Persian Gulf, from Crimea to Algiers. He commissioned the Selimiye Mosque (designed by Mimar Sinan), codified Ottoman law, and patronized art and scholarship. His reign represents the peak of Ottoman power and the model against which later sultans were measured.', img:'images/u3-vis-2.jpg', alt:'Enthronement ceremony of Sultan Suleiman I' },
+  { year:'1644', title:'Qing Dynasty Conquers Ming China', topic:'Topic 3.1 — Empires Expand', desc:'The Manchu people from northeastern China — semi-nomadic like the Mongols before them — cross the Great Wall and overthrow the Ming Dynasty, founding the Qing. Rather than dismantling the sophisticated Chinese bureaucracy, the Qing rulers maintain the Confucian examination system and Chinese administrative practices, demonstrating how successful land-based empires often adapt existing institutions rather than replacing them.', img:'images/tl/u3-tl-6.jpg', alt:'Portrait of the Kangxi Emperor in court dress' },
+  { year:'1683', title:'Ottoman Siege of Vienna Fails', topic:'Topic 3.1 — Empires Expand', desc:'A combined Austrian–Polish force defeats the Ottoman army besieging Vienna, ending Ottoman expansion into Europe and beginning a century of slow retreat. The defeat marks a symbolic turning point: European states had adopted and refined Ottoman-style gunpowder technology, and the Ottomans would never again threaten the heart of Europe. The siege of Vienna is a watershed in the long competition between gunpowder empires.', img:'images/tl/u3-tl-7.jpg', alt:'The Battle of Vienna, 1683' },
+  { year:'1703', title:'Peter the Great\'s Westernization', topic:'Topic 3.2 — Administration', desc:'Peter the Great founds St. Petersburg as Russia\'s new western-facing capital, built in the European Baroque style. His reign involves a sweeping program of Westernization: adopting European military technology, dress, calendar, and administrative practices. St. Petersburg visually embodies his ambition to transform Russia into a European great power — an example of how land-based empires adapted external models to strengthen their states.', img:'images/tl/u3-tl-8.jpg', alt:'Portrait of Peter the Great by Paul Delaroche' }
+];
+var tlList = document.getElementById('tl-list');
+if (tlList) {
+  var tlHTML = '';
+  TIMELINE.forEach(function(item, i) {
+    var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
+    var fallback = '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>';
+    var imgTag = item.img ? '<img src="' + item.img + '" alt="' + item.alt + '" style="object-position:top center" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' : '';
+    tlHTML += '<div class="tl-item ' + side + '"><div class="tl-img-wrap">' + imgTag + fallback + '</div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-year-badge">' + item.year + '</div><div class="tl-topic-tag">' + item.topic + '</div><h3 class="tl-title">' + item.title + '</h3><p class="tl-desc">' + item.desc + '</p></div></div>';
+  });
+  tlList.innerHTML = tlHTML;
+  var tlObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  tlList.querySelectorAll('.tl-item').forEach(function(el){ tlObs.observe(el); });
+}
+
+
+
+/* ── BRAIN DUMP ── */
+var bdTopic = null, bdTimerInterval = null;
+var BD_TOPIC_NAMES = {
+  '3.1':'3.1 — Empires Expand',
+  '3.2':'3.2 — Empires: Administration',
+  '3.3':'3.3 — Empires: Belief Systems',
+  '3.4':'3.4 — Comparison in Land-Based Empires'
+};
+var BD_STEMS = {
+  '3.1': 'Land-based empires expanded their territory in the period 1450–1750 by using…',
+  '3.2': 'Rulers of land-based empires maintained their authority through administrative techniques including…',
+  '3.3': 'Religion shaped the policies and conflicts of land-based empires because…',
+  '3.4': 'The Ottoman, Mughal, Safavid, and Qing empires were similar to each other in that…'
+};
+var BD_CARDS = {
+  '3.1': [
+    {t:'Ottoman Empire',d:'Founded by Osman I (c. 1300), the Ottomans conquered Constantinople in 1453 using massive gunpowder cannons. At its height under Suleiman the Magnificent (1520–1566), the empire stretched from Vienna to the Persian Gulf. The Ottomans were the dominant Muslim power of the early modern world.'},
+    {t:'Safavid Empire',d:'Founded by Shah Ismail I in 1501 in Persia (modern Iran). The Safavids forcibly converted their population to Twelver Shi‘a Islam, making religion the central pillar of state identity. Perpetual rivals of the Sunni Ottomans.'},
+    {t:'Mughal Empire',d:'Founded by Babur in 1526 after the Battle of Panipat. At its peak under Akbar and Aurangzeb, the Mughal Empire encompassed most of the Indian subcontinent and over 100 million people — producing perhaps 25% of world GDP.'},
+    {t:'Qing Dynasty',d:'The Manchus, a semi-nomadic people from northeastern China, overthrew the Ming Dynasty in 1644 and established the Qing. They maintained Chinese bureaucratic practices (including the examination system) while imposing some Manchu cultural requirements on their subjects.'},
+    {t:'Russian Empire',d:'Russia expanded dramatically eastward across Siberia (reaching the Pacific by 1639) and southward under the Romanov dynasty. Peter the Great (r. 1682–1725) Westernized the empire’s institutions and founded St. Petersburg as the new capital.'},
+    {t:'Gunpowder Weapons',d:'Cannons and firearms transformed warfare in the 15th–17th centuries, allowing well-organized states to overpower traditional cavalry-based armies. Gunpowder technology was the key military advantage of the Ottoman, Mughal, and Manchu empires in their expansions.'},
+    {t:'Janissaries',d:'Elite Ottoman infantry corps recruited through the devshirme system from Christian subjects. Trained from youth, educated in Islam, and loyal personally to the sultan. Among the most professional soldiers in the world in the 16th century.'}
+  ],
+  '3.2': [
+    {t:'Devshirme System',d:'Ottoman practice of forcibly recruiting young boys from Christian subject populations in the Balkans. Boys were converted to Islam, educated, and trained as soldiers (janissaries) or administrators. Because they had no family connections in Ottoman society, they were personally loyal to the sultan.'},
+    {t:'Zamindar System',d:'Mughal system of tax administration in which zamindars (local lords, often Hindu) were granted the right to collect taxes from peasants in a given area in exchange for providing revenue to the central government. Similar to the Ottoman timar system.'},
+    {t:'Divine Right of Kings',d:'European political theory that monarchs derive their authority directly from God and are accountable only to God. Articulated by James I of England in 1610. Used by monarchs across Europe to resist both noble and clerical challenges to royal authority.'},
+    {t:'Confucian Examination System',d:'Chinese system for recruiting government officials through rigorous written examinations based on Confucian classics. Maintained by both the Ming and Qing dynasties. Created a merit-based bureaucracy that was theoretically open to any literate man, though the system favored wealthy families who could afford years of study.'},
+    {t:'Peter the Great & Westernization',d:'Tsar Peter I of Russia (r. 1682–1725) undertook a sweeping program of Westernization: adopted European military technology and tactics, founded the Russian navy, built St. Petersburg in the European style, required nobles to shave beards and wear Western clothing, and reorganized Russian bureaucracy on European models.'},
+    {t:'Art as Legitimacy',d:'Rulers across all land-based empires used art, architecture, and literature to legitimize their power. Ottoman sultans commissioned mosque complexes and official histories; Mughal emperors patronized miniature paintings; European monarchs built palaces like Versailles. These were not luxuries but political tools.'},
+    {t:'Tax Farming',d:'System of tax collection in which the right to collect taxes in a given area is sold or auctioned to private individuals (tax farmers), who then collect taxes from the population and keep a portion. Used in the Ottoman and Mughal empires. Often led to exploitation of peasants, as Bernier describes.'}
+  ],
+  '3.3': [
+    {t:'Sunni–Shi‘a Division',d:'The two main branches of Islam divided after a dispute over the succession of Muhammad (632 C.E.). The Ottoman Empire was officially Sunni; the Safavid Empire was Shi‘a. Their rivalry intensified pressure on Sunni scholars within the Ottoman Empire to define and enforce orthodoxy, including against Sufi practices.'},
+    {t:'Sufism',d:'Mystical dimension of Islam emphasizing direct personal experience of the divine through meditation, music, and ritual movement (including the whirling of the Mevlevi Order). Sufis were popular missionaries who spread Islam to southeast Asia, sub-Saharan Africa, and Central Asia. Ottoman Sunni scholars sometimes condemned Sufi practices as heterodox.'},
+    {t:'Jesuit Missionaries',d:'The Society of Jesus (Jesuits), founded by Ignatius of Loyola in 1540 as part of the Catholic Counter-Reformation, sent missionaries across the globe. Matteo Ricci in China, Francis Xavier in Japan and India. Their global missionary work was a direct response to losses caused by the Protestant Reformation in Europe.'},
+    {t:'Protestant Reformation',d:'Martin Luther’s 1517 challenge to the Catholic Church triggered a religious revolution in Europe. Protestants rejected papal authority, emphasized scripture over church tradition, and broke Europe’s religious unity. The Catholic Church responded with the Counter-Reformation, including the Council of Trent and expanded missionary activity.'},
+    {t:'Cultural Syncretism',d:'The blending of different cultural or religious traditions into new forms. Examples: Mughal architecture blending Islamic and Hindu elements; Sikhism combining elements of Hinduism and Islam; Jesuit missionaries in China incorporating Confucian traditions into Christian practice; syncretic folk Catholicism in colonial Latin America.'},
+    {t:'Sikhism',d:'Religion founded by Guru Nanak (c. 1500) in the Punjab region of South Asia. Sikhism emphasized direct devotion to one God (monotheism), rejected the Hindu caste system, and drew on both Hindu and Islamic traditions. It appealed to lower-caste Hindus and to those seeking a middle path between the two dominant faiths.'},
+    {t:'Ottoman Religious Policy',d:'The Ottoman Empire tolerated religious minorities (Christians, Jews) as dhimmis — protected peoples who paid extra taxes (jizya) in exchange for freedom of worship. This system allowed the Ottomans to govern a diverse multi-religious empire without forcing conversion, unlike the Safavids who enforced Shi‘a Islam.'}
+  ],
+  '3.4': [
+    {t:'Gunpowder Empires',d:'Historians sometimes use this term to describe the Ottoman, Safavid, and Mughal empires, which all used gunpowder weapons to build and maintain their empires. The Qing and Russian empires are also sometimes included. Key comparison point: all three used similar military technology but developed very different administrative and religious policies.'},
+    {t:'Comparing Administrative Systems',d:'Ottoman devshirme recruited diverse subjects into the bureaucracy, creating loyalty to the sultan. Mughal zamindars relied on existing local elites. Qing maintained Chinese examination system. All faced the same challenge: how to govern vast, diverse populations with limited communication technology.'},
+    {t:'Comparing Religious Policies',d:'Ottoman: tolerant of religious diversity (millet system), Sunni Islam as official faith. Mughal: varied by emperor (Akbar tolerant; Aurangzeb intolerant). Safavid: forced Shi‘a conversion. Qing: generally tolerant, maintained Chinese Buddhist and Confucian traditions. This variation shows that religious policy was a strategic choice, not a predetermined outcome.'},
+    {t:'Art and Legitimacy Across Empires',d:'All land-based empires used art and architecture to legitimize rulers: Ottoman mosques surpassing Byzantine churches; Mughal miniature paintings glorifying emperors; Chinese emperors portrayed as cosmic rulers; European divine-right monarchs building palaces. The specific symbols differed, but the political purpose was identical.'}
+  ]
+};
+
+document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+    this.classList.add('selected');
+    bdTopic = this.dataset.topic;
+    document.getElementById('bd-start-btn').disabled = false;
+  });
+});
+
+document.getElementById('bd-start-btn').addEventListener('click', function() {
+  if (!bdTopic) return;
+  document.getElementById('bd-setup').style.display = 'none';
+  var session = document.getElementById('bd-session');
+  session.classList.add('active');
+  document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
+  document.getElementById('bd-stem-txt').textContent = BD_STEMS[bdTopic] || 'Write everything you remember about this topic…';
+  document.getElementById('bd-textarea').value = '';
+  document.getElementById('bd-textarea').disabled = false;
+  document.getElementById('bd-word-count').textContent = '0 words';
+  document.getElementById('bd-reveal').classList.remove('active');
+  document.getElementById('bd-countdown').className = 'bd-countdown';
+  bdStartTimer(5 * 60);
+});
+
+function bdStartTimer(totalSec) {
+  if (bdTimerInterval) clearInterval(bdTimerInterval);
+  var remaining = totalSec;
+  function tick() {
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+    var el = document.getElementById('bd-countdown');
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    if (remaining <= 60 && remaining > 0) el.className = 'bd-countdown warning';
+    if (remaining <= 0) {
+      clearInterval(bdTimerInterval);
+      el.className = 'bd-countdown expired';
+      el.textContent = '0:00';
+      bdReveal();
+      return;
+    }
+    remaining--;
+  }
+  tick();
+  bdTimerInterval = setInterval(tick, 1000);
+}
+
+function bdReveal() {
+  var ta = document.getElementById('bd-textarea');
+  ta.disabled = true;
+  var cards = (BD_CARDS[bdTopic] || []);
+  var list = document.getElementById('bd-card-list');
+  list.innerHTML = cards.map(function(c) {
+    return '<div class="bd-card"><div class="bd-card-term">' + c.t + '</div><div class="bd-card-def">' + c.d + '</div></div>';
+  }).join('');
+  document.getElementById('bd-reveal').classList.add('active');
+}
+
+document.getElementById('bd-textarea').addEventListener('input', function() {
+  var words = this.value.trim() ? this.value.trim().split(/\s+/).length : 0;
+  document.getElementById('bd-word-count').textContent = words + ' word' + (words !== 1 ? 's' : '');
+});
+
+document.getElementById('bd-reset-btn').addEventListener('click', function() {
+  document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
+  bdTopic = null;
+  document.getElementById('bd-start-btn').disabled = true;
+  document.getElementById('bd-session').classList.remove('active');
+  document.getElementById('bd-setup').style.display = '';
+  if (bdTimerInterval) clearInterval(bdTimerInterval);
+});
+</script>
+<script src="spaced.js"></script>
+<script src="flashcards-spaced.js"></script>
+<script src="mcq-bank.js"></script>
+<script src="mcq-engine.js"></script>
+<script src="bd-confidence.js"></script>
+<script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'3'});</script>
+<script src="writing-prompts.js"></script>
+<script src="writing-drills.js"></script>
+<!-- ══ BACK TO TOP / SECTIONS ══ -->
+<style>
+.back-to-top{position:fixed;right:22px;bottom:22px;z-index:200;display:flex;align-items:center;gap:8px;padding:11px 16px;background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 24px rgba(0,0,0,.28);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility .2s,background .15s}
+.back-to-top.show{opacity:1;visibility:visible;transform:none}
+.back-to-top:hover{background:var(--red)}
+.back-to-top .bt-arrow{font-size:.9rem;line-height:1}
+@media(max-width:520px){.back-to-top{right:14px;bottom:14px;padding:11px 13px}.back-to-top .bt-label{display:none}}
+</style>
+<button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top of page and section navigation">
+  <span class="bt-arrow" aria-hidden="true">&#8593;</span><span class="bt-label">Top</span>
+</button>
+<script>
+(function(){var btt=document.getElementById('back-to-top');if(!btt)return;var onScroll=function(){btt.classList.toggle('show',window.scrollY>400);};window.addEventListener('scroll',onScroll,{passive:true});btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});onScroll();})();
+</script>
+
+</body>
+</html>

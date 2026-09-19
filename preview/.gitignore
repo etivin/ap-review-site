@@ -1,0 +1,9 @@
+# Heavy media are directory JUNCTIONS back to the repo-root copies —
+# never commit them (the originals already live in the repo root).
+images/
+source-docs/
+unit3/
+unit4/
+
+# Duplicate PDFs copied in for local preview; originals live in repo root.
+*.pdf

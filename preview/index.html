@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AP World History: Modern — Unit Review Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --sw:270px;
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --green:#1a6825;--green-bg:#eef7f0;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.65;min-height:100vh;display:flex}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;margin-top:4px}
+.sb-nav{padding:12px 0;flex:1}
+.sb-group-label{padding:14px 20px 4px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none;text-decoration:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(176,0,28,.13)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sb-footer p{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.1em;color:rgba(255,255,255,.28)}
+
+/* ── MAIN WRAP ── */
+.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+
+/* ── TOP BAR ── */
+.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 36px;height:66px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.top-bar-title{font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em}
+.top-bar-sub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
+.top-bar-tag{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
+
+/* ── PAGE CONTENT ── */
+.page-content{padding:36px 40px 80px;flex:1}
+
+/* UNITS GRID */
+.section-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:900;margin-bottom:8px}
+.section-sub{color:var(--muted);font-size:.9rem;margin-bottom:32px;max-width:540px}
+.units-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+
+/* UNIT CARD */
+.unit-card{background:var(--white);border:1px solid var(--border);border-top:5px solid var(--uc,var(--red));padding:28px 26px;box-shadow:var(--sh);transition:box-shadow .2s,transform .2s;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:12px}
+.unit-card:hover{box-shadow:var(--shm);transform:translateY(-4px)}
+.unit-card.coming-soon{opacity:.52;cursor:default;pointer-events:none;border-top-color:var(--border2)}
+.unit-card.coming-soon:hover{box-shadow:var(--sh);transform:none}
+.unit-num{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--uc,var(--red))}
+.unit-card.coming-soon .unit-num{color:var(--muted)}
+.unit-name{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.25rem;font-weight:700;line-height:1.2}
+.unit-period{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.unit-era-note{display:flex;align-items:center;gap:5px;margin-top:-6px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.unit-era-note::before{content:"\21C4";color:var(--uc,var(--red));font-size:.72rem;line-height:1}
+.unit-desc{font-size:.84rem;color:var(--mid);line-height:1.6}
+.unit-badge{display:inline-block;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 11px;margin-top:auto}
+.unit-badge.ready{background:var(--uc,var(--red));color:#fff}
+.unit-badge.soon{background:var(--border);color:var(--muted)}
+.unit-badge.locked{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-b)}
+
+/* FULL COURSE TAB */
+.full-course-tab{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--ink);border:3px solid var(--red);padding:24px 30px;margin-bottom:32px;text-decoration:none;color:#fff;box-shadow:var(--shm);transition:background .2s,transform .2s}
+.full-course-tab:hover{background:var(--red-d);transform:translateY(-3px)}
+.fct-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
+.fct-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.45rem;font-weight:900;line-height:1.1;margin-bottom:6px}
+.fct-sub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.08em;color:rgba(255,255,255,.55)}
+.fct-badge{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;white-space:nowrap;flex-shrink:0}
+.doc-embed{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);margin-bottom:20px}
+.doc-embed-head{padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.doc-embed-head .de-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.doc-embed-head .de-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.25rem;font-weight:900;line-height:1.15}
+.doc-embed-head .de-desc{color:var(--mid);font-size:.9rem;line-height:1.5;margin-top:6px;max-width:640px}
+.doc-embed-open{flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;transition:background .15s}
+.doc-embed-open:hover{background:var(--red-d)}
+
+@media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}.page-content{padding:24px 20px 60px}}
+
+/* ── STUDY-TIMER WELCOME MODAL ── */
+.wm-overlay{position:fixed;inset:0;z-index:1000;background:rgba(20,18,10,.62);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;animation:wmFade .3s ease forwards}
+@keyframes wmFade{to{opacity:1}}
+.wm-card{background:var(--cream);border:1px solid var(--border2);border-top:6px solid var(--red);box-shadow:var(--shm);max-width:520px;width:100%;max-height:92vh;overflow-y:auto;padding:38px 40px 30px;position:relative;transform:translateY(10px);animation:wmRise .32s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes wmRise{to{transform:translateY(0)}}
+.wm-x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.5rem;line-height:1;color:var(--muted);cursor:pointer;padding:4px 8px;font-family:Lato,system-ui,sans-serif}
+.wm-x:hover{color:var(--ink)}
+.wm-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.wm-h{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:900;line-height:1.12;margin-bottom:10px}
+.wm-p{color:var(--mid);font-size:.95rem;line-height:1.6;margin-bottom:22px}
+.wm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.wm-opt{background:var(--white);border:1px solid var(--border);padding:16px 14px;cursor:pointer;text-align:left;transition:.14s;font-family:Lato,system-ui,sans-serif;color:var(--ink)}
+.wm-opt:hover{border-color:var(--red);box-shadow:var(--sh);transform:translateY(-2px)}
+.wm-opt-min{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.55rem;font-weight:900;line-height:1;color:var(--red)}
+.wm-opt-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.wm-custom{display:flex;gap:10px;align-items:stretch;margin-bottom:22px}
+.wm-custom input{flex:1;font-family:Lato,system-ui,sans-serif;font-size:1rem;padding:11px 14px;border:1px solid var(--border);background:var(--white);color:var(--ink)}
+.wm-custom input:focus{outline:none;border-color:var(--red)}
+.wm-btn{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:0 22px;cursor:pointer;transition:.14s;white-space:nowrap}
+.wm-btn:hover{background:var(--red-d)}
+.wm-distract{display:block;width:100%;text-align:center;background:none;border:none;border-top:1px solid var(--border);padding-top:18px;margin-top:4px;color:var(--muted);font-family:Lato,system-ui,sans-serif;font-size:.9rem;font-style:italic;cursor:pointer}
+.wm-distract:hover{color:var(--ink);text-decoration:underline}
+/* QR view */
+.wm-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;margin:6px 0 20px}
+.wm-qr{background:#fff;padding:16px;border:1px solid var(--border);box-shadow:var(--sh);line-height:0}
+.wm-qr img,.wm-qr canvas{display:block;width:220px;height:220px;image-rendering:pixelated}
+.wm-qr-min{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+.wm-steps{list-style:none;counter-reset:s;margin:0 0 22px;padding:0}
+.wm-steps li{counter-increment:s;position:relative;padding:6px 0 6px 34px;font-size:.9rem;color:var(--mid);line-height:1.5}
+.wm-steps li::before{content:counter(s);position:absolute;left:0;top:5px;width:22px;height:22px;background:var(--red);color:#fff;border-radius:50%;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;display:flex;align-items:center;justify-content:center}
+.wm-actions{display:flex;gap:12px;flex-wrap:wrap}
+.wm-link{background:none;border:none;color:var(--muted);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 0}
+.wm-link:hover{color:var(--red)}
+/* session-start line + device switch */
+.wm-sessline{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.05em;color:var(--mid);background:var(--paper);border-left:3px solid var(--red);padding:9px 13px;margin-bottom:16px}
+.wm-dev{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.wm-dev-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.wm-dev-btn{font-family:Lato,system-ui,sans-serif;font-size:.85rem;padding:7px 14px;border:1px solid var(--border);background:var(--white);color:var(--ink);cursor:pointer;transition:.14s}
+.wm-dev-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* laptop-side timer */
+.wm-ring-wrap{position:relative;width:min(62vw,250px);height:min(62vw,250px);margin:8px auto 16px}
+svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
+.wm-ring-bg{fill:none;stroke:var(--border);stroke-width:7}
+.wm-ring-fg{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .4s}
+.wm-ring-read{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+#wmClock{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-weight:900;font-size:clamp(2.2rem,9vw,3.1rem);line-height:1;font-variant-numeric:tabular-nums}
+#wmSub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+#wmLaptop.wm-done .wm-ring-fg{stroke:var(--gold)}
+#wmLaptop.wm-done #wmClock{color:var(--gold)}
+.wm-lap-summary{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--red);padding:14px 16px;margin-bottom:16px}
+.wm-lap-sum-line{font-size:.95rem;line-height:1.55;color:var(--ink)}
+.wm-lap-sum-line b{color:var(--red)}
+.wm-lap-streak{display:flex;align-items:center;gap:9px;margin-top:11px;padding-top:11px;border-top:1px solid var(--border)}
+.wm-lap-streak .wm-lap-dot{width:13px;height:13px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(176,0,28,.15);animation:wmDotPop .5s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes wmDotPop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.wm-lap-streak span{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)}
+.wm-hidden{display:none!important}
+@media(max-width:520px){.wm-card{padding:30px 24px 24px}}
+</style>
+<script src="mc-mode.js"></script>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="bedtime.js"></script>
+<link rel="stylesheet" href="preview-palette.css"><script defer src="preview-logo.js"></script>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">AP World History</div>
+    <div class="sb-sub">Unit Review Hub</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Navigation</div>
+    <a href="index.html" class="nav-item active"><span class="nav-dot"></span>All Units</a>
+    <a href="brain-sculptor.html" class="nav-item"><span class="nav-dot"></span>How to Study</a>
+    <a href="writing-guide.html" class="nav-item"><span class="nav-dot"></span>How to Write</a>
+    <a href="resources.html" class="nav-item"><span class="nav-dot"></span>Review Resources</a>
+    <a href="sbmcq.html" class="nav-item"><span class="nav-dot"></span>Attack the Stimulus MCQ</a>
+    <a href="cumulative.html" class="nav-item"><span class="nav-dot"></span>Cumulative Review</a>
+    <a href="fullcourse.html" class="nav-item"><span class="nav-dot"></span>Course Narrative</a>
+  </nav>
+  <div class="sb-footer">
+    <p>Archbishop Moeller &nbsp;&bull;&nbsp; APWH</p>
+  </div>
+</aside>
+<div class="main-wrap">
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title">Unit Review Hub</div>
+    <div class="top-bar-sub">AP World History: Modern &mdash; All Units</div>
+  </div>
+  <span class="top-bar-tag">AP World History</span>
+</div>
+<div class="page-content">
+  <div class="section-label">All Units</div>
+  <h2 class="section-heading">Choose Your Unit</h2>
+  <p class="section-sub">Each unit includes MCQ practice, writing tools, study guides, games, and review resources.</p>
+  <div class="doc-embed">
+    <div class="doc-embed-head">
+      <div>
+        <div class="de-label">Start of Year Reading</div>
+        <div class="de-title">What Is History?</div>
+        <div class="de-desc">How should we learn about history if we are unsure about what actually happened?</div>
+      </div>
+      <a class="doc-embed-open" href="what-is-history.pdf" target="_blank" rel="noopener">Open PDF &#8599;</a>
+    </div>
+  </div>
+
+  <a href="brain-sculptor.html" class="full-course-tab" style="border-color:var(--gold-b)">
+    <div class="fct-left">
+      <div class="fct-label">Study Smarter</div>
+      <div class="fct-title">The Brain Sculptor: How to Own Your Learning</div>
+      <div class="fct-sub">Learning science &nbsp;&bull;&nbsp; Beat the illusion of mastery &nbsp;&bull;&nbsp; Fix your study habits</div>
+    </div>
+    <div class="fct-badge">&#9654; Open Study Guide</div>
+  </a>
+
+  <div class="units-grid">
+
+    <a href="unit1.html" class="unit-card" style="--uc:#7a5500">
+      <div class="unit-num">Unit 1</div>
+      <div class="unit-name">The Global Tapestry</div>
+      <div class="unit-period">c. 1200&ndash;c. 1450</div>
+      <div class="unit-era-note">Concurrent with Unit 2</div>
+      <div class="unit-desc">State-building and belief systems across a still-unconnected world.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 1</div>
+    </a>
+
+    <a href="unit2.html" class="unit-card" style="--uc:#0f5b5e">
+      <div class="unit-num">Unit 2</div>
+      <div class="unit-name">Networks of Exchange</div>
+      <div class="unit-period">c. 1200&ndash;c. 1450</div>
+      <div class="unit-era-note">Concurrent with Unit 1</div>
+      <div class="unit-desc">The Silk Roads, Indian Ocean, and Mongols knit Afro-Eurasia together.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 2</div>
+    </a>
+
+    <a href="unit3.html" class="unit-card" style="--uc:#8c1212">
+      <div class="unit-num">Unit 3</div>
+      <div class="unit-name">Land-Based Empires</div>
+      <div class="unit-period">c. 1450&ndash;c. 1750</div>
+      <div class="unit-era-note">Concurrent with Unit 4</div>
+      <div class="unit-desc">Gunpowder empires and the contest for political legitimacy.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 3</div>
+    </a>
+
+    <a href="unit4.html" class="unit-card" style="--uc:#0d2960">
+      <div class="unit-num">Unit 4</div>
+      <div class="unit-name">Transoceanic Interconnections</div>
+      <div class="unit-period">c. 1450&ndash;c. 1750</div>
+      <div class="unit-era-note">Concurrent with Unit 3</div>
+      <div class="unit-desc">Ocean routes, the Columbian Exchange, and a reordered world.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 4</div>
+    </a>
+
+    <a href="unit5.html" class="unit-card" style="--uc:#1e4f18">
+      <div class="unit-num">Unit 5</div>
+      <div class="unit-name">Revolutions</div>
+      <div class="unit-period">c. 1750&ndash;c. 1900</div>
+      <div class="unit-era-note">Concurrent with Unit 6</div>
+      <div class="unit-desc">Enlightenment ideas, Atlantic revolutions, and industrial upheaval.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 5</div>
+    </a>
+
+    <a href="unit6.html" class="unit-card" style="--uc:#8c2900">
+      <div class="unit-num">Unit 6</div>
+      <div class="unit-name">Consequences of Industrialization</div>
+      <div class="unit-period">c. 1750&ndash;c. 1900</div>
+      <div class="unit-era-note">Concurrent with Unit 5</div>
+      <div class="unit-desc">Imperial expansion, resistance, and mass migration.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 6</div>
+    </a>
+
+    <a href="unit7.html" class="unit-card" style="--uc:#5c0f26">
+      <div class="unit-num">Unit 7</div>
+      <div class="unit-name">Global Conflict</div>
+      <div class="unit-period">c. 1900&ndash;Present</div>
+      <div class="unit-era-note">Concurrent with Unit 9</div>
+      <div class="unit-desc">Two world wars, economic collapse, and total war.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 7</div>
+    </a>
+
+    <a class="unit-card" href="unit8.html" style="--uc:#0f3248">
+      <div class="unit-num">Unit 8</div>
+      <div class="unit-name">Cold War &amp; Decolonization</div>
+      <div class="unit-period">c. 1945&ndash;Present</div>
+      <div class="unit-desc">Superpower rivalry, proxy wars, and the end of empire.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 8</div>
+    </a>
+    
+
+    <a href="unit9.html" class="unit-card" style="--uc:#3d3c00">
+      <div class="unit-num">Unit 9</div>
+      <div class="unit-name">Globalization</div>
+      <div class="unit-period">c. 1900&ndash;Present</div>
+      <div class="unit-era-note">Concurrent with Unit 7</div>
+      <div class="unit-desc">Technology, economy, and culture in one interconnected world.</div>
+      <div class="unit-badge ready">&#9654; Open Unit 9</div>
+    </a>
+
+  </div>
+
+  <a href="fullcourse.html" class="full-course-tab" style="margin-top:32px">
+    <div class="fct-left">
+      <div class="fct-label">Full Course</div>
+      <div class="fct-title">AP Review &mdash; Course Narrative</div>
+      <div class="fct-sub">Fill-in-the-blank course narrative &nbsp;&bull;&nbsp; Linked AP Review sources &nbsp;&bull;&nbsp; Units 1&ndash;9</div>
+    </div>
+    <div class="fct-badge">&#9654; Open Course Narrative</div>
+  </a>
+
+  <a href="sbmcq.html" class="full-course-tab" style="margin-top:-16px">
+    <div class="fct-left">
+      <div class="fct-label">MCQ Skills</div>
+      <div class="fct-title">Attack the Stimulus MCQ</div>
+      <div class="fct-sub">A 4-step method &nbsp;&bull;&nbsp; Worked from the real tests &nbsp;&bull;&nbsp; Units 2-8</div>
+    </div>
+    <div class="fct-badge">&#9654; Open MCQ Skills</div>
+  </a>
+
+  <a href="writing-guide.html" class="full-course-tab" style="margin-top:-16px">
+    <div class="fct-left">
+      <div class="fct-label">Writing Skills</div>
+      <div class="fct-title">How to Write the Essays</div>
+      <div class="fct-sub">SAQ, LEQ &amp; DBQ explained &nbsp;&bull;&nbsp; Every rubric point &nbsp;&bull;&nbsp; Test-day timing</div>
+    </div>
+    <div class="fct-badge">&#9654; Open Writing Guide</div>
+  </a>
+</div><!-- /page-content -->
+</div><!-- /main-wrap -->
+
+<!-- ── STUDY-TIMER WELCOME MODAL ── -->
+<div class="wm-overlay wm-hidden" id="wmOverlay" role="dialog" aria-modal="true" aria-labelledby="wmTitle">
+  <div class="wm-card">
+    <button class="wm-x" id="wmClose" aria-label="Close">&times;</button>
+
+    <!-- STEP 1 — ask -->
+    <div id="wmAsk">
+      <div class="wm-eyebrow">Welcome</div>
+      <h2 class="wm-h" id="wmTitle">Hello! How long do you want to study?</h2>
+      <p class="wm-p">Pick a block and we'll run a countdown &mdash; on your phone so you can set it face-down, or right here on this laptop.</p>
+      <div class="wm-sessline" id="wmSessLine"></div>
+      <div class="wm-dev">
+        <span class="wm-dev-lbl">Timer on:</span>
+        <button type="button" class="wm-dev-btn active" data-dev="phone">&#128241; My phone</button>
+        <button type="button" class="wm-dev-btn" data-dev="laptop">&#128187; This laptop</button>
+      </div>
+      <div class="wm-grid">
+        <button class="wm-opt" data-min="15"><div class="wm-opt-min">15</div><div class="wm-opt-lbl">minutes</div></button>
+        <button class="wm-opt" data-min="25"><div class="wm-opt-min">25</div><div class="wm-opt-lbl">minutes &bull; classic pomodoro</div></button>
+        <button class="wm-opt" data-min="45"><div class="wm-opt-min">45</div><div class="wm-opt-lbl">minutes</div></button>
+        <button class="wm-opt" data-min="60"><div class="wm-opt-min">60</div><div class="wm-opt-lbl">minutes</div></button>
+      </div>
+      <div class="wm-custom">
+        <input type="number" id="wmCustom" min="1" max="240" placeholder="or enter your own (min)" aria-label="Custom minutes"/>
+        <button class="wm-btn" id="wmCustomGo">Set</button>
+      </div>
+      <button class="wm-distract" id="wmDistract">No, I would like to be distracted.</button>
+    </div>
+
+    <!-- STEP 2 — QR -->
+    <div id="wmQr" class="wm-hidden">
+      <div class="wm-eyebrow">Scan with your phone</div>
+      <h2 class="wm-h"><span id="wmQrMin">25</span>-minute study block</h2>
+      <div class="wm-qr-wrap">
+        <div class="wm-qr" id="wmQrCode"></div>
+        <div class="wm-qr-min">Point your camera here</div>
+      </div>
+      <ol class="wm-steps">
+        <li>Open your phone's camera and point it at this code.</li>
+        <li>Tap the link &mdash; a countdown opens on your phone.</li>
+        <li>Set the phone face-down and get to work. It rings when you're done.</li>
+      </ol>
+      <div class="wm-actions">
+        <button class="wm-link" id="wmBack">&larr; Pick a different time</button>
+        <button class="wm-link" id="wmDone" style="margin-left:auto;color:var(--red)">I'm set &mdash; close</button>
+      </div>
+    </div>
+
+    <!-- STEP 2b — LAPTOP TIMER -->
+    <div id="wmLaptop" class="wm-hidden">
+      <div class="wm-eyebrow">Focus block</div>
+      <h2 class="wm-h"><span id="wmLapMin">25</span>-minute study block</h2>
+      <div class="wm-ring-wrap">
+        <svg class="wm-ring" viewBox="0 0 120 120">
+          <circle class="wm-ring-bg" cx="60" cy="60" r="54"></circle>
+          <circle class="wm-ring-fg" id="wmRingFg" cx="60" cy="60" r="54"></circle>
+        </svg>
+        <div class="wm-ring-read">
+          <div id="wmClock">25:00</div>
+          <div id="wmSub">remaining</div>
+        </div>
+      </div>
+      <p class="wm-p" id="wmLapMsg" style="text-align:center;margin-bottom:16px">Put distractions away and get to work. This rings when your time is up.</p>
+      <div id="wmLapSummary" class="wm-lap-summary wm-hidden"></div>
+      <div class="wm-actions">
+        <button class="wm-link" id="wmLapEnd">End early</button>
+        <button class="wm-link" id="wmLapClose" style="margin-left:auto;color:var(--red)">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="spaced.js"></script>
+<script src="qrcode.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var overlay = document.getElementById('wmOverlay');
+  if (!overlay) return;
+
+  // Only greet on a laptop/desktop (fine pointer + roomy screen).
+  var isLaptop = window.matchMedia('(min-width:768px) and (pointer:fine)').matches;
+  if (!isLaptop) return;
+  // Prompt every time the site is opened fresh (new tab, bookmark, typed URL, or a link
+  // from outside the site). Stay quiet only while navigating within the site, so clicking
+  // around the hub doesn't re-nag them.
+  var fromThisSite = document.referrer && document.referrer.indexOf(location.origin + '/') === 0;
+  if (fromThisSite) return;
+
+  var ask = document.getElementById('wmAsk');
+  var qrView = document.getElementById('wmQr');
+  var qrBox = document.getElementById('wmQrCode');
+  var lapView = document.getElementById('wmLaptop');
+  var device = 'phone';
+
+  function open(){ overlay.classList.remove('wm-hidden'); document.body.style.overflow = 'hidden'; fillSessLine(); }
+  function close(){
+    lapStop();
+    overlay.classList.add('wm-hidden');
+    document.body.style.overflow = '';
+  }
+
+  // Session-start line — "Today's session pulls from: N due · M new".
+  function fillSessLine(){
+    var el = document.getElementById('wmSessLine');
+    if (!el) return;
+    if (window.SPACED && SPACED.sessionStartText){ el.textContent = SPACED.sessionStartText(); el.style.display = ''; }
+    else { el.style.display = 'none'; }
+  }
+
+  // Where the timer runs: phone (QR hand-off) or this laptop (in-page).
+  function go(minutes){ if (device === 'laptop') startLaptop(minutes); else showQr(minutes); }
+
+  function showQr(minutes){
+    // Build the URL the phone will open. location.origin keeps it correct on any deploy domain.
+    var base = location.href.replace(/[^\/]*(\?.*)?$/, ''); // strip index.html / query -> directory URL
+    var url = base + 'timer.html?m=' + encodeURIComponent(minutes);
+
+    qrBox.innerHTML = '';
+    try{
+      var qr = qrcode(0, 'M');     // 0 = auto-size, M = ~15% error correction
+      qr.addData(url);
+      qr.make();
+      qrBox.innerHTML = qr.createImgTag(6, 0); // cellSize 6px, no internal margin (we pad via CSS)
+      var img = qrBox.querySelector('img');
+      if (img){ img.removeAttribute('width'); img.removeAttribute('height'); img.alt = 'QR code to open a ' + minutes + '-minute timer'; }
+    }catch(e){
+      // Fallback: a plain tappable link if QR generation ever fails.
+      qrBox.innerHTML = '<a href="' + url + '" style="font-family:Lato,system-ui,sans-serif;font-size:.8rem;word-break:break-all;color:#b0001c">' + url + '</a>';
+    }
+
+    document.getElementById('wmQrMin').textContent = minutes;
+    ask.classList.add('wm-hidden');
+    qrView.classList.remove('wm-hidden');
+  }
+
+  function backToAsk(){
+    lapStop();
+    if (lapView) lapView.classList.remove('wm-done');
+    qrView.classList.add('wm-hidden');
+    if (lapView) lapView.classList.add('wm-hidden');
+    ask.classList.remove('wm-hidden');
+  }
+
+  /* ── device switch (phone vs. this laptop) ── */
+  var devBtns = document.querySelectorAll('.wm-dev-btn');
+  Array.prototype.forEach.call(devBtns, function(b){
+    b.addEventListener('click', function(){
+      device = b.getAttribute('data-dev');
+      Array.prototype.forEach.call(devBtns, function(x){ x.classList.toggle('active', x === b); });
+    });
+  });
+
+  /* ── laptop-side study timer (records a completed session to the streak) ── */
+  var LC = 2 * Math.PI * 54;
+  var lapRingFg = document.getElementById('wmRingFg');
+  if (lapRingFg){ lapRingFg.style.strokeDasharray = LC; lapRingFg.style.strokeDashoffset = 0; }
+  var lapEndTime = null, lapTick = null, lapTotal = 0, lapWake = null, lapLogged = false, lapStartTime = 0;
+
+  function human(ms){
+    var t = Math.max(0, Math.round(ms/1000));
+    var h = Math.floor(t/3600), m = Math.floor((t%3600)/60), s = t%60;
+    var p = function(n){ return (n<10?'0':'')+n; };
+    return h>0 ? h+':'+p(m)+':'+p(s) : p(m)+':'+p(s);
+  }
+  function beep(){
+    try{
+      var Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return;
+      var ctx = new Ctx();
+      [0,.6,1.2].forEach(function(when){
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type='sine'; o.frequency.value=880; o.connect(g); g.connect(ctx.destination);
+        var t0 = ctx.currentTime + when;
+        g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(.5,t0+.04);
+        g.gain.exponentialRampToValueAtTime(.0001,t0+.5); o.start(t0); o.stop(t0+.52);
+      });
+    }catch(e){}
+  }
+  function buzz(){ try{ if (navigator.vibrate) navigator.vibrate([400,150,400,150,600]); }catch(e){} }
+  function lapWakeReq(){ try{ if ('wakeLock' in navigator) navigator.wakeLock.request('screen').then(function(w){ lapWake=w; }).catch(function(){}); }catch(e){} }
+
+  function lapRender(){
+    if (!lapEndTime) return;
+    var rem = lapEndTime - Date.now();
+    if (rem <= 0){ lapFinish(); return; }
+    document.getElementById('wmClock').textContent = human(rem);
+    if (lapRingFg) lapRingFg.style.strokeDashoffset = LC * (1 - rem/lapTotal);
+  }
+  function startLaptop(minutes){
+    lapTotal = minutes * 60000; lapLogged = false; lapStartTime = Date.now();
+    document.getElementById('wmLapMin').textContent = minutes;
+    var sumEl = document.getElementById('wmLapSummary'); if (sumEl) sumEl.classList.add('wm-hidden');
+    lapView.classList.remove('wm-done');
+    document.getElementById('wmSub').textContent = 'remaining';
+    document.getElementById('wmLapMsg').textContent = 'Put distractions away and get to work. This rings when your time is up.';
+    document.getElementById('wmLapEnd').textContent = 'End early';
+    document.getElementById('wmClock').textContent = human(lapTotal);
+    ask.classList.add('wm-hidden'); qrView.classList.add('wm-hidden'); lapView.classList.remove('wm-hidden');
+    lapEndTime = Date.now() + lapTotal;
+    lapRender();
+    clearInterval(lapTick); lapTick = setInterval(lapRender, 250);
+    lapWakeReq();
+  }
+  function lapStop(){
+    clearInterval(lapTick); lapTick = null; lapEndTime = null;
+    try{ if (lapWake){ lapWake.release(); lapWake = null; } }catch(e){}
+  }
+  function lapFinish(){
+    lapStop();
+    lapView.classList.add('wm-done');
+    document.getElementById('wmClock').textContent = '00:00';
+    if (lapRingFg) lapRingFg.style.strokeDashoffset = 0;
+    document.getElementById('wmSub').textContent = "time's up";
+    document.getElementById('wmLapMsg').textContent = 'Nice work — this session is logged to your streak.';
+    document.getElementById('wmLapEnd').textContent = 'Start another block';
+    if (!lapLogged){ lapLogged = true; try{ if (window.SPACED && SPACED.recordSession) SPACED.recordSession(); }catch(e){} }
+    renderLapSummary();
+    beep(); buzz();
+  }
+  // End-of-session summary: what moved during this block + today's streak dot.
+  function renderLapSummary(){
+    var el = document.getElementById('wmLapSummary');
+    if (!el || !(window.SPACED && SPACED.sessionSummary)) return;
+    var s = SPACED.sessionSummary(lapStartTime || 0);
+    var streak = SPACED.streakLength ? SPACED.streakLength() : 0;
+    var line = s.reviewed
+      ? '<b>' + s.reviewed + '</b> reviewed &middot; <b>' + s.resurface + '</b> will resurface sooner &middot; <b>' + s.pushed + '</b> pushed further out'
+      : 'No reviews logged this block — but showing up still counts.';
+    el.innerHTML = '<div class="wm-lap-sum-line">' + line + '</div>' +
+      '<div class="wm-lap-streak"><span class="wm-lap-dot"></span><span>Day ' + streak + ' of your streak — logged</span></div>';
+    el.classList.remove('wm-hidden');
+  }
+  function lapEnd(){
+    if (lapView.classList.contains('wm-done')){ backToAsk(); return; } // "Start another block"
+    if (!confirm('End this study block early? It won’t count toward your streak.')) return;
+    lapStop(); backToAsk();
+  }
+  // Recompute against the real clock after the tab was backgrounded.
+  document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible' && lapEndTime) lapRender(); });
+
+  // duration presets
+  Array.prototype.forEach.call(document.querySelectorAll('.wm-opt'), function(btn){
+    btn.addEventListener('click', function(){ go(parseInt(btn.getAttribute('data-min'), 10)); });
+  });
+
+  // custom minutes
+  function customGo(){
+    var v = parseInt(document.getElementById('wmCustom').value, 10);
+    if (isNaN(v) || v < 1){ document.getElementById('wmCustom').focus(); return; }
+    if (v > 240) v = 240;
+    go(v);
+  }
+  document.getElementById('wmCustomGo').addEventListener('click', customGo);
+  document.getElementById('wmCustom').addEventListener('keydown', function(e){ if (e.key === 'Enter') customGo(); });
+
+  document.getElementById('wmBack').addEventListener('click', backToAsk);
+  document.getElementById('wmDone').addEventListener('click', close);
+  document.getElementById('wmLapEnd').addEventListener('click', lapEnd);
+  document.getElementById('wmLapClose').addEventListener('click', close);
+  document.getElementById('wmClose').addEventListener('click', close);
+  document.getElementById('wmDistract').addEventListener('click', close);
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !overlay.classList.contains('wm-hidden')) close(); });
+
+  open();
+})();
+</script>
+</body>
+</html>

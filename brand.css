@@ -1,0 +1,82 @@
+/* ══════════════════════════════════════════════════════════════
+   brand.css — "Tivin Teaches" brand palette + lockup.
+   Loaded LAST on every page so it wins over each page's inline :root,
+   theme.css, and mission-theme.css. Reskins by remapping the shared
+   design tokens — colors only, never layout. Paired with brand.js
+   (injects the globe+shield emblem + wordmark lockup).
+
+   Palette (from the logo):
+     navy  #16244d   ·   gold  #f4cd4f   ·   sky-blue accent #345fbf
+   ══════════════════════════════════════════════════════════════ */
+
+:root{
+  /* neutrals — sky-tinted paper on navy ink */
+  --cream:#eef3fa; --bg:#eef3fa; --white:#ffffff; --paper:#e8eff8;
+  --border:#cfdcec; --border2:#a9c1de; --line:#cdd9ef;
+  --ink:#16244d; --mid:#39476a; --muted:#66748f;
+  --sky:#eaf2fb;
+  /* primary accent (filled buttons / active states) — brand blue, white text safe */
+  --red:#345fbf; --red-d:#26489c; --red-bg:#eaf2fb;
+  /* secondary accent — logo gold (used on light grounds → deeper for contrast) */
+  --gold:#b8860b; --gold-bg:#fdf7e3; --gold-b:#e6cf7e;
+  /* deep-blue accent (readable heading blue) */
+  --blue:#2f56b3; --blue-bg:#eef2fb;
+  /* keep semantic answer green */
+  --green:#1a6825; --green-bg:#eef7f0;
+  /* Mission-Control family tokens */
+  --navy:#16244d; --coral:#e2703f; --lime:#f4cd4f;
+  --sh:0 1px 4px rgba(22,36,77,.10); --shm:0 8px 26px rgba(22,36,77,.16);
+}
+
+/* Mission Control mode (default): keep it on-brand too
+   (matches mission-theme.css specificity and loads after it). */
+html[data-mc="on"]{
+  --navy:#16244d; --coral:#e2703f; --lime:#f4cd4f;
+  --cream:#eef3fa; --white:#ffffff; --paper:#e8eff8;
+  --border:#cfdcec; --border2:#a9c1de;
+  --ink:#16244d; --mid:#39476a; --muted:#66748f;
+  --red:#345fbf; --red-d:#26489c; --red-bg:#eaf2fb;
+  --blue:#2f56b3; --blue-bg:#eef2fb;
+  --gold:#b8860b; --gold-bg:#fdf7e3; --gold-b:#e6cf7e;
+}
+
+/* ── Gold brand accents on the navy sidebar chrome (unit pages) ── */
+.sb-badge{background:var(--lime)!important;color:var(--ink)!important}
+.nav-item.active{border-left-color:var(--lime)!important;background:rgba(244,205,79,.14)!important}
+.nav-item.active .nav-dot{background:var(--lime)!important}
+
+/* ── mission-control.html: gold accents on its navy bar ── */
+.brand .bt b, .brand b{color:var(--lime)!important}
+
+/* ── brand lockup: circular globe+shield emblem + wordmark.
+      The emblem sizing/crop is set inline by brand.js. ── */
+.tivin-wordmark{display:flex;flex-direction:column;line-height:1.08}
+.tivin-wordmark b{font:900 1.5rem/1 'Lato',sans-serif;letter-spacing:-.02em;color:#fff}
+.tivin-wordmark i{font-style:normal;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-top:6px}
+.tivin-wordmark.compact b{font-size:1rem}
+#mc-bar .mcb-brand .tivin-wordmark b{color:#fff}
+/* let the top bar grow to comfortably fit the lockup */
+.bar{min-height:126px}
+/* sidebar lockup (unit hubs) — narrower column, smaller wordmark */
+.tivin-lockup.sb{margin-bottom:16px}
+.tivin-lockup.sb .tivin-wordmark b{font-size:1.18rem}
+.tivin-lockup.sb .tivin-wordmark i{font-size:.58rem;margin-top:4px}
+
+/* ── Mission-Control mode: sidebar active state → gold (beats mission-theme.css) ── */
+html[data-mc="on"] .nav-item.active{border-left-color:var(--lime)!important;background:rgba(244,205,79,.15)!important}
+html[data-mc="on"] .nav-item.active .nav-dot{background:var(--lime)!important}
+
+/* ── Mission-Control injected top bar (#mc-bar): mc-mode.js hardcodes the old
+      lime/blue as fixed hex, so re-point those to the brand gold here. ── */
+#mc-bar{box-shadow:0 2px 0 var(--lime)!important}
+#mc-bar .mcb-brand b{color:var(--lime)!important}
+#mc-bar .mcb-back{background:var(--lime)!important;border-color:var(--lime)!important;color:var(--ink)!important}
+#mc-bar .mcb-back:hover{background:#fff!important;border-color:#fff!important}
+#mc-bar nav a:hover{color:var(--lime)!important;border-bottom-color:var(--lime)!important}
+#mc-bar nav a.here,
+#mc-bar .dd.has-here .dd-t,
+#mc-bar .dd-m a.here{color:var(--ink)!important;background:var(--lime)!important}
+#mc-bar .dd:hover .dd-t,#mc-bar .dd.open .dd-t{color:var(--lime)!important;border-bottom-color:var(--lime)!important}
+
+/* Mission Control is the only view — hide the old exit/toggle chip. */
+.mc-exit{display:none!important}

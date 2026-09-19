@@ -22,9 +22,9 @@
   var PW  = 'missioncontrol';
   var KEY = 'apMissionControl';
 
-  // Mission Control is now the DEFAULT: on unless a teacher has explicitly
-  // turned it off (flag === '0'). A student arriving with no flag set gets it.
-  function isOn()  { try { return localStorage.getItem(KEY) !== '0'; } catch (e) { return true; } }
+  // Mission Control is the ONLY view: always on, for everyone. The opt-out
+  // toggle is disabled below so students cannot switch to the old layout.
+  function isOn()  { return true; }
   function setOn(v){ try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
 
   var p = location.pathname;
@@ -158,7 +158,9 @@
     document.addEventListener('click', function (e) { if (!e.target.closest('.dd')) closeAll(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
   }
-  function onReady() { wire(); injectTopBar(); }
+  // Mission Control is the only view — the opt-out toggle (wire) is intentionally
+  // not called, so clicking the brand/tag no longer prompts for the exit code.
+  function onReady() { injectTopBar(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady);
   else onReady();
 })();

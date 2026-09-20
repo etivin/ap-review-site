@@ -5,12 +5,13 @@
    the Mission-Control injected strip (#mc-bar .mcb-brand). */
 (function () {
   // The globe (incl. shield) sits at x149..1029, y341..1221 in the 1179x1468 art.
+  // Size is driven by the --em custom property so the header can shrink on scroll
+  // (see .bar.tivin-shrink in brand.css) — width/bg all scale off --em.
   function emblemStyle(S) {
-    var scale = S / 880;
-    return 'flex-shrink:0;width:' + S + 'px;height:' + S + 'px;border-radius:50%;' +
+    return '--em:' + S + 'px;flex-shrink:0;width:var(--em);height:var(--em);border-radius:50%;' +
       'background:#69b2e7 url(tivin-logo.jpg) no-repeat;' +
-      'background-size:' + (1179 * scale).toFixed(1) + 'px ' + (1468 * scale).toFixed(1) + 'px;' +
-      'background-position:' + (-149 * scale).toFixed(1) + 'px ' + (-341 * scale).toFixed(1) + 'px;' +
+      'background-size:calc(var(--em)*1.3398) calc(var(--em)*1.6682);' +
+      'background-position:calc(var(--em)*-0.1693) calc(var(--em)*-0.3875);' +
       'box-shadow:0 3px 12px rgba(0,0,0,.28)';
   }
   function makeLockup(S, compact) {
@@ -61,6 +62,19 @@
       if (m) { fillBrand(m, 40, true); return; }
       if (tries++ < 8) setTimeout(fixMcBar, 80);
     })();
+
+    // Shrink the sticky top bar on scroll; restore it at the very top.
+    window.addEventListener('scroll', syncBars, { passive: true });
+    window.addEventListener('resize', syncBars, { passive: true });
+    syncBars();
+  }
+
+  function syncBars() {
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var shrink = y > 48;
+    Array.prototype.forEach.call(document.querySelectorAll('.bar'), function (b) {
+      b.classList.toggle('tivin-shrink', shrink);
+    });
   }
   if (document.readyState !== 'loading') add();
   else document.addEventListener('DOMContentLoaded', add);

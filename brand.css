@@ -80,3 +80,12 @@ html[data-mc="on"] .nav-item.active .nav-dot{background:var(--lime)!important}
 
 /* Mission Control is the only view — hide the old exit/toggle chip. */
 .mc-exit{display:none!important}
+
+/* ── Shrink-on-scroll top bar (brand.js toggles .tivin-shrink on .bar) ── */
+.bar{transition:min-height .22s ease,padding .22s ease}
+.tivin-emblem{transition:width .22s ease,height .22s ease,background-size .22s ease,background-position .22s ease,box-shadow .22s ease}
+.tivin-wordmark b,.tivin-wordmark i{transition:font-size .2s ease,margin-top .2s ease}
+.bar.tivin-shrink{min-height:74px}
+.bar.tivin-shrink .tivin-emblem{--em:58px!important;box-shadow:0 2px 8px rgba(0,0,0,.24)}
+.bar.tivin-shrink .tivin-wordmark b{font-size:1.12rem}
+.bar.tivin-shrink .tivin-wordmark i{font-size:.56rem;margin-top:3px}

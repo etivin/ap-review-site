@@ -64,16 +64,27 @@
     })();
 
     // Shrink the sticky top bar on scroll; restore it at the very top.
-    window.addEventListener('scroll', syncBars, { passive: true });
-    window.addEventListener('resize', syncBars, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
     syncBars();
   }
 
+  // Two thresholds (hysteresis): shrink only past SHRINK_AT, grow back only below
+  // GROW_AT. The dead zone between them stops the header from flapping when the
+  // shrink itself nudges the scroll position back across a single threshold.
+  // A rAF guard coalesces rapid scroll events into one update per frame.
+  var SHRINK_AT = 110, GROW_AT = 24, ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { syncBars(); ticking = false; });
+  }
   function syncBars() {
     var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-    var shrink = y > 48;
     Array.prototype.forEach.call(document.querySelectorAll('.bar'), function (b) {
-      b.classList.toggle('tivin-shrink', shrink);
+      var on = b.classList.contains('tivin-shrink');
+      if (!on && y > SHRINK_AT) b.classList.add('tivin-shrink');
+      else if (on && y < GROW_AT) b.classList.remove('tivin-shrink');
     });
   }
   if (document.readyState !== 'loading') add();

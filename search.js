@@ -6,23 +6,23 @@
 (function () {
   var UNITS = [
     null,
-    { name: 'The Global Tapestry', dates: 'c. 1200–1450', tabs: 'guide tips mcq writing flash brain spice games',
+    { name: 'The Global Tapestry', dates: 'c. 1200–1450', tabs: 'guide tips mcq writing flash glossary brain spice games',
       kw: 'song china neo-confucianism dar al-islam abbasid delhi sultanate mali great zimbabwe aztec inca mexica feudalism europe japan vijayanagara khmer' },
-    { name: 'Networks of Exchange', dates: 'c. 1200–1450', tabs: 'guide tips mcq walk writing source visual maps flash brain spice games',
+    { name: 'Networks of Exchange', dates: 'c. 1200–1450', tabs: 'guide tips mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'silk road indian ocean trans-saharan mongols genghis khan ibn battuta marco polo zheng he monsoon caravan swahili malacca black death' },
-    { name: 'Land-Based Empires', dates: 'c. 1450–1750', tabs: 'guide tips mcq walk writing source visual maps flash brain spice games',
+    { name: 'Land-Based Empires', dates: 'c. 1450–1750', tabs: 'guide tips mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'gunpowder empires ottoman safavid mughal qing tokugawa russia devshirme janissaries akbar legitimize consolidate' },
-    { name: 'Transoceanic Interconnections', dates: 'c. 1450–1750', tabs: 'guide tips mcq walk writing source visual maps flash brain spice games',
+    { name: 'Transoceanic Interconnections', dates: 'c. 1450–1750', tabs: 'guide tips mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'columbian exchange exploration portugal spain encomienda hacienda mita atlantic slave trade joint-stock companies caravel mercantilism' },
-    { name: 'Revolutions', dates: 'c. 1750–1900', tabs: 'guide tips mcq walk writing source visual flash brain spice games',
+    { name: 'Revolutions', dates: 'c. 1750–1900', tabs: 'guide tips mcq walk writing source visual flash glossary brain spice games',
       kw: 'enlightenment american french haitian latin american revolution nationalism industrial revolution steam capitalism socialism marx' },
-    { name: 'Consequences of Industrialization', dates: 'c. 1750–1900', tabs: 'guide tips mcq walk writing source visual flash brain spice games',
+    { name: 'Consequences of Industrialization', dates: 'c. 1750–1900', tabs: 'guide tips mcq walk writing source visual flash glossary brain spice games',
       kw: 'imperialism scramble for africa berlin conference opium wars meiji japan migration indentured labor social darwinism sepoy' },
-    { name: 'Global Conflict', dates: 'c. 1900–present', tabs: 'guide tips mcq walk write source visual flash brain spice games slides progress',
+    { name: 'Global Conflict', dates: 'c. 1900–present', tabs: 'guide tips mcq walk write source visual flash glossary brain spice games slides progress',
       kw: 'world war i world war ii ww1 ww2 great depression fascism holocaust genocide total war russian revolution mexican revolution' },
-    { name: 'Cold War & Decolonization', dates: 'c. 1900–present', tabs: 'guide tips mcq walk writing source visual maps flash brain spice games',
+    { name: 'Cold War & Decolonization', dates: 'c. 1900–present', tabs: 'guide tips mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'cold war decolonization containment nato warsaw pact non-aligned movement india gandhi mao proxy wars korea vietnam apartheid' },
-    { name: 'Globalization', dates: 'c. 1900–present', tabs: 'guide tips web writing brain spice games',
+    { name: 'Globalization', dates: 'c. 1900–present', tabs: 'guide tips web writing glossary brain spice games',
       kw: 'globalization technology green revolution climate change free market un human rights feminism wto nafta pop culture' }
   ];
 
@@ -38,6 +38,7 @@
     visual:   ['Visual Sources', 'Images, cartoons, and charts to analyze.', 'visual sources images cartoons charts art'],
     maps:     ['Maps', 'Interactive maps for this unit.', 'maps geography map'],
     flash:    ['Flashcards', 'Key terms with spaced review.', 'flashcards terms vocab vocabulary cards spaced review memorize'],
+    glossary: ['Glossary', 'Every key term and definition, A to Z.', 'glossary terms vocab vocabulary definitions dictionary key terms'],
     brain:    ['Brain Dump', 'Write everything you remember, then check it.', 'brain dump recall retrieval review'],
     spice:    ['SPICE-T', 'Sort the unit by Social, Political, Interactions, Culture, Economic, Tech.', 'spice spice-t themes social political economic culture'],
     games:    ['Games', 'Review games for this unit.', 'games review fun play interrogate minesweeper'],
@@ -85,7 +86,33 @@
     });
     INDEX.push({ t: 'Unit ' + n + ' Interrogate', u: 'unit' + n + '-interrogate.html', d: 'Fact / Myth Minesweeper review game.', k: tag + ' interrogate minesweeper fact myth game games', type: 'Game', unit: n, sub: 1 });
   }
-  INDEX.forEach(function (e) { e.hay = [e.t, e.k, e.d].join(' ').toLowerCase(); e.tl = e.t.toLowerCase(); });
+  INDEX.forEach(prep);
+  function prep(e) { e.hay = [e.t, e.k, e.d].join(' ').toLowerCase(); e.tl = e.t.toLowerCase(); }
+
+  // Glossary terms (glossary-data.js) deep-link to unitN.html#g-<slug>. Unit pages
+  // already load the data; elsewhere it's fetched the first time search opens.
+  var termsAdded = false;
+  function addTerms() {
+    if (termsAdded || !window.GLOSSARY_LIST) return;
+    termsAdded = true;
+    for (var n = 1; n <= 9; n++) {
+      window.GLOSSARY_LIST(n).forEach(function (g) {
+        var e = { t: g.term, u: 'unit' + n + '.html#g-' + g.slug, d: 'Unit ' + n + ' · ' + g.topic + ' — ' + (g.def.length > 110 ? g.def.slice(0, 107).replace(/\s+\S*$/, '') + '…' : g.def),
+                  k: 'unit ' + n + ' u' + n + ' unit' + n + ' glossary term definition', type: 'Term', unit: n, sub: 1, term: 1 };
+        prep(e);
+        e.hay = [e.t, e.k].join(' ').toLowerCase();   // the definition only counts as a weak match
+        e.def = g.def.toLowerCase();
+        INDEX.push(e);
+      });
+    }
+  }
+  function loadTerms() {
+    if (window.GLOSSARY_LIST) { addTerms(); return; }
+    if (document.getElementById('ss-gl')) return;
+    var s = document.createElement('script'); s.id = 'ss-gl'; s.src = 'glossary-data.js';
+    s.onload = function () { addTerms(); if (ov && ov.classList.contains('open') && inp.value.trim()) render(); };
+    document.head.appendChild(s);
+  }
 
   var SUGGEST = ['HIPP Sourcing', 'DBQ: Document-Based Question', 'Cumulative Review', 'Study Timer', 'How to Study (Brain Sculptor)', 'All Units'];
 
@@ -107,11 +134,13 @@
         if (e.tl.indexOf(t) === 0) s += 12;
         else if (wordRe.test(e.tl)) s += 9;
         else if (wordRe.test(e.hay)) s += 4;
+        else if (e.def && wordRe.test(e.def)) s += 1;
         else if (t.length > 2 && e.hay.indexOf(t) > -1) s += 1;
         else return; // every word must match somewhere
       }
       if (!toks.length) s = 5;
       if (!e.sub) s += 2;           // prefer whole pages over unit sub-tabs
+      if (e.term && e.tl === toks.join(" ")) s += 10;   // exact glossary term
       if (e.unit && !unitTok) s -= 0.5;
       out.push({ e: e, s: s });
     });
@@ -167,7 +196,7 @@
     sel = 0;
     lbl.textContent = q ? (results.length ? 'Results' : '') : 'Popular';
     if (!results.length) {
-      list.innerHTML = '<li id="ss-empty">No matches for “' + esc(q) + '”. Try a unit number, a skill (DBQ, HIPP, thesis), or a tool (flashcards, MCQ, timer).</li>';
+      list.innerHTML = '<li id="ss-empty">No matches for “' + esc(q) + '”. Try a key term (Mansa Musa, containment), a unit number, a skill (DBQ, HIPP), or a tool (flashcards, timer).</li>';
       return;
     }
     list.innerHTML = results.map(function (e, i) {
@@ -192,6 +221,7 @@
   }
   function open() {
     build();
+    loadTerms();
     ov.classList.add('open');
     inp.value = '';
     render();
@@ -205,7 +235,7 @@
     ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', 'Search the site');
     ov.innerHTML =
       '<div id="ss-card">' +
-        '<div id="ss-top">' + ICON + '<input id="ss-in" type="search" autocomplete="off" spellcheck="false" placeholder="Search: HIPP, DBQ, flashcards, Unit 3…" aria-label="Search the site"/>' +
+        '<div id="ss-top">' + ICON + '<input id="ss-in" type="search" autocomplete="off" spellcheck="false" placeholder="Search: a term, HIPP, DBQ, Unit 3…" aria-label="Search the site"/>' +
         '<button id="ss-x" type="button">Esc</button></div>' +
         '<div id="ss-lbl"></div><ul id="ss-list" role="listbox"></ul>' +
         '<div id="ss-foot"><span>↑ ↓ to move</span><span>Enter to open</span><span>Esc to close</span></div>' +

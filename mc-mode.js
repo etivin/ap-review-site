@@ -80,11 +80,12 @@
         'font-weight:700;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;' +
         'padding:9px 14px;border:2px solid #d8f13a;white-space:nowrap}' +
       '#mc-bar .mcb-back:hover{background:#fff;border-color:#fff}' +
-      '#mc-bar nav{display:flex;flex-wrap:nowrap;gap:15px;justify-content:flex-end}' +
+      '#mc-bar nav{display:flex;flex-wrap:nowrap;align-items:center;gap:15px;justify-content:flex-end}' +
       '#mc-bar nav a{color:#fff;text-decoration:none;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:8px 4px}' +
       '#mc-bar nav a:hover{color:#d8f13a;border-bottom-color:#d8f13a}' +
       '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:8px 9px}' +
-      '#mc-bar .dd{position:relative}' +
+      // Reset .dd fully — some pages (writing-guide.html) define their own .dd grid.
+      '#mc-bar .dd{position:relative;display:block;margin:0;padding:0;gap:0}' +
       '#mc-bar .dd-t{font:inherit;color:#fff;background:none;border:none;cursor:pointer;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:8px 4px;display:inline-flex;align-items:center;gap:5px}' +
       '#mc-bar .dd-t .cv{font-size:.72em;line-height:1;transition:transform .15s}' +
       '#mc-bar .dd:hover .dd-t,#mc-bar .dd.open .dd-t{color:#d8f13a;border-bottom-color:#d8f13a}' +

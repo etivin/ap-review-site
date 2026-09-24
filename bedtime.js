@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────
    Bedtime guard.
-   Between 10:30 PM and 5:00 AM (US Eastern), any page load throws up
+   Between 8:00 PM and 5:00 AM (US Eastern), any page load throws up
    a full-screen overlay asking the student whether they should be
    asleep, with the science on why sleep matters for study & memory.
    The student can dismiss it to continue to the site — but every
@@ -15,7 +15,7 @@
   "use strict";
 
   // ---- Config ------------------------------------------------------------
-  var START_MIN   = 22 * 60 + 30; // 10:30 PM  -> minutes since midnight
+  var START_MIN   = 20 * 60;      // 8:00 PM   -> minutes since midnight
   var END_MIN     = 5  * 60;      // 5:00 AM    (window wraps past midnight)
   var NAG_MS      = 15 * 60 * 1000; // re-prompt every 15 minutes
 
@@ -133,7 +133,7 @@
     overlay.innerHTML = ''
       + '<div id="bedtime-card">'
       +   '<h2 id="bedtime-title">' + heading + '</h2>'
-      +   '<p class="bt-clock">Bedtime guard · active 10:30 PM–5:00 AM Eastern</p>'
+      +   '<p class="bt-clock">Bedtime guard · active 8:00 PM–5:00 AM Eastern</p>'
       +   '<p class="bt-lead">' + lead + '</p>'
       +   '<ul>'
       +     '<li><span><b>Memory gets locked in overnight.</b> During deep sleep your brain replays the day and moves what you studied into long-term memory. Skip the sleep and a lot of tonight’s work simply doesn’t stick.</span></li>'

@@ -85,6 +85,59 @@ body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-se
 .gdoc{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.03em;background:var(--paper);border:1px solid var(--border);padding:5px 9px;color:var(--ink);white-space:nowrap}
 .gcol p{font-size:.82rem;line-height:1.55;color:var(--mid);margin:0}
 @media(max-width:620px){.gmap{grid-template-columns:1fr}}
+/* collapsible rubric: each point is its own toggle, description stored inside */
+.rubric{margin:6px 0 4px}
+.rpt{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--cc,var(--red));margin-bottom:8px}
+.rpt.spot{border-left-width:6px;background:var(--blue-bg);border-color:var(--blue-b)}
+.rpt>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:12px 15px;user-select:none}
+.rpt>summary::-webkit-details-marker{display:none}
+.rpt>summary .pts{flex-shrink:0;width:44px;height:24px;display:flex;align-items:center;justify-content:center;background:var(--cc,var(--red));color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.7rem}
+.rpt.spot>summary .pts{background:var(--blue)}
+.rpt>summary .rb-name{flex:1;font-family:Lato,system-ui,sans-serif;font-weight:900;letter-spacing:-.01em;font-size:.98rem;color:var(--ink)}
+.rpt>summary .chev{flex-shrink:0;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.05rem;color:var(--muted);transition:transform .18s}
+.rpt[open]>summary .chev{transform:rotate(90deg);color:var(--cc,var(--red))}
+.rpt.spot[open]>summary .chev{color:var(--blue)}
+.rpt>summary:hover{background:var(--white)}
+.rpt.spot>summary:hover{background:var(--blue-bg)}
+.rpt .rb-desc{padding:0 15px 10px;font-size:.84rem;color:var(--mid);line-height:1.55}
+.rpt .rb-desc em{font-style:italic;color:var(--red-d)}
+/* the full how-to stored inside each rubric point */
+.rpt-more{padding:2px 15px 15px}
+.rpt-more>*:first-child{margin-top:0}
+.rpt-more .ctx,.rpt-more .worked,.rpt-more .callout{margin-top:0}
+.rpt>summary .pts.na{background:var(--muted);width:auto;padding:0 9px;font-size:.52rem;letter-spacing:.1em}
+/* collapsible MAJOR sections: each section's content is stored inside a dropdown */
+details.sec{border:1px solid var(--border);border-top:4px solid var(--cc,var(--red));background:var(--white);box-shadow:var(--sh);margin:0 0 14px}
+details.sec>summary{list-style:none;cursor:pointer;padding:16px 22px;display:flex;align-items:center;gap:16px;user-select:none}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary:hover{background:var(--paper)}
+details.sec>summary .block-head{flex:1;margin:0;padding-top:0;border-top:none}
+details.sec>summary .block-head::before{display:none}
+details.sec>summary .sec-chev{flex-shrink:0;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.5rem;line-height:1;color:var(--cc,var(--red));transition:transform .18s}
+details.sec[open]>summary .sec-chev{transform:rotate(90deg)}
+details.sec[open]>summary{border-bottom:1px solid var(--border)}
+details.sec>.sec-inner{padding:22px 24px 26px}
+details.sec .sec-inner>.essay{border:none;box-shadow:none;padding:0;margin:0}
+@media(max-width:620px){details.sec>summary{padding:14px 16px}details.sec>.sec-inner{padding:18px 16px 22px}}
+/* quick find */
+.qf-open{display:inline-flex;align-items:center;gap:8px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--ink);border:1px solid var(--ink);padding:9px 15px;cursor:pointer;transition:background .14s}
+.qf-open:hover{background:var(--red)}
+.qf-open svg{width:14px;height:14px;flex-shrink:0}
+#qf-ov{position:fixed;inset:0;z-index:1200;background:rgba(20,18,10,.55);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px 16px}
+#qf-ov.open{display:flex}
+#qf-card{width:100%;max-width:560px;background:var(--white);border:1px solid var(--border2);box-shadow:var(--shm);max-height:74vh;display:flex;flex-direction:column}
+#qf-top{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--border)}
+#qf-top svg{width:18px;height:18px;flex-shrink:0;color:var(--muted)}
+#qf-in{flex:1;min-width:0;border:none;outline:none;background:transparent;color:var(--ink);font:600 1.02rem Lato,system-ui,sans-serif}
+#qf-in::placeholder{color:var(--muted)}
+#qf-x{border:none;background:none;color:var(--muted);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:4px}
+#qf-list{list-style:none;margin:0;padding:6px;overflow-y:auto}
+#qf-list a{display:flex;align-items:center;gap:10px;padding:9px 11px;text-decoration:none;color:var(--ink);cursor:pointer}
+#qf-list a.on{background:var(--paper)}
+#qf-list .qf-t{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.9rem;line-height:1.3}
+#qf-list .qf-k{margin-left:auto;flex-shrink:0;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--red);padding:3px 7px}
+#qf-list mark{background:var(--gold-bg);color:inherit;padding:0 1px}
+#qf-empty{padding:16px;color:var(--muted);font-size:.9rem}
 .block-kicker{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
 .block-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.55rem;font-weight:900;line-height:1.15}
 .block-title .n{color:var(--cc,var(--red))}
@@ -274,6 +327,9 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
       <cite>The one idea behind this whole guide</cite>
     </div>
   </div>
+
+  <!-- QUICK FIND -->
+  <button type="button" class="qf-open" id="qfOpen" style="margin-bottom:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>Quick find a section</button>
 
   <!-- JUMP NAV -->
   <div class="jump">
@@ -483,7 +539,7 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
     </div>
     <p>On the 2027 exam you get <strong>one required prompt</strong> (no more choosing among three) plus a brief introductory statement that orients you to the task. You write a full essay from your own knowledge, since there are no documents to lean on. You are <strong>not expected to cover the entire time period</strong>: pick the one or two examples you know best and build your argument there.</p>
 
-    <div class="subh">The 6-point rubric: what each point requires</div>
+    <div class="subh">The rubric: open any point for exactly how to earn it</div>
     <div class="ptrack" style="--cc:var(--gold)"><span class="pk">6 points</span>
       <span class="pchip">Thesis</span>
       <span class="pchip">Context</span>
@@ -492,77 +548,117 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
       <span class="pchip">Complexity</span>
       <span class="pchip tot">6 total</span>
     </div>
-    <ul class="rubric" style="--cc:var(--gold)">
-      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Thesis / Claim</div><div class="rb-desc">A historically defensible claim that responds to the prompt and <em>establishes a line of reasoning</em>. One or two sentences in the intro or conclusion. Must be more than a restatement of the prompt.</div></div></li>
-      <li class="spot"><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Contextualization &nbsp;&#9733;</div><div class="rb-desc">Describe a broader historical situation (events before or around the topic) that is relevant to the prompt. Must be <em>more than a phrase</em>, usually a few sentences. This is a free, learnable point that too many students throw away. See the full breakdown below.</div></div></li>
-      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Evidence: PROVIDE two examples</div><div class="rb-desc">Provide at least <strong>two specific, relevant</strong> historical examples (names, events, policies). This is the low bar: naming accurate evidence on the topic earns it. Aim for <strong>3 to 5</strong> so one weak example does not sink you.</div></div></li>
-      <li><span class="pts">+1 pt</span><div class="rb-body"><div class="rb-name">Evidence: SUPPORT the argument</div><div class="rb-desc">Use those examples <em>to support your argument</em>, not merely list them. Each piece must do a job for your thesis. Evidence sitting in your context paragraph does not count here, so re-use it in the body.</div></div></li>
-      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Historical reasoning</div><div class="rb-desc">Use <strong>comparison, causation, or continuity &amp; change</strong> to <em>frame and structure</em> the whole response, not as a stray transition word.</div></div></li>
-      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Complexity</div><div class="rb-desc">Show a complex understanding (nuance, a qualification, multiple causes/effects, or an insightful connection) <em>developed with evidence</em> and sustained across the essay. The hardest point on the exam.</div></div></li>
-    </ul>
+    <div class="rubric" style="--cc:var(--gold)">
 
-    <!-- CONTEXTUALIZATION SPOTLIGHT (LEQ) -->
-    <div class="ctx">
-      <span class="cx-lb">Point worth harping on &#9733; Contextualization</span>
-      <h5>Set the stage before you make your case.</h5>
-      <p>Contextualization is one paragraph, usually at the <strong>start of your essay, right before your thesis</strong>, where you zoom out and describe the <strong>bigger historical situation</strong> your topic sits inside. Think of it the way your class does: it is the <strong>opening crawl of <em>Star Wars</em></strong>, the <strong>prologue of <em>Romeo and Juliet</em></strong>, or the &ldquo;previously on&hellip;&rdquo; recap before a new episode. It gives the reader the background they need before the story starts. It is one of the easiest points to earn <em>and</em> one of the most commonly lost, because students give a single phrase instead of a real, developed description.</p>
-      <div class="cx-mini">What earns the point</div>
-      <p>You must <strong>describe</strong> a relevant broader development (before, during, or just after the period) in <strong>more than a phrase</strong>. Aim for <strong>2 to 4 full sentences</strong>. Start <strong>broad and narrow down</strong> to the prompt, stay within about <strong>100 years</strong> of your topic, and remember you <strong>cannot earn evidence points inside your context</strong>, so save your specific proof for the body.</p>
-      <div class="cx-mini">A reliable formula</div>
-      <div class="formula"><b>Before / around [the period],</b> [describe a broad, relevant development in a couple of sentences]. <b>This set the stage for</b> [the prompt's topic] <b>because</b> [one sentence linking the background to what you will argue].</div>
-      <div class="worked" style="margin-top:0">
-        <span class="wk-lb">Worked example: LEQ on the Atlantic Revolutions</span>
-        &ldquo;In the century before the Atlantic Revolutions, <strong>Enlightenment thinkers such as Locke and Rousseau</strong> spread the idea that government should rest on the consent of the governed rather than the divine right of kings. These ideas circulated through books, salons, and pamphlets across Europe and its colonies, and they gave educated elites a new language for questioning absolute rule. This set the stage for the revolutions of the period, because reformers now had a framework to justify overthrowing monarchs.&rdquo;
-        <span class="why">Why it earns: it describes a real, relevant development across several sentences, and the last line steers it into the argument. It is background, not the argument itself.</span>
-      </div>
-      <div class="cx-mini">Where students throw it away</div>
-      <p style="margin-bottom:0">A <strong>passing phrase</strong> (&ldquo;During the Enlightenment&hellip;&rdquo;) is not enough. A <strong>name-drop list</strong> with no development does not count. Context that <strong>never connects</strong> to the prompt does not count. And do not put your <strong>thesis or specific evidence</strong> in this slot: context is the wide backdrop, not your argument.</p>
+      <details class="rpt" id="thesis"><summary><span class="pts">1 pt</span><span class="rb-name">Thesis / Claim</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">A historically defensible claim that responds to the prompt and <em>establishes a line of reasoning</em>. One or two sentences in the intro or conclusion. Must be more than a restatement of the prompt.</div>
+        <div class="rpt-more">
+          <div class="ctx">
+            <span class="cx-lb">How to build the thesis</span>
+            <h5>Evaluative adverb + &ldquo;such as&rdquo; or &ldquo;as seen through.&rdquo;</h5>
+            <p>A thesis that earns the point does two jobs at once: it <strong>takes a position</strong> and it <strong>previews the specific evidence</strong> that will prove it. You do both with two small tools.</p>
+            <div class="cx-mini">1. An evaluative adverb sets your position</div>
+            <p>Answer the prompt and stake a degree of judgment with an adverb: <strong>significantly, largely, primarily, greatly, drastically, to a great extent, to a limited extent.</strong> The adverb is what turns a flat restatement of the prompt into a defensible claim.</p>
+            <div class="cx-mini">2. &ldquo;Such as&rdquo; or &ldquo;as seen through&rdquo; previews your evidence</div>
+            <p>Right after the claim, use <strong>&ldquo;such as&rdquo;</strong> or <strong>&ldquo;as seen through&rdquo;</strong> to name the two or three specific examples or categories you will argue. Those become your body paragraphs, so this one move also builds your outline.</p>
+            <div class="formula"><b>[Development]</b> [evaluative adverb] [answer to the prompt], <b>as seen through</b> [specific evidence 1] <b>and</b> [specific evidence 2].</div>
+            <div class="worked" style="margin-top:0">
+              <span class="wk-lb">Worked example: &ldquo;as seen through&rdquo;</span>
+              &ldquo;Mongol expansion <strong>greatly</strong> transformed Eurasia, <strong>as seen through</strong> the revival of Silk Road trade under the Pax Mongolica and the wide exchange of technologies like gunpowder and paper money.&rdquo;
+              <span class="why">The adverb (&ldquo;greatly&rdquo;) stakes a position; &ldquo;as seen through&rdquo; names the two specific pieces of evidence that become the two body paragraphs.</span>
+            </div>
+            <div class="worked" style="margin-top:0">
+              <span class="wk-lb">Worked example: &ldquo;such as&rdquo;</span>
+              &ldquo;Nineteenth-century reform movements brought about <strong>significant</strong> social and political change, <strong>such as</strong> the creation of labor unions and the passage of laws ending child labor.&rdquo;
+              <span class="why">Same recipe: an adverb for the degree of judgment, then &ldquo;such as&rdquo; to preview the specific evidence you will develop.</span>
+            </div>
+            <div class="cx-mini">Add nuance with an &ldquo;Although&hellip;&rdquo; opener</div>
+            <p style="margin-bottom:0"><strong>Although</strong> [the other side], [your position] <strong>to a [great/limited] extent</strong>, <strong>as seen through</strong> [evidence 1] <strong>and</strong> [evidence 2]. Opening with &ldquo;although&rdquo; folds in a counter-case, which can also push you toward the complexity point. Example: &ldquo;<em>Although</em> internal rebellions weakened the Qing, foreign involvement was <em>primarily</em> responsible for its collapse, <em>as seen through</em> the opium trade's drain on silver and the loss of sovereignty under the unequal treaties.&rdquo;</p>
+          </div>
+          <div class="callout tip"><span class="lb">Two class-tested thesis tricks</span><strong>1.</strong> Pretend the prompt is an SAQ: if you covered up the rest of your essay, your thesis alone should fully answer the question. <strong>2.</strong> Use the <strong>language of the prompt</strong>. And if your opening thesis came out clumsy, <strong>rewrite a sharper version in your conclusion</strong>; the reader will credit the better one.</div>
+        </div>
+      </details>
+
+      <details class="rpt spot" id="context"><summary><span class="pts">1 pt</span><span class="rb-name">Contextualization &nbsp;&#9733;</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">Describe a broader historical situation (events before or around the topic) that is relevant to the prompt. Must be <em>more than a phrase</em>, usually a few sentences. A free, learnable point too many students throw away.</div>
+        <div class="rpt-more">
+          <div class="ctx">
+            <span class="cx-lb">Point worth harping on &#9733; Contextualization</span>
+            <h5>Set the stage before you make your case.</h5>
+            <p>Contextualization is one paragraph, usually at the <strong>start of your essay, right before your thesis</strong>, where you zoom out and describe the <strong>bigger historical situation</strong> your topic sits inside. Think of it the way your class does: it is the <strong>opening crawl of <em>Star Wars</em></strong>, the <strong>prologue of <em>Romeo and Juliet</em></strong>, or the &ldquo;previously on&hellip;&rdquo; recap before a new episode. It gives the reader the background they need before the story starts. It is one of the easiest points to earn <em>and</em> one of the most commonly lost, because students give a single phrase instead of a real, developed description.</p>
+            <div class="cx-mini">What earns the point</div>
+            <p>You must <strong>describe</strong> a relevant broader development (before, during, or just after the period) in <strong>more than a phrase</strong>. Aim for <strong>2 to 4 full sentences</strong>. Start <strong>broad and narrow down</strong> to the prompt, stay within about <strong>100 years</strong> of your topic, and remember you <strong>cannot earn evidence points inside your context</strong>, so save your specific proof for the body.</p>
+            <div class="cx-mini">A reliable formula</div>
+            <div class="formula"><b>Before / around [the period],</b> [describe a broad, relevant development in a couple of sentences]. <b>This set the stage for</b> [the prompt's topic] <b>because</b> [one sentence linking the background to what you will argue].</div>
+            <div class="worked" style="margin-top:0">
+              <span class="wk-lb">Worked example: the Atlantic Revolutions</span>
+              &ldquo;In the century before the Atlantic Revolutions, <strong>Enlightenment thinkers such as Locke and Rousseau</strong> spread the idea that government should rest on the consent of the governed rather than the divine right of kings. These ideas circulated through books, salons, and pamphlets across Europe and its colonies, and they gave educated elites a new language for questioning absolute rule. This set the stage for the revolutions of the period, because reformers now had a framework to justify overthrowing monarchs.&rdquo;
+              <span class="why">Why it earns: it describes a real, relevant development across several sentences, and the last line steers it into the argument. It is background, not the argument itself.</span>
+            </div>
+            <div class="cx-mini">Where students throw it away</div>
+            <p style="margin-bottom:0">A <strong>passing phrase</strong> (&ldquo;During the Enlightenment&hellip;&rdquo;) is not enough. A <strong>name-drop list</strong> with no development does not count. Context that <strong>never connects</strong> to the prompt does not count. And do not put your <strong>thesis or specific evidence</strong> in this slot: context is the wide backdrop, not your argument.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="rpt"><summary><span class="pts">1 pt</span><span class="rb-name">Evidence: PROVIDE two examples</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">Provide at least <strong>two specific, relevant</strong> historical examples (names, events, policies). This is the low bar: naming accurate evidence on the topic earns it. Aim for <strong>3 to 5</strong> so one weak example does not sink you. <em>Open &ldquo;SUPPORT&rdquo; below for the frame that turns those names into points.</em></div>
+      </details>
+
+      <details class="rpt" id="leq-evidence"><summary><span class="pts">+1 pt</span><span class="rb-name">Evidence: SUPPORT the argument</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">Use those examples <em>to support your argument</em>, not merely list them. Each piece must do a job for your thesis. Evidence sitting in your context paragraph does not count here, so re-use it in the body.</div>
+        <div class="rpt-more">
+          <p style="font-size:.86rem;color:var(--mid);margin-bottom:12px">The LEQ gives you no documents, so every piece of evidence is your own knowledge. The move that earns the point is the same explicit link you use on the DBQ: never leave a fact sitting there unexplained.</p>
+          <div class="ctx">
+            <span class="cx-lb">Sentence frame for every piece of evidence</span>
+            <div class="formula"><b>[A specific example: a name, event, or policy] supports my argument that</b> [words from your thesis] <b>because it</b> [pick a verb below]&hellip;</div>
+            <div class="cx-mini">Verbs that link evidence to your argument</div>
+            <div class="ptrack" style="--cc:var(--gold)">
+              <span class="pchip">shows</span><span class="pchip">demonstrates</span><span class="pchip">illustrates</span><span class="pchip">proves</span><span class="pchip">reveals</span><span class="pchip">exemplifies</span>
+            </div>
+            <div class="worked" style="margin-top:4px">
+              <span class="wk-lb">Worked example</span>
+              &ldquo;The <strong>Declaration of the Rights of Man</strong> supports my argument that Enlightenment ideas drove the Atlantic revolutions <strong>because it demonstrates</strong> how revolutionaries turned natural-rights philosophy directly into a plan for government.&rdquo;
+              <span class="why">Name the specific example, tie it to your thesis with &ldquo;because it [verb],&rdquo; and do it for your two or three best examples. That is what turns a list of facts into the two evidence points.</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="rpt"><summary><span class="pts">1 pt</span><span class="rb-name">Historical reasoning</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">Use <strong>comparison, causation, or continuity &amp; change</strong> to <em>frame and structure</em> the whole response, not as a stray transition word.</div>
+        <div class="rpt-more">
+          <p style="font-size:.86rem;color:var(--mid);margin:0 0 10px">Once you have chosen your skill, let it lay out your body paragraphs. Your class gives two clean options for each.</p>
+          <div class="vgrid">
+            <div class="vcard" style="--cc:var(--gold)"><div class="task">Comparison</div><h4>Pick one layout</h4><p><strong>Subject by subject:</strong> say everything about A, then everything about B.</p><p><strong>Point by point:</strong> take one point of comparison at a time and apply it to both.</p></div>
+            <div class="vcard" style="--cc:var(--gold)"><div class="task">Causation</div><h4>Pick one layout</h4><p><strong>One cause, many effects:</strong> paragraphs on effect, effect, effect.</p><p><strong>Many causes, one outcome:</strong> paragraphs on a cause and its effect, then the next cause and its effect.</p></div>
+            <div class="vcard" style="--cc:var(--gold)"><div class="task">Continuity &amp; Change</div><h4>Pick one layout</h4><p><strong>Chronological:</strong> the start of the period, then the middle, then the end.</p><p><strong>Topical:</strong> take a topic and trace what continued and what changed across the periods.</p></div>
+          </div>
+          <div class="callout dont"><span class="lb">The most common LEQ misses</span><strong>Evidence that just sits there</strong> (named but never tied to the claim) and <strong>a reasoning skill that never structures anything</strong> (one &ldquo;because&rdquo; buried in paragraph three). Make your reasoning the skeleton of the whole essay, and after every fact ask &ldquo;how does this prove my thesis?&rdquo;</div>
+        </div>
+      </details>
+
+      <details class="rpt"><summary><span class="pts">1 pt</span><span class="rb-name">Complexity</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">Show a complex understanding (nuance, a qualification, multiple causes/effects, or an insightful connection) <em>developed with evidence</em> and sustained across the essay. The hardest point on the exam.</div>
+        <div class="rpt-more">
+          <div class="callout tip"><span class="lb">The reliable way in</span>Lock in the easy points first, then reach for complexity by <strong>qualifying your own argument with real evidence</strong>: open with &ldquo;although&hellip;,&rdquo; then show a counter-case or a cross-region comparison and explain why it matters. A hollow &ldquo;it was complicated&rdquo; sentence earns nothing.</div>
+        </div>
+      </details>
+
     </div>
 
-    <div class="subh">Build it in this order</div>
-    <ol class="steps" style="--cc:var(--gold)">
-      <li><strong>Deconstruct the prompt</strong> (1 min). Read the intro statement, then circle the command verb, the topic, any region, and the time frame. Watch for &ldquo;and/or&rdquo;: &ldquo;social and/or cultural&rdquo; means you may write about either or both.</li>
-      <li><strong>Brainstorm and prewrite</strong> (5 min). Sketch a quick <strong>Venn diagram</strong> (comparison), <strong>T-chart</strong> (continuity &amp; change), or <strong>fishbone</strong> (causation), and list every specific fact you know before you write. Do not skip this.</li>
-      <li><strong>Write contextualization</strong> first (see the spotlight above): a few sentences of the bigger picture that lead into your thesis.</li>
-      <li><strong>Write the thesis</strong>: a claim with a qualifier and a line of reasoning (see the formula below).</li>
-      <li><strong>Write 2 to 3 body paragraphs</strong>, each organized by your reasoning skill, each using specific evidence to prove a piece of the claim.</li>
-      <li><strong>Land the complexity</strong>: weave in a counter-case, a limit, or a comparison and explain why it matters. Not a tacked-on last sentence.</li>
-    </ol>
-
-    <div class="ctx" id="thesis">
-      <span class="cx-lb">How to build the thesis</span>
-      <h5>Evaluative adverb + &ldquo;such as&rdquo; or &ldquo;as seen through.&rdquo;</h5>
-      <p>A thesis that earns the point does two jobs at once: it <strong>takes a position</strong> and it <strong>previews the specific evidence</strong> that will prove it. You do both with two small tools.</p>
-      <div class="cx-mini">1. An evaluative adverb sets your position</div>
-      <p>Answer the prompt and stake a degree of judgment with an adverb: <strong>significantly, largely, primarily, greatly, drastically, to a great extent, to a limited extent.</strong> The adverb is what turns a flat restatement of the prompt into a defensible claim.</p>
-      <div class="cx-mini">2. &ldquo;Such as&rdquo; or &ldquo;as seen through&rdquo; previews your evidence</div>
-      <p>Right after the claim, use <strong>&ldquo;such as&rdquo;</strong> or <strong>&ldquo;as seen through&rdquo;</strong> to name the two or three specific examples or categories you will argue. Those become your body paragraphs, so this one move also builds your outline.</p>
-      <div class="formula"><b>[Development]</b> [evaluative adverb] [answer to the prompt], <b>as seen through</b> [specific evidence 1] <b>and</b> [specific evidence 2].</div>
-      <div class="worked" style="margin-top:0">
-        <span class="wk-lb">Worked example: &ldquo;as seen through&rdquo;</span>
-        &ldquo;Mongol expansion <strong>greatly</strong> transformed Eurasia, <strong>as seen through</strong> the revival of Silk Road trade under the Pax Mongolica and the wide exchange of technologies like gunpowder and paper money.&rdquo;
-        <span class="why">The adverb (&ldquo;greatly&rdquo;) stakes a position; &ldquo;as seen through&rdquo; names the two specific pieces of evidence that become the two body paragraphs.</span>
+    <details class="rpt" style="--cc:var(--gold)"><summary><span class="pts na">Steps</span><span class="rb-name">The order to write it in</span><span class="chev">&#8250;</span></summary>
+      <div class="rpt-more">
+        <ol class="steps" style="--cc:var(--gold)">
+          <li><strong>Deconstruct the prompt</strong> (1 min). Read the intro statement, then circle the command verb, the topic, any region, and the time frame. Watch for &ldquo;and/or&rdquo;: &ldquo;social and/or cultural&rdquo; means you may write about either or both.</li>
+          <li><strong>Brainstorm and prewrite</strong> (5 min). Sketch a quick <strong>Venn diagram</strong> (comparison), <strong>T-chart</strong> (continuity &amp; change), or <strong>fishbone</strong> (causation), and list every specific fact you know before you write. Do not skip this.</li>
+          <li><strong>Write contextualization</strong> first: a few sentences of the bigger picture that lead into your thesis.</li>
+          <li><strong>Write the thesis</strong>: a claim with a qualifier and a line of reasoning.</li>
+          <li><strong>Write 2 to 3 body paragraphs</strong>, each organized by your reasoning skill, each using specific evidence to prove a piece of the claim.</li>
+          <li><strong>Land the complexity</strong>: weave in a counter-case, a limit, or a comparison and explain why it matters. Not a tacked-on last sentence.</li>
+        </ol>
       </div>
-      <div class="worked" style="margin-top:0">
-        <span class="wk-lb">Worked example: &ldquo;such as&rdquo;</span>
-        &ldquo;Nineteenth-century reform movements brought about <strong>significant</strong> social and political change, <strong>such as</strong> the creation of labor unions and the passage of laws ending child labor.&rdquo;
-        <span class="why">Same recipe: an adverb for the degree of judgment, then &ldquo;such as&rdquo; to preview the specific evidence you will develop.</span>
-      </div>
-      <div class="cx-mini">Add nuance with an &ldquo;Although&hellip;&rdquo; opener</div>
-      <p style="margin-bottom:0"><strong>Although</strong> [the other side], [your position] <strong>to a [great/limited] extent</strong>, <strong>as seen through</strong> [evidence 1] <strong>and</strong> [evidence 2]. Opening with &ldquo;although&rdquo; folds in a counter-case, which can also push you toward the complexity point. Example: &ldquo;<em>Although</em> internal rebellions weakened the Qing, foreign involvement was <em>primarily</em> responsible for its collapse, <em>as seen through</em> the opium trade's drain on silver and the loss of sovereignty under the unequal treaties.&rdquo;</p>
-    </div>
-
-    <div class="callout tip"><span class="lb">Two class-tested thesis tricks</span><strong>1.</strong> Pretend the prompt is an SAQ: if you covered up the rest of your essay, your thesis alone should fully answer the question. <strong>2.</strong> Use the <strong>language of the prompt</strong>. And if your opening thesis came out clumsy, <strong>rewrite a sharper version in your conclusion</strong>; the reader will credit the better one.</div>
-
-    <div class="callout dont"><span class="lb">The most common LEQ misses</span><strong>Evidence that just sits there</strong> (named but never tied to the claim) and <strong>a reasoning skill that never structures anything</strong> (one &ldquo;because&rdquo; buried in paragraph three). Make your reasoning the skeleton of the whole essay, and after every fact ask &ldquo;how does this prove my thesis?&rdquo;</div>
-
-    <div class="subh">Organize the body around your reasoning skill</div>
-    <p>Once you have chosen comparison, causation, or continuity &amp; change, let it lay out your body paragraphs. Your class gives two clean options for each.</p>
-    <div class="vgrid">
-      <div class="vcard" style="--cc:var(--gold)"><div class="task">Comparison</div><h4>Pick one layout</h4><p><strong>Subject by subject:</strong> say everything about A, then everything about B.</p><p><strong>Point by point:</strong> take one point of comparison at a time and apply it to both.</p></div>
-      <div class="vcard" style="--cc:var(--gold)"><div class="task">Causation</div><h4>Pick one layout</h4><p><strong>One cause, many effects:</strong> paragraphs on effect, effect, effect.</p><p><strong>Many causes, one outcome:</strong> paragraphs on a cause and its effect, then the next cause and its effect.</p></div>
-      <div class="vcard" style="--cc:var(--gold)"><div class="task">Continuity &amp; Change</div><h4>Pick one layout</h4><p><strong>Chronological:</strong> the start of the period, then the middle, then the end.</p><p><strong>Topical:</strong> take a topic and trace what continued and what changed across the periods.</p></div>
-    </div>
+    </details>
   </div>
 
   <!-- ============ SECTION 5: THE DBQ ============ -->
@@ -582,15 +678,7 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
     </div>
     <p>The DBQ is the LEQ plus a stack of evidence and a sourcing skill. You get <strong>seven documents</strong> (text and images) and you build an argument that uses them <em>and</em> your own outside knowledge. It is the single most valuable essay on the exam, so it is worth a deliberate routine.</p>
 
-    <div class="subh">Use the 15-minute reading period like a pro</div>
-    <ol class="steps" style="--cc:var(--red)">
-      <li><strong>Read the prompt first</strong> and decide a rough position before you touch a document.</li>
-      <li><strong>Annotate each document</strong> as you read. Write one margin note for its <em>main idea</em>, and note the <strong>author, their situation, and their purpose</strong> from the source line (you will need this for sourcing).</li>
-      <li><strong>Group the documents</strong> into 2 or 3 buckets that will become your body paragraphs (for and against, or by reasoning category). Plan to <strong>use at least 6 of the 7</strong>.</li>
-      <li><strong>Jot outside evidence</strong> in the margin: a fact you know that is not in any document. You need at least one, it must be different from your contextualization, and it should stay in the same region and period as the documents.</li>
-    </ol>
-
-    <div class="subh">The 7-point rubric: where the extra points live</div>
+    <div class="subh">The rubric: open any point for exactly how to earn it</div>
     <div class="ptrack" style="--cc:var(--red)"><span class="pk">7 points</span>
       <span class="pchip">Thesis</span>
       <span class="pchip">Context</span>
@@ -600,197 +688,226 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
       <span class="pchip">Complexity</span>
       <span class="pchip tot">7 total</span>
     </div>
-    <ul class="rubric" style="--cc:var(--red)">
-      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Thesis / Claim</div><div class="rb-desc">Same as the LEQ: a defensible claim with a line of reasoning that takes a position on the <em>extent</em>.</div></div></li>
-      <li class="spot"><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Contextualization &nbsp;&#9733;</div><div class="rb-desc">A broader historical situation relevant to the prompt, described in more than a phrase, before you dive into the documents. Same skill as the LEQ, and just as free. See the full breakdown below.</div></div></li>
-      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Evidence from the documents: USE 3</div><div class="rb-desc">Accurately <em>describe the content</em> (not just quote) of at least <strong>three</strong> documents relevant to the prompt. The low bar: it shows you understood them.</div></div></li>
-      <li><span class="pts">+1 pt</span><div class="rb-body"><div class="rb-name">Documents SUPPORT the argument: use 4</div><div class="rb-desc">Use the content of at least <strong>four</strong> documents to <em>support your argument</em>, not just describe them. Strategy: actually use <strong>6 or 7</strong>, which also helps earn complexity.</div></div></li>
-      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Evidence beyond the documents</div><div class="rb-desc">Use at least <strong>one specific</strong> piece of outside knowledge, relevant to the argument and <em>different from your contextualization</em>. Keep it in the <strong>same region and time period</strong> as the documents.</div></div></li>
-      <li class="spot"><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Sourcing / HIPP: source 2 &nbsp;&#9733;</div><div class="rb-desc">For at least <strong>two</strong> documents, explain how or why the source's point of view, purpose, historical situation, or audience is <em>relevant to your argument</em>. Explain <em>why it matters</em>, do not just name it. Strategy: <strong>source 4</strong>, which helps earn complexity. See the full breakdown below.</div></div></li>
-      <li><span class="pts">1 pt</span><div class="rb-body"><div class="rb-name">Complexity</div><div class="rb-desc">A sophisticated argument, sustained across the essay. Common ways in: use <strong>all 7 documents</strong> to support the argument, <strong>source 4</strong> documents, explain multiple perspectives or both cause <em>and</em> effect, or connect across regions and periods.</div></div></li>
-    </ul>
+    <div class="rubric" style="--cc:var(--red)">
 
-    <!-- CONTEXTUALIZATION SPOTLIGHT (DBQ) -->
-    <div class="ctx">
-      <span class="cx-lb">Point worth harping on &#9733; Contextualization</span>
-      <h5>Same skill as the LEQ. Do not skip it here either.</h5>
-      <p>Contextualization on the DBQ works exactly like the LEQ version: a <strong>developed paragraph of broader background</strong> (2 to 4 sentences) placed before you start using documents. The trap unique to the DBQ is confusing three different things, so keep them straight:</p>
-      <p style="margin-bottom:11px"><strong>Contextualization</strong> is the wide backdrop you supply from your own knowledge. <strong>Outside evidence</strong> is <em>one specific fact</em> inside your argument that is not in the documents (and must be different from your context). <strong>Document evidence</strong> comes from the seven sources. Three separate points, so use three different pieces of information.</p>
-      <div class="cx-mini">A reliable formula</div>
-      <div class="formula"><b>In the [decades] surrounding this topic,</b> [describe a broad, relevant trend in a couple of sentences]. <b>This wider situation</b> is the backdrop against which [the documents / the events in the prompt] should be understood.</div>
-      <div class="worked" style="margin-top:0">
-        <span class="wk-lb">Worked example: DBQ on the collapse of the Qing</span>
-        &ldquo;By the second half of the 1800s, <strong>industrialized Western powers were using military force and economic pressure to extract concessions from weaker states across Asia</strong>, from the Ottoman Empire to Qing China. Gunboats, unequal treaties, and demands for open trade steadily eroded these states' control over their own affairs. This wider wave of imperialism is the backdrop against which the Qing dynasty's mounting troubles must be understood.&rdquo;
-        <span class="why">Why it earns: several sentences describing a genuinely broader development, clearly tied to the prompt's topic and era, and it does not reuse a document or the outside-evidence fact.</span>
-      </div>
-      <div class="cx-mini">Where students throw it away</div>
-      <p style="margin-bottom:0">A single phrase, a bare name-drop, background that never connects to the prompt, or <strong>reusing the same fact</strong> for context and for outside evidence (which costs you the second point). Context is broad and general; outside evidence is one narrow, specific fact.</p>
-    </div>
-
-    <!-- HIPP SOURCING SPOTLIGHT -->
-    <div class="subh" id="hipp">Sourcing done right: the H.I.P.P. move</div>
-    <p>Sourcing is the DBQ's signature skill and the point most students fumble. It is really <strong>one good sentence attached to a document</strong>: you name a feature of the <em>source</em> (not its content), explain how that feature shapes what the document says, and connect it to your argument. You must do this accurately for at least <strong>two documents</strong> to earn the point, but <strong>aim for four</strong>: it is a safety net if you slip on one, and sourcing four helps earn the complexity point.</p>
-
-    <div class="vgrid">
-      <div class="vcard" style="--cc:var(--red)"><div class="task">H</div><h4>Historical situation</h4><p>What was happening in the world when and where this was made? Ask: how does that moment shape the message?</p></div>
-      <div class="vcard" style="--cc:var(--red)"><div class="task">I</div><h4>Intended audience</h4><p>Who was the author speaking or writing <em>to</em>? Ask: how would the author shape the message for those specific readers?</p></div>
-      <div class="vcard" style="--cc:var(--red)"><div class="task">P</div><h4>Purpose</h4><p>Why did the author create this? Ask: what were they trying to make happen, and how does that goal color what they include?</p></div>
-      <div class="vcard" style="--cc:var(--red)"><div class="task">P</div><h4>Point of view</h4><p>Who is the author (their job, class, nationality, religion, group)? Ask: how does that position bias what they emphasize or leave out?</p></div>
-    </div>
-
-    <div class="callout tip"><span class="lb">The 3-move sourcing sentence</span><strong>1. Identify</strong> a specific HIPP feature, pulling detail from the source line above the document. <strong>2. Explain</strong> with a &ldquo;<strong>which means&hellip;</strong>&rdquo; or &ldquo;<strong>therefore&hellip;</strong>&rdquo; bridge: how does that feature shape what the source stresses, includes, or omits? <strong>3. Connect</strong> it to your argument about the prompt. Miss any of the three and the point does not count.</div>
-
-    <div class="callout tip"><span class="lb">What to actually look for in the source line</span>The italic <strong>source line</strong> above each document is where sourcing lives. For <strong>point of view</strong>, note the author's role, nationality, religion, class, or occupation. For <strong>purpose and audience</strong>, note the <em>type</em> of document: a letter to an official, a government decree, a newspaper article, a private diary, a political poster, a work of art. For <strong>reliability</strong>, compare the date it was made to when the events happened: a memoir written decades later is shaped by hindsight.</div>
-
-    <div class="callout do"><span class="lb">Where the sourcing sentence goes</span>Do not source in a separate paragraph. When you use a document as evidence, add the sourcing sentence <strong>right after it</strong>: give the evidence, then explain the HIPP feature and why it shapes what the document does or does not say.</div>
-
-    <div class="ctx">
-      <span class="cx-lb">Class sentence frames for sourcing</span>
-      <h5>Fill in the blank for whichever HIPP feature fits.</h5>
-      <p>Your class gives a ready frame for each move. Drop in the details from the source line, then finish the &ldquo;therefore&hellip;&rdquo; clause with a sourcing verb from the bank below.</p>
-      <div class="formula"><b>Historical situation:</b> &ldquo;The historical situation this document was written in is [context]&hellip; it was written during [events]&hellip;&rdquo;</div>
-      <div class="formula"><b>Intended audience:</b> &ldquo;The intended audience may be [people], therefore the source could be trying to [do what]&hellip;&rdquo;</div>
-      <div class="formula"><b>Purpose:</b> &ldquo;The author is attempting to [purpose]. Therefore, they may [emphasize / diminish / etc.] [the theme].&rdquo;</div>
-      <div class="formula"><b>Point of view:</b> &ldquo;The author is a/an [POV from the source line]. Therefore, they may be [biasing the event]&hellip;&rdquo;</div>
-      <div class="cx-mini">Sourcing verbs: pick the one that matches the source's slant</div>
-      <p style="margin-bottom:0"><strong>Positive:</strong> praise, idolize, celebrate, uplift, admire, glorify, support.<br><strong>Negative:</strong> criticize, demonize, condemn, dismiss, denounce, attack, vilify, oppose.<br><strong>Neutral:</strong> emphasize, downplay, highlight, generalize, discuss, document, chronicle.</p>
-    </div>
-
-    <div class="worked">
-      <span class="wk-lb">Worked example A: sourcing by Point of View</span>
-      &ldquo;Because this document is a <strong>revolutionary proclamation written by young Chinese students studying abroad</strong> (point of view), its authors were committed opponents of Manchu rule, <strong>which means</strong> it deliberately frames the dynasty's fall as an internal, patriotic uprising and downplays foreign pressure. This supports my argument that the collapse was driven as much from within as from outside.&rdquo;
-      <span class="why">Why it earns: it names the POV using detail from the source line, explains how that shapes the content with &ldquo;which means,&rdquo; and ties it to the argument. Three moves, one point.</span>
-    </div>
-    <div class="worked">
-      <span class="wk-lb">Worked example B: sourcing by Purpose</span>
-      &ldquo;This political cartoon was published in a Shanghai newspaper <strong>to warn the Chinese public</strong> that Western powers were carving up their country (purpose), <strong>therefore</strong> it exaggerates China's helplessness to stir alarm and national feeling, which strengthens the case that fear of foreign domination was fueling calls for change.&rdquo;
-      <span class="why">Why it earns: purpose is named and, crucially, the sentence explains how that purpose bends the message, then links it to the argument.</span>
-    </div>
-
-    <div class="dd">
-      <div class="col win">
-        <h5>Accurate sourcing</h5>
-        <ul>
-          <li>Names a feature of the <em>source</em>, not its content</li>
-          <li>Uses detail from the source line (who, when, why)</li>
-          <li>Explains <em>how</em> that feature shapes the document</li>
-          <li>Connects the point to your argument</li>
-          <li>Done for at least 2 documents (aim for 4)</li>
-        </ul>
-      </div>
-      <div class="col lose">
-        <h5>Sourcing that earns nothing</h5>
-        <ul>
-          <li>Just naming it: &ldquo;The audience is the government.&rdquo;</li>
-          <li>&ldquo;The author is biased&rdquo; with no <em>how</em> or <em>why</em></li>
-          <li>Summarizing what the document says</li>
-          <li>Sourcing only 1 or 2 documents</li>
-          <li>No link back to the argument</li>
-        </ul>
-      </div>
-    </div>
-    <div class="callout do"><span class="lb">Fast way to remember it</span>Content answers &ldquo;what does the document say?&rdquo; Sourcing answers &ldquo;<strong>why should I trust it, and what is it shaped by?</strong>&rdquo; If your sentence could be written by someone who only read the source line and never read the document body, you are sourcing. If it retells the document, you are not.</div>
-
-    <div class="callout dont"><span class="lb">The classic DBQ trap</span><strong>Summarizing the documents in order</strong> (&ldquo;Document 1 says&hellip; Document 2 says&hellip;&rdquo;). That is a book report, not an argument. Instead, group documents by what they prove, cite two or three together in a single sentence to back one claim, and keep your thesis driving every paragraph.</div>
-
-    <div class="subh" id="grouping">How to group the documents by theme and impact</div>
-    <p>The single biggest DBQ upgrade is refusing to go document by document. Before you write, sort the 7 documents into <strong>2 or 3 groups</strong>, where each group is a <strong>theme or type of impact that supports part of your answer</strong>. Each group becomes one body paragraph, and its theme becomes that paragraph's topic sentence.</p>
-
-    <div class="subh" style="border:none;padding:0;margin:16px 0 8px">Do it in five moves</div>
-    <ol class="steps" style="--cc:var(--red)">
-      <li><strong>Answer the prompt first.</strong> Decide your position on the &ldquo;to what extent&rdquo; before you sort, so you know what each group has to prove.</li>
-      <li><strong>Tag every document.</strong> Read each one once and jot its main idea and which side or theme it leans toward.</li>
-      <li><strong>Find the patterns.</strong> Which documents make the same kind of point, or show the same kind of impact? Those cluster together.</li>
-      <li><strong>Name each cluster</strong> with a theme that answers the prompt, not a list of numbers: &ldquo;economic damage from foreign trade,&rdquo; not &ldquo;Documents 2, 3, and 6.&rdquo;</li>
-      <li><strong>Check your coverage.</strong> Aim to place <strong>6 or 7</strong> of the documents into a group. A document can sit in two groups if it does two jobs.</li>
-    </ol>
-
-    <div class="subh" style="border:none;padding:0;margin:18px 0 8px">Ways to group (pick what the prompt invites)</div>
-    <div class="vgrid">
-      <div class="vcard" style="--cc:var(--red)"><div class="task">For a &ldquo;to what extent&rdquo; prompt</div><h4>By side</h4><p>One group of documents that <em>supports</em> the claim, one that <em>limits</em> it. That contrast is what lets you argue the degree.</p></div>
-      <div class="vcard" style="--cc:var(--red)"><div class="task">SPICE-T</div><h4>By type of impact</h4><p>Group by political, economic, social, or cultural effects, whichever the prompt is asking about.</p></div>
-      <div class="vcard" style="--cc:var(--red)"><div class="task">Perspective</div><h4>By who is affected</h4><p>Rulers versus common people, one region versus another, supporters versus opponents.</p></div>
-    </div>
-
-    <div class="ctx">
-      <span class="cx-lb">Worked example: grouping a real DBQ</span>
-      <h5>Prompt: evaluate the extent to which foreign involvement caused the collapse of the Qing.</h5>
-      <p>Sort the 7 documents into two impact groups that each answer the prompt from one side:</p>
-      <div class="gmap">
-        <div class="gcol" style="--cc:var(--red)">
-          <div class="gsub">Group A &middot; one body paragraph</div>
-          <div class="gtheme">Foreign pressure (external cause)</div>
-          <div class="gdocs"><span class="gdoc">Doc 2</span><span class="gdoc">Doc 3</span><span class="gdoc">Doc 6</span></div>
-          <p>Opium and British trade draining silver (2), foreigners ignoring Chinese law (3), and the cartoon of the West carving up China (6) all show outside forces weakening the dynasty.</p>
+      <details class="rpt"><summary><span class="pts">1 pt</span><span class="rb-name">Thesis / Claim</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">A defensible claim with a line of reasoning that takes a position on the <em>extent</em>. Built exactly like the LEQ thesis.</div>
+        <div class="rpt-more">
+          <div class="ctx">
+            <span class="cx-lb">How to build the thesis</span>
+            <h5>Evaluative adverb + &ldquo;such as&rdquo; or &ldquo;as seen through.&rdquo;</h5>
+            <p>A thesis that earns the point does two jobs at once: it <strong>takes a position</strong> and it <strong>previews the specific evidence</strong> that will prove it. You do both with two small tools.</p>
+            <div class="cx-mini">1. An evaluative adverb sets your position</div>
+            <p>Answer the prompt and stake a degree of judgment with an adverb: <strong>significantly, largely, primarily, greatly, drastically, to a great extent, to a limited extent.</strong> The adverb is what turns a flat restatement of the prompt into a defensible claim.</p>
+            <div class="cx-mini">2. &ldquo;Such as&rdquo; or &ldquo;as seen through&rdquo; previews your evidence</div>
+            <p>Right after the claim, use <strong>&ldquo;such as&rdquo;</strong> or <strong>&ldquo;as seen through&rdquo;</strong> to name the two or three specific examples or categories you will argue. Those become your body paragraphs, so this one move also builds your outline.</p>
+            <div class="formula"><b>[Development]</b> [evaluative adverb] [answer to the prompt], <b>as seen through</b> [specific evidence 1] <b>and</b> [specific evidence 2].</div>
+            <div class="worked" style="margin-top:0">
+              <span class="wk-lb">Worked example: &ldquo;as seen through&rdquo;</span>
+              &ldquo;<em>Although</em> internal rebellions weakened the Qing, foreign involvement was <strong>primarily</strong> responsible for its collapse, <strong>as seen through</strong> the opium trade's drain on silver and the loss of sovereignty under the unequal treaties.&rdquo;
+              <span class="why">The adverb (&ldquo;primarily&rdquo;) stakes a position on the extent; &ldquo;as seen through&rdquo; names the two ideas that become the body paragraphs; the &ldquo;although&rdquo; opener folds in a counter-case for complexity.</span>
+            </div>
+          </div>
+          <div class="callout tip"><span class="lb">Two class-tested thesis tricks</span><strong>1.</strong> Pretend the prompt is an SAQ: if you covered up the rest of your essay, your thesis alone should fully answer the question. <strong>2.</strong> Use the <strong>language of the prompt</strong>, and if your opening thesis came out clumsy, <strong>rewrite a sharper version in your conclusion</strong>.</div>
         </div>
-        <div class="gcol" style="--cc:var(--gold)">
-          <div class="gsub">Group B &middot; one body paragraph</div>
-          <div class="gtheme">Internal breakdown (domestic cause)</div>
-          <div class="gdocs"><span class="gdoc">Doc 1</span><span class="gdoc">Doc 4</span><span class="gdoc">Doc 5</span><span class="gdoc">Doc 7</span></div>
-          <p>Rebels seizing districts (1), rural poverty and banditry (4), Han nationalist revolutionaries (5), and the abdication citing an internal uprising (7) show the collapse also came from within.</p>
+      </details>
+
+      <details class="rpt spot"><summary><span class="pts">1 pt</span><span class="rb-name">Contextualization &nbsp;&#9733;</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">A broader historical situation relevant to the prompt, more than a phrase, before you use the documents. Same skill and same how-to as the LEQ.</div>
+        <div class="rpt-more">
+          <div class="ctx">
+            <span class="cx-lb">Point worth harping on &#9733; Contextualization</span>
+            <h5>Set the stage before you make your case.</h5>
+            <p>Contextualization is one paragraph, usually at the <strong>start of your essay, right before your thesis</strong>, where you zoom out and describe the <strong>bigger historical situation</strong> your topic sits inside. Think of it the way your class does: it is the <strong>opening crawl of <em>Star Wars</em></strong>, the <strong>prologue of <em>Romeo and Juliet</em></strong>, or the &ldquo;previously on&hellip;&rdquo; recap before a new episode. It is one of the easiest points to earn <em>and</em> one of the most commonly lost, because students give a single phrase instead of a real, developed description.</p>
+            <div class="cx-mini">What earns the point</div>
+            <p>You must <strong>describe</strong> a relevant broader development (before, during, or just after the period) in <strong>more than a phrase</strong>. Aim for <strong>2 to 4 full sentences</strong>. Start <strong>broad and narrow down</strong> to the prompt, stay within about <strong>100 years</strong> of your topic, and remember you <strong>cannot earn evidence points inside your context</strong>.</p>
+            <div class="cx-mini">A reliable formula</div>
+            <div class="formula"><b>In the [decades] surrounding this topic,</b> [describe a broad, relevant trend in a couple of sentences]. <b>This wider situation</b> is the backdrop against which [the events in the prompt] should be understood.</div>
+            <div class="worked" style="margin-top:0">
+              <span class="wk-lb">Worked example: the collapse of the Qing</span>
+              &ldquo;By the second half of the 1800s, <strong>industrialized Western powers were using military force and economic pressure to extract concessions from weaker states across Asia</strong>, from the Ottoman Empire to Qing China. Gunboats, unequal treaties, and demands for open trade steadily eroded these states' control over their own affairs. This wider wave of imperialism is the backdrop against which the Qing dynasty's mounting troubles must be understood.&rdquo;
+              <span class="why">Why it earns: several sentences describing a genuinely broader development, tied to the prompt's era, and it does not reuse a document or the outside-evidence fact.</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="rpt"><summary><span class="pts">1 pt</span><span class="rb-name">Evidence from the documents: USE 3</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">Accurately <em>describe the content</em> (not just quote) of at least <strong>three</strong> documents relevant to the prompt. The low bar: it shows you understood them.</div>
+        <div class="rpt-more">
+          <div class="callout do"><span class="lb">Describe, do not quote</span>Paraphrase what each document shows in your own words. A dropped quotation with no explanation does not count as using a document. This point is nearly automatic once you open the next one, &ldquo;Documents SUPPORT,&rdquo; and actually use them.</div>
+        </div>
+      </details>
+
+      <details class="rpt" id="using-docs"><summary><span class="pts">+1 pt</span><span class="rb-name">Documents SUPPORT the argument: use 4</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">Use the content of at least <strong>four</strong> documents to <em>support your argument</em>, not just describe them. Strategy: actually use <strong>6 or 7</strong>, which also helps earn complexity.</div>
+        <div class="rpt-more">
+          <p style="font-size:.86rem;color:var(--mid);margin-bottom:12px">To earn both document points, be <strong>as explicit as possible</strong> and tie every document back to your thesis. Split your four however your groups fall: two on each argument, three and one, or all four on one. (Open the <strong>Grouping the documents</strong> toggle below for how to sort them first.)</p>
+          <div class="ctx">
+            <span class="cx-lb">Sentence frame for every document you use</span>
+            <div class="formula"><b>Document [N] is</b> [describe what it is and its main idea]. <b>This document supports my argument because it</b> [pick a verb below]&hellip;</div>
+            <div class="cx-mini">Verbs that link a document to your argument</div>
+            <div class="ptrack" style="--cc:var(--red)">
+              <span class="pchip">shows</span><span class="pchip">demonstrates</span><span class="pchip">exemplifies</span><span class="pchip">is an example of</span><span class="pchip">challenges</span>
+            </div>
+            <div class="worked" style="margin-top:4px">
+              <span class="wk-lb">Worked example</span>
+              &ldquo;<strong>Document 2 is</strong> an article by Karl Marx describing how British opium and machine-made textiles drained China's silver and wrecked its native industry. <strong>This document supports my argument because it demonstrates</strong> that foreign economic pressure directly weakened the Qing economy, one of the outside forces pushing the dynasty toward collapse.&rdquo;
+              <span class="why">Describe the document, then write &ldquo;because it [verb]&rdquo; and connect it straight back to your thesis. Do this for four documents and you earn both document-evidence points.</span>
+            </div>
+          </div>
+          <div class="callout dont"><span class="lb">The classic DBQ trap</span><strong>Summarizing the documents in order</strong> (&ldquo;Document 1 says&hellip; Document 2 says&hellip;&rdquo;) is a book report, not an argument. Group documents by what they prove, cite two or three together in a single sentence to back one claim, and keep your thesis driving every paragraph.</div>
+        </div>
+      </details>
+
+      <details class="rpt" id="outside"><summary><span class="pts">1 pt</span><span class="rb-name">Evidence beyond the documents</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">Use at least <strong>one specific</strong> piece of outside knowledge, relevant to the argument and <em>different from your contextualization</em>. Keep it in the <strong>same region and time period</strong> as the documents.</div>
+        <div class="rpt-more">
+          <div class="callout tip"><span class="lb">Three separate points, three different facts</span><strong>Contextualization</strong> is the wide backdrop from your own knowledge. <strong>Outside evidence</strong> is one specific fact inside your argument that is not in the documents. <strong>Document evidence</strong> comes from the seven sources. Reusing the same fact for context and outside evidence costs you a point.</div>
+          <div class="ctx">
+            <span class="cx-lb">Sentence frame for outside evidence</span>
+            <div class="formula"><b>An additional piece of evidence that supports my argument that</b> [words from your thesis] <b>is</b> [identify the outside evidence]. <b>This evidence supports my argument because it</b> [pick a verb below]&hellip;</div>
+            <div class="cx-mini">Verbs that link outside evidence to your argument</div>
+            <div class="ptrack" style="--cc:var(--red)">
+              <span class="pchip">shows</span><span class="pchip">demonstrates</span><span class="pchip">highlights</span><span class="pchip">is an example of</span><span class="pchip">exemplifies</span>
+            </div>
+            <div class="worked" style="margin-top:4px">
+              <span class="wk-lb">Worked example</span>
+              &ldquo;<strong>An additional piece of evidence that supports my argument that foreign involvement weakened the Qing is</strong> the Boxer Rebellion of 1900, an anti-foreign uprising crushed by an eight-nation alliance. <strong>This evidence supports my argument because it demonstrates</strong> how deeply foreign powers had penetrated China and how their military dominance further humiliated and destabilized the dynasty.&rdquo;
+              <span class="why">Keep it in the same region and period as the documents, and make sure it is <strong>not</strong> the same fact you used for contextualization.</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="rpt spot" id="hipp"><summary><span class="pts">1 pt</span><span class="rb-name">Sourcing / HIPP: source 2 &nbsp;&#9733;</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">For at least <strong>two</strong> documents, explain how or why the source's point of view, purpose, historical situation, or audience is <em>relevant to your argument</em>. Explain <em>why it matters</em>, do not just name it. Aim for <strong>4</strong>, which also helps earn complexity.</div>
+        <div class="rpt-more">
+          <p style="font-size:.86rem;color:var(--mid);margin-bottom:12px">Sourcing is really <strong>one good sentence attached to a document</strong>: name a feature of the <em>source</em> (not its content), explain how that feature shapes what the document says, and connect it to your argument.</p>
+          <div class="vgrid">
+            <div class="vcard" style="--cc:var(--red)"><div class="task">H</div><h4>Historical situation</h4><p>What was happening in the world when and where this was made? Ask: how does that moment shape the message?</p></div>
+            <div class="vcard" style="--cc:var(--red)"><div class="task">I</div><h4>Intended audience</h4><p>Who was the author speaking or writing <em>to</em>? Ask: how would the author shape the message for those specific readers?</p></div>
+            <div class="vcard" style="--cc:var(--red)"><div class="task">P</div><h4>Purpose</h4><p>Why did the author create this? Ask: what were they trying to make happen, and how does that goal color what they include?</p></div>
+            <div class="vcard" style="--cc:var(--red)"><div class="task">P</div><h4>Point of view</h4><p>Who is the author (their job, class, nationality, religion, group)? Ask: how does that position bias what they emphasize or leave out?</p></div>
+          </div>
+          <div class="callout tip"><span class="lb">The 3-move sourcing sentence</span><strong>1. Identify</strong> a specific HIPP feature, pulling detail from the source line above the document. <strong>2. Explain</strong> with a &ldquo;<strong>which means&hellip;</strong>&rdquo; or &ldquo;<strong>therefore&hellip;</strong>&rdquo; bridge: how does that feature shape what the source stresses, includes, or omits? <strong>3. Connect</strong> it to your argument. Miss any of the three and the point does not count.</div>
+          <div class="callout tip"><span class="lb">What to actually look for in the source line</span>For <strong>point of view</strong>, note the author's role, nationality, religion, class, or occupation. For <strong>purpose and audience</strong>, note the <em>type</em> of document: a letter to an official, a decree, a newspaper article, a diary, a poster, a work of art. For <strong>reliability</strong>, compare the date it was made to when the events happened.</div>
+          <div class="callout do"><span class="lb">Where the sourcing sentence goes</span>Do not source in a separate paragraph. When you use a document as evidence, add the sourcing sentence <strong>right after it</strong>.</div>
+          <div class="ctx">
+            <span class="cx-lb">Class sentence frames for sourcing</span>
+            <h5>Fill in the blank for whichever HIPP feature fits.</h5>
+            <div class="formula"><b>Historical situation:</b> &ldquo;The historical situation this document was written in is [context]&hellip; it was written during [events]&hellip;&rdquo;</div>
+            <div class="formula"><b>Intended audience:</b> &ldquo;The intended audience may be [people], therefore the source could be trying to [do what]&hellip;&rdquo;</div>
+            <div class="formula"><b>Purpose:</b> &ldquo;The author is attempting to [purpose]. Therefore, they may [emphasize / diminish / etc.] [the theme].&rdquo;</div>
+            <div class="formula"><b>Point of view:</b> &ldquo;The author is a/an [POV from the source line]. Therefore, they may be [biasing the event]&hellip;&rdquo;</div>
+            <div class="cx-mini">Sourcing verbs: pick the one that matches the source's slant</div>
+            <p style="margin-bottom:0"><strong>Positive:</strong> praise, idolize, celebrate, uplift, admire, glorify, support.<br><strong>Negative:</strong> criticize, demonize, condemn, dismiss, denounce, attack, vilify, oppose.<br><strong>Neutral:</strong> emphasize, downplay, highlight, generalize, discuss, document, chronicle.</p>
+          </div>
+          <div class="worked">
+            <span class="wk-lb">Worked example: sourcing by Point of View</span>
+            &ldquo;Because this document is a <strong>revolutionary proclamation written by young Chinese students studying abroad</strong> (point of view), its authors were committed opponents of Manchu rule, <strong>which means</strong> it deliberately frames the dynasty's fall as an internal, patriotic uprising and downplays foreign pressure. This supports my argument that the collapse was driven as much from within as from outside.&rdquo;
+            <span class="why">Why it earns: it names the POV using detail from the source line, explains how that shapes the content with &ldquo;which means,&rdquo; and ties it to the argument.</span>
+          </div>
+          <div class="dd">
+            <div class="col win">
+              <h5>Accurate sourcing</h5>
+              <ul>
+                <li>Names a feature of the <em>source</em>, not its content</li>
+                <li>Uses detail from the source line (who, when, why)</li>
+                <li>Explains <em>how</em> that feature shapes the document</li>
+                <li>Connects the point to your argument</li>
+                <li>Done for at least 2 documents (aim for 4)</li>
+              </ul>
+            </div>
+            <div class="col lose">
+              <h5>Sourcing that earns nothing</h5>
+              <ul>
+                <li>Just naming it: &ldquo;The audience is the government.&rdquo;</li>
+                <li>&ldquo;The author is biased&rdquo; with no <em>how</em> or <em>why</em></li>
+                <li>Summarizing what the document says</li>
+                <li>Sourcing only 1 or 2 documents</li>
+                <li>No link back to the argument</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="rpt"><summary><span class="pts">1 pt</span><span class="rb-name">Complexity</span><span class="chev">&#8250;</span></summary>
+        <div class="rb-desc">A sophisticated argument, sustained across the essay. Common ways in: use <strong>all 7 documents</strong>, <strong>source 4</strong> documents, explain multiple perspectives or both cause <em>and</em> effect, or connect across regions and periods.</div>
+        <div class="rpt-more">
+          <div class="callout tip"><span class="lb">Bank it, do not chase it</span>The surest complexity moves on the DBQ are things you are already doing: <strong>use all 7 documents</strong> and <strong>source 4</strong>. Do those well, plus one qualified &ldquo;although&hellip;&rdquo; argument, and you are most of the way there without a separate &ldquo;complexity paragraph.&rdquo;</div>
+        </div>
+      </details>
+
+    </div>
+
+    <details class="rpt" style="--cc:var(--red)"><summary><span class="pts na">Reading</span><span class="rb-name">The 15-minute reading period</span><span class="chev">&#8250;</span></summary>
+      <div class="rpt-more">
+        <ol class="steps" style="--cc:var(--red)">
+          <li><strong>Read the prompt first</strong> and decide a rough position before you touch a document.</li>
+          <li><strong>Annotate each document</strong> as you read. Write one margin note for its <em>main idea</em>, and note the <strong>author, their situation, and their purpose</strong> from the source line (you will need this for sourcing).</li>
+          <li><strong>Group the documents</strong> into 2 or 3 buckets that will become your body paragraphs. Plan to <strong>use at least 6 of the 7</strong>.</li>
+          <li><strong>Jot outside evidence</strong> in the margin: a fact you know that is not in any document, different from your contextualization.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="rpt" id="grouping" style="--cc:var(--red)"><summary><span class="pts na">Strategy</span><span class="rb-name">Grouping the documents by theme</span><span class="chev">&#8250;</span></summary>
+      <div class="rpt-more">
+        <p style="font-size:.86rem;color:var(--mid);margin:0 0 12px">The single biggest DBQ upgrade is refusing to go document by document. Before you write, sort the 7 documents into <strong>2 or 3 groups</strong>, where each group is a <strong>theme or impact that supports part of your answer</strong>. Each group becomes one body paragraph.</p>
+        <div class="cx-mini" style="color:var(--red)">Do it in five moves</div>
+        <ol class="steps" style="--cc:var(--red)">
+          <li><strong>Answer the prompt first.</strong> Decide your position so you know what each group has to prove.</li>
+          <li><strong>Tag every document</strong> with its main idea and which side or theme it leans toward.</li>
+          <li><strong>Find the patterns.</strong> Documents that make the same kind of point cluster together.</li>
+          <li><strong>Name each cluster</strong> with a theme, not a list of numbers: &ldquo;economic damage from foreign trade,&rdquo; not &ldquo;Documents 2, 3, and 6.&rdquo;</li>
+          <li><strong>Check coverage.</strong> Place <strong>6 or 7</strong> documents into a group; a document can sit in two groups.</li>
+        </ol>
+        <div class="ctx">
+          <span class="cx-lb">Worked example: grouping a real DBQ</span>
+          <h5>Prompt: evaluate the extent to which foreign involvement caused the collapse of the Qing.</h5>
+          <div class="gmap">
+            <div class="gcol" style="--cc:var(--red)">
+              <div class="gsub">Group A &middot; one body paragraph</div>
+              <div class="gtheme">Foreign pressure (external cause)</div>
+              <div class="gdocs"><span class="gdoc">Doc 2</span><span class="gdoc">Doc 3</span><span class="gdoc">Doc 6</span></div>
+              <p>Opium draining silver (2), foreigners ignoring Chinese law (3), and the cartoon of the West carving up China (6) all show outside forces weakening the dynasty.</p>
+            </div>
+            <div class="gcol" style="--cc:var(--gold)">
+              <div class="gsub">Group B &middot; one body paragraph</div>
+              <div class="gtheme">Internal breakdown (domestic cause)</div>
+              <div class="gdocs"><span class="gdoc">Doc 1</span><span class="gdoc">Doc 4</span><span class="gdoc">Doc 5</span><span class="gdoc">Doc 7</span></div>
+              <p>Rebels seizing districts (1), rural poverty (4), Han nationalist revolutionaries (5), and the abdication citing an internal uprising (7) show the collapse also came from within.</p>
+            </div>
+          </div>
+          <p style="margin-bottom:0">Setting the groups side by side is what lets you argue the <em>extent</em>: that foreign pressure mattered mainly because it <strong>amplified</strong> an internal weakness already there.</p>
+        </div>
+        <div class="worked">
+          <span class="wk-lb">Topic-sentence frame for each group</span>
+          &ldquo;One way [foreign involvement] [weakened the Qing] was through [theme], <strong>as seen in</strong> Documents [X], [Y], and [Z], which show [what they share].&rdquo;
         </div>
       </div>
-      <p style="margin-bottom:0">Setting the two groups side by side is what lets you argue the <em>extent</em>: for instance, that foreign pressure mattered mainly because it <strong>amplified</strong> an internal weakness that was already there.</p>
-    </div>
+    </details>
 
-    <div class="worked">
-      <span class="wk-lb">Topic-sentence frame for each group</span>
-      &ldquo;One way [foreign involvement] [weakened the Qing] was through [theme], <strong>as seen in</strong> Documents [X], [Y], and [Z], which show [what they share].&rdquo;
-      <span class="why">Name the theme, then cite the whole group together in one sentence. That is the opposite of walking through documents one at a time.</span>
-    </div>
-
-    <div class="callout dont"><span class="lb">Grouping mistakes that cost points</span><strong>Grouping by number</strong> (&ldquo;my first paragraph covers Docs 1 to 3&rdquo;) instead of by idea; a <strong>group that never connects to the prompt</strong>; and leaving documents <strong>unused</strong>. Every group should name an impact or theme that helps answer the question.</div>
-
-    <div class="subh" id="using-docs">Using the documents: the two evidence points</div>
-    <p>This is what makes the DBQ different from the LEQ: there are <strong>three</strong> evidence points, and the first two come straight from the documents. To earn both, you must <strong>accurately use at least four of the seven documents to support your argument</strong>. You can split those four however your groups fall: two on each argument, three and one, or all four on a single argument. The one rule is to be <strong>as explicit as possible</strong> and tie every document back to your thesis.</p>
-
-    <div class="ctx">
-      <span class="cx-lb">Sentence frame for every document you use</span>
-      <div class="formula"><b>Document [N] is</b> [describe what it is and its main idea]. <b>This document supports my argument because it</b> [pick a verb below]&hellip;</div>
-      <div class="cx-mini">Verbs that link a document to your argument</div>
-      <div class="ptrack" style="--cc:var(--red)">
-        <span class="pchip">shows</span><span class="pchip">demonstrates</span><span class="pchip">exemplifies</span><span class="pchip">is an example of</span><span class="pchip">challenges</span>
+    <details class="rpt" style="--cc:var(--red)"><summary><span class="pts na">Blueprint</span><span class="rb-name">The paragraph blueprint</span><span class="chev">&#8250;</span></summary>
+      <div class="rpt-more">
+        <p style="font-size:.86rem;color:var(--mid);margin:0 0 8px">The key idea: <strong>every document gets the same three beats</strong>.</p>
+        <div class="beats" style="--cc:var(--red)">
+          <div class="beat"><b>Describe</b><span>Say what the document shows, do not quote.</span></div>
+          <span class="beat-arrow">&rarr;</span>
+          <div class="beat"><b>Source</b><span>POV or purpose, and why it matters.</span></div>
+          <span class="beat-arrow">&rarr;</span>
+          <div class="beat"><b>Support</b><span>Tie it back to your thesis.</span></div>
+        </div>
+        <ol class="steps" style="--cc:var(--red)">
+          <li><strong>Intro.</strong> Context, then a thesis that answers &ldquo;to what extent,&rdquo; with your outside knowledge ready to drop into a body paragraph.</li>
+          <li><strong>Body 1 (Argument 1).</strong> One theme, about 2 documents. For each: <strong>describe</strong>, <strong>source</strong>, then <strong>support</strong>.</li>
+          <li><strong>Body 2 (Argument 2).</strong> A second theme with another 2 documents, same beat. Work your outside evidence in where it fits.</li>
+          <li><strong>Conclusion (optional).</strong> Restate a sharper thesis.</li>
+        </ol>
       </div>
-      <div class="worked" style="margin-top:4px">
-        <span class="wk-lb">Worked example</span>
-        &ldquo;<strong>Document 2 is</strong> an article by Karl Marx describing how British opium and machine-made textiles drained China's silver and wrecked its native industry. <strong>This document supports my argument because it demonstrates</strong> that foreign economic pressure directly weakened the Qing economy, one of the outside forces pushing the dynasty toward collapse.&rdquo;
-        <span class="why">Describe the document, then write &ldquo;because it [verb]&rdquo; and connect it straight back to your thesis. Do this for four documents and you earn both document-evidence points.</span>
-      </div>
-    </div>
-    <div class="callout do"><span class="lb">Everything points back to the thesis</span>A document only counts when you explain <em>how</em> it supports one of your arguments, and your arguments live in your thesis. Naming or quoting a document without connecting it to your claim earns nothing.</div>
-
-    <div class="subh" id="outside">Outside evidence: one fact of your own</div>
-    <p>The third evidence point is a <strong>specific piece of historical knowledge that is not in any document</strong> and is <strong>different from your contextualization</strong>. Like everything else, it only counts if it <strong>supports your argument</strong>, so name it and then explain the link.</p>
-
-    <div class="ctx">
-      <span class="cx-lb">Sentence frame for outside evidence</span>
-      <div class="formula"><b>An additional piece of evidence that supports my argument that</b> [words from your thesis] <b>is</b> [identify the outside evidence]. <b>This evidence supports my argument because it</b> [pick a verb below]&hellip;</div>
-      <div class="cx-mini">Verbs that link outside evidence to your argument</div>
-      <div class="ptrack" style="--cc:var(--red)">
-        <span class="pchip">shows</span><span class="pchip">demonstrates</span><span class="pchip">highlights</span><span class="pchip">is an example of</span><span class="pchip">exemplifies</span>
-      </div>
-      <div class="worked" style="margin-top:4px">
-        <span class="wk-lb">Worked example</span>
-        &ldquo;<strong>An additional piece of evidence that supports my argument that foreign involvement weakened the Qing is</strong> the Boxer Rebellion of 1900, an anti-foreign uprising crushed by an eight-nation alliance. <strong>This evidence supports my argument because it demonstrates</strong> how deeply foreign powers had penetrated China and how their military dominance further humiliated and destabilized the dynasty.&rdquo;
-        <span class="why">Keep it in the same region and period as the documents, and make sure it is <strong>not</strong> the same fact you used for contextualization.</span>
-      </div>
-    </div>
-
-    <div class="subh">The DBQ paragraph blueprint</div>
-    <p>Here is the shape of the whole essay, mapped the way your class draws it. The key idea: <strong>every document gets the same three beats</strong>: describe it, source it, then explain how it supports your thesis.</p>
-    <div class="beats" style="--cc:var(--red)">
-      <div class="beat"><b>Describe</b><span>Say what the document shows, do not quote.</span></div>
-      <span class="beat-arrow">&rarr;</span>
-      <div class="beat"><b>Source</b><span>POV or purpose, and why it matters.</span></div>
-      <span class="beat-arrow">&rarr;</span>
-      <div class="beat"><b>Support</b><span>Tie it back to your thesis.</span></div>
-    </div>
-    <ol class="steps" style="--cc:var(--red)">
-      <li><strong>Intro.</strong> Context (what else is going on this period), then a thesis that answers &ldquo;to what extent,&rdquo; with your outside knowledge ready to drop into a body paragraph.</li>
-      <li><strong>Body 1 (Argument 1).</strong> One theme or pattern in the documents that supports your thesis. Bring in about 2 documents. For each one: <strong>describe</strong> it (do not quote), <strong>source</strong> it (POV or purpose, and why that matters), then <strong>support</strong> (explain how it proves your thesis).</li>
-      <li><strong>Body 2 (Argument 2).</strong> A second theme with another 2 documents, same describe, source, support beat. Work your one piece of outside evidence in where it fits.</li>
-      <li><strong>Conclusion (optional).</strong> Restate a sharper version of your thesis.</li>
-    </ol>
+    </details>
   </div>
 
   <!-- ============ SECTION 6: TIMING ============ -->
@@ -837,6 +954,43 @@ table.cmp tr:last-child td,table.cmp tr:last-child th{border-bottom:none}
 <button class="back-to-top" id="back-to-top" aria-label="Back to top">&#8593; <span class="bt-label">Top</span></button>
 
 <script>
+// Collapse each MAJOR section into a dropdown; its content is stored inside.
+(function(){
+  var pc = document.querySelector('.page-content'); if(!pc) return;
+  var heads = [].slice.call(pc.children).filter(function(n){ return n.classList && n.classList.contains('block-head'); });
+  if(!heads.length) return;
+  heads.forEach(function(bh){
+    var d = document.createElement('details'); d.className = 'sec';
+    var st = bh.getAttribute('style'); if(st) d.setAttribute('style', st);
+    if(bh.id){ d.id = bh.id; bh.removeAttribute('id'); }
+    pc.insertBefore(d, bh);
+    var sum = document.createElement('summary');
+    sum.appendChild(bh);
+    var chev = document.createElement('span'); chev.className = 'sec-chev'; chev.innerHTML = '&#8250;';
+    sum.appendChild(chev);
+    d.appendChild(sum);
+    var body = document.createElement('div'); body.className = 'sec-inner';
+    var n = d.nextSibling;
+    while(n){
+      if(n.nodeType === 1 && n.classList && (n.classList.contains('block-head') || n.classList.contains('cta'))) break;
+      var next = n.nextSibling; body.appendChild(n); n = next;
+    }
+    d.appendChild(body);
+  });
+  // Open a section (and any nested dropdowns) when its heading is targeted, then scroll.
+  function reveal(id){
+    var el = document.getElementById(id); if(!el) return;
+    var p = el; while(p){ if(p.tagName === 'DETAILS') p.open = true; p = p.parentElement; }
+    requestAnimationFrame(function(){ window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 92, behavior:'smooth' }); });
+  }
+  window.__wgReveal = reveal;
+  document.querySelectorAll('.jump a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); var id = a.getAttribute('href').slice(1); reveal(id); try{ history.replaceState(null,'','#'+id); }catch(_){} });
+  });
+  window.addEventListener('hashchange', function(){ if(location.hash.length > 1) reveal(location.hash.slice(1)); });
+  if(location.hash.length > 1) setTimeout(function(){ reveal(location.hash.slice(1)); }, 50);
+})();
+
 // Accordion
 document.querySelectorAll('.acc-q').forEach(function(btn){
   btn.addEventListener('click', function(){ btn.closest('.acc').classList.toggle('open'); });
@@ -849,6 +1003,61 @@ document.querySelectorAll('.acc-q').forEach(function(btn){
     if(window.scrollY > 480){ btt.classList.add('show'); } else { btt.classList.remove('show'); }
   }, {passive:true});
   btt.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+})();
+
+// Quick find: jump to any section on this page
+(function(){
+  var openBtn = document.getElementById('qfOpen');
+  if(!openBtn) return;
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  // build the index from the page's real headings
+  var nodes = [].slice.call(document.querySelectorAll('.block-title, .essay h3, .subh, .rubric .rb-name, .ctx h5'));
+  var items = nodes.map(function(n){
+    var label = n.textContent.replace(/\s+/g,' ').trim();
+    var kind = n.classList.contains('block-title') ? 'Section'
+             : (n.tagName === 'H3' ? 'Essay'
+             : (n.classList.contains('subh') ? '' : 'Detail'));
+    return { label: label, norm: label.toLowerCase().replace(/[^a-z0-9\s]/g,''), kind: kind, el: n };
+  }).filter(function(x){ return x.label; });
+
+  var ov = document.createElement('div'); ov.id = 'qf-ov';
+  ov.setAttribute('role','dialog'); ov.setAttribute('aria-modal','true'); ov.setAttribute('aria-label','Find a section');
+  ov.innerHTML = '<div id="qf-card">' +
+    '<div id="qf-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>' +
+    '<input id="qf-in" type="search" autocomplete="off" spellcheck="false" placeholder="Find a section: thesis, HIPP, grouping, evidence…" aria-label="Find a section"/>' +
+    '<button id="qf-x" type="button">Esc</button></div><ul id="qf-list" role="listbox"></ul></div>';
+  document.body.appendChild(ov);
+  var inp = ov.querySelector('#qf-in'), list = ov.querySelector('#qf-list'), results = [], sel = 0;
+
+  function render(){
+    var q = inp.value.toLowerCase().trim();
+    var qn = q.replace(/[^a-z0-9\s]/g,'');
+    results = items.filter(function(x){ return !qn || x.norm.indexOf(qn) > -1; });
+    sel = 0;
+    if(!results.length){ list.innerHTML = '<li id="qf-empty">No section matches that.</li>'; return; }
+    list.innerHTML = results.map(function(x,i){
+      var t = esc(x.label);
+      if(q){ t = t.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>'); }
+      return '<li><a data-i="'+i+'"'+(i===0?' class="on"':'')+'><span class="qf-t">'+t+'</span>'+(x.kind?'<span class="qf-k">'+x.kind+'</span>':'')+'</a></li>';
+    }).join('');
+  }
+  function move(d){ var as = list.querySelectorAll('a'); if(!as.length) return; as[sel].classList.remove('on'); sel=(sel+d+as.length)%as.length; as[sel].classList.add('on'); as[sel].scrollIntoView({block:'nearest'}); }
+  function goTo(x){ close(); var p = x.el; while(p){ if(p.tagName === 'DETAILS') p.open = true; p = p.parentElement; } requestAnimationFrame(function(){ window.scrollTo({ top: x.el.getBoundingClientRect().top + window.scrollY - 92, behavior:'smooth' }); }); }
+  function open(){ ov.classList.add('open'); inp.value=''; render(); inp.focus(); }
+  function close(){ ov.classList.remove('open'); }
+
+  openBtn.addEventListener('click', open);
+  inp.addEventListener('input', render);
+  inp.addEventListener('keydown', function(e){
+    if(e.key==='ArrowDown'){ e.preventDefault(); move(1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); move(-1); }
+    else if(e.key==='Enter'){ e.preventDefault(); if(results[sel]) goTo(results[sel]); }
+  });
+  list.addEventListener('click', function(e){ var a=e.target.closest('a'); if(!a) return; e.preventDefault(); goTo(results[+a.dataset.i]); });
+  list.addEventListener('mousemove', function(e){ var a=e.target.closest('a'); if(!a || +a.dataset.i===sel) return; move(+a.dataset.i - sel); });
+  ov.querySelector('#qf-x').addEventListener('click', close);
+  ov.addEventListener('click', function(e){ if(e.target===ov) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && ov.classList.contains('open')) close(); });
 })();
 </script>
 <script src="spaced.js"></script>

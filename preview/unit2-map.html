@@ -9,6 +9,7 @@
 <!-- Leaflet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="../world-basemap.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
 
@@ -46,7 +47,7 @@ a{color:inherit}
 .panel{width:440px;flex-shrink:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin}
 @media(max-width:1100px){.panel{width:380px}}
 .mapcol{flex:1;position:relative;min-width:0}
-#map{position:absolute;inset:0;background:#eae8e1}
+#map{position:absolute;inset:0;background:#d5dcdf}
 .map-hint{position:absolute;left:12px;bottom:12px;z-index:500;background:rgba(16,32,31,.82);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.04em;padding:6px 11px;border-radius:4px;pointer-events:none;max-width:260px;line-height:1.5}
 
 /* ── PANEL: route chooser ── */
@@ -230,7 +231,7 @@ a{color:inherit}
 :root[data-theme="dark"] .thm-chip.on .tc-check{background:#5fd0d4;border-color:#5fd0d4}
 :root[data-theme="dark"] .thm-chip.on .tc-check::after{color:#12141b}
 :root[data-theme="dark"] .legend{background:#171a22}
-:root[data-theme="dark"] #map{background:#23262b}
+:root[data-theme="dark"] #map{background:#1c1f24}
 :root[data-theme="dark"] .leaflet-popup-content-wrapper,:root[data-theme="dark"] .leaflet-popup-tip{background:#171a22;color:#e7ebf5}
 :root[data-theme="dark"] .pop-note{color:#c4cad7}
 </style>
@@ -666,18 +667,31 @@ var THEMES = {
 var THEME_ORDER = ['goods','cities','islam','buddhism','hinduism','monsoon','disease'];
 
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
-/* CARTO basemaps (no labels) — keyless, clean muted geography. */
-var LIGHT_TILES='https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png';
-var DARK_TILES='https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png';
-var ATTR='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+/* Basemap drawn from the bundled Natural Earth file (world-basemap.js) — no third-party
+   tile service, so it can't go blank or start demanding an API key. Ocean = #map background. */
+var BASE_COLORS={light:{land:'#f4f3ef',border:'#bcb8ae'},dark:{land:'#3a3e46',border:'#5d6472'}};
+var ATTR='Map data &copy; <a href="https://www.naturalearthdata.com/">Natural Earth</a>';
 
 var map=L.map('map',{center:[20,66],zoom:3,minZoom:2,maxZoom:8,
   attributionControl:true});
 map.setMaxBounds([[-60,-40],[75,160]]);
 
 function isDark(){return document.documentElement.getAttribute('data-theme')==='dark';}
-var tileLayer=L.tileLayer(isDark()?DARK_TILES:LIGHT_TILES,{attribution:ATTR,subdomains:'abcd',maxZoom:8}).addTo(map);
-function refreshTiles(){tileLayer.setUrl(isDark()?DARK_TILES:LIGHT_TILES);}
+map.createPane('basemap');
+map.getPane('basemap').style.zIndex=200;
+map.getPane('basemap').style.pointerEvents='none';
+var baseRenderer=L.canvas({pane:'basemap',padding:0.5});
+function baseColors(){return isDark()?BASE_COLORS.dark:BASE_COLORS.light;}
+var baseLand=L.geoJSON(WORLD_BASEMAP.land,{renderer:baseRenderer,interactive:false,
+  style:function(){return {stroke:false,fillColor:baseColors().land,fillOpacity:1};}}).addTo(map);
+var baseBorders=L.geoJSON(WORLD_BASEMAP.borders,{renderer:baseRenderer,interactive:false,
+  style:function(){return {color:baseColors().border,weight:0.8,opacity:1};}}).addTo(map);
+map.attributionControl.addAttribution(ATTR);
+function refreshTiles(){
+  var c=baseColors();
+  baseLand.setStyle({fillColor:c.land});
+  baseBorders.setStyle({color:c.border});
+}
 
 function cssVar(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
 

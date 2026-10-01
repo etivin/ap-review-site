@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<title>Mission Control — moved</title>
-<!-- The dashboard now lives at the site root. Keep old bookmarks working. -->
-<script>location.replace('./' + location.hash);</script>
-<meta http-equiv="refresh" content="0; url=./"/>
-<link rel="canonical" href="./"/>
+<title>Mission Control</title>
+<!-- The dashboard now lives at the site root. Keep old bookmarks working.
+     The ?r= stamp forces a fresh copy of the home page, so a browser still
+     holding the old cached files can't bounce back here in a loop. -->
+<script>location.replace('./?r=' + Date.now() + location.hash);</script>
+<noscript><meta http-equiv="refresh" content="0; url=./"/></noscript>
 </head>
 <body><p><a href="./">Go to the dashboard</a></p></body>
 </html>

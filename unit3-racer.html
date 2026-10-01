@@ -240,7 +240,7 @@ const QUESTIONS = [
 const GATE_AHEAD = 95000;     // how far ahead a gate appears (≈8 seconds of reading at top speed)
 const GATE_GAP = [12000, 22000]; // road after the feedback clears before the next question
 const GATE_CLEAR = 9000;     // keep traffic and pickups this far from a gate
-const LANE_SNAP = 14;         // how fast the car slides into a new lane
+const LANE_SPRING = 220;       // lane-change spring stiffness: higher = quicker hop (critically damped, so no overshoot)
 const CRUISE_START = 0.5, CRUISE_RAMP = 1e7; // auto speed starts at 50% and creeps up slowly, reaching full after a very long run
 const OBSTACLE_GAP = 6000;  // min spacing between traffic in different lanes, so there's always time to switch
 const PARKED = 0.75;          // share of traffic that is stopped in its lane
@@ -364,7 +364,7 @@ const VIGNETTE = (() => {
 })();
 
 // ---------- Game state ----------
-let lane = 1; // 0 left, 1 middle, 2 right
+let lane = 1, laneVel = 0; // lane: 0 left, 1 middle, 2 right; laneVel: sideways speed of the car
 let state = 'start', position = 0, playerX = 0, playerY = 0, speed = 0, traveled = 0, score = 0, best = 0;
 let cars = [], items = [], particles = [], popups = [], lights = [];
 let carTimer = 0, itemTimer = 0, shake = 0, time = 0, tilt = 0, crashTime = 0, newBest = false;
@@ -373,7 +373,7 @@ let gate = null, gateTimer = 0, feedback = null, deck = [], strikes = 3, streak 
 try { best = +localStorage.getItem('u3RacerBest') || 0; } catch (e) {}
 
 function reset() {
-  position = 0; playerX = 0; lane = 1; tilt = 0; speed = MAX_SPEED * 0.25; traveled = 0; score = 0;
+  position = 0; playerX = 0; lane = 1; laneVel = 0; tilt = 0; speed = MAX_SPEED * 0.25; traveled = 0; score = 0;
   cars = []; items = []; particles = []; popups = [];
   carTimer = 6000; itemTimer = 3000; shield = double = magnet = fly = flyLift = dent = 0; shake = 0; newBest = false;
   gate = null; gateTimer = 4000; feedback = null; strikes = 3; streak = 0; asked = 0; right = 0; overReason = '';
@@ -514,9 +514,15 @@ function update(dt) {
     score += move / 200 * (double > 0 ? 2 : 1);
     // lane runner: the car snaps between the three lanes and can't leave the road
     const target = LANE_X[lane];
-    playerX = lerp(playerX, target, Math.min(1, dt * LANE_SNAP));
-    if (Math.abs(playerX - target) < 0.002) playerX = target;
-    tilt = lerp(tilt, clamp((target - playerX) * 4, -1, 1), Math.min(1, dt * 10));
+    // critically damped spring: eases out of the old lane and into the new one, and a second
+    // press mid-hop just retargets without a jolt (stepped in small slices so it stays stable)
+    for (let t = dt; t > 0; t -= 1 / 120) {
+      const h = Math.min(t, 1 / 120);
+      laneVel += ((target - playerX) * LANE_SPRING - laneVel * 2 * Math.sqrt(LANE_SPRING)) * h;
+      playerX += laneVel * h;
+    }
+    if (Math.abs(playerX - target) < 0.002 && Math.abs(laneVel) < 0.02) { playerX = target; laneVel = 0; }
+    tilt = lerp(tilt, clamp(laneVel * 0.4, -1, 1), Math.min(1, dt * 12)); // lean with the sideways motion
 
     // auto-drive: cruise speed creeps up the longer you survive
     const top = MAX_SPEED * Math.min(1, CRUISE_START + traveled / CRUISE_RAMP);

@@ -70,7 +70,8 @@
     ['Trade Route Map', 'unit2-map.html', 'Silk Road, Indian Ocean, and Trans-Saharan routes.', 'map trade routes silk road indian ocean trans-saharan unit 2', 'Map'],
     ['Land Empires Map', 'unit3-map.html', 'Ottoman, Safavid, Mughal, Qing, and more.', 'map land empires gunpowder ottoman safavid mughal unit 3', 'Map'],
     ['Exploration & Trade Map', 'unit4-map.html', 'Voyages of exploration and Atlantic trade.', 'map exploration voyages atlantic columbian exchange unit 4', 'Map'],
-    ['Hex Web (Unit 2)', 'unit2-hexweb.html', 'Connect Unit 2 terms with hexagonal thinking.', 'hex web hexagonal thinking game connections unit 2', 'Game']
+    ['Hex Web (Unit 2)', 'unit2-hexweb.html', 'Connect Unit 2 terms with hexagonal thinking.', 'hex web hexagonal thinking game connections unit 2', 'Game'],
+    ['Empire Road (Unit 3)', 'unit3-racer.html', 'Lane-runner racer: switch into the gate with the right answer.', 'empire road racer racing car driving game checkpoint gates land empires unit 3', 'Game']
   ];
 
   var INDEX = [];

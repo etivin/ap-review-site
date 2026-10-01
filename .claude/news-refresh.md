@@ -1,7 +1,7 @@
 # News refresh spec — Mission Control "Breaking history" carousel
 
 This is the single source of truth for how the news slides in
-`mission-control.html` are written. The every-5-days cloud routine reads
+`index.html` (the Mission Control dashboard) are written. The every-5-days cloud routine reads
 this file and follows it exactly. A human can also run it on demand by
 telling Claude Code "refresh the news, following .claude/news-refresh.md".
 
@@ -70,7 +70,7 @@ Rules:
 
 ## Step 3 — Update the file
 
-1. In `mission-control.html`, replace everything between
+1. In `index.html` (the Mission Control dashboard), replace everything between
    `<div class="slides">` and its matching closing `</div>` (the one
    immediately before `<div class="news-controls">`) with the five new
    `<article class="slide">…</article>` blocks. The carousel JS
@@ -85,7 +85,7 @@ Rules:
 - Confirm there are exactly 5 `<article class="slide"` occurrences and
   exactly one contains `slide active`.
 - Confirm zero em dashes remain in the file:
-  `grep -nP "\xe2\x80\x94|&mdash;" mission-control.html` must return nothing.
+  `grep -nP "\xe2\x80\x94|&mdash;" index.html` must return nothing.
 - Confirm exactly five `<span class="norm">Normative</span>` occurrences.
 
 ## Step 5 — Commit straight to main
@@ -94,7 +94,7 @@ Eli has approved auto-merge for this routine: skip the PR/review step and
 publish directly so the carousel updates without waiting on a manual
 review.
 
-- Commit only `mission-control.html` directly on `main`, with a message
+- Commit only `index.html` (the Mission Control dashboard) directly on `main`, with a message
   summarizing the five headlines (each with its unit tag) so the log is
   reviewable after the fact.
 - Push straight to `origin main`. Do not create a branch and do not open a

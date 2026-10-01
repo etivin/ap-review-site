@@ -1,337 +1,544 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>AP World History: Modern — Unit Review Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AP World History: Modern &middot; Mission Control</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 :root{
-  --sw:270px;
-  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
-  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
-  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
-  --green:#1a6825;--green-bg:#eef7f0;
-  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
-  --blue:#18336b;--blue-bg:#eef2fb;
-  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+  --navy:#111a3f;--blue:#2d5deb;--sky:#e8f0ff;--lime:#d8f13a;--coral:#ff684c;
+  --white:#fbfcff;--muted:#485586;--line:#c9d5f5
 }
-body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.65;min-height:100vh;display:flex}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-size:18px}
+body{margin:0;background:var(--white);color:var(--navy);font:1rem/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+a{color:inherit}
 
-/* ── SIDEBAR ── */
-.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
-.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
-.sb-badge{display:inline-block;background:var(--red);color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
-.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
-.sb-sub{color:rgba(255,255,255,.38);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;margin-top:4px}
-.sb-nav{padding:12px 0;flex:1}
-.sb-group-label{padding:14px 20px 4px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
-.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none;text-decoration:none}
-.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
-.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(176,0,28,.13)}
-.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
-.nav-item.active .nav-dot{background:var(--red)}
-.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
-.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
-.sb-footer p{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.1em;color:rgba(255,255,255,.28)}
+/* ── STICKY TOP BAR (always-visible "get back" nav) ── */
+.bar{height:66px;padding:0 max(20px,3vw);background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;position:sticky;top:0;z-index:60;box-shadow:0 2px 0 var(--blue)}
+.brand{font:900 16.8px 'Lato',sans-serif;letter-spacing:-.04em;text-decoration:none;color:#fff;white-space:nowrap}
+.brand b{color:var(--lime)}
+.links{display:flex;gap:16px;flex-wrap:wrap;justify-content:flex-end}
+.links a{color:#fff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:9px 8px;border-bottom:2px solid transparent}
+.links a:hover{color:var(--lime);border-bottom-color:var(--lime)}
+.links a.here{color:var(--navy);background:var(--lime);padding:9px 11px;border-bottom-color:var(--lime)}
+/* grouped dropdowns (Units / How to / Review) */
+.dd{position:relative}
+.dd-t{font:inherit;color:#fff;background:none;border:none;cursor:pointer;font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:9px 8px;border-bottom:2px solid transparent;display:inline-flex;align-items:center;gap:6px}
+.dd-t .cv{font-size:.72em;line-height:1;transition:transform .15s}
+.dd:hover .dd-t,.dd.open .dd-t{color:var(--lime);border-bottom-color:var(--lime)}
+.dd.open .dd-t .cv{transform:rotate(180deg)}
+.dd-m{position:absolute;top:100%;right:0;min-width:200px;background:var(--navy);border:1px solid var(--blue);box-shadow:0 10px 24px rgba(0,0,0,.35);display:none;flex-direction:column;padding:6px 0;z-index:70}
+.dd.open .dd-m{display:flex}
+.dd-m a{display:block;padding:12px 18px;border-bottom:none;white-space:nowrap;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff}
+.dd-m a:hover{background:var(--blue);color:#fff;border-bottom:none}
 
-/* ── MAIN WRAP ── */
-.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.main{max-width:none;margin:auto;padding:26px max(20px,3vw) 70px}
+.eyebrow{font-size:.64rem;color:var(--blue);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin:44px 0 16px}
+.sec-head h2{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-height:.96;font-size:1.9rem;margin:6px 0 0}
+.sec-head p{margin:0;color:var(--muted);max-width:440px;font-size:.76rem}
 
-/* ── TOP BAR ── */
-.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 36px;height:66px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
-.top-bar-title{font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em}
-.top-bar-sub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
-.top-bar-tag{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
+.button{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;padding:12px 15px;text-transform:uppercase;font-size:.68rem;font-weight:700;letter-spacing:.08em;border:2px solid var(--navy);cursor:pointer;transition:transform .12s,box-shadow .12s,background .12s}
+.button:hover{background:var(--blue);border-color:var(--blue);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+.button.lime{background:var(--lime);color:var(--navy);border-color:var(--navy)}
+.button.lime:hover{background:var(--lime);box-shadow:4px 4px 0 var(--navy)}
 
-/* ── PAGE CONTENT ── */
-.page-content{padding:36px 40px 80px;flex:1}
+/* ── BREAKING NEWS HERO (top of the dashboard) ── */
+.news{background:var(--navy);color:#fff;padding:24px 30px 26px;position:relative;overflow:hidden;border:2px solid var(--coral);box-shadow:6px 6px 0 var(--navy);margin-top:8px}
+.news-top{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.brk{display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:#fff;font:900 .72rem 'Lato',sans-serif;letter-spacing:.02em;text-transform:uppercase;padding:5px 12px}
+.brk::before{content:"";width:9px;height:9px;border-radius:50%;background:#fff;animation:blink 1.1s steps(2,start) infinite}
+@keyframes blink{50%{opacity:.2}}
+.news-kicker{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);font-weight:700}
+.news-src{margin-left:auto;font-size:.58rem;letter-spacing:.06em;color:#7a86bc;text-transform:uppercase}
+.slides{min-height:184px;margin-top:8px}
+.slide{display:none;grid-template-columns:1.14fr .86fr;gap:30px;align-items:end}
+.slide.active{display:grid;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.slide h2{font:900 clamp(1.55rem,3vw,2.5rem)/1.02 'Lato',sans-serif;letter-spacing:-.055em;margin:6px 0 10px}
+.slide p{color:#dce3fa;font-size:.82rem;margin:0;line-height:1.5}
+.lens{border-left:3px solid var(--lime);padding-left:18px}
+.lens b{color:var(--lime);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em}
+.lens p{margin-top:8px;color:#dce3fa;font-size:.78rem}
+.news-controls{display:flex;gap:8px;align-items:center;margin-top:20px}
+.arrow{width:30px;height:30px;background:var(--lime);color:var(--navy);border:0;font-size:1rem;font-weight:700;cursor:pointer}
+.arrow:hover{background:#fff}
+.dot{width:9px;height:9px;background:#4a568c;border:0;cursor:pointer;padding:0}
+.dot.active{background:var(--lime)}
 
-/* UNITS GRID */
-.section-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
-.section-heading{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:900;margin-bottom:8px}
-.section-sub{color:var(--muted);font-size:.9rem;margin-bottom:32px;max-width:540px}
-.units-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+/* ── YOUR SIGNAL strip (under the news) ── */
+.signal-strip{display:flex;align-items:center;gap:20px 34px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:16px 26px;margin-top:12px;border:2px solid var(--navy)}
+.ss-label{font:900 .8rem 'Lato',sans-serif;letter-spacing:-.03em;color:var(--lime)}
+.ss-item{display:flex;align-items:baseline;gap:9px}
+.ss-num{font:900 1.5rem 'Lato',sans-serif;color:var(--lime)}
+.ss-lbl{font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;color:#aeb9e6}
+.ss-cta{margin-left:auto}
 
-/* UNIT CARD */
-.unit-card{background:var(--white);border:1px solid var(--border);border-top:5px solid var(--uc,var(--red));padding:28px 26px;box-shadow:var(--sh);transition:box-shadow .2s,transform .2s;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:12px}
-.unit-card:hover{box-shadow:var(--shm);transform:translateY(-4px)}
-.unit-card.coming-soon{opacity:.52;cursor:default;pointer-events:none;border-top-color:var(--border2)}
-.unit-card.coming-soon:hover{box-shadow:var(--sh);transform:none}
-.unit-num{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--uc,var(--red))}
-.unit-card.coming-soon .unit-num{color:var(--muted)}
-.unit-name{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.25rem;font-weight:700;line-height:1.2}
-.unit-period{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.unit-era-note{display:flex;align-items:center;gap:5px;margin-top:-6px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.unit-era-note::before{content:"\21C4";color:var(--uc,var(--red));font-size:.72rem;line-height:1}
-.unit-desc{font-size:.84rem;color:var(--mid);line-height:1.6}
-.unit-badge{display:inline-block;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 11px;margin-top:auto}
-.unit-badge.ready{background:var(--uc,var(--red));color:#fff}
-.unit-badge.soon{background:var(--border);color:var(--muted)}
-.unit-badge.locked{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-b)}
+/* ── ROADMAP ── */
+.roadmap{border:2px solid var(--navy);padding:24px 24px 26px}
+.unit-picker{display:flex;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}
+.unit-picker label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.unit-picker select{font:inherit;font-size:.78rem;font-weight:700;padding:11px 12px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+.choices{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.choice{min-height:96px;text-align:left;border:2px solid var(--navy);background:#fff;padding:14px;cursor:pointer;font:inherit;color:var(--navy);transition:transform .12s,box-shadow .12s,background .12s}
+.choice:hover{background:var(--sky);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+.choice.active{background:var(--lime)}
+.choice b{display:block;font-size:.76rem;line-height:1.25}
+.choice span{display:block;font-size:.64rem;margin-top:7px;line-height:1.35;color:#3a4670}
+.choice.active span{color:#2a3560}
+.recommend{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:14px;background:var(--sky);border-left:6px solid var(--blue);padding:18px 20px;flex-wrap:wrap}
+.recommend .rc-text{max-width:60ch}
+.recommend b{font-size:1rem;font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.03em;display:block;margin-bottom:5px}
+.recommend p{margin:0;font-size:.78rem;color:#2a3560}
+.tool-explain{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:16px}
+.explain{border:1px solid var(--line);padding:15px;background:#fff}
+.explain b{display:block;font-size:.72rem}
+.explain span{display:block;font-size:.65rem;color:var(--muted);margin-top:7px;line-height:1.45}
 
-/* FULL COURSE TAB */
-.full-course-tab{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--ink);border:3px solid var(--red);padding:24px 30px;margin-bottom:32px;text-decoration:none;color:#fff;box-shadow:var(--shm);transition:background .2s,transform .2s}
-.full-course-tab:hover{background:var(--red-d);transform:translateY(-3px)}
-.fct-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
-.fct-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.45rem;font-weight:900;line-height:1.1;margin-bottom:6px}
-.fct-sub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.08em;color:rgba(255,255,255,.55)}
-.fct-badge{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 20px;white-space:nowrap;flex-shrink:0}
-.doc-embed{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);margin-bottom:20px}
-.doc-embed-head{padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.doc-embed-head .de-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
-.doc-embed-head .de-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.25rem;font-weight:900;line-height:1.15}
-.doc-embed-head .de-desc{color:var(--mid);font-size:.9rem;line-height:1.5;margin-top:6px;max-width:640px}
-.doc-embed-open{flex-shrink:0;background:var(--red);color:#fff;text-decoration:none;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;transition:background .15s}
-.doc-embed-open:hover{background:var(--red-d)}
+/* ── TOOLS + UNITS ── */
+.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{min-height:200px;border:2px solid var(--navy);padding:26px 24px;text-decoration:none;color:var(--navy);background:#fff;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s}
+.tile:nth-child(2),.tile:nth-child(5){background:var(--sky)}
+.tile:nth-child(3){background:var(--lime)}
+.tile:hover,.unit-card:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--navy)}
+.tile i{font-style:normal;color:var(--blue);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.tile h3{font:900 1.2rem/1.02 'Lato',sans-serif;letter-spacing:-.05em;margin:14px 0 8px}
+.tile span{font-size:.7rem;color:#4a5680;line-height:1.5}
+.tile strong{margin-top:auto;font-size:.64rem;text-transform:uppercase;letter-spacing:.06em}
+.unit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.unit-card{border:2px solid var(--navy);padding:24px 24px;text-decoration:none;color:var(--navy);background:#fff;min-height:158px;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s}
+.unit-card i{font-style:normal;font-size:.6rem;color:var(--blue);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.unit-card h3{font:900 1.02rem/1.05 'Lato',sans-serif;letter-spacing:-.045em;margin:9px 0 5px}
+.unit-card .u-period{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.unit-card .u-conc{font-size:.56rem;color:var(--muted);margin-top:3px}
+.unit-card .u-open{margin-top:auto;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);padding-top:8px}
 
-@media(max-width:900px){body{flex-direction:column}.sidebar{position:relative;width:100%;height:auto}.main-wrap{margin-left:0}.page-content{padding:24px 20px 60px}}
+.foot{margin-top:40px;border-top:2px solid var(--navy);padding-top:16px;font-size:.64rem;color:var(--muted);line-height:1.7}
 
-/* ── STUDY-TIMER WELCOME MODAL ── */
-.wm-overlay{position:fixed;inset:0;z-index:1000;background:rgba(20,18,10,.62);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;animation:wmFade .3s ease forwards}
-@keyframes wmFade{to{opacity:1}}
-.wm-card{background:var(--cream);border:1px solid var(--border2);border-top:6px solid var(--red);box-shadow:var(--shm);max-width:520px;width:100%;max-height:92vh;overflow-y:auto;padding:38px 40px 30px;position:relative;transform:translateY(10px);animation:wmRise .32s cubic-bezier(.2,.7,.3,1) forwards}
-@keyframes wmRise{to{transform:translateY(0)}}
-.wm-x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.5rem;line-height:1;color:var(--muted);cursor:pointer;padding:4px 8px;font-family:Lato,system-ui,sans-serif}
-.wm-x:hover{color:var(--ink)}
-.wm-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
-.wm-h{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:900;line-height:1.12;margin-bottom:10px}
-.wm-p{color:var(--mid);font-size:.95rem;line-height:1.6;margin-bottom:22px}
-.wm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
-.wm-opt{background:var(--white);border:1px solid var(--border);padding:16px 14px;cursor:pointer;text-align:left;transition:.14s;font-family:Lato,system-ui,sans-serif;color:var(--ink)}
-.wm-opt:hover{border-color:var(--red);box-shadow:var(--sh);transform:translateY(-2px)}
-.wm-opt-min{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.55rem;font-weight:900;line-height:1;color:var(--red)}
-.wm-opt-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
-.wm-custom{display:flex;gap:10px;align-items:stretch;margin-bottom:22px}
-.wm-custom input{flex:1;font-family:Lato,system-ui,sans-serif;font-size:1rem;padding:11px 14px;border:1px solid var(--border);background:var(--white);color:var(--ink)}
-.wm-custom input:focus{outline:none;border-color:var(--red)}
-.wm-btn{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:0 22px;cursor:pointer;transition:.14s;white-space:nowrap}
-.wm-btn:hover{background:var(--red-d)}
-.wm-distract{display:block;width:100%;text-align:center;background:none;border:none;border-top:1px solid var(--border);padding-top:18px;margin-top:4px;color:var(--muted);font-family:Lato,system-ui,sans-serif;font-size:.9rem;font-style:italic;cursor:pointer}
-.wm-distract:hover{color:var(--ink);text-decoration:underline}
-/* QR view */
-.wm-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;margin:6px 0 20px}
-.wm-qr{background:#fff;padding:16px;border:1px solid var(--border);box-shadow:var(--sh);line-height:0}
-.wm-qr img,.wm-qr canvas{display:block;width:220px;height:220px;image-rendering:pixelated}
-.wm-qr-min{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:12px}
-.wm-steps{list-style:none;counter-reset:s;margin:0 0 22px;padding:0}
-.wm-steps li{counter-increment:s;position:relative;padding:6px 0 6px 34px;font-size:.9rem;color:var(--mid);line-height:1.5}
-.wm-steps li::before{content:counter(s);position:absolute;left:0;top:5px;width:22px;height:22px;background:var(--red);color:#fff;border-radius:50%;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;display:flex;align-items:center;justify-content:center}
-.wm-actions{display:flex;gap:12px;flex-wrap:wrap}
-.wm-link{background:none;border:none;color:var(--muted);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 0}
-.wm-link:hover{color:var(--red)}
-/* session-start line + device switch */
-.wm-sessline{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.05em;color:var(--mid);background:var(--paper);border-left:3px solid var(--red);padding:9px 13px;margin-bottom:16px}
-.wm-dev{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.wm-dev-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.wm-dev-btn{font-family:Lato,system-ui,sans-serif;font-size:.85rem;padding:7px 14px;border:1px solid var(--border);background:var(--white);color:var(--ink);cursor:pointer;transition:.14s}
-.wm-dev-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-/* laptop-side timer */
-.wm-ring-wrap{position:relative;width:min(62vw,250px);height:min(62vw,250px);margin:8px auto 16px}
-svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
-.wm-ring-bg{fill:none;stroke:var(--border);stroke-width:7}
-.wm-ring-fg{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .4s}
-.wm-ring-read{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-#wmClock{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-weight:900;font-size:clamp(2.2rem,9vw,3.1rem);line-height:1;font-variant-numeric:tabular-nums}
-#wmSub{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-#wmLaptop.wm-done .wm-ring-fg{stroke:var(--gold)}
-#wmLaptop.wm-done #wmClock{color:var(--gold)}
-.wm-lap-summary{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--red);padding:14px 16px;margin-bottom:16px}
-.wm-lap-sum-line{font-size:.95rem;line-height:1.55;color:var(--ink)}
-.wm-lap-sum-line b{color:var(--red)}
-.wm-lap-streak{display:flex;align-items:center;gap:9px;margin-top:11px;padding-top:11px;border-top:1px solid var(--border)}
-.wm-lap-streak .wm-lap-dot{width:13px;height:13px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(176,0,28,.15);animation:wmDotPop .5s cubic-bezier(.2,.9,.3,1.3)}
-@keyframes wmDotPop{0%{transform:scale(0)}100%{transform:scale(1)}}
-.wm-lap-streak span{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mid)}
+@media(max-width:1080px){
+  .tile-grid,.unit-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:820px){
+  .slide{grid-template-columns:1fr}
+  .choices,.tool-explain{grid-template-columns:1fr 1fr}
+  /* Keep the nav visible so "get back" is always one tap away; let the bar grow instead of hiding links. */
+  .bar{height:auto;flex-direction:column;align-items:flex-start;gap:9px;padding:12px max(18px,4vw)}
+  .links{justify-content:flex-start;gap:9px 14px}
+  .links a,.dd-t{font-size:.74rem}
+  /* nav wraps left-aligned here; center menus under their trigger and cap width so they never run off either edge */
+  .dd-m{left:50%;right:auto;transform:translateX(-50%);min-width:172px;max-width:calc(100vw - 20px)}
+}
+@media(max-width:520px){
+  .choices,.tool-explain,.tile-grid,.unit-grid{grid-template-columns:1fr}
+  .recommend{flex-direction:column;align-items:flex-start}
+  .unit-picker{flex-direction:column;align-items:flex-start}
+  .ss-cta{margin-left:0}
+}
+
+/* exit chip in the bar; the secret toggle-off control (mc-mode.js wires it) */
+.mc-exit{font:inherit;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);background:var(--lime);border:2px solid var(--navy);padding:5px 10px;cursor:pointer}
+.mc-exit:hover{background:#fff}
+/* hide spaced.js's auto streak banner (the dashboard shows its own signal strip) */
+#spx-banner{display:none!important}
+
+/* ── STUDY-TIMER WELCOME MODAL (Mission Control styling) ── */
 .wm-hidden{display:none!important}
-@media(max-width:520px){.wm-card{padding:30px 24px 24px}}
+.wm-overlay{position:fixed;inset:0;z-index:1000;background:rgba(17,26,63,.72);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;animation:wmFade .3s ease forwards}
+@keyframes wmFade{to{opacity:1}}
+.wm-card{background:var(--white);border:2px solid var(--navy);border-top:6px solid var(--coral);box-shadow:8px 8px 0 var(--navy);max-width:520px;width:100%;max-height:92vh;overflow-y:auto;padding:34px 34px 28px;position:relative;transform:translateY(10px);animation:wmRise .32s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes wmRise{to{transform:translateY(0)}}
+.wm-x{position:absolute;top:12px;right:14px;background:none;border:0;font-size:1.5rem;line-height:1;color:var(--muted);cursor:pointer;padding:4px 8px}
+.wm-x:hover{color:var(--navy)}
+.wm-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.wm-h{font-family:'Lato',sans-serif;font-weight:900;font-size:clamp(1.45rem,3.4vw,1.9rem);letter-spacing:-.04em;line-height:1.06;margin-bottom:10px;color:var(--navy)}
+.wm-p{color:#2a3560;font-size:.85rem;line-height:1.55;margin-bottom:20px}
+.wm-sessline{font-size:.68rem;font-weight:700;color:var(--navy);background:var(--sky);border-left:4px solid var(--blue);padding:9px 13px;margin-bottom:16px}
+.wm-dev{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.wm-dev-lbl{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.wm-dev-btn{font:inherit;font-size:.8rem;padding:8px 13px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}
+.wm-dev-btn.active{background:var(--navy);color:#fff}
+.wm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-bottom:14px}
+.wm-opt{background:var(--sky);border:2px solid var(--navy);padding:15px 14px;cursor:pointer;text-align:left;font:inherit;color:var(--navy);transition:transform .12s,box-shadow .12s,background .12s}
+.wm-opt:hover{background:var(--lime);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--navy)}
+.wm-opt-min{font:900 1.5rem 'Lato',sans-serif;line-height:1;color:var(--blue)}
+.wm-opt-lbl{font-size:.56rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.wm-custom{display:flex;gap:10px;align-items:stretch;margin-bottom:18px}
+.wm-custom input{flex:1;font:inherit;font-size:.95rem;padding:11px 13px;border:2px solid var(--navy);background:#fff;color:var(--navy)}
+.wm-custom input:focus{outline:none;border-color:var(--blue)}
+.wm-btn{font:inherit;font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:var(--blue);color:#fff;border:2px solid var(--blue);padding:0 20px;cursor:pointer;white-space:nowrap}
+.wm-btn:hover{box-shadow:4px 4px 0 var(--navy)}
+.wm-distract{display:block;width:100%;text-align:center;background:none;border:0;border-top:1px solid var(--line);padding-top:16px;margin-top:4px;color:var(--muted);font:inherit;font-size:.82rem;font-style:italic;cursor:pointer}
+.wm-distract:hover{color:var(--navy);text-decoration:underline}
+.wm-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;margin:6px 0 18px}
+.wm-qr{background:#fff;padding:16px;border:2px solid var(--navy);line-height:0}
+.wm-qr img,.wm-qr canvas{display:block;width:220px;height:220px;image-rendering:pixelated}
+.wm-qr-min{font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+.wm-steps{list-style:none;counter-reset:s;margin:0 0 20px;padding:0}
+.wm-steps li{counter-increment:s;position:relative;padding:6px 0 6px 34px;font-size:.82rem;color:#2a3560;line-height:1.5}
+.wm-steps li::before{content:counter(s);position:absolute;left:0;top:5px;width:22px;height:22px;background:var(--blue);color:#fff;font:900 .66rem 'Lato',sans-serif;display:flex;align-items:center;justify-content:center}
+.wm-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.wm-link{background:none;border:0;color:var(--muted);font:inherit;font-weight:700;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;padding:8px 0}
+.wm-link:hover{color:var(--blue)}
+.wm-ring-wrap{position:relative;width:min(62vw,240px);height:min(62vw,240px);margin:8px auto 16px}
+svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
+.wm-ring-bg{fill:none;stroke:var(--line);stroke-width:7}
+.wm-ring-fg{fill:none;stroke:var(--blue);stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset 1s linear,stroke .4s}
+.wm-ring-read{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+#wmClock{font:900 clamp(2.2rem,9vw,3rem) 'Lato',sans-serif;line-height:1;font-variant-numeric:tabular-nums;color:var(--navy)}
+#wmSub{font-size:.56rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+#wmLaptop.wm-done .wm-ring-fg{stroke:var(--coral)}
+#wmLaptop.wm-done #wmClock{color:var(--coral)}
+.wm-lap-summary{background:var(--sky);border:2px solid var(--navy);border-left:5px solid var(--blue);padding:14px 16px;margin-bottom:16px}
+.wm-lap-sum-line{font-size:.85rem;line-height:1.55;color:var(--navy)}
+.wm-lap-sum-line b{color:var(--blue)}
+.wm-lap-streak{display:flex;align-items:center;gap:9px;margin-top:11px;padding-top:11px;border-top:1px solid var(--line)}
+.wm-lap-dot{width:13px;height:13px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px rgba(255,104,76,.2);animation:wmDotPop .5s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes wmDotPop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.wm-lap-streak span{font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2a3560}
+@media(max-width:520px){.wm-card{padding:28px 22px 22px}}
+
+/* ── READABILITY PASS: larger, higher-contrast text across the dashboard ── */
+html{font-size:18px}
+body{line-height:1.6}
+.eyebrow{font-size:.68rem}
+.sec-head p{color:#33406b;font-size:.84rem;line-height:1.55}
+/* breaking-news card */
+.slide{align-items:start}
+.slides{min-height:230px}
+.slide h2{margin:6px 0 12px}
+.slide > div > p{color:#dbe2ff;font-size:.95rem;line-height:1.55}
+.lens{padding-left:20px}
+.lens b{font-size:.7rem}
+.lens > p{color:#f2f5ff;font-size:.9rem;font-weight:700;margin-top:8px;line-height:1.5}
+.lens-q{list-style:none;margin:13px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.lens-q li{position:relative;padding-left:17px;font-size:.86rem;line-height:1.5;color:#eef1ff}
+.lens-q li::before{content:"\203A";position:absolute;left:0;top:-1px;color:var(--lime);font-weight:700}
+.lens-q .norm{display:inline-block;background:var(--lime);color:var(--navy);font-weight:700;font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;margin-right:6px;vertical-align:baseline}
+.news-dots{display:flex;gap:8px;align-items:center}
+.news-src{color:#b8c2ea}
+/* signal strip */
+.ss-lbl{color:#cdd6f5;font-size:.6rem}
+/* roadmap */
+.choice b{font-size:.8rem}
+.choice span{color:#2f3b63;font-size:.7rem;line-height:1.4}
+.recommend p{color:#22305c;font-size:.84rem;line-height:1.5}
+.explain b{font-size:.76rem}
+.explain span{color:#3a4670;font-size:.72rem;line-height:1.5}
+/* tools + units */
+.tile span{color:#2f3b63;font-size:.76rem;line-height:1.55}
+.unit-card .u-period,.unit-card .u-conc{color:#4a5680}
+.foot{color:#4a5680;font-size:.7rem;line-height:1.7}
+
+/* ── unit progress rings + larger card / tile type ── */
+.unit-card{display:grid;grid-template-columns:minmax(0,2fr) minmax(96px,1fr);align-items:center;column-gap:14px}
+.uc-body{display:flex;flex-direction:column;min-width:0}
+.unit-card i{font-size:.66rem}
+.unit-card h3{font-size:1.28rem;line-height:1.1;margin:9px 0 0}
+.unit-card .u-period{font-size:.66rem;margin-top:12px}
+.unit-card .u-conc{font-size:.6rem}
+.unit-card .u-open{font-size:.68rem;padding-top:14px}
+.uc-ringwrap{display:flex;align-items:center;justify-content:center}
+.uc-ring{position:relative;width:84px;height:84px;flex-shrink:0}
+.uc-ring svg{display:block;width:84px;height:84px}
+.uc-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Lato',sans-serif;font-weight:900;color:var(--navy);letter-spacing:-.03em}
+.uc-pct b{font-weight:400;font-size:1.4rem;line-height:1}
+.uc-pct i{font-style:normal;font-size:.72rem;line-height:1;margin-left:1px}
+.tile i{font-size:.64rem}
+.tile h3{font-size:1.35rem;margin:14px 0 9px}
+.tile span{font-size:.82rem;line-height:1.55}
+.tile strong{font-size:.68rem}
+
+/* ── DARK-MODE TOGGLE (oval switch in the top bar) ── */
+.theme-toggle{position:relative;width:54px;height:27px;flex-shrink:0;border-radius:999px;border:2px solid var(--lime);background:rgba(216,241,58,.14);cursor:pointer;padding:0;transition:background .2s}
+.theme-toggle:hover{background:rgba(216,241,58,.28)}
+.theme-toggle:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.theme-toggle .tt-knob{position:absolute;top:50%;left:2px;transform:translateY(-50%);width:19px;height:19px;border-radius:50%;background:var(--lime);color:var(--navy);font-size:11px;line-height:19px;text-align:center;transition:left .22s cubic-bezier(.3,.8,.3,1)}
+html[data-theme="dark"] .theme-toggle .tt-knob{left:31px}
+
+/* ── DARK MODE ── */
+html[data-theme="dark"]{
+  --white:#0b1130;   /* page + card base */
+  --sky:#1c2650;     /* tinted panels */
+  --line:#333e78;
+  --muted:#9fabda;
+}
+html[data-theme="dark"] body{background:var(--white);color:#e9eeff}
+html[data-theme="dark"] .roadmap{background:#0f1638;border-color:#333e78}
+html[data-theme="dark"] .choice,
+html[data-theme="dark"] .tile,
+html[data-theme="dark"] .unit-card,
+html[data-theme="dark"] .explain,
+html[data-theme="dark"] .unit-picker select{background:#141c44;color:#e9eeff;border-color:#333e78}
+html[data-theme="dark"] .choice:hover{background:var(--sky)}
+html[data-theme="dark"] .choice.active{background:var(--lime);color:var(--navy);border-color:var(--lime)}
+html[data-theme="dark"] .choice.active span{color:#2a3560}
+html[data-theme="dark"] .choice span,
+html[data-theme="dark"] .tile span,
+html[data-theme="dark"] .recommend p{color:#c3cdf2}
+html[data-theme="dark"] .explain span{color:#aab5e2}
+html[data-theme="dark"] .explain b,
+html[data-theme="dark"] .uc-pct{color:#e9eeff}
+html[data-theme="dark"] .sec-head p{color:#aab5e2}
+html[data-theme="dark"] .recommend{background:#141c44}
+html[data-theme="dark"] .unit-card .u-period,
+html[data-theme="dark"] .unit-card .u-conc{color:#9fabda}
+html[data-theme="dark"] .foot{border-top-color:#333e78;color:#9098c2}
+/* --blue (#2d5deb) is too dark for small text on the dark navy cards
+   (fails contrast). Lighten only the text/kicker uses; the token is
+   left alone so it still backs white-text buttons and accent borders. */
+html[data-theme="dark"] .eyebrow,
+html[data-theme="dark"] .wm-eyebrow,
+html[data-theme="dark"] .tile i,
+html[data-theme="dark"] .unit-card i,
+html[data-theme="dark"] .unit-card .u-open,
+html[data-theme="dark"] .wm-opt-min{color:#8aa9ff}
+html[data-theme="dark"] .tile:hover,
+html[data-theme="dark"] .unit-card:hover,
+html[data-theme="dark"] .choice:hover{box-shadow:5px 5px 0 var(--blue)}
+html[data-theme="dark"] .button:hover{box-shadow:4px 4px 0 #000}
+/* welcome/study-timer modal */
+html[data-theme="dark"] .wm-card{background:#0f1638;border-color:#333e78;box-shadow:8px 8px 0 #000}
+html[data-theme="dark"] .wm-h,
+html[data-theme="dark"] #wmClock,
+html[data-theme="dark"] .wm-lap-sum-line{color:#e9eeff}
+html[data-theme="dark"] .wm-p,
+html[data-theme="dark"] .wm-steps li,
+html[data-theme="dark"] .wm-lap-streak span{color:#c3cdf2}
+html[data-theme="dark"] .wm-sessline,
+html[data-theme="dark"] .wm-opt,
+html[data-theme="dark"] .wm-lap-summary{background:var(--sky);color:#e9eeff;border-color:#333e78}
+html[data-theme="dark"] .wm-opt:hover{background:var(--lime);color:var(--navy)}
+html[data-theme="dark"] .wm-dev-btn,
+html[data-theme="dark"] .wm-custom input{background:#141c44;color:#e9eeff;border-color:#333e78}
+html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--navy)}
 </style>
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <script src="mc-mode.js"></script>
-<link rel="stylesheet" href="theme.css">
-<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
-<script defer src="theme.js"></script>
-<script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+<script defer src="bedtime.js"></script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
 </head>
 <body>
 
-<aside class="sidebar">
-  <div class="sb-brand">
-    <div class="sb-badge">APWH</div>
-    <div class="sb-title">AP World History</div>
-    <div class="sb-sub">Unit Review Hub</div>
-  </div>
-  <nav class="sb-nav">
-    <div class="sb-group-label">Navigation</div>
-    <a href="index.html" class="nav-item active"><span class="nav-dot"></span>All Units</a>
-    <a href="brain-sculptor.html" class="nav-item"><span class="nav-dot"></span>How to Study</a>
-    <a href="writing-guide.html" class="nav-item"><span class="nav-dot"></span>How to Write</a>
-    <a href="resources.html" class="nav-item"><span class="nav-dot"></span>Review Resources</a>
-    <a href="sbmcq.html" class="nav-item"><span class="nav-dot"></span>Attack the Stimulus MCQ</a>
-    <a href="cumulative.html" class="nav-item"><span class="nav-dot"></span>Cumulative Review</a>
-    <a href="fullcourse.html" class="nav-item"><span class="nav-dot"></span>Course Narrative</a>
-  </nav>
-  <div class="sb-footer">
-    <p>Archbishop Moeller &nbsp;&bull;&nbsp; APWH</p>
-  </div>
-</aside>
-<div class="main-wrap">
-<div class="top-bar">
-  <div>
-    <div class="top-bar-title">Unit Review Hub</div>
-    <div class="top-bar-sub">AP World History: Modern &mdash; All Units</div>
-  </div>
-  <span class="top-bar-tag">AP World History</span>
-</div>
-<div class="page-content">
-  <div class="section-label">All Units</div>
-  <h2 class="section-heading">Choose Your Unit</h2>
-  <p class="section-sub">Each unit includes MCQ practice, writing tools, study guides, games, and review resources.</p>
-  <div class="doc-embed">
-    <div class="doc-embed-head">
-      <div>
-        <div class="de-label">Start of Year Reading</div>
-        <div class="de-title">What Is History?</div>
-        <div class="de-desc">How should we learn about history if we are unsure about what actually happened?</div>
+<header class="bar">
+  <a class="brand" href="./">APWH <b>/</b> MISSION CONTROL</a>
+  <nav class="links">
+    <a href="#units">Units</a>
+    <div class="dd">
+      <button type="button" class="dd-t">How to <span class="cv">&#9662;</span></button>
+      <div class="dd-m">
+        <a href="sbmcq.html">How to Stimulus MCQ</a>
+        <a href="brain-sculptor.html">How to Study</a>
+        <a href="writing-guide.html">How to Write</a>
       </div>
-      <a class="doc-embed-open" href="what-is-history.pdf" target="_blank" rel="noopener">Open PDF &#8599;</a>
     </div>
-  </div>
-
-  <a href="brain-sculptor.html" class="full-course-tab" style="border-color:var(--gold-b)">
-    <div class="fct-left">
-      <div class="fct-label">Study Smarter</div>
-      <div class="fct-title">The Brain Sculptor: How to Own Your Learning</div>
-      <div class="fct-sub">Learning science &nbsp;&bull;&nbsp; Beat the illusion of mastery &nbsp;&bull;&nbsp; Fix your study habits</div>
+    <div class="dd">
+      <button type="button" class="dd-t">Review <span class="cv">&#9662;</span></button>
+      <div class="dd-m">
+        <a href="resources.html">Resources</a>
+        <a href="cumulative.html">Cumulative</a>
+        <a href="fullcourse.html">Narrative</a>
+      </div>
     </div>
-    <div class="fct-badge">&#9654; Open Study Guide</div>
-  </a>
+    <button type="button" class="mc-exit" data-mc-toggle title="Turn off Mission Control preview">AP World History</button>
+    <button type="button" class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-knob" id="ttKnob">&#9728;</span></button>
+  </nav>
+</header>
 
-  <div class="units-grid">
+<main class="main">
 
-    <a href="unit1.html" class="unit-card" style="--uc:#7a5500">
-      <div class="unit-num">Unit 1</div>
-      <div class="unit-name">The Global Tapestry</div>
-      <div class="unit-period">c. 1200&ndash;c. 1450</div>
-      <div class="unit-era-note">Concurrent with Unit 2</div>
-      <div class="unit-desc">State-building and belief systems across a still-unconnected world.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 1</div>
-    </a>
+  <div class="eyebrow">Student dashboard &middot; AP World History: Modern</div>
 
-    <a href="unit2.html" class="unit-card" style="--uc:#0f5b5e">
-      <div class="unit-num">Unit 2</div>
-      <div class="unit-name">Networks of Exchange</div>
-      <div class="unit-period">c. 1200&ndash;c. 1450</div>
-      <div class="unit-era-note">Concurrent with Unit 1</div>
-      <div class="unit-desc">The Silk Roads, Indian Ocean, and Mongols knit Afro-Eurasia together.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 2</div>
-    </a>
-
-    <a href="unit3.html" class="unit-card" style="--uc:#8c1212">
-      <div class="unit-num">Unit 3</div>
-      <div class="unit-name">Land-Based Empires</div>
-      <div class="unit-period">c. 1450&ndash;c. 1750</div>
-      <div class="unit-era-note">Concurrent with Unit 4</div>
-      <div class="unit-desc">Gunpowder empires and the contest for political legitimacy.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 3</div>
-    </a>
-
-    <a href="unit4.html" class="unit-card" style="--uc:#0d2960">
-      <div class="unit-num">Unit 4</div>
-      <div class="unit-name">Transoceanic Interconnections</div>
-      <div class="unit-period">c. 1450&ndash;c. 1750</div>
-      <div class="unit-era-note">Concurrent with Unit 3</div>
-      <div class="unit-desc">Ocean routes, the Columbian Exchange, and a reordered world.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 4</div>
-    </a>
-
-    <a href="unit5.html" class="unit-card" style="--uc:#1e4f18">
-      <div class="unit-num">Unit 5</div>
-      <div class="unit-name">Revolutions</div>
-      <div class="unit-period">c. 1750&ndash;c. 1900</div>
-      <div class="unit-era-note">Concurrent with Unit 6</div>
-      <div class="unit-desc">Enlightenment ideas, Atlantic revolutions, and industrial upheaval.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 5</div>
-    </a>
-
-    <a href="unit6.html" class="unit-card" style="--uc:#8c2900">
-      <div class="unit-num">Unit 6</div>
-      <div class="unit-name">Consequences of Industrialization</div>
-      <div class="unit-period">c. 1750&ndash;c. 1900</div>
-      <div class="unit-era-note">Concurrent with Unit 5</div>
-      <div class="unit-desc">Imperial expansion, resistance, and mass migration.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 6</div>
-    </a>
-
-    <a href="unit7.html" class="unit-card" style="--uc:#5c0f26">
-      <div class="unit-num">Unit 7</div>
-      <div class="unit-name">Global Conflict</div>
-      <div class="unit-period">c. 1900&ndash;Present</div>
-      <div class="unit-era-note">Concurrent with Unit 9</div>
-      <div class="unit-desc">Two world wars, economic collapse, and total war.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 7</div>
-    </a>
-
-    <a class="unit-card" href="unit8.html" style="--uc:#0f3248">
-      <div class="unit-num">Unit 8</div>
-      <div class="unit-name">Cold War &amp; Decolonization</div>
-      <div class="unit-period">c. 1945&ndash;Present</div>
-      <div class="unit-desc">Superpower rivalry, proxy wars, and the end of empire.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 8</div>
-    </a>
-    
-
-    <a href="unit9.html" class="unit-card" style="--uc:#3d3c00">
-      <div class="unit-num">Unit 9</div>
-      <div class="unit-name">Globalization</div>
-      <div class="unit-period">c. 1900&ndash;Present</div>
-      <div class="unit-era-note">Concurrent with Unit 7</div>
-      <div class="unit-desc">Technology, economy, and culture in one interconnected world.</div>
-      <div class="unit-badge ready">&#9654; Open Unit 9</div>
-    </a>
-
-  </div>
-
-  <a href="fullcourse.html" class="full-course-tab" style="margin-top:32px">
-    <div class="fct-left">
-      <div class="fct-label">Full Course</div>
-      <div class="fct-title">AP Review &mdash; Course Narrative</div>
-      <div class="fct-sub">Fill-in-the-blank course narrative &nbsp;&bull;&nbsp; Linked AP Review sources &nbsp;&bull;&nbsp; Units 1&ndash;9</div>
+  <!-- BREAKING NEWS HERO -->
+  <section class="news" aria-label="Breaking history">
+    <div class="news-top">
+      <span class="brk">Breaking</span>
+      <span class="news-kicker">History: connect it to the course</span>
+      <span class="news-src">Current events &middot; discuss &amp; analyze</span>
     </div>
-    <div class="fct-badge">&#9654; Open Course Narrative</div>
-  </a>
-
-  <a href="sbmcq.html" class="full-course-tab" style="margin-top:-16px">
-    <div class="fct-left">
-      <div class="fct-label">MCQ Skills</div>
-      <div class="fct-title">Attack the Stimulus MCQ</div>
-      <div class="fct-sub">A 4-step method &nbsp;&bull;&nbsp; Worked from the real tests &nbsp;&bull;&nbsp; Units 2-8</div>
+    <div class="slides">
+      <article class="slide active">
+        <div>
+          <h2>Venezuela&rsquo;s acting leader tells the United Nations that elections are coming, without saying when.</h2>
+          <p>Delcy Rodriguez, who became Venezuela&rsquo;s acting president after a U.S. military operation removed Nicolas Maduro from power in January 2026, addressed the UN General Assembly for the first time on September 23. She said elections would be held and that her government had begun talks with opposition leaders, though she gave no date for a vote.</p>
+          <p>Rodriguez also thanked President Trump for his willingness to restore ties after the operation that removed her predecessor, and the two briefly met to discuss restructuring Venezuela&rsquo;s sovereign debt. Critics note the irony of a leader installed after foreign intervention now being the one who must decide when democracy returns.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 8 &amp; 9</b>
+          <p>A leader installed after outside intervention is now promising the elections that intervention was meant to bring.</p>
+          <ul class="lens-q">
+            <li>How does this U.S. role in changing Venezuela&rsquo;s leadership compare to earlier moments of American intervention in Latin America?</li>
+            <li><span class="norm">Normative</span> Should a government that took power through foreign military action be treated as legitimate once it promises elections?</li>
+            <li>What continuities link this moment to older patterns of powerful states deciding the fate of smaller states&rsquo; governments?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>Talks between Greece and the British Museum over the Parthenon Marbles collapse again.</h2>
+          <p>Greek Prime Minister Kyriakos Mitsotakis said this week that years of negotiations over returning the Parthenon Marbles to Athens have effectively broken down, after the British Museum would offer only a loan that required Greece to recognize its ownership. Greece has refused any deal that treats the sculptures, removed from the Acropolis in the early 1800s, as anything but a single monument that belongs together.</p>
+          <p>The British Museum says its willingness to reach an agreement is unchanged, but no new talks are scheduled, leaving one of the world&rsquo;s longest running cultural property disputes stuck where it started.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 5</b>
+          <p>A dispute over art removed under one empire still shapes how nations argue over ownership of the past.</p>
+          <ul class="lens-q">
+            <li>How does Britain&rsquo;s continued hold on the Parthenon Marbles compare to other objects taken during the age of European empire?</li>
+            <li><span class="norm">Normative</span> Should national museums be required to return culturally significant objects even if that means an empty case at home?</li>
+            <li>Why might Greece reject a loan and insist on outright ownership, when a loan would let the sculptures return to Athens sooner?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>Brazil&rsquo;s Amazon deforestation keeps falling, but researchers warn the gains may not last.</h2>
+          <p>New data show deforestation in Brazil&rsquo;s Amazon has kept dropping under President Lula&rsquo;s government, with clearing during his presidency down 41 percent compared with his predecessor&rsquo;s term. Researchers point to satellite monitoring and stronger enforcement, methods that cut deforestation by nearly 85 percent between 2004 and 2012.</p>
+          <p>Even so, scientists warn a severe El Nino building through the rest of 2026 could dry out parts of the rainforest and fuel fires, testing whether recent progress can survive a harsher climate.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 6 &amp; 9</b>
+          <p>A resource once cleared for industrial era profit is now being protected as a global climate stake.</p>
+          <ul class="lens-q">
+            <li>How does today&rsquo;s Amazon policy compare to earlier periods when governments encouraged clearing land for resources or settlement?</li>
+            <li><span class="norm">Normative</span> Should wealthier countries help pay to protect the Amazon, given how much of the world depends on the rainforest&rsquo;s climate effects?</li>
+            <li>What does the swing between strict enforcement and looser rules under different Brazilian governments reveal about how environmental policy depends on political will?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>Britain agrees to refuel Saudi jets as Houthi attacks on the kingdom escalate again.</h2>
+          <p>Prime Minister Andy Burnham said the United Kingdom will let a Royal Air Force tanker refuel Saudi warplanes flying defensive missions against Iran backed Houthi rebels in Yemen, after Houthi missiles and drones targeted Saudi Arabia, including one intercepted over Riyadh, and the Houthis declared a blockade on Saudi shipping in the Red Sea. Burnham described the support as limited and under review, running for only a matter of weeks.</p>
+          <p>The deal revives a decades old pattern of Western militaries backing Gulf monarchies against their rivals, even as Britain insists its role stays strictly defensive.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 6 &amp; 8</b>
+          <p>A former imperial power is once again propping up a Gulf ally&rsquo;s air defenses against a regional rival.</p>
+          <ul class="lens-q">
+            <li>How does Britain&rsquo;s limited military support for Saudi Arabia compare to its historic role protecting Gulf rulers during the era of imperial protectorates?</li>
+            <li><span class="norm">Normative</span> Should former colonial powers still provide military support to their old client states in the Gulf?</li>
+            <li>What does Britain&rsquo;s insistence on a strictly defensive role suggest about the limits it wants to place on getting drawn into another Middle Eastern war?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>Drought forces the Panama Canal to keep turning ships away this month.</h2>
+          <p>The Panama Canal Authority has cut daily transit slots to 32 ships, down from a normal 36, after rainfall in the watershed ran more than a third below average and a severe El Nino threatened to dry it out further. The cuts fall hardest on cargo ships waiting in line, some of which now pay steep surcharges for a faster slot.</p>
+          <p>The squeeze is pushing more shippers toward routes around South America or through a Strait of Hormuz already strained by conflict, showing how quickly trouble at one narrow passage can ripple through global trade.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 6 &amp; 9</b>
+          <p>A canal built to shrink the globe for empire and trade now shows how fragile that shrunken world can be.</p>
+          <ul class="lens-q">
+            <li>How does today&rsquo;s dependence on the Panama Canal compare to the canal&rsquo;s original purpose when the United States built it in the early 1900s?</li>
+            <li><span class="norm">Normative</span> Should international authorities prioritize a canal&rsquo;s shipping capacity over conserving the freshwater a surrounding country&rsquo;s people depend on?</li>
+            <li>What does rerouting ships around a drought stricken canal reveal about how much of the modern economy still depends on a handful of narrow choke points?</li>
+          </ul>
+        </aside>
+      </article>
     </div>
-    <div class="fct-badge">&#9654; Open MCQ Skills</div>
-  </a>
-
-  <a href="writing-guide.html" class="full-course-tab" style="margin-top:-16px">
-    <div class="fct-left">
-      <div class="fct-label">Writing Skills</div>
-      <div class="fct-title">How to Write the Essays</div>
-      <div class="fct-sub">SAQ, LEQ &amp; DBQ explained &nbsp;&bull;&nbsp; Every rubric point &nbsp;&bull;&nbsp; Test-day timing</div>
+    <div class="news-controls">
+      <button class="arrow" id="prev" aria-label="Previous story">&larr;</button>
+      <span class="news-dots" id="newsDots"></span>
+      <button class="arrow" id="next" aria-label="Next story">&rarr;</button>
     </div>
-    <div class="fct-badge">&#9654; Open Writing Guide</div>
-  </a>
-</div><!-- /page-content -->
-</div><!-- /main-wrap -->
+  </section>
+
+  <!-- YOUR SIGNAL strip -->
+  <aside class="signal-strip" aria-label="Your progress signal">
+    <div class="ss-label">Your signal</div>
+    <div class="ss-item"><span id="due" class="ss-num">0</span><span class="ss-lbl">due now</span></div>
+    <div class="ss-item"><span id="streak" class="ss-num">0</span><span class="ss-lbl">day streak</span></div>
+    <div class="ss-item"><span id="minutes" class="ss-num">0m</span><span class="ss-lbl">time on site</span></div>
+    <a id="due-cta" class="button lime ss-cta" href="cumulative.html" hidden>Start due review &rarr;</a>
+  </aside>
+
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Study roadmap</div>
+        <h2>What should I do in this unit?</h2>
+      </div>
+      <p>Pick your unit, then the statement that fits. Each move opens the exact tool inside that unit; the bar up top always brings you back here.</p>
+    </div>
+    <div class="roadmap">
+      <div class="unit-picker">
+        <label for="unit-select">We are in:</label>
+        <select id="unit-select"></select>
+      </div>
+      <div class="choices">
+        <button class="choice active" data-mode="new"><b>I am new to this unit.</b><span>I need the big picture first.</span></button>
+        <button class="choice" data-mode="recall"><b>I can&rsquo;t recall it yet.</b><span>I need questions, not notes.</span></button>
+        <button class="choice" data-mode="skill"><b>Sources or writing trip me up.</b><span>I need to rehearse the moves.</span></button>
+        <button class="choice" data-mode="connect"><b>I know facts, not connections.</b><span>I need to see the larger story.</span></button>
+      </div>
+      <div class="recommend">
+        <div class="rc-text">
+          <b id="rec-title">Start with the story.</b>
+          <p id="rec-copy">Open this unit&rsquo;s study guide and build the big picture before you test yourself.</p>
+        </div>
+        <a id="rec-link" class="button" href="unit1.html#pg-guide">Open Study Guide &rarr;</a>
+      </div>
+      <div class="tool-explain">
+        <div class="explain"><b>MCQ &amp; Flashcards</b><span>Best when facts won&rsquo;t come back quickly. Retrieval makes the next review more useful.</span></div>
+        <div class="explain"><b>Study Guide &amp; Overview</b><span>Best when the story is unclear. Build context, then return to questions.</span></div>
+        <div class="explain"><b>Writing &amp; Brain Dump</b><span>Best when you need causation, comparison, or a connected argument.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section>
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">All tools</div>
+        <h2>What does each resource do?</h2>
+      </div>
+      <p>Every tool opens in its own page; the top bar and this dashboard are one click away from wherever you land.</p>
+    </div>
+    <div class="tile-grid">
+      <a class="tile" href="cumulative.html"><i>Review</i><h3>Cumulative Review</h3><span>Use after more than one unit. It mixes old material so retrieval isn&rsquo;t tied to one chapter.</span><strong>Practice &rarr;</strong></a>
+      <a class="tile" href="resources.html"><i>Resources</i><h3>Review Resources</h3><span>Use when you need a clearer explanation, a visual, or a trusted source before you practice.</span><strong>Explore &rarr;</strong></a>
+      <a class="tile" href="brain-sculptor.html"><i>Study</i><h3>The Brain Sculptor</h3><span>Use when rereading feels productive but recall is weak. It shows how to change the habit.</span><strong>Study smarter &rarr;</strong></a>
+      <a class="tile" href="sbmcq.html"><i>Skills</i><h3>Attack the Stimulus MCQ</h3><span>Use when a source, graph, or quotation slows you down. Learn the four-step method.</span><strong>Learn the method &rarr;</strong></a>
+      <a class="tile" href="writing-guide.html"><i>Writing</i><h3>How to Write the Essays</h3><span>Use before an SAQ, LEQ, or DBQ. Every rubric point, HIPP sourcing, and how to build a thesis.</span><strong>Learn to write &rarr;</strong></a>
+      <a class="tile" href="fullcourse.html"><i>Connections</i><h3>Course Narrative</h3><span>Use before a test or essay to connect each unit to the long story of AP World.</span><strong>Open narrative &rarr;</strong></a>
+      <a class="tile" id="maps-tile" href="unit2-map.html"><i>Explore</i><h3>Interactive Maps</h3><span id="maps-tile-desc">Trace the trade routes, empires, and global exchanges on a real map you can highlight.</span><strong id="maps-tile-strong">Open the map &rarr;</strong></a>
+      <a class="tile" id="selected-unit-tile" href="unit1.html"><i>Current unit</i><h3>Unit Review</h3><span>Overview, MCQ practice, writing, flashcards, brain dump, and study guide in one place.</span><strong id="selected-unit-strong">Open Unit 1 &rarr;</strong></a>
+      <a class="tile" id="games-tile" href="unit1.html#pg-games"><i>Games</i><h3>Unit Games</h3><span>Use when you want retrieval that feels like play. Interrogate the myths and connect the terms for the selected unit.</span><strong id="games-strong">Play Unit 1 games &rarr;</strong></a>
+    </div>
+  </section>
+
+  <!-- UNITS -->
+  <section id="units">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">All units</div>
+        <h2>Jump to any unit</h2>
+      </div>
+      <p>Units 1&ndash;9, each with its own review hub. Concurrent units share a time period.</p>
+    </div>
+    <div class="unit-grid" id="unit-grid"></div>
+  </section>
+
+  <p class="foot">Progress (streak, due terms, time on site) is read from this device&rsquo;s local storage and never leaves it. News sources: Associated Press, Al Jazeera, Sept. 21&ndash;25, 2026.</p>
+
+</main>
 
 <!-- ── STUDY-TIMER WELCOME MODAL ── -->
 <div class="wm-overlay wm-hidden" id="wmOverlay" role="dialog" aria-modal="true" aria-labelledby="wmTitle">
   <div class="wm-card">
     <button class="wm-x" id="wmClose" aria-label="Close">&times;</button>
 
-    <!-- STEP 1 — ask -->
+    <!-- STEP 1: ask -->
     <div id="wmAsk">
       <div class="wm-eyebrow">Welcome</div>
       <h2 class="wm-h" id="wmTitle">Hello! How long do you want to study?</h2>
-      <p class="wm-p">Pick a block and we'll run a countdown &mdash; on your phone so you can set it face-down, or right here on this laptop.</p>
+      <p class="wm-p">Pick a block and we'll run a countdown, on your phone so you can set it face-down, or right here on this laptop.</p>
       <div class="wm-sessline" id="wmSessLine"></div>
       <div class="wm-dev">
         <span class="wm-dev-lbl">Timer on:</span>
@@ -351,7 +558,7 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
       <button class="wm-distract" id="wmDistract">No, I would like to be distracted.</button>
     </div>
 
-    <!-- STEP 2 — QR -->
+    <!-- STEP 2: QR -->
     <div id="wmQr" class="wm-hidden">
       <div class="wm-eyebrow">Scan with your phone</div>
       <h2 class="wm-h"><span id="wmQrMin">25</span>-minute study block</h2>
@@ -361,16 +568,16 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
       </div>
       <ol class="wm-steps">
         <li>Open your phone's camera and point it at this code.</li>
-        <li>Tap the link &mdash; a countdown opens on your phone.</li>
+        <li>Tap the link, and a countdown opens on your phone.</li>
         <li>Set the phone face-down and get to work. It rings when you're done.</li>
       </ol>
       <div class="wm-actions">
         <button class="wm-link" id="wmBack">&larr; Pick a different time</button>
-        <button class="wm-link" id="wmDone" style="margin-left:auto;color:var(--red)">I'm set &mdash; close</button>
+        <button class="wm-link" id="wmDone" style="margin-left:auto;color:var(--coral)">I'm set, close</button>
       </div>
     </div>
 
-    <!-- STEP 2b — LAPTOP TIMER -->
+    <!-- STEP 2b: LAPTOP TIMER -->
     <div id="wmLaptop" class="wm-hidden">
       <div class="wm-eyebrow">Focus block</div>
       <h2 class="wm-h"><span id="wmLapMin">25</span>-minute study block</h2>
@@ -388,13 +595,189 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
       <div id="wmLapSummary" class="wm-lap-summary wm-hidden"></div>
       <div class="wm-actions">
         <button class="wm-link" id="wmLapEnd">End early</button>
-        <button class="wm-link" id="wmLapClose" style="margin-left:auto;color:var(--red)">Close</button>
+        <button class="wm-link" id="wmLapClose" style="margin-left:auto;color:var(--coral)">Close</button>
       </div>
     </div>
 
   </div>
 </div>
 
+<script>
+(function(){
+  "use strict";
+
+  var names = ['The Global Tapestry','Networks of Exchange','Land-Based Empires','Transoceanic Interconnections','Revolutions','Consequences of Industrialization','Global Conflict','Cold War & Decolonization','Globalization'];
+  var periods = ['c. 1200–c. 1450','c. 1200–c. 1450','c. 1450–c. 1750','c. 1450–c. 1750','c. 1750–c. 1900','c. 1750–c. 1900','c. 1900–Present','c. 1945–Present','c. 1900–Present'];
+  var concurrent = ['Concurrent with Unit 2','Concurrent with Unit 1','Concurrent with Unit 4','Concurrent with Unit 3','Concurrent with Unit 6','Concurrent with Unit 5','Concurrent with Unit 9','','Concurrent with Unit 7'];
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  // Deep-link target section per roadmap mode. Overrides cover units that lack a tool:
+  //   unit 7 has no Writing Drills  -> skill falls back to Brain Dump
+  //   unit 9 has no MCQ/Flashcards  -> recall falls back to Brain Dump
+  var target = { 'new':'pg-guide', 'recall':'pg-mcq', 'skill':'pg-writing', 'connect':'pg-brain' };
+  var overrides = { 7:{ 'skill':'pg-brain' }, 9:{ 'recall':'pg-brain' } };
+  var sectionLabel = { 'pg-guide':'Study Guide', 'pg-mcq':'MCQ Practice', 'pg-writing':'Writing Drills', 'pg-brain':'Brain Dump' };
+  function sectionFor(u, mode){ return (overrides[u] && overrides[u][mode]) || target[mode]; }
+
+  /* ── SIGNAL (read directly from the shared apReview_v1 blob, same model spaced.js uses) ── */
+  var d = {};
+  try{ d = JSON.parse(localStorage.getItem('apReview_v1')||'{}'); }catch(e){}
+  var sp = d.spaced || {}, log = d.studyLog || {};
+  function pad(n){ return (n<10?'0':'')+n; }
+  function keyOf(x){ return x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate()); }
+  function studied(e){ return !!e && (((e.activeSeconds||0)>=60) || (e.sessionsCompleted||0)>0 || (e.itemsReviewed||0)>0); }
+  var now = new Date();
+  var due = Object.keys(sp).filter(function(k){ return sp[k].nextDue && new Date(sp[k].nextDue) <= now; }).length;
+  var streak = 0, day = new Date(); day.setHours(0,0,0,0);
+  if (!studied(log[keyOf(day)])) day.setDate(day.getDate()-1);
+  while (studied(log[keyOf(day)])){ streak++; day.setDate(day.getDate()-1); }
+  var mins = Math.floor(Object.keys(log).reduce(function(n,k){ return n + (log[k].activeSeconds||0); }, 0) / 60);
+
+  $('due').textContent = due;
+  $('streak').textContent = streak;
+  $('minutes').textContent = mins < 60 ? mins+'m' : Math.floor(mins/60)+'h';
+  // Surface the "clear your queue" nudge here (it used to live on the removed task card).
+  if (due > 0){ $('due-cta').hidden = false; }
+
+  /* ── UNIT SELECT + ROADMAP (deep-links into the picked unit) ── */
+  var select = $('unit-select'), mode = 'new';
+  var opts = '';
+  names.forEach(function(n,i){ opts += '<option value="'+(i+1)+'">Unit '+(i+1)+': '+n+'</option>'; });
+  select.innerHTML = opts;
+
+  function update(){
+    var u = +select.value, name = names[u-1], home = 'unit'+u+'.html';
+    var sec = sectionFor(u, mode), href = home + '#' + sec, label = sectionLabel[sec];
+    var copy = {
+      'new':    'Open ' + name + '’s study guide and build the big picture before you test yourself.',
+      'recall': 'Jump into ' + name + ' and attempt from memory first, then use what you miss to steer your review.',
+      'skill':  'Rehearse the moves that sources and essays demand inside ' + name + '.',
+      'connect':'Recall everything you can in ' + name + ', then see which connections are still missing.'
+    };
+    var titles = { 'new':'Start with the story.', 'recall':'Practice retrieval.', 'skill':'Rehearse the method.', 'connect':'Rebuild the connections.' };
+    $('rec-title').textContent = titles[mode];
+    $('rec-copy').textContent = copy[mode];
+    $('rec-link').setAttribute('href', href);
+    $('rec-link').innerHTML = 'Open ' + label + ' →';
+    $('selected-unit-tile').setAttribute('href', home);
+    $('selected-unit-strong').innerHTML = 'Open Unit ' + u + ' →';
+    // Games tile follows the selected unit and opens straight to its Games tab.
+    $('games-tile').setAttribute('href', home + '#pg-games');
+    $('games-strong').innerHTML = 'Play Unit ' + u + ' games →';
+    // Interactive maps exist for Units 2–4; the tile follows the selected unit.
+    var mapDesc = {
+      2:'Highlight the Silk Roads, Indian Ocean, and trans-Saharan trade — plus goods, cities, and the spread of religions and disease.',
+      3:'Compare the land empires — Ottoman, Safavid, Mughal, Ming–Qing, Russia — and the spread of gunpowder.',
+      4:'Trace the voyages, maritime empires, the Columbian Exchange, the silver trade, and the Atlantic slave trade.'
+    };
+    var mt = $('maps-tile'), mtD = $('maps-tile-desc'), mtS = $('maps-tile-strong');
+    if (mt){
+      if (mapDesc[u]){
+        mt.setAttribute('href','unit'+u+'-map.html');
+        mtD.textContent = mapDesc[u];
+        mtS.innerHTML = 'Open the Unit ' + u + ' map →';
+      } else {
+        mt.setAttribute('href','unit2-map.html');
+        mtD.textContent = 'Interactive maps for Units 2–4 — trade routes, land empires, and the age of exploration on a real map you can highlight.';
+        mtS.innerHTML = 'Explore the maps →';
+      }
+    }
+  }
+  select.addEventListener('change', update);
+  Array.prototype.forEach.call(document.querySelectorAll('.choice'), function(c){
+    c.addEventListener('click', function(){
+      Array.prototype.forEach.call(document.querySelectorAll('.choice'), function(x){ x.classList.remove('active'); });
+      c.classList.add('active');
+      mode = c.getAttribute('data-mode');
+      update();
+    });
+  });
+
+  /* ── UNITS GRID (per-unit progress ring across ALL components) ── */
+  var comps = d.components || {};
+  var UNIT_COMPONENTS = ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain','pg-spice'];
+  function unitPct(u){
+    var comp = comps['u'+u] || {};
+    // Real retrieval coverage: how many distinct MCQ / flashcard items reviewed.
+    var mcqDone = 0, fcDone = 0, pre = 'u'+u+'_', lastReview = 0;
+    for (var key in sp){
+      if (key.indexOf(pre) !== 0) continue;
+      var h = sp[key].reviewHistory;
+      if (h && h.length){ var rt = new Date(h[h.length-1].date).getTime(); if (rt > lastReview) lastReview = rt; }
+      if (key.indexOf(pre+'fc_') === 0) fcDone++; else mcqDone++;
+    }
+    // Each component contributes 0–1: MCQ & flashcards as reviewed/total (real
+    // depth) where a total is known; other tools as engagement (opened).
+    function frac(id){
+      if (id === 'pg-mcq'   && comp.mcqTotal) return Math.min(1, mcqDone / comp.mcqTotal);
+      if (id === 'pg-flash' && comp.fcTotal ) return Math.min(1, fcDone  / comp.fcTotal );
+      if (id === 'pg-mcq'  ) return (mcqDone > 0 || comp[id]) ? 1 : 0;   // no total yet → engagement
+      if (id === 'pg-flash') return (fcDone  > 0 || comp[id]) ? 1 : 0;
+      return comp[id] ? 1 : 0;                                           // guide, writing, brain, spice
+    }
+    // Weight the retrieval tools (MCQ + flashcards) more heavily than the rest,
+    // so actual practice moves the ring faster than just opening reading tools.
+    var WEIGHT = { 'pg-mcq':3, 'pg-flash':3 };
+    function w(id){ return WEIGHT[id] || 1; }
+    var denom = (comp.__all && comp.__all.length) ? comp.__all : ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain'];
+    var sum = 0, tot = 0;
+    denom.forEach(function(id){ sum += w(id) * frac(id); tot += w(id); });
+    var coverage = tot ? (sum / tot * 100) : 0, DECAY_DAYS = 20;
+    // Freshness decay: the ring fades toward 0 as time passes since the last
+    // review, so a unit you stop reviewing visibly slips (and goes red below 50).
+    var touched = lastReview || (comp.ts || 0);
+    var days = touched ? (Date.now() - touched) / 86400000 : null;
+    var decay = (days == null) ? 1 : Math.exp(-Math.max(0, days) / DECAY_DAYS);
+    return Math.round(coverage * decay);
+  }
+  function ring(pct){
+    var R = 34, C = 2 * Math.PI * R, off = C * (1 - pct/100);
+    var low = pct > 0 && pct < 50;
+    var col = pct >= 100 ? 'var(--lime)' : (pct >= 50 ? 'var(--blue)' : (pct > 0 ? '#e5342b' : 'var(--line)'));
+    return '<div class="uc-ring" role="img" aria-label="'+pct+' percent retained">' +
+      '<svg viewBox="0 0 84 84">' +
+        '<circle cx="42" cy="42" r="'+R+'" fill="none" stroke="var(--line)" stroke-width="8"/>' +
+        '<circle cx="42" cy="42" r="'+R+'" fill="none" stroke="'+col+'" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 42 42)"/>' +
+      '</svg><span class="uc-pct"'+(low?' style="color:#e5342b"':'')+'><b>'+pct+'</b><i>%</i></span></div>';
+  }
+  var grid = '';
+  names.forEach(function(n,i){
+    var u = i+1;
+    grid += '<a class="unit-card" href="unit'+u+'.html">' +
+      '<div class="uc-body">' +
+        '<i>Unit '+u+'</i>' +
+        '<h3>'+n+'</h3>' +
+        '<div class="u-period">'+periods[i]+'</div>' +
+        (concurrent[i] ? '<div class="u-conc">'+concurrent[i]+'</div>' : '') +
+        '<div class="u-open">Open review →</div>' +
+      '</div>' +
+      '<div class="uc-ringwrap">' + ring(unitPct(u)) + '</div>' +
+    '</a>';
+  });
+  $('unit-grid').innerHTML = grid;
+
+  update();
+
+  /* ── NEWS CAROUSEL ── */
+  var slides = [].slice.call(document.querySelectorAll('.slide'));
+  var dotWrap = $('newsDots');
+  if (dotWrap){ slides.forEach(function(_, k){ var b = document.createElement('button'); b.className = 'dot' + (k===0?' active':''); b.setAttribute('aria-label','Story '+(k+1)); dotWrap.appendChild(b); }); }
+  var dots = [].slice.call(document.querySelectorAll('.dot'));
+  var i = 0, timer = null;
+  function show(n){
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function(x,k){ x.classList.toggle('active', k===i); });
+    dots.forEach(function(x,k){ x.classList.toggle('active', k===i); });
+  }
+  function restart(){ clearInterval(timer); timer = setInterval(function(){ show(i+1); }, 15000); }
+  dots.forEach(function(x,n){ x.addEventListener('click', function(){ show(n); restart(); }); });
+  $('prev').addEventListener('click', function(){ show(i-1); restart(); });
+  $('next').addEventListener('click', function(){ show(i+1); restart(); });
+  restart();
+
+})();
+</script>
 <script src="spaced.js"></script>
 <script src="qrcode.min.js"></script>
 <script>
@@ -406,11 +789,9 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
   // Only greet on a laptop/desktop (fine pointer + roomy screen).
   var isLaptop = window.matchMedia('(min-width:768px) and (pointer:fine)').matches;
   if (!isLaptop) return;
-  // Prompt every time the site is opened fresh (new tab, bookmark, typed URL, or a link
-  // from outside the site). Stay quiet only while navigating within the site, so clicking
-  // around the hub doesn't re-nag them.
-  var fromThisSite = document.referrer && document.referrer.indexOf(location.origin + '/') === 0;
-  if (fromThisSite) return;
+  // Greet once per browser session. (In preview mode the home routes here via a
+  // redirect, which makes document.referrer unreliable, so gate on the session.)
+  try { if (sessionStorage.getItem('wmGreeted')) return; sessionStorage.setItem('wmGreeted','1'); } catch(e){}
 
   var ask = document.getElementById('wmAsk');
   var qrView = document.getElementById('wmQr');
@@ -425,7 +806,6 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     document.body.style.overflow = '';
   }
 
-  // Session-start line — "Today's session pulls from: N due · M new".
   function fillSessLine(){
     var el = document.getElementById('wmSessLine');
     if (!el) return;
@@ -433,27 +813,22 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     else { el.style.display = 'none'; }
   }
 
-  // Where the timer runs: phone (QR hand-off) or this laptop (in-page).
   function go(minutes){ if (device === 'laptop') startLaptop(minutes); else showQr(minutes); }
 
   function showQr(minutes){
-    // Build the URL the phone will open. location.origin keeps it correct on any deploy domain.
-    var base = location.href.replace(/[^\/]*(\?.*)?$/, ''); // strip index.html / query -> directory URL
+    var base = location.href.replace(/[^\/]*(\?.*)?$/, ''); // strip page/query -> directory URL
     var url = base + 'timer.html?m=' + encodeURIComponent(minutes);
-
     qrBox.innerHTML = '';
     try{
-      var qr = qrcode(0, 'M');     // 0 = auto-size, M = ~15% error correction
+      var qr = qrcode(0, 'M');
       qr.addData(url);
       qr.make();
-      qrBox.innerHTML = qr.createImgTag(6, 0); // cellSize 6px, no internal margin (we pad via CSS)
+      qrBox.innerHTML = qr.createImgTag(6, 0);
       var img = qrBox.querySelector('img');
       if (img){ img.removeAttribute('width'); img.removeAttribute('height'); img.alt = 'QR code to open a ' + minutes + '-minute timer'; }
     }catch(e){
-      // Fallback: a plain tappable link if QR generation ever fails.
-      qrBox.innerHTML = '<a href="' + url + '" style="font-family:Lato,system-ui,sans-serif;font-size:.8rem;word-break:break-all;color:#b0001c">' + url + '</a>';
+      qrBox.innerHTML = '<a href="' + url + '" style="font-size:.8rem;word-break:break-all;color:#2d5deb">' + url + '</a>';
     }
-
     document.getElementById('wmQrMin').textContent = minutes;
     ask.classList.add('wm-hidden');
     qrView.classList.remove('wm-hidden');
@@ -467,7 +842,6 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     ask.classList.remove('wm-hidden');
   }
 
-  /* ── device switch (phone vs. this laptop) ── */
   var devBtns = document.querySelectorAll('.wm-dev-btn');
   Array.prototype.forEach.call(devBtns, function(b){
     b.addEventListener('click', function(){
@@ -476,7 +850,6 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     });
   });
 
-  /* ── laptop-side study timer (records a completed session to the streak) ── */
   var LC = 2 * Math.PI * 54;
   var lapRingFg = document.getElementById('wmRingFg');
   if (lapRingFg){ lapRingFg.style.strokeDasharray = LC; lapRingFg.style.strokeDashoffset = 0; }
@@ -536,13 +909,12 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     document.getElementById('wmClock').textContent = '00:00';
     if (lapRingFg) lapRingFg.style.strokeDashoffset = 0;
     document.getElementById('wmSub').textContent = "time's up";
-    document.getElementById('wmLapMsg').textContent = 'Nice work — this session is logged to your streak.';
+    document.getElementById('wmLapMsg').textContent = 'Nice work. This session is logged to your streak.';
     document.getElementById('wmLapEnd').textContent = 'Start another block';
     if (!lapLogged){ lapLogged = true; try{ if (window.SPACED && SPACED.recordSession) SPACED.recordSession(); }catch(e){} }
     renderLapSummary();
     beep(); buzz();
   }
-  // End-of-session summary: what moved during this block + today's streak dot.
   function renderLapSummary(){
     var el = document.getElementById('wmLapSummary');
     if (!el || !(window.SPACED && SPACED.sessionSummary)) return;
@@ -550,25 +922,22 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     var streak = SPACED.streakLength ? SPACED.streakLength() : 0;
     var line = s.reviewed
       ? '<b>' + s.reviewed + '</b> reviewed &middot; <b>' + s.resurface + '</b> will resurface sooner &middot; <b>' + s.pushed + '</b> pushed further out'
-      : 'No reviews logged this block — but showing up still counts.';
+      : 'No reviews logged this block, but showing up still counts.';
     el.innerHTML = '<div class="wm-lap-sum-line">' + line + '</div>' +
-      '<div class="wm-lap-streak"><span class="wm-lap-dot"></span><span>Day ' + streak + ' of your streak — logged</span></div>';
+      '<div class="wm-lap-streak"><span class="wm-lap-dot"></span><span>Day ' + streak + ' of your streak, logged</span></div>';
     el.classList.remove('wm-hidden');
   }
   function lapEnd(){
-    if (lapView.classList.contains('wm-done')){ backToAsk(); return; } // "Start another block"
+    if (lapView.classList.contains('wm-done')){ backToAsk(); return; }
     if (!confirm('End this study block early? It won’t count toward your streak.')) return;
     lapStop(); backToAsk();
   }
-  // Recompute against the real clock after the tab was backgrounded.
   document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible' && lapEndTime) lapRender(); });
 
-  // duration presets
   Array.prototype.forEach.call(document.querySelectorAll('.wm-opt'), function(btn){
     btn.addEventListener('click', function(){ go(parseInt(btn.getAttribute('data-min'), 10)); });
   });
 
-  // custom minutes
   function customGo(){
     var v = parseInt(document.getElementById('wmCustom').value, 10);
     if (isNaN(v) || v < 1){ document.getElementById('wmCustom').focus(); return; }
@@ -588,6 +957,55 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !overlay.classList.contains('wm-hidden')) close(); });
 
   open();
+})();
+</script>
+<script>
+/* ── DARK-MODE TOGGLE ── */
+(function(){
+  "use strict";
+  var root = document.documentElement, btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  var knob = document.getElementById('ttKnob');
+  function paint(){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    btn.setAttribute('aria-checked', dark ? 'true' : 'false');
+    if (knob) knob.innerHTML = dark ? '&#9790;' : '&#9728;'; // moon : sun
+  }
+  paint();
+  btn.addEventListener('click', function(){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    if (dark) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', 'dark');
+    try{ localStorage.setItem('mcTheme', dark ? 'light' : 'dark'); }catch(e){}
+    paint();
+  });
+})();
+</script>
+<script>
+/* Nav dropdowns: click to toggle, click away (or Esc) to close. */
+(function(){
+  var dds = Array.prototype.slice.call(document.querySelectorAll('nav.links .dd'));
+  if(!dds.length) return;
+  function closeAll(except){
+    dds.forEach(function(d){
+      if(d===except) return;
+      d.classList.remove('open');
+      var t=d.querySelector('.dd-t'); if(t) t.setAttribute('aria-expanded','false');
+    });
+  }
+  dds.forEach(function(dd){
+    var trig=dd.querySelector('.dd-t'); if(!trig) return;
+    trig.setAttribute('aria-haspopup','true');
+    trig.setAttribute('aria-expanded','false');
+    trig.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var open=!dd.classList.contains('open');
+      closeAll(dd);
+      dd.classList.toggle('open', open);
+      trig.setAttribute('aria-expanded', open?'true':'false');
+    });
+  });
+  document.addEventListener('click', function(e){ if(!e.target.closest('.dd')) closeAll(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(); });
 })();
 </script>
 </body>

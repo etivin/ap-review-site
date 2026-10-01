@@ -45,7 +45,7 @@ html[data-mc="on"]{
 .nav-item.active{border-left-color:var(--lime)!important;background:rgba(244,205,79,.14)!important}
 .nav-item.active .nav-dot{background:var(--lime)!important}
 
-/* ── mission-control.html: gold accents on its navy bar ── */
+/* ── index.html (Mission Control dashboard): gold accents on its navy bar ── */
 .brand .bt b, .brand b{color:var(--lime)!important}
 
 /* ── brand lockup: circular globe+shield emblem + wordmark.

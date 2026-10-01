@@ -48,8 +48,8 @@
 
   // [title, url, description, keywords, type]
   var PAGES = [
-    ['Mission Control', 'mission-control.html', 'The dashboard: news, your streak, and every unit.', 'home dashboard main start', 'Page'],
-    ['All Units', 'mission-control.html#units', 'Jump to any of the nine units.', 'units list roadmap', 'Page'],
+    ['Mission Control', './', 'The dashboard: news, your streak, and every unit.', 'home dashboard main start', 'Page'],
+    ['All Units', './#units', 'Jump to any of the nine units.', 'units list roadmap', 'Page'],
     ['How to Write the Essays', 'writing-guide.html', 'Every rubric point for the SAQ, LEQ, and DBQ.', 'writing guide essay saq leq dbq rubric how to write', 'Writing'],
     ['HIPP Sourcing', 'writing-guide.html#hipp', 'Historical situation, Intended audience, Point of view, Purpose.', 'hipp sourcing sourcing documents historical situation intended audience point of view purpose pov dbq', 'Writing'],
     ['Writing a Thesis', 'writing-guide.html#thesis', 'How to build a defensible claim with a line of reasoning.', 'thesis claim argument line of reasoning', 'Writing'],
@@ -215,7 +215,8 @@
   }
   function go(e) {
     close();
-    var here = location.pathname.split('/').pop() || 'index.html', parts = e.u.split('#');
+    var here = location.pathname.split('/').pop() || './', parts = e.u.split('#');
+    if (here === 'index.html') here = './';
     // same page + hash: hashchange handlers (unit tabs) take it from here
     if (parts[0] === here && parts[1]) { if (location.hash === '#' + parts[1]) location.hash = ''; location.hash = parts[1]; }
     else location.href = e.u;

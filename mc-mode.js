@@ -8,11 +8,10 @@
    code. The choice is remembered per-device in localStorage.
 
    When ON:
-     • the home (index.html) routes to the dashboard (mission-control.html)
+     • the home page (index.html) is the dashboard itself
      • standard pages get <html data-mc="on">, which activates the dormant
        rules in mission-theme.css (navy/lime Mission Control theme)
    When OFF:
-     • the dashboard routes back to the original hub
      • nothing is themed — the site is exactly as published
 
    Change the code below to change the password.
@@ -28,13 +27,10 @@
   function setOn(v){ try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
 
   var p = location.pathname;
-  var isDash = /mission-control\.html$/i.test(p);
-  var isHome = !isDash && (p === '' || p === '/' || /\/$/.test(p) || /\/index\.html$/i.test(p));
+  // The dashboard IS the home page (index.html), so the bare domain shows it
+  // directly. Old mission-control.html links land on a stub that redirects here.
+  var isDash = p === '' || /\/$/.test(p) || /\/index\.html$/i.test(p);
   var on = isOn();
-
-  // Route "home" to the right place for the current mode — before the body paints.
-  if (on && isHome)  { location.replace('mission-control.html'); return; }
-  if (!on && isDash) { location.replace('index.html'); return; }
 
   // Activate the dormant theme on standard pages when the preview is on
   // (the dashboard is self-styled, so it is skipped).
@@ -55,7 +51,7 @@
         if (ans.trim().toLowerCase() === PW) {
           var next = !isOn();
           setOn(next);
-          location.replace(next ? 'mission-control.html' : 'index.html');
+          location.replace('./');
         } else {
           window.alert('Incorrect code.');
         }
@@ -125,11 +121,11 @@
     var bar = document.createElement('header'); bar.id = 'mc-bar';
     bar.innerHTML =
       '<div class="mcb-left">' +
-        '<a class="mcb-back" href="mission-control.html">&larr; Dashboard</a>' +
-        '<a class="mcb-brand" href="mission-control.html">APWH <b>/</b> MISSION CONTROL</a>' +
+        '<a class="mcb-back" href="./">&larr; Dashboard</a>' +
+        '<a class="mcb-brand" href="./">APWH <b>/</b> MISSION CONTROL</a>' +
       '</div>' +
       '<nav>' +
-        '<a href="mission-control.html#units">Units</a>' +
+        '<a href="./#units">Units</a>' +
         group('How to', [['sbmcq.html', 'How to Stimulus MCQ'], ['brain-sculptor.html', 'How to Study'], ['writing-guide.html', 'How to Write']]) +
         group('Review', [['resources.html', 'Resources'], ['cumulative.html', 'Cumulative'], ['fullcourse.html', 'Narrative']]) +
       '</nav>';

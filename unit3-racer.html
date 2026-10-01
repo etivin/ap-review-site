@@ -237,7 +237,8 @@ const QUESTIONS = [
   ['3.4', 'European rulers justified power through…', 'Divine right', 'Mandate of Heaven', 'Elections',
     'Divine right said the monarch\'s authority came straight from God, so subjects had to obey.'],
 ];
-const GATE_AHEAD = 95000;     // how far ahead a gate appears (≈8 seconds of reading at top speed)
+const GATE_AHEAD = 95000;     // minimum distance ahead a gate appears
+const READ_TIME = 9;          // ...stretched at higher speeds so there are always ~9s to read the question
 const GATE_GAP = [12000, 22000]; // road after the feedback clears before the next question
 const GATE_CLEAR = 9000;     // keep traffic and pickups this far from a gate
 const LANE_SPRING = 220;       // lane-change spring stiffness: higher = quicker hop (critically damped, so no overshoot)
@@ -413,7 +414,8 @@ function spawnGate(pz) {
   if (!deck.length) deck = QUESTIONS.slice().sort(() => Math.random() - 0.5);
   const q = deck.pop();
   const opts = [q[2], q[3], q[4]].sort(() => Math.random() - 0.5);
-  gate = { type: 'gate', q, opts, answer: opts.indexOf(q[2]), z: (pz + GATE_AHEAD) % trackLength, offset: 0,
+  const ahead = Math.max(GATE_AHEAD, speed * READ_TIME);
+  gate = { type: 'gate', q, opts, answer: opts.indexOf(q[2]), z: (pz + ahead) % trackLength, d0: ahead, offset: 0,
     result: null, picked: -1 };
   // clear traffic already sitting where the gate will be
   cars = cars.filter(c => !nearGate(c.z));
@@ -1273,7 +1275,8 @@ function drawItem(x, y, k, it) {
 }
 
 // ---------- Checkpoint gates ----------
-const LANE_COL = ['#2d5deb', '#d99a00', '#8a3fd6'], LETTERS = ['A', 'B', 'C'];
+const LANE_COL = ['#2d5deb', '#f2b705', '#8a3fd6'], LETTERS = ['A', 'B', 'C'];
+const LANE_TXT = ['#fff', '#111a3f', '#fff']; // dark text on the gold lane — white on gold is hard to read
 function drawGate(x, y, k, g) {
   const lw = k * ROAD_W * 2 / 3, top = y - k * 1600, bh = k * 560;
   if (lw < 3) return;
@@ -1289,11 +1292,16 @@ function drawGate(x, y, k, g) {
     ctx.lineWidth = Math.max(1, k * 18); ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.stroke();
     pushLight(lx, top + bh / 2, bw * 0.7, '255,255,255', 0.25);
     if (bh > 9) {
-      ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      // outlined text so the sign stays legible against any banner or sky colour
+      const txt = g.result ? '#fff' : LANE_TXT[i];
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+      ctx.strokeStyle = txt === '#fff' ? 'rgba(0,0,0,.55)' : 'rgba(255,255,255,.6)';
       ctx.font = `900 ${Math.round(bh * 0.34)}px Lato, system-ui, sans-serif`;
-      ctx.fillText(LETTERS[i], lx, top + bh * 0.3, bw * 0.9);
-      ctx.font = `700 ${Math.round(bh * 0.24)}px Lato, system-ui, sans-serif`;
-      ctx.fillText(g.opts[i], lx, top + bh * 0.7, bw * 0.9);
+      ctx.lineWidth = Math.max(1, bh * 0.05); ctx.strokeText(LETTERS[i], lx, top + bh * 0.3, bw * 0.9);
+      ctx.fillStyle = txt; ctx.fillText(LETTERS[i], lx, top + bh * 0.3, bw * 0.9);
+      ctx.font = `800 ${Math.round(bh * 0.27)}px Lato, system-ui, sans-serif`;
+      ctx.lineWidth = Math.max(1, bh * 0.04); ctx.strokeText(g.opts[i], lx, top + bh * 0.7, bw * 0.92);
+      ctx.fillStyle = txt; ctx.fillText(g.opts[i], lx, top + bh * 0.7, bw * 0.92);
       ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
     }
   }
@@ -1312,39 +1320,52 @@ function wrap(text, maxW) {
 
 function drawQuestion() {
   const x = 208, w = W - 220, pad = 14;
+  const solid = (h) => { ctx.fillStyle = 'rgba(8,12,26,.93)'; rrect(x, 12, w, h, 10); }; // near-opaque so the sky can't bleed through
   if (gate && !gate.result) {
     const [topic, prompt] = gate.q;
-    ctx.font = '900 18px Lato, system-ui, sans-serif';
+    ctx.font = '900 22px Lato, system-ui, sans-serif';
     const lines = wrap(prompt, w - pad * 2);
-    const h = 58 + lines.length * 22;
-    panel(x, 12, w, h);
+    const qTop = 58, chipY = qTop + lines.length * 27 - 8, chipH = 36, h = chipY + chipH + 18 - 12;
+    solid(h);
     ctx.fillStyle = '#d8f13a'; ctx.fillRect(x, 12, 5, h);
-    const dist = Math.max(0, Math.round(rel(gate.z, (position + PLAYER_Z) % trackLength) / 100));
-    ctx.fillStyle = '#9fb0c8'; ctx.font = '700 10px Lato, system-ui, sans-serif';
-    ctx.fillText(`CHECKPOINT ${asked + 1} · TOPIC ${topic}`, x + pad, 30);
-    ctx.textAlign = 'right'; ctx.fillText(`GATE IN ${dist} m`, x + w - pad, 30); ctx.textAlign = 'left';
-    ctx.fillStyle = '#fff'; ctx.font = '900 18px Lato, system-ui, sans-serif';
-    lines.forEach((l, i) => ctx.fillText(l, x + pad, 52 + i * 22));
-    const cy = 52 + lines.length * 22 - 6, cw = (w - pad * 2 - 16) / 3;
+    const left = Math.max(0, rel(gate.z, (position + PLAYER_Z) % trackLength));
+    ctx.fillStyle = '#b8c6dc'; ctx.font = '800 11px Lato, system-ui, sans-serif';
+    ctx.fillText(`CHECKPOINT ${asked + 1} · TOPIC ${topic}`, x + pad, 31);
+    ctx.textAlign = 'right'; ctx.fillText(`GATE IN ${Math.round(left / 100)} m`, x + w - pad, 31); ctx.textAlign = 'left';
+    ctx.fillStyle = '#fff'; ctx.font = '900 22px Lato, system-ui, sans-serif';
+    lines.forEach((l, i) => ctx.fillText(l, x + pad, qTop + i * 27));
+    const cw = (w - pad * 2 - 16) / 3;
     for (let i = 0; i < 3; i++) {
       const cx = x + pad + i * (cw + 8);
-      ctx.fillStyle = LANE_COL[i]; rrect(cx, cy, cw, 22, 4);
-      ctx.fillStyle = '#fff'; ctx.font = '700 12px Lato, system-ui, sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(['◀ ', '▲ ', ''][i] + LETTERS[i] + ': ' + gate.opts[i] + (i === 2 ? ' ▶' : ''), cx + cw / 2, cy + 15, cw - 8);
-      ctx.textAlign = 'left';
+      ctx.fillStyle = LANE_COL[i]; rrect(cx, chipY, cw, chipH, 6);
+      // lane letter in a white disc, then the answer at the largest size that fits (never squashed)
+      ctx.fillStyle = '#fff'; circle(cx + 17, chipY + chipH / 2, 11);
+      ctx.fillStyle = LANE_COL[i] === '#f2b705' ? '#111a3f' : LANE_COL[i];
+      ctx.font = '900 13px Lato, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(LETTERS[i], cx + 17, chipY + chipH / 2 + 1);
+      const room = cw - 40;
+      let size = 16;
+      do { ctx.font = `800 ${size}px Lato, system-ui, sans-serif`; } while (ctx.measureText(gate.opts[i]).width > room && --size > 11);
+      ctx.fillStyle = LANE_TXT[i];
+      ctx.fillText(gate.opts[i], cx + 34 + room / 2, chipY + chipH / 2 + 1, room);
+      ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
     }
+    // countdown bar: shrinks as the gate gets closer
+    const by = chipY + chipH + 8, frac = clamp(left / (gate.d0 || GATE_AHEAD), 0, 1);
+    ctx.fillStyle = 'rgba(255,255,255,.15)'; rrect(x + pad, by, w - pad * 2, 4, 2);
+    ctx.fillStyle = frac < 0.25 ? '#ff8a65' : '#d8f13a'; rrect(x + pad, by, (w - pad * 2) * frac, 4, 2);
   } else if (feedback) {
     const { ok, g } = feedback;
-    ctx.font = '13px Lato, system-ui, sans-serif';
+    ctx.font = '15px Lato, system-ui, sans-serif';
     const lines = wrap(g.q[5], w - pad * 2);
-    const h = 44 + lines.length * 17;
+    const h = 50 + lines.length * 20;
     ctx.globalAlpha = Math.min(1, feedback.t * 2);
-    panel(x, 12, w, h);
+    solid(h);
     ctx.fillStyle = ok ? '#2e9d4f' : '#d83a2e'; ctx.fillRect(x, 12, 5, h);
-    ctx.fillStyle = ok ? '#9ef07a' : '#ff8a80'; ctx.font = '900 16px Lato, system-ui, sans-serif';
-    ctx.fillText((ok ? '✓ CORRECT — ' : '✕ ANSWER: ') + g.q[2], x + pad, 36, w - pad * 2);
-    ctx.fillStyle = '#dfe6f2'; ctx.font = '13px Lato, system-ui, sans-serif';
-    lines.forEach((l, i) => ctx.fillText(l, x + pad, 56 + i * 17));
+    ctx.fillStyle = ok ? '#9ef07a' : '#ff8a80'; ctx.font = '900 18px Lato, system-ui, sans-serif';
+    ctx.fillText((ok ? '✓ CORRECT — ' : '✕ ANSWER: ') + g.q[2], x + pad, 38, w - pad * 2);
+    ctx.fillStyle = '#e8eef8'; ctx.font = '15px Lato, system-ui, sans-serif';
+    lines.forEach((l, i) => ctx.fillText(l, x + pad, 62 + i * 20));
     ctx.globalAlpha = 1;
   } else if (fly > 0) {
     panel(x, 12, w, 44);

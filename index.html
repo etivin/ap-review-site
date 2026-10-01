@@ -70,14 +70,6 @@ a{color:inherit}
 .dot{width:9px;height:9px;background:#4a568c;border:0;cursor:pointer;padding:0}
 .dot.active{background:var(--lime)}
 
-/* ── YOUR SIGNAL strip (under the news) ── */
-.signal-strip{display:flex;align-items:center;gap:20px 34px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:16px 26px;margin-top:12px;border:2px solid var(--navy)}
-.ss-label{font:900 .8rem 'Lato',sans-serif;letter-spacing:-.03em;color:var(--lime)}
-.ss-item{display:flex;align-items:baseline;gap:9px}
-.ss-num{font:900 1.5rem 'Lato',sans-serif;color:var(--lime)}
-.ss-lbl{font-size:.56rem;text-transform:uppercase;letter-spacing:.08em;color:#aeb9e6}
-.ss-cta{margin-left:auto}
-
 /* ── ROADMAP ── */
 .roadmap{border:2px solid var(--navy);padding:24px 24px 26px}
 .unit-picker{display:flex;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap}
@@ -136,13 +128,12 @@ a{color:inherit}
   .choices,.tool-explain,.tile-grid,.unit-grid{grid-template-columns:1fr}
   .recommend{flex-direction:column;align-items:flex-start}
   .unit-picker{flex-direction:column;align-items:flex-start}
-  .ss-cta{margin-left:0}
 }
 
 /* exit chip in the bar; the secret toggle-off control (mc-mode.js wires it) */
 .mc-exit{font:inherit;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);background:var(--lime);border:2px solid var(--navy);padding:5px 10px;cursor:pointer}
 .mc-exit:hover{background:#fff}
-/* hide spaced.js's auto streak banner (the dashboard shows its own signal strip) */
+/* hide spaced.js's auto streak banner (not shown on the dashboard) */
 #spx-banner{display:none!important}
 
 /* ── STUDY-TIMER WELCOME MODAL (Mission Control styling) ── */
@@ -220,8 +211,6 @@ body{line-height:1.6}
 .lens-q .norm{display:inline-block;background:var(--lime);color:var(--navy);font-weight:700;font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;margin-right:6px;vertical-align:baseline}
 .news-dots{display:flex;gap:8px;align-items:center}
 .news-src{color:#b8c2ea}
-/* signal strip */
-.ss-lbl{color:#cdd6f5;font-size:.6rem}
 /* roadmap */
 .choice b{font-size:.8rem}
 .choice span{color:#2f3b63;font-size:.7rem;line-height:1.4}
@@ -448,15 +437,6 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
     </div>
   </section>
 
-  <!-- YOUR SIGNAL strip -->
-  <aside class="signal-strip" aria-label="Your progress signal">
-    <div class="ss-label">Your signal</div>
-    <div class="ss-item"><span id="due" class="ss-num">0</span><span class="ss-lbl">due now</span></div>
-    <div class="ss-item"><span id="streak" class="ss-num">0</span><span class="ss-lbl">day streak</span></div>
-    <div class="ss-item"><span id="minutes" class="ss-num">0m</span><span class="ss-lbl">time on site</span></div>
-    <a id="due-cta" class="button lime ss-cta" href="cumulative.html" hidden>Start due review &rarr;</a>
-  </aside>
-
   <!-- ROADMAP -->
   <section id="roadmap">
     <div class="sec-head">
@@ -526,7 +506,7 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
     <div class="unit-grid" id="unit-grid"></div>
   </section>
 
-  <p class="foot">Progress (streak, due terms, time on site) is read from this device&rsquo;s local storage and never leaves it. News sources: Associated Press, Al Jazeera, Sept. 21&ndash;25, 2026.</p>
+  <p class="foot">Progress is read from this device&rsquo;s local storage and never leaves it. News sources: Associated Press, Al Jazeera, Sept. 21&ndash;25, 2026.</p>
 
 </main>
 
@@ -621,25 +601,10 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
   var sectionLabel = { 'pg-guide':'Study Guide', 'pg-mcq':'MCQ Practice', 'pg-writing':'Writing Drills', 'pg-brain':'Brain Dump' };
   function sectionFor(u, mode){ return (overrides[u] && overrides[u][mode]) || target[mode]; }
 
-  /* ── SIGNAL (read directly from the shared apReview_v1 blob, same model spaced.js uses) ── */
+  /* ── Progress data (read directly from the shared apReview_v1 blob, same model spaced.js uses) ── */
   var d = {};
   try{ d = JSON.parse(localStorage.getItem('apReview_v1')||'{}'); }catch(e){}
-  var sp = d.spaced || {}, log = d.studyLog || {};
-  function pad(n){ return (n<10?'0':'')+n; }
-  function keyOf(x){ return x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate()); }
-  function studied(e){ return !!e && (((e.activeSeconds||0)>=60) || (e.sessionsCompleted||0)>0 || (e.itemsReviewed||0)>0); }
-  var now = new Date();
-  var due = Object.keys(sp).filter(function(k){ return sp[k].nextDue && new Date(sp[k].nextDue) <= now; }).length;
-  var streak = 0, day = new Date(); day.setHours(0,0,0,0);
-  if (!studied(log[keyOf(day)])) day.setDate(day.getDate()-1);
-  while (studied(log[keyOf(day)])){ streak++; day.setDate(day.getDate()-1); }
-  var mins = Math.floor(Object.keys(log).reduce(function(n,k){ return n + (log[k].activeSeconds||0); }, 0) / 60);
-
-  $('due').textContent = due;
-  $('streak').textContent = streak;
-  $('minutes').textContent = mins < 60 ? mins+'m' : Math.floor(mins/60)+'h';
-  // Surface the "clear your queue" nudge here (it used to live on the removed task card).
-  if (due > 0){ $('due-cta').hidden = false; }
+  var sp = d.spaced || {};
 
   /* ── UNIT SELECT + ROADMAP (deep-links into the picked unit) ── */
   var select = $('unit-select'), mode = 'new';

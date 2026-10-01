@@ -4,14 +4,13 @@
    Header patterns: classic sidebar (.sb-brand), top bar (.bar .brand), and
    the Mission-Control injected strip (#mc-bar .mcb-brand). */
 (function () {
-  // The globe (incl. shield) sits at x149..1029, y341..1221 in the 1179x1468 art.
+  // tivin-emblem.png is the globe (incl. shield) pre-cropped from the logo art,
+  // circle-masked so none of the arced text shows.
   // Size is driven by the --em custom property so the header can shrink on scroll
   // (see .bar.tivin-shrink in brand.css) — width/bg all scale off --em.
   function emblemStyle(S) {
     return '--em:' + S + 'px;flex-shrink:0;width:var(--em);height:var(--em);border-radius:50%;' +
-      'background:#69b2e7 url(tivin-logo.jpg) no-repeat;' +
-      'background-size:calc(var(--em)*1.3398) calc(var(--em)*1.6682);' +
-      'background-position:calc(var(--em)*-0.1693) calc(var(--em)*-0.3875);' +
+      'background:#69b3e7 url(tivin-emblem.png) no-repeat center/cover;' +
       'box-shadow:0 3px 12px rgba(0,0,0,.28)';
   }
   function makeLockup(S, compact) {

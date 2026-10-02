@@ -110,7 +110,7 @@ a{color:inherit}
 .unit-card .u-open{margin-top:auto;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--blue);padding-top:8px}
 
 /* ── ABOUT THE TEACHER ── */
-.about{display:grid;grid-template-columns:300px 1fr;gap:0 32px;border:2px solid var(--navy);background:#fff;padding:28px 28px 0;box-shadow:6px 6px 0 var(--navy);overflow:hidden}
+.about{display:grid;grid-template-columns:clamp(240px,32%,380px) 1fr;gap:0 32px;border:2px solid var(--navy);background:#fff;padding:28px 28px 0;box-shadow:6px 6px 0 var(--navy);overflow:hidden}
 .about-side{display:flex;flex-direction:column;gap:16px;margin-bottom:28px;contain:size} /* height follows the text column; photo crops to fill */
 .about-photo{margin:0;border:2px solid var(--navy);background:var(--sky);flex:1;min-height:0;display:flex;flex-direction:column}
 .about-photo img{display:block;width:100%;flex:1;min-height:0;object-fit:cover;object-position:50% 15%}
@@ -131,7 +131,7 @@ a{color:inherit}
 .about-contact .button{font-size:.75rem}
 .about-contact span{font-size:.9rem;color:var(--muted)}
 .about-quotes{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;margin:0 -28px;background:var(--navy);color:#fff}
-.about-quotes blockquote{margin:0;padding:34px 36px;font:700 1.35rem/1.45 'Lato',sans-serif;letter-spacing:-.01em}
+.about-quotes blockquote{margin:0;padding:30px 34px;font:700 1.1rem/1.45 'Lato',sans-serif;letter-spacing:-.01em}
 .about-quotes blockquote + blockquote{border-left:3px solid var(--lime)}
 .about-quotes cite{display:block;margin-top:14px;font-style:normal;font-weight:900;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime)}
 
@@ -144,12 +144,12 @@ a{color:inherit}
   .slide{grid-template-columns:1fr}
   .about{grid-template-columns:1fr;padding:18px 18px 0;gap:0}
   .about-quotes{margin:0 -18px}
-  .about-quotes blockquote{padding:26px 22px;font-size:1.15rem}
+  .about-quotes blockquote{padding:24px 22px;font-size:1rem}
   .about-quotes blockquote + blockquote{border-left:0;border-top:3px solid var(--lime)}
   .about-side{margin-bottom:20px;contain:none}
   .about-photo{flex:none}
   .about-photo img{flex:none;aspect-ratio:720/889;height:auto}
-  .about-photo{max-width:260px}
+  .about-photo{max-width:320px}
   .about-quotes{grid-template-columns:1fr}
   .choices,.tool-explain{grid-template-columns:1fr 1fr}
   /* Keep the nav visible so "get back" is always one tap away; let the bar grow instead of hiding links. */

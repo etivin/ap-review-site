@@ -50,6 +50,8 @@
   var PAGES = [
     ['Mission Control', './', 'The dashboard: news, your streak, and every unit.', 'home dashboard main start', 'Page'],
     ['All Units', './#units', 'Jump to any of the nine units.', 'units list roadmap', 'Page'],
+    ['Meet Mr. Tivin', './#about', 'About the teacher: philosophy, our class, and how to reach Mr. Tivin.', 'about teacher mr tivin eli contact email philosophy dewey', 'Page'],
+    ['Course Syllabus', './#syllabus', 'The 2026-2027 AP World History: Modern syllabus (PDF).', 'syllabus grading late work policy ai phones course goals', 'Page'],
     ['How to Write the Essays', 'writing-guide.html', 'Every rubric point for the SAQ, LEQ, and DBQ.', 'writing guide essay saq leq dbq rubric how to write', 'Writing'],
     ['HIPP Sourcing', 'writing-guide.html#hipp', 'Historical situation, Intended audience, Point of view, Purpose.', 'hipp sourcing sourcing documents historical situation intended audience point of view purpose pov dbq', 'Writing'],
     ['Writing a Thesis', 'writing-guide.html#thesis', 'How to build a defensible claim with a line of reasoning.', 'thesis claim argument line of reasoning', 'Writing'],

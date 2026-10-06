@@ -1051,7 +1051,7 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
   overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !overlay.classList.contains('wm-hidden')) close(); });
 
-  open();
+  // Auto-open on page load disabled; call open() here to bring the study-time prompt back.
 })();
 </script>
 <script>

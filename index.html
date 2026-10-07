@@ -55,10 +55,16 @@ a{color:inherit}
 @keyframes blink{50%{opacity:.2}}
 .news-kicker{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);font-weight:700}
 .news-src{margin-left:auto;font-size:.58rem;letter-spacing:.06em;color:#7a86bc;text-transform:uppercase}
-.slides{min-height:184px;margin-top:8px}
-.slide{display:none;grid-template-columns:1.14fr .86fr;gap:30px;align-items:end}
-.slide.active{display:grid;animation:fade .4s ease}
-@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.slides{min-height:184px;margin-top:8px;display:grid}
+/* All slides share one grid cell, so the card holds the tallest slide's height (no jumping) and slides crossfade/glide. */
+.slide{grid-area:1/1;display:grid;grid-template-columns:1.14fr .86fr;gap:30px;align-items:end;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(40px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1),visibility 0s linear .7s;will-change:opacity,transform}
+.slide.active{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1),visibility 0s}
+.slide.leaving{transform:translateX(-40px)}
+.slides.rev .slide{transform:translateX(-40px)}
+.slides.rev .slide.leaving{transform:translateX(40px)}
+.slides .slide.active{transform:none}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.slide,.slide.active{transition:none}}
 .slide h2{font:900 clamp(1.55rem,3vw,2.5rem)/1.02 'Lato',sans-serif;letter-spacing:-.055em;margin:6px 0 10px}
 .slide p{color:#dce3fa;font-size:.82rem;margin:0;line-height:1.5}
 .lens{border-left:3px solid var(--lime);padding-left:18px}
@@ -860,9 +866,12 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
   if (dotWrap){ slides.forEach(function(_, k){ var b = document.createElement('button'); b.className = 'dot' + (k===0?' active':''); b.setAttribute('aria-label','Story '+(k+1)); dotWrap.appendChild(b); }); }
   var dots = [].slice.call(document.querySelectorAll('.dot'));
   var i = 0, timer = null;
+  var slideWrap = document.querySelector('.slides');
   function show(n){
+    var prev = i;
     i = (n + slides.length) % slides.length;
-    slides.forEach(function(x,k){ x.classList.toggle('active', k===i); });
+    if (slideWrap) slideWrap.classList.toggle('rev', n < prev);
+    slides.forEach(function(x,k){ x.classList.toggle('leaving', k===prev && k!==i); x.classList.toggle('active', k===i); });
     dots.forEach(function(x,k){ x.classList.toggle('active', k===i); });
   }
   function restart(){ clearInterval(timer); timer = setInterval(function(){ show(i+1); }, 15000); }

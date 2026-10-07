@@ -35,7 +35,7 @@ Formatting:
 Every major section on a unit page is `<div class="page" id="pg-XXX">`. Reuse these ids; don't invent
 per-unit variants:
 
-`pg-home` · `pg-mcq` · `pg-walk` · `pg-writing` · `pg-guide` · `pg-tips` · `pg-flash` · `pg-brain`
+`pg-home` · `pg-mcq` · `pg-walk` · `pg-writing` · `pg-guide` · `pg-flash` · `pg-brain`
 · `pg-spice` · `pg-source` · `pg-visual` · `pg-games`
 
 Unit-specific one-offs that are allowed because the feature only exists there:

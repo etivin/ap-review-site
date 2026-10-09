@@ -91,10 +91,13 @@
     // Asteroid Blaster: survive the mission (a destroyed ship does not count).
     { id: 'asteroid', sel: '#ast-end', finished: function (el) {
         return el.classList.contains('show') && !/over|destroyed/i.test(txt('ast-end-title')); } },
-    // Source Line Warm-up: a real (8+ word) answer checked on the final document.
+    // Source Line Warm-up: a real (8+ word) answer checked on every document (saved across visits).
     { id: 'warmup', sel: '#warmup-result', finished: function (el) {
         var m = txt('warmup-doc-num').match(/(\d+)\s+of\s+(\d+)/);
-        return m && m[1] === m[2] && el.textContent.trim() && !/too short/i.test(el.textContent); } },
+        var real = el.textContent.trim() && !/too short/i.test(el.textContent);
+        return m && remember('warmup', real ? txt('warmup-source-line').trim().slice(0, 120) : '') >= +m[2]; } },
+    // Source Analysis drill (Units 2, 3, 4, 5, 8): real sentence on 3 different documents.
+    { id: 'sourcing', scope: '#pg-source', sel: '#sa-model', finished: wroteOn('sourcing', 'sa-text', 'sa-doc', 3) },
 
     // Source Analysis drills (Unit 7). These have no end screen, so "finished" is defined here.
     // Red / Green Sort: every sentence in the set sorted.
@@ -116,12 +119,16 @@
       var t = document.getElementById(textId), p = document.getElementById(promptId);
       var words = t ? t.value.trim().split(/\s+/).filter(Boolean).length : 0;
       var key = p ? p.textContent.trim().slice(0, 120) : '';
-      var unit = unitOf(), s = load(), c = compFor(s, unit);
-      c.drills = c.drills || {};
-      var seen = (c.drills[id] = c.drills[id] || []);
-      if (words >= 8 && key && seen.indexOf(key) < 0) { seen.push(key); save(s); }
-      return seen.length >= need;
+      return remember(id, words >= 8 ? key : '') >= need;
     };
+  }
+  // Adds a prompt key (if any) to components['uN'].drills[id] and returns how many are saved.
+  function remember(id, key) {
+    var s = load(), c = compFor(s, unitOf());
+    c.drills = c.drills || {};
+    var seen = (c.drills[id] = c.drills[id] || []);
+    if (key && seen.indexOf(key) < 0) { seen.push(key); save(s); }
+    return seen.length;
   }
 
   /* ---- YouTube videos: credit only real playback time ---- */

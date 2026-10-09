@@ -26,7 +26,12 @@
     c.lastDone = now;
     save(s);
   }
-  window.APWH_ACTIVITY = { done: done };
+  // Prompt keys already answered for a multi-step drill (see remember() below).
+  function saved(id, unit) {
+    var c = ((load().components || {})['u' + (unit || unitOf())]) || {};
+    return (c.drills && c.drills[id]) || [];
+  }
+  window.APWH_ACTIVITY = { done: done, saved: saved };
 
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);

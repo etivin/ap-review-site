@@ -5193,8 +5193,12 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('pick-warmup').addEventListener('click', function() {
       document.getElementById('game-picker').style.display = 'none';
       document.getElementById('warmup-game').style.display = 'block';
+      // Reopen at the first document not yet answered (saved by activity.js); start over once all are done.
+      var doneLines = (window.APWH_ACTIVITY && APWH_ACTIVITY.saved) ? APWH_ACTIVITY.saved('warmup') : [];
       warmupIdx = 0;
-      loadWarmupDoc(0);
+      while (warmupIdx < WARMUP_DOCS.length && doneLines.indexOf(WARMUP_DOCS[warmupIdx].sourceLine.trim().slice(0, 120)) >= 0) warmupIdx++;
+      if (warmupIdx >= WARMUP_DOCS.length) warmupIdx = 0;
+      loadWarmupDoc(warmupIdx);
     });
 
     document.getElementById('warmup-back').addEventListener('click', function() {

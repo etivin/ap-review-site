@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Unit 2 — Interactive Trade Route Map | AP World History</title>
-<meta name="description" content="Interactive Afro-Eurasia map of the Silk Roads, Indian Ocean, and Trans-Saharan trade networks — highlight each route to study its technology, goods, notable places, and cultural diffusion."/>
+<title>Unit 2: Interactive Trade Route Map | AP World History</title>
+<meta name="description" content="Interactive Afro-Eurasia map of the Silk Roads, Indian Ocean, and Trans-Saharan trade networks, highlight each route to study its technology, goods, notable places, and cultural diffusion."/>
 
 <!-- Leaflet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
@@ -261,7 +261,7 @@ a{color:inherit}
     <div class="p-intro">
       <div class="p-eyebrow">Reference Map</div>
       <h1>Highlight the Networks</h1>
-      <p>Start with a <strong>trade route</strong> as your base. Then layer on any states, trade goods, cities, and the spread of religions and disease — each shown as a <strong>swooping arrow from where it began</strong>. Click anything on the map to read more.</p>
+      <p>Start with a <strong>trade route</strong> as your base. Then layer on any states, trade goods, cities, and the spread of religions and disease, each shown as a <strong>swooping arrow from where it began</strong>. Click anything on the map to read more.</p>
     </div>
 
     <div class="route-btns" id="route-btns">
@@ -288,7 +288,7 @@ a{color:inherit}
 
     <div class="p-body" id="p-body">
       <div class="p-empty">
-        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450 — moving silk and salt, faiths and inventions, merchants and microbes.</p>
+        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450, moving silk and salt, faiths and inventions, merchants and microbes.</p>
         <p style="margin-top:10px">Select a route above, or <strong>Show all</strong> to compare them, then click the colored lines and dots on the map.</p>
       </div>
     </div>
@@ -312,7 +312,7 @@ a{color:inherit}
 <script defer src="theme.js"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
-   DATA — three trade networks. Coordinates are [lat, lng].
+   DATA: three trade networks. Coordinates are [lat, lng].
    Each route: color, path segments, place markers, and the four
    study categories (tech / goods / places / cultural diffusion).
    ══════════════════════════════════════════════════════════════ */
@@ -325,12 +325,12 @@ var ROUTES = {
       [[34.34,108.94],[36.06,103.83],[40.14,94.66],[42.95,89.18],[39.47,75.99],[39.65,66.96],[39.77,64.42],[37.66,61.83],[35.70,51.42],[33.31,44.36],[34.55,38.27],[36.20,36.16],[41.01,28.98]]
     ],
     places:[
-      {n:'Chang’an (Xi’an)',c:[34.34,108.94],note:'Eastern terminus and Tang/Song capital — where silk and porcelain entered the road.'},
+      {n:'Chang’an (Xi’an)',c:[34.34,108.94],note:'Eastern terminus and Tang/Song capital, where silk and porcelain entered the road.'},
       {n:'Dunhuang',c:[40.14,94.66],note:'Oasis gateway on the edge of the Taklamakan; Mogao Buddhist cave temples.'},
       {n:'Kashgar',c:[39.47,75.99],note:'Great oasis crossroads where northern and southern desert routes rejoined.'},
       {n:'Samarkand',c:[39.65,66.96],note:'Wealthy Sogdian trade city; a hub of papermaking and later Timur’s capital.'},
       {n:'Merv',c:[37.66,61.83],note:'Major caravan city of Khorasan and a center of Islamic scholarship.'},
-      {n:'Baghdad',c:[33.31,44.36],note:'Abbasid capital and House of Wisdom — funneled Eastern goods to the Mediterranean.'},
+      {n:'Baghdad',c:[33.31,44.36],note:'Abbasid capital and House of Wisdom, funneled Eastern goods to the Mediterranean.'},
       {n:'Constantinople',c:[41.01,28.98],note:'Byzantine gateway where Silk Road goods reached European markets.'}
     ],
     tech:[
@@ -352,7 +352,7 @@ var ROUTES = {
   indian: {
     name:'Indian Ocean Trade', sub:'Monsoon sea lanes · c. 1200–1450',
     colorVar:'--indian', dash:true,
-    blurb:'The era’s largest and busiest trade network. Predictable monsoon winds carried dhows and junks around a vast rim linking the Swahili coast, the Red Sea and Persian Gulf, the Indian subcontinent, the Southeast Asian straits and spice islands, and the ports of Song–Yuan–Ming China — moving bulk goods and weaving together diasporic merchant communities.',
+    blurb:'The era’s largest and busiest trade network. Predictable monsoon winds carried dhows and junks around a vast rim linking the Swahili coast, the Red Sea and Persian Gulf, the Indian subcontinent, the Southeast Asian straits and spice islands, and the ports of Song–Yuan–Ming China, moving bulk goods and weaving together diasporic merchant communities.',
     segments:[
       /* East African (Swahili) coast, south to north */
       [[-20.17,34.74],[-8.96,39.51],[-6.17,39.19],[-4.04,39.66],[2.04,45.34],[12.79,45.02]],
@@ -380,22 +380,22 @@ var ROUTES = {
       {n:'Kilwa',c:[-8.96,39.51],note:'Richest Swahili city-state; taxed the gold flowing north from Sofala. Its Great Mosque and Husuni Kubwa palace awed Ibn Battuta.'},
       {n:'Mombasa',c:[-4.04,39.66],note:'Swahili stone-town port trading ivory, gold, and enslaved people for Asian cloth and porcelain.'},
       {n:'Mogadishu',c:[2.04,45.34],note:'Prosperous northern Swahili city famed for its cloth; visited by Ibn Battuta.'},
-      {n:'Aden',c:[12.79,45.02],note:'Yemeni chokepoint controlling the Red Sea mouth — the great hinge between Egypt, Africa, and India.'},
+      {n:'Aden',c:[12.79,45.02],note:'Yemeni chokepoint controlling the Red Sea mouth, the great hinge between Egypt, Africa, and India.'},
       {n:'Jeddah',c:[21.49,39.19],note:'Red Sea port for Mecca; gateway funneling Indian Ocean goods toward Cairo and the Mediterranean.'},
       {n:'Hormuz',c:[27.10,56.45],note:'Fabulously wealthy Persian Gulf entrepôt linking the sea lanes to Persia and the overland Silk Roads.'},
       {n:'Basra',c:[30.50,47.81],note:'Head of the Persian Gulf; transshipment point to Baghdad and the Silk Roads.'},
-      {n:'Cambay',c:[22.29,72.62],note:'Gujarat’s great port — India’s leading exporter of cotton textiles and a hub of Muslim merchants.'},
+      {n:'Cambay',c:[22.29,72.62],note:'Gujarat’s great port: India’s leading exporter of cotton textiles and a hub of Muslim merchants.'},
       {n:'Calicut',c:[11.25,75.78],note:'Chief pepper and spice port of the Malabar coast; ruled by the Zamorin and later reached by Zheng He and da Gama.'},
       {n:'Colombo (Sri Lanka)',c:[6.93,79.85],note:'Island crossroads for cinnamon, gems, and pearls at the pivot of the ocean’s two halves.'},
       {n:'Malacca',c:[2.19,102.25],note:'Strait city that taxed all traffic between the Indian Ocean and South China Sea; became a great Muslim sultanate.'},
       {n:'Srivijaya (Palembang)',c:[-2.99,104.76],note:'Earlier Sumatran maritime power whose straits monopoly Malacca inherited.'},
       {n:'Majapahit (Java)',c:[-6.17,106.83],note:'Powerful Hindu-Buddhist Javanese empire commanding the spice trade of the archipelago.'},
-      {n:'Spice Islands (Maluku)',c:[0.79,127.38],note:'The world’s only source of cloves, nutmeg, and mace — the ultimate origin of the spice trade.'},
+      {n:'Spice Islands (Maluku)',c:[0.79,127.38],note:'The world’s only source of cloves, nutmeg, and mace, the ultimate origin of the spice trade.'},
       {n:'Guangzhou',c:[23.13,113.26],note:'Southern Chinese port exporting silk and porcelain; a departure point for Zheng He’s treasure fleets.'},
-      {n:'Quanzhou',c:[24.87,118.58],note:'Marco Polo’s “Zaytun” — under the Song and Yuan one of the largest ports on Earth, with resident foreign merchants.'}
+      {n:'Quanzhou',c:[24.87,118.58],note:'Marco Polo’s “Zaytun”: under the Song and Yuan one of the largest ports on Earth, with resident foreign merchants.'}
     ],
     tech:[
-      {name:'Monsoon knowledge',what:'The seasonal reversal of winds — southwest in summer, northeast in winter — mapped onto a reliable sailing calendar.',impact:'The backbone of the entire network: merchants timed voyages to ride the winds out and back, making long-distance trade predictable.'},
+      {name:'Monsoon knowledge',what:'The seasonal reversal of winds, southwest in summer, northeast in winter, mapped onto a reliable sailing calendar.',impact:'The backbone of the entire network: merchants timed voyages to ride the winds out and back, making long-distance trade predictable.'},
       {name:'Lateen sail',what:'A triangular sail rigged fore-and-aft that let ships sail at an angle into the wind.',impact:'Made ships far more maneuverable, letting them exploit shifting monsoon winds rather than only running before them.'},
       {name:'Dhow & Chinese junk',what:'Arab/Swahili dhows with sewn-plank hulls, and huge multi-masted Chinese junks with watertight bulkheads and up to a thousand tons of cargo.',impact:'Carried bulk cargo across open ocean, raising the scale of trade from luxuries to everyday goods like grain and timber.'},
       {name:'Astrolabe & kamal',what:'Instruments measuring the angle of the sun or a star above the horizon to fix a ship’s latitude.',impact:'Let sailors navigate the open ocean out of sight of land, opening direct monsoon crossings.'},
@@ -404,8 +404,8 @@ var ROUTES = {
     ],
     goods:['Spices (pepper, cloves, nutmeg)','Cotton textiles','Silk','Porcelain','Ivory','Gold','Enslaved people','Timber','Pearls & gems','Cinnamon','Incense & frankincense','Horses'],
     cultural:[
-      {t:'Islam',d:'became the shared faith of the trading rim — carried by Muslim merchants to the Swahili coast, Gujarat and Malabar, and Southeast Asia, where Malacca became a powerful sultanate.'},
-      {t:'Swahili language & culture',d:'emerged on the East African coast as a Bantu language enriched with Arabic and Persian loanwords — a civilization born of trade, with coral-stone cities and Islamic courts.'},
+      {t:'Islam',d:'became the shared faith of the trading rim, carried by Muslim merchants to the Swahili coast, Gujarat and Malabar, and Southeast Asia, where Malacca became a powerful sultanate.'},
+      {t:'Swahili language & culture',d:'emerged on the East African coast as a Bantu language enriched with Arabic and Persian loanwords, a civilization born of trade, with coral-stone cities and Islamic courts.'},
       {t:'Diasporic merchant communities',d:'Arab, Persian, Gujarati, Tamil, and Chinese traders settled in foreign ports, intermarried, and formed permanent enclaves that spread language, religion, and cuisine.'},
       {t:'Gold of Great Zimbabwe',d:'inland African gold reached the world market through Sofala and Kilwa, tying the southern African interior into Indian Ocean commerce.'},
       {t:'Zheng He’s voyages',d:'Ming China’s treasure fleets (1405–1433) sailed as far as East Africa, projecting Chinese power and trade across the whole ocean before the voyages were halted.'},
@@ -424,7 +424,7 @@ var ROUTES = {
     ],
     places:[
       {n:'Sijilmasa',c:[31.28,-4.28],note:'Northern caravan gateway in Morocco where Saharan gold met Mediterranean trade.'},
-      {n:'Taghaza',c:[23.60,-5.00],note:'Saharan salt-mining town — salt was so scarce in the south it traded near-evenly for gold.'},
+      {n:'Taghaza',c:[23.60,-5.00],note:'Saharan salt-mining town: salt was so scarce in the south it traded near-evenly for gold.'},
       {n:'Timbuktu',c:[16.77,-3.00],note:'Mali’s fabled trade city and home to the Sankore mosque-university and vast book markets.'},
       {n:'Gao',c:[16.27,0.04],note:'Niger River trade city, later capital of the Songhai Empire.'},
       {n:'Djenné',c:[13.90,-4.55],note:'Southern trade and learning center famous for its great mudbrick mosque.'},
@@ -432,7 +432,7 @@ var ROUTES = {
       {n:'Cairo',c:[30.04,31.24],note:'Where Mansa Musa’s 1324 hajj spent so much gold it disrupted Egypt’s economy for years.'}
     ],
     tech:[
-      {name:'Camel & camel saddle',what:'Dromedary camels with specialized saddles that carried heavy loads and went days without water.',impact:'The essential technology — nothing else could cross the Sahara at scale; opened the whole trade.'},
+      {name:'Camel & camel saddle',what:'Dromedary camels with specialized saddles that carried heavy loads and went days without water.',impact:'The essential technology: nothing else could cross the Sahara at scale; opened the whole trade.'},
       {name:'Caravan organization',what:'Large caravans (sometimes thousands of camels) with guides, guards, and staged desert wells.',impact:'Provided safety in numbers against raiders and the desert, enabling regular long-haul trade.'},
       {name:'Oasis & desert navigation',what:'Knowledge of star positions, dunes, and the network of wells and oasis stops.',impact:'Let caravans cross a route with no roads and few landmarks and survive the journey.'}
     ],
@@ -448,7 +448,7 @@ var ROUTES = {
 };
 
 /* ══════════════════════════════════════════════════════════════
-   STATES & REGIONS — polities that anchored the networks. Each has
+   STATES & REGIONS: polities that anchored the networks. Each has
    an approximate polygon (not exact borders), a label center, and
    study content: at-a-glance facts, role in trade, legacy/culture.
    ══════════════════════════════════════════════════════════════ */
@@ -469,7 +469,7 @@ var POLITIES = {
   swahili: {
     name:'Swahili Coast', sub:'East African coast · c. 1100–1500', color:'#0e8a8f',
     poly:[[2.6,45.9],[-4,40.9],[-9,40.9],[-20.6,36.2],[-20.6,34.3],[-9,38.6],[-4,38.7],[1.6,44.2]],
-    blurb:'A string of independent, cosmopolitan city-states — Kilwa, Mombasa, Mogadishu, and others — along the East African coast. They were the African hinge of the Indian Ocean trade.',
+    blurb:'A string of independent, cosmopolitan city-states, Kilwa, Mombasa, Mogadishu, and others, along the East African coast. They were the African hinge of the Indian Ocean trade.',
     facts:[['Type','Independent Muslim city-states'],['Language','Swahili (Bantu + Arabic)'],['Religion','Islam'],['Richest city','Kilwa']],
     role:'Exported gold (funneled from Great Zimbabwe through Sofala), ivory, and enslaved people; imported porcelain, cotton cloth, and manufactured goods from Arabia, India, and China.',
     legacy:[
@@ -482,7 +482,7 @@ var POLITIES = {
   zimbabwe: {
     name:'Great Zimbabwe', sub:'Southern Africa · c. 1100–1450', color:'#9c5a2c',
     poly:[[-16.8,29.3],[-16.8,32.2],[-19.6,32.7],[-22.6,31.2],[-22.2,28.8],[-19,28.3]],
-    blurb:'A powerful inland kingdom on the plateau between the Zambezi and Limpopo rivers, famous for its massive dry-stone Great Enclosure — built without mortar.',
+    blurb:'A powerful inland kingdom on the plateau between the Zambezi and Limpopo rivers, famous for its massive dry-stone Great Enclosure, built without mortar.',
     facts:[['Capital','Great Zimbabwe (stone city)'],['Economy','Cattle & gold'],['Peak pop.','~18,000'],['Trade outlet','Sofala, on the coast']],
     role:'Mined and controlled the gold that flowed east to the Swahili coast at Sofala, tying the southern African interior into the Indian Ocean network. Chinese porcelain and Persian glass have been excavated at the site.',
     legacy:[
@@ -530,7 +530,7 @@ var POLITIES = {
   delhi: {
     name:'Delhi Sultanate', sub:'North India · 1206–1526', color:'#2f8f4e',
     poly:[[32.5,72],[31.5,79],[28,84],[24,88],[22,81],[23,73],[27.5,70]],
-    blurb:'A succession of Muslim dynasties ruling northern India from Delhi — the first major Islamic state on the subcontinent, bridging the Islamic world and Hindu India.',
+    blurb:'A succession of Muslim dynasties ruling northern India from Delhi, the first major Islamic state on the subcontinent, bridging the Islamic world and Hindu India.',
     facts:[['Capital','Delhi'],['Founded','1206 (Mamluk dynasty)'],['Religion','Islam (rulers) over a Hindu majority'],['Notable','Repelled Mongol invasions']],
     role:'Connected overland trade from Central Asia to the Indian Ocean ports of Gujarat and the Malabar coast; Indian cotton textiles flowed into the sea trade.',
     legacy:[
@@ -542,9 +542,9 @@ var POLITIES = {
   malacca: {
     name:'Strait of Malacca', sub:'Maritime chokepoint · SE Asia', color:'#d9822b',
     poly:[[6,99.4],[4.2,100.9],[1.4,103.3],[0.2,104],[1,102.3],[3.6,99.4],[5.6,98.4]],
-    blurb:'The narrow sea passage between Sumatra and the Malay Peninsula — the single most important chokepoint linking the Indian Ocean to the South China Sea.',
+    blurb:'The narrow sea passage between Sumatra and the Malay Peninsula, the single most important chokepoint linking the Indian Ocean to the South China Sea.',
     facts:[['Between','Sumatra & the Malay Peninsula'],['Controlled by','Srivijaya, then Malacca'],['Function','Toll & transshipment chokepoint'],['Today','Still a vital global shipping lane']],
-    role:'Every ship moving between the Indian Ocean and China had to pass through the strait. Whoever controlled it grew rich taxing the traffic — first Srivijaya, then the Malacca Sultanate.',
+    role:'Every ship moving between the Indian Ocean and China had to pass through the strait. Whoever controlled it grew rich taxing the traffic, first Srivijaya, then the Malacca Sultanate.',
     legacy:[
       {t:'Malacca Sultanate',d:'rose in the 1400s into a great Muslim trading power.'},
       {t:'Islam in Southeast Asia',d:'spread through the strait’s ports into the archipelago.'},
@@ -554,7 +554,7 @@ var POLITIES = {
   srivijaya: {
     name:'Srivijaya', sub:'Maritime SE Asia · c. 670–1275', color:'#1d4ed8',
     poly:[[5.5,97],[6,100.5],[3,104],[-3,106],[-6,105],[-4,100.5],[1,97.8]],
-    blurb:'A Buddhist maritime empire based on Sumatra that dominated the Strait of Malacca and the sea trade between India and China — though in decline by this era.',
+    blurb:'A Buddhist maritime empire based on Sumatra that dominated the Strait of Malacca and the sea trade between India and China, though in decline by this era.',
     facts:[['Base','Palembang (Sumatra)'],['Type','Thalassocracy (sea empire)'],['Religion','Mahayana Buddhism'],['Controlled','The Strait of Malacca']],
     role:'Grew wealthy taxing and protecting shipping through the strait, and served as a great center of Buddhist learning that drew monks and scholars from across Asia.',
     legacy:[
@@ -568,7 +568,7 @@ var POLITIES = {
 var POLITY_ORDER = ['mali','swahili','zimbabwe','delhi','srivijaya','malacca','yuan','ilkhanate','horde'];
 
 /* ══════════════════════════════════════════════════════════════
-   ANNOTATIONS — the essay-prep overlays (trade goods, key cities,
+   ANNOTATIONS: the essay-prep overlays (trade goods, key cities,
    the spread of the three faiths, monsoon winds, and the Black
    Death). Each is an independent on/off overlay so students can
    layer them onto the map like the annotation activity.
@@ -577,15 +577,15 @@ var THEMES = {
   goods: {
     name:'Trade Goods', color:'#a6791f', icon:'📦', kind:'labels',
     items:[
-      {n:'SILK', c:[35.5,110.5], note:'China’s signature luxury export — so prized in Europe it was worth its weight in gold and served almost as money on the Silk Roads.'},
+      {n:'SILK', c:[35.5,110.5], note:'China’s signature luxury export: so prized in Europe it was worth its weight in gold and served almost as money on the Silk Roads.'},
       {n:'PORCELAIN', c:[28.2,117.8], note:'Perfected in Tang–Song China; Japan and Korea copied the kiln and glazing techniques but could not match Chinese quality.'},
-      {n:'RICE', c:[15.5,107.6], note:'Champa rice — a quick-maturing, drought-resistant strain from Vietnam sent as tribute to Song China; it cut growing time in half and helped push China past 200 million people.'},
-      {n:'CLOVES & NUTMEG', c:[-1.5,127.8], note:'The Spice Islands (Maluku) were the world’s only source of cloves and nutmeg — the most valuable goods of Southeast Asia.'},
+      {n:'RICE', c:[15.5,107.6], note:'Champa rice: a quick-maturing, drought-resistant strain from Vietnam sent as tribute to Song China; it cut growing time in half and helped push China past 200 million people.'},
+      {n:'CLOVES & NUTMEG', c:[-1.5,127.8], note:'The Spice Islands (Maluku) were the world’s only source of cloves and nutmeg, the most valuable goods of Southeast Asia.'},
       {n:'CINNAMON', c:[7.6,80.9], note:'Grown in Sri Lanka and south India; one of the most sought-after spices of the Indian Ocean trade.'},
       {n:'PEPPER', c:[10.4,76.2], note:'India’s Malabar coast, centered on Calicut, was the great source of pepper.'},
       {n:'COTTON', c:[21.8,73.5], note:'India made the finest cotton textiles in the world; roller gins and spinning wheels fed a booming rural cottage industry.'},
       {n:'SUGAR', c:[17.0,79.5], note:'Sugarcane crystallization spread from Gupta India along the trade routes to China, the Middle East, and (via the Crusades) Europe.'},
-      {n:'SALT', c:[24.5,2.5], note:'Mined in the Sahara (e.g. Taghaza) and carried south by caravan — so scarce in West Africa it traded nearly pound-for-pound with gold.'},
+      {n:'SALT', c:[24.5,2.5], note:'Mined in the Sahara (e.g. Taghaza) and carried south by caravan, so scarce in West Africa it traded nearly pound-for-pound with gold.'},
       {n:'GOLD', c:[12.5,-6.5], note:'West Africa’s Bambuk and Bure fields supplied the gold that powered the trans-Saharan trade and Mali’s legendary wealth.'},
       {n:'FURS', c:[59,50], note:'Russian furs were a staple of the northern European (Hanseatic) trade.'},
       {n:'TIMBER', c:[62.5,13], note:'Scandinavian timber, needed for shipbuilding, was a key good of the Baltic and North Sea trade.'},
@@ -598,8 +598,8 @@ var THEMES = {
     items:[
       {n:'Hangzhou', c:[30.25,120.15], note:'Southern Song capital on the Grand Canal and a departure point for Chinese goods; the largest city in the world (~1 million) from 1180 to 1378.'},
       {n:'Malacca', c:[2.19,102.25], note:'Strait city that taxed all traffic between the Indian Ocean and the South China Sea.'},
-      {n:'Palembang', c:[-2.99,104.76], note:'Capital of Srivijaya — a reported floating city that controlled the strait.'},
-      {n:'Calicut', c:[11.25,75.78], note:'The “City of Spices” on India’s Malabar coast — heart of the pepper and spice trade.'},
+      {n:'Palembang', c:[-2.99,104.76], note:'Capital of Srivijaya: a reported floating city that controlled the strait.'},
+      {n:'Calicut', c:[11.25,75.78], note:'The “City of Spices” on India’s Malabar coast, heart of the pepper and spice trade.'},
       {n:'Mogadishu', c:[2.04,45.34], note:'Northern Swahili city-state trading with Arabia, Persia, and India.'},
       {n:'Manda', c:[-2.10,40.98], note:'Swahili trading town of the Lamu archipelago on the East African coast.'},
       {n:'Kilwa', c:[-8.96,39.51], note:'Richest Swahili city-state; taxed the gold trade carried from the interior via Sofala.'},
@@ -611,13 +611,13 @@ var THEMES = {
       {n:'Venice', c:[45.44,12.34], note:'Italian city-state that grew rich hauling spices from Alexandria to Europe.'},
       {n:'Genoa', c:[44.41,8.93], note:'Italian rival of Venice; dominant in the Black Sea slave trade.'},
       {n:'Lübeck', c:[53.87,10.69], note:'Leading city of the Hanseatic League in northern Germany.'},
-      {n:'Bergen', c:[60.39,5.32], note:'Hanseatic trading city in Norway — fish and timber.'},
-      {n:'Novgorod', c:[58.52,31.27], note:'Hanseatic outpost in Russia — furs and forest goods.'}
+      {n:'Bergen', c:[60.39,5.32], note:'Hanseatic trading city in Norway, fish and timber.'},
+      {n:'Novgorod', c:[58.52,31.27], note:'Hanseatic outpost in Russia: furs and forest goods.'}
     ]
   },
   islam: {
     name:'Spread of Islam', color:'#1e874b', icon:'★', kind:'spread',
-    note:'Islam spread along the trade routes — carried by Persian and Arab merchants and by Sufi mystics who blended it with local customs — from Arabia into India, Southeast Asia, East Africa, and West Africa.',
+    note:'Islam spread along the trade routes, carried by Persian and Arab merchants and by Sufi mystics who blended it with local customs, from Arabia into India, Southeast Asia, East Africa, and West Africa.',
     origin:{n:'Arabia (Mecca)', c:[21.42,39.83]},
     items:[
       {n:'Delhi', c:[28.6,77.2]},{n:'Gujarat / Cambay', c:[22.3,72.6]},{n:'Malabar coast', c:[11.25,75.78]},
@@ -636,7 +636,7 @@ var THEMES = {
   },
   hinduism: {
     name:'Spread of Hinduism', color:'#d15a1e', icon:'ॐ', kind:'spread',
-    note:'Hinduism was the first faith to reach Southeast Asia, carried by Indian merchants — the Khmer built the great temple complex of Angkor Wat in Cambodia.',
+    note:'Hinduism was the first faith to reach Southeast Asia, carried by Indian merchants, the Khmer built the great temple complex of Angkor Wat in Cambodia.',
     origin:{n:'India', c:[19.0,79.0]},
     items:[
       {n:'Angkor / Khmer (Cambodia)', c:[13.41,103.87]},{n:'Champa (Vietnam)', c:[13.9,109.2]},
@@ -655,7 +655,7 @@ var THEMES = {
   },
   disease: {
     name:'Spread of Disease', color:'#6d3f9c', icon:'☠', kind:'spread',
-    note:'Trade also spread disease. The bubonic plague — the Black Death — travelled the trade routes westward out of Central Asia in the 14th century, devastating the Middle East and Europe.',
+    note:'Trade also spread disease. The bubonic plague: the Black Death: travelled the trade routes westward out of Central Asia in the 14th century, devastating the Middle East and Europe.',
     origin:{n:'Central Asia / Mongolia', c:[44.0,92.0]},
     items:[
       {n:'Crimea / Black Sea (Caffa)', c:[45.0,35.0]},{n:'Constantinople', c:[41.01,28.98]},
@@ -666,7 +666,7 @@ var THEMES = {
 var THEME_ORDER = ['goods','cities','islam','buddhism','hinduism','monsoon','disease'];
 
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
-/* Basemap drawn from the bundled Natural Earth file (world-basemap.js) — no third-party
+/* Basemap drawn from the bundled Natural Earth file (world-basemap.js): no third-party
    tile service, so it can't go blank or start demanding an API key. Ocean = #map background. */
 var BASE_COLORS={light:{land:'#f4f3ef',border:'#bcb8ae'},dark:{land:'#3a3e46',border:'#5d6472'}};
 var ATTR='Map data &copy; <a href="https://www.naturalearthdata.com/">Natural Earth</a>';
@@ -746,7 +746,7 @@ function togglePolity(key,on){
 function clearPolities(){ Object.keys(polLayers).forEach(function(k){ togglePolity(k,false); }); }
 
 /* Build an on/off overlay layer for every annotation theme (independent of the
-   route/polity single-selection — students layer these on top). */
+   route/polity single-selection: students layer these on top). */
 var themeLayers={}, themeOn={};
 function popup(name,note,tagColor,tag){
   return '<div class="pop-name">'+name+'</div>'+
@@ -797,7 +797,7 @@ function buildTheme(key){
     // origin marker + a swooping arrow out to each place the thing spread
     L.circleMarker(t.origin.c,{radius:7,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
       .bindTooltip(t.origin.n+' (origin)',{permanent:true,direction:'top',className:'city-tip'})
-      .bindPopup(popup(t.name+' — origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
+      .bindPopup(popup(t.name+': origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
     t.items.forEach(function(it,i){
       addSwoop(g,t.origin.c,it.c,t.color, i%2===0?0.22:0.14, 3);
       L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:.95})
@@ -892,7 +892,7 @@ function renderPanel(key){
 
   // Cultural diffusion
   h+='<div class="sec"><div class="sec-lbl"><span class="ico">🕌</span>Cultural Diffusion</div><ul class="cul-list">';
-  r.cultural.forEach(function(c){h+='<li><b>'+c.t+'</b> — '+c.d+'</li>';});
+  r.cultural.forEach(function(c){h+='<li><b>'+c.t+'</b>: '+c.d+'</li>';});
   h+='</ul></div>';
 
   body.innerHTML=h;
@@ -907,7 +907,7 @@ function renderPanel(key){
 
 function renderAllPanel(){
   var h='<div class="rt-head"><div class="rt-title">All Three Networks</div><div class="rt-sub">Afro-Eurasia · c. 1200–1450</div>'+
-    '<div class="rt-blurb">Compare the three great trade networks side by side. Each is highlighted on the map — click a colored line or dot, or pick a single route above to load its full breakdown.</div></div>';
+    '<div class="rt-blurb">Compare the three great trade networks side by side. Each is highlighted on the map, click a colored line or dot, or pick a single route above to load its full breakdown.</div></div>';
   Object.keys(ROUTES).forEach(function(k){
     var r=ROUTES[k], color=cssVar(r.colorVar);
     h+='<button class="place" data-r="'+k+'" style="border-bottom:1px solid var(--border);padding:12px 6px">'+
@@ -932,7 +932,7 @@ function renderAllPanel(){
     b.type='button'; b.className='pol-chip'; b.dataset.p=key;
     b.innerHTML='<span class="pc-dot" style="background:'+p.color+'"></span>'+
       '<span class="pc-name">'+p.name+'</span><span class="tc-check"></span>';
-    b.title=p.name+' — '+p.sub;
+    b.title=p.name+': '+p.sub;
     b.addEventListener('click',function(){ togglePolity(key,!polOn[key]); });
     grid.appendChild(b);
   });
@@ -980,7 +980,7 @@ window.addEventListener('storage',function(e){ if(e.key==='mcTheme'){ document.d
 var _mo=new MutationObserver(function(){refreshTiles(); reRenderPanel();});
 _mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-// Start only once the map container has a real size — animating before the
+// Start only once the map container has a real size, animating before the
 // map is laid out (e.g. inside an iframe that just mounted) makes Leaflet's
 // fly math divide by a zero container size and throw "Invalid LatLng (NaN)".
 var _started=false;

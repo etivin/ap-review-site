@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Unit 3 — Interactive Land Empires Map | AP World History</title>
-<meta name="description" content="Interactive map of the land-based empires of c. 1450–1750 — the Ottomans, Safavids, Mughals, Ming–Qing China, Russia, Tokugawa Japan, and Songhai: their expansion, administration, and belief systems."/>
+<title>Unit 3: Interactive Land Empires Map | AP World History</title>
+<meta name="description" content="Interactive map of the land-based empires of c. 1450–1750: the Ottomans, Safavids, Mughals, Ming–Qing China, Russia, Tokugawa Japan, and Songhai: their expansion, administration, and belief systems."/>
 
 <!-- Leaflet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
@@ -262,7 +262,7 @@ a{color:inherit}
     <div class="p-intro">
       <div class="p-eyebrow">Reference Map</div>
       <h1>Compare the Empires</h1>
-      <p>Pick a <strong>land-based empire</strong> to light up its territory and load how it expanded, ruled, and what it believed. Then layer on capitals, belief systems, and the spread of gunpowder — shown as <strong>arrows from where it began</strong>. Click anything to read more.</p>
+      <p>Pick a <strong>land-based empire</strong> to light up its territory and load how it expanded, ruled, and what it believed. Then layer on capitals, belief systems, and the spread of gunpowder, shown as <strong>arrows from where it began</strong>. Click anything to read more.</p>
     </div>
 
     <div class="route-btns" id="route-btns">
@@ -281,7 +281,7 @@ a{color:inherit}
 
     <div class="p-body" id="p-body">
       <div class="p-empty">
-        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450 — moving silk and salt, faiths and inventions, merchants and microbes.</p>
+        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450, moving silk and salt, faiths and inventions, merchants and microbes.</p>
         <p style="margin-top:10px">Select a route above, or <strong>Show all</strong> to compare them, then click the colored lines and dots on the map.</p>
       </div>
     </div>
@@ -302,7 +302,7 @@ a{color:inherit}
 <script defer src="theme.js"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
-   DATA — Unit 3, c. 1450–1750. Coordinates are [lat, lng].
+   DATA: Unit 3, c. 1450–1750. Coordinates are [lat, lng].
    ROUTES holds the EMPIRES: each has a polygon territory and the
    comparative fields (expansion / rule / belief / legacy).
    ══════════════════════════════════════════════════════════════ */
@@ -310,37 +310,37 @@ var ROUTES = {
   ottoman: {
     name:'Ottoman Empire', sub:'Sunni gunpowder empire · peak c. 1450–1700', color:'#2e7d32',
     poly:[[47,18],[46,29],[41,41],[37,44],[31,47],[25,39],[14,43],[22,35],[31,25],[31,19],[34,10],[37,9],[42,19]],
-    blurb:'The most powerful Islamic empire of the age — straddling Europe, Asia, and Africa. It seized Constantinople in 1453 and reached its height under Suleiman the Magnificent.',
+    blurb:'The most powerful Islamic empire of the age, straddling Europe, Asia, and Africa. It seized Constantinople in 1453 and reached its height under Suleiman the Magnificent.',
     facts:[['Capital','Istanbul (Constantinople)'],['Religion','Sunni Islam'],['Peak ruler','Suleiman the Magnificent'],['Elite corps','Janissaries']],
-    expansion:'Took Constantinople in 1453 with massive gunpowder cannon, then expanded into the Balkans, the Middle East, and North Africa. The Janissaries — elite gunpowder infantry recruited through the devshirme — were the heart of the army.',
+    expansion:'Took Constantinople in 1453 with massive gunpowder cannon, then expanded into the Balkans, the Middle East, and North Africa. The Janissaries: elite gunpowder infantry recruited through the devshirme, were the heart of the army.',
     rule:'Ruled a diverse empire through the millet system, letting religious communities govern themselves. The devshirme took Christian boys for the army and bureaucracy. Sultans legitimized power through Islam, grand mosques, and patronage of the arts.',
-    belief:'Sunni Islam — the sultan also claimed the title of caliph, protector of the faith.',
+    belief:'Sunni Islam: the sultan also claimed the title of caliph, protector of the faith.',
     legacy:[{t:'Fall of Constantinople (1453)',d:'ended the Byzantine Empire and stunned Europe.'},{t:'Devshirme & Janissaries',d:'a slave-elite that ran the army and state.'},{t:'Suleiman',d:'law-giver and builder at the empire’s golden age.'}]
   },
   safavid: {
     name:'Safavid Empire', sub:'Shia gunpowder empire · 1501–1736', color:'#6a1b9a',
     poly:[[40,44],[39,55],[36,61],[29,62],[26,55],[28,48],[32,45],[37,44]],
-    blurb:'The Persian empire that made Twelver Shia Islam the state religion — setting off a lasting Sunni–Shia rivalry with the Ottomans to its west.',
+    blurb:'The Persian empire that made Twelver Shia Islam the state religion, setting off a lasting Sunni–Shia rivalry with the Ottomans to its west.',
     facts:[['Capital','Isfahan'],['Religion','Shia Islam (state faith)'],['Peak ruler','Shah Abbas the Great'],['Great rival','The Ottomans']],
     expansion:'Founded by Shah Ismail, who imposed Shia Islam by force. Shah Abbas modernized the army with gunpowder and enslaved-soldier corps (ghulams) and fought the Ottomans for Mesopotamia and the Caucasus.',
     rule:'Shah Abbas built a magnificent capital at Isfahan (“half the world”), promoted the silk trade, and used ghulam slave-officials to check the tribal Qizilbash. Rulers claimed descent from Ali and divine right.',
-    belief:'Twelver Shia Islam — imposed as the state religion, defining Persian identity to this day.',
+    belief:'Twelver Shia Islam: imposed as the state religion, defining Persian identity to this day.',
     legacy:[{t:'Sunni–Shia divide',d:'hardened into a lasting Ottoman–Safavid rivalry.'},{t:'Isfahan',d:'a jewel of Persian art and architecture.'},{t:'Shia Iran',d:'the root of modern Iran’s religious identity.'}]
   },
   mughal: {
     name:'Mughal Empire', sub:'Muslim rule over Hindu India · 1526–1857', color:'#c9a227',
     poly:[[33,71],[31,78],[27,89],[22,90],[17,79],[15,74],[21,70],[28,67]],
-    blurb:'The gunpowder empire that unified most of the Indian subcontinent — a Muslim dynasty ruling a Hindu majority, famed for its wealth, art, and the Taj Mahal.',
+    blurb:'The gunpowder empire that unified most of the Indian subcontinent, a Muslim dynasty ruling a Hindu majority, famed for its wealth, art, and the Taj Mahal.',
     facts:[['Capital','Delhi / Agra'],['Religion','Islam over a Hindu majority'],['Peak ruler','Akbar the Great'],['Founder','Babur (1526)']],
-    expansion:'Babur used gunpowder artillery to win the Battle of Panipat (1526). Akbar expanded across the subcontinent, and Aurangzeb later pushed the empire to its greatest — but overstretched — extent.',
-    rule:'Akbar ruled with tolerance — abolishing the jizya tax on non-Muslims, marrying a Hindu princess, and hosting a syncretic court. He built a centralized bureaucracy (zabt taxes, mansabdar officials). Aurangzeb reversed this tolerance, straining the empire.',
-    belief:'Islam — but under Akbar a striking policy of tolerance toward Hinduism; the tension between tolerance and orthodoxy shaped the empire.',
-    legacy:[{t:'Akbar’s tolerance',d:'held a diverse empire together.'},{t:'Taj Mahal',d:'built by Shah Jahan — the peak of Indo-Islamic art.'},{t:'Aurangzeb’s reversal',d:'renewed the jizya and sparked revolts.'}]
+    expansion:'Babur used gunpowder artillery to win the Battle of Panipat (1526). Akbar expanded across the subcontinent, and Aurangzeb later pushed the empire to its greatest, but overstretched: extent.',
+    rule:'Akbar ruled with tolerance: abolishing the jizya tax on non-Muslims, marrying a Hindu princess, and hosting a syncretic court. He built a centralized bureaucracy (zabt taxes, mansabdar officials). Aurangzeb reversed this tolerance, straining the empire.',
+    belief:'Islam: but under Akbar a striking policy of tolerance toward Hinduism; the tension between tolerance and orthodoxy shaped the empire.',
+    legacy:[{t:'Akbar’s tolerance',d:'held a diverse empire together.'},{t:'Taj Mahal',d:'built by Shah Jahan: the peak of Indo-Islamic art.'},{t:'Aurangzeb’s reversal',d:'renewed the jizya and sparked revolts.'}]
   },
   china: {
     name:'Ming & Qing China', sub:'The Middle Kingdom · 1368–1912', color:'#b3402f',
     poly:[[50,122],[42,124],[31,122],[22,110],[24,100],[29,99],[34,101],[41,98],[47,116]],
-    blurb:'China under the Ming and then the Manchu Qing — a vast, centralized empire run by a Confucian scholar-bureaucracy and defended by the Great Wall.',
+    blurb:'China under the Ming and then the Manchu Qing, a vast, centralized empire run by a Confucian scholar-bureaucracy and defended by the Great Wall.',
     facts:[['Capital','Beijing (Forbidden City)'],['Belief','Confucianism'],['Ming ruler','Yongle'],['Qing ruler','Kangxi (Manchu)']],
     expansion:'The Ming rebuilt the Great Wall and briefly sent Zheng He’s fleets before turning inward. The Manchus conquered China in 1644, founding the Qing and later expanding into Mongolia, Tibet, and Xinjiang.',
     rule:'Governed through the civil-service examination system, which chose scholar-officials by merit on the Confucian classics. The emperor ruled by the Mandate of Heaven. The Qing Manchus kept Chinese institutions while preserving their own identity.',
@@ -354,7 +354,7 @@ var ROUTES = {
     facts:[['Capital','Moscow (later St. Petersburg)'],['Religion','Russian Orthodox Christianity'],['Early ruler','Ivan IV “the Terrible”'],['Later ruler','Peter the Great']],
     expansion:'Ivan the Terrible crowned himself tsar and pushed east, conquering the Muslim khanates of Kazan and Astrakhan and opening Siberia to fur-trading expansion all the way to the Pacific.',
     rule:'Tsars ruled as absolute autocrats, crushing the noble boyars and binding peasants to the land as serfs. The Orthodox Church legitimized the tsar as God’s chosen. Peter the Great later forced Westernization from the top down.',
-    belief:'Russian Orthodox Christianity — Moscow saw itself as the “Third Rome,” heir to Byzantium.',
+    belief:'Russian Orthodox Christianity: Moscow saw itself as the “Third Rome,” heir to Byzantium.',
     legacy:[{t:'Conquest of Siberia',d:'built the largest land empire on Earth.'},{t:'Serfdom',d:'tied peasants to the land as the economic base.'},{t:'Autocracy',d:'the tsar’s absolute power shaped Russian history.'}]
   },
   tokugawa: {
@@ -380,19 +380,19 @@ var ROUTES = {
 };
 var ROUTE_ORDER = ['ottoman','safavid','mughal','china','russia','tokugawa','songhai'];
 
-/* No separate toggle-region layer for Unit 3 — the empires ARE the regions. */
+/* No separate toggle-region layer for Unit 3, the empires ARE the regions. */
 var POLITIES = {};
 var POLITY_ORDER = [];
 
 /* ══════════════════════════════════════════════════════════════
-   ANNOTATIONS — toggle overlays. "Spread" layers are swooping
+   ANNOTATIONS: toggle overlays. "Spread" layers are swooping
    arrows from an origin out to where the thing travelled.
    ══════════════════════════════════════════════════════════════ */
 var THEMES = {
   capitals: {
     name:'Imperial Capitals', color:'#0f5b5e', icon:'🏙️', kind:'cities',
     items:[
-      {n:'Istanbul', c:[41.01,28.98], note:'Ottoman capital — the conquered Byzantine Constantinople.'},
+      {n:'Istanbul', c:[41.01,28.98], note:'Ottoman capital: the conquered Byzantine Constantinople.'},
       {n:'Isfahan', c:[32.65,51.67], note:'Safavid capital, rebuilt by Shah Abbas as “half the world.”'},
       {n:'Delhi & Agra', c:[28.6,77.2], note:'Mughal capitals; Agra holds the Taj Mahal.'},
       {n:'Beijing', c:[39.9,116.4], note:'Ming and Qing capital, site of the Forbidden City.'},
@@ -415,7 +415,7 @@ var THEMES = {
   },
   gunpowder: {
     name:'Spread of Gunpowder', color:'#7a2f2f', icon:'⚙', kind:'spread',
-    note:'Gunpowder weapons — cannon and muskets — spread from China across Eurasia. The empires that mastered them (the Ottomans, Safavids, Mughals, Russia, Ming/Qing) are called the “gunpowder empires.”',
+    note:'Gunpowder weapons: cannon and muskets: spread from China across Eurasia. The empires that mastered them (the Ottomans, Safavids, Mughals, Russia, Ming/Qing) are called the “gunpowder empires.”',
     origin:{n:'China (origin of gunpowder)', c:[32,112]},
     items:[
       {n:'Ottoman cannon', c:[41.01,28.98]},{n:'Safavid muskets', c:[32.65,51.67]},
@@ -436,7 +436,7 @@ var THEMES = {
 var THEME_ORDER = ['capitals','belief','gunpowder','trade'];
 
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
-/* Basemap drawn from the bundled Natural Earth file (world-basemap.js) — no third-party
+/* Basemap drawn from the bundled Natural Earth file (world-basemap.js): no third-party
    tile service, so it can't go blank or start demanding an API key. Ocean = #map background. */
 var BASE_COLORS={light:{land:'#f4f3ef',border:'#bcb8ae'},dark:{land:'#3a3e46',border:'#5d6472'}};
 var ATTR='Map data &copy; <a href="https://www.naturalearthdata.com/">Natural Earth</a>';
@@ -505,7 +505,7 @@ function togglePolity(key,on){
 function clearPolities(){ Object.keys(polLayers).forEach(function(k){ togglePolity(k,false); }); }
 
 /* Build an on/off overlay layer for every annotation theme (independent of the
-   route/polity single-selection — students layer these on top). */
+   route/polity single-selection: students layer these on top). */
 var themeLayers={}, themeOn={};
 function popup(name,note,tagColor,tag){
   return '<div class="pop-name">'+name+'</div>'+
@@ -556,7 +556,7 @@ function buildTheme(key){
     // origin marker + a swooping arrow out to each place the thing spread
     L.circleMarker(t.origin.c,{radius:7,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
       .bindTooltip(t.origin.n+' (origin)',{permanent:true,direction:'top',className:'city-tip'})
-      .bindPopup(popup(t.name+' — origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
+      .bindPopup(popup(t.name+': origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
     t.items.forEach(function(it,i){
       addSwoop(g,t.origin.c,it.c,t.color, i%2===0?0.22:0.14, 3);
       L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:.95})
@@ -659,7 +659,7 @@ function renderPanel(key){
 
   // Legacy
   h+='<div class="sec"><div class="sec-lbl"><span class="ico">🏛️</span>Legacy</div><ul class="cul-list">';
-  r.legacy.forEach(function(c){h+='<li style="--dot:'+color+'"><b>'+c.t+'</b> — '+c.d+'</li>';});
+  r.legacy.forEach(function(c){h+='<li style="--dot:'+color+'"><b>'+c.t+'</b>: '+c.d+'</li>';});
   h+='</ul></div>';
 
   body.innerHTML=h;
@@ -667,7 +667,7 @@ function renderPanel(key){
 
 function renderAllPanel(){
   var h='<div class="rt-head"><div class="rt-title">The Land Empires</div><div class="rt-sub">Eurasia &amp; Africa · c. 1450–1750</div>'+
-    '<div class="rt-blurb">Great land-based empires — many built on gunpowder — ruled most of the connected world. Pick one to compare how it expanded, ruled, and what it believed, or click its territory on the map.</div></div>';
+    '<div class="rt-blurb">Great land-based empires: many built on gunpowder: ruled most of the connected world. Pick one to compare how it expanded, ruled, and what it believed, or click its territory on the map.</div></div>';
   ROUTE_ORDER.forEach(function(k){
     var r=ROUTES[k];
     h+='<button class="place" data-r="'+k+'" style="border-bottom:1px solid var(--border);padding:12px 6px">'+
@@ -692,7 +692,7 @@ function renderAllPanel(){
     b.type='button'; b.className='pol-chip'; b.dataset.p=key;
     b.innerHTML='<span class="pc-dot" style="background:'+p.color+'"></span>'+
       '<span class="pc-name">'+p.name+'</span><span class="tc-check"></span>';
-    b.title=p.name+' — '+p.sub;
+    b.title=p.name+': '+p.sub;
     b.addEventListener('click',function(){ togglePolity(key,!polOn[key]); });
     grid.appendChild(b);
   });
@@ -737,7 +737,7 @@ window.addEventListener('storage',function(e){ if(e.key==='mcTheme'){ document.d
 var _mo=new MutationObserver(function(){refreshTiles(); reRenderPanel();});
 _mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-// Start only once the map container has a real size — animating before the
+// Start only once the map container has a real size, animating before the
 // map is laid out (e.g. inside an iframe that just mounted) makes Leaflet's
 // fly math divide by a zero container size and throw "Invalid LatLng (NaN)".
 var _started=false;

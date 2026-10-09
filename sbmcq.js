@@ -32,13 +32,13 @@
   };
 
   var UNIT_TITLES = {
-    2: 'Unit 2 &mdash; Networks of Exchange',
-    3: 'Unit 3 &mdash; Land-Based Empires',
-    4: 'Unit 4 &mdash; Transoceanic Interconnections',
-    5: 'Unit 5 &mdash; Revolutions',
-    6: 'Unit 6 &mdash; Consequences of Industrialization',
-    7: 'Unit 7 &mdash; Global Conflict',
-    8: 'Unit 8 &mdash; Cold War &amp; Decolonization'
+    2: 'Unit 2: Networks of Exchange',
+    3: 'Unit 3: Land-Based Empires',
+    4: 'Unit 4: Transoceanic Interconnections',
+    5: 'Unit 5: Revolutions',
+    6: 'Unit 6: Consequences of Industrialization',
+    7: 'Unit 7: Global Conflict',
+    8: 'Unit 8: Cold War &amp; Decolonization'
   };
 
   function esc(s) {
@@ -185,8 +185,8 @@
       ],
       answer: 1, trapIdx: 0,
       meaning: 'Strip away the place names: goods had to cross a brutal desert. The question is really asking what made regularly crossing the Sahara possible in the first place.',
-      why: 'B. New transport and commercial technology — the camel saddle, organized caravans, and caravanserai rest stops — let merchants cross the Sahara reliably, which is what built the network shown on the map.',
-      trap: 'A names the Swahili Coast: right era, wrong side of the continent (that is Indian Ocean trade). In a causation question, do not grab a choice just because it is from the same period — it has to be the actual cause.'
+      why: 'B. New transport and commercial technology, the camel saddle, organized caravans, and caravanserai rest stops, let merchants cross the Sahara reliably, which is what built the network shown on the map.',
+      trap: 'A names the Swahili Coast: right era, wrong side of the continent (that is Indian Ocean trade). In a causation question, do not grab a choice just because it is from the same period, it has to be the actual cause.'
     },
     {
       unit: 2, topic: '2.4', type: 'bestillustrates', test: 'Unit 2 · Topic 2.4',
@@ -205,9 +205,9 @@
         'Its reliance on Indian Ocean monsoon winds'
       ],
       answer: 1, trapIdx: 3,
-      meaning: 'The king gives away so much gold that he crashes Cairo’s gold price for years. Only staggering, steady wealth does that — so where did all that gold come from?',
+      meaning: 'The king gives away so much gold that he crashes Cairo’s gold price for years. Only staggering, steady wealth does that, so where did all that gold come from?',
       why: 'B. Mali’s wealth came from controlling and taxing the trans-Saharan trade in gold and salt. Mansa Musa’s gold-soaked hajj is the textbook illustration of that wealth.',
-      trap: 'D (Indian Ocean monsoon winds) is a real thing, but it powered East African and Swahili trade, not landlocked Mali — and the passage never mentions it. Stay inside what the source actually shows.'
+      trap: 'D (Indian Ocean monsoon winds) is a real thing, but it powered East African and Swahili trade, not landlocked Mali, and the passage never mentions it. Stay inside what the source actually shows.'
     },
     {
       unit: 2, topic: '2.6', type: 'bestillustrates', test: 'Unit 2 · Topic 2.6',
@@ -227,8 +227,8 @@
       ],
       answer: 1, trapIdx: 0,
       meaning: 'The same caravans and ships that carried silk and silver also carried the plague from China all the way to Europe. So the networks moved disease, not just merchandise.',
-      why: 'B. The connected Silk Road and Indian Ocean networks that carried goods and ideas also carried the Black Death across Eurasia — exactly what the passage describes.',
-      trap: 'A says the networks spread “only goods, not disease” — the direct opposite of the passage. Never pick a choice that contradicts the source just because it sounds neat.'
+      why: 'B. The connected Silk Road and Indian Ocean networks that carried goods and ideas also carried the Black Death across Eurasia, exactly what the passage describes.',
+      trap: 'A says the networks spread “only goods, not disease”, the direct opposite of the passage. Never pick a choice that contradicts the source just because it sounds neat.'
     },
     {
       unit: 2, topic: '2.5', type: 'bestillustrates', test: 'Unit 2 · Topic 2.5',
@@ -248,8 +248,8 @@
       ],
       answer: 1, trapIdx: 0,
       meaning: 'A single traveler is welcomed as a “brother in the faith” everywhere from Anatolia to India. That only happens if one connected Islamic culture already stretches across all those trade routes.',
-      why: 'B. Ibn Battuta being hosted by fellow Muslims from Turkey to India is prime evidence of Dar al-Islam — a shared Islamic culture that trade and travel spread across Afro-Eurasia.',
-      trap: 'A says the passage shows the decline of Islam — the opposite of a traveler welcomed everywhere by Muslims. Read what the source actually demonstrates, not the reverse.'
+      why: 'B. Ibn Battuta being hosted by fellow Muslims from Turkey to India is prime evidence of Dar al-Islam, a shared Islamic culture that trade and travel spread across Afro-Eurasia.',
+      trap: 'A says the passage shows the decline of Islam, the opposite of a traveler welcomed everywhere by Muslims. Read what the source actually demonstrates, not the reverse.'
     }
     ,
 
@@ -272,8 +272,8 @@
       ],
       answer: 1, trapIdx: 3,
       meaning: 'This is a reliability question. To trust an eyewitness account, you want proof the author was actually there and in a position to see what he describes.',
-      why: 'B. If Bernier spent years as an official inside the Mughal court, he witnessed the administration firsthand — exactly the thing that makes an eyewitness account more reliable.',
-      trap: 'D (that he wrote it for Colbert, who founded the French East India Company) would make you trust him less, not more — he had a patron to impress. Watch the direction of a reliability question: you want the fact that strengthens the account.'
+      why: 'B. If Bernier spent years as an official inside the Mughal court, he witnessed the administration firsthand, exactly the thing that makes an eyewitness account more reliable.',
+      trap: 'D (that he wrote it for Colbert, who founded the French East India Company) would make you trust him less, not more, he had a patron to impress. Watch the direction of a reliability question: you want the fact that strengthens the account.'
     },
     {
       unit: 3, topic: '3.2', type: 'context', test: 'Unit 3 · Topic 3.2',
@@ -294,12 +294,12 @@
       answer: 0, trapIdx: 2,
       meaning: 'A king tells Parliament that kings sit on God’s throne and are “called gods.” Ask what bigger development this fits into: rulers of this era justifying their power through religion.',
       why: 'A. James I is making a classic divine-right argument. It fits the broad early-modern pattern of European monarchs using religion to legitimize increasingly absolute political authority.',
-      trap: 'C (theocracies across Eurasia) just re-describes the religious content of the quote. A context question wants the larger situation around the source — here, absolutist monarchy — not a restatement of what it says.'
+      trap: 'C (theocracies across Eurasia) just re-describes the religious content of the quote. A context question wants the larger situation around the source, here, absolutist monarchy, not a restatement of what it says.'
     },
     {
       unit: 3, topic: '3.2', type: 'similar', test: 'Unit 3 · Topic 3.2',
       simg: 'images/u3-vis-3.jpg',
-      stim: 'A manuscript illustration made to celebrate the achievements of the Ottoman Sultan Suleiman the Magnificent (c. 1560) shows Ottoman officials <mark class="hs">forcibly enlisting boys from the empire’s Christian subjects in the Balkans</mark> to train them for service in the Ottoman army and bureaucracy — the devshirme system.',
+      stim: 'A manuscript illustration made to celebrate the achievements of the Ottoman Sultan Suleiman the Magnificent (c. 1560) shows Ottoman officials <mark class="hs">forcibly enlisting boys from the empire’s Christian subjects in the Balkans</mark> to train them for service in the Ottoman army and bureaucracy, the devshirme system.',
       srcline: 'Manuscript illustration of the Ottoman devshirme system, c. 1560',
       src: [
         { tag: 'WHEN', since: 'it dates to about 1560', therefore: 'it fits the Ottoman Empire at its height under Suleiman' },
@@ -314,9 +314,9 @@
         'The granting of autonomy to minority groups'
       ],
       answer: 0, trapIdx: 1,
-      meaning: 'For a “most similar” question, ignore the topic (soldiers) and name the method. The state is extracting a required resource — here, boys — from subject populations for its own use.',
-      why: 'A. The devshirme took a compulsory levy (boys) from conquered peoples for the state — the same method as collecting tribute: extracting resources from subject populations to strengthen the empire.',
-      trap: 'B (religious uniformity) matches by topic, since the boys were converted to Islam — but the question asks for the same method, and the method here is a forced levy on subjects, i.e. tribute. Match the process, not the subject matter.'
+      meaning: 'For a “most similar” question, ignore the topic (soldiers) and name the method. The state is extracting a required resource, here, boys, from subject populations for its own use.',
+      why: 'A. The devshirme took a compulsory levy (boys) from conquered peoples for the state, the same method as collecting tribute: extracting resources from subject populations to strengthen the empire.',
+      trap: 'B (religious uniformity) matches by topic, since the boys were converted to Islam, but the question asks for the same method, and the method here is a forced levy on subjects, i.e. tribute. Match the process, not the subject matter.'
     },
     {
       unit: 3, topic: '3.3', type: 'causation', test: 'Unit 3 · Topic 3.3',
@@ -335,7 +335,7 @@
         'The Ottoman Empire’s rivalry with the Safavid Empire'
       ],
       answer: 3, trapIdx: 1,
-      meaning: 'The passage shows Sunni scholars policing orthodoxy against the Sufis. The question asks what pushed those scholars to enforce strict Sunni doctrine so hard — what was the empire up against?',
+      meaning: 'The passage shows Sunni scholars policing orthodoxy against the Sufis. The question asks what pushed those scholars to enforce strict Sunni doctrine so hard, what was the empire up against?',
       why: 'D. The Ottomans’ rivalry with the neighboring Shia Safavid Empire pushed Ottoman Sunni scholars to enforce strict Sunni orthodoxy, strengthening their role as the guardians of correct doctrine.',
       trap: 'B (the conquest of Constantinople, 1453) is a real, famous Ottoman event, but it is about imperial expansion, not about hardening Sunni orthodoxy against a Shia rival. In causation, reject the true-but-unrelated event.'
     }
@@ -359,9 +359,9 @@
         'To establish direct military control over Indian Ocean city-states'
       ],
       answer: 1, trapIdx: 2,
-      meaning: 'Da Gama’s route “bypassed the overland Silk Road networks controlled by Ottoman intermediaries.” The question asks why Portugal wanted that — what were they trying to reach, and around whom?',
+      meaning: 'Da Gama’s route “bypassed the overland Silk Road networks controlled by Ottoman intermediaries.” The question asks why Portugal wanted that, what were they trying to reach, and around whom?',
       why: 'B. Portugal sought to reach Asian spice markets directly, without paying the Ottoman and Italian middlemen who controlled the overland routes. That is the motive the passage points to.',
-      trap: 'C (a crusade to spread Christianity) was a real secondary motive of the era, but the passage stresses bypassing intermediaries to reach Asian trade — the economic driver. Match the cause the source actually highlights.'
+      trap: 'C (a crusade to spread Christianity) was a real secondary motive of the era, but the passage stresses bypassing intermediaries to reach Asian trade, the economic driver. Match the cause the source actually highlights.'
     },
     {
       unit: 4, topic: '4.6', type: 'context', test: 'Unit 4 · Topic 4.6',
@@ -382,7 +382,7 @@
       answer: 3, trapIdx: 1,
       meaning: 'The Maroons were descendants of Africans enslaved on Jamaica’s sugar plantations, and their armed resistance is a reaction to the system that enslaved them. What larger system is that?',
       why: 'D. The Maroons were escaped enslaved people; their revolt reacts directly against the expanding Atlantic slave trade and plantation system that had brought Africans to Jamaica.',
-      trap: 'B (impoverishment of indigenous populations) is about Native Americans, not enslaved Africans. Right era, wrong group — a context question needs the trend that these specific people were reacting to.'
+      trap: 'B (impoverishment of indigenous populations) is about Native Americans, not enslaved Africans. Right era, wrong group, a context question needs the trend that these specific people were reacting to.'
     },
     {
       unit: 4, topic: '4.5', type: 'bestillustrates', test: 'Unit 4 · Topic 4.5',
@@ -402,7 +402,7 @@
       ],
       answer: 2, trapIdx: 3,
       meaning: 'De Estete’s goal was to replace Andean religion with Christianity by force. The question asks what later development shows that goal was NOT fully met.',
-      why: 'C. Indigenous beliefs survived by blending with Catholicism into syncretic practices — proof that the forced conversion de Estete describes never fully erased native religion.',
+      why: 'C. Indigenous beliefs survived by blending with Catholicism into syncretic practices, proof that the forced conversion de Estete describes never fully erased native religion.',
       trap: 'D (dependence on coerced labor) is true of colonial Peru, but it is about the economy, not about whether religious conversion succeeded. Match the evidence to the specific goal in the passage.'
     },
     {
@@ -422,9 +422,9 @@
         'The Spanish assassinated the king’s eldest son'
       ],
       answer: 1, trapIdx: 2,
-      meaning: 'The author’s claim is that Maya culture changed dramatically. Find the line he actually uses as proof — the before-and-after of religion.',
+      meaning: 'The author’s claim is that Maya culture changed dramatically. Find the line he actually uses as proof, the before-and-after of religion.',
       why: 'B. The author says that before the friars the Maya were “ignorant of the word... of God,” and then were converted. That contrast is the evidence he uses for a dramatic cultural change.',
-      trap: 'C (that the Maya became poor) may be true of the conquest, but the author does not use poverty as his evidence for cultural change — he points to religious conversion. Stay with the evidence the source actually uses.'
+      trap: 'C (that the Maya became poor) may be true of the conquest, but the author does not use poverty as his evidence for cultural change, he points to religious conversion. Stay with the evidence the source actually uses.'
     }
     ,
 
@@ -447,12 +447,12 @@
       ],
       answer: 2, trapIdx: 3,
       meaning: 'This is a point-of-view question. Kersaint asks only for gradual freedom, while Saint-Maurice demands full abolition. Ask what personal interest would make Kersaint hold back.',
-      why: 'C. Kersaint owned Caribbean plantations, so he had a direct economic stake in keeping cheap or unpaid labor — which is why he wanted only gradual emancipation, not immediate abolition.',
+      why: 'C. Kersaint owned Caribbean plantations, so he had a direct economic stake in keeping cheap or unpaid labor, which is why he wanted only gradual emancipation, not immediate abolition.',
       trap: 'D (that he attacked noble privileges) shows he could be a reformer, but it does not explain his caution on slavery. In a POV question, find the interest that pulls the author toward the exact position he takes.'
     },
     {
       unit: 5, topic: '5.2', type: 'causation', test: 'Unit 5 · Topic 5.2',
-      stim: 'In theory, all of the peoples of the world are created equal and are brothers before God. As universal love advances, the theory goes, the entire world will soon be at peace. This theory is currently espoused mainly by Western Christian ministers. However, when we leave this fiction and look at the facts regarding international relations today, we find them shockingly different. Do nations honor treaties? We find not the slightest evidence that they do. <mark class="hs">Whether a treaty is honored or not depends entirely on the financial and military powers of the countries involved</mark>. If others are violent, then I too must become violent. International politics is the way of force rather than the way of virtue — and we should accept that.',
+      stim: 'In theory, all of the peoples of the world are created equal and are brothers before God. As universal love advances, the theory goes, the entire world will soon be at peace. This theory is currently espoused mainly by Western Christian ministers. However, when we leave this fiction and look at the facts regarding international relations today, we find them shockingly different. Do nations honor treaties? We find not the slightest evidence that they do. <mark class="hs">Whether a treaty is honored or not depends entirely on the financial and military powers of the countries involved</mark>. If others are violent, then I too must become violent. International politics is the way of force rather than the way of virtue, and we should accept that.',
       srcline: 'Yukichi Fukuzawa, Japanese intellectual, Commentary on the Current Problems, 1881',
       src: [
         { tag: 'WHEN', since: 'it was written in 1881', therefore: 'it fits Japan’s rapid Meiji-era response to Western pressure' },
@@ -468,12 +468,12 @@
       ],
       answer: 2, trapIdx: 1,
       meaning: 'Fukuzawa concludes that power, not law, rules the world. Ask what recent experience taught Japan that lesson the hard way.',
-      why: 'C. The United States used gunboats (Perry’s “Black Ships,” 1853) to force Japan open. That coercion — and the Meiji Restoration that followed — is exactly what taught Fukuzawa that world affairs run on force, not virtue.',
+      why: 'C. The United States used gunboats (Perry’s “Black Ships,” 1853) to force Japan open. That coercion: and the Meiji Restoration that followed, is exactly what taught Fukuzawa that world affairs run on force, not virtue.',
       trap: 'B (peaceful Shinto and Buddhist traditions) points the opposite direction from Fukuzawa’s harsh conclusion. In causation, the cause must actually produce the view expressed, not contradict it.'
     },
     {
       unit: 5, topic: '5.1', type: 'bestillustrates', test: 'Unit 5 · Topic 5.1',
-      stim: 'Americans today, who live within the Spanish system, occupy a position in society no better than that of serfs destined for labor... surrounded with galling restrictions, such as being <mark class="hs">forbidden to grow European crops, or to establish factories</mark> of a type the Peninsula itself does not possess. To this add the exclusive trading privileges, even in articles of prime necessity, and the barriers between American provinces designed to prevent all exchange of trade. In short, do you wish to know what our future held? — simply the cultivation of fields, cattle raising, and mining gold.',
+      stim: 'Americans today, who live within the Spanish system, occupy a position in society no better than that of serfs destined for labor... surrounded with galling restrictions, such as being <mark class="hs">forbidden to grow European crops, or to establish factories</mark> of a type the Peninsula itself does not possess. To this add the exclusive trading privileges, even in articles of prime necessity, and the barriers between American provinces designed to prevent all exchange of trade. In short, do you wish to know what our future held? simply the cultivation of fields, cattle raising, and mining gold.',
       srcline: 'Simón Bolívar, Letter from Jamaica, 1815',
       src: [
         { tag: 'WHEN', since: 'it was written in 1815', therefore: 'it fits the Latin American wars of independence against Spain' },
@@ -488,9 +488,9 @@
         'Bolívar hoped to undo the effects of the Columbian Exchange.'
       ],
       answer: 1, trapIdx: 0,
-      meaning: 'Bolívar lists ban after ban — no European crops, no factories, no trade between provinces. Those are all one kind of policy. Which economic system do they add up to?',
-      why: 'B. Every restriction Bolívar names — forbidding crops, factories, and inter-colonial trade — is a feature of Spanish mercantilism, which kept the colony a raw-material supplier. That is the grievance driving him.',
-      trap: 'A (opposition to forced labor) is a real Enlightenment cause, but it is not what this passage lists — his complaints are all about trade and manufacturing restrictions. Match the conclusion to the evidence actually given.'
+      meaning: 'Bolívar lists ban after ban, no European crops, no factories, no trade between provinces. Those are all one kind of policy. Which economic system do they add up to?',
+      why: 'B. Every restriction Bolívar names: forbidding crops, factories, and inter-colonial trade, is a feature of Spanish mercantilism, which kept the colony a raw-material supplier. That is the grievance driving him.',
+      trap: 'A (opposition to forced labor) is a real Enlightenment cause, but it is not what this passage lists, his complaints are all about trade and manufacturing restrictions. Match the conclusion to the evidence actually given.'
     },
     {
       unit: 5, topic: '5.2', type: 'context', test: 'Unit 5 · Topic 5.2',
@@ -533,7 +533,7 @@
         'The United States played the leading role in mediating disputes between colonial powers.'
       ],
       answer: 2, trapIdx: 0,
-      meaning: 'Fourteen European states meet in Berlin and set rules for who gets which parts of Africa — with no Africans in the room. What does that reveal about imperialism?',
+      meaning: 'Fourteen European states meet in Berlin and set rules for who gets which parts of Africa, with no Africans in the room. What does that reveal about imperialism?',
       why: 'C. The Berlin Conference is the classic case of European powers collectively carving up Africa among themselves, treating the whole continent as theirs to distribute. No African rulers were invited or consulted.',
       trap: 'A (military competition deciding borders) sounds like imperialism in general, but the Berlin Conference was precisely an attempt to set the rules on paper and avoid war among the Europeans. Match what the source shows, not a generic image of conquest.'
     },
@@ -560,7 +560,7 @@
     },
     {
       unit: 6, topic: '6.4', type: 'bestillustrates', test: 'Unit 6 · Topic 6.4',
-      stim: 'The British cotton textile industry consumed 80% of Egypt’s raw cotton by 1880. Egyptian farmers who once grew food were <mark class="hs">shifted to cotton monoculture</mark> — profitable in good years, catastrophic when British mills reduced orders. When the global cotton price fell in 1873, Egyptian farmers faced bankruptcy while British manufacturers who bought their cotton at lower prices increased profits.',
+      stim: 'The British cotton textile industry consumed 80% of Egypt’s raw cotton by 1880. Egyptian farmers who once grew food were <mark class="hs">shifted to cotton monoculture</mark>: profitable in good years, catastrophic when British mills reduced orders. When the global cotton price fell in 1873, Egyptian farmers faced bankruptcy while British manufacturers who bought their cotton at lower prices increased profits.',
       srcline: 'Secondary source analysis of Egypt’s cotton economy under British influence, c. 1880',
       src: [
         { tag: 'WHEN', since: 'it describes about 1880', therefore: 'it fits the age of industrial powers reshaping colonial economies' },
@@ -577,11 +577,11 @@
       answer: 1, trapIdx: 2,
       meaning: 'Egypt stops growing food and grows cotton for British mills, then gets wrecked when British demand and prices drop. That is a colony remade to serve the industrial center.',
       why: 'B. Egypt’s shift to cotton monoculture illustrates how imperialism restructured colonial economies to feed metropolitan industry, leaving colonized people dependent on global commodity prices set in places like Manchester.',
-      trap: 'C (free trade letting farmers build capital) is the opposite of what happened — the farmers lost food security and control. Do not pick the hopeful-sounding option that the source actually contradicts.'
+      trap: 'C (free trade letting farmers build capital) is the opposite of what happened, the farmers lost food security and control. Do not pick the hopeful-sounding option that the source actually contradicts.'
     },
     {
       unit: 6, topic: '6.6', type: 'causation', test: 'Unit 6 · Topic 6.6',
-      stim: 'Between 1848 and 1852, more than one million Irish people emigrated to the United States, fleeing the potato famine that killed approximately one million more. They arrived as unskilled laborers concentrated in northeastern cities. By the 1860s, Irish immigrants provided labor for the eastern transcontinental railroad while Chinese workers — <mark class="hs">recruited directly from Guangdong province — built the western half</mark>.',
+      stim: 'Between 1848 and 1852, more than one million Irish people emigrated to the United States, fleeing the potato famine that killed approximately one million more. They arrived as unskilled laborers concentrated in northeastern cities. By the 1860s, Irish immigrants provided labor for the eastern transcontinental railroad while Chinese workers, <mark class="hs">recruited directly from Guangdong province, built the western half</mark>.',
       srcline: 'Secondary source summary of mid-nineteenth-century labor migration to the United States',
       src: [
         { tag: 'WHEN', since: 'it covers the 1840s–60s', therefore: 'it fits the era of mass global migration and industrialization' },
@@ -620,9 +620,9 @@
         'introducing reforms that industrialized Japan’s economy'
       ],
       answer: 1, trapIdx: 0,
-      meaning: 'Shigenobu argues Japan is the equal of the West and resents Western racism. The question asks what Japanese leaders built on that idea — how did “Japan deserves equal great-power status” get used?',
+      meaning: 'Shigenobu argues Japan is the equal of the West and resents Western racism. The question asks what Japanese leaders built on that idea, how did “Japan deserves equal great-power status” get used?',
       why: 'B. The claim that Japan deserved standing equal to the Western empires was used to justify Japanese militarization and imperial expansion across Asia in the 1930s (Manchuria, then China).',
-      trap: 'A (war with Russia over Manchuria) fits the theme of Japanese expansion, but that war was in 1904–05 — before this 1921 essay and before the interwar period the question asks about. Watch the time frame.'
+      trap: 'A (war with Russia over Manchuria) fits the theme of Japanese expansion, but that war was in 1904–05, before this 1921 essay and before the interwar period the question asks about. Watch the time frame.'
     },
     {
       unit: 7, topic: '7.1', type: 'context', test: 'Unit 7 · Topic 7.1',
@@ -641,7 +641,7 @@
         'The League of Nations mandate system over former Ottoman territories in Arabia'
       ],
       answer: 1, trapIdx: 3,
-      meaning: 'A leader insists sovereignty must be “taken,” not given. Ask what threat he was responding to — who was trying to take Turkish land after WWI?',
+      meaning: 'A leader insists sovereignty must be “taken,” not given. Ask what threat he was responding to, who was trying to take Turkish land after WWI?',
       why: 'B. After WWI the victorious Allies tried to partition Anatolia (the Treaty of Sèvres). Kemal’s insistence on seizing sovereignty is best understood as a response to the Ottoman collapse and that attempted partition.',
       trap: 'D (the mandate system over Arabia) is from the same post-war moment, but the mandates covered former Ottoman Arab lands, not the Turkish heartland Kemal was fighting for. Pick the context that fits his actual situation.'
     },
@@ -662,9 +662,9 @@
         'resisting the spread of Bolshevism following the Russian Revolution'
       ],
       answer: 2, trapIdx: 0,
-      meaning: 'The editorial accuses the treaty of betraying Wilson’s principles. To see the point of view, ask what Wilson had promised — a peace of what kind?',
-      why: 'C. Wilson called for “peace without victory” — a settlement not built on punishing the losers. The editorial’s outrage depends on that promise, arguing Versailles betrayed it with a vengeful, crushing peace.',
-      trap: 'A (an international organization, the League of Nations) really was a Wilson goal, but it is not what makes this editorial’s complaint work. The argument turns on Wilson’s promise of a non-vengeful peace — match the principle the passage is actually invoking.'
+      meaning: 'The editorial accuses the treaty of betraying Wilson’s principles. To see the point of view, ask what Wilson had promised, a peace of what kind?',
+      why: 'C. Wilson called for “peace without victory”, a settlement not built on punishing the losers. The editorial’s outrage depends on that promise, arguing Versailles betrayed it with a vengeful, crushing peace.',
+      trap: 'A (an international organization, the League of Nations) really was a Wilson goal, but it is not what makes this editorial’s complaint work. The argument turns on Wilson’s promise of a non-vengeful peace, match the principle the passage is actually invoking.'
     },
     {
       unit: 7, topic: '7.1', type: 'causation', test: 'Unit 7 · Topic 7.1',
@@ -684,7 +684,7 @@
       ],
       answer: 2, trapIdx: 3,
       meaning: 'Right after WWII, an international body declares that race is a myth with no scientific basis. Ask what had just happened that made such a declaration urgent.',
-      why: 'C. The UNESCO statement came directly out of the post-war reckoning with Nazi racial ideology and the Holocaust — repudiating the pseudo-science that had justified genocide.',
+      why: 'C. The UNESCO statement came directly out of the post-war reckoning with Nazi racial ideology and the Holocaust, repudiating the pseudo-science that had justified genocide.',
       trap: 'D (colonial powers legitimizing rule) also involved racial thinking, but the 1949 statement was a direct answer to the Holocaust, not a colonial policy tool. Anchor the cause to the specific event driving the response.'
     }
     ,
@@ -692,7 +692,7 @@
     /* ============ UNIT 8 (added) ============ */
     {
       unit: 8, topic: '8.1', type: 'bestillustrates', test: 'Unit 8 · Topic 8.1',
-      stim: 'From Stettin in the Baltic to Trieste in the Adriatic, <mark class="hs">an iron curtain has descended across the Continent</mark>. Behind that line lie all the capitals of the ancient states of Central and Eastern Europe — Warsaw, Berlin, Prague, Vienna, Budapest, Belgrade, Bucharest and Sofia. All these famous cities and the populations around them lie in what I must call the Soviet sphere, and all are subject not only to Soviet influence but to a very high and in many cases increasing measure of control from Moscow.',
+      stim: 'From Stettin in the Baltic to Trieste in the Adriatic, <mark class="hs">an iron curtain has descended across the Continent</mark>. Behind that line lie all the capitals of the ancient states of Central and Eastern Europe, Warsaw, Berlin, Prague, Vienna, Budapest, Belgrade, Bucharest and Sofia. All these famous cities and the populations around them lie in what I must call the Soviet sphere, and all are subject not only to Soviet influence but to a very high and in many cases increasing measure of control from Moscow.',
       srcline: 'Winston Churchill, “The Sinews of Peace,” Fulton, Missouri, March 5, 1946',
       src: [
         { tag: 'WHEN', since: 'it was delivered in March 1946', therefore: 'it comes just after WWII, as the wartime Allies split apart' },
@@ -709,7 +709,7 @@
       answer: 1, trapIdx: 0,
       meaning: 'Churchill draws a line across Europe dividing a Soviet-controlled East from the West. The question asks what that image announced about the former WWII allies.',
       why: 'B. Churchill’s speech publicly named what leaders already sensed: the wartime U.S.–Soviet alliance had collapsed into open East–West rivalry. Naming it helped crystallize the Cold War.',
-      trap: 'A (a formal declaration of war) overreads it — a metaphor in a speech is not a war declaration, and the Cold War never became direct war between the superpowers. Do not inflate what the source actually did.'
+      trap: 'A (a formal declaration of war) overreads it, a metaphor in a speech is not a war declaration, and the Cold War never became direct war between the superpowers. Do not inflate what the source actually did.'
     },
     {
       unit: 8, topic: '8.3', type: 'causation', test: 'Unit 8 · Topic 8.3',
@@ -729,8 +729,8 @@
       ],
       answer: 2, trapIdx: 1,
       meaning: 'The West forms a mutual-defense alliance aimed at the USSR. Ask what the Soviets did in direct response to being encircled by such a bloc.',
-      why: 'C. NATO looked like encirclement to Moscow. The Soviets’ institutional answer was the Warsaw Pact (1955) — a mirror-image military alliance binding the Eastern bloc.',
-      trap: 'B (the Berlin Blockade) is a real early Cold War clash, but it happened in 1948–49, before and during NATO’s creation — it was a cause of NATO, not a response to it. Check which event came first.'
+      why: 'C. NATO looked like encirclement to Moscow. The Soviets’ institutional answer was the Warsaw Pact (1955): a mirror-image military alliance binding the Eastern bloc.',
+      trap: 'B (the Berlin Blockade) is a real early Cold War clash, but it happened in 1948–49, before and during NATO’s creation, it was a cause of NATO, not a response to it. Check which event came first.'
     },
     {
       unit: 8, topic: '8.4', type: 'purpose', test: 'Unit 8 · Topic 8.4',
@@ -751,7 +751,7 @@
       answer: 1, trapIdx: 0,
       meaning: 'A communist leader opens Vietnam’s independence declaration by quoting Thomas Jefferson. That is a choice with a goal. Ask who he is trying to win over.',
       why: 'B. Ho Chi Minh quoted the American Declaration to appeal to U.S. anti-colonial ideals, hoping to win American backing for Vietnamese independence against France.',
-      trap: 'A (a sincere commitment to liberal democracy) misreads a strategic choice as a personal conversion — Ho was a committed communist. In a purpose question, ask what the wording is meant to achieve, not what it professes on the surface.'
+      trap: 'A (a sincere commitment to liberal democracy) misreads a strategic choice as a personal conversion, Ho was a committed communist. In a purpose question, ask what the wording is meant to achieve, not what it professes on the surface.'
     },
     {
       unit: 8, topic: '8.5', type: 'context', test: 'Unit 8 · Topic 8.5',
@@ -760,7 +760,7 @@
       src: [
         { tag: 'WHEN', since: 'it was delivered in 1957 at Ghana’s independence', therefore: 'it fits the wave of post-war African decolonization' },
         { tag: 'WHO', since: 'it was spoken by the leader of a newly free nation', therefore: 'he is asserting African capability and national pride' },
-        { tag: 'WHAT', since: 'it is an independence speech', therefore: 'it is answering something — the claims used to deny Africans self-rule' }
+        { tag: 'WHAT', since: 'it is an independence speech', therefore: 'it is answering something: the claims used to deny Africans self-rule' }
       ],
       q: 'Nkrumah’s assertion that “the black man is capable of managing his own affairs” <mark class="hq">most directly responds to</mark>',
       options: [
@@ -771,7 +771,7 @@
       ],
       answer: 1, trapIdx: 3,
       meaning: 'Nkrumah insists Africans can govern themselves. He is answering a specific claim. Ask what idea European colonizers used to justify ruling Africans in the first place.',
-      why: 'B. European colonialism was justified by the paternalistic claim — the “civilizing mission” — that Africans could not govern themselves. Nkrumah is directly refuting that ideology.',
+      why: 'B. European colonialism was justified by the paternalistic claim, the “civilizing mission”: that Africans could not govern themselves. Nkrumah is directly refuting that ideology.',
       trap: 'D (Soviet claims that Africa needed communist leadership) drags in the Cold War, but Nkrumah is answering the colonial argument about African capability, not a Soviet one. Match the exact claim he is pushing back against.'
     }
   ];

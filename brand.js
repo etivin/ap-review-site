@@ -1,4 +1,4 @@
-/* brand.js — brand every page with the Tivin Teaches lockup:
+/* brand.js: brand every page with the Tivin Teaches lockup:
    a circular globe+shield emblem (cropped out of the logo art, which has
    arced text baked in) + "Tivin Teaches" / "Education is life itself".
    Header patterns: classic sidebar (.sb-brand), top bar (.bar .brand), and
@@ -7,7 +7,7 @@
   // tivin-emblem.png is the globe (incl. shield) pre-cropped from the logo art,
   // circle-masked so none of the arced text shows.
   // Size is driven by the --em custom property so the header can shrink on scroll
-  // (see .bar.tivin-shrink in brand.css) — width/bg all scale off --em.
+  // (see .bar.tivin-shrink in brand.css): width/bg all scale off --em.
   function emblemStyle(S) {
     return '--em:' + S + 'px;flex-shrink:0;width:var(--em);height:var(--em);border-radius:50%;' +
       'background:#69b3e7 url(tivin-emblem.png) no-repeat center/cover;' +
@@ -39,7 +39,7 @@
   }
 
   function add() {
-    // classic sidebar (unit hubs) — prepend the lockup above the unit title
+    // classic sidebar (unit hubs): prepend the lockup above the unit title
     var sb = document.querySelector('.sb-brand');
     if (sb && !sb.dataset.tivinLockup) {
       sb.dataset.tivinLockup = '1';
@@ -50,10 +50,10 @@
       sb.insertBefore(lk, sb.firstChild);
     }
 
-    // main top bar (dashboard, maps, games) — full lockup
+    // main top bar (dashboard, maps, games), full lockup
     fillBrand(document.querySelector('.bar .brand'), 104, false);
 
-    // Mission-Control injected top strip (unit pages) — compact lockup.
+    // Mission-Control injected top strip (unit pages): compact lockup.
     // mc-mode.js injects it after load, so retry briefly.
     var tries = 0;
     (function fixMcBar() {

@@ -1,12 +1,12 @@
 /* ============================================================
-   spaced.js  —  Shared spaced-review data layer + streak banner.
+   spaced.js: Shared spaced-review data layer + streak banner.
    Phase 1 of the Delayed-Feedback / Confidence-Calibration build.
 
    Exposes window.SPACED. The single write path for spaced-review data
    is SPACED.recordReview(itemId, correct, confidence); the MCQ engine
    (and, in Phase 2, the flashcard flow) call it. All state lives INSIDE
-   the existing apReview_v1 blob — the same object that stores the
-   student's name and MCQ scores — so there is ONE identity system, not
+   the existing apReview_v1 blob: the same object that stores the
+   student's name and MCQ scores, so there is ONE identity system, not
    a second one. New sub-objects:
 
      apReview_v1.spaced   = { <itemId>: { boxLevel, stability,
@@ -77,7 +77,7 @@
     var s = stability || 1;
     return correct ? s * 1.8 : Math.max(1, s * 0.5);
   }
-  // Live Ebbinghaus estimate — recomputed on demand, never stored.
+  // Live Ebbinghaus estimate: recomputed on demand, never stored.
   function retention(item, nowMs) {
     if (!item || !item.lastReviewed) return 0;
     var days = ((nowMs || Date.now()) - new Date(item.lastReviewed).getTime()) / DAY;
@@ -91,7 +91,7 @@
   // Per-item retention sparkline (inline SVG). Replays reviewHistory into a
   // sawtooth: each review spikes to ~100% then decays at that moment's
   // stability. Because stability grows x1.8 on every correct review, each
-  // successive tooth is visibly FLATTER — storage strength made visible.
+  // successive tooth is visibly FLATTER, storage strength made visible.
   // Crimson opacity scales with the item's current live retention.
   SPACED.sparklineSVG = function (itemId, opts) {
     opts = opts || {};
@@ -167,7 +167,7 @@
     return by;
   }
 
-  // Turn the study log into memory-strength events — one per day the student
+  // Turn the study log into memory-strength events, one per day the student
   // put in real time on the site (or a session/review). Each study day lifts
   // memory back toward 100%; the more time that day, the more storage strength
   // (stability) it builds, so future decay is flatter. Days off = no event =
@@ -179,7 +179,7 @@
   //     forgets when studying stops (without it, stability compounds without
   //     bound and the "if you stop" projection flattens to a straight line).
   //   • On days with graded reviews, the strength gained is scaled by that
-  //     day's recall accuracy — showing up and getting everything wrong no
+  //     day's recall accuracy: showing up and getting everything wrong no
   //     longer builds the same durability as actually remembering.
   var STAB_CAP = 30;   // days; ~72% retained 10 days off, ~50% at ~3 weeks off
   function studyEvents() {
@@ -389,7 +389,7 @@
       var isToday = key === tKey;
       var cls = 'spx-dot' + (on ? ' on' : '') + (isToday ? ' today' : '') + (isToday && !on ? ' pulse' : '');
       dots += '<div class="spx-day"><span class="spx-dl">' + DOW[i] + '</span>' +
-              '<span class="' + cls + '" title="' + key + (on ? ' — studied' : '') + '"></span></div>';
+              '<span class="' + cls + '" title="' + key + (on ? ': studied' : '') + '"></span></div>';
     }
     var due = SPACED.dueCount(), streak = SPACED.streakLength();
     var sub = '<b>' + due + '</b> term' + (due === 1 ? '' : 's') + ' ready for review · ' +
@@ -405,7 +405,7 @@
     b.innerHTML = bannerInner();
     return b;
   }
-  // Dashboard aggregate curve — rendered into #spx-dashboard where present
+  // Dashboard aggregate curve: rendered into #spx-dashboard where present
   // (index.html landing area). No-op elsewhere.
   function renderDashboard() {
     var el = document.getElementById('spx-dashboard');
@@ -419,7 +419,7 @@
         '<span class="spx-leg"><span class="spx-leg-line"></span>Studied so far</span>' +
         '<span class="spx-leg"><span class="spx-leg-line spx-leg-dash"></span>If you stop now</span>' +
       '</div>' +
-      '<div class="spx-dash-cap">Built from your time on the site — 14 days back (solid), projected forward ' +
+      '<div class="spx-dash-cap">Built from your time on the site, 14 days back (solid), projected forward ' +
         '(dashed) if you stop. It climbs on the days you review and slips on the days you don’t; ' +
         'study consistently and it decays more slowly.</div>';
   }
@@ -463,7 +463,7 @@
   /* ---- per-unit component engagement (feeds the dashboard progress rings) ----
      Records which review tools a student has opened in each unit, uniformly
      across ALL components (guide, MCQ, flashcards, writing, brain dump,
-     SPICE-T) — so the dashboard ring reflects the whole unit, not just MCQ.
+     SPICE-T): so the dashboard ring reflects the whole unit, not just MCQ.
      Stored at apReview_v1.components['u'+n] = { <pageId>:1, __all:[present] }.
      Only reads the DOM and writes localStorage, so it can never re-enter. */
   var COMPONENT_PAGES = ['pg-guide', 'pg-mcq', 'pg-flash', 'pg-writing', 'pg-brain', 'pg-spice'];
@@ -471,7 +471,7 @@
     if (!unit || COMPONENT_PAGES.indexOf(pageId) < 0) return;
     var s = load(); s.components = s.components || {};
     var k = 'u' + unit, c = s.components[k] || {};
-    if (c[pageId]) return;                 // already recorded — skip the write
+    if (c[pageId]) return;                 // already recorded: skip the write
     c[pageId] = 1; s.components[k] = c; save(s);
   };
   SPACED.recordUnitTabs = function (unit) {

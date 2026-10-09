@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Unit 3 Empire Road — Checkpoint Racer</title>
+<title>Unit 3 Empire Road: Checkpoint Racer</title>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -68,14 +68,14 @@ canvas{display:block;width:100%;height:auto;border:2px solid var(--navy);backgro
 
 <div class="main">
   <div class="eyebrow">Unit 3 · Land-Based Empires · c. 1450 – c. 1750</div>
-  <h1>Empire Road — Checkpoint Racer</h1>
-  <p class="sub">Race across the gunpowder empires. Every few seconds a <b>checkpoint question</b> appears at the top of the screen and a gate with three answers rises over the road — <b>switch into the lane with the right answer</b>. Right answers earn power-ups; wrong ones cost a strike and show you the real answer.</p>
+  <h1>Empire Road: Checkpoint Racer</h1>
+  <p class="sub">Race across the gunpowder empires. Every few seconds a <b>checkpoint question</b> appears at the top of the screen and a gate with three answers rises over the road, <b>switch into the lane with the right answer</b>. Right answers earn power-ups; wrong ones cost a strike and show you the real answer.</p>
 
   <div class="how">
     <div class="card"><b>Switch lanes</b><span><span class="k">← →</span>hop one lane per press (A/D, or swipe/tap on touch). <span class="k">SPACE</span>start. The car drives itself and speeds up the longer you last.</span></div>
     <div class="card"><b>Pick your lane</b><span>Read the question, then be in the <strong>left, middle, or right</strong> lane as you pass the gate.</span></div>
-    <div class="card"><b>Dodge &amp; collect</b><span>Weave around <strong>parked cars</strong> and the odd moving one; grab coin trails as they hop lanes. Pickups: <strong>shield</strong>, <strong>×2</strong>, <strong>coin magnet</strong>, and the uncommon <strong>flying car</strong> (10s in the air — no traffic, no gates). Correct answers also earn a power-up; three in a row = a guaranteed shield.</span></div>
-    <div class="card"><b>3 strikes · 2 bumps</b><span>A wrong gate costs a strike (−1 ♥); lose all three and the run is over. Hitting a car slows you down and leaves you <strong>damaged for 10s</strong> — hit another while damaged and you crash.</span></div>
+    <div class="card"><b>Dodge &amp; collect</b><span>Weave around <strong>parked cars</strong> and the odd moving one; grab coin trails as they hop lanes. Pickups: <strong>shield</strong>, <strong>×2</strong>, <strong>coin magnet</strong>, and the uncommon <strong>flying car</strong> (10s in the air: no traffic, no gates). Correct answers also earn a power-up; three in a row = a guaranteed shield.</span></div>
+    <div class="card"><b>3 strikes · 2 bumps</b><span>A wrong gate costs a strike (−1 ♥); lose all three and the run is over. Hitting a car slows you down and leaves you <strong>damaged for 10s</strong>, hit another while damaged and you crash.</span></div>
   </div>
 
   <div class="play">
@@ -86,7 +86,7 @@ canvas{display:block;width:100%;height:auto;border:2px solid var(--navy);backgro
     <div class="notes">
       <h3>Checkpoint Log</h3>
       <div class="feed" id="feed">
-        <div class="empty">Every gate you pass logs here — <b>green</b> if you nailed it, <b>red</b> with the correct answer and why if you missed. Review the red ones before your next run.</div>
+        <div class="empty">Every gate you pass logs here, <b>green</b> if you nailed it, <b>red</b> with the correct answer and why if you missed. Review the red ones before your next run.</div>
       </div>
       <div class="notes-foot" id="notesFoot">Checkpoints: 0 / 0 correct</div>
     </div>
@@ -121,7 +121,7 @@ const CYCLE = 1800000; // distance for a full day -> sunset -> night -> dawn cyc
 const POW_TIME = { shield: 6, double: 10, magnet: 10, fly: 10, dent: 10 };
 // pickup odds when a power-up (not a coin trail) spawns; the flying car is the uncommon one
 const POW_ODDS = [['shield', 34], ['double', 34], ['magnet', 22], ['fly', 10]]; // fly ≈ once every ~1–1.5 min
-const FLY_ALT = 1800;        // flight altitude in world units — above trucks (600), lamps (1400) and billboards
+const FLY_ALT = 1800;        // flight altitude in world units, above trucks (600), lamps (1400) and billboards
 const FLY_PX = 25;           // extra on-screen lift of the car while flying (the camera climbs with it)
 const MAGNET_RANGE = 6000;   // how far ahead the magnet pulls coins from
 const DENT_TIME = POW_TIME.dent; // after bumping a car you're damaged this long; a second hit while damaged ends the run
@@ -181,7 +181,7 @@ const QUESTIONS = [
   ['3.1', 'Muslim West African empire that followed Mali', 'Songhai', 'Kongo', 'Ghana',
     'Songhai controlled trans-Saharan trade and Timbuktu until Moroccan gunpowder armies defeated it in 1591.'],
   ['3.1', 'Why the Ottomans won at Chaldiran (1514)', 'Gunpowder weapons', 'War elephants', 'A naval fleet',
-    'Ottoman cannons and muskets crushed Safavid cavalry — a textbook "gunpowder empire" victory.'],
+    'Ottoman cannons and muskets crushed Safavid cavalry, a textbook "gunpowder empire" victory.'],
   ['3.1', 'Ottoman sultan at the empire\'s height (1520–66)', 'Suleiman', 'Mehmed II', 'Akbar',
     'Suleiman the Magnificent expanded into Hungary and reformed Ottoman law.'],
   ['3.1', 'Founded the Mughal Empire in 1526', 'Babur', 'Akbar', 'Aurangzeb',
@@ -201,13 +201,13 @@ const QUESTIONS = [
   ['3.2', "Louis XIV's palace that kept nobles close", 'Versailles', 'Taj Mahal', 'Forbidden City',
     'Versailles displayed royal power and kept French nobles busy with court life instead of plotting.'],
   ['3.2', 'Marble tomb built by Shah Jahan', 'Taj Mahal', 'Hagia Sophia', 'Versailles',
-    'The Taj Mahal showed off Mughal wealth and Indo-Islamic architecture — monuments as legitimacy.'],
+    'The Taj Mahal showed off Mughal wealth and Indo-Islamic architecture, monuments as legitimacy.'],
   ['3.2', 'Tsar who westernized Russia', 'Peter the Great', 'Ivan the Terrible', 'Louis XIV',
     'Peter built a modern army and navy and a new capital, St. Petersburg, modeled on Western Europe.'],
   ['3.2', 'Chinese belief that heaven grants the right to rule', 'Mandate of Heaven', 'Divine right', 'Absolutism',
     'The Qing kept the Mandate of Heaven to look like legitimate Chinese rulers, not foreign conquerors.'],
   ['3.2', 'Monuments, ceremonies, and art helped rulers…', 'Legitimize power', 'Spread Protestantism', 'End tax farming',
-    'Rulers used religion, architecture, and ritual to make their rule look rightful — a key 3.2 idea.'],
+    'Rulers used religion, architecture, and ritual to make their rule look rightful, a key 3.2 idea.'],
   ['3.2', 'Qing emperor who embraced Confucian scholarship', 'Kangxi', 'Akbar', 'Suleiman',
     'Kangxi won over Chinese elites by sponsoring Confucian learning while expanding the empire.'],
   ['3.2', 'Samurai turned into salaried officials', 'Tokugawa Japan', 'Qing China', 'Mughal India',
@@ -223,7 +223,7 @@ const QUESTIONS = [
   ['3.3', 'Faith founded by Guru Nanak in Punjab', 'Sikhism', 'Shia Islam', 'Zoroastrianism',
     'Sikhism is monotheistic and blends Hindu and Islamic ideas while rejecting caste.'],
   ['3.3', "Luther's 95 Theses attacked the sale of…", 'Indulgences', 'Printed Bibles', 'Church land',
-    'Luther (1517) objected to paying the Church to reduce punishment for sin — the spark of the Reformation.'],
+    'Luther (1517) objected to paying the Church to reduce punishment for sin, the spark of the Reformation.'],
   ['3.3', 'Catholic answer: Council of Trent and Jesuits', 'Counter-Reformation', 'Reformation', 'Renaissance',
     'The Catholic Church reaffirmed its doctrine, fixed abuses, and sent Jesuit missionaries worldwide.'],
   ['3.3', 'Catholic vs. Protestant war, 1618–1648', "Thirty Years' War", "Hundred Years' War", 'Chaldiran',
@@ -232,7 +232,7 @@ const QUESTIONS = [
     'Din-i Ilahi mixed Islamic, Hindu, and other ideas; it never caught on beyond Akbar\'s court.'],
   ['3.4', 'Monarch with total power, unchecked by nobles', 'Absolutism', 'Feudalism', 'Parliament rule',
     'Absolute monarchs like Louis XIV centralized power and weakened the nobility.'],
-  ['3.4', '"I am the state" — the Sun King', 'Louis XIV', 'Peter the Great', 'Suleiman',
+  ['3.4', '"I am the state": the Sun King', 'Louis XIV', 'Peter the Great', 'Suleiman',
     'Louis XIV of France was the model absolute monarch, ruling through divine right.'],
   ['3.4', 'European rulers justified power through…', 'Divine right', 'Mandate of Heaven', 'Elections',
     'Divine right said the monarch\'s authority came straight from God, so subjects had to obey.'],
@@ -385,7 +385,7 @@ function reset() {
 const feedEl = document.getElementById('feed'), footEl = document.getElementById('notesFoot');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 function logReset() {
-  feedEl.innerHTML = '<div class="empty">Every gate you pass logs here — <b>green</b> if you nailed it, <b>red</b> with the correct answer and why if you missed. Review the red ones before your next run.</div>';
+  feedEl.innerHTML = '<div class="empty">Every gate you pass logs here, <b>green</b> if you nailed it, <b>red</b> with the correct answer and why if you missed. Review the red ones before your next run.</div>';
   footEl.textContent = 'Checkpoints: 0 / 0 correct';
 }
 function logGate(g, ok, picked) {
@@ -1276,7 +1276,7 @@ function drawItem(x, y, k, it) {
 
 // ---------- Checkpoint gates ----------
 const LANE_COL = ['#2d5deb', '#f2b705', '#8a3fd6'], LETTERS = ['A', 'B', 'C'];
-const LANE_TXT = ['#fff', '#111a3f', '#fff']; // dark text on the gold lane — white on gold is hard to read
+const LANE_TXT = ['#fff', '#111a3f', '#fff']; // dark text on the gold lane, white on gold is hard to read
 function drawGate(x, y, k, g) {
   const lw = k * ROAD_W * 2 / 3, top = y - k * 1600, bh = k * 560;
   if (lw < 3) return;
@@ -1363,7 +1363,7 @@ function drawQuestion() {
     solid(h);
     ctx.fillStyle = ok ? '#2e9d4f' : '#d83a2e'; ctx.fillRect(x, 12, 5, h);
     ctx.fillStyle = ok ? '#9ef07a' : '#ff8a80'; ctx.font = '900 18px Lato, system-ui, sans-serif';
-    ctx.fillText((ok ? '✓ CORRECT — ' : '✕ ANSWER: ') + g.q[2], x + pad, 38, w - pad * 2);
+    ctx.fillText((ok ? '✓ CORRECT: ' : '✕ ANSWER: ') + g.q[2], x + pad, 38, w - pad * 2);
     ctx.fillStyle = '#e8eef8'; ctx.font = '15px Lato, system-ui, sans-serif';
     lines.forEach((l, i) => ctx.fillText(l, x + pad, 62 + i * 20));
     ctx.globalAlpha = 1;
@@ -1371,7 +1371,7 @@ function drawQuestion() {
     panel(x, 12, w, 44);
     ctx.fillStyle = POWER.fly.col; ctx.fillRect(x, 12, 5, 44);
     ctx.fillStyle = '#8ff5e0'; ctx.font = '900 15px Lato, system-ui, sans-serif';
-    ctx.fillText(`FLYING CAR · ${Math.ceil(fly)}s — checkpoints paused, grab the sky coins!`, x + pad, 39, w - pad * 2);
+    ctx.fillText(`FLYING CAR · ${Math.ceil(fly)}s: checkpoints paused, grab the sky coins!`, x + pad, 39, w - pad * 2);
   }
 }
 
@@ -1484,7 +1484,7 @@ function drawOverlay() {
     ctx.fillStyle = newBest ? '#ffd54f' : '#cfd8e3';
     ctx.fillText(newBest ? '★ NEW BEST! ★' : 'Best: ' + best.toLocaleString(), W / 2, H / 2 - 10);
     ctx.fillStyle = '#fff'; ctx.font = '600 16px system-ui, sans-serif';
-    ctx.fillText(`Checkpoints: ${right} / ${asked} correct` + (asked > right ? ' — review the red ones in the Checkpoint Log' : ''), W / 2, H / 2 + 30);
+    ctx.fillText(`Checkpoints: ${right} / ${asked} correct` + (asked > right ? ': review the red ones in the Checkpoint Log' : ''), W / 2, H / 2 + 30);
   } else {
     ctx.fillText('Unit 3 · Land-Based Empires', W / 2, H / 2 - 62);
     ctx.font = '15px system-ui, sans-serif'; ctx.fillStyle = '#cfd8e3';

@@ -1,6 +1,6 @@
 name: Deploy to GitHub Pages
 
-# Deploys the site (static HTML/CSS/JS — no Jekyll) to GitHub Pages via
+# Deploys the site (static HTML/CSS/JS, no Jekyll) to GitHub Pages via
 # GitHub Actions. Replaces the classic "deploy from a branch" builder, which
 # had stalled and stopped publishing new commits.
 
@@ -15,7 +15,7 @@ permissions:
   id-token: write
 
 # Dedicated group (away from the old stuck "pages" runs). Do NOT cancel in
-# progress — let a run finish instead of newer runs killing it mid-deploy.
+# progress; let a run finish instead of newer runs killing it mid-deploy.
 concurrency:
   group: pages-actions-deploy
   cancel-in-progress: false

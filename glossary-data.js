@@ -1,4 +1,4 @@
-/* glossary-data.js — every term students need, by unit, for the Glossary tab
+/* glossary-data.js: every term students need, by unit, for the Glossary tab
    (glossary.js) and site search (search.js). Rows are [topic, term, definition].
    Add a row here and it shows up in the unit's Glossary AND in search.
    Keep definitions to 1–2 plain sentences; the term's slug (its #g- anchor)

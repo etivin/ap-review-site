@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unit 4 Interrogate — Fact / Myth Minesweeper</title>
+<title>Unit 4 Interrogate: Fact / Myth Minesweeper</title>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -132,13 +132,13 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
 
 <div class="main">
   <div class="eyebrow">Unit 4 · Transoceanic Interconnections · c. 1450 – c. 1750</div>
-  <h1>Interrogate — Fact / Myth Minesweeper</h1>
-  <p class="sub">A minefield of claims about Unit&nbsp;4. Click a square: <b>is it a true fact or a historical myth?</b> Facts are safe and reveal a number (how many myths touch them); myths are the mines. Spot a myth and you're not done — <b>you must then pick the real correction</b> from three options. The numbers point toward danger, but only knowing the history clears the field.</p>
+  <h1>Interrogate: Fact / Myth Minesweeper</h1>
+  <p class="sub">A minefield of claims about Unit&nbsp;4. Click a square: <b>is it a true fact or a historical myth?</b> Facts are safe and reveal a number (how many myths touch them); myths are the mines. Spot a myth and you're not done, <b>you must then pick the real correction</b> from three options. The numbers point toward danger, but only knowing the history clears the field.</p>
 
   <div class="how">
     <div class="card"><b>Open a square</b><span><span class="k">CLICK</span>A claim appears. Answer <b>Fact</b> to clear it or <b>Myth</b> to defuse it.</span></div>
-    <div class="card"><b>Fix the myth</b><span>Defuse a myth and a follow-up asks: what's <b>actually</b> true? Pick the right correction from three — <b>miss it and the myth detonates</b> (−1 life).</span></div>
-    <div class="card"><b>Read the numbers</b><span>A cleared fact shows how many of its 8 neighbors are myths — your clue for where to probe next.</span></div>
+    <div class="card"><b>Fix the myth</b><span>Defuse a myth and a follow-up asks: what's <b>actually</b> true? Pick the right correction from three, <b>miss it and the myth detonates</b> (−1 life).</span></div>
+    <div class="card"><b>Read the numbers</b><span>A cleared fact shows how many of its 8 neighbors are myths, your clue for where to probe next.</span></div>
     <div class="card"><b>Survive &amp; clear</b><span>3 lives; a wrong Fact/Myth call costs one. Clear every fact and defuse every myth to win. Positions stay hidden.</span></div>
   </div>
 
@@ -164,7 +164,7 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
     <div class="notes">
       <h3>Field Notes</h3>
       <div class="feed" id="feed">
-        <div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix — <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>
+        <div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix, <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>
       </div>
       <div class="notes-foot" id="notesFoot">Corrections: 0 / 0 nailed</div>
     </div>
@@ -179,8 +179,8 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
     <div class="clue" id="ov-clue"></div>
     <div class="q" id="ov-q"></div>
     <div class="ovbtns" id="ov-btns">
-      <button class="fact" id="ov-fact">✓ Fact — clear it</button>
-      <button class="myth" id="ov-myth">✕ Myth — defuse it</button>
+      <button class="fact" id="ov-fact">✓ Fact: clear it</button>
+      <button class="myth" id="ov-myth">✕ Myth: defuse it</button>
     </div>
     <div class="ovresult" id="ov-result"><span class="rt" id="ov-rt"></span><span id="ov-rtxt"></span></div>
     <div class="ovnext" id="ov-next"><button class="btn" id="ov-next-btn">Continue →</button></div>
@@ -289,7 +289,7 @@ const MYTHS = [
    f:"Mestizos were of mixed European and Indigenous ancestry.",
    d:["Mestizos were enslaved Africans.","Mestizos were Asian migrants to Peru."]},
   {m:"European exploration was driven only by scientific curiosity.",
-   f:"It was driven by 'God, Gold, and Glory' — religion, wealth, and prestige.",
+   f:"It was driven by 'God, Gold, and Glory': religion, wealth, and prestige.",
    d:["It was driven mainly by tourism.","It was forced on Europe by the Ottomans."]},
   {m:"The VOC (Dutch East India Company) was a religious missionary order.",
    f:"The VOC was a joint-stock trading company.",
@@ -328,7 +328,7 @@ function newGame(){
   alive=true;started=false;firstClick=true;lives=3;t=0;flagged=0;logged=new Set();fixRight=0;fixTotal=0;
   clearInterval(tick);timeEl.textContent='0';fixesEl.textContent='0';
   wrapEl.classList.remove('over');bannerEl.className='banner';ov.classList.remove('show');
-  feedEl.innerHTML='<div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix — <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>';
+  feedEl.innerHTML='<div class="empty">Facts you clear log here in <b>green</b>. Each myth you defuse logs the claim, whether you picked the right correction, and the real fix, <b>red</b> if you nailed it, <b>amber</b> if it needs another look.</div>';
   footEl.textContent='Corrections: 0 / 0 nailed';
   const facts=shuffle(FACTS.slice());let fi=0;
   G=[];for(let r=0;r<R;r++){const row=[];for(let c=0;c<C;c++)row.push({mine:false,open:false,flag:false,n:0,fact:facts[fi++%facts.length]});G.push(row);}
@@ -371,7 +371,7 @@ function ask(r,c){
   const stmt=g.mine?g.myth.m:g.fact;
   const known=nb(r,c).filter(([a,b])=>G[a][b].open).some(([a,b])=>G[a][b].n>0);
   document.getElementById('ov-clue').innerHTML = known
-    ? 'The numbers around this square hint at <b>danger</b> — but read the claim and decide for yourself.'
+    ? 'The numbers around this square hint at <b>danger</b>, but read the claim and decide for yourself.'
     : 'No clues nearby yet. Judge this claim on the history alone.';
   document.getElementById('ov-q').textContent=stmt;
   document.getElementById('ov-btns').style.display='grid';
@@ -390,7 +390,7 @@ function answer(saidFact){
 
   if(saidFact && !g.mine){                         // ✓ cleared a fact
     flood(r,c);card.classList.add('correct');
-    result('good','Correct — a true fact','Cleared. '+(g.n>0?`${g.n} of its neighbors ${g.n===1?'is a myth':'are myths'}.`:'No myths border it.'));
+    result('good','Correct: a true fact','Cleared. '+(g.n>0?`${g.n} of its neighbors ${g.n===1?'is a myth':'are myths'}.`:'No myths border it.'));
     finishTurn();
   } else if(!saidFact && g.mine){                  // ✓ defused a myth → pick the correction
     g.flag=true;flagged++;sync();
@@ -404,7 +404,7 @@ function answer(saidFact){
     lives--;livesUI();
     g.factwrong=true;sync();
     card.classList.add('wrong');
-    result('bad','Wrong — that was true','This is a real fact: '+g.fact);
+    result('bad','Wrong: that was true','This is a real fact: '+g.fact);
     logFact(g.fact);
     finishTurn();
   }
@@ -422,7 +422,7 @@ function finishTurn(){document.getElementById('ov-next').className='ovnext show'
 function startPick(myth,tripped){
   const res=document.getElementById('ov-result');
   res.className='ovresult show ask';
-  document.getElementById('ov-rt').textContent = tripped ? 'That was a myth — now fix it' : 'Myth defused — now fix it';
+  document.getElementById('ov-rt').textContent = tripped ? 'That was a myth: now fix it' : 'Myth defused: now fix it';
   const opts=mcOptions(myth);
   let html='<div class="mc-q">What’s actually true?</div><div class="mc-opts">';
   opts.forEach(o=>{html+=`<button class="mc-opt" data-correct="${o.correct}">${esc(o.text)}</button>`;});
@@ -435,17 +435,17 @@ function startPick(myth,tripped){
     const card=document.getElementById('ovcard');
     if(correct){
       res.className='ovresult show good';
-      document.getElementById('ov-rt').textContent='Correct — you nailed the fix ✓';
+      document.getElementById('ov-rt').textContent='Correct: you nailed the fix ✓';
     } else if(tripped){
       // the square already detonated on the wrong Fact/Myth call; the pick is a teaching moment, no extra life
       res.className='ovresult show bad';
-      document.getElementById('ov-rt').textContent='Still not the fix — the green one is right';
+      document.getElementById('ov-rt').textContent='Still not the fix: the green one is right';
     } else {
       // correctly flagged the myth but couldn't correct it → it detonates
       lives--; livesUI();
       card.classList.remove('correct'); card.classList.add('wrong');
       res.className='ovresult show bad';
-      document.getElementById('ov-rt').textContent='💥 Wrong fix — the myth detonates (−1 life)';
+      document.getElementById('ov-rt').textContent='💥 Wrong fix: the myth detonates (−1 life)';
       const pe=pending?el(pending[0],pending[1]):null; if(pe)pe.classList.add('blast');
     }
     fixTotal++; if(correct)fixRight++; fixesEl.textContent=fixRight; updateFoot();
@@ -485,11 +485,11 @@ function checkWin(){
 }
 function win(){ alive=false;clearInterval(tick);
   bannerEl.className='banner win';
-  bannerEl.innerHTML=`<span class="big">✓ Field cleared.</span> Every myth defused in ${t}s with ${lives} ${lives===1?'life':'lives'} left — and you nailed <b>${fixRight} of ${fixTotal}</b> corrections.`;
+  bannerEl.innerHTML=`<span class="big">✓ Field cleared.</span> Every myth defused in ${t}s with ${lives} ${lives===1?'life':'lives'} left: and you nailed <b>${fixRight} of ${fixTotal}</b> corrections.`;
 }
 function lose(){ alive=false;clearInterval(tick);wrapEl.classList.add('over');
   bannerEl.className='banner lose';
-  bannerEl.innerHTML=`<span class="big">✕ Out of lives.</span> Remaining myths stay hidden — that's the point. You nailed ${fixRight} of ${fixTotal} corrections; review Field Notes, then hit New Field.`;
+  bannerEl.innerHTML=`<span class="big">✕ Out of lives.</span> Remaining myths stay hidden: that's the point. You nailed ${fixRight} of ${fixTotal} corrections; review Field Notes, then hit New Field.`;
 }
 
 /* Field Notes */
@@ -499,7 +499,7 @@ function logFact(text){if(logged.has('F'+text))return;logged.add('F'+text);clear
   feedEl.appendChild(d);feedEl.scrollTop=feedEl.scrollHeight;}
 function logMyth(myth,gotIt){clearEmpty();
   const d=document.createElement('div');d.className='li '+(gotIt?'myth':'review');
-  d.innerHTML=`<span class="tag">✕ Myth — ${gotIt?'fix nailed ✓':'review this ↻'}</span>${esc(myth.m)}<span class="fix">Actually: ${esc(myth.f)}</span>`;
+  d.innerHTML=`<span class="tag">✕ Myth: ${gotIt?'fix nailed ✓':'review this ↻'}</span>${esc(myth.m)}<span class="fix">Actually: ${esc(myth.f)}</span>`;
   feedEl.appendChild(d);feedEl.scrollTop=feedEl.scrollHeight;}
 
 document.getElementById('newBtn').addEventListener('click',newGame);

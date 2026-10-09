@@ -176,7 +176,7 @@
         white forced text on white),
      2. the light green/red "answer" + highlighter backgrounds
         (light fill under forced-light text = washed out),
-     3. pseudo-element text (::before / ::after) — the global rule
+     3. pseudo-element text (::before / ::after): the global rule
         only targets real elements, so these keep their dark tokens.
    The accent (#6b4a2b brown) stays put: it backs white-text buttons
    where it reads fine, and pseudo text that used it is relit below.
@@ -205,5 +205,5 @@
 :root[data-theme="dark"] .wk-prev:hover,
 :root[data-theme="dark"] .wk-dot:hover,
 :root[data-theme="dark"] .wk[data-step="1"] .wk-srcbar{background:#232a3d}
-/* 3. decorative quote glyph is a ::before — relight it (accent is dark) */
+/* 3. decorative quote glyph is a ::before: relight it (accent is dark) */
 :root[data-theme="dark"] .wk-quote::before{color:#d9a066}

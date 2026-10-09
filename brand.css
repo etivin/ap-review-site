@@ -1,8 +1,8 @@
 /* ══════════════════════════════════════════════════════════════
-   brand.css — "Tivin Teaches" brand palette + lockup.
+   brand.css: "Tivin Teaches" brand palette + lockup.
    Loaded LAST on every page so it wins over each page's inline :root,
    theme.css, and mission-theme.css. Reskins by remapping the shared
-   design tokens — colors only, never layout. Paired with brand.js
+   design tokens: colors only, never layout. Paired with brand.js
    (injects the globe+shield emblem + wordmark lockup).
 
    Palette (from the logo):
@@ -10,14 +10,14 @@
    ══════════════════════════════════════════════════════════════ */
 
 :root{
-  /* neutrals — sky-tinted paper on navy ink */
+  /* neutrals: sky-tinted paper on navy ink */
   --cream:#eef3fa; --bg:#eef3fa; --white:#ffffff; --paper:#e8eff8;
   --border:#cfdcec; --border2:#a9c1de; --line:#cdd9ef;
   --ink:#16244d; --mid:#39476a; --muted:#66748f;
   --sky:#eaf2fb;
-  /* primary accent (filled buttons / active states) — brand blue, white text safe */
+  /* primary accent (filled buttons / active states), brand blue, white text safe */
   --red:#345fbf; --red-d:#26489c; --red-bg:#eaf2fb;
-  /* secondary accent — logo gold (used on light grounds → deeper for contrast) */
+  /* secondary accent: logo gold (used on light grounds → deeper for contrast) */
   --gold:#b8860b; --gold-bg:#fdf7e3; --gold-b:#e6cf7e;
   /* deep-blue accent (readable heading blue) */
   --blue:#2f56b3; --blue-bg:#eef2fb;
@@ -57,7 +57,7 @@ html[data-mc="on"]{
 #mc-bar .mcb-brand .tivin-wordmark b{color:#fff}
 /* let the top bar grow to comfortably fit the lockup */
 .bar{min-height:126px}
-/* sidebar lockup (unit hubs) — narrower column, smaller wordmark */
+/* sidebar lockup (unit hubs): narrower column, smaller wordmark */
 .tivin-lockup.sb{margin-bottom:16px}
 .tivin-lockup.sb .tivin-wordmark b{font-size:1.18rem}
 .tivin-lockup.sb .tivin-wordmark i{font-size:.58rem;margin-top:4px}
@@ -78,7 +78,7 @@ html[data-mc="on"] .nav-item.active .nav-dot{background:var(--lime)!important}
 #mc-bar .dd-m a.here{color:var(--ink)!important;background:var(--lime)!important}
 #mc-bar .dd:hover .dd-t,#mc-bar .dd.open .dd-t{color:var(--lime)!important;border-bottom-color:var(--lime)!important}
 
-/* Mission Control is the only view — hide the old exit/toggle chip. */
+/* Mission Control is the only view, hide the old exit/toggle chip. */
 .mc-exit{display:none!important}
 
 /* ── Shrink-on-scroll top bar (brand.js toggles .tivin-shrink on .bar) ── */

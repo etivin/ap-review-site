@@ -1,5 +1,5 @@
 /* ============================================================
-   mcq-engine.js  —  Shared, mode-aware MCQ session engine.
+   mcq-engine.js: Shared, mode-aware MCQ session engine.
    Consumes window.APWH_MCQ (mcq-bank.js). Renders a self-contained,
    namespaced UI (.mcqx-*) styled with the site's CSS variables, so it
    looks native on every unit page and on the cumulative hub.
@@ -10,16 +10,16 @@
        opts.pool        : [{unit,topic,idx}]  -> run this exact set (hub)
        opts.title       : session/home heading
        opts.defaultMode : 'quick' | 'test'   (default 'quick' for units, 'test' for pool)
-       opts.calibration : bool (default true) — confidence chips in Test Mode
+       opts.calibration : bool (default true): confidence chips in Test Mode
        opts.showModeToggle : bool (default true)
        opts.regenerate  : function -> new pool (hub "New Set" button)
        opts.newSetLabel : label for the regenerate button
-     APWH.store.load() / APWH.store.save(obj)      — the apReview_v1 blob
-     APWH.markSeen(['1','2'])                       — stamp lastSeen timestamps
+     APWH.store.load() / APWH.store.save(obj): the apReview_v1 blob
+     APWH.markSeen(['1','2']): stamp lastSeen timestamps
      APWH.poolFromUnit(unitId, {mode,mixedPerTopic,topic})
    Two feedback modes:
-     Quick Check — immediate correct/incorrect + explanation per click.
-     Test Mode   — batched: record answers (+ optional confidence) with no
+     Quick Check: immediate correct/incorrect + explanation per click.
+     Test Mode: batched: record answers (+ optional confidence) with no
                    correctness shown until "Reveal All & Score", which then
                    shows every answer vs. correct, explanations, the total
                    score, and a confidence-vs-accuracy calibration summary.
@@ -47,7 +47,7 @@
     store.save(s);
   };
 
-  // Globally-unique, unit-qualified id — fixes the old topic_idx collision
+  // Globally-unique, unit-qualified id, fixes the old topic_idx collision
   // across units and matches the spaced-review item-id scheme (u{unit}_{topic}_{idx}).
   function itemIdFor(ref) { return 'u' + ref.unit + '_' + ref.topic + '_' + ref.idx; }
 
@@ -273,7 +273,7 @@
         });
         h += '</div>';
         if (calib) {
-          h += '<div class="mcqx-conf mcqx-conf-hide" data-i="' + i + '"><span class="mx-clbl">Before you check &mdash; how sure are you?</span><div class="mcqx-chips">';
+          h += '<div class="mcqx-conf mcqx-conf-hide" data-i="' + i + '"><span class="mx-clbl">Before you check: how sure are you?</span><div class="mcqx-chips">';
           CONF.forEach(function (c) { h += '<button type="button" class="mcqx-chip" data-i="' + i + '" data-conf="' + c.id + '">' + CONF_UP[c.id] + '</button>'; });
           h += '</div></div>';
         }
@@ -334,7 +334,7 @@
         answered[i] = j;
         optsOf(i).forEach(function (b) { b.classList.toggle('mx-sel', +b.dataset.j === j); });
         showConf(i);                          // the confidence commitment is required next
-        if (conf[i]) gradeQuick(i);           // (only if already rated — normally not)
+        if (conf[i]) gradeQuick(i);           // (only if already rated: normally not)
         progress();
       } else {
         if (reasoning || revealed) return;
@@ -369,11 +369,11 @@
         var rz = document.getElementById(ctx.uid + '-rz' + i);
         if (!rz) return;
         var status = 'Your answer: <strong>' + L[answered[i]] + '</strong> &middot; Confidence: <strong>' +
-          (CONF_UP[conf[i]] || '—') + '</strong> &middot; ' +
+          (CONF_UP[conf[i]] || '-') + '</strong> &middot; ' +
           (ok ? '<span class="mx-rok">&#10003; correct</span>' : '<span class="mx-rbad">&#10007; incorrect</span>');
         var html = '<div class="mx-rst">' + status + '</div>';
         if (needNote) {
-          html += '<textarea data-i="' + i + '" placeholder="One line — why did you pick that, or what made it a guess?"></textarea>';
+          html += '<textarea data-i="' + i + '" placeholder="One line: why did you pick that, or what made it a guess?"></textarea>';
         }
         rz.className = 'mcqx-reason' + (needNote ? ' mx-need' : '');
         rz.innerHTML = html;
@@ -388,7 +388,7 @@
       if (sumEl) {
         sumEl.classList.remove('mcqx-hidden');
         sumEl.innerHTML = '<h4>Before the answers unlock</h4><div class="mcqx-gap">Your answers are locked in. ' +
-          'For every question you got wrong or tapped <strong>Guessing</strong> on, write one line on what tripped you up — ' +
+          'For every question you got wrong or tapped <strong>Guessing</strong> on, write one line on what tripped you up, ' +
           'then unlock the correct answers.</div>';
       }
       validateNotes();
@@ -444,10 +444,10 @@
       var pct = Math.round(right / tot * 100);
       var rows =
         crow('CONFIDENT + Correct', c[0], c[0] ? '&#10003; well-calibrated' : '') +
-        crow('CONFIDENT + Wrong', cWrong, cWrong ? '&#9888; overconfident — worth a second look' : '', cWrong > 0) +
+        crow('CONFIDENT + Wrong', cWrong, cWrong ? '&#9888; overconfident: worth a second look' : '', cWrong > 0) +
         crow('SHAKY + Correct', s[0], '') +
         crow('SHAKY + Wrong', sWrong, '') +
-        crow('GUESSING + Correct', g[0], g[0] ? 'lucky — treat as unlearned' : '') +
+        crow('GUESSING + Correct', g[0], g[0] ? 'lucky: treat as unlearned' : '') +
         crow('GUESSING + Wrong', gWrong, '');
       var head = scored
         ? '<h4>Results &amp; Calibration</h4><div class="mx-big">' + right + ' / ' + tot +
@@ -496,8 +496,8 @@
       ctx.home.querySelectorAll('.mcqx-modebtn').forEach(function (b) { b.classList.toggle('active', b.dataset.mode === ctx.mode); });
       var hint = ctx.home.querySelector('.mcqx-modehint');
       if (hint) hint.textContent = ctx.mode === 'test'
-        ? 'Test Mode: answer the whole set, commit your confidence, and see nothing until you write a line on your misses and Unlock — closest to real exam conditions.'
-        : 'Quick Check: pick an answer, commit how sure you are, then get instant right/wrong — the confidence tap is what builds calibration.';
+        ? 'Test Mode: answer the whole set, commit your confidence, and see nothing until you write a line on your misses and Unlock, closest to real exam conditions.'
+        : 'Quick Check: pick an answer, commit how sure you are, then get instant right/wrong, the confidence tap is what builds calibration.';
     }
     syncMode();
     ctx.home.querySelectorAll('.mcqx-modebtn').forEach(function (b) {

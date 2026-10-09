@@ -1,4 +1,4 @@
-/* PREVIEW ONLY — brand every page with the Tivin Teaches lockup:
+/* PREVIEW ONLY: brand every page with the Tivin Teaches lockup:
    a circular globe+shield emblem (cropped out of the logo art, which has
    arced text baked in) + "Tivin Teaches" / "Education is life itself".
    Header patterns: classic sidebar (.sb-brand), top bar (.bar .brand), and
@@ -42,11 +42,11 @@
     if (!document.getElementById('tivin-preview-flag')) {
       var f = document.createElement('div');
       f.id = 'tivin-preview-flag';
-      f.textContent = 'Preview — not published';
+      f.textContent = 'Preview: not published';
       document.body.appendChild(f);
     }
 
-    // classic sidebar (unit hubs) — prepend the lockup above the unit title
+    // classic sidebar (unit hubs): prepend the lockup above the unit title
     var sb = document.querySelector('.sb-brand');
     if (sb && !sb.dataset.tivinLockup) {
       sb.dataset.tivinLockup = '1';
@@ -57,10 +57,10 @@
       sb.insertBefore(lk, sb.firstChild);
     }
 
-    // main top bar (dashboard, maps, games) — full lockup
+    // main top bar (dashboard, maps, games), full lockup
     fillBrand(document.querySelector('.bar .brand'), 104, false);
 
-    // Mission-Control injected top strip (unit pages) — compact lockup.
+    // Mission-Control injected top strip (unit pages): compact lockup.
     // mc-mode.js injects it after load, so retry briefly.
     var tries = 0;
     (function fixMcBar() {

@@ -1,10 +1,10 @@
 /* ============================================================
-   cumulative.js  —  Cross-unit "Cumulative Review" hub logic.
+   cumulative.js: Cross-unit "Cumulative Review" hub logic.
    Builds a recency-weighted pool of questions from the selected units'
    banks (mcq-bank.js) and mounts the shared engine (mcq-engine.js) in
    Test Mode. Weighting biases toward units the student hasn't retrieved
-   recently (or ever) — the "let a little forgetting happen, then
-   retrieve" mechanic from Make It Stick — using the per-unit lastSeen
+   recently (or ever): the "let a little forgetting happen, then
+   retrieve" mechanic from Make It Stick, using the per-unit lastSeen
    timestamps the engine records in apReview_v1. The unit toggles let the
    student restrict the mix to whichever units they want to drill.
    Site convention: plain global, no build step, no imports.

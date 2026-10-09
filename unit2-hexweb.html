@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Unit 2 Hex Web — Hexagonal Thinking</title>
+<title>Unit 2 Hex Web: Hexagonal Thinking</title>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -158,12 +158,12 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
 
 <div class="main">
   <div class="eyebrow">Unit 2 · Networks of Exchange · c. 1200 – c. 1450</div>
-  <h1>Hex Web — Hexagonal Thinking</h1>
-  <p class="sub">Every Unit&nbsp;2 idea is a hexagon. Start from the center and <b>branch outward</b> — each hexagon can touch up to six others, so your web can grow in any direction. Wherever two hexagons share an edge, a <b>connection point</b> appears; click it and say <b>how</b> the two ideas are linked. You <b>earn points</b> for every connection you explain — more for writing your reasoning, using different connection types, and building <b>hub</b> ideas that branch three or more ways. There's no single right map: the thinking is in the connections you can defend.</p>
+  <h1>Hex Web: Hexagonal Thinking</h1>
+  <p class="sub">Every Unit&nbsp;2 idea is a hexagon. Start from the center and <b>branch outward</b>, each hexagon can touch up to six others, so your web can grow in any direction. Wherever two hexagons share an edge, a <b>connection point</b> appears; click it and say <b>how</b> the two ideas are linked. You <b>earn points</b> for every connection you explain, more for writing your reasoning, using different connection types, and building <b>hub</b> ideas that branch three or more ways. There's no single right map: the thinking is in the connections you can defend.</p>
 
   <div class="how">
     <div class="card"><b>Pick an idea</b><span><span class="k">CLICK</span>a hexagon in the Idea Bank, then click an open slot on the board to place it.</span></div>
-    <div class="card"><b>Branch outward</b><span>Place related ideas next to ones already down — branch in any direction. A <b>+</b> appears on every shared edge.</span></div>
+    <div class="card"><b>Branch outward</b><span>Place related ideas next to ones already down, branch in any direction. A <b>+</b> appears on every shared edge.</span></div>
     <div class="card"><b>Explain the link</b><span>Click a <b>+</b>. Choose one of the 5 connection types and write a sentence defending it to <b>score points</b>.</span></div>
     <div class="card"><b>Rack up points</b><span><b>+10</b> a link, <b>+5</b> with reasoning, <b>+15</b> each new type, <b>+20</b> per hub (3+ links). Hit <b>Review Web</b> to copy your map.</span></div>
   </div>
@@ -194,7 +194,7 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
     <div class="log">
       <h3>Connections</h3>
       <div class="feed" id="feed">
-        <div class="empty">Each link you explain shows up here — click one to edit it. Colors match the connection type.</div>
+        <div class="empty">Each link you explain shows up here, click one to edit it. Colors match the connection type.</div>
       </div>
       <div class="log-foot">
         <button class="btn" id="reviewBtn">Review Web</button>
@@ -202,7 +202,7 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
     </div>
   </div>
 
-  <div class="foot">Hexagonal thinking is an open-ended review routine — there is no single correct arrangement. Content from AP World History: Modern, Unit 2 (c. 1200–c. 1450). A study tool, not an official College Board product.</div>
+  <div class="foot">Hexagonal thinking is an open-ended review routine, there is no single correct arrangement. Content from AP World History: Modern, Unit 2 (c. 1200–c. 1450). A study tool, not an official College Board product.</div>
 </div>
 
 <!-- connection modal -->
@@ -214,7 +214,7 @@ h1{font-family:'Lato',sans-serif;font-weight:900;letter-spacing:-.055em;line-hei
     <div class="tychoices" id="ov-types"></div>
     <div class="note-wrap">
       <label for="ov-note">Your reasoning</label>
-      <textarea id="ov-note" placeholder="e.g. The camel saddle made trans-Saharan caravans possible — one directly enabled the other…"></textarea>
+      <textarea id="ov-note" placeholder="e.g. The camel saddle made trans-Saharan caravans possible, one directly enabled the other…"></textarea>
     </div>
     <div class="ovbtns">
       <button class="btn del" id="ov-del">Delete link</button>
@@ -251,7 +251,7 @@ const TYPES=[
   {id:'ce',   name:'Cause & Effect', short:'C→E', color:'var(--t-ce)',
    desc:'One item helped CAUSE or led to the other.'},
   {id:'cmp',  name:'Comparison / Contrast', short:'CMP', color:'var(--t-cmp)',
-   desc:'The two are ALIKE (comparison) or DIFFERENT (contrast) — concepts, groups, or figures.'},
+   desc:'The two are ALIKE (comparison) or DIFFERENT (contrast): concepts, groups, or figures.'},
   {id:'grp',  name:'Categorical grouping', short:'GRP', color:'var(--t-grp)',
    desc:'Both belong to the same CATEGORY or theme (e.g. two technologies that aided trade).'}
 ];
@@ -369,7 +369,7 @@ function refreshBank(){
 function selectTerm(id){
   selTerm=(selTerm===id)?null:id;
   refreshBank(); renderBoard();
-  hintEl.textContent = selTerm ? `“${TERM[selTerm].label}” selected — click a glowing slot to place it.`
+  hintEl.textContent = selTerm ? `“${TERM[selTerm].label}” selected: click a glowing slot to place it.`
                                : 'Select an idea from the bank, then click a glowing slot to place it.';
 }
 
@@ -391,7 +391,7 @@ function renderBoard(){
   const svg=document.createElementNS(SVGNS,'svg');
   svg.setAttribute('width',boardW); svg.setAttribute('height',boardH);
 
-  // hex polygons — draw placed tiles + only the frontier's ghost slots
+  // hex polygons: draw placed tiles + only the frontier's ghost slots
   const front=frontierSet();
   slots.forEach(s=>{
     const key=slotKey(s.q,s.r), occ=placed[key];
@@ -462,7 +462,7 @@ function onSlotClick(q,r){
     return;
   }
   if(!selTerm){ hintEl.textContent='Pick an idea from the bank first, then click a glowing slot.'; return; }
-  if(!frontierSet().has(key)){ hintEl.textContent='Branch out from a hexagon already on the board — place next to one.'; return; }
+  if(!frontierSet().has(key)){ hintEl.textContent='Branch out from a hexagon already on the board, place next to one.'; return; }
   placed[key]=selTerm;
   const lbl=TERM[selTerm].label; selTerm=null;
   hintEl.textContent=`Placed “${lbl}.” Place ideas beside it, then click a + to explain the link.`;
@@ -516,7 +516,7 @@ function connEntries(){ // ordered list of [key,def,A,B]
 }
 function renderFeed(){
   const list=connEntries();
-  if(!list.length){ feedEl.innerHTML='<div class="empty">Each link you explain shows up here — click one to edit it. Colors match the connection type.</div>'; return; }
+  if(!list.length){ feedEl.innerHTML='<div class="empty">Each link you explain shows up here, click one to edit it. Colors match the connection type.</div>'; return; }
   feedEl.innerHTML='';
   list.forEach(e=>{
     const t=TYPE[e.def.type];
@@ -524,7 +524,7 @@ function renderFeed(){
     d.style.borderLeftColor=t.color;
     d.innerHTML=`<span class="pair">${esc(e.A)} ↔ ${esc(e.B)}</span>
       <span class="ty" style="color:${t.color}">${t.name}</span>
-      ${e.def.note?`<span class="nt">${esc(e.def.note)}</span>`:'<span class="nt" style="font-style:italic">(no reasoning yet — click to add)</span>'}`;
+      ${e.def.note?`<span class="nt">${esc(e.def.note)}</span>`:'<span class="nt" style="font-style:italic">(no reasoning yet: click to add)</span>'}`;
     d.addEventListener('click',()=>openConn(e.a,e.b));
     feedEl.appendChild(d);
   });
@@ -563,7 +563,7 @@ function updateStats(){
   const goal=document.getElementById('goal');
   const done=sb.list.length>=6&&sb.nT>=3;
   goal.classList.toggle('done',done);
-  goal.textContent = done ? '✓ Goal reached — keep branching!' : `Goal: ${Math.min(sb.list.length,6)}/6 links · ${Math.min(sb.nT,3)}/3 types`;
+  goal.textContent = done ? '✓ Goal reached: keep branching!' : `Goal: ${Math.min(sb.list.length,6)}/6 links · ${Math.min(sb.nT,3)}/3 types`;
 }
 
 /* ── REVIEW MODAL ── */
@@ -585,7 +585,7 @@ function openReview(){
     list.forEach(e=>{
       const t=TYPE[e.def.type];
       const li=document.createElement('li'); li.style.borderLeftColor=t.color;
-      li.innerHTML=`<span class="pair">${esc(e.A)} ↔ ${esc(e.B)}</span> — <span class="ty" style="color:${t.color}">${t.name}</span>
+      li.innerHTML=`<span class="pair">${esc(e.A)} ↔ ${esc(e.B)}</span>: <span class="ty" style="color:${t.color}">${t.name}</span>
         ${e.def.note?`<span class="nt">${esc(e.def.note)}</span>`:'<span class="nt" style="font-style:italic">(no reasoning written)</span>'}`;
       ul.appendChild(li);
     });
@@ -594,11 +594,11 @@ function openReview(){
 }
 function reviewText(){
   const list=connEntries();
-  let out='UNIT 2 HEX WEB — my connections\n';
+  let out='UNIT 2 HEX WEB: my connections\n';
   if(!list.length)return out+'\n(no connections yet)';
   out+=`Score: ${scoreBreakdown().total} pts\n\n`;
   list.forEach((e,i)=>{ const t=TYPE[e.def.type];
-    out+=`${i+1}. ${e.A} — [${t.name}] — ${e.B}\n   ${e.def.note||'(no reasoning written)'}\n\n`; });
+    out+=`${i+1}. ${e.A}: [${t.name}]: ${e.B}\n   ${e.def.note||'(no reasoning written)'}\n\n`; });
   return out.trim();
 }
 document.getElementById('reviewBtn').addEventListener('click',openReview);
@@ -614,7 +614,7 @@ document.getElementById('rv-copy').addEventListener('click',async()=>{
 
 /* ── UTIL ── */
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-/* Reset: two-step inline confirm (no native confirm() — it's blocked in
+/* Reset: two-step inline confirm (no native confirm(): it's blocked in
    sandboxed/embedded contexts and once a browser's "stop creating dialogs"
    box is checked). First click arms; second click within 3s clears. */
 const resetBtn=document.getElementById('resetBtn');

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Unit 4 — Interactive Exploration & Trade Map | AP World History</title>
+<title>Unit 4: Interactive Exploration & Trade Map | AP World History</title>
 <meta name="description" content="Interactive world map of Unit 4 (c. 1450–1750): the voyages of exploration, maritime empires, the Columbian Exchange, the Atlantic slave trade, and the global silver trade."/>
 
 <!-- Leaflet -->
@@ -20,7 +20,7 @@
   --ink:#10201f;--mid:#3a4746;--muted:#6c7a78;
   --red:#0d2960;--red-d:#091e47;--red-bg:#eef2fb;
   --gold:#7a5500;--gold-b:#d4b84a;
-  /* Route accents — the exploring powers */
+  /* Route accents: the exploring powers */
   --silk:#0d7a3a;--silk-bg:#e9f6ee;
   --indian:#b3402f;--indian-bg:#fbeceb;
   --sahara:#c07800;--sahara-bg:#fcf3e2;
@@ -265,7 +265,7 @@ a{color:inherit}
     <div class="p-intro">
       <div class="p-eyebrow">Reference Map</div>
       <h1>Explore the New Global Age</h1>
-      <p>Start with a <strong>power&rsquo;s voyages of exploration</strong> as your base. Then layer on the maritime empires, and the great exchanges — goods, the Columbian Exchange, silver, the Atlantic slave trade, and disease — each shown as a <strong>swooping arrow from where it began</strong>. Click anything to read more.</p>
+      <p>Start with a <strong>power&rsquo;s voyages of exploration</strong> as your base. Then layer on the maritime empires, and the great exchanges, goods, the Columbian Exchange, silver, the Atlantic slave trade, and disease, each shown as a <strong>swooping arrow from where it began</strong>. Click anything to read more.</p>
     </div>
 
     <div class="route-btns" id="route-btns">
@@ -293,7 +293,7 @@ a{color:inherit}
 
     <div class="p-body" id="p-body">
       <div class="p-empty">
-        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450 — moving silk and salt, faiths and inventions, merchants and microbes.</p>
+        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450, moving silk and salt, faiths and inventions, merchants and microbes.</p>
         <p style="margin-top:10px">Select a route above, or <strong>Show all</strong> to compare them, then click the colored lines and dots on the map.</p>
       </div>
     </div>
@@ -318,13 +318,13 @@ a{color:inherit}
 <script defer src="theme.js"></script>
 <script>
 /* ══════════════════════════════════════════════════════════════
-   DATA — Unit 4, c. 1450–1750. Coordinates are [lat, lng].
+   DATA: Unit 4, c. 1450–1750. Coordinates are [lat, lng].
    ROUTES = the exploring powers' voyages (single-select base layer).
    ══════════════════════════════════════════════════════════════ */
 var ROUTES = {
   portugal: {
     name:'Portugal', sub:'Around Africa to Asia · from 1498', colorVar:'--silk', dash:false,
-    blurb:'The first Europeans to reach Asia by sea. Sailing down the African coast and around the Cape of Good Hope, the Portuguese built a chain of coastal trading posts — a seaborne "Estado da Índia" that broke the old Venetian–Muslim spice monopoly.',
+    blurb:'The first Europeans to reach Asia by sea. Sailing down the African coast and around the Cape of Good Hope, the Portuguese built a chain of coastal trading posts, a seaborne "Estado da Índia" that broke the old Venetian–Muslim spice monopoly.',
     segments:[
       [[38.72,-9.14],[33,-11],[20,-19],[8,-17],[2,-7],[-6,5],[-20,9],[-34.5,17],[-35,26],[-26,36],[-8,48],[2,58],[13,68],[15.5,73.83],[11.25,75.78],[6,82],[6,96],[2.19,102.25],[9,108],[22.19,113.54]]
     ],
@@ -333,25 +333,25 @@ var ROUTES = {
       {n:'Elmina',c:[5.08,-1.35],note:'Fortified gold- and slave-trading post on the West African (Gold) coast.'},
       {n:'Cape of Good Hope',c:[-34.36,18.47],note:'Rounded by Bartolomeu Dias (1488), opening the sea route to the Indian Ocean.'},
       {n:'Goa',c:[15.5,73.83],note:'Capital of Portugal’s Estado da Índia on the west coast of India.'},
-      {n:'Calicut',c:[11.25,75.78],note:'Where Vasco da Gama landed in 1498 — the first all-sea route from Europe to India.'},
+      {n:'Calicut',c:[11.25,75.78],note:'Where Vasco da Gama landed in 1498, the first all-sea route from Europe to India.'},
       {n:'Malacca',c:[2.19,102.25],note:'Seized in 1511 to control the strait and the spice trade to the east.'},
-      {n:'Macau',c:[22.19,113.54],note:'Portuguese trading enclave on the China coast (from 1557) — silk and porcelain.'}
+      {n:'Macau',c:[22.19,113.54],note:'Portuguese trading enclave on the China coast (from 1557): silk and porcelain.'}
     ],
     tech:[
       {name:'Caravel & carrack',what:'Small, nimble caravels for exploring and larger carracks (naus) for cargo, combining square and lateen sails.',impact:'Let ships sail into the wind and carry enough cargo and cannon for long ocean voyages.'},
       {name:'Astrolabe & compass',what:'The magnetic compass plus the mariner’s astrolabe for finding latitude from the sun or stars.',impact:'Made open-ocean navigation out of sight of land possible.'},
-      {name:'Volta do mar',what:'Knowledge of the Atlantic wind circle — sailing far out to catch favorable winds home.',impact:'Turned the Atlantic’s winds into a reliable round-trip highway.'}
+      {name:'Volta do mar',what:'Knowledge of the Atlantic wind circle, sailing far out to catch favorable winds home.',impact:'Turned the Atlantic’s winds into a reliable round-trip highway.'}
     ],
     goods:['Gold','Pepper & spices','Enslaved people','Ivory','Chinese porcelain','Silk'],
     cultural:[
       {t:'The all-sea route to Asia',d:'broke the Venetian and Muslim monopoly on the spice trade.'},
-      {t:'Trading-post empire',d:'Portugal ruled the sea lanes and forts, not large territories — a new model of empire.'},
+      {t:'Trading-post empire',d:'Portugal ruled the sea lanes and forts, not large territories, a new model of empire.'},
       {t:'Christian missions',d:'Jesuits like Francis Xavier followed the routes to India, Japan, and China.'}
     ]
   },
   spain: {
     name:'Spain', sub:'The Atlantic & the Pacific galleon · from 1492', colorVar:'--indian', dash:false,
-    blurb:'Sailing west for Asia, Columbus reached the Americas in 1492. Spain conquered the Aztec and Inca, mined vast silver, and — with the Manila galleon — linked the Americas to Asia, creating the first truly global trade network.',
+    blurb:'Sailing west for Asia, Columbus reached the Americas in 1492. Spain conquered the Aztec and Inca, mined vast silver, and, with the Manila galleon: linked the Americas to Asia, creating the first truly global trade network.',
     segments:[
       [[37.39,-5.99],[35,-9],[28.3,-16.5],[22,-45],[19,-68],[19.0,-70.7],[22,-79],[23.13,-82.38],[21,-92],[19.19,-96.14]],
       [[16.86,-99.89],[16,-125],[15,-155],[14.6,-177]],
@@ -361,7 +361,7 @@ var ROUTES = {
       {n:'Seville',c:[37.39,-5.99],note:'Spain’s gateway port; its Casa de Contratación controlled all trade with the Americas.'},
       {n:'Hispaniola',c:[19.0,-70.7],note:'Columbus’s first base; the model for Caribbean sugar and encomienda labor.'},
       {n:'Tenochtitlán / Mexico City',c:[19.43,-99.13],note:'Aztec capital conquered by Cortés (1521); heart of New Spain.'},
-      {n:'Potosí',c:[-19.58,-65.75],note:'The great silver mountain in the Andes — worked with brutal mita labor.'},
+      {n:'Potosí',c:[-19.58,-65.75],note:'The great silver mountain in the Andes, worked with brutal mita labor.'},
       {n:'Acapulco',c:[16.86,-99.89],note:'Pacific port where the Manila galleon carried silver west and Asian goods east.'},
       {n:'Manila',c:[14.6,120.98],note:'Spanish hub in the Philippines where American silver was traded for Chinese silk and porcelain.'}
     ],
@@ -374,13 +374,13 @@ var ROUTES = {
     cultural:[
       {t:'Conquest of the Aztec & Inca',d:'gave Spain a vast land empire in the Americas.'},
       {t:'Silver & the global economy',d:'Potosí silver flowed to Europe and (via Manila) to China, whose demand drove world trade.'},
-      {t:'The Columbian Exchange',d:'began here — crops, animals, people, and diseases crossing the Atlantic.'},
+      {t:'The Columbian Exchange',d:'began here: crops, animals, people, and diseases crossing the Atlantic.'},
       {t:'Casta system & missions',d:'a racial hierarchy and Catholic conversion reshaped American societies.'}
     ]
   },
   dutch: {
     name:'The Dutch (VOC)', sub:'Spice route to the East Indies · from 1602', colorVar:'--sahara', dash:false,
-    blurb:'The Dutch East India Company (VOC) — the world’s first joint-stock multinational — muscled Portugal out of the spice trade, seized the Spice Islands, and ran a commercial empire from its hub at Batavia.',
+    blurb:'The Dutch East India Company (VOC): the world’s first joint-stock multinational, muscled Portugal out of the spice trade, seized the Spice Islands, and ran a commercial empire from its hub at Batavia.',
     segments:[
       [[52.37,4.90],[48,-6],[35,-11],[18,-19],[6,-16],[-6,5],[-20,9],[-34.5,17],[-35,26],[-26,38],[-12,50],[0,68],[6.93,79.85],[3,90],[-3,100],[-6.2,106.85],[0.79,127.38]],
       [[-6.2,106.85],[10,115],[22,120],[32.74,129.87]]
@@ -394,7 +394,7 @@ var ROUTES = {
       {n:'Colombo (Ceylon)',c:[6.93,79.85],note:'Dutch base controlling the cinnamon of Sri Lanka.'}
     ],
     tech:[
-      {name:'Joint-stock company',what:'The VOC pooled many investors’ money and shares in one permanent, tradable company.',impact:'Raised huge capital and spread risk — a template for modern corporations and stock markets.'},
+      {name:'Joint-stock company',what:'The VOC pooled many investors’ money and shares in one permanent, tradable company.',impact:'Raised huge capital and spread risk, a template for modern corporations and stock markets.'},
       {name:'Fluyt',what:'A cheap, roomy Dutch cargo ship needing a small crew.',impact:'Cut shipping costs and helped the Dutch dominate carrying trade.'},
       {name:'Chartered monopoly',what:'The state granted the VOC powers to wage war, build forts, and make treaties.',impact:'Let a company act like a state to control the spice trade.'}
     ],
@@ -407,7 +407,7 @@ var ROUTES = {
   },
   england: {
     name:'England & France', sub:'North Atlantic, the Caribbean & India', colorVar:'--eng', dash:false,
-    blurb:'Latecomers who built settler colonies in North America, sugar islands in the Caribbean, and trading footholds in India through their East India Companies — the seeds of later global empires.',
+    blurb:'Latecomers who built settler colonies in North America, sugar islands in the Caribbean, and trading footholds in India through their East India Companies, the seeds of later global empires.',
     segments:[
       [[51.5,-0.1],[49.5,-6],[45,-30],[40,-60],[37.2,-76.8]],
       [[50,-6],[38,-24],[22,-48],[13.1,-59.6]],
@@ -418,7 +418,7 @@ var ROUTES = {
     places:[
       {n:'London',c:[51.5,-0.1],note:'Base of the English East India Company (1600) and Atlantic trade.'},
       {n:'Jamestown',c:[37.2,-76.8],note:'First permanent English colony (1607); tobacco made it profitable.'},
-      {n:'Barbados',c:[13.1,-59.6],note:'English sugar island worked by enslaved Africans — hugely profitable.'},
+      {n:'Barbados',c:[13.1,-59.6],note:'English sugar island worked by enslaved Africans, hugely profitable.'},
       {n:'Bombay / Madras / Calcutta',c:[19.08,72.88],note:'English East India Company trading posts on the Indian coast.'},
       {n:'Québec',c:[46.81,-71.2],note:'Heart of New France and the North American fur trade.'},
       {n:'Pondicherry',c:[11.93,79.83],note:'Main French trading post in India.'}
@@ -439,13 +439,13 @@ var ROUTES = {
 };
 
 /* ══════════════════════════════════════════════════════════════
-   MARITIME & LAND EMPIRES — toggle polygons (approximate cores).
+   MARITIME & LAND EMPIRES: toggle polygons (approximate cores).
    ══════════════════════════════════════════════════════════════ */
 var POLITIES = {
   spain_e: {
     name:'Spanish Empire', sub:'The Americas & the Philippines', color:'#b3402f',
     poly:[[25,-107],[19,-96],[9,-83],[0,-79],[-18,-70],[-38,-72],[-32,-60],[-12,-64],[6,-73],[20,-99]],
-    blurb:'The largest early-modern empire — Mexico, Central America, the Andes, the Caribbean, and the Philippines — built on conquest, silver, and Catholic missions.',
+    blurb:'The largest early-modern empire: Mexico, Central America, the Andes, the Caribbean, and the Philippines, built on conquest, silver, and Catholic missions.',
     facts:[['Core','New Spain (Mexico) & Peru'],['Also','Caribbean, the Philippines'],['Wealth','Silver from Potosí & Zacatecas'],['Labor','Encomienda & the mita']],
     role:'American silver flowed through Seville to Europe and through Manila to China, tying the whole world into one trade system for the first time.',
     legacy:[{t:'Casta system'},{t:'Catholic conversion'},{t:'Global silver economy'}]
@@ -461,7 +461,7 @@ var POLITIES = {
   dutch_e: {
     name:'Dutch Empire (VOC)', sub:'The East Indies', color:'#c07800',
     poly:[[6,95],[5,119],[-1,132],[-9,122],[-8,104],[-5,96]],
-    blurb:'A commercial empire run by the VOC — the Spice Islands, Java (Batavia), Ceylon, and the Cape — squeezing rivals out of the spice trade.',
+    blurb:'A commercial empire run by the VOC, the Spice Islands, Java (Batavia), Ceylon, and the Cape, squeezing rivals out of the spice trade.',
     facts:[['Run by','The VOC (joint-stock company)'],['Capital','Batavia (Jakarta)'],['Monopoly','Nutmeg, cloves, mace'],['Also','Cape Town, Ceylon, Deshima']],
     role:'Dominated the spice trade and the carrying trade of Asia, and held the sole European trading right with Tokugawa Japan.',
     legacy:[{t:'Spice monopoly'},{t:'Corporate empire'},{t:'Amsterdam finance'}]
@@ -485,15 +485,15 @@ var POLITIES = {
   ottoman_e: {
     name:'Ottoman Empire', sub:'A land empire that persisted', color:'#8a6d1f',
     poly:[[41,28],[40,42],[37,45],[31,47],[29,35],[24,37],[31,25],[33,15],[35,10],[37,11],[40,20]],
-    blurb:'A reminder that great land-based empires flourished alongside the new sea empires — the Ottomans controlled the eastern Mediterranean and the old overland trade routes.',
+    blurb:'A reminder that great land-based empires flourished alongside the new sea empires, the Ottomans controlled the eastern Mediterranean and the old overland trade routes.',
     facts:[['Type','Land-based gunpowder empire'],['Capital','Istanbul'],['Controlled','The eastern Mediterranean'],['Religion','Sunni Islam']],
-    role:'Taxed the overland Europe–Asia trade — a key reason Europeans sought sea routes to bypass Ottoman middlemen.',
+    role:'Taxed the overland Europe–Asia trade, a key reason Europeans sought sea routes to bypass Ottoman middlemen.',
     legacy:[{t:'Overland trade tolls'},{t:'A spur to European exploration'}]
   },
   mughal_e: {
     name:'Mughal Empire', sub:'The wealth of India', color:'#c99a2e',
     poly:[[32,71],[30,79],[25,88],[20,84],[16,75],[22,70],[28,68]],
-    blurb:'The vast, rich land empire of the Indian subcontinent — the source of the cotton textiles that Europeans crossed oceans to buy.',
+    blurb:'The vast, rich land empire of the Indian subcontinent, the source of the cotton textiles that Europeans crossed oceans to buy.',
     facts:[['Type','Land-based gunpowder empire'],['Capital','Delhi / Agra'],['Export','Cotton textiles'],['Peak ruler','Akbar; later Aurangzeb']],
     role:'Produced the world’s finest cotton cloth; European companies set up coastal posts to buy Indian textiles for the global trade.',
     legacy:[{t:'Indian cotton trade'},{t:'European coastal posts'}]
@@ -502,18 +502,18 @@ var POLITIES = {
 var POLITY_ORDER = ['spain_e','portugal_e','dutch_e','english_e','french_e','ottoman_e','mughal_e'];
 
 /* ══════════════════════════════════════════════════════════════
-   ANNOTATIONS — the great exchanges of the era. "Spread" layers are
+   ANNOTATIONS: the great exchanges of the era. "Spread" layers are
    swooping arrows from an origin out to where the thing travelled.
    ══════════════════════════════════════════════════════════════ */
 var THEMES = {
   goods: {
     name:'Trade Goods', color:'#a6791f', icon:'📦', kind:'labels',
     items:[
-      {n:'SILVER', c:[-19.58,-65.75], note:'Mined at Potosí and in Mexico — the money of the new global economy, most of it ending up in China.'},
-      {n:'SUGAR', c:[14.5,-61], note:'Grown on Caribbean and Brazilian plantations by enslaved Africans — the great cash crop of the Atlantic.'},
+      {n:'SILVER', c:[-19.58,-65.75], note:'Mined at Potosí and in Mexico, the money of the new global economy, most of it ending up in China.'},
+      {n:'SUGAR', c:[14.5,-61], note:'Grown on Caribbean and Brazilian plantations by enslaved Africans, the great cash crop of the Atlantic.'},
       {n:'TOBACCO', c:[36.5,-78], note:'The cash crop that made England’s Virginia colony profitable.'},
       {n:'FURS', c:[49,-85], note:'Beaver and other furs from Canada, traded by the French and English with Native nations.'},
-      {n:'SPICES', c:[-1,128], note:'Nutmeg, cloves, and mace from the Spice Islands — monopolized by the Dutch VOC.'},
+      {n:'SPICES', c:[-1,128], note:'Nutmeg, cloves, and mace from the Spice Islands, monopolized by the Dutch VOC.'},
       {n:'COTTON', c:[21,76], note:'India’s cotton textiles were prized worldwide and bought by the European companies.'},
       {n:'TEA & PORCELAIN', c:[28,113], note:'Chinese exports Europeans paid for largely in American silver.'},
       {n:'GOLD', c:[6.5,-1.5], note:'West African gold from the Gold Coast (Elmina).'}
@@ -537,22 +537,22 @@ var THEMES = {
       {n:'Havana', c:[23.13,-82.38], note:'Fortified hub of the Spanish treasure fleets.'},
       {n:'Jamestown', c:[37.2,-76.8], note:'First permanent English colony.'},
       {n:'Québec', c:[46.81,-71.2], note:'Heart of the New France fur trade.'},
-      {n:'Nagasaki', c:[32.74,129.87], note:'Deshima — the Dutch window into closed Japan.'}
+      {n:'Nagasaki', c:[32.74,129.87], note:'Deshima: the Dutch window into closed Japan.'}
     ]
   },
   atlanticwinds: {
     name:'Atlantic Winds', color:'#1d4ed8', icon:'🌀', kind:'arrows',
-    note:'The Atlantic winds blow in a giant clockwise circle, or "gyre." Near the equator the trade winds push east→west toward the Americas; farther north the westerlies push west→east back toward Europe. Sailing this circle — the "volta do mar" — let ships ride the wind out and home.',
+    note:'The Atlantic winds blow in a giant clockwise circle, or "gyre." Near the equator the trade winds push east→west toward the Americas; farther north the westerlies push west→east back toward Europe. Sailing this circle: the "volta do mar": let ships ride the wind out and home.',
     items:[
-      {c:[16,-42], rot:198, label:'Trade winds — blow WEST toward the Americas'},
+      {c:[16,-42], rot:198, label:'Trade winds: blow WEST toward the Americas'},
       {c:[7,-26], rot:210, label:'Trade winds (from the NE)'},
-      {c:[43,-42], rot:28, label:'Westerlies — blow EAST back toward Europe'},
+      {c:[43,-42], rot:28, label:'Westerlies: blow EAST back toward Europe'},
       {c:[50,-24], rot:36, label:'Westerlies (from the SW)'}
     ]
   },
   oldnew: {
     name:'Columbian Exchange: Old → New', color:'#1e874b', icon:'➡', kind:'spread',
-    note:'The Columbian Exchange was the BIOLOGICAL transfer of living things across the Atlantic. From the Old World to the Americas came ANIMALS — horses, cattle, pigs, sheep, chickens — and CROPS — wheat, rice, sugar cane, coffee, bananas, grapes — plus deadly diseases (see the Disease layer).',
+    note:'The Columbian Exchange was the BIOLOGICAL transfer of living things across the Atlantic. From the Old World to the Americas came ANIMALS, horses, cattle, pigs, sheep, chickens, and CROPS: wheat, rice, sugar cane, coffee, bananas, grapes, plus deadly diseases (see the Disease layer).',
     origin:{n:'Europe & Africa (Old World)', c:[33,-14]},
     items:[
       {n:'Horses → Great Plains', c:[41,-100]},{n:'Cattle, pigs & sheep → Mexico', c:[22,-101]},
@@ -562,7 +562,7 @@ var THEMES = {
   },
   newold: {
     name:'Columbian Exchange: New → Old', color:'#c98a00', icon:'⬅', kind:'spread',
-    note:'The biological exchange the other way: calorie-rich American crops spread to Afro-Eurasia and fueled a population boom. From the Americas came maize (corn), potatoes, sweet potatoes, cassava (manioc), tomatoes, cacao (chocolate), chili peppers, peanuts, pineapple, vanilla — and tobacco.',
+    note:'The biological exchange the other way: calorie-rich American crops spread to Afro-Eurasia and fueled a population boom. From the Americas came maize (corn), potatoes, sweet potatoes, cassava (manioc), tomatoes, cacao (chocolate), chili peppers, peanuts, pineapple, vanilla, and tobacco.',
     origin:{n:'The Americas (New World)', c:[6,-70]},
     items:[
       {n:'Potato → Europe', c:[50,8]},{n:'Maize → West Africa', c:[8,3]},
@@ -572,7 +572,7 @@ var THEMES = {
   },
   disease: {
     name:'Disease (Columbian Exchange)', color:'#6d3f9c', icon:'☠', kind:'spread',
-    note:'The deadliest part of the biological exchange. Old World diseases — SMALLPOX (the biggest killer), MEASLES, INFLUENZA, TYPHUS, bubonic plague, and whooping cough, plus malaria and yellow fever carried with the slave trade — crossed the Atlantic. Native Americans had no immunity, so up to 90% died in the "Great Dying," which helped topple the Aztec and Inca.',
+    note:'The deadliest part of the biological exchange. Old World diseases: SMALLPOX (the biggest killer), MEASLES, INFLUENZA, TYPHUS, bubonic plague, and whooping cough, plus malaria and yellow fever carried with the slave trade, crossed the Atlantic. Native Americans had no immunity, so up to 90% died in the "Great Dying," which helped topple the Aztec and Inca.',
     origin:{n:'Europe & Africa (Old World)', c:[32,-24]},
     items:[
       {n:'Smallpox → Hispaniola', c:[19.0,-70.7]},{n:'Smallpox → Aztec (Mexico)', c:[19.43,-99.13]},
@@ -582,16 +582,16 @@ var THEMES = {
   },
   silver: {
     name:'Silver: New World → Europe → China', color:'#5a6b7a', icon:'🪙', kind:'chain',
-    note:'American silver was the money of the age. Most of it went from the New World mines FIRST across the Atlantic to Europe (Seville) — and from there Europeans spent it buying silk, porcelain, and tea from China, the world’s great "silver sink." (Some Mexican silver also crossed the Pacific directly on the Manila galleon.)',
+    note:'American silver was the money of the age. Most of it went from the New World mines FIRST across the Atlantic to Europe (Seville): and from there Europeans spent it buying silk, porcelain, and tea from China, the world’s great "silver sink." (Some Mexican silver also crossed the Pacific directly on the Manila galleon.)',
     path:[
       {n:'Potosí & Mexico (mined)', c:[-14,-72]},
-      {n:'Seville — Europe (1st stop)', c:[37.39,-5.99]},
+      {n:'Seville: Europe (1st stop)', c:[37.39,-5.99]},
       {n:'China (buys silk & porcelain)', c:[30,112]}
     ]
   },
   slavetrade: {
     name:'Atlantic Slave Trade', color:'#7a2f2f', icon:'⛓', kind:'spread',
-    note:'Some 12 million enslaved Africans were shipped across the Atlantic in the brutal Middle Passage to work the plantations and mines of the Americas — the labor foundation of the Atlantic economy.',
+    note:'Some 12 million enslaved Africans were shipped across the Atlantic in the brutal Middle Passage to work the plantations and mines of the Americas, the labor foundation of the Atlantic economy.',
     origin:{n:'West & Central Africa', c:[3,6]},
     items:[
       {n:'→ Brazil', c:[-12,-40]},{n:'→ Caribbean', c:[17,-70]},
@@ -602,7 +602,7 @@ var THEMES = {
 var THEME_ORDER = ['goods','cities','atlanticwinds','oldnew','newold','disease','silver','slavetrade'];
 
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
-/* Basemap drawn from the bundled Natural Earth file (world-basemap.js) — no third-party
+/* Basemap drawn from the bundled Natural Earth file (world-basemap.js): no third-party
    tile service, so it can't go blank or start demanding an API key. Ocean = #map background. */
 var BASE_COLORS={light:{land:'#f4f3ef',border:'#bcb8ae'},dark:{land:'#3a3e46',border:'#5d6472'}};
 var ATTR='Map data &copy; <a href="https://www.naturalearthdata.com/">Natural Earth</a>';
@@ -682,7 +682,7 @@ function togglePolity(key,on){
 function clearPolities(){ Object.keys(polLayers).forEach(function(k){ togglePolity(k,false); }); }
 
 /* Build an on/off overlay layer for every annotation theme (independent of the
-   route/polity single-selection — students layer these on top). */
+   route/polity single-selection: students layer these on top). */
 var themeLayers={}, themeOn={};
 function popup(name,note,tagColor,tag){
   return '<div class="pop-name">'+name+'</div>'+
@@ -733,7 +733,7 @@ function buildTheme(key){
     // origin marker + a swooping arrow out to each place the thing spread
     L.circleMarker(t.origin.c,{radius:7,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
       .bindTooltip(t.origin.n+' (origin)',{permanent:true,direction:'top',className:'city-tip'})
-      .bindPopup(popup(t.name+' — origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
+      .bindPopup(popup(t.name+': origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
     t.items.forEach(function(it,i){
       addSwoop(g,t.origin.c,it.c,t.color, i%2===0?0.22:0.14, 3);
       L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:.95})
@@ -837,7 +837,7 @@ function renderPanel(key){
 
   // Cultural diffusion
   h+='<div class="sec"><div class="sec-lbl"><span class="ico">&#9875;</span>Impact &amp; Consequences</div><ul class="cul-list">';
-  r.cultural.forEach(function(c){h+='<li><b>'+c.t+'</b> — '+c.d+'</li>';});
+  r.cultural.forEach(function(c){h+='<li><b>'+c.t+'</b>: '+c.d+'</li>';});
   h+='</ul></div>';
 
   body.innerHTML=h;
@@ -852,7 +852,7 @@ function renderPanel(key){
 
 function renderAllPanel(){
   var h='<div class="rt-head"><div class="rt-title">The Exploring Powers</div><div class="rt-sub">A New Global Age · c. 1450–1750</div>'+
-    '<div class="rt-blurb">Compare the voyages of the four great sea powers. Each is drawn on the map — click a colored route or a port, or pick a single power above to load its ships, goods, and impact.</div></div>';
+    '<div class="rt-blurb">Compare the voyages of the four great sea powers. Each is drawn on the map, click a colored route or a port, or pick a single power above to load its ships, goods, and impact.</div></div>';
   Object.keys(ROUTES).forEach(function(k){
     var r=ROUTES[k], color=cssVar(r.colorVar);
     h+='<button class="place" data-r="'+k+'" style="border-bottom:1px solid var(--border);padding:12px 6px">'+
@@ -877,7 +877,7 @@ function renderAllPanel(){
     b.type='button'; b.className='pol-chip'; b.dataset.p=key;
     b.innerHTML='<span class="pc-dot" style="background:'+p.color+'"></span>'+
       '<span class="pc-name">'+p.name+'</span><span class="tc-check"></span>';
-    b.title=p.name+' — '+p.sub;
+    b.title=p.name+': '+p.sub;
     b.addEventListener('click',function(){ togglePolity(key,!polOn[key]); });
     grid.appendChild(b);
   });
@@ -925,7 +925,7 @@ window.addEventListener('storage',function(e){ if(e.key==='mcTheme'){ document.d
 var _mo=new MutationObserver(function(){refreshTiles(); reRenderPanel();});
 _mo.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-// Start only once the map container has a real size — animating before the
+// Start only once the map container has a real size, animating before the
 // map is laid out (e.g. inside an iframe that just mounted) makes Leaflet's
 // fly math divide by a zero container size and throw "Invalid LatLng (NaN)".
 var _started=false;

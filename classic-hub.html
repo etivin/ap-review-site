@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>AP World History: Modern — Unit Review Hub</title>
+<title>AP World History: Modern: Unit Review Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -180,7 +180,7 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
 <div class="top-bar">
   <div>
     <div class="top-bar-title">Unit Review Hub</div>
-    <div class="top-bar-sub">AP World History: Modern &mdash; All Units</div>
+    <div class="top-bar-sub">AP World History: Modern: All Units</div>
   </div>
   <span class="top-bar-tag">AP World History</span>
 </div>
@@ -296,7 +296,7 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
   <a href="fullcourse.html" class="full-course-tab" style="margin-top:32px">
     <div class="fct-left">
       <div class="fct-label">Full Course</div>
-      <div class="fct-title">AP Review &mdash; Course Narrative</div>
+      <div class="fct-title">AP Review: Course Narrative</div>
       <div class="fct-sub">Fill-in-the-blank course narrative &nbsp;&bull;&nbsp; Linked AP Review sources &nbsp;&bull;&nbsp; Units 1&ndash;9</div>
     </div>
     <div class="fct-badge">&#9654; Open Course Narrative</div>
@@ -327,11 +327,11 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
   <div class="wm-card">
     <button class="wm-x" id="wmClose" aria-label="Close">&times;</button>
 
-    <!-- STEP 1 — ask -->
+    <!-- STEP 1: ask -->
     <div id="wmAsk">
       <div class="wm-eyebrow">Welcome</div>
       <h2 class="wm-h" id="wmTitle">Hello! How long do you want to study?</h2>
-      <p class="wm-p">Pick a block and we'll run a countdown &mdash; on your phone so you can set it face-down, or right here on this laptop.</p>
+      <p class="wm-p">Pick a block and we'll run a countdown, on your phone so you can set it face-down, or right here on this laptop.</p>
       <div class="wm-sessline" id="wmSessLine"></div>
       <div class="wm-dev">
         <span class="wm-dev-lbl">Timer on:</span>
@@ -351,7 +351,7 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
       <button class="wm-distract" id="wmDistract">No, I would like to be distracted.</button>
     </div>
 
-    <!-- STEP 2 — QR -->
+    <!-- STEP 2: QR -->
     <div id="wmQr" class="wm-hidden">
       <div class="wm-eyebrow">Scan with your phone</div>
       <h2 class="wm-h"><span id="wmQrMin">25</span>-minute study block</h2>
@@ -361,16 +361,16 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
       </div>
       <ol class="wm-steps">
         <li>Open your phone's camera and point it at this code.</li>
-        <li>Tap the link &mdash; a countdown opens on your phone.</li>
+        <li>Tap the link: a countdown opens on your phone.</li>
         <li>Set the phone face-down and get to work. It rings when you're done.</li>
       </ol>
       <div class="wm-actions">
         <button class="wm-link" id="wmBack">&larr; Pick a different time</button>
-        <button class="wm-link" id="wmDone" style="margin-left:auto;color:var(--red)">I'm set &mdash; close</button>
+        <button class="wm-link" id="wmDone" style="margin-left:auto;color:var(--red)">I'm set: close</button>
       </div>
     </div>
 
-    <!-- STEP 2b — LAPTOP TIMER -->
+    <!-- STEP 2b: LAPTOP TIMER -->
     <div id="wmLaptop" class="wm-hidden">
       <div class="wm-eyebrow">Focus block</div>
       <h2 class="wm-h"><span id="wmLapMin">25</span>-minute study block</h2>
@@ -425,7 +425,7 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     document.body.style.overflow = '';
   }
 
-  // Session-start line — "Today's session pulls from: N due · M new".
+  // Session-start line: "Today's session pulls from: N due · M new".
   function fillSessLine(){
     var el = document.getElementById('wmSessLine');
     if (!el) return;
@@ -536,7 +536,7 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     document.getElementById('wmClock').textContent = '00:00';
     if (lapRingFg) lapRingFg.style.strokeDashoffset = 0;
     document.getElementById('wmSub').textContent = "time's up";
-    document.getElementById('wmLapMsg').textContent = 'Nice work — this session is logged to your streak.';
+    document.getElementById('wmLapMsg').textContent = 'Nice work: this session is logged to your streak.';
     document.getElementById('wmLapEnd').textContent = 'Start another block';
     if (!lapLogged){ lapLogged = true; try{ if (window.SPACED && SPACED.recordSession) SPACED.recordSession(); }catch(e){} }
     renderLapSummary();
@@ -550,9 +550,9 @@ svg.wm-ring{width:100%;height:100%;transform:rotate(-90deg)}
     var streak = SPACED.streakLength ? SPACED.streakLength() : 0;
     var line = s.reviewed
       ? '<b>' + s.reviewed + '</b> reviewed &middot; <b>' + s.resurface + '</b> will resurface sooner &middot; <b>' + s.pushed + '</b> pushed further out'
-      : 'No reviews logged this block — but showing up still counts.';
+      : 'No reviews logged this block, but showing up still counts.';
     el.innerHTML = '<div class="wm-lap-sum-line">' + line + '</div>' +
-      '<div class="wm-lap-streak"><span class="wm-lap-dot"></span><span>Day ' + streak + ' of your streak — logged</span></div>';
+      '<div class="wm-lap-streak"><span class="wm-lap-dot"></span><span>Day ' + streak + ' of your streak: logged</span></div>';
     el.classList.remove('wm-hidden');
   }
   function lapEnd(){

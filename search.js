@@ -1,4 +1,4 @@
-/* search.js — site-wide "find a resource" search.
+/* search.js: site-wide "find a resource" search.
    Adds a Search button to the top bar (#mc-bar on unit/tool pages, .bar on the
    dashboard/maps/games) and opens a quick-find panel. Shortcuts: "/" or Ctrl+K.
    The index is hand-built below: add a line to PAGES (or a tab to TABS) when a
@@ -99,7 +99,7 @@
     termsAdded = true;
     for (var n = 1; n <= 9; n++) {
       window.GLOSSARY_LIST(n).forEach(function (g) {
-        var e = { t: g.term, u: 'unit' + n + '.html#g-' + g.slug, d: 'Unit ' + n + ' · ' + g.topic + ' — ' + (g.def.length > 110 ? g.def.slice(0, 107).replace(/\s+\S*$/, '') + '…' : g.def),
+        var e = { t: g.term, u: 'unit' + n + '.html#g-' + g.slug, d: 'Unit ' + n + ' · ' + g.topic + ': ' + (g.def.length > 110 ? g.def.slice(0, 107).replace(/\s+\S*$/, '') + '…' : g.def),
                   k: 'unit ' + n + ' u' + n + ' unit' + n + ' glossary term definition', type: 'Term', unit: n, sub: 1, term: 1 };
         prep(e);
         e.hay = [e.t, e.k].join(' ').toLowerCase();   // the definition only counts as a weak match

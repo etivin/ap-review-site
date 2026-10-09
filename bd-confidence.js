@@ -1,5 +1,5 @@
 /* ============================================================
-   bd-confidence.js  —  Calibration layer for the Brain Dump tool.
+   bd-confidence.js: Calibration layer for the Brain Dump tool.
    Before the model answer is revealed, force a one-tap prediction of
    completeness (Nailed it / Half there / Blank), then echo it above the
    revealed content. Applies the same predict-before-you-check mechanic
@@ -7,7 +7,7 @@
 
    Works on both Brain Dump variants on the site because both toggle
    `.active` on #bd-reveal and render into .bd-card-list / .bd-reveal-hdr.
-   Purely additive: it does NOT modify either unit's reveal() function —
+   Purely additive: it does NOT modify either unit's reveal() function: 
    it injects a gate and lets CSS hide the answer until a rating is tapped,
    so there is no flash of the answer and no timing race.
    Site convention: plain global, no build step, no imports.
@@ -45,7 +45,7 @@
     var gate = document.createElement('div');
     gate.className = 'bdc-gate';
     gate.innerHTML =
-      '<div class="bdc-q">Before you see the model answer &mdash; how complete was your brain dump?</div>' +
+      '<div class="bdc-q">Before you see the model answer, how complete was your brain dump?</div>' +
       '<div class="bdc-btns">' +
         '<button type="button" data-bdc-rating="Nailed it">Nailed it</button>' +
         '<button type="button" data-bdc-rating="Half there">Half there</button>' +
@@ -58,7 +58,7 @@
     gate.querySelectorAll('button').forEach(function (b) {
       b.addEventListener('click', function () {
         var v = this.getAttribute('data-bdc-rating');
-        verdict.innerHTML = '<strong>You predicted: ' + v + '.</strong> Now compare it to the model answer below &mdash; the gap between what you felt you knew and what you actually wrote is exactly what to study next.';
+        verdict.innerHTML = '<strong>You predicted: ' + v + '.</strong> Now compare it to the model answer below, the gap between what you felt you knew and what you actually wrote is exactly what to study next.';
         rev.classList.add('bdc-revealed');
       });
     });
@@ -71,7 +71,7 @@
       // the guard + disconnect, toggling `active` on #bd-reveal while the page
       // is live-compositing spins the observer and hard-freezes the tab.
       if (rev.classList.contains('active')) return;        // still open
-      if (!rev.classList.contains('bdc-revealed')) return; // already reset — no write
+      if (!rev.classList.contains('bdc-revealed')) return; // already reset: no write
       mo.disconnect();
       rev.classList.remove('bdc-revealed');
       mo.observe(rev, { attributes: true, attributeFilter: ['class'] });

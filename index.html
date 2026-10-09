@@ -752,8 +752,8 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
     $('games-strong').innerHTML = 'Play Unit ' + u + ' games →';
     // Interactive maps exist for Units 2–4; the tile follows the selected unit.
     var mapDesc = {
-      2:'Highlight the Silk Roads, Indian Ocean, and trans-Saharan trade — plus goods, cities, and the spread of religions and disease.',
-      3:'Compare the land empires — Ottoman, Safavid, Mughal, Ming–Qing, Russia — and the spread of gunpowder.',
+      2:'Highlight the Silk Roads, Indian Ocean, and trans-Saharan trade, plus goods, cities, and the spread of religions and disease.',
+      3:'Compare the land empires: Ottoman, Safavid, Mughal, Ming–Qing, Russia, and the spread of gunpowder.',
       4:'Trace the voyages, maritime empires, the Columbian Exchange, the silver trade, and the Atlantic slave trade.'
     };
     var mt = $('maps-tile'), mtD = $('maps-tile-desc'), mtS = $('maps-tile-strong');
@@ -764,7 +764,7 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
         mtS.innerHTML = 'Open the Unit ' + u + ' map →';
       } else {
         mt.setAttribute('href','unit2-map.html');
-        mtD.textContent = 'Interactive maps for Units 2–4 — trade routes, land empires, and the age of exploration on a real map you can highlight.';
+        mtD.textContent = 'Interactive maps for Units 2–4, trade routes, land empires, and the age of exploration on a real map you can highlight.';
         mtS.innerHTML = 'Explore the maps →';
       }
     }

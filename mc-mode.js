@@ -1,5 +1,5 @@
 /* ============================================================
-   mc-mode.js — secret "Mission Control" preview toggle.
+   mc-mode.js: secret "Mission Control" preview toggle.
 
    Loaded (synchronously, in <head>) on every page. Mission Control is now
    the DEFAULT experience: every visitor gets it unless it has been explicitly
@@ -12,7 +12,7 @@
      • standard pages get <html data-mc="on">, which activates the dormant
        rules in mission-theme.css (navy/lime Mission Control theme)
    When OFF:
-     • nothing is themed — the site is exactly as published
+     • nothing is themed: the site is exactly as published
 
    Change the code below to change the password.
    ============================================================ */
@@ -38,8 +38,8 @@
     document.documentElement.setAttribute('data-mc', 'on');
   }
 
-  // Secret gesture: click the "AP World History" box (.top-bar-tag) — or any
-  // element marked [data-mc-toggle] (the dashboard's exit chip) — then type the code.
+  // Secret gesture: click the "AP World History" box (.top-bar-tag): or any
+  // element marked [data-mc-toggle] (the dashboard's exit chip): then type the code.
   function wire() {
     var els = document.querySelectorAll('.top-bar-tag, [data-mc-toggle]');
     Array.prototype.forEach.call(els, function (el) {
@@ -47,7 +47,7 @@
       el.addEventListener('click', function (ev) {
         ev.preventDefault();
         var ans = window.prompt('Enter access code:');
-        if (ans === null) return;                       // cancelled — do nothing
+        if (ans === null) return;                       // cancelled: do nothing
         if (ans.trim().toLowerCase() === PW) {
           var next = !isOn();
           setOn(next);
@@ -59,7 +59,7 @@
     });
   }
   // In preview mode, give every page (units, cumulative, tools) the same top
-  // bar as the dashboard — brand + nav — so the chrome matches and the way back
+  // bar as the dashboard, brand + nav: so the chrome matches and the way back
   // (Dashboard link + brand) is always in the same place. The page's fixed
   // sidebar and sticky bars are pushed down so nothing overlaps.
   function injectTopBar() {
@@ -80,7 +80,7 @@
       '#mc-bar nav a{color:#fff;text-decoration:none;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:8px 4px}' +
       '#mc-bar nav a:hover{color:#d8f13a;border-bottom-color:#d8f13a}' +
       '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:8px 9px}' +
-      // Reset .dd fully — some pages (writing-guide.html) define their own .dd grid.
+      // Reset .dd fully: some pages (writing-guide.html) define their own .dd grid.
       '#mc-bar .dd{position:relative;display:block;margin:0;padding:0;gap:0}' +
       '#mc-bar .dd-t{font:inherit;color:#fff;background:none;border:none;cursor:pointer;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:8px 4px;display:inline-flex;align-items:center;gap:5px}' +
       '#mc-bar .dd-t .cv{font-size:.72em;line-height:1;transition:transform .15s}' +
@@ -155,7 +155,7 @@
     document.addEventListener('click', function (e) { if (!e.target.closest('.dd')) closeAll(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
   }
-  // Mission Control is the only view — the opt-out toggle (wire) is intentionally
+  // Mission Control is the only view, the opt-out toggle (wire) is intentionally
   // not called, so clicking the brand/tag no longer prompts for the exit code.
   function onReady() { injectTopBar(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady);

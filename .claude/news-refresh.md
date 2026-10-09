@@ -1,4 +1,4 @@
-# News refresh spec — Mission Control "Breaking history" carousel
+# News refresh spec: Mission Control "Breaking history" carousel
 
 This is the single source of truth for how the news slides in
 `index.html` (the Mission Control dashboard) are written. The every-5-days cloud routine reads
@@ -13,7 +13,7 @@ right now and (b) connect cleanly to the AP World History: Modern course.
 This is a study aid for high-school students, so accuracy, sourcing, and
 tone matter more than novelty.
 
-## Step 1 — Find the stories
+## Step 1: Find the stories
 
 Use WebSearch (and WebFetch to confirm details) across high-quality
 outlets: Associated Press, Reuters, BBC, NPR, PBS, The Guardian, major
@@ -23,13 +23,13 @@ Nature/Quanta for science). Prefer wire services and primary sources.
 Pick FIVE stories from the last ~7 days that map onto AP World themes:
 governance and the state, economic systems and trade, technology and
 industrialization, environment, conflict and its aftermath, culture and
-knowledge, empire and its legacies. Aim for a spread of units and topics —
+knowledge, empire and its legacies. Aim for a spread of units and topics:
 do not pick five stories about the same thing. Avoid graphic tragedy,
 partisan hot-takes, and anything you cannot verify in at least two
 reputable sources. When a story is contested or a claim is disputed, say
 so plainly in the blurb ("OpenAI says…", "still being checked").
 
-## Step 2 — Write each slide
+## Step 2: Write each slide
 
 Match the existing house style exactly. Each slide is:
 
@@ -59,7 +59,7 @@ Rules:
   the story actually illuminates.
 - Exactly three `<li>` questions per slide, and exactly one carries
   `<span class="norm">Normative</span>` (the should/ought one).
-- **No em dashes anywhere** — not `&mdash;` and not the literal `—`
+- **No em dashes anywhere**: not `&mdash;` and not the literal character (U+2014)
   character. Use commas, colons, semicolons, or periods. En dashes
   (`&ndash;`) are fine only inside compound names ("Navier–Stokes",
   "post–Cold War", numeric ranges like "Sept. 1–10").
@@ -68,7 +68,7 @@ Rules:
 - Keep blurbs tight (roughly 2 short sentences each) and readable for a
   high-school audience. No hype, no editorializing in the blurb itself.
 
-## Step 3 — Update the file
+## Step 3: Update the file
 
 1. In `index.html` (the Mission Control dashboard), replace everything between
    `<div class="slides">` and its matching closing `</div>` (the one
@@ -80,7 +80,7 @@ Rules:
    window the stories were drawn from. Keep the "News sources:" label.
 3. Do not touch any other part of the file.
 
-## Step 4 — Verify
+## Step 4: Verify
 
 - Confirm there are exactly 5 `<article class="slide"` occurrences and
   exactly one contains `slide active`.
@@ -88,7 +88,7 @@ Rules:
   `grep -nP "\xe2\x80\x94|&mdash;" index.html` must return nothing.
 - Confirm exactly five `<span class="norm">Normative</span>` occurrences.
 
-## Step 5 — Commit straight to main
+## Step 5: Commit straight to main
 
 Eli has approved auto-merge for this routine: skip the PR/review step and
 publish directly so the carousel updates without waiting on a manual

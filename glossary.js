@@ -1,4 +1,4 @@
-/* glossary.js — renders a unit's Glossary tab (#pg-glossary) from glossary-data.js.
+/* glossary.js: renders a unit's Glossary tab (#pg-glossary) from glossary-data.js.
    Mount: <div class="gl-mount" data-unit="N"></div> inside the pg-glossary page.
    Deep links: unitN.html#g-<slug> opens the Glossary tab and highlights that term
    (site search links here). Styles use each unit page's own tokens (--ink, --red…). */

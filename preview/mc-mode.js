@@ -1,5 +1,5 @@
 /* ============================================================
-   mc-mode.js — secret "Mission Control" preview toggle.
+   mc-mode.js: secret "Mission Control" preview toggle.
 
    Loaded (synchronously, in <head>) on every page. Mission Control is now
    the DEFAULT experience: every visitor gets it unless it has been explicitly
@@ -13,7 +13,7 @@
        rules in mission-theme.css (navy/lime Mission Control theme)
    When OFF:
      • the dashboard routes back to the original hub
-     • nothing is themed — the site is exactly as published
+     • nothing is themed: the site is exactly as published
 
    Change the code below to change the password.
    ============================================================ */
@@ -32,7 +32,7 @@
   var isHome = !isDash && (p === '' || p === '/' || /\/$/.test(p) || /\/index\.html$/i.test(p));
   var on = isOn();
 
-  // Route "home" to the right place for the current mode — before the body paints.
+  // Route "home" to the right place for the current mode, before the body paints.
   if (on && isHome)  { location.replace('mission-control.html'); return; }
   if (!on && isDash) { location.replace('index.html'); return; }
 
@@ -42,8 +42,8 @@
     document.documentElement.setAttribute('data-mc', 'on');
   }
 
-  // Secret gesture: click the "AP World History" box (.top-bar-tag) — or any
-  // element marked [data-mc-toggle] (the dashboard's exit chip) — then type the code.
+  // Secret gesture: click the "AP World History" box (.top-bar-tag): or any
+  // element marked [data-mc-toggle] (the dashboard's exit chip): then type the code.
   function wire() {
     var els = document.querySelectorAll('.top-bar-tag, [data-mc-toggle]');
     Array.prototype.forEach.call(els, function (el) {
@@ -51,7 +51,7 @@
       el.addEventListener('click', function (ev) {
         ev.preventDefault();
         var ans = window.prompt('Enter access code:');
-        if (ans === null) return;                       // cancelled — do nothing
+        if (ans === null) return;                       // cancelled: do nothing
         if (ans.trim().toLowerCase() === PW) {
           var next = !isOn();
           setOn(next);
@@ -63,7 +63,7 @@
     });
   }
   // In preview mode, give every page (units, cumulative, tools) the same top
-  // bar as the dashboard — brand + nav — so the chrome matches and the way back
+  // bar as the dashboard, brand + nav: so the chrome matches and the way back
   // (Dashboard link + brand) is always in the same place. The page's fixed
   // sidebar and sticky bars are pushed down so nothing overlaps.
   function injectTopBar() {

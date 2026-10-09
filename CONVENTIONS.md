@@ -22,12 +22,11 @@ titles). These match the official College Board unit titles.
 | 9 | Globalization |
 
 Formatting:
-- Sidebar / nav / card labels: `Unit N — Name` (em-dash, spaces around it). Use `&amp;` for the
+- Sidebar / nav / card labels: `Unit N: Name` (colon, no em dashes anywhere on the site). Use `&amp;` for the
   ampersand in Unit 8.
-- Unit-page hero heading (`<h2>` inside `.pg-hero`): `Unit N: Name` (colon — this element keeps the
-  colon style site-wide; the sidebar keeps the em-dash).
-- `sbmcq.js` `UNIT_TITLES`: `'Unit N &mdash; Name'` (HTML entities, inserted via innerHTML).
-- Do **not** rename AP topic sub-titles (e.g. "4.4 — Maritime Empires Established"). Those are official
+- Unit-page hero heading (`<h2>` inside `.pg-hero`): `Unit N: Name` (same colon style as the sidebar).
+- `sbmcq.js` `UNIT_TITLES`: `'Unit N: Name'` (HTML entities, inserted via innerHTML).
+- Do **not** rename AP topic sub-titles (e.g. "4.4: Maritime Empires Established"). Those are official
   topic names and are independent of the unit name.
 
 ## Page-section ids (the `pg-*` scheme)
@@ -39,10 +38,10 @@ per-unit variants:
 · `pg-spice` · `pg-source` · `pg-visual` · `pg-games`
 
 Unit-specific one-offs that are allowed because the feature only exists there:
-`pg-maps` (Unit 8), `pg-slides` / `pg-progress` (Unit 7), `pg-web` (Unit 9 — the Globalization Web).
+`pg-maps` (Unit 8), `pg-slides` / `pg-progress` (Unit 7), `pg-web` (Unit 9, the Globalization Web).
 
 Nav config (`GROUPS` / `SUBLABELS`, or `NAV_GROUPS`) auto-filters ids that don't exist on the page, so
-don't list dead ids like `pg-write` — use `pg-writing`.
+don't list dead ids like `pg-write`; use `pg-writing`.
 
 ## MCQ practice containers
 
@@ -56,7 +55,7 @@ Reuse these ids/classes in every unit's MCQ section:
 |-----------|-----------------|
 | Timeline year badge | `.tl-year-badge` |
 | Flashcard back-of-card tag | `class="card-tag back-tag"` markup + standalone `.back-tag{…!important}` rule |
-| Brain-dump reveal state | `.active` (e.g. `.bd-reveal.active`) — not `.show` |
+| Brain-dump reveal state | `.active` (e.g. `.bd-reveal.active`), not `.show` |
 
 ## Unit hook for shared modules
 
@@ -73,4 +72,4 @@ mounts should always include `data-unit`.
 ## Flashcard section heading
 
 Eyebrow `Unit N Flashcards` + `<h2>Key Terms & Concepts</h2>`. Keep the unit number in the eyebrow
-correct (a copy-paste "Unit 1" on Unit 2 was a real bug — double-check it when cloning a page).
+correct (a copy-paste "Unit 1" on Unit 2 was a real bug; double-check it when cloning a page).

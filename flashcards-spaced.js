@@ -1,5 +1,5 @@
 /* ============================================================
-   flashcards-spaced.js  —  Phase 2 flashcard self-rate + sparkline.
+   flashcards-spaced.js: Phase 2 flashcard self-rate + sparkline.
    Additive: it does NOT modify any unit's flashcard flip logic. It finds
    the flip card, watches for a flip (via class MutationObserver, like
    bd-confidence.js), and drops a panel below the card with:
@@ -7,16 +7,16 @@
      • a CONFIDENT / SHAKY / GUESSING self-rate that fires SPACED.recordReview
 
    Handles both flashcard layouts on the site:
-     • standard  — flip el #fc-card,       container #card-area   (units 1-5,7,8)
-     • unit6     — flip el #fc-card-inner,  container #fc-scene
+     • standard: flip el #fc-card,       container #card-area   (units 1-5,7,8)
+     • unit6: flip el #fc-card-inner,  container #fc-scene
    Pages with no flashcards (unit9) are skipped automatically.
 
    Flashcard recall maps onto the shared (correct, confidence) model:
-     CONFIDENT -> (correct, 'confident')   box +2   — knew it cold
-     SHAKY     -> (correct, 'shaky')       box +1   — shaky recall
-     GUESSING  -> (wrong,   'guessing')    box -> 1 — didn't really know it
+     CONFIDENT -> (correct, 'confident')   box +2: knew it cold
+     SHAKY     -> (correct, 'shaky')       box +1: shaky recall
+     GUESSING  -> (wrong,   'guessing')    box -> 1: didn't really know it
 
-   itemId scheme: u{unit}_fc_{slug(term)} — globally unique, unit from URL.
+   itemId scheme: u{unit}_fc_{slug(term)}: globally unique, unit from URL.
    Site convention: plain global, no build step, no imports.
    ============================================================ */
 (function () {

@@ -3,7 +3,7 @@
    Between 8:00 PM and 5:00 AM (US Eastern), any page load throws up
    a full-screen overlay asking the student whether they should be
    asleep, with the science on why sleep matters for study & memory.
-   The student can dismiss it to continue to the site — but every
+   The student can dismiss it to continue to the site, but every
    15 minutes after that, the overlay comes back to nudge again.
 
    - Time is computed in America/New_York regardless of the device's
@@ -125,7 +125,7 @@
       : "Shouldn't you go to bed soon?";
     var lead = isNag
       ? "It's " + easternClockLabel() + ". Getting to bed now is the single best thing you can do to be ready for tomorrow."
-      : "It's " + easternClockLabel() + ". Real studying happens while you sleep — here's why tonight's rest matters more than another hour of cramming:";
+      : "It's " + easternClockLabel() + ". Real studying happens while you sleep, here's why tonight's rest matters more than another hour of cramming:";
     var btnLabel = isNag
       ? "No, I'd still like to get sub-optimal sleep"
       : "No, I would like to get sub-optimal sleep";
@@ -181,7 +181,7 @@
       // Gentle sign-off, then try to close the tab (works if the tab was
       // script-opened; otherwise the message stands on its own).
       var card = overlay.querySelector("#bedtime-card");
-      card.innerHTML = '<h2>Good night — sleep well.</h2>'
+      card.innerHTML = '<h2>Good night: sleep well.</h2>'
         + '<p class="bt-lead">Your brain will do the studying for you now. See you tomorrow, sharp and ready.</p>'
         + '<div id="bedtime-actions"><button type="button" class="bt-btn bt-secondary" id="bt-close">Close this tab</button></div>';
       lockScroll(true);

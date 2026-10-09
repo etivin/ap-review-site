@@ -1,13 +1,13 @@
 /* ============================================================
-   mission-theme.css — shared "Mission Control" design language.
+   mission-theme.css: shared "Mission Control" design language.
 
    DORMANT BY DEFAULT. Every rule is scoped under html[data-mc="on"],
    which mc-mode.js sets ONLY while the secret preview toggle is on.
    So the published site keeps its original look until a teacher enables
    Mission Control mode (click the "AP World History" box → password).
 
-   It re-skins the existing tokenized design system in place — TYPE,
-   PALETTE, ACCENTS only, never layout — by remapping the shared CSS
+   It re-skins the existing tokenized design system in place, TYPE,
+   PALETTE, ACCENTS only, never layout, by remapping the shared CSS
    custom properties, so all pages (and the spaced.js streak banner)
    recolor at once. Tweak here, not per page.
 

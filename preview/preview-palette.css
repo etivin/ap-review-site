@@ -1,22 +1,22 @@
 /* ══════════════════════════════════════════════════════════════
-   PREVIEW ONLY — "Tivin Teaches" brand palette override.
+   PREVIEW ONLY: "Tivin Teaches" brand palette override.
    Loaded LAST on every page in /preview so it wins over each page's
    inline :root, theme.css, and mission-theme.css. Reskins by
-   remapping the shared design tokens — colors only, never layout.
+   remapping the shared design tokens, colors only, never layout.
 
    Palette (from the logo):
      navy  #16244d   ·   gold  #f4cd4f   ·   sky-blue accent #345fbf
    ══════════════════════════════════════════════════════════════ */
 
 :root{
-  /* neutrals — sky-tinted paper on navy ink */
+  /* neutrals: sky-tinted paper on navy ink */
   --cream:#eef3fa; --bg:#eef3fa; --white:#ffffff; --paper:#e8eff8;
   --border:#cfdcec; --border2:#a9c1de; --line:#cdd9ef;
   --ink:#16244d; --mid:#39476a; --muted:#66748f;
   --sky:#eaf2fb;
-  /* primary accent (filled buttons / active states) — brand blue, white text safe */
+  /* primary accent (filled buttons / active states), brand blue, white text safe */
   --red:#345fbf; --red-d:#26489c; --red-bg:#eaf2fb;
-  /* secondary accent — logo gold (used on light grounds → deeper for contrast) */
+  /* secondary accent: logo gold (used on light grounds → deeper for contrast) */
   --gold:#b8860b; --gold-bg:#fdf7e3; --gold-b:#e6cf7e;
   /* deep-blue accent (readable heading blue) */
   --blue:#2f56b3; --blue-bg:#eef2fb;
@@ -47,7 +47,7 @@ html[data-mc="on"]{
 /* ── mission-control.html standalone: gold accents on its navy bar ── */
 .brand .bt b, .brand b{color:var(--lime)!important}
 
-/* ── injected preview logo (classic sidebar) — small inside unit pages ── */
+/* ── injected preview logo (classic sidebar): small inside unit pages ── */
 .tivin-logo-sb{display:block;width:92px;max-width:70%;height:auto;margin:2px auto 14px;border-radius:9px;box-shadow:0 3px 11px rgba(0,0,0,.26)}
 /* larger on the classic home hub */
 .tivin-logo-sb.is-home{width:190px;max-width:88%;border-radius:13px}
@@ -60,7 +60,7 @@ html[data-mc="on"]{
 #mc-bar .mcb-brand .tivin-wordmark b{color:#fff}
 /* let the top bar grow to comfortably fit the lockup */
 .bar{min-height:126px}
-/* sidebar lockup (unit hubs) — narrower column, smaller wordmark */
+/* sidebar lockup (unit hubs): narrower column, smaller wordmark */
 .tivin-lockup.sb{margin-bottom:16px}
 .tivin-lockup.sb .tivin-wordmark b{font-size:1.18rem}
 .tivin-lockup.sb .tivin-wordmark i{font-size:.58rem;margin-top:4px}

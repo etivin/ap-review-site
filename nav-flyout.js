@@ -1,4 +1,4 @@
-/* nav-flyout.js — hover/tap flyout menus for the unit sidebar.
+/* nav-flyout.js: hover/tap flyout menus for the unit sidebar.
    Each sidebar group (e.g. "Review & Recall") that holds 2+ sub-pages gets a
    flyout listing them, so students can jump straight to Glossary, Games, etc.
    Clicking the group itself still opens its first page as before.

@@ -1,7 +1,7 @@
-/* tour.js — "How to Work This Unit": a phase-based Game Plan checklist plus a
+/* tour.js: "How to Work This Unit": a phase-based Game Plan checklist plus a
    spotlight tour of the unit page. Shared across units; reads the page's own
    sidebar (renderNav's data-subs) and showTab(), so it adapts to whichever
-   tools a unit actually has — steps for missing pages are skipped.
+   tools a unit actually has, steps for missing pages are skipped.
    Adds:  • a "How to Work This Unit" button at the top of the sidebar
           • the Game Plan panel (5 phases, tick-off checklist, printable)
           • the spotlight tour (Back / Next / Try it, Esc to exit)
@@ -24,7 +24,7 @@
         { id:'p1-guide', page:'pg-guide', label:'Skim the Study Guide so you know every topic coming',
           title:'Study Guide', body:'Every topic in the unit, in order. Skim it now so nothing surprises you later.',
           why:'Knowing the whole list up front lets you notice when class is covering a big one.' },
-        { id:'p1-gloss', page:'pg-glossary', label:'Find the Glossary — look terms up here when they come up in class',
+        { id:'p1-gloss', page:'pg-glossary', label:'Find the Glossary: look terms up here when they come up in class',
           title:'Glossary', body:'Every key term with its definition. Use it when a word comes up in class you don’t know.',
           why:'Look up and move on. Don’t spend an hour copying definitions; that comes later as flashcards.' }
       ]},
@@ -73,7 +73,7 @@
     { n:5, name:'Test Week', when:'The 3–4 days before the test',
       goal:'Find your gaps and fix them. Don’t reread everything.',
       items:[
-        { id:'p5-test', page:'pg-mcq', label:'Take MCQs in Test Mode — then fix every “Confident but wrong”',
+        { id:'p5-test', page:'pg-mcq', label:'Take MCQs in Test Mode, then fix every “Confident but wrong”',
           title:'MCQ Test Mode', body:'Switch to Test Mode for exam conditions. When it’s done, check the results card.',
           why:'“Confident but wrong” answers are the most dangerous ones. Fix those first.' },
         { id:'p5-brain', page:'pg-brain', label:'Redo Brain Dumps for your weakest topics',

@@ -779,12 +779,11 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
     });
   });
 
-  /* ── UNITS GRID (per-unit progress ring across ALL components) ── */
+  /* ── UNITS GRID (per-unit progress ring, earned by DOING, never by viewing) ── */
   var comps = d.components || {};
-  var UNIT_COMPONENTS = ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain','pg-spice'];
   function unitPct(u){
-    var comp = comps['u'+u] || {};
-    // Real retrieval coverage: how many distinct MCQ / flashcard items reviewed.
+    var comp = comps['u'+u] || {}, doneSet = comp.done || {};
+    // MCQ / flashcard coverage: distinct items actually answered or rated.
     var mcqDone = 0, fcDone = 0, pre = 'u'+u+'_', lastReview = 0;
     for (var key in sp){
       if (key.indexOf(pre) !== 0) continue;
@@ -792,26 +791,28 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
       if (h && h.length){ var rt = new Date(h[h.length-1].date).getTime(); if (rt > lastReview) lastReview = rt; }
       if (key.indexOf(pre+'fc_') === 0) fcDone++; else mcqDone++;
     }
-    // Each component contributes 0–1: MCQ & flashcards as reviewed/total (real
-    // depth) where a total is known; other tools as engagement (opened).
-    function frac(id){
-      if (id === 'pg-mcq'   && comp.mcqTotal) return Math.min(1, mcqDone / comp.mcqTotal);
-      if (id === 'pg-flash' && comp.fcTotal ) return Math.min(1, fcDone  / comp.fcTotal );
-      if (id === 'pg-mcq'  ) return (mcqDone > 0 || comp[id]) ? 1 : 0;   // no total yet → engagement
-      if (id === 'pg-flash') return (fcDone  > 0 || comp[id]) ? 1 : 0;
-      return comp[id] ? 1 : 0;                                           // guide, writing, brain, spice
+    function count(kind, ids){
+      var got = doneSet[kind] || {}, n = 0;
+      (ids || []).forEach(function(id){ if (got[id]) n++; });
+      return n;
     }
-    // Weight the retrieval tools (MCQ + flashcards) more heavily than the rest,
-    // so actual practice moves the ring faster than just opening reading tools.
-    var WEIGHT = { 'pg-mcq':3, 'pg-flash':3 };
-    function w(id){ return WEIGHT[id] || 1; }
-    var denom = (comp.__all && comp.__all.length) ? comp.__all : ['pg-guide','pg-mcq','pg-flash','pg-writing','pg-brain'];
+    // Each part is 0–1 and only grows from completed work (see activity.js):
+    //   MCQ:        questions answered / questions in the unit bank
+    //   Flashcards: cards rated / cards in the deck
+    //   Games:      games finished / games on the unit's Games tab
+    //   Videos:     videos watched (60% or 8 min) / up to 3 videos
+    var gameIds = comp.gameIds || [], videoIds = comp.videoIds || [];
+    var tabs = comp.__all || ['pg-mcq','pg-flash'], parts = [];
+    if (tabs.indexOf('pg-mcq')   >= 0) parts.push({ w:3, f: comp.mcqTotal ? Math.min(1, mcqDone / comp.mcqTotal) : 0 });
+    if (tabs.indexOf('pg-flash') >= 0) parts.push({ w:3, f: comp.fcTotal  ? Math.min(1, fcDone  / comp.fcTotal ) : 0 });
+    if (gameIds.length)  parts.push({ w:2, f: count('game', gameIds) / gameIds.length });
+    if (videoIds.length) parts.push({ w:1, f: Math.min(1, count('video', videoIds) / Math.min(3, videoIds.length)) });
     var sum = 0, tot = 0;
-    denom.forEach(function(id){ sum += w(id) * frac(id); tot += w(id); });
+    parts.forEach(function(p){ sum += p.w * p.f; tot += p.w; });
     var coverage = tot ? (sum / tot * 100) : 0, DECAY_DAYS = 20;
     // Freshness decay: the ring fades toward 0 as time passes since the last
-    // review, so a unit you stop reviewing visibly slips (and goes red below 50).
-    var touched = lastReview || (comp.ts || 0);
+    // completed activity (not the last visit), so a unit you stop working slips.
+    var touched = Math.max(lastReview, comp.lastDone || 0);
     var days = touched ? (Date.now() - touched) / 86400000 : null;
     var decay = (days == null) ? 1 : Math.exp(-Math.max(0, days) / DECAY_DAYS);
     return Math.round(coverage * decay);

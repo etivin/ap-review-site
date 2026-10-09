@@ -491,7 +491,11 @@
         for (var t in q) n += (q[t] || []).length;
         if (n) c.mcqTotal = n;
       }
-      if (window.CARDS && window.CARDS.length) c.fcTotal = window.CARDS.length;
+      // Decks live in different places per unit: global CARDS (1, 2, 7),
+      // global FLASH (6), or a JSON <script id="uN-cards-data"> (3, 4, 5, 8).
+      var deck = window.CARDS || window.FLASH, dataEl = document.getElementById('u' + unit + '-cards-data');
+      if (!(deck && deck.length) && dataEl) { try { deck = JSON.parse(dataEl.textContent); } catch (e2) {} }
+      if (deck && deck.length) c.fcTotal = deck.length;
     } catch (e) {}
     s.components[k] = c; save(s);
   };

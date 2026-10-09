@@ -48,7 +48,7 @@
       // In-page games: credit when their end screen appears AND the game was
       // genuinely finished (not skipped, idled through, or ended early).
       INPAGE.forEach(function (g) {
-        var el = document.querySelector('#pg-games ' + g.sel);
+        var el = document.querySelector((g.scope || '#pg-games') + ' ' + g.sel);
         if (!el) return;
         gameIds.push(g.id);
         new MutationObserver(function () {
@@ -94,8 +94,32 @@
     // Source Line Warm-up: a real (8+ word) answer checked on the final document.
     { id: 'warmup', sel: '#warmup-result', finished: function (el) {
         var m = txt('warmup-doc-num').match(/(\d+)\s+of\s+(\d+)/);
-        return m && m[1] === m[2] && el.textContent.trim() && !/too short/i.test(el.textContent); } }
+        return m && m[1] === m[2] && el.textContent.trim() && !/too short/i.test(el.textContent); } },
+
+    // Source Analysis drills (Unit 7). These have no end screen, so "finished" is defined here.
+    // Red / Green Sort: every sentence in the set sorted.
+    { id: 'redgreen', scope: '#pg-source', sel: '#rg-cards', finished: function (el) {
+        var cards = el.querySelectorAll('.rg-card');
+        return cards.length > 0 && !Array.prototype.some.call(cards, function (c) {
+          return !c.classList.contains('correct') && !c.classList.contains('wrong'); }); } },
+    // Isolation Drill: a real sentence written, then checked against the model, on 3 different documents.
+    { id: 'isolation', scope: '#pg-source', sel: '#iso-model', finished: wroteOn('iso-text', 'iso-doc', 3) },
+    // Paragraph Upgrade: same, on 2 different paragraphs.
+    { id: 'paraup', scope: '#pg-source', sel: '#pu-model', finished: wroteOn('pu-text', 'pu-para', 2) }
   ];
+
+  // Counts distinct prompts where the student wrote 8+ words before revealing the model.
+  function wroteOn(textId, promptId, need) {
+    var seen = {}, n = 0;
+    return function (el) {
+      if (!el.classList.contains('show')) return false;
+      var t = document.getElementById(textId), p = document.getElementById(promptId);
+      var words = t ? t.value.trim().split(/\s+/).filter(Boolean).length : 0;
+      var key = p ? p.textContent.trim().slice(0, 120) : '';
+      if (words >= 8 && key && !seen[key]) { seen[key] = 1; n++; }
+      return n >= need;
+    };
+  }
 
   /* ---- YouTube videos: credit only real playback time ---- */
   function videoId(src) { var m = (src || '').match(/youtube\.com\/embed\/([\w-]{6,})/); return m ? m[1] : null; }

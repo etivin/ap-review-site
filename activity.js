@@ -103,21 +103,24 @@
         return cards.length > 0 && !Array.prototype.some.call(cards, function (c) {
           return !c.classList.contains('correct') && !c.classList.contains('wrong'); }); } },
     // Isolation Drill: a real sentence written, then checked against the model, on 3 different documents.
-    { id: 'isolation', scope: '#pg-source', sel: '#iso-model', finished: wroteOn('iso-text', 'iso-doc', 3) },
+    { id: 'isolation', scope: '#pg-source', sel: '#iso-model', finished: wroteOn('isolation', 'iso-text', 'iso-doc', 3) },
     // Paragraph Upgrade: same, on 2 different paragraphs.
-    { id: 'paraup', scope: '#pg-source', sel: '#pu-model', finished: wroteOn('pu-text', 'pu-para', 2) }
+    { id: 'paraup', scope: '#pg-source', sel: '#pu-model', finished: wroteOn('paraup', 'pu-text', 'pu-para', 2) }
   ];
 
   // Counts distinct prompts where the student wrote 8+ words before revealing the model.
-  function wroteOn(textId, promptId, need) {
-    var seen = {}, n = 0;
+  // Saved at components['uN'].drills[id] = [prompt keys], so the count carries across visits.
+  function wroteOn(id, textId, promptId, need) {
     return function (el) {
       if (!el.classList.contains('show')) return false;
       var t = document.getElementById(textId), p = document.getElementById(promptId);
       var words = t ? t.value.trim().split(/\s+/).filter(Boolean).length : 0;
       var key = p ? p.textContent.trim().slice(0, 120) : '';
-      if (words >= 8 && key && !seen[key]) { seen[key] = 1; n++; }
-      return n >= need;
+      var unit = unitOf(), s = load(), c = compFor(s, unit);
+      c.drills = c.drills || {};
+      var seen = (c.drills[id] = c.drills[id] || []);
+      if (words >= 8 && key && seen.indexOf(key) < 0) { seen.push(key); save(s); }
+      return seen.length >= need;
     };
   }
 

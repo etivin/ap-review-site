@@ -622,6 +622,36 @@ button{font-family:inherit;cursor:pointer}
 
   <!-- TIMELINE -->
   <!-- VIDEO REVIEW -->
+  <section class="home-map-section">
+    <style>
+      .home-map-section{background:var(--paper);padding:56px 24px 60px;border-bottom:2px solid var(--border)}
+      .hm-inner{max-width:1120px;margin:0 auto}
+      .hm-head{text-align:center;max-width:680px;margin:0 auto 26px}
+      .hm-eyebrow{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+      .hm-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:900;color:var(--ink);margin-bottom:10px;line-height:1.15}
+      .hm-sub{color:var(--muted);font-size:.9rem;line-height:1.65}
+      .hm-embed{position:relative;height:86vh;min-height:660px;border:1px solid var(--border2);box-shadow:var(--shm);background:var(--white)}
+      .hm-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+      .hm-openbar{display:flex;justify-content:flex-end;margin-top:12px}
+      .hm-open{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:11px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s}
+      .hm-open:hover{background:var(--red-d)}
+      @media(max-width:640px){.hm-embed{height:88vh;min-height:560px}}
+    </style>
+    <div class="hm-inner">
+      <div class="hm-head">
+        <div class="hm-eyebrow">Interactive Reference Map</div>
+        <h2 class="hm-title">A World Split in Two</h2>
+        <p class="hm-sub">Compare the Cold War blocs, the Non-Aligned Movement, and the proxy wars, then layer on decolonization dates, the Iron Curtain, Cold War crises, and the migrations of partition and the end of empire. Click anything to read more.</p>
+      </div>
+      <div class="hm-embed">
+        <iframe src="unit8-map.html" title="Interactive Unit 8 Cold War and decolonization map" loading="lazy"></iframe>
+      </div>
+      <div class="hm-openbar">
+        <a class="hm-open" href="unit8-map.html" target="_blank" rel="noopener noreferrer">&#8599; Open the map full screen</a>
+      </div>
+    </div>
+  </section>
+
   <section class="video-section">
     <div class="video-inner">
       <div class="video-eyebrow">Watch &amp; Review</div>
@@ -944,6 +974,21 @@ button{font-family:inherit;cursor:pointer}
       <div class="eyebrow">Unit 8: Geographic Analysis</div>
       <h2>Reading the Maps</h2>
       <p>Maps are primary sources. Each one encodes choices about power, borders, and ideology, who drew the line, why there, and what it left out are AP-worthy questions every time.</p>
+    </div>
+
+    <!-- interactive reference map (unit8-map.html), then the primary-source maps below -->
+    <style>
+      #pg-maps .map-embed{position:relative;width:100%;height:80vh;min-height:620px;border:1px solid var(--border2);box-shadow:var(--shm);background:var(--paper)}
+      #pg-maps .map-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+      #pg-maps .map-openbar{display:flex;justify-content:flex-end;margin:12px 0 40px}
+      #pg-maps .map-open{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:11px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;transition:background .15s}
+      #pg-maps .map-open:hover{background:var(--red-d)}
+    </style>
+    <div class="map-embed">
+      <iframe src="unit8-map.html" title="Interactive Unit 8 Cold War and decolonization map" loading="lazy"></iframe>
+    </div>
+    <div class="map-openbar">
+      <a class="map-open" href="unit8-map.html" target="_blank" rel="noopener noreferrer">&#8599; Open the map full screen</a>
     </div>
 
     <nav class="map-nav" aria-label="Jump to map">

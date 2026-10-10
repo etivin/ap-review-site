@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 5: Interactive Revolutions Map | AP World History</title>
+<meta name="description" content="Interactive world map of Unit 5 (c. 1750–1900): the Atlantic Revolutions, nationalism and unification, the Industrial Revolution and its spread, and state responses to industrialization."/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="world-basemap.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="unit-map.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+<script>
+/* Unit 5, c. 1750–1900. Coordinates are [lat, lng]; regions are approximate. */
+window.UNIT_MAP = {
+  unit:5, accent:'#1e4f18', accentD:'#163b12', accentDark:'#7fcf73',
+  title:'Revolutions', years:'c. 1750 – 1900',
+  h1:'Ideas That Toppled Kings',
+  intro:'Pick a <strong>revolution or movement</strong> to load its causes, ideas, places, and effects. Then layer on the <strong>spread of Enlightenment ideas</strong> and <strong>industrialization</strong>, each drawn as a swooping arrow from where it began, plus a timeline of revolutions and reforms.',
+  center:[30,-20], zoom:2,
+  routeHead:'Revolutions &amp; Movements', allBtn:'Show all',
+  allTitle:'An Age of Revolutions', allSub:'Political & industrial revolutions · c. 1750–1900',
+  allBlurb:'Enlightenment ideas sparked revolutions across the Atlantic world, nationalism built new nations, and the Industrial Revolution remade how people worked and lived. Click a shaded region or pick one above.',
+  sections:{tech:['💡','Ideas &amp; Causes'],goods:['🔑','Key Terms &amp; People'],places:['📍','Key Places'],cultural:['🔗','Effects &amp; Legacy']},
+  routes:{
+    american:{
+      name:'American Revolution', btn:'1775–1783', short:'Locke · Declaration of Independence · republic', sub:'Thirteen Colonies · 1775–1783',
+      color:'#2f5fb3', colorDark:'#7aa2ff',
+      blurb:'British taxes without colonial representation, combined with Enlightenment ideas about natural rights, led thirteen colonies to declare independence and build a republic, inspiring revolutions across the Atlantic.',
+      polys:[[[45,-67],[43,-70.5],[41.5,-71],[40.5,-74],[38.5,-75],[35,-76],[32,-80.8],[31,-81.5],[31,-84],[34.5,-83.5],[37,-82],[40,-80],[42,-79.5],[45,-74]]],
+      places:[
+        {n:'Boston',c:[42.36,-71.06],note:'Boston Tea Party (1773) and the first fighting at Lexington and Concord (1775).'},
+        {n:'Philadelphia',c:[39.95,-75.17],note:'Where the Declaration of Independence (1776) and the Constitution (1787) were written.'},
+        {n:'Yorktown',c:[37.24,-76.51],note:'British surrender (1781), won with French help.'}
+      ],
+      tech:[
+        {name:'Natural rights (Locke)',what:'People have rights to life, liberty, and property; government rests on the consent of the governed.',impact:'Became the core argument of the Declaration of Independence.'},
+        {name:'“No taxation without representation”',what:'Colonists objected to the Stamp Act and other taxes passed without their vote.',impact:'Turned tax protests into a fight for self-government.'}
+      ],
+      goods:['John Locke','Declaration of Independence','Thomas Paine’s Common Sense','Republic','Popular sovereignty'],
+      cultural:[
+        {t:'A new republic',d:'with a written constitution and separation of powers (Montesquieu).'},
+        {t:'Inspired others',d:'France, Haiti, and Latin America all drew on the American example.'},
+        {t:'Limits',d:'slavery continued and women and Native Americans were excluded from political rights.'}
+      ]
+    },
+    french:{
+      name:'French Revolution', btn:'1789–1799', short:'Rights of Man · Terror · Napoleon', sub:'France · 1789–1815',
+      color:'#b8322a', colorDark:'#ff7b6e',
+      blurb:'Debt, unfair taxes on the Third Estate, and Enlightenment ideas led to the storming of the Bastille, the end of absolute monarchy, the radical Reign of Terror, and finally Napoleon, who spread revolutionary reforms across Europe.',
+      polys:[[[51,2.5],[49,8],[46.2,6],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5]]],
+      places:[
+        {n:'Paris',c:[48.86,2.35],note:'Storming of the Bastille (July 14, 1789) and the Reign of Terror.'},
+        {n:'Versailles',c:[48.8,2.12],note:'Royal palace; the Estates-General met here in 1789 and became the National Assembly.'},
+        {n:'Waterloo',c:[50.68,4.41],note:'Napoleon’s final defeat (1815).'}
+      ],
+      tech:[
+        {name:'Popular sovereignty (Rousseau)',what:'Power belongs to the people and their “general will.”',impact:'Justified overthrowing the king.'},
+        {name:'Estate system & debt',what:'The Third Estate paid most taxes while clergy and nobles had privileges; war debt drained the treasury.',impact:'Made reform impossible without revolution.'}
+      ],
+      goods:['Declaration of the Rights of Man','Estates-General','Reign of Terror','Robespierre','Napoleonic Code','Olympe de Gouges'],
+      cultural:[
+        {t:'End of absolute monarchy',d:'Louis XVI was executed in 1793.'},
+        {t:'Napoleonic Code',d:'spread legal equality (for men) across conquered Europe.'},
+        {t:'Nationalism spreads',d:'resistance to Napoleon stirred national feeling in Spain, Germany, and Russia.'},
+        {t:'Women’s rights debate',d:'Olympe de Gouges wrote the Declaration of the Rights of Woman (1791).'}
+      ]
+    },
+    haitian:{
+      name:'Haitian Revolution', btn:'1791–1804', short:'Toussaint Louverture · first Black republic', sub:'Saint-Domingue · 1791–1804',
+      color:'#7b3fa0', colorDark:'#c39be6',
+      blurb:'In France’s richest sugar colony, enslaved Africans rose up, led by Toussaint Louverture, defeated French, Spanish, and British armies, and founded Haiti, the first Black republic and the only successful slave revolt to create a nation.',
+      polys:[[[19.9,-73.4],[19.9,-71.7],[18.2,-71.7],[18.0,-74.5],[18.6,-74.4]]],
+      places:[
+        {n:'Cap-Français',c:[19.76,-72.2],note:'Center of the 1791 uprising in the north.'},
+        {n:'Port-au-Prince',c:[18.54,-72.34],note:'Capital of independent Haiti (1804).'}
+      ],
+      tech:[
+        {name:'Brutal plantation slavery',what:'Hundreds of thousands of enslaved people produced sugar and coffee under deadly conditions.',impact:'Created the anger and numbers for revolt.'},
+        {name:'Rights of Man applied to all',what:'Enslaved and free people of color used French revolutionary ideals.',impact:'Pushed France to abolish slavery in 1794.'}
+      ],
+      goods:['Toussaint Louverture','Jean-Jacques Dessalines','Saint-Domingue','Sugar','Abolition'],
+      cultural:[
+        {t:'Independence in 1804',d:'the first nation founded by formerly enslaved people.'},
+        {t:'Fear across the Americas',d:'enslavers tightened control; it also inspired abolitionists.'},
+        {t:'Louisiana Purchase',d:'losing Haiti led Napoleon to sell Louisiana to the US (1803).'}
+      ]
+    },
+    latin:{
+      name:'Latin American Independence', btn:'1810–1826', short:'Bolívar · San Martín · Hidalgo · creoles', sub:'Spanish & Portuguese America · 1810–1826',
+      color:'#d4741c', colorDark:'#f0a35a',
+      blurb:'Creole elites, angry at peninsulares’ privileges and inspired by Enlightenment ideas and the revolutions in the US, France, and Haiti, led wars that freed most of Latin America from Spain. Brazil broke from Portugal peacefully.',
+      polys:[
+        [[12,-72],[10.5,-61.5],[2,-60],[-4,-70],[-4.5,-81],[1,-79],[8,-77.5],[11,-75]],
+        [[32.5,-117],[31.5,-106],[29,-103],[26,-97.2],[21.5,-97.5],[18.5,-95],[18,-91],[14.5,-92],[16,-95],[19.5,-105.5],[23,-110],[28,-114.5]],
+        [[-18,-70.5],[-22,-67],[-22,-62],[-27,-58],[-34.5,-58],[-40,-62],[-40,-73],[-30,-71.5]]
+      ],
+      places:[
+        {n:'Dolores (Mexico)',c:[21.16,-100.93],note:'Father Hidalgo’s “Grito de Dolores” (1810) began Mexico’s fight for independence.'},
+        {n:'Caracas',c:[10.48,-66.9],note:'Birthplace of Simón Bolívar, who liberated Gran Colombia.'},
+        {n:'Buenos Aires',c:[-34.6,-58.38],note:'Base of José de San Martín, who freed Argentina, Chile, and Peru.'},
+        {n:'Rio de Janeiro',c:[-22.9,-43.2],note:'Brazil declared independence under Dom Pedro I (1822).'}
+      ],
+      tech:[
+        {name:'Creole frustration',what:'American-born elites were shut out of top jobs held by Spanish-born peninsulares.',impact:'Gave the independence movements their leaders.'},
+        {name:'Napoleon invades Spain (1808)',what:'Spain’s king was removed, weakening control over the colonies.',impact:'Opened the door for independence movements.'}
+      ],
+      goods:['Simón Bolívar','José de San Martín','Miguel Hidalgo','Creoles','Peninsulares','Jamaica Letter'],
+      cultural:[
+        {t:'New nations',d:'but power stayed mostly with creole elites; the social hierarchy changed little.'},
+        {t:'Gran Colombia splits',d:'Bolívar’s dream of unity fell apart into several nations.'},
+        {t:'Economic dependence',d:'new nations relied on exporting raw materials to Britain and the US.'}
+      ]
+    },
+    nations:{
+      name:'Nationalism &amp; Unification', btn:'Italy 1861 · Germany 1871', short:'Garibaldi · Cavour · Bismarck', sub:'Europe · 1848–1871',
+      color:'#0f7a6b', colorDark:'#4fd1bd',
+      blurb:'Nationalism, the belief that people who share a language and culture should have their own state, united Italy and Germany and threatened multiethnic empires like Austria and the Ottomans.',
+      polys:[
+        [[46.5,7],[46.5,13.5],[45.6,13.8],[44,12.5],[42,14.5],[41,17],[40,18.5],[38,16],[38,15.6],[40,15.5],[41,13],[42.4,11],[44,8.2],[44.1,7.6]],
+        [[54.8,8.5],[54.4,13],[54,19.5],[53,18],[51,16.5],[50,12],[47.6,13],[47.5,9.5],[48.9,8.1],[49.1,6.4],[51,6],[53.5,7]]
+      ],
+      places:[
+        {n:'Turin (Piedmont-Sardinia)',c:[45.07,7.69],note:'Cavour led unification from here through diplomacy and war.'},
+        {n:'Rome',c:[41.9,12.5],note:'Became Italy’s capital in 1871.'},
+        {n:'Berlin (Prussia)',c:[52.52,13.4],note:'Bismarck united Germany through “blood and iron.”'},
+        {n:'Versailles',c:[48.8,2.12],note:'The German Empire was proclaimed here in 1871 after defeating France.'}
+      ],
+      tech:[
+        {name:'Nationalism',what:'Loyalty to a nation defined by shared language, culture, and history.',impact:'United some peoples and broke apart empires.'},
+        {name:'Realpolitik',what:'Bismarck’s practical, power-based politics, including wars with Denmark, Austria, and France.',impact:'Built a powerful united Germany.'}
+      ],
+      goods:['Giuseppe Garibaldi','Count Cavour','Otto von Bismarck','Realpolitik','Revolutions of 1848','Zionism'],
+      cultural:[
+        {t:'New great powers',d:'a unified Germany shifted Europe’s balance of power.'},
+        {t:'Multiethnic empires strained',d:'Austria-Hungary and the Ottomans faced nationalist revolts.'},
+        {t:'Zionism',d:'Jewish nationalism (Herzl) sought a homeland in Palestine.'}
+      ]
+    },
+    industrial:{
+      name:'Industrial Revolution', btn:'Begins in Britain c. 1750', short:'Coal · steam · factories · cotton', sub:'Great Britain · from c. 1750',
+      color:'#5a6b7a', colorDark:'#a9b8c6',
+      blurb:'Britain industrialized first thanks to coal and iron, rivers and ports, capital from overseas trade, and new technology. Factories, steam engines, and railroads transformed work, cities, and the world economy.',
+      polys:[[[58.6,-3],[57.5,-1.8],[55.8,-2],[54,-0.2],[53,0.3],[52.5,1.7],[51.3,1.4],[50.8,0.3],[50.6,-4],[50,-5.6],[51.6,-5],[52.8,-4.6],[53.4,-3.1],[54.6,-3.6],[55,-5],[56.8,-6],[58.5,-5]]],
+      places:[
+        {n:'Manchester',c:[53.48,-2.24],note:'“Cottonopolis,” center of the textile factories.'},
+        {n:'Birmingham',c:[52.49,-1.9],note:'Iron and engine-making center where Watt’s steam engines were built.'},
+        {n:'Liverpool',c:[53.41,-2.98],note:'Port that imported cotton and linked to Manchester by the first intercity railway (1830).'},
+        {n:'London',c:[51.5,-0.1],note:'Financial center whose banks funded industry worldwide.'}
+      ],
+      tech:[
+        {name:'Steam engine (Watt)',what:'An efficient engine burning coal to power machines, ships, and trains.',impact:'Freed factories from rivers and shrank travel times.'},
+        {name:'Factory system',what:'Machines and workers gathered under one roof, starting with textiles.',impact:'Mass production, but long hours and child labor.'},
+        {name:'Why Britain?',what:'Coal and iron, rivers and ports, enclosure pushing farmers to cities, banks, and an empire supplying raw materials.',impact:'Gave Britain a head start as the “workshop of the world.”'}
+      ],
+      goods:['Coal','Steam engine','Factory system','Urbanization','Capitalism (Adam Smith)','Socialism (Marx)'],
+      cultural:[
+        {t:'Urbanization',d:'crowded, polluted cities grew rapidly.'},
+        {t:'New social classes',d:'an industrial middle class and a working class.'},
+        {t:'Reform and new ideas',d:'labor unions, socialism, and Marx’s communism responded to factory conditions.'},
+        {t:'Global demand for raw materials',d:'drove the imperialism of Unit 6.'}
+      ]
+    }
+  },
+  polityHead:'States Respond to Industry', polityRoleLabel:'How it responded', polityLegend:'State response (layer)',
+  polities:{
+    meiji:{name:'Meiji Japan', sub:'State-led industrialization', color:'#b8322a',
+      poly:[[45.5,141.7],[43,145.5],[41.5,141],[38,141.5],[35,140.5],[34,135],[33.5,131],[31,130.5],[32.5,129.7],[34.3,131],[35.5,133],[37,137],[39,140]],
+      blurb:'After Commodore Perry forced Japan open (1853), reformers overthrew the shogun and restored the emperor in 1868.',
+      facts:[['Began','1868 Meiji Restoration'],['Model','Western industry, army, and constitution']],
+      role:'The state built railroads, factories, and a modern army, making Japan the first industrial power in Asia.'},
+    qing:{name:'Qing China', sub:'Self-Strengthening Movement', color:'#c9871b',
+      poly:[[49,120],[42,130],[39,124],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,98],[28,97],[30,90],[28,86],[30,81],[35,78],[40,74],[45,80],[45,90],[42,97],[42,105],[45,112],[47,118]],
+      blurb:'After defeat in the Opium Wars, officials tried to adopt Western military technology while keeping Confucian traditions.',
+      facts:[['Movement','Self-Strengthening (1861–1895)'],['Result','Limited; defeated by Japan in 1895']],
+      role:'Conservative officials resisted deeper change, so China industrialized slowly.'},
+    ottoman:{name:'Ottoman Empire', sub:'Tanzimat reforms', color:'#1e874b',
+      poly:[[42,22],[42,28],[41.2,41.5],[39.5,44.5],[37,44.5],[33,40],[30,35],[33,35],[36.5,36],[36.7,30],[37,27.3],[40,26.2],[41,20]],
+      blurb:'The Ottomans reorganized law, education, and the military along European lines in the Tanzimat (1839–1876).',
+      facts:[['Reforms','Tanzimat (1839–1876)'],['Challenge','Nationalist revolts in the Balkans']],
+      role:'Reforms modernized parts of the state, but the “sick man of Europe” fell behind industrial powers.'},
+    russia:{name:'Russian Empire', sub:'Emancipation & state industry', color:'#2f5fb3',
+      poly:[[69,33],[66,41],[68,60],[60,60],[55,60],[50,55],[45,48],[42,45],[44,40],[47,38],[52,33],[56,28],[60,28],[64,30]],
+      blurb:'Tsar Alexander II freed the serfs in 1861; later, Sergei Witte used state funds to build railroads and heavy industry.',
+      facts:[['1861','Emancipation of the serfs'],['1890s','Witte’s industrial push; Trans-Siberian Railway']],
+      role:'Industrialized late and from the top down, while political reform lagged, setting up 1905 and 1917.'}
+  },
+  themeHead:'Spread of Ideas &amp; Industry',
+  themes:{
+    enlight:{name:'Spread of Enlightenment Ideas', color:'#c9871b', icon:'💡', kind:'spread',
+      note:'Enlightenment thinkers in Britain and France (Locke, Montesquieu, Rousseau, Voltaire) argued for natural rights, popular sovereignty, and separation of powers. Their ideas crossed the Atlantic and fueled revolution.',
+      origin:{n:'Paris & London', c:[49.7,1]},
+      items:[{n:'→ Thirteen Colonies (1776)',c:[39.95,-75.17]},{n:'→ Saint-Domingue (1791)',c:[19.5,-72.5]},{n:'→ Mexico (1810)',c:[21.16,-100.93]},{n:'→ Gran Colombia (1811)',c:[10.48,-66.9]},{n:'→ Río de la Plata (1816)',c:[-34.6,-58.38]}]},
+    industry:{name:'Spread of Industrialization', color:'#5a6b7a', icon:'🏭', kind:'spread',
+      note:'Industrialization spread from Britain to western Europe and the United States, and later, often through state direction, to Russia and Japan.',
+      origin:{n:'Britain', c:[53,-2]},
+      items:[{n:'→ Belgium',c:[50.6,4.5]},{n:'→ France',c:[47.5,2.5]},{n:'→ Germany (Ruhr)',c:[51.4,7.2]},{n:'→ United States',c:[41,-75]},{n:'→ Russia',c:[55.75,37.6],curv:0.1},{n:'→ Japan',c:[35.7,139.7],curv:0.08}]},
+    timeline:{name:'Timeline of Revolutions', color:'#7a2f2f', icon:'📅', kind:'years',
+      items:[
+        {n:'1776',c:[39.95,-75.17],note:'American Declaration of Independence.'},
+        {n:'1789',c:[48.86,2.35],note:'French Revolution begins.'},
+        {n:'1791',c:[19.76,-72.2],note:'Haitian Revolution begins; independence in 1804.'},
+        {n:'1810',c:[21.16,-100.93],note:'Hidalgo’s revolt begins Mexican independence (won 1821).'},
+        {n:'1811',c:[10.48,-66.9],note:'Venezuela declares independence; Bolívar’s campaigns follow.'},
+        {n:'1822',c:[-22.9,-43.2],note:'Brazil declares independence from Portugal.'},
+        {n:'1848',c:[48.2,16.37],dir:'left',note:'Revolutions of 1848 sweep Europe (Paris, Vienna, Berlin).'},
+        {n:'1861',c:[41.9,12.5],note:'Kingdom of Italy proclaimed.'},
+        {n:'1868',c:[35.7,139.7],note:'Meiji Restoration in Japan.'},
+        {n:'1871',c:[52.52,13.4],note:'German Empire proclaimed.'}
+      ]},
+    resources:{name:'Raw Materials', color:'#a6791f', icon:'⛏', kind:'labels',
+      items:[
+        {n:'COAL & IRON',c:[54,-1.5],note:'Britain’s coalfields powered steam engines.'},
+        {n:'RUHR COAL',c:[51.5,7.5],note:'Fueled German industry after 1850.'},
+        {n:'COTTON (US SOUTH)',c:[33,-88],note:'Grown by enslaved people for British mills.'},
+        {n:'COTTON (EGYPT)',c:[30.5,31],note:'Muhammad Ali pushed cotton exports for Egypt’s modernization.'},
+        {n:'COTTON (INDIA)',c:[21,76],note:'Raw cotton exported as India’s own textile industry declined.'}
+      ]},
+    reform:{name:'Reform Movements', color:'#6d3f9c', icon:'⚖', kind:'years',
+      items:[
+        {n:'Abolition 1833',c:[51.5,-0.1],note:'Britain abolishes slavery in its empire.'},
+        {n:'Seneca Falls 1848',c:[42.91,-76.8],note:'US women’s rights convention.'},
+        {n:'Serfs freed 1861',c:[59.94,30.31],note:'Russia emancipates the serfs.'},
+        {n:'Abolition 1865',c:[38.9,-77.03],note:'US 13th Amendment ends slavery.'},
+        {n:'Abolition 1888',c:[-15.8,-47.9],note:'Brazil is the last in the Americas to abolish slavery.'},
+        {n:'Suffrage 1893',c:[-41.3,174.8],dir:'left',note:'New Zealand: first nation to give women the vote.'}
+      ]},
+    thinkers:{name:'Thinkers &amp; Writers', color:'#0f5b5e', icon:'✒', kind:'cities',
+      items:[
+        {n:'Locke (London)',c:[51.5,-0.1],note:'Natural rights and consent of the governed.'},
+        {n:'Voltaire, Rousseau & Montesquieu (Paris)',c:[48.86,2.35],note:'Free speech, social contract, separation of powers.'},
+        {n:'Adam Smith (Scotland)',c:[55.95,-3.19],note:'The Wealth of Nations (1776): free markets, laissez-faire.'},
+        {n:'Wollstonecraft (London)',c:[51.3,-1.5],note:'A Vindication of the Rights of Woman (1792).'},
+        {n:'Marx & Engels',c:[53.48,-2.24],note:'The Communist Manifesto (1848), shaped by factory conditions Engels saw in Manchester.'},
+        {n:'Bolívar’s Jamaica Letter',c:[18,-76.8],note:'1815 letter laying out his vision for independent Latin America.'}
+      ]}
+  },
+  themeOrder:['enlight','industry','timeline','resources','reform','thinkers'],
+  hint:'Tip: turn on “Spread of Enlightenment Ideas” to see how ideas crossed the Atlantic. Drag to pan, scroll to zoom.'
+};
+</script>
+<script defer src="theme.js"></script>
+<script src="unit-map-engine.js"></script>
+</body>
+</html>

@@ -72,6 +72,12 @@
     ['Trade Route Map', 'unit2-map.html', 'Silk Road, Indian Ocean, and Trans-Saharan routes.', 'map trade routes silk road indian ocean trans-saharan unit 2', 'Map'],
     ['Land Empires Map', 'unit3-map.html', 'Ottoman, Safavid, Mughal, Qing, and more.', 'map land empires gunpowder ottoman safavid mughal unit 3', 'Map'],
     ['Exploration & Trade Map', 'unit4-map.html', 'Voyages of exploration and Atlantic trade.', 'map exploration voyages atlantic columbian exchange unit 4', 'Map'],
+    ['Global Tapestry Map', 'unit1-map.html', 'Song China, Dar al-Islam, the Americas, Africa, and Europe in 1200.', 'map regions song dar al-islam mali inca aztec spread of buddhism islam unit 1', 'Map'],
+    ['Revolutions Map', 'unit5-map.html', 'Atlantic revolutions, unification, and the Industrial Revolution.', 'map revolutions american french haitian latin american industrial revolution nationalism unit 5', 'Map'],
+    ['Imperialism Map', 'unit6-map.html', 'Empires c. 1900, resistance, raw materials, and migration.', 'map imperialism empires scramble for africa resistance migration opium spheres of influence unit 6', 'Map'],
+    ['Global Conflict Map', 'unit7-map.html', 'WWI, revolutions, the interwar crisis, and WWII.', 'map world war i ii battles fronts holocaust mandates depression unit 7', 'Map'],
+    ['Cold War & Decolonization Map', 'unit8-map.html', 'Cold War blocs, proxy wars, and independence dates.', 'map cold war nato warsaw pact proxy wars decolonization partition iron curtain unit 8', 'Map'],
+    ['Globalization Map', 'unit9-map.html', 'Trade blocs, disease, rights movements, and the environment.', 'map globalization trade blocs eu nafta green revolution disease rights environment unit 9', 'Map'],
     ['Hex Web (Unit 2)', 'unit2-hexweb.html', 'Connect Unit 2 terms with hexagonal thinking.', 'hex web hexagonal thinking game connections unit 2', 'Game'],
     ['Empire Road (Unit 3)', 'unit3-racer.html', 'Lane-runner racer: switch into the gate with the right answer.', 'empire road racer racing car driving game checkpoint gates land empires unit 3', 'Game']
   ];
@@ -113,7 +119,7 @@
     if (window.GLOSSARY_LIST) { addTerms(); return; }
     if (document.getElementById('ss-gl')) return;
     var s = document.createElement('script'); s.id = 'ss-gl'; s.src = 'glossary-data.js';
-    s.onload = function () { addTerms(); if (ov && ov.classList.contains('open') && inp.value.trim()) render(); };
+    s.onload = function () { addTerms(); if (ov && ov.classList.contains('open') && inp.value.trim()) render(); if (heroRender) heroRender(true); };
     document.head.appendChild(s);
   }
 
@@ -156,6 +162,9 @@
       'font:700 .72rem/1 "Lato",system-ui,sans-serif!important;letter-spacing:.07em;text-transform:uppercase;padding:7px 10px;cursor:pointer;white-space:nowrap;border-radius:3px}' +
     '.ss-btn:hover,.ss-btn:focus-visible{border-color:#f4cd4f;color:#f4cd4f;outline:none}' +
     '.ss-btn svg{width:14px;height:14px;flex-shrink:0}' +
+    '.ss-btn{transition:opacity .2s,transform .2s}' +
+    // homepage: the big centered search stands in for the button until it scrolls away
+    'html.ss-hero-on .ss-btn{opacity:0;transform:scale(.85);pointer-events:none}' +
     '.ss-btn kbd{font:700 .64rem/1 "Lato",system-ui,sans-serif!important;border:1px solid rgba(255,255,255,.4);border-radius:3px;padding:2px 5px;opacity:.8}' +
     '#ss-ov{position:fixed;inset:0;z-index:3000;background:rgba(10,16,40,.62);display:none;align-items:flex-start;justify-content:center;padding:12vh 16px 16px}' +
     '#ss-ov.open{display:flex}' +
@@ -166,15 +175,19 @@
     '#ss-in::placeholder{color:#7b86a6}' +
     '#ss-x{border:none;background:none;color:#7b86a6;font:700 .68rem "Lato",sans-serif!important;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:4px}' +
     '#ss-lbl{padding:10px 16px 4px;font:800 .6rem "Lato",sans-serif!important;letter-spacing:.14em;text-transform:uppercase;color:#7b86a6}' +
-    '#ss-list{list-style:none;margin:0;padding:4px 8px 10px;overflow-y:auto;overflow-x:hidden}' +
-    '#ss-list a{display:flex;align-items:center;gap:12px;padding:10px 10px;text-decoration:none;color:inherit;border-radius:4px}' +
-    '#ss-list a.on{background:#16244d;color:#fff}' +
-    '#ss-list .ss-t{font:800 .95rem/1.2 "Lato",sans-serif!important;display:block}' +
-    '#ss-list .ss-d{font:400 .8rem/1.3 "Lato",sans-serif!important;opacity:.72;display:block;margin-top:2px}' +
-    '#ss-list .ss-type{margin-left:auto;flex-shrink:0;font:800 .58rem "Lato",sans-serif!important;letter-spacing:.1em;text-transform:uppercase;background:#f4cd4f;color:#16244d;padding:4px 7px;border-radius:3px}' +
-    '#ss-list mark{background:#f4cd4f55;color:inherit;padding:0 1px}' +
-    '#ss-list a.on mark{background:#f4cd4f;color:#16244d}' +
-    '#ss-empty{padding:18px 16px 22px;font:400 .9rem "Lato",sans-serif!important;color:#55607f}' +
+    '.ss-rows{list-style:none;margin:0;padding:4px 8px 10px;overflow-y:auto;overflow-x:hidden}' +
+    '.ss-rows a{display:flex;align-items:center;gap:12px;padding:10px 10px;text-decoration:none;color:inherit;border-radius:4px}' +
+    '.ss-rows a.on{background:#16244d;color:#fff}' +
+    '.ss-rows .ss-t{font:800 .95rem/1.2 "Lato",sans-serif!important;display:block}' +
+    '.ss-rows .ss-d{font:400 .8rem/1.3 "Lato",sans-serif!important;opacity:.72;display:block;margin-top:2px}' +
+    '.ss-rows .ss-type{margin-left:auto;flex-shrink:0;font:800 .58rem "Lato",sans-serif!important;letter-spacing:.1em;text-transform:uppercase;background:#f4cd4f;color:#16244d;padding:4px 7px;border-radius:3px}' +
+    '.ss-rows mark{background:#f4cd4f55;color:inherit;padding:0 1px}' +
+    '.ss-rows a.on mark{background:#f4cd4f;color:#16244d}' +
+    '.ss-empty{padding:18px 16px 22px;font:400 .9rem "Lato",sans-serif!important;color:#55607f}' +
+    '.ss-inl{position:absolute;left:-2px;right:-2px;top:100%;margin-top:8px;z-index:80;background:#fff;color:#16244d;border:2px solid #16244d;box-shadow:8px 8px 0 #f4cd4f;text-align:left;cursor:default}' +
+    '.ss-inl .ss-rows{max-height:min(420px,60vh)}' +
+    '.ss-inl-lbl{padding:10px 16px 4px;font:800 .6rem "Lato",sans-serif!important;letter-spacing:.14em;text-transform:uppercase;color:#7b86a6}' +
+    'html[data-theme="dark"] .ss-inl{background:#0f1834;color:#fff;border-color:#f4cd4f}html[data-theme="dark"] .ss-inl .ss-rows a.on{background:#345fbf}html[data-theme="dark"] .ss-inl .ss-empty{color:#b8c0d8}' +
     '#ss-foot{border-top:1px solid #d6dbe8;padding:8px 16px;font:400 .72rem "Lato",sans-serif!important;color:#7b86a6;display:flex;gap:14px}' +
     // phones: the top bars overflow, so float the button bottom-right instead
     '@media(max-width:620px){.ss-btn .ss-lbl,.ss-btn kbd{display:none}' +
@@ -182,10 +195,10 @@
       'background:#16244d;color:#f4cd4f;border:2px solid #f4cd4f;box-shadow:0 6px 18px rgba(0,0,0,.35)}' +
       '.ss-btn svg{width:22px;height:22px}#ss-ov{padding-top:8vh}#ss-foot{display:none}}' +
     '@media(prefers-color-scheme:dark){#ss-card{background:#0f1834;color:#fff;border-color:#f4cd4f}#ss-in{color:#fff}#ss-top{border-color:#f4cd4f}' +
-      '#ss-list a.on{background:#345fbf}#ss-foot{border-color:#26335e}#ss-empty{color:#b8c0d8}}';
+      '#ss-list a.on{background:#345fbf}#ss-foot{border-color:#26335e}.ss-empty{color:#b8c0d8}}';
 
   var ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>';
-  var ov, inp, list, lbl, results = [], sel = 0;
+  var ov, inp, list, lbl, results = [], sel = 0, heroRender = null, heroIn = null;
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function hl(text, q) {
@@ -193,28 +206,31 @@
     toks.forEach(function (t) { h = h.replace(new RegExp('(' + t.replace(/[-]/g, '\\-') + ')', 'ig'), '<mark>$1</mark>'); });
     return h;
   }
-  function render() {
-    var q = inp.value.trim();
-    results = search(q);
-    sel = 0;
-    lbl.textContent = q ? (results.length ? 'Results' : '') : 'Popular';
-    if (!results.length) {
-      list.innerHTML = '<li id="ss-empty">No matches for “' + esc(q) + '”. Try a key term (Mansa Musa, containment), a unit number, a skill (DBQ, HIPP), or a tool (flashcards, timer).</li>';
-      return;
-    }
-    list.innerHTML = results.map(function (e, i) {
+  // shared by the pop-up panel and the inline homepage box
+  function rowsHTML(res, q) {
+    if (!res.length) return '<li class="ss-empty">No matches for “' + esc(q) + '”. Try a key term (Mansa Musa, containment), a unit number, a skill (DBQ, HIPP), or a tool (flashcards, timer).</li>';
+    return res.map(function (e, i) {
       return '<li><a href="' + esc(e.u) + '" data-i="' + i + '"' + (i === 0 ? ' class="on"' : '') + '>' +
         '<span><span class="ss-t">' + hl(e.t, q) + '</span><span class="ss-d">' + esc(e.d) + '</span></span>' +
         '<span class="ss-type">' + esc(e.type) + '</span></a></li>';
     }).join('');
   }
-  function move(d) {
-    var as = list.querySelectorAll('a'); if (!as.length) return;
-    as[sel].classList.remove('on');
-    sel = (sel + d + as.length) % as.length;
-    as[sel].classList.add('on');
-    as[sel].scrollIntoView({ block: 'nearest' });
+  function moveIn(ul, cur, d) {
+    var as = ul.querySelectorAll('a'); if (!as.length) return cur;
+    as[cur].classList.remove('on');
+    cur = (cur + d + as.length) % as.length;
+    as[cur].classList.add('on');
+    as[cur].scrollIntoView({ block: 'nearest' });
+    return cur;
   }
+  function render() {
+    var q = inp.value.trim();
+    results = search(q);
+    sel = 0;
+    lbl.textContent = q ? (results.length ? 'Results' : '') : 'Popular';
+    list.innerHTML = rowsHTML(results, q);
+  }
+  function move(d) { sel = moveIn(list, sel, d); }
   function go(e) {
     close();
     var here = location.pathname.split('/').pop() || './', parts = e.u.split('#');
@@ -223,11 +239,11 @@
     if (parts[0] === here && parts[1]) { if (location.hash === '#' + parts[1]) location.hash = ''; location.hash = parts[1]; }
     else location.href = e.u;
   }
-  function open() {
+  function open(q) {
     build();
     loadTerms();
     ov.classList.add('open');
-    inp.value = '';
+    inp.value = typeof q === 'string' ? q : '';
     render();
     inp.focus();
   }
@@ -241,7 +257,7 @@
       '<div id="ss-card">' +
         '<div id="ss-top">' + ICON + '<input id="ss-in" type="search" autocomplete="off" spellcheck="false" placeholder="Search: a term, HIPP, DBQ, Unit 3…" aria-label="Search the site"/>' +
         '<button id="ss-x" type="button">Esc</button></div>' +
-        '<div id="ss-lbl"></div><ul id="ss-list" role="listbox"></ul>' +
+        '<div id="ss-lbl"></div><ul id="ss-list" class="ss-rows" role="listbox"></ul>' +
         '<div id="ss-foot"><span>↑ ↓ to move</span><span>Enter to open</span><span>Esc to close</span></div>' +
       '</div>';
     document.body.appendChild(ov);
@@ -271,6 +287,50 @@
     b.addEventListener('click', function (ev) { ev.preventDefault(); ev.stopPropagation(); open(); });
     return b;
   }
+  // A page-level search box ([data-ss-hero], homepage only): results drop down right under it, no pop-up.
+  function wireHero() {
+    var hero = document.querySelector('[data-ss-hero]'); if (!hero) return;
+    var hin = heroIn = hero.querySelector('input'), hres = [], hsel = 0;
+    var box = document.createElement('div'); box.className = 'ss-inl'; box.hidden = true;
+    box.innerHTML = '<div class="ss-inl-lbl"></div><ul class="ss-rows" role="listbox"></ul>';
+    hero.appendChild(box);
+    var hlbl = box.firstChild, hlist = box.lastChild;
+    heroRender = function (onlyIfOpen) {
+      if (onlyIfOpen && box.hidden) return;
+      var q = hin.value.trim();
+      hres = search(q); hsel = 0;
+      hlbl.textContent = q ? (hres.length ? 'Results' : '') : 'Popular';
+      hlist.innerHTML = rowsHTML(hres, q);
+      box.hidden = false;
+    };
+    function hide() { box.hidden = true; }
+    hin.addEventListener('focus', function () { loadTerms(); heroRender(); });
+    hin.addEventListener('input', function () { heroRender(); });
+    hin.addEventListener('keydown', function (ev) {
+      if (ev.key === 'ArrowDown') { ev.preventDefault(); hsel = moveIn(hlist, hsel, 1); }
+      else if (ev.key === 'ArrowUp') { ev.preventDefault(); hsel = moveIn(hlist, hsel, -1); }
+      else if (ev.key === 'Enter') { ev.preventDefault(); if (hres[hsel]) go(hres[hsel]); }
+      else if (ev.key === 'Escape') { hide(); hin.blur(); }
+    });
+    hlist.addEventListener('mousedown', function (ev) { ev.preventDefault(); }); // keep focus while clicking a result
+    hlist.addEventListener('click', function (ev) {
+      var a = ev.target.closest('a'); if (!a) return;
+      ev.preventDefault(); hide(); go(hres[+a.dataset.i]);
+    });
+    hlist.addEventListener('mousemove', function (ev) {
+      var a = ev.target.closest('a'); if (!a || +a.dataset.i === hsel) return;
+      hsel = moveIn(hlist, hsel, +a.dataset.i - hsel);
+    });
+    hero.addEventListener('click', function (ev) { if (!box.contains(ev.target) && ev.target !== hin) hin.focus(); });
+    document.addEventListener('click', function (ev) { if (!hero.contains(ev.target) && !ev.target.closest('[data-q]')) hide(); });
+    [].forEach.call(document.querySelectorAll('[data-q]'), function (b) {
+      b.addEventListener('click', function () { hin.value = b.getAttribute('data-q'); hin.focus(); heroRender(); });
+    });
+    if (!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (es) {
+      document.documentElement.classList.toggle('ss-hero-on', es[0].isIntersecting);
+    }).observe(hero);
+  }
   function mount() {
     var st = document.createElement('style'); st.id = 'ss-css'; st.textContent = CSS;
     document.head.appendChild(st);
@@ -282,10 +342,13 @@
       if (nav) { nav.appendChild(makeBtn()); return; }
       if (tries++ < 12) setTimeout(place, 80);
     })();
+    wireHero();
     document.addEventListener('keydown', function (ev) {
       var t = ev.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
-      if ((ev.ctrlKey || ev.metaKey) && (ev.key === 'k' || ev.key === 'K')) { ev.preventDefault(); open(); }
-      else if (ev.key === '/' && !typing) { ev.preventDefault(); open(); }
+      // homepage: shortcuts jump to the inline box while it's on screen
+      var toHero = heroIn && document.documentElement.classList.contains('ss-hero-on');
+      if ((ev.ctrlKey || ev.metaKey) && (ev.key === 'k' || ev.key === 'K')) { ev.preventDefault(); if (toHero) heroIn.focus(); else open(); }
+      else if (ev.key === '/' && !typing) { ev.preventDefault(); if (toHero) heroIn.focus(); else open(); }
       else if (ev.key === 'Escape' && ov && ov.classList.contains('open')) close();
     });
   }

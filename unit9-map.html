@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 9: Interactive Globalization Map | AP World History</title>
+<meta name="description" content="Interactive world map of Unit 9 (c. 1900–present): trade blocs and rising economies, disease and medicine, the Green Revolution, rights movements, environmental change, and global institutions."/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="world-basemap.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="unit-map.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+<script>
+/* Unit 9, c. 1900–present. Coordinates are [lat, lng]; blocs are approximate and simplified. */
+window.UNIT_MAP = {
+  unit:9, accent:'#3d3c00', accentD:'#2d2c00', accentDark:'#c9c64a',
+  title:'Globalization', years:'c. 1900 – present',
+  h1:'One Connected World',
+  intro:'Pick a <strong>trade bloc or rising economy</strong> to see how the world economy knit together. Then layer on <strong>disease and medicine</strong>, the <strong>Green Revolution</strong>, <strong>rights movements</strong>, <strong>environmental change</strong>, and the institutions built to manage a global world.',
+  center:[20,10], zoom:2,
+  routeHead:'Trade Blocs &amp; Economies', allBtn:'Show all',
+  allTitle:'A Globalized Economy', allSub:'c. 1945–present',
+  allBlurb:'After WWII, free-trade agreements, regional blocs, container shipping, and new technology tied economies closer than ever, creating new wealth and new inequalities. Click a shaded region or pick one above.',
+  sections:{tech:['⚙️','Drivers &amp; Policies'],goods:['🔑','Key Terms'],places:['📍','Key Places'],cultural:['🔗','Effects &amp; Debates']},
+  routes:{
+    eu:{
+      name:'European Union', btn:'1957 → 1993', short:'Common market · the euro · Brussels', sub:'From the Common Market (1957) to the EU (1993)',
+      color:'#2f5fb3', colorDark:'#7aa2ff',
+      blurb:'Former enemies built economic ties to prevent another war. The European Economic Community (1957) became the European Union (1993), with free movement of goods and people and, for most members, a shared currency, the euro.',
+      polys:[[[54.8,8.5],[55.5,12.5],[54.4,19],[54.3,23.5],[56,21],[59.5,24],[60,28],[64,30],[69,28],[67,20],[60,17],[56,13],[55.5,12.5],[54.8,8.5],[53.5,7],[51,2.5],[49.7,-1.5],[48.6,-4.6],[46.2,-1.2],[43.3,-1.7],[43.5,-8],[42,-9],[37,-9],[36,-5.6],[37.5,-1],[40.5,0.5],[42.5,3],[43.7,7.4],[44,8.2],[42.4,11],[41,13],[40,15.5],[38,15.6],[38,16],[40,18.5],[41,17],[42,14.5],[44,12.5],[45.6,13.8],[45.4,19],[44,22.5],[43.7,28.6],[45.4,29.6],[48,27],[48.3,22.5],[50.8,24.1]]],
+      places:[
+        {n:'Brussels',c:[50.85,4.35],note:'Headquarters of the European Union.'},
+        {n:'Rome',c:[41.9,12.5],note:'Treaty of Rome (1957) created the European Economic Community.'},
+        {n:'Maastricht',c:[50.85,5.69],note:'Treaty of Maastricht (1992) created the EU and the path to the euro.'}
+      ],
+      tech:[
+        {name:'Common market',what:'No tariffs between members and shared trade rules.',impact:'Made Europe one of the world’s largest economies.'},
+        {name:'The euro (1999/2002)',what:'A shared currency for most members.',impact:'Eased trade but tied economies together in crises.'}
+      ],
+      goods:['European Union','Euro','Free trade','Free movement','Brexit (2020)'],
+      cultural:[
+        {t:'Peace through trade',d:'France and Germany, enemies in two world wars, became partners.'},
+        {t:'Expansion east',d:'former Soviet-bloc countries joined after 1991.'},
+        {t:'Backlash',d:'debates over sovereignty and immigration; Britain left (Brexit).'}
+      ]
+    },
+    nafta:{
+      name:'NAFTA / USMCA', btn:'1994 → 2020', short:'Free trade in North America', sub:'North American free trade',
+      color:'#b8322a', colorDark:'#ff7b6e',
+      blurb:'The North American Free Trade Agreement (1994) eliminated most tariffs between the US, Canada, and Mexico. It boosted trade but moved some manufacturing jobs to Mexico; it was replaced by the USMCA in 2020.',
+      polys:[
+        [[49,-123],[49,-95],[45,-83],[45,-67],[41,-70],[35,-76],[30,-81],[25,-80],[30,-85],[29,-95],[26,-97],[32,-106],[32.5,-117],[40,-124],[46,-124]],
+        [[49,-123],[49,-95],[45,-75],[45,-67],[47,-60],[52,-56],[60,-64],[69,-85],[69,-110],[69,-140],[60,-141],[55,-130]],
+        [[32.5,-117],[31.5,-106],[29,-103],[26,-97.2],[21.5,-97.5],[18.5,-95],[18,-91],[14.5,-92],[16,-95],[19.5,-105.5],[23,-110],[28,-114.5]]
+      ],
+      places:[
+        {n:'Maquiladoras (Ciudad Juárez)',c:[31.69,-106.42],note:'Border factories assembling goods for export to the US.'},
+        {n:'Detroit',c:[42.33,-83.05],note:'Auto industry reorganized across all three countries.'}
+      ],
+      tech:[
+        {name:'Free trade',what:'Removing tariffs and trade barriers.',impact:'Cheaper goods and more trade, but job losses in some industries.'},
+        {name:'Outsourcing',what:'Moving production to where labor is cheaper.',impact:'Shifted manufacturing to Mexico and Asia.'}
+      ],
+      goods:['NAFTA','USMCA','Maquiladoras','Outsourcing','Tariffs'],
+      cultural:[
+        {t:'Integrated supply chains',d:'products cross borders several times before they are finished.'},
+        {t:'Protest',d:'the Zapatista uprising in Mexico (1994) began the day NAFTA took effect.'}
+      ]
+    },
+    asia:{
+      name:'Rising Asian Economies', btn:'Japan, Tigers & China', short:'Asian Tigers · Deng’s reforms · Shenzhen', sub:'Export-led growth',
+      color:'#c9871b', colorDark:'#f0c674',
+      blurb:'Japan rebuilt after WWII, then the “Asian Tigers” (South Korea, Taiwan, Singapore, Hong Kong) grew rich by exporting manufactured goods. After 1978, Deng Xiaoping opened China to markets, making it the “world’s factory.”',
+      polys:[
+        [[49,120],[53,123],[48,135],[42.5,130.5],[39.8,124.3],[39,121.5],[37.5,119],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,98],[28,97],[30,90],[28,86],[30,81],[35,78],[40,74],[45,80],[45,90],[42,97],[42,105],[45,112],[47,118]],
+        [[45.5,141.7],[43,145.5],[41.5,141],[38,141.5],[35,140.5],[34,135],[33.5,131],[31,130.5],[32.5,129.7],[34.3,131],[35.5,133],[37,137],[39,140]],
+        [[38.6,128.3],[35,129.3],[34.5,126.3],[37.7,126]],
+        [[25.3,121.6],[22,120.8],[23,120.1],[25,121]],
+        [[1.47,103.6],[1.47,104.1],[1.2,104.1],[1.2,103.6]]
+      ],
+      places:[
+        {n:'Shenzhen',c:[22.54,114.06],note:'China’s first Special Economic Zone (1980): a fishing town turned megacity.'},
+        {n:'Shanghai',c:[31.23,121.47],note:'World’s busiest container port.'},
+        {n:'Seoul',c:[37.57,126.98],note:'South Korea: from war-torn to tech giant (Samsung, Hyundai).'},
+        {n:'Tokyo',c:[35.7,139.7],note:'Japan’s postwar “economic miracle” in cars and electronics.'},
+        {n:'Singapore',c:[1.35,103.8],note:'A tiny city-state that became a global trade and finance hub.'}
+      ],
+      tech:[
+        {name:'Export-led growth',what:'Governments supported industries that sold abroad.',impact:'Rapid growth and rising living standards.'},
+        {name:'Special Economic Zones',what:'Areas in China open to foreign investment and markets.',impact:'Made China the center of world manufacturing.'},
+        {name:'Container shipping',what:'Standard steel boxes moved by ship, train, and truck.',impact:'Made shipping goods across the world cheap.'}
+      ],
+      goods:['Asian Tigers','Deng Xiaoping','Special Economic Zones','Containerization','Market socialism'],
+      cultural:[
+        {t:'Hundreds of millions lifted from poverty',d:'especially in China.'},
+        {t:'Global shift of manufacturing',d:'to Asia from the US and Europe.'},
+        {t:'Political limits',d:'China opened its economy but not its politics (Tiananmen, 1989).'}
+      ]
+    },
+    opec:{
+      name:'OPEC &amp; Oil', btn:'1960 → 1973 embargo', short:'Oil embargo · petrodollars', sub:'Organization of the Petroleum Exporting Countries',
+      color:'#3a3a3a', colorDark:'#b9bec9',
+      blurb:'Oil-producing countries formed OPEC (1960) to control prices. The 1973 oil embargo against Israel’s supporters quadrupled prices, showing how much the industrial world depended on Middle Eastern oil.',
+      polys:[
+        [[32,39],[29.5,48],[27,49.5],[24,51.5],[24.2,55],[22.5,55.6],[19,52],[16.5,53],[13,45],[16.5,42.7],[21,39],[28,35]],
+        [[39.5,44.5],[37.4,47],[37,54],[37.5,61],[31,61.5],[25.3,61.6],[27,57],[26.5,54],[30,50],[32,47.8],[35,46]],
+        [[37.2,42.3],[37.3,44.8],[35,46],[32,47.8],[29.5,48],[29.1,46.5],[32.2,39],[34.5,41]],
+        [[12,-72],[10.5,-61.5],[8,-60],[4,-61],[1,-64],[1,-67],[6,-67.5],[7,-72],[10,-73]],
+        [[13.5,4],[13,14],[7,12],[4.3,7],[6.4,3],[9,3]]
+      ],
+      places:[
+        {n:'Riyadh',c:[24.71,46.68],note:'Saudi Arabia: largest OPEC producer.'},
+        {n:'Vienna',c:[48.21,16.37],note:'OPEC headquarters.'},
+        {n:'Caracas',c:[10.48,-66.9],note:'Venezuela, a founding OPEC member.'}
+      ],
+      tech:[
+        {name:'Cartel pricing',what:'Members agree on production limits.',impact:'Gave oil states enormous economic and political leverage.'}
+      ],
+      goods:['OPEC','Oil embargo (1973)','Petroleum','Resource dependence'],
+      cultural:[
+        {t:'Stagflation',d:'high prices and slow growth in the 1970s West.'},
+        {t:'New wealth',d:'oil money transformed Gulf states.'},
+        {t:'Climate debate',d:'fossil fuels drive global warming.'}
+      ]
+    },
+    southamerica:{
+      name:'Mercosur', btn:'1991', short:'South American common market', sub:'Southern Common Market',
+      color:'#1e874b', colorDark:'#4cc985',
+      blurb:'Brazil, Argentina, Uruguay, and Paraguay formed Mercosur (1991) to cut tariffs among themselves, part of a global trend toward regional trade blocs.',
+      polys:[[[5,-60],[2,-50],[-5,-35],[-13,-38.5],[-23,-41],[-25,-48],[-33,-52.5],[-35,-54.5],[-34.6,-58.4],[-38,-57.5],[-41,-62.5],[-46,-67.5],[-52,-68.5],[-55,-68],[-52,-72.5],[-40,-72],[-33,-70],[-27,-68.5],[-22,-67],[-22,-62],[-20,-58],[-16,-60],[-11,-65],[-9.5,-72],[-4,-70],[1,-67],[1,-64],[4,-61]]],
+      places:[
+        {n:'São Paulo',c:[-23.55,-46.63],note:'Brazil’s economic center and one of the world’s largest cities.'},
+        {n:'Buenos Aires',c:[-34.6,-58.38],note:'Argentina, a major food exporter.'}
+      ],
+      tech:[{name:'Regional trade bloc',what:'Lower tariffs among neighbors.',impact:'Increased trade within South America.'}],
+      goods:['Mercosur','Regional integration','Commodity exports'],
+      cultural:[
+        {t:'Export economies',d:'soy, beef, and iron ore tied to Asian demand.'},
+        {t:'Debt crises',d:'1980s debt and IMF reforms shaped Latin American economies.'}
+      ]
+    }
+  },
+  themeHead:'Global Issues &amp; Movements',
+  themes:{
+    disease:{name:'Disease &amp; Medicine', color:'#6d3f9c', icon:'🧬', kind:'years',
+      items:[
+        {n:'1918 Flu',c:[39,-96.8],note:'The influenza pandemic killed perhaps 50 million worldwide, spread by WWI troop movements.'},
+        {n:'Penicillin 1928',c:[51.5,-0.1],note:'Alexander Fleming discovered the first antibiotic in London.'},
+        {n:'Polio vaccine 1955',c:[40.44,-80],dir:'left',note:'Jonas Salk’s vaccine (Pittsburgh) began the near-eradication of polio.'},
+        {n:'Smallpox eradicated 1980',c:[46.2,6.15],note:'WHO’s global vaccination campaign wiped out smallpox.'},
+        {n:'HIV/AIDS 1980s',c:[-4.3,15.3],note:'Spread worldwide; hit sub-Saharan Africa hardest.'},
+        {n:'Ebola 2014',c:[8.5,-11.5],dir:'left',note:'West African outbreak.'},
+        {n:'COVID-19 2019–',c:[30.6,114.3],note:'First identified in Wuhan; became a global pandemic.'}
+      ]},
+    green:{name:'Green Revolution', color:'#5c8a1e', icon:'🌾', kind:'spread',
+      note:'Starting in Mexico (Norman Borlaug) and the Philippines (IRRI rice), high-yield seeds, fertilizers, pesticides, and irrigation dramatically raised food production in the 1960s–70s, preventing famine but favoring wealthier farmers and harming soil and water.',
+      origins:[{n:'Mexico (wheat research)',c:[19.4,-99]},{n:'Philippines (IRRI rice)',c:[14.17,121.25]}],
+      items:[
+        {n:'→ India (Punjab)',from:[19.4,-99],c:[30.9,75.8],curv:0.08},
+        {n:'→ Pakistan',from:[19.4,-99],c:[31.5,72.5],curv:0.06},
+        {n:'→ Indonesia (rice)',from:[14.17,121.25],c:[-7,110]},
+        {n:'→ Vietnam & Bangladesh (rice)',from:[14.17,121.25],c:[23.7,90.4]}
+      ]},
+    rights:{name:'Rights Movements', color:'#b8322a', icon:'✊', kind:'years',
+      items:[
+        {n:'US Civil Rights 1964',c:[38.9,-77.03],note:'Civil Rights Act after the movement led by Martin Luther King Jr. and others.'},
+        {n:'Négritude 1930s',c:[14.69,-17.44],dir:'left',note:'Writers like Senghor celebrated African identity against colonial culture.'},
+        {n:'Tiananmen 1989',c:[39.9,116.4],note:'Pro-democracy protests in Beijing crushed by the army.'},
+        {n:'Apartheid ends 1994',c:[-26.2,28.05],note:'Nelson Mandela elected president of South Africa.'},
+        {n:'Liberation theology',c:[-12,-77],note:'Latin American Catholics linked faith with justice for the poor.'},
+        {n:'Women’s rights (UN 1975)',c:[19.43,-99.13],note:'First UN World Conference on Women, Mexico City.'}
+      ]},
+    environment:{name:'Environmental Change', color:'#0f7a6b', icon:'🌍', kind:'labels',
+      items:[
+        {n:'AMAZON DEFORESTATION',c:[-5,-60],note:'Cleared for cattle, soy, and logging; affects global climate.'},
+        {n:'ARAL SEA',c:[45,60],note:'Soviet cotton irrigation shrank one of the world’s largest lakes.'},
+        {n:'CHERNOBYL 1986',c:[51.27,30.22],note:'Nuclear disaster in Soviet Ukraine.'},
+        {n:'KYOTO PROTOCOL 1997',c:[35,135.77],note:'International agreement to cut greenhouse gases.'},
+        {n:'PARIS AGREEMENT 2015',c:[48.86,2.35],note:'Nearly every nation pledged to limit warming.'},
+        {n:'BHOPAL 1984',c:[23.26,77.41],note:'Chemical leak at a US-owned plant killed thousands in India.'}
+      ]},
+    institutions:{name:'Global Institutions', color:'#2f5fb3', icon:'🏛', kind:'cities',
+      items:[
+        {n:'United Nations (New York)',c:[40.75,-73.97],note:'Founded 1945 to keep peace; Universal Declaration of Human Rights (1948).'},
+        {n:'WTO & WHO (Geneva)',c:[46.2,6.15],note:'World Trade Organization (1995) and World Health Organization (1948).'},
+        {n:'IMF & World Bank (Washington)',c:[38.9,-77.04],note:'Lend money to nations, often requiring free-market reforms.'},
+        {n:'Doctors Without Borders',c:[48.86,2.3],note:'An NGO founded in Paris (1971) to provide medical aid worldwide.'},
+        {n:'Amnesty International (London)',c:[51.5,-0.12],note:'Human rights NGO founded in 1961.'}
+      ]},
+    culture:{name:'Global Culture', color:'#c9871b', icon:'🎬', kind:'labels',
+      items:[
+        {n:'HOLLYWOOD',c:[34.1,-118.33],note:'American films spread worldwide.'},
+        {n:'BOLLYWOOD',c:[19.08,72.88],note:'India’s Mumbai-based film industry, popular across Asia and Africa.'},
+        {n:'K-POP',c:[37.57,126.98],note:'South Korean music and TV went global.'},
+        {n:'NOLLYWOOD',c:[6.52,3.38],note:'Nigeria’s huge film industry.'},
+        {n:'SILICON VALLEY',c:[37.4,-122.1],note:'Birthplace of personal computing and internet giants.'},
+        {n:'BANGALORE',c:[12.97,77.59],note:'India’s tech and outsourcing hub.'}
+      ]},
+    protest:{name:'Resistance to Globalization', color:'#7a2f2f', icon:'📢', kind:'years',
+      items:[
+        {n:'Zapatistas 1994',c:[16.75,-92.63],note:'Uprising in Chiapas, Mexico, against NAFTA.'},
+        {n:'WTO protests 1999',c:[47.6,-122.33],note:'“Battle in Seattle” against globalization’s inequalities.'},
+        {n:'World Social Forum 2001',c:[-30.03,-51.23],note:'Porto Alegre, Brazil: activists seeking alternatives to corporate globalization.'}
+      ]}
+  },
+  themeOrder:['disease','green','rights','environment','institutions','culture','protest'],
+  hint:'Tip: turn on “Disease &amp; Medicine” to compare pandemics across the century. Drag to pan, scroll to zoom.'
+};
+</script>
+<script defer src="theme.js"></script>
+<script src="unit-map-engine.js"></script>
+</body>
+</html>

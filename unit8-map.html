@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 8: Interactive Cold War &amp; Decolonization Map | AP World History</title>
+<meta name="description" content="Interactive world map of Unit 8 (c. 1900–present): Cold War blocs, proxy wars, the Non-Aligned Movement, decolonization dates, partition, and post-colonial migration."/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="world-basemap.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="unit-map.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+<script>
+/* Unit 8, c. 1900–present. Coordinates are [lat, lng]; blocs are approximate and simplified. */
+window.UNIT_MAP = {
+  unit:8, accent:'#0f3248', accentD:'#0a2435', accentDark:'#6fb3e0',
+  title:'Cold War &amp; Decolonization', years:'c. 1900 – present',
+  h1:'A World Split in Two',
+  intro:'Pick a <strong>bloc or hot spot</strong> to load its leaders, ideas, and effects. Then layer on <strong>decolonization dates</strong>, the <strong>Iron Curtain</strong> and other dividing lines, Cold War <strong>crises</strong>, and the great <strong>migrations</strong> of partition and the end of empire.',
+  center:[25,20], zoom:2,
+  routeHead:'Cold War Blocs &amp; Hot Spots', allBtn:'Show all',
+  allTitle:'The Cold War World', allSub:'c. 1947–1991',
+  allBlurb:'After WWII the US and USSR led rival blocs, competing through alliances, arms and space races, and proxy wars, while dozens of new nations won independence and many refused to pick a side. Click a region or pick one above.',
+  sections:{tech:['🧭','Strategy &amp; Ideas'],goods:['🔑','Key Terms &amp; People'],places:['📍','Key Places'],cultural:['🔗','Effects']},
+  routes:{
+    west:{
+      name:'US &amp; NATO Allies', btn:'Capitalist bloc', short:'Containment · Marshall Plan · NATO 1949', sub:'The “First World”',
+      color:'#2f5fb3', colorDark:'#7aa2ff',
+      blurb:'The US led a bloc of capitalist democracies. Its policy of containment aimed to stop communism from spreading, through the Marshall Plan, the NATO alliance (1949), and military aid around the world.',
+      polys:[
+        [[49,-123],[49,-95],[45,-83],[45,-67],[41,-70],[35,-76],[30,-81],[25,-80],[30,-85],[29,-95],[26,-97],[32,-106],[32.5,-117],[40,-124],[46,-124]],
+        [[49,-123],[49,-95],[45,-75],[45,-67],[47,-60],[52,-56],[60,-64],[69,-85],[69,-110],[69,-140],[60,-141],[55,-130]],
+        [[58.6,-3],[57.5,-1.8],[55.8,-2],[54,-0.2],[53,0.3],[52.5,1.7],[51.3,1.4],[50.8,0.3],[50.6,-4],[50,-5.6],[51.6,-5],[52.8,-4.6],[53.4,-3.1],[54.6,-3.6],[55,-5],[56.8,-6],[58.5,-5]],
+        [[51,2.5],[53.5,7],[54.8,8.5],[54.4,10.9],[53,11],[51,10.3],[50.3,12.1],[48.6,13.8],[47.6,13],[46.5,13.5],[45.6,13.8],[44,12.5],[42,14.5],[41,17],[40,18.5],[38,16],[38,15.6],[40,15.5],[41,13],[42.4,11],[44,8.2],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5]],
+        [[71,25],[69,20],[63,8],[58,6],[59,11],[64,12],[68,17]],
+        [[42,27],[41.2,41.5],[39.5,44.5],[37,44.5],[36.7,36.5],[36.2,30],[37,27.3],[40,26.2]]
+      ],
+      places:[
+        {n:'Washington, D.C.',c:[38.9,-77.03],note:'Truman Doctrine (1947) committed the US to containing communism.'},
+        {n:'West Berlin',c:[52.52,13.3],note:'Kept alive by the Berlin Airlift (1948–49); walled off in 1961.'},
+        {n:'Brussels',c:[50.85,4.35],note:'NATO headquarters.'}
+      ],
+      tech:[
+        {name:'Containment',what:'Stop communism from spreading beyond where it already was.',impact:'Led to alliances, aid, and proxy wars worldwide.'},
+        {name:'Marshall Plan',what:'US aid to rebuild Western Europe after WWII.',impact:'Revived Western economies and tied them to the US.'},
+        {name:'Nuclear deterrence',what:'Mutually assured destruction (MAD).',impact:'Kept the superpowers from fighting each other directly.'}
+      ],
+      goods:['Containment','Truman Doctrine','Marshall Plan','NATO','MAD','Space race'],
+      cultural:[
+        {t:'Proxy wars',d:'the superpowers fought through allies in Korea, Vietnam, Afghanistan, and Africa.'},
+        {t:'Consumer culture',d:'spread American products and pop culture abroad.'},
+        {t:'Support for dictators',d:'the US sometimes backed anti-communist authoritarian regimes.'}
+      ]
+    },
+    east:{
+      name:'USSR &amp; Warsaw Pact', btn:'Communist bloc', short:'Iron Curtain · Warsaw Pact 1955 · command economy', sub:'The “Second World”',
+      color:'#b8322a', colorDark:'#ff7b6e',
+      blurb:'The Soviet Union controlled Eastern Europe through communist satellite governments and the Warsaw Pact (1955), crushing uprisings in Hungary (1956) and Czechoslovakia (1968), until the bloc collapsed in 1989–1991.',
+      polys:[
+        [[69,33],[66,41],[68,60],[72,70],[73,100],[72,130],[70,160],[65,178],[60,165],[55,155],[50,142],[43,132],[48,135],[53,127],[50,119],[50,105],[52,97],[50,87],[45,80],[42,75],[37,67],[37,55],[41,47],[42,45],[44,40],[46,30],[48,22],[52,23.5],[54.5,23],[56,21],[59.5,24],[60,28],[64,30]],
+        [[54.4,10.9],[54.8,14.2],[54.8,19],[54.3,23.5],[50.8,24.1],[48.3,22.5],[48,27],[45.4,29.6],[43.7,28.6],[41.3,28],[41.3,22.8],[43,22.4],[44.5,22.5],[46,20.3],[46.4,16.5],[48,17],[48.6,13.8],[50.3,12.1],[51,10.3],[53,11]]
+      ],
+      places:[
+        {n:'Moscow',c:[55.75,37.6],note:'Soviet capital and center of the communist world.'},
+        {n:'East Berlin',c:[52.52,13.45],note:'The Berlin Wall (1961–1989) stopped East Germans from fleeing west.'},
+        {n:'Budapest',c:[47.5,19.04],note:'Hungarian Revolution (1956) crushed by Soviet tanks.'},
+        {n:'Prague',c:[50.08,14.44],note:'Prague Spring (1968) reforms ended by Warsaw Pact invasion.'}
+      ],
+      tech:[
+        {name:'Command economy',what:'The state planned production with Five-Year Plans.',impact:'Built heavy industry but produced shortages of consumer goods.'},
+        {name:'Satellite states',what:'Communist governments loyal to Moscow.',impact:'A buffer zone between the USSR and the West.'}
+      ],
+      goods:['Iron Curtain','Warsaw Pact','Command economy','Khrushchev','Brezhnev Doctrine','Gorbachev'],
+      cultural:[
+        {t:'Arms race',d:'nuclear weapons and the Sputnik launch (1957) began the space race.'},
+        {t:'Glasnost & perestroika',d:'Gorbachev’s reforms opened the system and helped it unravel.'},
+        {t:'Collapse',d:'the Berlin Wall fell in 1989 and the USSR dissolved in 1991.'}
+      ]
+    },
+    china:{
+      name:'Communist China', btn:'People’s Republic 1949', short:'Mao · Great Leap Forward · Cultural Revolution', sub:'A second communist giant',
+      color:'#c9871b', colorDark:'#f0c674',
+      blurb:'Mao Zedong’s Communists won the civil war in 1949. The Great Leap Forward caused a catastrophic famine and the Cultural Revolution persecuted millions; after Mao, Deng Xiaoping opened China’s economy to markets.',
+      polys:[
+        [[49,120],[53,123],[48,135],[42.5,130.5],[39.8,124.3],[39,121.5],[37.5,119],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,98],[28,97],[30,90],[28,86],[30,81],[35,78],[40,74],[45,80],[45,90],[42,97],[42,105],[45,112],[47,118]],
+        [[42.5,130.5],[40.5,129.7],[38.6,128.3],[38,125],[39.8,124.3]]
+      ],
+      places:[
+        {n:'Beijing',c:[39.9,116.4],note:'Mao proclaimed the People’s Republic here in 1949.'},
+        {n:'Taiwan',c:[23.7,121],note:'The defeated Nationalists fled here and set up a rival government.'},
+        {n:'Pyongyang',c:[39.03,125.75],note:'North Korea, a communist ally backed by China in the Korean War.'}
+      ],
+      tech:[
+        {name:'Great Leap Forward (1958)',what:'Forced collectivization and backyard steel furnaces.',impact:'Caused a famine that killed tens of millions.'},
+        {name:'Cultural Revolution (1966)',what:'Red Guards attacked “old” culture and Mao’s critics.',impact:'Persecuted millions and disrupted education.'}
+      ],
+      goods:['Mao Zedong','Great Leap Forward','Cultural Revolution','Red Guards','Deng Xiaoping'],
+      cultural:[
+        {t:'Sino-Soviet split',d:'China and the USSR became rivals by the 1960s.'},
+        {t:'Nixon visits China (1972)',d:'the US used the split to its advantage.'},
+        {t:'Market reforms',d:'Deng’s reforms set up China’s economic rise (Unit 9).'}
+      ]
+    },
+    nonaligned:{
+      name:'Non-Aligned Movement', btn:'Bandung 1955', short:'Nehru · Sukarno · Nasser · Tito · Nkrumah', sub:'The “Third World” refuses to choose',
+      color:'#1e874b', colorDark:'#4cc985',
+      blurb:'Many newly independent nations refused to join either bloc. Meeting at Bandung (1955) and founding the Non-Aligned Movement (1961), leaders like Nehru, Sukarno, Nasser, and Tito sought independence from both superpowers.',
+      polys:[
+        [[34,74],[30,80],[27,88],[28,95],[24,94],[22,92],[22,88],[16,82],[13,80.3],[8,77.5],[10,76],[15,74],[21,72.8],[23,68.5],[24,71],[30,74]],
+        [[5.5,95.3],[-1,104.5],[-6,106],[-8.5,114],[-8.7,114.5],[-7.8,106],[-5.8,105.8],[-1,100],[3,97]],
+        [[31.5,25],[31.5,32],[29.5,34.9],[22,36.8],[22,25]],
+        [[46.5,13.5],[46.4,16.5],[46,20.3],[44.5,22.5],[43,22.4],[41.3,22.8],[42,19.5],[45,13.5]],
+        [[11,-3],[11,0.5],[5.8,1.2],[4.7,-2],[5,-3]]
+      ],
+      places:[
+        {n:'Bandung',c:[-6.92,107.6],note:'1955 Asian-African Conference of newly independent nations.'},
+        {n:'New Delhi',c:[28.61,77.21],note:'Jawaharlal Nehru, India’s first prime minister, a leader of non-alignment.'},
+        {n:'Cairo',c:[30.04,31.24],note:'Gamal Abdel Nasser nationalized the Suez Canal (1956).'},
+        {n:'Belgrade',c:[44.8,20.46],note:'Tito’s Yugoslavia: communist but independent of Moscow; hosted the 1961 summit.'},
+        {n:'Accra',c:[5.6,-0.19],note:'Kwame Nkrumah led Ghana to independence (1957) and promoted Pan-Africanism.'}
+      ],
+      tech:[
+        {name:'Non-alignment',what:'Refusing to formally join either superpower’s bloc.',impact:'Let new nations play the superpowers against each other for aid.'},
+        {name:'Pan-Africanism & Pan-Arabism',what:'Movements for unity among Africans or Arabs.',impact:'Shaped anti-colonial politics.'}
+      ],
+      goods:['Bandung Conference','Nehru','Sukarno','Nasser','Tito','Nkrumah','Third World'],
+      cultural:[
+        {t:'Voice for the Global South',d:'in the UN and world affairs.'},
+        {t:'Mixed results',d:'many leaders still took aid from one side or turned authoritarian.'}
+      ]
+    },
+    proxy:{
+      name:'Proxy Wars &amp; Hot Spots', btn:'Korea, Vietnam, Cuba, Afghanistan', short:'Korea 1950 · Vietnam · Cuba 1962 · Afghanistan 1979 · Angola', sub:'Where the Cold War turned hot',
+      color:'#7b3fa0', colorDark:'#c39be6',
+      blurb:'The superpowers avoided fighting each other directly, but backed opposite sides in wars across Asia, Africa, and Latin America, where millions died.',
+      polys:[
+        [[42.5,130.5],[38.6,128.3],[35,129.3],[34.5,126.3],[37.7,126],[40,124.3]],
+        [[23,105],[21.5,108],[17,107],[12,109.3],[8.6,105],[10.5,104],[14,107.5],[18,105],[22,102.5]],
+        [[23.2,-84],[23.1,-80],[22,-77],[20,-74.2],[19.9,-77.7],[21.8,-83]],
+        [[37.3,71.5],[35,74],[31,69],[29.5,64],[30,61],[35,61],[37,66.5]],
+        [[-5,12.2],[-8,17],[-11.5,24],[-13,22],[-18,21],[-17.3,11.8]],
+        [[13,-87.5],[15,-83.2],[11,-83.7],[11.1,-85.7]]
+      ],
+      places:[
+        {n:'Korean War (1950–53)',c:[38,127],note:'North (backed by China & USSR) vs. South (backed by the US & UN); ended in stalemate at the 38th parallel.'},
+        {n:'Vietnam War (to 1975)',c:[16,107.5],note:'The US fought to stop communist North Vietnam; Vietnam was unified under communism in 1975.'},
+        {n:'Cuban Missile Crisis (1962)',c:[22.5,-80],note:'Soviet missiles in Cuba brought the world closest to nuclear war.'},
+        {n:'Soviet-Afghan War (1979–89)',c:[34.5,69.2],note:'The US armed mujahideen fighters against the Soviet invasion.'},
+        {n:'Angolan Civil War',c:[-12.5,18.5],note:'Cuban troops and Soviet aid vs. US- and South African-backed rebels.'},
+        {n:'Nicaragua (Contras)',c:[12.1,-86.3],note:'The US backed Contra rebels against the leftist Sandinistas in the 1980s.'}
+      ],
+      tech:[
+        {name:'Domino theory',what:'If one country fell to communism, its neighbors would follow.',impact:'Justified US intervention in Southeast Asia.'},
+        {name:'Guerrilla warfare',what:'Small mobile forces fighting a stronger army.',impact:'Helped the Viet Cong and Afghan mujahideen wear down superpowers.'}
+      ],
+      goods:['Proxy war','Domino theory','38th parallel','Ho Chi Minh','Fidel Castro','Mujahideen'],
+      cultural:[
+        {t:'Millions of deaths',d:'and refugees in Korea, Vietnam, Cambodia, and Afghanistan.'},
+        {t:'Superpowers weakened',d:'Vietnam divided the US; Afghanistan drained the USSR.'}
+      ]
+    }
+  },
+  themeHead:'Decolonization &amp; Crises',
+  themes:{
+    independence:{name:'Decolonization Dates', color:'#0f7a6b', icon:'🏳', kind:'years',
+      items:[
+        {n:'India & Pakistan 1947',c:[25,78],note:'Independence from Britain, through Gandhi’s nonviolent movement; partitioned along religious lines.'},
+        {n:'Israel 1948',c:[31.5,34.9],dir:'left',note:'Created as British rule in Palestine ended; war displaced about 700,000 Palestinians.'},
+        {n:'Indonesia 1949',c:[-2,113],note:'Won independence from the Netherlands after armed struggle.'},
+        {n:'Vietnam 1954',c:[21,105.8],note:'Defeated France at Dien Bien Phu; divided at the 17th parallel.'},
+        {n:'Ghana 1957',c:[7.9,-1],dir:'left',note:'First sub-Saharan colony to win independence, led by Nkrumah.'},
+        {n:'Congo 1960',c:[-2.5,23.5],note:'Independence from Belgium; Patrice Lumumba was soon overthrown and killed.'},
+        {n:'Nigeria 1960',c:[9,8],note:'Independence from Britain; civil war (Biafra) followed in 1967.'},
+        {n:'Algeria 1962',c:[28,3],note:'Won independence from France after a brutal eight-year war.'},
+        {n:'Kenya 1963',c:[0,37.9],note:'Independence after the Mau Mau uprising; Jomo Kenyatta became leader.'},
+        {n:'Bangladesh 1971',c:[23.7,90.4],note:'Broke away from Pakistan.'},
+        {n:'Angola & Mozambique 1975',c:[-16,30],note:'Won independence from Portugal after long wars.'},
+        {n:'Zimbabwe 1980',c:[-19,29.8],dir:'left',note:'Black majority rule after a guerrilla war against white-minority Rhodesia.'}
+      ]},
+    lines:{name:'Dividing Lines', color:'#3a3a3a', icon:'🧱', kind:'lines',
+      items:[
+        {n:'Iron Curtain',label:true,weight:5,dash:true,pts:[[54.4,10.9],[53,11.2],[51,10.3],[50.3,12.1],[48.6,13.8],[48,16.9],[47,16.5],[46.4,16.3],[45.65,13.8]],note:'Churchill (1946): “an iron curtain has descended across the Continent,” dividing communist Eastern Europe from the West.'},
+        {n:'38th parallel (Korea)',label:true,weight:5,pts:[[37.8,126.5],[38.3,127.5],[38.6,128.4]],note:'Line dividing North and South Korea; the DMZ after 1953.'},
+        {n:'17th parallel (Vietnam)',label:true,weight:5,pts:[[17,106.6],[17,107.2]],note:'Temporary division of Vietnam set at Geneva (1954).'},
+        {n:'Partition line (India–Pakistan)',weight:4,dash:true,pts:[[34.5,74.5],[32.5,75],[31,74.6],[30,73.5],[27.5,70.5],[24.2,68.8]],note:'The Radcliffe Line (1947), drawn in weeks by a British lawyer.'}
+      ]},
+    crises:{name:'Cold War Crises', color:'#b8322a', icon:'☢', kind:'years',
+      items:[
+        {n:'Berlin Airlift 1948',c:[52.52,13.4],note:'The West flew in supplies when the USSR blockaded West Berlin.'},
+        {n:'Suez Crisis 1956',c:[30.6,32.3],note:'Britain, France, and Israel invaded Egypt after Nasser nationalized the canal; the US and USSR forced them out.'},
+        {n:'Hungary 1956',c:[47.5,19.04],dir:'left',note:'Soviet tanks crushed a revolt.'},
+        {n:'Sputnik 1957',c:[45.96,63.3],note:'First satellite, launched from Baikonur; the space race began.'},
+        {n:'Berlin Wall 1961',c:[53.3,13.4],dir:'left',note:'Built to stop East Germans from fleeing.'},
+        {n:'Cuban Missile Crisis 1962',c:[22.5,-80],note:'Thirteen days at the nuclear brink.'},
+        {n:'Wall falls 1989',c:[51.7,13.4],note:'The Berlin Wall opened on November 9, 1989.'},
+        {n:'USSR dissolves 1991',c:[55.75,37.6],note:'The Cold War ended.'}
+      ]},
+    partition:{name:'Partition Migrations', color:'#a0522d', icon:'🚶', kind:'spread',
+      note:'Partition in 1947 sparked one of history’s largest migrations: about 15 million people crossed the new border, Hindus and Sikhs to India and Muslims to Pakistan, amid violence that killed hundreds of thousands to a million.',
+      origins:[{n:'Punjab',c:[31.5,74.3]},{n:'Bengal',c:[23.5,89]}],
+      items:[
+        {n:'Muslims → West Pakistan',from:[29.5,77],c:[31.5,72.5]},
+        {n:'Hindus & Sikhs → India',from:[31.5,72.5],c:[29,77.5]},
+        {n:'Muslims → East Pakistan',from:[24,86.5],c:[24,90.4]},
+        {n:'Hindus → West Bengal',from:[24,90.4],c:[22.9,87.5]}
+      ]},
+    postcolonial:{name:'Post-Colonial Migration', color:'#2f5fb3', icon:'✈', kind:'spread',
+      note:'After empires ended, many people moved from former colonies to the old imperial centers to fill labor shortages, building diverse communities in Europe (and facing discrimination).',
+      origins:[{n:'South Asia',c:[25,75]},{n:'Caribbean',c:[18,-77]},{n:'North Africa',c:[34,3]},{n:'Turkey',c:[39,33]}],
+      items:[
+        {n:'South Asians → Britain',from:[25,75],c:[52.5,-1.9]},
+        {n:'Caribbean → Britain (Windrush)',from:[18,-77],c:[51.5,-0.1]},
+        {n:'Algerians → France',from:[34,3],c:[48.86,2.35]},
+        {n:'Turks → West Germany (guest workers)',from:[39,33],c:[50.9,6.95]}
+      ]},
+    leaders:{name:'Independence Leaders', color:'#0f5b5e', icon:'👤', kind:'cities',
+      items:[
+        {n:'Gandhi',c:[23.03,72.58],note:'Led India’s nonviolent independence movement (satyagraha, Salt March 1930).'},
+        {n:'Ho Chi Minh',c:[21.03,105.85],note:'Led Vietnam’s fight against France and the US.'},
+        {n:'Kwame Nkrumah',c:[5.6,-0.19],note:'Ghana’s first leader; Pan-Africanist.'},
+        {n:'Jomo Kenyatta',c:[-1.29,36.82],note:'Kenya’s first president.'},
+        {n:'Gamal Abdel Nasser',c:[30.04,31.24],note:'Egypt; Arab nationalist; Suez Canal.'},
+        {n:'Sukarno',c:[-6.2,106.85],note:'Indonesia’s first president; hosted Bandung.'},
+        {n:'Fidel Castro',c:[23.13,-82.38],note:'Led the Cuban Revolution (1959).'}
+      ]}
+  },
+  themeOrder:['independence','lines','crises','partition','postcolonial','leaders'],
+  hint:'Tip: turn on “Decolonization Dates” to watch empires end. Drag to pan, scroll to zoom.'
+};
+</script>
+<script defer src="theme.js"></script>
+<script src="unit-map-engine.js"></script>
+</body>
+</html>

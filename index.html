@@ -337,6 +337,59 @@ html[data-theme="dark"] .wm-opt:hover{background:var(--lime);color:var(--navy)}
 html[data-theme="dark"] .wm-dev-btn,
 html[data-theme="dark"] .wm-custom input{background:#141c44;color:#e9eeff;border-color:#333e78}
 html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--navy)}
+
+/* ── HERO SEARCH (centered, above the news) ── */
+.hero-search{max-width:820px;margin:22px auto 34px;text-align:center;position:relative;z-index:20}
+.hs-lbl{display:block;font:900 1.7rem/1.05 'Lato',sans-serif;letter-spacing:-.05em;margin:0 0 16px}
+.hs-box{position:relative;display:flex;align-items:center;gap:12px;background:#fff;border:2px solid var(--navy);box-shadow:6px 6px 0 var(--lime);padding:0 18px;cursor:text;transition:transform .12s,box-shadow .12s}
+.hs-box:hover,.hs-box:focus-within{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--lime)}
+.hs-box svg{width:24px;height:24px;flex-shrink:0;color:var(--blue)}
+.hs-box input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--navy);font:600 1.05rem 'Lato',sans-serif;padding:19px 0}
+.hs-box input::placeholder{color:#7b86a6}
+.hs-box kbd{font:700 .7rem/1 'Lato',sans-serif;border:1.5px solid var(--line);color:var(--muted);padding:4px 7px;border-radius:3px}
+.hs-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;margin-top:16px}
+.hs-chips span{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.hs-chips button{font:700 .72rem 'Lato',sans-serif;border:1.5px solid var(--line);background:transparent;color:var(--navy);padding:6px 12px;border-radius:999px;cursor:pointer}
+.hs-chips button:hover{border-color:var(--navy);background:var(--lime)}
+html[data-theme="dark"] .hs-box{background:#141c44;border-color:#333e78}
+html[data-theme="dark"] .hs-box input{color:#e9eeff}
+html[data-theme="dark"] .hs-box svg{color:#8aa9ff}
+html[data-theme="dark"] .hs-chips button{color:#e9eeff;border-color:#333e78}
+html[data-theme="dark"] .hs-chips button:hover{background:var(--lime);color:var(--navy);border-color:var(--lime)}
+
+/* ── RESOURCE PATHS (one unit / every unit / skills) ── */
+.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+.path{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column}
+.path-h{padding:20px 22px 18px;border-bottom:2px solid var(--navy)}
+.p-unit .path-h{background:var(--lime)}
+.p-mix .path-h{background:var(--sky)}
+.p-skill .path-h{background:var(--navy);color:#fff}
+.path-h i{font-style:normal;font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.p-unit .path-h i{color:var(--navy)}
+.p-skill .path-h i{color:var(--lime)}
+.path-h h3{font:900 1.4rem/1.05 'Lato',sans-serif;letter-spacing:-.05em;margin:8px 0 0}
+.path-h p{margin:8px 0 0;font-size:.8rem;line-height:1.45}
+.path .unit-picker{margin:12px 0 0;gap:10px}
+.path .unit-picker select{flex:1;min-width:0;padding:9px 10px}
+.path-row{display:grid;grid-template-columns:1fr auto;column-gap:12px;padding:15px 22px;text-decoration:none;color:var(--navy);border-top:1px solid var(--line);transition:background .12s}
+.path-h + .path-row{border-top:0}
+.path-row b{font:900 1.02rem/1.25 'Lato',sans-serif;letter-spacing:-.02em}
+.path-row span{grid-column:1;font-size:.78rem;line-height:1.45;color:#2f3b63}
+.path-row em{grid-column:2;grid-row:1/span 2;align-self:center;font-style:normal;font-weight:900;font-size:1.15rem;color:var(--blue);transition:transform .12s}
+.path-row:hover{background:var(--sky)}
+.path-row:hover em{transform:translateX(4px)}
+html[data-theme="dark"] .path{background:#141c44;border-color:#333e78}
+html[data-theme="dark"] .path-h{border-color:#333e78}
+html[data-theme="dark"] .p-unit .path-h{background:var(--lime);color:var(--navy)}
+html[data-theme="dark"] .p-unit .path-h select{background:#fff;color:var(--navy);border-color:var(--navy)}
+html[data-theme="dark"] .p-mix .path-h i{color:#8aa9ff}
+html[data-theme="dark"] .p-skill .path-h{background:#0b1130}
+html[data-theme="dark"] .path-row{color:#e9eeff;border-color:#333e78}
+html[data-theme="dark"] .path-row span{color:#c3cdf2}
+html[data-theme="dark"] .path-row em{color:#8aa9ff}
+html[data-theme="dark"] .path-row:hover{background:var(--sky)}
+@media(max-width:1080px){.path-grid{grid-template-columns:1fr 1fr}.p-skill{grid-column:1/-1}}
+@media(max-width:700px){.path-grid{grid-template-columns:1fr}.hs-lbl{font-size:1.35rem}.hs-box kbd{display:none}}
 </style>
 <script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <script src="mc-mode.js?v=20261001"></script>
@@ -374,6 +427,17 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
 <main class="main">
 
   <div class="eyebrow">Student dashboard &middot; AP World History: Modern</div>
+
+  <!-- START WITH A SEARCH (search.js wires [data-ss-hero]: results drop down inline; the top-bar button hides while this is on screen) -->
+  <section class="hero-search" aria-label="Search the site">
+    <label class="hs-lbl" for="hsInput">Start here: what are you looking for?</label>
+    <div class="hs-box" data-ss-hero>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+      <input id="hsInput" type="search" autocomplete="off" spellcheck="false" placeholder="A term, a skill, or a unit: Mansa Musa, DBQ, Unit 3&hellip;">
+      <kbd>/</kbd>
+    </div>
+    <div class="hs-chips"><span>Try</span><button type="button" data-q="DBQ">DBQ</button><button type="button" data-q="HIPP">HIPP</button><button type="button" data-q="Columbian Exchange">Columbian Exchange</button><button type="button" data-q="flashcards">Flashcards</button><button type="button" data-q="Unit 5">Unit 5</button></div>
+  </section>
 
   <!-- BREAKING NEWS HERO -->
   <section class="news" aria-label="Breaking history">
@@ -471,29 +535,47 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
     </div>
   </section>
 
-  <!-- TOOLS -->
+  <!-- TOOLS: three paths, grouped the same way as the top-bar menus -->
   <section>
     <div class="sec-head">
       <div>
-        <div class="eyebrow">All tools</div>
-        <h2>What does each resource do?</h2>
+        <div class="eyebrow">Where to go</div>
+        <h2>Pick what you need</h2>
       </div>
-      <p>Every tool opens in its own page; the top bar and this dashboard are one click away from wherever you land.</p>
+      <p>Unit tools follow the unit you pick. Review tools mix every unit. Skill guides teach the moves the AP exam tests.</p>
     </div>
-    <div class="unit-picker">
-      <label for="unit-select">We are in:</label>
-      <select id="unit-select"></select>
-    </div>
-    <div class="tile-grid">
-      <a class="tile" href="cumulative.html"><i>Review</i><h3>Cumulative Review</h3><span>Use after more than one unit. It mixes old material so retrieval isn&rsquo;t tied to one chapter.</span><strong>Practice &rarr;</strong></a>
-      <a class="tile" href="resources.html"><i>Resources</i><h3>Review Resources</h3><span>Use when you need a clearer explanation, a visual, or a trusted source before you practice.</span><strong>Explore &rarr;</strong></a>
-      <a class="tile" href="brain-sculptor.html"><i>Study</i><h3>The Brain Sculptor</h3><span>Use when rereading feels productive but recall is weak. It shows how to change the habit.</span><strong>Study smarter &rarr;</strong></a>
-      <a class="tile" href="sbmcq.html"><i>Skills</i><h3>Attack the Stimulus MCQ</h3><span>Use when a source, graph, or quotation slows you down. Learn the four-step method.</span><strong>Learn the method &rarr;</strong></a>
-      <a class="tile" href="writing-guide.html"><i>Writing</i><h3>How to Write the Essays</h3><span>Use before an SAQ, LEQ, or DBQ. Every rubric point, HIPP sourcing, and how to build a thesis.</span><strong>Learn to write &rarr;</strong></a>
-      <a class="tile" href="fullcourse.html"><i>Connections</i><h3>Course Narrative</h3><span>Use before a test or essay to connect each unit to the long story of AP World.</span><strong>Open narrative &rarr;</strong></a>
-      <a class="tile" id="maps-tile" href="unit2-map.html"><i>Explore</i><h3>Interactive Maps</h3><span id="maps-tile-desc">Trace the trade routes, empires, and global exchanges on a real map you can highlight.</span><strong id="maps-tile-strong">Open the map &rarr;</strong></a>
-      <a class="tile" id="selected-unit-tile" href="unit1.html"><i>Current unit</i><h3>Unit Review</h3><span>Overview, MCQ practice, writing, flashcards, brain dump, and study guide in one place.</span><strong id="selected-unit-strong">Open Unit 1 &rarr;</strong></a>
-      <a class="tile" id="games-tile" href="unit1.html#pg-games"><i>Games</i><h3>Unit Games</h3><span>Use when you want retrieval that feels like play. Interrogate the myths and connect the terms for the selected unit.</span><strong id="games-strong">Play Unit 1 games &rarr;</strong></a>
+    <div class="path-grid">
+      <div class="path p-unit">
+        <div class="path-h">
+          <i>1 &middot; One unit</i>
+          <h3>Study this unit</h3>
+          <div class="unit-picker"><label for="unit-select">We are in</label><select id="unit-select"></select></div>
+        </div>
+        <a class="path-row" id="selected-unit-tile" href="unit1.html"><b id="selected-unit-strong">Unit 1 Review Hub</b><span>MCQs, flashcards, writing, glossary, and study guide</span><em>&rarr;</em></a>
+        <a class="path-row" id="games-tile" href="unit1.html#pg-games"><b id="games-strong">Unit 1 Games</b><span>Bust the myths and connect the terms</span><em>&rarr;</em></a>
+        <a class="path-row" id="maps-tile" href="unit2-map.html"><b id="maps-tile-strong">Interactive Maps</b><span id="maps-tile-desc">Routes and empires for Units 2&ndash;4</span><em>&rarr;</em></a>
+      </div>
+      <div class="path p-mix">
+        <div class="path-h">
+          <i>2 &middot; Every unit</i>
+          <h3>Review across units</h3>
+          <p>Mixes old and new material so it sticks for the AP exam.</p>
+        </div>
+        <a class="path-row" href="cumulative.html"><b>Cumulative Review</b><span>Mixed MCQs from every unit so far</span><em>&rarr;</em></a>
+        <a class="path-row" href="flashcards.html"><b>Flashcard Hub</b><span>Every term, any unit, spaced repetition</span><em>&rarr;</em></a>
+        <a class="path-row" href="fullcourse.html"><b>Course Narrative</b><span>The big story that ties the units together</span><em>&rarr;</em></a>
+        <a class="path-row" href="resources.html"><b>Review Resources</b><span>Videos and outside sources to hear it explained again</span><em>&rarr;</em></a>
+      </div>
+      <div class="path p-skill">
+        <div class="path-h">
+          <i>3 &middot; Skills</i>
+          <h3>Learn how to do it</h3>
+          <p>Methods that work in every unit.</p>
+        </div>
+        <a class="path-row" href="brain-sculptor.html"><b>How to Study</b><span>Swap rereading for recall that lasts</span><em>&rarr;</em></a>
+        <a class="path-row" href="sbmcq.html"><b>How to Stimulus MCQ</b><span>A four-step method for sources and graphs</span><em>&rarr;</em></a>
+        <a class="path-row" href="writing-guide.html"><b>How to Write</b><span>SAQ, LEQ, and DBQ rubrics, thesis, and HIPP</span><em>&rarr;</em></a>
+      </div>
     </div>
   </section>
 
@@ -659,28 +741,25 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
   function update(){
     var u = +select.value, home = 'unit'+u+'.html';
     $('selected-unit-tile').setAttribute('href', home);
-    $('selected-unit-strong').innerHTML = 'Open Unit ' + u + ' →';
-    // Games tile follows the selected unit and opens straight to its Games tab.
+    $('selected-unit-strong').textContent = 'Unit ' + u + ' Review Hub';
+    // Games row follows the selected unit and opens straight to its Games tab.
     $('games-tile').setAttribute('href', home + '#pg-games');
-    $('games-strong').innerHTML = 'Play Unit ' + u + ' games →';
-    // Interactive maps exist for Units 2–4; the tile follows the selected unit.
+    $('games-strong').textContent = 'Unit ' + u + ' Games';
+    // Every unit has an interactive map; the row follows the selected unit.
     var mapDesc = {
-      2:'Highlight the Silk Roads, Indian Ocean, and trans-Saharan trade, plus goods, cities, and the spread of religions and disease.',
-      3:'Compare the land empires: Ottoman, Safavid, Mughal, Ming–Qing, Russia, and the spread of gunpowder.',
-      4:'Trace the voyages, maritime empires, the Columbian Exchange, the silver trade, and the Atlantic slave trade.'
+      1:'States, beliefs, and cities in every region',
+      2:'Silk Roads, Indian Ocean, and trans-Saharan trade',
+      3:'Ottoman, Safavid, Mughal, Ming–Qing, and Russian empires',
+      4:'Voyages, the Columbian Exchange, and Atlantic trade',
+      5:'Atlantic revolutions, unification, and industry',
+      6:'Empires, resistance, raw materials, and migration',
+      7:'World wars, revolutions, and the interwar crisis',
+      8:'Cold War blocs, proxy wars, and decolonization',
+      9:'Trade blocs, disease, rights, and the environment'
     };
-    var mt = $('maps-tile'), mtD = $('maps-tile-desc'), mtS = $('maps-tile-strong');
-    if (mt){
-      if (mapDesc[u]){
-        mt.setAttribute('href','unit'+u+'-map.html');
-        mtD.textContent = mapDesc[u];
-        mtS.innerHTML = 'Open the Unit ' + u + ' map →';
-      } else {
-        mt.setAttribute('href','unit2-map.html');
-        mtD.textContent = 'Interactive maps for Units 2–4, trade routes, land empires, and the age of exploration on a real map you can highlight.';
-        mtS.innerHTML = 'Explore the maps →';
-      }
-    }
+    $('maps-tile').setAttribute('href','unit'+u+'-map.html');
+    $('maps-tile-desc').textContent = mapDesc[u];
+    $('maps-tile-strong').textContent = 'Unit ' + u + ' Map';
   }
   select.addEventListener('change', update);
 

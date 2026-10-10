@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 7: Interactive Global Conflict Map | AP World History</title>
+<meta name="description" content="Interactive world map of Unit 7 (c. 1900–1945): World War I, revolutions and collapsing empires, the interwar years, World War II in Europe and the Pacific, and mass atrocities."/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="world-basemap.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="unit-map.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+<script>
+/* Unit 7, c. 1900–1945. Coordinates are [lat, lng]; regions and fronts are approximate. */
+window.UNIT_MAP = {
+  unit:7, accent:'#5c0f26', accentD:'#430b1c', accentDark:'#e47a96',
+  title:'Global Conflict', years:'c. 1900 – 1945',
+  h1:'A World at War',
+  intro:'Pick a <strong>conflict or turning point</strong> to load its causes, key places, and effects. Then layer on <strong>battles</strong>, <strong>mass atrocities</strong>, the post-WWI <strong>mandates</strong>, and how <strong>colonial troops</strong> and the <strong>Great Depression</strong> spread the crisis worldwide.',
+  center:[35,40], zoom:2,
+  routeHead:'Conflicts &amp; Turning Points', allBtn:'Show all',
+  allTitle:'Global Conflict', allSub:'1900–1945',
+  allBlurb:'Old empires collapsed, revolutions remade Russia, China, and Mexico, and two world wars, separated by a global depression and the rise of fascism, killed tens of millions. Click a front or region, or pick one above.',
+  sections:{tech:['⚔️','Causes &amp; Methods'],goods:['🔑','Key Terms &amp; People'],places:['📍','Key Places'],cultural:['🔗','Effects']},
+  routes:{
+    ww1:{
+      name:'World War I', btn:'1914–1918', short:'Trench warfare · total war · Versailles', sub:'The Great War · 1914–1918',
+      color:'#8a6d1f', colorDark:'#e0c068',
+      blurb:'Militarism, alliances, imperial rivalry, and nationalism (MAIN) turned the assassination of Archduke Franz Ferdinand into a world war. Trench warfare on the Western Front killed millions for little ground.',
+      segments:[
+        [[51.1,2.6],[50.4,2.8],[49.9,2.9],[49.4,3.5],[49.2,4.5],[49.0,5.4],[48.6,6.8],[48.0,7.0],[47.5,7.2]],
+        [[57.5,24],[56,26],[54,26],[52,25],[50,25],[48.5,25.5],[47.5,26.5],[46,27]],
+        [[46.5,13.5],[46,13.6],[45.7,13.7]]
+      ],
+      places:[
+        {n:'Sarajevo',c:[43.86,18.41],note:'Archduke Franz Ferdinand assassinated by a Serbian nationalist (June 1914).'},
+        {n:'Verdun & the Somme',c:[49.6,4],note:'1916 battles that killed or wounded over a million soldiers.'},
+        {n:'Gallipoli',c:[40.2,26.4],note:'Failed Allied invasion of the Ottoman Empire, with heavy ANZAC losses.'},
+        {n:'Versailles',c:[48.8,2.12],note:'Treaty of Versailles (1919) blamed Germany and imposed harsh reparations.'}
+      ],
+      tech:[
+        {name:'MAIN causes',what:'Militarism, Alliances, Imperialism, Nationalism.',impact:'Made a local crisis into a world war.'},
+        {name:'Industrialized warfare',what:'Machine guns, poison gas, tanks, airplanes, submarines.',impact:'Made attacking across trenches deadly and the war a stalemate.'},
+        {name:'Total war',what:'Governments directed whole economies and used propaganda; women filled factory jobs.',impact:'Expanded state power and changed women’s roles.'}
+      ],
+      goods:['Triple Entente','Central Powers','Trench warfare','Total war','Propaganda','League of Nations'],
+      cultural:[
+        {t:'Empires collapse',d:'the German, Austro-Hungarian, Russian, and Ottoman empires all fell.'},
+        {t:'Treaty of Versailles',d:'left Germany humiliated, feeding resentment that helped Hitler rise.'},
+        {t:'Colonial disappointment',d:'colonial soldiers fought, but self-determination was denied to them.'}
+      ]
+    },
+    revolutions:{
+      name:'Revolutions &amp; Collapse', btn:'Russia, China, Mexico, Turkey', short:'1910 Mexico · 1911 China · 1917 Russia · 1923 Turkey', sub:'Old orders overthrown · 1910–1923',
+      color:'#b8322a', colorDark:'#ff7b6e',
+      blurb:'Long-lasting empires and regimes fell. Revolutions ended the Qing dynasty, overthrew the tsar and created the Soviet Union, toppled Mexico’s dictator, and replaced the Ottoman sultan with a secular Turkish republic.',
+      polys:[
+        [[69,33],[66,41],[68,60],[72,70],[73,100],[72,130],[70,160],[65,178],[60,165],[55,155],[50,142],[43,132],[48,135],[53,127],[50,119],[50,105],[52,97],[50,87],[55,70],[55,60],[50,55],[45,48],[42,45],[44,40],[47,38],[52,33],[56,28],[60,28],[64,30]],
+        [[49,120],[42,130],[39,124],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,98],[28,97],[30,90],[28,86],[30,81],[35,78],[40,74],[45,80],[45,90],[42,97],[42,105],[45,112],[47,118]],
+        [[32.5,-117],[31.5,-106],[29,-103],[26,-97.2],[21.5,-97.5],[18.5,-95],[18,-91],[14.5,-92],[16,-95],[19.5,-105.5],[23,-110],[28,-114.5]],
+        [[42,27],[41.2,41.5],[39.5,44.5],[37,44.5],[36.7,36.5],[36.2,30],[37,27.3],[40,26.2]]
+      ],
+      places:[
+        {n:'Petrograd',c:[59.94,30.31],note:'1917: the tsar abdicated, then Lenin’s Bolsheviks seized power.'},
+        {n:'Wuchang / Beijing',c:[30.55,114.3],note:'1911 revolution ended the Qing; Sun Yat-sen’s Republic of China followed.'},
+        {n:'Mexico City',c:[19.43,-99.13],note:'1910 revolution against Porfirio Díaz; Zapata and Villa fought for land reform.'},
+        {n:'Ankara',c:[39.93,32.86],note:'Atatürk founded the secular Republic of Turkey (1923).'}
+      ],
+      tech:[
+        {name:'Communism (Lenin)',what:'A vanguard party leading workers’ revolution.',impact:'Created the USSR, the world’s first communist state.'},
+        {name:'Nationalism & modernization',what:'Sun Yat-sen’s Three Principles; Atatürk’s secular reforms.',impact:'Replaced dynasties with nation-states.'}
+      ],
+      goods:['Bolsheviks','Lenin','Stalin’s Five-Year Plans','Sun Yat-sen','Emiliano Zapata','Atatürk'],
+      cultural:[
+        {t:'Soviet Union',d:'Stalin’s collectivization and Five-Year Plans industrialized by force, causing famine.'},
+        {t:'Chinese Civil War',d:'Nationalists vs. Communists, paused to fight Japan.'},
+        {t:'Mexican Constitution of 1917',d:'promised land reform and workers’ rights.'}
+      ]
+    },
+    interwar:{
+      name:'Interwar Crisis', btn:'Depression & fascism', short:'Great Depression · fascism · appeasement', sub:'1919–1939',
+      color:'#5a6b7a', colorDark:'#a9b8c6',
+      blurb:'The Great Depression (1929) devastated economies worldwide. Desperate people turned to authoritarian leaders: fascism in Italy and Germany, militarism in Japan, while democracies tried new government roles like the New Deal.',
+      polys:[
+        [[46.5,7],[46.5,13.5],[45.6,13.8],[44,12.5],[42,14.5],[41,17],[40,18.5],[38,16],[38,15.6],[40,15.5],[41,13],[42.4,11],[44,8.2],[44.1,7.6]],
+        [[54.8,8.5],[54.4,13],[54,19.5],[53,18],[51,16.5],[50,12],[47.6,13],[47.5,9.5],[48.9,8.1],[49.1,6.4],[51,6],[53.5,7]],
+        [[45.5,141.7],[43,145.5],[41.5,141],[38,141.5],[35,140.5],[34,135],[33.5,131],[31,130.5],[32.5,129.7],[34.3,131],[35.5,133],[37,137],[39,140]],
+        [[53,121],[48,135],[42.5,130.5],[39,121],[42,119]],
+        [[15,37],[14.5,40],[11,42],[8,47],[4,45],[4,38],[7,35],[10,35],[13,36]]
+      ],
+      places:[
+        {n:'New York (Wall Street)',c:[40.71,-74.01],note:'The 1929 stock market crash began the Great Depression.'},
+        {n:'Rome',c:[41.9,12.5],note:'Mussolini’s Fascists took power in 1922.'},
+        {n:'Berlin',c:[52.52,13.4],note:'Hitler became chancellor in 1933 and built a totalitarian state.'},
+        {n:'Mukden (Manchuria)',c:[41.8,123.43],note:'Japan seized Manchuria in 1931, creating the puppet state Manchukuo.'},
+        {n:'Addis Ababa',c:[9.03,38.74],note:'Italy invaded Ethiopia in 1935; the League of Nations failed to stop it.'},
+        {n:'Munich',c:[48.14,11.58],note:'1938 Munich Agreement: Britain and France appeased Hitler over Czechoslovakia.'}
+      ],
+      tech:[
+        {name:'Fascism',what:'Extreme nationalism, a single dictator, militarism, and suppression of opponents.',impact:'Promised order and national glory in hard times.'},
+        {name:'Keynesian economics',what:'Government spending to fight unemployment (FDR’s New Deal).',impact:'Expanded the role of the state in the economy.'}
+      ],
+      goods:['Great Depression','Fascism','Mussolini','Hitler','Appeasement','New Deal','League of Nations'],
+      cultural:[
+        {t:'Aggression goes unchecked',d:'the League of Nations was too weak to stop Japan, Italy, or Germany.'},
+        {t:'Path to war',d:'expansion and appeasement led directly to WWII.'}
+      ]
+    },
+    ww2europe:{
+      name:'WWII in Europe', btn:'1939–1945', short:'Blitzkrieg · Stalingrad · D-Day · Holocaust', sub:'Axis-controlled Europe at its height, 1942',
+      color:'#3a3a3a', colorDark:'#b9bec9',
+      blurb:'Germany’s invasion of Poland (1939) started the war. Blitzkrieg conquered much of Europe, but the invasion of the USSR failed at Stalingrad, and the Allies closed in from east and west until Germany surrendered in May 1945.',
+      polys:[[[70,25],[69,30],[60,30],[59.9,30.3],[55,33],[50,38],[47,45],[44,40],[45,33],[42,28],[40,26],[38,23],[36.5,22.5],[38,20],[42,19.5],[45,13.5],[44,8],[43,3],[43.5,-1.8],[46,-1.2],[48.5,-4.7],[51,2],[53.5,7],[55,8],[57.5,8],[58,6],[62,5],[70,18]]],
+      places:[
+        {n:'Warsaw',c:[52.23,21.01],note:'Germany invaded Poland on September 1, 1939.'},
+        {n:'London',c:[51.5,-0.1],note:'Britain survived the Blitz and the Battle of Britain (1940).'},
+        {n:'Stalingrad',c:[48.7,44.5],note:'Turning point (1942–43): the German army was destroyed.'},
+        {n:'Normandy',c:[49.4,-0.8],note:'D-Day (June 6, 1944): Allied invasion of France.'},
+        {n:'Auschwitz',c:[50.03,19.2],note:'Largest Nazi death camp; over a million murdered.'}
+      ],
+      tech:[
+        {name:'Blitzkrieg',what:'“Lightning war” combining tanks and aircraft.',impact:'Conquered Poland and France in weeks.'},
+        {name:'Total war again',what:'Mass mobilization, bombing of cities, and propaganda.',impact:'Civilians became targets on all sides.'}
+      ],
+      goods:['Axis Powers','Allied Powers','Blitzkrieg','Holocaust','Churchill','Stalin'],
+      cultural:[
+        {t:'The Holocaust',d:'six million Jews and millions of others murdered.'},
+        {t:'Europe divided',d:'Soviet troops in the east, Western Allies in the west, setting up the Cold War.'},
+        {t:'United Nations',d:'founded in 1945 to prevent another world war.'}
+      ]
+    },
+    ww2pacific:{
+      name:'WWII in Asia &amp; the Pacific', btn:'1937–1945', short:'Nanjing · Pearl Harbor · Midway · Hiroshima', sub:'Japan’s empire at its height, 1942',
+      color:'#d4741c', colorDark:'#f0a35a',
+      blurb:'Japan invaded China in 1937, then attacked Pearl Harbor and seized Southeast Asia in 1941–42 for oil and rubber. The US island-hopped toward Japan, and atomic bombs on Hiroshima and Nagasaki ended the war in August 1945.',
+      polys:[
+        [[50,120],[48,135],[42,131],[34.5,126.5],[30,122],[23,117],[21.5,110],[25,113],[30,113],[35,113],[40,113],[42,117]],
+        [[23,105],[21.5,108],[17,107],[12,109.3],[8.6,105],[10.5,104],[14,102.5],[18,101],[22,101.5]],
+        [[28,97],[21,101],[10,98.5],[16,94.5],[22,92.5]],
+        [[6.5,100.2],[1.3,104],[1.5,103],[5,100.3]],
+        [[18.5,121],[13,124],[6,126],[7,122],[10,119],[14.5,120.5]],
+        [[5.5,95.3],[-5.8,105.8],[-8.5,114],[-8.5,119],[-2,116],[1,119],[4,117.5],[1,109],[-3,110],[-5.8,105.8],[-1,100],[3,97]]
+      ],
+      places:[
+        {n:'Nanjing',c:[32.06,118.8],note:'Nanjing Massacre (1937–38): Japanese troops killed hundreds of thousands of Chinese.'},
+        {n:'Pearl Harbor',c:[21.35,-157.97],note:'December 7, 1941: Japan’s attack brought the US into the war.'},
+        {n:'Midway',c:[28.2,-177.37],note:'June 1942: US naval victory, the Pacific turning point.'},
+        {n:'Hiroshima',c:[34.39,132.45],note:'Atomic bomb, August 6, 1945; Nagasaki on August 9.'},
+        {n:'Singapore',c:[1.35,103.8],note:'British stronghold captured by Japan in 1942.'}
+      ],
+      tech:[
+        {name:'Need for resources',what:'Japan lacked oil, rubber, and metals; the US cut off oil exports.',impact:'Drove the push into Southeast Asia.'},
+        {name:'Island hopping & atomic bomb',what:'The US captured key islands, then used nuclear weapons.',impact:'Ended the war and began the nuclear age.'}
+      ],
+      goods:['Greater East Asia Co-Prosperity Sphere','Pearl Harbor','Island hopping','Atomic bomb','Comfort women'],
+      cultural:[
+        {t:'Colonial empires weakened',d:'Japan’s quick victories showed European colonial rulers could be beaten.'},
+        {t:'Decolonization',d:'nationalist movements in Asia grew stronger after the war (Unit 8).'},
+        {t:'Chinese Civil War resumes',d:'leading to the Communist victory in 1949.'}
+      ]
+    }
+  },
+  themeHead:'Battles, Atrocities &amp; Aftermath',
+  themes:{
+    battles:{name:'Key Battles', color:'#3a3a3a', icon:'⚔', kind:'years',
+      items:[
+        {n:'Gallipoli 1915',c:[40.2,26.4],note:'Failed Allied attack on the Ottoman Empire.'},
+        {n:'Somme 1916',c:[50,2.7],dir:'left',note:'Over a million casualties in WWI’s bloodiest battle.'},
+        {n:'Verdun 1916',c:[49.16,5.38],note:'Ten-month French-German battle of attrition.'},
+        {n:'Pearl Harbor 1941',c:[21.35,-157.97],note:'Japan’s surprise attack on the US fleet.'},
+        {n:'Midway 1942',c:[28.2,-177.37],dir:'left',note:'US victory in the Pacific.'},
+        {n:'Stalingrad 1942–43',c:[48.7,44.5],note:'Soviet victory: turning point in Europe.'},
+        {n:'El Alamein 1942',c:[30.83,28.95],note:'British victory in North Africa.'},
+        {n:'D-Day 1944',c:[49.4,-0.8],dir:'left',note:'Allied invasion of Normandy.'},
+        {n:'Hiroshima 1945',c:[34.39,132.45],note:'First atomic bomb used in war.'}
+      ]},
+    atrocities:{name:'Mass Atrocities', color:'#7a2f2f', icon:'⚠', kind:'years',
+      items:[
+        {n:'Armenian Genocide 1915',c:[39,39.5],note:'The Ottoman government killed about a million Armenians.'},
+        {n:'Holodomor 1932–33',c:[49,32],note:'Famine in Ukraine caused by Stalin’s collectivization; millions died.'},
+        {n:'Nanjing 1937',c:[32.06,118.8],note:'Japanese troops massacred civilians and prisoners.'},
+        {n:'Holocaust 1941–45',c:[50.03,19.2],note:'Nazi Germany murdered six million Jews, plus Roma, disabled people, and others.'}
+      ]},
+    mandates:{name:'Mandates after WWI', color:'#0f7a6b', icon:'🗺', kind:'zones',
+      items:[
+        {n:'Syria & Lebanon (French)',color:'#2f5fb3',poly:[[37,36.5],[37.2,42.3],[34.5,41],[32.3,36.8],[33.1,35.1],[35,35.9]],note:'Former Ottoman lands given to France by the League of Nations.'},
+        {n:'Iraq (British)',color:'#b8322a',poly:[[37.2,42.3],[37.3,44.8],[35,46],[32,47.8],[29.5,48],[29.1,46.5],[32.2,39],[34.5,41]],note:'British mandate; independent in 1932.'},
+        {n:'Palestine & Transjordan (British)',color:'#c9871b',poly:[[33.1,35.1],[32.3,36.8],[32.2,39],[29.2,36.6],[29.5,34.9],[31.3,34.2]],note:'British mandate; the Balfour Declaration (1917) promised a Jewish homeland here.'}
+      ]},
+    troops:{name:'Colonial Troops', color:'#a0522d', icon:'🪖', kind:'spread',
+      note:'Both world wars drew on colonial empires. Over a million Indian soldiers served in WWI, and Africans, Vietnamese, Australians, and Canadians fought in Europe and the Middle East, raising demands for independence afterward.',
+      origins:[{n:'India',c:[22,79]},{n:'French West Africa',c:[14.7,-17.4]},{n:'Australia & NZ',c:[-33.9,151.2]},{n:'Canada',c:[45.5,-73.6]}],
+      items:[
+        {n:'Indian troops → Western Front',from:[22,79],c:[50.2,3]},
+        {n:'Indian troops → Mesopotamia',from:[22,79],c:[33,44.4]},
+        {n:'Senegalese tirailleurs → France',from:[14.7,-17.4],c:[49,4]},
+        {n:'ANZACs → Gallipoli',from:[-33.9,151.2],c:[40.2,26.4],curv:0.08},
+        {n:'Canadians → Vimy Ridge',from:[45.5,-73.6],c:[50.38,2.77]}
+      ]},
+    depression:{name:'Great Depression Spreads', color:'#5a6b7a', icon:'📉', kind:'spread',
+      note:'The 1929 crash in New York spread around the world: US banks called in loans to Europe, trade collapsed behind tariffs, and countries exporting raw materials saw prices crash.',
+      origin:{n:'Wall Street crash (1929)', c:[40.71,-74.01]},
+      items:[
+        {n:'→ Germany (loans recalled)',c:[52.52,13.4]},{n:'→ Britain',c:[51.5,-0.1]},
+        {n:'→ Brazil (coffee prices crash)',c:[-23.5,-46.6]},{n:'→ Argentina (beef & wheat)',c:[-34.6,-58.38]},
+        {n:'→ Japan (silk exports collapse)',c:[35.7,139.7],curv:0.1}
+      ]},
+    ideologies:{name:'Ideologies in Power', color:'#6d3f9c', icon:'🏛', kind:'labels',
+      items:[
+        {n:'COMMUNISM',c:[55.75,37.6],note:'Soviet Union under Lenin, then Stalin.'},
+        {n:'FASCISM',c:[41.9,12.5],note:'Mussolini’s Italy.'},
+        {n:'NAZISM',c:[52.52,13.4],note:'Hitler’s Germany: fascism plus racist antisemitism.'},
+        {n:'MILITARISM',c:[35.7,139.7],note:'Japan’s military-dominated government.'},
+        {n:'NEW DEAL DEMOCRACY',c:[38.9,-77.03],note:'FDR’s government programs in the US.'}
+      ]}
+  },
+  themeOrder:['battles','atrocities','mandates','troops','depression','ideologies'],
+  hint:'Tip: turn on “Colonial Troops” to see how the world wars pulled in the whole globe. Drag to pan, scroll to zoom.'
+};
+</script>
+<script defer src="theme.js"></script>
+<script src="unit-map-engine.js"></script>
+</body>
+</html>

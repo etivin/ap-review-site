@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 6: Interactive Imperialism Map | AP World History</title>
+<meta name="description" content="Interactive world map of Unit 6 (c. 1750–1900): the new imperial empires, the Scramble for Africa, resistance, raw materials, and global migration."/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="world-basemap.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="unit-map.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+<script>
+/* Unit 6, c. 1750–1900 (empires shown c. 1900–1914). Coordinates are [lat, lng]; regions are approximate. */
+window.UNIT_MAP = {
+  unit:6, accent:'#8c2900', accentD:'#6b1f00', accentDark:'#ff8d5c',
+  title:'Consequences of Industrialization', years:'c. 1750 – 1900',
+  h1:'The Age of Imperialism',
+  intro:'Pick an <strong>empire</strong> to see where it ruled, why it expanded, and what it took. Then layer on <strong>raw materials</strong>, <strong>resistance</strong>, <strong>spheres of influence</strong> in China, and the great <strong>migrations</strong> of the era, drawn as swooping arrows.',
+  center:[15,40], zoom:2,
+  routeHead:'Imperial Powers (c. 1900)', allBtn:'Show all empires',
+  allTitle:'The New Imperialism', allSub:'Empires c. 1900–1914',
+  allBlurb:'Industrial powers needed raw materials and markets, and justified conquest with Social Darwinism and the “civilizing mission.” Each empire is shaded on the map: click one or pick it above.',
+  sections:{tech:['⚙️','Tools of Empire'],goods:['📦','Raw Materials &amp; Key Terms'],places:['📍','Key Colonies &amp; Places'],cultural:['🔗','Effects &amp; Responses']},
+  routes:{
+    british:{
+      name:'British Empire', btn:'“The sun never sets”', short:'India · Egypt · South Africa · Australia', sub:'The largest empire in history',
+      color:'#b8322a', colorDark:'#ff7b6e',
+      blurb:'Britain ruled about a quarter of the world. India was the “jewel in the crown,” taken over by the British government after the 1857 rebellion; Britain also controlled Egypt and the Suez Canal, much of Africa, and settler colonies like Canada and Australia.',
+      polys:[
+        [[34,74],[30,80],[27,88],[28,95],[24,94],[22,92],[22,88],[16,82],[13,80.3],[8,77.5],[10,76],[15,74],[21,72.8],[23,68.5],[25,67],[30,70]],
+        [[31.5,25],[31.5,32],[22,36.8],[18,38.5],[12,36],[4,33.5],[5,28],[10,23],[20,24]],
+        [[-17,25],[-22,31],[-26,32.5],[-34,26],[-34.5,18.5],[-29,16.5],[-22,20]],
+        [[4,34],[4,41],[-1,41.5],[-4.5,39.3],[-1,30],[3,30]],
+        [[13.5,4],[13,14],[7,12],[4.3,7],[6.4,3],[9,3]],
+        [[-11,142],[-17,146],[-25,153],[-38,147],[-38,140],[-32,133],[-35,118],[-22,113.5],[-14,126],[-12,131]],
+        [[49,-123],[49,-95],[45,-75],[45,-67],[47,-60],[52,-56],[60,-64],[69,-85],[69,-110],[69,-140],[60,-141],[55,-130]],
+        [[28,97],[21,101],[10,98.5],[16,94.5],[22,92.5]]
+      ],
+      places:[
+        {n:'Delhi & Meerut',c:[28.98,77.7],note:'Where the Sepoy Rebellion broke out in 1857; afterward the British Crown (the Raj) took direct control of India.'},
+        {n:'Suez Canal',c:[30.6,32.3],note:'Opened 1869; Britain bought control to protect the route to India.'},
+        {n:'Cape Town',c:[-33.92,18.42],note:'Base for British expansion into southern Africa’s diamond and gold fields.'},
+        {n:'Hong Kong',c:[22.3,114.17],note:'Taken from China after the First Opium War (1842).'},
+        {n:'Sydney',c:[-33.87,151.21],note:'Australia: a settler colony that began as a penal colony.'}
+      ],
+      tech:[
+        {name:'Steamships & telegraph',what:'Steam-powered ships and undersea telegraph cables.',impact:'Moved troops and orders across the empire quickly.'},
+        {name:'Maxim gun',what:'An early machine gun.',impact:'Let small forces defeat much larger armies, as at Omdurman (1898).'},
+        {name:'Quinine',what:'A drug that prevented malaria.',impact:'Let Europeans survive in tropical Africa.'}
+      ],
+      goods:['Cotton','Tea','Opium','Diamonds & gold','The Raj','White Man’s Burden'],
+      cultural:[
+        {t:'Economic imperialism',d:'India became a supplier of raw cotton and a market for British cloth.'},
+        {t:'Settler colonies',d:'displaced Indigenous peoples in Canada, Australia, and New Zealand.'},
+        {t:'Indian nationalism',d:'the Indian National Congress (1885) began organizing for self-rule.'}
+      ]
+    },
+    french:{
+      name:'French Empire', btn:'Africa & Indochina', short:'Algeria · West Africa · Indochina', sub:'The second-largest empire',
+      color:'#2f5fb3', colorDark:'#7aa2ff',
+      blurb:'France built a huge empire across North and West Africa, Madagascar, and Indochina, justifying it with a “civilizing mission” that pushed French language and culture on colonized peoples.',
+      polys:[
+        [[16,-16.5],[24,-6],[24,11],[15,16],[13,14],[11,2],[9,-3],[5,-3],[4.5,-7.5],[8,-13],[12.5,-16.7]],
+        [[37,8.6],[35,-1.8],[30,-8],[24,-6],[24,11],[30,10],[33,11.5],[37,11]],
+        [[23,105],[21.5,108],[17,107],[12,109.3],[8.6,105],[10.5,104],[14,102.5],[18,101],[22,101.5]],
+        [[-12,49.3],[-16,50.4],[-25.5,47],[-25,44],[-16,44.5]]
+      ],
+      places:[
+        {n:'Algiers',c:[36.75,3.06],note:'Algeria, conquered from 1830, became a settler colony with many French colonists.'},
+        {n:'Dakar',c:[14.69,-17.44],note:'Capital of French West Africa.'},
+        {n:'Saigon',c:[10.82,106.63],note:'Center of French Indochina (Vietnam, Laos, Cambodia).'}
+      ],
+      tech:[
+        {name:'Civilizing mission',what:'The idea that France had a duty to spread its culture.',impact:'Justified conquest and assimilation policies.'},
+        {name:'Railroads & ports',what:'Built to move raw materials to the coast.',impact:'Served export economies more than local needs.'}
+      ],
+      goods:['Rubber','Rice','Peanuts','Palm oil','Assimilation','Mission civilisatrice'],
+      cultural:[
+        {t:'Cash crops',d:'forced or pushed farmers to grow export crops instead of food.'},
+        {t:'Assimilation',d:'a small educated elite learned French culture; most people were excluded.'},
+        {t:'Resistance',d:'Algerian and Vietnamese resistance set up later independence wars (Unit 8).'}
+      ]
+    },
+    belgian:{
+      name:'Belgian Congo', btn:'Leopold II’s rubber colony', short:'Rubber · forced labor · atrocities', sub:'Congo Free State 1885–1908, Belgian Congo after',
+      color:'#7b3fa0', colorDark:'#c39be6',
+      blurb:'King Leopold II ran the Congo as his personal property, forcing people to collect rubber and ivory under brutal quotas. Millions died. International outrage forced Belgium to take it over in 1908.',
+      polys:[[[5,19],[4.5,27.5],[2,31],[-4.5,29.2],[-8,30.5],[-11,28],[-13.5,29.8],[-11.5,24],[-8,17],[-6,12.3],[-4,15],[0,17.5]]],
+      places:[
+        {n:'Léopoldville (Kinshasa)',c:[-4.32,15.31],note:'Colonial capital on the Congo River.'},
+        {n:'Rubber regions',c:[0.5,23.5],note:'Villages were terrorized to meet rubber quotas; hands were cut off as punishment.'}
+      ],
+      tech:[
+        {name:'Forced labor',what:'Quotas enforced by violence and hostage-taking.',impact:'Extracted enormous rubber profits at a terrible human cost.'},
+        {name:'Rubber boom',what:'Rubber was needed for bicycle and car tires.',impact:'Industrial demand drove the brutality.'}
+      ],
+      goods:['Rubber','Ivory','Leopold II','Berlin Conference','Forced labor'],
+      cultural:[
+        {t:'Mass death',d:'the population may have fallen by millions.'},
+        {t:'Human rights campaign',d:'reporters and activists exposed the abuses, an early international human rights movement.'}
+      ]
+    },
+    others:{
+      name:'Other European Powers', btn:'Germany, Portugal, Italy, Netherlands', short:'German E. Africa · Angola · Libya · Dutch East Indies', sub:'Latecomers & older empires',
+      color:'#c9871b', colorDark:'#f0c674',
+      blurb:'Germany and Italy, newly unified, scrambled for colonies; Portugal held Angola and Mozambique; the Dutch ran the East Indies through cash-crop systems.',
+      polys:[
+        [[-1,30],[-1,34],[-4.5,39.3],[-10.5,40.4],[-11.5,35],[-8.5,32],[-4.5,29.5]],
+        [[-17.3,11.8],[-17.4,20],[-18,21],[-22,20],[-28.5,20],[-28.6,16.5]],
+        [[-5,12.2],[-8,17],[-11.5,24],[-13,22],[-18,21],[-17.3,11.8]],
+        [[-10.5,40.4],[-15,40.7],[-20,35],[-26,32.9],[-22,31.3],[-16,30.4],[-11.5,35]],
+        [[33,11.5],[33,23],[31.5,25],[20,24],[23.5,15],[25,10]],
+        [[5.5,95.3],[-1,104.5],[-6,106],[-8.5,114],[-8.7,114.5],[-7.8,106],[-5.8,105.8],[-1,100],[3,97]]
+      ],
+      places:[
+        {n:'German East Africa',c:[-6.8,39.28],note:'Site of the Maji Maji Rebellion (1905–07) against forced cotton growing.'},
+        {n:'German South West Africa',c:[-22.56,17.08],note:'Genocide of the Herero and Nama peoples (1904–08).'},
+        {n:'Batavia (Java)',c:[-6.2,106.85],note:'Dutch East Indies: the Cultivation System forced farmers to grow export crops.'},
+        {n:'Tripoli (Libya)',c:[32.9,13.18],note:'Italy took Libya from the Ottomans in 1911.'}
+      ],
+      tech:[
+        {name:'Cultivation System',what:'Dutch rule required Javanese farmers to grow coffee and sugar for export.',impact:'Enriched the Netherlands while causing famine.'},
+        {name:'Concessions',what:'Private companies given control over land and labor.',impact:'Spread forced labor in many colonies.'}
+      ],
+      goods:['Coffee','Sugar','Rubber','Cotton','Maji Maji','Herero'],
+      cultural:[
+        {t:'Violent repression',d:'the Herero genocide and Maji Maji war show how resistance was crushed.'},
+        {t:'Ethiopia resists',d:'Italy was defeated at Adwa (1896), keeping Ethiopia independent.'}
+      ]
+    },
+    japan:{
+      name:'Japanese Empire', btn:'Asia’s industrial empire', short:'Taiwan 1895 · Korea 1910', sub:'An Asian imperial power',
+      color:'#d4741c', colorDark:'#f0a35a',
+      blurb:'Industrialized after the Meiji Restoration, Japan joined the imperial race. It won Taiwan from China (1895), beat Russia (1905), and annexed Korea (1910).',
+      polys:[
+        [[42.5,130.5],[38.6,128.3],[35,129.3],[34.5,126.3],[37.7,126],[40,124.3]],
+        [[25.3,121.6],[22,120.8],[23,120.1],[25,121]]
+      ],
+      places:[
+        {n:'Seoul',c:[37.57,126.98],note:'Korea annexed in 1910; Korean culture was suppressed.'},
+        {n:'Taipei',c:[25.03,121.56],note:'Taiwan taken after the Sino-Japanese War (1894–95).'},
+        {n:'Port Arthur',c:[38.8,121.26],note:'Won from Russia in the Russo-Japanese War (1904–05), the first Asian victory over a European power.'}
+      ],
+      tech:[
+        {name:'Modern navy & army',what:'Built on Western models during the Meiji era.',impact:'Defeated China and Russia.'},
+        {name:'Need for resources',what:'Japan had little coal or iron of its own.',impact:'Drove expansion into Korea and Manchuria.'}
+      ],
+      goods:['Coal','Iron','Rice','Sino-Japanese War','Russo-Japanese War'],
+      cultural:[
+        {t:'Challenged European dominance',d:'victory over Russia shocked the world.'},
+        {t:'Set up WWII',d:'expansion continued into Manchuria and China (Unit 7).'}
+      ]
+    },
+    us:{
+      name:'United States', btn:'Continental & overseas expansion', short:'Philippines · Hawaii · Puerto Rico', sub:'From Manifest Destiny to overseas empire',
+      color:'#0f7a6b', colorDark:'#4fd1bd',
+      blurb:'After expanding across North America, the US took overseas territories after the Spanish-American War (1898): the Philippines, Puerto Rico, and Guam, and annexed Hawaii.',
+      polys:[
+        [[18.5,121],[13,124],[6,126],[7,122],[10,119],[14.5,120.5]],
+        [[22.2,-159.8],[19,-155],[19.5,-156.2],[21.5,-158.3]],
+        [[18.5,-67.2],[18.4,-65.6],[18,-65.8],[18,-67.2]]
+      ],
+      places:[
+        {n:'Manila',c:[14.6,120.98],note:'The US fought a brutal war against Filipino independence fighters (1899–1902).'},
+        {n:'Honolulu',c:[21.31,-157.86],note:'US businessmen overthrew Queen Liliuokalani (1893); annexed 1898.'},
+        {n:'Panama',c:[9,-79.5],note:'The US backed Panama’s independence to build the canal (opened 1914).'}
+      ],
+      tech:[
+        {name:'Manifest Destiny',what:'The belief the US was destined to spread across the continent.',impact:'Justified taking Native and Mexican lands.'},
+        {name:'Naval power',what:'Coaling stations and a modern navy.',impact:'Made Pacific islands strategically valuable.'}
+      ],
+      goods:['Sugar','Manifest Destiny','Spanish-American War','Annexation'],
+      cultural:[
+        {t:'Native Americans displaced',d:'onto reservations; Ghost Dance and Wounded Knee (1890).'},
+        {t:'Anti-imperialist debate',d:'many Americans argued empire betrayed democratic ideals.'}
+      ]
+    },
+    russia:{
+      name:'Russian Empire', btn:'Expansion over land', short:'Central Asia · Caucasus · Siberia', sub:'A land-based imperial power',
+      color:'#5a6b7a', colorDark:'#a9b8c6',
+      blurb:'Russia expanded over land into the Caucasus, Central Asia, and to the Pacific, competing with Britain in the “Great Game” for influence in Central Asia.',
+      polys:[[[55,60],[55,85],[50,87],[45,80],[42,75],[37,67],[37,55],[41,53],[45,52],[47,55]]],
+      places:[
+        {n:'Tashkent',c:[41.3,69.24],note:'Conquered 1865; Central Asia became a source of cotton.'},
+        {n:'Vladivostok',c:[43.12,131.89],note:'Pacific port, end of the Trans-Siberian Railway.'}
+      ],
+      tech:[
+        {name:'Trans-Siberian Railway',what:'Built 1891–1916 from Moscow to the Pacific.',impact:'Tied Siberia and the Far East to Russia.'}
+      ],
+      goods:['Cotton','The Great Game','Russification'],
+      cultural:[
+        {t:'Russification',d:'pressure on minorities to adopt Russian language and Orthodoxy.'},
+        {t:'Clash with Japan',d:'rivalry in Manchuria led to the Russo-Japanese War (1904–05).'}
+      ]
+    }
+  },
+  themeHead:'Resources, Resistance &amp; Migration',
+  themes:{
+    resources:{name:'Raw Materials &amp; Cash Crops', color:'#a6791f', icon:'📦', kind:'labels',
+      items:[
+        {n:'RUBBER',c:[-1,22],note:'Congo and the Amazon: for tires and industry.'},
+        {n:'COTTON',c:[29.5,31],note:'Egypt shifted to cotton exports for British mills.'},
+        {n:'PALM OIL',c:[6.5,5],note:'West Africa: used for soap and machine lubricant.'},
+        {n:'GOLD & DIAMONDS',c:[-27,26],note:'South Africa: discoveries drew British control and the Boer War.'},
+        {n:'GUANO',c:[-12,-77],note:'Peruvian bird droppings used as fertilizer.'},
+        {n:'TEA',c:[7.5,80.7],note:'Ceylon (Sri Lanka) and Assam plantations.'},
+        {n:'TIN & RUBBER',c:[4,101.5],note:'British Malaya.'},
+        {n:'SUGAR',c:[20.5,-157],note:'Hawaii’s plantations, worked by Asian migrant labor.'},
+        {n:'BEEF & WHEAT',c:[-35,-62],note:'Argentina exported to Europe on refrigerated ships.'}
+      ]},
+    resistance:{name:'Resistance to Empire', color:'#7a2f2f', icon:'✊', kind:'years',
+      items:[
+        {n:'Sepoy Rebellion 1857',c:[28.98,77.7],note:'Indian soldiers rebelled; Britain took direct control of India.'},
+        {n:'Taiping 1850–64',c:[32.06,118.8],note:'Massive rebellion in China, partly against the Qing’s weakness.'},
+        {n:'Boxers 1899–1901',c:[39.9,116.4],note:'Anti-foreign uprising in China, crushed by an eight-nation force.'},
+        {n:'Xhosa Cattle Killing 1856',c:[-32.5,27.5],note:'A millenarian movement hoping to drive out the British.'},
+        {n:'Adwa 1896',c:[14.16,38.9],note:'Ethiopia defeated Italy and stayed independent.'},
+        {n:'Ghost Dance 1890',c:[43.3,-102.2],dir:'left',note:'Spiritual movement of Plains peoples; ended at Wounded Knee.'},
+        {n:'Golden Stool 1900',c:[6.69,-1.62],dir:'left',note:'Asante War led by Queen Yaa Asantewaa against the British.'},
+        {n:'Mahdist State 1881–98',c:[15.6,32.5],note:'Sudanese state that defeated the British at Khartoum (1885).'},
+        {n:'Maji Maji 1905',c:[-8.5,37],note:'Rebellion against forced cotton growing in German East Africa.'}
+      ]},
+    spheres:{name:'Spheres of Influence in China', color:'#c9871b', icon:'🀄', kind:'zones',
+      items:[
+        {n:'British',color:'#b8322a',poly:[[32.5,108],[32.5,121.8],[29,122],[28.5,113],[29.5,108]],note:'The Yangzi River valley, China’s richest region.'},
+        {n:'French',color:'#2f5fb3',poly:[[26,99],[26,111],[21.5,110],[21.5,106.5],[23,101]],note:'Southern China bordering Indochina.'},
+        {n:'German',color:'#3a3a3a',poly:[[37.8,115.5],[37.8,122.5],[35,120],[35,115.5]],note:'Shandong Peninsula.'},
+        {n:'Russian / Japanese',color:'#7b3fa0',poly:[[53,121],[48,135],[42.5,130.5],[39,121],[42,119]],note:'Manchuria: Russian until 1905, then contested by Japan.'}
+      ]},
+    opium:{name:'Opium Trade', color:'#6d3f9c', icon:'⚗', kind:'chain',
+      note:'Britain grew opium in India and smuggled it into China to pay for tea. When China tried to stop it, Britain won the Opium Wars (1839–42, 1856–60), forcing unequal treaties that opened ports and gave up Hong Kong.',
+      path:[{n:'Bengal (opium grown)',c:[23,88]},{n:'Canton (smuggled in)',c:[23.13,113.26]},{n:'London (tea profits)',c:[51.5,-0.1]}]},
+    migrationAsia:{name:'Asian Migration', color:'#0f7a6b', icon:'🚢', kind:'spread',
+      note:'Millions of Indian and Chinese workers migrated, many as indentured servants, to work plantations, mines, and railroads after slavery ended. They often faced discrimination, like the US Chinese Exclusion Act (1882).',
+      origins:[{n:'South India',c:[13,80.3]},{n:'South China',c:[23.13,113.26]}],
+      items:[
+        {n:'Indians → Caribbean (Trinidad)',from:[13,80.3],c:[10.6,-61.3],curv:0.08},
+        {n:'Indians → Natal (S. Africa)',from:[13,80.3],c:[-29.86,31.02]},
+        {n:'Indians → Fiji',from:[13,80.3],c:[-17.7,178],curv:0.1},
+        {n:'Indians → East Africa',from:[13,80.3],c:[-4.04,39.67]},
+        {n:'Chinese → California',from:[23.13,113.26],c:[37.8,-122.4],curv:-0.1},
+        {n:'Chinese → Southeast Asia',from:[23.13,113.26],c:[1.35,103.8]},
+        {n:'Chinese → Peru & Cuba',from:[23.13,113.26],c:[-12,-77],curv:0.12},
+        {n:'Japanese → Hawaii',from:[34.7,135.5],c:[21.31,-157.86],curv:-0.1}
+      ]},
+    migrationEuro:{name:'European Migration', color:'#2f5fb3', icon:'⛴', kind:'spread',
+      note:'Tens of millions of Europeans emigrated, pushed by famine (like the Irish Potato Famine), poverty, and persecution, and pulled by jobs and land in the Americas and settler colonies.',
+      origins:[{n:'Ireland',c:[53.3,-8]},{n:'Italy',c:[41.9,13]}],
+      items:[
+        {n:'Irish → United States',from:[53.3,-8],c:[40.7,-74]},
+        {n:'Italians → Argentina',from:[41.9,13],c:[-34.6,-58.38]},
+        {n:'Italians → United States',from:[41.9,13],c:[41.5,-72]},
+        {n:'British → Australia',from:[53.3,-8],c:[-33.87,151.21],curv:0.05}
+      ]},
+    infrastructure:{name:'Canals &amp; Railroads', color:'#1d4ed8', icon:'🛤', kind:'lines',
+      items:[
+        {n:'Suez Canal (1869)',label:true,weight:6,pts:[[31.26,32.3],[30.6,32.3],[29.97,32.55]],note:'Cut the trip from Europe to Asia by thousands of miles.'},
+        {n:'Trans-Siberian Railway',pts:[[55.75,37.6],[56.8,60.6],[55,73.4],[55,82.9],[52.3,104.3],[51.8,107.6],[48.5,135],[43.1,131.9]],note:'Moscow to Vladivostok, built 1891–1916.'},
+        {n:'Transcontinental Railroad (1869)',pts:[[37.8,-122.3],[39.5,-119.8],[41.2,-111.9],[41.1,-104.8],[41.26,-95.94]],note:'Built largely by Chinese and Irish workers.'},
+        {n:'Panama Canal (1914)',label:true,weight:6,pts:[[9.35,-79.92],[9.0,-79.6],[8.95,-79.55]],note:'US-built canal linking the Atlantic and Pacific.'}
+      ]},
+    berlin:{name:'Berlin Conference', color:'#3a3a3a', icon:'✂', kind:'cities',
+      items:[{n:'Berlin Conference (1884–85)',c:[52.52,13.4],note:'European powers set rules for claiming Africa, with no Africans present, launching the Scramble for Africa. By 1914 only Ethiopia and Liberia were independent.'},
+        {n:'Ethiopia (independent)',c:[9,38.7],note:'Defended its independence at Adwa (1896).'},
+        {n:'Liberia (independent)',c:[6.3,-10.8],note:'Founded by formerly enslaved Americans; stayed independent.'}]}
+  },
+  themeOrder:['resources','resistance','spheres','opium','migrationAsia','migrationEuro','infrastructure','berlin'],
+  hint:'Tip: turn on “Resistance to Empire” to see where people fought back. Drag to pan, scroll to zoom.'
+};
+</script>
+<script defer src="theme.js"></script>
+<script src="unit-map-engine.js"></script>
+</body>
+</html>

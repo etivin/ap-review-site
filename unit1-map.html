@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Unit 1: Interactive Global Tapestry Map | AP World History</title>
+<meta name="description" content="Interactive world map of Unit 1 (c. 1200–1450): Song China, Dar al-Islam, South and Southeast Asia, the Americas, Africa, and Europe, with belief systems, cities, and farming innovations."/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="world-basemap.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="unit-map.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+<script>
+/* Unit 1, c. 1200–1450. Coordinates are [lat, lng]; regions are approximate. */
+window.UNIT_MAP = {
+  unit:1, accent:'#7a5500', accentD:'#5c3f00', accentDark:'#e0b552',
+  title:'The Global Tapestry', years:'c. 1200 – 1450',
+  h1:'Tour the World in 1200',
+  intro:'Pick a <strong>region</strong> to load its states, innovations, economy, and beliefs. Then layer on the <strong>spread of belief systems</strong>, the great cities, and the farming innovations that fed them, each &ldquo;spread&rdquo; drawn as a <strong>swooping arrow from where it began</strong>.',
+  center:[22,30], zoom:2,
+  routeHead:'Regions of the World', allBtn:'Show all regions',
+  allTitle:'The Global Tapestry', allSub:'Six regions · c. 1200–1450',
+  allBlurb:'Unit 1 compares how states formed and kept power in every region. Each region is shaded on the map: click one, or pick it above, to load its states, innovations, economy, and beliefs.',
+  sections:{tech:['⚙️','Innovation &amp; Technology'],goods:['📦','Economy &amp; Key Terms'],places:['📍','Key States &amp; Places'],cultural:['🕊️','Belief, Culture &amp; Society']},
+  routes:{
+    song:{
+      name:'Song China', btn:'East Asia (1.1)', short:'Neo-Confucianism · civil service exam · Champa rice', sub:'East Asia · 960–1279',
+      color:'#b8322a', colorDark:'#ff7b6e',
+      blurb:'The Song dynasty used Confucian ideas and an imperial bureaucracy to keep power. A booming, commercialized economy, powered by Champa rice, the Grand Canal, and new technology, made it the richest state in the world.',
+      polys:[[[40,116],[39,119],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,103],[28,103],[31,104],[34,105],[36,108],[39,112]]],
+      places:[
+        {n:'Kaifeng',c:[34.8,114.3],note:'Northern Song capital, a commercial city of about a million people.'},
+        {n:'Hangzhou',c:[30.27,120.15],note:'Southern Song capital after the Jurchen took the north (1127); the largest city in the world.'},
+        {n:'Grand Canal',c:[32.4,119.4],note:'Linked the rice-rich south to the political north, carrying grain, goods, and people.'},
+        {n:'Korea, Japan & Vietnam',c:[37.5,127],note:'Neighbors that adapted Chinese writing, Confucianism, and Buddhism to their own traditions.'}
+      ],
+      tech:[
+        {name:'Champa rice',what:'Fast-ripening, drought-resistant rice from Champa (Vietnam), allowing two harvests a year.',impact:'Fed a population that roughly doubled and freed people to work in cities and trade.'},
+        {name:'Printing, gunpowder & compass',what:'Movable type, gunpowder weapons, and the magnetic compass all developed or spread under the Song.',impact:'Spread learning, changed warfare, and later aided sea trade across Afro-Eurasia.'},
+        {name:'Steel & iron production',what:'Coal-fired furnaces produced iron on a huge scale.',impact:'Made tools, weapons, and a proto-industrial economy.'},
+        {name:'Paper money',what:'The world’s first government-issued paper currency (flying cash).',impact:'Made long-distance commerce easier, but overprinting later caused inflation.'}
+      ],
+      goods:['Civil service exam','Bureaucracy','Porcelain','Silk','Paper money','Proto-industrialization','Tributary system'],
+      cultural:[
+        {t:'Neo-Confucianism',d:'blended Confucian ethics with Buddhist and Daoist ideas; reinforced filial piety and social hierarchy.'},
+        {t:'Civil service exam',d:'officials were chosen by merit in Confucian learning, strengthening the emperor’s bureaucracy.'},
+        {t:'Foot binding',d:'spread among elite women, a sign of growing restrictions on women’s lives.'},
+        {t:'Buddhism adapted',d:'Chan (Zen) and Pure Land Buddhism blended with Chinese culture and spread to Japan and Korea.'}
+      ]
+    },
+    islam:{
+      name:'Dar al-Islam', btn:'Muslim states (1.2)', short:'Abbasids · Seljuks · Mamluks · Delhi Sultanate', sub:'The Islamic world · c. 1200–1450',
+      color:'#1e874b', colorDark:'#4cc985',
+      blurb:'The Abbasid Caliphate fractured into new Muslim states, Turkic Seljuks, Mamluks in Egypt, and the Delhi Sultanate, yet a shared faith, law, and Arabic learning held Dar al-Islam together across three continents.',
+      polys:[
+        [[37,36],[40,44],[39,55],[37,62],[34,68],[29,66],[25,60],[26,56],[29,49],[24,51],[22,59],[17,54],[13,45],[17,42],[24,38],[28,35],[31,34],[34,36]],
+        [[31.5,32],[31,25],[32.5,20],[30.5,19],[33,11],[37,10],[36,0],[35,-6],[30,-10],[26,-6],[28,10],[24,25],[22,31],[24,35],[28,33.5]],
+        [[33,72],[31,77],[28,80],[26,85],[24,88],[22,86],[22,78],[23,70],[27,68],[30,70]]
+      ],
+      places:[
+        {n:'Baghdad',c:[33.31,44.36],note:'Abbasid capital and home of the House of Wisdom; sacked by the Mongols in 1258.'},
+        {n:'Cairo',c:[30.04,31.24],note:'Capital of the Mamluk Sultanate, which stopped the Mongols at Ain Jalut (1260).'},
+        {n:'Delhi',c:[28.61,77.21],note:'Capital of the Delhi Sultanate, Turkic Muslim rulers over a Hindu-majority north India.'},
+        {n:'Mecca',c:[21.42,39.83],note:'Holy city and goal of the hajj, which drew pilgrims and scholars from across the Islamic world.'},
+        {n:'Córdoba & Toledo',c:[39.86,-4.02],note:'Al-Andalus: where Arabic texts were translated into Latin and passed to Europe.'}
+      ],
+      tech:[
+        {name:'House of Wisdom',what:'A Baghdad center where scholars translated and built on Greek, Persian, and Indian learning.',impact:'Preserved classical knowledge and advanced it, later transmitted to Europe.'},
+        {name:'Math & science',what:'Algebra (al-Khwarizmi), the astrolabe, optics, and medicine (Ibn Sina’s Canon).',impact:'Influenced science and navigation for centuries.'},
+        {name:'Trade tools',what:'Banking, checks (sakk), and the dhow and lateen sail for trade.',impact:'Linked Muslim merchants across the Indian Ocean and beyond.'}
+      ],
+      goods:['Caliphate','Sultanate','Sharia','Turkic peoples','Seljuk Empire','Mamluks','Delhi Sultanate'],
+      cultural:[
+        {t:'New Turkic states',d:'Seljuks, Mamluks, and Delhi sultans ruled as military elites while keeping Islamic law and Persian administration.'},
+        {t:'Spread of Islam',d:'through merchants, Sufi missionaries, and conquest, into Africa, India, and Southeast Asia.'},
+        {t:'Sufism',d:'mystical Islam that adapted to local cultures and helped the faith spread.'},
+        {t:'Women',d:'had some rights to property and divorce under sharia, but most lived in patriarchal households.'}
+      ]
+    },
+    southasia:{
+      name:'South & Southeast Asia', btn:'Hindu & Buddhist states (1.3)', short:'Vijayanagara · Khmer · Srivijaya · Majapahit', sub:'Hindu, Buddhist & Muslim states · c. 1200–1450',
+      color:'#d4741c', colorDark:'#f0a35a',
+      blurb:'Religion shaped power across South and Southeast Asia. Hindu and Buddhist kingdoms built temple-states and sea empires, while Islam arrived with the Delhi Sultanate and Indian Ocean merchants.',
+      polys:[
+        [[17,74],[17,80],[13,80.3],[9,78],[8,77.3],[12,75],[15,74]],
+        [[15,100.5],[14.5,107],[11,107],[10.5,104],[13,100.5]],
+        [[5,95.5],[-1,104.5],[-5.8,105.8],[-1,100],[3,97]],
+        [[-6,105.5],[-6.8,114.5],[-8.7,114.5],[-7.8,106]]
+      ],
+      places:[
+        {n:'Vijayanagara',c:[15.33,76.46],note:'Hindu empire in southern India (founded 1336) that resisted the Delhi Sultanate.'},
+        {n:'Angkor Wat',c:[13.41,103.87],note:'Massive Khmer temple, first Hindu and then Buddhist; built with huge water-management systems.'},
+        {n:'Palembang (Srivijaya)',c:[-2.99,104.76],note:'Buddhist sea empire that taxed ships through the Strait of Malacca.'},
+        {n:'Majapahit (Java)',c:[-7.56,112.38],note:'Hindu-Buddhist sea kingdom that controlled much of island Southeast Asia.'},
+        {n:'Rajput kingdoms',c:[26.9,75.8],note:'Hindu warrior kingdoms in northwest India that fought the Delhi Sultanate.'}
+      ],
+      tech:[
+        {name:'Irrigation & reservoirs',what:'The Khmer built canals and reservoirs (barays) around Angkor.',impact:'Supported rice farming and a large population.'},
+        {name:'Sea power',what:'Srivijaya and Majapahit used navies to control straits and ports.',impact:'Turned control of trade routes into wealth and power.'}
+      ],
+      goods:['Bhakti movement','Temple-states','Sea-based empires','Srivijaya','Majapahit','Khmer Empire','Vijayanagara'],
+      cultural:[
+        {t:'Bhakti movement',d:'Hindu devotion to a single god open to all castes and genders; helped Hinduism compete with Islam and Buddhism.'},
+        {t:'Islam arrives',d:'via the Delhi Sultanate in the north and merchants and Sufis along the coasts.'},
+        {t:'Buddhism declines in India',d:'but thrives in Southeast Asia (Theravada) and East Asia.'},
+        {t:'Syncretism',d:'Sikhism later blends Hindu and Muslim ideas; Angkor Wat shifts from Hindu to Buddhist use.'}
+      ]
+    },
+    americas:{
+      name:'The Americas', btn:'Mexica, Inca & more (1.4)', short:'Mexica (Aztec) · Inca · Maya · Cahokia', sub:'State building in the Americas · c. 1200–1450',
+      color:'#7b3fa0', colorDark:'#c39be6',
+      blurb:'Large states rose with no contact with Afro-Eurasia. The Mexica collected tribute from conquered peoples, the Inca demanded labor through the mit’a, and the Mississippian culture built mound cities like Cahokia.',
+      polys:[
+        [[21.5,-99.5],[21,-97.5],[19,-96],[18,-94.5],[16,-93],[15,-92.5],[16.5,-98],[18.5,-101.5],[20,-101]],
+        [[-1,-80.5],[-3,-80],[-8,-79],[-14,-76],[-18,-71],[-24,-70.5],[-33,-71.5],[-35,-71],[-33,-69],[-24,-66],[-17,-65],[-12,-70],[-6,-77],[-1,-77]],
+        [[21.5,-90.5],[21.5,-87],[17,-88],[15.5,-89.5],[16,-91],[18.5,-91.5]],
+        [[40,-91],[38,-87],[35,-85],[32,-87],[32,-92],[36,-92]]
+      ],
+      places:[
+        {n:'Tenochtitlán',c:[19.43,-99.13],note:'Mexica (Aztec) capital on an island in Lake Texcoco, fed by chinampa farms.'},
+        {n:'Cusco',c:[-13.53,-71.97],note:'Inca capital, linked to the empire by thousands of miles of roads.'},
+        {n:'Machu Picchu',c:[-13.16,-72.55],note:'Inca royal estate built with mortarless stonework and farming terraces.'},
+        {n:'Cahokia',c:[38.66,-90.06],note:'Largest Mississippian city, with huge earthen mounds; peaked around 1100–1200.'},
+        {n:'Chaco Canyon',c:[36.06,-107.96],note:'Ancestral Puebloan center of great houses and trade in the Southwest.'},
+        {n:'Mayapan',c:[20.63,-89.46],note:'Late Maya city-state in the Yucatán.'}
+      ],
+      tech:[
+        {name:'Chinampas',what:'Mexica “floating gardens” built up from lake mud.',impact:'Grew enough food to feed a huge capital.'},
+        {name:'Terrace farming & waru waru',what:'Inca terraces on mountainsides and raised fields with irrigation channels.',impact:'Turned the steep Andes into farmland.'},
+        {name:'Inca roads & quipu',what:'A road system with relay runners and knotted-cord records (quipu).',impact:'Let the Inca govern and count a vast empire without writing.'}
+      ],
+      goods:['Tribute','Mit’a labor','Chinampas','Quipu','Mississippian culture','Human sacrifice','Mexica'],
+      cultural:[
+        {t:'Mexica tribute state',d:'conquered peoples paid tribute; human sacrifice reinforced religious and political power.'},
+        {t:'Inca mit’a',d:'subjects owed labor to the state for roads, farms, and armies instead of paying taxes.'},
+        {t:'Sun worship',d:'the Inca emperor was seen as the son of Inti, the sun god.'},
+        {t:'No contact',d:'with Afro-Eurasia: no horses, iron, or wheel for transport, yet complex states anyway.'}
+      ]
+    },
+    africa:{
+      name:'Africa', btn:'Mali, Zimbabwe & more (1.5)', short:'Mali · Great Zimbabwe · Ethiopia · Swahili coast', sub:'State building in Africa · c. 1200–1450',
+      color:'#a0522d', colorDark:'#e09a6e',
+      blurb:'African states grew rich from trade. Mali controlled trans-Saharan gold, Swahili city-states linked the Indian Ocean, Great Zimbabwe traded gold to the coast, and Christian Ethiopia built churches carved from rock.',
+      polys:[
+        [[16,-17],[17,-12],[17,-5],[15,-1],[12,-1],[11,-8],[12.5,-12],[13.5,-16.8]],
+        [[-17,28],[-17,33],[-21,32.5],[-22,29],[-20,27]],
+        [[15,37],[14.5,40],[11,42],[8,40.5],[7,36],[10,35],[13,36]],
+        [[-1,41.5],[-5,39.9],[-9,39.8],[-15,41],[-15,40.4],[-9,39.3],[-5,39.2],[-1,40.9]],
+        [[13.5,6],[13.5,10],[11,10],[11,6.5]]
+      ],
+      places:[
+        {n:'Timbuktu',c:[16.77,-3.01],note:'Mali’s center of trade and Islamic scholarship (Sankore).'},
+        {n:'Niani',c:[11.4,-8.8],note:'Capital of the Mali Empire.'},
+        {n:'Great Zimbabwe',c:[-20.27,30.93],note:'Stone-walled city that traded gold and ivory to the Swahili coast.'},
+        {n:'Kilwa',c:[-8.96,39.51],note:'Wealthy Swahili city-state trading gold, ivory, and slaves across the Indian Ocean.'},
+        {n:'Lalibela',c:[12.03,39.04],note:'Ethiopian churches carved from solid rock, symbols of Christian kingship.'},
+        {n:'Hausa city-states',c:[12,8.5],note:'Kano and other walled trading cities in West Africa.'}
+      ],
+      tech:[
+        {name:'Camel caravans',what:'Camels and saddles let traders cross the Sahara.',impact:'Made trans-Saharan trade in gold and salt possible.'},
+        {name:'Stone building',what:'Great Zimbabwe’s mortarless walls; Lalibela’s rock-cut churches.',impact:'Showed the wealth and power of rulers.'}
+      ],
+      goods:['Gold','Salt','Ivory','Mansa Musa','Swahili','Griots','Kinship (stateless societies)'],
+      cultural:[
+        {t:'Mansa Musa’s hajj (1324)',d:'displayed Mali’s gold and connected West Africa to the Islamic world.'},
+        {t:'Swahili culture',d:'blended Bantu and Arabic language and Islamic and African traditions.'},
+        {t:'Christian Ethiopia',d:'a Solomonic dynasty claimed descent from King Solomon and built churches.'},
+        {t:'Oral tradition',d:'griots preserved history; many societies were organized by kinship, not states.'}
+      ]
+    },
+    europe:{
+      name:'Europe', btn:'Feudal kingdoms (1.6)', short:'Feudalism · Catholic Church · HRE · Byzantium', sub:'Decentralized Europe · c. 1200–1450',
+      color:'#2f5fb3', colorDark:'#7aa2ff',
+      blurb:'Europe was decentralized. Kings shared power with nobles under feudalism and manorialism, the Catholic Church held enormous authority, and the Byzantine Empire carried on in the east until 1453.',
+      polys:[
+        [[55,-3],[54,-0.2],[52.5,1.7],[51,1.3],[50.6,-4],[51.6,-5],[53.4,-4.5]],
+        [[51,2.5],[49,8],[46.2,6],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5]],
+        [[54.5,9],[54,14],[50.5,15],[48.5,16.5],[46.5,13.8],[45.8,13],[44,11],[45.9,7],[47.5,7.5],[49,8],[51,6],[53.4,7]],
+        [[41.2,26],[41.2,29],[41,31],[38,30],[37,28],[38.4,26.5],[40,26.2]]
+      ],
+      places:[
+        {n:'Rome',c:[41.9,12.5],note:'Seat of the pope, head of the Catholic Church.'},
+        {n:'Paris',c:[48.86,2.35],note:'Capital of France and site of one of Europe’s first universities.'},
+        {n:'London',c:[51.5,-0.1],note:'England, where the Magna Carta (1215) limited the king’s power.'},
+        {n:'Venice',c:[45.44,12.33],note:'Merchant republic that grew rich trading with the Islamic world.'},
+        {n:'Constantinople',c:[41.01,28.98],note:'Byzantine capital; fell to the Ottomans in 1453.'}
+      ],
+      tech:[
+        {name:'Three-field system',what:'Rotating crops across three fields, plus the heavy plow.',impact:'Raised food production and population.'},
+        {name:'Universities',what:'Schools in Paris, Oxford, and Bologna using texts translated from Arabic.',impact:'Revived learning that fed the later Renaissance.'}
+      ],
+      goods:['Feudalism','Manorialism','Serfs','Magna Carta','Holy Roman Empire','Crusades','Black Death (1347)'],
+      cultural:[
+        {t:'Catholic Church',d:'unified Western Europe and held great political and economic power.'},
+        {t:'Feudal hierarchy',d:'land for military service; serfs bound to the manor.'},
+        {t:'Crusades',d:'brought Europeans into contact with Islamic learning and trade goods.'},
+        {t:'Monarchs grow stronger',d:'England and France began building more centralized kingdoms by the 1400s.'}
+      ]
+    }
+  },
+  themeHead:'Beliefs, Cities &amp; Innovations',
+  themes:{
+    islamspread:{name:'Spread of Islam', color:'#1e874b', icon:'☪', kind:'spread',
+      note:'Islam spread through conquest, merchants, and Sufi missionaries, carried along trade routes into Africa, South Asia, and Southeast Asia.',
+      origin:{n:'Arabia', c:[23,43]},
+      items:[{n:'→ West Africa (Mali)',c:[14,-6]},{n:'→ East African coast',c:[-6,39.3]},{n:'→ North India (Delhi)',c:[28.6,77.2]},{n:'→ Sumatra & Malacca',c:[3,100]},{n:'→ Anatolia (Seljuks)',c:[39,33]}]},
+    buddhism:{name:'Spread of Buddhism', color:'#c9871b', icon:'☸', kind:'spread',
+      note:'Buddhism began in India and spread along trade routes: Theravada to Southeast Asia, Mahayana to China, Korea, and Japan, where it blended with local beliefs.',
+      origin:{n:'India (origin)', c:[25.3,83]},
+      items:[{n:'Mahayana → China',c:[34,108]},{n:'→ Korea',c:[37.5,127]},{n:'→ Japan',c:[35,135.7]},{n:'Theravada → Southeast Asia',c:[16,101]},{n:'→ Sri Lanka',c:[7.5,80.7]}]},
+    neoconf:{name:'Spread of Neo-Confucianism', color:'#b8322a', icon:'📜', kind:'spread',
+      note:'Neo-Confucian ideas and Chinese writing and bureaucracy spread from Song China to its neighbors, who adapted them to their own cultures.',
+      origin:{n:'Song China', c:[31,116]},
+      items:[{n:'→ Korea (Goryeo)',c:[37.5,127]},{n:'→ Japan',c:[35,135.7]},{n:'→ Vietnam (Dai Viet)',c:[21,105.8]}]},
+    champa:{name:'Champa Rice Spread', color:'#5c8a1e', icon:'🌾', kind:'spread',
+      note:'Fast-ripening Champa rice moved from Champa (central Vietnam) into southern China, allowing two harvests a year and a population boom.',
+      origin:{n:'Champa (Vietnam)', c:[13.8,109]},
+      items:[{n:'→ Fujian',c:[26,118]},{n:'→ Yangzi delta',c:[31,120]}]},
+    cities:{name:'Great Cities', color:'#0f5b5e', icon:'🏙️', kind:'cities',
+      items:[
+        {n:'Hangzhou',c:[30.27,120.15],note:'Southern Song capital; perhaps the largest city in the world.'},
+        {n:'Baghdad',c:[33.31,44.36],note:'Abbasid capital and center of learning until 1258.'},
+        {n:'Cairo',c:[30.04,31.24],note:'Mamluk capital and a hub of trade and scholarship.'},
+        {n:'Delhi',c:[28.61,77.21],note:'Capital of the Delhi Sultanate.'},
+        {n:'Tenochtitlán',c:[19.43,-99.13],note:'Island capital of the Mexica.'},
+        {n:'Cusco',c:[-13.53,-71.97],note:'Inca capital at the center of the road network.'},
+        {n:'Cahokia',c:[38.66,-90.06],note:'Mississippian mound city.'},
+        {n:'Timbuktu',c:[16.77,-3.01],note:'West African center of trade and Islamic learning.'},
+        {n:'Kilwa',c:[-8.96,39.51],note:'Rich Swahili port.'},
+        {n:'Great Zimbabwe',c:[-20.27,30.93],note:'Stone city of southern Africa.'},
+        {n:'Angkor',c:[13.41,103.87],note:'Khmer capital with vast temples and reservoirs.'},
+        {n:'Constantinople',c:[41.01,28.98],note:'Byzantine capital on the Bosporus.'},
+        {n:'Venice',c:[45.44,12.33],note:'Merchant republic of the Mediterranean.'}
+      ]},
+    farming:{name:'Farming Innovations', color:'#6b8e23', icon:'🌱', kind:'labels',
+      items:[
+        {n:'CHINAMPAS',c:[19.3,-99.1],note:'Mexica floating gardens built on Lake Texcoco.'},
+        {n:'TERRACES & WARU WARU',c:[-15.5,-70],note:'Inca terraces and raised fields in the Andes.'},
+        {n:'CHAMPA RICE',c:[25,113],note:'Two harvests a year in Song China.'},
+        {n:'THREE-FIELD SYSTEM',c:[50,10],note:'European crop rotation with the heavy plow.'},
+        {n:'QANATS',c:[32,54],note:'Persian underground irrigation channels.'},
+        {n:'KHMER RESERVOIRS',c:[12.5,104.5],note:'Barays and canals that watered Angkor’s rice fields.'}
+      ]},
+    learning:{name:'Centers of Learning', color:'#5a3d8a', icon:'📚', kind:'labels',
+      items:[
+        {n:'HOUSE OF WISDOM',c:[33.31,44.36],note:'Baghdad: translation and advancement of Greek, Persian, and Indian knowledge.'},
+        {n:'SANKORE (TIMBUKTU)',c:[16.77,-3.01],note:'West African center of Islamic scholarship and manuscripts.'},
+        {n:'TOLEDO TRANSLATORS',c:[39.86,-4.02],note:'Arabic texts translated into Latin and passed into Europe.'},
+        {n:'UNIVERSITIES',c:[48.86,2.35],note:'Paris, Oxford, and Bologna: Europe’s new universities.'},
+        {n:'CIVIL SERVICE EXAM',c:[34.8,114.3],note:'Song China’s Confucian exam system.'}
+      ]},
+    grandcanal:{name:'Grand Canal', color:'#1d4ed8', icon:'〰', kind:'lines',
+      items:[{n:'Grand Canal',label:true,pts:[[30.27,120.15],[31.3,120.6],[32.4,119.4],[33.6,119.0],[34.8,117.3],[36.5,116.5],[38,116.6],[39.9,116.4]],note:'Over 1,000 miles long, it carried southern rice to the north and tied China’s economy together.'}]}
+  },
+  themeOrder:['islamspread','buddhism','neoconf','champa','cities','farming','learning','grandcanal'],
+  hint:'Tip: turn on a “Spread of…” layer to watch a belief system travel. Drag to pan, scroll to zoom.'
+};
+</script>
+<script defer src="theme.js"></script>
+<script src="unit-map-engine.js"></script>
+</body>
+</html>

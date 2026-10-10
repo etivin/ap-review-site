@@ -389,6 +389,19 @@ html[data-theme="dark"] .path-row span{color:#c3cdf2}
 html[data-theme="dark"] .path-row em{color:#8aa9ff}
 html[data-theme="dark"] .path-row:hover{background:var(--sky)}
 @media(max-width:1080px){.path-grid{grid-template-columns:1fr 1fr}.p-skill{grid-column:1/-1}}
+
+/* ── ABOUT: collapsible bio; quotes + syllabus stay out in the open below ── */
+#about{margin-top:44px}
+.about-dd{margin-top:0}
+.about-sum{display:flex;align-items:center;gap:14px}
+.about-sum img{width:56px;height:56px;object-fit:cover;object-position:50% 20%;border:2px solid var(--navy);flex-shrink:0}
+.about-dd summary b{font-size:1.5rem;letter-spacing:-.05em}
+.about-dd .about{border:0;border-top:2px solid var(--navy);box-shadow:none}
+#about > .about-quotes{margin:16px 0 0;border:2px solid var(--navy)}
+html[data-theme="dark"] .about-dd .about{border-top-color:#333e78}
+html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-quotes{border-color:#333e78}
+@media(max-width:820px){#about > .about-quotes{margin:16px 0 0}.about-dd summary{flex-direction:row;align-items:center}.about-dd summary em{padding:9px 11px}}
+@media(max-width:520px){.about-dd summary{flex-direction:column;align-items:flex-start}}
 @media(max-width:700px){.path-grid{grid-template-columns:1fr}.hs-lbl{font-size:1.35rem}.hs-box kbd{display:none}}
 </style>
 <script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
@@ -593,12 +606,8 @@ html[data-theme="dark"] .path-row:hover{background:var(--sky)}
 
   <!-- ABOUT THE TEACHER -->
   <section id="about">
-    <div class="sec-head">
-      <div>
-        <div class="eyebrow">About the teacher</div>
-        <h2>Meet Mr. Tivin</h2>
-      </div>
-    </div>
+    <details class="syl about-dd" id="about-dd">
+      <summary><span class="about-sum"><img src="images/mr-tivin.jpg" alt="" width="56" height="56" loading="lazy"><span><i>About the teacher</i><b>Meet Mr. Tivin</b></span></span><em class="syl-open">Read more &darr;</em><em class="syl-close">Hide &uarr;</em></summary>
     <div class="about">
       <div class="about-side">
         <figure class="about-photo">
@@ -622,10 +631,11 @@ html[data-theme="dark"] .path-row:hover{background:var(--sky)}
           <span><b>Want to meet with me?</b> Send me an email. I am available everyday before school at 6:50 a.m.</span>
         </div>
       </div>
-      <div class="about-quotes">
-        <blockquote>&ldquo;Past events cannot be separated from the living present and retain meaning. The true starting point of history is always some present situation with its problems.&rdquo;<cite>John Dewey</cite></blockquote>
-        <blockquote>&ldquo;If you cannot write well, you cannot think well; if you cannot think well, others will do your thinking for you.&rdquo;<cite>Oscar Wilde</cite></blockquote>
-      </div>
+    </div>
+    </details>
+    <div class="about-quotes">
+      <blockquote>&ldquo;Past events cannot be separated from the living present and retain meaning. The true starting point of history is always some present situation with its problems.&rdquo;<cite>John Dewey</cite></blockquote>
+      <blockquote>&ldquo;If you cannot write well, you cannot think well; if you cannot think well, others will do your thinking for you.&rdquo;<cite>Oscar Wilde</cite></blockquote>
     </div>
     <details class="syl" id="syllabus">
       <summary><span><i>Course syllabus &middot; 2026&ndash;2027</i><b>AP World History: Modern Syllabus</b></span><em class="syl-open">View syllabus &darr;</em><em class="syl-close">Hide syllabus &uarr;</em></summary>
@@ -637,7 +647,7 @@ html[data-theme="dark"] .path-row:hover{background:var(--sky)}
         <a class="button lime" href="syllabus.pdf" download="AP World History Syllabus 2026-27.pdf">Download PDF</a>
       </div>
     </details>
-    <script>/* #syllabus links (site search) open the panel */ (function(){function o(){if(location.hash==='#syllabus'){var d=document.getElementById('syllabus');d.open=true;d.scrollIntoView();}}o();addEventListener('hashchange',o);})();</script>
+    <script>/* #syllabus / #about links (top bar, site search) open their panels */ (function(){var P={'#syllabus':'syllabus','#about':'about-dd'};function o(){var id=P[location.hash];if(id){var d=document.getElementById(id);d.open=true;d.scrollIntoView();}}o();addEventListener('hashchange',o);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="#about"]');if(a)document.getElementById('about-dd').open=true;});})();</script>
   </section>
 
   <p class="foot">Progress is read from this device&rsquo;s local storage and never leaves it. News sources: Associated Press, Reuters, CBS News, Al Jazeera, Ohio Capital Journal, Variety, Oct. 2&ndash;6, 2026.</p>

@@ -338,6 +338,19 @@ html[data-theme="dark"] .wm-dev-btn,
 html[data-theme="dark"] .wm-custom input{background:#141c44;color:#e9eeff;border-color:#333e78}
 html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--navy)}
 
+/* ── COURSE TITLE in the top bar, after the Tivin Teaches lockup ── */
+.bar-left{display:flex;align-items:center;gap:22px;min-width:0}
+.bar-course{color:#fff;font:900 1.05rem/1.15 'Lato',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding-left:22px;border-left:2px solid var(--lime);white-space:nowrap}
+.bar.tivin-shrink .bar-course{font-size:.85rem}
+/* one line on wide screens; two lines on laptops; the menu drops below the logo when space runs out; under the logo on phones */
+@media(max-width:1399px){.bar-course{font-size:.9rem}.bar-course span{display:block}}
+@media(max-width:1180px){
+  .bar{height:auto;flex-direction:column;align-items:flex-start;gap:9px;padding:12px max(18px,4vw)}
+  .links{justify-content:flex-start;gap:9px 14px}
+  .dd-m{left:50%;right:auto;transform:translateX(-50%);min-width:172px;max-width:calc(100vw - 20px)}
+}
+@media(max-width:620px){.bar-left{flex-direction:column;align-items:flex-start;gap:6px}.bar-course{border-left:0;padding-left:0;font-size:.8rem}.bar-course span{display:inline}}
+
 /* ── HERO SEARCH (centered, above the news) ── */
 .hero-search{max-width:820px;margin:0 auto 30px;text-align:center;position:relative;z-index:20}
 .hs-lbl{display:block;font:900 1.6rem/1.1 'Lato',sans-serif;letter-spacing:-.05em;margin:0 0 16px}
@@ -359,7 +372,7 @@ html[data-theme="dark"] .hs-chips button:hover{background:var(--lime);color:var(
 
 /* ── RESOURCE PATHS (one unit / every unit / skills) ── */
 .path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
-.path{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column}
+.path{border:2px solid var(--navy);background:#fff;display:flex;flex-direction:column;min-width:0}
 .path-h{padding:20px 22px 18px;border-bottom:2px solid var(--navy)}
 .p-unit .path-h{background:var(--lime)}
 .p-mix .path-h{background:var(--sky)}
@@ -370,7 +383,7 @@ html[data-theme="dark"] .hs-chips button:hover{background:var(--lime);color:var(
 .path-h h3{font:900 1.4rem/1.05 'Lato',sans-serif;letter-spacing:-.05em;margin:8px 0 0}
 .path-h p{margin:8px 0 0;font-size:.8rem;line-height:1.45}
 .path .unit-picker{margin:12px 0 0;gap:10px}
-.path .unit-picker select{flex:1;min-width:0;padding:9px 10px}
+.path .unit-picker select{flex:1;min-width:0;max-width:100%;padding:9px 10px}
 .path-row{display:grid;grid-template-columns:1fr auto;column-gap:12px;padding:15px 22px;text-decoration:none;color:var(--navy);border-top:1px solid var(--line);transition:background .12s}
 .path-h + .path-row{border-top:0}
 .path-row b{font:900 1.02rem/1.25 'Lato',sans-serif;letter-spacing:-.02em}
@@ -412,7 +425,10 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
 <body>
 
 <header class="bar">
-  <a class="brand" href="./">APWH <b>/</b> MISSION CONTROL</a>
+  <div class="bar-left">
+    <a class="brand" href="./">APWH <b>/</b> MISSION CONTROL</a>
+    <span class="bar-course">AP World History:<span> Modern</span></span>
+  </div>
   <nav class="links">
     <a href="#units">Units</a>
     <div class="dd">

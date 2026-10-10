@@ -67,6 +67,7 @@
     ['Study Timer', 'timer.html', 'A pomodoro countdown for focused study.', 'timer pomodoro focus countdown clock', 'Tool'],
     ['AP Review Resources', 'resources.html', 'Outside review videos, sites, and practice.', 'resources review videos links heimler outside', 'Review'],
     ['Cumulative Review', 'cumulative.html', 'Mixed MCQ practice from every unit.', 'cumulative review all units mixed mcq final exam ap exam', 'Review'],
+    ['Cumulative Flashcards (Flashcard Hub)', 'flashcards.html', 'Every unit\'s flashcards: due cards, new cards, custom study by theme or region.', 'flashcards flash cards hub anki spaced deck terms vocab vocabulary cumulative all units', 'Review'],
     ['Full Course Narrative', 'fullcourse.html', 'The whole course as one story, with fill-in-the-blank review.', 'narrative full course story review overview whole course', 'Review'],
     ['Trade Route Map', 'unit2-map.html', 'Silk Road, Indian Ocean, and Trans-Saharan routes.', 'map trade routes silk road indian ocean trans-saharan unit 2', 'Map'],
     ['Land Empires Map', 'unit3-map.html', 'Ottoman, Safavid, Mughal, Qing, and more.', 'map land empires gunpowder ottoman safavid mughal unit 3', 'Map'],

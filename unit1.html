@@ -305,6 +305,7 @@ button{font-family:inherit;cursor:pointer}
 <script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 <script defer src="theme.js"></script>
 <script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script><script defer src="nav-flyout.js"></script><script defer src="tour.js"></script><script defer src="glossary-data.js"></script><script defer src="glossary.js"></script>
+<script src="flashcard-data.js"></script>
 </head>
 <body>
 
@@ -778,45 +779,7 @@ var TIMELINE = [
   {year:'c. 1400s', title:'Inca &amp; Vijayanagara Peak', desc:'The Inca road-and-mit’a empire and South India’s Hindu Vijayanagara reach their height.', img:'images/tl/u1-tl-8.jpg', alt:'Machu Picchu in the Andes of Peru'}
 ];
 
-var CARDS = [
-  {t:'Civil Service Exam', d:'Merit-based test on Confucian classics used to select Song officials, creating the scholar-gentry and enabling limited social mobility.', topic:'1.1'},
-  {t:'Scholar-gentry', d:'Educated class of Confucian officials who staffed the bureaucracy and became China’s most powerful social group.', topic:'1.1'},
-  {t:'Neo-Confucianism', d:'Revived Confucian philosophy blending ethics with Buddhist and Daoist ideas; reinforced hierarchy and filial piety.', topic:'1.1'},
-  {t:'Champa Rice', d:'Fast-ripening, drought-resistant rice from Vietnam that boosted Song China’s food supply and population.', topic:'1.1'},
-  {t:'Grand Canal', d:'Vast inland waterway linking northern and southern China, integrating internal trade and markets.', topic:'1.1'},
-  {t:'Foot binding', d:'Painful practice among elite Chinese women signaling status and controlling mobility; a marker of Song patriarchy.', topic:'1.1'},
-  {t:'Tributary System', d:'Diplomatic/economic order in which neighboring states acknowledged Chinese superiority with gifts in exchange for trade.', topic:'1.1'},
-  {t:'Abbasid Caliphate', d:'Declining Islamic dynasty centered in Baghdad; its weakening opened the way for Turkic successor states.', topic:'1.2'},
-  {t:'House of Wisdom', d:'Baghdad center of learning that translated and preserved Greek/Latin texts, later fueling Europe’s Renaissance.', topic:'1.2'},
-  {t:'Seljuk Turks', d:'Turkic Muslim people who took political power across much of the Middle East as the Abbasids declined.', topic:'1.2'},
-  {t:'Mamluks', d:'Enslaved-soldier dynasty that ruled Egypt and helped defend the Islamic world (including against the Mongols).', topic:'1.2'},
-  {t:'Delhi Sultanate', d:'Turkic Muslim state ruling northern India (1206–1526), spreading Islam and Indo-Islamic culture.', topic:'1.2'},
-  {t:'Sufism', d:'Mystical branch of Islam whose missionaries spread the faith by adapting to local cultures.', topic:'1.2'},
-  {t:'Jizya', d:'Tax paid by protected non-Muslims (Jews, Christians, Zoroastrians) in place of conversion under Islamic rule.', topic:'1.2'},
-  {t:'Bhakti Movement', d:'Hindu devotional movement stressing personal love of a god; open to all, it countered the appeal of Islam.', topic:'1.3'},
-  {t:'Vijayanagara Empire', d:'Powerful Hindu empire in South India that resisted Muslim expansion from the north.', topic:'1.3'},
-  {t:'Srivijaya', d:'Hindu, navally powerful sea-based kingdom that taxed and controlled Southeast Asian trade routes.', topic:'1.3'},
-  {t:'Majapahit', d:'Buddhist maritime kingdom of Java that dominated regional sea routes after Srivijaya.', topic:'1.3'},
-  {t:'Khmer Empire (Angkor)', d:'Southeast Asian land-based kingdom famous for Angkor Wat/Thom and advanced irrigation blending Hindu and Buddhist culture.', topic:'1.3'},
-  {t:'Urdu', d:'Blended language that emerged from the contact of Persian/Arabic and local Indian tongues under Muslim rule.', topic:'1.3'},
-  {t:'Maya', d:'Mesoamerican civilization of independent theocratic city-states; developed the concept of zero, glyph writing, and a calendar.', topic:'1.4'},
-  {t:'Tenochtitlan', d:'Aztec capital built on Lake Texcoco, sustained by chinampas and a tribute system over conquered provinces.', topic:'1.4'},
-  {t:'Chinampas', d:'Aztec “floating gardens” built on the lake to grow crops and feed a large urban population.', topic:'1.4'},
-  {t:'Mit’a System', d:'Inca mandatory public-labor obligation (roads, terraces, temples) used in place of tribute for imperial control.', topic:'1.4'},
-  {t:'Quipu', d:'Inca system of knotted, colored strings used to record numeric and administrative data.', topic:'1.4'},
-  {t:'Carpa Ñan', d:'Extensive Inca royal road network linking the empire’s four provinces for trade, troops, and communication.', topic:'1.4'},
-  {t:'Mansa Musa', d:'Mali ruler whose extravagant 1324 hajj to Mecca displayed the empire’s gold wealth to the wider world.', topic:'1.5'},
-  {t:'Sundiata', d:'Founder of the Mali Empire who united West African peoples and built its trade-based power.', topic:'1.5'},
-  {t:'Swahili City-States', d:'East African coastal trading cities blending Bantu and Arabic (Swahili) culture, tied into Indian Ocean commerce.', topic:'1.5'},
-  {t:'Great Zimbabwe', d:'Powerful Southern African kingdom known for massive mortar-less stone walls and control of interior trade.', topic:'1.5'},
-  {t:'Griots', d:'West African oral historians and storytellers who preserved history and tradition in societies without writing.', topic:'1.5'},
-  {t:'Feudalism', d:'Decentralized European political system of mutual obligation among kings, lords, knights, and serfs, based on land.', topic:'1.6'},
-  {t:'Manorialism', d:'Self-sufficient economic system in which serfs worked and lived on a noble’s manor.', topic:'1.6'},
-  {t:'Great Schism', d:'1054 split of Christianity into Roman Catholic (West) and Eastern Orthodox (East) churches.', topic:'1.6'},
-  {t:'Black Death', d:'Bubonic plague pandemic (c. 1347–51) that spread along trade routes and helped undermine European feudalism.', topic:'1.6'},
-  {t:'Bourgeoisie', d:'Emerging urban merchant middle class (burghers) in medieval Europe as trade revived.', topic:'1.6'},
-  {t:'Magna Carta', d:'1215 English charter limiting royal power and protecting certain rights, a step toward representative government.', topic:'1.6'}
-];
+var CARDS = FC_DECK(1);  // cards live in flashcard-data.js
 
 
 var BRAIN = {

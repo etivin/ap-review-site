@@ -45,6 +45,12 @@ body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-se
 .section-sub{color:var(--muted);font-size:.95rem;margin-bottom:24px;max-width:640px}
 .cum-why{background:var(--paper);border:1px solid var(--border);border-left:4px solid var(--red);padding:16px 18px;margin-bottom:22px;font-size:.9rem;line-height:1.6;color:var(--mid)}
 .cum-why strong{color:var(--ink)}
+.cum-fc{display:flex;align-items:center;justify-content:space-between;gap:14px 20px;flex-wrap:wrap;background:var(--ink);color:#fff;text-decoration:none;padding:16px 20px;margin:4px 0 18px;box-shadow:var(--shm,0 6px 24px rgba(0,0,0,.13));transition:transform .15s}
+.cum-fc:hover{transform:translateY(-1px)}
+.cum-fc-txt{flex:1;min-width:220px}
+.cum-fc-txt b{display:block;font-size:1.05rem;font-weight:900;letter-spacing:-.01em}
+.cum-fc-txt span{display:block;font-size:.84rem;line-height:1.5;opacity:.75;margin-top:2px}
+.cum-fc-go{font-weight:700;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:#fff;padding:10px 16px;white-space:nowrap}
 .cum-controls{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:16px}
 .cum-controls label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .cum-controls select{padding:8px 12px;border:1px solid var(--border);background:var(--white);font-family:inherit;font-size:.9rem}
@@ -89,6 +95,7 @@ body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-se
     <a href="resources.html" class="nav-item"><span class="nav-dot"></span>Review Resources</a>
     <a href="sbmcq.html" class="nav-item"><span class="nav-dot"></span>Attack the Stimulus MCQ</a>
     <a href="cumulative.html" class="nav-item active"><span class="nav-dot"></span>Cumulative Review</a>
+    <a href="flashcards.html" class="nav-item" style="padding-left:38px;font-size:.84rem"><span class="nav-dot"></span>Cumulative Flashcards</a>
     <a href="fullcourse.html" class="nav-item"><span class="nav-dot"></span>Course Narrative</a>
     <div class="sb-divider"></div>
     <div class="sb-group-label">Units</div>
@@ -116,6 +123,11 @@ body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-se
   <div class="section-label">Full-Course Retrieval</div>
   <h2 class="section-heading">Mixed Questions From Every Unit</h2>
   <p class="section-sub">One quiz that pulls across the whole course, not just the unit you happen to be on. It leans toward the units you haven&rsquo;t retrieved recently, because a little forgetting, then retrieval, is what makes memory stick.</p>
+
+  <a class="cum-fc" href="flashcards.html">
+    <span class="cum-fc-txt"><b>Cumulative Flashcards</b><span>Every unit's terms in one deck list. Study what's due today, mix in a few new cards, or build a custom set by unit, AP theme, or region.</span></span>
+    <span class="cum-fc-go">Open the Flashcard Hub &rarr;</span>
+  </a>
 
   <div class="cum-why">
     This set runs in <strong>Test Mode</strong>: answer everything and rate your confidence first, then reveal your score and calibration at the end, the format research says builds the most durable, exam-ready memory. The mix is <strong>weighted toward stale units</strong> using when you last practiced each one.

@@ -391,6 +391,7 @@ button{font-family:inherit;cursor:pointer}
 <script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 <script defer src="theme.js"></script>
 <script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script><script defer src="nav-flyout.js"></script><script defer src="tour.js"></script><script defer src="glossary-data.js"></script><script defer src="glossary.js"></script>
+<script src="flashcard-data.js"></script>
 </head>
 <body>
 
@@ -1321,44 +1322,7 @@ var TIMELINE = [
   {year:'c. 1400s', title:'Melaka &amp; Swahili Coast Peak', desc:'Maritime trading states thrive by taxing commerce and linking the Indian Ocean world.', img:'images/tl/u2-tl-8.jpg', alt:'Ruins of a stone mosque at Kilwa Kisiwani on the Swahili coast'}
 ];
 
-var CARDS = [
-  {t:'Silk Roads', d:'Network of overland trade routes across Central Asia linking China to the Middle East and Europe; carried luxury goods, religions, and technology.', topic:'2.1'},
-  {t:'Caravanserai', d:'Roadside inns spaced roughly 100 miles apart that gave Silk Road merchants and their camels food, water, and shelter.', topic:'2.1'},
-  {t:'Flying Cash', d:'Chinese system of paper credit that let merchants deposit money in one place and withdraw it elsewhere; inspired the growth of banking.', topic:'2.1'},
-  {t:'Money Economy', d:'Shift toward using currency and credit rather than barter, expanding commerce along the Silk Roads.', topic:'2.1'},
-  {t:'Samarkand', d:'Central Asian oasis city (in modern Uzbekistan) that thrived as a hub of Silk Road trade and cultural exchange.', topic:'2.1'},
-  {t:'Kashgar', d:'Oasis trading city in western China where Silk Road routes converged, rich in water and food for caravans.', topic:'2.1'},
-  {t:'Junk Ship', d:'Large, sturdy Chinese sailing ship used for long-distance trade across East and Southeast Asian waters.', topic:'2.1'},
-  {t:'Genghis Khan', d:'Title (“universal ruler”) taken by Temujin after uniting the Mongol clans; founder of the Mongol Empire.', topic:'2.2'},
-  {t:'Pax Mongolica', d:'The “Mongol Peace”: an era of stability under Mongol rule that secured trade routes and boosted Eurasian exchange.', topic:'2.2'},
-  {t:'Yuan Dynasty', d:'Mongol dynasty that ruled China (1271–1368) under Kublai Khan.', topic:'2.2'},
-  {t:'Il-Khanate', d:'Mongol khanate ruling Persia and the former Islamic heartland.', topic:'2.2'},
-  {t:'Golden Horde', d:'Mongol khanate that ruled Russia, isolating it from Western Europe for centuries.', topic:'2.2'},
-  {t:'Kublai Khan', d:'Grandson of Genghis Khan who founded the Yuan Dynasty and ruled Mongol China.', topic:'2.2'},
-  {t:'White Lotus Society', d:'Chinese rebel movement whose uprisings helped bring down Mongol (Yuan) rule.', topic:'2.2'},
-  {t:'Monsoon Winds', d:'Seasonal wind patterns whose reversal let Indian Ocean sailors plan round-trip voyages.', topic:'2.3'},
-  {t:'Lateen Sail', d:'Triangular sail that let ships sail against the wind, key to Indian Ocean navigation.', topic:'2.3'},
-  {t:'Astrolabe', d:'Instrument (refined by Muslim scholars) used to determine latitude by the stars, aiding sea navigation.', topic:'2.3'},
-  {t:'Stern Rudder', d:'Chinese-invented steering device mounted at the rear of a ship for greater control and stability.', topic:'2.3'},
-  {t:'Diasporic Communities', d:'Settlements of merchants living far from home (often marrying local women), which spread and blended cultures.', topic:'2.3'},
-  {t:'Swahili City-States', d:'East African coastal trading cities blending Bantu and Arabic (Swahili) culture and tied into Indian Ocean commerce.', topic:'2.3'},
-  {t:'Zheng He', d:'Chinese admiral whose massive treasure-fleet voyages (1405–1433) projected Ming power across the Indian Ocean.', topic:'2.3'},
-  {t:'Melaka (Malacca)', d:'Southeast Asian port state that grew wealthy and powerful by controlling and taxing Indian Ocean trade.', topic:'2.3'},
-  {t:'Trans-Saharan Trade', d:'Caravan routes across the Sahara linking West Africa to North Africa and the Mediterranean; moved gold, salt, and enslaved people.', topic:'2.4'},
-  {t:'Camel Saddle', d:'Adaptations (e.g., the Somali saddle) that let camels carry heavy loads across the desert, enabling Saharan caravans.', topic:'2.4'},
-  {t:'Mali Empire', d:'Wealthy West African empire that grew rich taxing the trans-Saharan gold and salt trade.', topic:'2.4'},
-  {t:'Mansa Musa', d:'Mali ruler whose extravagant 1324 hajj to Mecca displayed the empire’s gold wealth to the wider world.', topic:'2.4'},
-  {t:'Sundiata', d:'Founder of the Mali Empire who united West African peoples and built its trade-based power.', topic:'2.4'},
-  {t:'Timbuktu', d:'Malian city that became a famous center of trans-Saharan trade and Islamic learning.', topic:'2.4'},
-  {t:'Neo-Confucianism', d:'Chinese philosophy blending Confucian ethics with Buddhist and Daoist ideas; spread to Korea and Japan.', topic:'2.5'},
-  {t:'Ibn Battuta', d:'Muslim scholar and traveler whose writings record the 14th-century Islamic world from a devout point of view.', topic:'2.5'},
-  {t:'Marco Polo', d:'Venetian traveler whose account of China sparked European interest in Asia’s wealth and cities.', topic:'2.5'},
-  {t:'Margery Kempe', d:'English mystic whose memoir gives a rare firsthand account of a middle-class medieval European woman’s life.', topic:'2.5'},
-  {t:'Champa Rice', d:'Fast-ripening rice that spread from Vietnam to China, driving population growth and urbanization.', topic:'2.6'},
-  {t:'Bubonic Plague', d:'The Black Death; spread by fleas along trade and Mongol routes, killing a third of Europe and weakening feudalism.', topic:'2.6'},
-  {t:'Bananas', d:'Crop that spread to Sub-Saharan Africa, boosting agricultural output and population growth.', topic:'2.6'},
-  {t:'Urbanization', d:'Growth of cities driven by expanded agriculture and trade during the era of intensified networks.', topic:'2.6'}
-];
+var CARDS = FC_DECK(2);  // cards live in flashcard-data.js
 
 
 var BRAIN = {

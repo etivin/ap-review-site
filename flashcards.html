@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Flashcard Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sw:270px;
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --green:#1a6825;--green-bg:#eef7f0;--green-b:#8ec49a;
+  --gold:#7a5500;--gold-bg:#fdf7e8;--gold-b:#d4b84a;
+  --blue:#18336b;--blue-bg:#eef2fb;--blue-b:#c8d6f5;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 24px rgba(0,0,0,.13)
+}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.6;min-height:100vh;display:flex}
+button{font-family:inherit}
+
+/* SIDEBAR (shared shell) */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-weight:700;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-weight:700;font-size:.72rem;margin-top:4px}
+.sb-nav{padding:12px 0;flex:1}
+.sb-group-label{padding:14px 20px 4px;font-weight:700;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none;text-decoration:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(176,0,28,.13)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sb-back{display:block;background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .15s}
+.sb-back:hover{background:var(--red-d)}
+
+.main-wrap{margin-left:var(--sw);flex:1;min-width:0;min-height:100vh;display:flex;flex-direction:column}
+.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 36px;height:66px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.top-bar-title{font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.02em}
+.top-bar-sub{font-weight:700;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
+.top-bar-tag{font-weight:700;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
+.page-content{padding:32px 44px 90px;flex:1;max-width:1180px;width:100%}
+
+.section-label{font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{letter-spacing:-.02em;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;margin-bottom:10px;line-height:1.1}
+.section-sub{color:var(--mid);font-size:.98rem;max-width:820px}
+.hero{border-left:4px solid var(--red);padding:2px 0 2px 22px;margin-bottom:26px}
+
+/* SETTINGS STRIP */
+.fh-settings{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;background:var(--white);border:1px solid var(--border);padding:12px 16px;margin-bottom:20px;box-shadow:var(--sh)}
+.fh-set{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fh-set-label{font-weight:700;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.seg{display:inline-flex;border:1.5px solid var(--border2)}
+.seg button{background:var(--white);color:var(--mid);border:0;padding:6px 11px;font-weight:700;font-size:.66rem;letter-spacing:.04em;cursor:pointer}
+.seg button+button{border-left:1.5px solid var(--border2)}
+.seg button.on{background:var(--ink);color:#fff}
+.fh-check{display:flex;align-items:center;gap:6px;font-weight:700;font-size:.7rem;color:var(--mid);cursor:pointer}
+.fh-check input{accent-color:var(--red);width:15px;height:15px}
+.fh-check.off{opacity:.4;pointer-events:none}
+
+/* TABS */
+.fh-tabs{display:flex;gap:0;box-shadow:inset 0 -2px 0 var(--border);margin-bottom:20px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.fh-tab{background:none;border:0;padding:11px 18px;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.fh-tab.on{color:var(--ink);border-bottom-color:var(--red)}
+.fh-pane{display:none}.fh-pane.on{display:block}
+
+/* DECK LIST */
+.deck-list{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh)}
+.deck-head,.deck-row{display:grid;grid-template-columns:minmax(0,1fr) 64px 64px 150px 112px;align-items:center;gap:10px;padding:0 16px}
+.deck-head{height:38px;border-bottom:1px solid var(--border);font-weight:700;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.deck-head .num{text-align:center}
+.deck-row{min-height:62px;border-bottom:1px solid var(--border);transition:background .12s}
+.deck-row:last-child{border-bottom:0}
+.deck-row:hover{background:var(--paper)}
+.deck-row.parent{background:var(--blue-bg)}
+.deck-row.child .deck-name{padding-left:22px;position:relative}
+.deck-row.child .deck-name::before{content:"";position:absolute;left:6px;top:50%;width:9px;height:1.5px;background:var(--border2)}
+.deck-row.weak{border-top:2px solid var(--border)}
+.deck-row.flash{animation:fhFlash 1.6s ease}
+@keyframes fhFlash{0%,40%{background:var(--gold-bg)}100%{background:transparent}}
+.deck-name b{display:block;font-size:.95rem;font-weight:900;letter-spacing:-.01em;color:var(--ink);line-height:1.25}
+.deck-name small{display:block;font-size:.68rem;color:var(--muted);font-weight:700;letter-spacing:.02em}
+.cnt{text-align:center;font-weight:900;font-size:1rem}
+.cnt.due{color:var(--blue)}.cnt.new{color:var(--green)}.cnt.zero{color:var(--border2);font-weight:700}
+.mastery{display:flex;flex-direction:column;gap:4px}
+.mbar{display:flex;height:7px;background:var(--paper);border:1px solid var(--border);overflow:hidden}
+.mbar i{display:block;height:100%}
+.mbar .m-mas{background:var(--green)}.mbar .m-lrn{background:var(--gold-b)}
+.mlabel{font-size:.6rem;font-weight:700;color:var(--muted);letter-spacing:.03em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;padding:9px 16px;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .13s;text-decoration:none}
+.btn:hover{background:var(--red);border-color:var(--red)}
+.btn.ghost{background:var(--white);color:var(--ink);border-color:var(--border2)}
+.btn.ghost:hover{border-color:var(--red);color:var(--red);background:var(--white)}
+.btn.big{padding:13px 26px;font-size:.74rem}
+.btn:disabled{opacity:.35;cursor:default;background:var(--ink);border-color:var(--ink);color:#fff}
+.deck-row .btn{width:100%;padding:9px 8px}
+.fh-legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:.72rem;color:var(--muted);font-weight:700}
+.fh-legend span b{font-weight:900}
+.fh-legend .lg-due b{color:var(--blue)}.fh-legend .lg-new b{color:var(--green)}
+
+/* CUSTOM STUDY */
+.cs-grid{display:grid;gap:14px}
+.cs-group{background:var(--white);border:1px solid var(--border);padding:14px 16px;box-shadow:var(--sh)}
+.cs-group-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
+.cs-group-title{font-weight:900;font-size:.82rem;letter-spacing:-.005em}
+.cs-group-title small{font-weight:700;font-size:.66rem;color:var(--muted);margin-left:6px}
+.cs-clear{background:none;border:0;color:var(--muted);font-weight:700;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.cs-clear:hover{color:var(--red)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--white);border:1.5px solid var(--border2);color:var(--mid);padding:6px 11px;font-weight:700;font-size:.7rem;cursor:pointer;transition:all .12s;line-height:1.2}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip small{opacity:.6;margin-left:4px;font-weight:700}
+.chip.mode.on{background:var(--red);border-color:var(--red)}
+.cs-bar{position:sticky;bottom:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:var(--ink);color:#fff;padding:14px 18px;margin-top:16px;box-shadow:var(--shm)}
+.cs-count{font-weight:900;font-size:1.05rem}
+.cs-count small{display:block;font-weight:700;font-size:.66rem;opacity:.6;letter-spacing:.03em}
+.cs-bar .btn{background:var(--red);border-color:var(--red)}
+.cs-bar .btn:hover{background:#fff;color:var(--ink);border-color:#fff}
+
+/* BROWSE */
+.br-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.br-tools input,.br-tools select{font-family:inherit;font-weight:700;font-size:.78rem;padding:9px 11px;border:1.5px solid var(--border2);background:var(--white);color:var(--ink)}
+.br-tools input{flex:1;min-width:200px}
+.br-meta{font-size:.7rem;font-weight:700;color:var(--muted);margin-bottom:8px;letter-spacing:.03em}
+.br-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);box-shadow:var(--sh);font-size:.84rem}
+.br-table th{text-align:left;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--border);background:var(--paper)}
+.br-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.br-table tr.br-row{cursor:pointer}
+.br-table tr.br-row:hover td{background:var(--paper)}
+.br-term{font-weight:900}
+.br-unit{white-space:nowrap}
+.br-def td{background:var(--paper);color:var(--mid);font-size:.84rem;line-height:1.55}
+.tag{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.04em;padding:2px 6px;border:1px solid var(--border);color:var(--mid);margin:1px 3px 1px 0;white-space:nowrap;background:var(--white)}
+.tag.th{border-color:var(--blue-b);color:var(--blue);background:var(--blue-bg)}
+.st{display:inline-block;font-size:.6rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;white-space:nowrap}
+.st-new{background:var(--green-bg);color:var(--green)}
+.st-lrn{background:var(--gold-bg);color:var(--gold)}
+.st-mas{background:var(--green);color:#fff}
+.st-due{background:var(--blue-bg);color:var(--blue)}
+.st-again{background:var(--red-bg);color:var(--red)}
+.br-due{font-size:.72rem;color:var(--muted);font-weight:700;white-space:nowrap}
+
+/* STUDY VIEW */
+.study{display:none;max-width:760px;margin:0 auto}
+body.studying .study{display:block}
+body.studying .fh-home{display:none}
+.sv-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.sv-deck{font-weight:900;font-size:1.05rem;letter-spacing:-.01em}
+.sv-deck small{display:block;font-size:.64rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.sv-counts{display:flex;gap:14px;font-weight:900;font-size:.95rem}
+.sv-counts span{display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.sv-counts small{font-size:.52rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sv-counts .c-new{color:var(--green)}.sv-counts .c-again{color:var(--red)}.sv-counts .c-due{color:var(--blue)}
+.sv-prog{height:4px;background:var(--border);margin-bottom:18px}
+.sv-prog i{display:block;height:100%;background:var(--red);transition:width .3s ease}
+.card{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--ink);box-shadow:var(--shm);padding:22px 28px 26px;min-height:300px;display:flex;flex-direction:column}
+.card-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.card-where{font-weight:700;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.card-kind{font-weight:900;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;padding:3px 8px}
+.card-q{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:10px 0}
+.card-q .qlabel,.card-a .qlabel{font-weight:700;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.card-q .term{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:900;letter-spacing:-.02em;line-height:1.15}
+.card-q .defn{font-size:1.08rem;line-height:1.6;color:var(--ink);max-width:600px;margin:0 auto}
+.card-a{display:none;border-top:1.5px dashed var(--border2);margin-top:16px;padding-top:16px;text-align:center}
+.card.revealed .card-a{display:block;animation:fhIn .22s ease}
+@keyframes fhIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card-a .term{font-size:1.6rem;font-weight:900;letter-spacing:-.02em;color:var(--red)}
+.card-a .defn{font-size:1rem;line-height:1.6;color:var(--mid);max-width:600px;margin:0 auto}
+.card-tags{margin-top:12px}
+.type-wrap{margin:16px auto 0;max-width:420px;width:100%}
+.type-wrap input{width:100%;font-family:inherit;font-size:1.05rem;font-weight:700;padding:11px 13px;border:2px solid var(--border2);background:var(--white);color:var(--ink);text-align:center}
+.type-wrap input:focus{outline:none;border-color:var(--ink)}
+.type-res{margin-top:10px;font-weight:900;font-size:.82rem}
+.type-res.ok{color:var(--green)}.type-res.no{color:var(--red)}
+.type-res span{font-weight:700;color:var(--muted)}
+.sv-actions{margin-top:16px}
+.show-btn{width:100%;padding:16px;font-size:.78rem;position:relative;overflow:hidden}
+.show-btn span{position:relative}
+/* think-first timer: the button fills left to right, then unlocks */
+.show-btn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--red);opacity:.35}
+.show-btn.waiting{background:var(--paper);border-color:var(--border2);color:var(--muted);cursor:not-allowed}
+.show-btn.waiting:hover{background:var(--paper);border-color:var(--border2)}
+.show-btn.waiting::before{animation:fhWait var(--wait,10s) linear forwards}
+@keyframes fhWait{to{width:100%}}
+.rate{display:none;grid-template-columns:repeat(3,1fr);gap:8px}
+.card.revealed ~ .sv-actions .show-btn{display:none}
+.card.revealed ~ .sv-actions .rate{display:grid}
+.rbtn{background:var(--white);border:1.5px solid var(--border2);padding:12px 8px;cursor:pointer;text-align:center;transition:all .12s;color:var(--ink)}
+.rbtn b{display:block;font-weight:900;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.rbtn small{display:block;font-size:.68rem;font-weight:700;color:var(--muted);margin-top:3px}
+.rbtn kbd{font-family:inherit;font-size:.56rem;font-weight:700;color:var(--muted);border:1px solid var(--border);padding:0 4px;margin-left:4px}
+.rbtn.r-g{border-top:4px solid var(--red)}.rbtn.r-s{border-top:4px solid var(--gold-b)}.rbtn.r-c{border-top:4px solid var(--green)}
+.rbtn.r-g:hover{background:var(--red-bg);border-color:var(--red)}
+.rbtn.r-s:hover{background:var(--gold-bg);border-color:var(--gold-b)}
+.rbtn.r-c:hover{background:var(--green-bg);border-color:var(--green)}
+.rbtn.hint{box-shadow:0 0 0 3px var(--gold-b)}
+.sv-keys{text-align:center;margin-top:12px;font-size:.66rem;color:var(--muted);font-weight:700;letter-spacing:.03em}
+.sv-keys kbd{font-family:inherit;border:1px solid var(--border2);padding:1px 5px;background:var(--white)}
+
+/* SESSION DONE / EMPTY */
+.sv-done{display:none;text-align:center;background:var(--white);border:1px solid var(--border);border-top:4px solid var(--green);box-shadow:var(--shm);padding:34px 24px}
+.study.finished .sv-done{display:block}
+.study.finished .sv-live{display:none}
+.sv-done h2{font-size:1.7rem;font-weight:900;letter-spacing:-.02em;margin-bottom:6px}
+.sv-done p{color:var(--mid);max-width:520px;margin:0 auto}
+.sv-stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0}
+.sv-stat{min-width:104px;border:1px solid var(--border);padding:12px 10px}
+.sv-stat b{display:block;font-size:1.6rem;font-weight:900;line-height:1.1}
+.sv-stat small{font-size:.56rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sv-done .btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+.empty-note{background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold);padding:12px 16px;font-weight:700;font-size:.8rem;margin-bottom:14px;display:none}
+.empty-note.show{display:block}
+.empty-note button{margin-left:8px}
+
+@media(max-width:900px){
+  body{flex-direction:column}.sidebar{display:none}.main-wrap{margin-left:0}
+  .page-content{padding:22px 16px 60px}.top-bar{padding:0 16px}
+}
+@media(max-width:680px){
+  .deck-head{display:none}
+  .deck-row{grid-template-columns:minmax(0,1fr) 46px 46px;grid-template-areas:"name due new" "mas mas btn";row-gap:6px;padding:12px 14px}
+  .deck-row .deck-name{grid-area:name}.deck-row .cnt.c1{grid-area:due}.deck-row .cnt.c2{grid-area:new}
+  .deck-row .mastery{grid-area:mas}.deck-row .go{grid-area:btn;grid-column:2 / 4}
+  .cnt::after{display:block;font-size:.5rem;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+  .cnt.c1::after{content:"due"}.cnt.c2::after{content:"new"}
+  .br-table .hide-sm{display:none}
+  .card{padding:18px 16px 20px;min-height:260px}
+  .rbtn{padding:11px 4px}.rbtn kbd{display:none}
+  .sv-keys{display:none}
+  .top-bar-tag{display:none}
+}
+</style>
+<link rel="stylesheet" href="mission-theme.css">
+<script src="mc-mode.js?v=20261001"></script>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">Flashcard Hub</div>
+    <div class="sb-sub">Every unit, one deck list</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Navigation</div>
+    <a href="./" class="nav-item"><span class="nav-dot"></span>All Units</a>
+    <a href="brain-sculptor.html" class="nav-item"><span class="nav-dot"></span>How to Study</a>
+    <a href="writing-guide.html" class="nav-item"><span class="nav-dot"></span>How to Write</a>
+    <a href="resources.html" class="nav-item"><span class="nav-dot"></span>Review Resources</a>
+    <a href="sbmcq.html" class="nav-item"><span class="nav-dot"></span>Attack the Stimulus MCQ</a>
+    <a href="cumulative.html" class="nav-item"><span class="nav-dot"></span>Cumulative Review</a>
+    <a href="flashcards.html" class="nav-item active" style="padding-left:38px;font-size:.84rem"><span class="nav-dot"></span>Cumulative Flashcards</a>
+    <a href="fullcourse.html" class="nav-item"><span class="nav-dot"></span>Course Narrative</a>
+    <div class="sb-divider"></div>
+    <div class="sb-group-label">Units</div>
+    <a href="unit1.html" class="nav-item"><span class="nav-dot"></span>Unit 1: The Global Tapestry</a>
+    <a href="unit2.html" class="nav-item"><span class="nav-dot"></span>Unit 2: Networks of Exchange</a>
+    <a href="unit3.html" class="nav-item"><span class="nav-dot"></span>Unit 3: Land-Based Empires</a>
+    <a href="unit4.html" class="nav-item"><span class="nav-dot"></span>Unit 4: Transoceanic Interconnections</a>
+    <a href="unit5.html" class="nav-item"><span class="nav-dot"></span>Unit 5: Revolutions</a>
+    <a href="unit6.html" class="nav-item"><span class="nav-dot"></span>Unit 6: Consequences of Industrialization</a>
+    <a href="unit7.html" class="nav-item"><span class="nav-dot"></span>Unit 7: Global Conflict</a>
+    <a href="unit8.html" class="nav-item"><span class="nav-dot"></span>Unit 8: Cold War &amp; Decolonization</a>
+    <a href="unit9.html" class="nav-item"><span class="nav-dot"></span>Unit 9: Globalization</a>
+  </nav>
+  <div class="sb-footer">
+    <a href="./" class="sb-back">&#8592; Back to All Units</a>
+  </div>
+</aside>
+
+<div class="main-wrap">
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title">Flashcard Hub</div>
+    <div class="top-bar-sub">Due cards first &middot; new cards mixed in &middot; every unit in one place</div>
+  </div>
+  <a class="top-bar-tag" href="cumulative.html" style="text-decoration:none">&larr; Cumulative Review</a>
+</div>
+
+<div class="page-content">
+
+<!-- ══ HOME: decks / custom / browse ══ -->
+<div class="fh-home">
+  <div class="hero">
+    <div class="section-label">Study what's due, not the whole deck</div>
+    <h1 class="section-heading">Flashcard Hub</h1>
+    <p class="section-sub">Each card comes back right before you are likely to forget it. Start with the <strong>Due</strong> number: those are the cards your memory is losing. A few <strong>New</strong> cards get mixed in each day. Rate yourself honestly; that is what sets the schedule.</p>
+  </div>
+
+  <div class="fh-settings">
+    <div class="fh-set">
+      <span class="fh-set-label">Card side</span>
+      <div class="seg" id="set-dir">
+        <button type="button" data-v="fwd">Term &rarr; Definition</button>
+        <button type="button" data-v="rev">Definition &rarr; Term</button>
+      </div>
+    </div>
+    <label class="fh-check" id="set-type-wrap"><input type="checkbox" id="set-type"/> Type the term</label>
+    <div class="fh-set">
+      <span class="fh-set-label">New cards / day</span>
+      <div class="seg" id="set-new">
+        <button type="button" data-v="5">5</button>
+        <button type="button" data-v="10">10</button>
+        <button type="button" data-v="20">20</button>
+        <button type="button" data-v="40">40</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="fh-tabs" role="tablist">
+    <button type="button" class="fh-tab on" data-tab="decks">Decks</button>
+    <button type="button" class="fh-tab" data-tab="custom">Custom Study</button>
+    <button type="button" class="fh-tab" data-tab="browse">Browse Cards</button>
+  </div>
+
+  <div class="fh-pane on" id="pane-decks">
+    <div class="empty-note" id="ahead-note"></div>
+    <div class="deck-list" id="deck-list"></div>
+    <div class="fh-legend">
+      <span class="lg-due"><b>Due</b>: cards scheduled for review today</span>
+      <span class="lg-new"><b>New</b>: unseen cards you can start today</span>
+      <span>Bar: <b style="color:var(--green)">mastered</b> (a week or longer between reviews) and <b style="color:var(--gold)">learning</b></span>
+    </div>
+  </div>
+
+  <div class="fh-pane" id="pane-custom">
+    <p class="section-sub" style="margin-bottom:14px">Build a one-off session from tags. Pick as many as you like: within a group a card can match <em>any</em> choice, and across groups it has to match <em>all</em> of them. Example: Units 3 + 4, theme Economic, region Americas.</p>
+    <div class="cs-grid">
+      <div class="cs-group"><div class="cs-group-head"><div class="cs-group-title">Which cards</div></div><div class="chips" id="cs-mode"></div></div>
+      <div class="cs-group"><div class="cs-group-head"><div class="cs-group-title">Units <small>none picked = all units</small></div><button type="button" class="cs-clear" data-clear="units">Clear</button></div><div class="chips" id="cs-units"></div></div>
+      <div class="cs-group"><div class="cs-group-head"><div class="cs-group-title">AP themes</div><button type="button" class="cs-clear" data-clear="themes">Clear</button></div><div class="chips" id="cs-themes"></div></div>
+      <div class="cs-group"><div class="cs-group-head"><div class="cs-group-title">Regions</div><button type="button" class="cs-clear" data-clear="regions">Clear</button></div><div class="chips" id="cs-regions"></div></div>
+      <div class="cs-group"><div class="cs-group-head"><div class="cs-group-title">Topics <small id="cs-topic-hint">pick a unit to narrow by topic</small></div><button type="button" class="cs-clear" data-clear="topics">Clear</button></div><div class="chips" id="cs-topics"></div></div>
+    </div>
+    <div class="cs-bar">
+      <div class="cs-count" id="cs-count">0 cards<small>match</small></div>
+      <button type="button" class="btn big" id="cs-start">Study these</button>
+    </div>
+  </div>
+
+  <div class="fh-pane" id="pane-browse">
+    <div class="br-tools">
+      <input type="search" id="br-q" placeholder="Search terms and definitions&hellip;" autocomplete="off"/>
+      <select id="br-unit"><option value="">All units</option></select>
+      <select id="br-state">
+        <option value="">Any status</option>
+        <option value="due">Due now</option>
+        <option value="new">New</option>
+        <option value="lrn">Learning</option>
+        <option value="mas">Mastered</option>
+        <option value="weak">Weak (last rated Shaky or Guessing)</option>
+      </select>
+    </div>
+    <div class="br-meta" id="br-meta"></div>
+    <table class="br-table">
+      <thead><tr><th>Term</th><th>Unit</th><th class="hide-sm">Tags</th><th>Status</th><th class="hide-sm">Next review</th></tr></thead>
+      <tbody id="br-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ STUDY SESSION ══ -->
+<div class="study" id="study">
+  <div class="sv-live">
+    <div class="sv-top">
+      <div class="sv-deck" id="sv-deck">Deck<small>Term &rarr; Definition</small></div>
+      <div class="sv-counts">
+        <span class="c-new" id="sv-c-new">0<small>New</small></span>
+        <span class="c-again" id="sv-c-again">0<small>Again</small></span>
+        <span class="c-due" id="sv-c-due">0<small>Due</small></span>
+      </div>
+      <button type="button" class="btn ghost" id="sv-exit">&#8592; Decks</button>
+    </div>
+    <div class="sv-prog"><i id="sv-prog"></i></div>
+    <div class="card" id="sv-card">
+      <div class="card-meta"><span class="card-where" id="sv-where"></span><span class="card-kind" id="sv-kind"></span></div>
+      <div class="card-q" id="sv-q"></div>
+      <div class="card-a" id="sv-a"></div>
+    </div>
+    <div class="sv-actions">
+      <button type="button" class="btn big show-btn" id="sv-show">Show answer</button>
+      <div class="rate">
+        <button type="button" class="rbtn r-g" data-r="guessing"><b>Guessing<kbd>1</kbd></b><small id="iv-g"></small></button>
+        <button type="button" class="rbtn r-s" data-r="shaky"><b>Shaky<kbd>2</kbd></b><small id="iv-s"></small></button>
+        <button type="button" class="rbtn r-c" data-r="confident"><b>Confident<kbd>3</kbd></b><small id="iv-c"></small></button>
+      </div>
+    </div>
+    <div class="sv-keys"><kbd>Space</kbd> show answer &middot; <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> rate &middot; <kbd>Esc</kbd> back to decks</div>
+  </div>
+  <div class="sv-done" id="sv-done"></div>
+</div>
+
+</div>
+</div>
+
+<script src="spaced.js"></script>
+<script src="flashcard-data.js"></script>
+<script src="flashcard-tags.js"></script>
+<script>
+/* Flashcard Hub: Anki-style deck list, daily queue, custom study and card
+   browser over every unit's flashcards. Ratings go through
+   SPACED.recordReview, so the schedule is shared with each unit's own
+   Flashcards tab (same item id: u{unit}_fc_{slug(term)}). The reverse side
+   (Definition -> Term) is its own card with id rv_u{unit}_fc_{slug}, kept
+   outside the u{unit}_ prefix so it does not change unit progress math. */
+(function () {
+  'use strict';
+  var DAY = 86400000;
+  var BOX_DAYS = (window.SPACED && SPACED.boxIntervals) || { 1: 1, 2: 3, 3: 7, 4: 14 };
+  var THEMES = { G: 'Governance', E: 'Economic', S: 'Social', C: 'Cultural', T: 'Technology', N: 'Environment' };
+  var REGIONS = { EA: 'East Asia', SA: 'South Asia', SEA: 'Southeast Asia', ME: 'Middle East', AF: 'Africa', EU: 'Europe', AM: 'Americas', CA: 'Central Asia', GL: 'Global' };
+  var SKEY = 'fcHub_v1';
+
+  /* ---------- small helpers ---------- */
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function slug(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 48); }
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function plural(n, w) { return n + ' ' + w + (n === 1 ? '' : 's'); }
+  function sameDay(a, b) { return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate(); }
+  function daysLabel(d) { return d <= 1 ? 'tomorrow' : 'in ' + d + ' days'; }
+
+  /* ---------- settings (per-viewer convenience only) ---------- */
+  var settings = { dir: 'fwd', type: false, newPerDay: 10, tab: 'decks' };
+  try { var sv = JSON.parse(localStorage.getItem(SKEY) || 'null'); if (sv) for (var k in sv) settings[k] = sv[k]; } catch (e) {}
+  function saveSettings() { try { localStorage.setItem(SKEY, JSON.stringify(settings)); } catch (e) {} }
+
+  /* ---------- the collection ---------- */
+  var ALL = [];
+  (function build() {
+    var data = window.FC_DATA || {}, tags = window.FC_TAGS || {};
+    for (var u in data) {
+      var rows = data[u];
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i], tg = (tags[r[1]] || '').split(' ');
+        ALL.push({
+          unit: +u, topic: r[0], term: r[1], def: r[2], key: 'u' + u + '_fc_' + slug(r[1]),
+          themes: (tg[0] || '').split(''), regions: tg[1] ? tg[1].split(',') : []
+        });
+      }
+    }
+  })();
+  function cardId(c) { return settings.dir === 'rev' ? 'rv_' + c.key : c.key; }
+
+  // One read of the spaced-review store per render (not one per card).
+  var SP = {};
+  function refreshStore() {
+    try { SP = (JSON.parse(localStorage.getItem('apReview_v1') || '{}').spaced) || {}; } catch (e) { SP = {}; }
+  }
+  function itemOf(c) { return SP[cardId(c)] || null; }
+  function stateOf(c, now) {
+    var it = itemOf(c);
+    if (!it || !it.lastReviewed) return 'new';
+    if (it.nextDue && new Date(it.nextDue).getTime() <= now) return 'due';
+    return (it.boxLevel || 0) >= 3 ? 'mas' : 'lrn';
+  }
+  function isWeak(c) {
+    var it = itemOf(c), h = it && it.reviewHistory;
+    if (!h || !h.length) return false;
+    var last = h[h.length - 1];
+    return !last.correct || last.confidence === 'shaky';
+  }
+  // New cards introduced today on this side, across every deck (Anki's daily cap).
+  function newSeenToday() {
+    var n = 0, today = new Date(), pre = settings.dir === 'rev' ? 'rv_' : '';
+    for (var i = 0; i < ALL.length; i++) {
+      var it = SP[pre + ALL[i].key], h = it && it.reviewHistory;
+      if (h && h.length && sameDay(new Date(h[0].date), today)) n++;
+    }
+    return n;
+  }
+  function newLeftToday() { return Math.max(0, settings.newPerDay - newSeenToday()); }
+
+  function deckStats(cards) {
+    var now = Date.now(), s = { due: 0, unseen: 0, lrn: 0, mas: 0, total: cards.length };
+    for (var i = 0; i < cards.length; i++) {
+      var st = stateOf(cards[i], now);
+      if (st === 'due') { s.due++; var b = (itemOf(cards[i]).boxLevel || 0); if (b >= 3) s.mas++; else s.lrn++; }
+      else if (st === 'new') s.unseen++;
+      else s[st]++;
+    }
+    return s;
+  }
+  function unitCards(u) { return ALL.filter(function (c) { return c.unit === u; }); }
+
+  /* ---------- queue building ---------- */
+  function dueSorted(cards) {
+    var now = Date.now();
+    return shuffle(cards.filter(function (c) { return stateOf(c, now) === 'due'; }));
+  }
+  function newInOrder(cards) { return cards.filter(function (c) { return !itemOf(c); }); }
+  // Spread new cards evenly through the due cards so a session never front-loads either.
+  function interleave(due, fresh) {
+    if (!fresh.length) return due.slice();
+    if (!due.length) return fresh.slice();
+    var out = [], step = (due.length + fresh.length) / fresh.length, nextNew = step / 2, di = 0, ni = 0;
+    for (var i = 0; i < due.length + fresh.length; i++) {
+      if (ni < fresh.length && (i >= nextNew || di >= due.length)) { out.push(fresh[ni++]); nextNew += step; }
+      else out.push(due[di++]);
+    }
+    return out;
+  }
+  function dailyQueue(cards) {
+    var due = dueSorted(cards);
+    // Within the daily new cap, take new cards in course order but from mixed topics.
+    var fresh = shuffle(newInOrder(cards).slice(0, Math.max(0, newLeftToday())));
+    return interleave(due, fresh);
+  }
+
+  /* ---------- DECK LIST ---------- */
+  var DECKS = [];
+  function buildDecks() {
+    DECKS = [{ id: 'all', name: 'All Units', sub: 'Cumulative: every unit mixed together', cards: ALL, cls: 'parent' }];
+    var units = window.FC_UNITS || {};
+    for (var u = 1; u <= 9; u++) {
+      DECKS.push({ id: 'u' + u, name: 'Unit ' + u + ': ' + (units[u] || ''), sub: plural(unitCards(u).length, 'card') + (u === 9 ? ' · from the Unit 9 glossary' : ''), cards: unitCards(u), cls: 'child' });
+    }
+  }
+  function deckRow(d, st, newAvail) {
+    var masPct = st.total ? Math.round(100 * st.mas / st.total) : 0, lrnPct = st.total ? Math.round(100 * st.lrn / st.total) : 0;
+    var can = st.due + newAvail > 0;
+    return '<div class="deck-row ' + d.cls + '" data-deck="' + d.id + '">' +
+      '<div class="deck-name"><b>' + esc(d.name) + '</b><small>' + esc(d.sub) + '</small></div>' +
+      '<div class="cnt c1 ' + (st.due ? 'due' : 'zero') + '">' + st.due + '</div>' +
+      '<div class="cnt c2 ' + (newAvail ? 'new' : 'zero') + '">' + newAvail + '</div>' +
+      '<div class="mastery"><div class="mbar"><i class="m-mas" style="width:' + masPct + '%"></i><i class="m-lrn" style="width:' + lrnPct + '%"></i></div>' +
+      '<span class="mlabel">' + masPct + '% mastered · ' + st.unseen + ' unseen</span></div>' +
+      '<div class="go"><button type="button" class="btn' + (can ? '' : ' ghost') + '" data-study="' + d.id + '">' + (can ? 'Study' : 'Study ahead') + '</button></div>' +
+      '</div>';
+  }
+  function renderDecks() {
+    refreshStore();
+    var left = newLeftToday(), html = '<div class="deck-head"><span>Deck</span><span class="num">Due</span><span class="num">New</span><span>Progress</span><span></span></div>';
+    for (var i = 0; i < DECKS.length; i++) {
+      var st = deckStats(DECKS[i].cards);
+      html += deckRow(DECKS[i], st, Math.min(st.unseen, left));
+    }
+    var weak = ALL.filter(isWeak);
+    html += '<div class="deck-row weak" data-deck="weak">' +
+      '<div class="deck-name"><b>Weak cards</b><small>Every card you last rated Shaky or Guessing, any unit</small></div>' +
+      '<div class="cnt c1 ' + (weak.length ? 'due' : 'zero') + '">' + weak.length + '</div><div class="cnt c2 zero">–</div>' +
+      '<div class="mastery"><span class="mlabel">Drill these until they turn Confident</span></div>' +
+      '<div class="go"><button type="button" class="btn' + (weak.length ? '' : ' ghost') + '" data-study="weak"' + (weak.length ? '' : ' disabled') + '>Drill</button></div></div>';
+    $('deck-list').innerHTML = html;
+    var note = $('ahead-note');
+    if (left === 0) { note.innerHTML = 'You have started all ' + settings.newPerDay + ' new cards for today. Nice work. Raise the daily number above, or come back tomorrow.'; note.classList.add('show'); }
+    else note.classList.remove('show');
+  }
+  function deckById(id) {
+    if (id === 'weak') return { id: 'weak', name: 'Weak cards', cards: ALL.filter(isWeak) };
+    for (var i = 0; i < DECKS.length; i++) if (DECKS[i].id === id) return DECKS[i];
+    return null;
+  }
+
+  /* ---------- CUSTOM STUDY ---------- */
+  var cs = { mode: 'daily', units: {}, themes: {}, regions: {}, topics: {} };
+  var CS_MODES = [['daily', 'Due + new'], ['all', 'Every matching card'], ['due', 'Due only'], ['new', 'New only'], ['weak', 'Weak only']];
+  function anyOn(o) { for (var k in o) if (o[k]) return true; return false; }
+  function csMatches() {
+    var u = anyOn(cs.units), th = anyOn(cs.themes), rg = anyOn(cs.regions), tp = anyOn(cs.topics);
+    return ALL.filter(function (c) {
+      if (u && !cs.units[c.unit]) return false;
+      if (tp && !cs.topics[c.topic]) return false;
+      if (th && !c.themes.some(function (t) { return cs.themes[t]; })) return false;
+      if (rg && !c.regions.some(function (r) { return cs.regions[r]; })) return false;
+      return true;
+    });
+  }
+  function csQueue() {
+    var m = csMatches(), now = Date.now();
+    if (cs.mode === 'daily') return interleave(dueSorted(m), shuffle(newInOrder(m).slice(0, 20)));
+    if (cs.mode === 'due') return dueSorted(m);
+    if (cs.mode === 'new') return shuffle(newInOrder(m));
+    if (cs.mode === 'weak') return shuffle(m.filter(isWeak));
+    return shuffle(m.slice());
+  }
+  function chip(group, val, label, count) {
+    var on = group === 'mode' ? cs.mode === val : !!cs[group][val];
+    return '<button type="button" class="chip' + (group === 'mode' ? ' mode' : '') + (on ? ' on' : '') + '" data-g="' + group + '" data-v="' + esc(val) + '">' + esc(label) + (count != null ? '<small>' + count + '</small>' : '') + '</button>';
+  }
+  function renderCustom() {
+    refreshStore();
+    var h = '';
+    for (var i = 0; i < CS_MODES.length; i++) h += chip('mode', CS_MODES[i][0], CS_MODES[i][1]);
+    $('cs-mode').innerHTML = h;
+    h = ''; for (var u = 1; u <= 9; u++) h += chip('units', String(u), 'Unit ' + u, unitCards(u).length);
+    $('cs-units').innerHTML = h;
+    h = ''; for (var t in THEMES) h += chip('themes', t, THEMES[t], ALL.filter(function (c) { return c.themes.indexOf(t) >= 0; }).length);
+    $('cs-themes').innerHTML = h;
+    h = ''; for (var r in REGIONS) h += chip('regions', r, REGIONS[r], ALL.filter(function (c) { return c.regions.indexOf(r) >= 0; }).length);
+    $('cs-regions').innerHTML = h;
+    // Topics only for the picked units (otherwise the list is 70+ chips).
+    var tps = {}, order = [];
+    if (anyOn(cs.units)) ALL.forEach(function (c) { if (cs.units[c.unit] && !tps[c.topic]) { tps[c.topic] = 0; order.push(c.topic); } if (cs.units[c.unit]) tps[c.topic]++; });
+    for (var key in cs.topics) if (!(key in tps)) delete cs.topics[key];
+    order.sort(function (a, b) { var x = a.split('.'), y = b.split('.'); return (x[0] - y[0]) || (x[1] - y[1]); });
+    $('cs-topics').innerHTML = order.map(function (tp) { return chip('topics', tp, tp, tps[tp]); }).join('');
+    $('cs-topic-hint').textContent = order.length ? 'topic numbers from the units you picked' : 'pick a unit to narrow by topic';
+    var q = csQueue(), m = csMatches().length;
+    $('cs-count').innerHTML = plural(q.length, 'card') + ' to study<small>' + m + ' match your tags' + (cs.mode === 'daily' ? ' · due cards plus up to 20 new' : '') + '</small>';
+    $('cs-start').disabled = !q.length;
+  }
+
+  /* ---------- BROWSE ---------- */
+  var brOpen = {};
+  function renderBrowse() {
+    refreshStore();
+    var q = $('br-q').value.trim().toLowerCase(), u = $('br-unit').value, sf = $('br-state').value, now = Date.now();
+    var rows = ALL.filter(function (c) {
+      if (u && c.unit !== +u) return false;
+      if (q && (c.term + ' ' + c.def).toLowerCase().indexOf(q) < 0) return false;
+      if (sf === 'weak') return isWeak(c);
+      if (sf) { var st = stateOf(c, now); if (st !== sf) return false; }
+      return true;
+    });
+    $('br-meta').textContent = plural(rows.length, 'card') + ' · ' + (settings.dir === 'rev' ? 'Definition → Term side' : 'Term → Definition side') + ' · click a row for its definition';
+    var html = '';
+    rows.forEach(function (c) {
+      var st = stateOf(c, now), it = itemOf(c);
+      var lab = { new: ['st-new', 'New'], lrn: ['st-lrn', 'Learning'], mas: ['st-mas', 'Mastered'], due: ['st-due', 'Due'] }[st];
+      var next = '–';
+      if (it && it.nextDue) { var dd = Math.ceil((new Date(it.nextDue).getTime() - now) / DAY); next = dd <= 0 ? 'now' : (dd === 1 ? 'tomorrow' : 'in ' + dd + ' days'); }
+      var tg = c.themes.map(function (t) { return '<span class="tag th">' + THEMES[t] + '</span>'; }).join('') + c.regions.map(function (r) { return '<span class="tag">' + REGIONS[r] + '</span>'; }).join('');
+      html += '<tr class="br-row" data-k="' + c.key + '"><td class="br-term">' + esc(c.term) + '</td><td class="br-unit">' + c.unit + ' · ' + esc(c.topic) + '</td><td class="hide-sm">' + tg + '</td><td><span class="st ' + lab[0] + '">' + lab[1] + '</span>' + (isWeak(c) ? ' <span class="st st-lrn" title="Last rated Shaky or Guessing">Weak</span>' : '') + '</td><td class="hide-sm br-due">' + next + '</td></tr>';
+      if (brOpen[c.key]) html += '<tr class="br-def"><td colspan="5">' + esc(c.def) + '</td></tr>';
+    });
+    $('br-body').innerHTML = html || '<tr><td colspan="5" style="color:var(--muted);font-weight:700">No cards match.</td></tr>';
+  }
+
+  /* ---------- STUDY SESSION ---------- */
+  var S = null;  // current session
+  function startSession(name, queue) {
+    if (!queue.length) return;
+    S = { name: name, queue: queue.slice(), total: queue.length, done: 0, rated: {}, tally: { confident: 0, shaky: 0, guessing: 0 }, again: 0, startMs: Date.now(), cur: null, revealed: false, typed: null };
+    document.body.classList.add('studying');
+    $('study').classList.remove('finished');
+    window.scrollTo(0, 0);
+    nextCard();
+  }
+  function counts() {
+    var n = 0, d = 0, a = 0;
+    S.queue.forEach(function (c) { if (c._again) a++; else if (!itemOf(c)) n++; else d++; });
+    $('sv-c-new').innerHTML = n + '<small>New</small>';
+    $('sv-c-again').innerHTML = a + '<small>Again</small>';
+    $('sv-c-due').innerHTML = d + '<small>Review</small>';
+    $('sv-prog').style.width = Math.round(100 * S.done / Math.max(1, S.done + S.queue.length)) + '%';
+  }
+  function setKind(c) {
+    var k = $('sv-kind');
+    if (c._again) { k.className = 'card-kind st-again'; k.textContent = 'Again'; return; }
+    var isNew = stateOf(c, Date.now()) === 'new';
+    k.className = 'card-kind ' + (isNew ? 'st-new' : 'st-due');
+    k.textContent = isNew ? 'New card' : 'Review';
+  }
+  function tagsHTML(c) {
+    return '<div class="card-tags">' + '<span class="tag">Topic ' + esc(c.topic) + '</span>' + c.themes.map(function (t) { return '<span class="tag th">' + THEMES[t] + '</span>'; }).join('') + c.regions.map(function (r) { return '<span class="tag">' + REGIONS[r] + '</span>'; }).join('') + '</div>';
+  }
+  function nextCard() {
+    refreshStore();
+    if (!S.queue.length) return finish();
+    var c = S.cur = S.queue.shift();
+    S.revealed = false; S.typed = null;
+    var rev = settings.dir === 'rev', typing = rev && settings.type;
+    $('sv-deck').innerHTML = esc(S.name) + '<small>' + (rev ? 'Definition → Term' + (typing ? ' · typing' : '') : 'Term → Definition') + '</small>';
+    $('sv-where').textContent = 'Unit ' + c.unit + ' · ' + c.topic;
+    setKind(c);
+    if (rev) {
+      $('sv-q').innerHTML = '<div class="qlabel">Which term matches?</div><div class="defn">' + esc(c.def) + '</div>' +
+        (typing ? '<div class="type-wrap"><input type="text" id="sv-input" placeholder="Type the term, then Enter" autocomplete="off" spellcheck="false"/><div class="type-res" id="sv-tres"></div></div>' : '');
+      $('sv-a').innerHTML = '<div class="qlabel">Term</div><div class="term">' + esc(c.term) + '</div>' + tagsHTML(c);
+    } else {
+      $('sv-q').innerHTML = '<div class="qlabel">Do you know this term?</div><div class="term">' + esc(c.term) + '</div>';
+      $('sv-a').innerHTML = '<div class="qlabel">Definition</div><div class="defn">' + esc(c.def) + '</div>' + tagsHTML(c);
+    }
+    $('sv-card').classList.remove('revealed');
+    startThinkTimer(typing ? 'Check answer' : 'Show answer');
+    Array.prototype.forEach.call(document.querySelectorAll('.rbtn'), function (b) { b.classList.remove('hint'); });
+    setIntervals(c);
+    counts();
+    var inp = $('sv-input');
+    if (inp) { inp.focus(); inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); reveal(); } }); }
+  }
+  // Show what each button would do, like Anki's interval hints (mirrors spaced.js nextBox).
+  function setIntervals(c) {
+    var it = itemOf(c), b = it ? (it.boxLevel || 0) : 0;
+    if (c._again && S.rated[c.key + settings.dir]) { $('iv-g').textContent = 'see it again soon'; $('iv-s').textContent = 'practice only'; $('iv-c').textContent = 'practice only'; return; }
+    $('iv-g').textContent = 'again this session';
+    $('iv-s').textContent = daysLabel(BOX_DAYS[Math.max(1, Math.min(4, b + 1))]);
+    $('iv-c').textContent = daysLabel(BOX_DAYS[Math.max(1, Math.min(4, b + 2))]);
+  }
+  function norm(s) { return s.toLowerCase().replace(/\(.*?\)/g, '').replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
+  function lev(a, b) {
+    var m = [], i, j;
+    for (i = 0; i <= b.length; i++) m[i] = [i];
+    for (j = 0; j <= a.length; j++) m[0][j] = j;
+    for (i = 1; i <= b.length; i++) for (j = 1; j <= a.length; j++)
+      m[i][j] = Math.min(m[i - 1][j - 1] + (b.charAt(i - 1) === a.charAt(j - 1) ? 0 : 1), m[i][j - 1] + 1, m[i - 1][j] + 1);
+    return m[b.length][a.length];
+  }
+  function checkTyped(input, term) {
+    var a = norm(input), alts = [term].concat(term.split(/\s*\/\s*|\s+vs\.\s+/));
+    if (!a) return false;
+    return alts.some(function (t) { var b = norm(t); return b && (a === b || lev(a, b) <= Math.max(1, Math.floor(b.length / 7))); });
+  }
+  // Think-first timer: the answer stays locked for THINK_SEC so students
+  // actually try to recall before flipping (same idea as the unit tabs' timer).
+  var THINK_SEC = 10, thinkTimer = null;
+  function startThinkTimer(label) {
+    var btn = $('sv-show'), left = THINK_SEC;
+    clearInterval(thinkTimer);
+    S.locked = true;
+    btn.classList.remove('waiting'); void btn.offsetWidth;   // restart the fill animation
+    btn.style.setProperty('--wait', THINK_SEC + 's');
+    btn.classList.add('waiting');
+    btn.innerHTML = '<span>Think first… ' + left + '</span>';
+    thinkTimer = setInterval(function () {
+      left--;
+      if (left > 0) { btn.innerHTML = '<span>Think first… ' + left + '</span>'; return; }
+      clearInterval(thinkTimer);
+      if (!S) return;
+      S.locked = false;
+      btn.classList.remove('waiting');
+      btn.innerHTML = '<span>' + label + '</span>';
+    }, 1000);
+  }
+  function reveal() {
+    if (!S || S.revealed || S.locked) return;
+    S.revealed = true;
+    var inp = $('sv-input');
+    if (inp) {
+      var ok = checkTyped(inp.value, S.cur.term);
+      S.typed = ok;
+      inp.disabled = true;
+      $('sv-tres').className = 'type-res ' + (ok ? 'ok' : 'no');
+      $('sv-tres').innerHTML = inp.value.trim() ? (ok ? '✓ Correct' : '✗ Not quite <span>(you typed “' + esc(inp.value.trim()) + '”)</span>') : '✗ Left blank';
+      // Nudge the honest rating: a miss is a Guessing.
+      document.querySelector('.rbtn[data-r="' + (ok ? 'confident' : 'guessing') + '"]').classList.add('hint');
+    }
+    $('sv-card').classList.add('revealed');
+  }
+  var RATE = { confident: [true, 'confident'], shaky: [true, 'shaky'], guessing: [false, 'guessing'] };
+  function rate(r) {
+    if (!S || !S.revealed) return;
+    var c = S.cur, firstKey = c.key + settings.dir;
+    // Only the FIRST rating in a session moves the schedule; re-shows of a
+    // missed card are same-session practice (Anki's learning step).
+    if (!S.rated[firstKey]) {
+      S.rated[firstKey] = r;
+      S.tally[r]++;
+      if (window.SPACED && SPACED.recordReview) SPACED.recordReview(cardId(c), RATE[r][0], RATE[r][1]);
+    }
+    if (r === 'guessing') {
+      var again = Object.create(c); again._again = true;
+      S.queue.splice(Math.min(S.queue.length, 4), 0, again);
+      S.again++;
+    } else S.done++;
+    nextCard();
+  }
+  function finish() {
+    refreshStore();
+    $('study').classList.add('finished');
+    var reviewed = S.tally.confident + S.tally.shaky + S.tally.guessing, mins = Math.max(1, Math.round((Date.now() - S.startMs) / 60000));
+    var tomorrow = 0, cut = new Date(); cut.setHours(24 + 23, 59, 59, 0);
+    for (var k in SP) if (SP[k].nextDue && new Date(SP[k].nextDue).getTime() <= cut.getTime() && (k.indexOf('_fc_') > 0)) tomorrow++;
+    $('sv-done').innerHTML =
+      '<div class="section-label" style="color:var(--green)">Session complete</div><h2>' + esc(S.name) + ': done for now.</h2>' +
+      '<p>' + plural(reviewed, 'card') + ' rated in about ' + plural(mins, 'minute') + '. Each one is scheduled to come back right before you would forget it.</p>' +
+      '<div class="sv-stats">' +
+        '<div class="sv-stat"><b style="color:var(--green)">' + S.tally.confident + '</b><small>Confident</small></div>' +
+        '<div class="sv-stat"><b style="color:var(--gold)">' + S.tally.shaky + '</b><small>Shaky</small></div>' +
+        '<div class="sv-stat"><b style="color:var(--red)">' + S.tally.guessing + '</b><small>Guessing</small></div>' +
+        '<div class="sv-stat"><b style="color:var(--blue)">' + tomorrow + '</b><small>Due by tomorrow</small></div>' +
+      '</div>' +
+      '<div class="btns"><button type="button" class="btn" id="sv-back">Back to decks</button>' +
+      (S.tally.shaky + S.tally.guessing ? '<button type="button" class="btn ghost" id="sv-weak">Drill the weak ones</button>' : '') + '</div>';
+    var missed = Object.keys(S.rated).filter(function (k) { return S.rated[k] !== 'confident'; });
+    $('sv-back').onclick = exitStudy;
+    if ($('sv-weak')) $('sv-weak').onclick = function () {
+      var keys = {}; missed.forEach(function (k) { keys[k.slice(0, -3)] = 1; });
+      startSession('Weak cards from this session', shuffle(ALL.filter(function (c) { return keys[c.key]; })));
+    };
+  }
+  function exitStudy() {
+    S = null;
+    document.body.classList.remove('studying');
+    renderAll();
+  }
+  // Nothing due and no new cards left: review ahead, lowest retention first.
+  function aheadQueue(cards) {
+    var now = Date.now();
+    return cards.filter(function (c) { return itemOf(c); })
+      .sort(function (a, b) { return SPACED.retention(itemOf(a), now) - SPACED.retention(itemOf(b), now); })
+      .slice(0, 20);
+  }
+  function studyDeck(id) {
+    refreshStore();
+    var d = deckById(id); if (!d) return;
+    if (id === 'weak') return startSession('Weak cards', shuffle(d.cards.slice()));
+    var q = dailyQueue(d.cards);
+    if (!q.length) {
+      q = aheadQueue(d.cards);
+      if (!q.length) q = shuffle(newInOrder(d.cards)).slice(0, 10);   // daily cap hit and nothing studied yet
+      return startSession(d.name + ' · study ahead', q);
+    }
+    startSession(d.name, q);
+  }
+
+  /* ---------- wiring ---------- */
+  function renderSettings() {
+    Array.prototype.forEach.call(document.querySelectorAll('#set-dir button'), function (b) { b.classList.toggle('on', b.dataset.v === settings.dir); });
+    Array.prototype.forEach.call(document.querySelectorAll('#set-new button'), function (b) { b.classList.toggle('on', +b.dataset.v === settings.newPerDay); });
+    $('set-type').checked = !!settings.type;
+    $('set-type-wrap').classList.toggle('off', settings.dir !== 'rev');
+  }
+  function showTab(t) {
+    settings.tab = t; saveSettings();
+    Array.prototype.forEach.call(document.querySelectorAll('.fh-tab'), function (b) { b.classList.toggle('on', b.dataset.tab === t); });
+    Array.prototype.forEach.call(document.querySelectorAll('.fh-pane'), function (p) { p.classList.toggle('on', p.id === 'pane-' + t); });
+    renderAll();
+  }
+  function renderAll() {
+    renderSettings();
+    if (settings.tab === 'custom') renderCustom();
+    else if (settings.tab === 'browse') renderBrowse();
+    else renderDecks();
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('button, tr.br-row');
+    if (!t) return;
+    if (t.closest('#set-dir')) { settings.dir = t.dataset.v; saveSettings(); return renderAll(); }
+    if (t.closest('#set-new')) { settings.newPerDay = +t.dataset.v; saveSettings(); return renderAll(); }
+    if (t.classList.contains('fh-tab')) return showTab(t.dataset.tab);
+    if (t.dataset.study) return studyDeck(t.dataset.study);
+    if (t.classList.contains('chip')) {
+      var g = t.dataset.g, v = t.dataset.v;
+      if (g === 'mode') cs.mode = v; else cs[g][v] = !cs[g][v];
+      return renderCustom();
+    }
+    if (t.classList.contains('cs-clear')) { cs[t.dataset.clear] = {}; return renderCustom(); }
+    if (t.id === 'cs-start') {
+      var label = CS_MODES.filter(function (m) { return m[0] === cs.mode; })[0][1];
+      return startSession('Custom study · ' + label, csQueue());
+    }
+    if (t.classList.contains('br-row')) { brOpen[t.dataset.k] = !brOpen[t.dataset.k]; return renderBrowse(); }
+    if (t.id === 'sv-show') return reveal();
+    if (t.classList.contains('rbtn')) return rate(t.dataset.r);
+    if (t.id === 'sv-exit') return exitStudy();
+  });
+  $('set-type').addEventListener('change', function () { settings.type = this.checked; saveSettings(); });
+  $('br-q').addEventListener('input', renderBrowse);
+  $('br-unit').addEventListener('change', renderBrowse);
+  $('br-state').addEventListener('change', renderBrowse);
+  (function fillUnitSelect() { var h = ''; for (var u = 1; u <= 9; u++) h += '<option value="' + u + '">Unit ' + u + '</option>'; $('br-unit').insertAdjacentHTML('beforeend', h); })();
+
+  document.addEventListener('keydown', function (e) {
+    if (!S || $('study').classList.contains('finished')) return;
+    if (e.target && e.target.id === 'sv-input' && !S.revealed) return;   // let them type
+    if (e.key === 'Escape') { e.preventDefault(); return exitStudy(); }
+    if (!S.revealed && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); return reveal(); }
+    if (S.revealed) {
+      var r = { '1': 'guessing', '2': 'shaky', '3': 'confident' }[e.key];
+      if (r) { e.preventDefault(); rate(r); }
+    }
+  });
+
+  // Ratings made in another tab (e.g. a unit's Flashcards tab) show up on return.
+  window.addEventListener('storage', function (e) { if (e.key === 'apReview_v1' && !S) renderAll(); });
+  window.addEventListener('focus', function () { if (!S) renderAll(); });
+
+  buildDecks();
+  if (settings.tab !== 'decks' && settings.tab !== 'custom' && settings.tab !== 'browse') settings.tab = 'decks';
+  // Deep link from a unit page: flashcards.html#u3 opens the Decks tab with Unit 3 highlighted.
+  var m = (location.hash || '').match(/^#u(\d)$/);
+  if (m) settings.tab = 'decks';
+  showTab(settings.tab);
+  if (m) {
+    var row = document.querySelector('.deck-row[data-deck="u' + m[1] + '"]');
+    if (row) { row.classList.add('flash'); row.scrollIntoView({ block: 'center' }); }
+  }
+})();
+</script>
+</body>
+</html>

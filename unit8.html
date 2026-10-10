@@ -533,6 +533,7 @@ button{font-family:inherit;cursor:pointer}
 <script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 <script defer src="theme.js"></script>
 <script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script><script defer src="nav-flyout.js"></script><script defer src="tour.js"></script><script defer src="glossary-data.js"></script><script defer src="glossary.js"></script>
+<script src="flashcard-data.js"></script>
 </head>
 <body>
 
@@ -724,44 +725,9 @@ button{font-family:inherit;cursor:pointer}
       <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
     </div>
   </div>
-  <script type="application/json" id="u8-cards-data">
-[
-{"t":"Truman Doctrine","d":"1947 U.S. pledge to contain communism by aiding Greece and Turkey with military and economic support.","topic":"8.1"},
-{"t":"Iron Curtain","d":"Term for the ideological and physical divide separating Soviet-controlled Eastern Europe from the West after WWII.","topic":"8.1"},
-{"t":"Yalta Conference","d":"1945 meeting of Allied leaders (Roosevelt, Churchill, Stalin) that shaped the postwar division of Europe.","topic":"8.1"},
-{"t":"Containment","d":"U.S. Cold War strategy aimed at stopping the spread of communism without direct war with the USSR.","topic":"8.1"},
-{"t":"Marshall Plan","d":"U.S. program providing economic aid to rebuild Western Europe and prevent the spread of communism after WWII.","topic":"8.1"},
-{"t":"Superpowers","d":"Term for the U.S. and USSR, whose rival capitalist and communist ideologies dominated global politics after WWII.","topic":"8.2"},
-{"t":"Non-Aligned Movement","d":"Group of nations, including those led by Sukarno and Nkrumah, that refused to formally side with either Cold War bloc.","topic":"8.2"},
-{"t":"Bandung Conference","d":"1955 meeting of African and Asian states that promoted decolonization and independence from Cold War alliances.","topic":"8.2"},
-{"t":"NATO","d":"Military alliance formed by the U.S. and Western allies in 1949 to counter Soviet expansion.","topic":"8.3"},
-{"t":"Warsaw Pact","d":"Military alliance of the USSR and Eastern Bloc states formed in 1955 in response to NATO.","topic":"8.3"},
-{"t":"Proxy War","d":"Conflict in which major powers support opposing sides without direct military confrontation, such as the Korean War or Angolan Civil War.","topic":"8.3"},
-{"t":"Korean War","d":"1950–1953 proxy conflict between communist North Korea (backed by USSR/China) and South Korea (backed by the U.S.).","topic":"8.3"},
-{"t":"Great Leap Forward","d":"Mao Zedong's failed campaign to rapidly industrialize and collectivize China's economy, causing mass famine.","topic":"8.4"},
-{"t":"Chinese Communist Revolution","d":"Mao Zedong-led takeover of China in 1949 following internal tension and Japanese aggression.","topic":"8.4"},
-{"t":"Land Redistribution","d":"Policy used by communist and socialist movements in Africa, Asia, and Latin America to seize and reallocate land and resources.","topic":"8.4"},
-{"t":"Indian National Congress","d":"Nationalist party that led India's independence movement against British colonial rule.","topic":"8.5"},
-{"t":"Negotiated Independence","d":"Process by which colonies like India and the Gold Coast gained independence through political agreement rather than war.","topic":"8.5"},
-{"t":"Armed Struggle for Independence","d":"Path to independence taken by colonies like Algeria, Angola, and Vietnam through violent resistance.","topic":"8.5"},
-{"t":"Muslim League","d":"Political party representing India's Muslim minority that pushed for the creation of a separate state (Pakistan).","topic":"8.5"},
-{"t":"Partition of India","d":"1947 division of British India into India and Pakistan, causing mass displacement and violence.","topic":"8.6"},
-{"t":"Newly Independent States","d":"Nations like Israel, Cambodia, and Pakistan created through the redrawing of colonial boundaries after WWII.","topic":"8.6"},
-{"t":"State-Guided Economic Development","d":"Post-independence strategy where governments (e.g., Nasser in Egypt, Nyerere in Tanzania) took a strong role directing national economies.","topic":"8.6"},
-{"t":"Postcolonial Migration","d":"Movement of former colonial subjects (e.g., South Asians to Britain, Algerians to France) to the imperial metropole after decolonization.","topic":"8.6"},
-{"t":"Nonviolent Resistance","d":"Strategy used by figures like Gandhi, MLK, and Mandela to challenge existing power structures without violence.","topic":"8.7"},
-{"t":"Military-Industrial Complex","d":"Buildup of military and weapons industries that intensified conflict during the Cold War era.","topic":"8.7"},
-{"t":"Perestroika","d":"Gorbachev-era policy of economic restructuring in the USSR during the 1980s.","topic":"8.8"},
-{"t":"Glasnost","d":"Gorbachev-era policy of political openness and transparency in the USSR during the 1980s.","topic":"8.8"},
-{"t":"Soviet-Afghan War","d":"Costly, failed Soviet invasion (1979–1989) that contributed to the USSR's economic weakness and eventual collapse.","topic":"8.8"},
-{"t":"Fall of the Soviet Union","d":"1991 collapse of the USSR resulting from military overextension, economic weakness, and public discontent.","topic":"8.8"}
-]
-  </script>
   <script>
   (function(){
-    var dataEl = document.getElementById('u8-cards-data');
-    if (!dataEl) return;
-    var CARDS = JSON.parse(dataEl.textContent);
+    var CARDS = FC_DECK(8);  // cards live in flashcard-data.js
     var fcDeck = CARDS.slice(), fcIdx = 0, fcFlipped = false;
     var fcTimerInterval = null, fcTimerSec = 15, fcTimerReady = false;
     var FC_TIMER_CIRC = 138.23;

@@ -491,10 +491,8 @@
         for (var t in q) n += (q[t] || []).length;
         if (n) c.mcqTotal = n;
       }
-      // Decks live in different places per unit: global CARDS (1, 2, 7),
-      // global FLASH (6), or a JSON <script id="uN-cards-data"> (3, 4, 5, 8).
-      var deck = window.CARDS || window.FLASH, dataEl = document.getElementById('u' + unit + '-cards-data');
-      if (!(deck && deck.length) && dataEl) { try { deck = JSON.parse(dataEl.textContent); } catch (e2) {} }
+      // Every unit's deck lives in flashcard-data.js (FC_DATA), loaded in the unit page's <head>.
+      var deck = (window.FC_DATA && window.FC_DATA[unit]) || window.CARDS || window.FLASH;
       if (deck && deck.length) c.fcTotal = deck.length;
     } catch (e) {}
     s.components[k] = c; save(s);

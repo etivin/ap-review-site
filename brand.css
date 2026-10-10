@@ -86,6 +86,9 @@ html[data-mc="on"] .nav-item.active .nav-dot{background:var(--lime)!important}
 .tivin-emblem{transition:width .22s ease,height .22s ease,background-size .22s ease,background-position .22s ease,box-shadow .22s ease}
 .tivin-wordmark b,.tivin-wordmark i{transition:font-size .2s ease,margin-top .2s ease}
 .bar.tivin-shrink{min-height:74px}
+/* pinned over a full-height spacer (brand.js pinBars) so the shrink never shifts the page */
+.bar.tivin-pinned{position:fixed!important;top:0;left:0;right:0}
+.tivin-bar-spacer{flex-shrink:0}
 .bar.tivin-shrink .tivin-emblem{--em:58px!important;box-shadow:0 2px 8px rgba(0,0,0,.24)}
 .bar.tivin-shrink .tivin-wordmark b{font-size:1.12rem}
 .bar.tivin-shrink .tivin-wordmark i{font-size:.56rem;margin-top:3px}

@@ -63,9 +63,39 @@
     })();
 
     // Shrink the sticky top bar on scroll; restore it at the very top.
+    pinBars();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     syncBars();
+  }
+
+  // A sticky bar that changes height drags everything below it along mid-scroll:
+  // content lurched ~46px faster than the scroll right at the shrink point.
+  // Instead, pin the bar (position:fixed, see .tivin-pinned in brand.css) over a
+  // spacer that keeps the bar's FULL height, so shrinking only changes the bar
+  // and never moves the page. The spacer is re-measured only while the bar is
+  // full size and not mid-transition, so it never animates itself.
+  function pinBars() {
+    Array.prototype.forEach.call(document.querySelectorAll('.bar'), function (b) {
+      if (b.dataset.tivinPinned || getComputedStyle(b).position !== 'sticky') return;
+      b.dataset.tivinPinned = '1';
+      var sp = document.createElement('div');
+      sp.className = 'tivin-bar-spacer';
+      sp.setAttribute('aria-hidden', 'true');
+      b.parentNode.insertBefore(sp, b);
+      var animating = false;
+      function fit() {
+        if (animating || b.classList.contains('tivin-shrink')) return;
+        sp.style.height = b.offsetHeight + 'px';
+      }
+      b.addEventListener('transitionrun', function (e) { if (e.target === b) animating = true; });
+      b.addEventListener('transitionend', function (e) { if (e.target === b) { animating = false; fit(); } });
+      b.addEventListener('transitioncancel', function (e) { if (e.target === b) { animating = false; fit(); } });
+      fit();
+      b.classList.add('tivin-pinned');
+      if ('ResizeObserver' in window) new ResizeObserver(fit).observe(b);
+      else window.addEventListener('resize', fit);
+    });
   }
 
   // Two thresholds (hysteresis): shrink only past SHRINK_AT, grow back only below

@@ -38,7 +38,8 @@
     5: 'Unit 5: Revolutions',
     6: 'Unit 6: Consequences of Industrialization',
     7: 'Unit 7: Global Conflict',
-    8: 'Unit 8: Cold War &amp; Decolonization'
+    8: 'Unit 8: Cold War &amp; Decolonization',
+    9: 'Unit 9: Globalization'
   };
 
   function esc(s) {
@@ -774,6 +775,51 @@
       why: 'B. European colonialism was justified by the paternalistic claim, the “civilizing mission”: that Africans could not govern themselves. Nkrumah is directly refuting that ideology.',
       trap: 'D (Soviet claims that Africa needed communist leadership) drags in the Cold War, but Nkrumah is answering the colonial argument about African capability, not a Soviet one. Match the exact claim he is pushing back against.'
     }
+    ,
+
+    /* ============ UNIT 9 ============ */
+    {
+      unit: 9, topic: '9.3', type: 'causation', test: 'Unit 9 · Topic 9.3',
+      stim: 'There was once a town in the heart of America where <mark class="hs">all life seemed to live in harmony with its surroundings</mark>. ... Then <mark class="hs">a strange blight crept over the area and everything began to change</mark>.',
+      srcline: 'Rachel Carson, American biologist, Silent Spring, 1962, a book about the effects of pesticides such as DDT',
+      src: [
+        { tag: 'WHEN', since: 'it was published in 1962', therefore: 'it comes as chemical pesticides were spreading fast after WWII' },
+        { tag: 'WHO', since: 'it was written by a biologist', therefore: 'she is warning about damage to nature from a scientific point of view' },
+        { tag: 'WHAT', since: 'it is a best-selling book for the general public, opening with a story', therefore: 'it is meant to alarm ordinary readers and change public opinion' }
+      ],
+      q: 'Carson’s book <mark class="hq">contributed most directly to</mark> which of the following?',
+      options: [
+        'The expansion of Green Revolution farming techniques',
+        'The growth of environmental movements that pressed governments to regulate pesticides and pollution',
+        'The decline of public concern about industrial chemicals',
+        'The end of commercial agriculture in the United States'
+      ],
+      answer: 1, trapIdx: 0,
+      meaning: 'A healthy town is struck by a mysterious "blight." Carson is telling readers that chemicals are poisoning nature. The question asks what her alarm led to: the source is the cause, so find the effect.',
+      why: 'B. Silent Spring helped launch the modern environmental movement, contributing to the first Earth Day (1970) and the U.S. ban on DDT (1972).',
+      trap: 'A (the Green Revolution) is from the same era and also involves farm chemicals, but Carson was criticizing chemical-heavy farming, not causing its spread. Check the direction: the effect has to follow from what the source argues.'
+    },
+    {
+      unit: 9, topic: '9.7', type: 'context', test: 'Unit 9 · Topic 9.7',
+      stim: 'We are a product of 500 years of struggle: first against slavery, then during the War of Independence against Spain led by insurgents, then <mark class="hs">to avoid being absorbed by North American imperialism</mark> ... But today, we say <mark class="hs">ENOUGH IS ENOUGH</mark>.',
+      srcline: 'First Declaration of the Lacandon Jungle, Zapatista Army of National Liberation (EZLN), Chiapas, Mexico, January 1, 1994, the day the North American Free Trade Agreement took effect',
+      src: [
+        { tag: 'WHEN', since: 'it was issued on January 1, 1994, the very day NAFTA took effect', therefore: 'the timing is a protest against the trade deal itself' },
+        { tag: 'WHO', since: 'it was written by an indigenous rebel movement in Mexico’s poorest state', therefore: 'it speaks for poor farmers who expected to lose from free trade' },
+        { tag: 'WHAT', since: 'it is a public declaration of rebellion', therefore: 'it is meant to rally supporters and draw world attention' }
+      ],
+      q: 'The declaration is <mark class="hq">best understood in the context of</mark> which of the following?',
+      options: [
+        'The spread of communist revolutions supported by the Soviet Union',
+        'Resistance to free-market globalization and its effects on poor and indigenous communities',
+        'Mexico’s war of independence against Spain',
+        'The creation of the United Nations after the Second World War'
+      ],
+      answer: 1, trapIdx: 2,
+      meaning: 'A rebel group announces "enough is enough" on the day a free-trade deal begins and complains of being absorbed by North American power. Ask: what bigger situation in 1994 made this rebellion happen?',
+      why: 'B. The Zapatistas rose up against NAFTA and neoliberal reforms they believed would ruin indigenous farmers, part of a wider wave of resistance to globalization in the 1990s.',
+      trap: 'C (the war of independence against Spain) is named right in the passage, but it is history the Zapatistas are remembering, not the backdrop of 1994. A context answer must already be happening when the source was written.'
+    }
   ];
 
   window.SBMCQ_WORKED = WORKED;
@@ -944,7 +990,7 @@
   function renderWalk(el, opts) {
     if (!el) return;
     opts = opts || {};
-    var units = opts.unit ? [opts.unit] : [2, 3, 4, 5, 6, 7, 8];
+    var units = opts.unit ? [opts.unit] : [2, 3, 4, 5, 6, 7, 8, 9];
     var html = '';
     units.forEach(function (u) {
       html += '<section class="walk-group" id="walk-u' + u + '" data-unit="' + u + '">';

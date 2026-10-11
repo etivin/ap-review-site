@@ -22,7 +22,7 @@
       kw: 'world war i world war ii ww1 ww2 great depression fascism holocaust genocide total war russian revolution mexican revolution' },
     { name: 'Cold War & Decolonization', dates: 'c. 1900–present', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'cold war decolonization containment nato warsaw pact non-aligned movement india gandhi mao proxy wars korea vietnam apartheid' },
-    { name: 'Globalization', dates: 'c. 1900–present', tabs: 'guide web writing glossary brain spice games',
+    { name: 'Globalization', dates: 'c. 1900–present', tabs: 'guide mcq walk web writing source visual maps flash glossary brain spice games',
       kw: 'globalization technology green revolution climate change free market un human rights feminism wto nafta pop culture' }
   ];
 

@@ -306,6 +306,7 @@ button{font-family:inherit;cursor:pointer}
 <script defer src="theme.js"></script>
 <script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script><script defer src="nav-flyout.js"></script><script defer src="tour.js"></script><script defer src="glossary-data.js"></script><script defer src="glossary.js"></script>
 <script src="flashcard-data.js"></script>
+<link rel="stylesheet" href="review-games.css">
 </head>
 <body>
 
@@ -811,7 +812,16 @@ button{font-family:inherit;cursor:pointer}
       <p>Clear the true facts, defuse the myths, and prove you know the real correction. Three difficulty levels, three lives, and a Field Notes log of every fix you make.</p>
       <a class="games-play" href="unit1-interrogate.html">&#9654; Play Interrogate</a>
     </div>
+    <div class="pg-hero" style="margin-top:34px">
+      <div class="eyebrow">Review Games</div>
+      <h2>Test Your Knowledge</h2>
+      <p>Choose a game mode to review Unit 1 with your class or on your own.</p>
+    </div>
+    <div id="review-games"></div>
   </div>
+  <script src="review-games-data.js"></script>
+  <script src="review-games.js"></script>
+  <script>APWH_GAMES.mount(document.getElementById('review-games'), GAME_DATA[1]);</script>
 </div>
 
 </div><!-- /main-wrap -->

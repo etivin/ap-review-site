@@ -1,8 +1,8 @@
 /* flashcard-data.js: THE flashcard database. Every unit's Flashcards tab
-   (unit1-8.html, via FC_DECK below) and the Flashcard Hub (flashcards.html)
+   (unit1-9.html, via FC_DECK below) and the Flashcard Hub (flashcards.html)
    read their cards from here, so add, fix, or remove a card in this file
    and it changes everywhere. Rows are [topic, term, definition].
-   Unit 9 has no flashcard tab; its deck mirrors the Unit 9 glossary.
+   Unit 9's deck mirrors the Unit 9 glossary.
    A card's spaced-review id is u{unit}_fc_{slug(term)}, so renaming a term
    starts that card fresh (its old ratings stay under the old name). */
 window.FC_UNITS = {
@@ -361,7 +361,7 @@ window.FC_DATA = {
 };
 
 /* A unit page's deck in the shape its flashcard code expects:
-   FC_DECK(n)          -> [{t: term, d: definition, topic}]   (units 1-5, 7, 8)
+   FC_DECK(n)          -> [{t: term, d: definition, topic}]   (units 1-5, 7-9)
    FC_DECK(n, 'flash') -> [{t: topic, term, def}]             (unit 6's FLASH) */
 window.FC_DECK = function (unit, shape) {
   return (window.FC_DATA[unit] || []).map(function (r) {

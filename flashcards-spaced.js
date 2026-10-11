@@ -7,9 +7,9 @@
      • a CONFIDENT / SHAKY / GUESSING self-rate that fires SPACED.recordReview
 
    Handles both flashcard layouts on the site:
-     • standard: flip el #fc-card,       container #card-area   (units 1-5,7,8)
+     • standard: flip el #fc-card,       container #card-area   (units 1-5,7-9)
      • unit6: flip el #fc-card-inner,  container #fc-scene
-   Pages with no flashcards (unit9) are skipped automatically.
+   Pages with no flashcards are skipped automatically.
 
    Flashcard recall maps onto the shared (correct, confidence) model:
      CONFIDENT -> (correct, 'confident')   box +2: knew it cold

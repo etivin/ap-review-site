@@ -89,7 +89,7 @@
                function (c) { return !c.dataset.choice; }); } },
     // Speed Quiz: finished all questions with at least half right (no idling through).
     { id: 'speedquiz', sel: '#sq-final', finished: function (el) {
-        var m = txt('sq-final-correct').match(/(\d+)\s*\/\s*(\d+)/);
+        var m = txt('sq-final-correct').match(/(\d+)\s*(?:\/|of)\s*(\d+)/);  // "7 / 15" or "7 of 15"
         return shown(el) && m && +m[1] * 2 >= +m[2]; } },
     // Timeline Builder: wrong picks never advance, so reaching the result means every event was placed.
     { id: 'timeline', sel: '#tl-result', finished: shown },

@@ -392,6 +392,7 @@ button{font-family:inherit;cursor:pointer}
 <script defer src="theme.js"></script>
 <script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script><script defer src="nav-flyout.js"></script><script defer src="tour.js"></script><script defer src="glossary-data.js"></script><script defer src="glossary.js"></script>
 <script src="flashcard-data.js"></script>
+<link rel="stylesheet" href="review-games.css">
 </head>
 <body>
 
@@ -915,6 +916,17 @@ button{font-family:inherit;cursor:pointer}
       <button type="button" id="ng-replay" style="padding:12px 24px;background:var(--red);color:#fff;border:none;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Play Again</button>
     </div>
   </div>
+  <div class="inner" style="padding-top:0">
+    <div class="pg-hero" style="margin-top:10px">
+      <div class="eyebrow">Review Games</div>
+      <h2>More Review Games</h2>
+      <p>Choose a game mode to review Unit 2 with your class or on your own.</p>
+    </div>
+    <div id="review-games"></div>
+  </div>
+  <script src="review-games-data.js"></script>
+  <script src="review-games.js"></script>
+  <script>APWH_GAMES.mount(document.getElementById('review-games'), GAME_DATA[2]);</script>
   <script type="application/json" id="ng-data">
 [
 {"left":"Rising demand for Silk Road luxury goods","right":"Growth of caravanserai and new forms of credit like Chinese flying cash"},

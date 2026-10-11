@@ -790,10 +790,10 @@
       ],
       q: 'Carson’s book <mark class="hq">contributed most directly to</mark> which of the following?',
       options: [
-        'The expansion of Green Revolution farming techniques',
-        'The growth of environmental movements that pressed governments to regulate pesticides and pollution',
-        'The decline of public concern about industrial chemicals',
-        'The end of commercial agriculture in the United States'
+        'The expansion of Green Revolution farming techniques that relied on chemical pesticides',
+        'The growth of environmental movements pressing governments to regulate pollution',
+        'The decline of public concern about industrial chemicals in the food supply',
+        'The end of commercial agriculture in the United States and a shift to small farms'
       ],
       answer: 1, trapIdx: 0,
       meaning: 'A healthy town is struck by a mysterious "blight." Carson is telling readers that chemicals are poisoning nature. The question asks what her alarm led to: the source is the cause, so find the effect.',
@@ -811,10 +811,10 @@
       ],
       q: 'The declaration is <mark class="hq">best understood in the context of</mark> which of the following?',
       options: [
-        'The spread of communist revolutions supported by the Soviet Union',
-        'Resistance to free-market globalization and its effects on poor and indigenous communities',
-        'Mexico’s war of independence against Spain',
-        'The creation of the United Nations after the Second World War'
+        'The spread of communist revolutions in Latin America supported by the Soviet Union',
+        'Resistance to free-market globalization and its effects on indigenous communities',
+        'Mexico’s war of independence against Spain and the end of colonial rule in 1821',
+        'The creation of the United Nations and its agencies after the Second World War'
       ],
       answer: 1, trapIdx: 2,
       meaning: 'A rebel group announces "enough is enough" on the day a free-trade deal begins and complains of being absorbed by North American power. Ask: what bigger situation in 1994 made this rebellion happen?',
@@ -835,10 +835,10 @@
       ],
       q: 'Ibn Battuta’s description of Mali was <mark class="hq">most likely shaped by his</mark>',
       options: [
-        'goal of persuading European merchants to invest in Mali',
+        'goal of persuading European merchants to invest in Mali’s gold trade',
         'training as a Muslim scholar who valued justice under Islamic law',
-        'loyalty to the Mongol khans who sponsored his travels',
-        'desire to convert the people of Mali to Christianity'
+        'loyalty to the Mongol khans who had sponsored his long travels',
+        'desire to convert the people of Mali from Islam to Christianity'
       ],
       answer: 1, trapIdx: 0,
       meaning: 'A traveler praises Mali as just and safe. The question asks about point of view: who is this author, and why would he notice and praise exactly these things?',
@@ -856,10 +856,10 @@
       ],
       q: 'The growth of Tenochtitlan described in the passage was <mark class="hq">made possible mainly by</mark>',
       options: [
-        'horses and wheat introduced by Spanish settlers',
-        'trade with Song China across the Pacific',
-        'intensive chinampa farming and tribute collected from conquered peoples',
-        'the Inca road system connecting Tenochtitlan to the Andes'
+        'horses and wheat introduced to the Valley of Mexico by Spanish settlers',
+        'regular trade with Song China across the Pacific in silk and porcelain',
+        'intensive chinampa farming and tribute from conquered peoples',
+        'the Inca road system connecting Tenochtitlan to the cities of the Andes'
       ],
       answer: 2, trapIdx: 0,
       meaning: 'A giant city sits on a lake. The question asks what made it possible to feed and supply that many people.',

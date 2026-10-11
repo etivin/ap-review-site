@@ -481,7 +481,7 @@ button{font-family:inherit;cursor:pointer}
       <div class="tl-label">Unit 8 at a Glance</div>
       <h2 class="tl-heading">The Story of the Cold War &amp; Decolonization</h2>
       <p class="tl-sub">Fourteen turning points from 1945 to 1991, scroll to explore.</p>
-      <div class="tl-list" id="tl-list"></div>
+      <div class="tl-list" id="tl-list" data-unit="8"></div>
     </div>
   </section>
 
@@ -855,120 +855,6 @@ document.addEventListener('DOMContentLoaded', function() {
   })();
 
 
-  /* TIMELINE */
-  document.getElementById('scroll-timeline-btn').addEventListener('click', function() {
-    document.getElementById('timeline-section').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  var TIMELINE = [
-    {
-      year: '1945', title: 'End of World War II, Cold War Begins',
-      topic: 'Topic 8.1: Cold War Origins',
-      desc: 'WWII ends with US and Soviet forces meeting in Europe. Two superpowers with incompatible ideologies, democracy/capitalism vs. communism: dominate a devastated world. The wartime alliance collapses almost immediately.',
-      img: 'images/tl/u8-tl-1.jpg', alt: 'Allied forces meet at the Elbe River, 1945'
-    },
-    {
-      year: '1947', title: 'Truman Doctrine & Marshall Plan',
-      topic: 'Topic 8.1: Containment Strategy',
-      desc: 'Truman pledges US support for "free peoples" resisting subjugation: formalizing containment. The Marshall Plan pumps $13 billion into rebuilding Western Europe, binding it to the American-led order.',
-      img: 'images/tl/u8-tl-2.jpg', alt: 'President Truman addressing Congress, 1947'
-    },
-    {
-      year: '1949', title: 'NATO Founded & China Goes Communist',
-      topic: 'Topic 8.3: Cold War Alliances',
-      desc: 'NATO creates the Western military alliance (Article 5). Simultaneously, Mao Zedong proclaims the People\'s Republic of China, the "loss of China" shocks American policymakers and intensifies Cold War anxiety.',
-      img: 'images/tl/u8-tl-3.jpg', alt: 'Mao Zedong proclaims the PRC, Beijing, October 1949'
-    },
-    {
-      year: '1950–53', title: 'Korean War: Cold War Goes Hot',
-      topic: 'Topic 8.4: Spread of Communism',
-      desc: 'North Korea invades South Korea. US-led UN forces intervene; China sends troops. The first "hot" proxy war of the Cold War kills 4 million people and ends in stalemate at the 38th parallel.',
-      img: 'images/tl/u8-tl-4.jpg', alt: 'US Marines at the Chosin Reservoir, Korea, 1950'
-    },
-    {
-      year: '1955', title: 'Bandung Conference: Non-Aligned Movement',
-      topic: 'Topic 8.2: Cold War Bipolarity Challenged',
-      desc: '29 Asian and African nations meet in Bandung, Indonesia. Led by Sukarno, Nehru, and Nkrumah, they reject Cold War alignment and found the Non-Aligned Movement, the Global South asserts its independence.',
-      img: 'images/tl/u8-tl-5.jpg', alt: 'Leaders at the Bandung Conference, 1955'
-    },
-    {
-      year: '1957', title: 'Sputnik & Ghana Independence',
-      topic: 'Topic 8.1 / 8.5: Technology & Decolonization',
-      desc: 'The USSR launches Sputnik: the first satellite: shocking America and launching the Space Race. The same year, Ghana becomes the first sub-Saharan African nation to gain independence, inspiring a continent.',
-      img: 'images/tl/u8-tl-6.jpg', alt: 'Sputnik 1 satellite and Kwame Nkrumah'
-    },
-    {
-      year: '1960', title: 'Year of Africa: 17 Nations Independent',
-      topic: 'Topic 8.5: Decolonization Wave',
-      desc: '1960 alone produces 17 new African nations as French and British colonial empires rapidly withdraw. Across the continent, independence movements that began with Ghana in 1957 reach full momentum.',
-      img: 'images/tl/u8-tl-7.jpg', alt: 'African independence celebrations, 1960'
-    },
-    {
-      year: '1962', title: 'Cuban Missile Crisis',
-      topic: 'Topic 8.3: Nuclear Brinkmanship',
-      desc: 'Soviet missiles discovered in Cuba. Thirteen days of nuclear brinkmanship bring the world to the edge of annihilation. Kennedy and Khrushchev negotiate: missiles removed, US pledges not to invade Cuba.',
-      img: 'images/tl/u8-tl-8.jpg', alt: 'US Navy blockade ship, Cuban Missile Crisis, 1962'
-    },
-    {
-      year: '1968', title: 'Prague Spring Crushed',
-      topic: 'Topic 8.7: Resistance to Established Order',
-      desc: 'Czechoslovakian leader Alexander Dubček launches "socialism with a human face." Soviet tanks roll in and crush the reform movement. The Brezhnev Doctrine declares Soviet right to intervene in socialist states.',
-      img: 'images/tl/u8-tl-9.jpg', alt: 'Soviet tanks in Prague, August 1968'
-    },
-    {
-      year: '1975', title: 'Vietnam Falls & Angola Proxy War',
-      topic: 'Topic 8.4: Cold War in Asia & Africa',
-      desc: 'Saigon falls: Vietnam unifies under communism after 20 years of war. Simultaneously, Cuba and South Africa fight a proxy war in Angola over its independence from Portugal, killing thousands.',
-      img: 'images/tl/u8-tl-10.jpg', alt: 'Helicopter evacuation of Saigon, April 1975'
-    },
-    {
-      year: '1979', title: 'Soviet Invasion of Afghanistan',
-      topic: 'Topic 8.8: Cold War Decline',
-      desc: 'The USSR invades Afghanistan to prop up a communist government. The decade-long war becomes the Soviet "Vietnam": draining resources, killing 15,000 Soviet soldiers, and devastating Cold War prestige.',
-      img: 'images/tl/u8-tl-11.jpg', alt: 'Soviet troops in Afghanistan, 1979'
-    },
-    {
-      year: '1989', title: 'Fall of the Berlin Wall',
-      topic: 'Topic 8.8: Soviet Collapse',
-      desc: 'East Germans pour through the Berlin Wall as communist governments fall across Eastern Europe. Poland, Hungary, Czechoslovakia, Romania, Bulgaria, the Soviet bloc dissolves in a cascade of revolutions.',
-      img: 'images/tl/u8-tl-12.jpg', alt: 'Crowds celebrate atop the Berlin Wall, November 1989'
-    },
-    {
-      year: '1991', title: 'Soviet Union Dissolves',
-      topic: 'Topic 8.8: End of the Cold War',
-      desc: 'Gorbachev\'s glasnost and perestroika fail to save the USSR. On December 25, 1991, Gorbachev resigns and the Soviet flag is lowered for the last time. 15 independent nations emerge. The Cold War is over.',
-      img: 'images/tl/u8-tl-13.jpg', alt: 'Soviet flag lowered over the Kremlin, December 1991'
-    }
-  ];
-
-  var tlList = document.getElementById('tl-list');
-  if (tlList) {
-    var tlHTML = '';
-    TIMELINE.forEach(function(item, i) {
-      var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
-      tlHTML +=
-        '<div class="tl-item ' + side + '">' +
-          '<div class="tl-img-wrap">' +
-            '<img src="' + item.img + '" alt="' + item.alt + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' +
-            '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>' +
-          '</div>' +
-          '<div class="tl-spine"><div class="tl-dot"></div></div>' +
-          '<div class="tl-content">' +
-            '<div class="tl-year-badge">' + item.year + '</div>' +
-            '<div class="tl-topic-tag">' + item.topic + '</div>' +
-            '<h3 class="tl-title">' + item.title + '</h3>' +
-            '<p class="tl-desc">' + item.desc + '</p>' +
-          '</div>' +
-        '</div>';
-    });
-    tlList.innerHTML = tlHTML;
-    var tlObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    tlList.querySelectorAll('.tl-item').forEach(function(el) { tlObs.observe(el); });
-  }
 
 
 
@@ -1008,6 +894,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="visual-sources.js"></script>
 <script src="spice-data.js"></script>
 <script src="spice.js"></script>
+<script src="timeline-data.js"></script>
+<script src="timeline.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

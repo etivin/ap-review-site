@@ -654,7 +654,7 @@ img{display:block;max-width:100%}
       <div class="tl-label">Unit 7 at a Glance</div>
       <h2 class="tl-heading">The Story of Global Conflict</h2>
       <p class="tl-sub">Nine turning points that reshaped the world, scroll to explore.</p>
-      <div class="tl-list" id="tl-list"></div>
+      <div class="tl-list" id="tl-list" data-unit="7"></div>
     </div>
   </section>
 
@@ -1108,80 +1108,6 @@ img{display:block;max-width:100%}
 // All content data. No inline handlers. Loaded before apwh-app.js
 
 
-var TIMELINE = [
-  {
-    "year": "1914",
-    "title": "World War I Begins",
-    "topic": "Topic 7.2: Causes of WWI",
-    "desc": "The assassination of Archduke Franz Ferdinand in Sarajevo sets off a chain reaction of alliance obligations. Within months, Europe's great powers are locked in industrial-scale slaughter. The Western Front collapses into the hell of trenches and poison gas.",
-    "img": "https://assets.editorial.aetnd.com/uploads/2009/10/4-battle-of-the-somme.jpg?width=2048&height=400&crop=2:1&quality=75",
-    "alt": "British soldiers in trenches at the Somme, 1916"
-  },
-  {
-    "year": "1917",
-    "title": "Russian Revolution",
-    "topic": "Topic 7.3: Total War",
-    "desc": "Russia's catastrophic wartime losses: millions dead, cities starving, create exactly the conditions Durnovo had warned of. The Tsar falls in February; the Bolsheviks seize power in October. The world's first communist state is born from the wreckage of total war.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Red_Army_celebration_1917.jpg/600px-Red_Army_celebration_1917.jpg",
-    "alt": "Russian Revolution 1917"
-  },
-  {
-    "year": "1919",
-    "title": "Treaty of Versailles",
-    "topic": "Topic 7.2: WWI Consequences",
-    "desc": "Germany is forced to accept the War Guilt Clause, pay ruinous reparations, and surrender its colonial empire. The Dutch newspaper Algemeen Handelsblad calls it 'economic bondage.' The humiliation plants the seeds of fascism. Wilson's Fourteen Points lie in ruins.",
-    "img": "https://cdn.britannica.com/38/135138-050-90F54D2B/Dignitaries-Hall-of-Mirrors-France-Palace-Versailles-June-28-1919.jpg",
-    "alt": "Signing of the Treaty of Versailles 1919"
-  },
-  {
-    "year": "1929",
-    "title": "The Great Depression",
-    "topic": "Topic 7.4: Interwar Economy",
-    "desc": "The U.S. stock market collapses in October. Within four years, American GDP falls 27%, unemployment hits 25%, and world trade collapses by half. Democratic governments scramble. Keynesian economics emerges. Desperate populations turn toward authoritarian solutions.",
-    "img": "https://truepublica.org.uk/wp-content/uploads/2020/06/Screenshot-2020-06-01-at-10.55.35.png",
-    "alt": "Depression era soup kitchen Chicago 1931"
-  },
-  {
-    "year": "1930",
-    "title": "Gandhi's Salt March",
-    "topic": "Topic 7.5: Resistance & Nationalism",
-    "desc": "Gandhi leads 240 miles to the sea to make salt in defiance of British colonial law. The Salt March galvanizes India's independence movement and becomes one of history's defining acts of nonviolent civil disobedience, watched by the entire world.",
-    "img": "https://www.gandhiforchildren.org/wp-content/uploads/2024/03/MG-Salt-March-1024x576.jpeg",
-    "alt": "Gandhi during the Salt March March 1930"
-  },
-  {
-    "year": "1933",
-    "title": "Hitler Becomes Chancellor",
-    "topic": "Topic 7.6: Rise of Fascism",
-    "desc": "Economic desperation and Versailles resentment deliver Hitler to power. Germany begins systematic rearmament. The stab-in-the-back legend targets Jews and communists. Western democracies, exhausted from WWI, choose appeasement over confrontation.",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Bundesarchiv_Bild_183-S62600%2C_Adolf_Hitler.jpg/450px-Bundesarchiv_Bild_183-S62600%2C_Adolf_Hitler.jpg",
-    "alt": "Adolf Hitler 1933"
-  },
-  {
-    "year": "1938",
-    "title": "Munich Agreement",
-    "topic": "Topic 7.6: Appeasement",
-    "desc": "Chamberlain hands Hitler the Sudetenland at Munich, sacrificing Czechoslovakia without consulting it. He returns declaring 'peace for our time.' Churchill calls it a total defeat. Six months later, Hitler seizes the rest of Czechoslovakia. Appeasement has failed.",
-    "img": "https://www.worldatlas.com/r/w1200-q80/upload/6d/8d/9d/bundesarchiv-bild-146-1990-048-29a-adolf-hitler-retouched-01.jpg",
-    "alt": "Leaders at the Munich Conference 1938"
-  },
-  {
-    "year": "1941–45",
-    "title": "The Holocaust",
-    "topic": "Topic 7.7: Mass Atrocities",
-    "desc": "Nazi Germany industrializes murder. Gas chambers, crematoria, deportation networks, approximately 6 million Jews and 6 million others killed. David Olère, inmate in Auschwitz, paints the unthinkable from memory after liberation. The world confronts a new word: genocide.",
-    "img": "https://static01.nyt.com/images/2015/02/08/sunday-review/08LICHTBLAU/08LICHTBLAU-master1050.jpg",
-    "alt": "Entrance gate to Auschwitz I concentration camp"
-  },
-  {
-    "year": "1945",
-    "title": "Atomic Bombs & WWII Ends",
-    "topic": "Topic 7.6: Total War Culmination",
-    "desc": "The United States drops atomic bombs on Hiroshima and Nagasaki in August 1945, killing approximately 200,000 people. Japan surrenders. WWII ends: but the world has changed forever. Cities can now be erased in a moment. The age of nuclear deterrence begins.",
-    "img": "https://th.bing.com/th/id/R.7dbdf43f55bd6bdf059ae223e55e9e18?rik=FNeY0%2bJGjjL50A&pid=ImgRaw&r=0",
-    "alt": "Mushroom cloud over Nagasaki August 1945"
-  }
-];
 
 
 
@@ -1236,109 +1162,6 @@ document.addEventListener('DOMContentLoaded', function () {
     onScroll();
   })();
 
-  document.getElementById('scroll-timeline-btn').addEventListener('click', function(){
-    var tl = document.getElementById('timeline-section');
-    if (tl) tl.scrollIntoView({ behavior: 'smooth' });
-  });
-
-  /* ── TIMELINE ─────────────────────────────────────────── */
-  var TIMELINE = [
-    {
-      year: '1914', title: 'World War I Begins',
-      topic: 'Topic 7.2: Causes of WWI',
-      desc: 'The assassination of Archduke Franz Ferdinand in Sarajevo sets off a chain reaction of alliance obligations. Within months, Europe\'s great powers are locked in industrial-scale slaughter on the Western Front.',
-      img: 'images/tl/u7-tl-1.jpg',
-      alt: 'British soldiers in trenches at the Somme, 1916'
-    },
-    {
-      year: '1917', title: 'Russian Revolution',
-      topic: 'Topic 7.3: Total War',
-      desc: 'Russia\'s catastrophic wartime losses: millions dead, cities starving, create exactly the conditions Durnovo warned of. The Tsar falls in February; the Bolsheviks seize power in October.',
-      img: 'images/tl/u7-tl-2.jpg',
-      alt: 'Russian Provisional Government, 1917',
-      pos: 'top center'
-    },
-    {
-      year: '1919', title: 'Treaty of Versailles',
-      topic: 'Topic 7.2: WWI Consequences',
-      desc: 'Germany is forced to accept the War Guilt Clause, pay ruinous reparations, and surrender its colonial empire. The Algemeen Handelsblad calls it "economic bondage." Wilson\'s Fourteen Points lie in ruins.',
-      img: 'images/tl/u7-tl-3.jpg',
-      alt: 'Signing of the Treaty of Versailles, Hall of Mirrors, 1919'
-    },
-    {
-      year: '1929', title: 'The Great Depression',
-      topic: 'Topic 7.4: Interwar Economy',
-      desc: 'The U.S. stock market collapses in October. Within four years, American GDP falls 27%, unemployment hits 25%, and world trade collapses by half. Desperate populations turn toward authoritarian solutions.',
-      img: 'images/tl/u7-tl-4.jpg',
-      alt: 'Men queued outside a Depression-era soup kitchen in Chicago, 1931'
-    },
-    {
-      year: '1930', title: "Gandhi's Salt March",
-      topic: 'Topic 7.5: Resistance & Nationalism',
-      desc: 'Gandhi leads 240 miles to the sea to make salt in defiance of British colonial law. The Salt March galvanizes India\'s independence movement and becomes one of history\'s defining acts of nonviolent civil disobedience.',
-      img: 'images/tl/u7-tl-5.jpg',
-      alt: 'Mahatma Gandhi during the Salt March, March 1930'
-    },
-    {
-      year: '1933', title: 'Hitler Becomes Chancellor',
-      topic: 'Topic 7.6: Rise of Fascism',
-      desc: 'Economic desperation and Versailles resentment deliver Hitler to power. Germany begins systematic rearmament. Western democracies, exhausted from WWI, choose appeasement over confrontation.',
-      img: 'images/tl/u7-tl-6.jpg',
-      alt: 'Adolf Hitler, 1933',
-      pos: 'top center'
-    },
-    {
-      year: '1938', title: 'Munich Agreement',
-      topic: 'Topic 7.6: Appeasement',
-      desc: 'Chamberlain hands Hitler the Sudetenland at Munich. He returns declaring "peace for our time." Churchill calls it a total defeat. Six months later, Hitler seizes the rest of Czechoslovakia. Appeasement has failed.',
-      img: 'images/tl/u7-tl-7.jpg',
-      alt: 'Leaders at the Munich Agreement, September 1938'
-    },
-    {
-      year: '1941–45', title: 'The Holocaust',
-      topic: 'Topic 7.7: Mass Atrocities',
-      desc: 'Nazi Germany industrializes murder. Gas chambers, crematoria, deportation networks, approximately 6 million Jews and 6 million others killed. David Olère paints the unthinkable from memory after liberation.',
-      img: 'images/tl/u7-tl-8.jpg',
-      alt: 'Entrance gate to Auschwitz I concentration camp'
-    },
-    {
-      year: '1945', title: 'Atomic Bomb & WWII Ends',
-      topic: 'Topic 7.6: Total War Culmination',
-      desc: 'The United States drops atomic bombs on Hiroshima and Nagasaki, killing approximately 200,000 people. Japan surrenders. WWII ends: but the world has changed forever. The nuclear age begins.',
-      img: 'images/tl/u7-tl-9.jpg',
-      alt: 'Mushroom cloud over Nagasaki, August 9, 1945'
-    }
-  ];
-
-  var tlList = document.getElementById('tl-list');
-  if (tlList) {
-    var tlHTML = '';
-    TIMELINE.forEach(function(item, i) {
-      var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
-      tlHTML +=
-        '<div class="tl-item ' + side + '">' +
-          '<div class="tl-img-wrap">' +
-            '<img src="' + item.img + '" alt="' + item.alt + '" style="object-position:' + (item.pos||'center') + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' +
-            '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>' +
-          '</div>' +
-          '<div class="tl-spine"><div class="tl-dot"></div></div>' +
-          '<div class="tl-content">' +
-            '<div class="tl-year-badge">' + item.year + '</div>' +
-            '<div class="tl-topic-tag">' + item.topic + '</div>' +
-            '<h3 class="tl-title">' + item.title + '</h3>' +
-            '<p class="tl-desc">' + item.desc + '</p>' +
-          '</div>' +
-        '</div>';
-    });
-    tlList.innerHTML = tlHTML;
-
-    var obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    tlList.querySelectorAll('.tl-item').forEach(function(el){ obs.observe(el); });
-  }
 
 
   /* ── WRITING: LOCAL RUBRIC GRADER ───────────────────── */
@@ -2396,6 +2219,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="visual-sources.js"></script>
 <script src="spice-data.js"></script>
 <script src="spice.js"></script>
+<script src="timeline-data.js"></script>
+<script src="timeline.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

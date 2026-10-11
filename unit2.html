@@ -516,7 +516,7 @@ button{font-family:inherit;cursor:pointer}
       <div class="tl-label">Unit 2 at a Glance</div>
       <h2 class="tl-heading">The Age of Connection</h2>
       <p class="tl-sub">Key moments in the intensifying trade networks of 1200–1450.</p>
-      <div class="tl-list" id="tl-list"></div>
+      <div class="tl-list" id="tl-list" data-unit="2"></div>
     </div>
   </section>
 </div><!-- /pg-home -->
@@ -799,35 +799,11 @@ button{font-family:inherit;cursor:pointer}
 </div><!-- /main-wrap -->
 
 <script>
-/* ══ DATA ══════════════════════════════════════════════════ */
-
-var TIMELINE = [
-  {year:'c. 1200', title:'Silk Roads Revive', desc:'New and reviving empires plus commercial innovations (caravanserai, flying cash) intensify overland Eurasian trade.', img:'images/tl/u2-tl-1.jpg', alt:'A camel resting beside a ruined caravanserai on the ancient Silk Road in Iran'},
-  {year:'1206', title:'Genghis Khan Unites the Mongols', desc:'Temujin is proclaimed Genghis Khan and launches the conquests that build history’s largest land empire.', img:'images/tl/u2-tl-2.jpg', alt:'Portrait of Genghis Khan, Yuan-era album'},
-  {year:'1271–1368', title:'Yuan Dynasty in China', desc:'Kublai Khan rules China; the Mongol khanates secure the Pax Mongolica across Eurasia.', img:'images/tl/u2-tl-3.jpg', alt:'Portrait of Kublai Khan, Yuan-era album'},
-  {year:'1324', title:'Mansa Musa’s Hajj', desc:'Mali’s ruler crosses the Sahara to Mecca, showering gold and displaying West Africa’s trade wealth.', img:'images/tl/u1-tl-5.jpg', alt:'Mansa Musa holding gold, from the Catalan Atlas of 1375'},
-  {year:'1325–1354', title:'Ibn Battuta’s Travels', desc:'The Muslim scholar journeys across Afro-Eurasia, leaving a vivid record of the connected world.', img:'images/tl/u2-tl-5.jpg', alt:'Ibn Battuta in Egypt, 19th-century engraving'},
-  {year:'1347–1351', title:'The Black Death', desc:'Bubonic plague spreads along trade and Mongol routes, killing a third of Europe and weakening feudalism.', img:'images/u2-vis-3.jpg', alt:'Burying plague victims at Tournai, 1349'},
-  {year:'1405–1433', title:'Zheng He’s Voyages', desc:'China’s treasure fleets project power and trade across the Indian Ocean as far as East Africa.', img:'images/tl/u2-tl-7.jpg', alt:'Tribute giraffe brought to the Ming court during Zheng He’s voyages'},
-  {year:'c. 1400s', title:'Melaka &amp; Swahili Coast Peak', desc:'Maritime trading states thrive by taxing commerce and linking the Indian Ocean world.', img:'images/tl/u2-tl-8.jpg', alt:'Ruins of a stone mosque at Kilwa Kisiwani on the Swahili coast'}
-];
 
 
 
 
 
-/* ══ TIMELINE ══════════════════════════════════════════════ */
-(function(){
-  var el=document.getElementById('tl-list'); if(!el)return;
-  el.innerHTML=TIMELINE.map(function(it,i){
-    var side=(i%2===0)?'tl-left':'tl-right';
-    return '<div class="tl-item '+side+'"><div class="tl-img-wrap"><img src="'+it.img+'" alt="'+it.alt+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="tl-img-fallback" style="display:none">'+it.year+'<br/>'+it.title+'</div></div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><span class="tl-year-badge">'+it.year+'</span><div class="tl-title">'+it.title+'</div><div class="tl-desc">'+it.desc+'</div></div></div>';
-  }).join('');
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); } });
-  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-  el.querySelectorAll('.tl-item').forEach(function(n){ obs.observe(n); });
-})();
 
 
 /* ══ SCORE ═════════════════════════════════════════════════ */
@@ -869,6 +845,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 <script src="visual-sources.js"></script>
 <script src="spice-data.js"></script>
 <script src="spice.js"></script>
+<script src="timeline-data.js"></script>
+<script src="timeline.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

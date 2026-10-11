@@ -471,7 +471,7 @@ button{font-family:inherit;cursor:pointer}
       <div class="tl-label">Unit 9 at a Glance</div>
       <h2 class="tl-heading">The Globalized World</h2>
       <p class="tl-sub">Twelve turning points from 1944 to 2020, scroll to explore.</p>
-      <div class="tl-list" id="tl-list"></div>
+      <div class="tl-list" id="tl-list" data-unit="9"></div>
     </div>
   </section>
 
@@ -1063,38 +1063,6 @@ button{font-family:inherit;cursor:pointer}
 
 <script>
 
-/* ── TIMELINE ── */
-document.getElementById('scroll-timeline-btn').addEventListener('click', function(){
-  var tl = document.getElementById('timeline-section');
-  if (tl) tl.scrollIntoView({ behavior: 'smooth' });
-});
-var TIMELINE = [
-  { year:'1944', title:'Bretton Woods: New Economic Order', topic:'Topic 9.6: International Institutions', desc:'Representatives of 44 Allied nations meet in Bretton Woods, New Hampshire, and create the World Bank and IMF, with the US dollar as the world\'s reserve currency. The system establishes US economic dominance and the framework for postwar economic globalization.', img:'images/tl/u9-tl-1.jpg', alt:'The Mount Washington Hotel at Bretton Woods, New Hampshire, site of the 1944 conference' },
-  { year:'1945', title:'United Nations Founded', topic:'Topic 9.6: International Institutions', desc:'The UN Charter is signed in San Francisco by 51 nations, creating a framework for international peace and security. The Security Council gives veto power to the five major victors, embedding great-power inequality into the new international order from the very start.', img:'images/tl/u9-tl-2.jpg', alt:'United Nations flag' },
-  { year:'1955', title:'Bandung Conference: Global South Speaks', topic:'Topic 9.7: Resistance to Established Order', desc:'29 Asian and African nations gather in Bandung, Indonesia to chart a path independent of both the US and Soviet blocs. The conference launches the Non-Aligned Movement, asserting that formerly colonized peoples have the right to determine their own economic and political futures.', img:'images/tl/u9-tl-3.jpg', alt:'Leaders at the Bandung Conference, 1955' },
-  { year:'1973', title:'OPEC Oil Embargo', topic:'Topic 9.2: Global Economic Development', desc:'Arab members of OPEC embargo oil exports to the US and Western Europe in response to support for Israel in the Yom Kippur War. Oil prices quadruple; stagflation hits Western economies. The embargo demonstrates the power of resource-rich developing nations and the vulnerabilities of globalized energy systems.', img:'images/tl/u9-tl-4.jpg', alt:'Graph of inflation-adjusted oil prices, 1950–2000, marking the 1973 oil embargo' },
-  { year:'1978', title:'China\'s Reform and Opening Up', topic:'Topic 9.2: Economic Globalization', desc:'Deng Xiaoping launches China\'s "Reform and Opening Up": introducing market mechanisms, special economic zones, and foreign investment into the world\'s most populous communist state. Over the next 40 years, 800 million Chinese are lifted out of poverty in the fastest economic transformation in history.', img:'images/tl/u9-tl-5.jpg', alt:'Deng Xiaoping meeting President Carter, 1979', pos:'top center' },
-  { year:'1989', title:'Fall of the Berlin Wall', topic:'Topic 9.7: End of Cold War', desc:'East German authorities open the Berlin Wall on November 9, 1989. Within hours, crowds tear it down. The moment symbolizes the collapse of Soviet-style communism across Eastern Europe, revolutions in Poland, Hungary, Czechoslovakia, and Romania follow within months.', img:'images/tl/u9-tl-6.jpg', alt:'Crowds atop the Berlin Wall, November 1989' },
-  { year:'1991', title:'World Wide Web Goes Public', topic:'Topic 9.1: Technology', desc:'Tim Berners-Lee makes the World Wide Web publicly available. The internet transforms from a military and academic network into a global communication infrastructure, accelerating economic globalization, enabling new forms of political mobilization, and creating an information economy that remakes virtually every industry.', img:'images/tl/u9-tl-7.jpg', alt:'Original World Wide Web logo by Tim Berners-Lee' },
-  { year:'1994–95', title:'NAFTA &amp; WTO Founded', topic:'Topic 9.2: Free Trade', desc:'NAFTA integrates the North American economies; the WTO replaces GATT as the global trade regulator. Both embody the "Washington Consensus": the belief that free markets, privatization, and open trade produce prosperity. Critics argue they benefit corporations at the expense of workers and developing countries.', img:'images/tl/u9-tl-8.jpg', alt:'NAFTA emblem showing the flags of the United States, Mexico, and Canada' },
-  { year:'2001', title:'9/11 &amp; the War on Terror', topic:'Topic 9.7: Resistance to Globalization', desc:'Al-Qaeda\'s attacks on New York and Washington kill 3,000 people and trigger the US-led War on Terror, reshaping global security, immigration policy, and civil liberties worldwide. 9/11 represents both the violence of resistance to Western-led globalization and the limits of US military power.', img:'images/tl/u9-tl-9.jpg', alt:'September 11 attacks composite, New York, 2001' },
-  { year:'2008', title:'Global Financial Crisis', topic:'Topic 9.2: Economic Vulnerability', desc:'The collapse of the US housing bubble triggers a global financial crisis, the worst since the Great Depression. The crisis reveals the risks of an integrated global financial system: problems in US mortgage markets ripple to Iceland, Greece, Ireland, and beyond, wiping out trillions in wealth worldwide.', img:'images/tl/u9-tl-10.jpg', alt:'Lehman Brothers headquarters in Times Square, 2008' },
-  { year:'2015', title:'Paris Climate Agreement', topic:'Topic 9.4: Environment', desc:'196 nations sign the Paris Agreement committing to limit global warming to 1.5°C above pre-industrial levels. The accord is the most ambitious multilateral environmental agreement in history, but critics note that commitments are voluntary and insufficient to meet the stated targets.', img:'images/tl/u9-tl-11.jpg', alt:'World map of countries that are parties to the Paris Agreement' },
-  { year:'2020', title:'COVID-19 Pandemic', topic:'Topic 9.5: Disease &amp; Globalization', desc:'A novel coronavirus originating in Wuhan, China spreads globally within weeks, killing over 6 million people and causing the worst global recession since WWII. COVID-19 exposes the double edge of globalization: the same interconnected networks that created prosperity also enabled catastrophic disease spread.', img:'images/tl/u9-tl-12.jpg', alt:'Health care workers treating a COVID-19 patient in an intensive care unit' }
-];
-var tlList = document.getElementById('tl-list');
-if (tlList) {
-  var tlHTML = '';
-  TIMELINE.forEach(function(item, i) {
-    var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
-    tlHTML += '<div class="tl-item ' + side + '"><div class="tl-img-wrap"><img src="' + item.img + '" alt="' + item.alt + '" style="object-position:' + (item.pos||'center') + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div></div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-year-badge">' + item.year + '</div><div class="tl-topic-tag">' + item.topic + '</div><h3 class="tl-title">' + item.title + '</h3><p class="tl-desc">' + item.desc + '</p></div></div>';
-  });
-  tlList.innerHTML = tlHTML;
-  var tlObs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  tlList.querySelectorAll('.tl-item').forEach(function(el){ tlObs.observe(el); });
-}
 
 // ── GLOBALIZATION WEB ─────────────────────────────
 var activeNode = null;
@@ -1170,6 +1138,8 @@ document.addEventListener('click', function(e) {
 <script src="visual-sources.js"></script>
 <script src="spice-data.js"></script>
 <script src="spice.js"></script>
+<script src="timeline-data.js"></script>
+<script src="timeline.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

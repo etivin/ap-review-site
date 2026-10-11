@@ -470,7 +470,7 @@ button{font-family:inherit;cursor:pointer}
       <div class="tl-label">Unit 5 at a Glance</div>
       <h2 class="tl-heading">The Story of Revolution &amp; Industrialization</h2>
       <p class="tl-sub">Twelve turning points from 1776 to 1906, scroll to explore.</p>
-      <div class="tl-list" id="tl-list"></div>
+      <div class="tl-list" id="tl-list" data-unit="5"></div>
     </div>
   </section>
 
@@ -681,114 +681,6 @@ button{font-family:inherit;cursor:pointer}
 document.addEventListener('DOMContentLoaded', function() {
 
 
-  /* TIMELINE */
-  document.getElementById('scroll-timeline-btn').addEventListener('click', function() {
-    document.getElementById('timeline-section').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  var TIMELINE = [
-    {
-      year: '1689', title: 'Locke\'s Two Treatises: Natural Rights',
-      topic: 'Topic 5.1: The Enlightenment',
-      desc: 'John Locke argues that governments derive authority from the consent of the governed and that individuals possess natural rights to life, liberty, and property. This work becomes the philosophical foundation for Atlantic Revolutions.',
-      img: 'images/tl/u5-tl-1.jpg', alt: 'Portrait of John Locke', pos: 'top center'
-    },
-    {
-      year: '1776', title: 'American Declaration of Independence',
-      topic: 'Topic 5.2: Atlantic Revolutions',
-      desc: 'Thirteen colonies declare independence from Britain, invoking Locke\'s natural rights theory. The Declaration signals that Enlightenment ideals could be turned into revolutionary political action, inspiring revolutions worldwide.',
-      img: 'images/tl/u5-tl-2.jpg', alt: 'Signing of the Declaration of Independence, 1776'
-    },
-    {
-      year: '1789', title: 'French Revolution Begins',
-      topic: 'Topic 5.2: Nationalism and Revolution',
-      desc: 'The French Revolution topples the monarchy and declares "Liberty, Equality, Fraternity." It spreads Enlightenment ideals across Europe, inspires revolutionary nationalism, and triggers a generation of warfare under Napoleon.',
-      img: 'images/tl/u5-tl-3.jpg', alt: 'Storming of the Bastille, July 14, 1789'
-    },
-    {
-      year: '1791', title: 'Haitian Revolution Begins',
-      topic: 'Topic 5.2: Atlantic Revolutions',
-      desc: 'Enslaved people in Saint-Domingue (Haiti) rise up, invoking French revolutionary ideals. Led by Toussaint Louverture, the revolt becomes the only successful slave revolution in history, producing the first Black republic in 1804.',
-      img: 'images/tl/u5-tl-4.jpg', alt: 'Toussaint Louverture, leader of the Haitian Revolution', pos: 'top center'
-    },
-    {
-      year: 'c.1780s', title: 'Industrial Revolution: Steam Power & Factories',
-      topic: 'Topic 5.3: Industrial Revolution Begins',
-      desc: 'James Watt\'s improved steam engine powers factories, mines, and eventually railways across Britain. The factory system transforms labor: workers leave rural agriculture for urban industrial work, reshaping society and economics.',
-      img: 'images/tl/u5-tl-5.jpg', alt: 'Early steam engine and factory, Britain, late 18th century'
-    },
-    {
-      year: '1819–1825', title: 'Latin American Independence',
-      topic: 'Topic 5.2: Nationalism and Revolution',
-      desc: 'Simón Bolívar and José de San Martín lead successful independence movements across Spanish South America. Creole elites use Enlightenment arguments to break from Spanish mercantilist control, creating a dozen new nations.',
-      img: 'images/tl/u5-tl-6.jpg', alt: 'Simón Bolívar, Liberator of South America', pos: 'top center'
-    },
-    {
-      year: '1848', title: 'Revolutions of 1848 &amp; Communist Manifesto',
-      topic: 'Topic 5.8: Reactions to Industrialization',
-      desc: 'Revolutionary uprisings sweep Europe. Marx and Engels publish The Communist Manifesto, arguing that industrial capitalism creates class conflict destined to end in proletarian revolution. Most revolts fail: but the ideas endure.',
-      img: 'images/tl/u5-tl-7.jpg', alt: 'Barricades in Paris during the 1848 Revolution'
-    },
-    {
-      year: '1853', title: 'Commodore Perry Opens Japan',
-      topic: 'Topic 5.4: Industrialization Spreads',
-      desc: 'American Commodore Matthew Perry forces Japan to open trade under threat of naval bombardment. Japan\'s humiliation triggers internal debate about modernization, leading directly to the Meiji Restoration fifteen years later.',
-      img: 'images/tl/u5-tl-8.jpg', alt: 'Commodore Perry\'s Black Ships in Tokyo Bay, 1853', pos: 'top center'
-    },
-    {
-      year: '1868', title: 'Meiji Restoration: Japan Industrializes',
-      topic: 'Topic 5.4: Industrialization Spreads',
-      desc: 'Japan\'s emperor is restored to power. The Meiji government launches rapid industrialization: railroads, factories, a modern army, universal education, and legal reforms. Japan becomes the first non-Western industrial power.',
-      img: 'images/tl/u5-tl-9.jpg', alt: 'Meiji era Japanese industrialization, 1870s-1880s', pos: 'top center'
-    },
-    {
-      year: '1869', title: 'Suez Canal Opens',
-      topic: 'Topic 5.5: Technology of the Industrial Age',
-      desc: 'The Suez Canal connects the Mediterranean to the Red Sea, cutting the Europe-to-Asia voyage by weeks. It becomes a key artery of British imperial trade, and a flashpoint for competition between European powers in the Middle East.',
-      img: 'images/tl/u5-tl-10.jpg', alt: 'Opening ceremony of the Suez Canal, November 1869'
-    },
-    {
-      year: '1884–85', title: 'Berlin Conference: Scramble for Africa',
-      topic: 'Topic 5.6: Industrialization and Capitalism',
-      desc: 'European powers meet in Berlin to divide Africa among themselves without African participation. The Berlin Conference formalizes the "Scramble for Africa," and by 1900 European powers control 90% of the continent.',
-      img: 'images/tl/u5-tl-11.jpg', alt: 'European powers at the Berlin Conference, 1884-85'
-    },
-    {
-      year: '1905', title: 'Russian Revolution of 1905',
-      topic: 'Topic 5.8: Reactions to Industrialization',
-      desc: 'Workers and peasants revolt against Tsar Nicholas II after "Bloody Sunday": soldiers fire on peaceful protesters. Though suppressed, the uprising forces limited constitutional reforms and foreshadows the 1917 revolution.',
-      img: 'images/tl/u5-tl-12.jpg', alt: 'Bloody Sunday, St. Petersburg, January 1905'
-    }
-  ];
-
-  var tlList = document.getElementById('tl-list');
-  if (tlList) {
-    var tlHTML = '';
-    TIMELINE.forEach(function(item, i) {
-      var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
-      tlHTML +=
-        '<div class="tl-item ' + side + '">' +
-          '<div class="tl-img-wrap">' +
-            '<img src="' + item.img + '" alt="' + item.alt + '" style="object-position:' + (item.pos||'center') + '" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' +
-            '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>' +
-          '</div>' +
-          '<div class="tl-spine"><div class="tl-dot"></div></div>' +
-          '<div class="tl-content">' +
-            '<div class="tl-year-badge">' + item.year + '</div>' +
-            '<div class="tl-topic-tag">' + item.topic + '</div>' +
-            '<h3 class="tl-title">' + item.title + '</h3>' +
-            '<p class="tl-desc">' + item.desc + '</p>' +
-          '</div>' +
-        '</div>';
-    });
-    tlList.innerHTML = tlHTML;
-    var tlObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    tlList.querySelectorAll('.tl-item').forEach(function(el) { tlObs.observe(el); });
-  }
 
 
 
@@ -828,6 +720,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="visual-sources.js"></script>
 <script src="spice-data.js"></script>
 <script src="spice.js"></script>
+<script src="timeline-data.js"></script>
+<script src="timeline.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

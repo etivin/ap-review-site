@@ -84,7 +84,7 @@ One HTML file per unit. Fixed sidebar + top bar + a set of tab "pages" that `sho
 
 | id | Tab | Built by |
 |---|---|---|
-| `pg-home` | Overview (hero, videos, unit timeline) | **per-unit** (inline) |
+| `pg-home` | Overview (hero, videos, unit timeline) | per-unit hero and videos; timeline shared: `timeline.js` + `timeline-data.js` |
 | `pg-mcq` | MCQ Practice | shared: `mcq-engine.js` + `mcq-bank.js` |
 | `pg-walk` | MCQ Walkthrough | shared: `sbmcq.js` (`renderWalk(el,{unit})`) |
 | `pg-writing` | Writing Drills | shared: `writing-drills.js` + `writing-prompts.js` |
@@ -121,7 +121,7 @@ needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.htm
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
 `flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`, `source-practice.css`, `spice.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
-`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `source-practice-data.js`, `source-practice.js`, `spice-data.js`, `spice.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
+`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `source-practice-data.js`, `source-practice.js`, `spice-data.js`, `spice.js`, `timeline-data.js`, `timeline.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
 
 ### 4.4 Mount points (copy exactly; N = unit number)
@@ -157,6 +157,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `spaced.js` | Spaced-review store + streak banner | `SPACED.recordReview(itemId, correct, confidence)`; ids: MCQ `u{n}_{topic}_{idx}`, flashcards `u{n}_fc_{slug(term)}`, reverse side `rv_u{n}_fc_{slug}` |
 | `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` + Documents tab `#sa-model #rg-cards #pu-model`. Keep these ids. |
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
+| `timeline.js` + `timeline-data.js` | Overview tab illustrated timeline | `TIMELINE_DATA[n] = [{year, title, topic?, desc, img, alt, pos?}]`; renders into `<div id="tl-list" data-unit="N">`, wires `#scroll-timeline-btn` |
 | `spice.js/.css` + `spice-data.js` | SPICE-T cards | `SPICE[n] = [{key:"s"|"p"|"i"|"c"|"e"|"t", desc, items:[html]}]`; category names fixed in `spice.js`; mount `<div class="spice-mount" data-unit="N">` |
 | `source-practice.js/.css` + `source-practice-data.js` | Documents tab: Sourcing Practice drill (+ optional Red / Green Sort, Paragraph Upgrade) | `SOURCE_PRACTICE[n] = {docs:[{type, sl, excerpt?, img?, models:{pov, purpose, situation, audience}}], redgreen?, paraup?}`; mount `<div class="sp-mount" data-unit="N">`; ids `#sa-* #rg-* #pu-*` are watched by `activity.js` |
 | `visual-sources.js/.css` + `visual-sources-data.js` | Visual Sources (AP question + HIPP analysis per image) | `VISUAL_SOURCES[n] = {items:[{num, title, source, desc, img or imgs/imgTitles/imgSources, q, o, c, e, model:{h,a,p,pov}}]}`; mount `<div class="vs-mount" data-unit="N">` |
@@ -194,7 +195,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 | ~~Visual Sources (`pg-visual`)~~ | **Done:** `visual-sources.js` + `visual-sources-data.js` | |
 | ~~Documents (`pg-source`)~~ | **Done:** `source-practice.js` + `source-practice-data.js` (Unit 7 adds Red / Green Sort and Paragraph Upgrade) | |
 | ~~SPICE-T (`pg-spice`)~~ | **Done:** `spice.js` + `spice-data.js` | |
-| Overview timeline (`pg-home`) | `var TIMELINE=[{year, title, topic, desc, img?}]` + inline renderer | shared renderer |
+| ~~Overview timeline (`pg-home`)~~ | **Done:** `timeline.js` + `timeline-data.js`. Its CSS (`.tl-item` etc.) is still in each page and differs slightly per unit | move to a shared `timeline.css` |
 | Narrative Matching (Units 2–4) | Extra inline `ng-*` game next to the shared games | move pairs into `GAME_DATA[n].matching`, delete the inline copy |
 
 ## 7. Recipes
@@ -205,6 +206,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 - **Add MCQs:** `mcq-bank.js` (see rule 4). At least 5 questions per topic.
 - **Edit a study guide section:** `study-guide-data.js` → `STUDY_GUIDE[n]`.
 - **Edit Brain Dump topics, starters or key points:** `brain-dump-data.js` → `BRAIN_DUMP[n]`.
+- **Edit an Overview timeline event:** `timeline-data.js` → `TIMELINE_DATA[n]`.
 - **Edit SPICE-T bullets:** `spice-data.js` → `SPICE[n]`.
 - **Edit a Documents-tab source:** `source-practice-data.js` → `SOURCE_PRACTICE[n]`.
 - **Edit a visual source:** `visual-sources-data.js` → `VISUAL_SOURCES[n]` (MCQ rule 4 applies to its question).

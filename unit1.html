@@ -400,7 +400,7 @@ button{font-family:inherit;cursor:pointer}
       <div class="tl-label">Unit 1 at a Glance</div>
       <h2 class="tl-heading">A World of Many Centers</h2>
       <p class="tl-sub">Key developments across the major societies of 1200–1450.</p>
-      <div class="tl-list" id="tl-list"></div>
+      <div class="tl-list" id="tl-list" data-unit="1"></div>
     </div>
   </section>
 </div><!-- /pg-home -->
@@ -629,35 +629,11 @@ button{font-family:inherit;cursor:pointer}
 </div><!-- /main-wrap -->
 
 <script>
-/* ══ DATA ══════════════════════════════════════════════════ */
-
-var TIMELINE = [
-  {year:'960–1279', title:'Song Dynasty', desc:'A Confucian bureaucracy and civil-service exam govern China during a commercial and technological revolution.', img:'images/tl/u1-tl-1.jpg', alt:'Detail from Along the River During the Qingming Festival'},
-  {year:'c. 1000', title:'Champa Rice Spreads', desc:'Fast-ripening rice from Vietnam multiplies China’s food supply and population.', img:'images/tl/u1-tl-2.jpg', alt:'Terraced rice fields in southern China'},
-  {year:'1206', title:'Delhi Sultanate Founded', desc:'Turkic Muslim rule is established in northern India, spreading Islam and blended Urdu culture.', img:'images/tl/u1-tl-3.jpg', alt:'The Qutb Minar in Delhi, begun under the Delhi Sultanate'},
-  {year:'1235', title:'Mali Empire Rises', desc:'Sundiata unites West Africa; Mali grows rich taxing the trans-Saharan gold and salt trade.', img:'images/tl/u1-tl-4.jpg', alt:'The Great Mosque of Djenné in Mali'},
-  {year:'1324', title:'Mansa Musa’s Hajj', desc:'Mali’s ruler makes a legendary pilgrimage to Mecca, broadcasting the empire’s wealth.', img:'images/tl/u1-tl-5.jpg', alt:'Mansa Musa holding gold, from the Catalan Atlas of 1375'},
-  {year:'c. 1345', title:'Tenochtitlan Founded', desc:'The Aztec build their capital on Lake Texcoco, feeding it with chinampas (floating gardens).', img:'images/tl/u1-tl-6.jpg', alt:'European map of Tenochtitlan, published 1524'},
-  {year:'1347–1351', title:'The Black Death', desc:'Plague sweeps Afro-Eurasia along trade routes, killing millions and weakening European feudalism.', img:'images/u2-vis-3.jpg', alt:'Burying plague victims at Tournai, 1349'},
-  {year:'c. 1400s', title:'Inca &amp; Vijayanagara Peak', desc:'The Inca road-and-mit’a empire and South India’s Hindu Vijayanagara reach their height.', img:'images/tl/u1-tl-8.jpg', alt:'Machu Picchu in the Andes of Peru'}
-];
 
 
 
 
 
-/* ══ TIMELINE ══════════════════════════════════════════════ */
-(function(){
-  var el=document.getElementById('tl-list'); if(!el)return;
-  el.innerHTML=TIMELINE.map(function(it,i){
-    var side=(i%2===0)?'tl-left':'tl-right';
-    return '<div class="tl-item '+side+'"><div class="tl-img-wrap"><img src="'+it.img+'" alt="'+it.alt+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="tl-img-fallback" style="display:none">'+it.year+'<br/>'+it.title+'</div></div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><span class="tl-year-badge">'+it.year+'</span><div class="tl-title">'+it.title+'</div><div class="tl-desc">'+it.desc+'</div></div></div>';
-  }).join('');
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); } });
-  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-  el.querySelectorAll('.tl-item').forEach(function(n){ obs.observe(n); });
-})();
 
 
 /* ══ SCORE ═════════════════════════════════════════════════ */
@@ -699,6 +675,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 <script src="visual-sources.js"></script>
 <script src="spice-data.js"></script>
 <script src="spice.js"></script>
+<script src="timeline-data.js"></script>
+<script src="timeline.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

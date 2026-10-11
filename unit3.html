@@ -396,7 +396,7 @@ button{font-family:inherit;cursor:pointer}
       <div class="tl-label">Unit 3 at a Glance</div>
       <h2 class="tl-heading">From Constantinople to the Qing</h2>
       <p class="tl-sub">Eight turning points from 1453 to 1703, scroll to explore.</p>
-      <div class="tl-list" id="tl-list"></div>
+      <div class="tl-list" id="tl-list" data-unit="3"></div>
     </div>
   </section>
 </div>
@@ -678,36 +678,6 @@ button{font-family:inherit;cursor:pointer}
 
 <script>
 
-/* ── TIMELINE ── */
-document.getElementById('scroll-timeline-btn').addEventListener('click', function(){
-  var tl = document.getElementById('timeline-section');
-  if (tl) tl.scrollIntoView({ behavior: 'smooth' });
-});
-var TIMELINE = [
-  { year:'1453', title:'Fall of Constantinople', topic:'Topic 3.1: Empires Expand', desc:'Ottoman Sultan Mehmed II captures Constantinople using massive cannons, ending the Byzantine Empire after 1,000 years. The city is renamed Istanbul and becomes the Ottoman capital. The conquest demonstrates the decisive power of gunpowder artillery and establishes the Ottomans as heirs to Roman imperial tradition, a claim central to their legitimacy for centuries.', img:'images/tl/u3-tl-1.jpg', alt:'Mehmed II enters Constantinople, painting by Fausto Zonaro' },
-  { year:'1501', title:'Safavid Empire Founded', topic:'Topic 3.3: Belief Systems', desc:'Shah Ismail I establishes the Safavid dynasty in Persia and forcibly converts Sunni Persia to Twelver Shi‘a Islam. This creates a permanent religious fault line with the Sunni Ottoman Empire and triggers a century of warfare. The Sunni–Shi‘a rivalry shapes Ottoman religious policy, forcing Sunni scholars to police orthodoxy and marginalize Sufi practices within the empire.', img:'images/tl/u3-tl-2.jpg', alt:'Shah Ismail I at the Battle of Chaldiran' },
-  { year:'1526', title:'Mughal Empire Founded', topic:'Topic 3.1: Empires Expand', desc:'Babur defeats Ibrahim Lodi at the First Battle of Panipat using field artillery and mobile cavalry tactics. His victory establishes the Mughal dynasty in northern India. The Mughals inherit the challenge of ruling a predominantly Hindu population with a Muslim ruling class, a tension that would define the empire for generations, resolved differently by each successive emperor.', img:'images/tl/u3-tl-3.jpg', alt:'Idealized portrait of Babur, founder of the Mughal Empire' },
-  { year:'1556', title:'Akbar\'s Reign Begins', topic:'Topic 3.2: Administration', desc:'Akbar becomes Mughal emperor at age 13 and goes on to build the most sophisticated administrative system in Asia. He abolishes the jizya tax on non-Muslims, marries Hindu Rajput princesses, employs Hindus in the highest offices of state, and commissions a new syncretic religion, Din-i-Ilahi. His reign exemplifies how successful land-based empires often required religious accommodation rather than coercion.', img:'images/tl/u3-tl-4.jpg', alt:'Emperor Akbar with lion and calf, by Govardhan' },
-  { year:'1566', title:'Death of Suleiman the Magnificent', topic:'Topic 3.1: Empires Expand', desc:'Suleiman I dies on campaign in Hungary, having presided over the Ottoman Empire at its greatest extent, stretching from Vienna to the Persian Gulf, from Crimea to Algiers. He commissioned the Selimiye Mosque (designed by Mimar Sinan), codified Ottoman law, and patronized art and scholarship. His reign represents the peak of Ottoman power and the model against which later sultans were measured.', img:'images/u3-vis-2.jpg', alt:'Enthronement ceremony of Sultan Suleiman I' },
-  { year:'1644', title:'Qing Dynasty Conquers Ming China', topic:'Topic 3.1: Empires Expand', desc:'The Manchu people from northeastern China, semi-nomadic like the Mongols before them, cross the Great Wall and overthrow the Ming Dynasty, founding the Qing. Rather than dismantling the sophisticated Chinese bureaucracy, the Qing rulers maintain the Confucian examination system and Chinese administrative practices, demonstrating how successful land-based empires often adapt existing institutions rather than replacing them.', img:'images/tl/u3-tl-6.jpg', alt:'Portrait of the Kangxi Emperor in court dress' },
-  { year:'1683', title:'Ottoman Siege of Vienna Fails', topic:'Topic 3.1: Empires Expand', desc:'A combined Austrian–Polish force defeats the Ottoman army besieging Vienna, ending Ottoman expansion into Europe and beginning a century of slow retreat. The defeat marks a symbolic turning point: European states had adopted and refined Ottoman-style gunpowder technology, and the Ottomans would never again threaten the heart of Europe. The siege of Vienna is a watershed in the long competition between gunpowder empires.', img:'images/tl/u3-tl-7.jpg', alt:'The Battle of Vienna, 1683' },
-  { year:'1703', title:'Peter the Great\'s Westernization', topic:'Topic 3.2: Administration', desc:'Peter the Great founds St. Petersburg as Russia\'s new western-facing capital, built in the European Baroque style. His reign involves a sweeping program of Westernization: adopting European military technology, dress, calendar, and administrative practices. St. Petersburg visually embodies his ambition to transform Russia into a European great power, an example of how land-based empires adapted external models to strengthen their states.', img:'images/tl/u3-tl-8.jpg', alt:'Portrait of Peter the Great by Paul Delaroche' }
-];
-var tlList = document.getElementById('tl-list');
-if (tlList) {
-  var tlHTML = '';
-  TIMELINE.forEach(function(item, i) {
-    var side = i % 2 === 0 ? 'tl-left' : 'tl-right';
-    var fallback = '<div class="tl-img-fallback" style="display:none">' + item.year + '<br/>' + item.title + '</div>';
-    var imgTag = item.img ? '<img src="' + item.img + '" alt="' + item.alt + '" style="object-position:top center" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/>' : '';
-    tlHTML += '<div class="tl-item ' + side + '"><div class="tl-img-wrap">' + imgTag + fallback + '</div><div class="tl-spine"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-year-badge">' + item.year + '</div><div class="tl-topic-tag">' + item.topic + '</div><h3 class="tl-title">' + item.title + '</h3><p class="tl-desc">' + item.desc + '</p></div></div>';
-  });
-  tlList.innerHTML = tlHTML;
-  var tlObs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); tlObs.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  tlList.querySelectorAll('.tl-item').forEach(function(el){ tlObs.observe(el); });
-}
 
 
 
@@ -745,6 +715,8 @@ if (tlList) {
 <script src="visual-sources.js"></script>
 <script src="spice-data.js"></script>
 <script src="spice.js"></script>
+<script src="timeline-data.js"></script>
+<script src="timeline.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

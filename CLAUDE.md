@@ -88,7 +88,7 @@ One HTML file per unit. Fixed sidebar + top bar + a set of tab "pages" that `sho
 | `pg-writing` | Writing Drills | shared: `writing-drills.js` + `writing-prompts.js` |
 | `pg-guide` | Study Guide | shared: `study-guide.js` + `study-guide-data.js` |
 | `pg-source` | Documents (sourcing practice) | **per-unit** engine; data mostly in `<script type="application/json" id="sadata">` |
-| `pg-visual` | Visual Sources | **per-unit** (`VISUAL_DATA` / `VISUAL_DATA_UN` + inline renderer) |
+| `pg-visual` | Visual Sources | shared: `visual-sources.js` + `visual-sources-data.js` |
 | `pg-maps` | Maps | iframe of `unitN-map.html` |
 | `pg-flash` | Flashcards | shared: `unit-flashcards.js` + `flashcard-data.js` |
 | `pg-glossary` | Glossary | shared: `glossary.js` + `glossary-data.js` |
@@ -117,9 +117,9 @@ needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.htm
 
 `<head>`: `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `brand.css`,
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
-`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`.
+`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
-`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
+`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
 
 ### 4.4 Mount points (copy exactly; N = unit number)
@@ -130,6 +130,7 @@ Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount ca
 <div class="ufc-mount" data-unit="N"></div>
 <div class="sg-mount" data-unit="N"></div>
 <div class="bd-mount" data-unit="N"></div>
+<div class="vs-mount" data-unit="N"></div>
 <div class="gl-mount" data-unit="N"></div>
 <div id="review-games"></div>  <script>APWH_GAMES.mount(document.getElementById('review-games'), GAME_DATA[N]);</script>
 ```
@@ -152,6 +153,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `spaced.js` | Spaced-review store + streak banner | `SPACED.recordReview(itemId, correct, confidence)`; ids: MCQ `u{n}_{topic}_{idx}`, flashcards `u{n}_fc_{slug(term)}`, reverse side `rv_u{n}_fc_{slug}` |
 | `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` (+ Source tab drills). Keep these ids. |
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
+| `visual-sources.js/.css` + `visual-sources-data.js` | Visual Sources (AP question + HIPP/HAPP analysis per image) | `VISUAL_SOURCES[n] = {frame:"HIPP"|"HAPP", items:[{num, title, source, desc, img or imgs/imgTitles/imgSources, q, o, c, e, model:{h,a,p,pov}}]}`; mount `<div class="vs-mount" data-unit="N">` |
 | `brain-dump.js/.css` + `brain-dump-data.js` | Brain Dump (5-minute write, then reveal) | `BRAIN_DUMP[n] = {topics:[{id, name, stem, points:[{t,d}]}], fromFlashcards?}`; mount `<div class="bd-mount" data-unit="N">`. Load before `bd-confidence.js`. |
 | `study-guide.js/.css` + `study-guide-data.js` | Study Guide accordion | `STUDY_GUIDE[n] = [{num, title, body}]`; mount `<div class="sg-mount" data-unit="N">` |
 | `unit-shell.js` | Unit sidebar, sub-tab bar, `showTab`, deep links, `data-tab` buttons | optional `window.UNIT_SHELL` overrides; `unit:tab` event |
@@ -183,7 +185,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 | ~~Sidebar nav / `showTab`~~ | **Done:** `unit-shell.js` | |
 | ~~Study Guide (`pg-guide`)~~ | **Done:** `study-guide.js` + `study-guide-data.js` | |
 | ~~Brain Dump (`pg-brain`)~~ | **Done:** `brain-dump.js` + `brain-dump-data.js` | |
-| Visual Sources (`pg-visual`) | `VISUAL_DATA`/`VISUAL_DATA_UN` arrays `{num, img, title, source, desc, q, o, c, e, happ:{h,a,p,pov}}` (HIPP variant `hipp` in Units 6–7) + inline renderer per unit | `visual-sources.js` + data |
+| ~~Visual Sources (`pg-visual`)~~ | **Done:** `visual-sources.js` + `visual-sources-data.js`. Units 2-7 are labeled HIPP and Units 1, 8, 9 HAPP (same four parts); Eli to pick one name | |
 | Documents (`pg-source`) | `#sadata` JSON + inline engine (Units 1–5, 8, 9); Units 6–7 use `SRC_DOCS` drills | `source-practice.js` + data |
 | SPICE-T (`pg-spice`) | Inline HTML per unit | data file + renderer |
 | Overview timeline (`pg-home`) | `var TIMELINE=[{year, title, topic, desc, img?}]` + inline renderer | shared renderer |
@@ -197,6 +199,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 - **Add MCQs:** `mcq-bank.js` (see rule 4). At least 5 questions per topic.
 - **Edit a study guide section:** `study-guide-data.js` → `STUDY_GUIDE[n]`.
 - **Edit Brain Dump topics, starters or key points:** `brain-dump-data.js` → `BRAIN_DUMP[n]`.
+- **Edit a visual source:** `visual-sources-data.js` → `VISUAL_SOURCES[n]` (MCQ rule 4 applies to its question).
 - **Edit game content:** `review-games-data.js` → `GAME_DATA[n]`.
 - **Add a writing prompt:** append a merge IIFE to `writing-prompts.js`.
 - **New shared feature:** write `feature.js` (+ `.css`) exposing one global with a `mount(el, data)`

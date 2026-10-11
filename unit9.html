@@ -287,44 +287,6 @@ button{font-family:inherit;cursor:pointer}
 .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .video-desc{font-size:.83rem;color:rgba(255,255,255,.5);line-height:1.65;padding:12px 16px 16px}
 /* ── Flashcards / Documents / Visual Sources (shared with units 2-8) ── */
-.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
-.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
-.vs-tab{background:none;border:1.5px solid var(--border);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
-.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
-.vs-card{display:none;padding:24px 32px}
-.vs-card.active{display:block}
-.vs-card-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
-.vs-card-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;margin-bottom:8px}
-.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
-.vs-source-img{display:block;width:auto;max-width:100%;max-height:80vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
-.vs-multi-img{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
-.vs-img-wrap{flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px}
-.vs-source-img-multi{max-height:55vh;width:100%;object-fit:contain;margin:0}
-.vs-img-cap{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
-.vs-step-hdr{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
-.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
-.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
-.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
-.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
-.vs-mc-option.vs-mc-wrong{background:#eef3f7;border-color:var(--red);color:var(--red)}
-.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
-.vs-mc-explain.show{display:block}
-.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
-.vs-btn{background:none;border:1.5px solid var(--ink);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
-.vs-btn:hover{background:var(--ink);color:#fff}
-.vs-btn-red{border-color:var(--red);color:var(--red)}
-.vs-btn-red:hover{background:var(--red);color:#fff}
-.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
-.vs-hipp-area.show{display:block}
-.vs-hipp-section{margin-bottom:18px}
-.vs-hipp-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
-.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px;padding-left:1.2em}
-.vs-guide li{margin-bottom:2px}
-.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
-.vs-hipp-input:focus{border-color:var(--red);outline:none}
-.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
-.vs-hipp-model.show{display:block}
-.vs-hipp-model-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
 .fc-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
 .fc-meta{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;color:var(--muted);letter-spacing:.1em}
 .fc-select-wrap{display:flex;gap:8px;flex-wrap:wrap}
@@ -393,6 +355,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="unit-flashcards.css">
 <link rel="stylesheet" href="study-guide.css">
 <link rel="stylesheet" href="brain-dump.css">
+<link rel="stylesheet" href="visual-sources.css">
 </head>
 <body>
 
@@ -1219,247 +1182,8 @@ button{font-family:inherit;cursor:pointer}
       <h2>Visual Sources &amp; HAPP Analysis</h2>
       <p>AP-style visual stimuli. Answer the AP question, then complete your HAPP analysis and compare to the model answer.</p>
     </div>
-    <div class="vs-panel">
-      <div class="vs-tab-row" id="vs-tabs"></div>
-      <div id="vs-cards"></div>
-    </div>
+    <div class="vs-mount" data-unit="9"></div>
   </div>
-  <script>
-  var VISUAL_DATA_U9 = [
-    {
-      num: 1,
-      img: 'images/tl/u9-tl-4.jpg',
-      title: 'Crude Oil Prices, 1950–2000',
-      source: 'Line graph of crude oil prices (West Texas Intermediate) per barrel, adjusted for inflation, 1950–2000.',
-      desc: 'A line graph tracking the inflation-adjusted price of oil from 1950 to 2000. The price stays nearly flat from 1950 until a gray bar labeled “1973 oil embargo,” where it more than doubles almost overnight. It climbs to a peak around 1980 at roughly five times its 1950s level, falls sharply in the mid-1980s, and then rises and falls in short spikes through the 1990s.',
-      q: 'The change in oil prices shown on the graph between 1973 and 1980 most directly resulted from',
-      o: [
-        'oil-producing states using control of a vital resource as political leverage',
-        'the collapse of the Soviet Union and the sudden end of its oil exports to the West',
-        'the spread of Green Revolution agriculture, which used huge amounts of fuel',
-        'the creation of the World Trade Organization and its new limits on oil exports'
-      ],
-      c: 0,
-      e: 'In 1973, Arab oil producers led by OPEC members embargoed the United States and other supporters of Israel during the Yom Kippur War, and prices jumped. The 1979 Iranian Revolution disrupted supplies again, pushing prices to their 1980 peak. The Soviet collapse (1991) and the WTO (1995) came later.',
-      happ: {
-        h: 'After 1945, industrialized economies came to depend on cheap imported oil, much of it from the Middle East. In 1973, during the Yom Kippur War, Arab members of OPEC cut production and embargoed supporters of Israel. A second shock followed the 1979 Iranian Revolution. Both shocks caused inflation and recession in the West.',
-        a: 'Students, economists, and policymakers studying how energy prices have changed over time and how political events affected the global economy.',
-        p: 'To show long-term trends in the real price of oil and to highlight the 1973 embargo as a turning point, making visible how a political decision changed the world economy.',
-        pov: 'This is a modern data graph built from historical price records, not a source from the time. Adjusting for inflation lets it compare real prices across decades, but the graph shows only what happened to prices, not why, and it says nothing about who gained (oil producers) or who suffered (oil-importing countries).'
-      }
-    },
-    {
-      num: 2,
-      img: 'images/tl/u9-tl-10.jpg',
-      title: 'Lehman Brothers Headquarters, New York, 2000s',
-      source: 'Photograph of the headquarters of Lehman Brothers, an American investment bank, on Seventh Avenue in New York City, taken before the firm’s bankruptcy in September 2008.',
-      desc: 'A glass skyscraper whose lower floors are printed with a giant world map beneath the words “Lehman Brothers.” Signs above the street level name the firm’s offices in London, New York, Hong Kong, Tokyo, Miami, and Singapore. Large video screens display the company slogan “Where vision gets built.”',
-      q: 'The details of the building shown in the photograph best illustrate which feature of the global economy in the early 2000s?',
-      o: [
-        'The decline of New York as a center of global finance after the Cold War',
-        'Government ownership of the largest banks in the United States and Europe',
-        'Financial firms operating across many countries, linking world markets',
-        'The return of mercantilist trade policies in the West after the 1990s'
-      ],
-      c: 2,
-      e: 'The world map and the list of cities advertise a bank operating across continents. That global reach is exactly why Lehman’s collapse in 2008 spread a U.S. housing crisis into a worldwide financial panic. Lehman was a private firm, not government owned (B).',
-      happ: {
-        h: 'From the 1980s onward, deregulation and new technology tied the world’s financial markets together. By the 2000s, firms like Lehman Brothers traded mortgage-backed securities worldwide. When the U.S. housing bubble burst, Lehman went bankrupt in September 2008, triggering the global financial crisis.',
-        a: 'The building’s design spoke to clients, investors, and the crowds of passersby in midtown Manhattan. The photograph itself was taken for the public record and is now used by people studying the 2008 crisis.',
-        p: 'The firm designed its headquarters to project global reach, success, and confidence. Historians use the photograph to show how globalized finance presented itself just before the crash.',
-        pov: 'The building reflects how the company wanted to be seen: worldwide, visionary, and powerful. It hides the risks the firm was taking. A historian should read the image against what happened in 2008, when that confidence proved false.'
-      }
-    },
-    {
-      num: 3,
-      img: 'images/tl/u9-tl-12.jpg',
-      title: 'Treating COVID-19 in an Intensive Care Unit, Brazil, 2020s',
-      source: 'Photograph of health care workers in protective equipment treating a COVID-19 patient in a hospital intensive care unit in Brazil, early 2020s.',
-      desc: 'Two health care workers wearing gowns, gloves, masks, hair covers, and face shields care for a patient receiving oxygen in a hospital bed. A heart monitor hangs on the wall above the patient, and a city of high-rise apartment buildings is visible through the window.',
-      q: 'The scene in the photograph is best understood in the context of',
-      o: [
-        'the eradication of most infectious diseases by the late twentieth century',
-        'the spread of the 1918 influenza pandemic after the First World War',
-        'Cold War competition between the superpowers in medical technology',
-        'a pandemic that spread rapidly through global travel and trade'
-      ],
-      c: 3,
-      e: 'COVID-19 was first identified in Wuhan, China, in late 2019 and reached nearly every country within months, carried by air travel. Brazil became one of the hardest-hit countries. Infectious disease had not been eradicated (A); only smallpox was.',
-      happ: {
-        h: 'COVID-19 spread worldwide in 2020, killing millions and overwhelming hospitals. Brazil suffered one of the highest death tolls in the world. The pandemic showed how global connections that carry trade and travelers also carry disease, while vaccines developed in record time revealed the power of modern medicine.',
-        a: 'News readers and the public around the world, along with public health officials. Photographs like this one were widely shared to show the strain on hospitals.',
-        p: 'To document the reality of the pandemic inside hospitals, showing the danger to patients, the protective measures health workers needed, and the pressure on medical systems.',
-        pov: 'The photographer focuses on the dedication and risk of health care workers. The image shows one patient in a well-equipped urban hospital, so it does not show the many people who lacked access to intensive care, especially in poorer areas.'
-      }
-    },
-    {
-      num: 4,
-      img: 'images/tl/u9-tl-11.jpg',
-      title: 'Parties to the Paris Agreement',
-      source: 'World map showing which countries are parties to the Paris Agreement on climate change, adopted in 2015.',
-      desc: 'A world map in which almost every country is shaded blue as a party to the Paris Agreement. Members of the European Union appear in a darker blue because the EU also joined as a bloc. A few countries, including Iran, Libya, and Yemen, appear in yellow as countries that had not ratified the agreement. The United States appears in a separate, lighter shade.',
-      q: 'The map best supports which conclusion about global responses to climate change?',
-      o: [
-        'Climate change was addressed mainly by individual states acting alone, without treaties',
-        'Nearly every state joined a common framework, though some major emitters wavered',
-        'Developing countries refused to take part in international climate agreements',
-        'The European Union rejected international limits on greenhouse gas emissions'
-      ],
-      c: 1,
-      e: 'Nearly the whole map is shaded as parties, showing near-universal participation in one framework. The separate shading of the United States reflects that its participation changed with different presidents: it withdrew in 2020, rejoined in 2021, and moved to withdraw again in 2025.',
-      happ: {
-        h: 'By 2015, scientists broadly agreed that greenhouse gases from fossil fuels were warming the planet. Earlier efforts such as the Kyoto Protocol (1997) had bound only wealthy countries. The Paris Agreement asked every country to set its own emissions targets.',
-        a: 'Students, journalists, and the public who want to see at a glance which countries have joined the agreement.',
-        p: 'To show how widely the agreement has been adopted and to identify the few countries outside it.',
-        pov: 'The map shows legal participation, not action. Being shaded as a party does not show whether a country actually cut its emissions, and the targets in the agreement are voluntary. A historian would need emissions data to judge how effective it was.'
-      }
-    },
-    {
-      num: 5,
-      img: 'images/tl/u9-tl-8.jpg',
-      title: 'NAFTA Emblem, 1994',
-      source: 'Emblem used for the North American Free Trade Agreement (NAFTA), which joined the United States, Canada, and Mexico in a free-trade zone beginning January 1, 1994.',
-      desc: 'The flags of the United States, Mexico, and Canada are drawn as a single piece of fabric, rippling together as if they were one flag. The Mexican flag is in the center, overlapping the other two.',
-      q: 'The design of the emblem was most likely intended to',
-      o: [
-        'present the three countries’ economies as integrated partners',
-        'celebrate a military alliance against the Soviet Union in the Cold War',
-        'announce the creation of a common currency for North America',
-        'show Mexico’s independence from foreign economic influence'
-      ],
-      c: 0,
-      e: 'By weaving the three flags into one, the emblem presents NAFTA as a partnership that would bind the three economies together by removing tariffs. NAFTA was a trade agreement, not a military alliance (B), and it never created a shared currency (C), unlike the euro in the EU.',
-      happ: {
-        h: 'In the 1980s and 1990s, free-market ideas spread and regional trade blocs multiplied, including the European Union, Mercosur, and ASEAN. NAFTA removed most tariffs among the three countries. It took effect on January 1, 1994, the same day the Zapatista uprising began in Mexico in protest.',
-        a: 'Businesses, investors, and citizens of the three member countries, along with the wider world watching the new trade bloc.',
-        p: 'To promote NAFTA as a symbol of cooperation and shared prosperity among the three countries.',
-        pov: 'The emblem presents the three nations as equal partners, but it hides real inequalities between them and the debates NAFTA caused. Critics in Mexico, such as indigenous corn farmers, and labor unions in the United States and Canada argued that it would cost them their livelihoods.'
-      }
-    }
-  ];
-  (function() {
-    var tabRow = document.getElementById('vs-tabs');
-    var cardsEl = document.getElementById('vs-cards');
-    if (!tabRow || !cardsEl) return;
-
-    var HAPP_KEYS = [
-      { key: 'h', label: 'Historical Situation', guides: [
-        'When and where was this source created?',
-        'What major events or tensions were happening at this time?',
-        'How does the historical moment explain why this source exists?'
-      ]},
-      { key: 'a', label: 'Audience', guides: [
-        'Who was this source originally created for?',
-        'What details (imagery, language, style) hint at who it was aimed at?',
-        'Would the intended audience have agreed with the source’s message?'
-      ]},
-      { key: 'p', label: 'Purpose', guides: [
-        'Why did the creator make this, to persuade, inform, document, or advertise?',
-        'What reaction did the creator want from the audience?',
-        'Who benefits if the source’s message is believed?'
-      ]},
-      { key: 'pov', label: 'Point of View', guides: [
-        'Who created this source? What is their background or institutional position?',
-        'How does the creator’s identity shape what they emphasize or leave out?',
-        'Why should a historian consider this creator’s perspective when evaluating the source?'
-      ]}
-    ];
-
-    VISUAL_DATA_U9.forEach(function(item, idx) {
-      var tab = document.createElement('button');
-      tab.type = 'button';
-      tab.className = 'vs-tab' + (idx === 0 ? ' active' : '');
-      tab.textContent = 'Image ' + item.num;
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('#vs-tabs .vs-tab').forEach(function(t) { t.classList.remove('active'); });
-        tab.classList.add('active');
-        document.querySelectorAll('#vs-cards .vs-card').forEach(function(c) { c.classList.remove('active'); });
-        document.getElementById('vs-card-u9-' + idx).classList.add('active');
-      });
-      tabRow.appendChild(tab);
-
-      var mcHTML = '';
-      item.o.forEach(function(opt, oi) {
-        mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>';
-      });
-
-      var hippHTML = '';
-      HAPP_KEYS.forEach(function(hk) {
-        var guideItems = hk.guides.map(function(g) { return '<li>' + g + '</li>'; }).join('');
-        hippHTML +=
-          '<div class="vs-hipp-section">' +
-            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
-            '<ul class="vs-guide">' + guideItems + '</ul>' +
-            '<textarea class="vs-hipp-input" placeholder="Write your analysis here…" rows="3"></textarea>' +
-            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-u9-' + idx + '">' +
-              '<div class="vs-hipp-model-lbl">Exemplar: ' + hk.label + '</div>' +
-              item.happ[hk.key] +
-            '</div>' +
-          '</div>';
-      });
-
-      var card = document.createElement('div');
-      card.className = 'vs-card' + (idx === 0 ? ' active' : '');
-      card.id = 'vs-card-u9-' + idx;
-      card.innerHTML =
-        '<div class="vs-card-src">' + item.source + '</div>' +
-        '<div class="vs-card-title">' + item.title + '</div>' +
-        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
-        '<div class="vs-card-desc">' + item.desc + '</div>' +
-
-        '<div class="vs-step-hdr">Step 1: Answer the AP Question</div>' +
-        '<div class="vs-mc-q">' + item.q + '</div>' +
-        mcHTML +
-        '<div class="vs-mc-explain" id="vs-mc-explain-u9-' + idx + '">' + item.e + '</div>' +
-
-        '<div class="vs-btn-row">' +
-          '<button type="button" class="vs-btn" data-hippshow="u9-' + idx + '">Step 2: HAPP Analysis →</button>' +
-        '</div>' +
-
-        '<div class="vs-hipp-area" id="vs-hipp-u9-' + idx + '">' +
-          '<div class="vs-step-hdr" style="margin-bottom:12px">Step 2: HAPP Analysis</div>' +
-          '<p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Write your own HAPP analysis using the guiding questions, then compare to the exemplar.</p>' +
-          hippHTML +
-          '<div class="vs-btn-row">' +
-            '<button type="button" class="vs-btn vs-btn-red" data-compare="u9-' + idx + '">Compare to Exemplar →</button>' +
-          '</div>' +
-        '</div>';
-
-      cardsEl.appendChild(card);
-    });
-
-    cardsEl.addEventListener('click', function(e) {
-      var hippBtn = e.target.closest('[data-hippshow]');
-      if (hippBtn) {
-        document.getElementById('vs-hipp-' + hippBtn.dataset.hippshow).classList.add('show');
-        hippBtn.style.display = 'none';
-        return;
-      }
-      var cmpBtn = e.target.closest('[data-compare]');
-      if (cmpBtn) {
-        var key = cmpBtn.dataset.compare;
-        HAPP_KEYS.forEach(function(hk) {
-          document.getElementById('vs-model-' + hk.key + '-' + key).classList.add('show');
-        });
-        cmpBtn.style.display = 'none';
-        return;
-      }
-      var opt = e.target.closest('.vs-mc-option');
-      if (opt && !opt.disabled) {
-        var card = opt.closest('.vs-card');
-        var idx = card.id.replace('vs-card-u9-', '');
-        var item = VISUAL_DATA_U9[parseInt(idx, 10)];
-        var oi = parseInt(opt.dataset.oi, 10);
-        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
-          b.disabled = true;
-          if (bi === item.c) b.classList.add('vs-mc-correct');
-          else if (bi === oi) b.classList.add('vs-mc-wrong');
-        });
-        document.getElementById('vs-mc-explain-u9-' + idx).classList.add('show');
-      }
-    });
-  })();
-  </script>
 </div>
 
 <!-- ══ SPICE-T ══ -->
@@ -1700,6 +1424,8 @@ document.addEventListener('click', function(e) {
 <script src="brain-dump-data.js"></script>
 <script src="brain-dump.js"></script>
 <script src="bd-confidence.js"></script>
+<script src="visual-sources-data.js"></script>
+<script src="visual-sources.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

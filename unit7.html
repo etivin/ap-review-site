@@ -412,42 +412,8 @@ img{display:block;max-width:100%}
 /* ── Timeline Builder ───────────────────────────────────── */
 .tl-next-slot{color:var(--muted);font-style:italic}
 /* ── Visual Stimuli ─────────────────────────────────────── */
-.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
-.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
-.vs-tab{background:none;border:1.5px solid var(--border);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
-.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
-.vs-card{display:none;padding:24px 32px}
-.vs-card.active{display:block}
-.vs-card-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
-.vs-card-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;margin-bottom:8px}
-.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
-.vs-source-img{display:block;width:auto;max-width:100%;max-height:80vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
 .dbq-pages{display:flex;flex-direction:column;gap:10px;margin:10px 0 16px}
 .dbq-page-img{width:100%;display:block;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.vs-step-hdr{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
-.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
-.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
-.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
-.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
-.vs-mc-option.vs-mc-wrong{background:#faf0f3;border-color:var(--red);color:var(--red)}
-.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
-.vs-mc-explain.show{display:block}
-.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
-.vs-btn{background:none;border:1.5px solid var(--ink);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
-.vs-btn:hover{background:var(--ink);color:#fff}
-.vs-btn-red{border-color:var(--red);color:var(--red)}
-.vs-btn-red:hover{background:var(--red);color:#fff}
-.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
-.vs-hipp-area.show{display:block}
-.vs-hipp-section{margin-bottom:18px}
-.vs-hipp-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
-.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px}
-.vs-guide li{margin-bottom:2px}
-.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
-.vs-hipp-input:focus{border-color:var(--red);outline:none}
-.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
-.vs-hipp-model.show{display:block}
-.vs-hipp-model-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
 /* ── Asteroid Game ──────────────────────────────────────── */
 /* .ast-ship moved below with transition support */
 @keyframes laserFire{0%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(0)}30%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}70%{opacity:1;transform:rotate(var(--laser-angle)) scaleX(1)}100%{opacity:0;transform:rotate(var(--laser-angle)) scaleX(1)}}
@@ -590,6 +556,7 @@ img{display:block;max-width:100%}
 <link rel="stylesheet" href="review-games.css">
 <link rel="stylesheet" href="study-guide.css">
 <link rel="stylesheet" href="brain-dump.css">
+<link rel="stylesheet" href="visual-sources.css">
 </head>
 <body>
 
@@ -1276,128 +1243,6 @@ img{display:block;max-width:100%}
 // ── APWH Unit 7 Data ─────────────────────────────────────────────────────────
 // All content data. No inline handlers. Loaded before apwh-app.js
 
-/* ── VISUAL STIMULI DATA ───────────────────────────────── */
-var VISUAL_DATA = [
-  {
-    num: 1,
-    img: 'images/stimuli/page-1.jpg?v=2',
-    title: '\u201cThe Hero\u201d: George Grosz, 1936',
-    source: 'Lithograph by German artist George Grosz, 1936',
-    desc: 'A satirical lithograph depicting a helmeted, grotesque soldier figure in the expressionist style. Grosz was a German satirist who fled Nazi Germany in 1933.',
-    q: 'Which of the following best describes the 1936 lithograph (entitled The Hero) by German artist George Grosz?',
-    o: ['A propaganda poster prepared by the Nazi Party', 'A protest poster against the atrocities of the atomic bomb', 'A representation of a Holocaust victim', 'A post-First World War print expressing antiwar sentiment'],
-    c: 3,
-    e: 'Grosz consistently expressed outrage at militarism. Having witnessed WWI\u2019s horrors and fled Nazi Germany, he used satirical art to condemn the glorification of war, making this an antiwar image, not pro-war propaganda.',
-    hipp: {
-      h: 'WWI (1914\u201318) killed 20 million people and shattered European confidence in militarism. By 1936, Hitler was remilitarizing Germany, the same militarist ideology Grosz spent his career attacking. Antiwar art was increasingly dangerous to produce in Europe.',
-      i: 'Anti-militarist audiences in Europe and the United States, those who opposed the glorification of war and feared the rising tide of fascism in the 1930s.',
-      p: 'To satirize and condemn the glorification of military heroes, to expose the brutal, dehumanizing reality of warfare behind the propaganda-driven celebration of soldiers.',
-      pov: 'As a German who lived through WWI and fled Nazi persecution, Grosz was personally motivated to use art as political protest. His point of view is that of a traumatized witness turned critic of the state that produced him.'
-    }
-  },
-  {
-    num: 2,
-    img: 'images/stimuli/page-2.jpg?v=2',
-    title: 'Aeroflot Soviet Airline Advertisement, 1950s',
-    source: 'Advertisement by Aeroflot, a Soviet state-owned commercial airline, used in the Soviet Union during the 1950s.',
-    desc: 'A commercial advertisement showing a Soviet jetliner flying over major international landmarks from America, Europe, Africa, and Asia, suggesting Soviet global reach.',
-    q: 'The image can best be used to illustrate which of the following about communist states?',
-    o: ['The collectivization of agriculture', 'Limited technological progress in comparison with Western states', 'State control of borders with noncommunist states', 'State control over the economy'],
-    c: 3,
-    e: 'Aeroflot was a state-owned enterprise. The advertisement demonstrates that the Soviet state directly controlled commercial aviation, a sector privately owned in capitalist economies, as part of broader central economic planning.',
-    hipp: {
-      h: 'The 1950s were the height of the Cold War. The USSR competed with the West in technology and global prestige (Sputnik launched 1957). Soviet state planning claimed to outperform Western capitalism in economic development and technological achievement.',
-      i: 'Soviet citizens and potentially foreign audiences, those the Soviet state wanted to persuade that socialist planning could achieve technological and commercial success equal to or exceeding the West.',
-      p: 'To promote state-owned airline service while projecting Soviet technological achievement, modernity, and global connectivity, serving double duty as both commercial advertising and political propaganda.',
-      pov: 'As a state-controlled enterprise, Aeroflot\u2019s advertising directly reflected Soviet government priorities. The image cannot be separated from Soviet Cold War ideology: global reach = ideological reach.'
-    }
-  },
-  {
-    num: 3,
-    img: 'images/stimuli/page-3.jpg?v=2',
-    title: 'Workers and Soldiers in Saint Petersburg, February 1917',
-    source: 'Photograph: workers and soldiers marching in Saint Petersburg after taking control of the city, February 1917 (Keystone-France/Contributor).',
-    desc: 'A large crowd of both civilian workers and uniformed soldiers marching together through the streets of Saint Petersburg, the beginning of the February Revolution.',
-    q: 'The makeup of the force shown in the image is best explained by the fact that by 1917',
-    o: ['nationalism in Russia had intensified sharply as a result of the shared experiences of the First World War', 'new military technologies had made it possible to transport soldiers more rapidly', 'wartime propaganda had fueled fanatical loyalty to the Tsarist regime among ordinary Russians', "Russia\u2019s army morale and home-front effort were collapsing because of the strains of total war"],
-    c: 3,
-    e: 'By early 1917 Russia had suffered millions of casualties, food shortages, and military defeats. Total war\u2019s demands had broken both military discipline and civilian loyalty to the Tsar, soldiers and workers united against the regime.',
-    hipp: {
-      h: 'Russia entered WWI in 1914 and suffered catastrophic losses: millions dead, armies in retreat, cities starving. The strain of total war collapsed the Tsarist government\u2019s legitimacy. By February 1917, neither the army nor the working class would continue to fight for the Tsar.',
-      i: 'The photograph was taken by a photojournalist for historical/news documentation, not staged for a specific audience, but intended to record the revolutionary moment as it unfolded.',
-      p: 'To document the February Revolution of 1917, the moment when Russian soldiers and workers united against the Tsarist regime. This photograph captured the beginning of the end of the Romanov dynasty.',
-      pov: 'The crucial insight is the presence of BOTH workers AND soldiers together. The army was supposed to suppress revolution, not join it. Their unity proves that total war had destroyed loyalty to the regime from within.'
-    }
-  },
-  {
-    num: 4,
-    img: 'images/stimuli/page-4.jpg?v=2',
-    title: 'Indian Muslim Troops Praying in Surrey, England, 1916',
-    source: 'Indian Muslim troops in the British Armed Forces praying. Photograph taken in Surrey, England, 1916 (FPG/Staff). British civilian women are visible watching in the background.',
-    desc: 'Indian Muslim soldiers in British military uniforms performing prayer in England, observed by British civilian women in the background.',
-    q: 'The situation shown in the image is best understood in the context of which of the following aspects of twentieth-century warfare?',
-    o: ['States used propaganda to intensify patriotism in times of war.', 'States used new industrial technologies to fight wars that were deadlier and more expensive.', 'States made full use of their populations and material resources to fight total wars.', 'States increasingly mobilized their citizens for warfare regardless of gender or class.'],
-    c: 2,
-    e: 'The British Indian Army contributed over 1 million soldiers to WWI. Using colonial populations to fight on European soil is direct evidence of total war mobilization, states drawing on every available human and material resource.',
-    hipp: {
-      h: 'Total war in WWI forced Britain to mobilize all available resources, including the manpower of its empire. By 1916, catastrophic casualties on the Western Front created desperate demand for colonial troops. Over 1 million Indian soldiers served in WWI.',
-      i: 'British home-front civilian audiences (note women watching) and potentially Indian colonial audiences, to demonstrate imperial unity and the shared sacrifice of the war effort across the empire.',
-      p: 'Documentary/propaganda: to record and publicize the diverse composition of British imperial forces; to build home-front support for the war by showing the empire fighting together.',
-      pov: 'The British civilian women watching frame the soldiers as both foreign and fascinating, the home front literally encountering the empire. The image reveals how total war made the colonial relationship visible to ordinary British people in ways peacetime never had.'
-    }
-  },
-  {
-    num: 5,
-    img: 'images/stimuli/page-5.jpg?v=2',
-    title: 'David Ol\u00e8re: \u201cThe Food of the Dead for the Living\u201d, c. 1950',
-    source: 'David Ol\u00e8re, French Jewish painter and Auschwitz inmate (March 1943\u2013May 1945). \u201cThe Food of the Dead for the Living,\u201d painted circa 1950.',
-    desc: 'A painting by Holocaust survivor David Ol\u00e8re depicting the Auschwitz crematoria system, the industrial apparatus of mass murder that he was forced to work within as a Sonderkommando prisoner.',
-    q: 'The implementation of the policies of extermination shown in the image is most directly explained by which of the following aspects of Nazi ideology?',
-    o: ['The idea that Germans descended from a master \u201cAryan\u201d race', 'The idea that some minority populations could eventually be Germanized', 'The idea that minority populations within Germany were somehow responsible for its defeat during the First World War', 'The idea that Germany needed to expand its postwar borders in order to provide \u201cliving space\u201d for its people'],
-    c: 2,
-    e: 'Nazi ideology used the \u201cstab in the back\u201d legend to blame Jews for Germany\u2019s WWI defeat. This scapegoating made Jews existential threats to the state, the ideological justification for organized extermination.',
-    hipp: {
-      h: 'The Holocaust (1941\u201345) was the state-organized murder of ~6 million Jews and 6 million others. Ol\u00e8re survived Auschwitz as a Sonderkommando, forced to operate the crematoria. He painted from memory after liberation, driven by the need to document what he witnessed.',
-      i: 'Post-war audiences: survivors, historians, and anyone at risk of denying or minimizing the Holocaust. Painted circa 1950, when the world was still processing the scale of Nazi atrocities.',
-      p: 'To bear witness: to ensure the atrocities of the Holocaust were documented, visualized, and impossible to deny. Ol\u00e8re felt a moral obligation as a survivor to testify through art.',
-      pov: 'Ol\u00e8re did not merely observe, he was forced to participate in the camp\u2019s operations. His paintings have the authority of direct testimony. As HAPP analysis: his point of view as a victim and forced participant means the source cannot be dismissed as exaggerated or second-hand.'
-    }
-  },
-  {
-    num: 6,
-    img: 'images/stimuli/page-6.jpg?v=2',
-    title: 'German East African Troops (Askari), WWI',
-    source: 'Photograph of German East African troops (Askari soldiers) serving under German command during the First World War.',
-    desc: 'African soldiers (Askari troops) in military formation, serving under German officers in German East Africa (modern Tanzania) during WWI.',
-    q: 'The photograph above of German East African troops best illustrates which of the following historical processes during the First World War?',
-    o: ['The increasing inclusion of non-Europeans in European conflicts', 'The undermining of European claims to moral superiority as a result of the destructiveness of the First World War', 'The development of African nationalism as a consequence of Africans\u2019 involvement in European wars', 'The gradual extension of self-rule to Europe\u2019s African colonies in the face of anticolonial protests by Africans'],
-    c: 0,
-    e: 'Both the Entente and Central Powers mobilized African and Asian colonial troops to fight WWI. German East Africa fielded Askari soldiers; Britain used over 1 million Indian soldiers. This demonstrates WWI as a truly global, inclusive conflict.',
-    hipp: {
-      h: 'European colonial powers mobilized troops from Africa, Asia, and other colonized regions. German East Africa (Tanganyika) was defended largely by African Askari troops under German officers, and held out until after the Armistice in 1918, making it the last theater of WWI to surrender.',
-      i: 'Likely German military or colonial documentation, intended to showcase German colonial military organization and the capability of African troops under German command.',
-      p: 'Military documentation of colonial forces; possibly propaganda to demonstrate German colonial administration and African soldier loyalty, both for German domestic audiences and colonial authorities.',
-      pov: 'Taken from a German colonial perspective, the photograph portrays Askari soldiers as disciplined assets of the German colonial system, not as individuals with their own agency or political consciousness. The framing reflects the colonial gaze of its time.'
-    }
-  },
-  {
-    num: 7,
-    img: 'images/stimuli/page-7.jpg?v=2',
-    title: 'Two Maps: Southeast Asian Decolonization',
-    source: 'Two comparative maps of Southeast Asia, showing political boundaries under European colonial rule and after WWII-era decolonization.',
-    desc: 'A before-and-after map comparison showing Southeast Asia under European colonial control and then as newly independent nations, particularly highlighting Indonesian independence.',
-    q: 'Which of the following twentieth-century developments most directly weakened European colonial states and contributed to the changes between the two maps?',
-    o: ['The decline of European economies during the Great Depression', 'Japanese occupation of Southeast Asia during the Second World War', 'Competition between Great Britain and France', 'The conquest of Spanish imperial territories by the United States'],
-    c: 1,
-    e: 'Japanese occupation (1941\u201345) dismantled European colonial administrations across Southeast Asia, ended the myth of European invincibility, and in many cases armed independence movements. Countries like Indonesia used the post-war vacuum to declare independence.',
-    hipp: {
-      h: 'Japan rapidly conquered most of Southeast Asia in 1941\u201342, overthrowing Dutch, British, French, and American colonial administrations. Japan\u2019s defeat of European powers destroyed the myth that Europeans were naturally superior rulers, accelerating independence movements across the region.',
-      i: 'Students and historians comparing political geography over time, the maps are analytical tools for visualizing decolonization as a historical process.',
-      p: 'To make the scale of decolonization immediately visible through comparison. The before/after format reveals what decades of historical change look like on a map, turning an abstract process into a concrete visual shift.',
-      pov: 'Maps appear neutral but embed political reality as normal. The first map treats colonial boundaries as natural; the second treats national sovereignty as the new norm. The shift between them encodes the entire story of 20th-century decolonization without a single word of text.'
-    }
-  }
-];
 
 var TIMELINE = [
   {
@@ -2790,150 +2635,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
-  /* ── VISUAL SOURCES (HIPP) ───────────────────────────── */
-  (function() {
-    var tabRow = document.getElementById('vs-tabs');
-    var cardsEl = document.getElementById('vs-cards');
-    if (!tabRow || !cardsEl || typeof VISUAL_DATA === 'undefined') return;
-
-    var HIPP_KEYS = [
-      {
-        key: 'h', label: 'Historical Context',
-        guides: [
-          'When and where was this source created?',
-          'What major events, conflicts, or tensions were happening at this time?',
-          'How does the historical moment explain why this source exists?'
-        ]
-      },
-      {
-        key: 'i', label: 'Intended Audience',
-        guides: [
-          'Who was this source originally created for, a mass public, a specific group, or a limited audience?',
-          'What details in the source (language, imagery, style) hint at who it was aimed at?',
-          'Would the intended audience have agreed with the source\u2019s message?'
-        ]
-      },
-      {
-        key: 'p', label: 'Purpose',
-        guides: [
-          'Why did the creator make this, to persuade, inform, document, commemorate, or entertain?',
-          'What reaction or action did the creator want from the audience?',
-          'Who benefits if the source\u2019s message is believed or accepted?'
-        ]
-      },
-      {
-        key: 'pov', label: 'Point of View',
-        guides: [
-          'Who created this source? What is their background, nationality, class, or position?',
-          'How does the creator\u2019s identity shape what they emphasize, downplay, or leave out?',
-          'Why should a historian consider this creator\u2019s perspective when evaluating this source?'
-        ]
-      }
-    ];
-
-    VISUAL_DATA.forEach(function(item, idx) {
-      // Tab
-      var tab = document.createElement('button');
-      tab.type = 'button';
-      tab.className = 'vs-tab' + (idx === 0 ? ' active' : '');
-      tab.textContent = 'Image ' + item.num;
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('.vs-tab').forEach(function(t) { t.classList.remove('active'); });
-        tab.classList.add('active');
-        document.querySelectorAll('.vs-card').forEach(function(c) { c.classList.remove('active'); });
-        document.getElementById('vs-card-' + idx).classList.add('active');
-      });
-      tabRow.appendChild(tab);
-
-      // MC options
-      var mcHTML = '';
-      item.o.forEach(function(opt, oi) {
-        mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>';
-      });
-
-      // HIPP sections with guided questions
-      var hippHTML = '';
-      HIPP_KEYS.forEach(function(hk) {
-        var guideItems = hk.guides.map(function(g) { return '<li>' + g + '</li>'; }).join('');
-        hippHTML +=
-          '<div class="vs-hipp-section">' +
-            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
-            '<ul class="vs-guide">' + guideItems + '</ul>' +
-            '<textarea class="vs-hipp-input" placeholder="Write your analysis here\u2026" rows="3"></textarea>' +
-            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-' + idx + '">' +
-              '<div class="vs-hipp-model-lbl">Exemplar: ' + hk.label + '</div>' +
-              item.hipp[hk.key] +
-            '</div>' +
-          '</div>';
-      });
-
-      // Card
-      var card = document.createElement('div');
-      card.className = 'vs-card' + (idx === 0 ? ' active' : '');
-      card.id = 'vs-card-' + idx;
-      card.innerHTML =
-        // Full source document image
-        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
-
-        // Step 1: AP question (always visible)
-        '<div class="vs-step-hdr">Step 1: Answer the AP Question</div>' +
-        '<div class="vs-mc-q">' + item.q + '</div>' +
-        mcHTML +
-        '<div class="vs-mc-explain" id="vs-mc-explain-' + idx + '">' + item.e + '</div>' +
-
-        // Reveal HIPP button
-        '<div class="vs-btn-row">' +
-          '<button type="button" class="vs-btn" data-hippshow="' + idx + '">Step 2: Analyze this Source (HIPP) \u2192</button>' +
-        '</div>' +
-
-        // HIPP area: hidden until button click
-        '<div class="vs-hipp-area" id="vs-hipp-' + idx + '">' +
-          '<div class="vs-step-hdr" style="margin-bottom:12px">Step 2: HIPP Analysis</div>' +
-          '<p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Use the guiding questions below to write your own HIPP analysis. Answer in your own words before comparing to the exemplar.</p>' +
-          hippHTML +
-          '<div class="vs-btn-row">' +
-            '<button type="button" class="vs-btn vs-btn-red" data-compare="' + idx + '">Compare to Exemplar HIPP \u2192</button>' +
-          '</div>' +
-        '</div>';
-
-      cardsEl.appendChild(card);
-    });
-
-    // Event delegation
-    cardsEl.addEventListener('click', function(e) {
-      // Reveal HIPP section
-      var hippBtn = e.target.closest('[data-hippshow]');
-      if (hippBtn) {
-        document.getElementById('vs-hipp-' + hippBtn.dataset.hippshow).classList.add('show');
-        hippBtn.style.display = 'none';
-        return;
-      }
-      // Reveal exemplar HIPP
-      var cmpBtn = e.target.closest('[data-compare]');
-      if (cmpBtn) {
-        var idx = cmpBtn.dataset.compare;
-        HIPP_KEYS.forEach(function(hk) {
-          document.getElementById('vs-model-' + hk.key + '-' + idx).classList.add('show');
-        });
-        cmpBtn.style.display = 'none';
-        return;
-      }
-      // MC option click
-      var opt = e.target.closest('.vs-mc-option');
-      if (opt && !opt.disabled) {
-        var card = opt.closest('.vs-card');
-        var idx = card.id.replace('vs-card-', '');
-        var item = VISUAL_DATA[parseInt(idx)];
-        var oi = parseInt(opt.dataset.oi);
-        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
-          b.disabled = true;
-          if (bi === item.c) b.classList.add('vs-mc-correct');
-          else if (bi === oi) b.classList.add('vs-mc-wrong');
-        });
-        document.getElementById('vs-mc-explain-' + idx).classList.add('show');
-      }
-    });
-  })();
 
   /* ── CLASS SLIDES ACCORDION ──────────────────────────── */
   document.querySelectorAll('.slides-topic').forEach(function(topic) {
@@ -3199,11 +2900,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <h2>Visual Sources &amp; HIPP Analysis</h2>
       <p>7 AP-authentic visual stimuli: photographs, lithographs, maps, and paintings. Study each source, answer the AP question, then complete your own HIPP analysis and compare to the model.</p>
     </div>
-
-    <div class="vs-panel">
-      <div class="vs-tab-row" id="vs-tabs"></div>
-      <div id="vs-cards"></div>
-    </div>
+    <div class="vs-mount" data-unit="7"></div>
   </div>
 </div>
 
@@ -3226,6 +2923,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="brain-dump.js"></script>
 <script src="bd-confidence.js"></script>
 <script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'7'});</script>
+<script src="visual-sources-data.js"></script>
+<script src="visual-sources.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

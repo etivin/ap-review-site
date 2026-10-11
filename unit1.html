@@ -257,44 +257,6 @@ button{font-family:inherit;cursor:pointer}
 .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .video-desc{font-size:.83rem;color:rgba(255,255,255,.5);line-height:1.65;padding:12px 16px 16px}
 /* ── Documents / Visual Sources (shared with units 2-9) ── */
-.vs-panel{background:var(--white);margin-top:24px;border:1px solid var(--border2)}
-.vs-tab-row{display:flex;flex-wrap:wrap;gap:4px;padding:12px 14px;border-bottom:1px solid var(--border)}
-.vs-tab{background:none;border:1.5px solid var(--border);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .15s;color:var(--muted)}
-.vs-tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
-.vs-card{display:none;padding:24px 32px}
-.vs-card.active{display:block}
-.vs-card-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
-.vs-card-title{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;margin-bottom:8px}
-.vs-card-desc{font-size:.82rem;color:var(--mid);line-height:1.6;margin-bottom:12px;background:var(--paper);padding:10px 12px;border-left:3px solid var(--border2)}
-.vs-source-img{display:block;width:auto;max-width:100%;max-height:80vh;margin:0 auto 24px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1)}
-.vs-multi-img{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
-.vs-img-wrap{flex:1;min-width:200px;display:flex;flex-direction:column;gap:6px}
-.vs-source-img-multi{max-height:55vh;width:100%;object-fit:contain;margin:0}
-.vs-img-cap{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
-.vs-step-hdr{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.48rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:4px;margin-top:2px}
-.vs-mc-q{font-size:.85rem;font-weight:600;margin-bottom:10px;line-height:1.55}
-.vs-mc-option{display:block;width:100%;text-align:left;background:var(--white);border:1.5px solid var(--border);padding:10px 12px;margin-bottom:6px;font-family:inherit;font-size:.8rem;line-height:1.4;cursor:pointer;transition:all .15s}
-.vs-mc-option:hover:not(:disabled){border-color:var(--ink);background:var(--paper)}
-.vs-mc-option.vs-mc-correct{background:#e8f5e9;border-color:#1a6825;color:#1a6825}
-.vs-mc-option.vs-mc-wrong{background:#eef3f7;border-color:var(--red);color:var(--red)}
-.vs-mc-explain{display:none;background:var(--paper);border:1px solid var(--border);border-left:3px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--mid);margin-top:8px}
-.vs-mc-explain.show{display:block}
-.vs-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 2px}
-.vs-btn{background:none;border:1.5px solid var(--ink);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;cursor:pointer;transition:all .15s}
-.vs-btn:hover{background:var(--ink);color:#fff}
-.vs-btn-red{border-color:var(--red);color:var(--red)}
-.vs-btn-red:hover{background:var(--red);color:#fff}
-.vs-hipp-area{display:none;margin-top:18px;border-top:2px solid var(--border);padding-top:18px}
-.vs-hipp-area.show{display:block}
-.vs-hipp-section{margin-bottom:18px}
-.vs-hipp-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:6px;font-weight:700}
-.vs-guide{font-size:.76rem;color:var(--muted);font-style:italic;line-height:1.6;margin-bottom:7px;padding-left:1.2em}
-.vs-guide li{margin-bottom:2px}
-.vs-hipp-input{width:100%;box-sizing:border-box;border:1.5px solid var(--border);padding:8px 10px;font-family:inherit;font-size:.8rem;line-height:1.5;resize:vertical;min-height:56px;margin-bottom:4px;transition:border-color .15s}
-.vs-hipp-input:focus{border-color:var(--red);outline:none}
-.vs-hipp-model{display:none;background:#e8f5e9;border:1px solid #1a6825;padding:10px 12px;font-size:.8rem;line-height:1.6;color:var(--mid);margin-top:4px}
-.vs-hipp-model.show{display:block}
-.vs-hipp-model-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.46rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:4px}
 .src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
 .src-doc-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
 .src-doc-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
@@ -330,6 +292,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="unit-flashcards.css">
 <link rel="stylesheet" href="study-guide.css">
 <link rel="stylesheet" href="brain-dump.css">
+<link rel="stylesheet" href="visual-sources.css">
 </head>
 <body>
 
@@ -866,185 +829,8 @@ button{font-family:inherit;cursor:pointer}
       <h2>Visual Sources &amp; HAPP Analysis</h2>
       <p>AP-style visual stimuli. Answer the AP question, then complete your HAPP analysis and compare to the model answer.</p>
     </div>
-    <div class="vs-panel">
-      <div class="vs-tab-row" id="vs-tabs"></div>
-      <div id="vs-cards"></div>
-    </div>
+    <div class="vs-mount" data-unit="1"></div>
   </div>
-  <script>
-  var VISUAL_DATA_U1 = [
-    {
-      num: 1,
-      img: 'images/tl/u1-tl-5.jpg',
-      title: 'Mansa Musa on the Catalan Atlas, c. 1375',
-      source: 'Detail from the Catalan Atlas, a world map made on the Mediterranean island of Majorca around 1375 and attributed to the Jewish mapmaker Abraham Cresques.',
-      desc: 'A crowned African king sits on a throne holding a gold scepter in one hand and a large golden nugget or orb in the other. He is drawn over the map of West Africa, surrounded by the lines mapmakers used to plot sailing directions, with a caption in Catalan beside him.',
-      q: 'The image of Mansa Musa on this European map most directly reflects',
-      o: [
-        'Mali’s conquest of Muslim Spain and control of Mediterranean ports',
-        'the spread of Christianity in West Africa through Portuguese missionaries',
-        'European awareness of West Africa’s gold wealth through trans-Saharan trade',
-        'Portuguese trading colonies already established along the West African coast'
-      ],
-      c: 2,
-      e: 'News of Mali’s gold, spread by Mansa Musa’s 1324 pilgrimage through Cairo and by trans-Saharan merchants, reached Mediterranean Europe. The map shows him holding gold to mark West Africa as a source of wealth. Portuguese voyages to West Africa began only in the 1400s (D).',
-      happ: {
-        h: 'By the 1300s, gold from Mali crossed the Sahara to North Africa and then the Mediterranean, where it supplied European mints. Mansa Musa’s lavish pilgrimage in 1324 made his wealth famous across the Islamic world and beyond.',
-        a: 'Wealthy European patrons and rulers. The atlas was a luxury object; it was given to King Charles V of France.',
-        p: 'To map the known world, including trade routes and sources of valuable goods, and to show off the mapmaker’s knowledge gathered from merchants and travelers.',
-        pov: 'Cresques worked in Majorca, a trading hub where Jewish, Christian, and Muslim merchants exchanged information. He never visited Mali, so the image reflects what Mediterranean traders said about it, and it shows Mansa Musa in European royal style, with a crown and scepter.'
-      }
-    },
-    {
-      num: 2,
-      img: 'images/tl/u1-tl-6.jpg',
-      title: 'Map of Tenochtitlan, 1524',
-      source: 'Woodcut map of Tenochtitlan printed in Nuremberg, Germany, in 1524 with a Latin edition of Hernán Cortés’s letters to Emperor Charles V.',
-      desc: 'A round island city in the middle of a lake, crowded with buildings and connected to the shore by long causeways. At the center is a large walled square labeled in Latin as the temple where sacrifices take place. A flag with the Habsburg double-headed eagle flies at the top left, and a map of the Gulf of Mexico coast appears on the left.',
-      q: 'The map is best used as evidence of',
-      o: [
-        'the layout of Tenochtitlan as drawn by Aztec mapmakers before contact',
-        'European views of Tenochtitlan’s size and order soon after the conquest',
-        'the Inca road system that linked Cuzco to the provinces of the Andes',
-        'the decline of Aztec cities from drought before the Spanish arrived'
-      ],
-      c: 1,
-      e: 'The map was printed in Germany to accompany Cortés’s letters, so it shows how Europeans pictured the city from Spanish reports. It reflects the city’s real size, causeways, and central temple precinct, but through European eyes and artistic conventions.',
-      happ: {
-        h: 'Cortés and his Native allies conquered Tenochtitlan in 1521. Printed copies of his letters spread news of the conquest across Europe, while the Spanish began building Mexico City on the ruins.',
-        a: 'Educated European readers curious about the newly encountered lands, along with the Habsburg court that ruled Spain and the Holy Roman Empire.',
-        p: 'To illustrate Cortés’s account and show readers the size and wealth of the city Spain had won, which also glorified the conquest.',
-        pov: 'The mapmaker worked from Spanish descriptions, not personal observation. European-style buildings and the Habsburg flag show the city through a conqueror’s eyes, and labeling the center as a place of sacrifice emphasizes what Europeans found shocking.'
-      }
-    },
-    {
-      num: 3,
-      img: 'images/tl/u1-tl-3.jpg',
-      title: 'The Qutb Minar, Delhi, begun c. 1199',
-      source: 'Photograph of the Qutb Minar in Delhi, India, a stone tower begun around 1199 by Qutb al-Din Aibak, who later founded the Delhi Sultanate, and completed by his successor Iltutmish; its top stories were rebuilt in the late 1300s. Beside it stand ruins of the Quwwat ul-Islam mosque.',
-      desc: 'A tall, tapering tower of red and buff sandstone with fluted sides and several balconies rises above the ruins of a stone arch. The tower is decorated with bands of carved inscriptions.',
-      q: 'The building of the monument shown is best understood as',
-      o: [
-        'evidence that Hindu kingdoms still ruled northern India in the 1200s',
-        'a monument built by the Mughal Empire to celebrate its victory at Panipat',
-        'a Buddhist pilgrimage site built by rulers who opposed the Delhi Sultanate',
-        'Muslim rulers displaying the power and faith of a new Islamic state'
-      ],
-      c: 3,
-      e: 'The Turkic rulers who founded the Delhi Sultanate in 1206 used monumental architecture to proclaim their victory and their faith. The Mughals (B) came three centuries later, in 1526.',
-      happ: {
-        h: 'Turkic Muslim armies conquered much of northern India in the late 1100s. Qutb al-Din Aibak became the first sultan of Delhi in 1206. The nearby mosque was built partly with stone taken from demolished Hindu and Jain temples.',
-        a: 'The people of Delhi, most of them Hindu, and the sultan’s Muslim soldiers and officials. The tower could be seen from far away.',
-        p: 'To celebrate the victory of the new rulers, proclaim Islam, and possibly to serve as a minaret for the call to prayer.',
-        pov: 'The tower reflects the perspective of the conquering rulers, presenting their power as permanent. It does not show how the Hindu majority viewed the new rulers, so historians need other sources for that.'
-      }
-    },
-    {
-      num: 4,
-      img: 'images/tl/u1-tl-1.jpg',
-      title: 'Along the River During the Qingming Festival (Qing court version)',
-      source: 'Detail from the Qing court version of Along the River During the Qingming Festival, painted by court artists in 1737, based on a twelfth-century Song dynasty scroll by Zhang Zeduan.',
-      desc: 'A busy riverside landscape: crowds gather around an outdoor stage where a performance is taking place, boats carry passengers and cargo on the river, travelers walk the roads with goods on shoulder poles, and farm fields, shops, and tile-roofed buildings spread across the countryside.',
-      q: 'A historian using this image as evidence about Song dynasty society should be most cautious because',
-      o: [
-        'it was painted in the 1700s, so some details may reflect Qing rather than Song life',
-        'it was painted by European missionaries who never actually visited China themselves',
-        'it shows only military parades and leaves out the daily life of ordinary people',
-        'Song cities were too small to have the markets and shops that the scroll shows'
-      ],
-      c: 0,
-      e: 'This version was painted for the Qing court in 1737, about six centuries after Zhang Zeduan’s Song original. It is good evidence of how the Qing remembered the Song, but its details (clothing, buildings, entertainments) may be Qing.',
-      happ: {
-        h: 'Zhang Zeduan’s original scroll showed the bustling commercial life of the Song capital around the early 1100s. Later dynasties admired and copied it; the Qing emperor Qianlong’s court produced this version in 1737.',
-        a: 'The Qing emperor and his court, who collected and admired art celebrating Chinese prosperity.',
-        p: 'To honor a famous Song masterpiece while presenting an idealized picture of a peaceful, prosperous, well-governed China, a message that also flattered the Qing rulers.',
-        pov: 'The court painters worked for the emperor, so the scene is orderly and prosperous, with no poverty or unrest. Because it is a later version, it shows how the Qing imagined the Song past, not a direct record of Song life.'
-      }
-    }
-  ];
-  (function() {
-    var tabRow = document.getElementById('vs-tabs');
-    var cardsEl = document.getElementById('vs-cards');
-    if (!tabRow || !cardsEl) return;
-    var HAPP_KEYS = [
-      { key: 'h', label: 'Historical Situation', guides: ['When and where was this source created?','What major events or tensions were happening at this time?','How does the historical moment explain why this source exists?'] },
-      { key: 'a', label: 'Audience', guides: ['Who was this source originally created for?','What details (imagery, language, style) hint at who it was aimed at?','Would the intended audience have agreed with the source’s message?'] },
-      { key: 'p', label: 'Purpose', guides: ['Why did the creator make this, to persuade, inform, document, or display power?','What reaction did the creator want from the audience?','Who benefits if the source’s message is believed?'] },
-      { key: 'pov', label: 'Point of View', guides: ['Who created this source? What is their background or institutional position?','How does the creator’s identity shape what they emphasize or leave out?','Why should a historian consider this creator’s perspective when evaluating the source?'] }
-    ];
-    VISUAL_DATA_U1.forEach(function(item, idx) {
-      var tab = document.createElement('button');
-      tab.type = 'button';
-      tab.className = 'vs-tab' + (idx === 0 ? ' active' : '');
-      tab.textContent = 'Image ' + item.num;
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('#vs-tabs .vs-tab').forEach(function(t) { t.classList.remove('active'); });
-        tab.classList.add('active');
-        document.querySelectorAll('#vs-cards .vs-card').forEach(function(c) { c.classList.remove('active'); });
-        document.getElementById('vs-card-u1-' + idx).classList.add('active');
-      });
-      tabRow.appendChild(tab);
-      var mcHTML = '';
-      item.o.forEach(function(opt, oi) {
-        mcHTML += '<button type="button" class="vs-mc-option" data-oi="' + oi + '">' + String.fromCharCode(65 + oi) + '. ' + opt + '</button>';
-      });
-      var hippHTML = '';
-      HAPP_KEYS.forEach(function(hk) {
-        hippHTML +=
-          '<div class="vs-hipp-section">' +
-            '<div class="vs-hipp-lbl">' + hk.label + '</div>' +
-            '<ul class="vs-guide">' + hk.guides.map(function(g) { return '<li>' + g + '</li>'; }).join('') + '</ul>' +
-            '<textarea class="vs-hipp-input" placeholder="Write your analysis here…" rows="3"></textarea>' +
-            '<div class="vs-hipp-model" id="vs-model-' + hk.key + '-u1-' + idx + '">' +
-              '<div class="vs-hipp-model-lbl">Exemplar: ' + hk.label + '</div>' + item.happ[hk.key] +
-            '</div>' +
-          '</div>';
-      });
-      var card = document.createElement('div');
-      card.className = 'vs-card' + (idx === 0 ? ' active' : '');
-      card.id = 'vs-card-u1-' + idx;
-      card.innerHTML =
-        '<div class="vs-card-src">' + item.source + '</div>' +
-        '<div class="vs-card-title">' + item.title + '</div>' +
-        '<img src="' + item.img + '" alt="' + item.title + '" class="vs-source-img">' +
-        '<div class="vs-card-desc">' + item.desc + '</div>' +
-        '<div class="vs-step-hdr">Step 1: Answer the AP Question</div>' +
-        '<div class="vs-mc-q">' + item.q + '</div>' + mcHTML +
-        '<div class="vs-mc-explain" id="vs-mc-explain-u1-' + idx + '">' + item.e + '</div>' +
-        '<div class="vs-btn-row"><button type="button" class="vs-btn" data-hippshow="u1-' + idx + '">Step 2: HAPP Analysis →</button></div>' +
-        '<div class="vs-hipp-area" id="vs-hipp-u1-' + idx + '">' +
-          '<div class="vs-step-hdr" style="margin-bottom:12px">Step 2: HAPP Analysis</div>' +
-          '<p style="font-size:.8rem;color:var(--mid);margin-bottom:16px;line-height:1.6">Write your own HAPP analysis using the guiding questions, then compare to the exemplar.</p>' +
-          hippHTML +
-          '<div class="vs-btn-row"><button type="button" class="vs-btn vs-btn-red" data-compare="u1-' + idx + '">Compare to Exemplar →</button></div>' +
-        '</div>';
-      cardsEl.appendChild(card);
-    });
-    cardsEl.addEventListener('click', function(e) {
-      var hippBtn = e.target.closest('[data-hippshow]');
-      if (hippBtn) { document.getElementById('vs-hipp-' + hippBtn.dataset.hippshow).classList.add('show'); hippBtn.style.display = 'none'; return; }
-      var cmpBtn = e.target.closest('[data-compare]');
-      if (cmpBtn) {
-        var key = cmpBtn.dataset.compare;
-        HAPP_KEYS.forEach(function(hk) { document.getElementById('vs-model-' + hk.key + '-' + key).classList.add('show'); });
-        cmpBtn.style.display = 'none'; return;
-      }
-      var opt = e.target.closest('.vs-mc-option');
-      if (opt && !opt.disabled) {
-        var card = opt.closest('.vs-card');
-        var idx = card.id.replace('vs-card-u1-', '');
-        var item = VISUAL_DATA_U1[parseInt(idx, 10)];
-        var oi = parseInt(opt.dataset.oi, 10);
-        card.querySelectorAll('.vs-mc-option').forEach(function(b, bi) {
-          b.disabled = true;
-          if (bi === item.c) b.classList.add('vs-mc-correct');
-          else if (bi === oi) b.classList.add('vs-mc-wrong');
-        });
-        document.getElementById('vs-mc-explain-u1-' + idx).classList.add('show');
-      }
-    });
-  })();
-  </script>
 </div>
 
 <div class="page" id="pg-games">
@@ -1143,6 +929,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 (function(){var btt=document.getElementById('back-to-top');if(!btt)return;var onScroll=function(){btt.classList.toggle('show',window.scrollY>400);};window.addEventListener('scroll',onScroll,{passive:true});btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});onScroll();})();
 </script>
 
+<script src="visual-sources-data.js"></script>
+<script src="visual-sources.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

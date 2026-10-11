@@ -99,23 +99,19 @@ One HTML file per unit. Fixed sidebar + top bar + a set of tab "pages" that `sho
 Unit-only tabs: `pg-write` (Unit 7 FRQ Grader), `pg-slides` (Unit 7 class slides), `pg-web` (Unit 9 Globalization Web).
 Reuse these ids; don't invent per-unit variants.
 
-### 4.2 Navigation (per-unit, same pattern everywhere)
+### 4.2 Navigation (shared: `unit-shell.js`)
 
-Each unit defines, inside its main script:
-```js
-var PAGE_TITLES = { 'pg-home':'Overview', 'pg-mcq':'MCQ Practice', ... };
-var GROUPS = [ {label:'Overview', pages:['pg-home']},
-               {label:'Practice', pages:['pg-mcq','pg-walk']},
-               {label:'Writing', pages:['pg-writing']},
-               {label:'Study Guide', pages:['pg-guide']},
-               {label:'Sources', pages:['pg-source','pg-visual','pg-maps']},
-               {label:'Review & Recall', pages:['pg-flash','pg-glossary','pg-brain','pg-spice','pg-games']} ];
-var SUBLABELS = { 'pg-flash':'Flashcards', ... };   // sub-tab labels
-function showTab(id) { ... }  window.showTab = showTab;
-```
-`GROUPS_LIVE` drops ids that aren't on the page. `renderNav` writes `data-subs` that
-`nav-flyout.js` and `tour.js` read. Any element with `data-tab="pg-xxx"` switches tabs.
-Deep links: `unitN.html#pg-xxx` opens a tab; `#g-<slug>` opens a glossary term.
+`unit-shell.js` (loaded last, just before `</body>`) builds the sidebar groups into
+`#sb-nav-items`, adds the sub-tab bar under the top bar, and defines `window.showTab(id)`.
+The six groups are fixed for every unit:
+Overview · Practice (`pg-mcq pg-walk pg-web`) · Writing (`pg-write pg-writing`) · Study Guide ·
+Sources (`pg-source pg-visual pg-maps`) · Review & Recall (`pg-flash pg-glossary pg-brain pg-spice pg-games`).
+Tabs missing from a page are skipped. Labels live in `unit-shell.js`; a unit can override them
+with `window.UNIT_SHELL = {titles:{...}, sublabels:{...}}` set before the script loads (no unit
+needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.html#pg-xxx` deep-links;
+`#g-<slug>` opens a glossary term. On every switch the shell fires a `unit:tab` event
+(`e.detail.id`) and, for `pg-guide`, calls `window.renderGuide()` if the page defines it.
+`nav-flyout.js` and `tour.js` read each sidebar item's `data-subs`.
 
 ### 4.3 Shared includes every unit loads
 
@@ -123,7 +119,7 @@ Deep links: `unitN.html#pg-xxx` opens a tab; `#g-<slug>` opens a glossary term.
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
 `flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
-`mcq-bank.js`, `mcq-engine.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`.
+`mcq-bank.js`, `mcq-engine.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
 
 ### 4.4 Mount points (copy exactly; N = unit number)
@@ -154,6 +150,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `spaced.js` | Spaced-review store + streak banner | `SPACED.recordReview(itemId, correct, confidence)`; ids: MCQ `u{n}_{topic}_{idx}`, flashcards `u{n}_fc_{slug(term)}`, reverse side `rv_u{n}_fc_{slug}` |
 | `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` (+ Source tab drills). Keep these ids. |
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
+| `unit-shell.js` | Unit sidebar, sub-tab bar, `showTab`, deep links, `data-tab` buttons | optional `window.UNIT_SHELL` overrides; `unit:tab` event |
 | `tour.js` | "How to Work This Unit" game plan + spotlight tour | reads `data-subs` and `showTab` |
 | `nav-flyout.js` | Sidebar hover menus | reads `data-subs` |
 | `search.js` | Site search (`/` or Ctrl+K) | hand-built `UNITS`/`PAGES` index; add new resources there |
@@ -179,7 +176,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 
 | Feature | Current state | Target |
 |---|---|---|
-| Sidebar nav / `showTab` | Same pattern copied into all 9 pages | `unit-shell.js` reading one `UNIT_NAV` config |
+| ~~Sidebar nav / `showTab`~~ | **Done:** `unit-shell.js` | |
 | Study Guide (`pg-guide`) | 3 formats: inline `.sg-section` HTML (Units 1, 2, 9); `var SG=[{n,kw,body}]` (Units 3–6, 8); JSON-style SG (Unit 7) | `study-guide-data.js` + `study-guide.js` |
 | Brain Dump (`pg-brain`) | 3 formats: `BRAIN` object (Units 1–2); `BD_STEMS` + `BD_CARDS` (Units 3–5, 8); `BD_STEMS` + flashcards (Units 6–7); Unit 9 its own | `brain-dump.js` + data |
 | Visual Sources (`pg-visual`) | `VISUAL_DATA`/`VISUAL_DATA_UN` arrays `{num, img, title, source, desc, q, o, c, e, happ:{h,a,p,pov}}` (HIPP variant `hipp` in Units 6–7) + inline renderer per unit | `visual-sources.js` + data |

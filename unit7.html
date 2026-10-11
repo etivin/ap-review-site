@@ -1645,94 +1645,7 @@ initProgress();
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ── NAV ──────────────────────────────────────────────── */
-  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-write':'Writing Practice','pg-writing':'Writing Drills','pg-guide':'Study Guide','pg-source':'Source Analysis','pg-flash':'Flashcards','pg-games':'Games','pg-visual':'Visual Sources','pg-brain':'Brain Dump','pg-slides':'Slides','pg-spice':'SPICE-T Analysis'};
-  /* ── Consolidated 6-group navigation ──
-     Groups collapse the old 12 sections into 6 consistent tabs. Each group
-     lists the page-ids it may contain; pages that don't exist in a given unit
-     are skipped automatically, so this same block is portable to every unit. */
-  var GROUPS = [
-    {label:'Overview',        pages:['pg-home']},
-    {label:'Practice',        pages:['pg-mcq','pg-walk']},
-    {label:'Writing',         pages:['pg-write','pg-writing']},
-    {label:'Study Guide',     pages:['pg-guide']},
-    {label:'Sources',         pages:['pg-source','pg-visual','pg-maps']},
-    {label:'Review & Recall', pages:['pg-flash','pg-glossary','pg-brain','pg-spice','pg-games']}
-  ];
-  var SUBLABELS = {
-    'pg-mcq':'Questions','pg-walk':'How to Attack an MCQ','pg-write':'FRQ Grader','pg-writing':'Writing Drills',
-    'pg-guide':'Study Guide',    'pg-source':'Documents','pg-visual':'Visual Sources','pg-maps':'Maps',
-    'pg-flash':'Flashcards','pg-glossary':'Glossary','pg-brain':'Brain Dump','pg-spice':'SPICE-T','pg-games':'Games'
-  };
-
-  // Keep only pages that actually exist on this unit; drop empty groups.
-  var GROUPS_LIVE = GROUPS.map(function(g){
-    return {label:g.label, pages:g.pages.filter(function(id){ return document.getElementById(id); })};
-  }).filter(function(g){ return g.pages.length; });
-
-  function groupOf(id){
-    for (var i=0;i<GROUPS_LIVE.length;i++){ if (GROUPS_LIVE[i].pages.indexOf(id)>-1) return GROUPS_LIVE[i]; }
-    return null;
-  }
-
-  // Build the sidebar nav from the live groups.
-  (function renderNav(){
-    var wrap = document.getElementById('sb-nav-items');
-    if (!wrap) return;
-    GROUPS_LIVE.forEach(function(g){
-      var el = document.createElement('div');
-      el.className = 'nav-item';
-      el.dataset.group = g.label; el.dataset.subs=JSON.stringify(g.pages.map(function(id){return [id,SUBLABELS[id]||PAGE_TITLES[id]||id];}));
-      var dot = document.createElement('span'); dot.className = 'nav-dot';
-      el.appendChild(dot);
-      el.appendChild(document.createTextNode(g.label));
-      el.addEventListener('click', function(){ showTab(g.pages[0]); });
-      wrap.appendChild(el);
-    });
-  })();
-
-  function renderSubtabs(group, activeId){
-    var bar = document.getElementById('subtab-bar');
-    if (!bar) return;
-    bar.innerHTML = '';
-    if (!group || group.pages.length < 2) return; // no strip for single-page groups
-    group.pages.forEach(function(id){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'subtab' + (id === activeId ? ' active' : '');
-      b.textContent = SUBLABELS[id] || (PAGE_TITLES[id] || id);
-      b.addEventListener('click', function(){ showTab(id); });
-      bar.appendChild(b);
-    });
-  }
-
-  function showTab(id) {
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-    var t = document.getElementById(id);
-    if (t) t.classList.add('active');
-    var group = groupOf(id);
-    // Highlight the owning group in the sidebar.
-    document.querySelectorAll('#sb-nav-items .nav-item').forEach(function(n){
-      n.classList.toggle('active', !!group && n.dataset.group === group.label);
-    });
-    renderSubtabs(group, id);
-    var tt = document.getElementById('top-title');
-    if (tt) tt.textContent = (group ? group.label : (PAGE_TITLES[id] || ''));
-    if (id === 'pg-guide') renderGuide();
-    window.scrollTo(0, 0);
-  }
-  window.showTab = showTab;
-
-  var hdrBack = document.getElementById('hdr-back');
-  if (hdrBack) hdrBack.addEventListener('click', function(){ showTab('pg-home'); });
-
-  document.querySelectorAll('[data-tab]').forEach(function(el){
-    el.addEventListener('click', function(){ showTab(this.dataset.tab); });
-  });
-
-  // Initialize sidebar highlight + sub-tab bar for the default Overview page.
-  showTab('pg-home');
-  (function(){var goHash=function(){var h=(location.hash||'').replace(/^#/,'');var t=h&&document.getElementById(h);if(t&&t.classList&&t.classList.contains('page'))showTab(h);};goHash();window.addEventListener('hashchange',goHash);})();
+  window.renderGuide = renderGuide;  // the Study Guide tab calls it (unit-shell.js)
 
   // Floating back-to-top button: once the user scrolls deep into a long
   // section, one tap returns them to the top, where each section's
@@ -3551,5 +3464,6 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="mcq-engine.js"></script>
 <script src="bd-confidence.js"></script>
 <script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'7'});</script>
+<script src="unit-shell.js"></script>
 </body>
 </html>

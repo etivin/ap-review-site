@@ -578,7 +578,19 @@ window.GLOSSARY = {
   ["9.8","International Monetary Fund (IMF)","Organization that lends to countries in financial trouble, often requiring free-market reforms."],
   ["9.8","World Bank","Organization that lends to developing countries for projects."],
   ["9.8","NGOs","Non-governmental organizations like Doctors Without Borders and Amnesty International that work on global issues."],
-  ["9.8","Microfinance","Small loans to poor entrepreneurs, pioneered by the Grameen Bank in Bangladesh."]
+  ["9.8","Microfinance","Small loans to poor entrepreneurs, pioneered by the Grameen Bank in Bangladesh."],
+  ["9.1","Margaret Sanger","American nurse and birth-control activist who opened the first U.S. birth-control clinic in 1916 and helped fund research that led to the Pill."],
+  ["9.1","The Pill","Oral contraceptive approved in the United States in 1960 that gave women more control over childbearing and helped lower birth rates."],
+  ["9.1","ARPANET","U.S. government computer network of the late 1960s and 1970s, built to link research centers, that grew into the internet."],
+  ["9.2","Polio Vaccine","Vaccine developed by Jonas Salk and approved in 1955 that, with later vaccines, nearly eliminated polio worldwide."],
+  ["9.3","Greenpeace","Environmental organization founded in 1971 that uses protests and direct action against whaling, nuclear testing, and pollution."],
+  ["9.4","Chicago Boys","Chilean economists trained at the University of Chicago who carried out free-market reforms under Augusto Pinochet's military government after 1973."],
+  ["9.4","Production Economy","Economy based mainly on manufacturing goods, often for export, such as Vietnam, Bangladesh, or Mexico."],
+  ["9.4","USMCA","United States-Mexico-Canada Agreement, the trade deal that replaced NAFTA on July 1, 2020."],
+  ["9.5","Civil Rights Act of 1964","U.S. law that outlawed discrimination based on race, color, religion, sex, or national origin and ended legal segregation in public places."],
+  ["9.5","Caste Reservation","Indian policy, written into the constitution, that reserves a share of government jobs, university seats, and legislative seats for historically disadvantaged castes and tribes."],
+  ["9.5","Women's Suffrage","Movement for women's right to vote, won in many countries in the early twentieth century, often after women's wartime work."],
+  ["9.8","International Criminal Court","Court in The Hague, operating since 2002, that tries individuals for genocide, war crimes, and crimes against humanity."]
 ]
 };
 

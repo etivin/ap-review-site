@@ -105,5 +105,8 @@ window.FC_TAGS = {
 'Global Culture':'C GL','Consumerism':'CE GL','Bollywood':'C SA','K-pop':'C EA','Reggae':'C AM','Social Media':'CT GL','Global Sports':'C GL',
 'Anti-Globalization Movement':'SE GL','Religious Fundamentalism':'C ME,GL','Terrorism':'G GL','World Social Forum':'S GL',
 'World Trade Organization (WTO)':'EG GL','NAFTA':'E AM','European Union':'GE EU','ASEAN':'GE SEA','Mercosur':'E AM',
-'International Monetary Fund (IMF)':'E GL','World Bank':'E GL','NGOs':'SG GL','Microfinance':'ES SA'
+'International Monetary Fund (IMF)':'E GL','World Bank':'E GL','NGOs':'SG GL','Microfinance':'ES SA',
+'Margaret Sanger':'ST AM','The Pill':'TS GL','ARPANET':'T AM','Polio Vaccine':'TN GL','Greenpeace':'NS GL',
+'Chicago Boys':'EG AM','Production Economy':'E GL','USMCA':'E AM','Civil Rights Act of 1964':'GS AM',
+'Caste Reservation':'SG SA',"Women's Suffrage":'SG GL','International Criminal Court':'G GL'
 };

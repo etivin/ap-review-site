@@ -1124,6 +1124,17 @@ img{display:block;max-width:100%}
 </div>
 
 <!-- ══ WRITING ══ -->
+<!-- ══ WRITING DRILLS (shared writing-drills.js, same as Units 1-6, 8, 9) ══ -->
+<div class="page" id="pg-writing">
+  <div class="inner">
+    <div class="pg-nav-row">
+      <a href="./" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
+      <button type="button" class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
+    </div>
+    <div class="wd-mount" data-unit="7" data-unit-label="Unit 7"></div>
+  </div>
+</div>
+
 <div class="page" id="pg-write">
   <div class="inner">
     <div class="pg-nav-row">
@@ -2571,7 +2582,7 @@ initProgress();
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ── NAV ──────────────────────────────────────────────── */
-  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-write':'Writing Practice','pg-guide':'Study Guide','pg-source':'Source Analysis','pg-flash':'Flashcards','pg-games':'Games','pg-visual':'Visual Sources','pg-brain':'Brain Dump','pg-slides':'Slides','pg-progress':'Progress','pg-spice':'SPICE-T Analysis'};
+  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-write':'Writing Practice','pg-writing':'Writing Drills','pg-guide':'Study Guide','pg-source':'Source Analysis','pg-flash':'Flashcards','pg-games':'Games','pg-visual':'Visual Sources','pg-brain':'Brain Dump','pg-slides':'Slides','pg-progress':'Progress','pg-spice':'SPICE-T Analysis'};
   /* ── Consolidated 6-group navigation ──
      Groups collapse the old 12 sections into 6 consistent tabs. Each group
      lists the page-ids it may contain; pages that don't exist in a given unit
@@ -2579,13 +2590,13 @@ document.addEventListener('DOMContentLoaded', function () {
   var GROUPS = [
     {label:'Overview',        pages:['pg-home']},
     {label:'Practice',        pages:['pg-mcq','pg-walk']},
-    {label:'Writing',         pages:['pg-write']},
+    {label:'Writing',         pages:['pg-write','pg-writing']},
     {label:'Study Guide',     pages:['pg-guide']},
     {label:'Sources',         pages:['pg-source','pg-visual','pg-maps']},
     {label:'Review & Recall', pages:['pg-flash','pg-glossary','pg-brain','pg-spice','pg-games']}
   ];
   var SUBLABELS = {
-    'pg-mcq':'Questions','pg-walk':'How to Attack an MCQ',
+    'pg-mcq':'Questions','pg-walk':'How to Attack an MCQ','pg-write':'FRQ Grader','pg-writing':'Writing Drills',
     'pg-guide':'Study Guide',    'pg-source':'Documents','pg-visual':'Visual Sources','pg-maps':'Maps',
     'pg-flash':'Flashcards','pg-glossary':'Glossary','pg-brain':'Brain Dump','pg-spice':'SPICE-T','pg-games':'Games'
   };
@@ -6279,6 +6290,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <script src="spaced.js"></script>
 <script src="activity.js"></script>
+<script src="writing-prompts.js"></script>
+<script src="writing-drills.js"></script>
 <script src="flashcards-spaced.js"></script>
 <script src="mcq-bank.js"></script>
 <script src="mcq-engine.js"></script>

@@ -7,7 +7,7 @@
 
    Read by writing-drills.js: each unit's Writing Drills page shows
    a "Real Exam Prompts" section with these, above the skill drills.
-   Unit 7's Japanese-imperialism DBQ already lives in unit7.html, so
+   Unit 7's Japanese-imperialism DBQ already lives in unit7.html (FRQ Grader), so
    it is intentionally not repeated here.
 
    Text is transcribed from the College Board FRQ PDFs. "…" marks
@@ -698,6 +698,77 @@ window.WRITING_PROMPTS = {
           exemplar: 'Structure by <strong>causation</strong>: <em>&ldquo;International organizations like the United Nations and the World Health Organization attempted to spread the benefits of innovations in medicine and public health in developing countries, which reduced deaths due to communicable diseases in many regions.&rdquo;</em>' + WHY('<strong>Officially credited</strong> (an effect of medical innovation).') },
         { key: 'complexity', label: 'Complexity', points: '1 pt', requirement: REQ.complexity,
           exemplar: 'Explain uneven benefits: antibiotics, vaccines, and the Green Revolution saved millions of lives, but access was unequal (expensive HIV drugs reached poor countries late), and some advances created new problems such as pesticide pollution and diseases of longevity.' + WHY('<strong>Official guidance:</strong> complexity may also come from explaining how advances such as antibiotics or the Green Revolution responded to crises like epidemics and famine.') }
+      ]
+    }
+  ]);
+})(window.WRITING_PROMPTS);
+
+/* Unit 7 Writing Drills (added 2026-10-11). Unit 7's FRQ Grader keeps the
+   2024 SAQ 2, 2024 Set 2 DBQ, and 2019 LEQ 4; these are different released
+   prompts so the two tabs do not overlap. */
+(function (W) {
+  W[7] = W[7] || {};
+  var WHY = function (s) { return ' <br><span class="wd-note-why">' + s + '</span>'; };
+  var REQ = {
+    thesis: 'Respond to the prompt with a <strong>historically defensible thesis/claim</strong> that establishes a <strong>line of reasoning</strong>. One place, intro OR conclusion; more than a restatement.',
+    context: 'Describe a <strong>broader historical context</strong> relevant to the prompt in <strong>more than a phrase</strong>.',
+    evidence: 'Provide <strong>at least TWO specific, relevant historical examples</strong> connected to the topic of the prompt.',
+    support: 'Use those <strong>two specific examples to support an argument</strong> in response to the prompt.',
+    reasoning: 'Use <strong>comparison, causation, or continuity &amp; change to frame and structure</strong> the argument.',
+    complexity: 'Demonstrate a <strong>complex understanding</strong>: nuance, multiple causes/effects, or insightful connections, developed with evidence.'
+  };
+  W[7].saq = (W[7].saq || []).concat([{
+    year: '2018', tag: 'SAQ 1: Secondary source (older exam format)',
+    source: 'Rudolph Rummel, United States political scientist, Death by Government, 1994',
+    excerpt: '“The more power a government has, the more it can act arbitrarily according to the whims and desires of the elite, and the more it will make war on others and murder its foreign and domestic subjects. The more constrained the power of governments, the more power is diffused, checked, and balanced, the less it will aggress on others and commit mass violence. At the extremes of power, totalitarian governments slaughter their people by the tens of millions. In contrast, many democracies can barely bring themselves to execute even serial murderers.”',
+    parts: [
+      'Identify ONE historical example of mass violence that was committed by a totalitarian state in the twentieth century that would support Rummel’s argument in the passage.',
+      'Explain ONE historical example of a democratic state committing mass violence that would challenge Rummel’s argument regarding democracies and mass violence.',
+      'Explain ONE development in the late twentieth century that likely shaped Rummel’s view of the relationship between democracy and mass violence.'
+    ],
+    partExemplars: [
+      '<strong>Task = IDENTIFY an example (1 sentence).</strong> The Nazi Holocaust is an example of mass violence committed by a totalitarian state.' + WHY('<strong>Officially credited answers include:</strong> the Holocaust; the Khmer Rouge genocide in Cambodia; Stalin&rsquo;s liquidation of the kulaks; the Great Terror of the late 1930s; mass violence under Mao during the Great Leap Forward and the Cultural Revolution.'),
+      '<strong>Task = EXPLAIN a counterexample (2–3 sentences).</strong> The firebombing of Dresden by Britain and the United States during the Second World War was a deliberate use of terror designed to break the will of the German population, showing that democracies also committed mass violence.' + WHY('<strong>Officially credited answers include:</strong> Britain and France using mass violence to crush African resistance to colonial rule; violence against Indigenous peoples in Australia; the bombing of Dresden.'),
+      '<strong>Task = EXPLAIN a development (2–3 sentences).</strong> Rummel&rsquo;s view was likely shaped by the end of the Cold War, when the United States and its democratic allies had emerged victorious over totalitarian regimes such as the Soviet Union.' + WHY('<strong>Officially credited answers include:</strong> the end of the Cold War; the post-1945 liberal international order and the United Nations; ethnic cleansing by Serbian forces in Yugoslavia in the early 1990s; post-Cold War arguments that democracy had triumphed.')
+    ]
+  }]);
+  W[7].leq = (W[7].leq || []).concat([
+    {
+      year: '2021', tag: 'LEQ 4',
+      intro: 'In the twentieth century, governments responded to economic crises in various ways.',
+      prompt: 'Develop an argument that evaluates the extent to which governments (other than the United States government) changed their economic policies in response to the Great Depression.',
+      rubric: [
+        { key: 'thesis', label: 'Thesis / Claim', points: '1 pt', requirement: REQ.thesis,
+          exemplar: '<em>&ldquo;In many parts of Asia and Africa, governments only made minimal economic changes in response to the Great Depression because European colonial authorities were unwilling to introduce costly social welfare programs or implement policies that could reduce the profits of their companies.&rdquo;</em>' + WHY('<strong>Officially credited.</strong> Minimally acceptable: &ldquo;Governments across the world responded to the Great Depression by making their economies more socialist.&rdquo;') },
+        { key: 'context', label: 'Contextualization', points: '1 pt', requirement: REQ.context,
+          exemplar: '<em>&ldquo;The responses to the Great Depression by many western European countries reflected their fear of growing power of the Soviet Union as well as of the influence of socialist political parties in many European countries.&rdquo;</em>' + WHY('<strong>Officially credited context includes:</strong> the &ldquo;Roaring Twenties&rdquo;; fear of communism after the creation of the USSR; neocolonialism in Latin America; Great Power competition that limited free trade; speculation leading to the 1929 crash.') },
+        { key: 'evidence', label: 'Evidence: Two Specific Examples', points: '1 pt', requirement: REQ.evidence,
+          exemplar: 'Name at least two, e.g.: high unemployment across Europe; protective <strong>tariffs</strong> such as Britain&rsquo;s; Nazi Germany&rsquo;s drive for <strong>economic self-sufficiency</strong> and rearmament; Stalin&rsquo;s <strong>Five-Year Plans</strong>; Japan&rsquo;s expansion into <strong>Manchuria</strong>; Latin American <strong>import substitution</strong>.' + WHY('<strong>Officially credited evidence includes</strong> the 1929 crash, high unemployment, sharp GDP declines, and restrictive trade policies.') },
+        { key: 'evidence-support', label: 'Evidence: Supports the Argument', points: '2nd pt', requirement: REQ.support,
+          exemplar: '<em>&ldquo;The severity of economic decline in Germany during the Great Depression was greater than in many other countries because Germany was still under obligation to pay war reparations and relied on foreign investment. As a result of widespread unemployment and poverty, the new Nazi government in Germany embarked on a new policy of economic self-sufficiency.&rdquo;</em>' + WHY('<strong>Officially credited</strong> as evidence supporting an argument.') },
+        { key: 'reasoning', label: 'Historical Reasoning', points: '1 pt', requirement: REQ.reasoning,
+          exemplar: 'Structure by <strong>comparison</strong>: <em>&ldquo;Some countries responded to the Great Depression by embracing nationalism, fascism, and militarism, such as in Germany and Japan. Germany expanded its military and pursued economic self-sufficiency.&rdquo;</em>' + WHY('<strong>Officially credited</strong> (compares several governments&rsquo; responses).') },
+        { key: 'complexity', label: 'Complexity', points: '1 pt', requirement: REQ.complexity,
+          exemplar: 'Show change over time: Britain at first raised taxes, held down wages, and defended the gold standard, then switched course and left the gold standard in 1931, so responses evolved as the crisis deepened.' + WHY('<strong>Official guidance:</strong> complexity may also come from explaining how Keynesian responses to the Depression shaped postwar welfare states.') }
+      ]
+    },
+    {
+      year: '2025', tag: 'LEQ 4 (Set 2)',
+      intro: 'During the twentieth century, competing political and economic interests along with intense nationalism contributed to global conflicts.',
+      prompt: 'Develop an argument that evaluates the extent to which nationalism was the most important factor contributing to global conflict during this period.',
+      rubric: [
+        { key: 'thesis', label: 'Thesis / Claim', points: '1 pt', requirement: REQ.thesis,
+          exemplar: '<em>&ldquo;While nationalism was certainly an important factor in the global conflicts of the twentieth century, nationalism should be viewed as one of the ideologies causing these conflicts along with communism, fascism, and even some religions.&rdquo;</em>' + WHY('<strong>Officially credited.</strong> Minimally acceptable: &ldquo;The intense German nationalism of the Nazis was the biggest factor leading to World War II.&rdquo;') },
+        { key: 'context', label: 'Contextualization', points: '1 pt', requirement: REQ.context,
+          exemplar: '<em>&ldquo;Social Darwinist ideas of race and competition grew steadily in the late 19th century and became intertwined with nationalism.&rdquo;</em>' + WHY('<strong>Officially credited context includes:</strong> modern antisemitism and racial theories; nineteenth-century nationalist revolutions and new nation-states; Enlightenment liberalism; socialism and communism; fascism.') },
+        { key: 'evidence', label: 'Evidence: Two Specific Examples', points: '1 pt', requirement: REQ.evidence,
+          exemplar: 'Name at least two, e.g.: the pre-WWI <strong>alliance system</strong>; the <strong>Armenian Genocide</strong>; the <strong>Holocaust</strong>; <strong>fascism</strong> and National Socialism; Japanese imperialism; the <strong>Partition of India</strong>; independence wars in Vietnam, Algeria, or Kenya.' + WHY('<strong>Officially credited evidence list</strong> from the 2025 Set 2 scoring guidelines.') },
+        { key: 'evidence-support', label: 'Evidence: Supports the Argument', points: '2nd pt', requirement: REQ.support,
+          exemplar: 'Tie evidence to the claim: Serbian nationalists assassinated Archduke Franz Ferdinand in 1914 to free Slavs from Austro-Hungarian rule, and nationalist public support in every major power turned that crisis into a world war.' + WHY('<strong>Official guidance:</strong> evidence must support an argument about how much nationalism drove the conflict.') },
+        { key: 'reasoning', label: 'Historical Reasoning', points: '1 pt', requirement: REQ.reasoning,
+          exemplar: 'Structure by <strong>causation</strong>: <em>&ldquo;Fascism was ultra-nationalist, expansionist, and viewed war as a positive good, all of which drove Nazi Germany to annex and conquer territories in Europe, starting World War II.&rdquo;</em>' + WHY('<strong>Officially credited</strong> (a cause/effect link between nationalism and global conflict).') },
+        { key: 'complexity', label: 'Complexity', points: '1 pt', requirement: REQ.complexity,
+          exemplar: 'Weigh factors: fascist Italy and Nazi Germany were driven by ultra-nationalism, while the Soviet Union was driven mainly by communist ideology even as it appealed to Russian patriotism, so nationalism explains some conflicts better than others.' + WHY('<strong>Officially credited idea.</strong> Another: tracing nationalism through several causes of WWI, from militarism to the assassination to public support for the war.') }
       ]
     }
   ]);

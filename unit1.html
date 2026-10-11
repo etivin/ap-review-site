@@ -369,6 +369,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="review-games.css">
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
+<link rel="stylesheet" href="unit-flashcards.css">
 </head>
 <body>
 
@@ -644,53 +645,9 @@ button{font-family:inherit;cursor:pointer}
     <div class="pg-hero">
       <div class="eyebrow">Unit 1 Flashcards</div>
       <h2>Key Terms &amp; Concepts</h2>
-      <p>Click the card to flip it. Use arrows to navigate or filter by topic.</p>
+      <p>Think of the answer before the timer runs out, then show it and rate yourself honestly. Cards you rate Shaky or Guessing come back sooner.</p>
     </div>
-    <div class="fc-controls">
-      <div class="fc-meta" id="fc-meta">Card 1 of 1</div>
-      <div class="fc-select-wrap">
-        <select class="fc-sel" id="fc-filter">
-          <option value="all">All Topics</option>
-          <option value="1.1">1.1: Song China</option>
-          <option value="1.2">1.2: Dar al-Islam</option>
-          <option value="1.3">1.3: South &amp; SE Asia</option>
-          <option value="1.4">1.4: The Americas</option>
-          <option value="1.5">1.5: Africa</option>
-          <option value="1.6">1.6: Medieval Europe</option>
-        </select>
-        <button type="button" class="fc-sel" id="fc-shuffle-btn">&#128256; Shuffle</button>
-      </div>
-    </div>
-    <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
-    <div class="fc-timer-wrap">
-      <div class="fc-timer-ring">
-        <svg width="54" height="54" viewBox="0 0 54 54">
-          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
-          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
-        </svg>
-        <div class="fc-timer-num" id="fc-timer-num">15</div>
-      </div>
-      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
-    </div>
-    <div class="card-area" id="card-area">
-      <div class="card-3d" id="fc-card">
-        <div class="card-face front">
-          <div class="card-tag">Term</div>
-          <div class="card-term" id="fc-term">Loading...</div>
-          <div class="card-topic" id="fc-topic">Topic 1.1</div>
-          <div class="card-hint">Think of the answer, then flip when the timer is done &#8595;</div>
-        </div>
-        <div class="card-face back">
-          <div class="card-tag back-tag">Definition</div>
-          <div class="card-def" id="fc-def">Loading...</div>
-        </div>
-      </div>
-    </div>
-    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
-    <div class="card-nav">
-      <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
-      <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
-    </div>
+    <div class="ufc-mount" data-unit="1"></div>
   </div>
 </div>
 
@@ -1432,47 +1389,6 @@ var scoreRight=0, scoreTotal=0;
 function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textContent=scoreRight+'/'+scoreTotal;}
 
 
-/* ══ FLASHCARDS ════════════════════════════════════════════ */
-(function(){
-  var deck=CARDS.slice(), idx=0, flipped=false, timer=null, sec=15, ready=false;
-  var CIRC=138.23;
-  function stop(){if(timer){clearInterval(timer);timer=null;}}
-  function start(){
-    stop(); sec=15; ready=false;
-    var num=document.getElementById('fc-timer-num'), fg=document.getElementById('fc-timer-fg'), msg=document.getElementById('fc-timer-msg');
-    num.textContent=sec; fg.classList.remove('done'); fg.setAttribute('stroke-dashoffset','0'); msg.textContent='Study this card…'; msg.classList.remove('ready');
-    timer=setInterval(function(){
-      sec--; num.textContent=Math.max(sec,0);
-      fg.setAttribute('stroke-dashoffset', (CIRC*(15-sec)/15).toFixed(2));
-      if(sec<=0){stop(); ready=true; fg.classList.add('done'); num.textContent='✓'; msg.textContent='Ready: flip the card!'; msg.classList.add('ready');}
-    },1000);
-  }
-  function render(){
-    if(!deck.length)return; var c=deck[idx];
-    document.getElementById('fc-term').textContent=c.t;
-    document.getElementById('fc-topic').textContent='Topic '+c.topic;
-    document.getElementById('fc-def').textContent=c.d;
-    document.getElementById('fc-meta').textContent='Card '+(idx+1)+' of '+deck.length;
-    document.getElementById('fc-pbar').style.width=((idx+1)/deck.length*100)+'%';
-    document.getElementById('fc-prev').disabled=(idx===0);
-    document.getElementById('fc-next').disabled=(idx===deck.length-1);
-    var card=document.getElementById('fc-card'); if(flipped){card.classList.remove('flipped');flipped=false;}
-    start();
-  }
-  document.getElementById('card-area').addEventListener('click',function(){
-    if(!ready)return; flipped=!flipped; document.getElementById('fc-card').classList.toggle('flipped',flipped);
-  });
-  document.getElementById('fc-prev').addEventListener('click',function(){if(idx>0){idx--;render();}});
-  document.getElementById('fc-next').addEventListener('click',function(){if(idx<deck.length-1){idx++;render();}});
-  document.getElementById('fc-filter').addEventListener('change',function(){
-    var v=this.value; deck=(v==='all')?CARDS.slice():CARDS.filter(function(c){return c.topic===v;}); idx=0; render();
-  });
-  document.getElementById('fc-shuffle-btn').addEventListener('click',function(){
-    for(var i=deck.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=deck[i];deck[i]=deck[j];deck[j]=tmp;} idx=0; render();
-  });
-  render();
-})();
-
 /* ══ BRAIN DUMP ════════════════════════════════════════════ */
 (function(){
   var grid=document.getElementById('bd-topic-grid'), selected=null, timer=null, remaining=300;
@@ -1518,7 +1434,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 </script>
 <script src="spaced.js"></script>
 <script src="activity.js"></script>
-<script src="flashcards-spaced.js"></script>
+<script src="flashcard-tags.js"></script>
+<script src="unit-flashcards.js"></script>
 <script src="mcq-bank.js"></script>
 <script src="mcq-engine.js"></script>
 <script src="bd-confidence.js"></script>

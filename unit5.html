@@ -556,6 +556,7 @@ button{font-family:inherit;cursor:pointer}
 <script defer src="theme.js"></script>
 <script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script><script defer src="nav-flyout.js"></script><script defer src="tour.js"></script><script defer src="glossary-data.js"></script><script defer src="glossary.js"></script>
 <script src="flashcard-data.js"></script>
+<link rel="stylesheet" href="unit-flashcards.css">
 </head>
 <body>
 
@@ -735,114 +736,10 @@ button{font-family:inherit;cursor:pointer}
     <div class="pg-hero">
       <div class="eyebrow">Unit 5 Flashcards</div>
       <h2>Key Terms &amp; Concepts</h2>
-      <p>Wait for the timer, think of the answer, then click the card to flip it. Navigate with the arrows or filter by topic.</p>
+      <p>Think of the answer before the timer runs out, then show it and rate yourself honestly. Cards you rate Shaky or Guessing come back sooner.</p>
     </div>
-    <div class="fc-controls">
-      <div class="fc-meta" id="fc-meta">Card 1 of 31</div>
-      <div class="fc-select-wrap">
-        <select class="fc-sel" id="fc-filter">
-          <option value="all">All Topics</option>
-          <option value="5.1">5.1: The Enlightenment</option>
-          <option value="5.2">5.2: Nationalism &amp; Revolutions</option>
-          <option value="5.3">5.3: Industrial Revolution Begins</option>
-          <option value="5.4">5.4: Industrialization Spreads</option>
-          <option value="5.5">5.5: Technology of the Industrial Age</option>
-          <option value="5.6">5.6: Government's Role</option>
-          <option value="5.7">5.7: Economic Developments</option>
-          <option value="5.8">5.8: Reactions to Industrialization</option>
-          <option value="5.9">5.9: Society &amp; the Industrial Age</option>
-          <option value="5.10">5.10: Continuity &amp; Change</option>
-        </select>
-        <button type="button" class="fc-sel" id="fc-shuffle-btn">&#128256; Shuffle</button>
-      </div>
-    </div>
-    <div class="fc-progress"><div class="fc-pbar" id="fc-pbar" style="width:3%"></div></div>
-    <div class="fc-timer-wrap">
-      <div class="fc-timer-ring">
-        <svg width="54" height="54" viewBox="0 0 54 54">
-          <circle class="fc-timer-bg" cx="27" cy="27" r="22"/>
-          <circle class="fc-timer-fg" id="fc-timer-fg" cx="27" cy="27" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
-        </svg>
-        <div class="fc-timer-num" id="fc-timer-num">15</div>
-      </div>
-      <div class="fc-timer-msg" id="fc-timer-msg">Study this card&hellip;</div>
-    </div>
-    <div class="card-area" id="card-area">
-      <div class="card-3d" id="fc-card">
-        <div class="card-face front">
-          <div class="card-tag">Term</div>
-          <div class="card-term" id="fc-term">Loading...</div>
-          <div class="card-topic" id="fc-topic">Topic 5.1</div>
-          <div class="card-hint">Think of the answer, then flip when the timer is done &darr;</div>
-        </div>
-        <div class="card-face back">
-          <div class="card-tag back-tag">Definition</div>
-          <div class="card-def" id="fc-def">Loading...</div>
-        </div>
-      </div>
-    </div>
-    <p class="flip-hint">Wait for the timer, then flip to check your answer &nbsp;&middot;&nbsp; Use arrows to navigate</p>
-    <div class="card-nav">
-      <button type="button" class="cn-btn" id="fc-prev">&#8592; Prev</button>
-      <button type="button" class="cn-btn" id="fc-next">Next &#8594;</button>
-    </div>
+    <div class="ufc-mount" data-unit="5"></div>
   </div>
-  <script>
-  (function(){
-    var CARDS = FC_DECK(5);  // cards live in flashcard-data.js
-    var fcDeck = CARDS.slice(), fcIdx = 0, fcFlipped = false;
-    var fcTimerInterval = null, fcTimerSec = 15, fcTimerReady = false;
-    var FC_TIMER_CIRC = 138.23;
-    function fcTimerStop(){ if (fcTimerInterval){ clearInterval(fcTimerInterval); fcTimerInterval = null; } }
-    function fcTimerStart(){
-      fcTimerStop(); fcTimerSec = 15; fcTimerReady = false;
-      document.getElementById('fc-next').disabled = true;
-      var fg = document.getElementById('fc-timer-fg'), num = document.getElementById('fc-timer-num'), msg = document.getElementById('fc-timer-msg');
-      fg.classList.remove('done'); fg.style.strokeDashoffset = '0'; num.textContent = '15';
-      msg.textContent = 'Think: what does this term mean?'; msg.classList.remove('ready');
-      fcTimerInterval = setInterval(function(){
-        fcTimerSec--;
-        var progress = (15 - fcTimerSec) / 15;
-        fg.style.strokeDashoffset = (FC_TIMER_CIRC * progress).toFixed(2);
-        if (fcTimerSec <= 0){
-          fcTimerStop(); fcTimerReady = true; fg.classList.add('done'); num.textContent = '✓';
-          msg.textContent = 'Now flip to check your answer!'; msg.classList.add('ready');
-          document.getElementById('fc-next').disabled = (fcIdx === fcDeck.length - 1);
-        } else { num.textContent = fcTimerSec; document.getElementById('fc-next').disabled = true; }
-      }, 1000);
-    }
-    function fcRender(){
-      if (!fcDeck.length) return;
-      var c = fcDeck[fcIdx];
-      document.getElementById('fc-term').textContent = c.t;
-      document.getElementById('fc-topic').textContent = 'Topic ' + c.topic;
-      document.getElementById('fc-def').textContent = c.d;
-      document.getElementById('fc-meta').textContent = 'Card ' + (fcIdx + 1) + ' of ' + fcDeck.length;
-      document.getElementById('fc-pbar').style.width = ((fcIdx + 1) / fcDeck.length * 100) + '%';
-      document.getElementById('fc-prev').disabled = (fcIdx === 0);
-      var card = document.getElementById('fc-card');
-      if (fcFlipped){ card.classList.remove('flipped'); fcFlipped = false; }
-      fcTimerStart();
-    }
-    fcRender();
-    document.getElementById('card-area').addEventListener('click', function(){
-      if (!fcTimerReady) return;
-      fcFlipped = !fcFlipped;
-      document.getElementById('fc-card').classList.toggle('flipped', fcFlipped);
-    });
-    document.getElementById('fc-prev').addEventListener('click', function(){ if (fcIdx > 0){ fcIdx--; fcRender(); } });
-    document.getElementById('fc-next').addEventListener('click', function(){ if (fcTimerReady && fcIdx < fcDeck.length - 1){ fcIdx++; fcRender(); } });
-    document.getElementById('fc-filter').addEventListener('change', function(){
-      var v = this.value;
-      fcDeck = (v === 'all') ? CARDS.slice() : CARDS.filter(function(c){ return c.topic === v; });
-      fcIdx = 0; fcRender();
-    });
-    document.getElementById('fc-shuffle-btn').addEventListener('click', function(){
-      for (var i = fcDeck.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = fcDeck[i]; fcDeck[i] = fcDeck[j]; fcDeck[j] = t; }
-      fcIdx = 0; fcRender();
-    });
-  })();
-  </script>
 </div>
 
 <!-- ══ MAPS (interactive reference map) ══ -->
@@ -2570,7 +2467,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><!-- /main-wrap -->
 <script src="spaced.js"></script>
 <script src="activity.js"></script>
-<script src="flashcards-spaced.js"></script>
+<script src="flashcard-tags.js"></script>
+<script src="unit-flashcards.js"></script>
 <script src="mcq-bank.js"></script>
 <script src="mcq-engine.js"></script>
 <script src="bd-confidence.js"></script>

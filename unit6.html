@@ -495,6 +495,7 @@ button{font-family:inherit;cursor:pointer}
 <script defer src="theme.js"></script>
 <script defer src="bedtime.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script><script defer src="nav-flyout.js"></script><script defer src="tour.js"></script><script defer src="glossary-data.js"></script><script defer src="glossary.js"></script>
 <script src="flashcard-data.js"></script>
+<link rel="stylesheet" href="unit-flashcards.css">
 </head>
 <body>
 
@@ -882,67 +883,17 @@ button{font-family:inherit;cursor:pointer}
 
 <!-- FLASHCARDS PAGE -->
 <div class="page" id="pg-flash">
-  <div class="inner" style="max-width:760px">
+  <div class="inner">
     <div class="pg-nav-row">
       <a href="./" class="pg-nav-btn pg-nav-all">&#8962; All Units</a>
       <button class="pg-nav-btn" data-tab="pg-home">&#8592; Back to Home</button>
     </div>
     <div class="pg-hero">
-      <div class="eyebrow">Flashcards</div>
-      <h2>45 Key Terms: Unit 6</h2>
-      <p>Click a card to flip. Use the timer to challenge yourself. Filter by topic or shuffle the deck.</p>
+      <div class="eyebrow">Unit 6 Flashcards</div>
+      <h2>Key Terms &amp; Concepts</h2>
+      <p>Think of the answer before the timer runs out, then show it and rate yourself honestly. Cards you rate Shaky or Guessing come back sooner.</p>
     </div>
-
-    <div class="fc-toolbar">
-      <button class="fc-action-btn" id="fc-shuffle-btn">&#8645; Shuffle</button>
-      <button class="fc-action-btn" id="fc-restart-btn">&#8635; Reset</button>
-    </div>
-
-    <div class="fc-filter-row" id="fc-filter-row">
-      <button class="fc-filter-btn active" data-filter="all">All (45)</button>
-      <button class="fc-filter-btn" data-filter="6.1">6.1 Rationales</button>
-      <button class="fc-filter-btn" data-filter="6.2">6.2 Expansion</button>
-      <button class="fc-filter-btn" data-filter="6.3">6.3 Responses</button>
-      <button class="fc-filter-btn" data-filter="6.4">6.4 Economy</button>
-      <button class="fc-filter-btn" data-filter="6.5">6.5 Econ. Imperialism</button>
-      <button class="fc-filter-btn" data-filter="6.6">6.6 Migration Causes</button>
-      <button class="fc-filter-btn" data-filter="6.7">6.7 Migration Effects</button>
-      <button class="fc-filter-btn" data-filter="6.8">6.8 Causation</button>
-    </div>
-
-    <div class="fc-progress-row">
-      <span class="fc-progress-txt" id="fc-prog-txt">1 / 45</span>
-      <div class="fc-progress-bar"><div class="fc-progress-fill" id="fc-prog-fill" style="width:0%"></div></div>
-      <span class="fc-progress-txt" id="fc-pct-txt">0%</span>
-    </div>
-
-    <div class="fc-scene" id="fc-scene">
-      <div class="fc-card-inner" id="fc-card-inner">
-        <div class="fc-face fc-front" id="fc-front">
-          <div class="fc-topic-tag" id="fc-front-tag">Topic 6.1</div>
-          <div class="fc-term" id="fc-term">Loading&hellip;</div>
-          <div class="fc-hint" id="fc-hint">Study this term&hellip; flip unlocks in 10s</div>
-          <div class="fc-timer-bar"><div class="fc-timer-fill" id="fc-timer-fill" style="width:100%"></div></div>
-        </div>
-        <div class="fc-face fc-back" id="fc-back">
-          <div class="fc-topic-tag" id="fc-back-tag">Topic 6.1</div>
-          <div class="fc-term-mini" id="fc-back-term"></div>
-          <div class="fc-def" id="fc-def">Definition here</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fc-nav-row">
-      <button class="fc-nav-btn" id="fc-prev-btn">&#8592; Prev</button>
-      <button class="fc-nav-btn" id="fc-next-btn">Next &#8594;</button>
-    </div>
-    <div class="fc-keyboard-hint">Spacebar = flip &nbsp;&bull;&nbsp; &larr; &rarr; = navigate</div>
-
-    <div class="fc-complete" id="fc-complete">
-      <h3>Deck Complete!</h3>
-      <p id="fc-complete-msg">You went through all 45 cards. Ready to go again?</p>
-      <button class="fc-complete-btn" id="fc-complete-restart">Start Over</button>
-    </div>
+    <div class="ufc-mount" data-unit="6"></div>
   </div>
 </div>
 
@@ -1867,163 +1818,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
-
-  /* ── FLASHCARDS ── */
-  (function() {
-    var deck = FLASH.slice();
-    var filtered = deck.slice();
-    var idx = 0;
-    var LOCK_SEC = 10;
-    var timerRAF = null;
-    var locked = true;
-    var isFlipped = false;
-
-    function shuffle(arr) {
-      for (var i = arr.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
-      }
-      return arr;
-    }
-
-    function render() {
-      if (idx >= filtered.length) { showComplete(); return; }
-      stopTimer();
-      isFlipped = false;
-      var card = filtered[idx];
-      var inner = document.getElementById('fc-card-inner');
-      inner.classList.remove('flipped');
-      document.getElementById('fc-front-tag').textContent = 'Topic ' + card.t;
-      document.getElementById('fc-back-tag').textContent = 'Topic ' + card.t;
-      document.getElementById('fc-term').textContent = card.term;
-      document.getElementById('fc-back-term').textContent = card.term;
-      document.getElementById('fc-def').textContent = card.def;
-      var fill = document.getElementById('fc-timer-fill');
-      fill.style.transition = 'none';
-      fill.style.width = '100%';
-      updateProgress();
-      document.getElementById('fc-prev-btn').disabled = (idx === 0);
-      document.getElementById('fc-next-btn').disabled = false;
-      document.getElementById('fc-complete').classList.remove('show');
-      setHint('Study this term\u2026 flip unlocks in 10s');
-      document.getElementById('fc-scene').style.cursor = 'default';
-      startTimer();
-    }
-
-    function updateProgress() {
-      var total = filtered.length;
-      var cur = Math.min(idx + 1, total);
-      document.getElementById('fc-prog-txt').textContent = cur + ' / ' + total;
-      var pct = total > 0 ? Math.round((idx / total) * 100) : 0;
-      document.getElementById('fc-prog-fill').style.width = pct + '%';
-      document.getElementById('fc-pct-txt').textContent = pct + '%';
-    }
-
-    function setHint(txt) {
-      var h = document.getElementById('fc-hint');
-      if (h) h.textContent = txt;
-    }
-
-    function flipCard() {
-      if (locked) return;
-      isFlipped = !isFlipped;
-      document.getElementById('fc-card-inner').classList.toggle('flipped', isFlipped);
-    }
-
-    function nextCard() {
-      stopTimer();
-      if (idx < filtered.length - 1) { idx++; render(); }
-      else { idx = filtered.length; showComplete(); }
-    }
-
-    function prevCard() {
-      if (idx > 0) { idx--; render(); }
-    }
-
-    function showComplete() {
-      stopTimer();
-      document.getElementById('fc-complete-msg').textContent = 'You went through all ' + filtered.length + ' cards. Ready to go again?';
-      document.getElementById('fc-complete').classList.add('show');
-      document.getElementById('fc-prog-fill').style.width = '100%';
-      document.getElementById('fc-pct-txt').textContent = '100%';
-    }
-
-    function startTimer() {
-      locked = true;
-      var fill = document.getElementById('fc-timer-fill');
-      fill.style.transition = 'none';
-      fill.style.width = '100%';
-      requestAnimationFrame(function() {
-        requestAnimationFrame(function() {
-          fill.style.transition = 'width ' + LOCK_SEC + 's linear';
-          fill.style.width = '0%';
-        });
-      });
-      timerRAF = setTimeout(function() {
-        locked = false;
-        document.getElementById('fc-scene').style.cursor = 'pointer';
-        setHint('Click to reveal definition');
-      }, LOCK_SEC * 1000);
-    }
-
-    function stopTimer() {
-      locked = false;
-      if (timerRAF) { clearTimeout(timerRAF); timerRAF = null; }
-      var fill = document.getElementById('fc-timer-fill');
-      if (fill) { fill.style.transition = 'none'; fill.style.width = '0%'; }
-    }
-
-    /* Card click to flip */
-    document.getElementById('fc-scene').addEventListener('click', function() {
-      if (idx >= filtered.length) return;
-      if (locked) return;
-      if (!isFlipped) { flipCard(); }
-      else { nextCard(); }
-    });
-
-    /* Nav buttons */
-    document.getElementById('fc-next-btn').addEventListener('click', function(e) {
-      e.stopPropagation(); nextCard();
-    });
-    document.getElementById('fc-prev-btn').addEventListener('click', function(e) {
-      e.stopPropagation(); prevCard();
-    });
-
-    /* Keyboard */
-    document.addEventListener('keydown', function(e) {
-      if (document.getElementById('pg-flash').classList.contains('active')) {
-        if (e.code === 'Space') { e.preventDefault(); if (!locked && !isFlipped) flipCard(); else if (!locked && isFlipped) nextCard(); }
-        if (e.code === 'ArrowRight') { e.preventDefault(); nextCard(); }
-        if (e.code === 'ArrowLeft') { e.preventDefault(); prevCard(); }
-      }
-    });
-
-    /* Shuffle */
-    document.getElementById('fc-shuffle-btn').addEventListener('click', function() {
-      shuffle(filtered); idx = 0; render();
-    });
-
-    /* Reset */
-    document.getElementById('fc-restart-btn').addEventListener('click', function() {
-      idx = 0; render();
-    });
-    document.getElementById('fc-complete-restart').addEventListener('click', function() {
-      idx = 0; render();
-    });
-
-    /* Filter */
-    document.querySelectorAll('.fc-filter-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.fc-filter-btn').forEach(function(b){ b.classList.remove('active'); });
-        this.classList.add('active');
-        var f = this.dataset.filter;
-        filtered = f === 'all' ? deck.slice() : deck.filter(function(c){ return c.t === f; });
-        idx = 0; render();
-      });
-    });
-
-    render();
-  })();
 
   /* ── BRAIN DUMP ───────────────────────────────────────── */
   var bdTopic = null, bdTimerInterval = null;
@@ -3120,7 +2914,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><!-- /main-wrap -->
 <script src="spaced.js"></script>
 <script src="activity.js"></script>
-<script src="flashcards-spaced.js"></script>
+<script src="flashcard-tags.js"></script>
+<script src="unit-flashcards.js"></script>
 <script src="mcq-bank.js"></script>
 <script src="mcq-engine.js"></script>
 <script src="bd-confidence.js"></script>

@@ -186,22 +186,6 @@ button{font-family:inherit;cursor:pointer}
 /* BRAIN DUMP */
 
 /* SPICE-T */
-.spice-intro{max-width:640px;margin:0 auto 8px;text-align:center;color:var(--muted);font-size:.9rem}
-.spice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:24px}
-.spice-card{background:var(--white);border:1px solid var(--border);border-top:4px solid var(--red);padding:24px 22px}
-.spice-letter{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:2rem;font-weight:700;line-height:1;margin-bottom:4px;color:var(--red)}
-.spice-cat{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:6px}
-.spice-desc{font-size:.76rem;color:var(--muted);line-height:1.55;margin-bottom:12px;font-style:italic;border-bottom:1px solid var(--border);padding-bottom:11px}
-.spice-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
-.spice-list li{font-size:.84rem;line-height:1.6;color:var(--mid);padding-left:14px;position:relative}
-.spice-list li::before{content:'\203a';position:absolute;left:0;color:var(--red);font-weight:700}
-.spice-list li strong{color:var(--ink)}
-.spice-s{border-top-color:var(--blue)}.spice-s .spice-letter{color:var(--blue)}
-.spice-p{border-top-color:#8c1212}.spice-p .spice-letter{color:#8c1212}
-.spice-i{border-top-color:var(--green)}.spice-i .spice-letter{color:var(--green)}
-.spice-c{border-top-color:var(--gold)}.spice-c .spice-letter{color:var(--gold)}
-.spice-e{border-top-color:#6b4e71}.spice-e .spice-letter{color:#6b4e71}
-.spice-t{border-top-color:#2e5266}.spice-t .spice-letter{color:#2e5266}
 
 /* SIDEBAR */
 .sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
@@ -273,6 +257,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="brain-dump.css">
 <link rel="stylesheet" href="visual-sources.css">
 <link rel="stylesheet" href="source-practice.css">
+<link rel="stylesheet" href="spice.css">
 </head>
 <body>
 
@@ -553,74 +538,7 @@ button{font-family:inherit;cursor:pointer}
       <h2>Themes Across Unit 1</h2>
       <p>Organize the whole unit by the six AP thematic lenses, the same categories your reference sheet uses.</p>
     </div>
-    <div class="spice-grid">
-      <div class="spice-card spice-s">
-        <div class="spice-letter">S</div>
-        <div class="spice-cat">Social</div>
-        <div class="spice-desc">Structures, gender roles, classes, and hierarchy.</div>
-        <ul class="spice-list">
-          <li><strong>Patriarchy</strong> everywhere, but degrees varied, foot binding in Song China vs. greater freedom for Vietnamese and Islamic women (who could inherit &amp; divorce).</li>
-          <li>Rigid <strong>caste system</strong> in South Asia pushed conversions to Islam.</li>
-          <li><strong>Scholar-gentry</strong> (China) and <strong>merchants</strong> (Dar al-Islam) held high status; Europe's serfs were bound to manors.</li>
-          <li>Americas: theocratic elites of kings and priests atop tribute/labor societies.</li>
-        </ul>
-      </div>
-      <div class="spice-card spice-p">
-        <div class="spice-letter">P</div>
-        <div class="spice-cat">Political</div>
-        <div class="spice-desc">States, governance, and how power was legitimized.</div>
-        <ul class="spice-list">
-          <li><strong>Centralized</strong> Song bureaucracy &amp; civil-service exam vs. <strong>decentralized</strong> European feudalism.</li>
-          <li>Dar al-Islam fragmented into <strong>Seljuk, Mamluk, Delhi Sultanate</strong> states.</li>
-          <li>Legitimacy by <strong>divine right / theocracy</strong> (Maya, Aztec, Inca; European monarchs).</li>
-          <li>Inca <strong>mit'a</strong> labor and Aztec <strong>tribute</strong> as tools of imperial control.</li>
-        </ul>
-      </div>
-      <div class="spice-card spice-i">
-        <div class="spice-letter">I</div>
-        <div class="spice-cat">Interaction</div>
-        <div class="spice-desc">Humans &amp; the environment: geography, disease, resources.</div>
-        <ul class="spice-list">
-          <li><strong>Champa rice</strong> and the Grand Canal fueled China's population boom.</li>
-          <li>Inca <strong>terrace farming</strong> and Aztec <strong>chinampas</strong> conquered difficult terrain.</li>
-          <li>The <strong>Little Ice Age</strong> and <strong>Black Death</strong> weakened feudal Europe.</li>
-          <li>Trans-Saharan camels &amp; Indian Ocean monsoons shaped African/Asian trade.</li>
-        </ul>
-      </div>
-      <div class="spice-card spice-c">
-        <div class="spice-letter">C</div>
-        <div class="spice-cat">Cultural</div>
-        <div class="spice-desc">Religion, belief, art, and the life of the mind.</div>
-        <ul class="spice-list">
-          <li><strong>Neo-Confucianism</strong> (China) and the Islamic <strong>Golden Age</strong> / House of Wisdom.</li>
-          <li><strong>Bhakti</strong> and <strong>Sufi</strong> movements spread devotion across South Asia.</li>
-          <li>Syncretic art at <strong>Angkor</strong>; Christian dominance in medieval Europe.</li>
-          <li>Polytheistic, sacrificial religion structured life in the Americas.</li>
-        </ul>
-      </div>
-      <div class="spice-card spice-e">
-        <div class="spice-letter">E</div>
-        <div class="spice-cat">Economic</div>
-        <div class="spice-desc">Trade, labor, agriculture, and systems of exchange.</div>
-        <ul class="spice-list">
-          <li>Song <strong>proto-industrialization</strong>: iron, steel, porcelain, silk, tea.</li>
-          <li>Mali &amp; Ghana taxed <strong>trans-Saharan gold and salt</strong>; Swahili coast tapped the Indian Ocean.</li>
-          <li>European <strong>manorialism</strong> and a rising merchant <strong>bourgeoisie</strong>.</li>
-          <li>Aztec <strong>tribute</strong> vs. Inca <strong>labor (mit'a)</strong> economies.</li>
-        </ul>
-      </div>
-      <div class="spice-card spice-t">
-        <div class="spice-letter">T</div>
-        <div class="spice-cat">Technology</div>
-        <div class="spice-desc">Innovations, science, and their diffusion.</div>
-        <ul class="spice-list">
-          <li>China's <strong>gunpowder, compass, and woodblock printing</strong> diffused west.</li>
-          <li>Islamic advances in <strong>math, medicine, and astronomy</strong>; adopted papermaking.</li>
-          <li>Maya <strong>zero</strong> &amp; calendar; Inca <strong>quipu</strong> and road engineering.</li>
-          <li>Europe's <strong>three-field system</strong> boosted farm output.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="spice-mount" data-unit="1"></div>
   </div>
 </div>
 
@@ -779,6 +697,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 <script src="source-practice.js"></script>
 <script src="visual-sources-data.js"></script>
 <script src="visual-sources.js"></script>
+<script src="spice-data.js"></script>
+<script src="spice.js"></script>
 <script src="study-guide-data.js"></script>
 <script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>

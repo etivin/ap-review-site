@@ -6,6 +6,7 @@
        matching:  { pairs: [{left, right}], success: 'line under the win heading' },   (optional)
        jeopardy:  [ {name, questions: [{clue, answer, explanation}] x5} ] x6,
        sortit:    [ {text, earns: bool, explain} ],
+       warmup:    [ {type, sourceLine, excerpt, models: {pov, purpose, audience, hist}} ]   (optional),
        speedquiz: [ {q, o: [4], c, e} ],
        timeline:  [ {title, year} ]        (listed earliest first, distinct years),
        asteroid:  [ {q, o: [4 short], c} ]
@@ -14,7 +15,7 @@
    Element ids (#jeop-winner, #match-success, #sortit-score, #sq-final,
    #tl-result, #ast-end) are the ones activity.js watches to credit a finished
    game toward the unit's progress ring, so mount at most one set per page,
-   inside #pg-games. Units 5-8 still carry their own inline copy of these games.
+   inside #pg-games. Used by every unit (1-9).
    Site convention: plain global, no build step, no imports.
    ============================================================ */
 (function () {
@@ -38,11 +39,12 @@
     jeopardy:  ['&#128218;', 'Jeopardy', 'Team-based review game. Add teams, pick categories, and compete for points. Perfect for classroom play.'],
     matching:  ['&#129513;', 'Narrative Matching', 'Match causes to their effects and reconstruct the Unit {u} story.'],
     sortit:    ['&#9878;', 'Sort It', 'Separate sourcing sentences that earn the HAPP point from ones that don&rsquo;t.'],
+    warmup:    ['&#9200;', 'Source Line Warm-up', 'One document, 60 seconds. Pick a lens, complete the sentence frame, earn the point.'],
     speedquiz: ['&#9889;', 'Speed Quiz', '{n} questions, 20 seconds each. Answer faster to earn more points. Final score and breakdown show what to review.'],
     timeline:  ['&#128337;', 'Timeline Builder', 'Click Unit {u} events from earliest to latest. Wrong picks don&rsquo;t advance.'],
     asteroid:  ['&#9654;', 'Asteroid Blaster', 'Destroy incoming asteroids by clicking the correct answer before they reach your ship. 3 lives.']
   };
-  var ORDER = ['jeopardy', 'matching', 'sortit', 'speedquiz', 'timeline', 'asteroid'];
+  var ORDER = ['jeopardy', 'matching', 'sortit', 'warmup', 'speedquiz', 'timeline', 'asteroid'];
 
   function back(id) { return '<button type="button" id="' + id + '" style="' + BACK + ';margin-bottom:20px">&larr; Back to Games</button>'; }
 
@@ -95,6 +97,24 @@
         '<div style="text-align:center;margin-top:20px"><button type="button" id="sortit-submit" style="padding:12px 28px;background:var(--ink);color:#fff;border:none;font-size:.65rem;' + BTN + '">Check My Sort</button></div>' +
         '<div id="sortit-score" style="display:none;text-align:center;margin-top:20px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.06em"></div>' +
         '<div style="text-align:center;margin-top:16px;display:none" id="sortit-replay-bar"><button type="button" id="sortit-replay" style="padding:10px 24px;background:none;border:1.5px solid var(--ink);font-size:.62rem;' + BTN + '">Try Again</button></div>' +
+      '</div>';
+
+    if (cfg.warmup) h +=
+      '<div id="warmup-game" style="display:none">' + back('warmup-back') +
+        '<h3 style="' + H3 + ';margin-bottom:4px">Source Line Warm-up</h3>' +
+        '<p style="font-size:.86rem;color:var(--mid);margin-bottom:14px;line-height:1.55">Read the source line. Pick a lens. Complete the sentence frame. You have 60 seconds, but keep writing even after time is up.</p>' +
+        '<div id="warmup-doc-num" style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px"></div>' +
+        '<div class="warmup-timer" id="warmup-timer">1:00</div>' +
+        '<div class="warmup-source-card"><div class="warmup-doc-type" id="warmup-doc-type"></div><div class="warmup-source-line" id="warmup-source-line"></div><div class="warmup-excerpt" id="warmup-excerpt"></div></div>' +
+        '<div style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Pick a lens:</div>' +
+        '<div class="warmup-lens-row" id="warmup-lens-row"></div>' +
+        '<div class="warmup-frame" id="warmup-frame"><div style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px">Sentence frame: fill in the blanks</div>' +
+          '<div id="warmup-frame-text"></div><div style="font-size:.78rem;color:var(--mid);font-style:italic;margin-top:6px" id="warmup-frame-tip"></div></div>' +
+        '<textarea id="warmup-text" class="warmup-textarea" placeholder="Write your sourcing sentence here..." aria-label="Your sourcing sentence"></textarea>' +
+        '<button type="button" id="warmup-check" style="padding:10px 24px;background:var(--ink);color:#fff;border:none;font-size:.65rem;margin-top:8px;' + BTN + '">Check My Sentence</button>' +
+        '<div class="warmup-result" id="warmup-result"></div>' +
+        '<div class="warmup-model" id="warmup-model" style="display:none"><div class="warmup-model-lbl">Model answer:</div><div id="warmup-model-text"></div></div>' +
+        '<div style="text-align:right;margin-top:18px"><button type="button" id="warmup-next" style="display:none;padding:10px 24px;background:var(--red);color:#fff;border:none;font-size:.65rem;' + BTN + '">Next Document &rarr;</button></div>' +
       '</div>';
 
     if (cfg.speedquiz) h +=
@@ -179,7 +199,7 @@
         });
       }
       function renderBoard() {
-        var el = $('jeop-board'); el.innerHTML = '';
+        var el = $('jeop-board'); el.innerHTML = ''; el.style.setProperty('--jcols', DATA.length);
         DATA.forEach(function (cat) { var hdr = document.createElement('div'); hdr.className = 'jeop-cat'; hdr.textContent = cat.name; el.appendChild(hdr); });
         POINTS.forEach(function (pts, row) {
           DATA.forEach(function (cat, col) {
@@ -326,6 +346,79 @@
       onPick('sortit', function () { openGame('sortit-game'); render(); });
       $('sortit-back').addEventListener('click', function () { showPicker('sortit-game'); });
       $('sortit-replay').addEventListener('click', render);
+    })();
+
+    /* ── SOURCE LINE WARM-UP ── */
+    if (cfg.warmup) (function () {
+      var DOCS = cfg.warmup, idx = 0, timer = null, secs = 60, lens = 'pov';
+      var LENSES = [['pov', 'Point of View'], ['purpose', 'Purpose'], ['audience', 'Audience'], ['hist', 'Historical Situation']];
+      var FRAMES = {
+        pov: ['&ldquo;The <strong>point of view</strong> of this document is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X: connect to your argument</em>].&rdquo;',
+              'Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?'],
+        purpose: ['&ldquo;The <strong>purpose</strong> of this document was to [<em>specific goal</em>] [<em>specific audience</em>], <strong>which means</strong> the source [<em>overstates / downplays / frames X, connect to your argument</em>].&rdquo;',
+              'Ask: why was this created, and how does that goal shape what it says or omits?'],
+        audience: ['&ldquo;Because this document was written for [<em>specific audience</em>], the source [<em>emphasizes / avoids X</em>], <strong>which means</strong> it [<em>consequence for your argument</em>].&rdquo;',
+              'Ask: who was this meant to reach, and what did that audience need, or not need, to hear?'],
+        hist: ['&ldquo;This document was produced during [<em>specific historical moment</em>], <strong>which means</strong> [<em>that context shaped the source because, connect to your argument</em>].&rdquo;',
+              'Ask: what was happening when this was created, and how does that context explain what the source says?']
+      };
+      function tick() {
+        var s = Math.max(0, secs), el = $('warmup-timer');
+        el.textContent = Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+        el.classList.toggle('urgent', s <= 10);
+      }
+      function startTimer() {
+        clearInterval(timer); secs = 60; tick();
+        timer = setInterval(function () { secs--; tick(); if (secs <= 0) clearInterval(timer); }, 1000);
+      }
+      function frame() { $('warmup-frame-text').innerHTML = FRAMES[lens][0]; $('warmup-frame-tip').innerHTML = FRAMES[lens][1]; }
+      function load(i) {
+        var d = DOCS[i];
+        $('warmup-doc-num').textContent = 'Document ' + (i + 1) + ' of ' + DOCS.length;
+        $('warmup-doc-type').textContent = d.type;
+        $('warmup-source-line').textContent = d.sourceLine;
+        $('warmup-excerpt').textContent = '“' + d.excerpt + '”';
+        $('warmup-text').value = '';
+        $('warmup-result').innerHTML = ''; $('warmup-result').className = 'warmup-result';
+        $('warmup-model').style.display = 'none'; $('warmup-next').style.display = 'none';
+        lens = 'pov';
+        $('warmup-lens-row').innerHTML = LENSES.map(function (l) {
+          return '<button type="button" class="warmup-lens-btn' + (l[0] === lens ? ' active' : '') + '" data-wlens="' + l[0] + '">' + l[1] + '</button>';
+        }).join('');
+        frame(); startTimer();
+      }
+      $('warmup-lens-row').addEventListener('click', function (e) {
+        var b = e.target.closest('.warmup-lens-btn'); if (!b) return;
+        this.querySelectorAll('.warmup-lens-btn').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active'); lens = b.dataset.wlens; frame();
+      });
+      $('warmup-check').addEventListener('click', function () {
+        clearInterval(timer);
+        var t = $('warmup-text').value.toLowerCase().trim(), words = t.split(/\s+/).filter(Boolean).length;
+        var feature = /point of view|purpose|audience|historical situation|which means|because|since|as a|written by|produced by|official|government|military|newspaper|photographer|advertisement/.test(t);
+        var consequence = /which means|therefore|so that|in order to|making it|making this|supports the|supporting|evidence that|suggests that|means that|this means/.test(t);
+        var r = $('warmup-result'), kind, msg;
+        if (words < 8) { kind = 'fail'; msg = '<span class="dr-icon">&#10007;</span><div><strong>Too short.</strong> Write a complete sentence: name the source feature, then explain the consequence with &ldquo;which means.&rdquo;</div>'; }
+        else if (feature && consequence) { kind = 'pass'; msg = '<span class="dr-icon">&#10003;</span><div><strong>Likely earns the point.</strong> You named a source feature and used consequence language. Check the model answer to see if your explanation connects clearly to an argument.</div>'; }
+        else if (feature) { kind = 'partial'; msg = '<span class="dr-icon">&#126;</span><div><strong>Identifies, but needs a consequence.</strong> You named a source feature. Now add the &ldquo;which means&rdquo; move: what does the source likely emphasize, omit, or argue <em>because</em> of that feature?</div>'; }
+        else { kind = 'fail'; msg = '<span class="dr-icon">&#10007;</span><div><strong>No HAPP feature identified.</strong> Start by naming something specific about the source: its author&rsquo;s role, its purpose, who it was written for, or the historical moment it came from. Then use &ldquo;which means&rdquo; to connect it to your argument.</div>'; }
+        r.innerHTML = msg; r.className = 'warmup-result ' + kind;
+        var m = DOCS[idx].models || {};
+        $('warmup-model-text').textContent = m[lens] || m.pov || '';
+        $('warmup-model').style.display = 'block';
+        if (idx < DOCS.length - 1) $('warmup-next').style.display = 'inline-block';
+      });
+      $('warmup-next').addEventListener('click', function () { idx++; load(idx); });
+      onPick('warmup', function () {
+        openGame('warmup-game');
+        // Reopen at the first document not yet answered (saved by activity.js); start over once all are done.
+        var doneLines = (window.APWH_ACTIVITY && APWH_ACTIVITY.saved) ? APWH_ACTIVITY.saved('warmup') : [];
+        idx = 0;
+        while (idx < DOCS.length && doneLines.indexOf(DOCS[idx].sourceLine.trim().slice(0, 120)) >= 0) idx++;
+        if (idx >= DOCS.length) idx = 0;
+        load(idx);
+      });
+      $('warmup-back').addEventListener('click', function () { clearInterval(timer); showPicker('warmup-game'); });
     })();
 
     /* ── SPEED QUIZ ── */

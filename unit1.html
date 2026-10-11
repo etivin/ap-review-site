@@ -257,27 +257,6 @@ button{font-family:inherit;cursor:pointer}
 .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .video-desc{font-size:.83rem;color:rgba(255,255,255,.5);line-height:1.65;padding:12px 16px 16px}
 /* ── Documents / Visual Sources (shared with units 2-9) ── */
-.src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
-.src-doc-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
-.src-doc-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
-.src-doc-img{display:block;max-width:100%;max-height:60vh;margin:0 auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.1)}
-.src-doc-txt{font-family:Lato,system-ui,sans-serif;font-size:.92rem;line-height:1.8;color:var(--ink)}
-.src-frame{background:#f5f0e6;border:2px dashed var(--border2);padding:20px 24px;margin:16px 0}
-.src-frame-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.src-frame-hint{font-size:.82rem;color:var(--mid);margin-bottom:12px;line-height:1.5}
-.src-lens-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.src-lens-btn{padding:6px 14px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--border2);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
-.src-lens-btn:hover,.src-lens-btn.active{border-color:var(--red);background:#faf0f3;color:var(--red)}
-.src-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);padding:14px;font-family:Lato,system-ui,sans-serif;font-size:.92rem;line-height:1.7;resize:vertical;box-sizing:border-box}
-.src-textarea:focus{border-color:var(--red);outline:none}
-.src-model{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-top:16px;display:none}
-.src-model.show{display:block}
-.src-model-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
-.src-model-txt{font-family:Lato,system-ui,sans-serif;font-size:.88rem;line-height:1.7;color:var(--ink)}
-.src-btn{padding:10px 20px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
-.src-btn-red{background:var(--red);color:#fff}
-.src-btn-outline{background:none;border:1.5px solid var(--red);color:var(--red)}
-.src-btn:hover{opacity:.85}
 </style>
 <link rel="stylesheet" href="mission-theme.css">
 <script src="mc-mode.js?v=20261001"></script>
@@ -293,6 +272,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="study-guide.css">
 <link rel="stylesheet" href="brain-dump.css">
 <link rel="stylesheet" href="visual-sources.css">
+<link rel="stylesheet" href="source-practice.css">
 </head>
 <body>
 
@@ -679,142 +659,8 @@ button{font-family:inherit;cursor:pointer}
       <h2>Go Beyond Identification</h2>
       <p>Don&rsquo;t just name the source feature, explain <em>why it matters</em>. Practice the &ldquo;<strong>since it was written by a&hellip; it may therefore&hellip;</strong>&rdquo; move on documents from Africa, Asia, Europe, and the Americas, then compare to the model.</p>
     </div>
-    <div class="src-doc" id="sa-doc"></div>
-    <div class="src-frame">
-      <div class="src-frame-lbl">Choose a sourcing lens</div>
-      <div class="src-lens-bar" id="sa-lens">
-        <button type="button" class="src-lens-btn" data-lens="pov">Point of View</button>
-        <button type="button" class="src-lens-btn" data-lens="purpose">Purpose</button>
-        <button type="button" class="src-lens-btn" data-lens="situation">Historical Situation</button>
-        <button type="button" class="src-lens-btn" data-lens="audience">Audience</button>
-      </div>
-      <div class="src-frame-hint" id="sa-hint">Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.</div>
-      <textarea class="src-textarea" id="sa-text" placeholder="Write your sourcing sentence here&hellip;"></textarea>
-    </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
-      <button type="button" class="src-btn src-btn-red" id="sa-reveal">Show Model Answer</button>
-      <button type="button" class="src-btn src-btn-outline" id="sa-next">Next Document &rarr;</button>
-      <span id="sa-count" style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;color:var(--muted)"></span>
-    </div>
-    <div class="src-model" id="sa-model">
-      <div class="src-model-lbl">Model Sourcing Sentence</div>
-      <div class="src-model-txt" id="sa-model-txt"></div>
-    </div>
+    <div class="sp-mount" data-unit="1"></div>
   </div>
-  <script type="application/json" id="sadata">
-[
-  {
-    "type": "Travel Account",
-    "sl": "Ibn Battuta, Moroccan Muslim scholar and traveler, account of his visit to Mali, 1352–1353.",
-    "excerpt": "They are seldom unjust, and have a greater abhorrence of injustice than any other people. Their sultan shows no mercy to anyone who is guilty of the least act of it. There is complete security in their country. Neither traveller nor inhabitant in it has anything to fear from robbers or men of violence.",
-    "models": {
-      "pov": "Since this was written by a Muslim legal scholar, Ibn Battuta may judge Mali by Islamic standards of justice, therefore his praise shows that Mali's rulers enforced an order he recognized as properly Islamic.",
-      "purpose": "Because his purpose was to record the remarkable places he had seen, he highlights Mali's safety and justice, which makes the empire seem impressive to his readers.",
-      "situation": "Since he visited in the 1350s, soon after Mansa Musa's famous pilgrimage, the account reflects Mali at the height of its wealth from the trans-Saharan gold trade, when safe roads were essential to that trade.",
-      "audience": "Because the account was written for readers in the Muslim world, he emphasizes features, like justice and security, that a Muslim audience would value and compare with their own societies."
-    }
-  },
-  {
-    "type": "Travel Account",
-    "sl": "Marco Polo, Venetian merchant, describing the city of Hangzhou (which he called Kinsay), the former Song capital, in his account of his travels, c. 1298.",
-    "excerpt": "... the noble and magnificent city of Kinsay, a name which is as much as to say in our tongue 'The City of Heaven' ... beyond dispute the finest and the noblest in the world.",
-    "models": {
-      "pov": "Since this was written by a Venetian merchant used to much smaller European cities, he may be especially impressed by Hangzhou's size and wealth, therefore his praise reveals how far Chinese urban life outstripped Europe's.",
-      "purpose": "Because his book was meant to amaze readers with the wonders he had seen, he may exaggerate, therefore historians should use it as evidence of Hangzhou's reputation rather than for exact details.",
-      "situation": "Since he visited after the Mongol conquest of the Song, the city he describes still reflects the commercial wealth built under the Song dynasty, now under Yuan rule.",
-      "audience": "Because his audience was European readers who had never seen China, he uses comparisons and superlatives to help them imagine a city far larger than any they knew."
-    }
-  },
-  {
-    "type": "Royal Charter",
-    "sl": "Magna Carta, Clause 39, agreed to by King John of England under pressure from rebellious barons, 1215.",
-    "excerpt": "No free man shall be seized or imprisoned, or stripped of his rights or possessions, or outlawed or exiled, or deprived of his standing in any other way, nor will we proceed with force against him, or send others to do so, except by the lawful judgement of his equals or by the law of the land.",
-    "models": {
-      "pov": "Since this charter was forced on King John by powerful barons, it may protect the rights of nobles more than ordinary people, therefore the phrase 'free man' excluded the many serfs who were not free.",
-      "purpose": "Because its purpose was to limit the king's ability to punish or seize property at will, it establishes that even the king must follow the law, an early check on royal power.",
-      "situation": "Since it was written in 1215, after King John had lost wars in France and raised heavy taxes, it reflects the barons' anger at a weak and demanding monarch.",
-      "audience": "Because it was addressed to the king and his officials as a binding agreement, its language is legal and precise, setting rules the Crown was expected to follow."
-    }
-  },
-  {
-    "type": "Speech (as recorded)",
-    "sl": "Pope Urban II, speech at the Council of Clermont calling for the First Crusade, 1095, as recorded by the chronicler Fulcher of Chartres.",
-    "excerpt": "Let those who have been accustomed unjustly to wage private warfare against the faithful now go against the infidels and end with victory this war which should have been begun long ago. Let those who for a long time have been robbers now become knights.",
-    "models": {
-      "pov": "Since this speech was given by the head of the Catholic Church, it presents war against Muslims as a holy cause, therefore it shows how religious authority was used to direct European violence outward.",
-      "purpose": "Because Urban's purpose was to recruit knights for a crusade, he offers them a chance to redeem past violence, appealing to their sense of sin and honor.",
-      "situation": "Since it was given in 1095, when the Byzantine emperor had asked for help against the Seljuk Turks and European lords were fighting each other, it reflects both a call for aid and a wish to end feuding at home.",
-      "audience": "Because the audience was clergy and nobles gathered at Clermont, the speech targets warriors, urging them to turn their fighting skills against an outside enemy."
-    }
-  },
-  {
-    "type": "Letter",
-    "sl": "Hernán Cortés, Spanish conquistador, second letter to Emperor Charles V describing Tenochtitlan, 1520.",
-    "excerpt": "There is also one square twice as big as that of Salamanca, with arcades all around, where more than sixty thousand people come each day to buy and sell, and where every kind of merchandise produced in these lands is found.",
-    "models": {
-      "pov": "Since this was written by the conquistador leading the invasion, he may stress the city's wealth to show what a great prize he could win, therefore the letter reveals Spanish ambitions as much as Aztec life.",
-      "purpose": "Because Cortés was writing to win the emperor's support for an expedition he had launched without full authorization, he had reasons to make Tenochtitlan sound rich and worth conquering.",
-      "situation": "Since he wrote in 1520, after first seeing the city and before its fall in 1521, the letter captures Tenochtitlan at its height, just before the conquest destroyed much of it.",
-      "audience": "Because the audience was the Spanish emperor, Cortés compares the market to Salamanca, a Spanish city Charles V would know, to make the scale clear to him."
-    }
-  },
-  {
-    "type": "Travel Account",
-    "sl": "Ibn Battuta, Moroccan Muslim scholar and traveler, account of his visit to Kilwa on the Swahili coast of East Africa, 1331.",
-    "excerpt": "Kilwa is one of the most beautiful and well-constructed towns in the world. The whole of it is elegantly built.",
-    "models": {
-      "pov": "Since this was written by a Muslim traveler visiting a Muslim-ruled city, he may admire Kilwa partly because it shared his faith and culture, therefore his praise reflects the reach of Islam along the East African coast.",
-      "purpose": "Because his purpose was to describe notable cities he visited, he emphasizes Kilwa's beauty, which signals its wealth to his readers.",
-      "situation": "Since he visited in 1331, when Kilwa controlled the export of gold from the interior, the city's fine buildings reflect profits from Indian Ocean trade.",
-      "audience": "Because he wrote for readers across the Islamic world, his praise places Kilwa among the great cities they would know, showing that East Africa was part of a connected Muslim world."
-    }
-  }
-]
-  </script>
-  <script>
-  (function(){
-    var dataEl = document.getElementById('sadata');
-    if (!dataEl) return;
-    var SRC_DOCS = JSON.parse(dataEl.textContent);
-    var BLANK = 'Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.';
-    var HINTS = {
-      pov: BLANK,
-      purpose: 'Because this document was created in order to <strong>[goal]</strong>, its purpose was <strong>[X]</strong>, therefore it <strong>[emphasizes or leaves out]</strong>.',
-      situation: 'Since this was written in <strong>[when / amid what events]</strong>, the historical situation is significant because <strong>[how that context shapes it]</strong>.',
-      audience: 'Because this was created for <strong>[who]</strong>, the audience is significant because <strong>[how that shapes the content or tone]</strong>.'
-    };
-    var idx = 0, lens = null;
-    function render(){
-      var d = SRC_DOCS[idx];
-      document.getElementById('sa-doc').innerHTML =
-        '<div class="src-doc-lbl">' + d.type + '</div>' +
-        '<div class="src-doc-src">' + d.sl + '</div>' +
-        (d.img ? '<img src="' + d.img + '" alt="' + d.type + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
-        (d.excerpt ? '<div class="src-doc-txt">' + d.excerpt + '</div>' : '');
-      document.getElementById('sa-text').value = '';
-      document.getElementById('sa-model').classList.remove('show');
-      document.getElementById('sa-model-txt').textContent = '';
-      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(b){ b.classList.remove('active'); });
-      lens = null;
-      document.getElementById('sa-hint').innerHTML = BLANK;
-      document.getElementById('sa-count').textContent = 'Document ' + (idx + 1) + ' of ' + SRC_DOCS.length;
-    }
-    document.getElementById('sa-lens').addEventListener('click', function(e){
-      var b = e.target.closest('.src-lens-btn'); if (!b) return;
-      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.remove('active'); });
-      b.classList.add('active'); lens = b.dataset.lens;
-      document.getElementById('sa-hint').innerHTML = HINTS[lens];
-    });
-    document.getElementById('sa-reveal').addEventListener('click', function(){
-      var d = SRC_DOCS[idx]; var L = lens || 'pov';
-      if (!lens){ document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.lens==='pov'); }); document.getElementById('sa-hint').innerHTML = HINTS.pov; lens='pov'; }
-      document.getElementById('sa-model-txt').textContent = d.models[L];
-      document.getElementById('sa-model').classList.add('show');
-    });
-    document.getElementById('sa-next').addEventListener('click', function(){ idx = (idx + 1) % SRC_DOCS.length; render(); });
-    render();
-  })();
-  </script>
 </div>
 
 <!-- ══ VISUAL SOURCES ══ -->
@@ -929,6 +775,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 (function(){var btt=document.getElementById('back-to-top');if(!btt)return;var onScroll=function(){btt.classList.toggle('show',window.scrollY>400);};window.addEventListener('scroll',onScroll,{passive:true});btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});onScroll();})();
 </script>
 
+<script src="source-practice-data.js"></script>
+<script src="source-practice.js"></script>
 <script src="visual-sources-data.js"></script>
 <script src="visual-sources.js"></script>
 <script src="study-guide-data.js"></script>

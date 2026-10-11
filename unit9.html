@@ -320,27 +320,6 @@ button{font-family:inherit;cursor:pointer}
 .fc-timer-msg{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.5}
 .fc-timer-msg.ready{color:var(--green)}
 /* ── SOURCE ANALYSIS (isolation drill) ── */
-.src-doc{background:var(--white);border:2px solid var(--border2);padding:24px 28px;margin-bottom:20px}
-.src-doc-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
-.src-doc-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;color:var(--mid);margin-bottom:12px;line-height:1.5;font-style:italic}
-.src-doc-img{display:block;max-width:100%;max-height:60vh;margin:0 auto 14px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.1)}
-.src-doc-txt{font-family:Lato,system-ui,sans-serif;font-size:.92rem;line-height:1.8;color:var(--ink)}
-.src-frame{background:#f5f0e6;border:2px dashed var(--border2);padding:20px 24px;margin:16px 0}
-.src-frame-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.src-frame-hint{font-size:.82rem;color:var(--mid);margin-bottom:12px;line-height:1.5}
-.src-lens-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.src-lens-btn{padding:6px 14px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--border2);background:var(--white);cursor:pointer;transition:border-color .15s,background .15s}
-.src-lens-btn:hover,.src-lens-btn.active{border-color:var(--red);background:#faf0f3;color:var(--red)}
-.src-textarea{width:100%;min-height:90px;border:1.5px solid var(--border);padding:14px;font-family:Lato,system-ui,sans-serif;font-size:.92rem;line-height:1.7;resize:vertical;box-sizing:border-box}
-.src-textarea:focus{border-color:var(--red);outline:none}
-.src-model{background:#e8f5e9;border-left:4px solid #1a6825;padding:16px 20px;margin-top:16px;display:none}
-.src-model.show{display:block}
-.src-model-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#1a6825;margin-bottom:6px}
-.src-model-txt{font-family:Lato,system-ui,sans-serif;font-size:.88rem;line-height:1.7;color:var(--ink)}
-.src-btn{padding:10px 20px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;transition:opacity .15s}
-.src-btn-red{background:var(--red);color:#fff}
-.src-btn-outline{background:none;border:1.5px solid var(--red);color:var(--red)}
-.src-btn:hover{opacity:.85}
 </style>
 <link rel="stylesheet" href="mission-theme.css">
 <script src="mc-mode.js?v=20261001"></script>
@@ -356,6 +335,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="study-guide.css">
 <link rel="stylesheet" href="brain-dump.css">
 <link rel="stylesheet" href="visual-sources.css">
+<link rel="stylesheet" href="source-practice.css">
 </head>
 <body>
 
@@ -1021,153 +1001,8 @@ button{font-family:inherit;cursor:pointer}
       <h2>Go Beyond Identification</h2>
       <p>Don&rsquo;t just name the source feature, explain <em>why it matters</em>. Practice the &ldquo;<strong>since it was written by a&hellip; it may therefore&hellip;</strong>&rdquo; move on documents about globalization, human rights, the economy, and the environment, then compare to the model.</p>
     </div>
-    <div class="src-doc" id="sa-doc"></div>
-    <div class="src-frame">
-      <div class="src-frame-lbl">Choose a sourcing lens</div>
-      <div class="src-lens-bar" id="sa-lens">
-        <button type="button" class="src-lens-btn" data-lens="pov">Point of View</button>
-        <button type="button" class="src-lens-btn" data-lens="purpose">Purpose</button>
-        <button type="button" class="src-lens-btn" data-lens="situation">Historical Situation</button>
-        <button type="button" class="src-lens-btn" data-lens="audience">Audience</button>
-      </div>
-      <div class="src-frame-hint" id="sa-hint">Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.</div>
-      <textarea class="src-textarea" id="sa-text" placeholder="Write your sourcing sentence here&hellip;"></textarea>
-    </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center">
-      <button type="button" class="src-btn src-btn-red" id="sa-reveal">Show Model Answer</button>
-      <button type="button" class="src-btn src-btn-outline" id="sa-next">Next Document &rarr;</button>
-      <span id="sa-count" style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;color:var(--muted)"></span>
-    </div>
-    <div class="src-model" id="sa-model">
-      <div class="src-model-lbl">Model Sourcing Sentence</div>
-      <div class="src-model-txt" id="sa-model-txt"></div>
-    </div>
+    <div class="sp-mount" data-unit="9"></div>
   </div>
-  <script type="application/json" id="sadata">
-[
-  {
-    "type": "International Declaration",
-    "sl": "United Nations General Assembly, Universal Declaration of Human Rights, Articles 1 and 2, adopted in Paris, 1948.",
-    "excerpt": "Article 1. All human beings are born free and equal in dignity and rights. They are endowed with reason and conscience and should act towards one another in a spirit of brotherhood. Article 2. Everyone is entitled to all the rights and freedoms set forth in this Declaration, without distinction of any kind, such as race, colour, sex, language, religion, political or other opinion, national or social origin, property, birth or other status.",
-    "models": {
-      "pov": "Since this was written by an international body representing many governments, it may express broad ideals all members could accept, therefore it states rights in universal terms but says little about how they would be enforced.",
-      "purpose": "Because its purpose was to define rights that belong to every person, it lists protections 'without distinction of any kind,' which later gave activists a standard for challenging discrimination and colonial rule.",
-      "situation": "Since it was adopted in 1948, just after the Holocaust and the Second World War, it reflects the world's determination to prevent states from ever again stripping people of their basic rights.",
-      "audience": "Because it was addressed to all nations and peoples, it uses simple, universal language so it could be translated and cited anywhere, by governments and ordinary people alike."
-    }
-  },
-  {
-    "type": "Political Remark",
-    "sl": "Deng Xiaoping, Chinese Communist Party leader, remark first made in 1962 and widely repeated to justify market reforms after he came to power in 1978.",
-    "excerpt": "It doesn't matter whether a cat is black or white, as long as it catches mice.",
-    "models": {
-      "pov": "Since this was said by a Communist Party leader who had seen the disasters of Mao's Great Leap Forward, he may value practical results over ideology, therefore the remark shows a pragmatic turn inside the Party itself.",
-      "purpose": "Because its purpose was to defend using whatever economic methods work, even capitalist ones, it gave reformers cover to introduce markets without openly rejecting communism.",
-      "situation": "Since it became a slogan of the reforms after 1978, when China opened Special Economic Zones and welcomed foreign investment, it reflects China's shift from a planned economy toward a market economy under Party control.",
-      "audience": "Because it was aimed at Party members and officials who feared abandoning Marxist principles, it uses a homely image to make a radical policy change sound like common sense."
-    }
-  },
-  {
-    "type": "Magazine Interview",
-    "sl": "Margaret Thatcher, Prime Minister of the United Kingdom, interview with Woman's Own magazine, 1987.",
-    "excerpt": "... there is no such thing as society. There are individual men and women and there are families. And no government can do anything except through people and people look to themselves first.",
-    "models": {
-      "pov": "Since this was said by a Conservative prime minister committed to free-market reform, she may minimize the role of government, therefore the passage reflects the neoliberal belief that individuals, not the state, should solve economic problems.",
-      "purpose": "Because her purpose was to justify cutting government programs and encouraging self-reliance, she frames welfare as something people should not expect, which supports her privatization and spending cuts.",
-      "situation": "Since it was spoken in 1987, after years of privatizing state industries and battling labor unions in Britain, it reflects the wider late-twentieth-century turn toward free-market economics also seen under Reagan.",
-      "audience": "Because it appeared in a popular women's magazine rather than in Parliament, it was aimed at ordinary readers and families, so she explains her philosophy in personal, everyday terms."
-    }
-  },
-  {
-    "type": "United Nations Report",
-    "sl": "World Commission on Environment and Development (the Brundtland Commission), Our Common Future, report to the United Nations, 1987.",
-    "excerpt": "Sustainable development is development that meets the needs of the present without compromising the ability of future generations to meet their own needs.",
-    "models": {
-      "pov": "Since this was written by an international commission that included members from both wealthy and developing countries, it may seek a compromise, therefore it supports economic growth and environmental protection at the same time.",
-      "purpose": "Because its purpose was to give governments a shared goal, it offers a broad definition that both industrialized and developing nations could accept rather than strict limits on growth.",
-      "situation": "Since it was written in 1987, amid growing alarm about deforestation, pollution, and the ozone layer, it reflects the debate over whether the developing world could industrialize without repeating the West's environmental damage.",
-      "audience": "Because it was addressed to the United Nations and world governments, it uses diplomatic language designed to guide future international agreements such as the 1992 Earth Summit."
-    }
-  },
-  {
-    "type": "Book",
-    "sl": "Rachel Carson, American biologist, Silent Spring, 1962, a book about the effects of chemical pesticides such as DDT.",
-    "excerpt": "There was once a town in the heart of America where all life seemed to live in harmony with its surroundings. ... Then a strange blight crept over the area and everything began to change.",
-    "models": {
-      "pov": "Since this was written by a trained biologist, she may emphasize scientific evidence of harm to wildlife, therefore the book presents pesticide use as an ecological danger rather than an agricultural success.",
-      "purpose": "Because her purpose was to alarm readers and push for regulation, she opens with a frightening story instead of data, which helped the book become a best seller and spark the environmental movement.",
-      "situation": "Since it was published in 1962, when chemical pesticides were being used widely after the Second World War, it reflects rising concern about the side effects of new technologies.",
-      "audience": "Because it was written for the general public rather than for scientists, it uses vivid, story-like language to make a technical problem feel urgent to ordinary readers."
-    }
-  },
-  {
-    "type": "Rebel Declaration",
-    "sl": "First Declaration of the Lacandon Jungle, issued by the Zapatista Army of National Liberation (EZLN), Chiapas, Mexico, January 1, 1994, the day the North American Free Trade Agreement took effect.",
-    "excerpt": "We are a product of 500 years of struggle: first against slavery, then during the War of Independence against Spain led by insurgents, then to avoid being absorbed by North American imperialism ... But today, we say ENOUGH IS ENOUGH.",
-    "models": {
-      "pov": "Since this was written by an indigenous rebel movement from Mexico's poorest state, it may present globalization as a new form of conquest, therefore it shows how free trade looked from the perspective of those who expected to lose from it.",
-      "purpose": "Because its purpose was to announce an armed uprising and win support, it links NAFTA to centuries of oppression so the rebellion appears as the latest chapter in a long fight for justice.",
-      "situation": "Since it was issued on the day NAFTA took effect, it reflects fears that cheap imported corn and reforms to communal land would ruin indigenous farmers, part of a wider resistance to neoliberal globalization.",
-      "audience": "Because it was addressed to the Mexican people and, through the media, to the world, it uses dramatic historical language to draw international attention and sympathy."
-    }
-  },
-  {
-    "type": "Inaugural Address",
-    "sl": "Nelson Mandela, inaugural address as President of South Africa, Pretoria, May 10, 1994.",
-    "excerpt": "Never, never and never again shall it be that this beautiful land will again experience the oppression of one by another and suffer the indignity of being the skunk of the world.",
-    "models": {
-      "pov": "Since this was spoken by a leader who had spent 27 years in prison under apartheid, he may emphasize the injustice of the old system, therefore the speech frames his presidency as a moral break from decades of oppression.",
-      "purpose": "Because his purpose was to unite a divided country and reassure the world, he promises that oppression of 'one by another' will never return, signaling reconciliation rather than revenge.",
-      "situation": "Since it was delivered in 1994, after the first elections in which all South Africans could vote, it reflects the end of apartheid brought about by internal resistance and international sanctions.",
-      "audience": "Because the audience included South Africans of every race and foreign leaders present at the ceremony, the reference to being 'the skunk of the world' acknowledges the global isolation apartheid had caused."
-    }
-  }
-]
-  </script>
-  <script>
-  (function(){
-    var dataEl = document.getElementById('sadata');
-    if (!dataEl) return;
-    var SRC_DOCS = JSON.parse(dataEl.textContent);
-    var BLANK = 'Since this document was written by <strong>[who / what role]</strong>, it may <strong>[lean a certain way]</strong>, therefore <strong>[what that means for the argument]</strong>.';
-    var HINTS = {
-      pov: BLANK,
-      purpose: 'Because this document was created in order to <strong>[goal]</strong>, its purpose was <strong>[X]</strong>, therefore it <strong>[emphasizes or leaves out]</strong>.',
-      situation: 'Since this was written in <strong>[when / amid what events]</strong>, the historical situation is significant because <strong>[how that context shapes it]</strong>.',
-      audience: 'Because this was created for <strong>[who]</strong>, the audience is significant because <strong>[how that shapes the content or tone]</strong>.'
-    };
-    var idx = 0, lens = null;
-    function render(){
-      var d = SRC_DOCS[idx];
-      document.getElementById('sa-doc').innerHTML =
-        '<div class="src-doc-lbl">' + d.type + '</div>' +
-        '<div class="src-doc-src">' + d.sl + '</div>' +
-        (d.img ? '<img src="' + d.img + '" alt="' + d.type + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
-        (d.excerpt ? '<div class="src-doc-txt">' + d.excerpt + '</div>' : '');
-      document.getElementById('sa-text').value = '';
-      document.getElementById('sa-model').classList.remove('show');
-      document.getElementById('sa-model-txt').textContent = '';
-      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(b){ b.classList.remove('active'); });
-      lens = null;
-      document.getElementById('sa-hint').innerHTML = BLANK;
-      document.getElementById('sa-count').textContent = 'Document ' + (idx + 1) + ' of ' + SRC_DOCS.length;
-    }
-    document.getElementById('sa-lens').addEventListener('click', function(e){
-      var b = e.target.closest('.src-lens-btn'); if (!b) return;
-      document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.remove('active'); });
-      b.classList.add('active'); lens = b.dataset.lens;
-      document.getElementById('sa-hint').innerHTML = HINTS[lens];
-    });
-    document.getElementById('sa-reveal').addEventListener('click', function(){
-      var d = SRC_DOCS[idx]; var L = lens || 'pov';
-      if (!lens){ document.querySelectorAll('#sa-lens .src-lens-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.lens==='pov'); }); document.getElementById('sa-hint').innerHTML = HINTS.pov; lens='pov'; }
-      document.getElementById('sa-model-txt').textContent = d.models[L];
-      document.getElementById('sa-model').classList.add('show');
-    });
-    document.getElementById('sa-next').addEventListener('click', function(){ idx = (idx + 1) % SRC_DOCS.length; render(); });
-    render();
-  })();
-  </script>
 </div>
 
 <!-- ══ VISUAL SOURCES ══ -->
@@ -1424,6 +1259,8 @@ document.addEventListener('click', function(e) {
 <script src="brain-dump-data.js"></script>
 <script src="brain-dump.js"></script>
 <script src="bd-confidence.js"></script>
+<script src="source-practice-data.js"></script>
+<script src="source-practice.js"></script>
 <script src="visual-sources-data.js"></script>
 <script src="visual-sources.js"></script>
 <script src="study-guide-data.js"></script>

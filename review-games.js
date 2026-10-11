@@ -351,7 +351,7 @@
     /* ── SOURCE LINE WARM-UP ── */
     if (cfg.warmup) (function () {
       var DOCS = cfg.warmup, idx = 0, timer = null, secs = 60, lens = 'pov';
-      var LENSES = [['pov', 'Point of View'], ['purpose', 'Purpose'], ['audience', 'Audience'], ['hist', 'Historical Situation']];
+      var LENSES = [['pov', 'Point of View'], ['purpose', 'Purpose'], ['audience', 'Intended Audience'], ['hist', 'Historical Situation']];
       var FRAMES = {
         pov: ['&ldquo;The <strong>point of view</strong> of this document is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X: connect to your argument</em>].&rdquo;',
               'Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?'],

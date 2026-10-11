@@ -101,18 +101,16 @@
         var m = txt('warmup-doc-num').match(/(\d+)\s+of\s+(\d+)/);
         var real = el.textContent.trim() && !/too short/i.test(el.textContent);
         return m && remember('warmup', real ? txt('warmup-source-line').trim().slice(0, 120) : '') >= +m[2]; } },
-    // Source Analysis drill (Units 2, 3, 4, 5, 8): real sentence on 3 different documents.
+    // Sourcing Practice drill (Documents tab, every unit): real sentence on 3 different documents.
     { id: 'sourcing', scope: '#pg-source', sel: '#sa-model', finished: wroteOn('sourcing', 'sa-text', 'sa-doc', 3) },
 
-    // Source Analysis drills (Unit 7). These have no end screen, so "finished" is defined here.
+    // Extra Documents-tab drills (Unit 7). These have no end screen, so "finished" is defined here.
     // Red / Green Sort: every sentence in the set sorted.
     { id: 'redgreen', scope: '#pg-source', sel: '#rg-cards', finished: function (el) {
         var cards = el.querySelectorAll('.rg-card');
         return cards.length > 0 && !Array.prototype.some.call(cards, function (c) {
           return !c.classList.contains('correct') && !c.classList.contains('wrong'); }); } },
-    // Isolation Drill: a real sentence written, then checked against the model, on 3 different documents.
-    { id: 'isolation', scope: '#pg-source', sel: '#iso-model', finished: wroteOn('isolation', 'iso-text', 'iso-doc', 3) },
-    // Paragraph Upgrade: same, on 2 different paragraphs.
+    // Paragraph Upgrade: a real sentence written, then checked against the model, on 2 different paragraphs.
     { id: 'paraup', scope: '#pg-source', sel: '#pu-model', finished: wroteOn('paraup', 'pu-text', 'pu-para', 2) }
   ];
 

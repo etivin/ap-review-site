@@ -8,7 +8,7 @@
   'use strict';
   var FRAMES = {
     HIPP: { name: 'HIPP', labels: { h: 'Historical Context', a: 'Intended Audience', p: 'Purpose', pov: 'Point of View' } },
-    HAPP: { name: 'HAPP', labels: { h: 'Historical Situation', a: 'Audience', p: 'Purpose', pov: 'Point of View' } }
+    HAPP: { name: 'HAPP', labels: { h: 'Historical Situation', a: 'Intended Audience', p: 'Purpose', pov: 'Point of View' } }
   };
   var GUIDES = {
     h: ['When and where was this source created?',

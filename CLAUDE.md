@@ -40,6 +40,7 @@ site; Eli edits content.
    | 5 | Revolutions | | | |
 
    Label format: `Unit N: Name`. Never rename official AP topic titles (e.g. "4.4: Maritime Empires Established").
+10. **Sourcing vocabulary:** the four parts are Historical Situation (or Context), **Intended Audience** (never just "Audience"), Purpose, and Point of View.
 
 ## 2. Deploy, preview, verify
 
@@ -87,7 +88,7 @@ One HTML file per unit. Fixed sidebar + top bar + a set of tab "pages" that `sho
 | `pg-walk` | MCQ Walkthrough | shared: `sbmcq.js` (`renderWalk(el,{unit})`) |
 | `pg-writing` | Writing Drills | shared: `writing-drills.js` + `writing-prompts.js` |
 | `pg-guide` | Study Guide | shared: `study-guide.js` + `study-guide-data.js` |
-| `pg-source` | Documents (sourcing practice) | **per-unit** engine; data mostly in `<script type="application/json" id="sadata">` |
+| `pg-source` | Documents (sourcing practice) | shared: `source-practice.js` + `source-practice-data.js` |
 | `pg-visual` | Visual Sources | shared: `visual-sources.js` + `visual-sources-data.js` |
 | `pg-maps` | Maps | iframe of `unitN-map.html` |
 | `pg-flash` | Flashcards | shared: `unit-flashcards.js` + `flashcard-data.js` |
@@ -117,9 +118,9 @@ needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.htm
 
 `<head>`: `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `brand.css`,
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
-`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`.
+`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`, `source-practice.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
-`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
+`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `source-practice-data.js`, `source-practice.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
 
 ### 4.4 Mount points (copy exactly; N = unit number)
@@ -131,6 +132,7 @@ Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount ca
 <div class="sg-mount" data-unit="N"></div>
 <div class="bd-mount" data-unit="N"></div>
 <div class="vs-mount" data-unit="N"></div>
+<div class="sp-mount" data-unit="N"></div>
 <div class="gl-mount" data-unit="N"></div>
 <div id="review-games"></div>  <script>APWH_GAMES.mount(document.getElementById('review-games'), GAME_DATA[N]);</script>
 ```
@@ -151,8 +153,9 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `review-games.js/.css` + `review-games-data.js` | Games tab: Jeopardy, Narrative Matching, Sort It, Source Line Warm-up, Speed Quiz, Timeline Builder, Asteroid Blaster | `GAME_DATA[n] = {jeopardy, matching?, sortit, warmup?, speedquiz, timeline, asteroid}`; shapes in the header of `review-games.js`. Leave a game out to hide it. Units 2–4 omit `matching` (they still have their own inline `ng-*` matching game). |
 | `writing-drills.js/.css` + `writing-prompts.js` | Writing Drills tab | `WRITING_PROMPTS[n] = {saq:[{source, excerpt, parts, partExemplars}], leq:[{intro, prompt, rubric}], dbq:[{documents:[{n, source, text, image?, imageAlt?, imageCredit?}], rubric}]}`; add prompts as a merge IIFE at the end of the file |
 | `spaced.js` | Spaced-review store + streak banner | `SPACED.recordReview(itemId, correct, confidence)`; ids: MCQ `u{n}_{topic}_{idx}`, flashcards `u{n}_fc_{slug(term)}`, reverse side `rv_u{n}_fc_{slug}` |
-| `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` (+ Source tab drills). Keep these ids. |
+| `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` + Documents tab `#sa-model #rg-cards #pu-model`. Keep these ids. |
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
+| `source-practice.js/.css` + `source-practice-data.js` | Documents tab: Sourcing Practice drill (+ optional Red / Green Sort, Paragraph Upgrade) | `SOURCE_PRACTICE[n] = {docs:[{type, sl, excerpt?, img?, models:{pov, purpose, situation, audience}}], redgreen?, paraup?}`; mount `<div class="sp-mount" data-unit="N">`; ids `#sa-* #rg-* #pu-*` are watched by `activity.js` |
 | `visual-sources.js/.css` + `visual-sources-data.js` | Visual Sources (AP question + HIPP/HAPP analysis per image) | `VISUAL_SOURCES[n] = {frame:"HIPP"|"HAPP", items:[{num, title, source, desc, img or imgs/imgTitles/imgSources, q, o, c, e, model:{h,a,p,pov}}]}`; mount `<div class="vs-mount" data-unit="N">` |
 | `brain-dump.js/.css` + `brain-dump-data.js` | Brain Dump (5-minute write, then reveal) | `BRAIN_DUMP[n] = {topics:[{id, name, stem, points:[{t,d}]}], fromFlashcards?}`; mount `<div class="bd-mount" data-unit="N">`. Load before `bd-confidence.js`. |
 | `study-guide.js/.css` + `study-guide-data.js` | Study Guide accordion | `STUDY_GUIDE[n] = [{num, title, body}]`; mount `<div class="sg-mount" data-unit="N">` |
@@ -185,8 +188,8 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 | ~~Sidebar nav / `showTab`~~ | **Done:** `unit-shell.js` | |
 | ~~Study Guide (`pg-guide`)~~ | **Done:** `study-guide.js` + `study-guide-data.js` | |
 | ~~Brain Dump (`pg-brain`)~~ | **Done:** `brain-dump.js` + `brain-dump-data.js` | |
-| ~~Visual Sources (`pg-visual`)~~ | **Done:** `visual-sources.js` + `visual-sources-data.js`. Units 2-7 are labeled HIPP and Units 1, 8, 9 HAPP (same four parts); Eli to pick one name | |
-| Documents (`pg-source`) | `#sadata` JSON + inline engine (Units 1–5, 8, 9); Units 6–7 use `SRC_DOCS` drills | `source-practice.js` + data |
+| ~~Visual Sources (`pg-visual`)~~ | **Done:** `visual-sources.js` + `visual-sources-data.js`. Units 2-7 are labeled HIPP and Units 1, 8, 9 HAPP (same four parts, all say Intended Audience); Eli to pick one acronym | |
+| ~~Documents (`pg-source`)~~ | **Done:** `source-practice.js` + `source-practice-data.js` (Unit 7 adds Red / Green Sort and Paragraph Upgrade) | |
 | SPICE-T (`pg-spice`) | Inline HTML per unit | data file + renderer |
 | Overview timeline (`pg-home`) | `var TIMELINE=[{year, title, topic, desc, img?}]` + inline renderer | shared renderer |
 | Narrative Matching (Units 2–4) | Extra inline `ng-*` game next to the shared games | move pairs into `GAME_DATA[n].matching`, delete the inline copy |
@@ -199,6 +202,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 - **Add MCQs:** `mcq-bank.js` (see rule 4). At least 5 questions per topic.
 - **Edit a study guide section:** `study-guide-data.js` → `STUDY_GUIDE[n]`.
 - **Edit Brain Dump topics, starters or key points:** `brain-dump-data.js` → `BRAIN_DUMP[n]`.
+- **Edit a Documents-tab source:** `source-practice-data.js` → `SOURCE_PRACTICE[n]`.
 - **Edit a visual source:** `visual-sources-data.js` → `VISUAL_SOURCES[n]` (MCQ rule 4 applies to its question).
 - **Edit game content:** `review-games-data.js` → `GAME_DATA[n]`.
 - **Add a writing prompt:** append a merge IIFE to `writing-prompts.js`.

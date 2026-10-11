@@ -32,6 +32,7 @@
   };
 
   var UNIT_TITLES = {
+    1: 'Unit 1: The Global Tapestry',
     2: 'Unit 2: Networks of Exchange',
     3: 'Unit 3: Land-Based Empires',
     4: 'Unit 4: Transoceanic Interconnections',
@@ -820,6 +821,51 @@
       why: 'B. The Zapatistas rose up against NAFTA and neoliberal reforms they believed would ruin indigenous farmers, part of a wider wave of resistance to globalization in the 1990s.',
       trap: 'C (the war of independence against Spain) is named right in the passage, but it is history the Zapatistas are remembering, not the backdrop of 1994. A context answer must already be happening when the source was written.'
     }
+    ,
+
+    /* ============ UNIT 1 ============ */
+    {
+      unit: 1, topic: '1.5', type: 'purpose', test: 'Unit 1 · Topic 1.5',
+      stim: 'They are seldom unjust, and have <mark class="hs">a greater abhorrence of injustice than any other people</mark>. Their sultan shows no mercy to anyone who is guilty of the least act of it. <mark class="hs">There is complete security in their country.</mark> Neither traveller nor inhabitant in it has anything to fear from robbers or men of violence.',
+      srcline: 'Ibn Battuta, Moroccan Muslim scholar and traveler, account of his visit to Mali, 1352–1353',
+      src: [
+        { tag: 'WHEN', since: 'it was written in the 1350s, soon after Mansa Musa’s reign', therefore: 'it describes Mali near the height of its wealth and power' },
+        { tag: 'WHO', since: 'it was written by a Muslim legal scholar who traveled across the Islamic world', therefore: 'he judges places by Islamic ideals of justice and order' },
+        { tag: 'WHAT', since: 'it is a travel account written for Muslim readers back home', therefore: 'it compares Mali to the standards his audience would recognize' }
+      ],
+      q: 'Ibn Battuta’s description of Mali was <mark class="hq">most likely shaped by his</mark>',
+      options: [
+        'goal of persuading European merchants to invest in Mali',
+        'training as a Muslim scholar who valued justice under Islamic law',
+        'loyalty to the Mongol khans who sponsored his travels',
+        'desire to convert the people of Mali to Christianity'
+      ],
+      answer: 1, trapIdx: 0,
+      meaning: 'A traveler praises Mali as just and safe. The question asks about point of view: who is this author, and why would he notice and praise exactly these things?',
+      why: 'B. Ibn Battuta was a qadi (judge) trained in Islamic law, so he measured Mali by how well it upheld justice and order, the values his education taught him to look for.',
+      trap: 'A (persuading European merchants) sounds like a purpose, but nothing ties Ibn Battuta to Europe: he wrote for a Muslim audience. A purpose answer has to match who actually made the source.'
+    },
+    {
+      unit: 1, topic: '1.4', type: 'causation', test: 'Unit 1 · Topic 1.4',
+      stim: 'In the 1300s and 1400s, the Aztec capital of Tenochtitlan grew to perhaps 200,000 people on an island in Lake Texcoco. Its markets drew tens of thousands of buyers and sellers a day. <mark class="hs">Farmers grew food on chinampas</mark>, raised fields built from mud in the shallow lake, and <mark class="hs">conquered peoples sent tribute</mark> of maize, cotton cloth, and cacao to the city.',
+      srcline: 'Historical context, the Aztec Empire, 1300s–1520',
+      src: [
+        { tag: 'WHEN', since: 'it describes the 1300s and 1400s, before contact with Europeans', therefore: 'any cause has to come from the Americas themselves' },
+        { tag: 'WHO', since: 'it is a modern historical summary, not a person’s account', therefore: 'it is a neutral description with no agenda to decode' },
+        { tag: 'WHAT', since: 'it describes a huge city, its food supply, and tribute', therefore: 'it is about how a large population was supported' }
+      ],
+      q: 'The growth of Tenochtitlan described in the passage was <mark class="hq">made possible mainly by</mark>',
+      options: [
+        'horses and wheat introduced by Spanish settlers',
+        'trade with Song China across the Pacific',
+        'intensive chinampa farming and tribute collected from conquered peoples',
+        'the Inca road system connecting Tenochtitlan to the Andes'
+      ],
+      answer: 2, trapIdx: 0,
+      meaning: 'A giant city sits on a lake. The question asks what made it possible to feed and supply that many people.',
+      why: 'C. Chinampas produced several harvests a year, and tribute from across the empire brought in food and goods. Together they supported one of the largest cities in the world.',
+      trap: 'A (Spanish horses and wheat) is a classic time-period trap: those arrived only after 1519, when Tenochtitlan was already huge. A cause has to come before its effect.'
+    }
   ];
 
   window.SBMCQ_WORKED = WORKED;
@@ -990,7 +1036,7 @@
   function renderWalk(el, opts) {
     if (!el) return;
     opts = opts || {};
-    var units = opts.unit ? [opts.unit] : [2, 3, 4, 5, 6, 7, 8, 9];
+    var units = opts.unit ? [opts.unit] : [1, 2, 3, 4, 5, 6, 7, 8, 9];
     var html = '';
     units.forEach(function (u) {
       html += '<section class="walk-group" id="walk-u' + u + '" data-unit="' + u + '">';

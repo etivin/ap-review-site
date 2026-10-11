@@ -98,7 +98,7 @@ window.GAME_DATA = {
       { title: "Magna Carta limits the English king", year: 1215 },
       { title: "Mongols sack Baghdad", year: 1258 },
       { title: "Mansa Musa's pilgrimage to Mecca", year: 1324 },
-      { title: "Aztecs found Tenochtitlan", year: 1325 },
+      { title: "Aztecs found Tenochtitlan", year: 1345, label: "c. 1345" },
       { title: "Vijayanagara kingdom founded", year: 1336 },
       { title: "Black Death reaches Europe", year: 1347 },
       { title: "Pachacuti begins expanding the Inca Empire", year: 1438 }

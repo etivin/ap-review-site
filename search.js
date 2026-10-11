@@ -6,7 +6,7 @@
 (function () {
   var UNITS = [
     null,
-    { name: 'The Global Tapestry', dates: 'c. 1200–1450', tabs: 'guide mcq writing flash glossary brain spice games',
+    { name: 'The Global Tapestry', dates: 'c. 1200–1450', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'song china neo-confucianism dar al-islam abbasid delhi sultanate mali great zimbabwe aztec inca mexica feudalism europe japan vijayanagara khmer' },
     { name: 'Networks of Exchange', dates: 'c. 1200–1450', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'silk road indian ocean trans-saharan mongols genghis khan ibn battuta marco polo zheng he monsoon caravan swahili malacca black death' },
@@ -14,11 +14,11 @@
       kw: 'gunpowder empires ottoman safavid mughal qing tokugawa russia devshirme janissaries akbar legitimize consolidate' },
     { name: 'Transoceanic Interconnections', dates: 'c. 1450–1750', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'columbian exchange exploration portugal spain encomienda hacienda mita atlantic slave trade joint-stock companies caravel mercantilism' },
-    { name: 'Revolutions', dates: 'c. 1750–1900', tabs: 'guide mcq walk writing source visual flash glossary brain spice games',
+    { name: 'Revolutions', dates: 'c. 1750–1900', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'enlightenment american french haitian latin american revolution nationalism industrial revolution steam capitalism socialism marx' },
-    { name: 'Consequences of Industrialization', dates: 'c. 1750–1900', tabs: 'guide mcq walk writing source visual flash glossary brain spice games',
+    { name: 'Consequences of Industrialization', dates: 'c. 1750–1900', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'imperialism scramble for africa berlin conference opium wars meiji japan migration indentured labor social darwinism sepoy' },
-    { name: 'Global Conflict', dates: 'c. 1900–present', tabs: 'guide mcq walk write source visual flash glossary brain spice games slides progress',
+    { name: 'Global Conflict', dates: 'c. 1900–present', tabs: 'guide mcq walk write source visual maps flash glossary brain spice games slides progress',
       kw: 'world war i world war ii ww1 ww2 great depression fascism holocaust genocide total war russian revolution mexican revolution' },
     { name: 'Cold War & Decolonization', dates: 'c. 1900–present', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'cold war decolonization containment nato warsaw pact non-aligned movement india gandhi mao proxy wars korea vietnam apartheid' },

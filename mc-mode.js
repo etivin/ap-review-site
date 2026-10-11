@@ -1,30 +1,16 @@
 /* ============================================================
-   mc-mode.js: secret "Mission Control" preview toggle.
+   mc-mode.js: Mission Control theme + shared top bar.
 
-   Loaded (synchronously, in <head>) on every page. Mission Control is now
-   the DEFAULT experience: every visitor gets it unless it has been explicitly
-   turned off on that device. A teacher can toggle it off (and back on) by
-   clicking the "AP World History" box in the top bar and entering the access
-   code. The choice is remembered per-device in localStorage.
-
-   When ON:
-     • the home page (index.html) is the dashboard itself
-     • standard pages get <html data-mc="on">, which activates the dormant
-       rules in mission-theme.css (navy/lime Mission Control theme)
-   When OFF:
-     • nothing is themed: the site is exactly as published
-
-   Change the code below to change the password.
+   Loaded (synchronously, in <head>) on every page. Mission Control is the
+   only view: the home page (index.html) is the dashboard itself, and every
+   other page gets <html data-mc="on">, which activates the rules in
+   mission-theme.css (navy/lime theme), plus the shared top bar below.
    ============================================================ */
 (function () {
   'use strict';
-  var PW  = 'missioncontrol';
-  var KEY = 'apMissionControl';
 
-  // Mission Control is the ONLY view: always on, for everyone. The opt-out
-  // toggle is disabled below so students cannot switch to the old layout.
+  // Mission Control is the ONLY view: always on, for everyone.
   function isOn()  { return true; }
-  function setOn(v){ try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
 
   var p = location.pathname;
   // The dashboard IS the home page (index.html), so the bare domain shows it
@@ -38,26 +24,6 @@
     document.documentElement.setAttribute('data-mc', 'on');
   }
 
-  // Secret gesture: click the "AP World History" box (.top-bar-tag): or any
-  // element marked [data-mc-toggle] (the dashboard's exit chip): then type the code.
-  function wire() {
-    var els = document.querySelectorAll('.top-bar-tag, [data-mc-toggle]');
-    Array.prototype.forEach.call(els, function (el) {
-      el.style.cursor = 'pointer';
-      el.addEventListener('click', function (ev) {
-        ev.preventDefault();
-        var ans = window.prompt('Enter access code:');
-        if (ans === null) return;                       // cancelled: do nothing
-        if (ans.trim().toLowerCase() === PW) {
-          var next = !isOn();
-          setOn(next);
-          location.replace('./');
-        } else {
-          window.alert('Incorrect code.');
-        }
-      });
-    });
-  }
   // In preview mode, give every page (units, cumulative, tools) the same top
   // bar as the dashboard, brand + nav: so the chrome matches and the way back
   // (Dashboard link + brand) is always in the same place. The page's fixed
@@ -155,8 +121,6 @@
     document.addEventListener('click', function (e) { if (!e.target.closest('.dd')) closeAll(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
   }
-  // Mission Control is the only view, the opt-out toggle (wire) is intentionally
-  // not called, so clicking the brand/tag no longer prompts for the exit code.
   function onReady() { injectTopBar(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', onReady);
   else onReady();

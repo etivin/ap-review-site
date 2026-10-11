@@ -79,7 +79,6 @@ html[data-mc="on"] .nav-item.active .nav-dot{background:var(--lime)!important}
 #mc-bar .dd:hover .dd-t,#mc-bar .dd.open .dd-t{color:var(--lime)!important;border-bottom-color:var(--lime)!important}
 
 /* Mission Control is the only view, hide the old exit/toggle chip. */
-.mc-exit{display:none!important}
 
 /* ── Shrink-on-scroll top bar (brand.js toggles .tivin-shrink on .bar) ── */
 .bar{transition:min-height .22s ease,padding .22s ease}

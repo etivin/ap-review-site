@@ -921,7 +921,7 @@ img{display:block;max-width:100%}
   </section>
 
   <footer class="site-footer">
-    <p>Archbishop Moeller High School &nbsp;&bull;&nbsp; <span id="secret-progress-trigger" style="cursor:default;user-select:none">APWH: Modern</span> &nbsp;&bull;&nbsp; Unit 7: Global Conflict</p>
+    <p>Archbishop Moeller High School &nbsp;&bull;&nbsp; APWH: Modern &nbsp;&bull;&nbsp; Unit 7: Global Conflict</p>
   </footer>
 </div>
 
@@ -1773,7 +1773,7 @@ initProgress();
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ── NAV ──────────────────────────────────────────────── */
-  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-write':'Writing Practice','pg-writing':'Writing Drills','pg-guide':'Study Guide','pg-source':'Source Analysis','pg-flash':'Flashcards','pg-games':'Games','pg-visual':'Visual Sources','pg-brain':'Brain Dump','pg-slides':'Slides','pg-progress':'Progress','pg-spice':'SPICE-T Analysis'};
+  var PAGE_TITLES = {'pg-home':'Overview','pg-mcq':'MCQ Practice','pg-walk':'MCQ Walkthrough','pg-write':'Writing Practice','pg-writing':'Writing Drills','pg-guide':'Study Guide','pg-source':'Source Analysis','pg-flash':'Flashcards','pg-games':'Games','pg-visual':'Visual Sources','pg-brain':'Brain Dump','pg-slides':'Slides','pg-spice':'SPICE-T Analysis'};
   /* ── Consolidated 6-group navigation ──
      Groups collapse the old 12 sections into 6 consistent tabs. Each group
      lists the page-ids it may contain; pages that don't exist in a given unit
@@ -1846,7 +1846,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var tt = document.getElementById('top-title');
     if (tt) tt.textContent = (group ? group.label : (PAGE_TITLES[id] || ''));
     if (id === 'pg-guide') renderGuide();
-    if (id === 'pg-progress' && teacherUnlocked) renderProgress();
     window.scrollTo(0, 0);
   }
   window.showTab = showTab;
@@ -2876,134 +2875,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('bd-start-btn').disabled = true;
     document.getElementById('bd-session').classList.remove('active');
     document.getElementById('bd-setup').style.display = '';
-  });
-
-  /* ── PROGRESS REPORT ────────────────────────────────── */
-  function renderProgress() {
-    var name = progressData.studentName || '';
-    var nameEl = document.getElementById('progress-student-name');
-    if (nameEl) nameEl.textContent = 'Student: ' + (name || '(anonymous)');
-
-    var topics = ['7.1','7.2','7.3','7.4','7.5','7.6','7.7','7.8'];
-    var topicNames = {'7.1':'Shifting Power','7.2':'Causes of WWI','7.3':'Conducting WWI','7.4':'Interwar Economy','7.5':'Resistance & Nationalism','7.6':'Causes & Conduct of WWII','7.7':'Mass Atrocities','7.8':'Propaganda'};
-    var summary = {};
-    topics.forEach(function(t){ summary[t] = {attempted:0, correct:0}; });
-
-    var rows = Object.values(progressData.mcq || {});
-    rows.forEach(function(r) { if (summary[r.topic]) { summary[r.topic].attempted++; if (r.correct) summary[r.topic].correct++; } });
-
-    // Summary table
-    var totalA = 0, totalC = 0;
-    var sh = '<h3 style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;color:#7a7860">Topic Summary</h3>';
-    sh += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.85rem">';
-    sh += '<thead><tr style="background:#1a1a12;color:#fff"><th style="padding:10px 14px;text-align:left;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.08em;font-weight:500">Topic</th><th style="padding:10px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.08em;font-weight:500">Attempted</th><th style="padding:10px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.08em;font-weight:500">Correct</th><th style="padding:10px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.08em;font-weight:500">Wrong</th><th style="padding:10px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.08em;font-weight:500">Score</th></tr></thead><tbody>';
-    topics.forEach(function(t, i) {
-      var s = summary[t]; totalA += s.attempted; totalC += s.correct;
-      var wrong = s.attempted - s.correct;
-      var pct = s.attempted ? Math.round(s.correct / s.attempted * 100) + '%' : '-';
-      var bg = i % 2 === 0 ? '#f9f6ef' : '#f3ece0';
-      sh += '<tr style="background:' + bg + '"><td style="padding:9px 14px"><strong>' + t + '</strong> &nbsp;<span style="color:#7a7860">' + topicNames[t] + '</span></td>';
-      sh += '<td style="padding:9px 14px;text-align:center">' + s.attempted + '</td>';
-      sh += '<td style="padding:9px 14px;text-align:center;color:#1a6825;font-weight:600">' + s.correct + '</td>';
-      sh += '<td style="padding:9px 14px;text-align:center;color:#b0001c;font-weight:600">' + wrong + '</td>';
-      sh += '<td style="padding:9px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700">' + pct + '</td></tr>';
-    });
-    var totalPct = totalA ? Math.round(totalC / totalA * 100) + '%' : '-';
-    sh += '<tr style="background:#1a1a12;color:#fff;font-weight:700"><td style="padding:10px 14px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.08em">TOTAL</td>';
-    sh += '<td style="padding:10px 14px;text-align:center">' + totalA + '</td>';
-    sh += '<td style="padding:10px 14px;text-align:center">' + totalC + '</td>';
-    sh += '<td style="padding:10px 14px;text-align:center">' + (totalA - totalC) + '</td>';
-    sh += '<td style="padding:10px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700">' + totalPct + '</td></tr>';
-    sh += '</tbody></table></div>';
-    document.getElementById('progress-summary').innerHTML = sh;
-
-    // Detail table
-    var detEl = document.getElementById('progress-detail');
-    if (!rows.length) { detEl.innerHTML = '<p style="color:#7a7860;font-style:italic;padding:20px 0">No questions answered yet. Start with MCQ practice!</p>'; return; }
-    var L = ['A','B','C','D'];
-    rows.sort(function(a,b){ return a.topic.localeCompare(b.topic) || a.topicIdx - b.topicIdx; });
-    var dh = '<h3 style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;color:#7a7860">Question-by-Question Detail</h3>';
-    dh += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:.82rem">';
-    dh += '<thead><tr style="background:#1a1a12;color:#fff"><th style="padding:9px 14px;text-align:left;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.08em;font-weight:500">Topic</th><th style="padding:9px 14px;text-align:left;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.08em;font-weight:500">Question (truncated)</th><th style="padding:9px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.08em;font-weight:500">Your Answer</th><th style="padding:9px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.08em;font-weight:500">Correct</th><th style="padding:9px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.08em;font-weight:500">Result</th></tr></thead><tbody>';
-    rows.forEach(function(r, i) {
-      var bg = i % 2 === 0 ? '#f9f6ef' : '#f3ece0';
-      dh += '<tr style="background:' + bg + '">';
-      dh += '<td style="padding:8px 14px;white-space:nowrap"><strong>' + r.topic + '</strong></td>';
-      dh += '<td style="padding:8px 14px;max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + (r.qText||'').replace(/"/g,'&quot;') + '">' + (r.qText||'') + (r.qText && r.qText.length >= 80 ? '…' : '') + '</td>';
-      dh += '<td style="padding:8px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700">' + (L[r.userAnswer]||'?') + '</td>';
-      dh += '<td style="padding:8px 14px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700">' + (L[r.correctAnswer]||'?') + '</td>';
-      dh += '<td style="padding:8px 14px;text-align:center;font-size:1.1rem">' + (r.correct ? '<span style="color:#1a6825;font-weight:700">✓</span>' : '<span style="color:#b0001c;font-weight:700">✗</span>') + '</td></tr>';
-    });
-    dh += '</tbody></table></div>';
-    detEl.innerHTML = dh;
-  }
-
-  function exportCSV() {
-    var name = progressData.studentName || 'Student';
-    var L = ['A','B','C','D'];
-    var rows = [['Student Name','Topic','Question Text','Your Answer','Correct Answer','Result']];
-    Object.values(progressData.mcq || {})
-      .sort(function(a,b){ return a.topic.localeCompare(b.topic) || a.topicIdx - b.topicIdx; })
-      .forEach(function(r) {
-        rows.push([
-          '"' + name.replace(/"/g,'""') + '"',
-          r.topic,
-          '"' + (r.qText||'').replace(/"/g,'""') + '"',
-          L[r.userAnswer] || '?',
-          L[r.correctAnswer] || '?',
-          r.correct ? 'Correct' : 'Incorrect'
-        ]);
-      });
-    var csv = rows.map(function(r){ return r.join(','); }).join('\r\n');
-    var blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = (name.replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'') || 'student') + '-ap-progress.csv';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  function resetProgress() {
-    if (!confirm('Reset ALL saved progress? This cannot be undone.')) return;
-    localStorage.removeItem('apReview_v1');
-    progressData = { studentName: '', mcq: {}, fcSeen: [], drafts: {} };
-    renderProgress();
-  }
-
-  // ── Teacher login gate ──
-  var TEACHER_PW = 'apworld7';  // ← change this to your password
-  var teacherUnlocked = false;
-
-  document.getElementById('teacher-login-btn').addEventListener('click', function() {
-    var pw = document.getElementById('teacher-pw').value;
-    if (pw === TEACHER_PW) {
-      teacherUnlocked = true;
-      document.getElementById('teacher-gate').style.display = 'none';
-      document.getElementById('teacher-dashboard').style.display = 'block';
-      document.getElementById('teacher-pw-err').textContent = '';
-      renderProgress();
-    } else {
-      document.getElementById('teacher-pw-err').textContent = 'Incorrect password. Try again.';
-    }
-  });
-  document.getElementById('teacher-pw').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') document.getElementById('teacher-login-btn').click();
-  });
-  document.getElementById('teacher-logout-btn').addEventListener('click', function() {
-    teacherUnlocked = false;
-    document.getElementById('teacher-dashboard').style.display = 'none';
-    document.getElementById('teacher-gate').style.display = '';
-    document.getElementById('teacher-pw').value = '';
-  });
-
-  // ── Export & Reset buttons ──
-  document.getElementById('export-csv-btn').addEventListener('click', exportCSV);
-  document.getElementById('reset-progress-btn').addEventListener('click', resetProgress);
-
-  // ── Secret Progress trigger (footer "APWH: Modern" text) ──
-  document.getElementById('secret-progress-trigger').addEventListener('click', function() {
-    showTab('pg-progress');
   });
 
   /* ── SOURCING PRACTICE ────────────────────────────────── */
@@ -5122,35 +4993,6 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="vs-tab-row" id="vs-tabs"></div>
       <div id="vs-cards"></div>
     </div>
-  </div>
-</div>
-
-<!-- ══ PROGRESS PAGE ══ -->
-<div id="pg-progress" class="page">
-  <!-- Teacher login gate -->
-  <div id="teacher-gate" style="max-width:440px;margin:80px auto;padding:40px 28px;background:var(--white);border:2px solid var(--border2);box-shadow:var(--shm)">
-    <div style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:10px">Teacher Access Only</div>
-    <h3 style="font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.4rem;margin-bottom:8px">Progress Dashboard</h3>
-    <p style="font-size:.86rem;color:var(--mid);margin-bottom:20px;line-height:1.6">Enter the teacher password to view student data and export reports.</p>
-    <input id="teacher-pw" type="password" placeholder="Teacher password" style="width:100%;padding:11px 14px;border:1.5px solid var(--border2);background:var(--cream);font-family:Lato,system-ui,sans-serif;font-size:.92rem;margin-bottom:6px;outline:none;transition:border-color .15s"/>
-    <div id="teacher-pw-err" style="color:var(--red);font-size:.78rem;margin-bottom:14px;min-height:1.2em"></div>
-    <button id="teacher-login-btn" style="width:100%;padding:12px;background:var(--ink);color:#fff;border:none;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Unlock Dashboard</button>
-  </div>
-  <!-- Teacher dashboard (hidden until authenticated) -->
-  <div id="teacher-dashboard" style="display:none;max-width:940px;margin:0 auto;padding:40px 20px 60px">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:14px">
-      <div>
-        <h2 style="font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:2rem;margin-bottom:6px">Student Progress</h2>
-        <div id="progress-student-name" style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;color:#7a7860;letter-spacing:.09em;text-transform:uppercase"></div>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <button id="export-csv-btn" style="padding:10px 20px;background:#1a6825;color:#fff;border:none;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .15s">&#128194; Export to Excel (.csv)</button>
-        <button id="reset-progress-btn" style="padding:10px 18px;background:none;border:1.5px solid #b0001c;color:#b0001c;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:opacity .15s">&#9166; Reset All Progress</button>
-        <button id="teacher-logout-btn" style="padding:10px 18px;background:none;border:1.5px solid var(--border2);color:var(--muted);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">&#128274; Lock</button>
-      </div>
-    </div>
-    <div id="progress-summary"></div>
-    <div id="progress-detail" style="margin-top:36px"></div>
   </div>
 </div>
 

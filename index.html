@@ -168,9 +168,6 @@ html{scroll-behavior:smooth}
   .unit-picker{flex-direction:column;align-items:flex-start}
 }
 
-/* exit chip in the bar; the secret toggle-off control (mc-mode.js wires it) */
-.mc-exit{font:inherit;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);background:var(--lime);border:2px solid var(--navy);padding:5px 10px;cursor:pointer}
-.mc-exit:hover{background:#fff}
 /* hide spaced.js's auto streak banner (not shown on the dashboard) */
 #spx-banner{display:none!important}
 
@@ -448,7 +445,6 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
       </div>
     </div>
     <a href="#about">About</a>
-    <button type="button" class="mc-exit" data-mc-toggle title="Turn off Mission Control preview">AP World History</button>
     <button type="button" class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-knob" id="ttKnob">&#9728;</span></button>
   </nav>
 </header>

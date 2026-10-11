@@ -1602,7 +1602,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var tt=document.getElementById('top-title');
     if (tt) tt.textContent=(group?group.label:(PAGE_TITLES[id]||''));
     if (id==='pg-guide' && typeof renderGuide==='function') renderGuide();
-    if (id==='pg-progress' && typeof teacherUnlocked!=='undefined' && teacherUnlocked && typeof renderProgress==='function') renderProgress();
     window.scrollTo(0, 0);
   }
   window.showTab=showTab;

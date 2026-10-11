@@ -221,38 +221,6 @@ button{font-family:inherit;cursor:pointer}
 @keyframes astExplode{0%{transform:scale(1) rotate(var(--rot,0deg));opacity:1}40%{transform:scale(1.8) rotate(var(--rot,0deg));filter:brightness(4);opacity:.8}100%{transform:scale(0) rotate(var(--rot,0deg));opacity:0}}
 @keyframes astWrong{0%,100%{transform:translate(var(--tx,0px),var(--ty,0px)) rotate(var(--rot,0deg))}25%{transform:translate(calc(var(--tx,0px) - 7px),var(--ty,0px)) rotate(var(--rot,0deg))}75%{transform:translate(calc(var(--tx,0px) + 7px),var(--ty,0px)) rotate(var(--rot,0deg))}}
 /* ── BRAIN DUMP ── */
-.bd-setup{text-align:center;max-width:600px;margin:0 auto 32px}
-.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
-.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
-.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
-.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
-.bd-start-btn{background:var(--red);color:#fff;border:none;padding:13px 36px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
-.bd-start-btn:hover{background:var(--red-d)}
-.bd-start-btn:disabled{opacity:.38;cursor:default}
-.bd-session{display:none}
-.bd-session.active{display:block}
-.bd-timer-bar{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px}
-.bd-topic-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
-.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
-.bd-countdown{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.5rem;font-weight:500;color:#fff;letter-spacing:.05em}
-.bd-countdown.warning{color:#f5a623}
-.bd-countdown.expired{color:var(--red)}
-.bd-textarea{width:100%;min-height:300px;background:var(--white);border:1.5px solid var(--border2);padding:18px;font-family:Lato,system-ui,sans-serif;font-size:.95rem;line-height:1.8;color:var(--ink);resize:vertical;margin-bottom:8px}
-.bd-textarea:focus{outline:none;border-color:var(--blue)}
-.bd-textarea:disabled{background:var(--paper);color:var(--mid)}
-.bd-stem{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-bottom:16px}
-.bd-stem-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
-.bd-word-count{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.57rem;color:var(--muted);letter-spacing:.1em;margin-bottom:24px}
-.bd-reveal{display:none;margin-top:8px}
-.bd-reveal.active{display:block}
-.bd-reveal-hdr{background:var(--green);color:#fff;padding:14px 20px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
-.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:28px}
-.bd-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--green);padding:16px 18px}
-.bd-card-term{font-family:Lato,system-ui,sans-serif;font-size:1rem;font-weight:700;margin-bottom:6px}
-.bd-card-def{font-size:.84rem;line-height:1.7;color:var(--mid)}
-.bd-reset-btn{background:none;border:1.5px solid var(--border2);color:var(--ink);padding:10px 26px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:all .18s}
-.bd-reset-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 /* FOOTER */
 .site-footer{background:var(--ink);padding:18px 24px;text-align:center}
 .site-footer p{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3)}
@@ -443,6 +411,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="unit-flashcards.css">
 <link rel="stylesheet" href="review-games.css">
 <link rel="stylesheet" href="study-guide.css">
+<link rel="stylesheet" href="brain-dump.css">
 </head>
 <body>
 
@@ -683,42 +652,7 @@ button{font-family:inherit;cursor:pointer}
       <h2>Write What You Know</h2>
       <p>Pick a topic, then write everything you remember for 5 minutes. When time&rsquo;s up, we&rsquo;ll show you all the content so you can compare.</p>
     </div>
-
-    <!-- Setup screen -->
-    <div class="bd-setup" id="bd-setup">
-      <div class="bd-topic-grid">
-        <button class="bd-topic-btn" data-topic="5.1">5.1: The Enlightenment</button>
-        <button class="bd-topic-btn" data-topic="5.2">5.2: Nationalism &amp; Revolution</button>
-        <button class="bd-topic-btn" data-topic="5.3">5.3: Industrial Revolution Begins</button>
-        <button class="bd-topic-btn" data-topic="5.4">5.4: Industrialization Spreads</button>
-        <button class="bd-topic-btn" data-topic="5.5">5.5: Technology &amp; Economic Innovation</button>
-        <button class="bd-topic-btn" data-topic="5.6">5.6: Industrialization &amp; Capitalism</button>
-        <button class="bd-topic-btn" data-topic="5.7">5.7: Economic Developments</button>
-        <button class="bd-topic-btn" data-topic="5.8">5.8: Reactions to Industrialization</button>
-      </div>
-      <button class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
-    </div>
-
-    <!-- Active session -->
-    <div class="bd-session" id="bd-session">
-      <div class="bd-timer-bar">
-        <div class="bd-topic-label">Topic<strong id="bd-active-topic">-</strong></div>
-        <div class="bd-countdown" id="bd-countdown">5:00</div>
-      </div>
-      <div class="bd-stem" id="bd-stem">
-        <div class="bd-stem-lbl">&#9997; Sentence Stem: start here if you need a push</div>
-        <div class="bd-stem-txt" id="bd-stem-txt"></div>
-      </div>
-      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic, key terms, events, causes, effects, people&hellip; don&rsquo;t stop writing!"></textarea>
-      <div class="bd-word-count" id="bd-word-count">0 words</div>
-
-      <!-- Revealed cards -->
-      <div class="bd-reveal" id="bd-reveal">
-        <div class="bd-reveal-hdr">&#9989; Time&rsquo;s up! Here&rsquo;s everything from this topic, compare it to what you wrote.</div>
-        <div class="bd-card-list" id="bd-card-list"></div>
-        <button class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
-      </div>
-    </div>
+    <div class="bd-mount" data-unit="5"></div>
   </div>
 </div>
 
@@ -1251,172 +1185,6 @@ document.addEventListener('DOMContentLoaded', function() {
     tlList.querySelectorAll('.tl-item').forEach(function(el) { tlObs.observe(el); });
   }
 
-  /* ── BRAIN DUMP ── */
-  var bdTopic = null, bdTimerInterval = null;
-  var BD_TOPIC_NAMES = {
-    '5.1':'5.1: The Enlightenment','5.2':'5.2: Nationalism &amp; Revolution',
-    '5.3':'5.3: Industrial Revolution Begins','5.4':'5.4: Industrialization Spreads',
-    '5.5':'5.5: Technology &amp; Economic Innovation','5.6':'5.6: Industrialization &amp; Capitalism',
-    '5.7':'5.7: Economic Developments','5.8':'5.8: Reactions to Industrialization'
-  };
-  var BD_STEMS = {
-    '5.1': 'The Enlightenment challenged traditional authority by arguing that\u2026',
-    '5.2': 'The Atlantic Revolutions were inspired by Enlightenment ideas, including\u2026',
-    '5.3': 'The Industrial Revolution began in Britain because\u2026',
-    '5.4': 'Industrialization spread from Britain to other countries through\u2026',
-    '5.5': 'New technologies transformed economies and global connections during this period, including\u2026',
-    '5.6': 'Industrial capitalism was characterized by new economic institutions such as\u2026',
-    '5.7': 'New economic developments and financial innovations during industrialization included\u2026',
-    '5.8': 'Workers and reformers reacted to the harsh conditions of industrial capitalism by\u2026'
-  };
-  var BD_CARDS = {
-    '5.1': [
-      {t:'Enlightenment',d:'18th-century intellectual movement that applied reason to politics, society, and religion. Argued that human institutions should be based on rational principles, not tradition or divine authority.'},
-      {t:'John Locke',d:'English philosopher who argued governments derive authority from the consent of the governed and that individuals have natural rights to life, liberty, and property.'},
-      {t:'Natural Rights',d:'Rights that all humans possess by nature, not granted by governments, Locke identified life, liberty, and property; Jefferson adapted these in the Declaration of Independence.'},
-      {t:'Social Contract',d:"Rousseau's idea that legitimate government rests on an agreement between rulers and the governed, with power derived from popular sovereignty."},
-      {t:'Montesquieu',d:"French philosopher who argued for separation of powers in government in 'The Spirit of the Laws': influenced the US Constitution's three-branch system."},
-      {t:'Popular Sovereignty',d:'The principle that political authority belongs to the people, not monarchs or churches, a foundational idea of democratic revolutions.'},
-      {t:'Voltaire',d:'French Enlightenment writer who championed religious tolerance, free speech, and separation of church and state; used satire to criticize monarchy and clergy.'},
-      {t:'Rousseau',d:'French philosopher who argued that civilization corrupts natural human goodness; his social contract theory emphasized popular sovereignty and equality.'}
-    ],
-    '5.2': [
-      {t:'American Revolution (1776)',d:'Colonists used Locke\'s natural rights theory to justify independence from Britain. The Declaration of Independence became a model for subsequent revolutions worldwide.'},
-      {t:'French Revolution (1789)',d:'Overthrew the monarchy declaring "Liberty, Equality, Fraternity." Spread Enlightenment ideals, but also produced the Terror and Napoleonic Wars.'},
-      {t:'Haitian Revolution (1791–1804)',d:'The only successful slave revolution in history. Enslaved people in Saint-Domingue used French revolutionary language to demand freedom, producing the first Black republic.'},
-      {t:'Toussaint Louverture',d:'Military leader of the Haitian Revolution who organized enslaved people into a fighting force; captured and died in French prison, but independence was won in 1804.'},
-      {t:'Simón Bolívar',d:'Called the "Liberator": led independence movements across Spanish South America (Venezuela, Colombia, Peru, Bolivia) using Enlightenment arguments against Spanish rule.'},
-      {t:'Creole Elites',d:'American-born descendants of European settlers who led Latin American independence movements, motivated by Enlightenment ideas and resentment of Spanish mercantile restrictions.'},
-      {t:'Nationalism',d:'The ideology that people sharing a common language, culture, or history should form their own sovereign state, the dominant political force in 19th-century revolutionary movements.'}
-    ],
-    '5.3': [
-      {t:'Industrial Revolution',d:'The transformation of production from hand tools to machine-powered factories, beginning in Britain c. 1760–1840; the most profound economic change in human history.'},
-      {t:'James Watt',d:"Scottish inventor who improved the steam engine in the 1760s–70s, making it efficient enough to power factories, mines, and (later) railways: key engine of industrialization."},
-      {t:'Factory System',d:'Centralized production in large buildings using machines and wage labor, replaced cottage industries and artisan workshops; created the industrial working class.'},
-      {t:'Why Britain First',d:'Britain industrialized first due to coal and iron deposits, a canal network, colonial markets, patent law protecting inventors, and a culture of commercial innovation.'},
-      {t:'Urbanization',d:'Mass movement of workers from rural areas to industrial cities. Manchester grew from 25,000 (1772) to 300,000 (1850). Cities were overcrowded, polluted, and lacked sanitation.'},
-      {t:'Child Labor',d:'Children as young as 5 worked in mines and factories for 12–16 hours a day in dangerous conditions. Eventually challenged by reform movements and factory acts.'},
-      {t:'Proletariat',d:"Marx's term for the industrial working class, people who own no means of production and must sell their labor to survive. The key revolutionary class in Marxist theory."}
-    ],
-    '5.4': [
-      {t:'Meiji Restoration (1868)',d:"Japan's emperor restored to power; Meiji government launched rapid industrialization: railroads, factories, modern army, universal education. Japan became the first non-Western industrial power."},
-      {t:'Self-Strengthening Movement (China)',d:'Chinese response to Western pressure (1861–1895): adopted Western military technology while preserving Confucian values. Ultimately failed to modernize China effectively.'},
-      {t:'Tanzimat Reforms (Ottoman Empire)',d:'Series of modernizing reforms (1839–1876): legal equality for non-Muslims, modern army, secular courts. Attempt to strengthen the empire against Western pressure.'},
-      {t:'Commodore Perry',d:'American naval commander who forced Japan to open trade with the United States in 1853 by threatening bombardment, catalyzed the Meiji Restoration.'},
-      {t:'Unequal Treaties',d:'Treaties forced on China and Japan by Western powers giving foreign nationals legal immunity, opening ports, and limiting tariffs, symbol of Western imperial dominance.'},
-      {t:'Germany & USA Industrialize',d:'By the 1870s–1890s, Germany and the United States surpassed Britain in steel production through state support, large corporations, and railroads connecting national markets.'},
-      {t:'Zaibatsu',d:'Large Japanese family-owned industrial conglomerates (Mitsubishi, Mitsui) that drove Meiji industrialization under close government direction and support.'}
-    ],
-    '5.5': [
-      {t:'Railroad',d:'The key technology of industrialization: reduced transport costs, connected markets, enabled mass migration, and required steel, coal, and capital, driving further industrial growth.'},
-      {t:'Telegraph',d:'Enabled near-instant long-distance communication for the first time (1840s); transformed business, military coordination, journalism, and the speed of global commerce.'},
-      {t:'Steamship',d:'Replaced sailing ships for long-distance trade; cut Atlantic crossing from weeks to days; made global trade faster, cheaper, and more reliable.'},
-      {t:'Suez Canal (1869)',d:'Connected Mediterranean to Red Sea; cut Europe-to-Asia voyage by weeks. Became a key artery of British imperial trade, Britain bought controlling interest in 1875.'},
-      {t:'Panama Canal (1914)',d:'Connecting Atlantic and Pacific through Central America; reduced shipping routes between US coasts and transformed global trade patterns.'},
-      {t:'Financial Innovation',d:'New economic institutions enabled industrial investment: joint-stock companies, limited liability corporations, investment banks, stock exchanges, and the gold standard.'},
-      {t:'Gold Standard',d:'International monetary system where currencies were backed by gold, enabling stable exchange rates and global trade expansion, adopted by major economies by the 1870s.'}
-    ],
-    '5.6': [
-      {t:'Adam Smith',d:"Scottish economist who argued in 'The Wealth of Nations' (1776) that free markets, guided by the 'invisible hand,' allocate resources more efficiently than government planning."},
-      {t:'Laissez-Faire',d:'Economic philosophy advocating minimal government intervention in markets, let competition and the price system determine economic outcomes without tariffs or regulation.'},
-      {t:'British East India Company',d:'Chartered company that controlled trade with and eventually administration of India; deployed its own army; exemplified how capitalism and colonialism reinforced each other.'},
-      {t:'British South Africa Company (BSAC)',d:'Cecil Rhodes\'s chartered company that colonized Zimbabwe and Zambia; extracted mineral wealth while performing colonial administrative functions on behalf of the British government.'},
-      {t:'Chartered Companies',d:'Companies given government monopoly charters to trade in specific regions; tools of early capitalism and colonialism, East India Companies, Royal African Company, Hudson\'s Bay.'},
-      {t:'Comparative Advantage',d:"Ricardo's principle that countries should specialize in goods they produce most efficiently; used to justify free trade policies that often benefited industrialized Britain more than its trading partners."},
-      {t:'Monopoly Capitalism',d:'Concentration of industrial production and finance in large corporations (trusts, cartels, banks) that dominated markets by the late 19th century, challenged laissez-faire assumptions.'}
-    ],
-    '5.7': [
-      {t:'Global Trade Integration',d:'By 1900, industrialization had produced a truly global economy: raw materials flowed from colonies to European factories; manufactured goods flowed back. Prices worldwide became interconnected.'},
-      {t:'Limited Liability Corporation',d:'Legal structure protecting investors from personal liability beyond their investment, enabled large-scale industrial investment by reducing risk for shareholders.'},
-      {t:'Gold Standard',d:'By the 1870s, major economies pegged currencies to gold, creating stable exchange rates that facilitated global trade but also made economies vulnerable to gold supply fluctuations.'},
-      {t:'Migration & Labor Markets',d:'Industrialization drove mass migration: European workers to the Americas (20 million 1870–1914); Chinese and Indian workers to mines and plantations worldwide.'},
-      {t:'Economic Imperialism',d:'Industrial nations\' economic domination of non-industrial regions, controlling resources, markets, and labor, even without formal colonial administration.'},
-      {t:'Protectionism vs. Free Trade',d:'Industrial nations like Germany and the US used high tariffs to protect developing industries; Britain advocated free trade because it benefited as the most competitive producer.'},
-      {t:'Capital Export',d:'By the late 19th century, surplus industrial profits were invested abroad: British capital built Argentine railways, South African mines, and Egyptian infrastructure.'}
-    ],
-    '5.8': [
-      {t:'Karl Marx',d:'German philosopher who argued that capitalism creates class conflict between bourgeoisie (owners) and proletariat (workers) that will inevitably lead to socialist revolution.'},
-      {t:'The Communist Manifesto (1848)',d:"Marx and Engels\'s call for workers to unite and overthrow capitalism: 'Workers of the world, unite! You have nothing to lose but your chains.'"},
-      {t:'Socialism',d:'Economic system advocating collective or government ownership of means of production to eliminate exploitation; ranged from democratic socialism to revolutionary Marxism.'},
-      {t:'Labor Unions',d:'Worker organizations that collectively bargained for better wages, hours, and conditions; grew rapidly in the late 19th century despite employer and government opposition.'},
-      {t:'Luddites',d:'Early 19th-century British workers who smashed machinery that they believed threatened their livelihoods, an early form of resistance to industrial capitalism.'},
-      {t:'Bismarck\'s Reforms',d:"German Chancellor Bismarck introduced state welfare programs (health insurance, accident insurance, old-age pensions) in the 1880s to undercut socialist appeal among workers."},
-      {t:'Lenin',d:'Russian Marxist who argued that a disciplined revolutionary party must lead the proletariat; adapted Marxism to Russian conditions; led the 1917 Bolshevik Revolution.'},
-      {t:'Anarchism',d:'Political philosophy rejecting all forms of hierarchical government, advocated voluntary cooperation; competed with Marxism for influence in labor and socialist movements.'}
-    ]
-  };
-
-  document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
-      this.classList.add('selected');
-      bdTopic = this.dataset.topic;
-      document.getElementById('bd-start-btn').disabled = false;
-    });
-  });
-
-  document.getElementById('bd-start-btn').addEventListener('click', function() {
-    if (!bdTopic) return;
-    document.getElementById('bd-setup').style.display = 'none';
-    var session = document.getElementById('bd-session');
-    session.classList.add('active');
-    document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
-    document.getElementById('bd-stem-txt').textContent = BD_STEMS[bdTopic] || 'Write everything you remember about this topic\u2026';
-    document.getElementById('bd-textarea').value = '';
-    document.getElementById('bd-textarea').disabled = false;
-    document.getElementById('bd-word-count').textContent = '0 words';
-    document.getElementById('bd-reveal').classList.remove('active');
-    document.getElementById('bd-countdown').className = 'bd-countdown';
-    bdStartTimer(5 * 60);
-  });
-
-  function bdStartTimer(totalSec) {
-    if (bdTimerInterval) clearInterval(bdTimerInterval);
-    var remaining = totalSec;
-    function tick() {
-      var m = Math.floor(remaining / 60);
-      var s = remaining % 60;
-      var el = document.getElementById('bd-countdown');
-      el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-      if (remaining <= 60 && remaining > 0) el.className = 'bd-countdown warning';
-      if (remaining <= 0) {
-        clearInterval(bdTimerInterval);
-        el.className = 'bd-countdown expired';
-        el.textContent = '0:00';
-        bdReveal();
-        return;
-      }
-      remaining--;
-    }
-    tick();
-    bdTimerInterval = setInterval(tick, 1000);
-  }
-
-  function bdReveal() {
-    var ta = document.getElementById('bd-textarea');
-    ta.disabled = true;
-    var cards = (BD_CARDS[bdTopic] || []);
-    var list = document.getElementById('bd-card-list');
-    list.innerHTML = cards.map(function(c) {
-      return '<div class="bd-card"><div class="bd-card-term">' + c.t + '</div><div class="bd-card-def">' + c.d + '</div></div>';
-    }).join('') || '<p style="color:var(--muted);font-size:.88rem">No cards found for this topic.</p>';
-    document.getElementById('bd-reveal').classList.add('active');
-    document.getElementById('bd-reveal').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  document.getElementById('bd-textarea').addEventListener('input', function() {
-    var w = this.value.trim().split(/\s+/).filter(Boolean).length;
-    document.getElementById('bd-word-count').textContent = w + ' word' + (w !== 1 ? 's' : '');
-  });
-
-  document.getElementById('bd-reset-btn').addEventListener('click', function() {
-    if (bdTimerInterval) clearInterval(bdTimerInterval);
-    document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
-    bdTopic = null;
-    document.getElementById('bd-start-btn').disabled = true;
-    document.getElementById('bd-session').classList.remove('active');
-    document.getElementById('bd-setup').style.display = '';
-  });
 
 
 });
@@ -1428,6 +1196,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="unit-flashcards.js"></script>
 <script src="mcq-bank.js"></script>
 <script src="mcq-engine.js"></script>
+<script src="brain-dump-data.js"></script>
+<script src="brain-dump.js"></script>
 <script src="bd-confidence.js"></script>
 <script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'5'});</script>
 <script src="writing-prompts.js"></script>

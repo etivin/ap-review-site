@@ -1,6 +1,6 @@
 /* flashcard-data.js: THE flashcard database. Every unit's Flashcards tab
-   (unit1-9.html, via FC_DECK below) and the Flashcard Hub (flashcards.html)
-   read their cards from here, so add, fix, or remove a card in this file
+   (unit-flashcards.js), the Flashcard Hub (flashcards.html), and Brain Dump
+   (brain-dump.js, Units 6, 7, 9) read their cards from here, so add, fix, or remove a card in this file
    and it changes everywhere. Rows are [topic, term, definition].
    Unit 9's deck mirrors the Unit 9 glossary.
    A card's spaced-review id is u{unit}_fc_{slug(term)}, so renaming a term
@@ -370,13 +370,4 @@ window.FC_DATA = {
 ["9.5","Women's Suffrage","Movement for women's right to vote, won in many countries in the early twentieth century, often after women's wartime work."],
 ["9.8","International Criminal Court","Court in The Hague, operating since 2002, that tries individuals for genocide, war crimes, and crimes against humanity."]
 ]
-};
-
-/* A unit page's deck in the shape its flashcard code expects:
-   FC_DECK(n)          -> [{t: term, d: definition, topic}]   (units 1-5, 7-9)
-   FC_DECK(n, 'flash') -> [{t: topic, term, def}]             (unit 6's FLASH) */
-window.FC_DECK = function (unit, shape) {
-  return (window.FC_DATA[unit] || []).map(function (r) {
-    return shape === 'flash' ? { t: r[0], term: r[1], def: r[2] } : { t: r[1], d: r[2], topic: r[0] };
-  });
 };

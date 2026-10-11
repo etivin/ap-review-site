@@ -92,7 +92,7 @@ One HTML file per unit. Fixed sidebar + top bar + a set of tab "pages" that `sho
 | `pg-maps` | Maps | iframe of `unitN-map.html` |
 | `pg-flash` | Flashcards | shared: `unit-flashcards.js` + `flashcard-data.js` |
 | `pg-glossary` | Glossary | shared: `glossary.js` + `glossary-data.js` |
-| `pg-brain` | Brain Dump | **per-unit** (three formats) + shared `bd-confidence.js` layer |
+| `pg-brain` | Brain Dump | shared: `brain-dump.js` + `brain-dump-data.js` (+ `bd-confidence.js` layer) |
 | `pg-spice` | SPICE-T Analysis | **per-unit** (inline HTML) |
 | `pg-games` | Games | shared: `review-games.js` + `review-games-data.js`, plus links to `unitN-interrogate.html` etc. |
 
@@ -117,9 +117,9 @@ needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.htm
 
 `<head>`: `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `brand.css`,
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
-`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`.
+`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
-`mcq-bank.js`, `mcq-engine.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
+`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
 
 ### 4.4 Mount points (copy exactly; N = unit number)
@@ -129,6 +129,7 @@ Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount ca
 <div class="wd-mount" data-unit="N" data-unit-label="Unit N"></div>
 <div class="ufc-mount" data-unit="N"></div>
 <div class="sg-mount" data-unit="N"></div>
+<div class="bd-mount" data-unit="N"></div>
 <div class="gl-mount" data-unit="N"></div>
 <div id="review-games"></div>  <script>APWH_GAMES.mount(document.getElementById('review-games'), GAME_DATA[N]);</script>
 ```
@@ -141,7 +142,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `mcq-bank.js` | All MCQs | `APWH_MCQ.units[n] = {title, topics:[{id,name}], questions:{'n.x':[{s, sl, simg?, q, o:[4], c, e}]}}`. New topics: `addTopic(u,id,name,qs)` block before `/* @@APPEND_UNITS_HERE@@ */`. |
 | `mcq-engine.js` | MCQ UI (Quick Check / Test Mode, confidence tap) | `APWH.mountMCQ(el, {unit} or {pool})` |
 | `sbmcq.js` | Stimulus-MCQ strategy + worked examples | `SBMCQ_WORKED` list; `renderWalk(el,{unit})`, `renderCheatsheet(el)` |
-| `flashcard-data.js` | **Single source of truth for flashcards** | `FC_DATA[n] = [[topic, term, def], ...]`, `FC_UNITS`, `FC_DECK(n)` (legacy helper still used by Brain Dump in Units 6–7) |
+| `flashcard-data.js` | **Single source of truth for flashcards** | `FC_DATA[n] = [[topic, term, def], ...]`, `FC_UNITS`; also feeds Brain Dump for Units 6, 7, 9 |
 | `flashcard-tags.js` | AP theme + region tags per term | `FC_TAGS[term] = "GESCTN EA,SA"` (themes, then regions) |
 | `unit-flashcards.js/.css` | Unit Flashcards tab (Flashcard Hub layout) | mounts `.ufc-mount` |
 | `flashcards.html` | Flashcard Hub | same card ids as the unit tabs |
@@ -151,6 +152,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `spaced.js` | Spaced-review store + streak banner | `SPACED.recordReview(itemId, correct, confidence)`; ids: MCQ `u{n}_{topic}_{idx}`, flashcards `u{n}_fc_{slug(term)}`, reverse side `rv_u{n}_fc_{slug}` |
 | `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` (+ Source tab drills). Keep these ids. |
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
+| `brain-dump.js/.css` + `brain-dump-data.js` | Brain Dump (5-minute write, then reveal) | `BRAIN_DUMP[n] = {topics:[{id, name, stem, points:[{t,d}]}], fromFlashcards?}`; mount `<div class="bd-mount" data-unit="N">`. Load before `bd-confidence.js`. |
 | `study-guide.js/.css` + `study-guide-data.js` | Study Guide accordion | `STUDY_GUIDE[n] = [{num, title, body}]`; mount `<div class="sg-mount" data-unit="N">` |
 | `unit-shell.js` | Unit sidebar, sub-tab bar, `showTab`, deep links, `data-tab` buttons | optional `window.UNIT_SHELL` overrides; `unit:tab` event |
 | `tour.js` | "How to Work This Unit" game plan + spotlight tour | reads `data-subs` and `showTab` |
@@ -180,7 +182,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 |---|---|---|
 | ~~Sidebar nav / `showTab`~~ | **Done:** `unit-shell.js` | |
 | ~~Study Guide (`pg-guide`)~~ | **Done:** `study-guide.js` + `study-guide-data.js` | |
-| Brain Dump (`pg-brain`) | 3 formats: `BRAIN` object (Units 1–2); `BD_STEMS` + `BD_CARDS` (Units 3–5, 8); `BD_STEMS` + flashcards (Units 6–7); Unit 9 its own | `brain-dump.js` + data |
+| ~~Brain Dump (`pg-brain`)~~ | **Done:** `brain-dump.js` + `brain-dump-data.js` | |
 | Visual Sources (`pg-visual`) | `VISUAL_DATA`/`VISUAL_DATA_UN` arrays `{num, img, title, source, desc, q, o, c, e, happ:{h,a,p,pov}}` (HIPP variant `hipp` in Units 6–7) + inline renderer per unit | `visual-sources.js` + data |
 | Documents (`pg-source`) | `#sadata` JSON + inline engine (Units 1–5, 8, 9); Units 6–7 use `SRC_DOCS` drills | `source-practice.js` + data |
 | SPICE-T (`pg-spice`) | Inline HTML per unit | data file + renderer |
@@ -194,6 +196,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 - **Add a glossary term:** `glossary-data.js` (shows in Glossary and search).
 - **Add MCQs:** `mcq-bank.js` (see rule 4). At least 5 questions per topic.
 - **Edit a study guide section:** `study-guide-data.js` → `STUDY_GUIDE[n]`.
+- **Edit Brain Dump topics, starters or key points:** `brain-dump-data.js` → `BRAIN_DUMP[n]`.
 - **Edit game content:** `review-games-data.js` → `GAME_DATA[n]`.
 - **Add a writing prompt:** append a merge IIFE to `writing-prompts.js`.
 - **New shared feature:** write `feature.js` (+ `.css`) exposing one global with a `mount(el, data)`
@@ -206,5 +209,5 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 
 Units 1–8 content mostly comes from Eli's materials and tests. Unit 9's MCQs, documents, visuals,
 SPICE-T, all of the shared game content for Units 1–4 and 9, and the gap-filling study-guide
-sections were written by Claude (October 2026). Released College Board FRQs are cataloged in
+sections and the Unit 9 Brain Dump sentence starters were written by Claude (October 2026). Released College Board FRQs are cataloged in
 `source-docs/released-frqs/README.md`. See also `SECURITY-NOTES.md`.

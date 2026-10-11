@@ -1,0 +1,33 @@
+/* brain-dump.css: the Brain Dump tab (brain-dump.js), shared by every unit. */
+.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
+.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
+.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
+.bd-start-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:14px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:4px;transition:background .15s}
+.bd-start-btn:hover:not(:disabled){background:var(--red)}
+.bd-start-btn:disabled{opacity:.4;cursor:not-allowed}
+.bd-session{display:none}
+.bd-session.active{display:block}
+.bd-timer-bar{background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 18px;margin-bottom:14px}
+.bd-topic-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
+.bd-countdown{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.4rem;font-weight:700;letter-spacing:.06em;color:#fff;transition:color .3s}
+.bd-countdown.warning{color:#f4b942}
+.bd-countdown.expired{color:var(--red)}
+.bd-stem{background:var(--gold-bg,#fdf7e8);border:1px solid var(--gold-b,#d4b84a);border-left:4px solid var(--gold,#7a5500);padding:14px 18px;margin-bottom:16px}
+.bd-stem-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold,#7a5500);margin-bottom:6px}
+.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
+.bd-textarea{width:100%;border:2px solid var(--border2);padding:14px 16px;font-family:Lato,system-ui,sans-serif;font-size:.93rem;line-height:1.7;resize:vertical;min-height:180px;background:var(--white);transition:border-color .15s}
+.bd-textarea:focus{outline:none;border-color:var(--red)}
+.bd-word-count{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;text-align:right}
+.bd-reveal{display:none;margin-top:28px}
+.bd-reveal.active{display:block}
+.bd-reveal-hdr{background:var(--green-bg,#eef7f0);border:1px solid var(--green,#1a6825);border-left:4px solid var(--green,#1a6825);padding:14px 18px;font-size:.9rem;color:var(--green,#1a6825);margin-bottom:20px}
+.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:20px}
+.bd-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:16px 18px}
+.bd-card-term{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.bd-card-def{font-size:.82rem;line-height:1.6;color:var(--mid)}
+.bd-reset-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;transition:background .15s}
+.bd-reset-btn:hover{background:var(--red)}
+.bd-topic-btn,.bd-start-btn,.bd-reset-btn{cursor:pointer}
+.bd-textarea:disabled{opacity:.75}

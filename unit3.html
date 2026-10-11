@@ -98,36 +98,6 @@ button{font-family:inherit;cursor:pointer}
 .btn-red{background:var(--red);color:#fff;border-color:var(--red)}
 .btn-red:hover{background:var(--red-d)}
 /* BRAIN DUMP */
-.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px;text-align:left}
-.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
-.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
-.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
-.bd-start-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:14px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;margin-top:4px;transition:background .15s}
-.bd-start-btn:hover:not(:disabled){background:var(--red)}
-.bd-start-btn:disabled{opacity:.4;cursor:not-allowed}
-.bd-session{display:none}
-.bd-session.active{display:block}
-.bd-timer-bar{background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 18px;margin-bottom:14px}
-.bd-topic-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
-.bd-topic-label strong{color:#fff;display:block;font-size:.72rem;margin-top:3px}
-.bd-countdown{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.4rem;font-weight:700;letter-spacing:.06em;color:#fff;transition:color .3s}
-.bd-countdown.warning{color:#f4b942}
-.bd-countdown.expired{color:var(--red)}
-.bd-stem{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:4px solid var(--gold);padding:14px 18px;margin-bottom:16px}
-.bd-stem-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.bd-stem-txt{font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.7}
-.bd-textarea{width:100%;border:2px solid var(--border2);padding:14px 16px;font-family:Lato,system-ui,sans-serif;font-size:.93rem;line-height:1.7;resize:vertical;min-height:180px;background:var(--white);transition:border-color .15s}
-.bd-textarea:focus{outline:none;border-color:var(--red)}
-.bd-word-count{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;text-align:right}
-.bd-reveal{display:none;margin-top:28px}
-.bd-reveal.active{display:block}
-.bd-reveal-hdr{background:var(--green-bg);border:1px solid var(--green);border-left:4px solid var(--green);padding:14px 18px;font-size:.9rem;color:var(--green);margin-bottom:20px}
-.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:20px}
-.bd-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--red);padding:16px 18px}
-.bd-card-term{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--ink)}
-.bd-card-def{font-size:.82rem;line-height:1.6;color:var(--mid)}
-.bd-reset-btn{display:block;width:100%;background:var(--ink);color:#fff;border:none;padding:13px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;transition:background .15s}
-.bd-reset-btn:hover{background:var(--red)}
 /* SIDEBAR */
 .sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
 .sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
@@ -322,6 +292,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="review-games.css">
 <link rel="stylesheet" href="unit-flashcards.css">
 <link rel="stylesheet" href="study-guide.css">
+<link rel="stylesheet" href="brain-dump.css">
 </head>
 <body>
 
@@ -539,34 +510,7 @@ button{font-family:inherit;cursor:pointer}
       <h2>Write What You Know</h2>
       <p>Pick a topic, then write everything you remember for 5 minutes. When time&rsquo;s up, we&rsquo;ll show you all the content so you can compare.</p>
     </div>
-
-    <div class="bd-setup" id="bd-setup">
-      <div class="bd-topic-grid">
-        <button class="bd-topic-btn" data-topic="3.1">3.1: Empires Expand</button>
-        <button class="bd-topic-btn" data-topic="3.2">3.2: Empires: Administration</button>
-        <button class="bd-topic-btn" data-topic="3.3">3.3: Empires: Belief Systems</button>
-        <button class="bd-topic-btn" data-topic="3.4">3.4: Comparison in Land-Based Empires</button>
-      </div>
-      <button class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
-    </div>
-
-    <div class="bd-session" id="bd-session">
-      <div class="bd-timer-bar">
-        <div class="bd-topic-label">Topic<strong id="bd-active-topic">-</strong></div>
-        <div class="bd-countdown" id="bd-countdown">5:00</div>
-      </div>
-      <div class="bd-stem" id="bd-stem">
-        <div class="bd-stem-lbl">&#9997; Sentence Stem: start here if you need a push</div>
-        <div class="bd-stem-txt" id="bd-stem-txt"></div>
-      </div>
-      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic, key terms, events, causes, effects, people&hellip; don&rsquo;t stop writing!"></textarea>
-      <div class="bd-word-count" id="bd-word-count">0 words</div>
-      <div class="bd-reveal" id="bd-reveal">
-        <div class="bd-reveal-hdr">&#9989; Time&rsquo;s up! Here&rsquo;s everything from this topic, compare it to what you wrote.</div>
-        <div class="bd-card-list" id="bd-card-list"></div>
-        <button class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
-      </div>
-    </div>
+    <div class="bd-mount" data-unit="3"></div>
   </div>
 </div>
 
@@ -1101,126 +1045,6 @@ if (tlList) {
 
 
 
-/* ── BRAIN DUMP ── */
-var bdTopic = null, bdTimerInterval = null;
-var BD_TOPIC_NAMES = {
-  '3.1':'3.1: Empires Expand',
-  '3.2':'3.2: Empires: Administration',
-  '3.3':'3.3: Empires: Belief Systems',
-  '3.4':'3.4: Comparison in Land-Based Empires'
-};
-var BD_STEMS = {
-  '3.1': 'Land-based empires expanded their territory in the period 1450–1750 by using…',
-  '3.2': 'Rulers of land-based empires maintained their authority through administrative techniques including…',
-  '3.3': 'Religion shaped the policies and conflicts of land-based empires because…',
-  '3.4': 'The Ottoman, Mughal, Safavid, and Qing empires were similar to each other in that…'
-};
-var BD_CARDS = {
-  '3.1': [
-    {t:'Ottoman Empire',d:'Founded by Osman I (c. 1300), the Ottomans conquered Constantinople in 1453 using massive gunpowder cannons. At its height under Suleiman the Magnificent (1520–1566), the empire stretched from Vienna to the Persian Gulf. The Ottomans were the dominant Muslim power of the early modern world.'},
-    {t:'Safavid Empire',d:'Founded by Shah Ismail I in 1501 in Persia (modern Iran). The Safavids forcibly converted their population to Twelver Shi‘a Islam, making religion the central pillar of state identity. Perpetual rivals of the Sunni Ottomans.'},
-    {t:'Mughal Empire',d:'Founded by Babur in 1526 after the Battle of Panipat. At its peak under Akbar and Aurangzeb, the Mughal Empire encompassed most of the Indian subcontinent and over 100 million people, producing perhaps 25% of world GDP.'},
-    {t:'Qing Dynasty',d:'The Manchus, a semi-nomadic people from northeastern China, overthrew the Ming Dynasty in 1644 and established the Qing. They maintained Chinese bureaucratic practices (including the examination system) while imposing some Manchu cultural requirements on their subjects.'},
-    {t:'Russian Empire',d:'Russia expanded dramatically eastward across Siberia (reaching the Pacific by 1639) and southward under the Romanov dynasty. Peter the Great (r. 1682–1725) Westernized the empire’s institutions and founded St. Petersburg as the new capital.'},
-    {t:'Gunpowder Weapons',d:'Cannons and firearms transformed warfare in the 15th–17th centuries, allowing well-organized states to overpower traditional cavalry-based armies. Gunpowder technology was the key military advantage of the Ottoman, Mughal, and Manchu empires in their expansions.'},
-    {t:'Janissaries',d:'Elite Ottoman infantry corps recruited through the devshirme system from Christian subjects. Trained from youth, educated in Islam, and loyal personally to the sultan. Among the most professional soldiers in the world in the 16th century.'}
-  ],
-  '3.2': [
-    {t:'Devshirme System',d:'Ottoman practice of forcibly recruiting young boys from Christian subject populations in the Balkans. Boys were converted to Islam, educated, and trained as soldiers (janissaries) or administrators. Because they had no family connections in Ottoman society, they were personally loyal to the sultan.'},
-    {t:'Zamindar System',d:'Mughal system of tax administration in which zamindars (local lords, often Hindu) were granted the right to collect taxes from peasants in a given area in exchange for providing revenue to the central government. Similar to the Ottoman timar system.'},
-    {t:'Divine Right of Kings',d:'European political theory that monarchs derive their authority directly from God and are accountable only to God. Articulated by James I of England in 1610. Used by monarchs across Europe to resist both noble and clerical challenges to royal authority.'},
-    {t:'Confucian Examination System',d:'Chinese system for recruiting government officials through rigorous written examinations based on Confucian classics. Maintained by both the Ming and Qing dynasties. Created a merit-based bureaucracy that was theoretically open to any literate man, though the system favored wealthy families who could afford years of study.'},
-    {t:'Peter the Great & Westernization',d:'Tsar Peter I of Russia (r. 1682–1725) undertook a sweeping program of Westernization: adopted European military technology and tactics, founded the Russian navy, built St. Petersburg in the European style, required nobles to shave beards and wear Western clothing, and reorganized Russian bureaucracy on European models.'},
-    {t:'Art as Legitimacy',d:'Rulers across all land-based empires used art, architecture, and literature to legitimize their power. Ottoman sultans commissioned mosque complexes and official histories; Mughal emperors patronized miniature paintings; European monarchs built palaces like Versailles. These were not luxuries but political tools.'},
-    {t:'Tax Farming',d:'System of tax collection in which the right to collect taxes in a given area is sold or auctioned to private individuals (tax farmers), who then collect taxes from the population and keep a portion. Used in the Ottoman and Mughal empires. Often led to exploitation of peasants, as Bernier describes.'}
-  ],
-  '3.3': [
-    {t:'Sunni–Shi‘a Division',d:'The two main branches of Islam divided after a dispute over the succession of Muhammad (632 C.E.). The Ottoman Empire was officially Sunni; the Safavid Empire was Shi‘a. Their rivalry intensified pressure on Sunni scholars within the Ottoman Empire to define and enforce orthodoxy, including against Sufi practices.'},
-    {t:'Sufism',d:'Mystical dimension of Islam emphasizing direct personal experience of the divine through meditation, music, and ritual movement (including the whirling of the Mevlevi Order). Sufis were popular missionaries who spread Islam to southeast Asia, sub-Saharan Africa, and Central Asia. Ottoman Sunni scholars sometimes condemned Sufi practices as heterodox.'},
-    {t:'Jesuit Missionaries',d:'The Society of Jesus (Jesuits), founded by Ignatius of Loyola in 1540 as part of the Catholic Counter-Reformation, sent missionaries across the globe. Matteo Ricci in China, Francis Xavier in Japan and India. Their global missionary work was a direct response to losses caused by the Protestant Reformation in Europe.'},
-    {t:'Protestant Reformation',d:'Martin Luther’s 1517 challenge to the Catholic Church triggered a religious revolution in Europe. Protestants rejected papal authority, emphasized scripture over church tradition, and broke Europe’s religious unity. The Catholic Church responded with the Counter-Reformation, including the Council of Trent and expanded missionary activity.'},
-    {t:'Cultural Syncretism',d:'The blending of different cultural or religious traditions into new forms. Examples: Mughal architecture blending Islamic and Hindu elements; Sikhism combining elements of Hinduism and Islam; Jesuit missionaries in China incorporating Confucian traditions into Christian practice; syncretic folk Catholicism in colonial Latin America.'},
-    {t:'Sikhism',d:'Religion founded by Guru Nanak (c. 1500) in the Punjab region of South Asia. Sikhism emphasized direct devotion to one God (monotheism), rejected the Hindu caste system, and drew on both Hindu and Islamic traditions. It appealed to lower-caste Hindus and to those seeking a middle path between the two dominant faiths.'},
-    {t:'Ottoman Religious Policy',d:'The Ottoman Empire tolerated religious minorities (Christians, Jews) as dhimmis, protected peoples who paid extra taxes (jizya) in exchange for freedom of worship. This system allowed the Ottomans to govern a diverse multi-religious empire without forcing conversion, unlike the Safavids who enforced Shi‘a Islam.'}
-  ],
-  '3.4': [
-    {t:'Gunpowder Empires',d:'Historians sometimes use this term to describe the Ottoman, Safavid, and Mughal empires, which all used gunpowder weapons to build and maintain their empires. The Qing and Russian empires are also sometimes included. Key comparison point: all three used similar military technology but developed very different administrative and religious policies.'},
-    {t:'Comparing Administrative Systems',d:'Ottoman devshirme recruited diverse subjects into the bureaucracy, creating loyalty to the sultan. Mughal zamindars relied on existing local elites. Qing maintained Chinese examination system. All faced the same challenge: how to govern vast, diverse populations with limited communication technology.'},
-    {t:'Comparing Religious Policies',d:'Ottoman: tolerant of religious diversity (millet system), Sunni Islam as official faith. Mughal: varied by emperor (Akbar tolerant; Aurangzeb intolerant). Safavid: forced Shi‘a conversion. Qing: generally tolerant, maintained Chinese Buddhist and Confucian traditions. This variation shows that religious policy was a strategic choice, not a predetermined outcome.'},
-    {t:'Art and Legitimacy Across Empires',d:'All land-based empires used art and architecture to legitimize rulers: Ottoman mosques surpassing Byzantine churches; Mughal miniature paintings glorifying emperors; Chinese emperors portrayed as cosmic rulers; European divine-right monarchs building palaces. The specific symbols differed, but the political purpose was identical.'}
-  ]
-};
-
-document.querySelectorAll('.bd-topic-btn').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
-    this.classList.add('selected');
-    bdTopic = this.dataset.topic;
-    document.getElementById('bd-start-btn').disabled = false;
-  });
-});
-
-document.getElementById('bd-start-btn').addEventListener('click', function() {
-  if (!bdTopic) return;
-  document.getElementById('bd-setup').style.display = 'none';
-  var session = document.getElementById('bd-session');
-  session.classList.add('active');
-  document.getElementById('bd-active-topic').textContent = BD_TOPIC_NAMES[bdTopic] || bdTopic;
-  document.getElementById('bd-stem-txt').textContent = BD_STEMS[bdTopic] || 'Write everything you remember about this topic…';
-  document.getElementById('bd-textarea').value = '';
-  document.getElementById('bd-textarea').disabled = false;
-  document.getElementById('bd-word-count').textContent = '0 words';
-  document.getElementById('bd-reveal').classList.remove('active');
-  document.getElementById('bd-countdown').className = 'bd-countdown';
-  bdStartTimer(5 * 60);
-});
-
-function bdStartTimer(totalSec) {
-  if (bdTimerInterval) clearInterval(bdTimerInterval);
-  var remaining = totalSec;
-  function tick() {
-    var m = Math.floor(remaining / 60);
-    var s = remaining % 60;
-    var el = document.getElementById('bd-countdown');
-    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-    if (remaining <= 60 && remaining > 0) el.className = 'bd-countdown warning';
-    if (remaining <= 0) {
-      clearInterval(bdTimerInterval);
-      el.className = 'bd-countdown expired';
-      el.textContent = '0:00';
-      bdReveal();
-      return;
-    }
-    remaining--;
-  }
-  tick();
-  bdTimerInterval = setInterval(tick, 1000);
-}
-
-function bdReveal() {
-  var ta = document.getElementById('bd-textarea');
-  ta.disabled = true;
-  var cards = (BD_CARDS[bdTopic] || []);
-  var list = document.getElementById('bd-card-list');
-  list.innerHTML = cards.map(function(c) {
-    return '<div class="bd-card"><div class="bd-card-term">' + c.t + '</div><div class="bd-card-def">' + c.d + '</div></div>';
-  }).join('');
-  document.getElementById('bd-reveal').classList.add('active');
-}
-
-document.getElementById('bd-textarea').addEventListener('input', function() {
-  var words = this.value.trim() ? this.value.trim().split(/\s+/).length : 0;
-  document.getElementById('bd-word-count').textContent = words + ' word' + (words !== 1 ? 's' : '');
-});
-
-document.getElementById('bd-reset-btn').addEventListener('click', function() {
-  document.querySelectorAll('.bd-topic-btn').forEach(function(b){ b.classList.remove('selected'); });
-  bdTopic = null;
-  document.getElementById('bd-start-btn').disabled = true;
-  document.getElementById('bd-session').classList.remove('active');
-  document.getElementById('bd-setup').style.display = '';
-  if (bdTimerInterval) clearInterval(bdTimerInterval);
-});
 </script>
 <script src="spaced.js"></script>
 <script src="activity.js"></script>
@@ -1228,6 +1052,8 @@ document.getElementById('bd-reset-btn').addEventListener('click', function() {
 <script src="unit-flashcards.js"></script>
 <script src="mcq-bank.js"></script>
 <script src="mcq-engine.js"></script>
+<script src="brain-dump-data.js"></script>
+<script src="brain-dump.js"></script>
 <script src="bd-confidence.js"></script>
 <script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'3'});</script>
 <script src="writing-prompts.js"></script>

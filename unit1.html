@@ -184,30 +184,6 @@ button{font-family:inherit;cursor:pointer}
 /* STUDY GUIDE */
 
 /* BRAIN DUMP */
-.bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:20px}
-.bd-topic-btn{background:var(--white);border:1.5px solid var(--border2);color:var(--ink);padding:13px 16px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;transition:all .18s;width:100%}
-.bd-topic-btn:hover{background:var(--ink);border-color:var(--ink);color:#fff}
-.bd-topic-btn.selected{background:var(--red);border-color:var(--red);color:#fff}
-.bd-start-btn{display:block;margin:0 auto;background:var(--red);color:#fff;border:none;padding:13px 36px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;transition:background .18s}
-.bd-start-btn:hover{background:var(--red-d)}
-.bd-start-btn:disabled{opacity:.38;cursor:default}
-.bd-session{display:none}.bd-session.active{display:block}
-.bd-timer-bar{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
-.bd-topic-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
-.bd-topic-label strong{margin-left:8px;color:#fff;opacity:1}
-.bd-countdown{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.5rem;font-weight:500;letter-spacing:.04em;min-width:64px;text-align:right}
-.bd-stem{background:var(--paper);border-left:3px solid var(--gold-b);padding:11px 14px;margin-bottom:12px}
-.bd-stem-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
-.bd-stem-txt{font-size:.88rem;font-style:italic;color:var(--ink)}
-.bd-textarea{width:100%;min-height:240px;border:2px solid var(--border2);padding:18px;font-family:Lato,system-ui,sans-serif;font-size:.95rem;line-height:1.7;resize:vertical;background:var(--white);color:var(--ink);transition:border-color .15s}
-.bd-textarea:focus{border-color:var(--red);outline:none}
-.bd-word-count{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;color:var(--muted);letter-spacing:.08em;margin:8px 0 4px;text-align:right}
-.bd-reveal{display:none;margin-top:20px}.bd-reveal.active{display:block;animation:fadeUp .3s ease}
-.bd-reveal-hdr{background:var(--green-bg);border-left:3px solid var(--green);padding:12px 16px;font-size:.88rem;color:var(--ink);margin-bottom:14px}
-.bd-card-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:18px}
-.bd-rcard{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 14px;font-size:.84rem;line-height:1.6;color:var(--mid)}
-.bd-rcard strong{color:var(--ink);display:block;margin-bottom:3px;font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em}
-.bd-reset-btn{background:var(--ink);color:#fff;border:none;padding:11px 26px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase}
 
 /* SPICE-T */
 .spice-intro{max-width:640px;margin:0 auto 8px;text-align:center;color:var(--muted);font-size:.9rem}
@@ -353,6 +329,7 @@ button{font-family:inherit;cursor:pointer}
 <script src="sbmcq.js"></script>
 <link rel="stylesheet" href="unit-flashcards.css">
 <link rel="stylesheet" href="study-guide.css">
+<link rel="stylesheet" href="brain-dump.css">
 </head>
 <body>
 
@@ -616,27 +593,7 @@ button{font-family:inherit;cursor:pointer}
       <h2>Write What You Know</h2>
       <p>Pick a topic, then write everything you remember for 5 minutes. When time's up, compare against the full list.</p>
     </div>
-    <div id="bd-setup">
-      <div class="bd-topic-grid" id="bd-topic-grid"></div>
-      <button type="button" class="bd-start-btn" id="bd-start-btn" disabled>&#9654; Start Brain Dump</button>
-    </div>
-    <div class="bd-session" id="bd-session">
-      <div class="bd-timer-bar">
-        <div class="bd-topic-label">Topic<strong id="bd-active-topic">-</strong></div>
-        <div class="bd-countdown" id="bd-countdown">5:00</div>
-      </div>
-      <div class="bd-stem">
-        <div class="bd-stem-lbl">&#9997; Sentence Stem: start here if you need a push</div>
-        <div class="bd-stem-txt" id="bd-stem-txt"></div>
-      </div>
-      <textarea class="bd-textarea" id="bd-textarea" placeholder="Write everything you know about this topic, key terms, events, causes, effects, people… don't stop writing!"></textarea>
-      <div class="bd-word-count" id="bd-word-count">0 words</div>
-      <div class="bd-reveal" id="bd-reveal">
-        <div class="bd-reveal-hdr">&#9989; Time's up! Here's the key content for this topic, compare it to what you wrote.</div>
-        <div class="bd-card-list" id="bd-card-list"></div>
-        <button type="button" class="bd-reset-btn" id="bd-reset-btn">&#8635; Try Another Topic</button>
-      </div>
-    </div>
+    <div class="bd-mount" data-unit="1"></div>
   </div>
 </div>
 
@@ -1123,14 +1080,6 @@ button{font-family:inherit;cursor:pointer}
 
 <script>
 /* ══ DATA ══════════════════════════════════════════════════ */
-var TOPICS = [
-  {id:'1.1', name:'Song China'},
-  {id:'1.2', name:'Dar al-Islam'},
-  {id:'1.3', name:'South &amp; SE Asia'},
-  {id:'1.4', name:'The Americas'},
-  {id:'1.5', name:'Africa'},
-  {id:'1.6', name:'Medieval Europe'}
-];
 
 var TIMELINE = [
   {year:'960–1279', title:'Song Dynasty', desc:'A Confucian bureaucracy and civil-service exam govern China during a commercial and technological revolution.', img:'images/tl/u1-tl-1.jpg', alt:'Detail from Along the River During the Qingming Festival'},
@@ -1143,53 +1092,8 @@ var TIMELINE = [
   {year:'c. 1400s', title:'Inca &amp; Vijayanagara Peak', desc:'The Inca road-and-mit’a empire and South India’s Hindu Vijayanagara reach their height.', img:'images/tl/u1-tl-8.jpg', alt:'Machu Picchu in the Andes of Peru'}
 ];
 
-var CARDS = FC_DECK(1);  // cards live in flashcard-data.js
 
 
-var BRAIN = {
-  '1.1':{stem:'Song China governed through a Confucian bureaucracy and experienced an economic revolution because…', points:[
-    ['Governance','Civil-service exam → scholar-gentry; centralized bureaucracy; meritocracy and limited social mobility.'],
-    ['Economy','Champa rice, Grand Canal, proto-industrialization (iron, steel, porcelain, silk, tea).'],
-    ['Society','Patriarchy, filial piety, foot binding for elite women.'],
-    ['Culture','Confucianism, Buddhism, Daoism → Neo-Confucianism; woodblock printing.'],
-    ['Neighbors','Japan, Korea, Vietnam adapt Chinese models selectively (sinification).']
-  ]},
-  '1.2':{stem:'Dar al-Islam stayed culturally unified even as it fragmented politically because…', points:[
-    ['Political change','Abbasid decline → Seljuk Turks, Mamluks, Delhi Sultanate.'],
-    ['Golden Age','House of Wisdom preserved Greek learning; advances in math, medicine, astronomy.'],
-    ['Spread of Islam','Trade, Sufi missionaries, conquest, not forced conversion; jizya on protected peoples.'],
-    ['Society','Merchants high status; women could inherit, divorce, testify in court.'],
-    ['Legacy','Preserved knowledge later fueled the European Renaissance.']
-  ]},
-  '1.3':{stem:'South and Southeast Asian states were shaped by religion and trade because…', points:[
-    ['South Asia','Delhi Sultanate (Muslim north) vs. Vijayanagara/Chola (Hindu south); Rajput kingdoms.'],
-    ['Religion','Bhakti movement revives devotional Hinduism; Islam/Sufism appeals to lower castes.'],
-    ['Blending','Urdu language and Indo-Islamic architecture (Qutub Minar).'],
-    ['Southeast Asia','Sea kingdoms Srivijaya (Hindu) and Majapahit (Buddhist) control trade routes.'],
-    ['Land kingdoms','Khmer/Angkor: irrigation, Hindu-Buddhist art at Angkor Thom.']
-  ]},
-  '1.4':{stem:'The Maya, Aztec, and Inca built complex states in isolation because…', points:[
-    ['Maya','Independent theocratic city-states; zero, glyph writing, calendar; frequent warfare.'],
-    ['Aztec','Empire at Tenochtitlan; tribute system; chinampas; large-scale human sacrifice.'],
-    ['Inca','Four provinces; mit’a labor; quipu records; Carpa Ñan roads; terrace farming.'],
-    ['Common traits','Theocracy, polytheism, labor/tribute for control, monumental architecture.'],
-    ['Decline','Internal revolt/civil war, then disease and Spanish conquest.']
-  ]},
-  '1.5':{stem:'African kingdoms grew powerful through trade and cultural exchange because…', points:[
-    ['West Africa','Ghana then Mali tax trans-Saharan gold and salt; Sundiata, Mansa Musa; Timbuktu learning.'],
-    ['East Africa','Swahili city-states blend Bantu + Arabic; tied to Indian Ocean trade.'],
-    ['Southern Africa','Great Zimbabwe’s mortar-less stone walls; control of interior trade.'],
-    ['Society','Kin-based networks → kingdoms; griots preserve oral history.'],
-    ['Religion','Islam and Christianity spread but often blend with animist traditions.']
-  ]},
-  '1.6':{stem:'Medieval Europe was decentralized and Church-dominated because…', points:[
-    ['Politics','Feudalism: kings, lords, knights, serfs bound by land and loyalty.'],
-    ['Economy','Manorial system; three-field system raises output and population.'],
-    ['Religion','Catholic Church dominates; Great Schism splits West/East Christianity; Crusades.'],
-    ['Change','Marco Polo and Crusades revive trade interest; bourgeoisie emerges; Magna Carta.'],
-    ['Late period','Black Death and Little Ice Age weaken feudalism; Renaissance begins.']
-  ]}
-};
 
 
 /* ══ TIMELINE ══════════════════════════════════════════════ */
@@ -1211,48 +1115,6 @@ var scoreRight=0, scoreTotal=0;
 function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textContent=scoreRight+'/'+scoreTotal;}
 
 
-/* ══ BRAIN DUMP ════════════════════════════════════════════ */
-(function(){
-  var grid=document.getElementById('bd-topic-grid'), selected=null, timer=null, remaining=300;
-  var names={'1.1':'Song China','1.2':'Dar al-Islam','1.3':'South &amp; SE Asia','1.4':'The Americas','1.5':'Africa','1.6':'Medieval Europe'};
-  grid.innerHTML=TOPICS.map(function(tp){return '<button type="button" class="bd-topic-btn" data-topic="'+tp.id+'">'+tp.id+': '+names[tp.id]+'</button>';}).join('');
-  var startBtn=document.getElementById('bd-start-btn');
-  grid.querySelectorAll('.bd-topic-btn').forEach(function(b){b.addEventListener('click',function(){
-    grid.querySelectorAll('.bd-topic-btn').forEach(function(x){x.classList.remove('selected');});
-    this.classList.add('selected'); selected=this.dataset.topic; startBtn.disabled=false;
-  });});
-
-  function fmt(s){var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss;}
-  function tick(){remaining--; document.getElementById('bd-countdown').textContent=fmt(Math.max(remaining,0)); if(remaining<=0){clearInterval(timer); reveal();}}
-  function reveal(){
-    var data=BRAIN[selected]; var list=document.getElementById('bd-card-list');
-    list.innerHTML=data.points.map(function(p){return '<div class="bd-rcard"><strong>'+p[0]+'</strong>'+p[1]+'</div>';}).join('');
-    document.getElementById('bd-reveal').classList.add('active');
-  }
-  startBtn.addEventListener('click',function(){
-    if(!selected)return; var data=BRAIN[selected];
-    document.getElementById('bd-setup').style.display='none';
-    document.getElementById('bd-session').classList.add('active');
-    document.getElementById('bd-active-topic').textContent=' '+selected+': '+names[selected].replace('&amp;','&');
-    document.getElementById('bd-stem-txt').textContent=data.stem;
-    document.getElementById('bd-reveal').classList.remove('active');
-    document.getElementById('bd-textarea').value='';
-    document.getElementById('bd-word-count').textContent='0 words';
-    remaining=300; document.getElementById('bd-countdown').textContent='5:00';
-    clearInterval(timer); timer=setInterval(tick,1000);
-  });
-  document.getElementById('bd-textarea').addEventListener('input',function(){
-    var w=this.value.trim().split(/\s+/).filter(Boolean).length;
-    document.getElementById('bd-word-count').textContent=w+' word'+(w===1?'':'s');
-  });
-  document.getElementById('bd-reset-btn').addEventListener('click',function(){
-    clearInterval(timer);
-    document.getElementById('bd-session').classList.remove('active');
-    document.getElementById('bd-setup').style.display='block';
-    grid.querySelectorAll('.bd-topic-btn').forEach(function(x){x.classList.remove('selected');});
-    selected=null; startBtn.disabled=true;
-  });
-})();
 </script>
 <script src="spaced.js"></script>
 <script src="activity.js"></script>
@@ -1260,6 +1122,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 <script src="unit-flashcards.js"></script>
 <script src="mcq-bank.js"></script>
 <script src="mcq-engine.js"></script>
+<script src="brain-dump-data.js"></script>
+<script src="brain-dump.js"></script>
 <script src="bd-confidence.js"></script>
 <script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'1'});</script>
 <script src="writing-prompts.js"></script>

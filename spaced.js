@@ -492,7 +492,7 @@
         if (n) c.mcqTotal = n;
       }
       // Every unit's deck lives in flashcard-data.js (FC_DATA), loaded in the unit page's <head>.
-      var deck = (window.FC_DATA && window.FC_DATA[unit]) || window.CARDS || window.FLASH;
+      var deck = window.FC_DATA && window.FC_DATA[unit];
       if (deck && deck.length) c.fcTotal = deck.length;
     } catch (e) {}
     s.components[k] = c; save(s);

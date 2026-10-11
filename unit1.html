@@ -182,24 +182,6 @@ button{font-family:inherit;cursor:pointer}
 .cn-btn:disabled{opacity:.3;cursor:default}
 
 /* STUDY GUIDE */
-.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
-.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;gap:12px}
-.sg-hdr:hover{background:var(--cream)}
-.sg-hdr.open{background:var(--ink);color:#fff}
-.sg-htitle{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;font-weight:700;line-height:1.2}
-.sg-hmeta{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.sg-hnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.45)}
-.sg-arr{font-size:.7rem;transition:transform .25s;flex-shrink:0}
-.sg-hdr.open .sg-arr{transform:rotate(180deg)}
-.sg-body{display:none;padding:20px 22px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.8;color:var(--mid)}
-.sg-body.open{display:block;animation:fadeUp .2s ease}
-.sg-body p+p{margin-top:.8em}
-.sg-body strong{color:var(--ink)}
-.sg-callout{background:var(--paper);border-left:3px solid var(--gold-b);padding:10px 14px;margin:12px 0;font-size:.86rem;color:var(--ink)}
-.sg-callout .sg-callout-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px}
-.sg-kws{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
-.sg-kw{display:inline-block;background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;padding:3px 8px;letter-spacing:.06em}
 
 /* BRAIN DUMP */
 .bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:20px}
@@ -370,6 +352,7 @@ button{font-family:inherit;cursor:pointer}
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
 <link rel="stylesheet" href="unit-flashcards.css">
+<link rel="stylesheet" href="study-guide.css">
 </head>
 <body>
 
@@ -557,81 +540,7 @@ button{font-family:inherit;cursor:pointer}
       <h2>Topic-by-Topic Review</h2>
       <p>Click any topic to expand. Key terms are badged; watch for the AP angle callouts.</p>
     </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Song China &amp; East Asia</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.1</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>The <strong>Song Dynasty</strong> ruled through a centralized <strong>bureaucracy</strong> staffed by a <strong>meritocracy</strong>: officials earned their posts by passing the <strong>Civil Service Exam</strong>, which tested mastery of Confucian classics. This produced the <strong>scholar-gentry</strong>, a class that even surpassed the aristocracy in status. Because peasants could in theory study and sit the exam, the system offered rare <strong>social mobility</strong>.</p>
-        <p>An <strong>economic revolution</strong> followed: fast-ripening <strong>Champa rice</strong> from Vietnam multiplied the food supply and population; the <strong>Grand Canal</strong> knit internal markets together; and China led the world in <strong>proto-industrialization</strong>, iron, steel, porcelain, silk, and tea. Chinese innovations (gunpowder, the magnetic compass, woodblock printing) spread west along the Silk Roads.</p>
-        <p>Society was <strong>patriarchal</strong>, emphasizing <strong>filial piety</strong> and Confucian hierarchy; elite women faced the painful status marker of <strong>foot binding</strong>. Belief blended <strong>Confucianism, Daoism, and Buddhism</strong>, producing <strong>Neo-Confucianism</strong>. Song China projected power through a <strong>tributary system</strong> over neighbors. <strong>Japan</strong> (Heian court, Tale of Genji, then feudal shogunate), <strong>Korea</strong> (Confucian elite, closed exam), and <strong>Vietnam</strong> (least sinified, greater freedom for women) each adapted Chinese models selectively.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Song China is the go-to example of <strong>continuity &amp; innovation in governance</strong>, the civil-service exam is a top comparison point for how states maintained and legitimized power.</div>
-        <div class="sg-kws"><span class="sg-kw">Civil Service Exam</span><span class="sg-kw">Scholar-gentry</span><span class="sg-kw">Neo-Confucianism</span><span class="sg-kw">Filial piety</span><span class="sg-kw">Foot binding</span><span class="sg-kw">Champa rice</span><span class="sg-kw">Grand Canal</span><span class="sg-kw">Tributary system</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Dar al-Islam</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.2</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p><strong>Dar al-Islam</strong> ("the house of Islam") was culturally unified even as it fragmented politically. The <strong>Abbasid Caliphate</strong> declined and power passed to new Islamic states led by <strong>Turkic</strong> peoples, the <strong>Seljuk Turks</strong>, the Egyptian <strong>Mamluks</strong>, and the <strong>Delhi Sultanate</strong> in India. These states expanded Islam's reach even as no single ruler controlled it all.</p>
-        <p>This was a cultural <strong>Golden Age</strong>. The <strong>House of Wisdom</strong> in Baghdad translated and preserved Greek and Latin works, later fueling Europe's Renaissance: while scholars like <strong>Nasir al-Din al-Tusi</strong> advanced astronomy, mathematics, medicine, and law. Adopted <strong>papermaking</strong> from China spread literacy; <strong>Al-Andalus</strong> (Islamic Spain) and its capital <strong>Córdoba</strong> became centers of learning. Poets such as <strong>'A'ishah al-Ba'uniyyah</strong> flourished.</p>
-        <p>Islam spread mainly through <strong>trade, missionaries (Sufis), and conquest</strong>, not forced conversion, <strong>protected peoples</strong> (Jews, Christians, Zoroastrians) paid the <strong>jizya</strong> tax rather than convert. Merchants held high status, and women could inherit, divorce, and testify in court, though they remained limited as wives and concubines.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Dar al-Islam is the prime example of <strong>cultural continuity amid political change</strong> and of how <strong>trade routes carried religion and knowledge</strong> across Afro-Eurasia.</div>
-        <div class="sg-kws"><span class="sg-kw">Abbasid Caliphate</span><span class="sg-kw">House of Wisdom</span><span class="sg-kw">Seljuk Turks</span><span class="sg-kw">Mamluks</span><span class="sg-kw">Delhi Sultanate</span><span class="sg-kw">Sufism</span><span class="sg-kw">Córdoba</span><span class="sg-kw">Jizya</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">South &amp; Southeast Asia</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.3</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>In <strong>South Asia</strong>, the more stable south hosted the <strong>Chola Dynasty</strong> and later the powerful Hindu <strong>Vijayanagara Empire</strong>, while the north was fragmented and repeatedly attacked by Islamic forces, the <strong>Rajput</strong> kingdoms and the Muslim <strong>Delhi Sultanate</strong>. Islam's arrival produced a new blended language, <strong>Urdu</strong>, and architecture like the <strong>Qutub Minar</strong>. Many lower-caste Hindus converted to Islam to escape the rigid <strong>caste system</strong>, while the devotional <strong>Bhakti Movement</strong> re-energized Hinduism by stressing a direct, personal love of god open to all.</p>
-        <p>In <strong>Southeast Asia</strong>, sea-based kingdoms thrived on Indian Ocean trade: the Hindu, navally powerful <strong>Srivijaya</strong>, then the Buddhist <strong>Majapahit</strong>, which controlled key sea routes. Land-based kingdoms included the <strong>Khmer Empire / Angkor</strong>, whose capital Angkor Thom fused Hindu and Buddhist art and whose complex irrigation supported dense rice agriculture.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Use this region to show <strong>religious syncretism and the appeal of Islam and Bhakti to lower castes</strong>, plus how <strong>control of sea routes built state power</strong>.</div>
-        <div class="sg-kws"><span class="sg-kw">Vijayanagara</span><span class="sg-kw">Delhi Sultanate</span><span class="sg-kw">Bhakti Movement</span><span class="sg-kw">Rajput</span><span class="sg-kw">Srivijaya</span><span class="sg-kw">Majapahit</span><span class="sg-kw">Khmer / Angkor</span><span class="sg-kw">Urdu</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">The Americas</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.4</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>The <strong>Maya</strong> were organized as independent <strong>city-states</strong> ruled by god-kings (<strong>theocracy</strong>) with no central government; they developed the concept of <strong>zero</strong>, a glyph writing system, and an accurate calendar, and practiced <strong>human sacrifice</strong>. Warfare between city-states was common.</p>
-        <p>The <strong>Aztec (Mexica)</strong> built an empire in central Mexico with a capital at <strong>Tenochtitlan</strong>. A <strong>tribute system</strong> collected crops, goods, and sacrificial victims from conquered provinces; <strong>chinampas</strong> (floating gardens) fed the swampy capital; and they practiced human sacrifice on a large scale, which, along with disease and the Spanish, fed rebellion and decline.</p>
-        <p>The <strong>Inca</strong> ruled a vast Andean empire divided into four provinces, linked by the <strong>Carpa Ñan</strong> road network. They demanded labor through the <strong>mit'a system</strong> rather than tribute, recorded data with knotted-string <strong>quipu</strong>, and farmed steep terrain with <strong>terrace farming</strong>. Civil war after the emperor's death, plus disease and Spanish violence, brought collapse.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Compare the three: all were <strong>theocratic</strong> and used <strong>labor/tribute systems</strong> for control, but the Inca used <strong>mit'a labor</strong> where the Aztec used <strong>tribute goods</strong>.</div>
-        <div class="sg-kws"><span class="sg-kw">Maya</span><span class="sg-kw">Aztec / Mexica</span><span class="sg-kw">Tenochtitlan</span><span class="sg-kw">Chinampas</span><span class="sg-kw">Inca</span><span class="sg-kw">Mit'a system</span><span class="sg-kw">Quipu</span><span class="sg-kw">Carpa Ñan</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Africa</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.5</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>Many African societies began as <strong>kin-based networks</strong> that grew into larger kingdoms, such as the <strong>Hausa Kingdoms</strong>. In West Africa, <strong>Ghana</strong> and then <strong>Mali</strong> grew rich by taxing the <strong>trans-Saharan trade</strong> in gold, ivory, and salt. Mali's rulers <strong>Sundiata</strong> (founder) and <strong>Mansa Musa</strong> (whose lavish pilgrimage to Mecca broadcast Mali's wealth) made <strong>Timbuktu</strong> a center of trade and Islamic learning.</p>
-        <p>In East Africa, the <strong>Swahili city-states</strong>, a blend of <strong>Bantu and Arabic</strong> language and culture, linked the coast to Indian Ocean trade. <strong>Great Zimbabwe</strong> built massive stone walls without mortar, and <strong>Ethiopia</strong> remained a Christian kingdom. History was preserved orally by <strong>griots/griottes</strong>. Islam and Christianity spread but often blended with, rather than replaced, <strong>animist</strong> traditions.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Africa is a strong example of <strong>trade networks driving state formation and cultural exchange</strong>, Mansa Musa and the Swahili coast are frequent test subjects.</div>
-        <div class="sg-kws"><span class="sg-kw">Ghana</span><span class="sg-kw">Mali</span><span class="sg-kw">Mansa Musa</span><span class="sg-kw">Sundiata</span><span class="sg-kw">Swahili city-states</span><span class="sg-kw">Great Zimbabwe</span><span class="sg-kw">Hausa</span><span class="sg-kw">Griots</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Medieval Europe</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.6</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>Medieval Europe was politically <strong>decentralized</strong> under <strong>feudalism</strong>, a hierarchy of kings, lords, knights, and serfs bound by land and loyalty, and economically organized by the <strong>manorial system</strong>, in which serfs worked self-sufficient estates. The <strong>three-field system</strong> raised agricultural output and population.</p>
-        <p>The <strong>Roman Catholic Church</strong> dominated art, education, and daily life; the <strong>Great Schism</strong> split Roman Catholic (West) from Orthodox (East) Christianity. The <strong>Crusades</strong> pitted Christians against Muslims but reopened European interest in Asian goods, an interest travelers like <strong>Marco Polo</strong> intensified. A new merchant middle class (<strong>bourgeoisie / burghers</strong>) emerged, and monarchs began centralizing power, as in <strong>Norman England</strong> with Parliament and the <strong>Magna Carta</strong>.</p>
-        <p>Late in the period, the <strong>Black Death</strong> and the <strong>Little Ice Age</strong> weakened feudalism, while the <strong>Renaissance</strong> revived Greco-Roman arts and learning, ending the "Dark Ages" and pointing toward the nation-states to come.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Contrast Europe's <strong>decentralized feudalism</strong> with the <strong>centralized bureaucracy of Song China</strong>, a classic governance comparison.</div>
-        <div class="sg-kws"><span class="sg-kw">Feudalism</span><span class="sg-kw">Manorialism</span><span class="sg-kw">Three-field system</span><span class="sg-kw">Great Schism</span><span class="sg-kw">Crusades</span><span class="sg-kw">Black Death</span><span class="sg-kw">Bourgeoisie</span><span class="sg-kw">Magna Carta</span></div>
-      </div>
-    </div>
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Comparing States &amp; Societies, 1200–1450</div><div class="sg-hmeta"><span class="sg-hnum">Topic 1.7</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>Topic 1.7 asks you to <strong>compare</strong> how states across the world gained and kept power. Some were <strong>centralized</strong>: <strong>Song China</strong> ran a bureaucracy staffed partly by merit through the <strong>civil service exams</strong>, and the <strong>Inca</strong> controlled subjects directly with the <strong>mit&rsquo;a</strong>, roads, and resettlement. Others were <strong>decentralized</strong>: <strong>feudal Europe</strong> depended on hereditary lords, and the <strong>Aztecs</strong> let conquered city-states keep their rulers as long as they paid <strong>tribute</strong>.</p>
-        <p>Rulers everywhere used <strong>religion to legitimize power</strong>: the <strong>Mandate of Heaven</strong> and Confucianism in China, Islam in the <strong>Delhi Sultanate</strong> and <strong>Mali</strong>, Hindu and Buddhist temples such as <strong>Angkor Wat</strong>, Christianity and the Church in Europe, and Aztec state religion. Belief systems also shaped <strong>social hierarchies</strong>, from Neo-Confucian patriarchy to the Hindu <strong>caste system</strong> and European feudal orders.</p>
-        <p>Trade connected many of these societies. The <strong>Swahili city-states</strong>, <strong>Song ports</strong>, and <strong>Srivijaya</strong> all grew rich from Indian Ocean commerce, while <strong>Mali</strong> prospered from the trans-Saharan gold trade.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Comparison questions want <strong>both a similarity and a difference</strong> explained with specific examples, for example: both Song China and Mali used religion to support rulers, but Song China relied on a Confucian bureaucracy while Mali relied on control of trade.</div>
-        <div class="sg-kws"><span class="sg-kw">Centralized vs. decentralized</span><span class="sg-kw">Civil service exams</span><span class="sg-kw">Feudalism</span><span class="sg-kw">Tribute</span><span class="sg-kw">Mit&rsquo;a</span><span class="sg-kw">Mandate of Heaven</span><span class="sg-kw">Caste system</span><span class="sg-kw">Legitimacy</span></div>
-      </div>
-    </div>
-
+    <div class="sg-mount" data-unit="1"></div>
   </div>
 </div>
 
@@ -1296,11 +1205,6 @@ var BRAIN = {
   el.querySelectorAll('.tl-item').forEach(function(n){ obs.observe(n); });
 })();
 
-/* ══ STUDY GUIDE ═══════════════════════════════════════════ */
-function toggleSG(hdr){
-  var body=hdr.nextElementSibling, open=hdr.classList.contains('open');
-  hdr.classList.toggle('open',!open); body.classList.toggle('open',!open);
-}
 
 /* ══ SCORE ═════════════════════════════════════════════════ */
 var scoreRight=0, scoreTotal=0;
@@ -1375,6 +1279,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 (function(){var btt=document.getElementById('back-to-top');if(!btt)return;var onScroll=function(){btt.classList.toggle('show',window.scrollY>400);};window.addEventListener('scroll',onScroll,{passive:true});btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});onScroll();})();
 </script>
 
+<script src="study-guide-data.js"></script>
+<script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>
 </body>
 </html>

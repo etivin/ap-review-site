@@ -1,0 +1,23 @@
+/* study-guide.css: the Study Guide accordion (study-guide.js), shared by every unit. */
+.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
+.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;gap:12px}
+.sg-hdr:hover{background:var(--cream)}
+.sg-hdr:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+.sg-hdr.open{background:var(--ink);color:#fff}
+.sg-htitle{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;font-weight:700;line-height:1.2}
+.sg-hmeta{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.sg-hnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.45)}
+.sg-arr{font-size:.7rem;transition:transform .25s;flex-shrink:0}
+.sg-hdr.open .sg-arr{transform:rotate(180deg)}
+.sg-body{display:none;padding:20px 22px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.8;color:var(--mid)}
+.sg-body.open{display:block;animation:sgIn .2s ease}
+@keyframes sgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sg-body p+p{margin-top:.8em}
+.sg-body ul,.sg-body ol{margin:.6em 0 .6em 1.4em}
+.sg-body li{margin-bottom:.3em}
+.sg-body strong{color:var(--ink)}
+.sg-callout{background:var(--paper);border-left:3px solid var(--gold-b,#d4b84a);padding:10px 14px;margin:12px 0;font-size:.86rem;color:var(--ink)}
+.sg-callout .sg-callout-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold,#7a5500);display:block;margin-bottom:4px}
+.sg-kws{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.sg-kw{display:inline-block;background:var(--gold-bg,#fdf7e8);border:1px solid var(--gold-b,#d4b84a);color:var(--gold,#7a5500);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;padding:3px 8px;letter-spacing:.06em}

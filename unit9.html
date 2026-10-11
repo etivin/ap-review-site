@@ -219,24 +219,6 @@ button{font-family:inherit;cursor:pointer}
 .glob-mobile-btn-name{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase}
 
 /* STUDY GUIDE */
-.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
-.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;gap:12px}
-.sg-hdr:hover{background:var(--cream)}
-.sg-hdr.open{background:var(--ink);color:#fff}
-.sg-htitle{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;font-weight:700;line-height:1.2}
-.sg-hmeta{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.sg-hnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.45)}
-.sg-arr{font-size:.7rem;transition:transform .25s;flex-shrink:0}
-.sg-hdr.open .sg-arr{transform:rotate(180deg)}
-.sg-body{display:none;padding:20px 22px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.8;color:var(--mid)}
-.sg-body.open{display:block;animation:fadeUp .2s ease}
-.sg-body p+p{margin-top:.8em}
-.sg-body ul{margin:.6em 0 .6em 1.4em}
-.sg-body li{margin-bottom:.3em}
-.sg-body strong{color:var(--ink)}
-.sg-kws{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
-.sg-kw{display:inline-block;background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;padding:3px 8px;letter-spacing:.06em}
 
 /* BRAIN DUMP */
 .bd-setup{text-align:center;max-width:600px;margin:0 auto 32px}
@@ -429,6 +411,7 @@ button{font-family:inherit;cursor:pointer}
 <script src="flashcard-data.js"></script>
 <link rel="stylesheet" href="review-games.css">
 <link rel="stylesheet" href="unit-flashcards.css">
+<link rel="stylesheet" href="study-guide.css">
 </head>
 <body>
 
@@ -967,159 +950,8 @@ button{font-family:inherit;cursor:pointer}
     <h2>Globalization: Key Concepts</h2>
     <p>Click any section to expand. Master these before exam day.</p>
   </div>
-
-  <!-- SG Section 1 -->
-  <div class="sg-section">
-    <div class="sg-hdr" onclick="toggleSG(this)">
-      <div class="sg-htitle">1. What Is Globalization?</div>
-      <div class="sg-hmeta"><span class="sg-hnum">Overview</span><span class="sg-arr">&#9660;</span></div>
-    </div>
-    <div class="sg-body">
-      <p>Globalization refers to the increasing <strong>interconnectedness of the world's economies, cultures, politics, and populations</strong> through the exchange of goods, services, ideas, and people. It accelerated dramatically after World War II and especially after 1990 with the internet, the collapse of the Soviet Union, and the expansion of free trade.</p>
-      <p>Globalization is not new: earlier waves occurred during the Columbian Exchange, the era of industrialization, and the Age of Imperialism. But the post-WWII era is distinguished by its <strong>speed, scale, and depth</strong>.</p>
-      <ul>
-        <li><strong>Economic globalization:</strong> global trade, MNCs, financial markets</li>
-        <li><strong>Cultural globalization:</strong> spread of ideas, media, and practices</li>
-        <li><strong>Political globalization:</strong> international institutions, NGOs, global governance</li>
-        <li><strong>Technological globalization:</strong> internet, telecommunications, transportation</li>
-      </ul>
-      <div class="sg-kws">
-        <span class="sg-kw">interconnectedness</span><span class="sg-kw">post-WWII</span><span class="sg-kw">free trade</span><span class="sg-kw">MNC</span>
-      </div>
-    </div>
+    <div class="sg-mount" data-unit="9"></div>
   </div>
-
-  <!-- SG Section 2 -->
-  <div class="sg-section">
-    <div class="sg-hdr" onclick="toggleSG(this)">
-      <div class="sg-htitle">2. Economic Globalization &amp; Inequality</div>
-      <div class="sg-hmeta"><span class="sg-hnum">Economy</span><span class="sg-arr">&#9660;</span></div>
-    </div>
-    <div class="sg-body">
-      <p>The <strong>WTO (1995)</strong> replaced the General Agreement on Tariffs and Trade (GATT), creating enforceable global trade rules. Regional agreements like <strong>NAFTA (1994)</strong> further reduced barriers.</p>
-      <p>Multinational corporations (MNCs) became dominant economic actors. <strong>Nike</strong> designs shoes in Oregon, manufactures in Vietnam, and sells globally. This "global value chain" creates jobs in developing countries but often at low wages and in poor conditions.</p>
-      <p><strong>China's rise</strong> is the defining economic story of globalization: 800 million people lifted out of poverty in 40 years through export-led growth. But this also hollowed out manufacturing in the U.S., Europe, and other developed economies, the <strong>deindustrialization</strong> of the Rust Belt.</p>
-      <ul>
-        <li>Free trade → lower prices for consumers, but job losses in developed nations</li>
-        <li>MNCs → development AND exploitation; "race to the bottom" on labor standards</li>
-        <li>Microfinance (Grameen Bank) → market-based poverty reduction</li>
-        <li>Inequality: within-country gaps widened even as between-country gaps narrowed</li>
-      </ul>
-      <div class="sg-kws">
-        <span class="sg-kw">WTO</span><span class="sg-kw">NAFTA</span><span class="sg-kw">deindustrialization</span><span class="sg-kw">outsourcing</span><span class="sg-kw">Grameen Bank</span><span class="sg-kw">Gini coefficient</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SG Section 3 -->
-  <div class="sg-section">
-    <div class="sg-hdr" onclick="toggleSG(this)">
-      <div class="sg-htitle">3. Technology &amp; Communication</div>
-      <div class="sg-hmeta"><span class="sg-hnum">Technology</span><span class="sg-arr">&#9660;</span></div>
-    </div>
-    <div class="sg-body">
-      <p>The <strong>internet (World Wide Web, 1991)</strong> transformed how information spreads, how commerce operates, and how people organize politically. Combined with smartphones, it made global real-time communication available to billions.</p>
-      <p><strong>Container shipping</strong> (1950s–60s) was equally transformative: reducing the cost of moving goods by ~90% and enabling the global supply chains that made modern manufacturing possible.</p>
-      <p>However, technology's benefits are <strong>unevenly distributed</strong>. The "digital divide" separates those with internet access from those without, often mapping onto existing inequalities of wealth, gender, and geography.</p>
-      <ul>
-        <li>Social media enabled the Arab Spring (2010–11) but also disinformation</li>
-        <li>mRNA vaccines demonstrated rapid-response biotech capability (COVID-19)</li>
-        <li>Automation threatens jobs: even in developing nations previously reliant on cheap labor</li>
-      </ul>
-      <div class="sg-kws">
-        <span class="sg-kw">WWW</span><span class="sg-kw">digital divide</span><span class="sg-kw">container shipping</span><span class="sg-kw">mRNA</span><span class="sg-kw">automation</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SG Section 4 -->
-  <div class="sg-section">
-    <div class="sg-hdr" onclick="toggleSG(this)">
-      <div class="sg-htitle">4. Multinational Institutions &amp; Global Governance</div>
-      <div class="sg-hmeta"><span class="sg-hnum">Institutions</span><span class="sg-arr">&#9660;</span></div>
-    </div>
-    <div class="sg-body">
-      <p>Post-WWII, world leaders created a web of institutions to manage globalization and prevent future catastrophic war. The <strong>United Nations (1945)</strong> provided a forum for diplomacy; the <strong>IMF and World Bank</strong> stabilized economies; the <strong>WTO</strong> governed trade.</p>
-      <p>The <strong>European Union</strong> represents the deepest regional integration, a common currency, free movement, and shared laws. <strong>Brexit (2016)</strong> showed that integration can reverse when populations feel it benefits elites more than ordinary workers.</p>
-      <p>Critics of institutions like the IMF argue that <strong>"structural adjustment" programs</strong>: which require austerity and privatization in exchange for loans, perpetuate dependency rather than promoting genuine development.</p>
-      <ul>
-        <li>UN peacekeeping missions stabilized some post-conflict zones but failed in others (Rwanda 1994)</li>
-        <li>ICC (2002) marks the first permanent international criminal tribunal</li>
-        <li>NATO expanded post-Cold War; Russia-Ukraine war (2022) reinvigorated its purpose</li>
-      </ul>
-      <div class="sg-kws">
-        <span class="sg-kw">UN</span><span class="sg-kw">IMF</span><span class="sg-kw">EU</span><span class="sg-kw">NATO</span><span class="sg-kw">ICC</span><span class="sg-kw">structural adjustment</span><span class="sg-kw">Brexit</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SG Section 5 -->
-  <div class="sg-section">
-    <div class="sg-hdr" onclick="toggleSG(this)">
-      <div class="sg-htitle">5. Cultural Globalization &amp; Resistance</div>
-      <div class="sg-hmeta"><span class="sg-hnum">Culture</span><span class="sg-arr">&#9660;</span></div>
-    </div>
-    <div class="sg-body">
-      <p>Culture spreads alongside goods and information. <strong>Americanization</strong>: the global spread of U.S. culture (fast food, music, films, fashion), is the most visible form of cultural globalization, but it coexists with cultural hybridity and local resistance.</p>
-      <p><strong>Glocalization</strong> describes how global products adapt to local cultures (McDonald's in India serving the McAloo Tikki; K-pop blending Korean and Western pop). This shows globalization is not simply one-directional Westernization.</p>
-      <p>Some communities actively resist cultural globalization. France mandates French on radio. Iran restricts Western media. Indigenous peoples worldwide fight for language and cultural preservation, supported by the <strong>UN Declaration on Rights of Indigenous Peoples (2007)</strong>.</p>
-      <div class="sg-kws">
-        <span class="sg-kw">Americanization</span><span class="sg-kw">glocalization</span><span class="sg-kw">hybridity</span><span class="sg-kw">K-pop</span><span class="sg-kw">UNESCO</span><span class="sg-kw">cultural imperialism</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SG Section 6 -->
-  <div class="sg-section">
-    <div class="sg-hdr" onclick="toggleSG(this)">
-      <div class="sg-htitle">6. Disease &amp; Global Health</div>
-      <div class="sg-hmeta"><span class="sg-hnum">Disease</span><span class="sg-arr">&#9660;</span></div>
-    </div>
-    <div class="sg-body">
-      <p>Globalization accelerates disease spread by increasing the speed and volume of human movement. <strong>HIV/AIDS</strong> (identified 1981) spread via global travel networks, eventually infecting ~38 million people worldwide. Sub-Saharan Africa bore the greatest burden.</p>
-      <p><strong>SARS (2003)</strong> was the first disease to spread globally via air travel, 29 countries in weeks. It served as a warning. <strong>COVID-19</strong> showed what an uncontained pandemic looks like in a hyper-connected world: ~7 million official deaths, global supply chain collapse, and a race for vaccines that exposed stark inequalities in global health access.</p>
-      <ul>
-        <li>WHO: coordinates global health responses but lacks enforcement power</li>
-        <li>Antiretroviral drugs transformed HIV from fatal to manageable, but only for those with access</li>
-        <li>"Diseases of globalization": obesity, diabetes spreading with Westernized diets</li>
-        <li>Vaccine nationalism: wealthy nations secured COVID vaccines first, leaving poor nations behind</li>
-      </ul>
-      <div class="sg-kws">
-        <span class="sg-kw">HIV/AIDS</span><span class="sg-kw">COVID-19</span><span class="sg-kw">SARS</span><span class="sg-kw">WHO</span><span class="sg-kw">antiretroviral</span><span class="sg-kw">vaccine nationalism</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SG Section 7 -->
-  <div class="sg-section">
-    <div class="sg-hdr" onclick="toggleSG(this)">
-      <div class="sg-htitle">7. Reform, Resistance &amp; Backlash</div>
-      <div class="sg-hmeta"><span class="sg-hnum">Reform</span><span class="sg-arr">&#9660;</span></div>
-    </div>
-    <div class="sg-body">
-      <p>Globalization produces both reform movements (calling for more just and sustainable globalization) and backlash movements (demanding less globalization). The <strong>anti-globalization movement</strong> gained visibility at the 1999 WTO Seattle protests, arguing that global trade rules prioritized corporate profits over workers and the environment.</p>
-      <p>The <strong>environmental movement</strong> achieved global governance milestones: Kyoto Protocol (1997) and the Paris Agreement (2015). Climate activism became a truly global youth movement with figures like <strong>Greta Thunberg</strong>.</p>
-      <p>Nationalist and populist backlash in the 2010s, <strong>Brexit, Trump, European far-right parties</strong>, reflects the "losers" of globalization: workers in deindustrialized regions, communities threatened by immigration, and citizens who feel sovereignty has been ceded to faceless international bodies.</p>
-      <div class="sg-kws">
-        <span class="sg-kw">WTO Seattle</span><span class="sg-kw">Paris Agreement</span><span class="sg-kw">Brexit</span><span class="sg-kw">NGO</span><span class="sg-kw">Arab Spring</span><span class="sg-kw">populism</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="sg-section">
-    <div class="sg-hdr" onclick="toggleSG(this)">
-      <div class="sg-htitle">8. Continuity &amp; Change in a Globalized World</div>
-      <div class="sg-hmeta"><span class="sg-hnum">Topic 9.9</span><span class="sg-arr">&#9660;</span></div>
-    </div>
-    <div class="sg-body">
-      <p>Topic 9.9 asks what changed and what stayed the same after 1900. <strong>Changes:</strong> life expectancy more than doubled thanks to vaccines, antibiotics, and the Green Revolution; communication and transportation technology connected the world almost instantly; women and minority groups won new rights; and economic power shifted toward Asia as <strong>China</strong>, India, and the Asian Tigers grew.</p>
-      <p><strong>Continuities:</strong> large gaps in wealth between the Global North and South persisted; many African and Latin American economies still depend on exporting raw materials, as in the age of imperialism; <strong>nationalism</strong> remained powerful, resurging in the 2010s; and states continued to compete for resources and power even as international institutions grew.</p>
-      <div class="sg-kws">
-        <span class="sg-kw">Life expectancy</span><span class="sg-kw">Global inequality</span><span class="sg-kw">Rise of China</span><span class="sg-kw">Export economies</span><span class="sg-kw">Nationalism</span><span class="sg-kw">Continuity</span><span class="sg-kw">Change</span>
-      </div>
-    </div>
-  </div>
-
 </div>
 </div><!-- /pg-guide -->
 
@@ -1889,18 +1721,6 @@ document.addEventListener('click', function(e) {
   if (close) activateNode(close.getAttribute('data-close'));
 });
 
-// ── STUDY GUIDE ACCORDION ────────────────────────
-function toggleSG(hdr) {
-  var body = hdr.nextElementSibling;
-  var isOpen = body.classList.contains('open');
-  // close all
-  document.querySelectorAll('.sg-body.open').forEach(function(b){ b.classList.remove('open'); });
-  document.querySelectorAll('.sg-hdr.open').forEach(function(h){ h.classList.remove('open'); });
-  if (!isOpen) {
-    body.classList.add('open');
-    hdr.classList.add('open');
-  }
-}
 
 // ── BRAIN DUMP ───────────────────────────────────
 var bdTopic = '';
@@ -1976,6 +1796,8 @@ function restartBD() {
 <script src="mcq-bank.js"></script>
 <script src="mcq-engine.js"></script>
 <script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'9'});</script>
+<script src="study-guide-data.js"></script>
+<script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>
 </body>
 </html>

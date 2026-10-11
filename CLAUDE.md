@@ -86,7 +86,7 @@ One HTML file per unit. Fixed sidebar + top bar + a set of tab "pages" that `sho
 | `pg-mcq` | MCQ Practice | shared: `mcq-engine.js` + `mcq-bank.js` |
 | `pg-walk` | MCQ Walkthrough | shared: `sbmcq.js` (`renderWalk(el,{unit})`) |
 | `pg-writing` | Writing Drills | shared: `writing-drills.js` + `writing-prompts.js` |
-| `pg-guide` | Study Guide | **per-unit** (three formats, see §6) |
+| `pg-guide` | Study Guide | shared: `study-guide.js` + `study-guide-data.js` |
 | `pg-source` | Documents (sourcing practice) | **per-unit** engine; data mostly in `<script type="application/json" id="sadata">` |
 | `pg-visual` | Visual Sources | **per-unit** (`VISUAL_DATA` / `VISUAL_DATA_UN` + inline renderer) |
 | `pg-maps` | Maps | iframe of `unitN-map.html` |
@@ -110,16 +110,16 @@ Tabs missing from a page are skipped. Labels live in `unit-shell.js`; a unit can
 with `window.UNIT_SHELL = {titles:{...}, sublabels:{...}}` set before the script loads (no unit
 needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.html#pg-xxx` deep-links;
 `#g-<slug>` opens a glossary term. On every switch the shell fires a `unit:tab` event
-(`e.detail.id`) and, for `pg-guide`, calls `window.renderGuide()` if the page defines it.
+(`e.detail.id`).
 `nav-flyout.js` and `tour.js` read each sidebar item's `data-subs`.
 
 ### 4.3 Shared includes every unit loads
 
 `<head>`: `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `brand.css`,
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
-`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`.
+`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
-`mcq-bank.js`, `mcq-engine.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, and last `unit-shell.js`.
+`mcq-bank.js`, `mcq-engine.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
 
 ### 4.4 Mount points (copy exactly; N = unit number)
@@ -128,6 +128,7 @@ Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount ca
 <div id="mcq-root"></div>  <script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'N'});</script>
 <div class="wd-mount" data-unit="N" data-unit-label="Unit N"></div>
 <div class="ufc-mount" data-unit="N"></div>
+<div class="sg-mount" data-unit="N"></div>
 <div class="gl-mount" data-unit="N"></div>
 <div id="review-games"></div>  <script>APWH_GAMES.mount(document.getElementById('review-games'), GAME_DATA[N]);</script>
 ```
@@ -150,6 +151,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `spaced.js` | Spaced-review store + streak banner | `SPACED.recordReview(itemId, correct, confidence)`; ids: MCQ `u{n}_{topic}_{idx}`, flashcards `u{n}_fc_{slug(term)}`, reverse side `rv_u{n}_fc_{slug}` |
 | `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` (+ Source tab drills). Keep these ids. |
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
+| `study-guide.js/.css` + `study-guide-data.js` | Study Guide accordion | `STUDY_GUIDE[n] = [{num, title, body}]`; mount `<div class="sg-mount" data-unit="N">` |
 | `unit-shell.js` | Unit sidebar, sub-tab bar, `showTab`, deep links, `data-tab` buttons | optional `window.UNIT_SHELL` overrides; `unit:tab` event |
 | `tour.js` | "How to Work This Unit" game plan + spotlight tour | reads `data-subs` and `showTab` |
 | `nav-flyout.js` | Sidebar hover menus | reads `data-subs` |
@@ -177,7 +179,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 | Feature | Current state | Target |
 |---|---|---|
 | ~~Sidebar nav / `showTab`~~ | **Done:** `unit-shell.js` | |
-| Study Guide (`pg-guide`) | 3 formats: inline `.sg-section` HTML (Units 1, 2, 9); `var SG=[{n,kw,body}]` (Units 3–6, 8); JSON-style SG (Unit 7) | `study-guide-data.js` + `study-guide.js` |
+| ~~Study Guide (`pg-guide`)~~ | **Done:** `study-guide.js` + `study-guide-data.js` | |
 | Brain Dump (`pg-brain`) | 3 formats: `BRAIN` object (Units 1–2); `BD_STEMS` + `BD_CARDS` (Units 3–5, 8); `BD_STEMS` + flashcards (Units 6–7); Unit 9 its own | `brain-dump.js` + data |
 | Visual Sources (`pg-visual`) | `VISUAL_DATA`/`VISUAL_DATA_UN` arrays `{num, img, title, source, desc, q, o, c, e, happ:{h,a,p,pov}}` (HIPP variant `hipp` in Units 6–7) + inline renderer per unit | `visual-sources.js` + data |
 | Documents (`pg-source`) | `#sadata` JSON + inline engine (Units 1–5, 8, 9); Units 6–7 use `SRC_DOCS` drills | `source-practice.js` + data |
@@ -191,6 +193,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
   Renaming a term resets that card's review history.
 - **Add a glossary term:** `glossary-data.js` (shows in Glossary and search).
 - **Add MCQs:** `mcq-bank.js` (see rule 4). At least 5 questions per topic.
+- **Edit a study guide section:** `study-guide-data.js` → `STUDY_GUIDE[n]`.
 - **Edit game content:** `review-games-data.js` → `GAME_DATA[n]`.
 - **Add a writing prompt:** append a merge IIFE to `writing-prompts.js`.
 - **New shared feature:** write `feature.js` (+ `.css`) exposing one global with a `mount(el, data)`

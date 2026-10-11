@@ -182,24 +182,6 @@ button{font-family:inherit;cursor:pointer}
 .cn-btn:disabled{opacity:.3;cursor:default}
 
 /* STUDY GUIDE */
-.sg-section{border:1px solid var(--border);margin-bottom:10px;background:var(--white)}
-.sg-hdr{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;cursor:pointer;user-select:none;gap:12px}
-.sg-hdr:hover{background:var(--cream)}
-.sg-hdr.open{background:var(--ink);color:#fff}
-.sg-htitle{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1rem;font-weight:700;line-height:1.2}
-.sg-hmeta{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.sg-hnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.45)}
-.sg-arr{font-size:.7rem;transition:transform .25s;flex-shrink:0}
-.sg-hdr.open .sg-arr{transform:rotate(180deg)}
-.sg-body{display:none;padding:20px 22px;border-top:1px solid var(--border);font-size:.9rem;line-height:1.8;color:var(--mid)}
-.sg-body.open{display:block;animation:fadeUp .2s ease}
-.sg-body p+p{margin-top:.8em}
-.sg-body strong{color:var(--ink)}
-.sg-callout{background:var(--paper);border-left:3px solid var(--gold-b);padding:10px 14px;margin:12px 0;font-size:.86rem;color:var(--ink)}
-.sg-callout .sg-callout-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px}
-.sg-kws{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
-.sg-kw{display:inline-block;background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;padding:3px 8px;letter-spacing:.06em}
 
 /* BRAIN DUMP */
 .bd-topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:20px}
@@ -394,6 +376,7 @@ button{font-family:inherit;cursor:pointer}
 <script src="flashcard-data.js"></script>
 <link rel="stylesheet" href="review-games.css">
 <link rel="stylesheet" href="unit-flashcards.css">
+<link rel="stylesheet" href="study-guide.css">
 </head>
 <body>
 
@@ -687,83 +670,7 @@ button{font-family:inherit;cursor:pointer}
       <h2>Topic-by-Topic Review</h2>
       <p>Click any topic to expand. Key terms are badged; watch for the AP angle callouts.</p>
     </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">The Silk Roads</div><div class="sg-hmeta"><span class="sg-hnum">Topic 2.1</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>The overland <strong>Silk Roads</strong> across Central Asia revived and expanded in this era. Demand drove growth: the <strong>Crusades</strong> gave Europeans a taste for Eastern silks and spices, while new and reviving empires, the <strong>Abbasids</strong>, <strong>Tang and Song China</strong>, and later the <strong>Mongols</strong>, offered desirable goods and made the routes safer.</p>
-        <p>New <strong>technologies</strong> and <strong>commercial innovations</strong> fueled the trade: <strong>caravanserai</strong> (inns spaced roughly 100 miles apart), better camel saddles, the magnetic compass, and the Chinese <strong>junk</strong> ship. Crucially, China developed a <strong>money economy</strong> with a form of paper credit called <strong>flying cash</strong>, which inspired the growth of banking. Surging demand for <strong>silk and porcelain</strong> pushed Chinese <strong>proto-industrialization</strong> in iron and steel.</p>
-        <p>The effects rippled outward: oasis cities like <strong>Kashgar</strong> and <strong>Samarkand</strong> flourished as trading and cultural hubs; goods such as silk, porcelain, tea, paper, and gunpowder moved west; and religions: <strong>Buddhism, Christianity, Islam, and Zoroastrianism</strong>, traveled with the merchants.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Use the Silk Roads to show how <strong>commercial innovations (flying cash, caravanserai) and state stability increased the volume of trade</strong>, a classic cause-and-effect chain.</div>
-        <div class="sg-kws"><span class="sg-kw">Silk Roads</span><span class="sg-kw">Caravanserai</span><span class="sg-kw">Flying cash</span><span class="sg-kw">Money economy</span><span class="sg-kw">Samarkand</span><span class="sg-kw">Kashgar</span><span class="sg-kw">Junk ship</span><span class="sg-kw">Proto-industrialization</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">The Mongol Empire</div><div class="sg-hmeta"><span class="sg-hnum">Topic 2.2</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>The <strong>Mongols</strong> began as pastoral nomadic clans north of the Gobi Desert, prizing warfare, horsemanship, and relative gender equality. <strong>Temujin</strong> united the clans and was proclaimed <strong>Genghis Khan</strong> ("universal ruler"). Mongol armies conquered with siege weapons, speed, and terror, annihilating those who resisted but incorporating those who surrendered.</p>
-        <p>Once in power, the Mongols governed with <strong>religious tolerance</strong> and cultural inclusion, creating the <strong>Pax Mongolica</strong>, a "Mongol Peace" that secured and revitalized trade across Eurasia. Genghis Khan's heirs divided the empire into khanates: the <strong>Yuan Dynasty</strong> in China (Kublai Khan), the <strong>Il-Khanate</strong> in Persia, and the <strong>Golden Horde</strong> in Russia.</p>
-        <p>The impact was immense. The Mongols guarded the Silk Roads and accelerated <strong>cultural and technological exchange</strong>, but also spread the <strong>bubonic plague</strong>. Long term: China's scholar-gentry was temporarily dissolved; <strong>Russia</strong> was isolated from Western Europe and later rushed to catch up; and the Islamic world eventually fractured into the <strong>gunpowder empires</strong> (Ottoman, Safavid, Mughal). Rebellions such as the <strong>White Lotus Society</strong> hastened Mongol decline.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>The Mongols are the ultimate example of how a <strong>strong, tolerant empire facilitated trade and exchange (Pax Mongolica)</strong>: connect them to the revival of the Silk Roads and the spread of the plague.</div>
-        <div class="sg-kws"><span class="sg-kw">Genghis Khan</span><span class="sg-kw">Pax Mongolica</span><span class="sg-kw">Yuan Dynasty</span><span class="sg-kw">Il-Khanate</span><span class="sg-kw">Golden Horde</span><span class="sg-kw">Kublai Khan</span><span class="sg-kw">Religious tolerance</span><span class="sg-kw">White Lotus Society</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Indian Ocean Trade</div><div class="sg-hmeta"><span class="sg-hnum">Topic 2.3</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>The <strong>Indian Ocean</strong> network stretched from Southeast Asia to East Africa and became the world's richest maritime system. Its growth was driven by the <strong>spread of Islam</strong>, which linked port cities like <strong>Calicut</strong>, and by soaring <strong>demand</strong>, cotton and pepper from India, nutmeg, cloves, and cinnamon from the <strong>Spice Islands</strong>, gold, ivory, and enslaved people from the <strong>Swahili coast</strong>, and silk and porcelain from China.</p>
-        <p>Success depended on <strong>environmental knowledge and technology</strong>: sailors used the predictable <strong>monsoon winds</strong>, along with the <strong>lateen sail</strong>, the Chinese <strong>stern rudder</strong>, the <strong>magnetic compass</strong>, and the Muslim-refined <strong>astrolabe</strong>.</p>
-        <p>Effects included the rise of <strong>diasporic communities</strong>, merchants who settled in foreign ports (often marrying local women) and blended cultures, and the growth of powerful trading states like <strong>Melaka (Malacca)</strong>, which built a navy and taxed passing ships. The <strong>Swahili city-states</strong> boomed, and China projected power through <strong>Zheng He's</strong> massive treasure-fleet voyages.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Indian Ocean trade is the best example of <strong>how environmental knowledge (monsoons) and maritime technology enabled exchange</strong> and produced <strong>diasporic communities and new states</strong>.</div>
-        <div class="sg-kws"><span class="sg-kw">Monsoon winds</span><span class="sg-kw">Lateen sail</span><span class="sg-kw">Astrolabe</span><span class="sg-kw">Stern rudder</span><span class="sg-kw">Diasporic communities</span><span class="sg-kw">Swahili city-states</span><span class="sg-kw">Zheng He</span><span class="sg-kw">Melaka</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Trans-Saharan Trade</div><div class="sg-hmeta"><span class="sg-hnum">Topic 2.4</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>Across the Sahara, the <strong>trans-Saharan trade</strong> connected West Africa to North Africa and the Mediterranean world. It was made possible by <strong>technology for desert travel</strong>: the <strong>camel</strong>, specialized <strong>camel saddles</strong> (like the Somali saddle that could carry heavy loads), and <strong>caravans</strong> protected by armed escorts.</p>
-        <p>Rising <strong>demand</strong> for <strong>gold, ivory, and enslaved people</strong> expanded the routes and enriched West African states. The <strong>Mali Empire</strong> grew powerful by taxing this trade; strong rulers like <strong>Sundiata</strong> (its founder) and <strong>Mansa Musa</strong>, whose famous pilgrimage to Mecca showered gold across North Africa, built new trading and diplomatic relationships.</p>
-        <p>Effects included the growth of wealthy kingdoms with their own currencies and the rise of <strong>Timbuktu</strong> and <strong>Gao</strong> as major centers of <strong>trade and Islamic learning</strong>. Islam spread along the routes, though it often <strong>blended with</strong> rather than replaced existing traditions.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>Trans-Saharan trade shows how <strong>new transport technology (camel saddles) and demand for gold built states like Mali</strong> and spread Islam and learning (Timbuktu).</div>
-        <div class="sg-kws"><span class="sg-kw">Trans-Saharan trade</span><span class="sg-kw">Camel saddle</span><span class="sg-kw">Mali</span><span class="sg-kw">Mansa Musa</span><span class="sg-kw">Sundiata</span><span class="sg-kw">Timbuktu</span><span class="sg-kw">Gold–salt trade</span><span class="sg-kw">Gao</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Cultural Consequences of Connectivity</div><div class="sg-hmeta"><span class="sg-hnum">Topic 2.5</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>The trade networks carried <strong>ideas and religions</strong> as much as goods. <strong>Buddhism</strong> spread from China (blending into <strong>Neo-Confucianism</strong>) onward to Japan and Korea, and <strong>Buddhism and Hinduism</strong> spread to Southeast Asia, shaping Srivijaya, Majapahit, and the Khmer/Angkor kingdoms. <strong>Islam</strong> spread across Africa, South Asia, and Southeast Asia, appealing to lower-caste Hindus and producing blended architecture, the <strong>Urdu</strong> language, and new artistic forms.</p>
-        <p><strong>Technological and intellectual transfers</strong> reshaped societies: Greek texts were translated into Arabic (preserving them), <strong>mathematics</strong> spread from India, and <strong>papermaking and printing</strong> from China raised literacy. <strong>Champa rice</strong>, maritime technologies, and <strong>gunpowder</strong> all diffused along the routes.</p>
-        <p>Famous <strong>travelers</strong> documented this connected world: <strong>Marco Polo</strong> sparked European fascination with China's cities; <strong>Ibn Battuta</strong> recorded the Muslim world from a devout POV; and <strong>Margery Kempe</strong> left a rare firsthand account of a middle-class medieval European woman's life.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>These travelers make ideal <strong>sourcing (HIPP) subjects</strong>: always consider each author's point of view (Ibn Battuta's Muslim lens, Marco Polo's outsider awe).</div>
-        <div class="sg-kws"><span class="sg-kw">Neo-Confucianism</span><span class="sg-kw">Spread of Islam</span><span class="sg-kw">Papermaking</span><span class="sg-kw">Ibn Battuta</span><span class="sg-kw">Marco Polo</span><span class="sg-kw">Margery Kempe</span><span class="sg-kw">Gunpowder</span><span class="sg-kw">Champa rice</span></div>
-      </div>
-    </div>
-
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Environmental Consequences of Connectivity</div><div class="sg-hmeta"><span class="sg-hnum">Topic 2.6</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>Trade moved <strong>crops</strong> as well as goods, with dramatic demographic effects. Fast-ripening <strong>Champa rice</strong> spread to China, driving <strong>population growth</strong>, new farming techniques, migration, and <strong>urbanization</strong>. <strong>Bananas</strong> spread to Sub-Saharan Africa, boosting population there, while growing demand for <strong>sugar and citrus</strong> foreshadowed the later use of enslaved labor on tropical plantations.</p>
-        <p>The most devastating consequence was <strong>disease</strong>. The <strong>bubonic plague (Black Death)</strong> traveled with infected fleas along trade and Mongol routes, killing perhaps a third of Europe's population, helping to end <strong>feudalism</strong>: and tens of millions across China and Asia. It spread less in South Asia and Sub-Saharan Africa, which had fewer connected trading ports.</p>
-        <p>Finally, rising populations strained the land, producing <strong>overgrazing, deforestation, and soil erosion</strong> in many regions.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>This topic is the payoff of the whole unit: the same networks that spread wealth and ideas also spread <strong>crops that grew populations</strong> and <strong>disease that collapsed them</strong>.</div>
-        <div class="sg-kws"><span class="sg-kw">Champa rice</span><span class="sg-kw">Bananas</span><span class="sg-kw">Bubonic plague</span><span class="sg-kw">Black Death</span><span class="sg-kw">Urbanization</span><span class="sg-kw">Sugar</span><span class="sg-kw">Deforestation</span><span class="sg-kw">Decline of feudalism</span></div>
-      </div>
-    </div>
-    <div class="sg-section">
-      <div class="sg-hdr" onclick="toggleSG(this)"><div class="sg-htitle">Comparing Networks of Exchange</div><div class="sg-hmeta"><span class="sg-hnum">Topic 2.7</span><span class="sg-arr">&#9660;</span></div></div>
-      <div class="sg-body">
-        <p>Topic 2.7 asks you to <strong>compare</strong> the <strong>Silk Roads</strong>, the <strong>Indian Ocean</strong>, and the <strong>trans-Saharan</strong> routes. All three grew between 1200 and 1450, all three spread <strong>religions, technologies, and diseases</strong> along with goods, and all three created wealthy <strong>trading cities</strong>: Samarkand and Kashgar, Kilwa and Malacca, Timbuktu and Djenné.</p>
-        <p>They differed in <strong>what</strong> they carried and <strong>how</strong>. Overland caravans on the Silk Roads mostly moved <strong>luxury goods</strong> such as silk and porcelain, because land transport was slow and costly. Indian Ocean ships, guided by the <strong>monsoon winds</strong>, carried larger volumes, including <strong>bulk goods</strong> such as rice, timber, and cotton. Trans-Saharan trade depended on the <strong>camel</strong>, the camel saddle, and oasis towns, and centered on <strong>gold and salt</strong>.</p>
-        <p>States shaped every network. The <strong>Mongols</strong> protected the Silk Roads, <strong>Mali</strong> taxed and secured caravans, and the <strong>Sultanate of Malacca</strong> policed its strait. In each case, protecting trade brought rulers wealth and power.</p>
-        <div class="sg-callout"><span class="sg-callout-lbl">AP Angle</span>A strong comparison names a <strong>similarity</strong> (all three spread Islam or Buddhism through merchants) and a <strong>difference</strong> (Indian Ocean trade moved bulk goods by sea; Silk Road trade moved luxuries by land) and explains <em>why</em>.</div>
-        <div class="sg-kws"><span class="sg-kw">Luxury vs. bulk goods</span><span class="sg-kw">Monsoon winds</span><span class="sg-kw">Camel saddle</span><span class="sg-kw">Caravanserai</span><span class="sg-kw">Diasporic communities</span><span class="sg-kw">Trading cities</span><span class="sg-kw">Pax Mongolica</span></div>
-      </div>
-    </div>
-
+    <div class="sg-mount" data-unit="2"></div>
   </div>
 </div>
 
@@ -1363,11 +1270,6 @@ var BRAIN = {
   el.querySelectorAll('.tl-item').forEach(function(n){ obs.observe(n); });
 })();
 
-/* ══ STUDY GUIDE ═══════════════════════════════════════════ */
-function toggleSG(hdr){
-  var body=hdr.nextElementSibling, open=hdr.classList.contains('open');
-  hdr.classList.toggle('open',!open); body.classList.toggle('open',!open);
-}
 
 /* ══ SCORE ═════════════════════════════════════════════════ */
 var scoreRight=0, scoreTotal=0;
@@ -1442,6 +1344,8 @@ function updateScore(){var s=document.getElementById('score-txt'); if(s)s.textCo
 (function(){var btt=document.getElementById('back-to-top');if(!btt)return;var onScroll=function(){btt.classList.toggle('show',window.scrollY>400);};window.addEventListener('scroll',onScroll,{passive:true});btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});onScroll();})();
 </script>
 
+<script src="study-guide-data.js"></script>
+<script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
    Per-unit differences go in an optional config object set before this file loads:
      window.UNIT_SHELL = { titles: {'pg-xxx':'Top-bar title'}, sublabels: {'pg-xxx':'Sub-tab label'} };
    Pages that need to react to a tab opening can listen for the 'unit:tab' event
-   (detail.id), or define window.renderGuide, which runs when the Study Guide opens.
+   (detail.id).
    Site convention: plain global, no build step, no imports. */
 (function () {
   'use strict';
@@ -112,7 +112,6 @@
     renderSubtabs(group, id);
     var tt = document.getElementById('top-title');
     if (tt) tt.textContent = group ? group.label : (PAGE_TITLES[id] || '');
-    if (id === 'pg-guide' && typeof window.renderGuide === 'function') window.renderGuide();
     try { document.dispatchEvent(new CustomEvent('unit:tab', { detail: { id: id } })); } catch (e) {}
     window.scrollTo(0, 0);
   }

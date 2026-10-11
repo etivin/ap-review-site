@@ -315,24 +315,6 @@ img{display:block;max-width:100%}
 .improve-title{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 
 /* ── STUDY GUIDE ── */
-.sg-section{margin-bottom:9px}
-.sg-hdr{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--red);padding:13px 17px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .15s}
-.sg-hdr:hover{background:var(--paper)}
-.sg-hdr.open{background:var(--ink);color:#fff;border-color:var(--ink);border-left-color:var(--red)}
-.sg-htitle{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:.98rem;font-weight:700;line-height:1.2}
-.sg-hmeta{display:flex;align-items:center;gap:9px}
-.sg-hnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-.sg-hdr.open .sg-hnum{color:rgba(255,255,255,.5)}
-.sg-arr{font-size:.78rem;transition:transform .2s}
-.sg-hdr.open .sg-arr{transform:rotate(180deg)}
-.sg-body{display:none;border:1px solid var(--border);border-top:none;background:var(--white);padding:18px}
-.sg-body.open{display:block}
-.sg-body p{font-size:.88rem;line-height:1.75;color:var(--mid);margin-bottom:10px}
-.sg-body strong{color:var(--ink)}
-.sg-body ul{margin:7px 0 11px 17px}
-.sg-body li{font-size:.86rem;line-height:1.65;color:var(--mid);margin-bottom:4px}
-.sg-kw{display:inline-block;background:var(--gold-bg);border:1px solid var(--gold-b);color:var(--gold);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;padding:2px 7px;margin:2px 3px 2px 0}
-.sg-kws{margin-top:10px}
 
 /* ── WRITING: EXTRA ELEMENTS ── */
 .section-label{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:12px;display:block}
@@ -638,6 +620,7 @@ img{display:block;max-width:100%}
 <script src="flashcard-data.js"></script>
 <link rel="stylesheet" href="unit-flashcards.css">
 <link rel="stylesheet" href="review-games.css">
+<link rel="stylesheet" href="study-guide.css">
 </head>
 <body>
 
@@ -1254,7 +1237,7 @@ img{display:block;max-width:100%}
       <h2>Unit 7: Global Conflict</h2>
       <p>Click each topic to expand the full summary and key terms.</p>
     </div>
-    <div id="sg-content"></div>
+    <div class="sg-mount" data-unit="7"></div>
   </div>
 </div>
 
@@ -1560,53 +1543,6 @@ var TIMELINE = [
 var CARDS = FC_DECK(7);  // cards live in flashcard-data.js
 
 
-var SG = [
-  {
-    "n": "Topic 7.1: Shifting Power After 1900",
-    "body": "<p>During the early 20th century, a few major Western powers dominated the world through industrialization and overseas colonies. At the same time, traditional land empires were beginning to collapse. <strong>Three major empires fell:</strong> the Qing Dynasty (1911 revolution), the Russian Empire (1917 revolutions), and the Ottoman Empire (partitioned after WWI).</p><p><strong>New powers emerged:</strong> Japan, following the Meiji Restoration of 1868, underwent rapid modernization and became a major military and economic power, winning the Russo-Japanese War of 1905. The United States was also rising as a global player after acquiring the Philippines, Puerto Rico, and Guam in 1898.</p><p>Japan's growing power created tension with Western nations who refused to acknowledge Japan's equal status. At the 1919 Paris Peace Conference, Japan's proposal for a racial equality clause in the League of Nations was rejected, fueling resentment that fed interwar Japanese militarism. <strong>Okuma Shigenobu</strong> articulated this frustration in his 1921 essay, showing how Western racial discrimination paradoxically encouraged Japan to adopt the same 'civilizing mission' logic to justify its own imperialism in Asia.</p><div class='sg-kws'><span class='sg-kw'>Meiji Restoration</span><span class='sg-kw'>Qing Dynasty</span><span class='sg-kw'>Ottoman Decline</span><span class='sg-kw'>Racial Equality Proposal</span><span class='sg-kw'>Mexican Revolution</span><span class='sg-kw'>Okuma Shigenobu</span><span class='sg-kw'>UNESCO 1949</span></div>",
-    "kw": 7
-  },
-  {
-    "n": "Topic 7.2: Causes of World War I (MAIN)",
-    "body": "<p>World War I erupted in July 1914 from a volatile mix of long-term tensions and a dramatic short-term trigger. The long-term causes are remembered as <strong>MAIN</strong>: Militarism, Alliances, Imperialism, and Nationalism.</p><ul><li><strong>Militarism</strong>: Arms race, especially between Britain and Germany in naval supremacy; military influence grew in Germany and Russia</li><li><strong>Alliances</strong>: Triple Entente (France, Russia, Britain) vs. Triple Alliance (Germany, Austria-Hungary, Italy); any conflict could cascade</li><li><strong>Imperialism</strong>: Competition for colonies (Morocco Crises) strained relations and expanded the war's global scale</li><li><strong>Nationalism</strong>: Pan-Slavism in the Balkans clashed with Austria-Hungary's multi-ethnic empire; German nationalism demanded a larger role</li></ul><p>The short-term trigger: <strong>Archduke Franz Ferdinand</strong> killed June 28, 1914 by Gavrilo Princip in Sarajevo; Austria-Hungary's harsh ultimatum to Serbia pulled in Russia, then Germany, then France, then Britain.</p><p>The <strong>Treaty of Versailles</strong> (1919) ended WWI but planted seeds for WWII: Germany lost colonies, accepted sole War Guilt, paid massive reparations, and was severely demilitarized. <strong>Pyotr Durnovo</strong> predicted in 1914 that war would lead to social revolution in the losing country, a warning that proved remarkably accurate.</p><div class='sg-kws'><span class='sg-kw'>MAIN</span><span class='sg-kw'>Triple Entente</span><span class='sg-kw'>Assassination of Franz Ferdinand</span><span class='sg-kw'>Treaty of Versailles</span><span class='sg-kw'>War Guilt Clause</span><span class='sg-kw'>Fourteen Points</span><span class='sg-kw'>Durnovo Memo</span></div>",
-    "kw": 7
-  },
-  {
-    "n": "Topic 7.3: Conducting WWI and Total War",
-    "body": "<p>World War I was characterized by <strong>total war</strong> strategies, nations mobilized all available resources and populations. This produced innovations that changed warfare permanently.</p><p><strong>Military technology:</strong> Machine guns led to trench warfare and massive casualties, the Battle of the Somme resulted in over a million losses. Poison gas (chlorine, mustard gas) was so devastating it was later banned by treaty. Tanks, airplanes, submarines (U-boats), and artillery were all used on massive industrial scales.</p><p><strong>Home front mobilization:</strong> Governments created production quotas, price controls, and ration systems. Women entered the industrial workforce in unprecedented numbers, in Britain alone, over 800,000 women entered industry.</p><p><strong>Propaganda:</strong> Germany's propaganda successfully blamed Russia for the war, mobilizing Russophobia (Watson, 2008). Britain used 'press lords' to suppress bad news: the sinking of HMS Audacious was never announced; civilians did not know the Battle of Jutland was happening (Goldfarb, 1978).</p><p>The war's immense strain on Russia led to the <strong>Russian Revolution</strong> of 1917, exactly as Durnovo had predicted.</p><div class='sg-kws'><span class='sg-kw'>Total War</span><span class='sg-kw'>Trench Warfare</span><span class='sg-kw'>Poison Gas</span><span class='sg-kw'>U-boats</span><span class='sg-kw'>Propaganda</span><span class='sg-kw'>Russian Revolution</span><span class='sg-kw'>Bolsheviks</span><span class='sg-kw'>Women in WWI</span></div>",
-    "kw": 8
-  },
-  {
-    "n": "Topic 7.4: The Economy in the Interwar Period",
-    "body": "<p>The 1920s saw rapid industrialization and consumer-driven growth, particularly in the United States. However, <strong>Germany faced hyperinflation in 1923</strong> due to war reparations from Versailles.</p><p>The boom ended with the <strong>Great Depression</strong>, triggered by the 1929 U.S. stock market crash. Between 1929-1933: U.S. GDP fell ~27%, unemployment reached 25%, international trade collapsed 50%, agricultural prices fell ~60%.</p><p><strong>Government responses varied:</strong></p><ul><li><strong>United States</strong>: FDR's New Deal used Keynesian government spending: Civilian Conservation Corps, Social Security, public works programs</li><li><strong>Soviet Union</strong>: Stalin's Five Year Plans centrally directed industrial modernization, causing immense human suffering</li><li><strong>Latin America</strong>: Import substitution and nationalization (Mexico's Pemex, 1938); Brazil's Vargas government enacted extensive worker protections</li><li><strong>Germany and Italy</strong>: Economic collapse fueled fascist movements</li></ul><p>The Brazilian government document under Vargas (c.1940) illustrates how even right-leaning governments adopted socialist-influenced worker protections, showing that socialist economic ideas spread across the political spectrum.</p><div class='sg-kws'><span class='sg-kw'>Great Depression</span><span class='sg-kw'>Keynesian Economics</span><span class='sg-kw'>Five Year Plans</span><span class='sg-kw'>New Deal</span><span class='sg-kw'>Import Substitution</span><span class='sg-kw'>Pemex</span><span class='sg-kw'>Vargas/Brazil</span></div>",
-    "kw": 7
-  },
-  {
-    "n": "Topic 7.5: Unresolved Tensions and Resistance After WWI",
-    "body": "<p>Between WWI and WWII, anti-imperial resistance intensified. The League of Nations mandate system transferred former German colonies to Western powers, despite promises of eventual self-governance, most mandates continued colonial exploitation.</p><p><strong>India:</strong> The Amritsar Massacre (1919): British troops killed hundreds of unarmed civilians, radicalized many Indians. Gandhi's Indian National Congress adopted <em>satyagraha</em> (nonviolent resistance). The Salt March (1930): 240 miles to make salt in defiance of colonial law, became an icon of civil disobedience.</p><p><strong>Vietnam:</strong> Ho Chi Minh petitioned Wilson for Vietnamese self-determination at the 1919 Paris Peace Conference. He was ignored. This experience radicalized him toward Marxism-Leninism as a framework for anti-colonial struggle.</p><p><strong>Turkey:</strong> Mustafa Kemal rejected the Allied partition of Anatolia, fought the Turkish War of Independence (1919-1923), and founded the secular Republic of Turkey, asserting that 'sovereignty belongs to the Turkish nation unconditionally.'</p><p><strong>Korea:</strong> Japan's Name Order of 1940 forced Koreans to adopt Japanese names, cultural imperialism designed to erase Korean identity and integrate Koreans into the Japanese Empire.</p><div class='sg-kws'><span class='sg-kw'>Indian National Congress</span><span class='sg-kw'>Satyagraha</span><span class='sg-kw'>Salt March</span><span class='sg-kw'>Ho Chi Minh</span><span class='sg-kw'>Mandate System</span><span class='sg-kw'>Amritsar Massacre</span><span class='sg-kw'>Mustafa Kemal</span><span class='sg-kw'>Name Order of 1940</span></div>",
-    "kw": 8
-  },
-  {
-    "n": "Topic 7.6: Causes and Conduct of World War II",
-    "body": "<p>WWII's causes are remembered with <strong>FIGURE</strong>: Fascist regimes, Imperialism, Global economic crisis, Unsustainable peace settlement (Versailles), Racism, Expansion of fascist regimes.</p><p>Japan invaded Manchuria (1931) and China (1937). Italy invaded Ethiopia (1935). Hitler annexed Austria (1938) and then the Sudetenland, which Britain and France yielded at the <strong>Munich Agreement</strong> (September 1938) in a policy of <strong>appeasement</strong>. Churchill called Munich 'a total and unmitigated defeat.' Hitler invaded the rest of Czechoslovakia six months later, then Poland on September 1, 1939, beginning WWII.</p><p>Hitler's 1937 speech to the Reichstag argued Germany needed colonies for 'foodstuffs and raw materials': showing imperialist aspirations drove Nazi policy. He explicitly connected this to Versailles, calling Germany's loss of colonies 'unreasonable.'</p><p><strong>Conduct:</strong> WWII was fought as a total war targeting civilians: the firebombing of Dresden and Tokyo, the Holocaust, and ultimately the <strong>atomic bombs</strong> on Hiroshima and Nagasaki (August 1945), killing approximately 200,000 people.</p><div class='sg-kws'><span class='sg-kw'>FIGURE</span><span class='sg-kw'>Fascism</span><span class='sg-kw'>Appeasement</span><span class='sg-kw'>Munich Agreement</span><span class='sg-kw'>Blitzkrieg</span><span class='sg-kw'>Lebensraum</span><span class='sg-kw'>Atomic Bomb</span><span class='sg-kw'>Total War</span></div>",
-    "kw": 8
-  },
-  {
-    "n": "Topic 7.7: Mass Atrocities After 1900",
-    "body": "<p>The twentieth century saw mass atrocities on an unprecedented scale, consistently enabled by the same pattern: <strong>extremist ideology → dehumanizing propaganda → state-organized mass killing.</strong></p><p><strong>The Holocaust (1941-1945):</strong> Nazi Germany murdered approximately 6 million Jews and 6 million others using industrialized methods, gas chambers, crematoria, assembly-line processing in camps like Auschwitz. Enabled by the 'stab in the back' legend that falsely blamed Jews for WWI defeat, and by widespread local collaboration across occupied Europe.</p><p><strong>Armenian Genocide (1915-16):</strong> The Ottoman Empire killed 1-1.5 million Armenians during WWI, claiming Armenians were a fifth column supporting Russia. Considered one of the first modern genocides.</p><p><strong>Holodomor (1932-33):</strong> Soviet agricultural collectivization caused a famine killing millions of Ukrainians.</p><p><strong>Cambodian Genocide (1975-79):</strong> The Khmer Rouge killed approximately 1.5-2 million people: 25% of Cambodia's population.</p><p><strong>Rwandan Genocide (1994):</strong> Hutu extremists killed approximately 800,000 Tutsi in 100 days, enabled by decades of dehumanizing propaganda.</p><div class='sg-kws'><span class='sg-kw'>Holocaust</span><span class='sg-kw'>Auschwitz</span><span class='sg-kw'>Stab-in-the-Back Legend</span><span class='sg-kw'>Armenian Genocide</span><span class='sg-kw'>Holodomor</span><span class='sg-kw'>Khmer Rouge</span><span class='sg-kw'>Rwandan Genocide</span><span class='sg-kw'>David Olere</span></div>",
-    "kw": 8
-  },
-  {
-    "n": "Topic 7.8: Propaganda and Mobilization",
-    "body": "<p>Both World Wars required governments to mobilize entire civilian populations, not just armies. This made propaganda and media control essential tools of state power across the political spectrum.</p><p><strong>WWI:</strong> Germany manufactured stories of Russian atrocities to mobilize working-class anti-war sentiment into patriotic enlistment (Watson, 2008). Britain used 'press lords' to suppress bad news: maintaining the fiction that the war was going well (Goldfarb, 1978).</p><p><strong>WWII:</strong> The Soviet Union used posters linking Stalin to Lenin's legacy to build support for the Five Year Plans and 'Great Patriotic War.' Nazi Germany used Goebbels' propaganda ministry: film (Triumph of the Will), radio, and rallies. Western democracies used radio broadcasts (Churchill, FDR) and war bond campaigns.</p><p><strong>Key pattern:</strong> Democratic governments relied primarily on persuasion; totalitarian states used coercion: but both directed entire civilian societies toward the war effort through modern mass media technologies.</p><div class='sg-kws'><span class='sg-kw'>Watson/Goldfarb Sources</span><span class='sg-kw'>Soviet Posters</span><span class='sg-kw'>Nazi Propaganda</span><span class='sg-kw'>Goebbels</span><span class='sg-kw'>War Bond Campaigns</span><span class='sg-kw'>Total War Mobilization</span><span class='sg-kw'>UNESCO 1949</span></div>",
-    "kw": 7
-  },
-  {
-    "n": "Topic 7.9: Causation in Global Conflict",
-    "body": "<p>Topic 7.9 asks you to explain the <strong>causes and effects</strong> of the era's global conflicts. The First World War grew from <strong>nationalism</strong>, <strong>imperial rivalry</strong>, <strong>militarism</strong>, and an <strong>alliance system</strong> that turned the 1914 assassination in Sarajevo into a general war.</p><p>The peace settlement helped cause the next war. The <strong>Treaty of Versailles</strong> left Germany resentful, and the <strong>Great Depression</strong> helped bring fascist and militarist governments to power in Germany, Italy, and Japan. <strong>Appeasement</strong>, such as the 1938 Munich agreement, and the weak <strong>League of Nations</strong> failed to stop their expansion.</p><p>The wars had huge effects: <strong>total war</strong> mobilized whole societies, empires collapsed, mass atrocities such as the <strong>Holocaust</strong> took millions of lives, and the Second World War weakened European empires, setting the stage for <strong>decolonization</strong> and the <strong>Cold War</strong>.</p><div class='sg-kws'><span class='sg-kw'>Alliance System</span><span class='sg-kw'>Treaty of Versailles</span><span class='sg-kw'>Great Depression</span><span class='sg-kw'>Appeasement</span><span class='sg-kw'>League of Nations</span><span class='sg-kw'>Total War</span><span class='sg-kw'>Decolonization</span></div>",
-    "kw": 7
-  }
-];
 
 </script>
 <script>
@@ -1645,7 +1581,6 @@ initProgress();
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  window.renderGuide = renderGuide;  // the Study Guide tab calls it (unit-shell.js)
 
   // Floating back-to-top button: once the user scrolls deep into a long
   // section, one tap returns them to the top, where each section's
@@ -3165,23 +3100,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ── STUDY GUIDE ─────────────────────────────────────── */
-  function renderGuide() {
-    var el = document.getElementById('sg-content');
-    if (!el || el.innerHTML || typeof SG === 'undefined') return;
-    el.innerHTML = SG.map(function(s, i) {
-      return '<div class="sg-section"><div class="sg-hdr" data-sgi="' + i + '"><div class="sg-htitle">' + s.n + '</div><div class="sg-hmeta"><span class="sg-hnum">' + s.kw + ' key terms</span><span class="sg-arr">&#9660;</span></div></div><div class="sg-body" id="sgb' + i + '">' + s.body + '</div></div>';
-    }).join('');
-    el.querySelectorAll('.sg-hdr[data-sgi]').forEach(function(hdr) {
-      hdr.addEventListener('click', function() {
-        var i = this.dataset.sgi;
-        var body = document.getElementById('sgb' + i);
-        var open = body && body.classList.contains('open');
-        this.classList.toggle('open', !open);
-        if (body) body.classList.toggle('open', !open);
-      });
-    });
-  }
 
 });
 
@@ -3464,6 +3382,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="mcq-engine.js"></script>
 <script src="bd-confidence.js"></script>
 <script>APWH.mountMCQ(document.getElementById('mcq-root'), {unit:'7'});</script>
+<script src="study-guide-data.js"></script>
+<script src="study-guide.js"></script>
 <script src="unit-shell.js"></script>
 </body>
 </html>

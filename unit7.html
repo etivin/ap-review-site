@@ -397,14 +397,14 @@ img{display:block;max-width:100%}
   .jeop-board{grid-template-columns:repeat(3,1fr)}
   .jeop-cat:nth-child(n+4){display:none}
 }
-/* ── HAPP Lens / Sentence Frame ─────────────────────────── */
-.happ-lens-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.happ-lens-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .15s}
-.happ-lens-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
-.happ-lens-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
-.happ-frame{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin:0 0 12px;font-size:.86rem;line-height:1.7}
-.happ-frame-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
-.happ-frame-tip{font-size:.78rem;color:var(--mid);font-style:italic;margin-top:6px}
+/* ── HIPP Lens / Sentence Frame ─────────────────────────── */
+.hipp-lens-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.hipp-lens-btn{background:var(--white);border:1.5px solid var(--border);color:var(--muted);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;transition:all .15s}
+.hipp-lens-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.hipp-lens-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+.hipp-frame{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--red);padding:12px 16px;margin:0 0 12px;font-size:.86rem;line-height:1.7}
+.hipp-frame-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.hipp-frame-tip{font-size:.78rem;color:var(--mid);font-style:italic;margin-top:6px}
 /* ── Sort It game ───────────────────────────────────────── */
 /* ── Source Line Warm-up ────────────────────────────────── */
 /* ── Speed Quiz ─────────────────────────────────────────── */
@@ -832,7 +832,7 @@ img{display:block;max-width:100%}
           <img src="images/dbq/page-5.jpg" class="dbq-page-img" alt="DBQ Document 7">
         </div>
       </div>
-      <div class="wp-tips"><strong>DBQ Formula from Mr. T</strong> &para;1: Thesis + Contextualization (pre-1900 Japan). &para;2&ndash;3: Group documents by theme (economic vs. non-economic motives). Apply HAPP to 2 docs. Include 1 piece of outside evidence not in the documents. Aim for 4+ documents used.</div>
+      <div class="wp-tips"><strong>DBQ Formula from Mr. T</strong> &para;1: Thesis + Contextualization (pre-1900 Japan). &para;2&ndash;3: Group documents by theme (economic vs. non-economic motives). Apply HIPP to 2 docs. Include 1 piece of outside evidence not in the documents. Aim for 4+ documents used.</div>
     </div>
 
     <!-- LEQ PANEL -->
@@ -874,7 +874,7 @@ img{display:block;max-width:100%}
         <button type="button" class="drill-tab active" data-drill="thesis">Thesis</button>
         <button type="button" class="drill-tab" data-drill="context">Contextualization</button>
         <button type="button" class="drill-tab" data-drill="evidence">Evidence</button>
-        <button type="button" class="drill-tab" data-drill="happ">HAPP Sourcing</button>
+        <button type="button" class="drill-tab" data-drill="hipp">HIPP Sourcing</button>
         <button type="button" class="drill-tab" data-drill="complexity">Complexity</button>
         <button type="button" class="drill-tab" data-drill="leq-reasoning">LEQ Reasoning</button>
         <button type="button" class="drill-tab" data-drill="saq-parts">SAQ A/B/C</button>
@@ -946,8 +946,8 @@ img{display:block;max-width:100%}
         <div class="drill-result" id="drill-evidence-result"></div>
       </div>
 
-      <!-- HAPP DRILL -->
-      <div class="drill-panel" id="drill-happ">
+      <!-- HIPP DRILL -->
+      <div class="drill-panel" id="drill-hipp">
         <div class="drill-rubric">
           <div class="drill-rubric-title">What earns the point: official rubric language (DBQ only)</div>
           <ul>
@@ -960,25 +960,25 @@ img{display:block;max-width:100%}
         <!-- Lens selector -->
         <div style="margin:12px 0 6px">
           <div style="font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Step 1: pick a lens (don&rsquo;t default to POV every time):</div>
-          <div class="happ-lens-row" id="happ-lens-row">
-            <button type="button" class="happ-lens-btn active" data-lens="pov">Point of View</button>
-            <button type="button" class="happ-lens-btn" data-lens="purpose">Purpose</button>
-            <button type="button" class="happ-lens-btn" data-lens="audience">Intended Audience</button>
-            <button type="button" class="happ-lens-btn" data-lens="hist">Historical Situation</button>
+          <div class="hipp-lens-row" id="hipp-lens-row">
+            <button type="button" class="hipp-lens-btn active" data-lens="pov">Point of View</button>
+            <button type="button" class="hipp-lens-btn" data-lens="purpose">Purpose</button>
+            <button type="button" class="hipp-lens-btn" data-lens="audience">Intended Audience</button>
+            <button type="button" class="hipp-lens-btn" data-lens="hist">Historical Situation</button>
           </div>
         </div>
 
         <!-- Sentence frame -->
-        <div class="happ-frame" id="happ-frame">
-          <div class="happ-frame-lbl">Step 2: sentence frame (fill in the blanks):</div>
-          <div id="happ-frame-text">&ldquo;The <strong>point of view</strong> of [Doc #] is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X: connect to your argument</em>].&rdquo;</div>
-          <div class="happ-frame-tip" id="happ-frame-tip">Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?</div>
+        <div class="hipp-frame" id="hipp-frame">
+          <div class="hipp-frame-lbl">Step 2: sentence frame (fill in the blanks):</div>
+          <div id="hipp-frame-text">&ldquo;The <strong>point of view</strong> of [Doc #] is [<em>author&rsquo;s background, role, or identity</em>], <strong>which means</strong> the source likely [<em>emphasizes or omits X: connect to your argument</em>].&rdquo;</div>
+          <div class="hipp-frame-tip" id="hipp-frame-tip">Ask: what does this author&rsquo;s identity or position make them likely to include, avoid, or argue?</div>
         </div>
 
-        <p style="font-size:.83rem;color:var(--mid);margin:10px 0 6px">Step 3: write HAPP analysis for <strong>two different documents</strong> from the DBQ above. Label each (e.g. &ldquo;Doc 1:&rdquo; and &ldquo;Doc 4:&rdquo;). You can use different lenses for each.</p>
-        <textarea class="drill-textarea" id="drill-happ-text" placeholder="Write your HAPP analysis for two documents here..."></textarea>
-        <button type="button" class="drill-check-btn" data-drill="happ">Check HAPP</button>
-        <div class="drill-result" id="drill-happ-result"></div>
+        <p style="font-size:.83rem;color:var(--mid);margin:10px 0 6px">Step 3: write HIPP analysis for <strong>two different documents</strong> from the DBQ above. Label each (e.g. &ldquo;Doc 1:&rdquo; and &ldquo;Doc 4:&rdquo;). You can use different lenses for each.</p>
+        <textarea class="drill-textarea" id="drill-hipp-text" placeholder="Write your HIPP analysis for two documents here..."></textarea>
+        <button type="button" class="drill-check-btn" data-drill="hipp">Check HIPP</button>
+        <div class="drill-result" id="drill-hipp-result"></div>
       </div>
 
       <!-- COMPLEXITY DRILL -->
@@ -1516,18 +1516,18 @@ document.addEventListener('DOMContentLoaded', function () {
       improve.push('Document Evidence: Explicitly cite documents by number or author name. Describe what each says and explain how it supports your argument about Japanese imperialism\'s causes.');
     }
 
-    // HAPP Sourcing: for 2 docs, explain HOW/WHY POV/Purpose/Situation/Intended Audience is relevant
-    var hasHAPP = contains(t, ['point of view','purpose','historical situation','audience','intended audience','because the author','because this source','because this document','significant because','relevant because','this means','as a result of the author','the author\'s position','the author\'s purpose','published in','written by','written for','as a japanese','as an american','as a korean']);
-    var hasHAPPExplain = contains(t, ['significant because','relevant because','this affects','this means that','therefore','because of this','this is important because','this is significant because','this makes the source','this makes the document']);
-    if (hasHAPP && words >= 150) {
-      rows.push({icon:'✓', label:'pass', head:'HAPP Sourcing on 2+ Documents (1/1)', note:'Your response applies HAPP analysis. Make sure you fully explain HOW the point of view, purpose, situation, or audience affects the argument, not just identify it.'});
+    // HIPP Sourcing: for 2 docs, explain HOW/WHY POV/Purpose/Situation/Intended Audience is relevant
+    var hasHIPP = contains(t, ['point of view','purpose','historical situation','audience','intended audience','because the author','because this source','because this document','significant because','relevant because','this means','as a result of the author','the author\'s position','the author\'s purpose','published in','written by','written for','as a japanese','as an american','as a korean']);
+    var hasHIPPExplain = contains(t, ['significant because','relevant because','this affects','this means that','therefore','because of this','this is important because','this is significant because','this makes the source','this makes the document']);
+    if (hasHIPP && words >= 150) {
+      rows.push({icon:'✓', label:'pass', head:'HIPP Sourcing on 2+ Documents (1/1)', note:'Your response applies HIPP analysis. Make sure you fully explain HOW the point of view, purpose, situation, or audience affects the argument, not just identify it.'});
       score++;
-    } else if (hasHAPP) {
-      rows.push({icon:'~', label:'partial', head:'HAPP: Identified but May Not Be Explained (0/1)', note:'You identify an author\'s perspective or purpose, but the rubric requires you to explain WHY it is significant for your argument. Add "This is significant because..." or "This means that..."'});
-      improve.push('HAPP: Don\'t just say who wrote it. Explain WHY their point of view, purpose, audience, or historical situation is relevant, e.g., "Because the Tokyo Economist is a Japanese business newspaper, it emphasizes economic concerns over political ones."');
+    } else if (hasHIPP) {
+      rows.push({icon:'~', label:'partial', head:'HIPP: Identified but May Not Be Explained (0/1)', note:'You identify an author\'s perspective or purpose, but the rubric requires you to explain WHY it is significant for your argument. Add "This is significant because..." or "This means that..."'});
+      improve.push('HIPP: Don\'t just say who wrote it. Explain WHY their point of view, purpose, audience, or historical situation is relevant, e.g., "Because the Tokyo Economist is a Japanese business newspaper, it emphasizes economic concerns over political ones."');
     } else {
-      rows.push({icon:'✗', label:'fail', head:'HAPP Sourcing (0/1)', note:'Apply HAPP analysis to at least 2 documents. For each, pick: Historical Situation, Intended Audience, Purpose, or Point of View, then explain "This is significant because..." connecting it to your argument about Japanese imperialism.'});
-      improve.push('HAPP: For Docs 1, 2, 4, or 5, explain the author\'s point of view or purpose and then say why that matters for understanding economic vs. non-economic motives in Japanese imperialism.');
+      rows.push({icon:'✗', label:'fail', head:'HIPP Sourcing (0/1)', note:'Apply HIPP analysis to at least 2 documents. For each, pick: Historical Situation, Intended Audience, Purpose, or Point of View, then explain "This is significant because..." connecting it to your argument about Japanese imperialism.'});
+      improve.push('HIPP: For Docs 1, 2, 4, or 5, explain the author\'s point of view or purpose and then say why that matters for understanding economic vs. non-economic motives in Japanese imperialism.');
     }
 
     // Outside Evidence: specific facts NOT in the documents
@@ -1799,7 +1799,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'Earns 0 pts: \u201cIn the period after 1900, different states took different approaches to economic policy.\u201d: No specific information beyond the prompt.'
       ]
     },
-    happ: {
+    hipp: {
       good: [
         'POV (Doc 1): \u201cThe article is published in a Japanese business newspaper and is therefore likely to emphasize the importance of economic growth and policy over other issues.\u201d: connects POV to argument about economic motives. (College Board rubric example)',
         'Purpose (Doc 6): \u201cThe author is likely trying to convince other Japanese military, government, and economic officials that seizing direct control over Northern China will not bring economic benefits to Japan.\u201d (College Board rubric example)',
@@ -2071,25 +2071,25 @@ document.addEventListener('DOMContentLoaded', function () {
           renderDrillResult('drill-evidence-result','✗','fail','Needs Specific Evidence','Use proper names, policies, dates, and events, not vague generalizations. Examples: Stalin\'s Five Year Plans, FDR\'s New Deal, Mao\'s Great Leap Forward (LEQ); or Tokyo Economist (Doc 1), Konoe essay (Doc 2), Ishiwara memo (Doc 4) for DBQ.','evidence');
         }
 
-      } else if (drill === 'happ') {
-        textEl = document.getElementById('drill-happ-text');
+      } else if (drill === 'hipp') {
+        textEl = document.getElementById('drill-hipp-text');
         t = textEl.value.toLowerCase().trim();
         words = t.split(/\s+/).filter(Boolean).length;
-        var hasHAPPIdentify = contains(t, ['point of view','purpose','historical situation','audience','intended audience','written by','published in','as a japanese','as an american','as a korean','the author','the source','this document','this source','because the author','the authors']);
-        var hasHAPPExpl = contains(t, ['significant because','relevant because','this affects','this means','therefore','because of this','this is important','this makes','this suggests','this reveals','this indicates','is relevant to','supports the argument']);
+        var hasHIPPIdentify = contains(t, ['point of view','purpose','historical situation','audience','intended audience','written by','published in','as a japanese','as an american','as a korean','the author','the source','this document','this source','because the author','the authors']);
+        var hasHIPPExpl = contains(t, ['significant because','relevant because','this affects','this means','therefore','because of this','this is important','this makes','this suggests','this reveals','this indicates','is relevant to','supports the argument']);
         var hasTwoDocs = (function(){
           var docMentions = 0;
           ['doc 1','doc 2','doc 3','doc 4','doc 5','doc 6','doc 7','document 1','document 2','document 3','document 4','document 5','document 6','document 7','tokyo economist','konoe','korean','ishiwara','janeway','nawa','singapore'].forEach(function(d){ if (t.indexOf(d) !== -1) docMentions++; });
           return docMentions >= 2;
         })();
-        if (hasHAPPIdentify && hasHAPPExpl && hasTwoDocs) {
-          renderDrillResult('drill-happ-result','✓','pass','HAPP Sourcing: Likely Earns the Point','You identify a HAPP element for 2+ documents AND explain why it is significant. Strong work: make sure each explanation connects to your argument about the prompt.','happ');
-        } else if (hasHAPPIdentify && hasTwoDocs) {
-          renderDrillResult('drill-happ-result','~','partial','Identifies HAPP: Needs Explanation of Relevance','You identify the point of view, purpose, or audience for documents, but you need to explain WHY it is significant. Add "This is significant because..." or "This means that the source..." connecting to your argument.','happ');
-        } else if (hasHAPPIdentify) {
-          renderDrillResult('drill-happ-result','~','partial','Only One Document Sourced','You need HAPP analysis for at least TWO different documents. Make sure you name/reference 2 distinct sources and explain the significance of each.','happ');
+        if (hasHIPPIdentify && hasHIPPExpl && hasTwoDocs) {
+          renderDrillResult('drill-hipp-result','✓','pass','HIPP Sourcing: Likely Earns the Point','You identify a HIPP element for 2+ documents AND explain why it is significant. Strong work: make sure each explanation connects to your argument about the prompt.','hipp');
+        } else if (hasHIPPIdentify && hasTwoDocs) {
+          renderDrillResult('drill-hipp-result','~','partial','Identifies HIPP: Needs Explanation of Relevance','You identify the point of view, purpose, or audience for documents, but you need to explain WHY it is significant. Add "This is significant because..." or "This means that the source..." connecting to your argument.','hipp');
+        } else if (hasHIPPIdentify) {
+          renderDrillResult('drill-hipp-result','~','partial','Only One Document Sourced','You need HIPP analysis for at least TWO different documents. Make sure you name/reference 2 distinct sources and explain the significance of each.','hipp');
         } else {
-          renderDrillResult('drill-happ-result','✗','fail','No HAPP Analysis Found','Pick two documents and analyze: Historical Situation, Intended Audience, Purpose, or Point of View. Then explain WHY it matters for your argument. Example: "Doc 1 is from the Tokyo Economist (a Japanese business newspaper). Because the audience is Japanese business leaders, this source emphasizes economic concerns, which supports the argument that economic motives drove imperialism."','happ');
+          renderDrillResult('drill-hipp-result','✗','fail','No HIPP Analysis Found','Pick two documents and analyze: Historical Situation, Intended Audience, Purpose, or Point of View. Then explain WHY it matters for your argument. Example: "Doc 1 is from the Tokyo Economist (a Japanese business newspaper). Because the audience is Japanese business leaders, this source emphasizes economic concerns, which supports the argument that economic motives drove imperialism."','hipp');
         }
 
       } else if (drill === 'complexity') {
@@ -2150,7 +2150,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  /* ── HAPP LENS SWITCHER ───────────────────────────────── */
+  /* ── HIPP LENS SWITCHER ───────────────────────────────── */
   (function() {
     var LENS_FRAMES = {
       pov: {
@@ -2170,13 +2170,13 @@ document.addEventListener('DOMContentLoaded', function () {
         tip: 'Ask: what was happening when this was created, and how does that context explain what the source says?'
       }
     };
-    document.querySelectorAll('#happ-lens-row .happ-lens-btn').forEach(function(btn) {
+    document.querySelectorAll('#hipp-lens-row .hipp-lens-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        document.querySelectorAll('#happ-lens-row .happ-lens-btn').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('#hipp-lens-row .hipp-lens-btn').forEach(function(b) { b.classList.remove('active'); });
         this.classList.add('active');
         var lens = this.dataset.lens;
-        document.getElementById('happ-frame-text').innerHTML = LENS_FRAMES[lens].text;
-        document.getElementById('happ-frame-tip').innerHTML = LENS_FRAMES[lens].tip;
+        document.getElementById('hipp-frame-text').innerHTML = LENS_FRAMES[lens].text;
+        document.getElementById('hipp-frame-tip').innerHTML = LENS_FRAMES[lens].tip;
       });
     });
   })();

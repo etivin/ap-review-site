@@ -40,7 +40,8 @@ site; Eli edits content.
    | 5 | Revolutions | | | |
 
    Label format: `Unit N: Name`. Never rename official AP topic titles (e.g. "4.4: Maritime Empires Established").
-10. **Sourcing vocabulary:** the four parts are Historical Situation (or Context), **Intended Audience** (never just "Audience"), Purpose, and Point of View.
+10. **Sourcing vocabulary is HIPP:** Historical Situation, **Intended Audience** (never just "Audience"),
+    Purpose, Point of View. Never write "HAPP".
 
 ## 2. Deploy, preview, verify
 
@@ -158,7 +159,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
 | `spice.js/.css` + `spice-data.js` | SPICE-T cards | `SPICE[n] = [{key:"s"|"p"|"i"|"c"|"e"|"t", desc, items:[html]}]`; category names fixed in `spice.js`; mount `<div class="spice-mount" data-unit="N">` |
 | `source-practice.js/.css` + `source-practice-data.js` | Documents tab: Sourcing Practice drill (+ optional Red / Green Sort, Paragraph Upgrade) | `SOURCE_PRACTICE[n] = {docs:[{type, sl, excerpt?, img?, models:{pov, purpose, situation, audience}}], redgreen?, paraup?}`; mount `<div class="sp-mount" data-unit="N">`; ids `#sa-* #rg-* #pu-*` are watched by `activity.js` |
-| `visual-sources.js/.css` + `visual-sources-data.js` | Visual Sources (AP question + HIPP/HAPP analysis per image) | `VISUAL_SOURCES[n] = {frame:"HIPP"|"HAPP", items:[{num, title, source, desc, img or imgs/imgTitles/imgSources, q, o, c, e, model:{h,a,p,pov}}]}`; mount `<div class="vs-mount" data-unit="N">` |
+| `visual-sources.js/.css` + `visual-sources-data.js` | Visual Sources (AP question + HIPP analysis per image) | `VISUAL_SOURCES[n] = {items:[{num, title, source, desc, img or imgs/imgTitles/imgSources, q, o, c, e, model:{h,a,p,pov}}]}`; mount `<div class="vs-mount" data-unit="N">` |
 | `brain-dump.js/.css` + `brain-dump-data.js` | Brain Dump (5-minute write, then reveal) | `BRAIN_DUMP[n] = {topics:[{id, name, stem, points:[{t,d}]}], fromFlashcards?}`; mount `<div class="bd-mount" data-unit="N">`. Load before `bd-confidence.js`. |
 | `study-guide.js/.css` + `study-guide-data.js` | Study Guide accordion | `STUDY_GUIDE[n] = [{num, title, body}]`; mount `<div class="sg-mount" data-unit="N">` |
 | `unit-shell.js` | Unit sidebar, sub-tab bar, `showTab`, deep links, `data-tab` buttons | optional `window.UNIT_SHELL` overrides; `unit:tab` event |
@@ -190,7 +191,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 | ~~Sidebar nav / `showTab`~~ | **Done:** `unit-shell.js` | |
 | ~~Study Guide (`pg-guide`)~~ | **Done:** `study-guide.js` + `study-guide-data.js` | |
 | ~~Brain Dump (`pg-brain`)~~ | **Done:** `brain-dump.js` + `brain-dump-data.js` | |
-| ~~Visual Sources (`pg-visual`)~~ | **Done:** `visual-sources.js` + `visual-sources-data.js`. Units 2-7 are labeled HIPP and Units 1, 8, 9 HAPP (same four parts, all say Intended Audience); Eli to pick one acronym | |
+| ~~Visual Sources (`pg-visual`)~~ | **Done:** `visual-sources.js` + `visual-sources-data.js` | |
 | ~~Documents (`pg-source`)~~ | **Done:** `source-practice.js` + `source-practice-data.js` (Unit 7 adds Red / Green Sort and Paragraph Upgrade) | |
 | ~~SPICE-T (`pg-spice`)~~ | **Done:** `spice.js` + `spice-data.js` | |
 | Overview timeline (`pg-home`) | `var TIMELINE=[{year, title, topic, desc, img?}]` + inline renderer | shared renderer |

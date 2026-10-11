@@ -1,15 +1,12 @@
 /* visual-sources.js: the Visual Sources tab for every unit, drawn from visual-sources-data.js.
    Mount: <div class="vs-mount" data-unit="N"></div> inside #pg-visual.
    Each image gets a tab. Step 1: answer the AP-style question (instant feedback).
-   Step 2: write a sourcing analysis (HIPP or HAPP, per the unit's frame) with
+   Step 2: write a HIPP sourcing analysis with
    guiding questions, then reveal the exemplar for each part.
    Site convention: plain global, no build step, no imports. */
 (function () {
   'use strict';
-  var FRAMES = {
-    HIPP: { name: 'HIPP', labels: { h: 'Historical Context', a: 'Intended Audience', p: 'Purpose', pov: 'Point of View' } },
-    HAPP: { name: 'HAPP', labels: { h: 'Historical Situation', a: 'Intended Audience', p: 'Purpose', pov: 'Point of View' } }
-  };
+  var F = { name: 'HIPP', labels: { h: 'Historical Situation', a: 'Intended Audience', p: 'Purpose', pov: 'Point of View' } };
   var GUIDES = {
     h: ['When and where was this source created?',
         'What major events, conflicts, or tensions were happening at this time?',
@@ -30,7 +27,7 @@
   function mount(el) {
     var unit = el.getAttribute('data-unit'), cfg = (window.VISUAL_SOURCES || {})[unit];
     if (!cfg) return;
-    var F = FRAMES[cfg.frame] || FRAMES.HAPP, items = cfg.items, P = 'vs' + unit + '-';
+    var items = cfg.items, P = 'vs' + unit + '-';
     var tabs = '', cards = '';
     items.forEach(function (it, i) {
       tabs += '<button type="button" class="vs-tab' + (i ? '' : ' active') + '" data-vsi="' + i + '">Image ' + it.num + '</button>';

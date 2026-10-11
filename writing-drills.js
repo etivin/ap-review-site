@@ -147,7 +147,7 @@
       rubric: ['<strong>1 pt:</strong> at least <strong>two specific</strong> examples relevant to the prompt', '<strong>2 pts:</strong> use those examples to <strong>support an argument</strong>, each connects to a claim', 'Evidence must be specific (names, dates, events) and <strong>described AND explained</strong>'],
       prompt: 'Write an evidence paragraph using two specific examples to support a claim.',
       placeholder: 'Write an evidence paragraph with 2+ specific examples…' },
-    { key: 'happ', label: 'Sourcing / HIPP', mode: 'keyword',
+    { key: 'hipp', label: 'Sourcing / HIPP', mode: 'keyword',
       rubric: ['For <strong>2+ documents</strong>, explain how <strong>H</strong>istorical situation, <strong>I</strong>ntended audience, <strong>P</strong>oint of view, or <strong>P</strong>urpose is relevant to an argument', 'Must <strong>explain HOW/WHY</strong> using a &ldquo;which means&hellip;&rdquo; move, not just identify', 'The sourcing must connect to your <strong>argument</strong>, not just exist'],
       prompt: 'Take any two sources you know and source them: identify a HIPP feature and explain why it matters.',
       placeholder: 'Doc 1: … which means … / Doc 2: … which means …' },
@@ -190,8 +190,8 @@
     return res('partial', 'Checked', 'Compare your response to the rubric above.');
   }
 
-  // HAPP handled separately for clarity
-  function checkHAPP(t, words) {
+  // HIPP handled separately for clarity
+  function checkHIPP(t, words) {
     var identify = contains(t, ['point of view', 'purpose', 'historical situation', 'audience', 'intended audience', 'written by', 'published in', 'the author', 'this source', 'this document', 'because the author']);
     var explain = contains(t, ['which means', 'significant because', 'relevant because', 'this affects', 'this means', 'therefore', 'this suggests', 'this reveals', 'this makes the source']);
     var two = (t.match(/doc\s*\d|document\s*\d/g) || []).length >= 2 || (t.match(/source/g) || []).length >= 2;
@@ -396,7 +396,7 @@
     } else if (kind === 'dbq') {
       h += keywordHTML(checkKeyword('thesis', t, words));
       h += keywordHTML(checkKeyword('evidence', t, words));
-      h += keywordHTML(checkHAPP(t, words));
+      h += keywordHTML(checkHIPP(t, words));
       h += selfHTML('complexity', selfHint('complexity', t, words));
     }
     return h;
@@ -440,8 +440,8 @@
         out.style.display = 'block';
         if (drill.mode === 'self') {
           out.innerHTML = selfHTML(key, selfHint(key, t, words));
-        } else if (key === 'happ') {
-          out.innerHTML = keywordHTML(checkHAPP(t, words));
+        } else if (key === 'hipp') {
+          out.innerHTML = keywordHTML(checkHIPP(t, words));
         } else {
           out.innerHTML = keywordHTML(checkKeyword(key, t, words));
         }

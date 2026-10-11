@@ -38,7 +38,7 @@
   var PICKS = {
     jeopardy:  ['&#128218;', 'Jeopardy', 'Team-based review game. Add teams, pick categories, and compete for points. Perfect for classroom play.'],
     matching:  ['&#129513;', 'Narrative Matching', 'Match causes to their effects and reconstruct the Unit {u} story.'],
-    sortit:    ['&#9878;', 'Sort It', 'Separate sourcing sentences that earn the HAPP point from ones that don&rsquo;t.'],
+    sortit:    ['&#9878;', 'Sort It', 'Separate sourcing sentences that earn the HIPP point from ones that don&rsquo;t.'],
     warmup:    ['&#9200;', 'Source Line Warm-up', 'One document, 60 seconds. Pick a lens, complete the sentence frame, earn the point.'],
     speedquiz: ['&#9889;', 'Speed Quiz', '{n} questions, 20 seconds each. Answer faster to earn more points. Final score and breakdown show what to review.'],
     timeline:  ['&#128337;', 'Timeline Builder', 'Click Unit {u} events from earliest to latest. Wrong picks don&rsquo;t advance.'],
@@ -401,7 +401,7 @@
         if (words < 8) { kind = 'fail'; msg = '<span class="dr-icon">&#10007;</span><div><strong>Too short.</strong> Write a complete sentence: name the source feature, then explain the consequence with &ldquo;which means.&rdquo;</div>'; }
         else if (feature && consequence) { kind = 'pass'; msg = '<span class="dr-icon">&#10003;</span><div><strong>Likely earns the point.</strong> You named a source feature and used consequence language. Check the model answer to see if your explanation connects clearly to an argument.</div>'; }
         else if (feature) { kind = 'partial'; msg = '<span class="dr-icon">&#126;</span><div><strong>Identifies, but needs a consequence.</strong> You named a source feature. Now add the &ldquo;which means&rdquo; move: what does the source likely emphasize, omit, or argue <em>because</em> of that feature?</div>'; }
-        else { kind = 'fail'; msg = '<span class="dr-icon">&#10007;</span><div><strong>No HAPP feature identified.</strong> Start by naming something specific about the source: its author&rsquo;s role, its purpose, who it was written for, or the historical moment it came from. Then use &ldquo;which means&rdquo; to connect it to your argument.</div>'; }
+        else { kind = 'fail'; msg = '<span class="dr-icon">&#10007;</span><div><strong>No HIPP feature identified.</strong> Start by naming something specific about the source: its author&rsquo;s role, its purpose, who it was written for, or the historical moment it came from. Then use &ldquo;which means&rdquo; to connect it to your argument.</div>'; }
         r.innerHTML = msg; r.className = 'warmup-result ' + kind;
         var m = DOCS[idx].models || {};
         $('warmup-model-text').textContent = m[lens] || m.pov || '';

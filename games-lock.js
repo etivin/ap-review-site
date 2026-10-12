@@ -1,5 +1,5 @@
 /* games-lock.js: locks a unit's games until the student has rated every
-   flashcard in that unit's deck at least once (front or reverse side, from
+   flashcard in that unit's deck within the last 7 days (FRESH_DAYS; front or reverse side, from
    the unit Flashcards tab or the Flashcard Hub). Cards come from FC_DATA[n];
    ratings are read from apReview_v1.spaced using the same ids
    unit-flashcards.js writes (u{n}_fc_{slug(term)}, rv_ for reverse).
@@ -21,6 +21,7 @@
   'use strict';
   var HASH = 'f0edbe28ac723c57055d27fb30cbe4f12d934dce606f6348ad8d17fa77d03822';
   var TKEY = 'gamesLock_teacher';
+  var FRESH_DAYS = 7;   // a card counts toward the unlock for this many days after it was last rated
 
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -30,10 +31,11 @@
     var rows = (window.FC_DATA || {})[unit] || [];
     var sp = {};
     try { sp = (JSON.parse(get('apReview_v1') || '{}').spaced) || {}; } catch (e) {}
-    var done = 0;
+    var done = 0, since = Date.now() - FRESH_DAYS * 864e5;
+    function fresh(it) { return !!(it && it.lastReviewed && new Date(it.lastReviewed).getTime() >= since); }
     rows.forEach(function (r) {
       var k = 'u' + unit + '_fc_' + slug(r[1]);
-      if (sp[k] || sp['rv_' + k]) done++;
+      if (fresh(sp[k]) || fresh(sp['rv_' + k])) done++;
     });
     return { done: done, total: rows.length };
   }
@@ -106,10 +108,11 @@
     panel.innerHTML = LOCK_SVG +
       '<div class="glk-eyebrow">Unit ' + unit + ' Games: Locked</div>' +
       '<h3>Earn your games</h3>' +
-      '<p>Review every Unit ' + unit + ' flashcard at least once to unlock the games. ' +
+      '<p>Review every Unit ' + unit + ' flashcard to unlock the games. Each card counts for ' + FRESH_DAYS +
+        ' days, so keep reviewing to keep them open. ' +
         (left === 1 ? '1 card to go.' : left + ' cards to go.') + '</p>' +
       '<div class="glk-bar"><i style="width:0"></i></div>' +
-      '<div class="glk-count">' + p.done + ' / ' + p.total + ' cards reviewed (' + pct + '%)</div>' +
+      '<div class="glk-count">' + p.done + ' / ' + p.total + ' cards reviewed in the last ' + FRESH_DAYS + ' days (' + pct + '%)</div>' +
       goHtml +
       '<button type="button" class="glk-teach">Teacher unlock</button>' +
       '<form class="glk-form"><input type="password" inputmode="numeric" autocomplete="off" placeholder="Code" aria-label="Teacher code"><button type="submit">Unlock</button></form>' +
@@ -170,6 +173,8 @@
     }
     function lock() {
       if (panel) panel.remove();
+      // Relocked (cards went stale): play the opening again when they re-earn it.
+      if (!finished(unit)) { try { localStorage.removeItem('gamesLock_seen_u' + unit); } catch (e) {} }
       panel = buildPanel(unit, '<button type="button" class="glk-go" data-tab="pg-flash">Go to Flashcards</button>', openLock);
       var nav = inner.querySelector('.pg-nav-row');
       inner.insertBefore(panel, nav ? nav.nextSibling : inner.firstChild);

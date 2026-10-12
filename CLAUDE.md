@@ -117,7 +117,9 @@ needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.htm
 
 ### 4.3 Shared includes every unit loads
 
-`<head>`: `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `brand.css`,
+`<head>`: the four browser-tab icon links first (`favicon.ico`, `favicon-32.png`, `favicon-192.png`,
+`apple-touch-icon.png`, all made from `tivin-emblem.png`; every page on the site has them, so copy
+them into any new page), then `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `brand.css`,
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
 `flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`, `source-practice.css`, `spice.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,

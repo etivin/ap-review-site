@@ -1,5 +1,5 @@
-/* games-lock.js: locks a unit's games until the student has rated every
-   flashcard in that unit's deck within the last 7 days (FRESH_DAYS; front or reverse side, from
+/* games-lock.js: locks a unit's games until the student has rated 20 (CARDS_NEEDED)
+   flashcards from that unit's deck within the last 7 days (FRESH_DAYS; front or reverse side, from
    the unit Flashcards tab or the Flashcard Hub). Cards come from FC_DATA[n];
    ratings are read from apReview_v1.spaced using the same ids
    unit-flashcards.js writes (u{n}_fc_{slug(term)}, rv_ for reverse).
@@ -22,6 +22,7 @@
   var HASH = 'f0edbe28ac723c57055d27fb30cbe4f12d934dce606f6348ad8d17fa77d03822';
   var TKEY = 'gamesLock_teacher';
   var FRESH_DAYS = 7;   // a card counts toward the unlock for this many days after it was last rated
+  var CARDS_NEEDED = 20; // any this many cards (or the whole deck, if smaller) unlock the games
 
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -37,7 +38,8 @@
       var k = 'u' + unit + '_fc_' + slug(r[1]);
       if (fresh(sp[k]) || fresh(sp['rv_' + k])) done++;
     });
-    return { done: done, total: rows.length };
+    var need = Math.min(CARDS_NEEDED, rows.length);
+    return { done: Math.min(done, need), total: need };
   }
   function finished(unit) { var p = progress(unit); return p.total > 0 && p.done >= p.total; }
   function teacher() { return get(TKEY) === '1'; }
@@ -108,7 +110,7 @@
     panel.innerHTML = LOCK_SVG +
       '<div class="glk-eyebrow">Unit ' + unit + ' Games: Locked</div>' +
       '<h3>Earn your games</h3>' +
-      '<p>Review every Unit ' + unit + ' flashcard to unlock the games. Each card counts for ' + FRESH_DAYS +
+      '<p>Review ' + p.total + ' Unit ' + unit + ' flashcards to unlock the games. Each card counts for ' + FRESH_DAYS +
         ' days, so keep reviewing to keep them open. ' +
         (left === 1 ? '1 card to go.' : left + ' cards to go.') + '</p>' +
       '<div class="glk-bar"><i style="width:0"></i></div>' +
@@ -138,7 +140,7 @@
     panel.classList.add('glk-open');
     panel.querySelector('.glk-eyebrow').textContent = 'Unlocked';
     panel.querySelector('h3').textContent = byTeacher ? 'Teacher access on' : 'Games unlocked!';
-    panel.querySelector('p').textContent = byTeacher ? 'Games are open on every unit in this browser.' : 'You reviewed every Unit ' + unit + ' flashcard. Go play.';
+    panel.querySelector('p').textContent = byTeacher ? 'Games are open on every unit in this browser.' : 'You reviewed ' + progress(unit).total + ' Unit ' + unit + ' flashcards. Go play.';
     set('gamesLock_seen_u' + unit, '1');
   }
 

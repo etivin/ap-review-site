@@ -62,7 +62,7 @@ site; Eli edits content.
 
 | Page | What it is |
 |---|---|
-| `index.html` | Home dashboard ("Mission Control"): unit cards with progress rings, search, news carousel, study timer. |
+| `index.html` | Home dashboard ("Mission Control"): unit cards with progress rings (`unitPct`: each MCQ and flashcard counts by its forgetting-curve recall, games and videos fade on a 7-day stability, so rings drop without review), search, news carousel, study timer. |
 | `unit1.html` … `unit9.html` | The nine unit hubs (anatomy in §4). |
 | `unitN-map.html` | Interactive Leaflet map, embedded in each unit's Maps tab. Units 1, 5–9 use `unit-map-engine.js` + a `window.UNIT_MAP` object; Units 2–4 are hand-built. |
 | `unitN-interrogate.html` | "Myth Sweeper" fact/myth game, one per unit, linked from the Games tab. |

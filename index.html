@@ -805,41 +805,51 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
 
   /* ── UNITS GRID (per-unit progress ring, earned by DOING, never by viewing) ── */
   var comps = d.components || {};
+  // Forgetting curve, same math as SPACED.retention in spaced.js (which loads
+  // after this script): 0–1 remembered, falling as exp(-days / stability).
+  // Stability starts at 1 day and grows x1.8 with every correct review.
+  var NOW = Date.now(), DAY = 86400000, ACTIVITY_STABILITY = 7;
+  function recall(it){
+    if (!it || !it.lastReviewed) return 0;
+    var days = Math.max(0, (NOW - new Date(it.lastReviewed).getTime()) / DAY);
+    return Math.exp(-days / (it.stability || 1));
+  }
   function unitPct(u){
     var comp = comps['u'+u] || {}, doneSet = comp.done || {};
-    // MCQ / flashcard coverage: distinct items actually answered or rated.
-    var mcqDone = 0, fcDone = 0, pre = 'u'+u+'_', lastReview = 0;
+    // MCQ / flashcard memory: each item counts by how much of it is still remembered.
+    var mcqMem = 0, fcMem = 0, pre = 'u'+u+'_';
     for (var key in sp){
       if (key.indexOf(pre) !== 0) continue;
-      var h = sp[key].reviewHistory;
-      if (h && h.length){ var rt = new Date(h[h.length-1].date).getTime(); if (rt > lastReview) lastReview = rt; }
-      if (key.indexOf(pre+'fc_') === 0) fcDone++; else mcqDone++;
+      if (key.indexOf(pre+'fc_') === 0) fcMem += Math.max(recall(sp[key]), recall(sp['rv_'+key]));
+      else mcqMem += recall(sp[key]);
     }
-    function count(kind, ids){
+    // Reverse-only flashcard reviews (no front-side entry) still count.
+    for (var rk in sp){
+      if (rk.indexOf('rv_'+pre+'fc_') === 0 && !sp[rk.slice(3)]) fcMem += recall(sp[rk]);
+    }
+    // Games and videos have no review history, so they fade on a fixed 7-day
+    // stability from the last time each one was finished; replaying refreshes it.
+    function fade(kind, ids){
       var got = doneSet[kind] || {}, n = 0;
-      (ids || []).forEach(function(id){ if (got[id]) n++; });
+      (ids || []).forEach(function(id){
+        if (got[id]) n += Math.exp(-Math.max(0, (NOW - got[id]) / DAY) / ACTIVITY_STABILITY);
+      });
       return n;
     }
-    // Each part is 0–1 and only grows from completed work (see activity.js):
-    //   MCQ:        questions answered / questions in the unit bank
-    //   Flashcards: cards rated / cards in the deck
-    //   Games:      games finished / games on the unit's Games tab
-    //   Videos:     videos watched (60% or 8 min) / up to 3 videos
+    // Each part is 0–1, earned by completed work and lost by forgetting (see activity.js):
+    //   MCQ:        remembered questions / questions in the unit bank
+    //   Flashcards: remembered cards / cards in the deck
+    //   Games:      games recently finished / games on the unit's Games tab
+    //   Videos:     videos recently watched (60% or 8 min) / up to 3 videos
     var gameIds = comp.gameIds || [], videoIds = comp.videoIds || [];
     var tabs = comp.__all || ['pg-mcq','pg-flash'], parts = [];
-    if (tabs.indexOf('pg-mcq')   >= 0) parts.push({ w:3, f: comp.mcqTotal ? Math.min(1, mcqDone / comp.mcqTotal) : 0 });
-    if (tabs.indexOf('pg-flash') >= 0) parts.push({ w:3, f: comp.fcTotal  ? Math.min(1, fcDone  / comp.fcTotal ) : 0 });
-    if (gameIds.length)  parts.push({ w:2, f: count('game', gameIds) / gameIds.length });
-    if (videoIds.length) parts.push({ w:1, f: Math.min(1, count('video', videoIds) / Math.min(3, videoIds.length)) });
+    if (tabs.indexOf('pg-mcq')   >= 0) parts.push({ w:3, f: comp.mcqTotal ? Math.min(1, mcqMem / comp.mcqTotal) : 0 });
+    if (tabs.indexOf('pg-flash') >= 0) parts.push({ w:3, f: comp.fcTotal  ? Math.min(1, fcMem  / comp.fcTotal ) : 0 });
+    if (gameIds.length)  parts.push({ w:2, f: fade('game', gameIds) / gameIds.length });
+    if (videoIds.length) parts.push({ w:1, f: Math.min(1, fade('video', videoIds) / Math.min(3, videoIds.length)) });
     var sum = 0, tot = 0;
     parts.forEach(function(p){ sum += p.w * p.f; tot += p.w; });
-    var coverage = tot ? (sum / tot * 100) : 0, DECAY_DAYS = 20;
-    // Freshness decay: the ring fades toward 0 as time passes since the last
-    // completed activity (not the last visit), so a unit you stop working slips.
-    var touched = Math.max(lastReview, comp.lastDone || 0);
-    var days = touched ? (Date.now() - touched) / 86400000 : null;
-    var decay = (days == null) ? 1 : Math.exp(-Math.max(0, days) / DECAY_DAYS);
-    return Math.round(coverage * decay);
+    return Math.round(tot ? (sum / tot * 100) : 0);
   }
   function ring(pct){
     var R = 34, C = 2 * Math.PI * R, off = C * (1 - pct/100);

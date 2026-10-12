@@ -84,6 +84,8 @@
       '.glk-form input{width:140px;padding:9px 10px;border:1px solid var(--gk-border);background:var(--gk-paper);color:var(--gk-ink);font-family:inherit;font-size:.9rem;letter-spacing:.2em;text-align:center}' +
       '.glk-form button{background:var(--gk-acc);color:#fff;border:0;padding:9px 14px;font-family:inherit;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}' +
       '.glk-msg{min-height:1em;margin-top:8px;font-size:.72rem;color:var(--gk-acc)}' +
+      '.glk-tbar{--gk-acc:var(--red,#2d5deb);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;max-width:820px;margin:0 auto 18px;padding:10px 14px;border:1px dashed var(--border2,var(--border,#c9ced8));background:var(--cream,#f6f3ec);color:var(--mid,#444);font-family:Lato,system-ui,sans-serif;font-size:.78rem}' +
+      '.glk-tbar button{background:var(--gk-acc);color:#fff;border:0;padding:8px 14px;font-family:inherit;font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}' +
       '@keyframes glk-in{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}' +
       '@keyframes glk-out{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-20px) scale(.94)}}' +
       '@keyframes glk-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}' +
@@ -170,7 +172,7 @@
       if (!panel) { setDim(false); return; }
       var pnl = panel;
       playOpen(pnl, unit, byTeacher);
-      setTimeout(function () { pnl.classList.add('glk-gone'); setDim(false); }, 1300);
+      setTimeout(function () { pnl.classList.add('glk-gone'); setDim(false); syncTeacherBar(); }, 1300);
       setTimeout(function () { pnl.remove(); if (panel === pnl) panel = null; }, 1900);
     }
     function lock() {
@@ -182,7 +184,24 @@
       inner.insertBefore(panel, nav ? nav.nextSibling : inner.firstChild);
       setDim(true);
     }
+    // While the teacher code is active, a visible bar says so and can turn it off.
+    var tbar = null;
+    function syncTeacherBar() {
+      if (!teacher()) { if (tbar) tbar.remove(); tbar = null; return; }
+      if (tbar) return;
+      tbar = document.createElement('div');
+      tbar.className = 'glk-tbar';
+      tbar.innerHTML = '<span>Teacher access is on in this browser: games are unlocked on every unit.</span>' +
+        '<button type="button">Lock games again</button>';
+      tbar.querySelector('button').addEventListener('click', function () {
+        try { localStorage.removeItem(TKEY); } catch (e) {}
+        refresh(false);
+      });
+      var nav = inner.querySelector('.pg-nav-row');
+      inner.insertBefore(tbar, nav ? nav.nextSibling : inner.firstChild);
+    }
     function refresh(animate) {
+      syncTeacherBar();
       if (!unlockedNow()) { lock(); return; }
       if (panel && animate) openLock(teacher());
       else { if (panel) panel.remove(); panel = null; setDim(false); }

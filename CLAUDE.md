@@ -20,7 +20,9 @@ site; Eli edits content.
    distractors as long and specific as the key, and vary the answer position (A–D). The MCQ engine
    does **not** shuffle options. Check: key length ÷ mean distractor length ≈ 1.0.
 5. **No hidden controls.** No secret click targets, password gates, or `display:none` buttons that
-   never appear. Everything a student can trigger should be visible.
+   never appear. Everything a student can trigger should be visible. One approved exception: the
+   Games lock (`games-lock.js`) has a visible "Teacher unlock" button that takes Eli's code (stored
+   only as a SHA-256 hash; never put the plain code in the repo).
 6. **No build step.** Plain HTML/CSS/JS, plain globals (`window.X`), no imports, no frameworks,
    no npm at runtime. Scripts are loaded with `<script src>`.
 7. **Content belongs in data files, not in pages.** If a feature exists on more than one unit, it
@@ -123,7 +125,7 @@ them into any new page), then `mission-theme.css`, `mc-mode.js`, `theme.css`, `t
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
 `flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`, `source-practice.css`, `spice.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
-`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `source-practice-data.js`, `source-practice.js`, `spice-data.js`, `spice.js`, `timeline-data.js`, `timeline.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, and last `unit-shell.js`.
+`mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `source-practice-data.js`, `source-practice.js`, `spice-data.js`, `spice.js`, `timeline-data.js`, `timeline.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, `games-lock.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
 
 ### 4.4 Mount points (copy exactly; N = unit number)
@@ -158,6 +160,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `writing-drills.js/.css` + `writing-prompts.js` | Writing Drills tab | `WRITING_PROMPTS[n] = {saq:[{source, excerpt, parts, partExemplars}], leq:[{intro, prompt, rubric}], dbq:[{documents:[{n, source, text, image?, imageAlt?, imageCredit?}], rubric}]}`; add prompts as a merge IIFE at the end of the file |
 | `spaced.js` | Spaced-review store + streak banner | `SPACED.recordReview(itemId, correct, confidence)`; ids: MCQ `u{n}_{topic}_{idx}`, flashcards `u{n}_fc_{slug(term)}`, reverse side `rv_u{n}_fc_{slug}` |
 | `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` + Documents tab `#sa-model #rg-cards #pu-model`. Keep these ids. |
+| `games-lock.js` | Locks the Games tab (blurred, inert, animated lock panel with progress bar) until every card in `FC_DATA[n]` has been rated at least once (front or `rv_`). Visible "Teacher unlock" button checks a code against a SHA-256 hash and unlocks all units on that browser | reads `apReview_v1.spaced`; keys `gamesLock_teacher`, `gamesLock_seen_uN` (opening animation shown once). Does not guard direct links to `unitN-interrogate.html` etc. |
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
 | `timeline.js` + `timeline-data.js` | Overview tab illustrated timeline | `TIMELINE_DATA[n] = [{year, title, topic?, desc, img, alt, pos?}]`; renders into `<div id="tl-list" data-unit="N">`, wires `#scroll-timeline-btn` |
 | `spice.js/.css` + `spice-data.js` | SPICE-T cards | `SPICE[n] = [{key:"s"|"p"|"i"|"c"|"e"|"t", desc, items:[html]}]`; category names fixed in `spice.js`; mount `<div class="spice-mount" data-unit="N">` |
@@ -180,7 +183,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 `apReview_v1` (everything about progress: `spaced`, `studyLog`, `components['uN']` games/videos,
 `lastSeen`, legacy `mcq`/`drafts`). **Always read-modify-write the current value; never write back
 a copy loaded earlier** (that erases progress saved since). Others: `mcTheme`, `fcHub_v1` (Hub
-settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`,
+settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `gamesLock_teacher`, `gamesLock_seen_uN`,
 `apwh-timer-*`.
 
 ## 6. Not shared yet (each unit has its own inline copy)

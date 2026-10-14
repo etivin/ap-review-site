@@ -773,3 +773,255 @@ window.WRITING_PROMPTS = {
     }
   ]);
 })(window.WRITING_PROMPTS);
+
+/* Practice Sets 1–4 free-response prompts (added 2026-10-14). Eli's practice exams, used with
+   permission; prompts are verbatim. Sources and documents are cropped page images in
+   images/stimuli/ws{set}-saq{n}.png and ws{set}-d{n}.png. Extra DBQs go in W[u].dbqs so a unit's
+   existing DBQ (W[u].dbq) is kept; writing-drills.js renders both. */
+(function (W) {
+  function add(u, kind, items) {
+    W[u] = W[u] || {};
+    W[u][kind] = (W[u][kind] || []).concat(items);
+  }
+  function img(name) { return 'images/stimuli/' + name + '.png'; }
+  function docs(set, sources) {
+    return sources.map(function (s, i) {
+      return { n: i + 1, source: s, image: img('ws' + set + '-d' + (i + 1)), imageAlt: 'Document ' + (i + 1) + ': ' + s };
+    });
+  }
+
+  /* ── SAQs ── */
+  add(1, 'saq', [{
+    year: 'Practice Set 1', tag: 'SAQ 3: Image source',
+    source: 'Painting of Mansa Musa holding a gold coin from the 1375 Catalan Atlas.', image: img('ws1-saq3'),
+    parts: [
+      'Identify and explain ONE symbol presented in the image above.',
+      'Identify and explain ONE way in which the Mansa Musa was able to expand the Malian Empire.',
+      'Identify and explain ONE reason for the success of the Malian Empire.'
+    ]
+  }]);
+  add(2, 'saq', [{
+    year: 'Practice Set 2', tag: 'SAQ 3: No source',
+    parts: [
+      'Explain TWO factors that led to the emergence of a Mongol Empire.',
+      'Identify and explain TWO specific ways in which the Mongols assimilated into foreign cultures during the thirteenth and fourteenth centuries.',
+      'Identify ONE specific custom initiated by the Mongols that outlasted their own empire.'
+    ]
+  }, {
+    year: 'Practice Set 3', tag: 'SAQ 3: Image source',
+    source: 'Shen Du, Tribute Giraffe with Attendant, 1414 C.E.', image: img('ws3-saq3'),
+    parts: [
+      'Identify and explain ONE factor that caused the king of Bengal to pay tribute to the Yongle Emperor.',
+      'Identify and explain ONE way in which the king of Bengal most likely acquired a giraffe to pay as tribute to the Yongle Emperor.',
+      'Identify and explain ONE benefit that paying tribute to the Yongle Emperor would carry for the Bengali people.'
+    ]
+  }, {
+    year: 'Practice Set 4', tag: 'SAQ 3: No source',
+    parts: [
+      'Identify and explain TWO ways in which improved transportation technology led to cultural diffusion during the period 1200 to 1450 C.E. Use specific examples from one or more civilizations.',
+      'Identify and explain TWO motivations for increased cultural interactions during the period 1200 to 1450 C.E. Use specific examples from one or more civilizations.',
+      'Identify and explain ONE reason for the rise of nation-states in Europe during the period 1200 to 1450 C.E. Use a specific example from one or more civilizations.'
+    ]
+  }]);
+  add(3, 'saq', [{
+    year: 'Practice Set 1', tag: 'SAQ 1: Two primary sources',
+    source: 'Source 1: Diary of Johann Georg von Korb, ambassador from Emperor Leopold I to Czar Peter the Great in 1699. Source 2: Life of Peter the Great, by French historian Jean Rousset de Missy, c. 1730', image: img('ws1-saq1'),
+    parts: [
+      'Identify and explain ONE piece of historical evidence that would support Source 1’s evaluation of Peter the Great’s approach to governing.',
+      'Identify and explain ONE piece of historical evidence that would support Source 2’s evaluation of Peter the Great’s approach to governing.',
+      'From the two evaluations above, select the one that, in your opinion, is more accurate to the true governing style of Peter the Great. Briefly explain your choice using additional evidence beyond that used to answer (a) or (b).'
+    ]
+  }, {
+    year: 'Practice Set 3', tag: 'SAQ 4: Two passages',
+    source: 'Two passages evaluating the success of Peter the Great’s reforms', image: img('ws3-saq4'),
+    parts: [
+      'Identify and explain ONE piece of historical evidence that would support Source 1’s evaluation of the success of Peter the Great’s reforms.',
+      'Identify and explain ONE piece of historical evidence that would support Source 2’s evaluation of the success of Peter the Great’s reforms.',
+      'From the two evaluations above, select the one that, in your opinion, is more accurate to the true success of Peter the Great’s reforms of Russia. Briefly explain your choice using additional evidence beyond that used to answer (a) or (b).'
+    ]
+  }]);
+  add(5, 'saq', [{
+    year: 'Practice Set 1', tag: 'SAQ 2: No source',
+    parts: [
+      'Identify and explain TWO ways in which Enlightenment philosophies influenced reaction to the Industrial Revolution.',
+      'Identify and explain TWO ways that nation-states increased their power through the Industrial Revolution.',
+      'Identify and explain TWO ways that the Industrial Revolution impacted the social and economic lives of the working class.'
+    ]
+  }, {
+    year: 'Practice Set 2', tag: 'SAQ 1: Image source',
+    source: 'Illustration of James Watt’s Mechanical Steam Engine, 1764', image: img('ws2-saq1'),
+    parts: [
+      'Identify TWO specific technological advances that benefited from the development of the Watt engine.',
+      'Explain ONE specific long-term effect of the introduction of the Watt engine on each of the technological advances you identified in part (a).',
+      'Identify ONE reason for the decline of Watt’s specific steam engine.'
+    ]
+  }, {
+    year: 'Practice Set 2', tag: 'SAQ 4: Primary source',
+    source: 'Adam Smith, The Wealth of Nations, 1776', image: img('ws2-saq4'),
+    parts: [
+      'Identify and describe TWO specific historical examples from 1750 to the present day that illustrate the benefits of the division of labor as described in the text.',
+      'Identify and describe ONE critique of Adam Smith’s view of labor.',
+      'Identify ONE general benefit that Europe enjoyed as a result of the division of labor in the nineteenth century.'
+    ]
+  }, {
+    year: 'Practice Set 4', tag: 'SAQ 4: Image source',
+    source: 'Phillip Veit, Germania, 1848', image: img('ws4-saq4'),
+    parts: [
+      'Identify and explain ONE symbol in the painting that represents German nationalism.',
+      'Identify and explain ONE factor that brought about nationalist fervor in Germany.',
+      'Select a nationalist movement (besides that of Germany), state its primary goal, and explain whether, in your opinion, it succeeded in its goal. Briefly explain your choice using evidence.'
+    ]
+  }]);
+  add(6, 'saq', [{
+    year: 'Practice Set 3', tag: 'SAQ 1: Map',
+    source: 'Colonization Map of Africa in 1914', image: img('ws3-saq1'),
+    parts: [
+      'Identify and explain TWO factors in the period 1750–1900 C.E. that enabled European powers to carve up almost the entirety of Africa by 1914.',
+      'Identify and explain ONE reason European powers colonized only the coast of Africa during the period 1450–1750 C.E.',
+      'Identify and explain ONE effect of imperialism upon African life by the end of the nineteenth century.'
+    ]
+  }, {
+    year: 'Practice Set 3', tag: 'SAQ 2: No source',
+    parts: [
+      'Identify and explain TWO ways in which governments consolidated their power during the period 1750–1900 C.E. Use specific examples from one or more states or empires.',
+      'Identify and explain TWO ways in which the consolidation of power during the period 1750-1900 C.E. was challenged.',
+      'Identify and explain ONE major effect upon East Asia of the consolidation of European power during the period 1750 to 1900.'
+    ]
+  }, {
+    year: 'Practice Set 4', tag: 'SAQ 1: Map',
+    source: 'Extent of the British Empire in 1900', image: img('ws4-saq1'),
+    parts: [
+      'Identify and explain TWO ways that the expansion of the British Empire changed a particular region or regions.',
+      'Identify and explain ONE reason that the British Empire experienced a decline.',
+      'Identify and explain ONE method that the British Empire used to maintain control of its colonies.'
+    ]
+  }]);
+  add(7, 'saq', [{
+    year: 'Practice Set 4', tag: 'SAQ 2: Primary source',
+    source: 'President Harry Truman, speech informing American citizens that an atomic weapon had been used against Japan, August 6, 1945', image: img('ws4-saq2'),
+    parts: [
+      'Identify and explain ONE way that the speech reflects the complexity of atomic technology.',
+      'Identify and explain TWO ways in which the development of this weapon impacted international relations following the Second World War.',
+      'Identify and explain ONE factor that led to the development of atomic weapons.'
+    ]
+  }]);
+  add(8, 'saq', [{
+    year: 'Practice Set 2', tag: 'SAQ 2: Image source',
+    source: 'Poster of the Sputnik launch in 1957. The poster celebrates the tenth anniversary of the Sputnik launch in 1957, in which the Soviet Union successfully launched a satellite into space.', image: img('ws2-saq2'),
+    parts: [
+      'Identify how the “space race” between the United States and the Soviet Union had its origins in the Cold War nuclear arms race.',
+      'Using TWO specific examples, explain how the end of communism changed the relationship between the United States and the former Soviet Union.',
+      'Explain ONE effect that the space race had upon the daily lives of people in the United States and/or the Soviet Union.'
+    ]
+  }]);
+  add(9, 'saq', [{
+    year: 'Practice Set 1', tag: 'SAQ 4: Map',
+    source: 'G20 Map, September 26, 1999', image: img('ws1-saq4'),
+    parts: [
+      'Identify and explain TWO factors that account for the development of the division shown on the map.',
+      'Identify and explain ONE goal of the G20.',
+      'Identify and explain ONE factor blocking the G20’s objectives.'
+    ]
+  }]);
+
+  /* ── LEQs ── */
+  add(1, 'leq', [{
+    year: 'Practice Set 2', tag: 'LEQ 2',
+    prompt: 'Evaluate the extent to which the arrival of Islam can be considered a pivotal point in the history of the Indian subcontinent. In the development of your argument, consider what changed and what stayed the same after Islam’s arrival in India.'
+  }]);
+  add(2, 'leq', [{
+    year: 'Practice Set 1', tag: 'LEQ 2',
+    intro: 'In the period 1200 C.E. to 1600 C.E., rapidly developing technologies led to increased regional and transregional trade.',
+    prompt: 'Develop an argument that evaluates the extent to which the new technology contributed to an increase in trade in this time period.'
+  }]);
+  add(3, 'leq', [{
+    year: 'Practice Set 2', tag: 'LEQ 3',
+    prompt: 'Evaluate the extent to which the split between the Roman Catholic and Protestant churches in the sixteenth century can be considered a pivotal point in the history of Christianity. In the development of your argument, consider what changed and what stayed the same after this split within Christianity.'
+  }]);
+  add(4, 'leq', [{
+    year: 'Practice Set 1', tag: 'LEQ 3',
+    intro: 'In the period 1500 C.E. to 1750 C.E., nations’ influence expanded and global interaction increased. Certain Asian states were able to resist this influence and contact.',
+    prompt: 'Develop an argument that evaluates the reasons some Asian nations were able to remain relatively untouched by outside influences.'
+  }, {
+    year: 'Practice Set 3', tag: 'LEQ 3',
+    prompt: 'Evaluate the extent to which the development of joint-stock companies in the sixteenth century C.E. can be considered a turning point in world history. In the development of your argument, explain what changed and what stayed the same from the period before the development of joint-stock companies in the sixteenth century C.E. to the period after the development of joint-stock companies in the sixteenth century C.E.'
+  }]);
+  add(5, 'leq', [{
+    year: 'Practice Set 3', tag: 'LEQ 4',
+    prompt: 'Evaluate the extent to which the emergence of the Industrial Revolution in the nineteenth century C.E. can be considered a turning point in world history. In the development of your argument, explain what changed and what stayed the same from the period before the emergence of the Industrial Revolution in the nineteenth century C.E. to the period after the emergence of Industrial Revolution in the nineteenth century C.E.'
+  }, {
+    year: 'Practice Set 4', tag: 'LEQ 3',
+    prompt: 'Evaluate the extent to which the emergence of Enlightenment philosophies in the seventeenth century C.E. transformed European culture. In the development of your argument, explain what changed and what stayed the same from the period before the emergence of Enlightenment philosophy in the seventeenth century C.E. to the period after the emergence of Enlightenment philosophy in the seventeenth century C.E.'
+  }]);
+  add(6, 'leq', [{
+    year: 'Practice Set 3', tag: 'LEQ 2',
+    prompt: 'Evaluate the extent to which the Opium Wars of the nineteenth century can be considered a turning point in world history. In the development of your argument, explain what changed and what stayed the same from the period before the Opium Wars to the period after the Opium Wars.'
+  }, {
+    year: 'Practice Set 4', tag: 'LEQ 2',
+    prompt: 'Evaluate the extent to which resistance to colonialism in the nineteenth and twentieth centuries transformed national identities. In the development of your argument, explain what changed and what stayed the same from the period before the resistance to colonialism in the nineteenth and twentieth to the period after the resistance to colonialism in the nineteenth and twentieth centuries.'
+  }]);
+  add(8, 'leq', [{
+    year: 'Practice Set 2', tag: 'LEQ 4',
+    prompt: 'Compare and contrast the effectiveness of two anti-colonial movements in the late nineteenth and twentieth centuries. In the development of your argument, explain what was similar about the effectiveness of the two movements and what was different.'
+  }, {
+    year: 'Practice Set 4', tag: 'LEQ 4',
+    prompt: 'Evaluate the extent to which the Cold War transformed Latin American culture. In the development of your argument, explain what changed and what stayed the same from the period before the Cold War to the period after the Cold War began.'
+  }]);
+  add(9, 'leq', [{
+    year: 'Practice Set 1', tag: 'LEQ 4',
+    intro: 'In the period after 1900, the movements championing women’s equality varied, with many states adopting policies to offer more opportunities to women.',
+    prompt: 'Develop an argument that evaluates the extent to which one or more states reacted to a gender equality movement.'
+  }]);
+
+  /* ── DBQs (extra DBQs live in dbqs) ── */
+  add(8, 'dbqs', [{
+    year: 'Practice Set 1', tag: 'DBQ',
+    prompt: 'Using the documents and your knowledge of world history, evaluate the extent to which decolonization transformed diplomacy in the twentieth century.',
+    documents: docs(1, [
+      'The “Loi-Cadre” of June 23, 1956',
+      'Declaration on Granting Independence to Colonial Countries and Peoples, 1960',
+      'British Government Statement on its policy In Burma, May 1945',
+      'Map depicting Colonial Affiliations of Africa and India before 1945.',
+      'President Sukarno of Indonesia’s speech at the opening of the Bandung Conference, April 18 1955',
+      'Jawaharlal Nehru’s December 18, 1956 speech in Washington D.C.',
+      'Speech at The First Afro-Asian People’s Solidarity Conference, Anwar el Sadat, 1957'
+    ])
+  }, {
+    year: 'Practice Set 2', tag: 'DBQ',
+    prompt: 'Using the documents and your knowledge of world history, evaluate how governments and international organizations responded to the consequences of World War II after it ended in 1945.',
+    documents: docs(2, [
+      'Preamble to the Charter of the United Nations, 1945.',
+      'Preamble to the Constitution of Japan, 1946.',
+      'Preamble to the Constitution of India, 1949.',
+      'Preamble to the Constitution of France, 1958.',
+      'Vietnamese Declaration of Independence, 1945.',
+      'Universal Declaration of Human Rights, 1948.',
+      'Final Report to the Secretary of the Army on the Nuremberg War Crimes Trials United States, 1949.'
+    ])
+  }, {
+    year: 'Practice Set 3', tag: 'DBQ',
+    prompt: 'Using the following documents and your knowledge of world history, analyze the roles and perceptions of women in the Chinese and Vietnamese revolutions of the twentieth century.',
+    documents: docs(3, [
+      'He Zhen, wife of the anti-Manchu leader Liu Shipei, 1908.',
+      'Sharon L. Sievers, “Women in China, Japan, and North Korea,” 1988.',
+      'Florence Ayscough, Chinese Women: Yesterday and Today, 1938.',
+      'Huy Oánh, “Produce and Prepare to Fight the War” (SẢN XUẤT VÀ SẴN SÀNG CHIẾN ĐẤU), Vietnam, 1966.',
+      'Phan Boi Chau, Vietnamese nationalist leader, “The New Vietnam,” 1907.',
+      'Communist political pamphlet, 1930.',
+      'Statement by Le Duan, Vietnamese communist party politician, speech at the Vietnamese Women’s Fourth Congress, 1974.'
+    ])
+  }]);
+  add(9, 'dbqs', [{
+    year: 'Practice Set 4', tag: 'DBQ',
+    prompt: 'Using the following documents and your knowledge of world history, discuss the barriers women have faced for more equal treatment in modern society. Consider the goals and methods of such campaigns.',
+    documents: docs(4, [
+      'Anna Manning Comfort, The Public 2, 1899.',
+      'From the Women’s Charter, adopted at the Founding Conference of the Federation of South African Women, Johannesburg, 1954.',
+      'The Plight of Women’s Work in the Early Industrial Revolution in England and Wales, evidence taken by Children’s Employment Commission, 1841.',
+      'Aung San Suu Kyi, Nobel Prize Laureate, excerpts from keynote address at APC Conference, 1995.',
+      'Raja Rammohan Roy, A Second Conference Between an Advocate for, and an Opponent of the Practice of Burning Widows Alive, 1820.',
+      'Pravda (Soviet Newspaper), “On the Path to a Great Emancipation,” March 8, 1929.',
+      'Argentine feminist Maria Eugenia Echenique, “The Emancipation of Women,” 1876.'
+    ])
+  }]);
+})(window.WRITING_PROMPTS);

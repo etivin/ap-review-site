@@ -295,6 +295,7 @@
     var h = '<div class="wd-ex-item">';
     h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(s.year) + '</span> ' + esc(s.tag) + '</div>';
     if (s.source) h += '<div class="wd-ex-src">Source: ' + esc(s.source) + '</div>';
+    if (s.image) h += imageFigure(s);
     if (s.excerpt) h += '<div class="wd-ex-excerpt">' + exParas(s.excerpt) + '</div>';
     h += '<ol class="wd-ex-parts">';
     s.parts.forEach(function (p) { h += '<li>' + esc(p) + '</li>'; });
@@ -345,19 +346,21 @@
     h += '<div class="wd-result" data-exam-result="leq-' + i + '"></div></div>';
     return h;
   }
-  function renderDBQ(d) {
-    if (d.rubric && d.rubric.length) return renderRubricBreak(d, 'u' + CUR_UNIT + '-dbq', 'DBQ');
+  // k = 0 for a unit's main DBQ (P.dbq), 1+ for extras in P.dbqs; keeps the original ids for k = 0
+  function renderDBQ(d, k) {
+    k = k || 0;
+    if (d.rubric && d.rubric.length) return renderRubricBreak(d, 'u' + CUR_UNIT + '-dbq' + (k ? k : ''), 'DBQ');
     var h = '<div class="wd-ex-item">';
     h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(d.year) + '</span> ' + esc(d.tag) + '</div>';
     h += '<div class="wd-ex-prompt">' + esc(d.prompt) + '</div>';
     h += '<div class="wd-ex-docs">';
     d.documents.forEach(function (doc) {
-      h += '<div class="wd-ex-doc"><div class="wd-ex-docn">Document ' + doc.n + '</div><div class="wd-ex-src">Source: ' + esc(doc.source) + '</div>' + exParas(doc.text) + '</div>';
+      h += '<div class="wd-ex-doc"><div class="wd-ex-docn">Document ' + doc.n + '</div><div class="wd-ex-src">Source: ' + esc(doc.source) + '</div>' + (doc.image ? imageFigure(doc) : '') + (doc.text ? exParas(doc.text) : '') + '</div>';
     });
     h += '</div>';
-    h += '<textarea class="wd-textarea" data-exam-text="dbq-0" placeholder="Write your full DBQ essay…"></textarea>';
-    h += '<button type="button" class="wd-check" data-exam-check="dbq" data-exam-idx="0">Check my response</button>';
-    h += '<div class="wd-result" data-exam-result="dbq-0"></div></div>';
+    h += '<textarea class="wd-textarea" data-exam-text="dbq-' + k + '" placeholder="Write your full DBQ essay…"></textarea>';
+    h += '<button type="button" class="wd-check" data-exam-check="dbq" data-exam-idx="' + k + '">Check my response</button>';
+    h += '<div class="wd-result" data-exam-result="dbq-' + k + '"></div></div>';
     return h;
   }
 
@@ -365,7 +368,8 @@
     var P = window.WRITING_PROMPTS && window.WRITING_PROMPTS[n];
     if (!P) return '';
     CUR_UNIT = n;
-    var hasSAQ = P.saq && P.saq.length, hasLEQ = P.leq && P.leq.length, hasDBQ = !!P.dbq;
+    var dbqs = (P.dbq ? [P.dbq] : []).concat(P.dbqs || []);
+    var hasSAQ = P.saq && P.saq.length, hasLEQ = P.leq && P.leq.length, hasDBQ = dbqs.length > 0;
     if (!hasSAQ && !hasLEQ && !hasDBQ) return '';
     var kinds = [];
     if (hasSAQ) kinds.push({ k: 'saq', label: 'SAQ' });
@@ -374,13 +378,13 @@
     var first = kinds[0].k;
     var h = '<div class="wd-exam">';
     h += '<div class="wd-exam-hd"><div class="wd-exam-title">&#9998; Real AP Exam Prompts</div>' +
-      '<p>Official released College Board prompts matched to this unit. Write a full response, then self-assess the reasoning rows with the coaching below and compare against the official scoring guidelines.</p></div>';
+      '<p>Released College Board prompts and Practice Set prompts matched to this unit. Write a full response, then self-assess the reasoning rows with the coaching below and compare against the official scoring guidelines.</p></div>';
     h += '<div class="wd-exam-tabs">';
     kinds.forEach(function (kd) { h += '<button type="button" class="wd-exam-tab' + (kd.k === first ? ' active' : '') + '" data-exam-tab="' + kd.k + '">' + kd.label + '</button>'; });
     h += '</div>';
     if (hasSAQ) { h += '<div class="wd-exam-panel' + (first === 'saq' ? ' active' : '') + '" data-exam-panel="saq">'; P.saq.forEach(function (s, i) { h += renderSAQ(s, i); }); h += '</div>'; }
     if (hasLEQ) { h += '<div class="wd-exam-panel' + (first === 'leq' ? ' active' : '') + '" data-exam-panel="leq">'; P.leq.forEach(function (s, i) { h += renderLEQ(s, i); }); h += '</div>'; }
-    if (hasDBQ) { h += '<div class="wd-exam-panel' + (first === 'dbq' ? ' active' : '') + '" data-exam-panel="dbq">'; h += renderDBQ(P.dbq); h += '</div>'; }
+    if (hasDBQ) { h += '<div class="wd-exam-panel' + (first === 'dbq' ? ' active' : '') + '" data-exam-panel="dbq">'; dbqs.forEach(function (d, k) { h += renderDBQ(d, k); }); h += '</div>'; }
     return h + '</div>';
   }
 

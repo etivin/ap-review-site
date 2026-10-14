@@ -175,7 +175,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `mc-mode.js` + `mission-theme.css` | Mission Control theme + shared top bar (`#mc-bar`) on every page | sets `<html data-mc="on">` |
 | `theme.js/.css` | Dark mode | `localStorage.mcTheme`, `[data-theme="dark"]` |
 | `brand.js/.css` | Tivin Teaches logo lockup | |
-| `bedtime.js` | 8 PM–5 AM "go to sleep" overlay | |
+| `bedtime.js` | 8:00–9:30 PM dismissible "go to sleep" nudge; 9:30 PM–5:00 AM full-page night lock (sleep statistics, page inert, keys swallowed) with a visible "Teacher unlock" box (same SHA-256 hash as `games-lock.js`) that unlocks that browser for the rest of the night | key `bedtimeUnlock` (night id, YYYY-MM-DD of the evening) |
 | `unit-map-engine.js` + `world-basemap.js` + `unit-map.css` | Unit maps | `window.UNIT_MAP = {routes, polities, themes}` |
 | `cumulative.js` | Cumulative Review logic | reads `mcq-bank.js` |
 
@@ -183,7 +183,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 `apReview_v1` (everything about progress: `spaced`, `studyLog`, `components['uN']` games/videos,
 `lastSeen`, legacy `mcq`/`drafts`). **Always read-modify-write the current value; never write back
 a copy loaded earlier** (that erases progress saved since). Others: `mcTheme`, `fcHub_v1` (Hub
-settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `gamesLock_teacher`, `gamesLock_seen_uN`,
+settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`,
 `apwh-timer-*`.
 
 ## 6. Not shared yet (each unit has its own inline copy)

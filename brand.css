@@ -51,12 +51,12 @@ html[data-mc="on"]{
 /* ── brand lockup: circular globe+shield emblem + wordmark.
       The emblem sizing/crop is set inline by brand.js. ── */
 .tivin-wordmark{display:flex;flex-direction:column;line-height:1.08}
-.tivin-wordmark b{font:900 1.5rem/1 'Lato',sans-serif;letter-spacing:-.02em;color:#fff}
-.tivin-wordmark i{font-style:normal;font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-top:6px}
+.tivin-wordmark b{font:900 1.3rem/1 'Lato',sans-serif;letter-spacing:-.02em;color:#fff}
+.tivin-wordmark i{font-style:normal;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-top:5px}
 .tivin-wordmark.compact b{font-size:1rem}
 #mc-bar .mcb-brand .tivin-wordmark b{color:#fff}
 /* let the top bar grow to comfortably fit the lockup */
-.bar{min-height:126px}
+.bar{min-height:106px}
 /* sidebar lockup (unit hubs): narrower column, smaller wordmark */
 .tivin-lockup.sb{margin-bottom:16px}
 .tivin-lockup.sb .tivin-wordmark b{font-size:1.18rem}
@@ -84,10 +84,10 @@ html[data-mc="on"] .nav-item.active .nav-dot{background:var(--lime)!important}
 .bar{transition:min-height .22s ease,padding .22s ease}
 .tivin-emblem{transition:width .22s ease,height .22s ease,background-size .22s ease,background-position .22s ease,box-shadow .22s ease}
 .tivin-wordmark b,.tivin-wordmark i{transition:font-size .2s ease,margin-top .2s ease}
-.bar.tivin-shrink{min-height:74px}
+.bar.tivin-shrink{min-height:64px}
 /* pinned over a full-height spacer (brand.js pinBars) so the shrink never shifts the page */
 .bar.tivin-pinned{position:fixed!important;top:0;left:0;right:0}
 .tivin-bar-spacer{flex-shrink:0}
-.bar.tivin-shrink .tivin-emblem{--em:58px!important;box-shadow:0 2px 8px rgba(0,0,0,.24)}
-.bar.tivin-shrink .tivin-wordmark b{font-size:1.12rem}
-.bar.tivin-shrink .tivin-wordmark i{font-size:.56rem;margin-top:3px}
+.bar.tivin-shrink .tivin-emblem{--em:50px!important;box-shadow:0 2px 8px rgba(0,0,0,.24)}
+.bar.tivin-shrink .tivin-wordmark b{font-size:1rem}
+.bar.tivin-shrink .tivin-wordmark i{font-size:.5rem;margin-top:3px}

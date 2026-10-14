@@ -51,7 +51,7 @@
     }
 
     // main top bar (dashboard, maps, games), full lockup
-    fillBrand(document.querySelector('.bar .brand'), 104, false);
+    fillBrand(document.querySelector('.bar .brand'), 88, false);
 
     // Mission-Control injected top strip (unit pages): compact lockup.
     // mc-mode.js injects it after load, so retry briefly.

@@ -57,6 +57,13 @@ site; Eli edits content.
   ignore: `Invalid LatLng` errors from the map iframe when it's hidden, and a 404 for
   `unit 7 slides.pdf`.
 - Commit trailer used in this repo: `Co-Authored-By: Claude <model> <noreply@anthropic.com>`.
+- **Cloudflare night lock (server side):** tivinteaches.com DNS is on Cloudflare with the records
+  **Proxied**, and the Worker `night-lock` (route `*tivinteaches.com/*`, fail open) serves the
+  closed-for-the-night page from 9:30 PM to 5:00 AM Eastern by Cloudflare's clock. Source:
+  `cloudflare/night-lock-worker.js`; it is pasted into the Cloudflare dashboard, not deployed from
+  this repo, so edit both. Secrets `TEACHER_CODE` and `UNLOCK_SECRET` live only in Cloudflare.
+  A correct code sets an HttpOnly signed cookie for that night and the `bedtimeUnlock` key that
+  `bedtime.js` reads. To turn the lock off, delete the route or set the DNS records to DNS only.
 
 ## 3. Site map
 

@@ -64,6 +64,8 @@ site; Eli edits content.
   this repo, so edit both. Secrets `TEACHER_CODE` and `UNLOCK_SECRET` live only in Cloudflare.
   A correct code sets an HttpOnly signed cookie for that night and the `bedtimeUnlock` key that
   `bedtime.js` reads. To turn the lock off, delete the route or set the DNS records to DNS only.
+  Known gap, kept on purpose: Cloudflare also builds full copies of the site from this repo at
+  `ap-review-site.pages.dev` and `ap-review-site.elitivin.workers.dev`, which the lock does not cover.
 
 ## 3. Site map
 

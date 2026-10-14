@@ -157,7 +157,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 
 | File | Role | Data / API |
 |---|---|---|
-| `mcq-bank.js` | All MCQs | `APWH_MCQ.units[n] = {title, topics:[{id,name}], questions:{'n.x':[{s, sl, simg?, q, o:[4], c, e}]}}`. New topics: `addTopic(u,id,name,qs)` block before `/* @@APPEND_UNITS_HERE@@ */`. |
+| `mcq-bank.js` | All MCQs | `APWH_MCQ.units[n] = {title, topics:[{id,name}], questions:{'n.x':[{s, sl, simg?, q, o:[4], c, e, src?}]}}`. New topics: `addTopic(u,id,name,qs)` block before `/* @@APPEND_UNITS_HERE@@ */`. Practice Sets 1–4 are appended to existing topics with `Q(u, topic, {...})` in their own block (`src:'Set N, Qk'`; sources are page crops in `images/stimuli/psN-*.png`). Always append new questions to the end of a topic, never insert, so spaced-review ids don't shift. |
 | `mcq-engine.js` | MCQ UI (Quick Check / Test Mode, confidence tap) | `APWH.mountMCQ(el, {unit} or {pool})` |
 | `sbmcq.js` | Stimulus-MCQ strategy + worked examples | `SBMCQ_WORKED` list; `renderWalk(el,{unit})`, `renderCheatsheet(el)` |
 | `flashcard-data.js` | **Single source of truth for flashcards** | `FC_DATA[n] = [[topic, term, def], ...]`, `FC_UNITS`; also feeds Brain Dump for Units 6, 7, 9 |
@@ -236,5 +236,8 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 
 Units 1–8 content mostly comes from Eli's materials and tests. Unit 9's MCQs, documents, visuals,
 SPICE-T, all of the shared game content for Units 1–4 and 9, and the gap-filling study-guide
-sections and the Unit 9 Brain Dump sentence starters were written by Claude (October 2026). Released College Board FRQs are cataloged in
+sections and the Unit 9 Brain Dump sentence starters were written by Claude (October 2026).
+The 220 Practice Set 1–4 MCQs (added 2026-10-14) are Eli's practice exams, used with permission and kept verbatim;
+they came without an answer key, so the correct answers (`c`), explanations (`e`) and unit/topic placement were set by Claude.
+About 54 of them have the key as the longest option (the source's wording, not changed). Released College Board FRQs are cataloged in
 `source-docs/released-frqs/README.md`. See also `SECURITY-NOTES.md`.

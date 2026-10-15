@@ -134,7 +134,7 @@
     '.tr-block{position:fixed;inset:0;z-index:10060}',
     '.tr-hole{position:fixed;z-index:10061;border-radius:10px;box-shadow:0 0 0 4px #f4cd4f,0 0 0 9999px rgba(10,16,35,.66);pointer-events:none;transition:top .3s ease,left .3s ease,width .3s ease,height .3s ease}',
     '.tr-hole.center{top:50%!important;left:50%!important;width:0!important;height:0!important;box-shadow:0 0 0 9999px rgba(10,16,35,.66)}',
-    '.tr-card{position:fixed;z-index:10062;width:min(360px,calc(100vw - 32px));background:var(--white,#fff);color:var(--ink,#16244d);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.4);padding:20px 20px 16px;font-family:Lato,system-ui,sans-serif;transition:top .3s ease,left .3s ease}',
+    '.tr-card{position:fixed;z-index:10062;width:min(360px,calc(100vw - 32px));background:var(--white,#fff);color:var(--ink,#16244d);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.4);padding:20px 20px 16px;font-family:Lato,system-ui,sans-serif}',
     '.tr-phase{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#16244d;background:#f4cd4f;border-radius:99px;padding:3px 10px;margin-bottom:10px}',
     '.tr-card h3{font-size:1.2rem;font-weight:900;line-height:1.2;margin:0 0 8px;color:var(--ink,#16244d)}',
     '.tr-card p{font-size:.88rem;line-height:1.55;margin:0 0 10px;color:var(--mid,#39476a)}',
@@ -375,18 +375,22 @@
     var r = tgt.getBoundingClientRect();
     hole.style.top = (r.top - pad) + 'px'; hole.style.left = (r.left - pad) + 'px';
     hole.style.width = (r.width + pad * 2) + 'px'; hole.style.height = (r.height + pad * 2) + 'px';
-    var left, top;
-    if (r.right + pad + gap + cw <= vw - 12){            // right of target
-      left = r.right + pad + gap; top = r.top + r.height / 2 - ch / 2;
-    } else if (r.bottom + pad + gap + ch <= vh - 12){    // below
-      left = r.left + r.width / 2 - cw / 2; top = r.bottom + pad + gap;
-    } else if (r.top - pad - gap - ch >= 12){            // above
-      left = r.left + r.width / 2 - cw / 2; top = r.top - pad - gap - ch;
-    } else {                                             // fallback: bottom of screen
-      left = (vw - cw) / 2; top = vh - ch - 16;
+    // The card stays parked in the bottom-right corner while the highlight moves.
+    // It only jumps to another corner if it would cover the highlighted item.
+    var m = vw < 600 ? 16 : 24;
+    var spots = [
+      { left: vw - cw - m, top: vh - ch - m },   // bottom right
+      { left: m,           top: vh - ch - m },   // bottom left
+      { left: vw - cw - m, top: m }              // top right
+    ];
+    function covers(p){
+      return p.left < r.right + pad && p.left + cw > r.left - pad &&
+             p.top < r.bottom + pad && p.top + ch > r.top - pad;
     }
-    card.style.left = Math.min(Math.max(16, left), vw - cw - 16) + 'px';
-    card.style.top = Math.min(Math.max(16, top), vh - ch - 16) + 'px';
+    var spot = spots[0];
+    for (var k = 0; k < spots.length; k++){ if (!covers(spots[k])){ spot = spots[k]; break; } }
+    card.style.left = Math.max(16, spot.left) + 'px';
+    card.style.top = Math.max(16, spot.top) + 'px';
   }
 
   function showPill(){

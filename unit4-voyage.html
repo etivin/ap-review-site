@@ -151,20 +151,19 @@ function quad(x1, y1, x2, y2, x3, y3, x4, y4, color) {
 }
 
 // ---------- Scenery definitions ----------
-// "grass" is the coast on either side of the sea lane, "sea" the water you sail on
+// open ocean on every side: "open" is the deep water around you, "sea" the slightly lighter current you sail in
 const BIOMES = [
-  { name: 'Atlantic', grass: ['#4f9a52', '#47904a'], sea: ['#2f6fa3', '#285f8f'], dust: '#e8f4ff',
-    sprites: ['pine', 'oak', 'rock', 'bush', 'pine'] },
-  { name: 'Caribbean', grass: ['#efd9a0', '#e5cf94'], sea: ['#1aa3b8', '#148ea0'], dust: '#ffffff',
-    sprites: ['palm', 'palm', 'bush', 'hut', 'rock'] },
-  { name: 'Indian Ocean', grass: ['#d9b679', '#cfab6e'], sea: ['#1f5f9a', '#1a5288'], dust: '#ffffff',
-    sprites: ['palm', 'rock', 'hut', 'oak', 'bush'] },
+  { name: 'Atlantic', open: ['#1d4b74', '#19436a'], sea: ['#2a6496', '#245a88'], island: '#3f6b45',
+    sprites: ['seastack', 'whale', 'farship', 'gulls', 'seastack', 'farship'] },
+  { name: 'Caribbean', open: ['#12849a', '#0f778c'], sea: ['#1aa3b8', '#1693a7'], island: '#e9d29a',
+    sprites: ['islet', 'islet', 'farship', 'wreck', 'seastack', 'gulls'] },
+  { name: 'Indian Ocean', open: ['#164777', '#123f6b'], sea: ['#205d96', '#1c5389'], island: '#d6b578',
+    sprites: ['islet', 'whale', 'farship', 'seastack', 'gulls', 'farship'] },
 ];
 const SPRITES = {
-  pine: { w: 700, h: 1500 }, oak: { w: 1000, h: 1300 }, bush: { w: 650, h: 380 }, palm: { w: 1000, h: 1700 },
-  rock: { w: 700, h: 420 }, hut: { w: 900, h: 800 }, lighthouse: { w: 520, h: 2300 }, lamp: { w: 160, h: 1400 },
-  buoy: { w: 90, h: 160 },
-  billboard: { w: 1500, h: 1150 },
+  palm: { w: 1000, h: 1700 }, seastack: { w: 900, h: 1700 }, islet: { w: 2800, h: 1700 }, whale: { w: 1600, h: 700 },
+  farship: { w: 900, h: 1500 }, wreck: { w: 1000, h: 1300 }, gulls: { w: 900, h: 2600 },
+  lighthouse: { w: 520, h: 2300 }, buoy: { w: 70, h: 125 }, billboard: { w: 1500, h: 1150 },
 };
 const BILLBOARDS = ['CARAVEL', 'ASTROLABE', 'LATEEN SAIL', 'DIAS 1488', 'COLUMBUS 1492', 'TORDESILLAS 1494',
   'DA GAMA 1498', 'GOA 1510', 'MAGELLAN 1519', 'POTOSÍ SILVER', 'MANILA GALLEONS', 'VOC 1602', 'ENCOMIENDA',
@@ -347,18 +346,26 @@ function buildTrack() {
   for (const seg of segments) {
     const n = seg.index;
     if (n < 15) continue;
-    if (n % 90 === 0) {
-      seg.sprites.push({ type: 'lamp', offset: -1.12, side: 1 }, { type: 'lamp', offset: 1.12, side: -1 });
-    }
     if (n % 12 === 6) { // buoys on the lane boundaries, red to port, green to starboard
       seg.sprites.push({ type: 'buoy', offset: -1 / 3, color: '#d32f2f' }, { type: 'buoy', offset: 1 / 3, color: '#2e7d32' });
     }
     if (n % 140 === 70) seg.sprites.push({ type: 'billboard', offset: pick([-1.6, 1.6]),
       text: pick(BILLBOARDS), color: pick(BOARD_COLORS) });
     if (n % 260 === 140) seg.sprites.push({ type: 'lighthouse', offset: pick([-1, 1]) * rand(1.8, 2.4) });
-    if (Math.random() < 0.45) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(1.35, 3.2) });
-    if (Math.random() < 0.15) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(3.2, 6) });
+    // the high seas are mostly empty water: only a scattering of islets, sea stacks, whales and far-off sails
+    if (Math.random() < 0.12) seg.sprites.push(seaSprite(seg, rand(1.7, 3.5)));
+    if (Math.random() < 0.1) seg.sprites.push(seaSprite(seg, rand(3.5, 8)));
   }
+}
+
+function seaSprite(seg, dist) {
+  const s = { type: pick(seg.biome.sprites), offset: pick([-1, 1]) * dist };
+  if (s.type === 'farship') { // a ship sailing far off the lane, drawn with the same code as traffic
+    const T = pick([CAR_TYPES[1], CAR_TYPES[2]]), col = pick(T.colors);
+    s.ship = { kind: T.kind, w: T.w, h: T.h, color: col, dark: shade(col, -0.35), light: shade(col, 0.25), flag: pick(FLAGS), z: seg.index * SEG };
+  }
+  if (s.type === 'islet') s.palms = 1 + Math.floor(Math.random() * 3);
+  return s;
 }
 
 const findSeg = z => segments[Math.floor(z / SEG) % segments.length];
@@ -383,7 +390,7 @@ function makeRange(P, parts) {
 }
 const RANGE_P = 1600;
 const FAR = makeRange(RANGE_P, [[40, 2], [25, 5], [12, 11], [6, 23], [3, 47]]);
-const NEAR = makeRange(RANGE_P, [[16, 3], [9, 7], [4, 13], [2, 31]]);
+
 const STARS = Array.from({ length: 140 }, () => ({ x: rand(0, W), y: rand(0, HORIZON * 0.85),
   r: Math.random() < 0.15 ? 2 : 1, tw: rand(1, 4), ph: rand(0, 6) }));
 const CLOUDS = Array.from({ length: 7 }, (_, i) => ({ x: i * 170 + rand(0, 80), y: rand(40, HORIZON - 110), s: rand(0.6, 1.3) }));
@@ -834,40 +841,43 @@ function drawBackground(pal) {
     ellipse(x + 30 * s, c.y + 4 * s, 30 * s, 11 * s); ellipse(x + 6 * s, c.y - 9 * s, 24 * s, 12 * s);
   }
 
-  drawRange(FAR, bgFar, HORIZON + 6, pal.far, mix(pal.far, pal.fog, 0.35));
-  drawRange(NEAR, bgNear, HORIZON + 8, pal.near, pal.near);
+  // only a few far-off islands break the horizon, then open ocean all the way to the ship
+  drawRange(FAR, bgFar, HORIZON + 6, pal.far, mix(pal.far, pal.fog, 0.35), 0.45, 26);
+  const sea = ctx.createLinearGradient(0, HORIZON + 4, 0, H);
+  sea.addColorStop(0, rgb(mix(hex('#1d4b74'), pal.fog, 0.55))); sea.addColorStop(1, rgb(mix(hex('#1d4b74'), [0, 0, 0], pal.dark)));
+  ctx.fillStyle = sea; ctx.fillRect(-30, HORIZON + 5, W + 60, H);
 }
 
-function drawRange(hts, off, baseY, color, topColor) {
+// scale shrinks the range; cut drops everything below that height, so it breaks into separate islands
+function drawRange(hts, off, baseY, color, topColor, scale = 1, cut = 0) {
   let peak = 0;
   for (let i = 0; i < hts.length; i += 16) peak = Math.max(peak, hts[i]);
+  peak = Math.max(1, peak * scale - cut);
   const g = ctx.createLinearGradient(0, baseY - peak, 0, baseY);
   g.addColorStop(0, rgb(topColor)); g.addColorStop(1, rgb(color));
   ctx.fillStyle = g;
   ctx.beginPath(); ctx.moveTo(-30, H + 30);
   for (let x = -30; x <= W + 30; x += 4) {
     const i = Math.floor(((x + off) % RANGE_P + RANGE_P) % RANGE_P);
-    ctx.lineTo(x, baseY - hts[i]);
+    ctx.lineTo(x, baseY - Math.max(0, hts[i] * scale - cut));
   }
   ctx.lineTo(W + 30, H + 30); ctx.fill();
 }
 
 function drawSegment(seg, pal) {
   const p1 = seg.p1.screen, p2 = seg.p2.screen, b = seg.biome, alt = seg.dark ? 1 : 0;
-  ctx.fillStyle = b.grass[alt];
+  // deep open ocean everywhere, with the sea lane as a lighter current edged by faint foam
+  ctx.fillStyle = b.open[alt];
   ctx.fillRect(-30, p2.y, W + 60, p1.y - p2.y);
-  // surf where the sea meets the shore, then a band of shallow water, then the open sea lane
-  const r1 = p1.w / 5, r2 = p2.w / 5, rc = alt ? '#ffffff' : '#dff2fa';
-  quad(p1.x - p1.w - r1, p1.y, p1.x + p1.w + r1, p1.y, p2.x + p2.w + r2, p2.y, p2.x - p2.w - r2, p2.y, rc);
-  const s1 = p1.w * 1.04, s2 = p2.w * 1.04;
-  quad(p1.x - s1, p1.y, p1.x + s1, p1.y, p2.x + s2, p2.y, p2.x - s2, p2.y, shade(b.sea[alt], 0.25));
-  quad(p1.x - p1.w * 0.94, p1.y, p1.x + p1.w * 0.94, p1.y, p2.x + p2.w * 0.94, p2.y, p2.x - p2.w * 0.94, p2.y, b.sea[alt]);
-  // scattered wave crests (lane boundaries are marked by floating buoys, drawn as sprites)
+  const e1 = p1.w * 1.03, e2 = p2.w * 1.03;
+  quad(p1.x - e1, p1.y, p1.x + e1, p1.y, p2.x + e2, p2.y, p2.x - e2, p2.y, 'rgba(255,255,255,.22)');
+  quad(p1.x - p1.w, p1.y, p1.x + p1.w, p1.y, p2.x + p2.w, p2.y, p2.x - p2.w, p2.y, b.sea[alt]);
+  // whitecaps scattered across the whole ocean (lane boundaries are marked by floating buoys, drawn as sprites)
   if (p1.y - p2.y > 0.3) {
-    for (let j = 0; j < 2; j++) {
+    for (let j = 0; j < 5; j++) {
       const hsh = (seg.index * (37 + j * 29) + j * 11) % 23;
       if (hsh > 4) continue;
-      const cx = p1.x + p1.w * (((seg.index * (53 + j * 7)) % 19) / 9.5 - 1) * 0.88, cw = p1.w * (0.05 + hsh * 0.012);
+      const cx = p1.x + p1.w * ((((seg.index * (53 + j * 7)) + j * 5) % 19) / 9.5 - 1) * (j < 2 ? 0.9 : 3.2), cw = p1.w * (0.05 + hsh * 0.012);
       const dy = p1.y - p2.y;
       ctx.fillStyle = 'rgba(255,255,255,.45)';
       ctx.beginPath(); ctx.moveTo(cx - cw, p1.y); ctx.quadraticCurveTo(cx, p1.y - dy * 1.6, cx + cw, p1.y);
@@ -921,7 +931,7 @@ function drawWorld(pal) {
         const p = seg.p1.screen;
         if (seg.p1.camera.z > 250) {
           for (const s of seg.sprites) {
-            drawSprite(s, p.x + p.scale * s.offset * ROAD_W * W / 2, p.y, p.scale * W / 2);
+            drawSprite(s, p.x + p.scale * s.offset * ROAD_W * W / 2, p.y, p.scale * W / 2, seg);
           }
         }
         const ents = bucket.get(seg.index);
@@ -1084,31 +1094,11 @@ function drawPlayer() {
 }
 
 // ---------- Scenery sprites ----------
-function drawSprite(s, x, y, k) {
+function drawSprite(s, x, y, k, seg) {
   const def = SPRITES[s.type], w = def.w * k, h = def.h * k;
   if (h < 1.5 || x + w < -50 || x - w > W + 50) return;
+  const foam = (rx, ry = rx * 0.12) => { ctx.fillStyle = 'rgba(255,255,255,.6)'; ellipse(x, y, rx, Math.max(0.5, ry)); };
   switch (s.type) {
-    case 'pine': {
-      ctx.fillStyle = '#5d4037'; ctx.fillRect(x - w * 0.06, y - h * 0.18, w * 0.12, h * 0.18);
-      const cols = ['#1b5e20', '#2e7d32', '#388e3c'];
-      for (let i = 0; i < 3; i++) {
-        const by = y - h * (0.12 + i * 0.26), ty = by - h * 0.42, hw = w * (0.5 - i * 0.1);
-        quad(x - hw, by, x, ty, x, ty, x + hw, by, cols[i]);
-      }
-      break;
-    }
-    case 'oak':
-      ctx.fillStyle = '#6d4c41'; ctx.fillRect(x - w * 0.06, y - h * 0.45, w * 0.12, h * 0.45);
-      ctx.fillStyle = '#2e7d32';
-      circle(x, y - h * 0.62, w * 0.32); circle(x - w * 0.24, y - h * 0.5, w * 0.24);
-      circle(x + w * 0.24, y - h * 0.5, w * 0.24); circle(x, y - h * 0.8, w * 0.24);
-      ctx.fillStyle = '#43a047'; circle(x - w * 0.08, y - h * 0.72, w * 0.16);
-      break;
-    case 'bush':
-      ctx.fillStyle = '#2e7d32';
-      circle(x - w * 0.25, y - h * 0.4, w * 0.25); circle(x + w * 0.22, y - h * 0.4, w * 0.25);
-      ctx.fillStyle = '#388e3c'; circle(x, y - h * 0.55, w * 0.3);
-      break;
     case 'palm': {
       const tx = x + w * 0.1, ty = y - h * 0.85;
       ctx.strokeStyle = '#8d6e63'; ctx.lineWidth = Math.max(1, w * 0.07);
@@ -1122,17 +1112,74 @@ function drawSprite(s, x, y, k) {
       ctx.fillStyle = '#5d4037'; circle(tx - w * 0.03, ty + w * 0.04, w * 0.04); circle(tx + w * 0.04, ty + w * 0.05, w * 0.04);
       break;
     }
-    case 'hut': // thatched hut on stilts
-      ctx.fillStyle = '#5d4037';
-      for (const s2 of [-0.36, -0.12, 0.12, 0.36]) ctx.fillRect(x + w * s2 - w * 0.025, y - h * 0.3, w * 0.05, h * 0.3);
-      ctx.fillStyle = '#a1785a'; ctx.fillRect(x - w * 0.42, y - h * 0.62, w * 0.84, h * 0.34);
-      ctx.fillStyle = '#3e2a1c'; ctx.fillRect(x - w * 0.09, y - h * 0.52, w * 0.18, h * 0.24);
-      quad(x - w * 0.55, y - h * 0.6, x, y - h, x, y - h, x + w * 0.55, y - h * 0.6, '#c9a25a');
-      quad(x - w * 0.3, y - h * 0.78, x, y - h, x, y - h, x + w * 0.05, y - h * 0.6, '#b38c49');
+    case 'islet': { // a little sandy island with a palm or three
+      foam(w * 0.56, w * 0.06);
+      ctx.fillStyle = (seg && seg.biome.island) || '#e9d29a';
+      ctx.beginPath(); ctx.ellipse(x, y, w * 0.5, h * 0.14, 0, Math.PI, 0); ctx.fill();
+      ctx.fillStyle = 'rgba(46,125,50,.55)';
+      ctx.beginPath(); ctx.ellipse(x, y - h * 0.04, w * 0.3, h * 0.08, 0, Math.PI, 0); ctx.fill();
+      const pk = k * 0.9;
+      for (let i = 0; i < (s.palms || 1); i++) {
+        const px = x + w * (i - ((s.palms || 1) - 1) / 2) * 0.22;
+        drawSprite({ type: 'palm' }, px, y - h * 0.08, pk * (1 - i * 0.12));
+      }
       break;
-    case 'lighthouse': { // tapered striped tower with a lamp that glows at night
+    }
+    case 'seastack': { // tall rock column standing out of the sea
+      foam(w * 0.6);
+      ctx.fillStyle = '#6f6a64';
+      ctx.beginPath(); ctx.moveTo(x - w * 0.45, y); ctx.lineTo(x - w * 0.32, y - h * 0.55); ctx.lineTo(x - w * 0.2, y - h);
+      ctx.lineTo(x + w * 0.12, y - h * 0.92); ctx.lineTo(x + w * 0.3, y - h * 0.5); ctx.lineTo(x + w * 0.45, y); ctx.closePath(); ctx.fill();
+      quad(x + w * 0.12, y - h * 0.92, x + w * 0.3, y - h * 0.5, x + w * 0.45, y, x, y, '#57524d');
+      ctx.fillStyle = '#ffffff'; ellipse(x - w * 0.05, y - h * 0.97, w * 0.14, h * 0.025); // birds' perch
+      break;
+    }
+    case 'whale': { // a whale's back and tail fluke, now and then spouting
+      const ph = (time * 0.5 + x * 0.001) % 1;
+      foam(w * 0.5, w * 0.05);
+      ctx.fillStyle = '#2f3b46';
+      ctx.beginPath(); ctx.ellipse(x - w * 0.12, y, w * 0.32, h * 0.22, 0, Math.PI, 0); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(x + w * 0.2, y); ctx.quadraticCurveTo(x + w * 0.28, y - h * 0.4, x + w * 0.3, y - h * 0.62);
+      ctx.lineTo(x + w * 0.46, y - h * 0.8); ctx.quadraticCurveTo(x + w * 0.36, y - h * 0.58, x + w * 0.32, y - h * 0.5);
+      ctx.quadraticCurveTo(x + w * 0.22, y - h * 0.62, x + w * 0.12, y - h * 0.82); ctx.quadraticCurveTo(x + w * 0.22, y - h * 0.5, x + w * 0.2, y); ctx.fill();
+      if (ph < 0.4) { // spout
+        const sp = ph / 0.4;
+        ctx.fillStyle = `rgba(255,255,255,${0.75 * (1 - sp)})`;
+        ellipse(x - w * 0.22, y - h * (0.3 + sp * 0.9), w * (0.05 + sp * 0.08), h * (0.12 + sp * 0.2));
+      }
+      break;
+    }
+    case 'farship': // a ship sailing well off the lane
+      drawVehicle(x, y, k * 0.85, s.ship, false, false, 0.6);
+      break;
+    case 'wreck': { // a sunken ship's broken mast and stern poking out of the water
+      foam(w * 0.5, w * 0.05);
+      ctx.fillStyle = '#4e342e';
+      ctx.beginPath(); ctx.moveTo(x - w * 0.42, y); ctx.lineTo(x - w * 0.3, y - h * 0.22); ctx.lineTo(x + w * 0.05, y - h * 0.3);
+      ctx.lineTo(x + w * 0.1, y); ctx.closePath(); ctx.fill();
+      ctx.save(); ctx.translate(x + w * 0.05, y); ctx.rotate(0.35);
+      ctx.fillRect(-w * 0.03, -h, w * 0.06, h);
+      ctx.fillRect(-w * 0.22, -h * 0.75, w * 0.44, h * 0.03);
+      ctx.fillStyle = 'rgba(230,220,195,.85)'; ctx.fillRect(-w * 0.2, -h * 0.72, w * 0.18, h * 0.22); // torn sail
+      ctx.restore();
+      break;
+    }
+    case 'gulls': { // a few seabirds wheeling high over the water
+      ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.lineWidth = Math.max(1, w * 0.02); ctx.lineCap = 'round';
+      for (let i = 0; i < 3; i++) {
+        const bx = x + Math.sin(time * 0.7 + i * 2.1) * w * 0.4, by = y - h * (0.65 + i * 0.12) + Math.cos(time + i) * h * 0.04;
+        const flap = Math.sin(time * 6 + i) * w * 0.04, bw = w * 0.12;
+        ctx.beginPath(); ctx.moveTo(bx - bw, by - flap); ctx.quadraticCurveTo(bx - bw * 0.4, by - bw * 0.5, bx, by);
+        ctx.quadraticCurveTo(bx + bw * 0.4, by - bw * 0.5, bx + bw, by - flap); ctx.stroke();
+      }
+      ctx.lineCap = 'butt';
+      break;
+    }
+    case 'lighthouse': { // tapered striped tower on a rocky islet, with a lamp that glows at night
       const top = y - h * 0.86, tw = w * 0.22, bw = w * 0.38;
-      ctx.fillStyle = '#8d8d8d'; ctx.fillRect(x - w * 0.5, y - h * 0.05, w, h * 0.05);
+      foam(w * 1.1, w * 0.12);
+      ctx.fillStyle = '#6f6a64';
+      ctx.beginPath(); ctx.ellipse(x, y, w * 0.9, h * 0.08, 0, Math.PI, 0); ctx.fill();
       quad(x - bw, y - h * 0.05, x - tw, top, x + tw, top, x + bw, y - h * 0.05, '#f5f5f5');
       for (const [a, b] of [[0.2, 0.32], [0.48, 0.6]]) {
         const ya = y - h * (0.05 + a * 0.81), yb = y - h * (0.05 + b * 0.81);
@@ -1145,12 +1192,6 @@ function drawSprite(s, x, y, k) {
       pushLight(x, top - h * 0.055, h * 0.25, '255,230,150', 1, true);
       break;
     }
-    case 'rock':
-      ctx.fillStyle = '#8d8d8d';
-      ctx.beginPath(); ctx.moveTo(x - w * 0.5, y); ctx.lineTo(x - w * 0.4, y - h * 0.6); ctx.lineTo(x - w * 0.1, y - h);
-      ctx.lineTo(x + w * 0.3, y - h * 0.8); ctx.lineTo(x + w * 0.5, y); ctx.closePath(); ctx.fill();
-      quad(x - w * 0.1, y - h, x + w * 0.3, y - h * 0.8, x + w * 0.5, y, x + w * 0.05, y, '#6f6f6f');
-      break;
     case 'buoy': { // small floating channel marker, bobbing
       const by = y + Math.sin(time * 3 + x * 0.05) * h * 0.06;
       ctx.fillStyle = 'rgba(255,255,255,.55)'; ellipse(x, y, w * 0.8, Math.max(0.5, w * 0.18));
@@ -1158,21 +1199,12 @@ function drawSprite(s, x, y, k) {
       ctx.fillStyle = '#ffffff'; ctx.fillRect(x - w * 0.36, by - h * 0.55, w * 0.72, h * 0.14);
       break;
     }
-    case 'lamp': { // wooden marker post in the surf with a hanging lantern
-      const dir = s.side, hx = x + dir * h * 0.22, hy = y - h + w * 0.6;
+    case 'billboard': { // a banner flown from a moored raft
+      foam(w * 0.5, w * 0.04);
+      ctx.fillStyle = '#6d4c41'; ctx.fillRect(x - w * 0.42, y - h * 0.06, w * 0.84, h * 0.06);
       ctx.fillStyle = '#5d4037';
-      ctx.fillRect(x - w * 0.15, y - h, w * 0.3, h);
-      ctx.fillRect(Math.min(x, hx), y - h, Math.abs(hx - x), w * 0.2);
-      ctx.fillStyle = '#c62828'; ctx.fillRect(x - w * 0.16, y - h * 0.3, w * 0.32, h * 0.06);
-      ctx.fillStyle = '#3e2a1c'; ctx.fillRect(hx - w * 0.03, y - h, w * 0.06, w * 0.4);
-      ctx.fillStyle = '#ffe08a'; rrect(hx - w * 0.3, hy - w * 0.25, w * 0.6, w * 0.6, w * 0.1);
-      pushLight(hx, hy, h * 0.3, '255,214,140', 0.9, true);
-      break;
-    }
-    case 'billboard': {
-      ctx.fillStyle = '#5d4037';
-      ctx.fillRect(x - w * 0.32, y - h * 0.55, w * 0.05, h * 0.55);
-      ctx.fillRect(x + w * 0.27, y - h * 0.55, w * 0.05, h * 0.55);
+      ctx.fillRect(x - w * 0.32, y - h * 0.55, w * 0.05, h * 0.5);
+      ctx.fillRect(x + w * 0.27, y - h * 0.55, w * 0.05, h * 0.5);
       ctx.fillStyle = s.color; rrect(x - w / 2, y - h, w, h * 0.5, w * 0.03);
       ctx.strokeStyle = '#fff'; ctx.lineWidth = Math.max(1, w * 0.015); ctx.stroke();
       if (w > 40) {

@@ -79,7 +79,8 @@
     ['Cold War & Decolonization Map', 'unit8-map.html', 'Cold War blocs, proxy wars, and independence dates.', 'map cold war nato warsaw pact proxy wars decolonization partition iron curtain unit 8', 'Map'],
     ['Globalization Map', 'unit9-map.html', 'Trade blocs, disease, rights movements, and the environment.', 'map globalization trade blocs eu nafta green revolution disease rights environment unit 9', 'Map'],
     ['Hex Web (Unit 2)', 'unit2-hexweb.html', 'Connect Unit 2 terms with hexagonal thinking.', 'hex web hexagonal thinking game connections unit 2', 'Game'],
-    ['Empire Road (Unit 3)', 'unit3-racer.html', 'Lane-runner racer: switch into the gate with the right answer.', 'empire road racer racing car driving game checkpoint gates land empires unit 3', 'Game']
+    ['Empire Road (Unit 3)', 'unit3-racer.html', 'Lane-runner racer: switch into the gate with the right answer.', 'empire road racer racing car driving game checkpoint gates land empires unit 3', 'Game'],
+    ['Sea Lanes (Unit 4)', 'unit4-voyage.html', 'Sailing lane-runner: steer your caravel into the gate with the right answer.', 'sea lanes voyage sailing ship caravel boat game checkpoint gates transoceanic unit 4', 'Game']
   ];
 
   var INDEX = [];

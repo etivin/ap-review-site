@@ -79,7 +79,7 @@ site; Eli edits content.
 | `unit1.html` … `unit9.html` | The nine unit hubs (anatomy in §4). |
 | `unitN-map.html` | Interactive Leaflet map, embedded in each unit's Maps tab. Units 1, 5–9 use `unit-map-engine.js` + a `window.UNIT_MAP` object; Units 2–4 are hand-built. |
 | `unitN-interrogate.html` | "Myth Sweeper" fact/myth game, one per unit, linked from the Games tab. |
-| `unit2-hexweb.html`, `unit3-racer.html` | One-off games (Hex Web, Empire Road). |
+| `unit2-hexweb.html`, `unit3-racer.html`, `unit4-voyage.html` | One-off games (Hex Web, Empire Road, Sea Lanes). Sea Lanes is a copy of Empire Road with ships, reefs and Unit 4 questions (`QUESTIONS` array in the page). |
 | `cumulative.html` + `cumulative.js` | Cumulative Review: cross-unit MCQ mix. |
 | `flashcards.html` | Flashcard Hub (Anki-style decks, custom study, browse) for every unit. |
 | `sbmcq.html` | "Attack the Stimulus MCQ" strategy page and worked examples. |
@@ -173,7 +173,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `writing-drills.js/.css` + `writing-prompts.js` | Writing Drills tab | `WRITING_PROMPTS[n] = {saq:[{source, excerpt, parts, partExemplars}], leq:[{intro, prompt, rubric}], dbq:{documents:[{n, source, text?, image?, imageAlt?, imageCredit?}], rubric?}, dbqs?:[more DBQs]}`; add prompts as a merge IIFE at the end of the file. A unit has one `dbq`; extra DBQs go in `dbqs` (Practice Sets 1–4 use this). SAQs may carry `image`. Prompts without `partExemplars`/`rubric` render as a plain textarea with the automatic checker |
 | `spaced.js` | Spaced-review store + streak banner | `SPACED.recordReview(itemId, correct, confidence)`; ids: MCQ `u{n}_{topic}_{idx}`, flashcards `u{n}_fc_{slug(term)}`, reverse side `rv_u{n}_fc_{slug}` |
 | `activity.js` | Records finished games and watched videos | `INPAGE` table watches end-screen ids: `#jeop-winner #match-success/#ng-success #sortit-score #sq-final #tl-result #ast-end #warmup-result` + Documents tab `#sa-model #rg-cards #pu-model`. Keep these ids. |
-| `games-lock.js` | Locks the Games tab (blurred, inert, animated lock panel with progress bar) and the standalone game pages `unitN-interrogate.html`, `unit2-hexweb.html`, `unit3-racer.html` (full-screen lock that swallows keys; those pages load `flashcard-data.js` + `games-lock.js` before `</body>`; add both to any new game page) until 20 cards of `FC_DATA[n]` (`CARDS_NEEDED`, or the whole deck if smaller) have been rated in the last 7 days (`FRESH_DAYS`; front or `rv_`), so games relock as cards go stale. Visible "Teacher unlock" button checks a code against a SHA-256 hash and unlocks all units on that browser; while that is on, a visible "Lock games again" bar on the Games tab turns it off | reads `apReview_v1.spaced`; keys `gamesLock_teacher`, `gamesLock_seen_uN` (opening animation shown once). |
+| `games-lock.js` | Locks the Games tab (blurred, inert, animated lock panel with progress bar) and the standalone game pages `unitN-interrogate.html`, `unit2-hexweb.html`, `unit3-racer.html`, `unit4-voyage.html` (full-screen lock that swallows keys; those pages load `flashcard-data.js` + `games-lock.js` before `</body>`; add both to any new game page) until 20 cards of `FC_DATA[n]` (`CARDS_NEEDED`, or the whole deck if smaller) have been rated in the last 7 days (`FRESH_DAYS`; front or `rv_`), so games relock as cards go stale. Visible "Teacher unlock" button checks a code against a SHA-256 hash and unlocks all units on that browser; while that is on, a visible "Lock games again" bar on the Games tab turns it off | reads `apReview_v1.spaced`; keys `gamesLock_teacher`, `gamesLock_seen_uN` (opening animation shown once). |
 | `bd-confidence.js` | Predict-before-reveal layer on Brain Dump | hooks `#bd-reveal.active`, `.bd-card-list` |
 | `timeline.js` + `timeline-data.js` | Overview tab illustrated timeline | `TIMELINE_DATA[n] = [{year, title, topic?, desc, img, alt, pos?}]`; renders into `<div id="tl-list" data-unit="N">`, wires `#scroll-timeline-btn` |
 | `spice.js/.css` + `spice-data.js` | SPICE-T cards | `SPICE[n] = [{key:"s"|"p"|"i"|"c"|"e"|"t", desc, items:[html]}]`; category names fixed in `spice.js`; mount `<div class="spice-mount" data-unit="N">` |
@@ -197,7 +197,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 `apReview_v1` (everything about progress: `spaced`, `studyLog`, `components['uN']` games/videos,
 `lastSeen`, legacy `mcq`/`drafts`). **Always read-modify-write the current value; never write back
 a copy loaded earlier** (that erases progress saved since). Others: `mcTheme`, `fcHub_v1` (Hub
-settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
+settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `u4VoyageBest`, `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
 `apwh-timer-*`.
 
 ## 6. Not shared yet (each unit has its own inline copy)

@@ -56,6 +56,10 @@ site; Eli edits content.
   `showTab('pg-xxx')`, check the console for errors, and exercise the feature. Known noise you can
   ignore: `Invalid LatLng` errors from the map iframe when it's hidden, and a 404 for
   `unit 7 slides.pdf`.
+- **Browser caching:** Cloudflare serves `.js`/`.css` with `Cache-Control: max-age=14400`, so browsers
+  keep an old script for up to 4 hours after a deploy (HTML pages are `no-cache`). When a script change
+  must show up right away, bump a version query on its tag in the pages that load it, e.g.
+  `tour.js?v=20261015` in `unit1.html` … `unit9.html`.
 - Commit trailer used in this repo: `Co-Authored-By: Claude <model> <noreply@anthropic.com>`.
 - **Cloudflare night lock (server side):** tivinteaches.com DNS is on Cloudflare with the records
   **Proxied**, and the Worker `night-lock` (route `*tivinteaches.com/*`, fail open) serves the

@@ -22,9 +22,9 @@
           title:'Overview', body:'Start here. Read the unit summary, scroll the timeline, and watch the review video.',
           why:'If you know the 3–4 big stories first, every new fact has somewhere to stick.' },
         { id:'p1-guide', page:'pg-guide', label:'Skim the Study Guide so you know every topic coming',
-          title:'Study Guide', body:'Every topic in the unit, in order. Skim it now so nothing surprises you later.',
+          title:'Study Guide', body:'Every topic in the unit, in order. Skim it now so nothing surprises you later. When a word comes up in class you don’t know, look it up in the Glossary.',
           why:'Knowing the whole list up front lets you notice when class is covering a big one.' },
-        { id:'p1-gloss', page:'pg-glossary', label:'Find the Glossary: look terms up here when they come up in class',
+        { id:'p1-gloss', tour:false, page:'pg-glossary', label:'Find the Glossary: look terms up here when they come up in class',
           title:'Glossary', body:'Every key term with its definition. Use it when a word comes up in class you don’t know.',
           why:'Look up and move on. Don’t spend an hour copying definitions; that comes later as flashcards.' }
       ]},
@@ -32,15 +32,15 @@
       goal:'Work with the evidence while the topic is fresh.',
       items:[
         { id:'p2-docs', page:'pg-source', label:'Read and analyze that topic’s documents',
-          title:'Documents', body:'Primary sources for each topic, with questions that go beyond “what is this?”',
+          title:'Documents', body:'Primary sources for each topic, with questions that go beyond “what is this?” Visual Sources and Maps sit right next to it, and a SPICE-T chart (under Review &amp; Recall) helps you sort what you learned.',
           why:'The AP exam is built on sources. Practicing on them weekly beats cramming them at the end.' },
-        { id:'p2-visual', page:'pg-visual', label:'Analyze one visual source with HIPP',
+        { id:'p2-visual', tour:false, page:'pg-visual', label:'Analyze one visual source with HIPP',
           title:'Visual Sources', body:'Paintings, maps, and images with guided HIPP analysis (Historical context, Intended audience, Purpose, Point of view).',
           why:'Images show up on the exam too, and they’re easy points once you have a routine.' },
-        { id:'p2-maps', page:'pg-maps', label:'Check the map: where, how big, and who was next door',
+        { id:'p2-maps', tour:false, page:'pg-maps', label:'Check the map: where, how big, and who was next door',
           title:'Maps', body:'Interactive maps for the unit. Find where each topic happened and what was nearby.',
           why:'Geography explains a lot of “why”: trade, conflict, and how ideas spread.' },
-        { id:'p2-spice', page:'pg-spice', label:'Fill out a SPICE-T chart for the topic',
+        { id:'p2-spice', tour:false, page:'pg-spice', label:'Fill out a SPICE-T chart for the topic',
           title:'SPICE-T', body:'Sort what you learned into Social, Political, Interactions, Cultural, Economic, Technology.',
           why:'This is how essays get organized. Sorting now makes comparing and writing much faster later.' }
       ]},
@@ -51,20 +51,20 @@
           title:'Flashcards', body:'Try to answer before you flip, then rate yourself honestly. The site brings Shaky and Guessing cards back sooner.',
           why:'Spaced review: short sessions spread over days beat one long session the night before.' },
         { id:'p3-brain', page:'pg-brain', label:'Do a 5-minute Brain Dump on one topic',
-          title:'Brain Dump', body:'Pick a topic and write everything you remember for 5 minutes. Then compare with what you missed.',
+          title:'Brain Dump', body:'Pick a topic and write everything you remember for 5 minutes. Then compare with what you missed. Games are in this same group, as a reward after you study.',
           why:'Pulling information out of your memory (retrieval) works far better than rereading notes.' },
-        { id:'p3-games', page:'pg-games', label:'Play a game as a reward after you study',
+        { id:'p3-games', tour:false, page:'pg-games', label:'Play a game as a reward after you study',
           title:'Games', body:'Review games for the unit: Myth Sweeper, the unit challenge, and putting the story in order.',
           why:'Games are for after real studying, not instead of it. Use them to check what stuck.' }
       ]},
     { n:4, name:'Practice Like the Exam', when:'Once most of the topics are covered',
       goal:'Use what you know the way the AP exam asks for it.',
       items:[
-        { id:'p4-walk', page:'pg-walk', label:'Learn the 4-step habit for stimulus MCQs',
+        { id:'p4-walk', tour:false, page:'pg-walk', label:'Learn the 4-step habit for stimulus MCQs',
           title:'How to Attack an MCQ', body:'A step-by-step walkthrough of a real stimulus question. Learn the habit before you drill.',
           why:'Most misses come from misreading what the question asks, not from not knowing the history.' },
         { id:'p4-mcq', page:'pg-mcq', label:'Do MCQs in Quick Check, with an honest confidence tap on each',
-          title:'MCQ Questions', body:'Stimulus-based questions by topic. After each answer, tap how sure you were.',
+          title:'MCQ Questions', body:'Stimulus-based questions by topic. After each answer, tap how sure you were. New to stimulus questions? The MCQ Walkthrough next to it shows the 4-step habit first.',
           why:'Your confidence taps show whether you really know it or just got lucky.' },
         { id:'p4-write', page:'pg-writing', label:'Do one Writing Drill (SAQ, LEQ, or DBQ)', link:{href:'writing-guide.html', text:'Open the Writing Guide'},
           title:'Writing Drills', body:'Practice prompts for this unit. Stuck on the format? The Writing Guide breaks down the SAQ, LEQ, and DBQ.',
@@ -74,15 +74,15 @@
       goal:'Find your gaps and fix them. Don’t reread everything.',
       items:[
         { id:'p5-test', page:'pg-mcq', label:'Take MCQs in Test Mode, then fix every “Confident but wrong”',
-          title:'MCQ Test Mode', body:'Switch to Test Mode for exam conditions. When it’s done, check the results card.',
+          title:'MCQ Test Mode', body:'Switch to Test Mode for exam conditions. When it’s done, check the results card. Then redo Brain Dumps for your weakest topics and clear the flashcards that are due.',
           why:'“Confident but wrong” answers are the most dangerous ones. Fix those first.' },
-        { id:'p5-brain', page:'pg-brain', label:'Redo Brain Dumps for your weakest topics',
+        { id:'p5-brain', tour:false, page:'pg-brain', label:'Redo Brain Dumps for your weakest topics',
           title:'Brain Dump, again', body:'Go back to the topics you’re least sure of and write them out again.',
           why:'Compare it to your first try. The gaps that are left are what to study tonight.' },
-        { id:'p5-due', page:'pg-flash', target:'.spx-banner', label:'Clear the flashcards the streak bar says are ready for review',
+        { id:'p5-due', tour:false, page:'pg-flash', target:'.spx-banner', label:'Clear the flashcards the streak bar says are ready for review',
           title:'Study Streak', body:'This bar tracks your study days and how many terms are due for review today.',
           why:'Clearing what’s due each day keeps everything fresh without cramming.' },
-        { id:'p5-cume', page:'', label:'Optional: Cumulative Review of earlier units', link:{href:'cumulative.html', text:'Open Cumulative Review'},
+        { id:'p5-cume', tour:false, page:'', label:'Optional: Cumulative Review of earlier units', link:{href:'cumulative.html', text:'Open Cumulative Review'},
           title:'Cumulative Review', body:'The AP exam covers every unit. Mixed review of earlier units keeps them from fading.',
           why:'A little old material mixed in now saves a lot of relearning in May.' }
       ]}
@@ -237,7 +237,15 @@
       else if (act === 'print') printPanel();
       else if (act === 'reset'){ saveDone({}); modal.querySelectorAll('input[type=checkbox]').forEach(function(c){ c.checked = false; }); refreshProg(); }
       var sh = t.closest('[data-show]');
-      if (sh){ var idx = tourIndexOf(sh.getAttribute('data-show')); closePanel(); startTour(idx); }
+      if (sh){
+        var sid = sh.getAttribute('data-show'), idx = tourIndexOf(sid);
+        closePanel();
+        if (idx >= 0) startTour(idx);
+        else {   // checklist item without its own tour step: just open its tab
+          var it = ALL.filter(function(x){ return x.id === sid; })[0];
+          if (it && it.page && typeof window.showTab === 'function') window.showTab(it.page);
+        }
+      }
     });
     modal.addEventListener('change', function(e){
       if (!e.target.matches('input[type=checkbox]')) return;
@@ -274,15 +282,13 @@
     var s = [{ intro:true, title:'How to work through Unit ' + UNIT,
       body:'This page has a lot of tools. The trick is using the right one at the right time. This tour goes through the unit in 5 phases and shows where everything is.',
       why:'Follow the phases in order across the unit. Studying in small pieces over time beats one big cram.' }];
-    liveItems().forEach(function(it){ s.push(it); });
-    if (document.querySelector('.ss-btn')) s.push({ title:'Lost? Search.', target:'.ss-btn',
-      body:'Search finds any term, tool, or page on the site. Press / or Ctrl+K from anywhere.', why:'Faster than clicking around when you know what you need.' });
+    liveItems().forEach(function(it){ if (it.tour !== false) s.push(it); });
     s.push({ outro:true, title:'That’s the plan.',
-      body:'Your Game Plan checklist has all 5 phases. Check things off as you go, or print it and keep it in your binder.',
+      body:'Your Game Plan checklist has every step of all 5 phases. Check things off as you go, or print it and keep it in your binder. Lost? Press / or Ctrl+K to search the whole site.',
       why:'You can reopen this anytime from “How to Work This Unit” at the top of the sidebar.' });
     return s;
   }
-  function tourIndexOf(id){ if (!STEPS) STEPS = buildSteps(); for (var i = 0; i < STEPS.length; i++) if (STEPS[i].id === id) return i; return 0; }
+  function tourIndexOf(id){ if (!STEPS) STEPS = buildSteps(); for (var i = 0; i < STEPS.length; i++) if (STEPS[i].id === id) return i; return -1; }
 
   function startTour(i){
     STEPS = STEPS || buildSteps();

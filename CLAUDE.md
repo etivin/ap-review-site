@@ -134,7 +134,7 @@ needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.htm
 
 `<head>`: the four browser-tab icon links first (`favicon.ico`, `favicon-32.png`, `favicon-192.png`,
 `apple-touch-icon.png`, all made from `tivin-emblem.png`; every page on the site has them, so copy
-them into any new page), then `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `brand.css`,
+them into any new page), then `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `pomodoro.js`, `brand.css`,
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
 `flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`, `source-practice.css`, `spice.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
@@ -189,6 +189,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `theme.js/.css` | Dark mode | `localStorage.mcTheme`, `[data-theme="dark"]` |
 | `brand.js/.css` | Tivin Teaches logo lockup | |
 | `bedtime.js` | 8:00–9:30 PM dismissible "go to sleep" nudge; 9:30 PM–5:00 AM full-page night lock (sleep statistics, page inert, keys swallowed) with a visible "Teacher unlock" box (same SHA-256 hash as `games-lock.js`) that unlocks that browser for the rest of the night | key `bedtimeUnlock` (night id, YYYY-MM-DD of the evening) |
+| `pomodoro.js` | Break reminder on every page that loads `bedtime.js` (not `timer.html`, not map iframes): counts visible time on the site across pages and tabs; after 25 minutes asks for a 5-minute break ("Start my 5-minute break" shows a countdown on every open tab with a visible "End break early"; "5 more minutes" snoozes). Being away 5+ minutes counts as a break. Self-contained styles, takes the page `--red` | key `pomoBreak_v1` `{work, last, breakEnd}` |
 | `unit-map-engine.js` + `world-basemap.js` + `unit-map.css` | Unit maps | `window.UNIT_MAP = {routes, polities, themes}` |
 | `cumulative.js` | Cumulative Review logic | reads `mcq-bank.js` |
 
@@ -196,7 +197,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 `apReview_v1` (everything about progress: `spaced`, `studyLog`, `components['uN']` games/videos,
 `lastSeen`, legacy `mcq`/`drafts`). **Always read-modify-write the current value; never write back
 a copy loaded earlier** (that erases progress saved since). Others: `mcTheme`, `fcHub_v1` (Hub
-settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`,
+settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
 `apwh-timer-*`.
 
 ## 6. Not shared yet (each unit has its own inline copy)

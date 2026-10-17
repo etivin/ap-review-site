@@ -295,6 +295,19 @@ button{font-family:inherit;cursor:pointer}
 .video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
 .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .video-desc{font-size:.83rem;color:rgba(255,255,255,.5);line-height:1.65;padding:12px 16px 16px}
+/* Heimler collapsible tab */
+.heimler-collapse{max-width:1040px;margin:30px auto 0;text-align:left;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03)}
+.heimler-collapse>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:18px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;user-select:none}
+.heimler-collapse>summary::-webkit-details-marker{display:none}
+.heimler-collapse>summary .hc-chevron{margin-left:auto;font-size:1.1rem;color:var(--gold-b);transition:transform .25s ease}
+.heimler-collapse[open]>summary .hc-chevron{transform:rotate(180deg)}
+.heimler-collapse>summary .hc-badge{font-size:.56rem;font-weight:700;letter-spacing:.14em;color:var(--ink);background:var(--gold-b);padding:3px 8px;border-radius:3px}
+.heimler-collapse>summary .hc-hint{font-family:Georgia,serif;font-weight:400;font-size:.72rem;letter-spacing:.02em;text-transform:none;color:rgba(255,255,255,.45)}
+.heimler-body{padding:6px 22px 26px}
+.heimler-body>p{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 22px;max-width:720px}
+.heimler-grid{display:flex;flex-wrap:wrap;gap:22px}
+.heimler-grid .video-card{border-top-color:var(--gold-b);flex:0 1 calc(50% - 11px)}
+@media(max-width:640px){.heimler-grid .video-card{flex:1 1 100%}}
 </style>
 <link rel="stylesheet" href="sbmcq.css"/>
 <script src="sbmcq.js"></script>
@@ -466,6 +479,84 @@ button{font-family:inherit;cursor:pointer}
           <div class="video-desc">Jim Rhoades&rsquo; thematic review of Unit 5, the same material organized around the AP course themes.</div>
         </div>
       </div>
+
+      <!-- HEIMLER'S HISTORY: collapsible -->
+      <details class="heimler-collapse">
+        <summary>
+          <span class="hc-badge">Heimler&rsquo;s History</span>
+          <span>Topic-by-Topic Video Review</span>
+          <span class="hc-hint">click to expand</span>
+          <span class="hc-chevron">&#9662;</span>
+        </summary>
+        <div class="heimler-body">
+          <p>Steve Heimler&rsquo;s topic-by-topic walkthrough of Unit 5, one short video per topic (5.1&ndash;5.9). Perfect for reviewing a single concept at a time. Heimler numbers these by his own topic list, so his numbers may not match this site&rsquo;s topics exactly.</p>
+          <div class="heimler-grid">
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.1: The Enlightenment</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/teTYdvjpSoM" title="Heimler's History: Topic 5.1: The Enlightenment" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">Enlightenment thinkers and the new ideas about natural rights, reason, and government.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.2: Nationalism and Revolutions, 1750&ndash;1900</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/AD5YKzFgqEc" title="Heimler's History: Topic 5.2: Nationalism and Revolutions, 1750-1900" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">The American, French, Haitian, and Latin American revolutions and the rise of nationalism.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.3: How the Industrial Revolution Began</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/qMQvfN0psQA" title="Heimler's History: Topic 5.3: How the Industrial Revolution Began" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">Why industrialization started in Great Britain: coal, iron, rivers, capital, and the agricultural revolution.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.4: The Spread of Industrialization, 1750&ndash;1900</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/r3-y8uGI38k" title="Heimler's History: Topic 5.4: The Spread of Industrialization, 1750-1900" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">How industry spread to Western Europe, the United States, Russia, and Japan, and its effects elsewhere.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.5: Technology of the Industrial Age</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/1s7b-guOZ_8" title="Heimler's History: Topic 5.5: Technology of the Industrial Age" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">The steam engine, railroads, steamships, the telegraph, and the second industrial revolution.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.6: Government-Sponsored Industrialization</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/s-Ai6zTkwag" title="Heimler's History: Topic 5.6: Government-Sponsored Industrialization" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">State-led industry in Meiji Japan, Russia, and the Ottoman Empire and Egypt.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.7: The Economics of the Industrial Revolution</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/U42LG2ex3Bc" title="Heimler's History: Topic 5.7: The Economics of the Industrial Revolution" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">Laissez-faire capitalism, Adam Smith, corporations, and new financial institutions.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.8: Reactions to the Industrial Revolution</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/9-uuyd2MFF0" title="Heimler's History: Topic 5.8: Reactions to the Industrial Revolution" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">Labor unions, socialism and Marxism, and reform movements in response to industrial capitalism.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 5.9: Society and the Industrial Age</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/m2-RxDMZjHQ" title="Heimler's History: Topic 5.9: Society and the Industrial Age" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">How industrialization changed social classes, family life, gender roles, and cities.</div>
+            </div>
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 

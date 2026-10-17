@@ -107,6 +107,19 @@ img{display:block;max-width:100%}
 .video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
 .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
 .video-desc{font-size:.83rem;color:rgba(255,255,255,.45);line-height:1.65;padding:12px 16px 0}
+/* Heimler collapsible tab */
+.heimler-collapse{max-width:1040px;margin:30px auto 0;text-align:left;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03)}
+.heimler-collapse>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:18px 22px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;user-select:none}
+.heimler-collapse>summary::-webkit-details-marker{display:none}
+.heimler-collapse>summary .hc-chevron{margin-left:auto;font-size:1.1rem;color:var(--gold-b);transition:transform .25s ease}
+.heimler-collapse[open]>summary .hc-chevron{transform:rotate(180deg)}
+.heimler-collapse>summary .hc-badge{font-size:.56rem;font-weight:700;letter-spacing:.14em;color:var(--ink);background:var(--gold-b);padding:3px 8px;border-radius:3px}
+.heimler-collapse>summary .hc-hint{font-family:Georgia,serif;font-weight:400;font-size:.72rem;letter-spacing:.02em;text-transform:none;color:rgba(255,255,255,.45)}
+.heimler-body{padding:6px 22px 26px}
+.heimler-body>p{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.6;margin:0 0 22px;max-width:720px}
+.heimler-grid{display:flex;flex-wrap:wrap;gap:22px}
+.heimler-grid .video-card{border-top-color:var(--gold-b);flex:0 1 calc(50% - 11px)}
+@media(max-width:640px){.heimler-grid .video-card{flex:1 1 100%}}
 
 /* ── TIMELINE ── */
 .tl-section{background:#2a2a1e;padding:72px 24px 80px;overflow:hidden}
@@ -649,6 +662,77 @@ img{display:block;max-width:100%}
           <p class="video-desc">Jim Rhoades&rsquo; thematic review of Unit 7, the same material organized around the AP course themes.</p>
         </div>
       </div>
+
+      <!-- HEIMLER'S HISTORY: collapsible -->
+      <details class="heimler-collapse">
+        <summary>
+          <span class="hc-badge">Heimler&rsquo;s History</span>
+          <span>Topic-by-Topic Video Review</span>
+          <span class="hc-hint">click to expand</span>
+          <span class="hc-chevron">&#9662;</span>
+        </summary>
+        <div class="heimler-body">
+          <p>Steve Heimler&rsquo;s topic-by-topic walkthrough of Unit 7, one short video per topic (7.1&ndash;7.8). Perfect for reviewing a single concept at a time. Heimler numbers these by his own topic list, so his numbers may not match this site&rsquo;s topics exactly.</p>
+          <div class="heimler-grid">
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 7.1: The Shifting of State Power After 1900</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/wl7KVg8TOs0" title="Heimler's History: Topic 7.1: The Shifting of State Power After 1900" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">The collapse of the Qing, Ottoman, and Russian empires and the Mexican Revolution.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 7.2: The Causes of World War I</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/cLR-bgx-Egs" title="Heimler's History: Topic 7.2: The Causes of World War I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">Militarism, alliances, imperialism, and nationalism, and the spark at Sarajevo.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 7.3: How World War I Was Fought</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/IkdzwNZBa2E" title="Heimler's History: Topic 7.3: How World War I Was Fought" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">Total war, trench warfare, new weapons, propaganda, and colonial troops.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 7.4: The Global Economy Between the Wars</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/7AlF1WByj1Y" title="Heimler's History: Topic 7.4: The Global Economy Between the Wars" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">The Great Depression and how governments responded, from the New Deal to fascist and Soviet planning.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 7.5: Unresolved Tensions After World War I</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/vh-0VnSFb-0" title="Heimler's History: Topic 7.5: Unresolved Tensions After World War I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">The peace settlements, the mandate system, and growing anti-colonial movements.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 7.6: The Causes of World War II</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/3WrJcvlc5AM" title="Heimler's History: Topic 7.6: The Causes of World War II" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">The rise of fascism, the Treaty of Versailles, appeasement, and Japanese and German aggression.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 7.7: How World War II Was Fought</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/YFs7R6kzVtE" title="Heimler's History: Topic 7.7: How World War II Was Fought" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">Total war again: mobilization, firebombing, the atomic bomb, and the home front.</div>
+            </div>
+            <div class="video-card">
+              <div class="video-label">&#127909; Topic 7.8: Mass Atrocities in the 20th Century</div>
+              <div class="video-wrap">
+                <iframe src="https://www.youtube.com/embed/-zGOqCqqX-w" title="Heimler's History: Topic 7.8: Mass Atrocities in the 20th Century" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+              </div>
+              <div class="video-desc">The Armenian Genocide, the Holocaust, the Holodomor, and other mass killings.</div>
+            </div>
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 

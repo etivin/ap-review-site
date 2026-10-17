@@ -3,7 +3,7 @@
    NOT part of the GitHub Pages site. Paste this into the Cloudflare dashboard
    (Workers & Pages > night-lock > Edit code). Setup steps: cloudflare/README.md.
 
-   From 9:30 PM to 5:00 AM Eastern (Cloudflare's clock, not the student's),
+   From 10:30 PM to 5:00 AM Eastern (Cloudflare's clock, not the student's),
    every request gets the "closed for the night" page instead of the site,
    unless the browser has a signed teacher-unlock cookie for tonight.
    Developer tools on the student's side cannot get around it, because the
@@ -14,7 +14,7 @@
      UNLOCK_SECRET  any long random string; signs the unlock cookie
    ───────────────────────────────────────────────────────────── */
 
-const LOCK_MIN = 21 * 60 + 30; // 9:30 PM
+const LOCK_MIN = 22 * 60 + 30; // 10:30 PM
 const END_MIN = 5 * 60;        // 5:00 AM
 const COOKIE = "bt_unlock";
 
@@ -111,7 +111,7 @@ button{border:0;border-radius:12px;padding:11px 18px;font:inherit;font-size:15px
 </style></head><body><div class="w">
 <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
 <h1>The site is closed for the night</h1>
-<p class="sub">It’s ${clockLabel()}. Tivin Teaches locks from 9:30 PM to 5:00 AM Eastern. Anything you would review right now, you will remember better after a full night of sleep, so going to bed is the best studying you can do tonight.</p>
+<p class="sub">It’s ${clockLabel()}. Tivin Teaches locks from 10:30 PM to 5:00 AM Eastern. Anything you would review right now, you will remember better after a full night of sleep, so going to bed is the best studying you can do tonight.</p>
 <h3>The sleep numbers</h3><div class="g">${cards}</div>
 <div class="why"><h3>Why sleeping beats studying right now</h3><ul>
 <li><b>Your brain studies while you sleep.</b> Deep sleep replays what you learned today and files it into long-term memory. Stay up and you skip the step that makes it stick.</li>
@@ -159,7 +159,7 @@ export default {
     }
 
     // Normal hours (or unlocked): pass through to GitHub Pages. Pages must
-    // revalidate so a copy cached before 9:30 is not shown after it.
+    // revalidate so a copy cached before 10:30 is not shown after it.
     const res = await fetch(request);
     const type = res.headers.get("content-type") || "";
     if (!type.includes("text/html")) return res;

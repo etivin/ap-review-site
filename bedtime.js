@@ -1,10 +1,10 @@
 /* ─────────────────────────────────────────────────────────────
    Bedtime guard (US Eastern time, whatever the device clock says).
 
-   8:00 PM–9:30 PM  Soft nudge: an overlay asks whether the student should
+   8:00 PM–10:30 PM Soft nudge: an overlay asks whether the student should
                     be asleep. It can be dismissed and comes back every
                     15 minutes.
-   9:30 PM–5:00 AM  Night lock: a full page of sleep statistics covers the
+   10:30 PM–5:00 AM Night lock: a full page of sleep statistics covers the
                     site and cannot be dismissed. The page underneath is
                     inert and keys are swallowed. A visible "Teacher unlock"
                     box takes Eli's code (stored only as a SHA-256 hash, same
@@ -12,14 +12,14 @@
                     rest of tonight (localStorage bedtimeUnlock = night id).
 
    A page left open re-checks the clock every 30 seconds, so it locks at
-   9:30 on its own. Self-contained: injects its own styles.
+   10:30 on its own. Self-contained: injects its own styles.
    ───────────────────────────────────────────────────────────── */
 (function () {
   "use strict";
 
   // ---- Config ------------------------------------------------------------
   var NUDGE_MIN   = 20 * 60;        // 8:00 PM -> minutes since midnight
-  var LOCK_MIN    = 21 * 60 + 30;   // 9:30 PM
+  var LOCK_MIN    = 22 * 60 + 30;   // 10:30 PM
   var END_MIN     = 5  * 60;        // 5:00 AM (window wraps past midnight)
   var NAG_MS      = 15 * 60 * 1000; // re-prompt every 15 minutes
   var WAKE_MIN    = 6 * 60 + 30;    // assumed school-day wake-up for the sleep math
@@ -172,7 +172,7 @@
     else    { d.classList.remove("bedtime-locked"); if (b) b.classList.remove("bedtime-locked"); }
   }
 
-  // ---- Soft nudge (8:00 PM–9:30 PM) ---------------------------------------
+  // ---- Soft nudge (8:00 PM–10:30 PM) ---------------------------------------
   var nagTimer = null;
 
   function buildOverlay(isNag) {
@@ -195,7 +195,7 @@
     overlay.innerHTML = ''
       + '<div id="bedtime-card">'
       +   '<h2 id="bedtime-title">' + heading + '</h2>'
-      +   '<p class="bt-clock">Bedtime reminder 8:00 PM · site locks at 9:30 PM Eastern</p>'
+      +   '<p class="bt-clock">Bedtime reminder 8:00 PM · site locks at 10:30 PM Eastern</p>'
       +   '<p class="bt-lead">' + lead + '</p>'
       +   '<ul>'
       +     '<li><span><b>Memory gets locked in overnight.</b> During deep sleep your brain replays the day and moves what you studied into long-term memory. Skip the sleep and a lot of tonight’s work simply doesn’t stick.</span></li>'
@@ -250,7 +250,7 @@
     overlay.focus();
   }
 
-  // ---- Night lock (9:30 PM–5:00 AM) ---------------------------------------
+  // ---- Night lock (10:30 PM–5:00 AM) ---------------------------------------
   var STATS = [
     { num: "8–10 hrs", txt: "Sleep teenagers (13–18) need every night for health, memory, and mood.",
       src: "American Academy of Sleep Medicine, endorsed by the American Academy of Pediatrics (2016)" },
@@ -288,7 +288,7 @@
       + '<div class="bl-wrap">'
       +   '<svg class="bl-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>'
       +   '<h1 id="bl-title">The site is closed for the night</h1>'
-      +   '<p class="bl-sub">It’s <span class="bl-now">' + easternClockLabel() + '</span>. Tivin Teaches locks from 9:30 PM to 5:00 AM Eastern. '
+      +   '<p class="bl-sub">It’s <span class="bl-now">' + easternClockLabel() + '</span>. Tivin Teaches locks from 10:30 PM to 5:00 AM Eastern. '
       +   'Anything you would review right now, you will remember better after a full night of sleep, so going to bed is the best studying you can do tonight.</p>'
       +   '<p class="bl-left">If you go to sleep right now and get up at 6:30 AM, you’ll get<b class="bl-hrs">' + sleepLeftLabel() + '</b></p>'
       +   '<h3>The sleep numbers</h3>'

@@ -63,7 +63,7 @@ site; Eli edits content.
 - Commit trailer used in this repo: `Co-Authored-By: Claude <model> <noreply@anthropic.com>`.
 - **Cloudflare night lock (server side):** tivinteaches.com DNS is on Cloudflare with the records
   **Proxied**, and the Worker `night-lock` (route `*tivinteaches.com/*`, fail open) serves the
-  closed-for-the-night page from 10:30 PM to 5:00 AM Eastern by Cloudflare's clock. Source:
+  closed-for-the-night page from 11:00 PM to 5:00 AM Eastern by Cloudflare's clock. Source:
   `cloudflare/night-lock-worker.js`; it is pasted into the Cloudflare dashboard, not deployed from
   this repo, so edit both. Secrets `TEACHER_CODE` and `UNLOCK_SECRET` live only in Cloudflare.
   A correct code sets an HttpOnly signed cookie for that night and the `bedtimeUnlock` key that
@@ -188,7 +188,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `mc-mode.js` + `mission-theme.css` | Mission Control theme + shared top bar (`#mc-bar`) on every page | sets `<html data-mc="on">` |
 | `theme.js/.css` | Dark mode | `localStorage.mcTheme`, `[data-theme="dark"]` |
 | `brand.js/.css` | Tivin Teaches logo lockup | |
-| `bedtime.js` | 8:00–10:30 PM dismissible "go to sleep" nudge; 10:30 PM–5:00 AM full-page night lock (sleep statistics, page inert, keys swallowed) with a visible "Teacher unlock" box (same SHA-256 hash as `games-lock.js`) that unlocks that browser for the rest of the night | key `bedtimeUnlock` (night id, YYYY-MM-DD of the evening) |
+| `bedtime.js` | 8:00–11:00 PM dismissible "go to sleep" nudge; 11:00 PM–5:00 AM full-page night lock (sleep statistics, page inert, keys swallowed) with a visible "Teacher unlock" box (same SHA-256 hash as `games-lock.js`) that unlocks that browser for the rest of the night | key `bedtimeUnlock` (night id, YYYY-MM-DD of the evening) |
 | `pomodoro.js` | Break reminder on every page that loads `bedtime.js` (not `timer.html`, not map iframes): counts visible time on the site across pages and tabs; after 25 minutes asks for a 5-minute break ("Start my 5-minute break" shows a countdown on every open tab with a visible "End break early"; "5 more minutes" snoozes). Being away 5+ minutes counts as a break. Self-contained styles, takes the page `--red` | key `pomoBreak_v1` `{work, last, breakEnd}` |
 | `unit-map-engine.js` + `world-basemap.js` + `unit-map.css` | Unit maps | `window.UNIT_MAP = {routes, polities, themes}` |
 | `cumulative.js` | Cumulative Review logic | reads `mcq-bank.js` |

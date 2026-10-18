@@ -64,6 +64,7 @@
     ['Essay Timing', 'writing-guide.html#timing', 'How to spend your time on exam day.', 'timing time exam pacing', 'Writing'],
     ['How to Attack a Stimulus MCQ', 'sbmcq.html', 'A step-by-step method for stimulus multiple choice.', 'mcq multiple choice stimulus strategy how to', 'How to'],
     ['How to Study (Brain Sculptor)', 'brain-sculptor.html', 'Study smarter: retrieval, spacing, and owning your learning.', 'how to study study skills learning brain sculptor retrieval spacing', 'How to'],
+    ['FAQ: How This Site Works', 'faq.html', 'Answers about progress, saving, game locks, the night lock, and breaks.', 'faq frequently asked questions help progress ring saved lost incognito games locked unlock night lock 11 bedtime break pomodoro quick check test mode confidence', 'How to'],
     ['Study Timer', 'timer.html', 'A pomodoro countdown for focused study.', 'timer pomodoro focus countdown clock', 'Tool'],
     ['AP Review Resources', 'resources.html', 'Outside review videos, sites, and practice.', 'resources review videos links heimler outside', 'Review'],
     ['Cumulative Review', 'cumulative.html', 'Mixed MCQ practice from every unit.', 'cumulative review all units mixed mcq final exam ap exam', 'Review'],

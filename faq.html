@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>FAQ: How This Site Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --sw:270px;
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;
+  --sh:0 1px 4px rgba(0,0,0,.07)
+}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.65;min-height:100vh;display:flex}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sw);background:var(--ink);display:flex;flex-direction:column;overflow-y:auto;z-index:300;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,.09);flex-shrink:0}
+.sb-badge{display:inline-block;background:var(--red);color:#fff;font-weight:700;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;margin-bottom:10px}
+.sb-title{color:#fff;font-size:1.05rem;font-weight:700;line-height:1.25}
+.sb-sub{color:rgba(255,255,255,.38);font-weight:700;font-size:.72rem;margin-top:4px}
+.sb-nav{padding:12px 0;flex:1}
+.sb-group-label{padding:14px 20px 4px;font-weight:700;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:.92rem;font-weight:500;border-left:3px solid transparent;transition:all .13s;user-select:none;text-decoration:none}
+.nav-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav-item.active{color:#fff;border-left-color:var(--red);background:rgba(176,0,28,.13)}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nav-item.active .nav-dot{background:var(--red)}
+.sb-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0}
+.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.sb-back{display:block;background:var(--red);color:#fff;text-align:center;padding:10px 16px;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .15s}
+.sb-back:hover{background:var(--red-d)}
+
+/* MAIN */
+.main-wrap{margin-left:var(--sw);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.top-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 36px;height:66px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.top-bar-title{font-size:1.2rem;font-weight:700;color:var(--ink);line-height:1.2;letter-spacing:-.02em}
+.top-bar-sub{font-weight:700;font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:2px}
+.top-bar-tag{font-weight:700;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;background:var(--red-bg);color:var(--red);border:1px solid rgba(176,0,28,.18)}
+.page-content{padding:36px 40px 90px;flex:1;max-width:880px}
+
+.section-label{font-weight:700;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.section-heading{letter-spacing:-.02em;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;margin-bottom:12px;line-height:1.1}
+.section-sub{color:var(--mid);font-size:1rem;margin-bottom:14px;max-width:660px}
+.hero{border-left:4px solid var(--red);padding:2px 0 2px 22px;margin-bottom:28px}
+
+/* FAQ */
+.faq-tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.faq-jump,.faq-all{font-family:inherit;font-weight:700;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px;border:1px solid var(--border);background:var(--white);color:var(--mid);text-decoration:none;cursor:pointer;transition:all .13s}
+.faq-jump:hover,.faq-all:hover{border-color:var(--red);color:var(--red)}
+.faq-all{margin-left:auto;background:var(--ink);color:#fff;border-color:var(--ink)}
+.faq-all:hover{background:var(--red);border-color:var(--red);color:#fff}
+.faq-group{margin-top:38px;scroll-margin-top:110px}
+.faq-group h2{font-size:1.25rem;font-weight:900;letter-spacing:-.01em;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.faq-item{scroll-margin-top:110px;background:var(--white);border:1px solid var(--border);margin-bottom:8px;box-shadow:var(--sh)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;font-family:inherit;font-size:1rem;font-weight:700;color:var(--ink);background:none;border:0;padding:15px 18px;cursor:pointer;line-height:1.4}
+.faq-q:hover{color:var(--red)}
+.faq-q:focus-visible{outline:2px solid var(--red);outline-offset:-2px}
+.faq-ico{flex-shrink:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border2);color:var(--red);font-size:1rem;line-height:1;transition:transform .18s}
+.faq-item.open .faq-ico{transform:rotate(45deg)}
+.faq-a{display:none;padding:0 18px 16px 18px;color:var(--mid);font-size:.97rem;border-top:1px solid var(--border)}
+.faq-a p{padding-top:12px}
+.faq-item.open{border-left:3px solid var(--red)}
+.faq-item.open .faq-a{display:block}
+
+.back-to-top{position:fixed;right:22px;bottom:22px;z-index:200;display:flex;align-items:center;gap:8px;padding:11px 16px;background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 24px rgba(0,0,0,.28);font-family:inherit;font-weight:700;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility .2s,background .15s}
+.back-to-top.show{opacity:1;visibility:visible;transform:none}
+.back-to-top:hover{background:var(--red)}
+
+@media(max-width:900px){
+  body{flex-direction:column}
+  .sidebar{position:relative;width:100%;height:auto}
+  .main-wrap{margin-left:0}
+  .page-content{padding:24px 16px 70px}
+  .top-bar{padding:0 16px}
+  .faq-all{margin-left:0}
+}
+@media(max-width:520px){.back-to-top{right:14px;bottom:14px;padding:11px 13px}.back-to-top .bt-label{display:none}}
+</style>
+<link rel="stylesheet" href="mission-theme.css">
+<script src="mc-mode.js?v=20261001"></script>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="bedtime.js?v=20261017"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-badge">APWH</div>
+    <div class="sb-title">FAQ</div>
+    <div class="sb-sub">How This Site Works</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-group-label">Navigation</div>
+    <a href="./" class="nav-item"><span class="nav-dot"></span>All Units</a>
+    <a href="brain-sculptor.html" class="nav-item"><span class="nav-dot"></span>How to Study</a>
+    <a href="writing-guide.html" class="nav-item"><span class="nav-dot"></span>How to Write</a>
+    <a href="resources.html" class="nav-item"><span class="nav-dot"></span>Review Resources</a>
+    <a href="sbmcq.html" class="nav-item"><span class="nav-dot"></span>Attack the Stimulus MCQ</a>
+    <a href="cumulative.html" class="nav-item"><span class="nav-dot"></span>Cumulative Review</a>
+    <a href="fullcourse.html" class="nav-item"><span class="nav-dot"></span>Course Narrative</a>
+    <a href="faq.html" class="nav-item active"><span class="nav-dot"></span>FAQ</a>
+    <div class="sb-divider"></div>
+    <div class="sb-group-label">Units</div>
+    <a href="unit1.html" class="nav-item"><span class="nav-dot"></span>Unit 1: The Global Tapestry</a>
+    <a href="unit2.html" class="nav-item"><span class="nav-dot"></span>Unit 2: Networks of Exchange</a>
+    <a href="unit3.html" class="nav-item"><span class="nav-dot"></span>Unit 3: Land-Based Empires</a>
+    <a href="unit4.html" class="nav-item"><span class="nav-dot"></span>Unit 4: Transoceanic Interconnections</a>
+    <a href="unit5.html" class="nav-item"><span class="nav-dot"></span>Unit 5: Revolutions</a>
+    <a href="unit6.html" class="nav-item"><span class="nav-dot"></span>Unit 6: Consequences of Industrialization</a>
+    <a href="unit7.html" class="nav-item"><span class="nav-dot"></span>Unit 7: Global Conflict</a>
+    <a href="unit8.html" class="nav-item"><span class="nav-dot"></span>Unit 8: Cold War &amp; Decolonization</a>
+    <a href="unit9.html" class="nav-item"><span class="nav-dot"></span>Unit 9: Globalization</a>
+  </nav>
+  <div class="sb-footer">
+    <a href="./" class="sb-back">&#8592; Back to All Units</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-wrap">
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title">Frequently Asked Questions</div>
+    <div class="top-bar-sub">How This Site Works</div>
+  </div>
+  <span class="top-bar-tag">FAQ</span>
+</div>
+
+<div class="page-content">
+
+  <div class="hero">
+    <div class="section-label">Frequently Asked Questions</div>
+    <h1 class="section-heading">Questions about the site? Start here.</h1>
+    <p class="section-sub">Click a question to see the answer.</p>
+  </div>
+
+  <div class="faq-tools">
+    <a class="faq-jump" href="#progress">Progress and saving</a>
+    <a class="faq-jump" href="#games">Games</a>
+    <a class="faq-jump" href="#locks">Locks and breaks</a>
+    <a class="faq-jump" href="#studying">Studying</a>
+    <a class="faq-jump" href="#writing">Writing</a>
+    <button type="button" class="faq-all" id="faq-all" aria-pressed="false">Open all</button>
+  </div>
+
+  <section class="faq-group" id="progress">
+    <h2>Progress and saving</h2>
+    <div class="faq-item" id="ring-drop">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Why did my progress ring go down when I didn't do anything?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>That's on purpose. The rings measure what you still remember, not what you did once. Every flashcard and MCQ you answered starts to fade over time, the same way your memory does. Games and videos fade over about a week. To bring a ring back up, review: rate the flashcards it shows you and answer the MCQs again. This is to mimic the forgetting curve.</p></div>
+    </div>
+    <div class="faq-item" id="where-saved">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Where is my progress saved? Will it show up on a different computer or my phone?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>Your progress is saved in the browser you used, on that device. It does not follow you to another computer, another browser, or your phone. Pick one device and one browser for your studying and stick with it.</p></div>
+    </div>
+    <div class="faq-item" id="progress-gone">
+      <button type="button" class="faq-q" aria-expanded="false"><span>I cleared my browser (or used incognito) and my progress is gone. Can I get it back?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>No, sorry. Clearing your browser history or site data erases it, and incognito/private windows never save it in the first place. There's no backup on my end. Don't study in incognito.</p></div>
+    </div>
+    <div class="faq-item" id="what-counts">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Does opening a tab or watching part of a video count as progress?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>No. Progress only comes from doing the work: answering MCQs, rating flashcards, finishing games, and finishing videos. Clicking around doesn't count.</p></div>
+    </div>
+  </section>
+
+  <section class="faq-group" id="games">
+    <h2>Games</h2>
+    <div class="faq-item" id="games-locked">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Why are the Games locked?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>Games are a reward for studying. Each unit's Games tab unlocks after you rate 20 of that unit's flashcards (or the whole deck, if it has fewer than 20). Go to the Flashcards tab, work through cards, and rate each one. The lock screen shows a progress bar so you can see how close you are.</p></div>
+    </div>
+    <div class="faq-item" id="games-relocked">
+      <button type="button" class="faq-q" aria-expanded="false"><span>I rated flashcards last week and now the Games are locked again. Why?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>The unlock only counts cards you rated in the last 7 days. Once your ratings get older than that, the Games lock again. Rate 20 fresh cards and they'll open back up.</p></div>
+    </div>
+    <div class="faq-item" id="games-unlock">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Can you unlock the Games for me?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>No! I mean, I can. But isn't it more rewarding to earn it!!</p></div>
+    </div>
+  </section>
+
+  <section class="faq-group" id="locks">
+    <h2>Locks and breaks</h2>
+    <div class="faq-item" id="night-lock">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Why can't I use the site after 11:00 PM?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>Sleep matters more for your test score than another hour of cramming. The site closes from 11:00 PM to 5:00 AM. Between 8:00 and 11:00 PM you'll see a reminder that it's getting late. Plan your studying so you're done before 11. I would rather you sleep than stay up studying.</p></div>
+    </div>
+    <div class="faq-item" id="break">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Why did a box pop up telling me to take a break?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>After 25 minutes of studying on the site, it asks you to take a 5-minute break. Short breaks help you remember more than one long session does. If you leave the site for 5 minutes or more on your own, that counts as your break.</p></div>
+    </div>
+  </section>
+
+  <section class="faq-group" id="studying">
+    <h2>Studying</h2>
+    <div class="faq-item" id="new-unit">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Where should I start when we begin a new unit?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>Open the unit and click "How to Work This Unit." It gives you a step-by-step game plan and a quick tour of every tab. In general: read the Study Guide, learn the Flashcards, then practice MCQs and writing.</p></div>
+    </div>
+    <div class="faq-item" id="mcq-modes">
+      <button type="button" class="faq-q" aria-expanded="false"><span>What's the difference between Quick Check and Test Mode in MCQ Practice?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>Quick Check tells you right away if each answer is right or wrong, with an explanation. Use it while you're learning. Test Mode makes you answer the whole set before you see anything, like the real exam. Use it to find out what you actually know.</p></div>
+    </div>
+    <div class="faq-item" id="confidence">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Why does it ask how confident I am after each answer?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>Knowing what you don't know is a skill. If you're sure and wrong, that's the topic you most need to fix. Your confidence also helps the site decide when to show you that question again.</p></div>
+    </div>
+    <div class="faq-item" id="spaced-review">
+      <button type="button" class="faq-q" aria-expanded="false"><span>How do the flashcards decide which cards to show me again?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>It uses spaced review. Cards you rate as hard come back soon. Cards you know well come back later, right around when you'd start to forget them. Rate yourself honestly or the system can't help you.</p></div>
+    </div>
+    <div class="faq-item" id="week-before">
+      <button type="button" class="faq-q" aria-expanded="false"><span>What's the best way to use the site the week before a test?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>Do a little every day instead of everything the night before. Review the flashcards the site brings back, do MCQ Practice in Test Mode, and try a Brain Dump to see what you can recall without notes. Use the Study Guide for anything you missed.</p></div>
+    </div>
+  </section>
+
+  <section class="faq-group" id="writing">
+    <h2>Writing</h2>
+    <div class="faq-item" id="grading">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Does the site grade my SAQ, LEQ, or DBQ?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>Not like I do. Writing Drills give you quick feedback and model answers to compare with yours, but they can't give you a real score. Bring your writing to me if you want it graded.</p></div>
+    </div>
+    <div class="faq-item" id="rubrics">
+      <button type="button" class="faq-q" aria-expanded="false"><span>Where can I learn the rubric for each type of essay?</span><span class="faq-ico" aria-hidden="true">+</span></button>
+      <div class="faq-a"><p>The <a href="writing-guide.html">Writing Guide</a> (on the home page) explains how to write the SAQ, LEQ, and DBQ, and what earns each point.</p></div>
+    </div>
+  </section>
+
+</div><!-- /page-content -->
+</div><!-- /main-wrap -->
+
+<button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top of page">
+  <span>&#8593;</span><span class="bt-label">Top</span>
+</button>
+
+<script>
+(function(){
+  var items = Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+  var allBtn = document.getElementById('faq-all');
+  function setOpen(item, open){
+    item.classList.toggle('open', open);
+    item.querySelector('.faq-q').setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function syncAll(){
+    var allOpen = items.every(function(i){ return i.classList.contains('open'); });
+    allBtn.textContent = allOpen ? 'Close all' : 'Open all';
+    allBtn.setAttribute('aria-pressed', allOpen ? 'true' : 'false');
+  }
+  items.forEach(function(item){
+    item.querySelector('.faq-q').addEventListener('click', function(){
+      setOpen(item, !item.classList.contains('open'));
+      syncAll();
+    });
+  });
+  allBtn.addEventListener('click', function(){
+    var open = allBtn.getAttribute('aria-pressed') !== 'true';
+    items.forEach(function(i){ setOpen(i, open); });
+    syncAll();
+  });
+  /* faq.html#games-locked opens that answer */
+  function openHash(){
+    var el = location.hash && document.getElementById(location.hash.slice(1));
+    if (el && el.classList.contains('faq-item')){ setOpen(el, true); syncAll(); el.scrollIntoView(); }
+  }
+  window.addEventListener('hashchange', openHash);
+  openHash();
+
+  var btt = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function(){ btt.classList.toggle('show', window.scrollY > 480); }, {passive:true});
+  btt.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+})();
+</script>
+<script src="spaced.js"></script>
+</body>
+</html>

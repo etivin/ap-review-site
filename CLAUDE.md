@@ -88,6 +88,7 @@ site; Eli edits content.
 | `resources.html` | Review videos and outside resources. |
 | `fullcourse.html` | Course narrative. |
 | `timer.html` | Study timer. |
+| `faq.html` | Student FAQ (progress, saving, games lock, night lock, breaks, studying, writing). Answers are Eli's text, verbatim; each question has an id so `faq.html#games-locked` opens it. Linked from the home page "How to" menu and Skills column, and in `search.js`. |
 | `classic-hub.html` | Old home page (kept for reference); `mission-control.html` redirects to `index.html`. |
 | `source-docs/released-frqs/` | Catalog of every released College Board FRQ (README) + prompt PDFs. Use only to fill gaps. |
 

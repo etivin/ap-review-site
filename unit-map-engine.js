@@ -42,7 +42,7 @@
 
   /* ══ MAP SETUP ══ */
   var BASE_COLORS = { light: { land: '#f4f3ef', border: '#bcb8ae' }, dark: { land: '#3a3e46', border: '#5d6472' } };
-  var map = L.map('map', { center: M.center, zoom: M.zoom, minZoom: 2, maxZoom: 8, attributionControl: true });
+  var map = L.map('map', { center: M.center, zoom: M.zoom, minZoom: 2, maxZoom: M.maxZoom || 8, attributionControl: true });
   map.setMaxBounds([[-72, -200], [82, 200]]);
   function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
   map.createPane('basemap');
@@ -214,11 +214,25 @@
       });
     } else if (t.kind === 'zones') {
       // shaded areas (mandates, spheres of influence, partitions)
+      // an item can also be a line (pts: a wall or border) or a point (c: a named place)
       t.items.forEach(function (it) {
         var c = it.color || t.color;
-        L.polygon(it.poly, { color: c, weight: 2, opacity: .9, fillColor: c, fillOpacity: .22, dashArray: '5 5' })
-          .bindTooltip(it.n, { permanent: true, direction: 'center', className: 'city-tip lp3' })
-          .bindPopup(popup(it.n, it.note, c, t.name)).addTo(g);
+        if (it.pts) {
+          L.polyline(it.pts, { color: c, weight: it.weight || 4, opacity: .95, dashArray: it.dash ? '8 6' : null, lineCap: 'round' })
+            .bindTooltip(it.n, it.label ? { permanent: true, direction: 'center', className: 'city-tip lp2' } : { sticky: true, className: 'city-tip' })
+            .bindPopup(popup(it.n, it.note, c, t.name)).addTo(g);
+        } else if (it.c) {
+          L.circleMarker(it.c, { radius: 5, color: '#fff', weight: 2, fillColor: c, fillOpacity: 1 })
+            .bindTooltip(it.n, { permanent: true, direction: it.dir || 'right', offset: [7, 0], className: 'city-tip lp2' })
+            .bindPopup(popup(it.n, it.note, c, t.name)).addTo(g);
+        } else {
+          var zp = L.polygon(it.poly, { color: c, weight: 2, opacity: .9, fillColor: c, fillOpacity: it.fill != null ? it.fill : .22, dashArray: it.solid ? null : '5 5' })
+            .bindPopup(popup(it.n, it.note, c, t.name)).addTo(g);
+          var zcls = it.big ? 'pol-label lp1' : 'city-tip lp3';
+          // labelAt puts the name at a chosen point instead of the shape's center
+          if (it.labelAt) L.tooltip({ permanent: true, direction: 'center', className: zcls }).setLatLng(it.labelAt).setContent(it.n).addTo(g);
+          else zp.bindTooltip(it.n, { permanent: true, direction: 'center', className: zcls });
+        }
       });
     } else if (t.kind === 'flows') {
       // big geographic arrows in groups (e.g. 1st vs 2nd Industrial Revolution); each arrow

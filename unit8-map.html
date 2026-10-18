@@ -25,29 +25,53 @@ window.UNIT_MAP = {
   unit:8, accent:'#0f3248', accentD:'#0a2435', accentDark:'#6fb3e0',
   title:'Cold War &amp; Decolonization', years:'c. 1900 – present',
   h1:'A World Split in Two',
-  intro:'Pick a <strong>bloc or hot spot</strong> to load its leaders, ideas, and effects. Then layer on <strong>decolonization dates</strong>, the <strong>Iron Curtain</strong> and other dividing lines, Cold War <strong>crises</strong>, and the great <strong>migrations</strong> of partition and the end of empire.',
-  center:[25,20], zoom:2,
+  intro:'Pick a <strong>bloc or hot spot</strong> to load its leaders, ideas, and effects. Then layer on <strong>decolonization dates</strong>, the <strong>Iron Curtain</strong> and other dividing lines, Cold War <strong>crises</strong>, the great <strong>migrations</strong> of partition and the end of empire, <strong>divided Germany and Berlin</strong>, and the <strong>end of the Cold War</strong>.',
+  center:[25,20], zoom:2, maxZoom:10,
   routeHead:'Cold War Blocs &amp; Hot Spots', allBtn:'Show all',
   allTitle:'The Cold War World', allSub:'c. 1947–1991',
   allBlurb:'After WWII the US and USSR led rival blocs, competing through alliances, arms and space races, and proxy wars, while dozens of new nations won independence and many refused to pick a side. Click a region or pick one above.',
   sections:{tech:['🧭','Strategy &amp; Ideas'],goods:['🔑','Key Terms &amp; People'],places:['📍','Key Places'],cultural:['🔗','Effects']},
   routes:{
     west:{
-      name:'US &amp; NATO Allies', btn:'Capitalist bloc', short:'Containment · Marshall Plan · NATO 1949', sub:'The “First World”',
+      name:'US, NATO &amp; Pacific Allies', btn:'Capitalist bloc', short:'Containment · Marshall Plan · NATO 1949', sub:'The “First World”',
       color:'#2f5fb3', colorDark:'#7aa2ff',
       blurb:'The US led a bloc of capitalist democracies. Its policy of containment aimed to stop communism from spreading, through the Marshall Plan, the NATO alliance (1949), and military aid around the world.',
       polys:[
         [[49,-123],[49,-95],[45,-83],[45,-67],[41,-70],[35,-76],[30,-81],[25,-80],[30,-85],[29,-95],[26,-97],[32,-106],[32.5,-117],[40,-124],[46,-124]],
         [[49,-123],[49,-95],[45,-75],[45,-67],[47,-60],[52,-56],[60,-64],[69,-85],[69,-110],[69,-140],[60,-141],[55,-130]],
         [[58.6,-3],[57.5,-1.8],[55.8,-2],[54,-0.2],[53,0.3],[52.5,1.7],[51.3,1.4],[50.8,0.3],[50.6,-4],[50,-5.6],[51.6,-5],[52.8,-4.6],[53.4,-3.1],[54.6,-3.6],[55,-5],[56.8,-6],[58.5,-5]],
-        [[51,2.5],[53.5,7],[54.8,8.5],[54.4,10.9],[53,11],[51,10.3],[50.3,12.1],[48.6,13.8],[47.6,13],[46.5,13.5],[45.6,13.8],[44,12.5],[42,14.5],[41,17],[40,18.5],[38,16],[38,15.6],[40,15.5],[41,13],[42.4,11],[44,8.2],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5]],
+        /* France & the Low Countries */
+        [[53.5,6.9],[53.2,7.2],[51.9,6.1],[51,6],[50.1,6.1],[49.5,6.4],[49,8.2],[47.6,7.6],[46.2,6],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5],[51,2.5],[51.4,3.4],[52.4,4.6]],
+        /* West Germany */
+        [[54,10.9],[53.4,10.6],[53,11.3],[52.6,10.8],[52,10.6],[51.6,10.4],[51.3,10],[50.7,10.1],[50.4,10.6],[50.3,11.7],[50.3,12.1],[49.5,12.6],[48.7,13.8],[47.6,13],[47.6,9.6],[47.8,7.6],[49,8.2],[49.5,6.4],[50.1,6.1],[51,6],[51.9,6.1],[53.3,7.2],[54.9,8.6],[54.4,11]],
+        /* Italy */
+        [[46.5,7],[46.5,13.5],[45.6,13.8],[44,12.5],[42,14.5],[41,17],[40,18.5],[38,16],[38,15.6],[40,15.5],[41,13],[42.4,11],[44,8.2],[44.1,7.6]],
+        /* Portugal */
+        [[42,-8.8],[42,-6.5],[41,-6.9],[39.6,-7.5],[38,-7],[37.2,-7.4],[37,-8.9],[38.7,-9.5],[40.5,-8.7]],
+        /* Spain (joined 1982) */
+        [[43.6,-8],[43.4,-1.8],[42.5,3.1],[41.3,2],[40.5,0.7],[38.8,0],[36.7,-2.2],[36,-5.6],[37.2,-7.4],[38,-7],[39.6,-7.5],[41,-6.9],[42,-6.5],[42,-8.8]],
+        /* Denmark */
+        [[57.6,10.5],[56.5,10.9],[55.4,10.8],[54.8,9.6],[55.6,8.1],[56.8,8.2]],
+        /* Iceland */
+        [[66.5,-22],[66.1,-14.5],[64.7,-13.5],[63.4,-18.7],[63.9,-22.7],[65.4,-24.3]],
+        /* Greece (joined 1952) */
+        [[41.7,26.3],[41.2,23.5],[41,21],[39.6,20],[38.3,21.2],[36.4,22.4],[37,23.2],[38,24.1],[40,23],[40.9,24.4],[41,25.5]],
         [[71,25],[69,20],[63,8],[58,6],[59,11],[64,12],[68,17]],
-        [[42,27],[41.2,41.5],[39.5,44.5],[37,44.5],[36.7,36.5],[36.2,30],[37,27.3],[40,26.2]]
+        [[42,27],[41.2,41.5],[39.5,44.5],[37,44.5],[36.7,36.5],[36.2,30],[37,27.3],[40,26.2]],
+        /* Pacific treaty allies: Japan, South Korea, Australia, New Zealand */
+        [[45.5,141.7],[43,145.5],[41.5,141],[38,141.5],[35,140.5],[34,135],[33.5,131],[31,130.5],[32.5,129.7],[34.3,131],[35.5,133],[37,137],[39,140]],
+        [[38.6,128.4],[37.7,126.6],[37,126.2],[35,126.3],[34.4,126.5],[35,129.3],[36,129.5],[37.5,129.1]],
+        [[-11,142],[-17,146],[-25,153],[-38,147],[-38,140],[-32,133],[-35,118],[-22,113.5],[-14,126],[-12,131]],
+        [[-34.5,172.7],[-37,176],[-41.5,175.5],[-46.5,169],[-46,166.5],[-42,171.5],[-38,174.5]]
       ],
       places:[
         {n:'Washington, D.C.',c:[38.9,-77.03],note:'Truman Doctrine (1947) committed the US to containing communism.'},
         {n:'West Berlin',c:[52.52,13.3],note:'Kept alive by the Berlin Airlift (1948–49); walled off in 1961.'},
-        {n:'Brussels',c:[50.85,4.35],note:'NATO headquarters.'}
+        {n:'Brussels',c:[50.85,4.35],note:'NATO headquarters.'},
+        {n:'Madrid',c:[40.42,-3.7],note:'Spain joined NATO in 1982, after Franco’s dictatorship ended.'},
+        {n:'Tokyo',c:[35.7,139.7],note:'US–Japan Security Treaty (1951): US bases in Japan; not part of NATO.'},
+        {n:'Seoul',c:[37.57,126.98],note:'US–South Korea defense treaty (1953); US troops stayed after the Korean War.'},
+        {n:'Canberra',c:[-35.28,149.13],note:'ANZUS Treaty (1951) linked the US, Australia, and New Zealand.'}
       ],
       tech:[
         {name:'Containment',what:'Stop communism from spreading beyond where it already was.',impact:'Led to alliances, aid, and proxy wars worldwide.'},
@@ -156,7 +180,11 @@ window.UNIT_MAP = {
         {n:'Cuban Missile Crisis (1962)',c:[22.5,-80],note:'Soviet missiles in Cuba brought the world closest to nuclear war.'},
         {n:'Soviet-Afghan War (1979–89)',c:[34.5,69.2],note:'The US armed mujahideen fighters against the Soviet invasion.'},
         {n:'Angolan Civil War',c:[-12.5,18.5],note:'Cuban troops and Soviet aid vs. US- and South African-backed rebels.'},
-        {n:'Nicaragua (Contras)',c:[12.1,-86.3],note:'The US backed Contra rebels against the leftist Sandinistas in the 1980s.'}
+        {n:'Nicaragua (Contras)',c:[12.1,-86.3],note:'The US backed Contra rebels against the leftist Sandinistas in the 1980s.'},
+        {n:'Iran coup (1953)',c:[35.7,51.4],note:'The CIA and Britain helped overthrow Prime Minister Mosaddegh after he nationalized Iran’s oil; the shah ruled until 1979.'},
+        {n:'Iranian Revolution (1979)',c:[32.6,51.7],note:'Ayatollah Khomeini’s Islamic revolution overthrew the US-backed shah and rejected both superpowers.'},
+        {n:'Guatemala coup (1954)',c:[14.63,-90.5],note:'The CIA backed the overthrow of President Árbenz, whose land reform threatened the US-owned United Fruit Company.'},
+        {n:'Chile coup (1973)',c:[-33.45,-70.66],note:'General Pinochet, with US support, overthrew the elected socialist president Salvador Allende.'}
       ],
       tech:[
         {name:'Domino theory',what:'If one country fell to communism, its neighbors would follow.',impact:'Justified US intervention in Southeast Asia.'},
@@ -165,7 +193,8 @@ window.UNIT_MAP = {
       goods:['Proxy war','Domino theory','38th parallel','Ho Chi Minh','Fidel Castro','Mujahideen'],
       cultural:[
         {t:'Millions of deaths',d:'and refugees in Korea, Vietnam, Cambodia, and Afghanistan.'},
-        {t:'Superpowers weakened',d:'Vietnam divided the US; Afghanistan drained the USSR.'}
+        {t:'Superpowers weakened',d:'Vietnam divided the US; Afghanistan drained the USSR.'},
+        {t:'Coups and revolutions',d:'the US backed coups in Iran, Guatemala, and Chile to stop leftist governments; Iran’s 1979 revolution rejected both superpowers.'}
       ]
     }
   },
@@ -184,7 +213,13 @@ window.UNIT_MAP = {
         {n:'Kenya 1963',c:[0,37.9],note:'Independence after the Mau Mau uprising; Jomo Kenyatta became leader.'},
         {n:'Bangladesh 1971',c:[23.7,90.4],note:'Broke away from Pakistan.'},
         {n:'Angola & Mozambique 1975',c:[-16,30],note:'Won independence from Portugal after long wars.'},
-        {n:'Zimbabwe 1980',c:[-19,29.8],dir:'left',note:'Black majority rule after a guerrilla war against white-minority Rhodesia.'}
+        {n:'Zimbabwe 1980',c:[-19,29.8],dir:'left',note:'Black majority rule after a guerrilla war against white-minority Rhodesia.'},
+        {n:'Philippines 1946',c:[12.9,121.8],note:'Independence from the United States.'},
+        {n:'Burma 1948',c:[21,96],note:'Independence from Britain.'},
+        {n:'Libya 1951',c:[27,17],note:'Independence after Italian rule and British-French administration.'},
+        {n:'Morocco & Tunisia 1956',c:[32,-6],dir:'left',note:'Independence from France, negotiated rather than fought for.'},
+        {n:'Malaya 1957',c:[4,102],note:'Independence from Britain after defeating a communist insurgency.'},
+        {n:'Apartheid ends 1994',c:[-29,25],note:'Nelson Mandela, imprisoned for 27 years, became South Africa’s first Black president after the first all-race election.'}
       ]},
     lines:{name:'Dividing Lines', color:'#3a3a3a', icon:'🧱', kind:'lines',
       items:[
@@ -202,25 +237,48 @@ window.UNIT_MAP = {
         {n:'Berlin Wall 1961',c:[53.3,13.4],dir:'left',note:'Built to stop East Germans from fleeing.'},
         {n:'Cuban Missile Crisis 1962',c:[22.5,-80],note:'Thirteen days at the nuclear brink.'},
         {n:'Wall falls 1989',c:[51.7,13.4],note:'The Berlin Wall opened on November 9, 1989.'},
-        {n:'USSR dissolves 1991',c:[55.75,37.6],note:'The Cold War ended.'}
+        {n:'USSR dissolves 1991',c:[55.75,37.6],note:'The Cold War ended.'},
+        {n:'Arab-Israeli War 1948',c:[32.1,35.3],dir:'left',note:'Arab states attacked the new state of Israel; Israel won, and about 700,000 Palestinians became refugees.'},
+        {n:'Six-Day War 1967',c:[31.8,35.2],note:'Israel took the West Bank, Gaza, the Sinai, and the Golan Heights.'},
+        {n:'Yom Kippur War 1973',c:[30.3,32.6],dir:'left',note:'Egypt and Syria attacked Israel; Arab oil producers answered US support for Israel with an oil embargo.'},
+        {n:'Camp David Accords 1978',c:[39.65,-77.46],dir:'left',note:'US-brokered peace: Egypt recognized Israel, and Israel returned the Sinai.'}
       ]},
-    partition:{name:'Partition Migrations', color:'#a0522d', icon:'🚶', kind:'spread',
-      note:'Partition in 1947 sparked one of history’s largest migrations: about 15 million people crossed the new border, Hindus and Sikhs to India and Muslims to Pakistan, amid violence that killed hundreds of thousands to a million.',
-      origins:[{n:'Punjab',c:[31.5,74.3]},{n:'Bengal',c:[23.5,89]}],
-      items:[
-        {n:'Muslims → West Pakistan',from:[29.5,77],c:[31.5,72.5]},
-        {n:'Hindus & Sikhs → India',from:[31.5,72.5],c:[29,77.5]},
-        {n:'Muslims → East Pakistan',from:[24,86.5],c:[24,90.4]},
-        {n:'Hindus → West Bengal',from:[24,90.4],c:[22.9,87.5]}
+    partition:{name:'Partition Migrations', color:'#a0522d', icon:'🚶', kind:'flows',
+      frame:[[17,64],[36,102]],
+      groups:[
+        {title:'Muslims to Pakistan', color:'#1e874b', badge:'→',
+         desc:'Partition in 1947 sparked one of history’s largest migrations: about 15 million people crossed the new borders amid violence that killed hundreds of thousands to a million. Muslims moved to West and East Pakistan.',
+         hubs:[{n:'Punjab', c:[31.5,74.3], dir:'top'},{n:'Bengal', c:[23.5,89], dir:'bottom'}],
+         arrows:[
+           {from:[29.2,78.6], to:[32,71.4], curv:0.4, tag:'Muslims', tagAt:[33.6,75.6], n:'Muslims → West Pakistan'},
+           {from:[22.2,85.6], to:[24.7,91.3], curv:0.4, tag:'Muslims', tagAt:[26.4,88.4], n:'Muslims → East Pakistan'}
+         ]},
+        {title:'Hindus &amp; Sikhs to India', color:'#d4741c', badge:'←',
+         desc:'Hindus and Sikhs moved the other way, into India, from both Punjab and Bengal.',
+         arrows:[
+           {from:[32.3,71.2], to:[28.9,78.9], curv:0.4, tag:'Hindus & Sikhs', tagAt:[27.6,73.6], n:'Hindus & Sikhs → India'},
+           {from:[25,91.6], to:[22,85.9], curv:0.4, tag:'Hindus', tagAt:[20.6,89.2], n:'Hindus → West Bengal (India)'}
+         ]}
       ]},
-    postcolonial:{name:'Post-Colonial Migration', color:'#2f5fb3', icon:'✈', kind:'spread',
-      note:'After empires ended, many people moved from former colonies to the old imperial centers to fill labor shortages, building diverse communities in Europe (and facing discrimination).',
-      origins:[{n:'South Asia',c:[25,75]},{n:'Caribbean',c:[18,-77]},{n:'North Africa',c:[34,3]},{n:'Turkey',c:[39,33]}],
-      items:[
-        {n:'South Asians → Britain',from:[25,75],c:[52.5,-1.9]},
-        {n:'Caribbean → Britain (Windrush)',from:[18,-77],c:[51.5,-0.1]},
-        {n:'Algerians → France',from:[34,3],c:[48.86,2.35]},
-        {n:'Turks → West Germany (guest workers)',from:[39,33],c:[50.9,6.95]}
+    postcolonial:{name:'Post-Colonial Migration', color:'#2f5fb3', icon:'✈', kind:'flows',
+      frame:[[5,-85],[58,82]],
+      groups:[
+        {title:'South Asians to Britain', color:'#a0522d', badge:'SA',
+         desc:'After empires ended, many people moved from former colonies to the old imperial centers to fill labor shortages, building diverse communities in Europe while facing discrimination.',
+         hubs:[{n:'South Asia', c:[25,75], dir:'bottom'}],
+         arrows:[{from:[27,72], to:[52.5,-1], curv:-0.15, tag:'to Britain', n:'South Asians → Britain'}]},
+        {title:'Caribbean to Britain (Windrush)', color:'#0f7a6b', badge:'CB',
+         desc:'The ship Empire Windrush (1948) began a wave of Caribbean migration to Britain.',
+         hubs:[{n:'Caribbean', c:[18,-77], dir:'bottom'}],
+         arrows:[{from:[19.5,-73], to:[51,-3], curv:0.15, tag:'Windrush', n:'Caribbean → Britain (Windrush)'}]},
+        {title:'Algerians to France', color:'#2f5fb3', badge:'DZ', size:'small',
+         desc:'Algerians moved to France before and after Algeria’s independence (1962).',
+         hubs:[{n:'Algeria', c:[34,3], dir:'bottom'}],
+         arrows:[{from:[35.5,3], to:[47.5,2.3], curv:0.15, n:'Algerians → France'}]},
+        {title:'Turks to West Germany', color:'#b8322a', badge:'TR', size:'small',
+         desc:'West Germany recruited Turkish “guest workers” from 1961.',
+         hubs:[{n:'Turkey', c:[39,33], dir:'bottom'}],
+         arrows:[{from:[40,31], to:[50.5,8], curv:0.15, tag:'Guest workers', tagAt:[49,24], n:'Turks → West Germany (guest workers)'}]}
       ]},
     leaders:{name:'Independence Leaders', color:'#0f5b5e', icon:'👤', kind:'cities',
       items:[
@@ -231,13 +289,51 @@ window.UNIT_MAP = {
         {n:'Gamal Abdel Nasser',c:[30.04,31.24],note:'Egypt; Arab nationalist; Suez Canal.'},
         {n:'Sukarno',c:[-6.2,106.85],note:'Indonesia’s first president; hosted Bandung.'},
         {n:'Fidel Castro',c:[23.13,-82.38],note:'Led the Cuban Revolution (1959).'}
+      ]},
+    endcw:{name:'End of the Cold War', color:'#5a6b7a', icon:'🕊', kind:'years',
+      items:[
+        {n:'Solidarity 1980',c:[54.35,18.65],note:'Lech Wałęsa’s Solidarity trade union in Gdańsk challenged Poland’s communist government.'},
+        {n:'Gorbachev 1985',c:[55.75,37.6],note:'Gorbachev’s glasnost (openness) and perestroika (restructuring) loosened Soviet control.'},
+        {n:'Soviets leave Afghanistan 1989',c:[34.5,69.2],note:'The costly war drained the USSR.'},
+        {n:'Tiananmen Square 1989',c:[39.9,116.4],note:'China’s government crushed pro-democracy protests in Beijing.'},
+        {n:'Revolutions of 1989',c:[50.08,14.44],dir:'left',note:'Communist governments fell across Eastern Europe, mostly peacefully (Czechoslovakia’s “Velvet Revolution”).'},
+        {n:'Germany reunited 1990',c:[52.52,13.4],note:'East and West Germany became one country again on October 3, 1990.'},
+        {n:'USSR breaks up 1991',c:[52,48],note:'The Soviet Union split into 15 independent countries.'}
+      ]},
+    postsoviet:{name:'Post-Soviet States (1991)', color:'#7b3fa0', icon:'🗺', kind:'zones',
+      items:[
+        {n:'Russian Federation',c:[61,96],note:'The largest of the 15 states that replaced the USSR.'},
+        {n:'Baltic states',color:'#0f7a6b',poly:[[59.5,24],[59.4,28],[57.8,27.6],[56,28.3],[54,25.8],[54.3,23],[55.8,21.1],[57.5,21.6],[58.7,23.4]],note:'Estonia, Latvia, and Lithuania, the first to break away; they later joined NATO and the EU.'},
+        {n:'Belarus',color:'#b8322a',poly:[[56.2,28.2],[55.7,30.9],[54,31.8],[52.1,31.7],[51.5,30.6],[51.5,25],[51.9,23.6],[53,23.9],[53.9,23.5],[54.4,25.5],[55.7,26.6]],note:'Independent in 1991.'},
+        {n:'Ukraine',color:'#c9871b',poly:[[52.3,33.8],[52.4,31.8],[51.5,30.6],[51.5,25],[51.9,23.6],[50.4,24],[49,22.6],[48.2,22.6],[47.9,24.9],[48.3,26.6],[48,28.2],[46.4,30],[45.4,29.6],[46.6,32],[45.3,33.5],[44.4,33.5],[45.3,36.5],[46.6,35],[47.1,38.2],[48.6,39.7],[49.6,40.1],[50.4,38],[51.2,35.4]],note:'Voted for independence in 1991; the second-largest post-Soviet state.'},
+        {n:'Moldova',color:'#2f5fb3',poly:[[48.5,26.6],[48,28.2],[46.4,30],[45.5,28.2],[46.9,27.6]],note:'Independent in 1991.'},
+        {n:'Caucasus states',color:'#1e874b',poly:[[43.6,40],[42.5,44.6],[41.9,46.4],[41.9,48.6],[40.1,49.6],[38.4,48.9],[38.9,46.5],[39.7,44.8],[41.1,43.5],[41.5,41.5]],note:'Georgia, Armenia, and Azerbaijan.'},
+        {n:'Central Asian states',color:'#a0522d',poly:[[54.8,69],[55.4,73.4],[53.4,77.8],[50.9,83.4],[49.1,87.3],[47,85.5],[45.1,82.4],[42.9,80.2],[42.2,79],[39.4,73.6],[37.1,74.8],[37,71.5],[37.3,67.8],[35.6,62.3],[36.6,61.1],[37.4,59.4],[37.9,55.6],[37.3,54],[40,53],[41.2,52.5],[45,52.9],[47.2,50.5],[46.6,48.6],[48,46.8],[49.1,46.9],[50.4,48.5],[51.2,52],[50.6,54.6],[50.6,58.7],[51.3,61],[52.8,61],[53.9,61.2],[54.4,65.2]],note:'Kazakhstan, Uzbekistan, Turkmenistan, Kyrgyzstan, and Tajikistan.'}
+      ]},
+    germany:{name:'Divided Germany', color:'#3a3a3a', icon:'🗺', kind:'zones',
+      frame:[[47.2,5.8],[55,15.2]],
+      items:[
+        {n:'West Germany (FRG)',color:'#2f5fb3',big:true,labelAt:[50.3,8.3],solid:true,fill:.25,poly:[[54,10.9],[53.4,10.6],[53,11.3],[52.6,10.8],[52,10.6],[51.6,10.4],[51.3,10],[50.7,10.1],[50.4,10.6],[50.3,11.7],[50.3,12.1],[49.5,12.6],[48.7,13.8],[47.6,13],[47.6,9.6],[47.8,7.6],[49,8.2],[49.5,6.4],[50.1,6.1],[51,6],[51.9,6.1],[53.3,7.2],[54.9,8.6],[54.4,11]],note:'The Federal Republic of Germany (1949): a capitalist democracy in NATO, capital Bonn. Formed from the American, British, and French occupation zones; its “economic miracle” rebuilt it with Marshall Plan aid.'},
+        {n:'East Germany (GDR)',color:'#b8322a',big:true,labelAt:[51.9,12.9],solid:true,fill:.25,poly:[[54,10.9],[53.4,10.6],[53,11.3],[52.6,10.8],[52,10.6],[51.6,10.4],[51.3,10],[50.7,10.1],[50.4,10.6],[50.3,11.7],[50.3,12.1],[50.6,13],[50.9,14.3],[51,14.8],[51.6,14.7],[52.6,14.6],[53.4,14.3],[53.9,14.2],[54.5,13.4],[54.3,12.3],[54,11.4]],note:'The German Democratic Republic (1949): a communist state in the Warsaw Pact, formed from the Soviet occupation zone, with its capital in East Berlin.'},
+        {n:'Inner German border',color:'#3a3a3a',weight:5,dash:true,label:true,pts:[[54,10.9],[53.4,10.6],[53,11.3],[52.6,10.8],[52,10.6],[51.6,10.4],[51.3,10],[50.7,10.1],[50.4,10.6],[50.3,11.7],[50.3,12.1]],note:'The fortified border between East and West Germany, part of the Iron Curtain.'},
+        {n:'Berlin (divided city)',c:[52.52,13.4],color:'#3a3a3a',note:'Berlin sat about 100 miles inside East Germany but was split into a western half (tied to West Germany) and an eastern half. Turn on “Divided Berlin” to zoom in.'}
+      ]},
+    berlin:{name:'Divided Berlin', color:'#3a3a3a', icon:'🧱', kind:'zones',
+      frame:[[52.34,13.08],[52.68,13.77]],
+      items:[
+        {n:'West Berlin',color:'#2f5fb3',big:true,labelAt:[52.47,13.24],solid:true,fill:.25,poly:[[52.66,13.25],[52.62,13.37],[52.56,13.4],[52.53,13.41],[52.51,13.42],[52.5,13.45],[52.45,13.48],[52.4,13.43],[52.38,13.3],[52.39,13.18],[52.42,13.11],[52.5,13.1],[52.58,13.12],[52.64,13.2]],note:'The American, British, and French sectors: an island of the West inside East Germany, kept alive by the Berlin Airlift (1948–49).'},
+        {n:'East Berlin',color:'#b8322a',big:true,labelAt:[52.52,13.6],solid:true,fill:.25,poly:[[52.66,13.25],[52.68,13.45],[52.62,13.62],[52.55,13.7],[52.47,13.76],[52.4,13.7],[52.36,13.6],[52.4,13.43],[52.45,13.48],[52.5,13.45],[52.51,13.42],[52.53,13.41],[52.56,13.4],[52.62,13.37]],note:'The Soviet sector and capital of East Germany.'},
+        {n:'Berlin Wall (1961–1989)',color:'#3a3a3a',weight:6,label:true,pts:[[52.66,13.25],[52.62,13.37],[52.56,13.4],[52.53,13.41],[52.51,13.42],[52.5,13.45],[52.45,13.48],[52.4,13.43],[52.38,13.3],[52.39,13.18],[52.42,13.11],[52.5,13.1],[52.58,13.12],[52.64,13.2],[52.66,13.25]],note:'East Germany built the Wall in 1961 to stop its people from fleeing west. It encircled all of West Berlin and fell on November 9, 1989.'},
+        {n:'Checkpoint Charlie',c:[52.5075,13.3904],dir:'left',note:'The best-known crossing point; US and Soviet tanks faced off here in 1961.'},
+        {n:'Brandenburg Gate',c:[52.5163,13.3777],dir:'top',note:'Stood just inside East Berlin beside the Wall; Reagan’s 1987 “Tear down this wall!” speech was given nearby.'},
+        {n:'Tempelhof Airport',c:[52.473,13.402],dir:'right',note:'Where Berlin Airlift planes landed every few minutes in 1948–49.'}
       ]}
   },
-  themeOrder:['independence','lines','crises','partition','postcolonial','leaders'],
+  themeOrder:['independence','lines','crises','partition','postcolonial','leaders','endcw','postsoviet','germany','berlin'],
   hint:'Tip: turn on “Decolonization Dates” to watch empires end. Drag to pan, scroll to zoom.'
 };
 </script>
 <script defer src="theme.js"></script>
-<script src="unit-map-engine.js?v=20261018c"></script>
+<script src="unit-map-engine.js?v=20261018e"></script>
 </body>
 </html>

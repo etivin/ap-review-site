@@ -229,15 +229,17 @@
         t.groups.forEach(function (gr) {
           var size = gr.size === 'small' ? { halfW: 2.2, headLen: 10, headHalfW: 7 } : { halfW: 4.5, headLen: 16, headHalfW: 11 };
           (gr.arrows || []).forEach(function (a) {
-            addBigArrow(arrowG, a.from, a.to, a.curv || 0, gr.color, size)
-              .bindPopup(popup(a.n || gr.title, a.note || gr.desc, gr.color, t.name));
+            flowCopies(a).forEach(function (c) {
+              addBigArrow(arrowG, c.from, c.to, a.curv || 0, gr.color, size)
+                .bindPopup(popup(a.n || gr.title, a.note || gr.desc, gr.color, t.name));
+            });
           });
         });
       };
       flowDraw[key]();
       t.groups.forEach(function (gr) {
         (gr.arrows || []).forEach(function (a) {
-          if (a.tag) addTag(g, a.tagAt || midPt(a.from, a.to, a.curv || 0), a.tag, gr.color);
+          if (a.tag) flowCopies(a).forEach(function (c) { addTag(g, c.tagAt || midPt(c.from, c.to, a.curv || 0), a.tag, gr.color); });
         });
         (gr.hubs || []).forEach(function (h) {
           L.circleMarker(h.c, { radius: 7, color: '#fff', weight: 2, fillColor: gr.color, fillOpacity: 1 })
@@ -270,6 +272,14 @@
     var ring = left.concat([base.add(nb.multiplyBy(s.headHalfW)), tip, base.subtract(nb.multiplyBy(s.headHalfW))]).concat(right.reverse());
     return L.polygon(ring.map(function (p) { return crs.pointToLatLng(p, Z); }),
       { color: '#fff', weight: 1.5, opacity: .9, fillColor: color, fillOpacity: .88, lineJoin: 'round' }).addTo(group);
+  }
+  /* An arrow with wrap:N (e.g. -360) is drawn a second time shifted N degrees of longitude,
+     so a Pacific crossing reads as one unbroken arrow from whichever edge you look at. */
+  function shiftLng(p, d) { return [p[0], p[1] + d]; }
+  function flowCopies(a) {
+    var out = [{ from: a.from, to: a.to, tagAt: a.tagAt }];
+    if (a.wrap) out.push({ from: shiftLng(a.from, a.wrap), to: shiftLng(a.to, a.wrap), tagAt: a.tagAt && shiftLng(a.tagAt, a.wrap) });
+    return out;
   }
   function midPt(from, to, curv) { var p = bezierPts(from, to, curv); return p[Math.floor(p.length / 2)]; }
   function addTag(group, latlng, text, color) {

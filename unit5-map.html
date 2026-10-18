@@ -13,7 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script src="world-basemap.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="unit-map.css">
+<link rel="stylesheet" href="unit-map.css?v=20261018">
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 <link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
@@ -25,7 +25,7 @@ window.UNIT_MAP = {
   unit:5, accent:'#1e4f18', accentD:'#163b12', accentDark:'#7fcf73',
   title:'Revolutions', years:'c. 1750 – 1900',
   h1:'Ideas That Toppled Kings',
-  intro:'Pick a <strong>revolution or movement</strong> to load its causes, ideas, places, and effects. Then layer on the <strong>spread of Enlightenment ideas</strong> and <strong>industrialization</strong>, each drawn as a swooping arrow from where it began, plus a timeline of revolutions and reforms.',
+  intro:'Pick a <strong>revolution or movement</strong> to load its causes, ideas, places, and effects. Then layer on the <strong>spread of Enlightenment ideas</strong> and <strong>industrialization</strong>, each drawn as big arrows on the map, plus a timeline of revolutions and reforms.',
   center:[30,-20], zoom:2,
   routeHead:'Revolutions &amp; Movements', allBtn:'Show all',
   allTitle:'An Age of Revolutions', allSub:'Political & industrial revolutions · c. 1750–1900',
@@ -54,7 +54,7 @@ window.UNIT_MAP = {
       ]
     },
     french:{
-      name:'French Revolution', btn:'1789–1799', short:'Rights of Man · Terror · Napoleon', sub:'France · 1789–1815',
+      name:'French Revolution', btn:'1789–1799', short:'Rights of Man · Terror · Napoleon', sub:'France · 1789–1799 (Napoleon to 1815)',
       color:'#b8322a', colorDark:'#ff7b6e',
       blurb:'Debt, unfair taxes on the Third Estate, and Enlightenment ideas led to the storming of the Bastille, the end of absolute monarchy, the radical Reign of Terror, and finally Napoleon, who spread revolutionary reforms across Europe.',
       polys:[[[51,2.5],[49,8],[46.2,6],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5]]],
@@ -102,12 +102,17 @@ window.UNIT_MAP = {
       polys:[
         [[12,-72],[10.5,-61.5],[2,-60],[-4,-70],[-4.5,-81],[1,-79],[8,-77.5],[11,-75]],
         [[32.5,-117],[31.5,-106],[29,-103],[26,-97.2],[21.5,-97.5],[18.5,-95],[18,-91],[14.5,-92],[16,-95],[19.5,-105.5],[23,-110],[28,-114.5]],
-        [[-18,-70.5],[-22,-67],[-22,-62],[-27,-58],[-34.5,-58],[-40,-62],[-40,-73],[-30,-71.5]]
+        [[-18,-70.5],[-22,-67],[-22,-62],[-27,-58],[-34.5,-58],[-40,-62],[-40,-73],[-30,-71.5]],
+        /* Peru & Bolivia */
+        [[-4.5,-81],[-4,-70],[-9,-72.5],[-11,-69],[-10,-65],[-14,-60.5],[-19,-58],[-22,-62],[-22,-67],[-18,-70.5],[-14,-76.5],[-6,-81]],
+        /* Brazil */
+        [[4,-51.5],[0,-50],[-2,-44],[-5,-35],[-13,-38.5],[-23,-42],[-29,-49],[-33.7,-53.4],[-30,-57.5],[-22,-58],[-19,-58],[-14,-60.5],[-10,-65],[-11,-69],[-9,-72.5],[-4,-70],[1,-67],[2,-60]]
       ],
       places:[
         {n:'Dolores (Mexico)',c:[21.16,-100.93],note:'Father Hidalgo’s “Grito de Dolores” (1810) began Mexico’s fight for independence.'},
         {n:'Caracas',c:[10.48,-66.9],note:'Birthplace of Simón Bolívar, who liberated Gran Colombia.'},
         {n:'Buenos Aires',c:[-34.6,-58.38],note:'Base of José de San Martín, who freed Argentina, Chile, and Peru.'},
+        {n:'Lima',c:[-12.05,-77.04],note:'San Martín declared Peru’s independence here (1821); Bolívar and Sucre finished the war at Ayacucho (1824).'},
         {n:'Rio de Janeiro',c:[-22.9,-43.2],note:'Brazil declared independence under Dom Pedro I (1822).'}
       ],
       tech:[
@@ -160,7 +165,8 @@ window.UNIT_MAP = {
       tech:[
         {name:'Steam engine (Watt)',what:'An efficient engine burning coal to power machines, ships, and trains.',impact:'Freed factories from rivers and shrank travel times.'},
         {name:'Factory system',what:'Machines and workers gathered under one roof, starting with textiles.',impact:'Mass production, but long hours and child labor.'},
-        {name:'Why Britain?',what:'Coal and iron, rivers and ports, enclosure pushing farmers to cities, banks, and an empire supplying raw materials.',impact:'Gave Britain a head start as the “workshop of the world.”'}
+        {name:'Why Britain?',what:'Coal and iron, rivers and ports, enclosure pushing farmers to cities, banks, and an empire supplying raw materials.',impact:'Gave Britain a head start as the “workshop of the world.”'},
+        {name:'Second Industrial Revolution (c. 1870–1914)',what:'A new wave built on steel (the Bessemer process), electricity, chemicals, and oil, led by Germany and the United States rather than Britain.',impact:'Created giant corporations and spread industry, often state-led, to Russia and Japan.'}
       ],
       goods:['Coal','Steam engine','Factory system','Urbanization','Capitalism (Adam Smith)','Socialism (Marx)'],
       cultural:[
@@ -188,22 +194,58 @@ window.UNIT_MAP = {
       blurb:'The Ottomans reorganized law, education, and the military along European lines in the Tanzimat (1839–1876).',
       facts:[['Reforms','Tanzimat (1839–1876)'],['Challenge','Nationalist revolts in the Balkans']],
       role:'Reforms modernized parts of the state, but the “sick man of Europe” fell behind industrial powers.'},
+    egypt:{name:'Egypt (Muhammad Ali)', sub:'State-led modernization', color:'#8a6d1f',
+      poly:[[31.5,25],[31.6,32.3],[31.2,34.2],[29.5,34.9],[27.5,33.8],[22,36.9],[22,25]],
+      blurb:'Muhammad Ali, the Ottoman governor of Egypt (1805–1848), broke from Ottoman control and set out to make Egypt a modern power.',
+      facts:[['Ruled','1805–1848'],['Model','State-run textile factories, a conscript army, Western-style schools'],['Export','Cotton']],
+      role:'One of the first non-Western leaders to try state-led industrialization. His factories faded after his death, and Egypt came to depend on exporting raw cotton to Britain.'},
     russia:{name:'Russian Empire', sub:'Emancipation & state industry', color:'#2f5fb3',
-      poly:[[69,33],[66,41],[68,60],[60,60],[55,60],[50,55],[45,48],[42,45],[44,40],[47,38],[52,33],[56,28],[60,28],[64,30]],
+      poly:[[69.5,33],[68,44],[68.5,55],[70,67],[73,80],[76,100],[73,113],[72,130],[70,150],[69,170],[66,179],[62,178],[60,165],[55,162],[59,150],[54,141],[48,140],[43,131],[45,133],[48,135],[49,127],[53,123],[50,117],[50,108],[51,98],[50,87],[49,84],[47,83],[45,80],[42,80],[37,67],[37,60],[38,54],[41,52],[41.5,48.5],[39.5,45],[41,42],[43.5,40],[46,37],[46.5,30],[48,26.5],[52,23.5],[54.5,19.5],[56,21],[59.5,22.5],[60.5,22],[65,24],[69,28.5]],
       blurb:'Tsar Alexander II freed the serfs in 1861; later, Sergei Witte used state funds to build railroads and heavy industry.',
       facts:[['1861','Emancipation of the serfs'],['1890s','Witte’s industrial push; Trans-Siberian Railway']],
       role:'Industrialized late and from the top down, while political reform lagged, setting up 1905 and 1917.'}
   },
   themeHead:'Spread of Ideas &amp; Industry',
   themes:{
-    enlight:{name:'Spread of Enlightenment Ideas', color:'#c9871b', icon:'💡', kind:'spread',
-      note:'Enlightenment thinkers in Britain and France (Locke, Montesquieu, Rousseau, Voltaire) argued for natural rights, popular sovereignty, and separation of powers. Their ideas crossed the Atlantic and fueled revolution.',
-      origin:{n:'Paris & London', c:[49.7,1]},
-      items:[{n:'→ Thirteen Colonies (1776)',c:[39.95,-75.17]},{n:'→ Saint-Domingue (1791)',c:[19.5,-72.5]},{n:'→ Mexico (1810)',c:[21.16,-100.93]},{n:'→ Gran Colombia (1811)',c:[10.48,-66.9]},{n:'→ Río de la Plata (1816)',c:[-34.6,-58.38]}]},
-    industry:{name:'Spread of Industrialization', color:'#5a6b7a', icon:'🏭', kind:'spread',
-      note:'Industrialization spread from Britain to western Europe and the United States, and later, often through state direction, to Russia and Japan.',
-      origin:{n:'Britain', c:[53,-2]},
-      items:[{n:'→ Belgium',c:[50.6,4.5]},{n:'→ France',c:[47.5,2.5]},{n:'→ Germany (Ruhr)',c:[51.4,7.2]},{n:'→ United States',c:[41,-75]},{n:'→ Russia',c:[55.75,37.6],curv:0.1},{n:'→ Japan',c:[35.7,139.7],curv:0.08}]},
+    enlight:{name:'Spread of Enlightenment Ideas', color:'#c9871b', icon:'💡', kind:'flows',
+      frame:[[-30,-105],[58,15]],
+      groups:[
+        {title:'Ideas cross the Atlantic', color:'#c9871b', badge:'💡',
+         desc:'Enlightenment thinkers in Britain and France (Locke, Montesquieu, Rousseau, Voltaire) argued for natural rights, popular sovereignty, and separation of powers. Their ideas crossed the Atlantic and fueled revolution. Tags show the year each revolution began.',
+         arrows:[
+           {from:[51,-6], to:[41,-73], curv:0.22, tag:'1776', n:'→ Thirteen Colonies (1776)'},
+           {from:[45,-8], to:[20.4,-71], curv:0.1, tag:'1791', n:'→ Saint-Domingue (1791)'},
+           {from:[39,-11], to:[22.5,-96], curv:-0.06, tag:'1810', n:'→ Mexico (1810)'},
+           {from:[36,-10], to:[-8,-55], curv:-0.12, tag:'1810s', n:'→ South America (1810s)'}
+         ]},
+        {title:'Revolution inspires revolution', color:'#b8322a', badge:'⟳', size:'small',
+         desc:'Each revolution became an example for the next: the American Revolution inspired France (1789), French ideals inspired Haiti, and independent Haiti gave Bolívar ships and weapons (1816).',
+         arrows:[
+           {from:[37,-70], to:[47,-6], curv:-0.22, tag:'US → France', n:'The American example inspires France (1789)'},
+           {from:[17.8,-71.5], to:[11.5,-66.5], curv:-0.4, tag:'Haiti aids Bolívar', tagAt:[12.5,-71], n:'Haiti aids Bolívar (1816)'}
+         ]}
+      ]},
+    industry:{name:'Spread of Industrialization', color:'#5a6b7a', icon:'🏭', kind:'flows',
+      frame:[[12,-100],[66,145]],
+      groups:[
+        {title:'First Industrial Revolution (c. 1750–1850)', color:'#5a6b7a', badge:'1st',
+         desc:'Began in Britain: textiles, coal, iron, and the steam engine. Spread to Belgium, France, the German states, and the northeastern United States.',
+         hubs:[{n:'Britain: where it began', c:[53.48,-2.24], dir:'left', note:'Coal, iron, rivers and ports, capital, and new machines gave Britain the first factories.'}],
+         arrows:[
+           {from:[52.8,0.5], to:[48.6,11.5], curv:0.3, n:'→ Belgium, France & the German states'},
+           {from:[52,-6], to:[41.5,-73], curv:0.22, tag:'1st', n:'→ Northeastern United States'}
+         ]},
+        {title:'Second Industrial Revolution (c. 1870–1914)', color:'#b5541c', badge:'2nd',
+         desc:'Steel (the Bessemer process), electricity, chemicals, and oil. Germany and the United States took the lead from Britain; Russia (Witte) and Japan (Meiji) industrialized with state support.',
+         hubs:[
+           {n:'Germany: steel & chemicals', c:[51.4,10.5], dir:'top', note:'Ruhr steel and a world-leading chemical industry made Germany Europe’s top industrial power by 1900.'},
+           {n:'United States: steel, oil & electricity', c:[40.4,-80], dir:'bottom', note:'Carnegie’s steel, Rockefeller’s oil, and Edison’s electric power made the US the largest industrial economy.'}
+         ],
+         arrows:[
+           {from:[53,15], to:[55.5,37], curv:0.25, tag:'2nd', n:'→ Russia (state-led, 1890s)'},
+           {from:[55,22], to:[36.5,138.5], curv:0.2, tag:'2nd', n:'→ Japan (Meiji, from 1868)'}
+         ]}
+      ]},
     timeline:{name:'Timeline of Revolutions', color:'#7a2f2f', icon:'📅', kind:'years',
       items:[
         {n:'1776',c:[39.95,-75.17],note:'American Declaration of Independence.'},
@@ -232,14 +274,13 @@ window.UNIT_MAP = {
         {n:'Serfs freed 1861',c:[59.94,30.31],note:'Russia emancipates the serfs.'},
         {n:'Abolition 1865',c:[38.9,-77.03],note:'US 13th Amendment ends slavery.'},
         {n:'Abolition 1888',c:[-15.8,-47.9],note:'Brazil is the last in the Americas to abolish slavery.'},
-        {n:'Suffrage 1893',c:[-41.3,174.8],dir:'left',note:'New Zealand: first nation to give women the vote.'}
+        {n:'Suffrage 1893',c:[-41.3,174.8],dir:'left',wrap:true,note:'New Zealand: first nation to give women the vote.'}
       ]},
     thinkers:{name:'Thinkers &amp; Writers', color:'#0f5b5e', icon:'✒', kind:'cities',
       items:[
-        {n:'Locke (London)',c:[51.5,-0.1],note:'Natural rights and consent of the governed.'},
+        {n:'Locke &amp; Wollstonecraft (London)',c:[51.5,-0.1],note:'Locke: natural rights and consent of the governed. Wollstonecraft: A Vindication of the Rights of Woman (1792).'},
         {n:'Voltaire, Rousseau & Montesquieu (Paris)',c:[48.86,2.35],note:'Free speech, social contract, separation of powers.'},
         {n:'Adam Smith (Scotland)',c:[55.95,-3.19],note:'The Wealth of Nations (1776): free markets, laissez-faire.'},
-        {n:'Wollstonecraft (London)',c:[51.3,-1.5],note:'A Vindication of the Rights of Woman (1792).'},
         {n:'Marx & Engels',c:[53.48,-2.24],note:'The Communist Manifesto (1848), shaped by factory conditions Engels saw in Manchester.'},
         {n:'Bolívar’s Jamaica Letter',c:[18,-76.8],note:'1815 letter laying out his vision for independent Latin America.'}
       ]}
@@ -249,6 +290,6 @@ window.UNIT_MAP = {
 };
 </script>
 <script defer src="theme.js"></script>
-<script src="unit-map-engine.js"></script>
+<script src="unit-map-engine.js?v=20261018"></script>
 </body>
 </html>

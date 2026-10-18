@@ -28,6 +28,7 @@
       '<div class="btitle">' + M.title + '</div><div class="bsub">Interactive Map &middot; ' + M.years + '</div></div></div>' +
       '<nav class="links"><a href="' + hub + '">&#8592; Unit ' + M.unit + ' Hub</a><a href="./">All Units</a></nav></header>' +
     '<div class="wrap"><aside class="panel">' +
+      '<button type="button" class="p-collapse" id="p-collapse">&laquo; Hide panel</button>' +
       '<div class="p-intro"><div class="p-eyebrow">Reference Map</div><h1>' + M.h1 + '</h1><p>' + M.intro + '</p></div>' +
       '<div class="route-btns"><div class="route-head">' + M.routeHead + '</div><div class="rb-list" id="rb-list"></div>' +
         '<div class="rb-all"><button type="button" id="btn-all">' + (M.allBtn || 'Show all') + '</button><button type="button" id="btn-reset">Reset view</button></div></div>' +
@@ -36,12 +37,13 @@
       '<div class="p-body" id="p-body"></div>' +
       '<div class="approx">Borders and regions are approximate, drawn to show the big picture for AP review, not exact boundaries. The base map shows modern coastlines and countries.</div>' +
     '</aside><div class="mapcol"><div id="map"></div><div class="legend" id="legend"></div>' +
+      '<button type="button" class="panel-open" id="panel-open">&raquo; Show panel</button><div class="ov-key" id="ov-key"></div>' +
       '<div class="map-hint">' + (M.hint || 'Click anything on the map to read more. Drag to pan, scroll to zoom.') + '</div></div></div>');
 
   /* ══ MAP SETUP ══ */
   var BASE_COLORS = { light: { land: '#f4f3ef', border: '#bcb8ae' }, dark: { land: '#3a3e46', border: '#5d6472' } };
   var map = L.map('map', { center: M.center, zoom: M.zoom, minZoom: 2, maxZoom: 8, attributionControl: true });
-  map.setMaxBounds([[-72, -180], [82, 190]]);
+  map.setMaxBounds([[-72, -200], [82, 200]]);
   function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
   map.createPane('basemap');
   map.getPane('basemap').style.zIndex = 200;
@@ -87,11 +89,20 @@
   }
   ROUTE_ORDER.forEach(buildRoute);
 
+  // mode: 'full' | 'faint' (everything showing, under an overlay) | 'dim' (not the selected one)
   function setRouteVisual(key, mode) {
-    var L1 = layers[key], full = mode === 'full';
-    L1.lines.forEach(function (pl) { pl.setStyle({ opacity: full ? .92 : .18, weight: full ? 4 : 3 }); });
-    L1.areas.forEach(function (a) { a.setStyle({ opacity: full ? .9 : .25, fillOpacity: full ? (current === key ? .4 : .3) : .06 }); });
-    L1.markers.forEach(function (m) { m.setStyle({ opacity: full ? 1 : .35, fillOpacity: full ? 1 : .3, radius: full ? 6 : 5 }); });
+    var L1 = layers[key], full = mode === 'full', faint = mode === 'faint';
+    L1.lines.forEach(function (pl) { pl.setStyle({ opacity: full ? .92 : (faint ? .3 : .18), weight: full ? 4 : 3 }); });
+    L1.areas.forEach(function (a) { a.setStyle({ opacity: full ? .9 : (faint ? .4 : .25), fillOpacity: full ? (current === key ? .4 : .3) : (faint ? .1 : .06) }); });
+    L1.markers.forEach(function (m) { m.setStyle({ opacity: full ? 1 : (faint ? .5 : .35), fillOpacity: full ? 1 : (faint ? .45 : .3), radius: full ? 6 : 5 }); });
+  }
+  function anyOverlay() {
+    return THEME_ORDER.some(function (k) { return themeOn[k]; }) || POLITY_ORDER.some(function (k) { return polOn[k]; });
+  }
+  function updateRouteDim() {
+    if (current !== null) return;
+    var mode = anyOverlay() ? 'faint' : 'full';
+    ROUTE_ORDER.forEach(function (k) { setRouteVisual(k, mode); });
   }
 
   /* ══ POLITY OVERLAYS ══ */
@@ -107,7 +118,7 @@
     var p = POLITIES[key], g = L.featureGroup();
     (p.polys || [p.poly]).forEach(function (pg, i) {
       var poly = L.polygon(pg, { color: p.color, weight: 2.5, opacity: .95, fillColor: p.color, fillOpacity: .28, lineJoin: 'round' });
-      if (i === 0) poly.bindTooltip(p.label || p.name, { permanent: true, direction: 'center', className: 'pol-label' });
+      if (i === 0) poly.bindTooltip(p.label || p.name, { permanent: true, direction: 'center', className: 'pol-label lp1' });
       poly.bindPopup(polityPopupHTML(p), { className: 'polity-pop', maxWidth: 290 });
       poly.addTo(g);
     });
@@ -117,6 +128,8 @@
     polOn[key] = on;
     if (on) polLayers[key].addTo(map); else if (map.hasLayer(polLayers[key])) map.removeLayer(polLayers[key]);
     document.querySelectorAll('.pol-chip[data-p="' + key + '"]').forEach(function (c) { c.classList.toggle('on', on); });
+    if (on) hideHint();
+    updateRouteDim(); declutterSoon();
   }
   function clearPolities() { POLITY_ORDER.forEach(function (k) { togglePolity(k, false); }); }
 
@@ -144,27 +157,30 @@
     if (t.kind === 'labels') {
       t.items.forEach(function (it) {
         L.circleMarker(it.c, { radius: 4, color: '#fff', weight: 1.5, fillColor: t.color, fillOpacity: 1 })
-          .bindTooltip(it.n, { permanent: true, direction: 'right', offset: [7, 0], className: 'goods-tip' })
+          .bindTooltip(it.n, { permanent: true, direction: 'right', offset: [7, 0], className: 'goods-tip lp3' })
           .bindPopup(popup(it.n, it.note, t.color, t.name)).addTo(g);
       });
     } else if (t.kind === 'cities') {
       t.items.forEach(function (it) {
         L.circleMarker(it.c, { radius: 5, color: '#fff', weight: 2, fillColor: t.color, fillOpacity: 1 })
-          .bindTooltip(it.n, { permanent: true, direction: 'right', offset: [7, 0], className: 'city-tip' })
+          .bindTooltip(it.n, { permanent: true, direction: 'right', offset: [7, 0], className: 'city-tip lp4' })
           .bindPopup(popup(it.n, it.note, t.color, t.name)).addTo(g);
       });
     } else if (t.kind === 'years') {
       // dated events: a colored pill with the year, popup with the story
       t.items.forEach(function (it) {
-        L.circleMarker(it.c, { radius: 5, color: '#fff', weight: 2, fillColor: t.color, fillOpacity: 1 })
-          .bindTooltip(it.n, { permanent: true, direction: it.dir || 'right', offset: [7, 0], className: 'yr-tip yr-' + key })
-          .bindPopup(popup(it.n, it.note, t.color, t.name)).addTo(g);
+        // wrap:true also draws a copy one world to the west, for places near the date line (New Zealand)
+        (it.wrap ? [it.c, [it.c[0], it.c[1] - 360]] : [it.c]).forEach(function (c, j) {
+          L.circleMarker(c, { radius: 5, color: '#fff', weight: 2, fillColor: t.color, fillOpacity: 1 })
+            .bindTooltip(it.n, { permanent: true, direction: j ? 'right' : (it.dir || 'right'), offset: [7, 0], className: 'yr-tip lp2 yr-' + key })
+            .bindPopup(popup(it.n, it.note, t.color, t.name)).addTo(g);
+        });
       });
       var ys = document.createElement('style'); ys.textContent = '.yr-' + key + '{--tipbg:' + t.color + '}'; document.head.appendChild(ys);
     } else if (t.kind === 'spread') {
       (t.origins || [t.origin]).forEach(function (o) {
         L.circleMarker(o.c, { radius: 7, color: '#fff', weight: 2, fillColor: t.color, fillOpacity: 1 })
-          .bindTooltip(o.n + ' (origin)', { permanent: true, direction: 'top', className: 'city-tip' })
+          .bindTooltip(o.n + ' (origin)', { permanent: true, direction: 'top', className: 'city-tip lp2' })
           .bindPopup(popup(t.name + ': ' + o.n, t.note, t.color, 'Origin')).addTo(g);
       });
       t.items.forEach(function (it, i) {
@@ -185,14 +201,14 @@
       pth.forEach(function (p, i) {
         if (i > 0) addSwoop(g, pth[i - 1].c, p.c, t.color, 0.16, 3.5);
         L.circleMarker(p.c, { radius: i === 0 ? 7 : 5, color: '#fff', weight: 2, fillColor: t.color, fillOpacity: 1 })
-          .bindTooltip((i + 1) + '. ' + p.n, { permanent: true, direction: 'top', className: 'city-tip' })
+          .bindTooltip((i + 1) + '. ' + p.n, { permanent: true, direction: 'top', className: 'city-tip lp2' })
           .bindPopup(popup(p.n, p.note || t.note, t.color, t.name)).addTo(g);
       });
     } else if (t.kind === 'lines') {
       // drawn lines: a front, a wall, a canal, a border
       t.items.forEach(function (it) {
         L.polyline(it.pts, { color: t.color, weight: it.weight || 4, opacity: .9, dashArray: it.dash ? '8 7' : null, lineCap: 'round' })
-          .bindTooltip(it.n, { permanent: !!it.label, sticky: !it.label, direction: 'center', className: 'city-tip' })
+          .bindTooltip(it.n, { permanent: !!it.label, sticky: !it.label, direction: 'center', className: 'city-tip' + (it.label ? ' lp3' : '') })
           .bindPopup(popup(it.n, it.note, t.color, t.name)).addTo(g);
       });
     } else if (t.kind === 'zones') {
@@ -200,18 +216,126 @@
       t.items.forEach(function (it) {
         var c = it.color || t.color;
         L.polygon(it.poly, { color: c, weight: 2, opacity: .9, fillColor: c, fillOpacity: .22, dashArray: '5 5' })
-          .bindTooltip(it.n, { permanent: true, direction: 'center', className: 'city-tip' })
+          .bindTooltip(it.n, { permanent: true, direction: 'center', className: 'city-tip lp3' })
           .bindPopup(popup(it.n, it.note, c, t.name)).addTo(g);
+      });
+    } else if (t.kind === 'flows') {
+      // big geographic arrows in groups (e.g. 1st vs 2nd Industrial Revolution); each arrow
+      // carries a short tag, and the full explanation sits in the key card on the map
+      // the arrow shapes are redrawn after each zoom so they keep the same on-screen thickness
+      var arrowG = L.layerGroup().addTo(g);
+      flowDraw[key] = function () {
+        arrowG.clearLayers();
+        t.groups.forEach(function (gr) {
+          var size = gr.size === 'small' ? { halfW: 2.2, headLen: 10, headHalfW: 7 } : { halfW: 4.5, headLen: 16, headHalfW: 11 };
+          (gr.arrows || []).forEach(function (a) {
+            addBigArrow(arrowG, a.from, a.to, a.curv || 0, gr.color, size)
+              .bindPopup(popup(a.n || gr.title, a.note || gr.desc, gr.color, t.name));
+          });
+        });
+      };
+      flowDraw[key]();
+      t.groups.forEach(function (gr) {
+        (gr.arrows || []).forEach(function (a) {
+          if (a.tag) addTag(g, a.tagAt || midPt(a.from, a.to, a.curv || 0), a.tag, gr.color);
+        });
+        (gr.hubs || []).forEach(function (h) {
+          L.circleMarker(h.c, { radius: 7, color: '#fff', weight: 2, fillColor: gr.color, fillOpacity: 1 })
+            .bindTooltip(h.n, { permanent: true, direction: h.dir || 'top', className: 'city-tip lp2' })
+            .bindPopup(popup(h.n, h.note || gr.desc, gr.color, gr.title)).addTo(g);
+        });
       });
     }
     themeLayers[key] = g; themeOn[key] = false;
+  }
+  /* A big arrow: a thick ribbon along a swoop with a wide head, built as one polygon in
+     projected space at the current zoom. Sizes are screen pixels. */
+  var flowDraw = {};
+  map.on('zoomend', function () { Object.keys(flowDraw).forEach(function (k) { flowDraw[k](); }); });
+  function addBigArrow(group, from, to, curv, color, s) {
+    var Z = map.getZoom(), crs = map.options.crs;
+    var pts = bezierPts(from, to, curv).map(function (p) { return crs.latLngToPoint(L.latLng(p[0], p[1]), Z); });
+    var total = 0, d = [0];
+    for (var i = 1; i < pts.length; i++) { total += pts[i].distanceTo(pts[i - 1]); d.push(total); }
+    var stop = total - s.headLen, shaft = [];
+    for (var j = 0; j < pts.length && d[j] <= stop; j++) shaft.push(pts[j]);
+    if (shaft.length < 2) shaft = [pts[0], pts[0].add(pts[pts.length - 1].subtract(pts[0]).multiplyBy(.4))];
+    var tip = pts[pts.length - 1], base = shaft[shaft.length - 1];
+    function unit(v) { var l = Math.sqrt(v.x * v.x + v.y * v.y) || 1; return L.point(v.x / l, v.y / l); }
+    var dir = unit(tip.subtract(base)), nb = L.point(-dir.y, dir.x), left = [], right = [];
+    shaft.forEach(function (p, k) {
+      var n = k < shaft.length - 1 ? (function (v) { return L.point(-v.y, v.x); })(unit(shaft[k + 1].subtract(p))) : nb;
+      left.push(p.add(n.multiplyBy(s.halfW))); right.push(p.subtract(n.multiplyBy(s.halfW)));
+    });
+    var ring = left.concat([base.add(nb.multiplyBy(s.headHalfW)), tip, base.subtract(nb.multiplyBy(s.headHalfW))]).concat(right.reverse());
+    return L.polygon(ring.map(function (p) { return crs.pointToLatLng(p, Z); }),
+      { color: '#fff', weight: 1.5, opacity: .9, fillColor: color, fillOpacity: .88, lineJoin: 'round' }).addTo(group);
+  }
+  function midPt(from, to, curv) { var p = bezierPts(from, to, curv); return p[Math.floor(p.length / 2)]; }
+  function addTag(group, latlng, text, color) {
+    return L.tooltip({ permanent: true, direction: 'center', className: 'flow-tag lp0' })
+      .setLatLng(latlng).setContent('<span style="background:' + color + '">' + text + '</span>').addTo(group);
   }
   THEME_ORDER.forEach(buildTheme);
   function toggleTheme(key, on) {
     themeOn[key] = on;
     if (on) themeLayers[key].addTo(map); else if (map.hasLayer(themeLayers[key])) map.removeLayer(themeLayers[key]);
     document.querySelectorAll('.thm-chip[data-t="' + key + '"]').forEach(function (c) { c.classList.toggle('on', on); });
+    if (on) hideHint();
+    updateRouteDim(); renderOvKey(); declutterSoon();
+    // big-arrow layers can name the area to frame so the arrows are large enough to read
+    // on a small map, fold the map key so it doesn't cover the arrows
+    if (on && THEMES[key].kind === 'flows' && !legendMin && document.querySelector('.mapcol').clientWidth < 760) { legendMin = true; renderLegend(); }
+    if (on && THEMES[key].frame) { try { map.flyToBounds(THEMES[key].frame, { padding: [20, 20], duration: .7 }); } catch (e) {} }
   }
+
+  /* Key card: the explanation for every big-arrow layer that is on */
+  var ovMin = null;
+  function renderOvKey() {
+    var box = document.getElementById('ov-key'), h = '';
+    THEME_ORDER.forEach(function (k) {
+      var t = THEMES[k]; if (t.kind !== 'flows' || !themeOn[k]) return;
+      h += '<div class="ov-card"><div class="ov-t">' + t.name + '</div>';
+      t.groups.forEach(function (gr) {
+        h += '<div class="ov-row"><span class="ov-sw" style="background:' + gr.color + '">' + (gr.badge || '') + '</span><span><b>' + gr.title + '</b>' + gr.desc + '</span></div>';
+      });
+      h += '</div>';
+    });
+    if (h) {
+      var mc = document.querySelector('.mapcol');
+      if (ovMin === null) ovMin = mc.clientWidth < 640 || mc.clientHeight < 560; // small map: start folded
+      h = '<button type="button" class="ov-min" id="ov-min">' + (ovMin ? 'Show key &#9650;' : 'Hide key &#9660;') + '</button>' + (ovMin ? '' : h);
+    }
+    box.innerHTML = h;
+    box.classList.toggle('show', !!h);
+    box.parentNode.classList.toggle('has-key', !!h);
+    var mb = document.getElementById('ov-min');
+    if (mb) mb.addEventListener('click', function () { ovMin = !ovMin; renderOvKey(); });
+  }
+
+  /* Label declutter: permanent labels carry a priority class (lp0 = most important … lp4).
+     A label that would overlap a more important one is hidden until you zoom in far enough
+     for both to fit. lp0 labels (arrow tags) always show. */
+  var dq = 0;
+  function declutterSoon() { cancelAnimationFrame(dq); dq = requestAnimationFrame(declutter); }
+  function declutter() {
+    var items = [];
+    document.querySelectorAll('.leaflet-tooltip-pane .leaflet-tooltip').forEach(function (el) {
+      var m = el.className.match(/\blp(\d)\b/); if (m) { el.classList.remove('lbl-hide'); items.push({ el: el, p: +m[1] }); }
+    });
+    items.sort(function (a, b) { return a.p - b.p; });
+    var kept = [], pad = 3;
+    items.forEach(function (it) {
+      var r = it.el.getBoundingClientRect(); if (!r.width) return;
+      var hit = kept.some(function (k) { return !(r.right + pad < k.left || r.left - pad > k.right || r.bottom + pad < k.top || r.top - pad > k.bottom); });
+      if (hit && it.p > 0) it.el.classList.add('lbl-hide'); else kept.push(r);
+    });
+  }
+  map.on('zoomend moveend layeradd layerremove resize', declutterSoon);
+
+  /* The tip box goes away once the student starts using the map */
+  function hideHint() { var hEl = document.querySelector('.map-hint'); if (hEl) hEl.style.display = 'none'; }
+  map.on('dragstart zoomstart', function () { if (started) hideHint(); });
   function clearThemes() { THEME_ORDER.forEach(function (k) { toggleTheme(k, false); }); }
 
   /* ══ SELECTION ══ */
@@ -229,6 +353,7 @@
     current = null;
     showAllOnMap();
     ROUTE_ORDER.forEach(function (k) { setRouteVisual(k, 'full'); });
+    updateRouteDim();
     document.querySelectorAll('.rb').forEach(function (b) { b.classList.remove('active'); });
     renderAllPanel();
     try { map.flyTo(M.center, M.zoom, { duration: .7 }); } catch (e) {}
@@ -298,15 +423,18 @@
     });
   }
   function renderLegend() {
-    var h = '<div class="lg-t">Map Key</div>';
+    var h = '<button type="button" class="lg-t lg-tog" id="lg-tog">Map Key <span>' + (legendMin ? '&#9660; show' : '&#9650; hide') + '</span></button>';
     ROUTE_ORDER.forEach(function (k) {
       var r = ROUTES[k], c = rcol(r);
       h += '<div class="lg-row">' + (r.polys && !r.segments ? '<span class="lg-fill" style="background:' + c + '55;border-color:' + c + '"></span>'
         : '<span class="lg-line' + (r.dash ? ' dash' : '') + '" style="border-color:' + c + '"></span>') + (r.legend || r.name) + '</div>';
     });
     if (POLITY_ORDER.length) h += '<div class="lg-div"></div><div class="lg-row"><span class="lg-fill"></span>' + (M.polityLegend || 'Optional layer') + '</div>';
-    document.getElementById('legend').innerHTML = h;
+    var lg = document.getElementById('legend');
+    lg.innerHTML = h; lg.classList.toggle('min', legendMin);
+    document.getElementById('lg-tog').addEventListener('click', function () { legendMin = !legendMin; renderLegend(); });
   }
+  var legendMin = false;
   renderRouteButtons(); renderLegend();
 
   (function () {
@@ -332,6 +460,17 @@
     document.getElementById('thm-clear').addEventListener('click', clearThemes);
   })();
   document.getElementById('btn-all').addEventListener('click', showAll);
+
+  /* Collapsible side panel (remembered on this browser, shared by all the engine maps) */
+  var wrapEl = document.querySelector('.wrap');
+  function setPanel(open) {
+    wrapEl.classList.toggle('collapsed', !open);
+    try { localStorage.setItem('unitMapPanel', open ? 'open' : 'closed'); } catch (e) {}
+    setTimeout(function () { map.invalidateSize(); declutterSoon(); }, 30);
+  }
+  document.getElementById('p-collapse').addEventListener('click', function () { setPanel(false); });
+  document.getElementById('panel-open').addEventListener('click', function () { setPanel(true); });
+  try { if (localStorage.getItem('unitMapPanel') === 'closed') wrapEl.classList.add('collapsed'); } catch (e) {}
   document.getElementById('btn-reset').addEventListener('click', function () { clearThemes(); clearPolities(); map.closePopup(); showAll(); });
 
   /* ══ THEME SYNC ══ */

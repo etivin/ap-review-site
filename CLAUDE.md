@@ -191,14 +191,14 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 | `brand.js/.css` | Tivin Teaches logo lockup | |
 | `bedtime.js` | 8:00–11:00 PM dismissible "go to sleep" nudge; 11:00 PM–5:00 AM full-page night lock (sleep statistics, page inert, keys swallowed) with a visible "Teacher unlock" box (same SHA-256 hash as `games-lock.js`) that unlocks that browser for the rest of the night | key `bedtimeUnlock` (night id, YYYY-MM-DD of the evening) |
 | `pomodoro.js` | Break reminder on every page that loads `bedtime.js` (not `timer.html`, not map iframes): counts visible time on the site across pages and tabs; after 25 minutes asks for a 5-minute break ("Start my 5-minute break" shows a countdown on every open tab with a visible "End break early"; "5 more minutes" snoozes). Being away 5+ minutes counts as a break. Self-contained styles, takes the page `--red` | key `pomoBreak_v1` `{work, last, breakEnd}` |
-| `unit-map-engine.js` + `world-basemap.js` + `unit-map.css` | Unit maps | `window.UNIT_MAP = {routes, polities, themes}` |
+| `unit-map-engine.js` + `world-basemap.js` + `unit-map.css` | Unit maps (Units 1, 5–9). Collapsible side panel, foldable map key, label declutter (permanent labels carry a priority class `lp0`…`lp4`; a label overlapping a more important one hides until you zoom in), routes fade while a layer is on. Theme kinds: `labels cities years spread arrows chain lines zones flows`. `flows` = big arrows in groups with short tags and a key card: `{kind:"flows", frame?, groups:[{title, color, badge, desc, size?:"small", arrows:[{from,to,curv,tag?,tagAt?,n,note?}], hubs?:[{n,c,dir,note}]}]}`. A `years` item with `wrap:true` is also drawn one world west (near the date line). Unit 4 (hand-built) has its own copies of the panel, declutter and big arrows | `window.UNIT_MAP = {routes, polities, themes}` |
 | `cumulative.js` | Cumulative Review logic | reads `mcq-bank.js` |
 
 ### Browser storage keys
 `apReview_v1` (everything about progress: `spaced`, `studyLog`, `components['uN']` games/videos,
 `lastSeen`, legacy `mcq`/`drafts`). **Always read-modify-write the current value; never write back
 a copy loaded earlier** (that erases progress saved since). Others: `mcTheme`, `fcHub_v1` (Hub
-settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `u4VoyageBest`, `u4MapPanel` (Unit 4 map side panel open/closed), `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
+settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `u4VoyageBest`, `u4MapPanel` (Unit 4 map side panel open/closed), `unitMapPanel` (same, for the engine maps), `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
 `apwh-timer-*`.
 
 ## 6. Not shared yet (each unit has its own inline copy)

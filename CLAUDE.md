@@ -198,7 +198,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 `apReview_v1` (everything about progress: `spaced`, `studyLog`, `components['uN']` games/videos,
 `lastSeen`, legacy `mcq`/`drafts`). **Always read-modify-write the current value; never write back
 a copy loaded earlier** (that erases progress saved since). Others: `mcTheme`, `fcHub_v1` (Hub
-settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `u4VoyageBest`, `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
+settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `u4VoyageBest`, `u4MapPanel` (Unit 4 map side panel open/closed), `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
 `apwh-timer-*`.
 
 ## 6. Not shared yet (each unit has its own inline copy)

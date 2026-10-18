@@ -29,6 +29,7 @@
   --indian:#b3402f;--indian-bg:#fbeceb;
   --sahara:#c07800;--sahara-bg:#fcf3e2;
   --eng:#6b3fa0;--eng-bg:#f1ecf9;
+  --fra:#1d4ed8;--fra-bg:#eaf0fd;
   --sh:0 1px 4px rgba(0,0,0,.08);--shm:0 8px 30px rgba(0,0,0,.16);
 }
 html,body{height:100%}
@@ -75,6 +76,9 @@ a{color:inherit}
 .rb[data-r="spain"] .rb-dot{background:var(--indian)}
 .rb[data-r="dutch"] .rb-dot{background:var(--sahara)}
 .rb[data-r="england"] .rb-dot{background:var(--eng)}
+.rb[data-r="france"]{border-left-color:var(--fra)}
+.rb[data-r="france"] .rb-dot{background:var(--fra)}
+.rb.active[data-r="france"]{background:var(--fra-bg);border-color:var(--fra)}
 .rb.active[data-r="portugal"]{background:var(--silk-bg);border-color:var(--silk)}
 .rb.active[data-r="spain"]{background:var(--indian-bg);border-color:var(--indian)}
 .rb.active[data-r="dutch"]{background:var(--sahara-bg);border-color:var(--sahara)}
@@ -110,8 +114,8 @@ a{color:inherit}
 .place{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;border:none;padding:8px 6px;border-bottom:1px solid var(--border);transition:background .12s}
 .place:hover{background:var(--cream)}
 .place .pin{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:4px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
-.place .p-name{font-weight:900;font-size:.87rem;letter-spacing:-.01em}
-.place .p-note{font-size:.79rem;color:var(--muted);line-height:1.45;margin-top:1px}
+.place .p-name{font-weight:900;font-size:.87rem;letter-spacing:-.01em;display:block}
+.place .p-note{font-size:.79rem;color:var(--muted);line-height:1.45;margin-top:1px;display:block}
 .place .p-go{margin-left:auto;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);flex-shrink:0;opacity:0;transition:opacity .12s;padding-top:3px}
 .place:hover .p-go{opacity:1}
 
@@ -205,11 +209,52 @@ a{color:inherit}
 :root[data-theme="dark"] .pop-facts b,:root[data-theme="dark"] .pop-sub b{color:#e7ebf5}
 :root[data-theme="dark"] .pop-sub{border-top-color:#333a49}
 
+/* land empires sub-heading inside the Empires box */
+.pol-sub{font-weight:700;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:12px 0 7px}
+.pol-sub:first-child{margin-top:0}
+
+/* ── COLLAPSIBLE PANEL ── */
+.p-collapse{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:var(--paper);border:none;border-bottom:1px solid var(--border);color:var(--mid);font-weight:900;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:9px;flex-shrink:0;transition:background .15s}
+.p-collapse:hover{background:var(--ink);color:#fff}
+.panel-open{position:absolute;top:12px;left:54px;z-index:600;display:none;align-items:center;gap:7px;background:var(--ink);color:#fff;border:none;font-weight:900;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;padding:9px 13px;box-shadow:var(--shm)}
+.panel-open:hover{background:var(--red)}
+.wrap.collapsed .panel{display:none}
+.wrap.collapsed .panel-open{display:flex}
+:root[data-theme="dark"] .panel-open{background:#5fd0d4;color:#12141b}
+
+/* ── COLUMBIAN EXCHANGE + TRIANGLE TRADE labels ── */
+/* short tags that sit on the arrows */
+.leaflet-tooltip.cx-tag{background:transparent;border:none;box-shadow:none;padding:0}
+.leaflet-tooltip.cx-tag span{display:block;color:#fff;font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.68rem;letter-spacing:.04em;
+  padding:3px 9px;border-radius:12px;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);white-space:nowrap}
+.leaflet-tooltip.cx-tag::before,.leaflet-tooltip.tri-tag::before{display:none}
+.leaflet-tooltip.tri-tag{background:#7a2f2f;color:#fff;border:2px solid #fff;border-radius:50%;width:24px;height:24px;padding:0;
+  display:flex;align-items:center;justify-content:center;font-family:Lato,system-ui,sans-serif;font-weight:900;font-size:.8rem;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+
+/* key card (bottom-left of the map) explaining the exchange / triangle layers that are on */
+.ov-key{position:absolute;right:12px;bottom:26px;z-index:550;display:none;flex-direction:column;gap:8px;max-width:290px;max-height:calc(100% - 240px);overflow-y:auto}
+.ov-key.show{display:flex}
+.ov-min{align-self:flex-end;background:var(--ink);color:#fff;border:none;font-weight:900;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;box-shadow:var(--sh)}
+.ov-min:hover{background:var(--red)}
+:root[data-theme="dark"] .ov-min{background:#5fd0d4;color:#12141b}
+.ov-card{background:var(--white);border:1px solid var(--border);box-shadow:var(--shm);padding:9px 11px;font-size:.72rem;line-height:1.45;color:var(--mid)}
+.ov-card .ov-t{font-weight:900;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ov-row{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
+.ov-row:first-of-type{margin-top:0}
+.ov-sw{flex-shrink:0;min-width:22px;height:22px;border-radius:11px;color:#fff;font-weight:900;font-size:.72rem;display:flex;align-items:center;justify-content:center;padding:0 6px;margin-top:1px}
+.ov-row b{display:block;color:var(--ink);font-weight:900;font-size:.76rem}
+.mapcol.has-key .map-hint{display:none}
+@media(max-width:820px){.ov-key{max-width:240px;bottom:44px}}
+
+/* labels that would sit on top of a more important label are hidden until you zoom in */
+.leaflet-tooltip.lbl-hide{visibility:hidden}
+
 /* ── MOBILE ── */
 @media(max-width:820px){
-  .wrap{flex-direction:column-reverse}
-  .panel{width:100%;max-height:none;border-right:none;border-top:1px solid var(--border)}
-  .mapcol{height:56vh;flex:none}
+  .panel-open{left:auto;right:8px;top:auto;bottom:8px}
+  .wrap{flex-direction:column;overflow-y:auto}
+  .panel{width:100%;max-height:none;overflow:visible;flex:none;border-right:none;border-top:1px solid var(--border)}
+  .mapcol{order:-1;height:56vh;flex:none}
   .legend{top:8px;right:8px;padding:7px 9px}
   .map-hint{display:none}
 }
@@ -218,8 +263,8 @@ a{color:inherit}
 :root[data-theme="dark"]{
   --cream:#0f1117;--white:#171a22;--paper:#1c2029;--border:#333a49;--border2:#454e62;
   --ink:#e7ebf5;--mid:#c4cad7;--muted:#9299ac;--red:#5fd0d4;--red-bg:rgba(255,255,255,.06);
-  --silk:#4cc985;--indian:#ff8a72;--sahara:#f0b24a;--eng:#b79be6;
-  --silk-bg:rgba(76,201,133,.12);--indian-bg:rgba(255,138,114,.12);--sahara-bg:rgba(240,178,74,.12);--eng-bg:rgba(183,155,230,.12);
+  --silk:#4cc985;--indian:#ff8a72;--sahara:#f0b24a;--eng:#b79be6;--fra:#7aa2ff;
+  --silk-bg:rgba(76,201,133,.12);--indian-bg:rgba(255,138,114,.12);--sahara-bg:rgba(240,178,74,.12);--eng-bg:rgba(183,155,230,.12);--fra-bg:rgba(122,162,255,.12);
   color-scheme:dark;
 }
 :root[data-theme="dark"] body{background:#0f1117;color:#e7ebf5}
@@ -265,18 +310,20 @@ a{color:inherit}
 
 <div class="wrap">
   <!-- LEFT: controls + reference -->
-  <aside class="panel">
+  <aside class="panel" id="panel">
+    <button type="button" class="p-collapse" id="p-collapse">&laquo; Hide panel</button>
     <div class="p-intro">
       <div class="p-eyebrow">Reference Map</div>
       <h1>Explore the New Global Age</h1>
-      <p>Start with a <strong>power&rsquo;s voyages of exploration</strong> as your base. Then layer on the maritime empires, and the great exchanges, goods, the Columbian Exchange, silver, the Atlantic slave trade, and disease, each shown as a <strong>swooping arrow from where it began</strong>. Click anything to read more.</p>
+      <p>Start with a <strong>power&rsquo;s voyages of exploration</strong> as your base. Then layer on the empires and the great exchanges of the era: trade goods, the Columbian Exchange, silver, and the Triangle Trade. Click anything to read more.</p>
     </div>
 
     <div class="route-btns" id="route-btns">
       <button class="rb" data-r="portugal"><span class="rb-dot"></span><span><span class="rb-name">Portugal</span><span class="rb-yrs" style="display:block">Around Africa to Asia</span></span></button>
       <button class="rb" data-r="spain"><span class="rb-dot"></span><span><span class="rb-name">Spain</span><span class="rb-yrs" style="display:block">Atlantic &amp; the Pacific galleon</span></span></button>
       <button class="rb" data-r="dutch"><span class="rb-dot"></span><span><span class="rb-name">The Dutch (VOC)</span><span class="rb-yrs" style="display:block">Spice route to Indonesia</span></span></button>
-      <button class="rb" data-r="england"><span class="rb-dot"></span><span><span class="rb-name">England &amp; France</span><span class="rb-yrs" style="display:block">North Atlantic &amp; India</span></span></button>
+      <button class="rb" data-r="england"><span class="rb-dot"></span><span><span class="rb-name">England</span><span class="rb-yrs" style="display:block">North America, the Caribbean &amp; India</span></span></button>
+      <button class="rb" data-r="france"><span class="rb-dot"></span><span><span class="rb-name">France</span><span class="rb-yrs" style="display:block">New France, the Caribbean &amp; India</span></span></button>
       <div class="rb-all">
         <button type="button" id="btn-all">Show all routes</button>
         <button type="button" id="btn-reset">Reset view</button>
@@ -284,8 +331,11 @@ a{color:inherit}
     </div>
 
     <div class="region-wrap">
-      <div class="region-head">Maritime Empires <span class="rh-hint">layer any on</span></div>
+      <div class="region-head">Empires <span class="rh-hint">layer any on</span></div>
+      <div class="pol-sub">Maritime empires</div>
       <div class="pol-grid" id="pol-grid"></div>
+      <div class="pol-sub">Land empires (for comparison)</div>
+      <div class="pol-grid" id="pol-grid-land"></div>
       <button type="button" class="thm-clear" id="pol-clear">Clear empires</button>
     </div>
 
@@ -297,7 +347,7 @@ a{color:inherit}
 
     <div class="p-body" id="p-body">
       <div class="p-empty">
-        <p><strong>Three networks knit Afro-Eurasia together</strong> between 1200 and 1450, moving silk and salt, faiths and inventions, merchants and microbes.</p>
+        <p><strong>Between 1450 and 1750, sea voyages linked every inhabited continent</strong> for the first time, moving silver and sugar, crops and diseases, and millions of enslaved people.</p>
         <p style="margin-top:10px">Select a route above, or <strong>Show all</strong> to compare them, then click the colored lines and dots on the map.</p>
       </div>
     </div>
@@ -311,10 +361,14 @@ a{color:inherit}
       <div class="lg-row"><span class="lg-line" style="border-color:var(--silk)"></span>Portugal</div>
       <div class="lg-row"><span class="lg-line" style="border-color:var(--indian)"></span>Spain</div>
       <div class="lg-row"><span class="lg-line" style="border-color:var(--sahara)"></span>Dutch</div>
-      <div class="lg-row"><span class="lg-line" style="border-color:var(--eng)"></span>England &amp; France</div>
+      <div class="lg-row"><span class="lg-line" style="border-color:var(--eng)"></span>England</div>
+      <div class="lg-row"><span class="lg-line" style="border-color:var(--fra)"></span>France</div>
       <div class="lg-div"></div>
-      <div class="lg-row"><span class="lg-fill"></span>Maritime empire</div>
+      <div class="lg-row"><span class="lg-fill"></span>Empire (shaded area)</div>
+      <div class="lg-row"><span class="lg-fill" style="border-radius:50%;width:12px"></span>Empire outpost</div>
     </div>
+    <button type="button" class="panel-open" id="panel-open">&raquo; Show panel</button>
+    <div class="ov-key" id="ov-key"></div>
     <div class="map-hint">Tip: turn on the Columbian Exchange to see what crossed the Atlantic. Drag to pan, scroll to zoom.</div>
   </div>
 </div>
@@ -355,10 +409,13 @@ var ROUTES = {
   },
   spain: {
     name:'Spain', sub:'The Atlantic & the Pacific galleon · from 1492', colorVar:'--indian', dash:false,
-    blurb:'Sailing west for Asia, Columbus reached the Americas in 1492. Spain conquered the Aztec and Inca, mined vast silver, and, with the Manila galleon: linked the Americas to Asia, creating the first truly global trade network.',
+    blurb:'Sailing west for Asia, Columbus reached the Americas in 1492. Spain conquered the Aztec and Inca, mined vast silver, and, through the Manila galleon, linked the Americas to Asia, creating the first truly global trade network.',
     segments:[
       [[37.39,-5.99],[35,-9],[28.3,-16.5],[22,-45],[19,-68],[19.0,-70.7],[22,-79],[23.13,-82.38],[21,-92],[19.19,-96.14]],
-      [[16.86,-99.89],[16,-125],[15,-155],[14.6,-177]],
+      /* Manila galleon: drawn twice (shifted 360°) so the Pacific crossing is unbroken
+         whichever edge of the map you look at */
+      [[16.86,-99.89],[15,-125],[13.5,-155],[13,-185],[13.5,-215],[14.6,-239.02]],
+      [[16.86,260.11],[15,235],[13.5,205],[13,175],[13.5,145],[14.6,120.98]],
       [[14.6,120.98],[19,116],[23.13,113.26]]
     ],
     places:[
@@ -384,7 +441,7 @@ var ROUTES = {
   },
   dutch: {
     name:'The Dutch (VOC)', sub:'Spice route to the East Indies · from 1602', colorVar:'--sahara', dash:false,
-    blurb:'The Dutch East India Company (VOC): the world’s first joint-stock multinational, muscled Portugal out of the spice trade, seized the Spice Islands, and ran a commercial empire from its hub at Batavia.',
+    blurb:'The Dutch East India Company (VOC), the world’s first joint-stock multinational, muscled Portugal out of the spice trade, seized the Spice Islands, and ran a commercial empire from its hub at Batavia.',
     segments:[
       [[52.37,4.90],[48,-6],[35,-11],[18,-19],[6,-16],[-6,5],[-20,9],[-34.5,17],[-35,26],[-26,38],[-12,50],[0,68],[6.93,79.85],[3,90],[-3,100],[-6.2,106.85],[0.79,127.38]],
       [[-6.2,106.85],[10,115],[22,120],[32.74,129.87]]
@@ -410,34 +467,60 @@ var ROUTES = {
     ]
   },
   england: {
-    name:'England & France', sub:'North Atlantic, the Caribbean & India', colorVar:'--eng', dash:false,
-    blurb:'Latecomers who built settler colonies in North America, sugar islands in the Caribbean, and trading footholds in India through their East India Companies, the seeds of later global empires.',
+    name:'England', sub:'North America, the Caribbean & India · from 1607', colorVar:'--eng', dash:false,
+    blurb:'A latecomer that built settler colonies in North America, sugar islands in the Caribbean, and trading footholds in India through the English East India Company, the seeds of the later British Empire.',
     segments:[
       [[51.5,-0.1],[49.5,-6],[45,-30],[40,-60],[37.2,-76.8]],
       [[50,-6],[38,-24],[22,-48],[13.1,-59.6]],
-      [[50,-6],[43,-13],[28,-19],[8,-19],[-6,5],[-20,9],[-34.5,17],[-35,28],[-20,46],[0,66],[10,73],[19.08,72.88],[9,73],[5,80],[13.08,80.27],[18,86],[22.57,88.36]],
-      [[48.3,-4.6],[47,-22],[47,-48],[48,-62],[46.81,-71.2]],
-      [[48.3,-4.6],[43,-13],[28,-19],[8,-19],[-6,5],[-20,9],[-34.5,17],[-35,28],[-20,46],[0,66],[8,74],[5,80],[11.93,79.83]]
+      [[50,-6],[43,-13],[28,-19],[8,-19],[-6,5],[-20,9],[-34.5,17],[-35,28],[-20,46],[0,66],[10,73],[19.08,72.88],[9,73],[5,80],[13.08,80.27],[18,86],[22.57,88.36]]
     ],
     places:[
       {n:'London',c:[51.5,-0.1],note:'Base of the English East India Company (1600) and Atlantic trade.'},
       {n:'Jamestown',c:[37.2,-76.8],note:'First permanent English colony (1607); tobacco made it profitable.'},
       {n:'Barbados',c:[13.1,-59.6],note:'English sugar island worked by enslaved Africans, hugely profitable.'},
-      {n:'Bombay / Madras / Calcutta',c:[19.08,72.88],note:'English East India Company trading posts on the Indian coast.'},
-      {n:'Québec',c:[46.81,-71.2],note:'Heart of New France and the North American fur trade.'},
-      {n:'Pondicherry',c:[11.93,79.83],note:'Main French trading post in India.'}
+      {n:'Bombay',c:[19.08,72.88],note:'English East India Company post on India’s west coast.'},
+      {n:'Madras',c:[13.08,80.27],note:'English East India Company fort on India’s southeast coast.'},
+      {n:'Calcutta',c:[22.57,88.36],note:'English East India Company post in Bengal, center of the cotton-textile trade.'}
     ],
     tech:[
-      {name:'East India Companies',what:'English (1600) and French (1664) joint-stock companies chartered for Asian trade.',impact:'Privately financed the footholds that later grew into territorial empires.'},
+      {name:'English East India Company',what:'A joint-stock company chartered in 1600 for trade with Asia.',impact:'Privately financed the footholds that later grew into British rule in India.'},
       {name:'Settler colonies',what:'Permanent farming and plantation colonies rather than just trading posts.',impact:'Created large European populations overseas and demand for coerced labor.'},
-      {name:'Naval gunnery',what:'Cannon-armed ships and growing state navies.',impact:'Let England contest and eventually surpass Dutch and Spanish sea power.'}
+      {name:'Naval gunnery',what:'Cannon-armed ships and a growing state navy.',impact:'Let England contest and eventually surpass Dutch and Spanish sea power.'}
     ],
-    goods:['Sugar','Tobacco','Furs','Cotton textiles','Tea','Enslaved people'],
+    goods:['Sugar','Tobacco','Cotton textiles','Tea','Enslaved people'],
     cultural:[
       {t:'Settler societies',d:'in North America grew large European populations and displaced Native peoples.'},
-      {t:'Plantation economy',d:'Caribbean and southern sugar/tobacco depended on enslaved African labor.'},
-      {t:'Fur-trade alliances',d:'the French allied with Native nations across Canada and the Great Lakes.'},
-      {t:'Companies to empire',d:'the East India Companies laid the groundwork for later British and French rule.'}
+      {t:'Plantation economy',d:'Caribbean sugar and Chesapeake tobacco depended on enslaved African labor.'},
+      {t:'Company to empire',d:'the East India Company laid the groundwork for later British rule in India.'}
+    ]
+  },
+  france: {
+    name:'France', sub:'New France, the Caribbean & India · from 1608', colorVar:'--fra', dash:false,
+    blurb:'France built a fur-trading empire along the St. Lawrence and Mississippi rivers, some of the richest sugar islands in the Caribbean, and trading posts in India through the French East India Company, making it Britain’s great colonial rival.',
+    segments:[
+      [[46.16,-1.15],[47,-10],[47,-35],[47,-52],[48,-62],[46.81,-71.2]],
+      [[46.16,-1.15],[40,-18],[27,-45],[19.76,-72.2]],
+      [[19.76,-72.2],[21.5,-79],[23.6,-84],[26,-88.5],[29.95,-90.07]],
+      [[46.16,-1.15],[42,-13],[28,-21],[8,-21],[-6,3],[-20,7],[-35,15],[-36,29],[-22,46],[-2,65],[7,76],[11.93,79.83]]
+    ],
+    places:[
+      {n:'La Rochelle',c:[46.16,-1.15],note:'Atlantic port that sent ships, settlers, and supplies to New France.'},
+      {n:'Québec',c:[46.81,-71.2],note:'Founded by Samuel de Champlain (1608); heart of New France and the fur trade.'},
+      {n:'New Orleans',c:[29.95,-90.07],note:'Capital of French Louisiana (from 1718), at the mouth of the Mississippi.'},
+      {n:'Saint-Domingue (Haiti)',c:[19.76,-72.2],note:'France’s sugar and coffee colony, the richest in the Caribbean, worked by enslaved Africans.'},
+      {n:'Pondicherry',c:[11.93,79.83],note:'Main French East India Company post in India.'}
+    ],
+    tech:[
+      {name:'French East India Company',what:'A state-backed company founded in 1664 for trade with Asia.',impact:'Gave France its trading posts in India and a rivalry with the English company.'},
+      {name:'Canoes & river routes',what:'Birchbark canoes and portages learned from Native peoples, along the St. Lawrence, the Great Lakes, and the Mississippi.',impact:'Let a small number of French traders reach deep into the North American interior.'},
+      {name:'Royal colonies',what:'New France was run directly by the king’s officials from 1663.',impact:'Tied the colonies closely to the French crown and its wars with Britain.'}
+    ],
+    goods:['Furs','Sugar','Coffee','Cotton textiles','Enslaved people'],
+    cultural:[
+      {t:'Fur-trade alliances',d:'the French allied and intermarried with Native nations across Canada and the Great Lakes.'},
+      {t:'Catholic missions',d:'Jesuit missionaries worked among the Huron and other Native peoples.'},
+      {t:'Saint-Domingue sugar',d:'an enslaved majority produced much of the world’s sugar and coffee.'},
+      {t:'Rivalry with Britain',d:'competition in North America and India led to repeated wars between the two powers.'}
     ]
   }
 };
@@ -448,7 +531,9 @@ var ROUTES = {
 var POLITIES = {
   spain_e: {
     name:'Spanish Empire', sub:'The Americas & the Philippines', color:'#b3402f',
-    poly:[[25,-107],[19,-96],[9,-83],[0,-79],[-18,-70],[-38,-72],[-32,-60],[-12,-64],[6,-73],[20,-99]],
+    poly:[[31,-114],[32,-106],[29,-100],[26,-97.5],[21,-97.5],[18.5,-95],[18.5,-91],[21.5,-87],[16,-88],[15.5,-84],[11,-83.7],[9.5,-79],[11,-75],[11.5,-72],[10.5,-64],[8,-60],[4,-67],[-4,-70],[-10,-72],[-16,-64],[-20,-58],[-27,-58],[-34.5,-58.5],[-37,-65],[-42,-73.5],[-30,-71.5],[-18,-70.5],[-14,-76],[-6,-81],[-2,-80.5],[1,-79],[7,-77.5],[8,-80],[7.5,-82],[10,-85.8],[13,-87.5],[15.8,-94],[17,-100],[20,-105.5],[23,-106.5],[26,-109.5]],
+    extra:[ [[18.5,120.5],[18.5,122.3],[13,124.5],[9,126.5],[6,125.5],[7,122],[10,119],[14.5,120]] ],
+    posts:[{n:'Havana (Cuba)',c:[23.13,-82.38]},{n:'Santo Domingo (Hispaniola)',c:[18.47,-69.9]},{n:'St. Augustine (Florida)',c:[29.9,-81.3]}],
     blurb:'The largest early-modern empire: Mexico, Central America, the Andes, the Caribbean, and the Philippines, built on conquest, silver, and Catholic missions.',
     facts:[['Core','New Spain (Mexico) & Peru'],['Also','Caribbean, the Philippines'],['Wealth','Silver from Potosí & Zacatecas'],['Labor','Encomienda & the mita']],
     role:'American silver flowed through Seville to Europe and through Manila to China, tying the whole world into one trade system for the first time.',
@@ -457,6 +542,7 @@ var POLITIES = {
   portugal_e: {
     name:'Portuguese Empire', sub:'Brazil & the Indian Ocean', color:'#0d7a3a',
     poly:[[0,-50],[-2,-42],[-13,-38],[-23,-41],[-30,-52],[-24,-57],[-9,-58],[-1,-55]],
+    posts:[{n:'Elmina',c:[5.08,-1.35]},{n:'Luanda (Angola)',c:[-8.84,13.23]},{n:'Mozambique',c:[-15.03,40.73]},{n:'Hormuz',c:[27.1,56.45]},{n:'Goa',c:[15.5,73.83]},{n:'Malacca',c:[2.19,102.25]},{n:'Macau',c:[22.19,113.54]}],
     blurb:'A seaborne empire of coastal trading posts from Brazil to Africa to Asia (Goa, Malacca, Macau), plus the sugar plantations of Brazil.',
     facts:[['Type','Trading-post (feitoria) empire'],['Colony','Brazil (sugar)'],['Asian posts','Goa, Malacca, Macau, Hormuz'],['African posts','Elmina, Mozambique']],
     role:'Controlled the sea route around Africa and the flow of spices, gold, and enslaved Africans; pioneered the Atlantic sugar-plantation model in Brazil.',
@@ -465,14 +551,16 @@ var POLITIES = {
   dutch_e: {
     name:'Dutch Empire (VOC)', sub:'The East Indies', color:'#c07800',
     poly:[[6,95],[5,119],[-1,132],[-9,122],[-8,104],[-5,96]],
-    blurb:'A commercial empire run by the VOC, the Spice Islands, Java (Batavia), Ceylon, and the Cape, squeezing rivals out of the spice trade.',
+    posts:[{n:'Cape Town',c:[-33.92,18.42]},{n:'Colombo (Ceylon)',c:[6.93,79.85]},{n:'Deshima (Nagasaki)',c:[32.74,129.87]}],
+    blurb:'A commercial empire run by the VOC: the Spice Islands, Java (Batavia), Ceylon, and the Cape, squeezing rivals out of the spice trade.',
     facts:[['Run by','The VOC (joint-stock company)'],['Capital','Batavia (Jakarta)'],['Monopoly','Nutmeg, cloves, mace'],['Also','Cape Town, Ceylon, Deshima']],
     role:'Dominated the spice trade and the carrying trade of Asia, and held the sole European trading right with Tokugawa Japan.',
     legacy:[{t:'Spice monopoly'},{t:'Corporate empire'},{t:'Amsterdam finance'}]
   },
   english_e: {
     name:'English Empire', sub:'Atlantic coast, Caribbean & India', color:'#6b3fa0',
-    poly:[[45,-70],[43,-73],[37,-76],[31,-81],[31,-84],[37,-83],[42,-75]],
+    poly:[[45,-67],[43.5,-70],[41.5,-70],[40.5,-74],[38.8,-75],[37,-76],[35,-75.5],[32,-80.8],[31,-81.4],[31.5,-83.5],[35,-82.5],[38,-79.5],[41,-77.5],[43,-75.5],[45,-71.5]],
+    posts:[{n:'Barbados',c:[13.1,-59.6]},{n:'Jamaica',c:[18.1,-77.3]},{n:'Bombay',c:[19.08,72.88]},{n:'Madras',c:[13.08,80.27]},{n:'Calcutta',c:[22.57,88.36]}],
     blurb:'Settler colonies along the North American seaboard, profitable sugar islands in the Caribbean, and East India Company posts in India.',
     facts:[['N. America','The Thirteen Colonies'],['Caribbean','Barbados, Jamaica (sugar)'],['India','Bombay, Madras, Calcutta'],['Run partly by','The English East India Company']],
     role:'Grew large settler populations and plantation economies dependent on enslaved labor, and built the trading footholds that became the British Empire.',
@@ -481,6 +569,8 @@ var POLITIES = {
   french_e: {
     name:'French Empire', sub:'New France, Louisiana & India', color:'#1d4ed8',
     poly:[[52,-79],[49,-64],[45,-71],[46,-84],[50,-95],[53,-88]],
+    extra:[ [[42,-91.5],[41,-87.5],[37,-88],[33,-90],[29,-89],[29.5,-92],[33,-92.5],[37,-91],[41,-92.5]] ],
+    posts:[{n:'Saint-Domingue (Haiti)',c:[19.4,-72.5]},{n:'Martinique',c:[14.64,-61.02]},{n:'Pondicherry',c:[11.93,79.83]}],
     blurb:'A fur-trading and settler empire in Canada and the Mississippi valley, sugar colonies in the Caribbean (Saint-Domingue), and posts in India.',
     facts:[['N. America','New France (Canada), Louisiana'],['Caribbean','Saint-Domingue (Haiti)'],['India','Pondicherry'],['Economy','Fur trade & sugar']],
     role:'Built alliances with Native nations for the fur trade, and ran some of the richest sugar plantations in the Caribbean.',
@@ -489,7 +579,7 @@ var POLITIES = {
   ottoman_e: {
     name:'Ottoman Empire', sub:'A land empire that persisted', color:'#8a6d1f',
     poly:[[41,28],[40,42],[37,45],[31,47],[29,35],[24,37],[31,25],[33,15],[35,10],[37,11],[40,20]],
-    blurb:'A reminder that great land-based empires flourished alongside the new sea empires, the Ottomans controlled the eastern Mediterranean and the old overland trade routes.',
+    blurb:'A reminder that great land-based empires flourished alongside the new sea empires: the Ottomans controlled the eastern Mediterranean and the old overland trade routes.',
     facts:[['Type','Land-based gunpowder empire'],['Capital','Istanbul'],['Controlled','The eastern Mediterranean'],['Religion','Sunni Islam']],
     role:'Taxed the overland Europe–Asia trade, a key reason Europeans sought sea routes to bypass Ottoman middlemen.',
     legacy:[{t:'Overland trade tolls'},{t:'A spur to European exploration'}]
@@ -504,6 +594,7 @@ var POLITIES = {
   }
 };
 var POLITY_ORDER = ['spain_e','portugal_e','dutch_e','english_e','french_e','ottoman_e','mughal_e'];
+var LAND_EMPIRES = {ottoman_e:true, mughal_e:true};
 
 /* ══════════════════════════════════════════════════════════════
    ANNOTATIONS: the great exchanges of the era. "Spread" layers are
@@ -546,7 +637,7 @@ var THEMES = {
   },
   atlanticwinds: {
     name:'Atlantic Winds', color:'#1d4ed8', icon:'🌀', kind:'arrows',
-    note:'The Atlantic winds blow in a giant clockwise circle, or "gyre." Near the equator the trade winds push east→west toward the Americas; farther north the westerlies push west→east back toward Europe. Sailing this circle: the "volta do mar": let ships ride the wind out and home.',
+    note:'The Atlantic winds blow in a giant clockwise circle, or "gyre." Near the equator the trade winds push east→west toward the Americas; farther north the westerlies push west→east back toward Europe. Sailing this circle, the "volta do mar," let ships ride the wind out and home.',
     items:[
       {c:[16,-42], rot:198, label:'Trade winds: blow WEST toward the Americas'},
       {c:[7,-26], rot:210, label:'Trade winds (from the NE)'},
@@ -554,56 +645,48 @@ var THEMES = {
       {c:[50,-24], rot:36, label:'Westerlies (from the SW)'}
     ]
   },
-  oldnew: {
-    name:'Columbian Exchange: Old → New', color:'#1e874b', icon:'➡', kind:'spread',
-    note:'The Columbian Exchange was the BIOLOGICAL transfer of living things across the Atlantic. From the Old World to the Americas came ANIMALS, horses, cattle, pigs, sheep, chickens, and CROPS: wheat, rice, sugar cane, coffee, bananas, grapes, plus deadly diseases (see the Disease layer).',
-    origin:{n:'Europe & Africa (Old World)', c:[33,-14]},
-    items:[
-      {n:'Horses → Great Plains', c:[41,-100]},{n:'Cattle, pigs & sheep → Mexico', c:[22,-101]},
-      {n:'Wheat & grapes → the Andes', c:[-16,-71]},{n:'Sugar cane → Caribbean', c:[18,-73]},
-      {n:'Sugar & coffee → Brazil', c:[-10,-45]},{n:'Rice & bananas → the tropics', c:[6,-58]}
-    ]
-  },
-  newold: {
-    name:'Columbian Exchange: New → Old', color:'#c98a00', icon:'⬅', kind:'spread',
-    note:'The biological exchange the other way: calorie-rich American crops spread to Afro-Eurasia and fueled a population boom. From the Americas came maize (corn), potatoes, sweet potatoes, cassava (manioc), tomatoes, cacao (chocolate), chili peppers, peanuts, pineapple, vanilla, and tobacco.',
-    origin:{n:'The Americas (New World)', c:[6,-70]},
-    items:[
-      {n:'Potato → Europe', c:[50,8]},{n:'Maize → West Africa', c:[8,3]},
-      {n:'Maize & sweet potato → China', c:[30,112]},{n:'Tomato & peppers → Mediterranean', c:[41,14]},
-      {n:'Cacao → Europe', c:[46,2]},{n:'Cassava → Africa', c:[-6,22]}
-    ]
-  },
-  disease: {
-    name:'Disease (Columbian Exchange)', color:'#6d3f9c', icon:'☠', kind:'spread',
-    note:'The deadliest part of the biological exchange. Old World diseases: SMALLPOX (the biggest killer), MEASLES, INFLUENZA, TYPHUS, bubonic plague, and whooping cough, plus malaria and yellow fever carried with the slave trade, crossed the Atlantic. Native Americans had no immunity, so up to 90% died in the "Great Dying," which helped topple the Aztec and Inca.',
-    origin:{n:'Europe & Africa (Old World)', c:[32,-24]},
-    items:[
-      {n:'Smallpox → Hispaniola', c:[19.0,-70.7]},{n:'Smallpox → Aztec (Mexico)', c:[19.43,-99.13]},
-      {n:'Smallpox & measles → Inca (Peru)', c:[-13.5,-72]},{n:'Epidemics → North America', c:[38,-85]},
-      {n:'Malaria & yellow fever → Brazil', c:[-8,-45]}
+  columbian: {
+    name:'Columbian Exchange', color:'#1e874b', icon:'⇄', kind:'cx',
+    frame:[[-30,-95],[58,22]],
+    note:'The Columbian Exchange was the BIOLOGICAL transfer of plants, animals, and diseases between the Old World (Europe, Africa, Asia) and the New World (the Americas) after 1492.',
+    arrows:[
+      {from:[41,-13], to:[34,-73], curv:0.32, color:'#1e874b', tag:'Old World → New World',
+       title:'Old World → New World',
+       items:'Animals: horses, cattle, pigs, sheep, chickens<br>Crops: wheat, rice, sugar cane, coffee, bananas, grapes<br>Diseases: smallpox, measles, influenza',
+       note:'From the Old World to the Americas came ANIMALS (horses, cattle, pigs, sheep, chickens), CROPS (wheat, rice, sugar cane, coffee, bananas, grapes), and deadly DISEASES: smallpox (the biggest killer), measles, influenza, typhus, plus malaria and yellow fever carried with the slave trade. Native Americans had no immunity, so up to 90% died in the "Great Dying," which helped topple the Aztec and Inca.'},
+      {from:[-10,-36], to:[-6,9], curv:0.42, color:'#c98a00', tag:'New World → Old World',
+       title:'New World → Old World',
+       items:'Crops: maize (corn), potatoes, sweet potatoes, cassava, tomatoes, cacao, chili peppers, peanuts, tobacco<br>Spread to Europe, Africa & Asia',
+       note:'Calorie-rich American crops spread to Afro-Eurasia and fueled a population boom. From the Americas came maize (corn), potatoes, sweet potatoes, cassava (manioc), tomatoes, cacao (chocolate), chili peppers, peanuts, pineapple, vanilla, and tobacco. Potatoes fed Europe, maize and cassava fed Africa, and maize and sweet potatoes fed China.'}
     ]
   },
   silver: {
     name:'Silver: New World → Europe → China', color:'#5a6b7a', icon:'🪙', kind:'chain',
-    note:'American silver was the money of the age. Most of it went from the New World mines FIRST across the Atlantic to Europe (Seville): and from there Europeans spent it buying silk, porcelain, and tea from China, the world’s great "silver sink." (Some Mexican silver also crossed the Pacific directly on the Manila galleon.)',
+    note:'American silver was the money of the age. Most of it went from the New World mines FIRST across the Atlantic to Europe (Seville), and from there Europeans spent it buying silk, porcelain, and tea from China, the world’s great "silver sink." (Some Mexican silver also crossed the Pacific directly on the Manila galleon.)',
     path:[
-      {n:'Potosí & Mexico (mined)', c:[-14,-72]},
-      {n:'Seville: Europe (1st stop)', c:[37.39,-5.99]},
-      {n:'China (buys silk & porcelain)', c:[30,112]}
+      {n:'Potosí & Mexico (mined)', c:[-19.58,-65.75], dir:'right'},
+      {n:'Havana (treasure fleets)', c:[23.13,-82.38], dir:'top'},
+      {n:'Seville (Europe)', c:[37.39,-5.99], dir:'bottom'},
+      {n:'China (buys silk & porcelain)', c:[30,112], dir:'top'}
     ]
   },
-  slavetrade: {
-    name:'Atlantic Slave Trade', color:'#7a2f2f', icon:'⛓', kind:'spread',
-    note:'Some 12 million enslaved Africans were shipped across the Atlantic in the brutal Middle Passage to work the plantations and mines of the Americas, the labor foundation of the Atlantic economy.',
-    origin:{n:'West & Central Africa', c:[3,6]},
-    items:[
-      {n:'→ Brazil', c:[-12,-40]},{n:'→ Caribbean', c:[17,-70]},
-      {n:'→ British North America', c:[33,-79]},{n:'→ Spanish America', c:[8,-75]}
+  triangle: {
+    name:'Triangle Trade', color:'#7a2f2f', icon:'⛓', kind:'triangle',
+    frame:[[-5,-85],[55,18]],
+    note:'The Triangle Trade linked Europe, Africa, and the Americas in one loop. Ships carried manufactured goods to Africa, enslaved Africans across the Atlantic in the brutal Middle Passage (some 12 million people), and plantation crops back to Europe. Enslaved labor was the foundation of the Atlantic economy.',
+    corners:[
+      {n:'Europe', c:[47,-3]},
+      {n:'West Africa', c:[6,-4]},
+      {n:'The Americas', c:[17,-66]}
+    ],
+    legs:[
+      {from:[45,-9], to:[11,-16], curv:-0.18, tag:'1', title:'1. Europe → Africa', items:'Guns, cloth, metal goods, rum'},
+      {from:[4,-10], to:[15,-60], curv:-0.12, tag:'2', title:'2. The Middle Passage', items:'Enslaved Africans to the Americas'},
+      {from:[21,-62], to:[44,-13], curv:-0.15, tag:'3', title:'3. Americas → Europe', items:'Sugar, tobacco, cotton, molasses'}
     ]
   }
 };
-var THEME_ORDER = ['goods','cities','atlanticwinds','oldnew','newold','disease','silver','slavetrade'];
+var THEME_ORDER = ['goods','cities','atlanticwinds','columbian','silver','triangle'];
 
 /* ══ MAP SETUP ═══════════════════════════════════════════════ */
 /* Basemap drawn from the bundled Natural Earth file (world-basemap.js): no third-party
@@ -613,7 +696,7 @@ var ATTR='Map data &copy; <a href="https://www.naturalearthdata.com/">Natural Ea
 
 var map=L.map('map',{center:[15,-25],zoom:2,minZoom:2,maxZoom:8,worldCopyJump:true,
   attributionControl:true});
-map.setMaxBounds([[-72,-170],[80,175]]);
+map.setMaxBounds([[-72,-200],[80,200]]);
 
 function isDark(){return document.documentElement.getAttribute('data-theme')==='dark';}
 map.createPane('basemap');
@@ -645,7 +728,8 @@ function buildRoute(key){
     var pl=L.polyline(seg,{color:color,weight:4,opacity:.9,
       dashArray:r.dash?'2 9':null,lineCap:'round',lineJoin:'round'}).addTo(group);
     pl.on('click',function(){selectRoute(key);});
-    lines.push(pl); seg.forEach(function(p){allPts.push(p);});
+    // the shifted copy of the Manila galleon lies off the map; leave it out of the zoom-to bounds
+    lines.push(pl); seg.forEach(function(p){ if(Math.abs(p[1])<=180) allPts.push(p); });
   });
   r.places.forEach(function(p){
     var m=L.circleMarker(p.c,{radius:6,color:'#fff',weight:2,fillColor:color,fillOpacity:1});
@@ -670,17 +754,29 @@ function polityPopupHTML(key){
   return h;
 }
 function buildPolity(key){
-  var p=POLITIES[key];
-  var poly=L.polygon(p.poly,{color:p.color,weight:2.5,opacity:.95,fillColor:p.color,fillOpacity:.28,lineJoin:'round'});
-  poly.bindTooltip(p.name,{permanent:true,direction:'center',className:'pol-label'});
-  poly.bindPopup(polityPopupHTML(key),{className:'polity-pop',maxWidth:280});
-  polLayers[key]={poly:poly,bounds:poly.getBounds(),color:p.color};
+  var p=POLITIES[key], g=L.featureGroup(), html=polityPopupHTML(key);
+  var style={color:p.color,weight:2.5,opacity:.95,fillColor:p.color,fillOpacity:.28,lineJoin:'round'};
+  // the main territory carries the name label
+  var poly=L.polygon(p.poly,style).addTo(g);
+  poly.bindTooltip(p.name,{permanent:true,direction:'center',className:'pol-label lp1'});
+  // other territories (e.g. the Philippines, Louisiana): same color, no second label
+  (p.extra||[]).forEach(function(ring){
+    L.polygon(ring,style).bindTooltip(p.name,{direction:'top',className:'city-tip'}).addTo(g);
+  });
+  // coastal forts and islands: small shaded circles, named on hover
+  (p.posts||[]).forEach(function(o){
+    L.circleMarker(o.c,{radius:8,color:p.color,weight:2.5,opacity:.95,fillColor:p.color,fillOpacity:.35})
+      .bindTooltip(o.n+' ('+p.name+')',{direction:'top',className:'city-tip'}).addTo(g);
+  });
+  g.bindPopup(html,{className:'polity-pop',maxWidth:280});
+  polLayers[key]={poly:g,bounds:poly.getBounds(),color:p.color};
 }
 Object.keys(POLITIES).forEach(buildPolity);
 function togglePolity(key,on){
   polOn[key]=on;
   if(on){ if(!map.hasLayer(polLayers[key].poly)) polLayers[key].poly.addTo(map); }
   else if(map.hasLayer(polLayers[key].poly)){ map.removeLayer(polLayers[key].poly); }
+  updateRouteDim();
   document.querySelectorAll('.pol-chip[data-p="'+key+'"]').forEach(function(c){c.classList.toggle('on',on);});
 }
 function clearPolities(){ Object.keys(polLayers).forEach(function(k){ togglePolity(k,false); }); }
@@ -716,33 +812,69 @@ function addSwoop(group,from,to,color,curv,weight){
     html:'<span style="transform:rotate('+ang+'deg);color:'+color+'">➤</span>',iconSize:[18,18],iconAnchor:[9,9]})}).addTo(group);
   return line;
 }
+/* A big geographic arrow: a thick ribbon along a swoop with a wide head, built as one
+   polygon in projected (pixel) space so it keeps its shape and grows when you zoom in. */
+function bigArrowLatLngs(from,to,curv,halfW,headLen,headHalfW){
+  var Z=3, crs=map.options.crs;
+  var pts=bezierPts(from,to,curv).map(function(p){return crs.latLngToPoint(L.latLng(p[0],p[1]),Z);});
+  // trim the shaft so the head sits on the end of the curve
+  var total=0, d=[0];
+  for(var i=1;i<pts.length;i++){ total+=pts[i].distanceTo(pts[i-1]); d.push(total); }
+  var stop=total-headLen, shaft=[];
+  for(var j=0;j<pts.length && d[j]<=stop;j++) shaft.push(pts[j]);
+  var tip=pts[pts.length-1], base=shaft[shaft.length-1];
+  var dir=tip.subtract(base); var dl=Math.sqrt(dir.x*dir.x+dir.y*dir.y)||1; dir=L.point(dir.x/dl,dir.y/dl);
+  function normal(a,b){ var v=b.subtract(a), l=Math.sqrt(v.x*v.x+v.y*v.y)||1; return L.point(-v.y/l,v.x/l); }
+  var left=[], right=[];
+  shaft.forEach(function(p,k){
+    var n=k<shaft.length-1?normal(p,shaft[k+1]):L.point(-dir.y,dir.x);
+    left.push(p.add(n.multiplyBy(halfW))); right.push(p.subtract(n.multiplyBy(halfW)));
+  });
+  var nb=L.point(-dir.y,dir.x);
+  var ring=left.concat([base.add(nb.multiplyBy(headHalfW)), tip, base.subtract(nb.multiplyBy(headHalfW))]).concat(right.reverse());
+  return ring.map(function(p){return crs.pointToLatLng(p,Z);});
+}
+function addBigArrow(group,a,opts){
+  var ring=bigArrowLatLngs(a.from,a.to,a.curv,opts.halfW,opts.headLen,opts.headHalfW);
+  return L.polygon(ring,{color:'#fff',weight:opts.edge||2,opacity:.9,fillColor:a.color,fillOpacity:opts.fill||.85,lineJoin:'round'}).addTo(group);
+}
+/* A standalone label pinned to the map (not tied to a dot) */
+function midPt(a){ var p=bezierPts(a.from,a.to,a.curv); return p[Math.floor(p.length/2)]; }
+function addLabel(group,latlng,html,cls){
+  return L.tooltip({permanent:true,direction:'center',className:cls,interactive:true}).setLatLng(latlng).setContent(html).addTo(group);
+}
 function buildTheme(key){
   var t=THEMES[key], g=L.layerGroup();
   if(t.kind==='labels'){
     t.items.forEach(function(it){
       L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:1})
-        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'goods-tip'})
+        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'goods-tip lp3'})
         .bindPopup(popup(it.n,it.note)).addTo(g);
-    });
-    (t.arrows||[]).forEach(function(a){
-      addSwoop(g,a.from,a.to,t.color,0.25,3).bindTooltip(a.label,{direction:'top',className:'city-tip'});
     });
   } else if(t.kind==='cities'){
     t.items.forEach(function(it){
       L.circleMarker(it.c,{radius:5,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
-        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'city-tip'})
+        .bindTooltip(it.n,{permanent:true,direction:'right',offset:[7,0],className:'city-tip lp4'})
         .bindPopup(popup(it.n,it.note)).addTo(g);
     });
-  } else if(t.kind==='spread'){
-    // origin marker + a swooping arrow out to each place the thing spread
-    L.circleMarker(t.origin.c,{radius:7,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
-      .bindTooltip(t.origin.n+' (origin)',{permanent:true,direction:'top',className:'city-tip'})
-      .bindPopup(popup(t.name+': origin: '+t.origin.n,t.note,t.color,t.name)).addTo(g);
-    t.items.forEach(function(it,i){
-      addSwoop(g,t.origin.c,it.c,t.color, i%2===0?0.22:0.14, 3);
-      L.circleMarker(it.c,{radius:4,color:'#fff',weight:1.5,fillColor:t.color,fillOpacity:.95})
-        .bindTooltip(it.n,{direction:'right',offset:[6,0],className:'city-tip'})
-        .bindPopup(popup(it.n,t.note,t.color,t.name)).addTo(g);
+  } else if(t.kind==='cx'){
+    // two big arrows: Old World → New World and New World → Old World
+    // (the full lists are in the key card in the map corner; the arrows carry a short tag)
+    t.arrows.forEach(function(a){
+      addBigArrow(g,a,{halfW:9,headLen:30,headHalfW:22})
+        .bindPopup(popup(a.title,a.note,a.color,t.name));
+      addLabel(g,midPt(a),'<span style="background:'+a.color+'">'+a.tag+'</span>','cx-tag lp0');
+    });
+  } else if(t.kind==='triangle'){
+    t.legs.forEach(function(lg){
+      addBigArrow(g,{from:lg.from,to:lg.to,curv:lg.curv,color:t.color},{halfW:3.5,headLen:16,headHalfW:10,edge:1.5,fill:.9})
+        .bindPopup(popup(lg.title,lg.items+'. '+t.note,t.color,t.name));
+      addLabel(g,midPt(lg),lg.tag,'tri-tag lp0');
+    });
+    t.corners.forEach(function(c){
+      L.circleMarker(c.c,{radius:7,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
+        .bindTooltip(c.n,{direction:'top',className:'city-tip'})
+        .bindPopup(popup(t.name+': '+c.n,t.note,t.color,t.name)).addTo(g);
     });
   } else if(t.kind==='arrows'){
     t.items.forEach(function(it){
@@ -752,11 +884,11 @@ function buildTheme(key){
     });
   } else if(t.kind==='chain'){
     // a sequential flow: one hop after another (silver New World → Europe → China)
-    var pth=t.path;
+    var pth=t.path, offs={top:[0,-6],bottom:[0,6],left:[-7,0],right:[7,0]};
     pth.forEach(function(p,i){
       if(i>0) addSwoop(g,pth[i-1].c,p.c,t.color,0.16,3.5);
       L.circleMarker(p.c,{radius:i===0?7:5,color:'#fff',weight:2,fillColor:t.color,fillOpacity:1})
-        .bindTooltip((i+1)+'. '+p.n,{permanent:true,direction:'top',className:'city-tip'})
+        .bindTooltip((i+1)+'. '+p.n,{permanent:true,direction:p.dir||'top',offset:offs[p.dir||'top'],className:'city-tip lp2'})
         .bindPopup(popup(p.n,t.note,t.color,t.name)).addTo(g);
     });
   }
@@ -765,11 +897,80 @@ function buildTheme(key){
 THEME_ORDER.forEach(buildTheme);
 
 function toggleTheme(key,on){
-  themeOn[key]=on;
+  themeOn[key]=on; if(on) hideHint();
   if(on){ themeLayers[key].addTo(map); } else if(map.hasLayer(themeLayers[key])){ map.removeLayer(themeLayers[key]); }
   document.querySelectorAll('.thm-chip[data-t="'+key+'"]').forEach(function(c){c.classList.toggle('on',on);});
+  updateRouteDim(); renderOvKey(); declutterSoon();
+  // the Atlantic layers: frame the Atlantic so the arrows are big enough to read
+  if(on && THEMES[key].frame){ try{ map.flyToBounds(THEMES[key].frame,{padding:[20,20],duration:.7}); }catch(e){} }
+}
+
+/* Key card: the full lists for the Columbian Exchange and Triangle Trade layers */
+var ovMin=null;
+function renderOvKey(){
+  var box=document.getElementById('ov-key'), h='';
+  if(themeOn.columbian){
+    var t=THEMES.columbian;
+    h+='<div class="ov-card"><div class="ov-t">Columbian Exchange</div>';
+    t.arrows.forEach(function(a){
+      h+='<div class="ov-row"><span class="ov-sw" style="background:'+a.color+'">'+(a===t.arrows[0]?'➜':'⬅')+'</span><span><b>'+a.title+'</b>'+a.items+'</span></div>';
+    });
+    h+='</div>';
+  }
+  if(themeOn.triangle){
+    var tr=THEMES.triangle;
+    h+='<div class="ov-card"><div class="ov-t">Triangle Trade</div>';
+    tr.legs.forEach(function(lg){
+      h+='<div class="ov-row"><span class="ov-sw" style="background:'+tr.color+'">'+lg.tag+'</span><span><b>'+lg.title.replace(/^\d\.\s*/,'')+'</b>'+lg.items+'</span></div>';
+    });
+    h+='</div>';
+  }
+  if(h){
+    // on a small map the key starts folded so it doesn't cover the arrows
+    var mc=document.querySelector('.mapcol');
+    if(ovMin===null) ovMin=mc.clientWidth<640 || mc.clientHeight<560;
+    h='<button type="button" class="ov-min" id="ov-min">'+(ovMin?'Show key &#9650;':'Hide key &#9660;')+'</button>'+(ovMin?'':h);
+  }
+  box.innerHTML=h;
+  box.classList.toggle('show',!!h);
+  var mb=document.getElementById('ov-min');
+  if(mb) mb.addEventListener('click',function(){ ovMin=!ovMin; renderOvKey(); });
+  box.parentNode.classList.toggle('has-key',!!h);
 }
 function clearThemes(){ THEME_ORDER.forEach(function(k){ toggleTheme(k,false); }); }
+
+/* With every route showing, fade the routes once any overlay is on so the overlay reads first */
+function anyOverlay(){
+  return THEME_ORDER.some(function(k){return themeOn[k];}) || Object.keys(polOn).some(function(k){return polOn[k];});
+}
+function updateRouteDim(){
+  if(current!==null || !layers.portugal) return;
+  var mode=anyOverlay()?'faint':'full';
+  Object.keys(layers).forEach(function(k){ setRouteVisual(k,mode); });
+}
+
+/* Label declutter: permanent labels carry a priority class (lp0 = most important … lp4).
+   A label that would overlap a more important one is hidden until you zoom in far enough
+   for both to fit. lp0 labels (the exchange arrows) always show. */
+var _dq=0;
+function declutterSoon(){ cancelAnimationFrame(_dq); _dq=requestAnimationFrame(declutter); }
+function declutter(){
+  var items=[];
+  document.querySelectorAll('.leaflet-tooltip-pane .leaflet-tooltip').forEach(function(el){
+    var m=el.className.match(/\blp(\d)\b/); if(m){ el.classList.remove('lbl-hide'); items.push({el:el,p:+m[1]}); }
+  });
+  items.sort(function(a,b){return a.p-b.p;});
+  var kept=[], pad=3;
+  items.forEach(function(it){
+    var r=it.el.getBoundingClientRect(); if(!r.width) return;
+    var hit=kept.some(function(k){ return !(r.right+pad<k.left||r.left-pad>k.right||r.bottom+pad<k.top||r.top-pad>k.bottom); });
+    if(hit && it.p>0) it.el.classList.add('lbl-hide'); else kept.push(r);
+  });
+}
+map.on('zoomend moveend layeradd layerremove resize',declutterSoon);
+// the tip box at the bottom goes away once the student starts using the map
+function hideHint(){ var h=document.querySelector('.map-hint'); if(h) h.style.display='none'; }
+map.on('dragstart zoomstart',function(){ if(_started) hideHint(); });
 
 var current=null;      // key of the selected route (null = all)
 var currentType=null;  // 'route' | null
@@ -777,12 +978,13 @@ var currentType=null;  // 'route' | null
 function setRouteVisual(key,mode){
   // mode: 'full' | 'dim' | 'hidden'
   var L1=layers[key];
-  var op = mode==='full'?0.92:(mode==='dim'?0.18:0);
+  // mode: 'full' | 'faint' (all routes under an overlay) | 'dim' (not the selected route) | 'hidden'
+  var op = {full:0.92,faint:0.25,dim:0.18,hidden:0}[mode];
   var w  = mode==='full'?4:3;
   L1.lines.forEach(function(pl){pl.setStyle({opacity:op,weight:w});});
   L1.markers.forEach(function(m){
     if(mode==='hidden'){m.setStyle({opacity:0,fillOpacity:0});m.closePopup();}
-    else m.setStyle({opacity:mode==='full'?1:.35,fillOpacity:mode==='full'?1:.3,radius:mode==='full'?6:5});
+    else m.setStyle({opacity:mode==='full'?1:(mode==='faint'?.5:.35),fillOpacity:mode==='full'?1:(mode==='faint'?.45:.3),radius:mode==='full'?6:5});
   });
 }
 
@@ -802,6 +1004,7 @@ function showAll(){
   current=null; currentType=null;
   showAllOnMap();
   Object.keys(layers).forEach(function(k){ setRouteVisual(k,'full'); });
+  updateRouteDim();
   document.querySelectorAll('.rb').forEach(function(b){b.classList.remove('active');});
   renderAllPanel();
   try{map.flyTo([15,-25],2,{duration:.7});}catch(e){}
@@ -856,7 +1059,7 @@ function renderPanel(key){
 
 function renderAllPanel(){
   var h='<div class="rt-head"><div class="rt-title">The Exploring Powers</div><div class="rt-sub">A New Global Age · c. 1450–1750</div>'+
-    '<div class="rt-blurb">Compare the voyages of the four great sea powers. Each is drawn on the map, click a colored route or a port, or pick a single power above to load its ships, goods, and impact.</div></div>';
+    '<div class="rt-blurb">Compare the voyages of the five great sea powers. Each is drawn on the map: click a colored route or a port, or pick a single power above to load its ships, goods, and impact.</div></div>';
   Object.keys(ROUTES).forEach(function(k){
     var r=ROUTES[k], color=cssVar(r.colorVar);
     h+='<button class="place" data-r="'+k+'" style="border-bottom:1px solid var(--border);padding:12px 6px">'+
@@ -873,7 +1076,7 @@ function renderAllPanel(){
 
 /* Render the States & Regions toggle chips into the sidebar */
 (function renderPolityChips(){
-  var grid=document.getElementById('pol-grid');
+  var grid=document.getElementById('pol-grid'), land=document.getElementById('pol-grid-land');
   if(!grid) return;
   POLITY_ORDER.forEach(function(key){
     var p=POLITIES[key];
@@ -883,7 +1086,7 @@ function renderAllPanel(){
       '<span class="pc-name">'+p.name+'</span><span class="tc-check"></span>';
     b.title=p.name+': '+p.sub;
     b.addEventListener('click',function(){ togglePolity(key,!polOn[key]); });
-    grid.appendChild(b);
+    (LAND_EMPIRES[key] && land ? land : grid).appendChild(b);
   });
   var clr=document.getElementById('pol-clear');
   if(clr) clr.addEventListener('click',clearPolities);
@@ -918,6 +1121,17 @@ document.getElementById('btn-reset').addEventListener('click',function(){
   map.closePopup();
   showAll();
 });
+
+/* Collapsible side panel (remembered on this browser) */
+var wrapEl=document.querySelector('.wrap');
+function setPanel(open){
+  wrapEl.classList.toggle('collapsed',!open);
+  try{ localStorage.setItem('u4MapPanel',open?'open':'closed'); }catch(e){}
+  setTimeout(function(){ map.invalidateSize(); declutterSoon(); },30);
+}
+document.getElementById('p-collapse').addEventListener('click',function(){ setPanel(false); });
+document.getElementById('panel-open').addEventListener('click',function(){ setPanel(true); });
+try{ if(localStorage.getItem('u4MapPanel')==='closed') wrapEl.classList.add('collapsed'); }catch(e){}
 
 function reRenderPanel(){
   if(currentType==='route') renderPanel(current);

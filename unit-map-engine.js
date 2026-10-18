@@ -115,13 +115,18 @@
     h += '<div class="pop-note">' + p.blurb + '</div>';
     if (p.facts) { h += '<div class="pop-facts">'; p.facts.forEach(function (f) { h += '<div><b>' + f[0] + ':</b> ' + f[1] + '</div>'; }); h += '</div>'; }
     if (p.role) h += '<div class="pop-sub"><b>' + (M.polityRoleLabel || 'Why it matters') + ':</b> ' + p.role + '</div>';
+    if (p.legacy) h += '<div class="pop-sub"><b>Legacy:</b> ' + p.legacy.map(function (c) { return '<b>' + c.t + '</b>' + (c.d ? ': ' + c.d : ''); }).join('<br>') + '</div>';
     return h;
   }
   POLITY_ORDER.forEach(function (key) {
     var p = POLITIES[key], g = L.featureGroup();
     (p.polys || [p.poly]).forEach(function (pg, i) {
-      var poly = L.polygon(pg, { color: p.color, weight: 2.5, opacity: .95, fillColor: p.color, fillOpacity: .28, lineJoin: 'round' });
-      if (i === (p.labelPoly || 0)) poly.bindTooltip(p.label || p.name, { permanent: true, direction: 'center', className: 'pol-label lp1' });
+      var poly = L.polygon(pg, { color: p.color, weight: 2.5, opacity: .95, fillColor: p.color, fillOpacity: p.fill != null ? p.fill : .28, dashArray: p.dash ? '7 6' : null, lineJoin: 'round' });
+      if (i === (p.labelPoly || 0)) {
+        // labelAt pins the name to a chosen point (e.g. the edge of a huge outline)
+        if (p.labelAt) L.tooltip({ permanent: true, direction: 'center', className: 'pol-label lp1' }).setLatLng(p.labelAt).setContent(p.label || p.name).addTo(g);
+        else poly.bindTooltip(p.label || p.name, { permanent: true, direction: 'center', className: 'pol-label lp1' });
+      }
       poly.bindPopup(polityPopupHTML(p), { className: 'polity-pop', maxWidth: 290 });
       poly.addTo(g);
     });
@@ -162,6 +167,10 @@
         L.circleMarker(it.c, { radius: 4, color: '#fff', weight: 1.5, fillColor: t.color, fillOpacity: 1 })
           .bindTooltip(it.n, { permanent: true, direction: 'right', offset: [7, 0], className: 'goods-tip lp3' })
           .bindPopup(popup(it.n, it.note, t.color, t.name)).addTo(g);
+      });
+      // optional short arrows on a labels layer (e.g. Champa rice → China)
+      (t.arrows || []).forEach(function (a) {
+        addSwoop(g, a.from, a.to, t.color, 0.25, 3).bindTooltip(a.label, { direction: 'top', className: 'city-tip' });
       });
     } else if (t.kind === 'cities') {
       t.items.forEach(function (it) {
@@ -211,7 +220,7 @@
     } else if (t.kind === 'lines') {
       // drawn lines: a front, a wall, a canal, a border
       t.items.forEach(function (it) {
-        L.polyline(it.pts, { color: t.color, weight: it.weight || 4, opacity: .9, dashArray: it.dash ? '8 7' : null, lineCap: 'round' })
+        L.polyline(it.pts, { color: it.color || t.color, weight: it.weight || 4, opacity: .9, dashArray: it.dash ? '8 7' : null, lineCap: 'round' })
           .bindTooltip(it.n, { permanent: !!it.label, sticky: !it.label, direction: 'center', className: 'city-tip' + (it.label ? ' lp3' : '') })
           .bindPopup(popup(it.n, it.note, t.color, t.name)).addTo(g);
       });

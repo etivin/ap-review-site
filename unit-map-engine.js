@@ -84,7 +84,8 @@
       L.polyline(seg, { color: '#000', opacity: .10, weight: 9, interactive: false }).addTo(group);
       var pl = L.polyline(seg, { color: color, weight: 4, opacity: .9, dashArray: r.dash ? '2 9' : null, lineCap: 'round', lineJoin: 'round' }).addTo(group);
       pl.on('click', function () { selectRoute(key); });
-      lines.push(pl); seg.forEach(function (p) { allPts.push(p); });
+      // a copy shifted past ±180° (e.g. the Manila galleon) stays out of the zoom-to bounds
+      lines.push(pl); seg.forEach(function (p) { if (Math.abs(p[1]) <= 180) allPts.push(p); });
     });
     (r.places || []).forEach(function (p) {
       var m = L.circleMarker(p.c, { radius: 6, color: '#fff', weight: 2, fillColor: color, fillOpacity: 1 });
@@ -124,7 +125,7 @@
   }
   POLITY_ORDER.forEach(function (key) {
     var p = POLITIES[key], g = L.featureGroup();
-    (p.polys || [p.poly]).forEach(function (pg, i) {
+    (p.polys || [p.poly].concat(p.extra || [])).forEach(function (pg, i) {
       var poly = L.polygon(pg, { color: p.color, weight: 2.5, opacity: .95, fillColor: p.color, fillOpacity: p.fill != null ? p.fill : .28, dashArray: p.dash ? '7 6' : null, lineJoin: 'round' });
       if (i === (p.labelPoly || 0)) {
         // labelAt pins the name to a chosen point (e.g. the edge of a huge outline)
@@ -133,6 +134,12 @@
       }
       poly.bindPopup(polityPopupHTML(p), { className: 'polity-pop', maxWidth: 290 });
       poly.addTo(g);
+    });
+    // outposts: small fixed-size dots (forts, islands, trading posts), named on hover
+    (p.posts || []).forEach(function (o) {
+      L.circleMarker(o.c, { radius: 8, color: p.color, weight: 2.5, opacity: .95, fillColor: p.color, fillOpacity: .35 })
+        .bindTooltip(o.n + ' (' + p.name + ')', { direction: 'top', className: 'city-tip' })
+        .bindPopup(polityPopupHTML(p), { className: 'polity-pop', maxWidth: 290 }).addTo(g);
     });
     polLayers[key] = g;
   });
@@ -218,7 +225,7 @@
       pth.forEach(function (p, i) {
         if (i > 0) addSwoop(g, pth[i - 1].c, p.c, t.color, 0.16, 3.5);
         L.circleMarker(p.c, { radius: i === 0 ? 7 : 5, color: '#fff', weight: 2, fillColor: t.color, fillOpacity: 1 })
-          .bindTooltip((i + 1) + '. ' + p.n, { permanent: true, direction: 'top', className: 'city-tip lp2' })
+          .bindTooltip((i + 1) + '. ' + p.n, { permanent: true, direction: p.dir || 'top', offset: { top: [0, -6], bottom: [0, 6], left: [-7, 0], right: [7, 0] }[p.dir || 'top'], className: 'city-tip lp2' })
           .bindPopup(popup(p.n, p.note || t.note, t.color, t.name)).addTo(g);
       });
     } else if (t.kind === 'lines') {
@@ -258,7 +265,7 @@
       flowDraw[key] = function () {
         arrowG.clearLayers();
         t.groups.forEach(function (gr) {
-          var size = gr.size === 'small' ? { halfW: 2.2, headLen: 10, headHalfW: 7 } : { halfW: 4.5, headLen: 16, headHalfW: 11 };
+          var size = gr.size === 'small' ? { halfW: 2.2, headLen: 10, headHalfW: 7 } : gr.size === 'large' ? { halfW: 8, headLen: 26, headHalfW: 19 } : { halfW: 4.5, headLen: 16, headHalfW: 11 };
           (gr.arrows || []).forEach(function (a) {
             flowCopies(a).forEach(function (c) {
               addBigArrow(arrowG, c.from, c.to, a.curv || 0, gr.color, size)
@@ -490,6 +497,7 @@
         : '<span class="lg-line' + (r.dash ? ' dash' : '') + '" style="border-color:' + c + '"></span>') + (r.legend || r.name) + '</div>';
     });
     if (POLITY_ORDER.length) h += '<div class="lg-div"></div><div class="lg-row"><span class="lg-fill"></span>' + (M.polityLegend || 'Optional layer') + '</div>';
+    if (POLITY_ORDER.some(function (k) { return POLITIES[k].posts; })) h += '<div class="lg-row"><span class="lg-fill" style="border-radius:50%;width:12px"></span>' + (M.postLegend || 'Outpost') + '</div>';
     var lg = document.getElementById('legend');
     lg.innerHTML = h; lg.classList.toggle('min', legendMin);
     document.getElementById('lg-tog').addEventListener('click', function () { legendMin = !legendMin; renderLegend(); });
@@ -499,12 +507,23 @@
 
   (function () {
     var grid = document.getElementById('pol-grid'); if (!grid) return;
-    POLITY_ORDER.forEach(function (key) {
-      var p = POLITIES[key], b = document.createElement('button');
-      b.type = 'button'; b.className = 'pol-chip'; b.dataset.p = key; b.title = p.name + ': ' + p.sub;
-      b.innerHTML = '<span class="pc-dot" style="background:' + p.color + '"></span><span class="pc-name">' + p.name + '</span><span class="tc-check"></span>';
-      b.addEventListener('click', function () { togglePolity(key, !polOn[key]); });
-      grid.appendChild(b);
+    // M.polityGroups = [[heading, [keys]], ...] splits the chips under sub-headings
+    var groups = M.polityGroups || [[null, POLITY_ORDER]];
+    groups.forEach(function (gp, gi) {
+      var target = grid;
+      if (gp[0]) {
+        var hd = document.createElement('div'); hd.className = 'pol-sub'; hd.textContent = gp[0];
+        target = document.createElement('div'); target.className = 'pol-grid';
+        if (gi === 0) { grid.className = ''; }
+        grid.appendChild(hd); grid.appendChild(target);
+      }
+      gp[1].forEach(function (key) {
+        var p = POLITIES[key], b = document.createElement('button');
+        b.type = 'button'; b.className = 'pol-chip'; b.dataset.p = key; b.title = p.name + ': ' + p.sub;
+        b.innerHTML = '<span class="pc-dot" style="background:' + p.color + '"></span><span class="pc-name">' + p.name + '</span><span class="tc-check"></span>';
+        b.addEventListener('click', function () { togglePolity(key, !polOn[key]); });
+        target.appendChild(b);
+      });
     });
     document.getElementById('pol-clear').addEventListener('click', clearPolities);
   })();

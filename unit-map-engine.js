@@ -69,11 +69,15 @@
     var r = ROUTES[key], color = rcol(r), group = L.layerGroup(), lines = [], areas = [], markers = [], allPts = [];
     // a shape is a list of points, or {pts, name, dash} for one with its own hover name and a
     // dashed outline (e.g. a former member)
-    (r.polys || []).forEach(function (pg) {
+    (r.polys || []).forEach(function (pg, i) {
       var pts = pg.pts || pg;
       var a = L.polygon(pts, { color: color, weight: 2.5, opacity: .9, fillColor: color, fillOpacity: .3, lineJoin: 'round', dashArray: pg.dash ? '7 6' : null }).addTo(group);
       a.on('click', function () { selectRoute(key, true); });
-      a.bindTooltip(pg.name || r.name, { sticky: true, className: 'city-tip' });
+      // M.routeLabels: the first shape carries the name as a permanent label (Unit 3 empires)
+      if (M.routeLabels && i === 0) {
+        if (r.labelAt) L.tooltip({ permanent: true, direction: 'center', className: 'pol-label lp1' }).setLatLng(r.labelAt).setContent(r.name).addTo(group);
+        else a.bindTooltip(r.name, { permanent: true, direction: 'center', className: 'pol-label lp1' });
+      } else a.bindTooltip(pg.name || r.name, { sticky: true, className: 'city-tip' });
       areas.push(a); pts.forEach(function (p) { allPts.push(p); });
     });
     (r.segments || []).forEach(function (seg) {
@@ -405,6 +409,15 @@
   function renderPanel(key) {
     var r = ROUTES[key], color = rcol(r), h = '';
     h += '<div class="rt-head"><div class="rt-title">' + r.name + '</div><div class="rt-sub">' + r.sub + '</div><div class="rt-blurb">' + r.blurb + '</div></div>';
+    // optional comparison layout (Unit 3): facts, then text sections named in M.textSections
+    if (r.facts && r.facts.length) {
+      h += '<div class="sec"><div class="sec-lbl">' + sec('facts', '📋', 'At a Glance') + '</div><div class="facts">';
+      r.facts.forEach(function (f) { h += '<div class="fact"><span class="fk">' + f[0] + '</span><span class="fv">' + f[1] + '</span></div>'; });
+      h += '</div></div>';
+    }
+    (M.textSections || []).forEach(function (s) {
+      if (r[s[2]]) h += '<div class="sec"><div class="sec-lbl"><span class="ico">' + s[0] + '</span>' + s[1] + '</div><p class="role-txt">' + r[s[2]] + '</p></div>';
+    });
     if (r.tech && r.tech.length) {
       h += '<div class="sec"><div class="sec-lbl">' + sec('tech', '⚙️', 'Key Developments') + '</div>';
       r.tech.forEach(function (t) {
@@ -430,6 +443,11 @@
     if (r.cultural && r.cultural.length) {
       h += '<div class="sec"><div class="sec-lbl">' + sec('cultural', '🔗', 'Causes &amp; Effects') + '</div><ul class="cul-list">';
       r.cultural.forEach(function (c) { h += '<li style="--dot:' + color + '"><b>' + c.t + '</b>: ' + c.d + '</li>'; });
+      h += '</ul></div>';
+    }
+    if (r.legacy && r.legacy.length) {
+      h += '<div class="sec"><div class="sec-lbl">' + sec('legacy', '🏛️', 'Legacy') + '</div><ul class="cul-list">';
+      r.legacy.forEach(function (c) { h += '<li style="--dot:' + color + '"><b>' + c.t + '</b>: ' + c.d + '</li>'; });
       h += '</ul></div>';
     }
     body.innerHTML = h;

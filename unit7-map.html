@@ -25,7 +25,7 @@ window.UNIT_MAP = {
   unit:7, accent:'#5c0f26', accentD:'#430b1c', accentDark:'#e47a96',
   title:'Global Conflict', years:'c. 1900 – 1945',
   h1:'A World at War',
-  intro:'Pick a <strong>conflict or turning point</strong> to load its causes, key places, and effects. Then layer on <strong>battles</strong>, <strong>mass atrocities</strong>, the post-WWI <strong>mandates</strong>, and how <strong>colonial troops</strong> and the <strong>Great Depression</strong> spread the crisis worldwide.',
+  intro:'Pick a <strong>conflict or turning point</strong> to load its causes, key places, and effects. Then layer on <strong>battles</strong>, <strong>mass atrocities</strong>, the post-WWI <strong>mandates</strong>, the <strong>alliances</strong> of both wars, the <strong>new nations</strong> of 1919, and how <strong>colonial troops</strong> and the <strong>Great Depression</strong> spread the crisis worldwide.',
   center:[35,40], zoom:2,
   routeHead:'Conflicts &amp; Turning Points', allBtn:'Show all',
   allTitle:'Global Conflict', allSub:'1900–1945',
@@ -59,31 +59,78 @@ window.UNIT_MAP = {
         {t:'Colonial disappointment',d:'colonial soldiers fought, but self-determination was denied to them.'}
       ]
     },
-    revolutions:{
-      name:'Revolutions &amp; Collapse', btn:'Russia, China, Mexico, Turkey', short:'1910 Mexico · 1911 China · 1917 Russia · 1923 Turkey', sub:'Old orders overthrown · 1910–1923',
+    russianrev:{
+      name:'Russian Revolution', btn:'1917', short:'Lenin · Bolsheviks · the USSR', sub:'Russia · 1917–1922',
       color:'#b8322a', colorDark:'#ff7b6e',
-      blurb:'Long-lasting empires and regimes fell. Revolutions ended the Qing dynasty, overthrew the tsar and created the Soviet Union, toppled Mexico’s dictator, and replaced the Ottoman sultan with a secular Turkish republic.',
-      polys:[
-        [[69,33],[66,41],[68,60],[72,70],[73,100],[72,130],[70,160],[65,178],[60,165],[55,155],[50,142],[43,132],[48,135],[53,127],[50,119],[50,105],[52,97],[50,87],[55,70],[55,60],[50,55],[45,48],[42,45],[44,40],[47,38],[52,33],[56,28],[60,28],[64,30]],
-        [[49,120],[42,130],[39,124],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,98],[28,97],[30,90],[28,86],[30,81],[35,78],[40,74],[45,80],[45,90],[42,97],[42,105],[45,112],[47,118]],
-        [[32.5,-117],[31.5,-106],[29,-103],[26,-97.2],[21.5,-97.5],[18.5,-95],[18,-91],[14.5,-92],[16,-95],[19.5,-105.5],[23,-110],[28,-114.5]],
-        [[42,27],[41.2,41.5],[39.5,44.5],[37,44.5],[36.7,36.5],[36.2,30],[37,27.3],[40,26.2]]
-      ],
+      blurb:'Huge losses in WWI, food shortages, and anger at the tsar led to revolution in 1917. The tsar abdicated, then Lenin’s Bolsheviks seized power, won a civil war, and created the Soviet Union (1922).',
+      polys:[[[69.5,33],[68,44],[68.5,55],[70,67],[73,80],[76,100],[73,113],[72,130],[70,150],[69,170],[66,179],[62,178],[60,165],[55,162],[59,150],[54,141],[48,140],[43,131],[45,133],[48,135],[49,127],[53,123],[50,117],[50,108],[51,98],[50,87],[49,84],[47,83],[45,80],[42,80],[37,67],[37,60],[38,54],[41,52],[41.5,48.5],[39.5,45],[41,42],[43.5,40],[46,37],[46.5,30],[48,26.5],[50.3,24],[52,23.5],[54.3,22.8],[55.8,21.3],[56,21],[59.5,22.5],[60.5,22],[65,24],[69,28.5]]],
       places:[
-        {n:'Petrograd',c:[59.94,30.31],note:'1917: the tsar abdicated, then Lenin’s Bolsheviks seized power.'},
-        {n:'Wuchang / Beijing',c:[30.55,114.3],note:'1911 revolution ended the Qing; Sun Yat-sen’s Republic of China followed.'},
-        {n:'Mexico City',c:[19.43,-99.13],note:'1910 revolution against Porfirio Díaz; Zapata and Villa fought for land reform.'},
-        {n:'Ankara',c:[39.93,32.86],note:'Atatürk founded the secular Republic of Turkey (1923).'}
+        {n:'Petrograd',c:[59.94,30.31],note:'1917: the tsar abdicated in March, then Lenin’s Bolsheviks seized power in November.'},
+        {n:'Moscow',c:[55.75,37.6],note:'Became the Soviet capital in 1918.'}
       ],
       tech:[
-        {name:'Communism (Lenin)',what:'A vanguard party leading workers’ revolution.',impact:'Created the USSR, the world’s first communist state.'},
-        {name:'Nationalism & modernization',what:'Sun Yat-sen’s Three Principles; Atatürk’s secular reforms.',impact:'Replaced dynasties with nation-states.'}
+        {name:'War weariness',what:'Millions of Russian casualties and food shortages during WWI.',impact:'Turned soldiers and workers against the tsar.'},
+        {name:'Communism (Lenin)',what:'A vanguard party leading a workers’ revolution, promising “Peace, Land, and Bread.”',impact:'Created the USSR, the world’s first communist state.'}
       ],
-      goods:['Bolsheviks','Lenin','Stalin’s Five-Year Plans','Sun Yat-sen','Emiliano Zapata','Atatürk'],
+      goods:['Bolsheviks','Lenin','“Peace, Land, and Bread”','Treaty of Brest-Litovsk','Stalin’s Five-Year Plans'],
       cultural:[
-        {t:'Soviet Union',d:'Stalin’s collectivization and Five-Year Plans industrialized by force, causing famine.'},
-        {t:'Chinese Civil War',d:'Nationalists vs. Communists, paused to fight Japan.'},
-        {t:'Mexican Constitution of 1917',d:'promised land reform and workers’ rights.'}
+        {t:'Russia leaves WWI',d:'the Treaty of Brest-Litovsk (1918) gave up huge territory to Germany.'},
+        {t:'Soviet Union',d:'Stalin’s collectivization and Five-Year Plans industrialized by force, causing famine.'}
+      ]
+    },
+    chinarev:{
+      name:'Chinese Revolution', btn:'1911', short:'Sun Yat-sen · end of the Qing · Republic of China', sub:'China · 1911–1912',
+      color:'#c2185b', colorDark:'#f48fb1',
+      blurb:'Anger at a weak Qing dynasty that had lost wars and land to foreign powers led to the 1911 revolution. The last emperor gave up the throne in 1912 and Sun Yat-sen’s Republic of China followed, though warlords soon divided the country.',
+      polys:[[[49,120],[42,130],[39,124],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,98],[28,97],[30,90],[28,86],[30,81],[35,78],[40,74],[45,80],[45,90],[42,97],[42,105],[45,112],[47,118]]],
+      places:[
+        {n:'Wuchang',c:[30.55,114.3],note:'The October 1911 army uprising here began the revolution.'},
+        {n:'Beijing',c:[39.9,116.4],note:'The last Qing emperor, Puyi, gave up the throne in 1912.'}
+      ],
+      tech:[
+        {name:'Foreign humiliation',what:'Opium Wars, unequal treaties, and spheres of influence.',impact:'Discredited the Qing dynasty.'},
+        {name:'Three Principles of the People',what:'Sun Yat-sen’s program: nationalism, democracy, and the people’s livelihood.',impact:'Replaced the dynasty with a nation-state.'}
+      ],
+      goods:['Sun Yat-sen','Three Principles of the People','Guomindang (Nationalists)','Warlords','May Fourth Movement'],
+      cultural:[
+        {t:'Warlord era',d:'regional military leaders split China until the Nationalists reunified much of it (1928).'},
+        {t:'Chinese Civil War',d:'Nationalists vs. Communists, paused to fight Japan.'}
+      ]
+    },
+    mexrev:{
+      name:'Mexican Revolution', btn:'1910', short:'Zapata · Villa · Constitution of 1917', sub:'Mexico · 1910–1920',
+      color:'#0f7a6b', colorDark:'#4fd1bd',
+      blurb:'Under the dictator Porfirio Díaz, a few landowners and foreign investors owned most of Mexico’s land and resources. The 1910 revolution overthrew him, and leaders like Emiliano Zapata and Pancho Villa fought for land reform.',
+      polys:[[[32.5,-117],[31.5,-106],[29,-103],[26,-97.2],[21.5,-97.5],[18.5,-95],[18,-91],[14.5,-92],[16,-95],[19.5,-105.5],[23,-110],[28,-114.5]]],
+      places:[
+        {n:'Mexico City',c:[19.43,-99.13],note:'1910 revolution against Porfirio Díaz.'},
+        {n:'Morelos',c:[18.7,-99.1],note:'Home base of Emiliano Zapata, whose cry was “Land and Liberty.”'}
+      ],
+      tech:[
+        {name:'Land inequality',what:'Most peasants owned no land; large haciendas and foreign companies held most of it.',impact:'Made land reform the revolution’s central demand.'}
+      ],
+      goods:['Porfirio Díaz','Emiliano Zapata','Pancho Villa','Land reform','Constitution of 1917'],
+      cultural:[
+        {t:'Mexican Constitution of 1917',d:'promised land reform and workers’ rights.'},
+        {t:'Oil nationalized',d:'in 1938 Mexico took over foreign-owned oil companies.'}
+      ]
+    },
+    turkrev:{
+      name:'Turkish Republic', btn:'1923', short:'Atatürk · a secular republic', sub:'Turkey · 1919–1923',
+      color:'#6d3f9c', colorDark:'#c39be6',
+      blurb:'After the Ottoman Empire lost WWI and was carved up, Mustafa Kemal (Atatürk) led a war of independence, ended the sultanate, and founded the secular Republic of Turkey in 1923.',
+      polys:[[[42,27],[41.2,41.5],[39.5,44.5],[37,44.5],[36.7,36.5],[36.2,30],[37,27.3],[40,26.2]]],
+      places:[
+        {n:'Ankara',c:[39.93,32.86],note:'Atatürk made it the capital of the new republic (1923).'},
+        {n:'Istanbul',c:[41.01,28.98],note:'The old Ottoman capital, occupied by the Allies after WWI.'}
+      ],
+      tech:[
+        {name:'Secular modernization',what:'Atatürk separated religion from government, adopted Western law and the Latin alphabet, and gave women the vote.',impact:'Turned the Ottoman heartland into a modern nation-state.'}
+      ],
+      goods:['Mustafa Kemal Atatürk','End of the sultanate','Secularism','Treaty of Lausanne'],
+      cultural:[
+        {t:'Ottoman Empire ends',d:'its Arab lands became League of Nations mandates.'},
+        {t:'A model for modernizers',d:'other leaders copied Atatürk’s top-down reforms.'}
       ]
     },
     interwar:{
@@ -169,6 +216,54 @@ window.UNIT_MAP = {
       ]
     }
   },
+  polityHead:'Alliances', polityRoleLabel:'In the war', polityLegend:'Alliance (layer)',
+  polities:{
+    ww1allies:{name:'WWI: Allies', label:'Allies (WWI)', labelPoly:1, sub:'The Triple Entente and partners', color:'#2f5fb3',
+      polys:[
+        [[51,2.5],[49,8],[46.2,6],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5]],
+        [[69.5,33],[68,44],[68.5,55],[70,67],[73,80],[76,100],[73,113],[72,130],[70,150],[69,170],[66,179],[62,178],[60,165],[55,162],[59,150],[54,141],[48,140],[43,131],[45,133],[48,135],[49,127],[53,123],[50,117],[50,108],[51,98],[50,87],[49,84],[47,83],[45,80],[42,80],[37,67],[37,60],[38,54],[41,52],[41.5,48.5],[39.5,45],[41,42],[43.5,40],[46,37],[46.5,30],[48,26.5],[50.3,24],[52,23.5],[54.3,22.8],[55.8,21.3],[56,21],[59.5,22.5],[60.5,22],[65,24],[69,28.5]],
+        [[58.6,-3],[57.5,-1.8],[55.8,-2],[54,-0.2],[53,0.3],[52.5,1.7],[51.3,1.4],[50.8,0.3],[50.6,-4],[50,-5.6],[51.6,-5],[52.8,-4.6],[53.4,-3.1],[54.6,-3.6],[55,-5],[56.8,-6],[58.5,-5]],
+        [[55.3,-7.3],[54.3,-5.6],[52.2,-6.3],[51.5,-9.8],[53.5,-10.2],[55.2,-8.3]],
+        [[46.5,7],[46.5,13.5],[45.6,13.8],[44,12.5],[42,14.5],[41,17],[40,18.5],[38,16],[38,15.6],[40,15.5],[41,13],[42.4,11],[44,8.2],[44.1,7.6]],
+        [[46.1,19.5],[44.9,22.5],[44.1,22.6],[42.2,22.4],[42.3,20.6],[43.2,19.2],[44.8,19.4]],
+        [[49,-123],[49,-95],[48,-89],[45,-82.5],[43,-79],[45,-71.5],[47,-68],[44.5,-67],[41.5,-70],[40.5,-74],[35,-75.5],[32,-80.8],[30,-81.4],[25.2,-80.4],[27,-82.5],[30,-84],[30,-89],[29.5,-94],[26,-97.2],[29.5,-101],[31.8,-106.5],[31.3,-111],[32.7,-117.1],[34.5,-120.5],[38,-123],[42,-124.3],[46.2,-124]]
+      ],
+      blurb:'Britain, France, and Russia (the Triple Entente) were joined by Serbia, Italy (1915), and the United States (1917). Their colonies and dominions sent soldiers too.',
+      facts:[['Core','Britain, France, Russia'],['Joined later','Italy 1915, United States 1917'],['Left early','Russia, 1918']],
+      role:'Won the war; their peace treaties redrew the map of Europe and the Middle East.'},
+    ww1central:{name:'WWI: Central Powers', label:'Central Powers (WWI)', sub:'Germany and its partners', color:'#7a2f2f',
+      polys:[
+        [[54.9,8.6],[54.4,11],[54.6,14],[54.8,18.5],[55.8,21.3],[54.3,22.8],[53.2,19.5],[52.2,18],[51.2,18.5],[50.2,18],[50.4,16.3],[50.8,14.8],[50.3,12.2],[48.7,13.8],[47.6,13],[47.6,9.6],[47.8,7.6],[49.5,6.4],[50.1,6.1],[51,6],[51.9,6.1],[53.3,7.2]],
+        [[50.3,12.2],[50.8,14.8],[50.4,16.3],[50.2,18],[50,19.5],[50.3,22],[49,22.6],[48.4,26.5],[47.8,26.5],[46.3,25.6],[45.5,25.3],[45.2,22.7],[44.5,22.5],[44.8,19.4],[43.1,18.5],[42.4,18.6],[43.5,16],[45.3,14.5],[45.7,13.7],[46.6,13.5],[47.6,13],[48.7,13.8]],
+        [[42,26],[41.2,29],[41,33],[41.6,41.5],[39.5,44],[37,44.8],[34.5,45.8],[31,47.7],[29.5,48],[26,50],[24,51.5],[20,40],[15,42.8],[12.8,43.5],[16,42.5],[22,39],[28,34.9],[30,35],[31.3,34.2],[33.1,35.1],[36.2,35.8],[36.7,30],[37,27.3],[40,26.2],[40.9,26]],
+        [[44.1,22.6],[43.7,28.6],[42,28],[41.3,26.3],[41.2,23.5],[42.2,22.4]]
+      ],
+      blurb:'Germany and Austria-Hungary, joined by the Ottoman Empire (1914) and Bulgaria (1915).',
+      facts:[['Members','Germany, Austria-Hungary, Ottoman Empire, Bulgaria'],['Problem','A war on two fronts']],
+      role:'Lost the war; the German, Austro-Hungarian, and Ottoman empires all collapsed.'},
+    ww2axis:{name:'WWII: Axis', label:'Axis (WWII)', sub:'Germany, Italy, and Japan', color:'#3a3a3a',
+      polys:[
+        [[54.9,8.6],[54.4,11],[54.6,14],[54.4,19.5],[55.8,21.3],[54.3,22.8],[53.5,20],[53.4,17],[52.5,14.6],[51,15],[50.2,18],[49.5,18.8],[48.6,17],[47.9,17],[47,16.4],[46.6,13.5],[47.5,10],[47.6,7.6],[49.5,6.4],[51,6],[53.3,7.2]],
+        [[46.5,7],[46.5,13.5],[45.6,13.8],[44,12.5],[42,14.5],[41,17],[40,18.5],[38,16],[38,15.6],[40,15.5],[41,13],[42.4,11],[44,8.2],[44.1,7.6]],
+        [[33,11.5],[33,23],[31.5,25],[20,24],[23.5,15],[25,10]],
+        [[45.5,141.7],[43,145.5],[41.5,141],[38,141.5],[35,140.5],[34,135],[33.5,131],[31,130.5],[32.5,129.7],[34.3,131],[35.5,133],[37,137],[39,140]],
+        [[42.5,130.5],[38.6,128.3],[35,129.3],[34.5,126.3],[37.7,126],[40,124.3]],
+        [[53,121],[48,135],[42.5,130.5],[39,121],[42,119]]
+      ],
+      blurb:'Germany, Italy, and Japan signed the Tripartite Pact (1940); Hungary, Romania, and Bulgaria later joined. Shown here are their home territories and prewar gains (Austria, Czech lands, Libya, Korea, Manchuria).',
+      facts:[['Members','Germany, Italy, Japan'],['Pact','Tripartite Pact (1940)'],['Joined later','Hungary, Romania, Bulgaria']],
+      role:'See the WWII routes for the far larger areas they conquered by 1942.'},
+    ww2allies:{name:'WWII: Allies', label:'Allies (WWII)', labelPoly:1, sub:'The “Big Three” and China', color:'#1e874b',
+      polys:[
+        [[58.6,-3],[57.5,-1.8],[55.8,-2],[54,-0.2],[53,0.3],[52.5,1.7],[51.3,1.4],[50.8,0.3],[50.6,-4],[50,-5.6],[51.6,-5],[52.8,-4.6],[53.4,-3.1],[54.6,-3.6],[55,-5],[56.8,-6],[58.5,-5]],
+        [[69.5,33],[68,44],[68.5,55],[70,67],[73,80],[76,100],[73,113],[72,130],[70,150],[69,170],[66,179],[62,178],[60,165],[55,162],[59,150],[54,141],[48,140],[43,131],[45,133],[48,135],[49,127],[53,123],[50,117],[50,108],[51,98],[50,87],[49,84],[47,83],[45,80],[42,80],[37,67],[37,60],[38,54],[41,52],[41.5,48.5],[39.5,45],[41,42],[43.5,40],[46,37],[46.5,30],[48,26.5],[50.3,24],[52,23.5],[54.3,22.8],[55.8,21.3],[56,21],[59.5,22.5],[60.5,22],[65,24],[69,28.5]],
+        [[49,-123],[49,-95],[48,-89],[45,-82.5],[43,-79],[45,-71.5],[47,-68],[44.5,-67],[41.5,-70],[40.5,-74],[35,-75.5],[32,-80.8],[30,-81.4],[25.2,-80.4],[27,-82.5],[30,-84],[30,-89],[29.5,-94],[26,-97.2],[29.5,-101],[31.8,-106.5],[31.3,-111],[32.7,-117.1],[34.5,-120.5],[38,-123],[42,-124.3],[46.2,-124]],
+        [[42,119],[39,121],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,98],[28,97],[30,90],[28,86],[30,81],[35,78],[40,74],[45,80],[45,90],[42,97],[42,105],[45,112]]
+      ],
+      blurb:'Britain, the Soviet Union (from June 1941), the United States (from December 1941), and China were the main Allies. France fought until its defeat in 1940; the Free French kept fighting.',
+      facts:[['Big Three','Britain (Churchill), USSR (Stalin), US (Roosevelt)'],['Also','China (Chiang Kai-shek), Free France']],
+      role:'Their combined industry and huge armies wore down the Axis; their wartime meetings shaped the postwar world and the United Nations.'}
+  },
   themeHead:'Battles, Atrocities &amp; Aftermath',
   themes:{
     battles:{name:'Key Battles', color:'#3a3a3a', icon:'⚔', kind:'years',
@@ -176,12 +271,16 @@ window.UNIT_MAP = {
         {n:'Gallipoli 1915',c:[40.2,26.4],note:'Failed Allied attack on the Ottoman Empire.'},
         {n:'Somme 1916',c:[50,2.7],dir:'left',note:'Over a million casualties in WWI’s bloodiest battle.'},
         {n:'Verdun 1916',c:[49.16,5.38],note:'Ten-month French-German battle of attrition.'},
-        {n:'Pearl Harbor 1941',c:[21.35,-157.97],note:'Japan’s surprise attack on the US fleet.'},
-        {n:'Midway 1942',c:[28.2,-177.37],dir:'left',note:'US victory in the Pacific.'},
+        {n:'Pearl Harbor 1941',c:[21.35,-157.97],wrap:true,note:'Japan’s surprise attack on the US fleet.'},
+        {n:'Midway 1942',c:[28.2,-177.37],dir:'left',wrap:true,note:'US victory in the Pacific.'},
         {n:'Stalingrad 1942–43',c:[48.7,44.5],note:'Soviet victory: turning point in Europe.'},
         {n:'El Alamein 1942',c:[30.83,28.95],note:'British victory in North Africa.'},
         {n:'D-Day 1944',c:[49.4,-0.8],dir:'left',note:'Allied invasion of Normandy.'},
-        {n:'Hiroshima 1945',c:[34.39,132.45],note:'First atomic bomb used in war.'}
+        {n:'Hiroshima 1945',c:[34.39,132.45],note:'First atomic bomb used in war.'},
+        {n:'Marne 1914',c:[48.95,3.1],note:'French and British troops stopped the German advance on Paris; trench warfare followed.'},
+        {n:'Battle of Britain 1940',c:[51.3,0.5],note:'The Royal Air Force defeated the German air force, ending Hitler’s plan to invade Britain.'},
+        {n:'Iwo Jima 1945',c:[24.78,141.32],note:'Island-hopping battle that brought US bombers within range of Japan.'},
+        {n:'Okinawa 1945',c:[26.3,127.8],dir:'left',note:'The last great battle of the Pacific war; huge losses on both sides convinced US leaders an invasion of Japan would be very costly.'}
       ]},
     atrocities:{name:'Mass Atrocities', color:'#7a2f2f', icon:'⚠', kind:'years',
       items:[
@@ -194,25 +293,59 @@ window.UNIT_MAP = {
       items:[
         {n:'Syria & Lebanon (French)',color:'#2f5fb3',poly:[[37,36.5],[37.2,42.3],[34.5,41],[32.3,36.8],[33.1,35.1],[35,35.9]],note:'Former Ottoman lands given to France by the League of Nations.'},
         {n:'Iraq (British)',color:'#b8322a',poly:[[37.2,42.3],[37.3,44.8],[35,46],[32,47.8],[29.5,48],[29.1,46.5],[32.2,39],[34.5,41]],note:'British mandate; independent in 1932.'},
-        {n:'Palestine & Transjordan (British)',color:'#c9871b',poly:[[33.1,35.1],[32.3,36.8],[32.2,39],[29.2,36.6],[29.5,34.9],[31.3,34.2]],note:'British mandate; the Balfour Declaration (1917) promised a Jewish homeland here.'}
+        {n:'Palestine & Transjordan (British)',color:'#c9871b',poly:[[33.1,35.1],[32.3,36.8],[32.2,39],[29.2,36.6],[29.5,34.9],[31.3,34.2]],note:'British mandate; the Balfour Declaration (1917) promised a Jewish homeland here.'},
+        {n:'Tanganyika (British)',color:'#b8322a',poly:[[-1,30],[-1,34],[-4.5,39.3],[-10.5,40.4],[-11.5,35],[-8.5,32],[-4.5,29.5]],note:'Former German East Africa, given to Britain as a mandate.'},
+        {n:'South West Africa (South African)',color:'#0f7a6b',poly:[[-17.3,11.8],[-17.4,20],[-18,21],[-22,20],[-28.5,20],[-28.6,16.5]],note:'Former German South West Africa, run by South Africa (today Namibia).'},
+        {n:'Cameroon (French & British)',color:'#2f5fb3',poly:[[13,14.5],[10,15],[7.5,15.5],[2.2,16.2],[2.2,9.8],[4.2,8.9],[6.5,11.8],[10,13.3]],note:'Former German Kamerun, split between France (most of it) and Britain.'},
+        {n:'Togo (French & British)',color:'#2f5fb3',poly:[[11,0],[11,1],[6.2,1.6],[6.1,1.2],[8,0.5]],note:'Former German Togoland, split between France and Britain.'}
       ]},
-    troops:{name:'Colonial Troops', color:'#a0522d', icon:'🪖', kind:'spread',
-      note:'Both world wars drew on colonial empires. Over a million Indian soldiers served in WWI, and Africans, Vietnamese, Australians, and Canadians fought in Europe and the Middle East, raising demands for independence afterward.',
-      origins:[{n:'India',c:[22,79]},{n:'French West Africa',c:[14.7,-17.4]},{n:'Australia & NZ',c:[-33.9,151.2]},{n:'Canada',c:[45.5,-73.6]}],
+    newnations:{name:'New Nations after WWI', color:'#1e874b', icon:'🆕', kind:'zones',
       items:[
-        {n:'Indian troops → Western Front',from:[22,79],c:[50.2,3]},
-        {n:'Indian troops → Mesopotamia',from:[22,79],c:[33,44.4]},
-        {n:'Senegalese tirailleurs → France',from:[14.7,-17.4],c:[49,4]},
-        {n:'ANZACs → Gallipoli',from:[-33.9,151.2],c:[40.2,26.4],curv:0.08},
-        {n:'Canadians → Vimy Ridge',from:[45.5,-73.6],c:[50.38,2.77]}
+        {n:'Poland',color:'#b8322a',poly:[[54.8,18.5],[54.4,22.8],[54.2,23.5],[53.9,25.5],[51.6,24],[50.4,24],[49,22.6],[49.4,19.8],[50.1,18.3],[51,16.3],[51.6,15.4],[52.5,16.5],[53.4,17],[54.4,16.8]],note:'Rebuilt from German, Austrian, and Russian lands after more than a century of partition.'},
+        {n:'Czechoslovakia',color:'#2f5fb3',poly:[[50.9,14.3],[50.3,16.5],[50.2,18.6],[49.5,19],[49.4,22.5],[48.3,22.3],[47.8,18.8],[48,17.1],[48.8,16.8],[48.6,14.5],[49.1,13],[50.3,12.2]],note:'Created from Austria-Hungary for Czechs and Slovaks.'},
+        {n:'Austria & Hungary',color:'#8a6d1f',poly:[[48.7,13.8],[48.9,16.9],[48,17.1],[48.5,20],[48.3,22.3],[47.8,22.9],[46.1,21],[45.9,18.8],[46.6,16.1],[46.8,13.6],[47.5,9.6],[48.3,13.4]],note:'The Habsburg empire broke into small separate states.'},
+        {n:'Yugoslavia',color:'#6d3f9c',poly:[[46.5,16],[46.2,19.5],[45.2,21],[44.4,22.6],[42.3,22.6],[41.1,21.8],[41.9,20.5],[42.4,18.6],[43.5,16],[45.3,14.5],[45.6,13.8],[46.5,13.8]],note:'Kingdom of Serbs, Croats, and Slovenes: South Slavs united under Serbia.'},
+        {n:'Baltic states',color:'#0f7a6b',poly:[[59.5,24],[59.4,28],[57.8,27.6],[56,28.3],[54,25.8],[54.3,23],[55.8,21.1],[57.5,21.6],[58.7,23.4]],note:'Estonia, Latvia, and Lithuania broke away from the Russian Empire.'},
+        {n:'Finland',color:'#1d4ed8',poly:[[60,22],[60.5,27.7],[62.5,31.4],[65.5,29.7],[67.8,29.3],[69.9,28.5],[69,21],[66,23.8],[64,21.5],[62,21.3]],note:'Declared independence from Russia in 1917.'}
       ]},
-    depression:{name:'Great Depression Spreads', color:'#5a6b7a', icon:'📉', kind:'spread',
-      note:'The 1929 crash in New York spread around the world: US banks called in loans to Europe, trade collapsed behind tariffs, and countries exporting raw materials saw prices crash.',
-      origin:{n:'Wall Street crash (1929)', c:[40.71,-74.01]},
-      items:[
-        {n:'→ Germany (loans recalled)',c:[52.52,13.4]},{n:'→ Britain',c:[51.5,-0.1]},
-        {n:'→ Brazil (coffee prices crash)',c:[-23.5,-46.6]},{n:'→ Argentina (beef & wheat)',c:[-34.6,-58.38]},
-        {n:'→ Japan (silk exports collapse)',c:[35.7,139.7],curv:0.1}
+    troops:{name:'Colonial Troops', color:'#a0522d', icon:'🪖', kind:'flows',
+      groups:[
+        {title:'Indian troops', color:'#a0522d', badge:'IN',
+         desc:'Over a million Indian soldiers served in WWI, on the Western Front and in Mesopotamia, raising Indian demands for self-rule.',
+         hubs:[{n:'India', c:[22,79], dir:'bottom'}],
+         arrows:[
+           {from:[24,74], to:[50.5,4], curv:-0.15, tag:'Western Front', n:'Indian troops → Western Front'},
+           {from:[25,70], to:[33.5,45], curv:-0.15, tag:'Mesopotamia', n:'Indian troops → Mesopotamia'}
+         ]},
+        {title:'African troops', color:'#2f5fb3', badge:'AF',
+         desc:'Senegalese tirailleurs and other West African soldiers fought for France in Europe.',
+         hubs:[{n:'French West Africa', c:[14.7,-17.4], dir:'left'}],
+         arrows:[{from:[16,-15], to:[48.5,3], curv:0.15, tag:'France', n:'Senegalese tirailleurs → France'}]},
+        {title:'ANZACs', color:'#0f7a6b', badge:'AU',
+         desc:'Australian and New Zealand soldiers suffered heavy losses at Gallipoli (1915), a founding memory for both nations.',
+         hubs:[{n:'Australia & NZ', c:[-33.9,151.2], dir:'left'}],
+         arrows:[{from:[-30,145], to:[39.5,27], curv:-0.08, tag:'Gallipoli', n:'ANZACs → Gallipoli'}]},
+        {title:'Canadians', color:'#b8322a', badge:'CA', size:'small',
+         desc:'Canada’s capture of Vimy Ridge (1917) became a symbol of Canadian nationhood.',
+         hubs:[{n:'Canada', c:[45.5,-73.6], dir:'left'}],
+         arrows:[{from:[47,-70], to:[50.6,1.5], curv:0.2, tag:'Vimy Ridge', n:'Canadians → Vimy Ridge'}]}
+      ]},
+    depression:{name:'Great Depression Spreads', color:'#5a6b7a', icon:'📉', kind:'flows',
+      groups:[
+        {title:'Loans recalled from Europe', color:'#5a6b7a', badge:'$',
+         desc:'After the 1929 Wall Street crash, US banks called in their loans to Europe. Germany, already paying reparations, was hit hardest, and unemployment there helped Hitler rise.',
+         hubs:[{n:'Wall Street crash (1929)', c:[40.71,-74.01], dir:'top'}],
+         arrows:[
+           {from:[42,-70], to:[52,11], curv:0.15, tag:'Germany', n:'→ Germany (loans recalled)'},
+           {from:[44,-68], to:[52.5,-2], curv:0.25, n:'→ Britain'}
+         ]},
+        {title:'Exporters of raw materials', color:'#c9871b', badge:'↓',
+         desc:'World trade collapsed behind tariffs, and prices for raw materials crashed, ruining countries that lived on exports.',
+         arrows:[
+           {from:[38,-72], to:[-21,-45], curv:-0.15, tag:'Brazil: coffee', n:'→ Brazil (coffee prices crash)'},
+           {from:[37,-75], to:[-32,-60], curv:-0.1, tag:'Argentina: beef & wheat', tagAt:[-8,-68], n:'→ Argentina (beef & wheat)'},
+           {from:[40,-80], to:[36,-221], curv:-0.08, wrap:360, tag:'Japan: silk', n:'→ Japan (silk exports collapse)'}
+         ]}
       ]},
     ideologies:{name:'Ideologies in Power', color:'#6d3f9c', icon:'🏛', kind:'labels',
       items:[
@@ -223,11 +356,11 @@ window.UNIT_MAP = {
         {n:'NEW DEAL DEMOCRACY',c:[38.9,-77.03],note:'FDR’s government programs in the US.'}
       ]}
   },
-  themeOrder:['battles','atrocities','mandates','troops','depression','ideologies'],
+  themeOrder:['battles','atrocities','mandates','newnations','troops','depression','ideologies'],
   hint:'Tip: turn on “Colonial Troops” to see how the world wars pulled in the whole globe. Drag to pan, scroll to zoom.'
 };
 </script>
 <script defer src="theme.js"></script>
-<script src="unit-map-engine.js?v=20261018b"></script>
+<script src="unit-map-engine.js?v=20261018c"></script>
 </body>
 </html>

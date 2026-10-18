@@ -118,7 +118,7 @@
     var p = POLITIES[key], g = L.featureGroup();
     (p.polys || [p.poly]).forEach(function (pg, i) {
       var poly = L.polygon(pg, { color: p.color, weight: 2.5, opacity: .95, fillColor: p.color, fillOpacity: .28, lineJoin: 'round' });
-      if (i === 0) poly.bindTooltip(p.label || p.name, { permanent: true, direction: 'center', className: 'pol-label lp1' });
+      if (i === (p.labelPoly || 0)) poly.bindTooltip(p.label || p.name, { permanent: true, direction: 'center', className: 'pol-label lp1' });
       poly.bindPopup(polityPopupHTML(p), { className: 'polity-pop', maxWidth: 290 });
       poly.addTo(g);
     });
@@ -169,10 +169,11 @@
     } else if (t.kind === 'years') {
       // dated events: a colored pill with the year, popup with the story
       t.items.forEach(function (it) {
-        // wrap:true also draws a copy one world to the west, for places near the date line (New Zealand)
-        (it.wrap ? [it.c, [it.c[0], it.c[1] - 360]] : [it.c]).forEach(function (c, j) {
+        // wrap:true also draws a copy one world over (east of the date line goes west, and the
+        // reverse), for places near the map edge such as New Zealand or Pearl Harbor
+        (it.wrap ? [it.c, [it.c[0], it.c[1] + (it.c[1] < 0 ? 360 : -360)]] : [it.c]).forEach(function (c, j) {
           L.circleMarker(c, { radius: 5, color: '#fff', weight: 2, fillColor: t.color, fillOpacity: 1 })
-            .bindTooltip(it.n, { permanent: true, direction: j ? 'right' : (it.dir || 'right'), offset: [7, 0], className: 'yr-tip lp2 yr-' + key })
+            .bindTooltip(it.n, { permanent: true, direction: j ? (c[1] > 180 ? 'left' : 'right') : (it.dir || 'right'), offset: [7, 0], className: 'yr-tip lp2 yr-' + key })
             .bindPopup(popup(it.n, it.note, t.color, t.name)).addTo(g);
         });
       });
@@ -327,7 +328,12 @@
      A label that would overlap a more important one is hidden until you zoom in far enough
      for both to fit. lp0 labels (arrow tags) always show. */
   var dq = 0;
-  function declutterSoon() { cancelAnimationFrame(dq); dq = requestAnimationFrame(declutter); }
+  // runs on the next frame, and again a moment later once removed labels and zoom animations are gone
+  var dq2 = 0;
+  function declutterSoon() {
+    cancelAnimationFrame(dq); dq = requestAnimationFrame(declutter);
+    clearTimeout(dq2); dq2 = setTimeout(declutter, 300);
+  }
   function declutter() {
     var items = [];
     document.querySelectorAll('.leaflet-tooltip-pane .leaflet-tooltip').forEach(function (el) {

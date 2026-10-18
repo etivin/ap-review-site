@@ -25,7 +25,7 @@ window.UNIT_MAP = {
   unit:1, accent:'#7a5500', accentD:'#5c3f00', accentDark:'#e0b552',
   title:'The Global Tapestry', years:'c. 1200 – 1450',
   h1:'Tour the World in 1200',
-  intro:'Pick a <strong>region</strong> to load its states, innovations, economy, and beliefs. Then layer on the <strong>spread of belief systems</strong>, the great cities, and the farming innovations that fed them, each &ldquo;spread&rdquo; drawn as a <strong>swooping arrow from where it began</strong>.',
+  intro:'Pick a <strong>region</strong> to load its states, innovations, economy, and beliefs. Then layer on the <strong>spread of belief systems</strong>, Mansa Musa&rsquo;s hajj, the <strong>Black Death</strong>, the arrival of the <strong>Mongols</strong>, the great cities, and the farming innovations that fed them. Each &ldquo;spread&rdquo; is drawn as <strong>big arrows</strong> with a key.',
   center:[22,30], zoom:2,
   routeHead:'Regions of the World', allBtn:'Show all regions',
   allTitle:'The Global Tapestry', allSub:'Six regions · c. 1200–1450',
@@ -36,7 +36,11 @@ window.UNIT_MAP = {
       name:'Song China', btn:'East Asia (1.1)', short:'Neo-Confucianism · civil service exam · Champa rice', sub:'East Asia · 960–1279',
       color:'#b8322a', colorDark:'#ff7b6e',
       blurb:'The Song dynasty used Confucian ideas and an imperial bureaucracy to keep power. A booming, commercialized economy, powered by Champa rice, the Grand Canal, and new technology, made it the richest state in the world.',
-      polys:[[[40,116],[39,119],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,103],[28,103],[31,104],[34,105],[36,108],[39,112]]],
+      polys:[[[40,116],[39,119],[35,120],[31,122],[27,120.5],[23,117],[21.5,110],[22.5,106],[25,103],[28,103],[31,104],[34,105],[36,108],[39,112]],
+        {name:'Korea (Goryeo): adapted Chinese writing, Confucianism and Buddhism', dash:true, pts:[[42.5,130.5],[38.6,128.3],[35,129.3],[34.5,126.3],[37.7,126],[40,124.3]]},
+        {name:'Japan: adapted Chinese writing and Buddhism; ruled by shoguns and samurai', dash:true, pts:[[41.5,141],[38,141.5],[35,140.5],[34,135],[33.5,131],[31,130.5],[32.5,129.7],[34.3,131],[35.5,133],[37,137],[39,140]]},
+        {name:'Vietnam (Dai Viet): adopted Chinese bureaucracy but resisted Chinese rule', dash:true, pts:[[23,105.5],[21.5,108],[18,106.5],[17,107],[18.5,105],[20.5,104],[22.5,102.5]]}
+      ],
       places:[
         {n:'Kaifeng',c:[34.8,114.3],note:'Northern Song capital, a commercial city of about a million people.'},
         {n:'Hangzhou',c:[30.27,120.15],note:'Southern Song capital after the Jurchen took the north (1127); the largest city in the world.'},
@@ -64,12 +68,15 @@ window.UNIT_MAP = {
       polys:[
         [[37,36],[40,44],[39,55],[37,62],[34,68],[29,66],[25,60],[26,56],[29,49],[24,51],[22,59],[17,54],[13,45],[17,42],[24,38],[28,35],[31,34],[34,36]],
         [[31.5,32],[31,25],[32.5,20],[30.5,19],[33,11],[37,10],[36,0],[35,-6],[30,-10],[26,-6],[28,10],[24,25],[22,31],[24,35],[28,33.5]],
-        [[33,72],[31,77],[28,80],[26,85],[24,88],[22,86],[22,78],[23,70],[27,68],[30,70]]
+        [[33,72],[31,77],[28,80],[26,85],[24,88],[22,86],[22,78],[23,70],[27,68],[30,70]],
+        {name:'Nasrid Granada: the last Muslim state in Iberia (to 1492)', pts:[[37.6,-5.2],[37.3,-2],[36.7,-2.2],[36.4,-4.9],[36.1,-5.4]]}
       ],
       places:[
         {n:'Baghdad',c:[33.31,44.36],note:'Abbasid capital and home of the House of Wisdom; sacked by the Mongols in 1258.'},
         {n:'Cairo',c:[30.04,31.24],note:'Capital of the Mamluk Sultanate, which stopped the Mongols at Ain Jalut (1260).'},
         {n:'Delhi',c:[28.61,77.21],note:'Capital of the Delhi Sultanate, Turkic Muslim rulers over a Hindu-majority north India.'},
+        {n:'Qutb Minar',c:[28.52,77.19],note:'Victory tower begun about 1200 by the first Delhi sultan, a symbol of Muslim rule in India.'},
+        {n:'Granada',c:[37.18,-3.6],note:'The Alhambra palace of the Nasrid sultans; the last Muslim kingdom in Iberia until 1492.'},
         {n:'Mecca',c:[21.42,39.83],note:'Holy city and goal of the hajj, which drew pilgrims and scholars from across the Islamic world.'},
         {n:'Córdoba & Toledo',c:[39.86,-4.02],note:'Al-Andalus: where Arabic texts were translated into Latin and passed to Europe.'}
       ],
@@ -185,14 +192,18 @@ window.UNIT_MAP = {
         [[55,-3],[54,-0.2],[52.5,1.7],[51,1.3],[50.6,-4],[51.6,-5],[53.4,-4.5]],
         [[51,2.5],[49,8],[46.2,6],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5]],
         [[54.5,9],[54,14],[50.5,15],[48.5,16.5],[46.5,13.8],[45.8,13],[44,11],[45.9,7],[47.5,7.5],[49,8],[51,6],[53.4,7]],
-        [[41.2,26],[41.2,29],[41,31],[38,30],[37,28],[38.4,26.5],[40,26.2]]
+        [[41.2,26],[41.2,29],[41,31],[38,30],[37,28],[38.4,26.5],[40,26.2]],
+        {name:'Iberian Christian kingdoms (Castile, Aragon, Portugal): the Reconquista', pts:[[43.6,-8],[43.4,-1.8],[42.5,3.1],[41.3,2],[40.5,0.7],[38.8,0],[37.3,-2],[37.6,-5.2],[36.1,-5.6],[37.2,-7.4],[37,-8.9],[38.7,-9.5],[40.5,-8.7],[42,-8.8]]},
+        {name:'Kievan Rus’ (Orthodox Christian; fell to the Mongols in 1240)', dash:true, pts:[[60,30],[57,40],[52,40],[48.5,35],[48.5,28],[51,24],[54,26],[57,28]]}
       ],
       places:[
         {n:'Rome',c:[41.9,12.5],note:'Seat of the pope, head of the Catholic Church.'},
         {n:'Paris',c:[48.86,2.35],note:'Capital of France and site of one of Europe’s first universities.'},
         {n:'London',c:[51.5,-0.1],note:'England, where the Magna Carta (1215) limited the king’s power.'},
         {n:'Venice',c:[45.44,12.33],note:'Merchant republic that grew rich trading with the Islamic world.'},
-        {n:'Constantinople',c:[41.01,28.98],note:'Byzantine capital; fell to the Ottomans in 1453.'}
+        {n:'Constantinople',c:[41.01,28.98],note:'Byzantine capital; fell to the Ottomans in 1453.'},
+        {n:'Kyiv',c:[50.45,30.52],note:'Capital of Kievan Rus’, which took Orthodox Christianity from Byzantium (988) and fell to the Mongols in 1240.'},
+        {n:'Toledo & the Reconquista',c:[40.4,-3.7],note:'Christian kingdoms pushed south through Iberia, taking Toledo (1085) and Córdoba (1236); only Granada remained Muslim.'}
       ],
       tech:[
         {name:'Three-field system',what:'Rotating crops across three fields, plus the heavy plow.',impact:'Raised food production and population.'},
@@ -209,22 +220,104 @@ window.UNIT_MAP = {
   },
   themeHead:'Beliefs, Cities &amp; Innovations',
   themes:{
-    islamspread:{name:'Spread of Islam', color:'#1e874b', icon:'☪', kind:'spread',
-      note:'Islam spread through conquest, merchants, and Sufi missionaries, carried along trade routes into Africa, South Asia, and Southeast Asia.',
-      origin:{n:'Arabia', c:[23,43]},
-      items:[{n:'→ West Africa (Mali)',c:[14,-6]},{n:'→ East African coast',c:[-6,39.3]},{n:'→ North India (Delhi)',c:[28.6,77.2]},{n:'→ Sumatra & Malacca',c:[3,100]},{n:'→ Anatolia (Seljuks)',c:[39,33]}]},
-    buddhism:{name:'Spread of Buddhism', color:'#c9871b', icon:'☸', kind:'spread',
-      note:'Buddhism began in India and spread along trade routes: Theravada to Southeast Asia, Mahayana to China, Korea, and Japan, where it blended with local beliefs.',
-      origin:{n:'India (origin)', c:[25.3,83]},
-      items:[{n:'Mahayana → China',c:[34,108]},{n:'→ Korea',c:[37.5,127]},{n:'→ Japan',c:[35,135.7]},{n:'Theravada → Southeast Asia',c:[16,101]},{n:'→ Sri Lanka',c:[7.5,80.7]}]},
-    neoconf:{name:'Spread of Neo-Confucianism', color:'#b8322a', icon:'📜', kind:'spread',
-      note:'Neo-Confucian ideas and Chinese writing and bureaucracy spread from Song China to its neighbors, who adapted them to their own cultures.',
-      origin:{n:'Song China', c:[31,116]},
-      items:[{n:'→ Korea (Goryeo)',c:[37.5,127]},{n:'→ Japan',c:[35,135.7]},{n:'→ Vietnam (Dai Viet)',c:[21,105.8]}]},
-    champa:{name:'Champa Rice Spread', color:'#5c8a1e', icon:'🌾', kind:'spread',
-      note:'Fast-ripening Champa rice moved from Champa (central Vietnam) into southern China, allowing two harvests a year and a population boom.',
-      origin:{n:'Champa (Vietnam)', c:[13.8,109]},
-      items:[{n:'→ Fujian',c:[26,118]},{n:'→ Yangzi delta',c:[31,120]}]},
+    islamspread:{name:'Spread of Islam', color:'#1e874b', icon:'☪', kind:'flows',
+      frame:[[-12,-20],[45,108]],
+      groups:[
+        {title:'By conquest', color:'#1e874b', badge:'⚔',
+         desc:'Turkic Muslim armies carried Islam into Anatolia (the Seljuks) and north India (the Delhi Sultanate).',
+         hubs:[{n:'Arabia', c:[23,43], dir:'bottom'}],
+         arrows:[
+           {from:[27,45], to:[39,33], curv:-0.2, tag:'Anatolia', n:'→ Anatolia (Seljuks)'},
+           {from:[25,48], to:[28.6,76.5], curv:-0.15, tag:'North India', n:'→ North India (Delhi Sultanate)'}
+         ]},
+        {title:'By merchants &amp; Sufis', color:'#4cae6e', badge:'⛵',
+         desc:'Muslim merchants and Sufi missionaries carried Islam peacefully along trade routes, across the Sahara, down the East African coast, and across the Indian Ocean.',
+         arrows:[
+           {from:[21,39], to:[14,-5.5], curv:0.15, tag:'West Africa (Mali)', n:'→ West Africa (Mali)'},
+           {from:[19,42], to:[-5.5,39.4], curv:0.25, tag:'East African coast', n:'→ East African coast (Swahili cities)'},
+           {from:[17,50], to:[3.2,99.5], curv:0.15, tag:'Sumatra & Malacca', n:'→ Sumatra & Malacca'}
+         ]}
+      ]},
+    buddhism:{name:'Spread of Buddhism', color:'#c9871b', icon:'☸', kind:'flows',
+      frame:[[0,70],[45,142]],
+      groups:[
+        {title:'Mahayana Buddhism', color:'#c9871b', badge:'M',
+         desc:'Buddhism began in India and spread along trade routes. Mahayana went north to China, then to Korea and Japan, where it blended with local beliefs (Chan or Zen, Pure Land).',
+         hubs:[{n:'India', c:[25.3,83], dir:'bottom'}],
+         arrows:[
+           {from:[28,85], to:[34,107], curv:-0.2, tag:'China', n:'Mahayana → China'},
+           {from:[35,110], to:[37.3,126.5], curv:-0.2, tag:'Korea', n:'→ Korea'},
+           {from:[36,129], to:[35,135.3], curv:-0.3, n:'→ Japan'}
+         ]},
+        {title:'Theravada Buddhism', color:'#b5541c', badge:'T',
+         desc:'Theravada spread south to Sri Lanka and Southeast Asia (Burma, Thailand, Cambodia).',
+         arrows:[
+           {from:[23,84], to:[16,100.5], curv:0.2, tag:'Southeast Asia', n:'Theravada → Southeast Asia'},
+           {from:[22,81], to:[8,80.6], curv:0.2, tag:'Sri Lanka', n:'→ Sri Lanka'}
+         ]}
+      ]},
+    neoconf:{name:'Spread of Neo-Confucianism', color:'#b8322a', icon:'📜', kind:'flows',
+      frame:[[14,100],[44,142]],
+      groups:[
+        {title:'From Song China to its neighbors', color:'#b8322a', badge:'儒',
+         desc:'Neo-Confucian ideas, Chinese writing, and Chinese-style bureaucracy spread from Song China to its neighbors, who adapted them to their own cultures.',
+         hubs:[{n:'Song China', c:[31,116], dir:'bottom'}],
+         arrows:[
+           {from:[33,118], to:[37.3,126.5], curv:-0.25, tag:'Korea (Goryeo)', n:'→ Korea (Goryeo)'},
+           {from:[32,121], to:[34.5,135], curv:-0.15, tag:'Japan', n:'→ Japan'},
+           {from:[28,113], to:[21.3,105.6], curv:0.25, tag:'Vietnam (Dai Viet)', n:'→ Vietnam (Dai Viet)'}
+         ]}
+      ]},
+    champa:{name:'Champa Rice Spread', color:'#5c8a1e', icon:'🌾', kind:'flows',
+      frame:[[10,100],[35,126]],
+      groups:[
+        {title:'Champa rice reaches China', color:'#5c8a1e', badge:'🌾',
+         desc:'Fast-ripening Champa rice moved from Champa (central Vietnam) into southern China, allowing two harvests a year and a population boom.',
+         hubs:[{n:'Champa (Vietnam)', c:[13.8,109], dir:'right'}],
+         arrows:[
+           {from:[15,110], to:[25.8,119], curv:0.3, tag:'Fujian', tagAt:[21,121.5], n:'→ Fujian'},
+           {from:[15,107.5], to:[30.6,119.4], curv:-0.2, tag:'Yangzi delta', tagAt:[23.5,112.3], n:'→ Yangzi delta'}
+         ]}
+      ]},
+    hajj:{name:'Mansa Musa’s Hajj (1324)', color:'#a0522d', icon:'🕋', kind:'flows',
+      frame:[[5,-15],[35,45]],
+      groups:[
+        {title:'Mali to Mecca', color:'#a0522d', badge:'1324',
+         desc:'Mansa Musa of Mali crossed the Sahara to Mecca with thousands of followers and so much gold that he lowered its value in Cairo. The hajj showed off Mali’s wealth and tied West Africa to the Islamic world; he returned with scholars and architects.',
+         hubs:[{n:'Niani (Mali)', c:[11.4,-8.8], dir:'bottom'},{n:'Cairo', c:[30.04,31.24], dir:'top'},{n:'Mecca', c:[21.42,39.83], dir:'bottom'}],
+         arrows:[
+           {from:[12.5,-7.5], to:[29.5,30.5], curv:-0.15, tag:'across the Sahara', n:'Niani → Cairo across the Sahara'},
+           {from:[29.5,32.5], to:[22,39.3], curv:0.2, tag:'to Mecca', n:'Cairo → Mecca'}
+         ]}
+      ]},
+    blackdeath:{name:'Black Death (1340s)', color:'#3a3a3a', icon:'☠', kind:'flows',
+      frame:[[15,-12],[58,115]],
+      groups:[
+        {title:'Plague spreads along trade routes', color:'#3a3a3a', badge:'☠',
+         desc:'The bubonic plague spread from Central Asia along the Silk Roads, which the Mongols had made safer for travel. It reached the Black Sea port of Caffa in 1346, then Italy, Egypt, and the rest of Europe and the Middle East by 1347–1351, killing a third or more of the population.',
+         hubs:[{n:'Central Asia', c:[43,75], dir:'bottom'},{n:'Caffa (Crimea)', c:[45,35.4], dir:'top'}],
+         arrows:[
+           {from:[43,72], to:[45.3,37.5], curv:-0.15, tag:'Silk Roads', n:'Central Asia → Caffa (1346)'},
+           {from:[44,33], to:[42,12.5], curv:-0.2, tag:'Europe 1347', n:'Caffa → Italy and the rest of Europe (1347)'},
+           {from:[43.5,34], to:[31,31.5], curv:0.2, tag:'Egypt 1347', n:'Caffa → Egypt and the Middle East (1347–48)'},
+           {from:[42,78], to:[35,108], curv:-0.15, n:'Central Asia → China'}
+         ]}
+      ]},
+    mongols:{name:'Mongols Arrive (1206–1260)', color:'#7a2f2f', icon:'🐎', kind:'years',
+      items:[
+        {n:'Genghis Khan 1206',c:[47.2,102.8],note:'Temüjin united the Mongol tribes and took the title Genghis Khan; Unit 2 covers the Mongol Empire.'},
+        {n:'Beijing falls 1215',c:[39.9,116.4],note:'The Mongols took the Jin capital in northern China.'},
+        {n:'Kyiv falls 1240',c:[50.45,30.52],dir:'left',note:'The Mongols destroyed Kyiv and ruled Rus’ as the Golden Horde.'},
+        {n:'Baghdad sacked 1258',c:[33.31,44.36],note:'The Mongols destroyed Baghdad and ended the Abbasid Caliphate.'},
+        {n:'Ain Jalut 1260',c:[32.55,35.35],dir:'left',note:'The Mamluks of Egypt stopped the Mongol advance.'}
+      ]},
+    traderoutes:{name:'Trade Routes (see Unit 2)', color:'#8a6d1f', icon:'🧭', kind:'lines',
+      items:[
+        {n:'Silk Roads',label:true,dash:true,weight:3,pts:[[34.3,108.9],[36,103.8],[40,94.7],[39.5,76],[39.6,66.9],[37.6,61.8],[35.7,51.4],[33.3,44.4],[36.2,37.1],[41,29]],note:'Overland routes linking China to the Mediterranean; Unit 2 covers them in detail.'},
+        {n:'Indian Ocean',label:true,dash:true,weight:3,pts:[[22.3,114.2],[10.8,106.6],[1.3,103.8],[6,80],[11.25,75.8],[12.8,45],[-4,39.7],[-9,39.5]],note:'Sea routes timed by the monsoon winds; Unit 2 covers them in detail.'},
+        {n:'Trans-Saharan',label:true,dash:true,weight:3,pts:[[34,-5],[30,-6],[23,-5],[16.77,-3.01],[12.6,-8]],note:'Camel caravans traded salt and gold across the Sahara; Unit 2 covers them in detail.'},
+        {n:'Trans-Saharan (east)',dash:true,weight:3,pts:[[32.9,13.2],[25,14],[13,8.5]],note:'A second caravan route to the Hausa cities.'}
+      ]},
     cities:{name:'Great Cities', color:'#0f5b5e', icon:'🏙️', kind:'cities',
       items:[
         {n:'Hangzhou',c:[30.27,120.15],note:'Southern Song capital; perhaps the largest city in the world.'},
@@ -258,10 +351,10 @@ window.UNIT_MAP = {
         {n:'UNIVERSITIES',c:[48.86,2.35],note:'Paris, Oxford, and Bologna: Europe’s new universities.'},
         {n:'CIVIL SERVICE EXAM',c:[34.8,114.3],note:'Song China’s Confucian exam system.'}
       ]},
-    grandcanal:{name:'Grand Canal', color:'#1d4ed8', icon:'〰', kind:'lines',
+    grandcanal:{name:'Grand Canal', color:'#1d4ed8', icon:'〰', kind:'lines', frame:[[28,112],[42,124]],
       items:[{n:'Grand Canal',label:true,pts:[[30.27,120.15],[31.3,120.6],[32.4,119.4],[33.6,119.0],[34.8,117.3],[36.5,116.5],[38,116.6],[39.9,116.4]],note:'Over 1,000 miles long, it carried southern rice to the north and tied China’s economy together.'}]}
   },
-  themeOrder:['islamspread','buddhism','neoconf','champa','cities','farming','learning','grandcanal'],
+  themeOrder:['islamspread','buddhism','neoconf','champa','hajj','blackdeath','mongols','traderoutes','cities','farming','learning','grandcanal'],
   hint:'Tip: turn on a “Spread of…” layer to watch a belief system travel. Drag to pan, scroll to zoom.'
 };
 </script>

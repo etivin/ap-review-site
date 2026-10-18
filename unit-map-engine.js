@@ -67,11 +67,14 @@
   }
   function buildRoute(key) {
     var r = ROUTES[key], color = rcol(r), group = L.layerGroup(), lines = [], areas = [], markers = [], allPts = [];
+    // a shape is a list of points, or {pts, name, dash} for one with its own hover name and a
+    // dashed outline (e.g. a former member)
     (r.polys || []).forEach(function (pg) {
-      var a = L.polygon(pg, { color: color, weight: 2.5, opacity: .9, fillColor: color, fillOpacity: .3, lineJoin: 'round' }).addTo(group);
+      var pts = pg.pts || pg;
+      var a = L.polygon(pts, { color: color, weight: 2.5, opacity: .9, fillColor: color, fillOpacity: .3, lineJoin: 'round', dashArray: pg.dash ? '7 6' : null }).addTo(group);
       a.on('click', function () { selectRoute(key, true); });
-      a.bindTooltip(r.name, { sticky: true, className: 'city-tip' });
-      areas.push(a); pg.forEach(function (p) { allPts.push(p); });
+      a.bindTooltip(pg.name || r.name, { sticky: true, className: 'city-tip' });
+      areas.push(a); pts.forEach(function (p) { allPts.push(p); });
     });
     (r.segments || []).forEach(function (seg) {
       L.polyline(seg, { color: '#000', opacity: .10, weight: 9, interactive: false }).addTo(group);

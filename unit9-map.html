@@ -25,7 +25,7 @@ window.UNIT_MAP = {
   unit:9, accent:'#3d3c00', accentD:'#2d2c00', accentDark:'#c9c64a',
   title:'Globalization', years:'c. 1900 – present',
   h1:'One Connected World',
-  intro:'Pick a <strong>trade bloc or rising economy</strong> to see how the world economy knit together. Then layer on <strong>disease and medicine</strong>, the <strong>Green Revolution</strong>, <strong>rights movements</strong>, <strong>environmental change</strong>, and the institutions built to manage a global world.',
+  intro:'Pick a <strong>trade bloc or rising economy</strong> to see how the world economy knit together. Then layer on <strong>disease and medicine</strong>, the <strong>Green Revolution</strong>, <strong>trade and migration flows</strong> (drawn as big arrows), <strong>communication technology</strong>, <strong>rights movements</strong>, <strong>environmental change</strong>, and the institutions built to manage a global world.',
   center:[20,10], zoom:2,
   routeHead:'Trade Blocs &amp; Economies', allBtn:'Show all',
   allTitle:'A Globalized Economy', allSub:'c. 1945–present',
@@ -36,7 +36,26 @@ window.UNIT_MAP = {
       name:'European Union', btn:'1957 → 1993', short:'Common market · the euro · Brussels', sub:'From the Common Market (1957) to the EU (1993)',
       color:'#2f5fb3', colorDark:'#7aa2ff',
       blurb:'Former enemies built economic ties to prevent another war. The European Economic Community (1957) became the European Union (1993), with free movement of goods and people and, for most members, a shared currency, the euro.',
-      polys:[[[54.8,8.5],[55.5,12.5],[54.4,19],[54.3,23.5],[56,21],[59.5,24],[60,28],[64,30],[69,28],[67,20],[60,17],[56,13],[55.5,12.5],[54.8,8.5],[53.5,7],[51,2.5],[49.7,-1.5],[48.6,-4.6],[46.2,-1.2],[43.3,-1.7],[43.5,-8],[42,-9],[37,-9],[36,-5.6],[37.5,-1],[40.5,0.5],[42.5,3],[43.7,7.4],[44,8.2],[42.4,11],[41,13],[40,15.5],[38,15.6],[38,16],[40,18.5],[41,17],[42,14.5],[44,12.5],[45.6,13.8],[45.4,19],[44,22.5],[43.7,28.6],[45.4,29.6],[48,27],[48.3,22.5],[50.8,24.1]]],
+      polys:[
+        {name:'France, Belgium, Netherlands & Luxembourg (founders, 1957)', pts:[[53.5,6.9],[53.2,7.2],[51.9,6.1],[51,6],[50.1,6.1],[49.5,6.4],[49,8.2],[47.6,7.6],[46.2,6],[43.7,7.4],[42.5,3],[43.3,-1.7],[46.2,-1.2],[48.6,-4.6],[49.7,-1.5],[51,2.5],[51.4,3.4],[52.4,4.6]]},
+        {name:'Germany (founder, 1957; reunited 1990)', pts:[[54.9,8.6],[54.4,11],[54.5,13.4],[53.9,14.2],[53.4,14.3],[52.6,14.6],[51.6,14.7],[51,14.8],[50.9,14.3],[50.6,13],[50.3,12.1],[49.5,12.6],[48.7,13.8],[47.6,13],[47.6,9.6],[47.8,7.6],[49,8.2],[49.5,6.4],[50.1,6.1],[51,6],[51.9,6.1],[53.3,7.2]]},
+        {name:'Italy (founder, 1957)', pts:[[46.5,7],[46.5,13.5],[45.6,13.8],[44,12.5],[42,14.5],[41,17],[40,18.5],[38,16],[38,15.6],[40,15.5],[41,13],[42.4,11],[44,8.2],[44.1,7.6]]},
+        {name:'Ireland & Denmark (1973)', pts:[[55.3,-7.3],[54.3,-5.6],[52.2,-6.3],[51.5,-9.8],[53.5,-10.2],[55.2,-8.3]]},
+        {name:'Ireland & Denmark (1973)', pts:[[57.6,10.5],[56.5,10.9],[55.4,10.8],[54.8,9.6],[55.6,8.1],[56.8,8.2]]},
+        {name:'Britain (member 1973–2020, left in Brexit)', dash:true, pts:[[58.6,-3],[57.5,-1.8],[55.8,-2],[54,-0.2],[53,0.3],[52.5,1.7],[51.3,1.4],[50.8,0.3],[50.6,-4],[50,-5.6],[51.6,-5],[52.8,-4.6],[53.4,-3.1],[54.6,-3.6],[55,-5],[56.8,-6],[58.5,-5]]},
+        {name:'Greece (1981)', pts:[[41.7,26.3],[41.2,23.5],[41,21],[39.6,20],[38.3,21.2],[36.4,22.4],[37,23.2],[38,24.1],[40,23],[40.9,24.4],[41,25.5]]},
+        {name:'Spain & Portugal (1986)', pts:[[43.6,-8],[43.4,-1.8],[42.5,3.1],[41.3,2],[40.5,0.7],[38.8,0],[36.7,-2.2],[36,-5.6],[37.2,-7.4],[38,-7],[39.6,-7.5],[41,-6.9],[42,-6.5],[42,-8.8]]},
+        {name:'Spain & Portugal (1986)', pts:[[42,-8.8],[42,-6.5],[41,-6.9],[39.6,-7.5],[38,-7],[37.2,-7.4],[37,-8.9],[38.7,-9.5],[40.5,-8.7]]},
+        {name:'Austria, Sweden & Finland (1995)', pts:[[48.7,13.8],[49,16.9],[48,17.1],[47.8,16.5],[46.6,16.1],[46.8,13.6],[47.5,9.6],[47.6,13]]},
+        {name:'Austria, Sweden & Finland (1995)', pts:[[69,20.5],[68.4,23],[66,24],[63.5,20.5],[60.5,17.2],[58.6,16.7],[56,15.8],[55.4,13],[57.5,11.8],[59,11.1],[61,12.5],[63.9,12.2],[66,14.5],[68.4,18]]},
+        {name:'Austria, Sweden & Finland (1995)', pts:[[60,22],[60.5,27.7],[62.5,31.4],[65.5,29.7],[67.8,29.3],[69.9,28.5],[69,21],[66,23.8],[64,21.5],[62,21.3]]},
+        {name:'Former Soviet-bloc members (2004–2007)', pts:[[59.5,24],[59.4,28],[57.8,27.6],[56,28.3],[54,25.8],[54.3,23],[55.8,21.1],[57.5,21.6],[58.7,23.4]]},
+        {name:'Former Soviet-bloc members (2004–2007)', pts:[[54.8,18.5],[54.4,22.8],[54.2,23.5],[53.9,25.5],[51.6,24],[50.4,24],[49,22.6],[49.4,19.8],[50.1,18.3],[51,16.3],[51.6,15.4],[52.5,16.5],[53.4,17],[54.4,16.8]]},
+        {name:'Former Soviet-bloc members (2004–2007)', pts:[[50.9,14.3],[50.3,16.5],[50.2,18.6],[49.5,19],[49.4,22.5],[48.3,22.3],[47.8,18.8],[48,17.1],[48.8,16.8],[48.6,14.5],[49.1,13],[50.3,12.2]]},
+        {name:'Former Soviet-bloc members (2004–2007)', pts:[[48.5,20],[48.3,22.3],[47.8,22.9],[46.1,21],[45.9,18.8],[46.6,16.1],[47.8,16.5],[48,17.1]]},
+        {name:'Former Soviet-bloc members (2004–2007)', pts:[[48.2,26.6],[47.9,24.9],[48.2,22.6],[47.8,22.9],[46.1,21],[45.2,21.4],[44.6,22.5],[43.7,24],[43.7,28.6],[45.2,29.7],[45.5,28.2],[46.9,27.6]]},
+        {name:'Former Soviet-bloc members (2004–2007)', pts:[[44.1,22.6],[43.7,28.6],[42,28],[41.3,26.3],[41.2,23.5],[42.2,22.4]]}
+      ],
       places:[
         {n:'Brussels',c:[50.85,4.35],note:'Headquarters of the European Union.'},
         {n:'Rome',c:[41.9,12.5],note:'Treaty of Rome (1957) created the European Economic Community.'},
@@ -77,7 +96,7 @@ window.UNIT_MAP = {
       ]
     },
     asia:{
-      name:'Rising Asian Economies', btn:'Japan, Tigers & China', short:'Asian Tigers · Deng’s reforms · Shenzhen', sub:'Export-led growth',
+      name:'Rising Asian Economies', btn:'Japan, Tigers, China & India', short:'Asian Tigers · Deng’s reforms · Shenzhen', sub:'Export-led growth',
       color:'#c9871b', colorDark:'#f0c674',
       blurb:'Japan rebuilt after WWII, then the “Asian Tigers” (South Korea, Taiwan, Singapore, Hong Kong) grew rich by exporting manufactured goods. After 1978, Deng Xiaoping opened China to markets, making it the “world’s factory.”',
       polys:[
@@ -85,25 +104,30 @@ window.UNIT_MAP = {
         [[45.5,141.7],[43,145.5],[41.5,141],[38,141.5],[35,140.5],[34,135],[33.5,131],[31,130.5],[32.5,129.7],[34.3,131],[35.5,133],[37,137],[39,140]],
         [[38.6,128.3],[35,129.3],[34.5,126.3],[37.7,126]],
         [[25.3,121.6],[22,120.8],[23,120.1],[25,121]],
-        [[1.47,103.6],[1.47,104.1],[1.2,104.1],[1.2,103.6]]
+        [[1.47,103.6],[1.47,104.1],[1.2,104.1],[1.2,103.6]],
+        {name:'Hong Kong (an Asian Tiger)', pts:[[22.56,113.84],[22.56,114.43],[22.2,114.43],[22.2,113.84]]},
+        {name:'India (market reforms from 1991)', pts:[[34,74],[30,80],[27,88],[28,95],[24,94],[22,92],[22,88],[16,82],[13,80.3],[8,77.5],[10,76],[15,74],[21,72.8],[23,68.5],[24,71],[30,74]]}
       ],
       places:[
         {n:'Shenzhen',c:[22.54,114.06],note:'China’s first Special Economic Zone (1980): a fishing town turned megacity.'},
         {n:'Shanghai',c:[31.23,121.47],note:'World’s busiest container port.'},
         {n:'Seoul',c:[37.57,126.98],note:'South Korea: from war-torn to tech giant (Samsung, Hyundai).'},
         {n:'Tokyo',c:[35.7,139.7],note:'Japan’s postwar “economic miracle” in cars and electronics.'},
-        {n:'Singapore',c:[1.35,103.8],note:'A tiny city-state that became a global trade and finance hub.'}
+        {n:'Singapore',c:[1.35,103.8],note:'A tiny city-state that became a global trade and finance hub.'},
+        {n:'Hong Kong',c:[22.3,114.17],note:'A British colony until 1997 and an Asian Tiger built on trade, finance, and light industry.'},
+        {n:'Mumbai',c:[19.08,72.88],note:'India’s financial center; the 1991 reforms cut tariffs and licenses and opened India to foreign investment.'}
       ],
       tech:[
         {name:'Export-led growth',what:'Governments supported industries that sold abroad.',impact:'Rapid growth and rising living standards.'},
         {name:'Special Economic Zones',what:'Areas in China open to foreign investment and markets.',impact:'Made China the center of world manufacturing.'},
         {name:'Container shipping',what:'Standard steel boxes moved by ship, train, and truck.',impact:'Made shipping goods across the world cheap.'}
       ],
-      goods:['Asian Tigers','Deng Xiaoping','Special Economic Zones','Containerization','Market socialism'],
+      goods:['Asian Tigers','Deng Xiaoping','Special Economic Zones','Containerization','Market socialism','India’s 1991 reforms'],
       cultural:[
         {t:'Hundreds of millions lifted from poverty',d:'especially in China.'},
         {t:'Global shift of manufacturing',d:'to Asia from the US and Europe.'},
-        {t:'Political limits',d:'China opened its economy but not its politics (Tiananmen, 1989).'}
+        {t:'Political limits',d:'China opened its economy but not its politics (Tiananmen, 1989).'},
+        {t:'India’s tech boom',d:'after 1991, cities like Bangalore became centers of software and outsourcing.'}
       ]
     },
     opec:{
@@ -115,7 +139,11 @@ window.UNIT_MAP = {
         [[39.5,44.5],[37.4,47],[37,54],[37.5,61],[31,61.5],[25.3,61.6],[27,57],[26.5,54],[30,50],[32,47.8],[35,46]],
         [[37.2,42.3],[37.3,44.8],[35,46],[32,47.8],[29.5,48],[29.1,46.5],[32.2,39],[34.5,41]],
         [[12,-72],[10.5,-61.5],[8,-60],[4,-61],[1,-64],[1,-67],[6,-67.5],[7,-72],[10,-73]],
-        [[13.5,4],[13,14],[7,12],[4.3,7],[6.4,3],[9,3]]
+        [[13.5,4],[13,14],[7,12],[4.3,7],[6.4,3],[9,3]],
+        [[30.1,47.7],[29.4,48.4],[28.5,48.4],[29.1,46.6]],
+        [[26.1,56.1],[24.2,51.6],[22.7,55.2],[25.6,56.4]],
+        [[33,11.5],[33,23],[31.5,25],[20,24],[23.5,15],[25,10]],
+        [[37,8.6],[35,-1.8],[30,-8.7],[27.7,-8.7],[19.1,4.3],[23.5,12],[25,10],[30,9.8],[33,11.5],[37,11]]
       ],
       places:[
         {n:'Riyadh',c:[24.71,46.68],note:'Saudi Arabia: largest OPEC producer.'},
@@ -136,7 +164,12 @@ window.UNIT_MAP = {
       name:'Mercosur', btn:'1991', short:'South American common market', sub:'Southern Common Market',
       color:'#1e874b', colorDark:'#4cc985',
       blurb:'Brazil, Argentina, Uruguay, and Paraguay formed Mercosur (1991) to cut tariffs among themselves, part of a global trend toward regional trade blocs.',
-      polys:[[[5,-60],[2,-50],[-5,-35],[-13,-38.5],[-23,-41],[-25,-48],[-33,-52.5],[-35,-54.5],[-34.6,-58.4],[-38,-57.5],[-41,-62.5],[-46,-67.5],[-52,-68.5],[-55,-68],[-52,-72.5],[-40,-72],[-33,-70],[-27,-68.5],[-22,-67],[-22,-62],[-20,-58],[-16,-60],[-11,-65],[-9.5,-72],[-4,-70],[1,-67],[1,-64],[4,-61]]],
+      polys:[
+        {name:'Brazil', pts:[[4,-51.5],[0,-50],[-2,-44],[-5,-35],[-13,-38.5],[-23,-42],[-29,-49],[-33.7,-53.4],[-30,-57.5],[-27.3,-54],[-25.6,-54.6],[-24.1,-54.3],[-22.6,-55.7],[-22.1,-57.9],[-19.3,-59.1],[-16,-60],[-14,-60.5],[-10,-65],[-11,-69],[-9,-72.5],[-4,-70],[1,-67],[2,-60]]},
+        {name:'Argentina', pts:[[-22,-65.5],[-22,-62],[-25,-58],[-27.3,-58.6],[-27.4,-55.7],[-27.3,-54],[-30.2,-57.6],[-34,-58.4],[-36.5,-56.8],[-39,-62],[-41,-63],[-42.5,-64],[-46,-67.5],[-50,-69],[-52.3,-68.4],[-52,-71.9],[-50,-73.5],[-46,-71.7],[-42,-71.8],[-37,-71.2],[-33,-70],[-28,-69.6],[-24,-67.3]]},
+        {name:'Uruguay', pts:[[-30.1,-57.6],[-30.2,-55.9],[-32.6,-53.2],[-34.4,-53.8],[-34.9,-56.2],[-34,-58.4]]},
+        {name:'Paraguay', pts:[[-19.3,-59.1],[-20.1,-58.1],[-22.1,-57.9],[-22.6,-55.7],[-24.1,-54.3],[-25.6,-54.6],[-27.4,-55.7],[-27.3,-58.6],[-25.3,-57.6],[-24,-60.9],[-22.2,-62.6],[-20.1,-62.2]]}
+      ],
       places:[
         {n:'São Paulo',c:[-23.55,-46.63],note:'Brazil’s economic center and one of the world’s largest cities.'},
         {n:'Buenos Aires',c:[-34.6,-58.38],note:'Argentina, a major food exporter.'}
@@ -161,14 +194,64 @@ window.UNIT_MAP = {
         {n:'Ebola 2014',c:[8.5,-11.5],dir:'left',note:'West African outbreak.'},
         {n:'COVID-19 2019–',c:[30.6,114.3],note:'First identified in Wuhan; became a global pandemic.'}
       ]},
-    green:{name:'Green Revolution', color:'#5c8a1e', icon:'🌾', kind:'spread',
-      note:'Starting in Mexico (Norman Borlaug) and the Philippines (IRRI rice), high-yield seeds, fertilizers, pesticides, and irrigation dramatically raised food production in the 1960s–70s, preventing famine but favoring wealthier farmers and harming soil and water.',
-      origins:[{n:'Mexico (wheat research)',c:[19.4,-99]},{n:'Philippines (IRRI rice)',c:[14.17,121.25]}],
+    green:{name:'Green Revolution', color:'#5c8a1e', icon:'🌾', kind:'flows',
+      groups:[
+        {title:'High-yield wheat from Mexico', color:'#5c8a1e', badge:'W',
+         desc:'Starting in Mexico (Norman Borlaug) and the Philippines (IRRI rice), high-yield seeds, fertilizers, pesticides, and irrigation dramatically raised food production in the 1960s–70s, preventing famine but favoring wealthier farmers and harming soil and water.',
+         hubs:[{n:'Mexico (Borlaug’s wheat research)', c:[19.4,-99], dir:'bottom'}],
+         arrows:[{from:[21,-95], to:[29.5,72], curv:-0.12, tag:'Wheat → India & Pakistan', tagAt:[39,-20], n:'High-yield wheat → India (Punjab) & Pakistan'}]},
+        {title:'High-yield rice from the Philippines', color:'#c9871b', badge:'R', size:'small',
+         desc:'IRRI’s “miracle rice” (IR8, 1966) spread across South and Southeast Asia.',
+         hubs:[{n:'Philippines (IRRI rice)', c:[14.17,121.25], dir:'right'}],
+         arrows:[
+           {from:[13,119.5], to:[-6.5,110.5], curv:0.2, tag:'Indonesia', tagAt:[0,124], n:'Rice → Indonesia'},
+           {from:[15.5,119], to:[23.5,90.8], curv:-0.15, tag:'Bangladesh & Vietnam', tagAt:[29,104], n:'Rice → Vietnam & Bangladesh'}
+         ]}
+      ]},
+    trade:{name:'Global Trade Flows', color:'#2f5fb3', icon:'🚢', kind:'flows',
+      groups:[
+        {title:'Container shipping', color:'#2f5fb3', badge:'⛴',
+         desc:'Standard steel shipping containers (from the 1950s) made it cheap to move goods worldwide. Factories in East Asia ship to North America across the Pacific and to Europe through the Strait of Malacca and the Suez Canal.',
+         hubs:[{n:'Shanghai (busiest port)', c:[31.23,121.47], dir:'top'},{n:'Rotterdam', c:[51.92,4.48], dir:'left'},{n:'Los Angeles & Long Beach', c:[33.75,-118.2], dir:'left'}],
+         arrows:[
+           {from:[30,124], to:[33.5,240.5], curv:-0.1, wrap:-360, tag:'Asia → North America', n:'Container ships: East Asia → North America'},
+           {from:[20,113], to:[29.5,32.8], curv:0.12, tag:'Asia → Europe via Suez', tagAt:[6,74], n:'Container ships: East Asia → Europe (Malacca & Suez)'},
+           {from:[33,30], to:[50.5,3], curv:-0.3, n:'Through the Mediterranean to northern Europe'}
+         ]},
+        {title:'Oil from the Persian Gulf', color:'#3a3a3a', badge:'🛢', size:'small',
+         desc:'Tankers carry Gulf oil to the factories and cars of Asia and Europe, which is why the Gulf and the Strait of Hormuz matter so much to the world economy.',
+         hubs:[{n:'Persian Gulf', c:[26.5,52], dir:'bottom'}],
+         arrows:[
+           {from:[25,58], to:[33,129], curv:0.15, tag:'Oil → East Asia', tagAt:[14,92], n:'Oil → China, Japan & South Korea'},
+           {from:[28,48], to:[45,9], curv:-0.15, tag:'Oil → Europe', tagAt:[40,24], n:'Oil → Europe'}
+         ]}
+      ]},
+    migration:{name:'Migration Today', color:'#a0522d', icon:'🧳', kind:'flows',
+      groups:[
+        {title:'Latin America to the US', color:'#b8322a', badge:'LA',
+         desc:'Millions from Mexico and Central America have moved to the United States for work and safety.',
+         hubs:[{n:'Mexico & Central America', c:[16,-90], dir:'bottom'}],
+         arrows:[{from:[17,-94], to:[36,-98], curv:0.25, tag:'to the US', n:'Mexico & Central America → United States'}]},
+        {title:'South Asia to the Gulf', color:'#0f7a6b', badge:'SA',
+         desc:'Workers from India, Pakistan, Bangladesh, and Nepal build and staff the oil-rich Gulf states, sending money home (remittances).',
+         hubs:[{n:'South Asia', c:[23,80], dir:'bottom'}],
+         arrows:[{from:[22,75], to:[25,55.5], curv:0.25, tag:'Gulf labor', n:'South Asia → the Gulf states'}]},
+        {title:'Africa &amp; the Middle East to Europe', color:'#6d3f9c', badge:'EU',
+         desc:'Migrants and refugees cross the Mediterranean or travel through Turkey into Europe, peaking with the Syrian refugee crisis (2015).',
+         hubs:[{n:'Syria (refugees, 2015)', c:[35,38], dir:'bottom'},{n:'West & North Africa', c:[14,0], dir:'bottom'}],
+         arrows:[
+           {from:[16,2], to:[43,10], curv:0.2, tag:'across the Mediterranean', n:'Africa → Europe across the Mediterranean'},
+           {from:[36,37], to:[49,14], curv:0.2, tag:'Syrian refugees', n:'Syria → Europe through Turkey and the Balkans'}
+         ]}
+      ]},
+    comms:{name:'Communication Technology', color:'#1d4ed8', icon:'📡', kind:'years',
       items:[
-        {n:'→ India (Punjab)',from:[19.4,-99],c:[30.9,75.8],curv:0.08},
-        {n:'→ Pakistan',from:[19.4,-99],c:[31.5,72.5],curv:0.06},
-        {n:'→ Indonesia (rice)',from:[14.17,121.25],c:[-7,110]},
-        {n:'→ Vietnam & Bangladesh (rice)',from:[14.17,121.25],c:[23.7,90.4]}
+        {n:'Telstar satellite 1962',c:[40.5,-74.5],dir:'left',note:'The first satellite to relay live TV across the Atlantic.'},
+        {n:'ARPANET 1969',c:[34.07,-118.44],note:'The US military-funded network that grew into the internet.'},
+        {n:'Fiber-optic cable 1988',c:[45,-35],dir:'left',note:'TAT-8, the first transatlantic fiber-optic cable, linked the US, Britain, and France.'},
+        {n:'World Wide Web 1989',c:[46.23,6.05],note:'Tim Berners-Lee invented the web at CERN near Geneva.'},
+        {n:'Mobile money 2007',c:[-1.29,36.82],note:'Kenya’s M-Pesa let people send money by cell phone, skipping banks entirely.'},
+        {n:'Smartphones 2007',c:[37.33,-122.03],note:'The iPhone put the internet in people’s pockets; social media spread worldwide.'}
       ]},
     rights:{name:'Rights Movements', color:'#b8322a', icon:'✊', kind:'years',
       items:[
@@ -212,11 +295,11 @@ window.UNIT_MAP = {
         {n:'World Social Forum 2001',c:[-30.03,-51.23],note:'Porto Alegre, Brazil: activists seeking alternatives to corporate globalization.'}
       ]}
   },
-  themeOrder:['disease','green','rights','environment','institutions','culture','protest'],
+  themeOrder:['disease','green','trade','migration','comms','rights','environment','institutions','culture','protest'],
   hint:'Tip: turn on “Disease &amp; Medicine” to compare pandemics across the century. Drag to pan, scroll to zoom.'
 };
 </script>
 <script defer src="theme.js"></script>
-<script src="unit-map-engine.js?v=20261018e"></script>
+<script src="unit-map-engine.js?v=20261018f"></script>
 </body>
 </html>

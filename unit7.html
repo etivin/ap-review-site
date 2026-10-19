@@ -301,6 +301,10 @@ img{display:block;max-width:100%}
 .rubric-note{font-size:.82rem;color:var(--mid);line-height:1.6}
 .score-summary{background:var(--ink);color:#fff;padding:12px 16px;margin-bottom:14px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.1em;display:flex;align-items:center;justify-content:space-between}
 .score-num{font-size:1.2rem;font-weight:700;color:var(--gold)}
+.wp-earn{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:7px}
+.wp-earn label{display:flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;color:var(--ink);cursor:pointer}
+.wp-earn input{width:15px;height:15px;accent-color:var(--green,#1a6825)}
+.wp-open-model{background:none;border:none;padding:0;font:inherit;color:var(--red);text-decoration:underline;cursor:pointer}
 .improve-box{background:var(--gold-bg);border:1px solid var(--gold-b);border-left:3px solid var(--gold);padding:11px 14px;margin-top:12px}
 .improve-title{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 
@@ -883,7 +887,7 @@ img{display:block;max-width:100%}
     <div class="pg-hero">
       <div class="eyebrow">Writing Practice</div>
       <h2>SAQ, DBQ &amp; LEQ</h2>
-      <p>Real AP exam prompts from the official College Board scoring materials. Write your response and get instant feedback scored against the actual rubric.</p>
+      <p>Real AP exam prompts from the official College Board scoring materials. Write your response, check it against the rubric checklist, then score yourself using the model answer.</p>
     </div>
 
     <!-- FRQ GRADER -->
@@ -982,7 +986,7 @@ img{display:block;max-width:100%}
     </div>
     <button type="button" class="wp-submit" id="wp-submit">&#9997; Check My Response</button>
     <div class="wp-result" id="wp-result">
-      <div class="wp-result-hdr"><span>Rubric Feedback</span><span class="wp-score-badge" id="wp-score-badge">-</span></div>
+      <div class="wp-result-hdr"><span>Rubric Checklist</span><span class="wp-score-badge" id="wp-score-badge">-</span></div>
       <div class="wp-feedback" id="wp-feedback"></div>
     </div>
 
@@ -1353,7 +1357,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // PART A: Identify ONE political purpose of the Nazi poster
     var hasAPurpose = contains(t, ['vote','voting','inspire','encourage','convince','persuade','support hitler','support the nazi','gain support','instill','anger','angry','dislike','anti-government','distrust','elect','electoral','economic solution','solve','fix the economy','economic problems','economic crisis','economic suffering']);
-    var hasARef = contains(t, ['part a','a.','a)','identifies','political purpose','purpose of the image','purpose of this image','purpose of the poster']);
+    var hasARef = contains(t, ['part a','(a)','identifies','political purpose','purpose of the image','purpose of this image','purpose of the poster']);
     var hasAContent = contains(t, ['nazi','national socialist','hitler','poster','image']);
     if ((hasAPurpose || hasARef) && hasAContent && words >= 10) {
       rows.push({icon:'✓', label:'pass', head:'Part A: Identify Political Purpose (1/1)', note:'You identified a specific political purpose of the poster. Strong work naming what the image was trying to achieve.'});
@@ -1431,26 +1435,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Document Evidence: based on the actual 7 documents
+    // Each document counts once, however many of its names appear.
     var docRefs = [
-      'tokyo economist','doc 1','document 1','port arthur','russian tax','businessmen insist',
-      'konoe','doc 2','document 2','anglo-american','resource-poor','reject the anglo',
-      'korean','manifesto','doc 3','document 3','allied korean','sovereignty of korea',
-      'ishiwara','doc 4','document 4','manchuria-mongolia','manchuria and mongol',
-      'janeway','doc 5','document 5','new york times','shaanxi','iron mines','china\'s resources',
-      'nawa','doc 6','document 6','cotton spinning','raw cotton','north china',
-      'singapore','doc 7','document 7','japanese language class','singaporean school'
+      ['tokyo economist','doc 1','document 1','port arthur','russian tax','businessmen insist'],
+      ['konoe','doc 2','document 2','anglo-american','resource-poor','reject the anglo'],
+      ['korean','manifesto','doc 3','document 3','allied korean','sovereignty of korea'],
+      ['ishiwara','doc 4','document 4','manchuria-mongolia','manchuria and mongol'],
+      ['janeway','doc 5','document 5','new york times','shaanxi','iron mines','china\'s resources'],
+      ['nawa','doc 6','document 6','cotton spinning','raw cotton','north china'],
+      ['singapore','doc 7','document 7','japanese language class','singaporean school']
     ];
     var docCount = 0;
-    var docsSeen = {};
-    docRefs.forEach(function(d){
-      if (t.indexOf(d) !== -1) {
-        // bucket by document number to avoid double-counting
-        var num = d.match(/doc(?:ument)?\s*(\d)/);
-        var key = num ? 'doc'+num[1] : d;
-        if (!docsSeen[key]) { docsSeen[key] = true; docCount++; }
-      }
-    });
-    if (docCount >= 5) {
+    docRefs.forEach(function(names){ if (contains(t, names)) docCount++; });
+    if (docCount >= 4) {
       rows.push({icon:'✓', label:'pass', head:'Document Evidence: 4+ Documents Used (2/2)', note:'You reference multiple documents and appear to use them to support an argument about Japanese imperialism. Make sure each reference accurately describes the source content.'});
       score += 2;
     } else if (docCount >= 3) {
@@ -1569,35 +1566,57 @@ document.addEventListener('DOMContentLoaded', function () {
     var badge = document.getElementById('wp-score-badge');
     var fb = document.getElementById('wp-feedback');
 
-    var selfMax = 0;
-    result.rows.forEach(function(r){ if (r.selfKey) selfMax += (r.pts || 1); });
-    var autoMax = result.max - selfMax;
-
-    badge.textContent = result.score + '/' + autoMax;
-
-    var pct = autoMax ? result.score / autoMax : 0;
-    var colorCls = pct >= 0.7 ? '#1a6825' : pct >= 0.4 ? '#7a5500' : '#850015';
-
-    var html = '<div class="score-summary"><span>Auto-graded</span><span class="score-num" style="color:' + colorCls + '">' + result.score + ' / ' + autoMax + ' points</span></div>';
-    if (selfMax > 0) {
-      html += '<div class="selfcheck-note-top">Plus <strong>' + selfMax + ' point' + (selfMax > 1 ? 's' : '') + '</strong> for analysis &amp; reasoning that you <strong>self-assess</strong> below, these can’t be graded honestly by keyword matching, so the tool coaches instead of guessing. Full rubric total: <strong>' + result.max + '</strong> points.</div>';
+    // No point score: the keyword checks only flag what seems present or missing.
+    // The student scores each rubric point themselves against the rubric and the model answer.
+    function earnBoxes(pts, name) {
+      var h = '<div class="wp-earn">';
+      for (var i = 1; i <= pts; i++) {
+        h += '<label><input type="checkbox" class="wp-earn-box"> I earned ' + (pts > 1 ? 'point ' + i + ' of ' + name : 'this point') + '</label>';
+      }
+      return h + '</div>';
     }
 
+    badge.textContent = '0 / ' + result.max;
+
+    var html = '<div class="selfcheck-note-top"><strong>This is a checklist, not a grade.</strong> It scans your writing for signs of each rubric point, so it can miss good writing and be fooled by key words. Read each row, compare your response with the rubric and the <button type="button" class="wp-open-model">model answer</button>, then tick only the points you truly earned.</div>';
+
     result.rows.forEach(function(r) {
+      var m = r.head.match(/\((\d)\/(\d)\)\s*$/);
+      var pts = r.pts || (m ? +m[2] : 1);
+      var head = r.head.replace(/\s*\((\d)\/(\d)\)\s*$/, '').replace(/,?\s*self-assess\s*/i, ' ').replace(/\s*\(\d pts?\)\s*$/, '').replace(/:\s*$/, '').trim();
+      var name = head.split(':')[0];
       if (r.selfKey) {
-        html += '<div class="rubric-row rubric-row-self"><div class="rubric-icon">&#9673;</div><div style="flex:1"><div class="rubric-label selfassess">' + r.head + '</div><div class="rubric-note">' + r.note + '</div>' + buildSelfCheckHTML(r.selfKey, r.hintText || '') + '</div></div>';
+        html += '<div class="rubric-row rubric-row-self"><div class="rubric-icon">&#9673;</div><div style="flex:1"><div class="rubric-label selfassess">' + head + ' (' + pts + ' pt' + (pts > 1 ? 's' : '') + ')</div><div class="rubric-note">' + r.note + '</div>' + buildSelfCheckHTML(r.selfKey, r.hintText || '') + earnBoxes(pts, name) + '</div></div>';
       } else {
-        html += '<div class="rubric-row"><div class="rubric-icon">' + r.icon + '</div><div><div class="rubric-label ' + r.label + '">' + r.head + '</div><div class="rubric-note">' + r.note + '</div></div></div>';
+        var status = r.label === 'pass' ? 'Looks present' : 'Seems missing';
+        html += '<div class="rubric-row"><div class="rubric-icon">' + r.icon + '</div><div style="flex:1"><div class="rubric-label ' + r.label + '">' + status + ': ' + head + ' (' + pts + ' pt' + (pts > 1 ? 's' : '') + ')</div><div class="rubric-note">' + r.note + '</div>' + earnBoxes(pts, name) + '</div></div>';
       }
     });
 
+    html += '<div class="score-summary"><span>Your self-score</span><span class="score-num" id="wp-self-total">0 / ' + result.max + ' points</span></div>';
+
     if (result.improve.length) {
       html += '<div class="improve-box"><div class="improve-title">&#9997; Top Priorities to Improve</div>';
-      result.improve.forEach(function(tip){ html += '<p style="font-size:.83rem;line-height:1.7;margin-bottom:6px;color:#48483a">&#8594; ' + tip + '</p>'; });
+      result.improve.forEach(function(tip){ html += '<p style="font-size:.83rem;line-height:1.7;margin-bottom:6px;color:var(--mid)">&#8594; ' + tip + '</p>'; });
       html += '</div>';
     }
 
     fb.innerHTML = html;
+
+    function updateTotal() {
+      var n = fb.querySelectorAll('.wp-earn-box:checked').length;
+      badge.textContent = n + ' / ' + result.max;
+      var tot = document.getElementById('wp-self-total');
+      if (tot) tot.textContent = n + ' / ' + result.max + ' points';
+    }
+    fb.querySelectorAll('.wp-earn-box').forEach(function(b){ b.addEventListener('change', updateTotal); });
+    var openBtn = fb.querySelector('.wp-open-model');
+    if (openBtn) openBtn.addEventListener('click', function(){
+      var d = document.querySelector('#wp-' + type + ' details.wp-model');
+      if (!d) return;
+      d.open = true;
+      d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 
   document.getElementById('wp-submit').addEventListener('click', function() {

@@ -1,9 +1,9 @@
 /* ─────────────────────────────────────────────────────────────
    Bedtime guard (US Eastern time, whatever the device clock says).
 
-   8:00 PM–11:00 PM Soft nudge: an overlay asks whether the student should
-                    be asleep. It can be dismissed and comes back every
-                    15 minutes.
+   9:00 PM–11:00 PM Countdown: a small pill at the bottom of the page counts
+                    down (h:mm:ss) to the 11:00 PM lock. It never blocks the
+                    page and turns amber in the last 15 minutes.
    11:00 PM–5:00 AM Night lock: a full page of sleep statistics covers the
                     site and cannot be dismissed. The page underneath is
                     inert and keys are swallowed. A visible "Teacher unlock"
@@ -18,10 +18,9 @@
   "use strict";
 
   // ---- Config ------------------------------------------------------------
-  var NUDGE_MIN   = 20 * 60;        // 8:00 PM -> minutes since midnight
+  var COUNT_MIN   = 21 * 60;        // 9:00 PM -> minutes since midnight
   var LOCK_MIN    = 23 * 60;        // 11:00 PM
   var END_MIN     = 5  * 60;        // 5:00 AM (window wraps past midnight)
-  var NAG_MS      = 15 * 60 * 1000; // re-prompt every 15 minutes
   var WAKE_MIN    = 6 * 60 + 30;    // assumed school-day wake-up for the sleep math
   var HASH = 'f0edbe28ac723c57055d27fb30cbe4f12d934dce606f6348ad8d17fa77d03822';
   var UKEY = 'bedtimeUnlock';
@@ -51,7 +50,7 @@
   function phase() {
     var m = eastern().min;
     if (m >= LOCK_MIN || m < END_MIN) return "lock";
-    if (m >= NUDGE_MIN) return "nudge";
+    if (m >= COUNT_MIN) return "countdown";
     return "day";
   }
 
@@ -97,41 +96,30 @@
   function injectStyles() {
     if (document.getElementById("bedtime-styles")) return;
     var css = ''
-      + '#bedtime-overlay,#bedtime-lock{position:fixed;inset:0;z-index:2147483000;'
+      + '#bedtime-lock{position:fixed;inset:0;z-index:2147483000;'
       + 'background:radial-gradient(120% 120% at 50% 0%,#1a2340 0%,#0b1020 60%,#05070f 100%);'
       + 'font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;'
       + 'color:#e8ecf6;overflow-y:auto;-webkit-tap-highlight-color:transparent;'
       + 'animation:bedtimeFade .35s ease both;box-sizing:border-box;}'
-      + '#bedtime-overlay{display:flex;align-items:center;justify-content:center;padding:24px;}'
       + '@keyframes bedtimeFade{from{opacity:0}to{opacity:1}}'
       + '@keyframes bedtimeRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}'
-      + '#bedtime-card{max-width:560px;width:100%;margin:auto;'
-      + 'background:rgba(20,27,48,.72);border:1px solid rgba(120,140,210,.28);'
-      + 'border-radius:20px;padding:34px 30px 30px;'
-      + 'box-shadow:0 30px 80px rgba(0,0,0,.55);backdrop-filter:blur(6px);'
-      + 'animation:bedtimeRise .45s .05s ease both;}'
-      + '#bedtime-card h2{margin:0 0 6px;text-align:center;font-size:26px;'
-      + 'font-weight:800;letter-spacing:.2px;color:#fff;}'
-      + '.bt-clock{text-align:center;font-size:14px;'
-      + 'color:#9fb0d8;margin:0 0 20px;font-variant-numeric:tabular-nums;}'
-      + '.bt-lead{text-align:center;font-size:15px;color:#c7d0ea;'
-      + 'margin:0 0 20px;line-height:1.5;}'
-      + '#bedtime-card ul{list-style:none;margin:0 0 26px;padding:0;'
-      + 'display:grid;gap:12px;}'
-      + '#bedtime-card li{display:flex;gap:12px;align-items:flex-start;'
-      + 'background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);'
-      + 'border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.45;color:#dbe2f4;}'
-      + '#bedtime-card li b{color:#fff;font-weight:700;}'
-      + '#bedtime-actions{display:flex;flex-direction:column;gap:10px;}'
       + '.bt-btn{border:0;border-radius:12px;padding:14px 18px;font-size:15px;'
       + 'font-weight:700;cursor:pointer;font-family:inherit;transition:transform .12s ease,filter .12s ease;}'
       + '.bt-btn:active{transform:translateY(1px);}'
       + '.bt-primary{background:linear-gradient(180deg,#5b7cff,#3f5be0);color:#fff;'
       + 'box-shadow:0 8px 24px rgba(63,91,224,.45);}'
       + '.bt-primary:hover{filter:brightness(1.08);}'
-      + '.bt-secondary{background:transparent;color:#8fa0c8;border:1px solid rgba(143,160,200,.35);'
-      + 'font-weight:600;font-size:13px;padding:11px 18px;}'
-      + '.bt-secondary:hover{color:#c7d0ea;border-color:rgba(143,160,200,.6);}'
+      // Countdown pill (9:00 PM–11:00 PM)
+      + '#bedtime-countdown{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:10030;'
+      + 'display:flex;align-items:center;gap:8px;max-width:calc(100vw - 32px);box-sizing:border-box;'
+      + 'padding:8px 16px;border-radius:999px;background:#141b30;color:#dbe2f4;white-space:nowrap;'
+      + 'border:1px solid rgba(120,140,210,.4);box-shadow:0 8px 24px rgba(0,0,0,.3);'
+      + 'font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:13px;'
+      + 'animation:bedtimeFade .35s ease both;}'
+      + '#bedtime-countdown svg{width:16px;height:16px;flex:none;color:#ffd98a;}'
+      + '#bedtime-countdown b{font-size:15px;color:#fff;font-variant-numeric:tabular-nums;}'
+      + '#bedtime-countdown.bc-soon{border-color:#e0a030;}'
+      + '#bedtime-countdown.bc-soon b{color:#ffd98a;}'
       // Night lock page
       + '#bedtime-lock .bl-wrap{max-width:1040px;margin:0 auto;padding:56px 24px 48px;animation:bedtimeRise .5s ease both;}'
       + '#bedtime-lock .bl-moon{display:block;margin:0 auto 14px;width:64px;height:64px;color:#ffd98a;filter:drop-shadow(0 0 24px rgba(255,217,138,.45));}'
@@ -158,8 +146,8 @@
       + '@keyframes blShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}'
       + '#bedtime-lock .bl-shake{animation:blShake .4s;}'
       + 'html.bedtime-locked,body.bedtime-locked{overflow:hidden !important;}'
-      + '@media(max-width:480px){#bedtime-card{padding:26px 20px 24px;}'
-      + '#bedtime-card h2{font-size:22px;}#bedtime-lock .bl-wrap{padding:36px 16px 36px;}}';
+      + '@media(max-width:480px){#bedtime-lock .bl-wrap{padding:36px 16px 36px;}'
+      + '#bedtime-countdown{font-size:12px;padding:7px 12px;}}';
     var s = document.createElement("style");
     s.id = "bedtime-styles";
     s.textContent = css;
@@ -172,82 +160,48 @@
     else    { d.classList.remove("bedtime-locked"); if (b) b.classList.remove("bedtime-locked"); }
   }
 
-  // ---- Soft nudge (8:00 PM–11:00 PM) ---------------------------------------
-  var nagTimer = null;
+  // ---- Countdown (9:00 PM–11:00 PM) ----------------------------------------
+  var cdTimer = null;
 
-  function buildOverlay(isNag) {
-    var overlay = document.createElement("div");
-    overlay.id = "bedtime-overlay";
-    overlay.setAttribute("role", "dialog");
-    overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-labelledby", "bedtime-title");
-
-    var heading = isNag
-      ? "Still up? Should you go to bed now?"
-      : "Shouldn't you go to bed soon?";
-    var lead = isNag
-      ? "It's " + easternClockLabel() + ". Getting to bed now is the single best thing you can do to be ready for tomorrow."
-      : "It's " + easternClockLabel() + ". Real studying happens while you sleep, here's why tonight's rest matters more than another hour of cramming:";
-    var btnLabel = isNag
-      ? "No, I'd still like to get sub-optimal sleep"
-      : "No, I would like to get sub-optimal sleep";
-
-    overlay.innerHTML = ''
-      + '<div id="bedtime-card">'
-      +   '<h2 id="bedtime-title">' + heading + '</h2>'
-      +   '<p class="bt-clock">Bedtime reminder 8:00 PM · site locks at 11:00 PM Eastern</p>'
-      +   '<p class="bt-lead">' + lead + '</p>'
-      +   '<ul>'
-      +     '<li><span><b>Memory gets locked in overnight.</b> During deep sleep your brain replays the day and moves what you studied into long-term memory. Skip the sleep and a lot of tonight’s work simply doesn’t stick.</span></li>'
-      +     '<li><span><b>Recall &amp; focus tank when you’re tired.</b> One short night can cut next-day attention and memory recall by up to ~40%. On a test, that’s letter grades.</span></li>'
-      +     '<li><span><b>Sleep beats cramming.</b> Study after study shows students who sleep on the material outperform those who trade sleep for extra review hours.</span></li>'
-      +     '<li><span><b>Problem-solving improves by morning.</b> Sleep reorganizes what you learned, so tricky connections you couldn’t see tonight often click after rest.</span></li>'
-      +     '<li><span><b>Mood, stress &amp; immunity.</b> Consistent 8–9 hours steadies your mood, lowers test anxiety, and keeps you from getting sick before the big day.</span></li>'
-      +   '</ul>'
-      +   '<div id="bedtime-actions">'
-      +     '<button type="button" class="bt-btn bt-primary" id="bt-sleep">Okay, I’ll go to sleep</button>'
-      +     '<button type="button" class="bt-btn bt-secondary" id="bt-stay">' + btnLabel + '</button>'
-      +   '</div>'
-      + '</div>';
-
-    return overlay;
+  // Seconds until 11:00 PM Eastern.
+  function secsToLock() {
+    var now = new Date();
+    return Math.max(0, (LOCK_MIN - eastern().min) * 60 - now.getSeconds());
   }
 
-  function dismiss() {
-    var o = document.getElementById("bedtime-overlay");
-    if (o) o.parentNode.removeChild(o);
-    lockScroll(false);
-    if (nagTimer) clearTimeout(nagTimer);
-    nagTimer = setTimeout(function () {
-      if (phase() === "nudge") showOverlay(true);
-    }, NAG_MS);
+  function cdLabel() {
+    var s = secsToLock();
+    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
+    return h + ":" + ("0" + m).slice(-2) + ":" + ("0" + ss).slice(-2);
   }
 
-  function showOverlay(isNag) {
-    if (phase() !== "nudge") return;
-    if (document.getElementById("bedtime-overlay")) return;
-    injectStyles();
-    var overlay = buildOverlay(isNag);
-    document.body.appendChild(overlay);
-    lockScroll(true);
+  function showCountdown() {
+    var el = document.getElementById("bedtime-countdown");
+    if (!el) {
+      injectStyles();
+      el = document.createElement("div");
+      el.id = "bedtime-countdown";
+      el.setAttribute("role", "timer");
+      el.setAttribute("aria-live", "off");
+      el.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>'
+        + '<span>Site locks at 11:00 PM in</span><b class="bc-time"></b>';
+      document.body.appendChild(el);
+    }
+    var t = el.querySelector(".bc-time");
+    t.textContent = cdLabel();
+    el.classList.toggle("bc-soon", secsToLock() <= 15 * 60);
+    if (!cdTimer) cdTimer = setInterval(function () {
+      if (phase() !== "countdown") { check(); return; }
+      t.textContent = cdLabel();
+      el.classList.toggle("bc-soon", secsToLock() <= 15 * 60);
+    }, 1000);
+  }
 
-    overlay.querySelector("#bt-stay").addEventListener("click", dismiss);
-    overlay.querySelector("#bt-sleep").addEventListener("click", function () {
-      var card = overlay.querySelector("#bedtime-card");
-      card.innerHTML = '<h2>Good night: sleep well.</h2>'
-        + '<p class="bt-lead">Your brain will do the studying for you now. See you tomorrow, sharp and ready.</p>'
-        + '<div id="bedtime-actions"><button type="button" class="bt-btn bt-secondary" id="bt-close">Close this tab</button></div>';
-      lockScroll(true);
-      var c = card.querySelector("#bt-close");
-      if (c) c.addEventListener("click", function () { window.close(); });
-    });
-
-    // Escape acts as "stay" so the nudge never traps the user.
-    overlay.addEventListener("keydown", function (ev) {
-      if (ev.key === "Escape") dismiss();
-    });
-    overlay.tabIndex = -1;
-    overlay.focus();
+  function hideCountdown() {
+    var el = document.getElementById("bedtime-countdown");
+    if (el) el.parentNode.removeChild(el);
+    if (cdTimer) clearInterval(cdTimer);
+    cdTimer = null;
   }
 
   // ---- Night lock (11:00 PM–5:00 AM) ---------------------------------------
@@ -359,7 +313,7 @@
 
   function showLock() {
     if (document.getElementById("bedtime-lock")) return;
-    dismissNudgeSilently();
+    hideCountdown();
     injectStyles();
     var lock = buildLock();
     document.body.appendChild(lock);
@@ -389,27 +343,19 @@
     lockScroll(false);
   }
 
-  function dismissNudgeSilently() {
-    var o = document.getElementById("bedtime-overlay");
-    if (o) o.parentNode.removeChild(o);
-    if (nagTimer) clearTimeout(nagTimer);
-    nagTimer = null;
-  }
-
   // ---- Boot --------------------------------------------------------------
-  function check(first) {
+  function check() {
     var p = phase();
     if (p === "lock" && !unlockedTonight()) { showLock(); return; }
     if (document.getElementById("bedtime-lock") && (p !== "lock" || unlockedTonight())) hideLock();
-    if (p === "nudge" && (first || !nagTimer)) showOverlay(false);
-    if (p === "day") { dismissNudgeSilently(); lockScroll(false); }
+    if (p === "countdown") showCountdown(); else hideCountdown();
   }
 
   function boot() {
-    check(true);
-    setInterval(function () { check(false); }, 30000);
+    check();
+    setInterval(check, 30000);
     // A teacher unlock in another tab frees this one too.
-    window.addEventListener("storage", function (e) { if (e.key === UKEY) check(false); });
+    window.addEventListener("storage", function (e) { if (e.key === UKEY) check(); });
   }
 
   if (document.readyState === "loading") {

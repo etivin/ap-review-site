@@ -425,7 +425,7 @@ let paused = false; // Space or the Pause button freezes a run
 function reset() {
   paused = false;
   position = 0; playerX = 0; lane = 1; laneVel = 0; tilt = 0; speed = MAX_SPEED * 0.25; traveled = 0; score = 0;
-  cars = []; items = []; particles = []; popups = [];
+  cars = []; items = []; particles = []; popups = []; scorePops = [];
   carTimer = 6000; itemTimer = 3000; shield = double = magnet = fly = flyLift = dent = 0; shake = 0; newBest = false;
   gate = null; gateTimer = 4000; feedback = null; strikes = 3; streak = 0; asked = 0; right = 0; overReason = '';
   logReset();
@@ -480,7 +480,7 @@ function passGate(g) {
   if (ok) {
     right++; streak++;
     if (right === 10) { try { APWH_ACTIVITY.done('game', 'voyage'); } catch (e) {} }
-    addScore(500);
+    addScore(500, 'gate');
     let reward = pick(['shield', 'double', 'magnet']);
     if (streak % 3 === 0) reward = 'shield'; // a 3-in-a-row streak always earns a shield
     if (reward === 'shield') shield = POW_TIME.shield;
@@ -630,6 +630,8 @@ function update(dt) {
   }
   particles = particles.filter(p => p.life > 0);
   for (const p of popups) { p.y -= 50 * dt; p.life -= dt; }
+  for (const p of scorePops) p.life -= dt;
+  scorePops = scorePops.filter(p => p.life > 0);
   popups = popups.filter(p => p.life > 0);
   shake = Math.max(0, shake - dt * 30);
 }
@@ -679,7 +681,7 @@ function updateTraffic(dt, playing) {
       else bump(c);                                     // first hit: slow down, keep going
     } else if (!c.passed && d <= -120) {
       c.passed = true;
-      if (gap < hitW + 0.18) { addScore(25); popup('CLOSE CALL +' + 25 * (double > 0 ? 2 : 1), '#fff176', 20); }
+      if (gap < hitW + 0.18) { addScore(25, 'close'); popup('CLOSE CALL +' + 25 * (double > 0 ? 2 : 1), '#fff176', 20); }
     }
   }
 }
@@ -716,12 +718,22 @@ function updateGate(dt, playing) {
   else if (gate.result && d < -3000) { gate = null; gateTimer = rand(GATE_GAP[0], GATE_GAP[1]); }
 }
 
-function addScore(n) { score += n * (double > 0 ? 2 : 1); }
+// kind groups quick runs of the same pickup (a coin trail) into one growing "+N" beside the score
+const SCORE_POP_LIFE = 1.1, POP_COLORS = { coin: '#ffd54f', gate: '#9ef07a', close: '#fff176', ram: '#80d8ff' };
+let scorePops = [];
+function addScore(n, kind = 'coin') {
+  n *= double > 0 ? 2 : 1;
+  score += n;
+  const last = scorePops[scorePops.length - 1];
+  if (last && last.kind === kind && last.life > SCORE_POP_LIFE - 0.5) { last.n += n; last.life = SCORE_POP_LIFE; return; }
+  scorePops.push({ n, kind, color: POP_COLORS[kind] || '#fff', life: SCORE_POP_LIFE });
+  if (scorePops.length > 3) scorePops.shift();
+}
 
 function collect(it) {
   it.taken = true;
   if (it.type === 'coin') {
-    addScore(50);
+    addScore(50, 'coin');
     burst(W / 2, H - 90, 10, { speed: 180, life: 0.5, size: 4, colors: ['#d8dee6', '#ffffff'], add: true });
     return;
   }
@@ -768,7 +780,7 @@ function smash(c) {
   c.dead = true; c.fly = 0; c.lift = 0; c.vy = 1800; c.rot = 0;
   c.vx = (c.offset >= playerX ? 1 : -1) * rand(2, 3);
   breakReef(c);
-  addScore(150);
+  addScore(150, 'ram');
   popup('RAMMED +' + 150 * (double > 0 ? 2 : 1), '#80d8ff', 28);
   shake = 12; speed *= 0.9;
   burst(W / 2, H - 100, 30, { speed: 420, life: 0.6, size: 5, colors: ['#fff59d', '#ffb74d', '#80d8ff', c.color], g: 600, add: true });
@@ -1428,20 +1440,31 @@ function panel(x, y, w, h) { ctx.fillStyle = 'rgba(10,14,22,.62)'; rrect(x, y, w
 
 function drawHUD() {
   ctx.textBaseline = 'alphabetic';
-  panel(12, 12, 184, 58);
+  panel(12, 12, 184, 76);
   ctx.textAlign = 'left'; ctx.fillStyle = '#9fb0c8'; ctx.font = '600 11px system-ui, sans-serif';
   ctx.fillText('SCORE', 24, 30);
-  ctx.textAlign = 'right'; ctx.fillText('BEST ' + best.toLocaleString(), 184, 30);
+  ctx.fillText('BEST ' + best.toLocaleString(), 24, 78);
+  ctx.textAlign = 'right'; ctx.font = '15px system-ui, sans-serif';
+  ctx.fillStyle = '#ff5a5a'; ctx.fillText('♥'.repeat(strikes), 184, 31);
+  ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.fillText('♥'.repeat(3 - strikes), 184 - ctx.measureText('♥'.repeat(strikes)).width, 31);
   ctx.textAlign = 'left'; ctx.font = 'bold 24px system-ui, sans-serif';
   ctx.fillStyle = double > 0 ? '#d7a6ff' : '#fff';
-  ctx.fillText(Math.floor(score).toLocaleString(), 24, 58);
-  ctx.textAlign = 'right'; ctx.font = '15px system-ui, sans-serif';
-  ctx.fillStyle = '#ff5a5a'; ctx.fillText('♥'.repeat(strikes), 184, 57);
-  ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.fillText('♥'.repeat(3 - strikes), 184 - ctx.measureText('♥'.repeat(strikes)).width, 57);
-  ctx.textAlign = 'left';
+  const s = Math.floor(score).toLocaleString();
+  ctx.fillText(s, 24, 58);
+  // "+50", "+500"... rising and fading just right of the score as points come in
+  let px = 24 + ctx.measureText(s).width + 8;
+  ctx.font = 'bold 16px system-ui, sans-serif';
+  for (const p of scorePops) {
+    const t = 1 - p.life / SCORE_POP_LIFE;
+    ctx.globalAlpha = Math.min(1, p.life * 2.5);
+    ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,0,0,.6)'; ctx.strokeText('+' + p.n, px, 57 - t * 12);
+    ctx.fillStyle = p.color; ctx.fillText('+' + p.n, px, 57 - t * 12);
+    px += ctx.measureText('+' + p.n).width + 6;
+  }
+  ctx.globalAlpha = 1;
   drawQuestion();
 
-  let y = 78;
+  let y = 96;
   for (const [type, t] of [['dent', dent], ['fly', fly], ['shield', shield], ['double', double], ['magnet', magnet]]) {
     if (t <= 0) continue;
     panel(12, y, 184, 28);

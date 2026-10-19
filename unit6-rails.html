@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 6 Iron Rails: Checkpoint Express</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lane-runner.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="./">AP WORLD // <b>IRON RAILS</b></a>
+  <div class="links"><a href="unit6.html">← Unit 6 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 6 · Consequences of Industrialization · c. 1750 – c. 1900</div>
+  <h1>Iron Rails: Checkpoint Express</h1>
+  <p class="sub">Drive a steam locomotive along the railways of the imperial age, across the plains of India, the African savanna, and the Siberian forest. Every few seconds a <b>checkpoint question</b> appears at the top of the screen and a gate of three answer banners rises over the line, <b>switch onto the track with the right answer</b>. Right answers earn power-ups; wrong ones cost a strike and show you the real answer.</p>
+
+  <div class="how">
+    <div class="card"><b>Switch tracks</b><span><span class="k">← →</span>hop one track per press (A/D, or swipe/tap on touch). <span class="k">SPACE</span>start, or pause during a run. The train drives itself and picks up speed the longer you last.</span></div>
+    <div class="card"><b>Pick your track</b><span>Read the question, then be on the <strong>left, middle, or right</strong> track as you pass the gate.</span></div>
+    <div class="card"><b>Dodge &amp; collect</b><span>Switch around <strong>boulders, cargo crates, and parked freight wagons</strong>, and the odd wagon rolling ahead of you; grab trails of gold as they hop tracks. Pickups: <strong>shield</strong>, <strong>×2</strong>, <strong>coin magnet</strong>, and the uncommon <strong>high bridge</strong> (10s up on a trestle over the line: no hazards, no gates). Correct answers also earn a power-up; three in a row = a guaranteed shield.</span></div>
+    <div class="card"><b>3 strikes · 2 bumps</b><span>A wrong gate costs a strike (−1 ♥); lose all three and it's the end of the line. Hitting something slows you down and leaves the engine <strong>damaged for 10s</strong>, hit another while damaged and the train is wrecked.</span></div>
+  </div>
+
+  <div class="play">
+    <div>
+      <div class="stage" id="stage">
+        <canvas id="game" width="800" height="500"></canvas>
+        <div class="ctrls"><button type="button" id="pauseBtn">&#10074;&#10074; Pause (Space)</button><button type="button" id="fsBtn">&#9974; Full screen</button></div>
+      </div>
+      <div class="keys">Tip: click the game first so the arrow keys switch tracks instead of scrolling the page.</div>
+    </div>
+    <div class="notes">
+      <h3>Checkpoint Log</h3>
+      <div class="feed" id="feed"></div>
+      <div class="notes-foot" id="notesFoot">Checkpoints: 0 / 0 correct</div>
+    </div>
+  </div>
+
+  <div class="foot">Content from AP World History: Modern, Unit 6 (c. 1750–c. 1900). A study tool, not an official College Board product.</div>
+</div>
+
+<script>
+// ---------- Iron Rails: the look of the imperial railways, and the Unit 6 questions (engine: lane-runner.js) ----------
+(function () {
+  const HILLS = { 'India': [74, 110, 60], 'Savanna': [150, 120, 60], 'Siberia': [70, 96, 80] };
+
+  window.RUNNER = {
+    key: 'u6RailsBest', activity: 'rails',
+    title: 'IRON RAILS', unitLine: 'Unit 6 · Consequences of Industrialization',
+    overStrikes: 'END OF THE LINE', overCrash: 'TRAIN WRECK!', again: 'ride again',
+    speedUnit: 'MPH', speedTop: 45,
+    fly: { label: 'HIGH BRIDGE', hud: 'HIGH BRIDGE', land: 'BACK ON THE LINE', menu: 'High bridge' },
+    text: { hit: 'COLLISION! SLOW DOWN', next: 'Next hit = wrecked', ram: 'CLEARED THE LINE', repaired: 'REPAIRED' },
+    coin: { rim: '#a87512', face: '#ffd54f', shine: '#fff8dc', light: '255,214,90' },
+    gatePost: '#3e2a1c', postColor: '#4e3a2a', tilt: 0.04,
+    biomes: [
+      { name: 'India', open: ['#6f9a45', '#69933f'], edge: ['#8a7a63', '#83745e'], lane: ['#7d6f5c', '#776a58'], sprites: ['palm', 'banyan', 'palm', 'station', 'paddy', 'banyan'] },
+      { name: 'Savanna', open: ['#c2a25a', '#b99a53'], edge: ['#8a6e48', '#836944'], lane: ['#7a6550', '#74604c'], sprites: ['acacia', 'acacia', 'mound', 'kopje', 'acacia', 'station'] },
+      { name: 'Siberia', open: ['#e8eef2', '#dde5ea'], edge: ['#7d7a75', '#77746f'], lane: ['#6c6863', '#67635e'], sprites: ['pine', 'pine', 'birch', 'pine', 'izba', 'birch'] },
+    ],
+    sprites: {
+      palm: { w: 1000, h: 1900 }, banyan: { w: 2400, h: 2000 }, station: { w: 2600, h: 1500 }, paddy: { w: 2600, h: 300 },
+      acacia: { w: 2200, h: 1700 }, mound: { w: 500, h: 900 }, kopje: { w: 2200, h: 1100 },
+      pine: { w: 900, h: 2400 }, birch: { w: 700, h: 2000 }, izba: { w: 1800, h: 1500 },
+      pole: { w: 300, h: 1900 },
+    },
+    billboards: ['SUEZ CANAL 1869', 'BERLIN CONFERENCE', 'SEPOY REBELLION', 'OPIUM WARS', 'BOXERS 1900', 'CAPE TO CAIRO',
+      'CONGO RUBBER', 'BOER WAR', 'ADWA 1896', 'GHOST DANCE', 'INDENTURE', 'MAXIM GUN', 'QUININE', 'TRANS-SIBERIAN', 'RAJ 1858'],
+    hazards: [
+      { kind: 'boulder', w: 520, h: 360, still: true, colors: ['#d8d2c8', '#cbc4b9', '#e0dbd2'] },
+      { kind: 'crates', w: 480, h: 380, still: true, colors: ['#e0a83c', '#d89b30', '#e8b44c'] },
+      { kind: 'wagon', w: 520, h: 520, speed: [0.3, 0.55], colors: ['#2f6fa3', '#2f7a46', '#6a3d9a', '#c08a20'] },
+    ],
+    breakable: ['boulder', 'crates'],
+    debris: ['#8a8178', '#a0703f', '#e0d6c4', '#5c544c'],
+    player: { kind: 'loco', w: 520, h: 440, color: '#1f3d2b' },
+
+    decorate(seg) {
+      const n = seg.index;
+      if (n % 20 === 10) seg.sprites.push({ type: 'pole', offset: 1.28 }); // telegraph line beside the railway
+      if (Math.random() < 0.13) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(1.5, 3.2) });
+      if (Math.random() < 0.1) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(3.2, 7) });
+    },
+
+    drawBackground(pal) {
+      skyBase(pal);
+      const b = findSeg(position + PLAYER_Z).biome, hill = HILLS[b.name];
+      drawRange(FAR, bgFar, HORIZON + 6, pal.far, mix(pal.far, pal.fog, 0.35), 0.9);
+      drawRange(NEAR, bgNear, HORIZON + 6, mix(hill, [0, 0, 0], pal.dark * 0.6), mix(hill, pal.fog, 0.4), 0.8);
+      groundFill(b.open[0], pal);
+    },
+    segExtra(seg, p1, p2) { railTracks(p1, p2, seg, '#4a3626', '#a7aeb5'); },
+
+    wake() { // smoke from the stack, or steam while the train is up on the high bridge
+      if (Math.random() < 0.3) {
+        const lifted = flyLift > 0.05, y = H - 14 - flyLift * FLY_PX - PH * 0.98;
+        burst(W / 2 + rand(-4, 4), y, 1, { speed: 25, life: 1.3, size: 9, colors: lifted ? ['#ffffff', '#eeeeee'] : ['#8a8a8a', '#9a9a9a', '#b0b0b0'], up: -90, grow: 2.2 });
+      }
+    },
+    bounce() { return Math.sin(time * 11) * (speed / MAX_SPEED) * 1.2; },
+
+    // the high bridge: a timber trestle under the train
+    drawFly(x, y, f) {
+      ctx.globalAlpha = f;
+      ctx.fillStyle = '#5a3d27';
+      ctx.fillRect(x - PW * 0.62, y - 2, PW * 1.24, 8);
+      ctx.strokeStyle = '#5a3d27'; ctx.lineWidth = 4;
+      ctx.beginPath();
+      for (const s of [-1, 1]) { ctx.moveTo(x + s * PW * 0.45, y); ctx.lineTo(x + s * PW * 0.6, H + 20); }
+      for (let i = 0; i < 3; i++) { const yy = y + 16 + i * 18; ctx.moveTo(x - PW * 0.48 - i * 4, yy); ctx.lineTo(x + PW * 0.48 + i * 4, yy + 14); ctx.moveTo(x + PW * 0.48 + i * 4, yy); ctx.lineTo(x - PW * 0.48 - i * 4, yy + 14); }
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    },
+
+    drawVehicle(x, y, k, v, isPlayer, lightA) {
+      const w = v.w * k, h = v.h * k;
+      if (w < 1.5) return;
+      if (!(isPlayer && flyLift > 0)) { ctx.fillStyle = 'rgba(0,0,0,.3)'; ellipse(x, y, w * 0.55, Math.max(1, w * 0.06)); }
+      if (v.kind === 'boulder') {
+        ctx.fillStyle = v.color;
+        ctx.beginPath(); ctx.moveTo(x - w * 0.5, y); ctx.quadraticCurveTo(x - w * 0.55, y - h * 0.8, x - w * 0.1, y - h);
+        ctx.quadraticCurveTo(x + w * 0.45, y - h * 0.95, x + w * 0.5, y); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = v.dark; ctx.beginPath(); ctx.moveTo(x + w * 0.1, y); ctx.quadraticCurveTo(x + w * 0.4, y - h * 0.6, x + w * 0.3, y - h * 0.85);
+        ctx.quadraticCurveTo(x + w * 0.5, y - h * 0.6, x + w * 0.5, y); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = v.light; ellipse(x - w * 0.15, y - h * 0.75, w * 0.12, h * 0.07);
+        return;
+      }
+      if (v.kind === 'crates') {
+        const crate = (cx, cy, s) => {
+          ctx.fillStyle = v.color; ctx.fillRect(cx - s / 2, cy - s, s, s);
+          ctx.strokeStyle = v.dark; ctx.lineWidth = Math.max(0.5, s * 0.06); ctx.strokeRect(cx - s / 2, cy - s, s, s);
+          ctx.beginPath(); ctx.moveTo(cx - s / 2, cy - s); ctx.lineTo(cx + s / 2, cy); ctx.stroke();
+        };
+        crate(x - w * 0.24, y, w * 0.46); crate(x + w * 0.24, y, w * 0.46); crate(x, y - w * 0.46, w * 0.42);
+        return;
+      }
+      if (v.kind === 'wagon') { // a boxcar seen from behind
+        ctx.fillStyle = '#1b1b1b'; for (const s of [-1, 1]) ellipse(x + s * w * 0.33, y - h * 0.06, w * 0.09, h * 0.07);
+        ctx.fillStyle = '#2a2a2a'; ctx.fillRect(x - w * 0.48, y - h * 0.2, w * 0.96, h * 0.08);
+        const g = ctx.createLinearGradient(0, y - h, 0, y - h * 0.2);
+        g.addColorStop(0, v.light); g.addColorStop(1, v.dark);
+        ctx.fillStyle = g; rrect(x - w * 0.46, y - h * 0.95, w * 0.92, h * 0.76, w * 0.03);
+        ctx.fillStyle = v.dark; ctx.fillRect(x - w * 0.5, y - h, w, h * 0.07); // roof
+        ctx.strokeStyle = 'rgba(0,0,0,.25)'; ctx.lineWidth = Math.max(0.5, w * 0.01);
+        ctx.beginPath(); for (let i = 1; i < 6; i++) { const a = x - w * 0.46 + i * w * 0.153; ctx.moveTo(a, y - h * 0.92); ctx.lineTo(a, y - h * 0.22); } ctx.stroke();
+        ctx.fillStyle = '#c62828'; circle(x - w * 0.36, y - h * 0.28, Math.max(0.5, w * 0.03)); circle(x + w * 0.36, y - h * 0.28, Math.max(0.5, w * 0.03));
+        pushLight(x, y - h * 0.28, w * 0.6, '255,80,60', lightA * 0.6, true);
+        return;
+      }
+      // the player's locomotive from behind: tender full of coal, the cab roof and the smokestack beyond
+      const tTop = y - h * 0.55;
+      ctx.fillStyle = '#151515'; ctx.fillRect(x - w * 0.5, y - h * 0.16, w, h * 0.06); // frame
+      ctx.fillStyle = '#b3261e';
+      for (const s of [-1, 1]) { circle(x + s * w * 0.34, y - h * 0.07, Math.max(0.6, h * 0.07)); }
+      ctx.fillStyle = '#151515'; for (const s of [-1, 1]) circle(x + s * w * 0.34, y - h * 0.07, Math.max(0.3, h * 0.025));
+      const a0 = ctx.globalAlpha; ctx.globalAlpha = a0 * 0.5; // the stack and cab are see-through so the track ahead stays visible
+      ctx.fillStyle = '#222'; ctx.fillRect(x - w * 0.06, y - h * 0.97, w * 0.12, h * 0.2); // smokestack beyond the cab
+      ctx.fillRect(x - w * 0.09, y - h * 0.99, w * 0.18, h * 0.04);
+      ctx.fillStyle = v.dark; rrect(x - w * 0.38, y - h * 0.82, w * 0.76, h * 0.12, w * 0.06); // cab roof
+      ctx.fillStyle = '#ffd36b'; ctx.fillRect(x - w * 0.3, y - h * 0.7, w * 0.6, h * 0.1); // firelight from the cab
+      ctx.globalAlpha = a0;
+      pushLight(x, y - h * 0.66, w * 0.6, '255,170,80', 0.8, true);
+      const g = ctx.createLinearGradient(0, tTop, 0, y - h * 0.16);
+      g.addColorStop(0, v.light); g.addColorStop(0.5, v.color); g.addColorStop(1, v.dark);
+      ctx.fillStyle = g; rrect(x - w * 0.47, tTop, w * 0.94, h * 0.4, w * 0.04); // tender
+      ctx.strokeStyle = '#c9a227'; ctx.lineWidth = Math.max(1, w * 0.012); // brass lining
+      ctx.strokeRect(x - w * 0.42, tTop + h * 0.05, w * 0.84, h * 0.28);
+      ctx.fillStyle = '#141414'; // coal heap
+      ctx.beginPath(); ctx.ellipse(x, tTop, w * 0.42, h * 0.07, 0, Math.PI, 0); ctx.fill();
+      ctx.fillStyle = '#c9a227'; ctx.font = `900 ${Math.max(6, Math.round(h * 0.09))}px Lato, system-ui, sans-serif`; ctx.textAlign = 'center';
+      ctx.fillText('No. 6', x, tTop + h * 0.23); ctx.textAlign = 'left';
+      ctx.fillStyle = '#ff5a3c'; for (const s of [-1, 1]) circle(x + s * w * 0.4, tTop + h * 0.36, Math.max(0.6, w * 0.022));
+      pushLight(x, tTop + h * 0.36, w * 0.6, '255,90,60', 0.6, true);
+    },
+
+    drawSprite(s, x, y, k, seg, w, h) {
+      switch (s.type) {
+        case 'palm': {
+          const tx = x + w * 0.1, ty = y - h * 0.88;
+          ctx.strokeStyle = '#7a5c44'; ctx.lineWidth = Math.max(1, w * 0.07);
+          ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + w * 0.25, y - h * 0.5, tx, ty); ctx.stroke();
+          ctx.fillStyle = '#2e6b2e';
+          for (const a of [-3.0, -2.5, -2.0, -1.1, -0.6, -0.1]) { ctx.save(); ctx.translate(tx, ty); ctx.rotate(a); ellipse(w * 0.26, w * 0.03, w * 0.28, w * 0.06); ctx.restore(); }
+          break;
+        }
+        case 'banyan': {
+          ctx.fillStyle = '#5d4a38'; ctx.fillRect(x - w * 0.06, y - h * 0.55, w * 0.12, h * 0.55);
+          ctx.strokeStyle = '#6d5844'; ctx.lineWidth = Math.max(0.5, w * 0.01);
+          ctx.beginPath(); for (const d of [-0.35, -0.25, 0.22, 0.33]) { ctx.moveTo(x + w * d, y - h * 0.55); ctx.lineTo(x + w * d, y); } ctx.stroke();
+          ctx.fillStyle = '#2f5d2a'; ellipse(x, y - h * 0.68, w * 0.5, h * 0.24);
+          ctx.fillStyle = '#3b7034'; ellipse(x - w * 0.15, y - h * 0.78, w * 0.28, h * 0.16); ellipse(x + w * 0.2, y - h * 0.74, w * 0.25, h * 0.15);
+          break;
+        }
+        case 'paddy':
+          ctx.fillStyle = 'rgba(120,170,200,.6)'; ctx.fillRect(x - w / 2, y - h * 0.3, w, h * 0.3);
+          ctx.strokeStyle = '#5a8a3a'; ctx.lineWidth = Math.max(0.5, w * 0.004); ctx.beginPath();
+          for (let i = 0; i < 16; i++) { const a = x - w / 2 + i * w / 16; ctx.moveTo(a, y - h * 0.15); ctx.lineTo(a + w * 0.01, y - h); } ctx.stroke();
+          break;
+        case 'station': { // a small railway station with a clock
+          ctx.fillStyle = '#b5523b'; ctx.fillRect(x - w * 0.45, y - h * 0.6, w * 0.9, h * 0.6);
+          quad(x - w * 0.5, y - h * 0.6, x - w * 0.4, y - h * 0.82, x + w * 0.4, y - h * 0.82, x + w * 0.5, y - h * 0.6, '#5c3a2a');
+          ctx.fillStyle = '#f2ead8'; circle(x, y - h * 0.7, w * 0.04);
+          ctx.fillStyle = '#ffe28a'; for (const d of [-0.3, -0.1, 0.1, 0.3]) ctx.fillRect(x + w * d - w * 0.04, y - h * 0.45, w * 0.08, h * 0.18);
+          for (const d of [-0.3, 0.3]) pushLight(x + w * d, y - h * 0.36, w * 0.15, '255,220,140', 1, true);
+          ctx.fillStyle = '#efe8da'; ctx.fillRect(x - w * 0.2, y - h * 0.98, w * 0.4, h * 0.13);
+          ctx.fillStyle = '#222'; ctx.font = `bold ${Math.max(5, Math.round(h * 0.08))}px system-ui, sans-serif`; ctx.textAlign = 'center';
+          if (w > 50) ctx.fillText('STATION', x, y - h * 0.885);
+          ctx.textAlign = 'left';
+          break;
+        }
+        case 'acacia': {
+          ctx.strokeStyle = '#4e3b2a'; ctx.lineWidth = Math.max(1, w * 0.03);
+          ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y - h * 0.5); ctx.lineTo(x - w * 0.25, y - h * 0.8); ctx.moveTo(x, y - h * 0.5); ctx.lineTo(x + w * 0.22, y - h * 0.82); ctx.stroke();
+          ctx.fillStyle = '#5f7a32'; ctx.beginPath(); ctx.ellipse(x, y - h * 0.85, w * 0.5, h * 0.12, 0, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = '#6f8c3a'; ctx.beginPath(); ctx.ellipse(x - w * 0.05, y - h * 0.9, w * 0.38, h * 0.07, 0, 0, Math.PI * 2); ctx.fill();
+          break;
+        }
+        case 'mound':
+          ctx.fillStyle = '#a0683f'; ctx.beginPath(); ctx.moveTo(x - w * 0.5, y); ctx.quadraticCurveTo(x - w * 0.3, y - h * 0.6, x - w * 0.05, y - h);
+          ctx.quadraticCurveTo(x + w * 0.15, y - h * 0.5, x + w * 0.5, y); ctx.closePath(); ctx.fill();
+          break;
+        case 'kopje':
+          ctx.fillStyle = '#9c8a74'; ellipse(x - w * 0.15, y - h * 0.3, w * 0.3, h * 0.35); ellipse(x + w * 0.18, y - h * 0.4, w * 0.25, h * 0.45);
+          ctx.fillStyle = '#857461'; ellipse(x + w * 0.05, y - h * 0.15, w * 0.4, h * 0.2);
+          break;
+        case 'pine':
+          ctx.fillStyle = '#4e3b2a'; ctx.fillRect(x - w * 0.05, y - h * 0.2, w * 0.1, h * 0.2);
+          for (let i = 0; i < 4; i++) {
+            const t = y - h * (0.15 + i * 0.2), bw = w * (0.5 - i * 0.1);
+            quad(x - bw, t, x, t - h * 0.32, x, t - h * 0.32, x + bw, t, i % 2 ? '#24452f' : '#1f3d29');
+            ctx.fillStyle = 'rgba(255,255,255,.8)'; ctx.beginPath(); ctx.moveTo(x - bw * 0.3, t - h * 0.2); ctx.lineTo(x, t - h * 0.32); ctx.lineTo(x + bw * 0.3, t - h * 0.2); ctx.fill();
+          }
+          break;
+        case 'birch':
+          ctx.fillStyle = '#efefe9'; ctx.fillRect(x - w * 0.05, y - h, w * 0.1, h);
+          ctx.fillStyle = '#333'; for (let i = 1; i < 8; i++) ctx.fillRect(x - w * 0.05, y - h * i * 0.12, w * 0.06, Math.max(0.5, h * 0.01));
+          ctx.fillStyle = 'rgba(200,170,60,.85)'; ellipse(x, y - h * 0.8, w * 0.4, h * 0.2);
+          break;
+        case 'izba': { // log cabin with a snowy roof
+          ctx.fillStyle = '#6b4a32'; ctx.fillRect(x - w * 0.4, y - h * 0.55, w * 0.8, h * 0.55);
+          ctx.fillStyle = 'rgba(0,0,0,.2)'; for (let i = 1; i < 6; i++) ctx.fillRect(x - w * 0.4, y - h * 0.1 * i, w * 0.8, Math.max(0.5, h * 0.01));
+          quad(x - w * 0.5, y - h * 0.55, x, y - h, x, y - h, x + w * 0.5, y - h * 0.55, '#f4f7f9');
+          ctx.fillStyle = '#ffd36b'; ctx.fillRect(x - w * 0.08, y - h * 0.4, w * 0.16, h * 0.15);
+          pushLight(x, y - h * 0.33, w * 0.3, '255,210,120', 1, true);
+          break;
+        }
+        case 'pole': // telegraph pole with crossarm and insulators
+          ctx.fillStyle = '#4e3a2a'; ctx.fillRect(x - w * 0.06, y - h, w * 0.12, h);
+          ctx.fillRect(x - w * 0.5, y - h * 0.92, w, h * 0.03);
+          ctx.fillStyle = '#9ec7d6'; for (const d of [-0.4, -0.15, 0.15, 0.4]) circle(x + w * d, y - h * 0.94, Math.max(0.5, w * 0.04));
+          break;
+      }
+    },
+
+    // ---------- Checkpoint questions: [topic, prompt, correct, wrong, wrong, why] ----------
+    questions: [
+      ['6.1', 'Misusing evolution to rank races and justify empire', 'Social Darwinism', 'Deism', 'Utilitarianism',
+        'Social Darwinists claimed "fitter" races should rule others, a pseudo-science used to defend imperialism.'],
+      ['6.1', 'Kipling\'s 1899 poem urging Americans to colonize', 'White Man\'s Burden', 'Rule, Britannia', 'Das Kapital',
+        'The poem framed empire as a duty to "civilize," a racist rationale for imperialism.'],
+      ['6.1', 'Factories needed cheap…', 'Raw materials', 'Silver bullion', 'Spices',
+        'Industrial economies wanted cotton, rubber, and minerals from colonies, plus markets to sell goods in.'],
+      ['6.1', 'Belief that spreading Christianity justified empire', 'Missionary zeal', 'Secularism', 'Mercantilism',
+        'Missionaries like David Livingstone saw empire as a way to spread Christianity and Western ways.'],
+      ['6.2', '1884–85 meeting that carved up Africa', 'Berlin Conference', 'Congress of Vienna', 'Treaty of Nanjing',
+        'European powers set rules for claiming Africa without any Africans present.'],
+      ['6.2', 'Belgian king who ran the Congo as his property', 'Leopold II', 'Bismarck', 'Cecil Rhodes',
+        'Leopold\'s Congo Free State used terror and forced labor to collect rubber; millions died.'],
+      ['6.2', 'Company that ruled much of India until 1858', 'British EIC', 'Dutch VOC', 'Hudson\'s Bay Co.',
+        'The British East India Company governed India with its own army until the Sepoy Rebellion.'],
+      ['6.2', 'British crown rule of India after 1858', 'The Raj', 'The Mughals', 'A mandate',
+        'After the rebellion, the British government took direct control of India.'],
+      ['6.2', 'Zones in China where one power held trade rights', 'Spheres of influence', 'Protectorates', 'Mandates',
+        'Britain, France, Germany, Russia, and Japan each claimed economic control over parts of China.'],
+      ['6.2', 'Wars that forced China to accept British drugs', 'Opium Wars', 'Boxer Rebellion', 'Taiping Rebellion',
+        'Britain\'s victories (1839–42, 1856–60) opened Chinese ports and forced unequal treaties.'],
+      ['6.2', '1842 treaty that gave Britain Hong Kong', 'Nanjing', 'Versailles', 'Tordesillas',
+        'The Treaty of Nanjing was the first of the "unequal treaties" forced on Qing China.'],
+      ['6.2', 'Diamond magnate who dreamed of Cape-to-Cairo rails', 'Cecil Rhodes', 'Leopold II', 'Livingstone',
+        'Rhodes built a mining empire in southern Africa and pushed British rule north.'],
+      ['6.2', 'Settler colony where Britain displaced the Aboriginals', 'Australia', 'India', 'Egypt',
+        'British settlers took Aboriginal land in Australia, as in other settler colonies like New Zealand.'],
+      ['6.2', 'Japan took this island from China in 1895', 'Taiwan', 'Java', 'Ceylon',
+        'Winning the Sino-Japanese War made industrial Japan an imperial power too.'],
+      ['6.3', '1857 revolt of Indian soldiers', 'Sepoy Rebellion', 'Boxer Rebellion', 'Taiping Rebellion',
+        'Rumors about greased cartridges set off a wider revolt; Britain crushed it and took direct rule.'],
+      ['6.3', 'Chinese uprising against foreigners in 1900', 'Boxer Rebellion', 'Taiping Rebellion', 'Sepoy Rebellion',
+        'The Boxers attacked foreigners and Christians; an eight-nation force crushed them.'],
+      ['6.3', 'Battle where Ethiopia crushed Italy (1896)', 'Adwa', 'Isandlwana', 'Omdurman',
+        'Menelik II\'s modernized army kept Ethiopia independent.'],
+      ['6.3', 'Emperor who kept Ethiopia independent', 'Menelik II', 'Shaka Zulu', 'Muhammad Ali',
+        'Menelik bought modern rifles and defeated Italy at Adwa.'],
+      ['6.3', 'Plains ritual to restore Native lands and life', 'Ghost Dance', 'Potlatch', 'Powwow',
+        'The Ghost Dance spread among Native peoples; U.S. fear of it led to the Wounded Knee massacre (1890).'],
+      ['6.3', 'People of the 1856–57 cattle-killing movement', 'Xhosa', 'Zulu', 'Maasai',
+        'The Xhosa killed their cattle hoping to drive out the British; famine followed.'],
+      ['6.3', 'Asante queen mother who fought Britain (1900)', 'Yaa Asantewaa', 'Queen Nzinga', 'Liliuokalani',
+        'Yaa Asantewaa led the War of the Golden Stool against British rule in Ghana.'],
+      ['6.3', 'Rebellion led by Hong Xiuquan', 'Taiping', 'Boxer', 'Sepoy',
+        'The Taiping Rebellion (1850–64) mixed Christianity with calls for land reform; millions died.'],
+      ['6.4', 'The Congo was stripped for…', 'Rubber', 'Silk', 'Coffee',
+        'Bicycle and car tires made rubber valuable; Congolese workers were forced to gather it.'],
+      ['6.4', 'Peruvian bird droppings sold as fertilizer', 'Guano', 'Cotton', 'Copper',
+        'Guano exports tied Peru to Britain and made it dependent on one export.'],
+      ['6.4', 'Egypt and India grew this for British mills', 'Cotton', 'Rubber', 'Guano',
+        'Colonies became export economies built around raw cotton for industrial mills.'],
+      ['6.4', 'Drug Britain sold to China to fix a trade gap', 'Opium', 'Tobacco', 'Tea',
+        'Indian opium paid for Chinese tea and silk and caused widespread addiction in China.'],
+      ['6.4', 'Canal that cut the trip to India (1869)', 'Suez Canal', 'Panama Canal', 'Kiel Canal',
+        'Britain bought control of the Suez Canal to protect its route to India.'],
+      ['6.4', 'Medicine that let Europeans survive malaria', 'Quinine', 'Penicillin', 'Aspirin',
+        'Quinine made it possible for Europeans to push into tropical Africa.'],
+      ['6.4', 'Machine gun that gave Europeans an edge', 'Maxim gun', 'Musket', 'Crossbow',
+        'Industrial weapons let small colonial armies defeat much larger African forces.'],
+      ['6.5', 'U.S. company that dominated Central America', 'United Fruit', 'Dutch VOC', 'British EIC',
+        'United Fruit controlled land, railways, and governments in "banana republics."'],
+      ['6.5', 'U.S. call for equal trade rights in China', 'Open Door Policy', 'Monroe Doctrine', 'Containment',
+        'The Open Door (1899) let all powers trade in China rather than any one carving it up.'],
+      ['6.5', 'Control through trade and loans, not colonies', 'Economic imperialism', 'Settler colonialism', 'Feudalism',
+        'Britain and the U.S. used investment and debt to dominate Latin America and China.'],
+      ['6.6', 'Disaster that pushed millions of Irish abroad', 'Potato famine', 'Black Death', 'Dust Bowl',
+        'Famine (1845–52) killed about a million Irish and sent many more to the U.S. and Britain.'],
+      ['6.6', 'Workers bound by contract for a set term', 'Indentured', 'Enslaved', 'Serfs',
+        'Indian and Chinese indentured workers went to plantations in the Caribbean, Fiji, and Africa.'],
+      ['6.6', 'Gold rush that drew Chinese migrants in 1849', 'California', 'Siberia', 'Brazil',
+        'Chinese migrants mined gold and later built the U.S. transcontinental railroad.'],
+      ['6.6', 'Main cause of most 1800s migration', 'Jobs and wages', 'Religious pilgrimage', 'Military conquest',
+        'Most migrants moved for work, pushed by poverty and pulled by industrial and plantation jobs.'],
+      ['6.7', '1882 U.S. law that barred Chinese workers', 'Chinese Exclusion Act', 'White Australia', 'Homestead Act',
+        'Nativist anger at Chinese labor led to the first U.S. law banning a group by nationality.'],
+      ['6.7', 'Australia\'s policy to keep out non-Europeans', 'White Australia', 'Chinese Exclusion', 'Apartheid',
+        'Like the U.S., Australia passed laws to limit Asian migration.'],
+      ['6.7', 'Migrant neighborhoods like Chinatowns', 'Enclaves', 'Reservations', 'Plantations',
+        'Ethnic enclaves kept language, food, and religion alive in new countries.'],
+      ['6.7', 'Money migrants send home to their families', 'Remittances', 'Tribute', 'Tariffs',
+        'Remittances tied migrant communities to their home villages.'],
+      ['6.8', 'Industrial Japan\'s 1905 victory was over…', 'Russia', 'China', 'Britain',
+        'The Russo-Japanese War showed an Asian power could defeat a European one.'],
+    ],
+  };
+})();
+</script>
+<script src="lane-runner.js"></script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js"></script>
+</body>
+</html>

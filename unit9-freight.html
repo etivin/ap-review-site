@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 9 Global Freight: Checkpoint Shipping</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lane-runner.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="./">AP WORLD // <b>GLOBAL FREIGHT</b></a>
+  <div class="links"><a href="unit9.html">← Unit 9 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 9 · Globalization · c. 1900 – present</div>
+  <h1>Global Freight: Checkpoint Shipping</h1>
+  <p class="sub">Steer a container ship along the shipping lanes of the global economy: across the Pacific, through the Strait of Malacca and the Suez Canal, and into the port of Rotterdam. Every few seconds a <b>checkpoint question</b> appears at the top of the screen and a gate of three answer banners rises over the water, <b>steer into the shipping lane with the right answer</b>. Right answers earn power-ups; wrong ones cost a strike and show you the real answer.</p>
+
+  <div class="how">
+    <div class="card"><b>Switch lanes</b><span><span class="k">← →</span>hop one lane per press (A/D, or swipe/tap on touch). <span class="k">SPACE</span>start, or pause during a run. The ship steers itself forward and picks up speed the longer you last.</span></div>
+    <div class="card"><b>Pick your lane</b><span>Read the question, then be in the <strong>left, middle, or right</strong> lane as you pass the gate.</span></div>
+    <div class="card"><b>Dodge &amp; collect</b><span>Steer around <strong>lost containers and anchored tankers</strong>, and the odd tanker or tug under way; grab trails of gold as they hop lanes. Pickups: <strong>shield</strong>, <strong>×2</strong>, <strong>coin magnet</strong>, and the uncommon <strong>hydrofoil</strong> (10s lifted above the waves: no hazards, no gates). Correct answers also earn a power-up; three in a row = a guaranteed shield.</span></div>
+    <div class="card"><b>3 strikes · 2 bumps</b><span>A wrong gate costs a strike (−1 ♥); lose all three and the cargo is lost. Hitting something slows you down and leaves your hull <strong>damaged for 10s</strong>, hit another while damaged and you sink.</span></div>
+  </div>
+
+  <div class="play">
+    <div>
+      <div class="stage" id="stage">
+        <canvas id="game" width="800" height="500"></canvas>
+        <div class="ctrls"><button type="button" id="pauseBtn">&#10074;&#10074; Pause (Space)</button><button type="button" id="fsBtn">&#9974; Full screen</button></div>
+      </div>
+      <div class="keys">Tip: click the game first so the arrow keys switch lanes instead of scrolling the page.</div>
+    </div>
+    <div class="notes">
+      <h3>Checkpoint Log</h3>
+      <div class="feed" id="feed"></div>
+      <div class="notes-foot" id="notesFoot">Checkpoints: 0 / 0 correct</div>
+    </div>
+  </div>
+
+  <div class="foot">Content from AP World History: Modern, Unit 9 (c. 1900–present). A study tool, not an official College Board product.</div>
+</div>
+
+<script>
+// ---------- Global Freight: the look of the modern shipping lanes, and the Unit 9 questions (engine: lane-runner.js) ----------
+(function () {
+  const BOX = ['#c62828', '#1565c0', '#2e7d32', '#ef6c00', '#6a1b9a', '#00838f', '#f9a825', '#5d4037'];
+  const SKYLINE = Array.from({ length: 30 }, (_, i) => ({ x: i * 28 + Math.random() * 10, h: 12 + Math.random() * 46, w: 14 + Math.random() * 12 }));
+
+  window.RUNNER = {
+    key: 'u9FreightBest', activity: 'freight',
+    title: 'GLOBAL FREIGHT', unitLine: 'Unit 9 · Globalization',
+    overStrikes: 'CARGO LOST', overCrash: 'SHIPWRECKED!', again: 'sail again',
+    speedUnit: 'KNOTS', speedTop: 24, flat: true, flyAlt: 1500,
+    fly: { label: 'HYDROFOIL', hud: 'HYDROFOIL', land: 'SPLASHDOWN', menu: 'Hydrofoil' },
+    text: { hit: 'HULL HIT! SLOW DOWN', next: 'Next hit = sunk', ram: 'RAMMED', repaired: 'REPAIRED' },
+    coin: { rim: '#a87512', face: '#ffd54f', shine: '#fff8dc', light: '255,214,90' },
+    gatePost: '#455a64', postColor: '#455a64', tilt: 0.06,
+    biomes: [
+      { name: 'Pacific', open: ['#1b4a78', '#18436d'], sea: ['#26629a', '#22598c'], sprites: ['farship', 'whale', 'farship', 'gulls', 'oilrig'] },
+      { name: 'Strait of Malacca', open: ['#12707e', '#0f6672'], sea: ['#1a8a9a', '#167e8d'], sprites: ['islet', 'farship', 'islet', 'farship', 'gulls'] },
+      { name: 'Suez Canal', canal: true, bank: ['#d9bb7f', '#d1b378'], open: ['#2a6f86', '#26667b'], sea: ['#2f7f99', '#2b768e'], sprites: ['palm', 'dune', 'palm', 'tower', 'dune'] },
+      { name: 'Rotterdam', canal: true, bank: ['#8d9399', '#868c92'], open: ['#3c5a6c', '#375363'], sea: ['#456678', '#405f70'], sprites: ['crane', 'stack', 'crane', 'turbine', 'stack'] },
+    ],
+    sprites: {
+      farship: { w: 1000, h: 900 }, whale: { w: 1600, h: 700 }, gulls: { w: 900, h: 2600 }, oilrig: { w: 1800, h: 2400 },
+      islet: { w: 2800, h: 1700 }, palm: { w: 1000, h: 1800 }, dune: { w: 3000, h: 800 }, tower: { w: 600, h: 2200 },
+      crane: { w: 1800, h: 3600 }, stack: { w: 2200, h: 900 }, turbine: { w: 900, h: 3600 }, buoy: { w: 70, h: 125 },
+    },
+    billboards: ['WTO 1995', 'NAFTA 1994', 'EUROPEAN UNION', 'INTERNET', 'GREEN REVOLUTION', 'PARIS AGREEMENT', 'UN 1945',
+      'ASEAN', 'OPEC', 'SHIPPING CONTAINER', 'CLIMATE CHANGE', 'K-POP', 'BOLLYWOOD', 'COVID-19', 'IMF'],
+    hazards: [
+      { kind: 'box', w: 460, h: 300, still: true, colors: ['#ef6c00', '#f9a825', '#eceff1', '#9ccc65'] },
+      { kind: 'tanker', w: 560, h: 620, speed: [0.25, 0.45], colors: ['#1c1c1c', '#4e342e', '#f57f17'] },
+      { kind: 'tug', w: 380, h: 420, speed: [0.35, 0.6], colors: ['#e65100', '#f9a825', '#fafafa'] },
+    ],
+    breakable: ['box'],
+    debris: ['#c62828', '#1565c0', '#ffffff', '#d9f4ff'],
+    player: { kind: 'boxship', w: 560, h: 360, color: '#1f2d3d' },
+
+    decorate(seg) {
+      const n = seg.index, b = seg.biome;
+      if (n % 12 === 6) seg.sprites.push({ type: 'buoy', offset: -1 / 3, color: '#fbc02d' }, { type: 'buoy', offset: 1 / 3, color: '#2e7d32' });
+      const near = b.canal ? 0.2 : 0.12, far = b.canal ? 0.14 : 0.08;
+      const s = () => { const t = pick(b.sprites), o = { type: t }; if (t === 'farship') o.ship = shipFor(n); if (t === 'stack') o.cols = Array.from({ length: 12 }, () => pick(BOX)); if (t === 'islet') o.palms = 1 + Math.floor(Math.random() * 3); return o; };
+      if (Math.random() < near) seg.sprites.push(Object.assign(s(), { offset: pick([-1, 1]) * rand(b.canal ? 1.75 : 1.7, 3.2) }));
+      if (Math.random() < far) seg.sprites.push(Object.assign(s(), { offset: pick([-1, 1]) * rand(3.2, 7) }));
+    },
+
+    drawBackground(pal) {
+      skyBase(pal);
+      const bl = biomeBlend(), pick2 = (n) => bl.a.name === n ? 1 - bl.t : bl.b.name === n ? bl.t : 0;
+      const mal = pick2('Strait of Malacca'), sue = pick2('Suez Canal'), rot = pick2('Rotterdam');
+      if (mal > 0.01) { ctx.globalAlpha = mal; drawRange(FAR, bgFar, HORIZON + 6, mix([40, 90, 60], pal.fog, 0.3), mix([60, 110, 70], pal.fog, 0.5), 0.5, 18); ctx.globalAlpha = 1; }
+      if (sue > 0.01) { ctx.globalAlpha = sue; drawRange(NEAR, bgNear, HORIZON + 6, mix([205, 170, 110], pal.fog, 0.25), mix([225, 195, 140], pal.fog, 0.4), 0.6); ctx.globalAlpha = 1; }
+      if (rot > 0.01) { // the port city skyline
+        ctx.globalAlpha = rot;
+        ctx.fillStyle = rgb(mix([60, 70, 82], pal.fog, 0.35));
+        for (const s of SKYLINE) { const span = W + 120, x = ((s.x - bgFar) % span + span) % span - 60; ctx.fillRect(x, HORIZON + 6 - s.h, s.w, s.h); }
+        ctx.fillStyle = 'rgba(255,220,140,.6)';
+        if (pal.dark > 0.2) for (const s of SKYLINE) { const span = W + 120, x = ((s.x - bgFar) % span + span) % span - 60; for (let j = 4; j < s.h - 2; j += 7) ctx.fillRect(x + 3, HORIZON + 6 - j, 2, 2); }
+        ctx.globalAlpha = 1;
+      }
+      const sea = ctx.createLinearGradient(0, HORIZON + 4, 0, H);
+      sea.addColorStop(0, rgb(mix(hex('#1d4b74'), pal.fog, 0.55))); sea.addColorStop(1, rgb(mix(hex('#1d4b74'), [0, 0, 0], pal.dark)));
+      ctx.fillStyle = sea; ctx.fillRect(-30, HORIZON + 5, W + 60, H);
+    },
+
+    // open water everywhere; canals add banks of sand or concrete quay beyond the channel
+    drawSegment(seg, pal, p1, p2) {
+      const b = seg.biome, alt = seg.dark ? 1 : 0;
+      ctx.fillStyle = b.canal ? b.bank[alt] : b.open[alt];
+      ctx.fillRect(-30, p2.y, W + 60, p1.y - p2.y);
+      if (b.canal) { const c1 = p1.w * 1.55, c2 = p2.w * 1.55; quad(p1.x - c1, p1.y, p1.x + c1, p1.y, p2.x + c2, p2.y, p2.x - c2, p2.y, b.open[alt]); }
+      const e1 = p1.w * 1.03, e2 = p2.w * 1.03;
+      quad(p1.x - e1, p1.y, p1.x + e1, p1.y, p2.x + e2, p2.y, p2.x - e2, p2.y, 'rgba(255,255,255,.18)');
+      quad(p1.x - p1.w, p1.y, p1.x + p1.w, p1.y, p2.x + p2.w, p2.y, p2.x - p2.w, p2.y, b.sea[alt]);
+      if (p1.y - p2.y > 0.3) { // whitecaps
+        for (let j = 0; j < 4; j++) {
+          const hsh = (seg.index * (37 + j * 29) + j * 11) % 23;
+          if (hsh > 4) continue;
+          const cx = p1.x + p1.w * ((((seg.index * (53 + j * 7)) + j * 5) % 19) / 9.5 - 1) * (j < 2 ? 0.9 : (b.canal ? 1.4 : 3.2)), cw = p1.w * (0.05 + hsh * 0.012);
+          const dy = p1.y - p2.y;
+          ctx.fillStyle = 'rgba(255,255,255,.4)';
+          ctx.beginPath(); ctx.moveTo(cx - cw, p1.y); ctx.quadraticCurveTo(cx, p1.y - dy * 1.6, cx + cw, p1.y);
+          ctx.quadraticCurveTo(cx, p1.y - dy * 0.6, cx - cw, p1.y); ctx.fill();
+        }
+      }
+    },
+
+    wake() {
+      if (flyLift > 0.05) {
+        burst(W / 2 + rand(-PW * 0.3, PW * 0.3), H - 14 - flyLift * FLY_PX + 10, 1, { speed: 60, life: 0.4, size: 5, colors: ['#ffffff', '#d9f4ff'], up: 140, add: true });
+      } else if (Math.random() < 0.8) {
+        const side = Math.random() < 0.5 ? -1 : 1;
+        burst(W / 2 + side * PW * rand(0.3, 0.48), H - 15, 1, { speed: 40, life: 0.5, size: 5, colors: ['#ffffff', '#e3f6ff'], up: 70, grow: 1.5 });
+      }
+    },
+    bounce() { return Math.sin(time * 1.8) * 1.8; },
+
+    drawFly(x, y, f) { // hydrofoil struts and spray under the hull
+      ctx.globalAlpha = f;
+      ctx.fillStyle = '#37474f';
+      for (const s of [-1, 1]) { ctx.fillRect(x + s * PW * 0.3 - 3, y - 4, 6, 34); }
+      ctx.fillRect(x - PW * 0.38, y + 28, PW * 0.76, 5);
+      ctx.fillStyle = 'rgba(255,255,255,.75)'; for (const s of [-0.3, 0, 0.3]) ellipse(x + s * PW, y + 34, PW * 0.16, 6);
+      ctx.globalAlpha = 1;
+    },
+
+    drawVehicle(x, y, k, v, isPlayer, lightA) {
+      const w = v.w * k, h = v.h * k;
+      if (w < 1.5) return;
+      if (!(isPlayer && flyLift > 0)) {
+        ctx.fillStyle = 'rgba(0,25,55,.3)'; ellipse(x, y + w * 0.015, w * 0.5, Math.max(1, w * 0.05));
+        ctx.fillStyle = 'rgba(255,255,255,.6)'; ellipse(x, y, w * 0.56, Math.max(1, w * 0.045));
+      }
+      if (!isPlayer) y += Math.sin(time * 2.2 + (v.z || 0) * 0.002) * h * 0.012;
+      if (v.kind === 'box') { // a lost shipping container, half sunk and tilted
+        ctx.save(); ctx.translate(x, y); ctx.rotate(-0.12 + v.seed * 0.24);
+        ctx.fillStyle = v.color; ctx.fillRect(-w * 0.45, -h * 0.8, w * 0.9, h * 0.8);
+        ctx.fillStyle = 'rgba(0,0,0,.2)'; for (let i = 1; i < 7; i++) ctx.fillRect(-w * 0.45 + i * w * 0.128, -h * 0.8, Math.max(0.5, w * 0.012), h * 0.8);
+        ctx.fillStyle = 'rgba(255,255,255,.25)'; ctx.fillRect(-w * 0.45, -h * 0.8, w * 0.9, h * 0.06);
+        ctx.restore();
+        ctx.fillStyle = 'rgba(255,255,255,.7)'; for (const s of [-0.4, 0, 0.4]) ellipse(x + w * s, y - h * 0.03, w * 0.1, Math.max(1, w * 0.025));
+        return;
+      }
+      const hullTop = y - h * (v.kind === 'tug' ? 0.4 : 0.3);
+      // hull from astern, red below the waterline stripe
+      const g = ctx.createLinearGradient(0, hullTop, 0, y);
+      g.addColorStop(0, v.light); g.addColorStop(0.6, v.color); g.addColorStop(1, v.dark);
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.moveTo(x - w * 0.5, hullTop); ctx.lineTo(x + w * 0.5, hullTop);
+      ctx.quadraticCurveTo(x + w * 0.47, y - h * 0.05, x + w * 0.32, y); ctx.lineTo(x - w * 0.32, y);
+      ctx.quadraticCurveTo(x - w * 0.47, y - h * 0.05, x - w * 0.5, hullTop); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#b71c1c'; ctx.fillRect(x - w * 0.36, y - h * 0.05, w * 0.72, h * 0.05);
+      ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fillRect(x - w * 0.5, hullTop, w, Math.max(1, h * 0.015));
+      if (v.kind === 'tug') { // tugboat: tall wheelhouse and a funnel
+        ctx.fillStyle = '#f5f5f5'; rrect(x - w * 0.25, y - h * 0.8, w * 0.5, h * 0.4, w * 0.03);
+        ctx.fillStyle = '#263238'; ctx.fillRect(x - w * 0.2, y - h * 0.72, w * 0.4, h * 0.1);
+        ctx.fillStyle = v.color; ctx.fillRect(x - w * 0.07, y - h, w * 0.14, h * 0.22);
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(x - w * 0.07, y - h * 0.92, w * 0.14, h * 0.04);
+        pushLight(x, y - h * 0.68, w * 0.6, '255,220,150', lightA * 0.6, true);
+        return;
+      }
+      if (v.kind === 'tanker') { // tanker: white accommodation block and funnel at the stern
+        ctx.fillStyle = '#eceff1'; ctx.fillRect(x - w * 0.3, y - h * 0.75, w * 0.6, h * 0.45);
+        ctx.fillStyle = '#263238'; for (let r = 0; r < 3; r++) ctx.fillRect(x - w * 0.26, y - h * (0.7 - r * 0.13), w * 0.52, h * 0.05);
+        ctx.fillStyle = '#ffd36b'; for (let r = 0; r < 3; r++) for (const d of [-0.18, 0, 0.18]) ctx.fillRect(x + w * d - w * 0.03, y - h * (0.7 - r * 0.13), w * 0.06, h * 0.05);
+        ctx.fillStyle = v.dark; ctx.fillRect(x - w * 0.08, y - h, w * 0.16, h * 0.26);
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(x - w * 0.08, y - h * 0.94, w * 0.16, h * 0.04);
+        pushLight(x, y - h * 0.55, w * 0.6, '255,220,150', lightA * 0.6, true);
+        return;
+      }
+      // the player's container ship: stacks of boxes (see-through so the lanes ahead stay visible) and a radar mast
+      const a0 = ctx.globalAlpha; ctx.globalAlpha = a0 * 0.55;
+      const cols = 5, cw = w * 0.86 / cols;
+      for (let r = 0; r < 3; r++) for (let c = 0; c < cols; c++) {
+        ctx.fillStyle = BOX[(c * 3 + r * 5) % BOX.length];
+        ctx.fillRect(x - w * 0.43 + c * cw + cw * 0.04, hullTop - h * 0.18 * (r + 1), cw * 0.92, h * 0.17);
+      }
+      ctx.fillStyle = '#eceff1'; ctx.fillRect(x - w * 0.012, hullTop - h * 0.95, w * 0.024, h * 0.42);
+      ctx.fillRect(x - w * 0.08, hullTop - h * 0.9, w * 0.16, h * 0.02);
+      ctx.globalAlpha = a0;
+      ctx.fillStyle = '#ffffff'; ctx.font = `900 ${Math.max(6, Math.round(h * 0.09))}px Lato, system-ui, sans-serif`; ctx.textAlign = 'center';
+      ctx.fillText('TIVIN EXPRESS', x, hullTop + h * 0.13, w * 0.8); ctx.textAlign = 'left';
+      ctx.fillStyle = '#ffe08a'; circle(x, hullTop - h * 0.95, Math.max(1, w * 0.012));
+      pushLight(x, hullTop - h * 0.95, w * 0.3, '255,230,150', 0.8, true);
+    },
+
+    drawSprite(s, x, y, k, seg, w, h) {
+      const foam = (rx, ry = rx * 0.12) => { ctx.fillStyle = 'rgba(255,255,255,.6)'; ellipse(x, y, rx, Math.max(0.5, ry)); };
+      switch (s.type) {
+        case 'buoy': {
+          const by = y + Math.sin(time * 3 + x * 0.05) * h * 0.06;
+          ctx.fillStyle = 'rgba(255,255,255,.55)'; ellipse(x, y, w * 0.8, Math.max(0.5, w * 0.18));
+          quad(x - w * 0.5, by, x - w * 0.22, by - h, x + w * 0.22, by - h, x + w * 0.5, by, s.color);
+          ctx.fillStyle = '#ffffff'; ctx.fillRect(x - w * 0.36, by - h * 0.55, w * 0.72, h * 0.14);
+          break;
+        }
+        case 'farship': RUNNER.drawVehicle(x, y, k * 0.85, s.ship, false, 0.6); break;
+        case 'whale': {
+          foam(w * 0.5, w * 0.05);
+          ctx.fillStyle = '#2f3b46';
+          ctx.beginPath(); ctx.ellipse(x - w * 0.12, y, w * 0.32, h * 0.22, 0, Math.PI, 0); ctx.fill();
+          ctx.beginPath(); ctx.moveTo(x + w * 0.2, y); ctx.quadraticCurveTo(x + w * 0.28, y - h * 0.4, x + w * 0.3, y - h * 0.62);
+          ctx.lineTo(x + w * 0.46, y - h * 0.8); ctx.quadraticCurveTo(x + w * 0.36, y - h * 0.58, x + w * 0.32, y - h * 0.5);
+          ctx.quadraticCurveTo(x + w * 0.22, y - h * 0.62, x + w * 0.12, y - h * 0.82); ctx.quadraticCurveTo(x + w * 0.22, y - h * 0.5, x + w * 0.2, y); ctx.fill();
+          break;
+        }
+        case 'gulls': {
+          ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.lineWidth = Math.max(1, w * 0.02); ctx.lineCap = 'round';
+          for (let i = 0; i < 3; i++) {
+            const bx = x + Math.sin(time * 0.7 + i * 2.1) * w * 0.4, by = y - h * (0.65 + i * 0.12), flap = Math.sin(time * 6 + i) * w * 0.04, bw = w * 0.12;
+            ctx.beginPath(); ctx.moveTo(bx - bw, by - flap); ctx.quadraticCurveTo(bx - bw * 0.4, by - bw * 0.5, bx, by);
+            ctx.quadraticCurveTo(bx + bw * 0.4, by - bw * 0.5, bx + bw, by - flap); ctx.stroke();
+          }
+          ctx.lineCap = 'butt';
+          break;
+        }
+        case 'oilrig': { // offshore platform on legs, with a flare
+          foam(w * 0.5, w * 0.05);
+          ctx.fillStyle = '#5d6b75'; for (const d of [-0.35, -0.12, 0.12, 0.35]) ctx.fillRect(x + w * d - w * 0.02, y - h * 0.45, w * 0.04, h * 0.45);
+          ctx.fillStyle = '#f9a825'; ctx.fillRect(x - w * 0.45, y - h * 0.58, w * 0.9, h * 0.13);
+          ctx.fillStyle = '#eceff1'; ctx.fillRect(x - w * 0.35, y - h * 0.72, w * 0.35, h * 0.14);
+          ctx.strokeStyle = '#c62828'; ctx.lineWidth = Math.max(1, w * 0.02);
+          ctx.beginPath(); ctx.moveTo(x + w * 0.2, y - h * 0.58); ctx.lineTo(x + w * 0.2, y - h); ctx.lineTo(x + w * 0.05, y - h * 0.58); ctx.stroke();
+          ctx.fillStyle = '#ff9a3c'; ellipse(x + w * 0.42, y - h * 0.8, w * 0.04, h * 0.05 + Math.sin(time * 12) * h * 0.01);
+          pushLight(x + w * 0.42, y - h * 0.8, h * 0.2, '255,150,60', 1);
+          break;
+        }
+        case 'islet': {
+          foam(w * 0.56, w * 0.06);
+          ctx.fillStyle = '#e9d29a'; ctx.beginPath(); ctx.ellipse(x, y, w * 0.5, h * 0.14, 0, Math.PI, 0); ctx.fill();
+          ctx.fillStyle = 'rgba(46,125,50,.7)'; ctx.beginPath(); ctx.ellipse(x, y - h * 0.04, w * 0.32, h * 0.1, 0, Math.PI, 0); ctx.fill();
+          for (let i = 0; i < (s.palms || 1); i++) RUNNER.drawSprite({ type: 'palm' }, x + w * (i - ((s.palms || 1) - 1) / 2) * 0.22, y - h * 0.08, k * 0.9, seg, 1000 * k * 0.9, 1800 * k * 0.9);
+          break;
+        }
+        case 'palm': {
+          const tx = x + w * 0.1, ty = y - h * 0.88;
+          ctx.strokeStyle = '#8d6e63'; ctx.lineWidth = Math.max(1, w * 0.07);
+          ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + w * 0.25, y - h * 0.5, tx, ty); ctx.stroke();
+          ctx.fillStyle = '#2e7d32';
+          for (const a of [-3.0, -2.5, -2.0, -1.1, -0.6, -0.1]) { ctx.save(); ctx.translate(tx, ty); ctx.rotate(a); ellipse(w * 0.26, w * 0.03, w * 0.28, w * 0.06); ctx.restore(); }
+          break;
+        }
+        case 'dune':
+          ctx.fillStyle = '#cfa96a'; ctx.beginPath(); ctx.moveTo(x - w / 2, y); ctx.quadraticCurveTo(x - w * 0.1, y - h * 1.3, x + w / 2, y); ctx.fill();
+          break;
+        case 'tower': // canal signal station
+          ctx.fillStyle = '#efe8da'; ctx.fillRect(x - w * 0.15, y - h * 0.8, w * 0.3, h * 0.8);
+          ctx.fillStyle = '#5d4037'; ctx.fillRect(x - w * 0.25, y - h * 0.86, w * 0.5, h * 0.08);
+          ctx.fillStyle = '#2e7d32'; ctx.fillRect(x - w * 0.05, y - h, w * 0.1, h * 0.14);
+          pushLight(x, y - h * 0.93, h * 0.12, '120,255,140', 1, true);
+          break;
+        case 'crane': { // container gantry crane: two legs and a long boom over the water
+          ctx.fillStyle = '#c62828';
+          ctx.fillRect(x - w * 0.35, y - h * 0.7, w * 0.07, h * 0.7); ctx.fillRect(x + w * 0.28, y - h * 0.7, w * 0.07, h * 0.7);
+          ctx.fillRect(x - w * 0.4, y - h * 0.74, w * 0.8, h * 0.05);
+          const dir = s.offset < 0 ? 1 : -1;
+          ctx.fillRect(x - w * 0.4 + (dir > 0 ? 0 : -w * 0.9), y - h * 0.82, w * 1.7, h * 0.04);
+          ctx.fillStyle = '#eceff1'; ctx.fillRect(x - w * 0.1, y - h * 0.9, w * 0.2, h * 0.09);
+          ctx.strokeStyle = '#333'; ctx.lineWidth = Math.max(0.5, w * 0.005);
+          ctx.beginPath(); ctx.moveTo(x + dir * w * 0.7, y - h * 0.78); ctx.lineTo(x + dir * w * 0.7, y - h * 0.45); ctx.stroke();
+          ctx.fillStyle = '#1565c0'; ctx.fillRect(x + dir * w * 0.7 - w * 0.08, y - h * 0.45, w * 0.16, h * 0.06);
+          break;
+        }
+        case 'stack': // stacked containers on the quay
+          for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) {
+            ctx.fillStyle = (s.cols || BOX)[(r * 4 + c) % 12];
+            ctx.fillRect(x - w / 2 + c * w / 4 + w * 0.005, y - h * (r + 1) / 3, w / 4 - w * 0.01, h / 3 - h * 0.02);
+          }
+          break;
+        case 'turbine': {
+          ctx.fillStyle = '#eceff1'; quad(x - w * 0.04, y, x - w * 0.02, y - h * 0.8, x + w * 0.02, y - h * 0.8, x + w * 0.04, y, '#eceff1');
+          const a = time * 1.2 + x * 0.01, cx = x, cy = y - h * 0.8;
+          ctx.strokeStyle = '#eceff1'; ctx.lineWidth = Math.max(1, w * 0.03); ctx.lineCap = 'round';
+          ctx.beginPath(); for (let i = 0; i < 3; i++) { ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a + i * 2.094) * h * 0.2, cy + Math.sin(a + i * 2.094) * h * 0.2); } ctx.stroke();
+          ctx.lineCap = 'butt';
+          break;
+        }
+      }
+    },
+
+    // ---------- Checkpoint questions: [topic, prompt, correct, wrong, wrong, why] ----------
+    questions: [
+      ['9.1', 'Steel box that made global shipping cheap', 'Shipping container', 'Clipper ship', 'Telegraph',
+        'Standard containers (1950s on) slashed loading costs and made global supply chains possible.'],
+      ['9.1', 'Global computer network that boomed in the 1990s', 'Internet', 'Telegraph', 'Radio',
+        'The internet connected people, businesses, and ideas across borders almost instantly.'],
+      ['9.1', 'High-yield seeds and fertilizer boosted harvests', 'Green Revolution', 'Columbian Exchange', 'Enclosure',
+        'New crops raised food output in Mexico, India, and Asia, but favored farmers who could buy inputs.'],
+      ['9.1', 'Scientist whose wheat fed India and Mexico', 'Norman Borlaug', 'Louis Pasteur', 'Jonas Salk',
+        'Borlaug\'s high-yield wheat earned him the Nobel Peace Prize in 1970.'],
+      ['9.1', 'Phones that spread fast across Africa and Asia', 'Cell phones', 'Telegraphs', 'Fax machines',
+        'Mobile phones skipped landlines entirely in many places, enabling banking and news by text.'],
+      ['9.2', 'Disease wiped out by vaccination by 1980', 'Smallpox', 'Malaria', 'Tuberculosis',
+        'A WHO campaign eradicated smallpox, the first disease ever beaten that way.'],
+      ['9.2', 'Epidemic from the 1980s, worst in southern Africa', 'HIV/AIDS', 'Influenza', 'Cholera',
+        'HIV/AIDS killed millions; drug prices and global aid became major political issues.'],
+      ['9.2', 'Pandemic that shut down much of the world in 2020', 'COVID-19', 'Spanish flu', 'SARS',
+        'COVID-19 spread through global travel and disrupted supply chains worldwide.'],
+      ['9.2', 'First antibiotic, discovered in 1928', 'Penicillin', 'Quinine', 'Aspirin',
+        'Alexander Fleming\'s discovery made bacterial infections treatable.'],
+      ['9.2', 'Developed the first polio vaccine', 'Jonas Salk', 'Alexander Fleming', 'Norman Borlaug',
+        'Salk\'s vaccine (1955) helped nearly eliminate polio.'],
+      ['9.2', '1918 pandemic spread by WWI troops', 'Spanish flu', 'COVID-19', 'Smallpox',
+        'The 1918 influenza killed tens of millions worldwide.'],
+      ['9.3', 'Long-term warming from greenhouse gases', 'Climate change', 'Acid rain', 'Desertification',
+        'Burning fossil fuels raised global temperatures, sea levels, and extreme weather.'],
+      ['9.3', 'Gas from burning fossil fuels that traps heat', 'Carbon dioxide', 'Oxygen', 'Nitrogen',
+        'CO₂ levels rose sharply after industrialization.'],
+      ['9.3', '2015 global climate agreement', 'Paris Agreement', 'Kyoto Protocol', 'Geneva Convention',
+        'Nearly every country pledged to cut emissions; Kyoto (1997) was the earlier deal.'],
+      ['9.3', 'Clearing of rainforests like the Amazon', 'Deforestation', 'Desertification', 'Urbanization',
+        'Logging, ranching, and farming cut forests that absorb carbon and shelter species.'],
+      ['9.3', 'Kenyan who founded the Green Belt Movement', 'Wangari Maathai', 'Nelson Mandela', 'Kwame Nkrumah',
+        'Maathai organized women to plant millions of trees and won the Nobel Peace Prize.'],
+      ['9.4', 'Free-trade deal of the U.S., Canada, and Mexico', 'NAFTA', 'ASEAN', 'OPEC',
+        'NAFTA (1994) cut tariffs; factories moved, and Mexican farmers struggled against U.S. corn.'],
+      ['9.4', 'Body that sets global trade rules (1995)', 'WTO', 'WHO', 'NATO',
+        'The World Trade Organization settles trade disputes and pushes lower tariffs.'],
+      ['9.4', 'Free-market push to cut taxes and regulation', 'Neoliberalism', 'Socialism', 'Mercantilism',
+        'Reagan, Thatcher, and Pinochet\'s Chile led a shift toward free markets and privatization.'],
+      ['9.4', 'Led China\'s market reforms after Mao', 'Deng Xiaoping', 'Mao Zedong', 'Chiang Kai-shek',
+        'Deng opened China to foreign investment and let markets grow under Communist Party rule.'],
+      ['9.4', 'Cartel of oil-exporting countries', 'OPEC', 'NAFTA', 'WTO',
+        'OPEC\'s 1973 oil embargo showed how much the world depended on its oil.'],
+      ['9.4', 'Selling state-owned firms to private owners', 'Privatization', 'Nationalization', 'Collectivization',
+        'Thatcher\'s Britain sold off state industries like steel, gas, and telephones.'],
+      ['9.4', 'Fast-growing Korea, Taiwan, Singapore, Hong Kong', 'Asian Tigers', 'Non-Aligned', 'Warsaw Pact',
+        'Export-led manufacturing made these economies rich within a generation.'],
+      ['9.5', '1948 UN statement of rights for everyone', 'Universal Declaration', 'Rights of Man', 'Fourteen Points',
+        'The Universal Declaration of Human Rights set standards for governments everywhere.'],
+      ['9.5', 'Movement for women\'s equality from the 1960s', 'Feminism', 'Négritude', 'Zionism',
+        'Second-wave feminists fought for equal pay, education, and legal rights.'],
+      ['9.5', 'South Africa\'s racial system ended in 1994', 'Apartheid', 'Jim Crow', 'Casta system',
+        'Protest, sanctions, and boycotts helped end apartheid.'],
+      ['9.5', 'Movement celebrating Black African culture', 'Négritude', 'Zionism', 'Pan-Slavism',
+        'Writers like Léopold Senghor rejected colonial ideas that African culture was inferior.'],
+      ['9.5', '1964 U.S. law banning discrimination', 'Civil Rights Act', 'Patriot Act', 'Social Security Act',
+        'The civil rights movement won laws against segregation and discrimination.'],
+      ['9.6', 'Korean pop music that went global', 'K-pop', 'Reggae', 'Bollywood',
+        'Streaming and social media spread K-pop worldwide, an example of globalized culture.'],
+      ['9.6', 'India\'s Hindi-language film industry', 'Bollywood', 'Hollywood', 'Nollywood',
+        'Bollywood films reach audiences across Asia, Africa, and the diaspora; Nollywood is Nigeria\'s.'],
+      ['9.6', 'Jamaican music made famous by Bob Marley', 'Reggae', 'Samba', 'Salsa',
+        'Reggae spread worldwide with messages of resistance and Pan-Africanism.'],
+      ['9.6', 'Sport whose World Cup draws billions', 'Soccer', 'Cricket', 'Baseball',
+        'Global sports and broadcasting show culture spreading across borders.'],
+      ['9.7', '1999 protests against the WTO', 'Seattle', 'Davos', 'Geneva',
+        'Activists protested that global trade rules hurt workers and the environment.'],
+      ['9.7', 'Mexican rebels who rose against NAFTA in 1994', 'Zapatistas', 'Sandinistas', 'Contras',
+        'The Zapatistas in Chiapas said free trade would ruin Indigenous farmers.'],
+      ['9.7', 'Strict return to traditional religious rules', 'Fundamentalism', 'Liberalism', 'Secularism',
+        'Some groups rejected globalized culture and Western values in favor of religious tradition.'],
+      ['9.8', 'Union of European states, most sharing the euro', 'European Union', 'NATO', 'ASEAN',
+        'The EU created a single market with free movement of goods and people.'],
+      ['9.8', 'Southeast Asian regional bloc', 'ASEAN', 'NAFTA', 'OPEC',
+        'ASEAN promotes trade and cooperation among its member states.'],
+      ['9.8', 'Lends money to countries in financial crisis', 'IMF', 'WHO', 'UNICEF',
+        'IMF loans often came with conditions to cut spending and open markets.'],
+      ['9.8', 'Doctors Without Borders is an example of an…', 'NGO', 'Cartel', 'Alliance',
+        'Non-governmental organizations work across borders on health, rights, and relief.'],
+      ['9.8', 'UN agency for global health', 'WHO', 'WTO', 'IMF',
+        'The World Health Organization led the smallpox campaign and responds to pandemics.'],
+    ],
+  };
+  function shipFor(n) {
+    const T = pick([RUNNER.hazards[1], RUNNER.hazards[2]]), col = pick(T.colors);
+    return { kind: T.kind, w: T.w, h: T.h, color: col, dark: shade(col, -0.35), light: shade(col, 0.25), z: n * SEG, seed: Math.random() };
+  }
+})();
+</script>
+<script src="lane-runner.js"></script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js"></script>
+</body>
+</html>

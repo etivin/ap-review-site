@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 5 Coal Cart: Checkpoint Run</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lane-runner.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="./">AP WORLD // <b>COAL CART</b></a>
+  <div class="links"><a href="unit5.html">← Unit 5 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 5 · Revolutions · c. 1750 – c. 1900</div>
+  <h1>Coal Cart: Checkpoint Run</h1>
+  <p class="sub">Ride a minecart down through a coal mine, an ironworks, and a cotton mill. Every few seconds a <b>checkpoint question</b> appears at the top of the screen and a gate of three answer banners rises over the rails, <b>switch onto the track with the right answer</b>. Right answers earn power-ups; wrong ones cost a strike and show you the real answer.</p>
+
+  <div class="how">
+    <div class="card"><b>Switch tracks</b><span><span class="k">← →</span>hop one track per press (A/D, or swipe/tap on touch). <span class="k">SPACE</span>start, or pause during a run. The cart rolls itself and picks up speed the longer you last.</span></div>
+    <div class="card"><b>Pick your track</b><span>Read the question, then be on the <strong>left, middle, or right</strong> track as you pass the gate.</span></div>
+    <div class="card"><b>Dodge &amp; collect</b><span>Switch around <strong>rockfalls, powder kegs, and parked ore carts</strong>, and the odd cart rolling ahead of you; grab trails of gold as they hop tracks. Pickups: <strong>shield</strong>, <strong>×2</strong>, <strong>coin magnet</strong>, and the uncommon <strong>steam jump</strong> (10s blasted up over the rails: no hazards, no gates). Correct answers also earn a power-up; three in a row = a guaranteed shield.</span></div>
+    <div class="card"><b>3 strikes · 2 bumps</b><span>A wrong gate costs a strike (−1 ♥); lose all three and your shift is over. Hitting something slows you down and leaves the cart <strong>damaged for 10s</strong>, hit another while damaged and you derail.</span></div>
+  </div>
+
+  <div class="play">
+    <div>
+      <div class="stage" id="stage">
+        <canvas id="game" width="800" height="500"></canvas>
+        <div class="ctrls"><button type="button" id="pauseBtn">&#10074;&#10074; Pause (Space)</button><button type="button" id="fsBtn">&#9974; Full screen</button></div>
+      </div>
+      <div class="keys">Tip: click the game first so the arrow keys switch tracks instead of scrolling the page.</div>
+    </div>
+    <div class="notes">
+      <h3>Checkpoint Log</h3>
+      <div class="feed" id="feed"></div>
+      <div class="notes-foot" id="notesFoot">Checkpoints: 0 / 0 correct</div>
+    </div>
+  </div>
+
+  <div class="foot">Content from AP World History: Modern, Unit 5 (c. 1750–c. 1900). A study tool, not an official College Board product.</div>
+</div>
+
+<script>
+// ---------- Coal Cart: the look of the mine and mills, and the Unit 5 questions (engine: lane-runner.js) ----------
+(function () {
+  const BG = { // sky / ceiling colors per biome; cave = 1 draws the rock ceiling, 0 the smoky mill-town skyline
+    'Coal Mine': { top: '#0d0a08', bottom: '#2b2119', ground: '#2a211b', cave: 1 },
+    'Ironworks': { top: '#1e1512', bottom: '#8a4b24', ground: '#3a2e27', cave: 0 },
+    'Cotton Mill': { top: '#2a2a33', bottom: '#8c7a66', ground: '#4a3f36', cave: 0 },
+  };
+  const CEIL = Array.from({ length: 48 }, (_, i) => ({ x: i * 20 + Math.random() * 10, d: 20 + Math.random() * 55 }));
+  const STACKS = Array.from({ length: 16 }, (_, i) => ({ x: i * 60 + Math.random() * 30, h: 40 + Math.random() * 70, w: 8 + Math.random() * 8 }));
+
+  function biomeMix() { // blend the background between biomes over the last stretch of each one
+    const bl = biomeBlend(), a = BG[bl.a.name], b = BG[bl.b.name], t = bl.t;
+    return { top: mix(hex(a.top), hex(b.top), t), bottom: mix(hex(a.bottom), hex(b.bottom), t),
+      ground: mix(hex(a.ground), hex(b.ground), t), cave: lerp(a.cave, b.cave, t) };
+  }
+
+  window.RUNNER = {
+    key: 'u5MinecartBest', activity: 'minecart',
+    title: 'COAL CART', unitLine: 'Unit 5 · Revolutions',
+    overStrikes: 'SHIFT OVER', overCrash: 'DERAILED!', again: 'ride again',
+    speedUnit: 'MPH', speedTop: 30, flat: false,
+    fly: { label: 'STEAM JUMP', hud: 'STEAM JUMP', land: 'BACK ON THE RAILS', menu: 'Steam jump' },
+    text: { hit: 'CART HIT! SLOW DOWN', next: 'Next hit = derailed', ram: 'SMASHED', repaired: 'CART FIXED' },
+    coin: { rim: '#a87512', face: '#ffd54f', shine: '#fff8dc', light: '255,214,90' },
+    gatePost: '#4e3a2a', postColor: '#4e3a2a', tilt: 0.05,
+    kf: [{ top: '#1a1410', bottom: '#3a2c20', fog: '#2a2019', far: '#2b2119', near: '#2b2119', cloud: '#555', sun: '#ffd27a', sunY: -1, dark: 0.22, stars: 0 }],
+    biomes: [
+      { name: 'Coal Mine', open: ['#2a211b', '#251d18'], lane: ['#3d332b', '#382f28'], sprites: ['rockwall', 'rockwall', 'coalpile', 'lamp', 'rockwall', 'pickaxe'] },
+      { name: 'Ironworks', open: ['#3a2e27', '#352a24'], lane: ['#4b4039', '#463c35'], sprites: ['furnace', 'chimney', 'anvil', 'furnace', 'pigiron', 'chimney'] },
+      { name: 'Cotton Mill', open: ['#4a3f36', '#453a32'], lane: ['#5c5046', '#574b42'], sprites: ['loom', 'bales', 'engine', 'loom', 'bales', 'chimney'] },
+    ],
+    sprites: {
+      rockwall: { w: 1800, h: 2400 }, coalpile: { w: 1200, h: 600 }, lamp: { w: 260, h: 1500 }, pickaxe: { w: 500, h: 700 },
+      frame: { w: 4600, h: 2700 }, truss: { w: 4600, h: 2900 },
+      furnace: { w: 1600, h: 1900 }, chimney: { w: 600, h: 4200 }, anvil: { w: 700, h: 500 }, pigiron: { w: 1200, h: 400 },
+      loom: { w: 1600, h: 1300 }, bales: { w: 1300, h: 800 }, engine: { w: 1800, h: 1700 },
+    },
+    billboards: ['SPINNING JENNY', 'WATT 1776', 'COAL & IRON', 'ENCLOSURE', 'WEALTH OF NATIONS', 'LUDDITES', 'BESSEMER STEEL',
+      'MEIJI 1868', 'MARX 1848', 'BASTILLE 1789', 'HAITI 1791', 'BOLÍVAR', 'FACTORY ACTS', 'TANZIMAT', 'TELEGRAPH'],
+    boardColors: ['#7a2e1d', '#3d4f5c', '#5a4a1d', '#3b2a4a', '#2f4a32'],
+    hazards: [
+      { kind: 'rocks', w: 520, h: 300, still: true, colors: ['#a3978a', '#958a7e', '#b0a497'] },
+      { kind: 'kegs', w: 420, h: 360, still: true, colors: ['#c08040', '#b5763a', '#cc8a4a'] },
+      { kind: 'cart', w: 460, h: 330, speed: [0.3, 0.55], colors: ['#4f8fb0', '#6aa0c0', '#5b88a5'] },
+    ],
+    breakable: ['rocks', 'kegs'],
+    debris: ['#6b625a', '#3a2f28', '#8a6142', '#c8b8a0'],
+    player: { kind: 'minecart', w: 460, h: 340, color: '#8a4b2a' },
+
+    decorate(seg) {
+      const n = seg.index, b = seg.biome.name;
+      if (b === 'Coal Mine' && n % 36 === 0) seg.sprites.push({ type: 'frame', offset: 0 });
+      if (b !== 'Coal Mine' && n % 48 === 0) seg.sprites.push({ type: 'truss', offset: 0 });
+      if (n % 9 === 0) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(1.45, 2.2) });
+      if (Math.random() < 0.08) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(2.4, 4.5) });
+    },
+
+    drawBackground(pal) {
+      const m = biomeMix();
+      const g = ctx.createLinearGradient(0, 0, 0, HORIZON);
+      g.addColorStop(0, rgb(m.top)); g.addColorStop(1, rgb(m.bottom));
+      ctx.fillStyle = g; ctx.fillRect(-30, -30, W + 60, H + 60);
+      if (m.cave < 1) { // mill town: soot clouds and a row of distant smokestacks
+        ctx.globalAlpha = 1 - m.cave;
+        ctx.fillStyle = 'rgba(40,32,28,.55)';
+        for (const c of CLOUDS) {
+          const span = W + 300, x = ((c.x - bgCloud) % span + span) % span - 150, s = c.s * 1.3;
+          ellipse(x, c.y, 50 * s, 16 * s); ellipse(x - 30 * s, c.y + 5 * s, 30 * s, 12 * s); ellipse(x + 32 * s, c.y + 4 * s, 34 * s, 12 * s);
+        }
+        for (const s of STACKS) {
+          const span = W + 120, x = ((s.x - bgFar) % span + span) % span - 60;
+          ctx.fillStyle = '#2b211d'; ctx.fillRect(x, HORIZON + 6 - s.h, s.w, s.h);
+          ctx.fillStyle = 'rgba(70,60,55,.5)';
+          for (let i = 0; i < 4; i++) ellipse(x + s.w / 2 + i * 9 + Math.sin(time + i) * 3, HORIZON - s.h - i * 12, 7 + i * 4, 5 + i * 3);
+        }
+        drawRange(FAR, bgFar, HORIZON + 6, [43, 34, 29], [60, 48, 40], 0.35, 6);
+        ctx.globalAlpha = 1;
+      }
+      if (m.cave > 0) { // the mine: jagged rock ceiling and a dim glow far down the tunnel
+        ctx.globalAlpha = m.cave;
+        const glow = ctx.createRadialGradient(W / 2, HORIZON, 10, W / 2, HORIZON, 260);
+        glow.addColorStop(0, 'rgba(255,170,80,.35)'); glow.addColorStop(1, 'rgba(255,170,80,0)');
+        ctx.fillStyle = glow; ctx.fillRect(W / 2 - 260, HORIZON - 260, 520, 520);
+        ctx.fillStyle = '#0a0806';
+        ctx.beginPath(); ctx.moveTo(-30, -30);
+        for (const c of CEIL) { const x = ((c.x - bgNear * 0.6) % (W + 60) + W + 60) % (W + 60) - 30; ctx.lineTo(x, c.d); }
+        ctx.lineTo(W + 30, -30); ctx.closePath(); ctx.fill();
+        // rough side walls closing in toward the far end
+        ctx.fillStyle = '#16110d';
+        ctx.beginPath(); ctx.moveTo(-30, 0); ctx.lineTo(W * 0.3, HORIZON - 30); ctx.lineTo(W * 0.32, HORIZON + 8); ctx.lineTo(-30, HORIZON + 8); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(W + 30, 0); ctx.lineTo(W * 0.7, HORIZON - 30); ctx.lineTo(W * 0.68, HORIZON + 8); ctx.lineTo(W + 30, HORIZON + 8); ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      ctx.fillStyle = rgb(m.ground); ctx.fillRect(-30, HORIZON + 5, W + 60, H);
+    },
+
+    segExtra(seg, p1, p2) { railTracks(p1, p2, seg); },
+
+    wake() { // sparks off the wheels, or steam while the jump carries the cart
+      if (flyLift > 0.05) {
+        burst(W / 2 + rand(-PW * 0.4, PW * 0.4), H - 14 - flyLift * FLY_PX, 1, { speed: 30, life: 0.5, size: 6, colors: ['#ffffff', '#e8e8e8'], up: 140, add: true });
+      } else if (Math.random() < 0.25 * speed / MAX_SPEED) {
+        const side = Math.random() < 0.5 ? -1 : 1;
+        burst(W / 2 + side * PW * 0.36, H - 16, 2, { speed: 120, life: 0.35, size: 2.5, colors: ['#ffcf6b', '#ff9a3c', '#fff1b0'], up: -40, g: 400, add: true });
+      }
+    },
+    bounce() { return Math.sin(time * 18) * (speed / MAX_SPEED) * 1.4 + (Math.random() - 0.5) * (speed / MAX_SPEED); },
+
+    // ---- Hazards and the player's cart, seen from behind ----
+    drawVehicle(x, y, k, v, isPlayer, lightA) {
+      const w = v.w * k, h = v.h * k;
+      if (w < 1.5) return;
+      if (!(isPlayer && flyLift > 0)) { ctx.fillStyle = 'rgba(0,0,0,.35)'; ellipse(x, y, w * 0.55, Math.max(1, w * 0.06)); }
+      if (v.kind === 'rocks') { // a rockfall across the track
+        const rock = (cx, rw, rh, c1, c2) => {
+          ctx.fillStyle = c1;
+          ctx.beginPath(); ctx.moveTo(cx - rw / 2, y); ctx.lineTo(cx - rw * 0.4, y - rh * 0.6); ctx.lineTo(cx - rw * 0.05, y - rh);
+          ctx.lineTo(cx + rw * 0.35, y - rh * 0.7); ctx.lineTo(cx + rw / 2, y); ctx.closePath(); ctx.fill();
+          quad(cx - rw * 0.05, y - rh, cx + rw * 0.35, y - rh * 0.7, cx + rw / 2, y, cx + rw * 0.05, y, c2);
+        };
+        rock(x - w * 0.27, w * 0.45, h * 0.65, v.color, v.dark);
+        rock(x + w * 0.25, w * 0.42, h * 0.8, v.light, v.dark);
+        rock(x, w * 0.5, h, v.color, v.dark);
+        ctx.fillStyle = '#1b1612'; for (const s of [-0.15, 0.2]) ellipse(x + w * s, y - h * 0.35, w * 0.05, h * 0.06); // coal chunks
+        return;
+      }
+      if (v.kind === 'kegs') { // a stack of gunpowder kegs
+        const keg = (cx, cy, r) => {
+          ctx.fillStyle = v.color; rrect(cx - r, cy - r * 2.1, r * 2, r * 2.1, r * 0.5);
+          ctx.fillStyle = v.dark; ctx.fillRect(cx - r, cy - r * 1.75, r * 2, r * 0.18); ctx.fillRect(cx - r, cy - r * 0.55, r * 2, r * 0.18);
+          ctx.fillStyle = v.light; ctx.fillRect(cx - r * 0.6, cy - r * 2.0, r * 0.25, r * 1.9);
+        };
+        keg(x - w * 0.25, y, w * 0.22); keg(x + w * 0.25, y, w * 0.22); keg(x, y - w * 0.44, w * 0.22);
+        ctx.fillStyle = '#fff'; ctx.font = `900 ${Math.max(6, Math.round(w * 0.14))}px system-ui, sans-serif`; ctx.textAlign = 'center';
+        if (w > 30) ctx.fillText('XXX', x, y - w * 0.66);
+        ctx.textAlign = 'left';
+        return;
+      }
+      // ore cart (the player's has coal heaped up and a lantern on the back)
+      const bodyTop = y - h * 0.82, bodyBot = y - h * 0.18;
+      ctx.fillStyle = '#1d1d1d';
+      for (const s of [-1, 1]) { ellipse(x + s * w * 0.33, y - h * 0.12, w * 0.1, h * 0.12); } // wheels
+      ctx.fillStyle = '#555'; for (const s of [-1, 1]) circle(x + s * w * 0.33, y - h * 0.12, Math.max(0.5, w * 0.03));
+      const g = ctx.createLinearGradient(0, bodyTop, 0, bodyBot);
+      g.addColorStop(0, v.light); g.addColorStop(0.5, v.color); g.addColorStop(1, v.dark);
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.moveTo(x - w * 0.5, bodyTop); ctx.lineTo(x + w * 0.5, bodyTop); ctx.lineTo(x + w * 0.4, bodyBot); ctx.lineTo(x - w * 0.4, bodyBot); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = 'rgba(0,0,0,.3)'; // iron bands and rivets
+      ctx.fillRect(x - w * 0.47, bodyTop + h * 0.16, w * 0.94, Math.max(1, h * 0.04));
+      ctx.fillRect(x - w * 0.43, bodyBot - h * 0.12, w * 0.86, Math.max(1, h * 0.04));
+      ctx.fillStyle = 'rgba(255,230,190,.5)';
+      for (let i = -2; i <= 2; i++) circle(x + i * w * 0.17, bodyTop + h * 0.07, Math.max(0.5, w * 0.012));
+      ctx.fillStyle = v.dark; ctx.fillRect(x - w * 0.5, bodyTop - Math.max(1, h * 0.03), w, Math.max(1, h * 0.06)); // rim
+      // load: coal for the player, ore lumps for other carts
+      ctx.fillStyle = isPlayer ? '#141414' : '#7b6a5c';
+      for (const [dx, r] of [[-0.3, 0.13], [-0.1, 0.17], [0.12, 0.16], [0.32, 0.12], [0.02, 0.1]]) {
+        ctx.beginPath(); ctx.ellipse(x + w * dx, bodyTop, w * r, h * r * 0.9, 0, Math.PI, 0); ctx.fill();
+      }
+      if (isPlayer) {
+        ctx.fillStyle = 'rgba(255,255,255,.18)'; ellipse(x - w * 0.1, bodyTop - h * 0.1, w * 0.05, h * 0.03); // coal shine
+        ctx.fillStyle = '#2b2b2b'; ctx.fillRect(x - w * 0.04, bodyTop + h * 0.22, w * 0.08, h * 0.2); // lantern
+        ctx.fillStyle = '#ffd36b'; ctx.fillRect(x - w * 0.03, bodyTop + h * 0.25, w * 0.06, h * 0.13);
+        pushLight(x, bodyTop + h * 0.31, w * 0.5, '255,200,110', 0.9, true);
+      } else {
+        ctx.fillStyle = '#ff6b3c'; for (const s of [-1, 1]) circle(x + s * w * 0.36, bodyTop + h * 0.3, Math.max(0.5, w * 0.025));
+        pushLight(x, bodyTop + h * 0.3, w * 0.6, '255,110,60', lightA * 0.6, true);
+      }
+    },
+
+    // ---- Scenery ----
+    drawSprite(s, x, y, k, seg, w, h) {
+      switch (s.type) {
+        case 'rockwall': {
+          ctx.fillStyle = '#211a15';
+          ctx.beginPath(); ctx.moveTo(x - w / 2, y); ctx.lineTo(x - w * 0.42, y - h * 0.55); ctx.lineTo(x - w * 0.2, y - h);
+          ctx.lineTo(x + w * 0.15, y - h * 0.9); ctx.lineTo(x + w * 0.4, y - h * 0.5); ctx.lineTo(x + w / 2, y); ctx.closePath(); ctx.fill();
+          quad(x + w * 0.15, y - h * 0.9, x + w * 0.4, y - h * 0.5, x + w / 2, y, x, y, '#18130f');
+          ctx.fillStyle = '#0c0a08'; // coal seam
+          ctx.fillRect(x - w * 0.42, y - h * 0.42, w * 0.8, h * 0.07);
+          ctx.fillStyle = 'rgba(255,220,140,.25)'; for (const d of [-0.2, 0.1]) ellipse(x + w * d, y - h * 0.4, w * 0.02, h * 0.01);
+          break;
+        }
+        case 'coalpile':
+          ctx.fillStyle = '#121010'; ctx.beginPath(); ctx.ellipse(x, y, w * 0.5, h, 0, Math.PI, 0); ctx.fill();
+          ctx.fillStyle = 'rgba(255,255,255,.12)'; ellipse(x - w * 0.15, y - h * 0.6, w * 0.06, h * 0.05);
+          break;
+        case 'lamp': { // oil lamp on a post
+          ctx.fillStyle = '#3e2a1c'; ctx.fillRect(x - w * 0.08, y - h, w * 0.16, h);
+          ctx.fillStyle = '#ffcf6b'; rrect(x - w * 0.3, y - h * 0.95, w * 0.6, h * 0.12, w * 0.1);
+          pushLight(x, y - h * 0.9, h * 0.35, '255,190,90', 1, true);
+          pushLight(x, y - h * 0.9, h * 0.15, '255,220,140', 0.6);
+          break;
+        }
+        case 'pickaxe':
+          ctx.save(); ctx.translate(x, y); ctx.rotate(-0.4);
+          ctx.fillStyle = '#7a5236'; ctx.fillRect(-w * 0.04, -h, w * 0.08, h);
+          ctx.fillStyle = '#9aa3ad'; ctx.beginPath(); ctx.moveTo(-w * 0.45, -h * 0.85); ctx.quadraticCurveTo(0, -h * 1.1, w * 0.45, -h * 0.85);
+          ctx.quadraticCurveTo(0, -h * 0.98, -w * 0.45, -h * 0.85); ctx.fill();
+          ctx.restore();
+          break;
+        case 'frame': { // timber supports over the tracks, with a lantern hanging from the beam
+          const pw = w * 0.035;
+          ctx.fillStyle = '#5a3d27';
+          ctx.fillRect(x - w * 0.47, y - h, pw, h); ctx.fillRect(x + w * 0.47 - pw, y - h, pw, h);
+          ctx.fillRect(x - w * 0.5, y - h, w, h * 0.06);
+          ctx.fillStyle = '#3e2a1c'; ctx.fillRect(x - w * 0.5, y - h * 0.945, w, h * 0.012);
+          for (const s of [-0.25, 0.25]) {
+            ctx.fillStyle = '#222'; ctx.fillRect(x + w * s - 0.5, y - h * 0.94, 1, h * 0.06);
+            ctx.fillStyle = '#ffcf6b'; rrect(x + w * s - w * 0.012, y - h * 0.88, w * 0.024, h * 0.04, w * 0.006);
+            pushLight(x + w * s, y - h * 0.86, h * 0.3, '255,190,90', 0.9, true);
+          }
+          break;
+        }
+        case 'truss': { // iron columns and a riveted girder across the mill floor
+          const pw = w * 0.03;
+          ctx.fillStyle = '#3d4f5c';
+          ctx.fillRect(x - w * 0.47, y - h, pw, h); ctx.fillRect(x + w * 0.47 - pw, y - h, pw, h);
+          ctx.fillRect(x - w * 0.5, y - h, w, h * 0.05);
+          ctx.strokeStyle = '#3d4f5c'; ctx.lineWidth = Math.max(1, w * 0.006);
+          ctx.beginPath();
+          for (let i = 0; i < 8; i++) { const a = x - w * 0.5 + i * w / 8; ctx.moveTo(a, y - h * 0.95); ctx.lineTo(a + w / 16, y - h * 0.88); ctx.lineTo(a + w / 8, y - h * 0.95); }
+          ctx.stroke();
+          ctx.fillRect(x - w * 0.5, y - h * 0.885, w, h * 0.012);
+          break;
+        }
+        case 'furnace': { // brick furnace with a glowing mouth
+          ctx.fillStyle = '#6b2f1f'; ctx.fillRect(x - w / 2, y - h * 0.7, w, h * 0.7);
+          quad(x - w / 2, y - h * 0.7, x - w * 0.25, y - h, x + w * 0.25, y - h, x + w / 2, y - h * 0.7, '#5a2719');
+          ctx.fillStyle = 'rgba(0,0,0,.18)';
+          for (let r = 1; r < 7; r++) ctx.fillRect(x - w / 2, y - h * 0.1 * r, w, Math.max(0.5, h * 0.008));
+          const flick = 0.8 + Math.sin(time * 9 + x) * 0.2;
+          ctx.fillStyle = `rgba(255,${120 + flick * 60 | 0},40,1)`; rrect(x - w * 0.22, y - h * 0.38, w * 0.44, h * 0.3, w * 0.2);
+          ctx.fillStyle = '#ffe28a'; rrect(x - w * 0.12, y - h * 0.3, w * 0.24, h * 0.18, w * 0.1);
+          pushLight(x, y - h * 0.24, h * 0.5, '255,140,50', flick, false);
+          break;
+        }
+        case 'chimney': {
+          ctx.fillStyle = '#5a2a1c'; quad(x - w * 0.5, y, x - w * 0.32, y - h, x + w * 0.32, y - h, x + w * 0.5, y, '#5a2a1c');
+          ctx.fillStyle = '#3a1a10'; ctx.fillRect(x - w * 0.4, y - h, w * 0.8, h * 0.04);
+          ctx.fillStyle = 'rgba(60,52,48,.55)';
+          for (let i = 0; i < 5; i++) { const t = (time * 0.4 + i * 0.2) % 1; ellipse(x + t * w * 1.2, y - h - t * h * 0.25, w * (0.3 + t * 0.6), w * (0.22 + t * 0.4)); }
+          break;
+        }
+        case 'anvil':
+          ctx.fillStyle = '#2f3438'; ctx.fillRect(x - w * 0.15, y - h * 0.6, w * 0.3, h * 0.6);
+          ctx.beginPath(); ctx.moveTo(x - w * 0.5, y - h * 0.6); ctx.lineTo(x + w * 0.4, y - h * 0.6); ctx.lineTo(x + w * 0.4, y - h);
+          ctx.lineTo(x - w * 0.3, y - h); ctx.quadraticCurveTo(x - w * 0.5, y - h * 0.9, x - w * 0.5, y - h * 0.6); ctx.fill();
+          break;
+        case 'pigiron':
+          for (let i = 0; i < 4; i++) { ctx.fillStyle = i % 2 ? '#5c5c5c' : '#6e6e6e'; ctx.fillRect(x - w / 2 + i * w * 0.05, y - h * (i + 1) * 0.25, w * (1 - i * 0.1), h * 0.22); }
+          break;
+        case 'loom': { // a power loom: wooden frame, warp threads, belt to the line shaft
+          ctx.fillStyle = '#6d4c33';
+          ctx.fillRect(x - w * 0.5, y - h, w * 0.06, h); ctx.fillRect(x + w * 0.44, y - h, w * 0.06, h);
+          ctx.fillRect(x - w * 0.5, y - h, w, h * 0.08); ctx.fillRect(x - w * 0.5, y - h * 0.45, w, h * 0.06);
+          ctx.strokeStyle = 'rgba(240,235,220,.8)'; ctx.lineWidth = Math.max(0.5, w * 0.004);
+          ctx.beginPath(); for (let i = 1; i < 14; i++) { const a = x - w * 0.44 + i * w * 0.063; ctx.moveTo(a, y - h * 0.92); ctx.lineTo(a, y - h * 0.45); } ctx.stroke();
+          ctx.fillStyle = '#f2ece0'; ctx.fillRect(x - w * 0.44, y - h * 0.39, w * 0.88, h * 0.1); // cloth
+          ctx.fillStyle = '#2d2d2d'; const sh = Math.sin(time * 8 + x) * w * 0.35; ctx.fillRect(x + sh - w * 0.05, y - h * 0.5, w * 0.1, h * 0.04); // shuttle
+          break;
+        }
+        case 'bales':
+          for (const [dx, dy] of [[-0.25, 0], [0.25, 0], [0, 0.48]]) {
+            ctx.fillStyle = '#efe8da'; rrect(x + w * dx - w * 0.24, y - h * (dy + 0.48), w * 0.48, h * 0.46, w * 0.04);
+            ctx.fillStyle = '#8a6142'; for (const b of [0.15, 0.3]) ctx.fillRect(x + w * dx - w * 0.24, y - h * (dy + 0.48 - b), w * 0.48, Math.max(0.5, h * 0.03));
+          }
+          break;
+        case 'engine': { // stationary steam engine: cylinder, beam and a spinning flywheel
+          ctx.fillStyle = '#2f3b44'; ctx.fillRect(x - w * 0.45, y - h * 0.35, w * 0.4, h * 0.35);
+          ctx.fillStyle = '#5c6b75'; ctx.fillRect(x - w * 0.42, y - h * 0.9, w * 0.08, h * 0.55);
+          const r = h * 0.38, cx = x + w * 0.2, cy = y - r - h * 0.05, a = time * 4;
+          ctx.strokeStyle = '#2f3b44'; ctx.lineWidth = Math.max(1, r * 0.12);
+          ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+          ctx.lineWidth = Math.max(1, r * 0.06); ctx.beginPath();
+          for (let i = 0; i < 6; i++) { ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a + i * Math.PI / 3) * r, cy + Math.sin(a + i * Math.PI / 3) * r); }
+          ctx.stroke();
+          ctx.fillStyle = 'rgba(255,255,255,.35)'; ellipse(x - w * 0.38, y - h * 0.95 - Math.sin(time * 4) * h * 0.04, w * 0.08, h * 0.05);
+          break;
+        }
+      }
+    },
+
+    // ---------- Checkpoint questions: [topic, prompt, correct, wrong, wrong, why] ----------
+    questions: [
+      ['5.1', 'Natural rights: life, liberty, and property', 'John Locke', 'Thomas Hobbes', 'Karl Marx',
+        'Locke said governments exist to protect natural rights, and people may replace one that fails to.'],
+      ['5.1', 'Split government into three branches', 'Montesquieu', 'Rousseau', 'Voltaire',
+        'Montesquieu\'s separation of powers shaped the U.S. Constitution and later revolutionary charters.'],
+      ['5.1', 'Wrote The Social Contract ("general will")', 'Rousseau', 'Locke', 'Adam Smith',
+        'Rousseau argued that legitimate government comes from the general will of the people.'],
+      ['5.1', 'Defended free speech and religious toleration', 'Voltaire', 'Hobbes', 'Louis XIV',
+        'Voltaire attacked censorship and church power with satire, a model for Enlightenment critics.'],
+      ['5.1', 'Wrote A Vindication of the Rights of Woman', 'Wollstonecraft', 'Olympe de Gouges', 'Queen Victoria',
+        'Mary Wollstonecraft (1792) argued women deserve education and the same natural rights as men.'],
+      ['5.1', 'God as a watchmaker who doesn\'t step in', 'Deism', 'Calvinism', 'Animism',
+        'Deists like Voltaire applied reason to religion: a creator set up natural laws, then let them run.'],
+      ['5.1', 'Knowledge from observation and experiment', 'Empiricism', 'Divine right', 'Mercantilism',
+        'Empiricism grew out of the Scientific Revolution and drove Enlightenment thinking about society.'],
+      ['5.2', 'Revolution that began at the Bastille, 1789', 'French', 'American', 'Haitian',
+        'Storming the Bastille marked the start of the French Revolution against absolute monarchy.'],
+      ['5.2', 'Only slave revolt that founded a nation', 'Haiti', 'Jamaica', 'Brazil',
+        'Enslaved people in Saint-Domingue rose up in 1791 and declared Haiti independent in 1804.'],
+      ['5.2', 'Formerly enslaved leader of the Haitian Revolution', 'Toussaint', 'Bolívar', 'San Martín',
+        'Toussaint Louverture led the revolt and beat French, Spanish, and British armies.'],
+      ['5.2', 'Creole who freed much of northern South America', 'Simón Bolívar', 'Miguel Hidalgo', 'Napoleon',
+        'Bolívar used Enlightenment ideas in the Jamaica Letter and led independence wars from Venezuela to Bolivia.'],
+      ['5.2', 'French charter: "men are born free and equal"', 'Rights of Man', 'Bill of Rights', 'Magna Carta',
+        'The Declaration of the Rights of Man and of the Citizen (1789) put Enlightenment ideas into law.'],
+      ['5.2', 'Priest whose 1810 call began Mexican independence', 'Miguel Hidalgo', 'Benito Juárez', 'Bolívar',
+        'Father Hidalgo\'s "Grito de Dolores" rallied mestizos and Native Mexicans against Spanish rule.'],
+      ['5.2', 'Unified Germany through "blood and iron"', 'Bismarck', 'Garibaldi', 'Metternich',
+        'Otto von Bismarck used wars with Denmark, Austria, and France to unify Germany by 1871.'],
+      ['5.2', 'Led the Red Shirts in Italian unification', 'Garibaldi', 'Bismarck', 'Robespierre',
+        'Garibaldi\'s Red Shirts took southern Italy, which then joined the new Kingdom of Italy.'],
+      ['5.2', 'Loyalty to a people sharing language and culture', 'Nationalism', 'Absolutism', 'Feudalism',
+        'Nationalism drove unification in Italy and Germany and revolts against empires.'],
+      ['5.2', 'Movement for a Jewish homeland in Palestine', 'Zionism', 'Pan-Slavism', 'Deism',
+        'Theodor Herzl\'s Zionism was a nationalist answer to European antisemitism.'],
+      ['5.2', '1848 U.S. meeting that demanded women\'s rights', 'Seneca Falls', 'Versailles', 'Vienna',
+        'The Seneca Falls Declaration borrowed the Declaration of Independence to claim equal rights for women.'],
+      ['5.3', 'Country where industrialization began', 'Great Britain', 'France', 'Japan',
+        'Britain had coal and iron, rivers and ports, capital from trade, and markets in its colonies.'],
+      ['5.3', 'Fuel that ran the first steam engines', 'Coal', 'Petroleum', 'Whale oil',
+        'Britain\'s big coal deposits fed steam engines, ironworks, and later railways.'],
+      ['5.3', 'Fencing off common land pushed farmers to cities', 'Enclosure', 'Encomienda', 'Collectivization',
+        'Enclosure and better farming freed up rural workers, who moved to factory towns.'],
+      ['5.3', 'Improved the steam engine in the 1770s', 'James Watt', 'Eli Whitney', 'Thomas Edison',
+        'Watt\'s engine was efficient enough to power factories, mines, and later trains and ships.'],
+      ['5.3', 'First industry moved into factories', 'Textiles', 'Steel', 'Chemicals',
+        'Cotton spinning and weaving were the first to be mechanized, in water- and steam-powered mills.'],
+      ['5.3', 'Machine that spun many threads at once', 'Spinning jenny', 'Cotton gin', 'Seed drill',
+        'Hargreaves\'s spinning jenny (1760s) multiplied how much thread one worker could make.'],
+      ['5.4', 'Japan\'s era of rapid, state-led industry', 'Meiji', 'Tokugawa', 'Kamakura',
+        'After 1868 the Meiji government built railways, factories, and a modern army to match the West.'],
+      ['5.4', 'Egyptian ruler who built state cotton mills', 'Muhammad Ali', 'Menelik II', 'Mehmed II',
+        'Muhammad Ali tried to industrialize Egypt with state factories, but most efforts faded.'],
+      ['5.4', 'Indian hand-weaving declined because of…', 'British imports', 'Mughal taxes', 'Silk Road trade',
+        'Cheap machine-made British cloth flooded India and ruined many hand weavers.'],
+      ['5.4', 'Russia\'s state-funded railway across Asia', 'Trans-Siberian', 'Cape to Cairo', 'Orient Express',
+        'Russia\'s government paid for the Trans-Siberian Railway to tie its empire together.'],
+      ['5.5', 'Cheap new way to make steel (1850s)', 'Bessemer process', 'Spinning jenny', 'Assembly line',
+        'The Bessemer process made strong steel cheap enough for rails, ships, and skyscrapers.'],
+      ['5.5', 'Sent Morse code over electric wires', 'Telegraph', 'Radio', 'Typewriter',
+        'The telegraph let empires and businesses send messages in minutes instead of weeks.'],
+      ['5.5', 'Steam engines on iron rails', 'Railroads', 'Canals', 'Clipper ships',
+        'Railroads moved raw materials and goods cheaply and fast, speeding industrialization.'],
+      ['5.5', 'Second Industrial Revolution energy source', 'Electricity', 'Wind power', 'Water wheels',
+        'Electricity, along with steel, chemicals, and oil, powered the second wave of industry.'],
+      ['5.6', 'Wrote The Wealth of Nations (1776)', 'Adam Smith', 'Karl Marx', 'John Locke',
+        'Smith argued free markets, not government control, make nations rich.'],
+      ['5.6', 'Government keeps out of the economy', 'Laissez-faire', 'Mercantilism', 'Socialism',
+        '"Let it be": laissez-faire capitalism said supply and demand should run the economy.'],
+      ['5.6', 'Owners of factories and capital', 'Bourgeoisie', 'Proletariat', 'Peasantry',
+        'Marx called the capitalist owning class the bourgeoisie.'],
+      ['5.7', 'Workers who own only their labor', 'Proletariat', 'Bourgeoisie', 'Gentry',
+        'Marx predicted the proletariat would overthrow the bourgeoisie.'],
+      ['5.7', 'Firms that do business in many countries', 'Multinationals', 'Guilds', 'Cooperatives',
+        'Companies like HSBC and Unilever operated across borders and empires.'],
+      ['5.8', 'Co-wrote The Communist Manifesto (1848)', 'Karl Marx', 'Adam Smith', 'J. S. Mill',
+        'Marx and Engels called for workers to overthrow capitalism and share property in common.'],
+      ['5.8', 'Workers organized to bargain for pay and hours', 'Labor unions', 'Guilds', 'Cartels',
+        'Unions used strikes to win shorter hours, safer conditions, and higher pay.'],
+      ['5.8', 'Weavers who smashed machines in protest', 'Luddites', 'Chartists', 'Jacobins',
+        'The Luddites destroyed machines they blamed for taking their jobs and cutting wages.'],
+      ['5.8', 'China\'s effort to borrow Western technology', 'Self-Strengthening', 'Meiji Restoration', 'Tanzimat',
+        'Qing reformers built arsenals and shipyards but would not change China\'s political system.'],
+      ['5.8', 'Ottoman reforms of 1839–1876', 'Tanzimat', 'Meiji Restoration', 'Self-Strengthening',
+        'The Tanzimat reorganized law, schools, and the army along European lines.'],
+      ['5.9', 'New class of managers, clerks, and professionals', 'Middle class', 'Proletariat', 'Nobility',
+        'Industry created a growing middle class with new ideas about family, leisure, and respectability.'],
+      ['5.9', 'British laws that limited child labor', 'Factory Acts', 'Corn Laws', 'Navigation Acts',
+        'Reformers pushed Parliament to cap hours and ban the youngest children from mills and mines.'],
+      ['5.9', 'Movement of people from farms to cities', 'Urbanization', 'Enclosure', 'Imperialism',
+        'Factory towns grew fast, with crowded housing, pollution, and disease.'],
+      ['5.9', 'Women\'s right to vote', 'Suffrage', 'Abolition', 'Tenure',
+        'Suffragists in Britain, the U.S., and New Zealand campaigned for votes for women.'],
+    ],
+  };
+})();
+</script>
+<script src="lane-runner.js"></script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js"></script>
+</body>
+</html>

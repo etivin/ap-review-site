@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 7 Front Line: Checkpoint Advance</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lane-runner.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="./">AP WORLD // <b>FRONT LINE</b></a>
+  <div class="links"><a href="unit7.html">← Unit 7 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 7 · Global Conflict · c. 1900 – present</div>
+  <h1>Front Line: Checkpoint Advance</h1>
+  <p class="sub">Drive a tank across the battlefields of the world wars: the mud of the Western Front, the deserts of North Africa, and the snows of the Eastern Front. Every few seconds a <b>checkpoint question</b> appears at the top of the screen and a gate of three answer banners rises over the road, <b>switch into the lane with the right answer</b>. Right answers earn power-ups; wrong ones cost a strike and show you the real answer.</p>
+
+  <div class="how">
+    <div class="card"><b>Switch lanes</b><span><span class="k">← →</span>hop one lane per press (A/D, or swipe/tap on touch). <span class="k">SPACE</span>start, or pause during a run. The tank drives itself and picks up speed the longer you last.</span></div>
+    <div class="card"><b>Pick your lane</b><span>Read the question, then be in the <strong>left, middle, or right</strong> lane as you pass the gate.</span></div>
+    <div class="card"><b>Dodge &amp; collect</b><span>Steer around <strong>barbed wire, tank traps, and parked supply trucks</strong>, and the odd truck driving ahead of you; grab trails of medals as they hop lanes. Pickups: <strong>shield</strong>, <strong>×2</strong>, <strong>coin magnet</strong>, and the uncommon <strong>airship lift</strong> (10s carried over the battlefield: no hazards, no gates). Correct answers also earn a power-up; three in a row = a guaranteed shield.</span></div>
+    <div class="card"><b>3 strikes · 2 bumps</b><span>A wrong gate costs a strike (−1 ♥); lose all three and you have to retreat. Hitting something slows you down and leaves the tank <strong>damaged for 10s</strong>, hit another while damaged and you're knocked out.</span></div>
+  </div>
+
+  <div class="play">
+    <div>
+      <div class="stage" id="stage">
+        <canvas id="game" width="800" height="500"></canvas>
+        <div class="ctrls"><button type="button" id="pauseBtn">&#10074;&#10074; Pause (Space)</button><button type="button" id="fsBtn">&#9974; Full screen</button></div>
+      </div>
+      <div class="keys">Tip: click the game first so the arrow keys switch lanes instead of scrolling the page.</div>
+    </div>
+    <div class="notes">
+      <h3>Checkpoint Log</h3>
+      <div class="feed" id="feed"></div>
+      <div class="notes-foot" id="notesFoot">Checkpoints: 0 / 0 correct</div>
+    </div>
+  </div>
+
+  <div class="foot">Content from AP World History: Modern, Unit 7 (c. 1900–present). A study tool, not an official College Board product.</div>
+</div>
+
+<script>
+// ---------- Front Line: the look of the battlefields, and the Unit 7 questions (engine: lane-runner.js) ----------
+(function () {
+  const HILLS = { 'Western Front': [92, 80, 62], 'North Africa': [196, 160, 104], 'Eastern Front': [210, 218, 224] };
+
+  window.RUNNER = {
+    key: 'u7TankBest', activity: 'tank',
+    title: 'FRONT LINE', unitLine: 'Unit 7 · Global Conflict',
+    overStrikes: 'RETREAT!', overCrash: 'KNOCKED OUT!', again: 'roll again',
+    speedUnit: 'KM/H', speedTop: 40,
+    fly: { label: 'AIRSHIP LIFT', hud: 'AIRSHIP LIFT', land: 'TOUCHDOWN', menu: 'Airship lift' },
+    text: { hit: 'ARMOR HIT! SLOW DOWN', next: 'Next hit = knocked out', ram: 'FLATTENED', repaired: 'REPAIRED' },
+    coin: { rim: '#8d6e1f', face: '#e0b84a', shine: '#fff3c4', light: '240,200,90' },
+    gatePost: '#4a4a3a', postColor: '#4a4a3a', tilt: 0.05,
+    // grayer, smokier skies than the default day / dusk / night / dawn cycle
+    kf: [
+      { top: '#6f8aa8', bottom: '#c9cfd2', fog: '#c2c4bf', far: '#8a8c86', near: '#5f6152', cloud: '#e4e4e0', sun: '#fff0c8', sunY: 0.7, dark: 0.02, stars: 0 },
+      { top: '#3c3a5a', bottom: '#d98c5f', fog: '#c99a7c', far: '#6d5a62', near: '#3f3a3a', cloud: '#c79a8a', sun: '#ffc27a', sunY: 0.1, dark: 0.15, stars: 0.15 },
+      { top: '#05070f', bottom: '#1e2433', fog: '#1d2230', far: '#1f2330', near: '#14161e', cloud: '#3a3e4a', sun: '#ffd27a', sunY: -0.4, dark: 0.5, stars: 1 },
+      { top: '#5a6c8c', bottom: '#e6c7a8', fog: '#d8c6b4', far: '#8f8c90', near: '#5c6058', cloud: '#e8d8cc', sun: '#ffe1a8', sunY: 0.15, dark: 0.08, stars: 0.25 },
+    ],
+    biomes: [
+      { name: 'Western Front', open: ['#5c4a36', '#574631'], edge: ['#4a3b2b', '#463828'], lane: ['#6b5841', '#66543e'], sprites: ['deadtree', 'crater', 'sandbags', 'deadtree', 'ruin', 'crater'] },
+      { name: 'North Africa', open: ['#d8b67a', '#d1af73'], edge: ['#c4a067', '#bd9a62'], lane: ['#c9a66c', '#c3a067'], sprites: ['dune', 'palm', 'dune', 'fort', 'crater', 'dune'] },
+      { name: 'Eastern Front', open: ['#e9eef1', '#e0e6ea'], edge: ['#a5a39e', '#9f9d98'], lane: ['#bab7b0', '#b4b1aa'], sprites: ['birch', 'ruin', 'birch', 'sandbags', 'birch', 'crater'] },
+    ],
+    sprites: {
+      deadtree: { w: 900, h: 1900 }, crater: { w: 1600, h: 350 }, sandbags: { w: 1800, h: 600 }, ruin: { w: 2000, h: 1700 },
+      dune: { w: 3200, h: 900 }, palm: { w: 1000, h: 1800 }, fort: { w: 2600, h: 1300 }, birch: { w: 700, h: 2000 },
+      post: { w: 140, h: 380 },
+    },
+    billboards: ['SARAJEVO 1914', 'TRENCH WARFARE', 'TOTAL WAR', 'VERSAILLES 1919', 'LEAGUE OF NATIONS', 'GREAT DEPRESSION',
+      'NEW DEAL', 'BLITZKRIEG', 'PEARL HARBOR', 'D-DAY 1944', 'STALINGRAD', 'SALT MARCH 1930', 'FIVE-YEAR PLAN', 'MAY FOURTH 1919'],
+    boardColors: ['#5a5a2e', '#6b3a2a', '#2f4a5a', '#4a3a2a', '#3d4f3d'],
+    hazards: [
+      { kind: 'wire', w: 560, h: 260, still: true, colors: ['#5a5550', '#4e4a45'] },
+      { kind: 'hedgehog', w: 420, h: 340, still: true, colors: ['#2b2d31', '#303338', '#26282c'] },
+      { kind: 'truck', w: 480, h: 520, speed: [0.3, 0.55], colors: ['#34452a', '#2e3b45', '#3b3b3b'] },
+    ],
+    breakable: ['wire', 'hedgehog'],
+    debris: ['#4a4d52', '#6b5841', '#8a8580', '#3a3530'],
+    player: { kind: 'tank', w: 560, h: 380, color: '#55602f' },
+
+    decorate(seg) {
+      const n = seg.index;
+      if (n % 12 === 6) seg.sprites.push({ type: 'post', offset: -1 / 3 }, { type: 'post', offset: 1 / 3 }); // route marker stakes on the lane lines
+      if (Math.random() < 0.13) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(1.5, 3.2) });
+      if (Math.random() < 0.09) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(3.2, 7) });
+    },
+
+    drawBackground(pal) {
+      skyBase(pal, { cloudA: 0.7 });
+      const b = findSeg(position + PLAYER_Z).biome, hill = HILLS[b.name];
+      drawRange(FAR, bgFar, HORIZON + 6, pal.far, mix(pal.far, pal.fog, 0.35), 0.6);
+      drawRange(NEAR, bgNear, HORIZON + 6, mix(hill, [0, 0, 0], pal.dark * 0.6), mix(hill, pal.fog, 0.4), 0.5);
+      // far-off smoke columns and flashes on the horizon
+      for (let i = 0; i < 3; i++) {
+        const span = W + 200, sx = ((i * 290 + 80 - bgFar * 1.2) % span + span) % span - 100;
+        ctx.fillStyle = 'rgba(70,66,62,.35)';
+        for (let j = 0; j < 5; j++) ellipse(sx + j * 6 + Math.sin(time * 0.5 + j) * 4, HORIZON - j * 16, 10 + j * 5, 8 + j * 3);
+        if (Math.sin(time * 1.7 + i * 2.3) > 0.97) pushLight(sx, HORIZON - 4, 60, '255,190,110', 1);
+      }
+      groundFill(b.open[0], pal);
+    },
+    segExtra(seg, p1, p2) { // tank-track ruts down the middle of each lane
+      if (p1.y - p2.y < 0.25 || seg.index % 2) return;
+      for (let l = 0; l < 3; l++) for (const s of [-1, 1]) {
+        const c1 = p1.x + (LANE_X[l] + s * 0.1) * p1.w, c2 = p2.x + (LANE_X[l] + s * 0.1) * p2.w, w1 = p1.w * 0.035, w2 = p2.w * 0.035;
+        quad(c1 - w1, p1.y, c1 + w1, p1.y, c2 + w2, p2.y, c2 - w2, p2.y, 'rgba(0,0,0,.12)');
+      }
+    },
+
+    wake() { // dust or mud kicked up by the tracks, and exhaust
+      if (flyLift > 0.05) return;
+      const b = findSeg(position + PLAYER_Z).biome.name;
+      const dirt = b === 'North Africa' ? ['#e6cc9a', '#d8b67a'] : b === 'Eastern Front' ? ['#ffffff', '#e8eef2'] : ['#6b5841', '#5c4a36'];
+      if (Math.random() < 0.6) {
+        const side = Math.random() < 0.5 ? -1 : 1;
+        burst(W / 2 + side * PW * rand(0.32, 0.46), H - 16, 1, { speed: 50, life: 0.5, size: 5, colors: dirt, up: -60, grow: 1.5, g: 200 });
+      }
+      if (Math.random() < 0.15) burst(W / 2 + PW * 0.3, H - 14 - PH * 0.55, 1, { speed: 15, life: 0.9, size: 5, colors: ['#555', '#666'], up: -50, grow: 2 });
+    },
+    bounce() { return Math.sin(time * 14) * (speed / MAX_SPEED) * 1.1; },
+
+    // the airship lift: cables up to a zeppelin overhead
+    drawFly(x, y, f) {
+      ctx.globalAlpha = f;
+      const top = y - PH - 120;
+      ctx.strokeStyle = 'rgba(40,40,40,.8)'; ctx.lineWidth = 2;
+      ctx.beginPath(); for (const s of [-1, 1]) { ctx.moveTo(x + s * PW * 0.35, y - PH * 0.5); ctx.lineTo(x + s * 30, top + 30); } ctx.stroke();
+      const g = ctx.createLinearGradient(0, top - 50, 0, top + 30);
+      g.addColorStop(0, '#d0d3d6'); g.addColorStop(1, '#8a9096');
+      ctx.fillStyle = g; ellipse(x, top, PW * 0.9, 42);
+      ctx.fillStyle = 'rgba(0,0,0,.15)'; for (const s of [-0.4, 0, 0.4]) ctx.fillRect(x + s * PW - 1, top - 40, 2, 80);
+      ctx.fillStyle = '#5a5f3a'; rrect(x - 26, top + 34, 52, 14, 4);
+      ctx.globalAlpha = 1;
+    },
+
+    drawVehicle(x, y, k, v, isPlayer, lightA) {
+      const w = v.w * k, h = v.h * k;
+      if (w < 1.5) return;
+      if (!(isPlayer && flyLift > 0)) { ctx.fillStyle = 'rgba(0,0,0,.3)'; ellipse(x, y, w * 0.55, Math.max(1, w * 0.06)); }
+      if (v.kind === 'wire') { // barbed wire strung on crossed stakes
+        ctx.strokeStyle = '#1f160e'; ctx.lineWidth = Math.max(1, w * 0.03);
+        ctx.beginPath();
+        for (const s of [-0.4, 0, 0.4]) { ctx.moveTo(x + w * (s - 0.08), y); ctx.lineTo(x + w * (s + 0.08), y - h); ctx.moveTo(x + w * (s + 0.08), y); ctx.lineTo(x + w * (s - 0.08), y - h); }
+        ctx.stroke();
+        ctx.strokeStyle = '#e8ebef'; ctx.lineWidth = Math.max(1, w * 0.016);
+        for (const r of [0.3, 0.6, 0.85]) {
+          ctx.beginPath(); ctx.moveTo(x - w * 0.5, y - h * r);
+          for (let i = 1; i <= 10; i++) ctx.lineTo(x - w * 0.5 + i * w * 0.1, y - h * r + (i % 2 ? -h * 0.08 : h * 0.08));
+          ctx.stroke();
+        }
+        return;
+      }
+      if (v.kind === 'hedgehog') { // a steel tank trap: three crossed girders
+        ctx.strokeStyle = v.color; ctx.lineWidth = Math.max(1, w * 0.08); ctx.lineCap = 'square';
+        ctx.beginPath();
+        ctx.moveTo(x - w * 0.45, y); ctx.lineTo(x + w * 0.35, y - h);
+        ctx.moveTo(x + w * 0.45, y); ctx.lineTo(x - w * 0.35, y - h);
+        ctx.stroke();
+        ctx.strokeStyle = v.light; ctx.beginPath(); ctx.moveTo(x, y - h * 0.05); ctx.lineTo(x, y - h * 0.95); ctx.stroke();
+        ctx.lineCap = 'butt';
+        return;
+      }
+      if (v.kind === 'truck') { // a canvas-covered supply truck from behind
+        ctx.fillStyle = '#1b1b1b'; for (const s of [-1, 1]) rrect(x + s * w * 0.33 - w * 0.08, y - h * 0.16, w * 0.16, h * 0.16, w * 0.03);
+        ctx.fillStyle = v.dark; ctx.fillRect(x - w * 0.46, y - h * 0.3, w * 0.92, h * 0.14);
+        const g = ctx.createLinearGradient(0, y - h, 0, y - h * 0.3);
+        g.addColorStop(0, v.light); g.addColorStop(1, v.color);
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.moveTo(x - w * 0.46, y - h * 0.3); ctx.lineTo(x - w * 0.46, y - h * 0.8);
+        ctx.quadraticCurveTo(x, y - h * 1.05, x + w * 0.46, y - h * 0.8); ctx.lineTo(x + w * 0.46, y - h * 0.3); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(x - w * 0.3, y - h * 0.72, w * 0.6, h * 0.4); // open tailgate
+        ctx.fillStyle = '#7a5236'; for (const d of [-0.18, 0.02, 0.2]) ctx.fillRect(x + w * d - w * 0.08, y - h * 0.45, w * 0.16, h * 0.13); // crates
+        ctx.fillStyle = '#c62828'; for (const s of [-1, 1]) circle(x + s * w * 0.4, y - h * 0.24, Math.max(0.5, w * 0.025));
+        pushLight(x, y - h * 0.24, w * 0.6, '255,80,60', lightA * 0.5, true);
+        return;
+      }
+      // the player's tank from behind: tracks, hull, engine deck, and the turret with its gun pointing ahead
+      const hullTop = y - h * 0.55;
+      for (const s of [-1, 1]) { // tracks with moving treads
+        const tx = x + s * w * 0.38;
+        ctx.fillStyle = '#2a2a24'; rrect(tx - w * 0.13, y - h * 0.5, w * 0.26, h * 0.5, w * 0.06);
+        ctx.fillStyle = '#44443a';
+        const off = (time * speed / 200) % 1;
+        for (let i = 0; i < 5; i++) ctx.fillRect(tx - w * 0.11, y - h * 0.48 + ((i + off) % 5) * h * 0.095, w * 0.22, Math.max(0.5, h * 0.03));
+      }
+      const g = ctx.createLinearGradient(0, hullTop, 0, y - h * 0.08);
+      g.addColorStop(0, v.light); g.addColorStop(0.6, v.color); g.addColorStop(1, v.dark);
+      ctx.fillStyle = g; rrect(x - w * 0.28, hullTop, w * 0.56, h * 0.47, w * 0.03); // hull
+      ctx.fillStyle = 'rgba(0,0,0,.25)'; for (let i = 0; i < 4; i++) ctx.fillRect(x - w * 0.2, hullTop + h * (0.07 + i * 0.06), w * 0.4, Math.max(0.5, h * 0.015)); // engine grille
+      ctx.fillStyle = '#3a3a30'; for (const s of [-1, 1]) ctx.fillRect(x + s * w * 0.18 - w * 0.025, hullTop + h * 0.32, w * 0.05, h * 0.1); // exhausts
+      ctx.fillStyle = '#ffffff'; ctx.font = `900 ${Math.max(6, Math.round(h * 0.11))}px Lato, system-ui, sans-serif`; ctx.textAlign = 'center';
+      ctx.fillText('7', x, hullTop + h * 0.4); ctx.textAlign = 'left';
+      const a0 = ctx.globalAlpha; ctx.globalAlpha = a0 * 0.6; // the turret is see-through so the lane ahead stays visible
+      ctx.fillStyle = v.color; ctx.beginPath(); ctx.ellipse(x, hullTop, w * 0.22, h * 0.24, 0, Math.PI, 0); ctx.fill(); // turret
+      ctx.fillStyle = v.dark; ctx.fillRect(x - w * 0.03, hullTop - h * 0.42, w * 0.06, h * 0.22); // gun barrel, foreshortened
+      ctx.fillStyle = v.light; ctx.fillRect(x - w * 0.08, hullTop - h * 0.32, w * 0.06, h * 0.06); // hatch
+      ctx.globalAlpha = a0;
+      ctx.fillStyle = '#ff5a3c'; for (const s of [-1, 1]) circle(x + s * w * 0.24, hullTop + h * 0.08, Math.max(0.6, w * 0.018));
+      pushLight(x, hullTop + h * 0.08, w * 0.5, '255,90,60', 0.6, true);
+    },
+
+    drawSprite(s, x, y, k, seg, w, h) {
+      switch (s.type) {
+        case 'deadtree':
+          ctx.strokeStyle = '#3a2f26'; ctx.lineCap = 'round';
+          ctx.lineWidth = Math.max(1, w * 0.08); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + w * 0.05, y - h); ctx.stroke();
+          ctx.lineWidth = Math.max(0.5, w * 0.03); ctx.beginPath();
+          ctx.moveTo(x + w * 0.02, y - h * 0.6); ctx.lineTo(x - w * 0.3, y - h * 0.85);
+          ctx.moveTo(x + w * 0.04, y - h * 0.75); ctx.lineTo(x + w * 0.35, y - h * 0.95); ctx.stroke();
+          ctx.lineCap = 'butt';
+          break;
+        case 'crater':
+          ctx.fillStyle = 'rgba(0,0,0,.35)'; ellipse(x, y, w * 0.5, h * 0.4);
+          ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.beginPath(); ctx.ellipse(x, y - h * 0.1, w * 0.5, h * 0.4, 0, Math.PI, 0); ctx.fill();
+          break;
+        case 'sandbags':
+          for (let r = 0; r < 3; r++) for (let i = 0; i < 6 - r; i++) {
+            ctx.fillStyle = (i + r) % 2 ? '#a89a76' : '#9a8c6a';
+            rrect(x - w * 0.5 + (i + r * 0.5) * w / 6, y - h * (r + 1) / 3, w / 6 * 0.95, h / 3 * 0.92, w * 0.03);
+          }
+          break;
+        case 'ruin': { // a shell-broken house wall with empty windows
+          ctx.fillStyle = '#8a7f73';
+          ctx.beginPath(); ctx.moveTo(x - w / 2, y); ctx.lineTo(x - w / 2, y - h * 0.7); ctx.lineTo(x - w * 0.2, y - h);
+          ctx.lineTo(x, y - h * 0.62); ctx.lineTo(x + w * 0.15, y - h * 0.75); ctx.lineTo(x + w / 2, y - h * 0.4); ctx.lineTo(x + w / 2, y); ctx.closePath(); ctx.fill();
+          ctx.fillStyle = '#2b2622'; for (const [dx, dy] of [[-0.35, 0.55], [-0.12, 0.55], [0.15, 0.35], [-0.35, 0.25]]) ctx.fillRect(x + w * dx, y - h * dy, w * 0.13, h * 0.16);
+          break;
+        }
+        case 'dune':
+          ctx.fillStyle = '#cfa96a'; ctx.beginPath(); ctx.moveTo(x - w / 2, y); ctx.quadraticCurveTo(x - w * 0.1, y - h * 1.3, x + w / 2, y); ctx.fill();
+          ctx.fillStyle = 'rgba(120,80,30,.18)'; ctx.beginPath(); ctx.moveTo(x - w * 0.05, y - h * 0.62); ctx.quadraticCurveTo(x + w * 0.2, y - h * 0.4, x + w / 2, y); ctx.lineTo(x, y); ctx.fill();
+          break;
+        case 'palm': {
+          const tx = x + w * 0.1, ty = y - h * 0.88;
+          ctx.strokeStyle = '#7a5c44'; ctx.lineWidth = Math.max(1, w * 0.07);
+          ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + w * 0.25, y - h * 0.5, tx, ty); ctx.stroke();
+          ctx.fillStyle = '#4f7a34';
+          for (const a of [-3.0, -2.5, -2.0, -1.1, -0.6, -0.1]) { ctx.save(); ctx.translate(tx, ty); ctx.rotate(a); ellipse(w * 0.26, w * 0.03, w * 0.28, w * 0.06); ctx.restore(); }
+          break;
+        }
+        case 'fort': // a desert fort with crenellated walls
+          ctx.fillStyle = '#c9a77a'; ctx.fillRect(x - w / 2, y - h * 0.6, w, h * 0.6);
+          ctx.fillRect(x - w * 0.15, y - h, w * 0.3, h);
+          ctx.fillStyle = '#b8966a'; for (let i = 0; i < 8; i++) ctx.fillRect(x - w / 2 + i * w / 8, y - h * 0.68, w / 16, h * 0.08);
+          ctx.fillStyle = '#4a3a2a'; ctx.fillRect(x - w * 0.06, y - h * 0.3, w * 0.12, h * 0.3);
+          break;
+        case 'birch':
+          ctx.fillStyle = '#efefe9'; ctx.fillRect(x - w * 0.05, y - h, w * 0.1, h);
+          ctx.fillStyle = '#333'; for (let i = 1; i < 8; i++) ctx.fillRect(x - w * 0.05, y - h * i * 0.12, w * 0.06, Math.max(0.5, h * 0.01));
+          ctx.fillStyle = 'rgba(255,255,255,.9)'; ellipse(x, y - h * 0.8, w * 0.35, h * 0.16);
+          break;
+        case 'post': // a plain wooden route-marker stake with a white tip (no red: red is kept for hazards)
+          ctx.fillStyle = '#7a5c3e'; ctx.fillRect(x - w * 0.2, y - h * 0.8, w * 0.4, h * 0.8);
+          ctx.fillStyle = '#f2f2f2'; ctx.fillRect(x - w * 0.2, y - h * 0.8, w * 0.4, h * 0.15);
+          break;
+      }
+    },
+
+    // ---------- Checkpoint questions: [topic, prompt, correct, wrong, wrong, why] ----------
+    questions: [
+      ['7.1', 'Last Chinese dynasty, overthrown in 1911', 'Qing', 'Ming', 'Song',
+        'Sun Yat-sen\'s revolutionaries ended 2,000 years of imperial rule and declared a republic.'],
+      ['7.1', 'Revolution that toppled the tsar in 1917', 'Russian', 'Mexican', 'Chinese',
+        'War losses and food shortages brought down Nicholas II; Lenin\'s Bolsheviks took power that fall.'],
+      ['7.1', 'Dictator overthrown by Mexico\'s 1910 revolution', 'Porfirio Díaz', 'Santa Anna', 'Benito Juárez',
+        'Díaz favored foreign investors and big landowners; Zapata and Villa fought for land reform.'],
+      ['7.1', 'Empire that collapsed after WWI, leaving Turkey', 'Ottoman', 'Mughal', 'Qing',
+        'The Ottoman Empire lost its Arab lands after WWI, and the Turkish Republic rose from its core.'],
+      ['7.1', 'Founder of the secular Turkish Republic', 'Atatürk', 'Nasser', 'Reza Shah',
+        'Mustafa Kemal Atatürk westernized Turkey: new alphabet, secular law, and women\'s suffrage.'],
+      ['7.2', 'Assassination in Sarajevo that sparked WWI', 'Franz Ferdinand', 'Nicholas II', 'Kaiser Wilhelm',
+        'A Serbian nationalist killed Austria-Hungary\'s heir, and the alliance system pulled Europe into war.'],
+      ['7.2', 'Causes of WWI: Militarism, Alliances, Imperialism, and…', 'Nationalism', 'Neutrality', 'Nihilism',
+        'M.A.I.N.: Militarism, Alliances, Imperialism, and Nationalism.'],
+      ['7.2', 'Germany, Austria-Hungary, Ottomans in WWI', 'Central Powers', 'Triple Entente', 'Axis',
+        'The Central Powers fought the Allies (Britain, France, Russia, later the U.S.).'],
+      ['7.2', 'Prewar pact of Britain, France, and Russia', 'Triple Entente', 'Triple Alliance', 'Warsaw Pact',
+        'Rival alliance blocs turned a regional crisis into a world war.'],
+      ['7.3', 'Fighting from long ditches on the Western Front', 'Trench warfare', 'Blitzkrieg', 'Guerrilla war',
+        'Machine guns and artillery made attacks deadly, so armies dug in for years of stalemate.'],
+      ['7.3', 'Whole society mobilized for war', 'Total war', 'Cold war', 'Appeasement',
+        'Governments ran economies, rationed food, drafted men, and brought women into factories.'],
+      ['7.3', 'Liner sunk by a German U-boat in 1915', 'Lusitania', 'Titanic', 'Bismarck',
+        'Unrestricted submarine warfare angered the U.S. and helped pull it into the war in 1917.'],
+      ['7.3', 'Troops from Australia and New Zealand', 'ANZAC', 'Sepoys', 'Askari',
+        'ANZAC forces fought at Gallipoli; empires drew soldiers from colonies and dominions.'],
+      ['7.3', 'India sent over a million soldiers to fight for…', 'Britain', 'Germany', 'Russia',
+        'Colonial troops fought for their empires, and many expected more self-rule in return.'],
+      ['7.3', 'German note urging Mexico to attack the U.S.', 'Zimmermann Note', 'Balfour Declaration', 'Fourteen Points',
+        'The intercepted Zimmermann Telegram (1917) helped push the U.S. into WWI.'],
+      ['7.4', 'Worldwide slump after the 1929 crash', 'Great Depression', 'Dust Bowl', 'Long Depression',
+        'Bank failures and collapsing trade spread from the U.S. across the world economy.'],
+      ['7.4', 'FDR\'s jobs and relief programs', 'New Deal', 'Five-Year Plan', 'Marshall Plan',
+        'The New Deal expanded government\'s role in the economy, following Keynes\'s ideas.'],
+      ['7.4', 'Stalin\'s crash program of state industry', 'Five-Year Plans', 'New Deal', 'Great Leap Forward',
+        'The USSR built heavy industry fast through central planning, at enormous human cost.'],
+      ['7.4', 'Lenin\'s mix of small private trade and state control', 'NEP', 'Five-Year Plan', 'New Deal',
+        'The New Economic Policy let peasants sell surplus grain to revive the economy after civil war.'],
+      ['7.4', 'Economist: government spending fights depressions', 'Keynes', 'Adam Smith', 'Marx',
+        'John Maynard Keynes argued governments should spend to create demand during downturns.'],
+      ['7.4', 'One-party rule with extreme nationalism (Mussolini)', 'Fascism', 'Liberalism', 'Anarchism',
+        'Fascists in Italy and Germany promised order and national glory during the Depression.'],
+      ['7.4', 'Stalin\'s forced merging of peasant farms', 'Collectivization', 'Enclosure', 'Land reform',
+        'Collectivization took land from peasants and caused famine, especially in Ukraine.'],
+      ['7.5', '1919 treaty that blamed Germany for WWI', 'Versailles', 'Brest-Litovsk', 'Tordesillas',
+        'Harsh reparations and the war-guilt clause fed German anger that Hitler exploited.'],
+      ['7.5', 'Wilson\'s plan for peace and self-determination', 'Fourteen Points', 'New Deal', 'Truman Doctrine',
+        'Colonized peoples hoped self-determination applied to them; mostly it did not.'],
+      ['7.5', 'Former Ottoman lands run by Britain and France', 'Mandates', 'Dominions', 'Satellites',
+        'The League of Nations handed Syria, Iraq, and Palestine to Britain and France as mandates.'],
+      ['7.5', 'Gandhi\'s nonviolent resistance', 'Satyagraha', 'Jihad', 'Blitzkrieg',
+        'Satyagraha ("truth force") used boycotts and civil disobedience against British rule.'],
+      ['7.5', 'Gandhi\'s 1930 protest against the British tax', 'Salt March', 'Long March', 'March on Rome',
+        'Gandhi walked 240 miles to the sea to make salt, defying Britain\'s salt monopoly.'],
+      ['7.5', '1919 Chinese protest against the Versailles deal', 'May Fourth', 'Boxer', 'Tiananmen',
+        'Students protested giving German rights in China to Japan; the movement fed Chinese nationalism.'],
+      ['7.5', 'Body formed after WWI to keep the peace', 'League of Nations', 'United Nations', 'NATO',
+        'The League was weak: the U.S. never joined and it could not stop aggression in the 1930s.'],
+      ['7.6', 'Letting Hitler take the Sudetenland to avoid war', 'Appeasement', 'Containment', 'Détente',
+        'Britain and France gave in at Munich (1938); Hitler took the rest of Czechoslovakia anyway.'],
+      ['7.6', 'Germany\'s "lightning war" of tanks and planes', 'Blitzkrieg', 'Trench war', 'Island hopping',
+        'Fast tank and air attacks overran Poland and France in weeks.'],
+      ['7.6', 'Japan\'s 1941 attack on the U.S. fleet', 'Pearl Harbor', 'Midway', 'Okinawa',
+        'The surprise attack brought the U.S. into WWII.'],
+      ['7.6', 'Region of China that Japan seized in 1931', 'Manchuria', 'Tibet', 'Taiwan',
+        'Japan wanted Manchuria\'s raw materials; the League of Nations failed to stop it.'],
+      ['7.6', 'African country Italy invaded in 1935', 'Ethiopia', 'Egypt', 'Kenya',
+        'Mussolini avenged Adwa; the League\'s weak response showed it could not stop aggression.'],
+      ['7.6', 'U.S. strategy of taking key Pacific islands', 'Island hopping', 'Blitzkrieg', 'Containment',
+        'U.S. forces captured chosen islands to move bombers within range of Japan.'],
+      ['7.6', 'Allied landing in Normandy, June 1944', 'D-Day', 'Dunkirk', 'Stalingrad',
+        'D-Day opened a western front in France against Nazi Germany.'],
+      ['7.6', 'City hit by the first atomic bomb (1945)', 'Hiroshima', 'Nagasaki', 'Tokyo',
+        'Hiroshima, then Nagasaki three days later; Japan surrendered soon after.'],
+      ['7.6', 'Battle that turned the tide on the Eastern Front', 'Stalingrad', 'Verdun', 'The Somme',
+        'The Soviet victory at Stalingrad (1943) began the push west toward Berlin.'],
+      ['7.7', 'Nazi murder of six million Jews', 'The Holocaust', 'Holodomor', 'Great Purge',
+        'Nazi Germany systematically killed Jews, Roma, disabled people, and others in camps and mass shootings.'],
+      ['7.7', 'Famine in Soviet Ukraine caused by Stalin\'s policies', 'Holodomor', 'The Holocaust', 'Great Leap',
+        'Grain seizures during collectivization caused millions of deaths in Ukraine (1932–33).'],
+      ['7.7', 'Ottoman deportations and massacres of 1915 targeted…', 'Armenians', 'Hungarians', 'Persians',
+        'The Armenian Genocide killed over a million Armenians during WWI.'],
+      ['7.7', 'Japanese army\'s 1937 massacre in China\'s capital', 'Nanjing', 'Manila', 'Seoul',
+        'Japanese troops killed and assaulted hundreds of thousands of civilians in Nanjing.'],
+      ['7.8', 'Posters and films to rally support for war', 'Propaganda', 'Appeasement', 'Isolationism',
+        'Governments used propaganda to recruit soldiers, sell bonds, and demonize the enemy.'],
+    ],
+  };
+})();
+</script>
+<script src="lane-runner.js"></script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js"></script>
+</body>
+</html>

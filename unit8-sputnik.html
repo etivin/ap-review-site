@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 8 Space Race: Checkpoint Orbit</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lane-runner.css">
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="./">AP WORLD // <b>SPACE RACE</b></a>
+  <div class="links"><a href="unit8.html">← Unit 8 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 8 · Cold War &amp; Decolonization · c. 1900 – present</div>
+  <h1>Space Race: Checkpoint Orbit</h1>
+  <p class="sub">Fly Sputnik, the first satellite (1957), along three orbital lanes: low over the Earth, out past the Moon, and into deep space. Every few seconds a <b>checkpoint question</b> appears at the top of the screen and a gate of three answer banners rises ahead, <b>switch into the orbit with the right answer</b>. Right answers earn power-ups; wrong ones cost a strike and show you the real answer.</p>
+
+  <div class="how">
+    <div class="card"><b>Switch orbits</b><span><span class="k">← →</span>hop one lane per press (A/D, or swipe/tap on touch). <span class="k">SPACE</span>start, or pause during a run. Sputnik flies itself and picks up speed the longer you last.</span></div>
+    <div class="card"><b>Pick your orbit</b><span>Read the question, then be in the <strong>left, middle, or right</strong> lane as you pass the gate.</span></div>
+    <div class="card"><b>Dodge &amp; collect</b><span>Steer around <strong>asteroids, space junk, and drifting rocket stages</strong>, and the odd rocket flying ahead of you; grab trails of gold as they hop lanes. Pickups: <strong>shield</strong>, <strong>×2</strong>, <strong>coin magnet</strong>, and the uncommon <strong>booster burn</strong> (10s boosted into a higher orbit: no hazards, no gates). Correct answers also earn a power-up; three in a row = a guaranteed shield.</span></div>
+    <div class="card"><b>3 strikes · 2 bumps</b><span>A wrong gate costs a strike (−1 ♥); lose all three and the mission is over. Hitting something slows you down and leaves Sputnik <strong>damaged for 10s</strong>, hit another while damaged and the signal is lost.</span></div>
+  </div>
+
+  <div class="play">
+    <div>
+      <div class="stage" id="stage">
+        <canvas id="game" width="800" height="500"></canvas>
+        <div class="ctrls"><button type="button" id="pauseBtn">&#10074;&#10074; Pause (Space)</button><button type="button" id="fsBtn">&#9974; Full screen</button></div>
+      </div>
+      <div class="keys">Tip: click the game first so the arrow keys switch lanes instead of scrolling the page.</div>
+    </div>
+    <div class="notes">
+      <h3>Checkpoint Log</h3>
+      <div class="feed" id="feed"></div>
+      <div class="notes-foot" id="notesFoot">Checkpoints: 0 / 0 correct</div>
+    </div>
+  </div>
+
+  <div class="foot">Content from AP World History: Modern, Unit 8 (c. 1900–present). A study tool, not an official College Board product.</div>
+</div>
+
+<script>
+// ---------- Space Race: the look of orbit and deep space, and the Unit 8 questions (engine: lane-runner.js) ----------
+(function () {
+  const SKY = { // backdrop per biome: earth = Earth's curve on the horizon, moon = the Moon overhead, nebula = deep-space glow
+    'Low Orbit': { earth: 1, moon: 0, nebula: 0 },
+    'Lunar Orbit': { earth: 0, moon: 1, nebula: 0 },
+    'Deep Space': { earth: 0, moon: 0, nebula: 1 },
+  };
+  const DUST = Array.from({ length: 220 }, () => ({ x: Math.random() * 800, y: Math.random() * 500, r: Math.random() < 0.1 ? 1.6 : 0.9, tw: 1 + Math.random() * 3, ph: Math.random() * 6 }));
+
+  window.RUNNER = {
+    key: 'u8SputnikBest', activity: 'sputnik',
+    title: 'SPACE RACE', unitLine: 'Unit 8 · Cold War & Decolonization',
+    overStrikes: 'MISSION OVER', overCrash: 'SIGNAL LOST!', again: 'launch again',
+    speedUnit: 'KM/S', speedTop: 8, flat: true,
+    fly: { label: 'BOOSTER', hud: 'BOOSTER BURN', land: 'ORBIT STABLE', menu: 'Booster burn' },
+    text: { hit: 'IMPACT! SLOW DOWN', next: 'Next hit = signal lost', ram: 'BLASTED', repaired: 'SYSTEMS OK' },
+    coin: { rim: '#c9a227', face: '#ffe17a', shine: '#fffbe6', light: '255,225,120' },
+    gatePost: '#5a6a90', postColor: '#5a6a90', tilt: 0.12,
+    kf: [{ top: '#01020a', bottom: '#0b1233', fog: '#070b22', far: '#0b1233', near: '#0b1233', cloud: '#222', sun: '#fff', sunY: -1, dark: 0.12, stars: 1 }],
+    biomes: [
+      { name: 'Low Orbit', open: ['#050a1e', '#060c22'], edge: ['#17306e', '#152b63'], lane: ['#0c1a45', '#0b183f'], sprites: ['satellite', 'asteroid', 'stage', 'satellite', 'asteroid'] },
+      { name: 'Lunar Orbit', open: ['#08080f', '#0a0a12'], edge: ['#3a3a52', '#35354b'], lane: ['#16162a', '#141426'], sprites: ['asteroid', 'asteroid', 'stage', 'satellite', 'comet'] },
+      { name: 'Deep Space', open: ['#0c0418', '#0e051c'], edge: ['#4a1f78', '#431c6c'], lane: ['#1c0b38', '#1a0a33'], sprites: ['asteroid', 'planet', 'comet', 'asteroid', 'satellite'] },
+    ],
+    sprites: {
+      satellite: { w: 1400, h: 900 }, asteroid: { w: 1300, h: 1100 }, stage: { w: 700, h: 1500 }, comet: { w: 1600, h: 900 },
+      planet: { w: 3000, h: 3000 }, beacon: { w: 110, h: 260 },
+    },
+    billboards: ['SPUTNIK 1957', 'IRON CURTAIN', 'NATO 1949', 'WARSAW PACT', 'BERLIN WALL', 'CUBAN MISSILE CRISIS', 'BANDUNG 1955',
+      'NON-ALIGNED', 'MAO 1949', 'KOREA 1950', 'INDIA 1947', 'GHANA 1957', 'GLASNOST', 'APOLLO 11', 'BERLIN 1989'],
+    boardColors: ['#b71c1c', '#1565c0', '#6a1b9a', '#00695c', '#37474f'],
+    hazards: [
+      { kind: 'asteroid', w: 520, h: 460, still: true, colors: ['#b8a48e', '#a8957f', '#c4b29c'] },
+      { kind: 'junk', w: 460, h: 380, still: true, colors: ['#8b96a5', '#9aa3ad', '#7d8794'] },
+      { kind: 'rocket', w: 380, h: 760, speed: [0.3, 0.55], colors: ['#e8e8e8', '#d9dde2', '#c7ccd2'] },
+    ],
+    breakable: ['asteroid', 'junk'],
+    debris: ['#7a6e64', '#9aa3ad', '#ffcf6b', '#5a524b'],
+    player: { kind: 'sputnik', w: 420, h: 420, color: '#c5ccd4' },
+
+    decorate(seg) {
+      const n = seg.index;
+      if (n % 12 === 6) seg.sprites.push({ type: 'beacon', offset: -1 / 3, color: '#ffb300' }, { type: 'beacon', offset: 1 / 3, color: '#40c4ff' });
+      if (Math.random() < 0.08) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(1.6, 3.5), lift: rand(0.1, 0.9), spin: rand(0, 6) });
+      if (Math.random() < 0.06) seg.sprites.push({ type: pick(seg.biome.sprites), offset: pick([-1, 1]) * rand(3.5, 8), lift: rand(0.2, 1.5), spin: rand(0, 6) });
+    },
+
+    drawBackground(pal) {
+      const bl = biomeBlend(), A = SKY[bl.a.name], B = SKY[bl.b.name], t = bl.t;
+      const amt = k => lerp(A[k], B[k], t);
+      const g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, '#01020a'); g.addColorStop(0.5, '#0b1233'); g.addColorStop(1, '#03040c');
+      ctx.fillStyle = g; ctx.fillRect(-30, -30, W + 60, H + 60);
+      ctx.fillStyle = '#fff';
+      for (const s of DUST) {
+        const x = ((s.x - bgFar * 0.4) % W + W) % W;
+        ctx.globalAlpha = 0.5 + 0.5 * Math.sin(time * s.tw + s.ph);
+        ctx.fillRect(x, s.y, s.r, s.r);
+      }
+      ctx.globalAlpha = 1;
+      const neb = amt('nebula');
+      if (neb > 0.01) { // purple and teal gas clouds and a ringed planet
+        ctx.globalAlpha = neb;
+        for (const [nx, ny, r, c] of [[0.25, 0.25, 220, '150,60,220'], [0.72, 0.18, 180, '40,190,200'], [0.55, 0.38, 160, '220,70,150']]) {
+          const x = W * nx - bgFar * 0.3, ng = ctx.createRadialGradient(x, H * ny, 10, x, H * ny, r);
+          ng.addColorStop(0, `rgba(${c},.35)`); ng.addColorStop(1, `rgba(${c},0)`);
+          ctx.fillStyle = ng; ctx.fillRect(x - r, H * ny - r, r * 2, r * 2);
+        }
+        const px = W * 0.78 - bgFar * 0.2, py = H * 0.2;
+        ctx.fillStyle = '#d9a35c'; circle(px, py, 34);
+        ctx.fillStyle = 'rgba(120,70,30,.35)'; ctx.fillRect(px - 34, py - 6, 68, 8);
+        ctx.strokeStyle = 'rgba(240,210,160,.8)'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.ellipse(px, py, 62, 14, -0.25, 0, Math.PI * 2); ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+      const moon = amt('moon');
+      if (moon > 0.01) { // the Moon looming overhead
+        ctx.globalAlpha = moon;
+        const mx = W * 0.3 - bgFar * 0.25, my = H * 0.22, mr = 80;
+        const mg = ctx.createRadialGradient(mx - 25, my - 25, 10, mx, my, mr);
+        mg.addColorStop(0, '#f4f2ea'); mg.addColorStop(1, '#a9a69c');
+        ctx.fillStyle = mg; circle(mx, my, mr);
+        ctx.fillStyle = 'rgba(90,88,80,.35)';
+        for (const [dx, dy, r] of [[-20, -10, 16], [25, 15, 12], [5, 35, 9], [-35, 30, 8], [30, -30, 10]]) circle(mx + dx, my + dy, r);
+        ctx.globalAlpha = 1;
+      }
+      const earth = amt('earth');
+      if (earth > 0.01) { // Earth's curve under the horizon with a thin blue atmosphere
+        ctx.globalAlpha = earth;
+        const R = 1400, cy = HORIZON + R - 40;
+        const ag = ctx.createRadialGradient(W / 2, cy, R - 10, W / 2, cy, R + 40);
+        ag.addColorStop(0, 'rgba(90,170,255,.9)'); ag.addColorStop(1, 'rgba(90,170,255,0)');
+        ctx.fillStyle = ag; circle(W / 2, cy, R + 40);
+        const eg = ctx.createLinearGradient(0, HORIZON - 40, 0, HORIZON + 10);
+        eg.addColorStop(0, '#2f7bd1'); eg.addColorStop(1, '#16407a');
+        ctx.fillStyle = eg; circle(W / 2, cy, R);
+        ctx.fillStyle = 'rgba(255,255,255,.55)';
+        for (let i = 0; i < 6; i++) { const x = ((i * 160 - bgFar * 0.8) % (W + 160) + W + 160) % (W + 160) - 80; ellipse(x, HORIZON - 20 + (i % 2) * 6, 50, 5); }
+        ctx.fillStyle = 'rgba(70,140,60,.6)';
+        for (let i = 0; i < 3; i++) { const x = ((i * 300 + 120 - bgFar * 0.8) % (W + 300) + W + 300) % (W + 300) - 150; ellipse(x, HORIZON - 10, 90, 7); }
+        ctx.globalAlpha = 1;
+      }
+      ctx.fillStyle = '#050a1e'; ctx.fillRect(-30, HORIZON + 5, W + 60, H);
+    },
+
+    segExtra(seg, p1, p2) { // glowing lane lines and a grid across the orbital plane
+      if (p1.y - p2.y < 0.2) return;
+      const line = (o, col, wd) => {
+        const a1 = p1.x + o * p1.w, a2 = p2.x + o * p2.w, w1 = Math.max(0.6, p1.w * wd), w2 = Math.max(0.5, p2.w * wd);
+        quad(a1 - w1, p1.y, a1 + w1, p1.y, a2 + w2, p2.y, a2 - w2, p2.y, col);
+      };
+      line(-1, 'rgba(90,200,255,.8)', 0.012); line(1, 'rgba(90,200,255,.8)', 0.012);
+      if (seg.index % 6 < 3) { line(-1 / 3, 'rgba(160,220,255,.5)', 0.008); line(1 / 3, 'rgba(160,220,255,.5)', 0.008); }
+      if (seg.index % 10 === 0) { ctx.fillStyle = 'rgba(90,160,255,.18)'; ctx.fillRect(-30, p2.y, W + 60, Math.max(1, (p1.y - p2.y) * 0.4)); }
+    },
+
+    wake() { // stars streaming past, faster at higher speed
+      if (Math.random() < 0.5 * speed / MAX_SPEED + 0.1) {
+        burst(W / 2 + rand(-60, 60), HORIZON + rand(-40, 20), 1, { speed: 500, life: 0.7, size: 1.4, colors: ['#ffffff', '#9fd3ff'], add: true });
+      }
+      if (flyLift > 0.05) burst(W / 2 + rand(-6, 6), H - 14 - flyLift * FLY_PX + 8, 2, { speed: 60, life: 0.4, size: 6, colors: ['#ffd36b', '#ff8a3c', '#ffffff'], up: 220, add: true });
+    },
+    bounce() { return Math.sin(time * 1.8) * 4; },
+
+    drawFly(x, y, f) { // booster flame under Sputnik
+      ctx.globalAlpha = f;
+      const fl = 50 + Math.sin(time * 30) * 8;
+      const g = ctx.createLinearGradient(0, y - PH * 0.3, 0, y + fl);
+      g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(0.4, 'rgba(255,200,90,.9)'); g.addColorStop(1, 'rgba(255,90,40,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.moveTo(x - PW * 0.14, y - PH * 0.3); ctx.quadraticCurveTo(x, y + fl * 1.2, x + PW * 0.14, y - PH * 0.3); ctx.fill();
+      pushLight(x, y, 90, '255,170,80', 0.8);
+      ctx.globalAlpha = 1;
+    },
+
+    drawVehicle(x, y, k, v, isPlayer, lightA) {
+      const w = v.w * k, h = v.h * k;
+      if (w < 1.5) return;
+      if (!isPlayer) { ctx.fillStyle = 'rgba(90,180,255,.12)'; ellipse(x, y, w * 0.5, Math.max(1, w * 0.05)); } // glow on the lane below
+      if (v.kind === 'asteroid') {
+        const cy = y - h * 0.55;
+        ctx.save(); ctx.translate(x, cy); ctx.rotate(time * 0.4 + v.seed * 6);
+        ctx.fillStyle = v.color;
+        ctx.beginPath();
+        for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2, r = w * (0.4 + ((i * 37 + v.seed * 100) % 10) / 70); ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r * (h / w)); }
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = v.dark; circle(-w * 0.1, -h * 0.05, w * 0.08); circle(w * 0.15, h * 0.12, w * 0.06);
+        ctx.restore();
+        return;
+      }
+      if (v.kind === 'junk') { // a broken solar panel tumbling slowly
+        const cy = y - h * 0.55;
+        ctx.save(); ctx.translate(x, cy); ctx.rotate(Math.sin(time + v.seed * 6) * 0.6);
+        ctx.fillStyle = '#e9edf2'; ctx.fillRect(-w * 0.45, -h * 0.18, w * 0.6, h * 0.36);
+        ctx.strokeStyle = '#8b96a5'; ctx.lineWidth = Math.max(0.5, w * 0.01);
+        ctx.beginPath(); for (let i = 1; i < 4; i++) { ctx.moveTo(-w * 0.45 + i * w * 0.15, -h * 0.18); ctx.lineTo(-w * 0.45 + i * w * 0.15, h * 0.18); } ctx.stroke();
+        ctx.fillStyle = '#ff9800'; ctx.fillRect(w * 0.15, -h * 0.12, w * 0.3, h * 0.24);
+        ctx.restore();
+        return;
+      }
+      if (v.kind === 'rocket') { // a rocket stage seen from behind: nozzle, fins, body
+        const moving = v.speed > 0;
+        if (moving) {
+          const fl = h * (0.25 + Math.sin(time * 25 + v.seed * 9) * 0.04);
+          const g = ctx.createLinearGradient(0, y - h * 0.2, 0, y - h * 0.2 + fl);
+          g.addColorStop(0, 'rgba(255,240,200,.95)'); g.addColorStop(1, 'rgba(255,120,40,0)');
+          ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x - w * 0.18, y - h * 0.2); ctx.lineTo(x, y - h * 0.2 + fl); ctx.lineTo(x + w * 0.18, y - h * 0.2); ctx.fill();
+          pushLight(x, y - h * 0.15, w * 0.9, '255,170,80', lightA * 0.8);
+        }
+        ctx.fillStyle = '#c62828';
+        for (const s of [-1, 1]) { ctx.beginPath(); ctx.moveTo(x + s * w * 0.2, y - h * 0.55); ctx.lineTo(x + s * w * 0.5, y - h * 0.25); ctx.lineTo(x + s * w * 0.2, y - h * 0.3); ctx.fill(); }
+        const g2 = ctx.createLinearGradient(x - w * 0.25, 0, x + w * 0.25, 0);
+        g2.addColorStop(0, v.dark); g2.addColorStop(0.4, v.light); g2.addColorStop(1, v.dark);
+        ctx.fillStyle = g2; circle(x, y - h * 0.5, w * 0.27);
+        ctx.fillStyle = '#333'; circle(x, y - h * 0.5, w * 0.14);
+        ctx.fillStyle = moving ? '#ffcf6b' : '#555'; circle(x, y - h * 0.5, w * 0.08);
+        return;
+      }
+      // Sputnik: a polished sphere with four antennae swept back toward us
+      const cx = x, cy = y - h * 0.62, r = w * 0.26;
+      ctx.strokeStyle = '#d8dde3'; ctx.lineCap = 'round';
+      ctx.lineWidth = Math.max(1, w * 0.012);
+      ctx.beginPath();
+      for (const [dx, dy] of [[-0.5, 0.6], [0.5, 0.6], [-0.3, 0.75], [0.3, 0.75]]) { ctx.moveTo(cx + dx * r * 0.6, cy + r * 0.3); ctx.lineTo(cx + dx * w, cy + dy * h); }
+      ctx.stroke(); ctx.lineCap = 'butt';
+      const g = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.35, r * 0.1, cx, cy, r);
+      g.addColorStop(0, '#ffffff'); g.addColorStop(0.4, v.color); g.addColorStop(1, '#5d6670');
+      ctx.fillStyle = g; circle(cx, cy, r);
+      ctx.strokeStyle = 'rgba(60,70,80,.5)'; ctx.lineWidth = Math.max(0.5, w * 0.008);
+      ctx.beginPath(); ctx.ellipse(cx, cy, r, r * 0.25, 0, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.8)'; ellipse(cx - r * 0.4, cy - r * 0.45, r * 0.18, r * 0.1);
+      if (isPlayer) {
+        pushLight(cx, cy, r * 2, '200,220,255', 0.4);
+        if (time % 1.6 < 0.45) { // the famous radio beep
+          ctx.fillStyle = 'rgba(160,230,255,.9)'; ctx.font = `italic 700 ${Math.round(r * 0.5)}px system-ui, sans-serif`;
+          ctx.fillText('beep', cx + r * 1.2, cy - r * 0.6);
+        }
+      }
+    },
+
+    drawSprite(s, x, y, k, seg, w, h) {
+      const fy = y - (s.lift || 0) * h; // things float above the orbital plane
+      switch (s.type) {
+        case 'beacon': {
+          ctx.fillStyle = '#4a5878'; ctx.fillRect(x - w * 0.15, y - h, w * 0.3, h);
+          const on = Math.sin(time * 4 + x * 0.02) > 0;
+          ctx.fillStyle = on ? s.color : '#333'; circle(x, y - h, w * 0.45);
+          if (on) pushLight(x, y - h, w * 3, s.color === '#ffb300' ? '255,190,40' : '64,196,255', 0.8);
+          break;
+        }
+        case 'satellite': {
+          ctx.save(); ctx.translate(x, fy - h * 0.5); ctx.rotate(Math.sin(time * 0.3 + (s.spin || 0)) * 0.3);
+          ctx.fillStyle = '#1e3a6e'; ctx.fillRect(-w * 0.5, -h * 0.12, w * 0.36, h * 0.24); ctx.fillRect(w * 0.14, -h * 0.12, w * 0.36, h * 0.24);
+          ctx.fillStyle = '#c9a227'; ctx.fillRect(-w * 0.14, -h * 0.2, w * 0.28, h * 0.4);
+          ctx.strokeStyle = '#ccc'; ctx.lineWidth = Math.max(0.5, w * 0.008); ctx.beginPath(); ctx.moveTo(0, -h * 0.2); ctx.lineTo(0, -h * 0.5); ctx.stroke();
+          ctx.restore();
+          break;
+        }
+        case 'asteroid': {
+          ctx.save(); ctx.translate(x, fy - h * 0.5); ctx.rotate(time * 0.15 + (s.spin || 0));
+          ctx.fillStyle = '#5f554d';
+          ctx.beginPath(); for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2, r = w * (0.38 + (i % 3) * 0.05); ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r * (h / w)); } ctx.closePath(); ctx.fill();
+          ctx.fillStyle = '#4a423c'; circle(-w * 0.1, 0, w * 0.07); circle(w * 0.12, h * 0.1, w * 0.05);
+          ctx.restore();
+          break;
+        }
+        case 'stage': {
+          ctx.save(); ctx.translate(x, fy - h * 0.5); ctx.rotate(time * 0.25 + (s.spin || 0));
+          ctx.fillStyle = '#d9dde2'; ctx.fillRect(-w * 0.18, -h * 0.4, w * 0.36, h * 0.8);
+          ctx.fillStyle = '#c62828'; ctx.fillRect(-w * 0.18, -h * 0.1, w * 0.36, h * 0.06);
+          ctx.fillStyle = '#555'; ctx.fillRect(-w * 0.12, h * 0.4, w * 0.24, h * 0.08);
+          ctx.restore();
+          break;
+        }
+        case 'comet': {
+          const cy = fy - h * 0.6;
+          const g = ctx.createLinearGradient(x - w * 0.5, cy, x + w * 0.2, cy);
+          g.addColorStop(0, 'rgba(160,220,255,0)'); g.addColorStop(1, 'rgba(200,235,255,.8)');
+          ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x - w * 0.5, cy - h * 0.05); ctx.lineTo(x + w * 0.2, cy - h * 0.12); ctx.lineTo(x + w * 0.2, cy + h * 0.12); ctx.lineTo(x - w * 0.5, cy + h * 0.05); ctx.fill();
+          ctx.fillStyle = '#fff'; circle(x + w * 0.22, cy, h * 0.1);
+          pushLight(x + w * 0.22, cy, h * 0.4, '200,235,255', 0.7);
+          break;
+        }
+        case 'planet': {
+          const cy = fy - h * 0.6;
+          ctx.fillStyle = '#6a4fa0'; circle(x, cy, w * 0.35);
+          ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.fillRect(x - w * 0.35, cy - h * 0.06, w * 0.7, h * 0.06);
+          ctx.strokeStyle = 'rgba(210,190,255,.7)'; ctx.lineWidth = Math.max(1, w * 0.02);
+          ctx.beginPath(); ctx.ellipse(x, cy, w * 0.6, h * 0.12, -0.2, 0, Math.PI * 2); ctx.stroke();
+          break;
+        }
+      }
+    },
+
+    // ---------- Checkpoint questions: [topic, prompt, correct, wrong, wrong, why] ----------
+    questions: [
+      ['8.1', 'Churchill\'s line dividing Europe (1946)', 'Iron Curtain', 'Berlin Wall', 'Maginot Line',
+        'Churchill warned that Soviet-controlled Eastern Europe was cut off from the West.'],
+      ['8.1', 'Body founded in 1945 to keep world peace', 'United Nations', 'League of Nations', 'NATO',
+        'The UN replaced the failed League, with the U.S. and USSR on its Security Council.'],
+      ['8.1', 'The two superpowers after WWII: the U.S. and…', 'Soviet Union', 'Britain', 'China',
+        'WWII left Europe weakened and two rival superpowers with opposing systems.'],
+      ['8.2', 'U.S. aid to rebuild Western Europe', 'Marshall Plan', 'New Deal', 'Five-Year Plan',
+        'Rebuilding Europe\'s economies was meant to keep communism from spreading there.'],
+      ['8.2', 'U.S. policy of stopping communism\'s spread', 'Containment', 'Appeasement', 'Détente',
+        'Containment shaped U.S. action in Korea, Vietnam, and around the world.'],
+      ['8.2', 'U.S.-led military alliance of 1949', 'NATO', 'Warsaw Pact', 'SEATO',
+        'NATO members promised to defend each other against Soviet attack.'],
+      ['8.2', 'Soviet bloc military alliance of 1955', 'Warsaw Pact', 'NATO', 'Comintern',
+        'The Warsaw Pact answered NATO and tied Eastern Europe to Moscow.'],
+      ['8.2', '1962 standoff over Soviet missiles near Florida', 'Cuban Missile Crisis', 'Berlin Airlift', 'Suez Crisis',
+        'The world came close to nuclear war before the USSR removed its missiles from Cuba.'],
+      ['8.2', 'First satellite in orbit (1957)', 'Sputnik', 'Apollo 11', 'Explorer 1',
+        'Sputnik\'s launch shocked the U.S. and started the space race.'],
+      ['8.2', 'Easing of Cold War tensions in the 1970s', 'Détente', 'Containment', 'Glasnost',
+        'Détente brought arms-control deals like SALT and more trade between the blocs.'],
+      ['8.2', 'Conflict where superpowers back opposing sides', 'Proxy war', 'Total war', 'Trench war',
+        'The U.S. and USSR fought through others in Korea, Vietnam, Angola, and Afghanistan.'],
+      ['8.2', 'War that split a peninsula at the 38th parallel', 'Korean War', 'Vietnam War', 'Six-Day War',
+        'The Korean War (1950–53) ended in a truce, leaving a communist North and capitalist South.'],
+      ['8.3', 'Countries that joined neither Cold War bloc', 'Non-Aligned', 'Warsaw Pact', 'Axis',
+        'The Non-Aligned Movement let new nations take aid from both sides without picking one.'],
+      ['8.3', '1955 meeting of Asian and African nations', 'Bandung', 'Yalta', 'Potsdam',
+        'The Bandung Conference set the stage for the Non-Aligned Movement.'],
+      ['8.3', 'India\'s first prime minister, a non-aligned leader', 'Nehru', 'Gandhi', 'Jinnah',
+        'Jawaharlal Nehru kept India out of both blocs and pushed state-led development.'],
+      ['8.4', 'Communist leader of China from 1949', 'Mao Zedong', 'Chiang Kai-shek', 'Deng Xiaoping',
+        'Mao\'s Communists won the civil war and drove the Nationalists to Taiwan.'],
+      ['8.4', 'Mao\'s failed push for rapid industry (1958)', 'Great Leap Forward', 'Cultural Revolution', 'Long March',
+        'Unrealistic quotas and collective farms caused a famine that killed tens of millions.'],
+      ['8.4', 'Mao\'s campaign against "old" ideas, led by Red Guards', 'Cultural Revolution', 'Great Leap Forward', 'May Fourth',
+        'Red Guards attacked teachers, officials, and traditions from 1966 to 1976.'],
+      ['8.4', 'Leader of the 1959 Cuban Revolution', 'Fidel Castro', 'Batista', 'Allende',
+        'Castro overthrew Batista and allied Cuba with the Soviet Union.'],
+      ['8.4', 'Vietnamese communist independence leader', 'Ho Chi Minh', 'Pol Pot', 'Sukarno',
+        'Ho fought the French, then the U.S.-backed South, to unify Vietnam.'],
+      ['8.4', 'Khmer Rouge leader in Cambodia', 'Pol Pot', 'Ho Chi Minh', 'Marcos',
+        'The Khmer Rouge emptied cities and killed about a quarter of Cambodia\'s people.'],
+      ['8.5', 'The 1947 partition created India and…', 'Pakistan', 'Bangladesh', 'Sri Lanka',
+        'Partition along religious lines caused mass migration and violence; Bangladesh split off in 1971.'],
+      ['8.5', 'Founder of Pakistan', 'Jinnah', 'Nehru', 'Bhutto',
+        'Muhammad Ali Jinnah\'s Muslim League demanded a separate state for India\'s Muslims.'],
+      ['8.5', 'First sub-Saharan colony freed from Britain (1957)', 'Ghana', 'Kenya', 'Nigeria',
+        'Ghana\'s independence inspired movements across Africa.'],
+      ['8.5', 'Ghana\'s first leader, a Pan-Africanist', 'Kwame Nkrumah', 'Jomo Kenyatta', 'Mandela',
+        'Nkrumah used strikes and boycotts to win independence peacefully.'],
+      ['8.5', 'Kenyan armed uprising against British rule', 'Mau Mau', 'Boxer', 'Sepoy',
+        'Britain crushed the Mau Mau rebellion harshly, but Kenya became independent in 1963.'],
+      ['8.5', 'Algeria won independence by war against…', 'France', 'Britain', 'Italy',
+        'The brutal Algerian War (1954–62) ended over a century of French rule.'],
+      ['8.5', 'Egyptian leader who seized the Suez Canal', 'Nasser', 'Sadat', 'Atatürk',
+        'Nasser\'s 1956 takeover of the canal became a symbol of Arab nationalism.'],
+      ['8.6', 'South Africa\'s system of racial segregation', 'Apartheid', 'Jim Crow', 'Casta system',
+        'Apartheid (1948–1994) kept the white minority in power by law.'],
+      ['8.6', 'State created in 1948 from British Palestine', 'Israel', 'Jordan', 'Lebanon',
+        'Israel\'s founding and the war that followed displaced hundreds of thousands of Palestinians.'],
+      ['8.7', 'First Black president of South Africa', 'Nelson Mandela', 'Desmond Tutu', 'Steve Biko',
+        'Mandela spent 27 years in prison and was elected president in 1994.'],
+      ['8.7', 'U.S. leader of nonviolent civil rights protest', 'MLK Jr.', 'Malcolm X', 'Nkrumah',
+        'Martin Luther King Jr. borrowed Gandhi\'s methods of nonviolent resistance.'],
+      ['8.7', 'Catholic movement for the poor in Latin America', 'Liberation theology', 'Counter-Reformation', 'Pan-Africanism',
+        'Priests like Óscar Romero spoke out for the poor against military governments.'],
+      ['8.7', 'Cleric who led Iran\'s 1979 revolution', 'Khomeini', 'The Shah', 'Saddam',
+        'The revolution replaced the U.S.-backed Shah with an Islamic republic.'],
+      ['8.8', 'Gorbachev\'s policy of political openness', 'Glasnost', 'Perestroika', 'Détente',
+        'Glasnost let Soviets criticize the government, which weakened Communist control.'],
+      ['8.8', 'Gorbachev\'s economic restructuring', 'Perestroika', 'Glasnost', 'NEP',
+        'Perestroika allowed some private business but could not fix the Soviet economy.'],
+      ['8.8', 'Polish trade union that challenged communism', 'Solidarity', 'Comintern', 'Red Guards',
+        'Lech Wałęsa\'s Solidarity won Poland\'s 1989 elections.'],
+      ['8.8', 'Wall that fell in 1989', 'Berlin Wall', 'Great Wall', 'Hadrian\'s Wall',
+        'Its fall led to German reunification in 1990.'],
+      ['8.8', 'Soviet war that drained the USSR (1979–89)', 'Afghanistan', 'Vietnam', 'Korea',
+        'U.S.-armed mujahideen fought the Soviets to a costly stalemate.'],
+      ['8.8', 'Year the Soviet Union broke apart', '1991', '1989', '1979',
+        'The USSR split into 15 independent countries, ending the Cold War.'],
+    ],
+  };
+})();
+</script>
+<script src="lane-runner.js"></script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js"></script>
+</body>
+</html>

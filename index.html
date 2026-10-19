@@ -824,7 +824,12 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
   var NOW = Date.now(), DAY = 86400000, ACTIVITY_STABILITY = 7;
   function recall(it){
     if (!it || !it.lastReviewed) return 0;
-    var days = Math.max(0, (NOW - new Date(it.lastReviewed).getTime()) / DAY);
+    // A lucky guess (correct + Guessing) is not evidence of memory, so date the
+    // recall from the last real review; an item only ever guessed counts as 0.
+    var when = it.lastReviewed, h = it.reviewHistory || [], i = h.length - 1;
+    while (i >= 0 && h[i].correct && h[i].confidence === 'guessing') i--;
+    if (i < h.length - 1) { if (i < 0) return 0; when = h[i].date; }
+    var days = Math.max(0, (NOW - new Date(when).getTime()) / DAY);
     return Math.exp(-days / (it.stability || 1));
   }
   function unitPct(u){

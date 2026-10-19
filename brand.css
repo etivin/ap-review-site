@@ -70,6 +70,10 @@ html[data-mc="on"] .nav-item.active .nav-dot{background:var(--lime)!important}
       lime/blue as fixed hex, so re-point those to the brand gold here. ── */
 #mc-bar{box-shadow:0 2px 0 var(--lime)!important}
 #mc-bar .mcb-brand b{color:var(--lime)!important}
+/* brand.js sets an inline display on the lockup, so the phone rule in mc-mode.js
+   needs !important to hide it; otherwise the Review menu is pushed off screen. */
+@media(max-width:760px){#mc-bar .mcb-brand{display:none!important}}
+@media(max-width:380px){#mc-bar{padding:0 8px!important}#mc-bar nav{gap:6px!important}#mc-bar .mcb-back{padding:8px 7px!important}}
 #mc-bar .mcb-back{background:var(--lime)!important;border-color:var(--lime)!important;color:var(--ink)!important}
 #mc-bar .mcb-back:hover{background:#fff!important;border-color:#fff!important}
 #mc-bar nav a:hover{color:var(--lime)!important;border-bottom-color:var(--lime)!important}

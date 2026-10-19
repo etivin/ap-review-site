@@ -18,7 +18,7 @@
       kw: 'enlightenment american french haitian latin american revolution nationalism industrial revolution steam capitalism socialism marx' },
     { name: 'Consequences of Industrialization', dates: 'c. 1750–1900', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'imperialism scramble for africa berlin conference opium wars meiji japan migration indentured labor social darwinism sepoy' },
-    { name: 'Global Conflict', dates: 'c. 1900–present', tabs: 'guide mcq walk write source visual maps flash glossary brain spice games slides progress',
+    { name: 'Global Conflict', dates: 'c. 1900–present', tabs: 'guide mcq walk write writing source visual maps flash glossary brain spice games slides',
       kw: 'world war i world war ii ww1 ww2 great depression fascism holocaust genocide total war russian revolution mexican revolution' },
     { name: 'Cold War & Decolonization', dates: 'c. 1900–present', tabs: 'guide mcq walk writing source visual maps flash glossary brain spice games',
       kw: 'cold war decolonization containment nato warsaw pact non-aligned movement india gandhi mao proxy wars korea vietnam apartheid' },

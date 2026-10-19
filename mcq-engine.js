@@ -67,6 +67,9 @@
       window.SPACED.recordReview(itemIdFor(ref), !!correct, confidence || null);
     }
     recordAnswer(ref, q, userAnswer, correct, confidence);
+    // A unit counts as practiced (for Cumulative Review's staleness weighting) when
+    // one of its questions is graded, not when a set is merely opened.
+    APWH.markSeen([String(ref.unit)]);
   }
 
   /* ---- pool helpers ---- */
@@ -134,6 +137,7 @@
       '.mcqx-stim-src{font-size:.78rem;color:var(--mx-mut);font-style:italic;margin-bottom:8px}',
       '.mcqx-stim img{max-width:100%;height:auto;margin:8px 0;border:1px solid var(--mx-line)}',
       '.mcqx-stim-txt p{margin:0 0 8px;line-height:1.6}',
+      '.mcqx-stim-cap{font-size:.76rem;color:var(--mx-mut);font-style:italic;margin:-4px 0 10px}',
       '.mcqx-qcard{margin-bottom:20px;padding-bottom:6px}',
       '.mcqx-qnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mx-mut);margin-bottom:6px}',
       '.mcqx-qtxt{font-weight:600;line-height:1.55;margin-bottom:12px}',
@@ -199,6 +203,16 @@
 
   var CONF_UP = { confident: 'CONFIDENT', shaky: 'SHAKY', guessing: 'GUESSING' };
 
+  // One image (simg, optional simgCap) or several (simgs, optional simgCaps), each with its caption.
+  function stimImages(q) {
+    var srcs = q.simgs || (q.simg ? [q.simg] : []);
+    var caps = q.simgCaps || (q.simgCap ? [q.simgCap] : []);
+    return srcs.map(function (src, k) {
+      return '<img src="' + esc(src) + '" alt="' + esc(caps[k] || 'Source') + '" loading="lazy" onerror="this.style.display=\'none\'"/>' +
+        (caps[k] ? '<div class="mcqx-stim-cap">' + esc(caps[k]) + '</div>' : '');
+    }).join('');
+  }
+
   /* ---- the session ---- */
   function runSession(ctx, pool, label) {
     var mode = ctx.mode;                 // 'quick' | 'test'
@@ -211,7 +225,6 @@
     var reasoning = false;                 // test mode: in the reasoning-unlock stage
     var revealed = false;                  // test mode: correct answers unlocked
 
-    APWH.markSeen(pool.map(function (r) { return String(r.unit); }).filter(function (v, i, a) { return a.indexOf(v) === i; }));
 
     ctx.home.classList.add('mcqx-hidden');
     ctx.session.classList.remove('mcqx-hidden');
@@ -240,7 +253,7 @@
       } else if (!reasoning && !revealed) {
         var rv = ctx.foot.querySelector('.mcqx-reveal');
         if (rv) {
-          var missing = qs.some(function (o, i) { return answered[i] != null && !conf[i]; });
+          var missing = qs.some(function (o, i) { return calib && answered[i] != null && !conf[i]; });
           rv.disabled = (n === 0) || missing;
           rv.title = missing ? 'Rate your confidence on every answered question first' : '';
         }
@@ -259,7 +272,7 @@
           if (q.s) {
             h += '<div class="mcqx-stim"><div class="mcqx-stim-lbl">&#128196; Source</div>' +
                  '<div class="mcqx-stim-src">' + esc(q.sl) + '</div>' +
-                 (q.simg ? '<img src="' + esc(q.simg) + '" alt="Source" loading="lazy" onerror="this.style.display=\'none\'"/>' : '') +
+                 stimImages(q) +
                  '<div class="mcqx-stim-txt"><p>' + esc(q.s).replace(/\n/g, '</p><p>') + '</p></div></div>';
           }
           last = q.s;
@@ -334,7 +347,7 @@
         answered[i] = j;
         optsOf(i).forEach(function (b) { b.classList.toggle('mx-sel', +b.dataset.j === j); });
         showConf(i);                          // the confidence commitment is required next
-        if (conf[i]) gradeQuick(i);           // (only if already rated: normally not)
+        if (conf[i] || !calib) gradeQuick(i); // already rated, or no confidence chips on this mount
         progress();
       } else {
         if (reasoning || revealed) return;
@@ -358,7 +371,9 @@
     /* ---- TEST MODE: reveal -> reasoning gate -> unlock ---- */
     function toReasoning() {
       if (reasoning || revealed) return;
-      if (qs.some(function (o, i) { return answered[i] != null && !conf[i]; })) return; // guarded by disabled btn too
+      if (qs.some(function (o, i) { return calib && answered[i] != null && !conf[i]; })) return; // guarded by disabled btn too
+      var blank = qs.filter(function (o, i) { return answered[i] == null; }).length;
+      if (blank && !window.confirm(blank + ' of ' + qs.length + ' questions are still blank. Blank questions count as wrong in your score. Lock in your answers anyway?')) return;
       reasoning = true;
       ctx.body.querySelectorAll('.mcqx-opt').forEach(function (b) { b.disabled = true; });
       ctx.body.querySelectorAll('.mcqx-chip').forEach(function (b) { b.disabled = true; });
@@ -441,6 +456,9 @@
       if (!tot) { sumEl.classList.add('mcqx-hidden'); return; }
       var c = b.confident, s = b.shaky, g = b.guessing;
       var cWrong = c[1] - c[0], sWrong = s[1] - s[0], gWrong = g[1] - g[0];
+      // Test Mode scores the whole set: a blank question counts as wrong.
+      var skipped = 0;
+      if (mode === 'test' && scored) { skipped = qs.length - tot; tot = qs.length; }
       var pct = Math.round(right / tot * 100);
       var rows =
         crow('CONFIDENT + Correct', c[0], c[0] ? '&#10003; well-calibrated' : '') +
@@ -451,7 +469,9 @@
         crow('GUESSING + Wrong', gWrong, '');
       var head = scored
         ? '<h4>Results &amp; Calibration</h4><div class="mx-big">' + right + ' / ' + tot +
-            ' <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>'
+            ' <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>' +
+            (skipped ? '<div class="mcqx-gap">' + skipped + ' question' + (skipped === 1 ? '' : 's') +
+              ' left blank, counted as wrong. The calibration rows below cover only the questions you answered.</div>' : '')
         : '<h4>Calibration so far</h4><div class="mx-big">' + right + ' / ' + tot +
             ' <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>';
       sumEl.innerHTML = head + '<div class="mcqx-cgrid">' + rows + '</div>';

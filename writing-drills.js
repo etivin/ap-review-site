@@ -279,7 +279,7 @@
       var id = base + '-' + L.toLowerCase();
       h += '<div class="wd-part">';
       h += '<div class="wd-part-hd"><span class="wd-part-letter">' + L + '</span><span class="wd-part-q">' + esc(p) + '</span></div>';
-      h += '<textarea class="wd-textarea wd-part-ta" placeholder="Write part ' + L + '…"></textarea>';
+      h += '<textarea class="wd-textarea wd-part-ta" data-draft="' + id + '" placeholder="Write part ' + L + '…"></textarea>';
       h += revealBlock(id, 'Model answer for part ' + L, s.partExemplars[pi]);
       h += checkLine(id, 'I earned this point');
       h += '</div>';
@@ -300,7 +300,7 @@
     h += '<ol class="wd-ex-parts">';
     s.parts.forEach(function (p) { h += '<li>' + esc(p) + '</li>'; });
     h += '</ol>';
-    h += '<textarea class="wd-textarea" data-exam-text="saq-' + i + '" placeholder="Write your full SAQ response (parts a, b, c)…"></textarea>';
+    h += '<textarea class="wd-textarea" data-exam-text="saq-' + i + '" data-draft="u' + CUR_UNIT + '-saq' + i + '-full" placeholder="Write your full SAQ response (parts a, b, c)…"></textarea>';
     h += '<button type="button" class="wd-check" data-exam-check="saq" data-exam-idx="' + i + '">Check my response</button>';
     h += '<div class="wd-result" data-exam-result="saq-' + i + '"></div></div>';
     return h;
@@ -325,7 +325,7 @@
       h += '<div class="wd-rrow">';
       h += '<div class="wd-rrow-hd"><span class="wd-rrow-num">' + (ri + 1) + '</span><span class="wd-rrow-label">' + esc(r.label) + '</span><span class="wd-rrow-pts">' + esc(r.points) + '</span></div>';
       h += '<div class="wd-rrow-req">' + r.requirement + '</div>';
-      h += '<textarea class="wd-textarea wd-part-ta" placeholder="Write your ' + esc(r.label) + ' here…"></textarea>';
+      h += '<textarea class="wd-textarea wd-part-ta" data-draft="' + id + '" placeholder="Write your ' + esc(r.label) + ' here…"></textarea>';
       h += revealBlock(id, 'Reveal exemplar', r.exemplar);
       h += checkLine(id, 'I earned this point');
       h += '</div>';
@@ -341,7 +341,7 @@
     h += '<div class="wd-ex-meta"><span class="wd-ex-badge">' + esc(s.year) + '</span> ' + esc(s.tag) + '</div>';
     if (s.intro) h += '<div class="wd-ex-intro">' + esc(s.intro) + '</div>';
     h += '<div class="wd-ex-prompt">' + esc(s.prompt) + '</div>';
-    h += '<textarea class="wd-textarea" data-exam-text="leq-' + i + '" placeholder="Write your full LEQ essay…"></textarea>';
+    h += '<textarea class="wd-textarea" data-exam-text="leq-' + i + '" data-draft="u' + CUR_UNIT + '-leq' + i + '-full" placeholder="Write your full LEQ essay…"></textarea>';
     h += '<button type="button" class="wd-check" data-exam-check="leq" data-exam-idx="' + i + '">Check my response</button>';
     h += '<div class="wd-result" data-exam-result="leq-' + i + '"></div></div>';
     return h;
@@ -358,7 +358,7 @@
       h += '<div class="wd-ex-doc"><div class="wd-ex-docn">Document ' + doc.n + '</div><div class="wd-ex-src">Source: ' + esc(doc.source) + '</div>' + (doc.image ? imageFigure(doc) : '') + (doc.text ? exParas(doc.text) : '') + '</div>';
     });
     h += '</div>';
-    h += '<textarea class="wd-textarea" data-exam-text="dbq-' + k + '" placeholder="Write your full DBQ essay…"></textarea>';
+    h += '<textarea class="wd-textarea" data-exam-text="dbq-' + k + '" data-draft="u' + CUR_UNIT + '-dbq' + k + '-full" placeholder="Write your full DBQ essay…"></textarea>';
     h += '<button type="button" class="wd-check" data-exam-check="dbq" data-exam-idx="' + k + '">Check my response</button>';
     h += '<div class="wd-result" data-exam-result="dbq-' + k + '"></div></div>';
     return h;
@@ -378,7 +378,8 @@
     var first = kinds[0].k;
     var h = '<div class="wd-exam">';
     h += '<div class="wd-exam-hd"><div class="wd-exam-title">&#9998; Real AP Exam Prompts</div>' +
-      '<p>Released College Board prompts and Practice Set prompts matched to this unit. Write a full response, then self-assess the reasoning rows with the coaching below and compare against the official scoring guidelines.</p></div>';
+      '<p>Released College Board prompts and Practice Set prompts matched to this unit. Write a full response, then self-assess the reasoning rows with the coaching below and compare against the official scoring guidelines.</p>' +
+      '<p class="wd-saved-note">Your writing saves on this device as you type, so you can leave and come back to it.</p></div>';
     h += '<div class="wd-exam-tabs">';
     kinds.forEach(function (kd) { h += '<button type="button" class="wd-exam-tab' + (kd.k === first ? ' active' : '') + '" data-exam-tab="' + kd.k + '">' + kd.label + '</button>'; });
     h += '</div>';
@@ -488,7 +489,12 @@
     // Checkable-breakdown: per-point checkboxes (restore state, persist, tally)
     mount.querySelectorAll('.wd-pt-check input[type="checkbox"]').forEach(function (cb) {
       var key = ptKey(cb.getAttribute('data-pt'));
-      try { if (localStorage.getItem(key) === '1') cb.checked = true; } catch (e) {}
+      try {
+        var v = localStorage.getItem(key);
+        if (v === null) v = oldPtValue(cb.getAttribute('data-pt'));   // carry over ticks saved under the old key
+        if (v !== null) localStorage.setItem(key, v);
+        if (v === '1') cb.checked = true;
+      } catch (e) {}
       cb.addEventListener('change', function () {
         try { localStorage.setItem(key, cb.checked ? '1' : '0'); } catch (e) {}
         var item = closestItem(cb);
@@ -496,9 +502,33 @@
       });
     });
     mount.querySelectorAll('.wd-ex-item[data-scope]').forEach(function (item) { updateScore(item); });
+
+    // Drafts: every writing box saves on this device as you type and comes back on reload.
+    mount.querySelectorAll('textarea[data-draft]').forEach(function (ta) {
+      var key = 'wd-draft:' + ta.getAttribute('data-draft'), timer = null;
+      try { var v = localStorage.getItem(key); if (v) ta.value = v; } catch (e) {}
+      function save() {
+        clearTimeout(timer); timer = null;
+        try { if (ta.value.trim()) localStorage.setItem(key, ta.value); else localStorage.removeItem(key); } catch (e) {}
+      }
+      ta.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(save, 400); });
+      ta.addEventListener('blur', save);
+      window.addEventListener('pagehide', function () { if (timer) save(); });
+    });
   }
 
-  function ptKey(id) { return 'wd-check:' + (location.pathname || '') + ':' + id; }
+  // Point ids already carry the unit (u3-saq0-a), so the key no longer depends on the URL
+  // (/unit3 and /unit3.html used to keep separate ticks).
+  function ptKey(id) { return 'wd-check:' + id; }
+  function oldPtValue(id) {
+    var m = (location.pathname || '').match(/^(.*\/)?(unit\d+)(\.html)?$/i), paths = [location.pathname || ''];
+    if (m) paths = [(m[1] || '/') + m[2] + '.html', (m[1] || '/') + m[2]];
+    for (var i = 0; i < paths.length; i++) {
+      var v = localStorage.getItem('wd-check:' + paths[i] + ':' + id);
+      if (v !== null) return v;
+    }
+    return null;
+  }
   function closestItem(el) {
     while (el && el !== document) { if (el.classList && el.classList.contains('wd-ex-item')) return el; el = el.parentNode; }
     return null;

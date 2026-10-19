@@ -280,7 +280,9 @@
 
     it.boxLevel = nextBox(it.boxLevel, correct, confidence);
     if (it.boxLevel < 1) it.boxLevel = 1;               // clamp into the interval table
-    it.stability = nextStability(it.stability, correct);
+    // A lucky guess shows nothing was learned, so it doesn't strengthen the memory
+    // estimate (the box stays put too, see nextBox).
+    if (!(correct && confidence === 'guessing')) it.stability = nextStability(it.stability, correct);
 
     var now = new Date();
     it.lastReviewed = now.toISOString();
@@ -497,6 +499,32 @@
     } catch (e) {}
     s.components[k] = c; save(s);
   };
+  // The ring's denominators (questions in the bank, cards in the deck) for every
+  // unit whose data this page has loaded. Without this, a student who only uses
+  // the Flashcard Hub or Cumulative Review would show 0% for a unit whose page
+  // they never opened.
+  SPACED.recordTotals = function () {
+    var M = window.APWH_MCQ && window.APWH_MCQ.units, F = window.FC_DATA;
+    if (!M && !F) return;
+    var s = load(), changed = false, u;
+    s.components = s.components || {};
+    function comp(u) { return (s.components['u' + u] = s.components['u' + u] || {}); }
+    for (u in (M || {})) {
+      var q = (M[u] && M[u].questions) || {}, n = 0;
+      for (var t in q) n += (q[t] || []).length;
+      if (n && comp(u).mcqTotal !== n) { comp(u).mcqTotal = n; changed = true; }
+    }
+    for (u in (F || {})) {
+      var d = F[u];
+      if (d && d.length && comp(u).fcTotal !== d.length) { comp(u).fcTotal = d.length; changed = true; }
+    }
+    if (changed) save(s);
+  };
+  (function trackTotals() {
+    function go() { setTimeout(function () { try { SPACED.recordTotals(); } catch (e) {} }, 120); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+  })();
+
   (function trackComponents() {
     var m = (location.pathname || '').match(/unit(\d+)/i);
     if (!m) return;                        // only on unit pages

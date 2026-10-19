@@ -35,12 +35,12 @@
       if (it.imgs) {
         img = '<div class="vs-multi-img">' + it.imgs.map(function (src, j) {
           var t = (it.imgTitles && it.imgTitles[j]) || it.title;
-          return '<div class="vs-img-wrap"><img src="' + src + '" alt="' + attr(t) + '" class="vs-source-img vs-source-img-multi" loading="lazy">' +
+          return '<div class="vs-img-wrap"><img src="' + src + '" alt="' + attr(t) + '" class="vs-source-img vs-source-img-multi" loading="lazy" onerror="this.style.display=\'none\'">' +
             (it.imgTitles && it.imgTitles[j] ? '<div class="vs-img-cap">' + it.imgTitles[j] + '</div>' : '') +
             (it.imgSources && it.imgSources[j] ? '<div class="vs-img-src">' + it.imgSources[j] + '</div>' : '') + '</div>';
         }).join('') + '</div>';
       } else {
-        img = '<img src="' + it.img + '" alt="' + attr(it.title) + '" class="vs-source-img" loading="lazy">';
+        img = '<img src="' + it.img + '" alt="' + attr(it.title) + '" class="vs-source-img" loading="lazy" onerror="this.style.display=\'none\'">';
       }
       var opts = it.o.map(function (o, j) {
         return '<button type="button" class="vs-mc-option" data-oi="' + j + '">' + String.fromCharCode(65 + j) + '. ' + o + '</button>';

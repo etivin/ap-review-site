@@ -1260,7 +1260,8 @@ function loadProgress() {
 function saveProgress() {
   try {
     var cur = loadProgress();
-    ['studentName', 'mcq', 'fcSeen', 'drafts'].forEach(function (k) {
+    // Only the key this page edits; mcq-engine.js owns 'mcq' now.
+    ['drafts'].forEach(function (k) {
       if (progressData[k] !== undefined) cur[k] = progressData[k];
     });
     localStorage.setItem('apReview_v1', JSON.stringify(cur));
@@ -1328,6 +1329,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!progressData.drafts) progressData.drafts = {};
     progressData.drafts[wpType] = this.value;
     saveProgress();
+  });
+
+  // Skill-drill boxes save on this device too (same wd-draft: keys as writing-drills.js).
+  document.querySelectorAll('#pg-write textarea.drill-textarea[id]').forEach(function (ta) {
+    var key = 'wd-draft:u7-' + ta.id, timer = null;
+    try { var v = localStorage.getItem(key); if (v) ta.value = v; } catch (e) {}
+    function save() {
+      clearTimeout(timer); timer = null;
+      try { if (ta.value.trim()) localStorage.setItem(key, ta.value); else localStorage.removeItem(key); } catch (e) {}
+    }
+    ta.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(save, 400); });
+    ta.addEventListener('blur', save);
   });
 
   /* ── RUBRIC CHECK ENGINE ── */
@@ -2238,10 +2251,10 @@ document.addEventListener('DOMContentLoaded', function () {
       <!-- PDF embed -->
       <div>
         <div class="slides-embed" id="slides-embed-wrap">
-          <iframe src="unit%207%20slides.pdf" title="Unit 7 Class Slides" allowfullscreen></iframe>
+          <iframe src="source-docs/unit7/unit%207%20slides.pdf" title="Unit 7 Class Slides" allowfullscreen></iframe>
         </div>
         <p style="font-size:.75rem;color:var(--muted);margin-top:8px;line-height:1.5">
-          If the slides don&rsquo;t load, <a href="unit%207%20slides.pdf" target="_blank" style="color:var(--red)">open Unit&nbsp;7 Slides (PDF) in a new tab &rarr;</a>
+          If the slides don&rsquo;t load, <a href="source-docs/unit7/unit%207%20slides.pdf" target="_blank" style="color:var(--red)">open Unit&nbsp;7 Slides (PDF) in a new tab &rarr;</a>
         </p>
       </div>
 

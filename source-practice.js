@@ -138,7 +138,7 @@
     function render() {
       var d = DOCS[idx];
       $('sa-doc').innerHTML = '<div class="src-doc-lbl">' + d.type + '</div><div class="src-doc-src">' + d.sl + '</div>' +
-        (d.img ? '<img src="' + d.img + '" alt="' + String(d.type).replace(/"/g, '&quot;') + '" class="src-doc-img">' : '') +
+        (d.img ? '<img src="' + d.img + '" alt="' + String(d.type).replace(/"/g, '&quot;') + '" class="src-doc-img" onerror="this.style.display=\'none\'">' : '') +
         (d.excerpt ? '<div class="src-doc-txt">' + String(d.excerpt).replace(/\n/g, '<br>') + '</div>' : '');
       $('sa-text').value = '';
       $('sa-model').classList.remove('show');

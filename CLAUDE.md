@@ -54,8 +54,9 @@ site; Eli edits content.
   No Node or Python is installed on Eli's machine.
 - **Verify in the browser** before committing: load the page, open the tab you changed with
   `showTab('pg-xxx')`, check the console for errors, and exercise the feature. Known noise you can
-  ignore: `Invalid LatLng` errors from the map iframe when it's hidden, and a 404 for
-  `unit 7 slides.pdf`.
+  ignore: `Invalid LatLng` errors from the map iframe when it's hidden, and a 404 from the
+  YouTube embeds. The page sets `scroll-behavior:smooth`, and smooth scrolls stall while the
+  preview pane is hidden, so read scroll positions with an instant scroll.
 - **Browser caching:** Cloudflare serves `.js`/`.css` with `Cache-Control: max-age=14400`, so browsers
   keep an old script for up to 4 hours after a deploy (HTML pages are `no-cache`). When a script change
   must show up right away, bump a version query on its tag in the pages that load it, e.g.
@@ -123,13 +124,16 @@ Reuse these ids; don't invent per-unit variants.
 `unit-shell.js` (loaded last, just before `</body>`) builds the sidebar groups into
 `#sb-nav-items`, adds the sub-tab bar under the top bar, and defines `window.showTab(id)`.
 The six groups are fixed for every unit:
-Overview · Practice (`pg-mcq pg-walk pg-web`) · Writing (`pg-write pg-writing`) · Study Guide ·
+Overview · Practice (`pg-mcq pg-walk pg-web`) · Writing (`pg-write pg-writing`) · Study Guide (`pg-guide pg-slides`) ·
 Sources (`pg-source pg-visual pg-maps`) · Review & Recall (`pg-flash pg-glossary pg-brain pg-spice pg-games`).
 Tabs missing from a page are skipped. Labels live in `unit-shell.js`; a unit can override them
 with `window.UNIT_SHELL = {titles:{...}, sublabels:{...}}` set before the script loads (no unit
 needs to today). Any element with `data-tab="pg-xxx"` opens that tab; `unitN.html#pg-xxx` deep-links;
 `#g-<slug>` opens a glossary term. On every switch the shell fires a `unit:tab` event
-(`e.detail.id`).
+(`e.detail.id`), writes the tab into the URL hash (`pushState`, so Back returns to the previous
+tab and a refresh stays put; not on first load, so `glossary.js` can still read `#g-<slug>`), and
+on phones (sidebar not `position:fixed`) scrolls to the content instead of the top, since the
+stacked sidebar is about 600px tall. Unit 7's `pg-slides` embeds `source-docs/unit7/unit 7 slides.pdf`.
 `nav-flyout.js` and `tour.js` read each sidebar item's `data-subs`.
 
 ### 4.3 Shared includes every unit loads
@@ -163,7 +167,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 
 | File | Role | Data / API |
 |---|---|---|
-| `mcq-bank.js` | All MCQs | `APWH_MCQ.units[n] = {title, topics:[{id,name}], questions:{'n.x':[{s, sl, simg?, q, o:[4], c, e, src?}]}}`. New topics: `addTopic(u,id,name,qs)` block before `/* @@APPEND_UNITS_HERE@@ */`. Practice Sets 1–4 are appended to existing topics with `Q(u, topic, {...})` in their own block (`src:'Set N, Qk'`; sources are page crops in `images/stimuli/psN-*.png`). Always append new questions to the end of a topic, never insert, so spaced-review ids don't shift. |
+| `mcq-bank.js` | All MCQs | `APWH_MCQ.units[n] = {title, topics:[{id,name}], questions:{'n.x':[{s, sl, simg?, simgCap?, simgs?, simgCaps?, q, o:[4], c, e, src?}]}}` (`simgs`/`simgCaps` show several captioned images). New topics: `addTopic(u,id,name,qs)` block before `/* @@APPEND_UNITS_HERE@@ */`. Practice Sets 1–4 are appended to existing topics with `Q(u, topic, {...})` in their own block (`src:'Set N, Qk'`; sources are page crops in `images/stimuli/psN-*.png`). Always append new questions to the end of a topic, never insert, so spaced-review ids don't shift. |
 | `mcq-engine.js` | MCQ UI (Quick Check / Test Mode, confidence tap) | `APWH.mountMCQ(el, {unit} or {pool})` |
 | `sbmcq.js` | Stimulus-MCQ strategy + worked examples | `SBMCQ_WORKED` list; `renderWalk(el,{unit})`, `renderCheatsheet(el)` |
 | `flashcard-data.js` | **Single source of truth for flashcards** | `FC_DATA[n] = [[topic, term, def], ...]`, `FC_UNITS`; also feeds Brain Dump for Units 6, 7, 9 |
@@ -201,7 +205,11 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 `lastSeen`, legacy `mcq`/`drafts`). **Always read-modify-write the current value; never write back
 a copy loaded earlier** (that erases progress saved since). Others: `mcTheme`, `fcHub_v1` (Hub
 settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `u4VoyageBest`, `u5MinecartBest`, `u6RailsBest`, `u7TankBest`, `u8SputnikBest`, `u9FreightBest`, `unitMapPanel` (unit map side panel open/closed), `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
-`apwh-timer-*`.
+`apwh-timer-*`, `wd-draft:<id>` (writing drafts: Writing Drills boxes by point id such as
+`u3-saq0-a`, Unit 7 FRQ Grader drill boxes as `u7-<textarea id>`), `wd-check:<id>` (Writing
+Drills "I earned this point" ticks; older ticks under `wd-check:<path>:<id>` are migrated on load).
+`spaced.js` also saves every unit's `mcqTotal`/`fcTotal` (the ring denominators) on any page that
+loads `mcq-bank.js` or `flashcard-data.js` (`SPACED.recordTotals`).
 
 ## 6. Not shared yet (each unit has its own inline copy)
 
@@ -247,5 +255,9 @@ SPICE-T, all of the shared game content for Units 1–4 and 9, and the gap-filli
 sections and the Unit 9 Brain Dump sentence starters were written by Claude (October 2026).
 The 220 Practice Set 1–4 MCQs (added 2026-10-14) are Eli's practice exams, used with permission and kept verbatim;
 they came without an answer key, so the correct answers (`c`), explanations (`e`) and unit/topic placement were set by Claude.
-About 54 of them have the key as the longest option (the source's wording, not changed). Released College Board FRQs are cataloged in
+About 54 of them have the key as the longest option (the source's wording, not changed).
+On 2026-10-19 the options of 68 questions in Units 1, 2, 4, 6, 7 and 8 were reordered (wording
+unchanged, ids unchanged) to even out answer positions; questions whose explanation names a letter,
+and Practice Set questions, were left in their original order. The key is still the longest option
+in roughly a third to half of Units 1, 6, 7 and 8 (Eli's wording, not changed). Released College Board FRQs are cataloged in
 `source-docs/released-frqs/README.md`. See also `SECURITY-NOTES.md`.

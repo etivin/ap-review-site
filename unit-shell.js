@@ -27,14 +27,14 @@
     { label: 'Overview', pages: ['pg-home'] },
     { label: 'Practice', pages: ['pg-mcq', 'pg-walk', 'pg-web'] },
     { label: 'Writing', pages: ['pg-write', 'pg-writing'] },
-    { label: 'Study Guide', pages: ['pg-guide'] },
+    { label: 'Study Guide', pages: ['pg-guide', 'pg-slides'] },
     { label: 'Sources', pages: ['pg-source', 'pg-visual', 'pg-maps'] },
     { label: 'Review & Recall', pages: ['pg-flash', 'pg-glossary', 'pg-brain', 'pg-spice', 'pg-games'] }
   ];
   var SUBLABELS = {
     'pg-mcq': 'Questions', 'pg-walk': 'How to Attack an MCQ', 'pg-web': 'Web Review',
     'pg-write': 'FRQ Grader', 'pg-writing': 'Writing Drills',
-    'pg-guide': 'Study Guide',
+    'pg-guide': 'Study Guide', 'pg-slides': 'Class Slides',
     'pg-source': 'Documents', 'pg-visual': 'Visual Sources', 'pg-maps': 'Maps',
     'pg-flash': 'Flashcards', 'pg-glossary': 'Glossary', 'pg-brain': 'Brain Dump', 'pg-spice': 'SPICE-T', 'pg-games': 'Games'
   };
@@ -113,8 +113,32 @@
     var tt = document.getElementById('top-title');
     if (tt) tt.textContent = group ? group.label : (PAGE_TITLES[id] || '');
     try { document.dispatchEvent(new CustomEvent('unit:tab', { detail: { id: id } })); } catch (e) {}
-    window.scrollTo(0, 0);
+    // Jump, don't glide: the pages set scroll-behavior:smooth on <html>.
+    var de = document.documentElement, was = de.style.scrollBehavior;
+    de.style.scrollBehavior = 'auto';
+    window.scrollTo(0, contentTop());
+    de.style.scrollBehavior = was;
+    // Keep the tab in the URL so a refresh stays put and Back returns to the last tab.
+    // Not during first load: glossary.js still has to read a #g-<slug> link.
+    // A #g-<slug> glossary link is replaced, not stacked, so Back can't land on it and bounce.
+    if (ready && !fromHistory && t && location.hash !== '#' + id) {
+      try {
+        if (!location.hash || hashPage()) history.pushState(null, '', '#' + id);
+        else history.replaceState(null, '', '#' + id);
+      } catch (e) {}
+    }
   }
+  var ready = false, fromHistory = false;
+  // On phones the sidebar stacks above the content (~600px tall), so scrolling to 0
+  // would leave the new tab below the screen. Scroll to where the top bar sticks instead.
+  function contentTop() {
+    if (opening) return 0;   // first load: show the sidebar menu
+    var sb = document.querySelector('.sidebar'), tb = document.querySelector('.top-bar');
+    if (!sb || !tb || !tb.parentElement || getComputedStyle(sb).position === 'fixed') return 0;
+    var stick = parseFloat(getComputedStyle(tb).top) || 0;
+    return Math.max(0, tb.parentElement.getBoundingClientRect().top + window.pageYOffset - stick);
+  }
+  var opening = true;
   window.showTab = showTab;
 
   function hashPage() {
@@ -123,8 +147,20 @@
   }
   function init() {
     injectCSS(); ensureSubtabBar(); renderNav();
-    showTab(hashPage() || 'pg-home');
-    window.addEventListener('hashchange', function () { var h = hashPage(); if (h) showTab(h); });
+    var start = hashPage();
+    opening = !start;        // a deep link goes straight to its tab's content
+    showTab(start || 'pg-home');
+    opening = false;
+    ready = true;
+    // Back/Forward and typed hashes. An empty hash is the page's first entry (Overview);
+    // other hashes (#g-<slug>) belong to glossary.js.
+    function fromUrl() {
+      var h = hashPage();
+      fromHistory = true;
+      try { if (h) showTab(h); else if (!location.hash) showTab('pg-home'); } finally { fromHistory = false; }
+    }
+    window.addEventListener('hashchange', fromUrl);
+    window.addEventListener('popstate', fromUrl);
     document.addEventListener('click', function (e) {
       var el = e.target.closest && e.target.closest('[data-tab]');
       if (el) showTab(el.getAttribute('data-tab'));

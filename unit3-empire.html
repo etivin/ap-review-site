@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit 3 Build the Perfect Empire</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+/* Colors come only from the shared brand tokens in brand.css (navy, gold,
+   brand blue, light-blue paper), so this page follows any palette change.
+   Every rule is scoped under #emp so theme.css's dark-mode text overrides
+   don't flatten the accents. --lime in brand.css is the logo gold. */
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{font-size:18px}
+body{margin:0;background:var(--cream);font-family:Lato,-apple-system,'Segoe UI',sans-serif}
+#emp{
+  --txt:var(--ink);--blue-t:var(--blue);--gold-t:var(--gold);
+  --win:var(--navy);--loss:var(--coral);
+  background:var(--cream);color:var(--txt);min-height:100vh;line-height:1.5
+}
+:root[data-theme="dark"] #emp{--txt:#e8ecf5;--blue-t:#9db8ff;--gold-t:#f4cd4f;--win:#26489c}
+#emp a{color:inherit}
+#emp button{font-family:inherit;cursor:pointer}
+
+#emp .bar{height:66px;padding:0 max(16px,3vw);background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:60;box-shadow:0 2px 0 var(--lime)}
+#emp .brand{font-weight:900;font-size:16.8px;letter-spacing:-.04em;text-decoration:none;color:#fff;white-space:nowrap}
+#emp .bar-link{color:#fff;text-decoration:none;font-size:10.56px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:6px 2px;border-bottom:2px solid transparent;white-space:nowrap}
+#emp .bar-link:hover{color:var(--lime);border-bottom-color:var(--lime)}
+
+#emp .wrap{max-width:1160px;margin:0 auto;padding:26px 16px 70px}
+#emp .eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-t)}
+#emp .card{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh)}
+#emp .btn{display:inline-block;border:0;background:var(--red);color:#fff;font-weight:900;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:14px 28px;text-decoration:none;text-align:center;transition:background .15s,transform .15s,box-shadow .15s}
+#emp .btn:hover:not(:disabled){background:var(--red-d);transform:translateY(-2px);box-shadow:var(--shm)}
+#emp .btn:disabled{opacity:.4;cursor:not-allowed}
+#emp .btn-ghost{display:inline-block;border:1px solid var(--border2);background:var(--white);color:var(--txt);font-weight:700;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:13px 16px;text-decoration:none;text-align:center;transition:border-color .15s,color .15s}
+#emp .btn-ghost:hover:not(:disabled){border-color:var(--red);color:var(--blue-t)}
+#emp .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── TITLE ── */
+#emp .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center;padding:30px 32px;border-top:5px solid var(--navy)}
+#emp .hero h1{margin:8px 0 10px;font-weight:900;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.045em;line-height:1}
+#emp .hero h1 em{font-style:normal;color:var(--blue-t)}
+#emp .tagline{margin:0 0 20px;color:var(--mid);font-size:.86rem;max-width:620px}
+#emp .seal{width:176px;padding:20px 12px 16px;text-align:center;background:var(--navy);border-bottom:4px solid var(--lime);box-shadow:var(--shm)}
+#emp .seal b{display:block;color:var(--lime);font-size:3rem;font-weight:900;letter-spacing:-.05em;line-height:1}
+#emp .seal span{display:block;margin-top:8px;color:#c8d4ee;font-size:.52rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+#emp .how{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+#emp .how .card{padding:15px 16px;border-top:3px solid var(--red)}
+#emp .how .n{display:block;color:var(--blue-t);font-weight:900;font-size:.62rem;letter-spacing:.14em;margin-bottom:6px}
+#emp .how p{margin:0;font-size:.74rem;color:var(--mid);line-height:1.45}
+
+/* ── DRAFT ── */
+#emp .board{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
+#emp .wheel-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:12px 18px;border-bottom:3px solid var(--lime)}
+#emp .round{display:flex;align-items:baseline;gap:8px}
+#emp .round small{font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c8d4ee}
+#emp .round span{font-weight:900;font-size:1.3rem;color:#fff;letter-spacing:-.02em}
+#emp .skips{display:flex;align-items:center;gap:6px;font-size:.54rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c8d4ee}
+#emp .skips i{width:11px;height:11px;border-radius:50%;background:var(--lime);border:2px solid var(--lime);display:inline-block}
+#emp .skips i.used{background:transparent;border-color:#56678f}
+#emp .wheel-body{padding:18px}
+#emp .regions{display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+#emp .rg{padding:7px 12px;border:1px solid var(--border);background:var(--paper);color:var(--mid);font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:background .08s,color .08s,border-color .08s,transform .08s}
+#emp .rg.lit{background:var(--gold-bg);border-color:var(--gold-b);color:var(--gold-t)}
+#emp .rg.on{background:var(--navy);border-color:var(--navy);color:var(--lime);transform:translateY(-2px);box-shadow:var(--shm)}
+#emp .reel{margin:16px auto;max-width:440px;text-align:center;padding:14px 12px;border:1px solid var(--border2);background:var(--sky)}
+#emp .reel-lbl{font-size:.54rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+#emp .reel-txt{font-weight:900;font-size:1.55rem;letter-spacing:-.03em;color:var(--txt);min-height:2.1rem}
+#emp .reel-txt.spin{color:var(--muted)}
+#emp .reel-txt.done{color:var(--blue-t);animation:pop .25s ease}
+#emp .wheel-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+#emp .picks{margin-top:22px}
+#emp .picks-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+#emp .picks-hd h2{margin:0;font-weight:900;font-size:1.3rem;letter-spacing:-.03em}
+#emp .picks-hd h2 em{font-style:normal;color:var(--blue-t)}
+#emp .picks-hd span{font-size:.66rem;color:var(--muted)}
+#emp .pick-list{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+#emp .pick{display:grid;grid-template-columns:1fr auto;gap:2px 12px;text-align:left;padding:13px 14px;background:var(--white);border:1px solid var(--border);border-left:4px solid var(--red);box-shadow:var(--sh);color:var(--txt);transition:transform .15s,box-shadow .15s,border-color .15s;animation:pop .25s ease backwards}
+#emp .pick:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shm);border-color:var(--red)}
+#emp .pick:disabled{opacity:.42;cursor:not-allowed;box-shadow:none;border-left-color:var(--border2)}
+#emp .pick-pos{font-size:.54rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-t)}
+#emp .pick:disabled .pick-pos{color:var(--muted)}
+#emp .pick-name{font-weight:900;font-size:.95rem;line-height:1.2;letter-spacing:-.02em}
+#emp .pick-desc{grid-column:1/-1;font-size:.7rem;color:var(--mid);line-height:1.45;margin-top:5px}
+#emp .rate{grid-row:1/3;grid-column:2;align-self:start;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;border:2px solid var(--border2);color:var(--mid);background:var(--paper)}
+#emp .rate.t1{background:var(--lime);color:var(--navy);border-color:var(--gold-b)}
+#emp .rate.t2{background:var(--red-bg);color:var(--blue-t);border-color:var(--red)}
+#emp .empty-note{grid-column:1/-1;padding:20px;text-align:center;color:var(--mid);background:var(--sky);border:1px dashed var(--border2);font-size:.8rem}
+
+/* roster + connections */
+#emp .side{position:sticky;top:120px;display:flex;flex-direction:column;gap:16px}
+#emp .panel-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0;background:var(--navy);color:#fff;padding:11px 16px}
+#emp .panel-hd h3{margin:0;font-weight:900;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+#emp .strength{display:flex;align-items:baseline;gap:7px}
+#emp .strength b{font-size:1.3rem;font-weight:900;color:var(--lime);letter-spacing:-.02em}
+#emp .strength span{font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c8d4ee;line-height:1.1}
+#emp .meter{height:6px;background:var(--paper)}
+#emp .meter i{display:block;height:100%;width:0;background:var(--lime);transition:width .4s ease}
+#emp .roster{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:12px}
+#emp .slot{padding:7px 9px;min-height:56px;border:1px dashed var(--border2);background:var(--paper);display:flex;flex-direction:column;gap:1px;transition:background .2s,border-color .2s}
+#emp .slot-lbl{font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+#emp .slot-name{font-weight:700;font-size:.7rem;line-height:1.2;color:var(--muted)}
+#emp .slot-rt{font-size:.6rem;font-weight:900;color:var(--gold-t)}
+#emp .slot.filled{border:1px solid var(--border);background:var(--white)}
+#emp .slot.filled .slot-name{color:var(--txt);font-weight:900}
+#emp .slot.open{border:1px solid var(--gold-b);background:var(--gold-bg);box-shadow:inset 3px 0 0 var(--lime)}
+#emp .slot.open .slot-lbl{color:var(--gold-t)}
+#emp .slot.just{animation:pop .3s ease}
+#emp .chips{display:flex;flex-direction:column;gap:8px;padding:12px 14px 0}
+#emp .chips:empty{display:none}
+#emp .chip{border-left:4px solid var(--green);background:var(--green-bg);padding:8px 10px;font-size:.68rem;line-height:1.35;color:var(--txt);animation:pop .25s ease}
+#emp .chip b{display:block;font-size:.52rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:2px}
+#emp .chip.minus{border-left-color:var(--coral);background:var(--red-bg)}
+#emp .chip.minus b{color:var(--coral)}
+:root[data-theme="dark"] #emp .chip b,:root[data-theme="dark"] #emp .chem .badge{color:#7fe0a8}
+:root[data-theme="dark"] #emp .chip.minus b,:root[data-theme="dark"] #emp .chem.minus .badge{color:#f5a07a}
+#emp .live p{margin:0;padding:12px 14px 14px;font-size:.68rem;color:var(--muted);line-height:1.5}
+#emp .live .chips:not(:empty)+p{display:none}
+#emp .live .chips:not(:empty){padding-bottom:14px}
+
+/* ── SIMULATION ── */
+#emp .sim-hd{margin-bottom:16px}
+#emp .sim-hd h2{margin:6px 0 0;font-weight:900;font-size:clamp(1.8rem,4vw,2.4rem);letter-spacing:-.045em;line-height:1}
+#emp .centuries{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+#emp .cent{aspect-ratio:3/4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:var(--white);border:1px solid var(--border);color:var(--muted);transition:background .25s,transform .25s,box-shadow .25s}
+#emp .cent .c-num{font-weight:900;font-size:.8rem}
+#emp .cent .c-sub{font-size:.46rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+#emp .cent .c-res{font-weight:900;font-size:1.4rem;line-height:1}
+#emp .cent.win{background:var(--win);border-color:var(--win);border-bottom:4px solid var(--lime);transform:translateY(-3px);box-shadow:var(--shm)}
+#emp .cent.win *{color:#fff}
+#emp .cent.win .c-res{color:var(--lime)}
+#emp .cent.loss{background:var(--coral);border-color:var(--coral)}
+#emp .cent.loss *{color:#fff}
+#emp .result{margin-top:24px;display:grid;grid-template-columns:290px minmax(0,1fr);gap:20px;align-items:start}
+#emp .grade{overflow:hidden}
+#emp .grade-top{background:var(--navy);padding:18px 16px 22px;text-align:center;border-bottom:3px solid var(--lime)}
+#emp .grade-top .eyebrow{color:#c8d4ee}
+#emp .grade-seal{display:inline-flex;align-items:center;justify-content:center;min-width:116px;height:116px;margin:12px auto 0;padding:0 14px;border-radius:50%;font-weight:900;font-size:3.4rem;letter-spacing:-.05em;color:#fff;border:3px solid #fff;animation:pop .4s ease}
+#emp .grade-seal.s{background:var(--lime);color:var(--navy);border-color:#fff;box-shadow:0 0 0 4px var(--lime),0 0 32px rgba(244,205,79,.55)}
+#emp .grade-seal.a{background:var(--green)}
+#emp .grade-seal.b{background:var(--red)}
+#emp .grade-seal.c{background:var(--gold)}
+#emp .grade-seal.d,#emp .grade-seal.f{background:var(--coral)}
+#emp .grade-body{padding:16px;text-align:center}
+#emp .record{font-weight:900;font-size:1.6rem;letter-spacing:-.03em}
+#emp .grade-desc{color:var(--mid);font-size:.78rem;margin:2px 0 14px}
+#emp .grade .btn,#emp .grade .btn-ghost{display:block;width:100%;margin-top:8px}
+#emp .panels{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+#emp .panel-body{padding:6px 14px 12px}
+#emp .row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:.74rem}
+#emp .row:last-child{border-bottom:0}
+#emp .row .pos{flex-shrink:0;width:78px;font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+#emp .row .nm{flex:1;font-weight:700}
+#emp .row .rt{font-weight:900;color:var(--gold-t)}
+#emp .chem{margin-top:9px;border-left:4px solid var(--green);background:var(--green-bg);padding:9px 11px}
+#emp .chem.minus{border-left-color:var(--coral);background:var(--red-bg)}
+#emp .chem .badge{display:block;font-size:.52rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:3px}
+#emp .chem.minus .badge{color:var(--coral)}
+#emp .chem-pair{font-weight:900;font-size:.76rem;line-height:1.3}
+#emp .chem-why{font-size:.7rem;color:var(--mid);line-height:1.45;margin-top:2px}
+#emp .chem-none{margin-top:9px;font-size:.74rem;color:var(--mid);line-height:1.5}
+#emp .net{display:flex;justify-content:space-between;gap:10px;margin-top:12px;padding-top:10px;border-top:2px solid var(--border);font-size:.72rem}
+#emp .net span{color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.58rem}
+#emp .net b{font-weight:900}
+#emp .net b.pos{color:var(--green)}#emp .net b.neg{color:var(--coral)}
+:root[data-theme="dark"] #emp .net b.pos{color:#7fe0a8}
+#emp .foot{margin-top:40px;border-top:1px solid var(--border2);padding-top:16px;font-size:.64rem;color:var(--muted);line-height:1.7}
+
+@media(max-width:960px){
+  #emp .board{grid-template-columns:1fr}
+  #emp .side{position:static}
+  #emp .result{grid-template-columns:1fr}
+  #emp .how{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  #emp .hero{grid-template-columns:1fr;padding:22px 18px}
+  #emp .seal{width:auto;order:-1;display:flex;align-items:baseline;gap:12px;padding:12px 16px}
+  #emp .seal b{font-size:2rem}
+  #emp .seal span{margin:0}
+  #emp .pick-list,#emp .panels,#emp .how{grid-template-columns:1fr}
+  #emp .centuries{grid-template-columns:repeat(5,1fr)}
+}
+@media(prefers-reduced-motion:reduce){#emp *{animation:none!important;transition-duration:.01ms!important}}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+<div id="emp">
+
+<div class="bar">
+  <a class="brand" href="./">AP WORLD // <b>EMPIRE BUILDER</b></a>
+  <a class="bar-link" href="unit3.html#pg-games">&larr; Unit 3 Games</a>
+</div>
+
+<div class="wrap">
+
+<!-- TITLE SCREEN -->
+<section id="title-screen">
+  <div class="hero card">
+    <div>
+      <div class="eyebrow">Unit 3 &middot; Review Game &middot; Units 1&ndash;3 Content</div>
+      <h1>Build the Perfect <em>Empire</em></h1>
+      <p class="tagline">Spin a random region. Draft rulers, governments, economies, innovations, and more from AP World Units 1–3. Fill 12 slots. Survive ten centuries.</p>
+      <button type="button" class="btn" id="start-btn">&#9654; Begin</button>
+    </div>
+    <div class="seal"><b>10&ndash;0</b><span>The only perfect grade</span></div>
+  </div>
+  <div class="how">
+    <div class="card"><span class="n">01 &middot; SPIN</span><p>Spin to land on a random world region.</p></div>
+    <div class="card"><span class="n">02 &middot; DRAFT</span><p>Pick one historical element from that region and place it in an open slot.</p></div>
+    <div class="card"><span class="n">03 &middot; FILL</span><p>Fill all 12 slots across categories like Ruler, Military, Architecture, and more.</p></div>
+    <div class="card"><span class="n">04 &middot; SURVIVE</span><p>Your empire is simulated across 10 centuries. Go 10–0 for the only perfect grade.</p></div>
+  </div>
+</section>
+
+<!-- DRAFT SCREEN -->
+<section id="game-screen" hidden>
+  <div class="board">
+    <div>
+      <div class="wheel card">
+        <div class="wheel-top">
+          <div class="round"><small>Draft</small><span id="round-label">Pick 1 of 12</span></div>
+          <div class="skips" id="skips">Skips <i></i><i></i></div>
+        </div>
+        <div class="wheel-body">
+          <div class="regions" id="regions"></div>
+          <div class="reel">
+            <div class="reel-lbl">Region</div>
+            <div class="reel-txt" id="slot-text">Spin to begin</div>
+          </div>
+          <div class="wheel-btns">
+            <button type="button" class="btn" id="spin-btn">&#8635; Spin</button>
+            <button type="button" class="btn-ghost" id="skip-btn" disabled>Skip region (2)</button>
+          </div>
+        </div>
+      </div>
+      <div class="picks" id="pick-section" hidden>
+        <div class="picks-hd">
+          <h2>Draft from <em id="pick-region-label"></em></h2>
+          <span>Highlighted slots are still open.</span>
+        </div>
+        <div class="pick-list" id="pick-list"></div>
+      </div>
+    </div>
+
+    <aside class="side">
+      <div class="roster-card card">
+        <div class="panel-hd">
+          <h3>Your Empire</h3>
+          <div class="strength"><b id="str-num">&ndash;</b><span id="str-lbl">Empire<br>strength</span></div>
+        </div>
+        <div class="meter"><i id="str-bar"></i></div>
+        <div class="roster" id="roster"></div>
+      </div>
+      <div class="live card">
+        <div class="panel-hd"><h3>Connections</h3></div>
+        <div class="chips" id="live-chem"></div>
+        <p id="live-note">Picks that belong together historically earn a bonus; picks that clash cost you. They show up here as you draft.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- SIMULATION SCREEN -->
+<section id="sim-screen" hidden>
+  <div class="sim-hd">
+    <div class="eyebrow">Unit 3 &middot; Ten Centuries</div>
+    <h2 id="sim-title">Simulating 10 Centuries&hellip;</h2>
+  </div>
+  <div class="centuries" id="centuries-grid"></div>
+  <div class="result" id="result" hidden>
+    <div class="grade card" id="grade-reveal"></div>
+    <div class="panels">
+      <div class="panel card"><div class="panel-hd"><h3>Your Empire</h3></div><div class="panel-body" id="sim-roster"></div></div>
+      <div class="panel card"><div class="panel-hd"><h3>Empire Chemistry</h3></div><div class="panel-body" id="chemistry-report"></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="foot">Content from AP World History: Modern, Units 1–3. A study tool, not an official College Board product.</div>
+</div>
+</div>
+
+<script>
+
+const DB = [
+  // ═══ RULERS ═══
+  {name:"Genghis Khan",pos:"Ruler",region:"Central Asia",rating:97,desc:"United the Mongol tribes and built the largest contiguous land empire in history."},
+  {name:"Kublai Khan",pos:"Ruler",region:"East Asia",rating:88,desc:"Founded the Yuan Dynasty and extended Mongol rule across China."},
+  {name:"Hongwu Emperor",pos:"Ruler",region:"East Asia",rating:85,desc:"Founded the Ming Dynasty and restored Chinese rule after the Mongols."},
+  {name:"Yongle Emperor",pos:"Ruler",region:"East Asia",rating:84,desc:"Sponsored Zheng He's voyages and moved the capital to Beijing."},
+  {name:"Tokugawa Ieyasu",pos:"Ruler",region:"East Asia",rating:83,desc:"Unified Japan and established the Tokugawa Shogunate."},
+  {name:"Akbar the Great",pos:"Ruler",region:"South Asia",rating:93,desc:"Mughal emperor who promoted religious tolerance and centralized administration."},
+  {name:"Rajendra Chola I",pos:"Ruler",region:"South Asia",rating:78,desc:"Chola Dynasty ruler who extended power across the Indian Ocean."},
+  {name:"Babur",pos:"Ruler",region:"South Asia",rating:80,desc:"Founded the Mughal Empire after conquering the Delhi Sultanate."},
+  {name:"Suleiman the Magnificent",pos:"Ruler",region:"Southwest Asia",rating:95,desc:"Ottoman sultan who oversaw the empire's golden age of law, art, and expansion."},
+  {name:"Mehmed II",pos:"Ruler",region:"Southwest Asia",rating:89,desc:"Conquered Constantinople in 1453, ending the Byzantine Empire."},
+  {name:"Shah Abbas I",pos:"Ruler",region:"Southwest Asia",rating:84,desc:"Safavid shah who modernized the military and made Isfahan a cultural capital."},
+  {name:"Saladin",pos:"Ruler",region:"Southwest Asia",rating:82,desc:"Ayyubid sultan who recaptured Jerusalem from the Crusaders."},
+  {name:"Mansa Musa",pos:"Ruler",region:"Sub-Saharan Africa",rating:92,desc:"Mali emperor whose hajj to Mecca displayed staggering wealth and spread Mali's fame."},
+  {name:"Sundiata Keita",pos:"Ruler",region:"Sub-Saharan Africa",rating:85,desc:"Founded the Mali Empire and established its oral tradition of governance."},
+  {name:"Askia Muhammad",pos:"Ruler",region:"Sub-Saharan Africa",rating:79,desc:"Songhai ruler who expanded the empire and promoted Islamic scholarship at Timbuktu."},
+  {name:"Elizabeth I",pos:"Ruler",region:"Europe",rating:84,desc:"English queen whose reign saw naval dominance and a cultural golden age."},
+  {name:"Louis XIV",pos:"Ruler",region:"Europe",rating:82,desc:"The 'Sun King' who perfected absolutism and built Versailles."},
+  {name:"Peter the Great",pos:"Ruler",region:"Europe",rating:83,desc:"Russian tsar who modernized and westernized Russia."},
+  {name:"Isabella of Castile",pos:"Ruler",region:"Europe",rating:81,desc:"United Spain, funded Columbus, and completed the Reconquista."},
+  {name:"Pachacuti",pos:"Ruler",region:"Americas",rating:88,desc:"Inca ruler who transformed Cusco and expanded the empire across the Andes."},
+  {name:"Montezuma II",pos:"Ruler",region:"Americas",rating:72,desc:"Aztec emperor at the time of Spanish contact; oversaw a vast tribute empire."},
+
+  // ═══ GOVERNMENT ═══
+  {name:"Chinese Civil Service Exam",pos:"Government",region:"East Asia",rating:94,desc:"Merit-based bureaucracy selecting officials through rigorous Confucian examinations."},
+  {name:"Mandate of Heaven",pos:"Government",region:"East Asia",rating:80,desc:"Legitimacy framework: rulers govern with divine approval, lost through corruption."},
+  {name:"Tokugawa Shogunate",pos:"Government",region:"East Asia",rating:82,desc:"Feudal military government that unified Japan under centralized warrior rule."},
+  {name:"Ottoman Devshirme",pos:"Government",region:"Southwest Asia",rating:88,desc:"System conscripting Christian boys to serve as elite Janissary soldiers and administrators."},
+  {name:"Mughal Mansabdar System",pos:"Government",region:"South Asia",rating:85,desc:"Ranked military-bureaucratic hierarchy assigning officials land revenue and troop obligations."},
+  {name:"Feudalism",pos:"Government",region:"Europe",rating:70,desc:"Decentralized system of lords, vassals, and serfs exchanging loyalty for land and protection."},
+  {name:"European Absolutism",pos:"Government",region:"Europe",rating:78,desc:"Centralized monarchies with divine right claims and powerful state bureaucracies."},
+  {name:"Inca Mit'a System",pos:"Government",region:"Americas",rating:86,desc:"Mandatory public labor service that built roads, terraces, and temples across the Andes."},
+  {name:"Aztec Calpulli",pos:"Government",region:"Americas",rating:74,desc:"Clan-based districts organizing land, taxes, and military service in the Aztec state."},
+  {name:"Caliphate",pos:"Government",region:"Southwest Asia",rating:76,desc:"Islamic political-religious authority uniting governance with religious law (sharia)."},
+  {name:"Mali Griot Tradition",pos:"Government",region:"Sub-Saharan Africa",rating:73,desc:"Oral historians who preserved laws, genealogies, and political legitimacy across generations."},
+  {name:"Mongol Yasa Code",pos:"Government",region:"Central Asia",rating:83,desc:"Genghis Khan's legal code governing trade, diplomacy, and religious tolerance across the empire."},
+
+  // ═══ ECONOMY ═══
+  {name:"Song Market Economy",pos:"Economy",region:"East Asia",rating:93,desc:"World's most advanced commercial economy: paper money, credit, and bustling urban markets."},
+  {name:"Ming Silver Trade",pos:"Economy",region:"East Asia",rating:86,desc:"Global silver demand drove trade with Spain and Japan, fueling the Ming tax system."},
+  {name:"Indian Textile Production",pos:"Economy",region:"South Asia",rating:90,desc:"Cotton and silk manufacturing that dominated Indian Ocean trade for centuries."},
+  {name:"Ottoman Tax Farming",pos:"Economy",region:"Southwest Asia",rating:75,desc:"Revenue collection outsourced to private tax collectors across the empire's provinces."},
+  {name:"Trans-Saharan Gold Trade",pos:"Economy",region:"Sub-Saharan Africa",rating:88,desc:"Gold from West African mines traded across the Sahara, funding empires and attracting merchants."},
+  {name:"European Guild System",pos:"Economy",region:"Europe",rating:72,desc:"Craft and merchant organizations regulating production, quality, and apprenticeship in towns."},
+  {name:"Mercantilism",pos:"Economy",region:"Europe",rating:77,desc:"State-directed economic policy maximizing exports, hoarding bullion, and building colonial wealth."},
+  {name:"Aztec Tribute System",pos:"Economy",region:"Americas",rating:81,desc:"Conquered peoples sent cacao, textiles, gold, and warriors to the Aztec capital."},
+  {name:"Inca Redistribution",pos:"Economy",region:"Americas",rating:84,desc:"State-controlled economy with no currency: goods stored centrally and redistributed by need."},
+  {name:"Swahili City-State Commerce",pos:"Economy",region:"Sub-Saharan Africa",rating:82,desc:"Coastal trading cities linking African gold and ivory to Indian Ocean merchant networks."},
+  {name:"Pastoral Nomadic Economy",pos:"Economy",region:"Central Asia",rating:68,desc:"Herding-based economy trading animal products along steppe routes and extracting tribute."},
+
+  // ═══ TRADE NETWORK ═══
+  {name:"Silk Road",pos:"Trade Network",region:"Central Asia",rating:95,desc:"Overland routes connecting China to the Mediterranean, spreading goods, ideas, and disease."},
+  {name:"Indian Ocean Trade",pos:"Trade Network",region:"South Asia",rating:94,desc:"Monsoon-driven maritime network linking East Africa, Arabia, India, and Southeast Asia."},
+  {name:"Trans-Saharan Routes",pos:"Trade Network",region:"Sub-Saharan Africa",rating:87,desc:"Camel caravans carrying gold, salt, and enslaved people across the Sahara Desert."},
+  {name:"Zheng He's Expeditions",pos:"Trade Network",region:"East Asia",rating:80,desc:"Ming treasure fleets sailing to Southeast Asia, India, and East Africa to project power."},
+  {name:"Hanseatic League",pos:"Trade Network",region:"Europe",rating:78,desc:"Northern European merchant alliance dominating Baltic and North Sea trade."},
+  {name:"Grand Canal",pos:"Trade Network",region:"East Asia",rating:83,desc:"Massive waterway linking northern and southern China, moving grain and goods."},
+  {name:"Mediterranean Trade",pos:"Trade Network",region:"Europe",rating:81,desc:"Venice, Genoa, and other Italian city-states controlling East-West trade through the Mediterranean."},
+  {name:"Inca Road System",pos:"Trade Network",region:"Americas",rating:82,desc:"25,000+ miles of roads with relay runners (chasquis) and bridges connecting the Andes."},
+  {name:"Aztec Pochteca",pos:"Trade Network",region:"Americas",rating:74,desc:"Long-distance merchant class trading luxury goods and serving as spies for the empire."},
+  {name:"Swahili Coast Network",pos:"Trade Network",region:"Sub-Saharan Africa",rating:83,desc:"East African port cities like Kilwa and Mogadishu linking Africa to the wider Indian Ocean."},
+
+  // ═══ MILITARY ═══
+  {name:"Mongol Cavalry",pos:"Military",region:"Central Asia",rating:96,desc:"Horse archers with composite bows, feigned retreats, and unmatched steppe warfare mobility."},
+  {name:"Ottoman Janissaries",pos:"Military",region:"Southwest Asia",rating:90,desc:"Elite infantry corps trained from youth, among the first to use gunpowder firearms."},
+  {name:"Samurai Warriors",pos:"Military",region:"East Asia",rating:80,desc:"Japanese warrior class following bushido, skilled in swordsmanship and mounted combat."},
+  {name:"Ming Navy",pos:"Military",region:"East Asia",rating:79,desc:"Massive fleet of treasure ships that projected Ming power across the Indian Ocean."},
+  {name:"Mughal War Elephants",pos:"Military",region:"South Asia",rating:76,desc:"Armored elephants used as shock weapons and mobile command platforms in battle."},
+  {name:"Aztec Eagle Warriors",pos:"Military",region:"Americas",rating:77,desc:"Elite Aztec soldiers who captured enemies for sacrifice and earned status through combat."},
+  {name:"Spanish Tercios",pos:"Military",region:"Europe",rating:82,desc:"Combined pike and gunpowder infantry formations that dominated European battlefields."},
+  {name:"Songhai Cavalry",pos:"Military",region:"Sub-Saharan Africa",rating:74,desc:"Mounted warriors who helped Songhai control trade routes across West Africa."},
+  {name:"English Longbowmen",pos:"Military",region:"Europe",rating:75,desc:"Devastating ranged warriors whose volleys decided battles like Crécy and Agincourt."},
+  {name:"Gunpowder Weapons",pos:"Military",region:"Southwest Asia",rating:88,desc:"Cannons and firearms adopted early by Ottoman and Safavid empires, reshaping warfare."},
+  {name:"Inca Sling Warriors",pos:"Military",region:"Americas",rating:66,desc:"Andean soldiers using slings with deadly accuracy, supported by mace and club fighters."},
+
+  // ═══ BELIEF SYSTEM ═══
+  {name:"Neo-Confucianism",pos:"Belief System",region:"East Asia",rating:90,desc:"Synthesis of Confucian ethics with Buddhist and Daoist metaphysics; shaped East Asian governance."},
+  {name:"Sunni Islam",pos:"Belief System",region:"Southwest Asia",rating:91,desc:"Majority branch of Islam emphasizing community consensus, sharia, and the caliphate tradition."},
+  {name:"Shia Islam",pos:"Belief System",region:"Southwest Asia",rating:82,desc:"Branch following Ali's lineage; state religion of the Safavid Empire."},
+  {name:"Bhakti Movement",pos:"Belief System",region:"South Asia",rating:83,desc:"Hindu devotional movement emphasizing personal connection to God across caste lines."},
+  {name:"Zen Buddhism",pos:"Belief System",region:"East Asia",rating:78,desc:"Meditation-centered Buddhism that profoundly influenced Japanese culture and aesthetics."},
+  {name:"Sufism",pos:"Belief System",region:"Southwest Asia",rating:85,desc:"Mystical Islamic tradition spreading the faith through poetry, music, and personal devotion."},
+  {name:"Catholic Church",pos:"Belief System",region:"Europe",rating:84,desc:"Unified Western European religious authority shaping politics, education, and daily life."},
+  {name:"Protestant Reformation",pos:"Belief System",region:"Europe",rating:80,desc:"Martin Luther's challenge to Catholic authority, fragmenting European Christianity."},
+  {name:"Aztec Cosmology",pos:"Belief System",region:"Americas",rating:76,desc:"Sun-centered belief system requiring human sacrifice to sustain the cosmic order."},
+  {name:"Inca Sun Worship",pos:"Belief System",region:"Americas",rating:74,desc:"State religion centered on Inti (the sun god) with the Sapa Inca as divine ruler."},
+  {name:"Syncretic West African Islam",pos:"Belief System",region:"Sub-Saharan Africa",rating:77,desc:"Islam blended with local traditions, spread by traders and scholars across the Sahel."},
+  {name:"Sikhism",pos:"Belief System",region:"South Asia",rating:75,desc:"Founded by Guru Nanak, blending Hindu and Islamic ideas into a monotheistic faith."},
+
+  // ═══ INNOVATION ═══
+  {name:"Movable Type Printing",pos:"Innovation",region:"East Asia",rating:92,desc:"Chinese and Korean printing technology that accelerated the spread of knowledge."},
+  {name:"Gunpowder",pos:"Innovation",region:"East Asia",rating:95,desc:"Chinese invention that transformed warfare worldwide after spreading along trade routes."},
+  {name:"Magnetic Compass",pos:"Innovation",region:"East Asia",rating:88,desc:"Navigation tool enabling long-distance maritime trade and exploration."},
+  {name:"Paper Money",pos:"Innovation",region:"East Asia",rating:85,desc:"Song Dynasty innovation replacing heavy coins with government-backed currency."},
+  {name:"Astrolabe",pos:"Innovation",region:"Southwest Asia",rating:83,desc:"Islamic astronomers perfected this tool for navigation, timekeeping, and finding Mecca."},
+  {name:"Gutenberg Press",pos:"Innovation",region:"Europe",rating:91,desc:"Movable type press that revolutionized European learning and fueled the Reformation."},
+  {name:"Caravel Ships",pos:"Innovation",region:"Europe",rating:84,desc:"Agile Portuguese ships combining square and lateen sails for ocean exploration."},
+  {name:"Quipu",pos:"Innovation",region:"Americas",rating:78,desc:"Inca knotted-string record-keeping system encoding census, tax, and calendar data."},
+  {name:"Wootz Steel",pos:"Innovation",region:"South Asia",rating:80,desc:"Indian crucible steel producing legendary Damascus sword blades traded across Eurasia."},
+  {name:"Lateen Sail",pos:"Innovation",region:"Southwest Asia",rating:79,desc:"Triangular sail enabling ships to tack against the wind on Indian Ocean routes."},
+  {name:"Iron Smelting",pos:"Innovation",region:"Sub-Saharan Africa",rating:74,desc:"Advanced Bantu ironworking techniques spreading metallurgy across the continent."},
+
+  // ═══ ARCHITECTURE ═══
+  {name:"Hagia Sophia",pos:"Architecture",region:"Southwest Asia",rating:94,desc:"Byzantine cathedral turned mosque; masterpiece of domed architecture in Constantinople."},
+  {name:"Angkor Wat",pos:"Architecture",region:"South Asia",rating:93,desc:"Massive Khmer temple complex: the largest religious monument ever built."},
+  {name:"Great Zimbabwe",pos:"Architecture",region:"Sub-Saharan Africa",rating:82,desc:"Stone-walled city in southern Africa showcasing advanced construction without mortar."},
+  {name:"Forbidden City",pos:"Architecture",region:"East Asia",rating:91,desc:"Massive imperial palace complex in Beijing housing Ming and Qing emperors."},
+  {name:"Machu Picchu",pos:"Architecture",region:"Americas",rating:90,desc:"Inca royal estate high in the Andes with precision stone construction and terraces."},
+  {name:"Alhambra",pos:"Architecture",region:"Europe",rating:87,desc:"Moorish palace in Granada with intricate Islamic geometric art and gardens."},
+  {name:"Notre-Dame Cathedral",pos:"Architecture",region:"Europe",rating:83,desc:"Gothic masterpiece in Paris showcasing flying buttresses and stained glass."},
+  {name:"Tenochtitlan Templo Mayor",pos:"Architecture",region:"Americas",rating:85,desc:"Twin-pyramid temple at the heart of the Aztec capital honoring Tlaloc and Huitzilopochtli."},
+  {name:"Samarkand Registan",pos:"Architecture",region:"Central Asia",rating:86,desc:"Timurid-era plaza of three grand madrasas: the jewel of Central Asian architecture."},
+  {name:"Taj Mahal",pos:"Architecture",region:"South Asia",rating:92,desc:"Mughal mausoleum of white marble, blending Persian, Islamic, and Indian architectural styles."},
+  {name:"Mosque of Djenné",pos:"Architecture",region:"Sub-Saharan Africa",rating:80,desc:"World's largest mud-brick building: a Sudano-Sahelian architectural wonder in Mali."},
+
+
+  // ═══ LABOR SYSTEM ═══
+  {name:"European Serfdom",pos:"Labor System",region:"Europe",rating:72,desc:"Peasants bound to manorial land, owing labor and crops to their lord in exchange for protection."},
+  {name:"Aztec Tribute Labor",pos:"Labor System",region:"Americas",rating:78,desc:"Conquered peoples providing labor, goods, and warriors as tribute to the Aztec state."},
+  {name:"Inca Mit'a Labor",pos:"Labor System",region:"Americas",rating:85,desc:"Rotational mandatory public service building roads, storehouses, and temples across the Andes."},
+  {name:"Trans-Saharan Slave Trade",pos:"Labor System",region:"Sub-Saharan Africa",rating:80,desc:"Enslaved Africans transported across the Sahara to North Africa and the Middle East."},
+  {name:"Indian Ocean Slave Trade",pos:"Labor System",region:"Southwest Asia",rating:77,desc:"Trade in enslaved people from East Africa to Arabia, Persia, and India via monsoon routes."},
+  {name:"Corvée Labor (China)",pos:"Labor System",region:"East Asia",rating:82,desc:"Mandatory unpaid labor on imperial projects like the Grand Canal and Great Wall extensions."},
+  {name:"Mongol Conscription",pos:"Labor System",region:"Central Asia",rating:79,desc:"Conquered peoples drafted as soldiers, engineers, and artisans serving Mongol military campaigns."},
+  {name:"Guild Apprenticeship",pos:"Labor System",region:"Europe",rating:70,desc:"Multi-year training system progressing from apprentice to journeyman to master craftsman."},
+
+  // ═══ CITY / CAPITAL ═══
+  {name:"Constantinople",pos:"City",region:"Southwest Asia",rating:95,desc:"Byzantine and later Ottoman capital controlling the Bosporus: crossroads of Europe and Asia."},
+  {name:"Tenochtitlan",pos:"City",region:"Americas",rating:91,desc:"Aztec island capital on Lake Texcoco with 200,000+ people, causeways, and chinampas."},
+  {name:"Timbuktu",pos:"City",region:"Sub-Saharan Africa",rating:86,desc:"Mali and Songhai center of Islamic learning, trade, and the famous Sankore University."},
+  {name:"Chang'an / Beijing",pos:"City",region:"East Asia",rating:90,desc:"Chinese imperial capitals serving as political and cultural centers for successive dynasties."},
+  {name:"Cusco",pos:"City",region:"Americas",rating:83,desc:"'Navel of the world': Inca capital with massive stone architecture and radiating road system."},
+  {name:"Baghdad",pos:"City",region:"Southwest Asia",rating:88,desc:"Abbasid capital and center of the Islamic Golden Age's House of Wisdom."},
+  {name:"Venice",pos:"City",region:"Europe",rating:84,desc:"Maritime republic dominating Mediterranean trade from its lagoon: gateway between East and West."},
+  {name:"Samarkand",pos:"City",region:"Central Asia",rating:82,desc:"Silk Road jewel and Timurid capital famous for its mosques, madrasas, and astronomical observatory."},
+  {name:"Kilwa",pos:"City",region:"Sub-Saharan Africa",rating:79,desc:"Swahili coast city-state minting its own coins and controlling Indian Ocean gold trade."},
+  {name:"Delhi",pos:"City",region:"South Asia",rating:85,desc:"Seat of the Delhi Sultanate and later the Mughals: center of Indo-Islamic culture."},
+  {name:"Paris",pos:"City",region:"Europe",rating:80,desc:"Medieval Europe's largest city, home to the University of Paris and Gothic architecture."},
+
+  // ═══ SCHOLAR / THINKER ═══
+  // ═══ EXPLORER / TRAVELER ═══
+  {name:"Ibn Battuta",pos:"Explorer",region:"Sub-Saharan Africa",rating:93,desc:"Moroccan traveler who journeyed 75,000 miles across the Islamic world, Africa, and Asia."},
+  {name:"Marco Polo",pos:"Explorer",region:"Europe",rating:85,desc:"Venetian merchant whose travels to Kublai Khan's court introduced Europeans to East Asia."},
+  {name:"Zheng He",pos:"Explorer",region:"East Asia",rating:88,desc:"Ming admiral who led massive treasure fleets across the Indian Ocean projecting Chinese power."},
+  {name:"Rabban Bar Sauma",pos:"Explorer",region:"Central Asia",rating:78,desc:"Nestorian monk who traveled from China to Europe as a Mongol diplomat: a reverse Marco Polo."},
+  {name:"Ahmad ibn Fadlan",pos:"Explorer",region:"Southwest Asia",rating:76,desc:"Abbasid emissary who documented the Volga Vikings and Central Asian peoples in vivid detail."},
+  {name:"Xuanzang",pos:"Explorer",region:"South Asia",rating:82,desc:"Tang Dynasty Buddhist monk who traveled to India to collect sacred texts, inspiring Journey to the West."},
+  {name:"Leif Erikson",pos:"Explorer",region:"Europe",rating:77,desc:"Norse explorer who reached North America around 1000 CE: centuries before Columbus."},
+  {name:"Mansa Musa's Hajj",pos:"Explorer",region:"Sub-Saharan Africa",rating:90,desc:"Epic 1324 pilgrimage from Mali to Mecca with tons of gold, crashing economies along the way."},
+
+  // ═══ AGRICULTURAL SYSTEM ═══
+  {name:"Chinampas",pos:"Agricultural System",region:"Americas",rating:90,desc:"Aztec floating gardens producing abundant crops on Lake Texcoco's shallow waters."},
+  {name:"Terrace Farming",pos:"Agricultural System",region:"Americas",rating:82,desc:"Inca agricultural engineering carving productive farmland into steep Andean mountainsides."},
+  {name:"Three-Field System",pos:"Agricultural System",region:"Europe",rating:78,desc:"Medieval crop rotation leaving one field fallow, increasing yields across Northern Europe."},
+  {name:"Rice Paddy Cultivation",pos:"Agricultural System",region:"East Asia",rating:92,desc:"Intensive wet-rice farming sustaining massive Song Dynasty populations and surplus."},
+  {name:"Qanat Irrigation",pos:"Agricultural System",region:"Southwest Asia",rating:85,desc:"Underground aqueduct system channeling mountain water to arid fields across Persia and beyond."},
+  {name:"Monsoon Agriculture",pos:"Agricultural System",region:"South Asia",rating:80,desc:"Seasonal rain-dependent farming of rice, wheat, and cotton sustaining dense Indian populations."},
+  {name:"Pastoral Herding",pos:"Agricultural System",region:"Central Asia",rating:68,desc:"Nomadic animal husbandry of horses, sheep, and goats across the Eurasian steppe."},
+  {name:"Bantu Farming Expansion",pos:"Agricultural System",region:"Sub-Saharan Africa",rating:76,desc:"Spread of iron tools and crop cultivation as Bantu peoples migrated across sub-Saharan Africa."},
+];
+
+// ── CHEMISTRY: Synergies & Clashes ──
+const SYNERGIES = [
+  // Ruler + their own systems
+  {a:"Genghis Khan",b:"Mongol Cavalry",bonus:4,why:"Genghis Khan built the Mongol cavalry into the deadliest military force on the steppe."},
+  {a:"Genghis Khan",b:"Mongol Yasa Code",bonus:3,why:"The Yasa was Genghis Khan's own legal code: ruler and law in perfect sync."},
+  {a:"Genghis Khan",b:"Silk Road",bonus:3,why:"The Pax Mongolica made the Silk Road safer and more profitable than ever."},
+  {a:"Genghis Khan",b:"Mongol Conscription",bonus:3,why:"Genghis Khan's conscription system fed his armies with conquered peoples."},
+  {a:"Suleiman the Magnificent",b:"Ottoman Janissaries",bonus:4,why:"Suleiman commanded the Janissaries at the height of Ottoman military power."},
+  {a:"Suleiman the Magnificent",b:"Ottoman Devshirme",bonus:3,why:"The devshirme system produced the loyal administrators Suleiman relied on."},
+  {a:"Suleiman the Magnificent",b:"Hagia Sophia",bonus:2,why:"Suleiman beautified Constantinople and its crown jewel, the Hagia Sophia."},
+  {a:"Akbar the Great",b:"Mughal Mansabdar System",bonus:4,why:"Akbar perfected the mansabdar system to centralize Mughal administration."},
+  {a:"Akbar the Great",b:"Mughal War Elephants",bonus:2,why:"Akbar's military campaigns deployed war elephants across the subcontinent."},
+  {a:"Akbar the Great",b:"Taj Mahal",bonus:2,why:"The Mughal architectural tradition Akbar championed culminated in the Taj Mahal."},
+  {a:"Mansa Musa",b:"Trans-Saharan Gold Trade",bonus:4,why:"Mansa Musa's legendary wealth came directly from controlling West Africa's gold trade."},
+  {a:"Mansa Musa",b:"Timbuktu",bonus:4,why:"Mansa Musa transformed Timbuktu into a world center of Islamic learning."},
+  {a:"Mansa Musa",b:"Mansa Musa's Hajj",bonus:3,why:"His own hajj: ruler and explorer perfectly linked."},
+  {a:"Mansa Musa",b:"Mosque of Djenné",bonus:2,why:"Mansa Musa sponsored grand mosque construction across the Mali Empire."},
+  {a:"Pachacuti",b:"Inca Mit'a Labor",bonus:4,why:"Pachacuti built the mit'a labor system that constructed the Inca Empire."},
+  {a:"Pachacuti",b:"Machu Picchu",bonus:4,why:"Pachacuti personally commissioned Machu Picchu as a royal estate."},
+  {a:"Pachacuti",b:"Inca Road System",bonus:3,why:"Pachacuti expanded the road system that unified the Andes under Inca rule."},
+  {a:"Pachacuti",b:"Terrace Farming",bonus:3,why:"Inca terrace farming fed the empire Pachacuti built."},
+  {a:"Mehmed II",b:"Constantinople",bonus:4,why:"Mehmed II conquered Constantinople in 1453: the city became his capital."},
+  {a:"Mehmed II",b:"Gunpowder Weapons",bonus:3,why:"Mehmed used massive cannons to breach Constantinople's walls."},
+  {a:"Hongwu Emperor",b:"Chinese Civil Service Exam",bonus:3,why:"Hongwu restored and expanded the exam system to rebuild Chinese governance."},
+  {a:"Tokugawa Ieyasu",b:"Tokugawa Shogunate",bonus:4,why:"Ieyasu founded the Tokugawa Shogunate: ruler and government are one."},
+  {a:"Montezuma II",b:"Tenochtitlan",bonus:3,why:"Montezuma ruled from Tenochtitlan at the height of Aztec power."},
+  {a:"Montezuma II",b:"Aztec Tribute System",bonus:3,why:"Montezuma's empire ran on the tribute flowing into Tenochtitlan."},
+
+  // Cross-category historical connections
+  {a:"Gunpowder",b:"Ottoman Janissaries",bonus:3,why:"The Janissaries were among the first soldiers to master gunpowder firearms."},
+  {a:"Gunpowder",b:"Gunpowder Weapons",bonus:3,why:"Chinese gunpowder invention and its military application: cause and effect."},
+  {a:"Gunpowder",b:"Spanish Tercios",bonus:2,why:"The tercios combined pike formations with gunpowder muskets."},
+  {a:"Chinese Civil Service Exam",b:"Neo-Confucianism",bonus:4,why:"The exams tested Neo-Confucian philosophy: the ideology powered the bureaucracy."},
+  {a:"Song Market Economy",b:"Paper Money",bonus:4,why:"The Song Dynasty invented paper money to fuel its booming market economy."},
+  {a:"Song Market Economy",b:"Rice Paddy Cultivation",bonus:3,why:"Champa rice surpluses fed Song China's explosive commercial growth."},
+  {a:"Song Market Economy",b:"Grand Canal",bonus:3,why:"The Grand Canal moved Song grain and goods, linking the economy north to south."},
+  {a:"Indian Ocean Trade",b:"Lateen Sail",bonus:3,why:"The lateen sail let dhows harness monsoon winds across the Indian Ocean."},
+  {a:"Indian Ocean Trade",b:"Swahili Coast Network",bonus:3,why:"Swahili ports were the African gateway to the Indian Ocean trading world."},
+  {a:"Indian Ocean Trade",b:"Indian Textile Production",bonus:3,why:"Indian textiles were the most traded commodity across the Indian Ocean."},
+  {a:"Silk Road",b:"Magnetic Compass",bonus:2,why:"Navigation innovations supported long-distance Silk Road trade."},
+  {a:"Silk Road",b:"Samarkand",bonus:3,why:"Samarkand was the jewel of the Silk Road: trade and city thrived together."},
+  {a:"Silk Road",b:"Samarkand Registan",bonus:2,why:"Silk Road wealth funded Samarkand's grand Registan architecture."},
+  {a:"Tenochtitlan",b:"Chinampas",bonus:4,why:"Chinampas floating gardens fed Tenochtitlan's 200,000+ population."},
+  {a:"Tenochtitlan",b:"Tenochtitlan Templo Mayor",bonus:3,why:"The Templo Mayor was the spiritual heart of the Aztec capital."},
+  {a:"Tenochtitlan",b:"Aztec Tribute Labor",bonus:3,why:"Tribute labor from conquered peoples built and sustained Tenochtitlan."},
+  {a:"Constantinople",b:"Hagia Sophia",bonus:4,why:"The Hagia Sophia was Constantinople's architectural masterpiece for a millennium."},
+  {a:"Constantinople",b:"Mediterranean Trade",bonus:3,why:"Constantinople controlled the strait linking Mediterranean and Black Sea trade."},
+  {a:"Timbuktu",b:"Trans-Saharan Routes",bonus:3,why:"Timbuktu sat at the southern end of the trans-Saharan trade routes."},
+  {a:"Timbuktu",b:"Syncretic West African Islam",bonus:2,why:"Timbuktu was the intellectual center of Islam's spread in West Africa."},
+  {a:"Zheng He",b:"Ming Navy",bonus:4,why:"Zheng He commanded the Ming treasure fleet: admiral and navy are inseparable."},
+  {a:"Zheng He",b:"Zheng He's Expeditions",bonus:4,why:"Zheng He's voyages were the expeditions: explorer and trade network as one."},
+  {a:"Ibn Battuta",b:"Indian Ocean Trade",bonus:3,why:"Ibn Battuta traveled the Indian Ocean trade routes he documented."},
+  {a:"Ibn Battuta",b:"Trans-Saharan Routes",bonus:2,why:"Ibn Battuta crossed the Sahara to reach Mali and document its wonders."},
+  {a:"Marco Polo",b:"Silk Road",bonus:3,why:"Marco Polo traveled the Silk Road to reach Kublai Khan's court."},
+  {a:"Kublai Khan",b:"Grand Canal",bonus:2,why:"Kublai Khan extended the Grand Canal to supply his new capital at Beijing."},
+  {a:"Protestant Reformation",b:"Gutenberg Press",bonus:4,why:"The printing press spread Luther's ideas across Europe: no press, no Reformation."},
+  {a:"Catholic Church",b:"Notre-Dame Cathedral",bonus:3,why:"Gothic cathedrals like Notre-Dame were monuments to Catholic faith and power."},
+  {a:"Inca Sun Worship",b:"Inca Mit'a Labor",bonus:2,why:"Mit'a labor built temples to Inti: religious devotion organized through state service."},
+  {a:"Qanat Irrigation",b:"Shah Abbas I",bonus:2,why:"Persian qanat systems sustained the agricultural base of Abbas's Safavid Empire."},
+  {a:"Delhi",b:"Mughal Mansabdar System",bonus:2,why:"Delhi was the administrative center where the mansabdar system was managed."},
+  {a:"Baghdad",b:"Caliphate",bonus:3,why:"Baghdad was the seat of the Abbasid Caliphate: the capital of the Islamic world."},
+  {a:"Babur",b:"Delhi",bonus:2,why:"Babur conquered Delhi to establish the Mughal Empire."},
+  {a:"Isabella of Castile",b:"Caravel Ships",bonus:2,why:"Isabella funded the voyages that used caravel technology to reach the Americas."},
+  {a:"Movable Type Printing",b:"Gutenberg Press",bonus:2,why:"Gutenberg adapted Chinese/Korean movable type for the Latin alphabet."},
+];
+
+const CLASHES = [
+  {a:"Tokugawa Ieyasu",b:"Silk Road",penalty:3,why:"Tokugawa Japan's isolationist sakoku policy cut off most foreign trade."},
+  {a:"Tokugawa Shogunate",b:"Silk Road",penalty:3,why:"The Shogunate deliberately closed Japan to outside trade networks."},
+  {a:"Catholic Church",b:"Protestant Reformation",penalty:3,why:"The Reformation directly challenged Catholic authority: these two fight each other."},
+  {a:"Sunni Islam",b:"Shia Islam",penalty:3,why:"Sunni-Shia rivalry split the Islamic world and fueled centuries of conflict."},
+  {a:"Mongol Cavalry",b:"European Serfdom",penalty:2,why:"Nomadic cavalry tactics and settled feudal labor have nothing in common."},
+  {a:"Genghis Khan",b:"Feudalism",penalty:2,why:"Mongol meritocratic conquest clashed with Europe's rigid feudal hierarchy."},
+  {a:"Aztec Cosmology",b:"Catholic Church",penalty:3,why:"Spanish Catholics destroyed Aztec religious practices: these belief systems are at war."},
+  {a:"Inca Sun Worship",b:"Catholic Church",penalty:2,why:"Spanish conquest replaced Inca sun worship with Catholicism by force."},
+  {a:"Samurai Warriors",b:"Gunpowder Weapons",penalty:2,why:"The samurai class resisted firearms as dishonorable to their warrior code."},
+  {a:"European Absolutism",b:"Inca Mit'a Labor",penalty:2,why:"Centralizing a European monarchy with Andean communal labor: these don't connect."},
+  {a:"Aztec Tribute System",b:"Inca Redistribution",penalty:2,why:"Aztec extraction and Inca redistribution are opposite economic philosophies."},
+  {a:"Tokugawa Ieyasu",b:"Zheng He's Expeditions",penalty:2,why:"Tokugawa isolation and Ming naval exploration pull in opposite directions."},
+  {a:"Pastoral Herding",b:"Rice Paddy Cultivation",penalty:2,why:"Nomadic herding and intensive wet-rice farming are incompatible land-use systems."},
+];
+const REGIONS = ["East Asia","South Asia","Southwest Asia","Sub-Saharan Africa","Europe","Central Asia","Americas"];
+const POSITIONS = [
+  {key:"Ruler",label:"Ruler"},
+  {key:"Government",label:"Gov't"},
+  {key:"Economy",label:"Economy"},
+  {key:"Trade Network",label:"Trade"},
+  {key:"Military",label:"Military"},
+  {key:"Belief System",label:"Belief"},
+  {key:"Innovation",label:"Innovation"},
+  {key:"Architecture",label:"Architecture"},
+  {key:"Labor System",label:"Labor"},
+  {key:"City",label:"City"},
+  {key:"Explorer",label:"Explorer"},
+  {key:"Agricultural System",label:"Agriculture"}
+];
+const TOTAL_SLOTS = POSITIONS.length;
+const SKIPS = 2;
+const $ = id => document.getElementById(id);
+const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let state;
+
+function show(screen) {
+  ['title-screen','game-screen','sim-screen'].forEach(id => { $(id).hidden = id !== screen; });
+  window.scrollTo(0, 0);
+}
+
+function startGame() {
+  state = { roster:Array(TOTAL_SLOTS).fill(null), currentRegion:null, spun:false, skipsLeft:SKIPS, spinning:false, last:-1 };
+  show('game-screen');
+  $('regions').innerHTML = REGIONS.map(r => `<span class="rg">${r}</span>`).join('');
+  resetWheel();
+  renderRoster();
+  renderLive();
+  updateRoundLabel();
+  updateSkips();
+}
+
+function resetWheel() {
+  state.spun = false;
+  state.currentRegion = null;
+  $('pick-section').hidden = true;
+  $('slot-text').className = 'reel-txt';
+  $('slot-text').textContent = 'Spin for a region';
+  $('spin-btn').disabled = false;
+  document.querySelectorAll('#regions .rg').forEach(c => c.className = 'rg');
+  markOpenSlots([]);
+  updateSkips();
+}
+
+function updateRoundLabel() {
+  const filled = state.roster.filter(Boolean).length;
+  $('round-label').textContent = `Pick ${Math.min(filled + 1, TOTAL_SLOTS)} of ${TOTAL_SLOTS}`;
+}
+
+function updateSkips() {
+  $('skips').innerHTML = 'Skips ' + Array.from({length:SKIPS}, (_, i) => `<i class="${i < state.skipsLeft ? '' : 'used'}"></i>`).join('');
+  $('skip-btn').textContent = `Skip region (${state.skipsLeft})`;
+  $('skip-btn').disabled = !(state.spun && !state.spinning && state.skipsLeft > 0);
+}
+
+function tier(r) { return r >= 90 ? 't1' : r >= 80 ? 't2' : ''; }
+
+function renderRoster() {
+  $('roster').innerHTML = POSITIONS.map((p, i) => {
+    const pick = state.roster[i];
+    return `<div class="slot${pick ? ' filled' : ''}${i === state.last ? ' just' : ''}">
+      <span class="slot-lbl">${p.label}</span>
+      <span class="slot-name">${pick ? pick.name : 'Open'}</span>
+      ${pick ? `<span class="slot-rt">${pick.rating}</span>` : ''}
+    </div>`;
+  }).join('');
+  const picks = state.roster.filter(Boolean);
+  if (!picks.length) {
+    $('str-num').textContent = '–';
+    $('str-bar').style.width = '0';
+    return;
+  }
+  const chem = chemistry(picks);
+  const avg = picks.reduce((s, p) => s + p.rating, 0) / picks.length + chem.net;
+  $('str-num').textContent = avg.toFixed(1);
+  $('str-bar').style.width = Math.max(0, Math.min(100, (avg - 60) / 40 * 100)) + '%';
+}
+
+function markOpenSlots(positions) {
+  document.querySelectorAll('#roster .slot').forEach((slot, i) => {
+    slot.classList.toggle('open', !state.roster[i] && positions.includes(POSITIONS[i].key));
+  });
+}
+
+function getOpenPositions() {
+  return POSITIONS.filter((p, i) => !state.roster[i]).map(p => p.key);
+}
+
+function chemistry(picks) {
+  const names = picks.map(p => p.name);
+  const syn = SYNERGIES.filter(s => names.includes(s.a) && names.includes(s.b));
+  const cl = CLASHES.filter(c => names.includes(c.a) && names.includes(c.b));
+  const plus = syn.reduce((s, x) => s + x.bonus, 0);
+  const minus = cl.reduce((s, x) => s + x.penalty, 0);
+  return { syn, cl, plus, minus, net: plus - minus };
+}
+
+function renderLive() {
+  const chem = chemistry(state.roster.filter(Boolean));
+  $('live-chem').innerHTML =
+    chem.syn.map(s => `<div class="chip plus"><b>+${s.bonus} synergy</b>${s.a} + ${s.b}</div>`).join('') +
+    chem.cl.map(c => `<div class="chip minus"><b>&minus;${c.penalty} clash</b>${c.a} + ${c.b}</div>`).join('');
+  $('live-note').hidden = chem.syn.length + chem.cl.length > 0;
+}
+
+function spinSlot() {
+  if (state.spinning || state.spun) return;
+  state.spinning = true;
+  $('spin-btn').disabled = true;
+  updateSkips();
+  const chips = document.querySelectorAll('#regions .rg');
+  const txt = $('slot-text');
+  txt.className = 'reel-txt spin';
+  const final = Math.floor(Math.random() * REGIONS.length);
+  // Light chips in order, slowing down, and stop on the chosen region.
+  const steps = reduceMotion ? 1 : REGIONS.length * 3 + final + 1;
+  let step = 0, delay = 45;
+  (function tick() {
+    const idx = (step) % REGIONS.length;
+    chips.forEach((c, i) => c.className = 'rg' + (i === idx ? ' lit' : ''));
+    txt.textContent = REGIONS[idx];
+    step++;
+    if (step < steps) {
+      delay = step > steps - 8 ? delay * 1.28 : delay;
+      setTimeout(tick, delay);
+      return;
+    }
+    const region = REGIONS[final];
+    chips.forEach((c, i) => c.className = 'rg' + (i === final ? ' on' : ''));
+    txt.textContent = region;
+    txt.className = 'reel-txt done';
+    state.currentRegion = region;
+    state.spun = true;
+    state.spinning = false;
+    updateSkips();
+    showPicks(region);
+  })();
+}
+
+function skipRegion() {
+  if (state.skipsLeft <= 0 || !state.spun || state.spinning) return;
+  state.skipsLeft--;
+  resetWheel();
+}
+
+function showPicks(region) {
+  const open = getOpenPositions();
+  const allFromRegion = DB.filter(d => d.region === region);
+  const list = $('pick-list');
+  $('pick-region-label').textContent = region;
+  $('pick-section').hidden = false;
+
+  const availablePicks = allFromRegion.filter(d => open.includes(d.pos));
+  if (availablePicks.length === 0) {
+    list.innerHTML = `<div class="empty-note">Every slot ${region} can fill is already taken. Spinning again for free&hellip;</div>`;
+    $('skip-btn').disabled = true;
+    setTimeout(resetWheel, 1600);
+    return;
+  }
+
+  const sorted = [...allFromRegion].sort((a, b) => {
+    const aOpen = open.includes(a.pos) ? 0 : 1;
+    const bOpen = open.includes(b.pos) ? 0 : 1;
+    if (aOpen !== bOpen) return aOpen - bOpen;
+    return b.rating - a.rating;
+  });
+
+  list.innerHTML = '';
+  sorted.forEach((pick, n) => {
+    const isAvailable = open.includes(pick.pos);
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'pick';
+    card.disabled = !isAvailable;
+    card.style.animationDelay = (n * 30) + 'ms';
+    card.innerHTML = `
+      <span class="pick-pos">${pick.pos}${isAvailable ? '' : ' &middot; slot filled'}</span>
+      <span class="pick-name">${pick.name}</span>
+      <span class="rate ${tier(pick.rating)}">${pick.rating}</span>
+      <span class="pick-desc">${pick.desc}</span>`;
+    if (isAvailable) card.addEventListener('click', () => selectPick(pick));
+    list.appendChild(card);
+  });
+  markOpenSlots(availablePicks.map(p => p.pos));
+  if (window.innerWidth < 960) $('pick-section').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+}
+
+function selectPick(pick) {
+  const posIndex = POSITIONS.findIndex(p => p.key === pick.pos);
+  if (posIndex === -1 || state.roster[posIndex]) return;
+  state.roster[posIndex] = pick;
+  state.last = posIndex;
+  renderRoster();
+  renderLive();
+  state.last = -1;
+
+  const filled = state.roster.filter(Boolean).length;
+  if (filled >= TOTAL_SLOTS) {
+    $('pick-section').hidden = true;
+    $('spin-btn').disabled = true;
+    $('skip-btn').disabled = true;
+    setTimeout(runSimulation, 700);
+    return;
+  }
+  resetWheel();
+  updateRoundLabel();
+  if (window.innerWidth < 960) $('game-screen').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+}
+
+// ── SIMULATION ──
+function runSimulation() {
+  show('sim-screen');
+  $('result').hidden = true;
+  $('sim-title').textContent = 'Simulating 10 Centuries…';
+
+  state.chemistry = chemistry(state.roster);
+  const totalRating = state.roster.reduce((sum, p) => sum + p.rating, 0);
+  const avgRating = totalRating / TOTAL_SLOTS + state.chemistry.net;
+  const winProb = 1 / (1 + Math.exp(-0.12 * (avgRating - 78)));
+
+  let seed = 0;
+  state.roster.forEach(p => { for (const c of p.name) seed = ((seed << 5) - seed + c.charCodeAt(0)) | 0; });
+  function seededRandom() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+
+  const NUM_CENTURIES = 10;
+  const centuries = [];
+  for (let i = 0; i < NUM_CENTURIES; i++) centuries.push(seededRandom() < winProb ? 'W' : 'L');
+
+  const grid = $('centuries-grid');
+  const labels = ['10th','11th','12th','13th','14th','15th','16th','17th','18th','19th'];
+  grid.innerHTML = labels.map(l => `<div class="cent"><span class="c-num">${l}</span><span class="c-sub">century</span><span class="c-res">&middot;</span></div>`).join('');
+
+  const cells = grid.querySelectorAll('.cent');
+  let i = 0;
+  const reveal = setInterval(() => {
+    if (i >= NUM_CENTURIES) {
+      clearInterval(reveal);
+      showGrade(centuries);
+      return;
+    }
+    cells[i].classList.add(centuries[i] === 'W' ? 'win' : 'loss');
+    cells[i].querySelector('.c-res').textContent = centuries[i];
+    i++;
+  }, reduceMotion ? 60 : 380);
+}
+
+function showGrade(centuries) {
+  const wins = centuries.filter(c => c === 'W').length;
+  const losses = centuries.length - wins;
+
+  let grade, gradeDesc;
+  if (wins === 10) { grade = 'S'; gradeDesc = 'A perfect empire. Ten centuries of unbroken dominance.'; }
+  else if (wins === 9) { grade = 'A+'; gradeDesc = 'A dynasty for the ages: one century of weakness.'; }
+  else if (wins >= 8) { grade = 'A'; gradeDesc = 'A formidable empire with a strong historical legacy.'; }
+  else if (wins === 7) { grade = 'B+'; gradeDesc = 'A significant power, but cracks begin to show.'; }
+  else if (wins === 6) { grade = 'B'; gradeDesc = 'A regional power that never quite dominated its era.'; }
+  else if (wins === 5) { grade = 'C+'; gradeDesc = 'An average state, surviving but not thriving.'; }
+  else if (wins === 4) { grade = 'C'; gradeDesc = 'A struggling state, outcompeted by rivals.'; }
+  else if (wins === 3) { grade = 'D+'; gradeDesc = 'Flashes of potential in a long decline.'; }
+  else if (wins === 2) { grade = 'D'; gradeDesc = 'Brief moments of glory, then collapse.'; }
+  else if (wins === 1) { grade = 'D-'; gradeDesc = 'Your empire barely survived a single century.'; }
+  else { grade = 'F'; gradeDesc = 'Your empire collapsed before it began.'; }
+
+  $('sim-title').textContent = 'Empire Complete';
+  $('result').hidden = false;
+  $('grade-reveal').innerHTML = `
+    <div class="grade-top">
+      <div class="eyebrow">Final Grade</div>
+      <div class="grade-seal ${grade[0].toLowerCase()}" id="empire-grade">${grade.replace('-', '−')}</div>
+    </div>
+    <div class="grade-body">
+      <div class="record">${wins}&ndash;${losses}</div>
+      <div class="grade-desc">${gradeDesc}</div>
+      <button type="button" class="btn" id="again-btn">&#8635; Build Again</button>
+      <a class="btn-ghost" href="unit3.html#pg-games">&larr; Back to Unit 3 Games</a>
+    </div>`;
+  $('again-btn').addEventListener('click', startGame);
+
+  $('sim-roster').innerHTML = state.roster.map((p, i) => `
+    <div class="row"><span class="pos">${POSITIONS[i].label}</span><span class="nm">${p.name}</span><span class="rt">${p.rating}</span></div>`).join('');
+
+  const chem = state.chemistry;
+  let html = '';
+  if (chem.syn.length || chem.cl.length) {
+    chem.syn.forEach(s => {
+      html += `<div class="chem plus"><span class="badge">+${s.bonus} synergy bonus</span><div class="chem-pair">${s.a} + ${s.b}</div><div class="chem-why">${s.why}</div></div>`;
+    });
+    chem.cl.forEach(c => {
+      html += `<div class="chem minus"><span class="badge">&minus;${c.penalty} clash penalty</span><div class="chem-pair">${c.a} + ${c.b}</div><div class="chem-why">${c.why}</div></div>`;
+    });
+    const cls = chem.net > 0 ? 'pos' : chem.net < 0 ? 'neg' : '';
+    html += `<div class="net"><span>Net chemistry effect</span><b class="${cls}">${chem.net > 0 ? '+' : chem.net < 0 ? '−' : ''}${Math.abs(chem.net)} to empire strength</b></div>`;
+  } else {
+    html += '<div class="chem-none">No historical connections found between your picks. Try pairing rulers with their own systems, or matching trade networks with the innovations that powered them.</div>';
+  }
+  $('chemistry-report').innerHTML = html;
+
+  try { APWH_ACTIVITY.done('game', 'empire'); } catch (e) {}
+}
+
+$('start-btn').addEventListener('click', startGame);
+$('spin-btn').addEventListener('click', spinSlot);
+$('skip-btn').addEventListener('click', skipRegion);
+</script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js"></script>
+</body>
+</html>

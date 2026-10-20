@@ -555,6 +555,10 @@ const POSITIONS = [
 ];
 const TOTAL_SLOTS = POSITIONS.length;
 const SKIPS = 2;
+// Balance: chemistry adds half its points to strength, capped at +/-6; each century
+// is won with chance 1/(1+e^(-WIN_SLOPE*(strength-WIN_CENTER))).
+const CHEM_WEIGHT = 0.5, CHEM_CAP = 6;
+const WIN_SLOPE = 0.1, WIN_CENTER = 81;
 const $ = id => document.getElementById(id);
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -617,7 +621,7 @@ function renderRoster() {
     return;
   }
   const chem = chemistry(picks);
-  const avg = picks.reduce((s, p) => s + p.rating, 0) / picks.length + chem.net;
+  const avg = picks.reduce((s, p) => s + p.rating, 0) / picks.length + chem.effect;
   $('str-num').textContent = avg.toFixed(1);
   $('str-bar').style.width = Math.max(0, Math.min(100, (avg - 60) / 40 * 100)) + '%';
 }
@@ -638,7 +642,10 @@ function chemistry(picks) {
   const cl = CLASHES.filter(c => names.includes(c.a) && names.includes(c.b));
   const plus = syn.reduce((s, x) => s + x.bonus, 0);
   const minus = cl.reduce((s, x) => s + x.penalty, 0);
-  return { syn, cl, plus, minus, net: plus - minus };
+  const net = plus - minus;
+  // Chemistry counts at half value and is capped, so connections help but can't carry a weak roster.
+  const effect = Math.max(-CHEM_CAP, Math.min(CHEM_CAP, net * CHEM_WEIGHT));
+  return { syn, cl, plus, minus, net, effect };
 }
 
 function renderLive() {
@@ -761,8 +768,8 @@ function runSimulation() {
 
   state.chemistry = chemistry(state.roster);
   const totalRating = state.roster.reduce((sum, p) => sum + p.rating, 0);
-  const avgRating = totalRating / TOTAL_SLOTS + state.chemistry.net;
-  const winProb = 1 / (1 + Math.exp(-0.12 * (avgRating - 78)));
+  const avgRating = totalRating / TOTAL_SLOTS + state.chemistry.effect;
+  const winProb = 1 / (1 + Math.exp(-WIN_SLOPE * (avgRating - WIN_CENTER)));
 
   let seed = 0;
   state.roster.forEach(p => { for (const c of p.name) seed = ((seed << 5) - seed + c.charCodeAt(0)) | 0; });
@@ -834,8 +841,10 @@ function showGrade(centuries) {
     chem.cl.forEach(c => {
       html += `<div class="chem minus"><span class="badge">&minus;${c.penalty} clash penalty</span><div class="chem-pair">${c.a} + ${c.b}</div><div class="chem-why">${c.why}</div></div>`;
     });
-    const cls = chem.net > 0 ? 'pos' : chem.net < 0 ? 'neg' : '';
-    html += `<div class="net"><span>Net chemistry effect</span><b class="${cls}">${chem.net > 0 ? '+' : chem.net < 0 ? '−' : ''}${Math.abs(chem.net)} to empire strength</b></div>`;
+    const cls = chem.effect > 0 ? 'pos' : chem.effect < 0 ? 'neg' : '';
+    const sign = n => n > 0 ? '+' : n < 0 ? '−' : '';
+    const capped = Math.abs(chem.net * CHEM_WEIGHT) > CHEM_CAP ? ' (max)' : '';
+    html += `<div class="net"><span>Net chemistry ${sign(chem.net)}${Math.abs(chem.net)} at half value</span><b class="${cls}">${sign(chem.effect)}${Math.abs(chem.effect)} to empire strength${capped}</b></div>`;
   } else {
     html += '<div class="chem-none">No historical connections found between your picks. Try pairing rulers with their own systems, or matching trade networks with the innovations that powered them.</div>';
   }

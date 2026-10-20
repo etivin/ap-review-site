@@ -152,6 +152,8 @@ body{margin:0;background:var(--cream);font-family:Lato,-apple-system,'Segoe UI',
 #emp .grade-body{padding:16px;text-align:center}
 #emp .record{font-weight:900;font-size:1.6rem;letter-spacing:-.03em}
 #emp .grade-desc{color:var(--mid);font-size:.78rem;margin:2px 0 14px}
+#emp .grade-str{font-size:.66rem;color:var(--muted);line-height:1.45;margin:-6px 0 12px}
+#emp .grade-str b{color:var(--txt)}
 #emp .grade .btn,#emp .grade .btn-ghost{display:block;width:100%;margin-top:8px}
 #emp .panels{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 #emp .panel-body{padding:6px 14px 12px}
@@ -555,10 +557,13 @@ const POSITIONS = [
 ];
 const TOTAL_SLOTS = POSITIONS.length;
 const SKIPS = 2;
-// Balance: chemistry adds half its points to strength, capped at +/-4; each century
-// is won with chance 1/(1+e^(-WIN_SLOPE*(strength-WIN_CENTER))).
-const CHEM_WEIGHT = 0.5, CHEM_CAP = 4;
-const WIN_SLOPE = 0.1, WIN_CENTER = 88;
+// Balance: strength = average rating + net chemistry (capped at +/-16).
+// Each century pits strength (+/- RIVAL_SWING) against one rival below; in
+// simulated drafts a drafter who builds connections goes 10-0 about 8% of the
+// time, one who only takes the highest rating about 2%.
+const CHEM_WEIGHT = 1, CHEM_CAP = 16;
+const RIVALS = [78, 81.5, 84.5, 88, 91, 94.5, 97.5, 101, 104, 106];
+const RIVAL_SWING = 1.5;
 const $ = id => document.getElementById(id);
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -623,7 +628,7 @@ function renderRoster() {
   const chem = chemistry(picks);
   const avg = picks.reduce((s, p) => s + p.rating, 0) / picks.length + chem.effect;
   $('str-num').textContent = avg.toFixed(1);
-  $('str-bar').style.width = Math.max(0, Math.min(100, (avg - 60) / 40 * 100)) + '%';
+  $('str-bar').style.width = Math.max(0, Math.min(100, (avg - 60) / 50 * 100)) + '%';
 }
 
 function markOpenSlots(positions) {
@@ -643,7 +648,7 @@ function chemistry(picks) {
   const plus = syn.reduce((s, x) => s + x.bonus, 0);
   const minus = cl.reduce((s, x) => s + x.penalty, 0);
   const net = plus - minus;
-  // Chemistry counts at half value and is capped, so connections help but can't carry a weak roster.
+  // Chemistry is capped, so connections help but can't carry a weak roster.
   const effect = Math.max(-CHEM_CAP, Math.min(CHEM_CAP, net * CHEM_WEIGHT));
   return { syn, cl, plus, minus, net, effect };
 }
@@ -768,20 +773,26 @@ function runSimulation() {
 
   state.chemistry = chemistry(state.roster);
   const totalRating = state.roster.reduce((sum, p) => sum + p.rating, 0);
-  const avgRating = totalRating / TOTAL_SLOTS + state.chemistry.effect;
-  const winProb = 1 / (1 + Math.exp(-WIN_SLOPE * (avgRating - WIN_CENTER)));
+  const strength = totalRating / TOTAL_SLOTS + state.chemistry.effect;
+  state.strength = strength;
 
   let seed = 0;
   state.roster.forEach(p => { for (const c of p.name) seed = ((seed << 5) - seed + c.charCodeAt(0)) | 0; });
   function seededRandom() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
 
-  const NUM_CENTURIES = 10;
-  const centuries = [];
-  for (let i = 0; i < NUM_CENTURIES; i++) centuries.push(seededRandom() < winProb ? 'W' : 'L');
+  // Each century faces one rival (shuffled order); win when strength, give or take
+  // a small swing, beats it. Stronger drafts beat more rivals.
+  const rivals = RIVALS.slice();
+  for (let i = rivals.length - 1; i > 0; i--) {
+    const j = Math.floor(seededRandom() * (i + 1));
+    [rivals[i], rivals[j]] = [rivals[j], rivals[i]];
+  }
+  const NUM_CENTURIES = rivals.length;
+  const centuries = rivals.map(rv => strength + (seededRandom() * 2 - 1) * RIVAL_SWING > rv ? 'W' : 'L');
 
   const grid = $('centuries-grid');
   const labels = ['10th','11th','12th','13th','14th','15th','16th','17th','18th','19th'];
-  grid.innerHTML = labels.map(l => `<div class="cent"><span class="c-num">${l}</span><span class="c-sub">century</span><span class="c-res">&middot;</span></div>`).join('');
+  grid.innerHTML = labels.map((l, i) => `<div class="cent"><span class="c-num">${l}</span><span class="c-sub">vs ${rivals[i]}</span><span class="c-res">&middot;</span></div>`).join('');
 
   const cells = grid.querySelectorAll('.cent');
   let i = 0;
@@ -824,6 +835,7 @@ function showGrade(centuries) {
     <div class="grade-body">
       <div class="record">${wins}&ndash;${losses}</div>
       <div class="grade-desc">${gradeDesc}</div>
+      <div class="grade-str">Empire strength <b>${state.strength.toFixed(1)}</b>. Rivals ran from ${RIVALS[0]} to ${RIVALS[RIVALS.length - 1]}; a stronger draft beats more of them.</div>
       <button type="button" class="btn" id="again-btn">&#8635; Build Again</button>
       <a class="btn-ghost" href="unit3.html#pg-games">&larr; Back to Unit 3 Games</a>
     </div>`;
@@ -844,7 +856,7 @@ function showGrade(centuries) {
     const cls = chem.effect > 0 ? 'pos' : chem.effect < 0 ? 'neg' : '';
     const sign = n => n > 0 ? '+' : n < 0 ? '−' : '';
     const capped = Math.abs(chem.net * CHEM_WEIGHT) > CHEM_CAP ? ' (max)' : '';
-    html += `<div class="net"><span>Net chemistry ${sign(chem.net)}${Math.abs(chem.net)} at half value</span><b class="${cls}">${sign(chem.effect)}${Math.abs(chem.effect)} to empire strength${capped}</b></div>`;
+    html += `<div class="net"><span>Net chemistry ${sign(chem.net)}${Math.abs(chem.net)}${CHEM_WEIGHT === 1 ? '' : ` counts at ${CHEM_WEIGHT * 100}%`}</span><b class="${cls}">${sign(chem.effect)}${+Math.abs(chem.effect).toFixed(1)} to empire strength${capped}</b></div>`;
   } else {
     html += '<div class="chem-none">No historical connections found between your picks. Try pairing rulers with their own systems, or matching trade networks with the innovations that powered them.</div>';
   }

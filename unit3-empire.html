@@ -154,6 +154,28 @@ body{margin:0;background:var(--cream);font-family:Lato,-apple-system,'Segoe UI',
 #emp .grade-desc{color:var(--mid);font-size:.78rem;margin:2px 0 14px}
 #emp .grade-str{font-size:.66rem;color:var(--muted);line-height:1.45;margin:-6px 0 12px}
 #emp .grade-str b{color:var(--txt)}
+#emp .emp-name{margin-top:6px;color:#fff;font-weight:900;font-size:1.05rem;letter-spacing:-.02em;line-height:1.2}
+#emp .emp-led{margin-top:3px;color:#c8d4ee;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+
+/* past empires (title screen) */
+#emp .past{margin-top:20px}
+#emp .past-stats{display:flex;gap:16px;flex-wrap:wrap}
+#emp .past-stats span{font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c8d4ee}
+#emp .past-stats b{font-size:1rem;font-weight:900;color:var(--lime);margin-right:4px;letter-spacing:-.02em}
+#emp .past-list{padding:6px 16px 10px}
+#emp .past-empty{padding:12px 0;font-size:.74rem;color:var(--muted)}
+#emp .past-row{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)}
+#emp .past-row:last-child{border-bottom:0}
+#emp .past-badge{flex-shrink:0;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem;color:#fff;background:var(--muted)}
+#emp .past-badge.s{background:var(--lime);color:var(--navy);box-shadow:0 0 0 2px var(--navy),0 0 0 4px var(--lime)}
+#emp .past-badge.a{background:var(--green)}
+#emp .past-badge.b{background:var(--red)}
+#emp .past-badge.c{background:var(--gold)}
+#emp .past-badge.d,#emp .past-badge.f{background:var(--coral)}
+#emp .past-main{flex:1;min-width:0}
+#emp .past-name{font-weight:900;font-size:.86rem;letter-spacing:-.01em;line-height:1.25}
+#emp .past-meta{font-size:.64rem;color:var(--muted);margin-top:2px}
+#emp .past-rec{flex-shrink:0;font-weight:900;font-size:1.05rem;color:var(--blue-t);letter-spacing:-.02em}
 #emp .grade .btn,#emp .grade .btn-ghost{display:block;width:100%;margin-top:8px}
 #emp .panels{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 #emp .panel-body{padding:6px 14px 12px}
@@ -189,6 +211,7 @@ body{margin:0;background:var(--cream);font-family:Lato,-apple-system,'Segoe UI',
   #emp .seal span{margin:0}
   #emp .pick-list,#emp .panels,#emp .how{grid-template-columns:1fr}
   #emp .centuries{grid-template-columns:repeat(5,1fr)}
+  #emp .past .panel-hd{flex-direction:column;align-items:flex-start;gap:6px}
 }
 @media(prefers-reduced-motion:reduce){#emp *{animation:none!important;transition-duration:.01ms!important}}
 </style>
@@ -224,6 +247,10 @@ body{margin:0;background:var(--cream);font-family:Lato,-apple-system,'Segoe UI',
     <div class="card"><span class="n">02 &middot; DRAFT</span><p>Pick one historical element from that region and place it in an open slot.</p></div>
     <div class="card"><span class="n">03 &middot; FILL</span><p>Fill all 12 slots across categories like Ruler, Military, Architecture, and more.</p></div>
     <div class="card"><span class="n">04 &middot; SURVIVE</span><p>Your empire is simulated across 10 centuries. Go 10–0 for the only perfect grade.</p></div>
+  </div>
+  <div class="past card">
+    <div class="panel-hd"><h3>Your Past Empires</h3><div class="past-stats" id="past-stats"></div></div>
+    <div class="past-list" id="past-list"></div>
   </div>
 </section>
 
@@ -569,7 +596,73 @@ const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: r
 
 let state;
 
+// ── EMPIRE NAMES ──
+// "The {grade word} {region word} {ruler's empire}", e.g. "The Eternal Steppe Horde".
+const RULER_NOUNS = {
+  "Genghis Khan":"Horde", "Kublai Khan":"Khanate", "Hongwu Emperor":"Dynasty", "Yongle Emperor":"Treasure Fleet",
+  "Tokugawa Ieyasu":"Shogunate", "Akbar the Great":"Mughal Court", "Rajendra Chola I":"Chola Armada", "Babur":"Tiger Dynasty",
+  "Suleiman the Magnificent":"Sultanate", "Mehmed II":"Wall Breakers", "Shah Abbas I":"Safavid Court", "Saladin":"Crusade Breakers",
+  "Mansa Musa":"Gold Kingdom", "Sundiata Keita":"Lion Kingdom", "Askia Muhammad":"Songhai Realm",
+  "Elizabeth I":"Royal Navy", "Louis XIV":"Sun King's Court", "Peter the Great":"Tsardom", "Isabella of Castile":"Crown of Castile",
+  "Pachacuti":"Andean Empire", "Montezuma II":"Eagle Empire"
+};
+const REGION_WORDS = {
+  "East Asia":"Jade", "South Asia":"Monsoon", "Southwest Asia":"Crescent", "Sub-Saharan Africa":"Sahel",
+  "Europe":"Cathedral", "Central Asia":"Steppe", "Americas":"Feathered"
+};
+const GRADE_WORDS = {
+  "S":["Eternal","Unbreakable","Legendary"], "A+":["Golden","Glorious","Magnificent"], "A":["Mighty","Triumphant","Iron-Willed"],
+  "B+":["Rising","Ambitious","Bold"], "B":["Steady","Respectable","Sturdy"], "C+":["Wobbly","Middling","Hopeful"],
+  "C":["Creaky","Struggling","Overstretched"], "D":["Crumbling","Doomed","Rickety"], "F":["Forgotten","Fallen","Ill-Fated"]
+};
+
+function empireName(roster, grade) {
+  let h = 0;
+  roster.forEach(p => { for (const c of p.name) h = (h * 31 + c.charCodeAt(0)) >>> 0; });
+  const words = GRADE_WORDS[grade] || GRADE_WORDS[grade[0]];
+  const counts = {};
+  roster.forEach(p => { counts[p.region] = (counts[p.region] || 0) + 1; });
+  const [topRegion, n] = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  const spread = Object.keys(counts).length;
+  // Built mostly from one region, or from all over the map?
+  const flavor = n >= 5 ? REGION_WORDS[topRegion] : spread >= 7 ? 'Patchwork' : spread >= 6 ? 'Globe-Trotting' : '';
+  return `The ${words[h % words.length]} ${flavor ? flavor + ' ' : ''}${RULER_NOUNS[roster[0].name] || 'Empire'}`;
+}
+
+// ── PAST EMPIRES (this browser only) ──
+const RECORDS_KEY = 'empireRecords_u3';
+function loadRecords() {
+  try { const r = JSON.parse(localStorage.getItem(RECORDS_KEY) || '[]'); return Array.isArray(r) ? r : []; } catch (e) { return []; }
+}
+function saveRecord(rec) {
+  const list = loadRecords();
+  list.unshift(rec);
+  try { localStorage.setItem(RECORDS_KEY, JSON.stringify(list.slice(0, 25))); } catch (e) {}
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function renderRecords() {
+  const list = loadRecords();
+  if (!list.length) {
+    $('past-stats').innerHTML = '';
+    $('past-list').innerHTML = '<div class="past-empty">No empires yet. Every empire you finish shows up here with its record and a name it earned.</div>';
+    return;
+  }
+  const best = Math.max(...list.map(r => r.wins));
+  const perfect = list.filter(r => r.wins === 10).length;
+  $('past-stats').innerHTML = `<span><b>${list.length}</b>Built</span><span><b>${best}&ndash;${10 - best}</b>Best</span><span><b>${perfect}</b>Perfect</span>`;
+  $('past-list').innerHTML = list.slice(0, 10).map(r => {
+    const g = String(r.grade);
+    const date = new Date(r.t).toLocaleDateString(undefined, { month:'short', day:'numeric' });
+    return `<div class="past-row">
+      <span class="past-badge ${esc(g[0].toLowerCase())}">${esc(g.replace('-', '−'))}</span>
+      <div class="past-main"><div class="past-name">${esc(r.name)}</div><div class="past-meta">Led by ${esc(r.ruler)} &middot; strength ${esc(r.strength)} &middot; ${esc(date)}</div></div>
+      <span class="past-rec">${esc(r.wins)}&ndash;${esc(10 - r.wins)}</span>
+    </div>`;
+  }).join('');
+}
+
 function show(screen) {
+  if (screen === 'title-screen') renderRecords();
   ['title-screen','game-screen','sim-screen'].forEach(id => { $(id).hidden = id !== screen; });
   window.scrollTo(0, 0);
 }
@@ -825,11 +918,16 @@ function showGrade(centuries) {
   else if (wins === 1) { grade = 'D-'; gradeDesc = 'Your empire barely survived a single century.'; }
   else { grade = 'F'; gradeDesc = 'Your empire collapsed before it began.'; }
 
+  const name = empireName(state.roster, grade);
+  saveRecord({ t: Date.now(), name, ruler: state.roster[0].name, wins, grade, strength: +state.strength.toFixed(1) });
+
   $('sim-title').textContent = 'Empire Complete';
   $('result').hidden = false;
   $('grade-reveal').innerHTML = `
     <div class="grade-top">
       <div class="eyebrow">Final Grade</div>
+      <div class="emp-name">${name}</div>
+      <div class="emp-led">Led by ${state.roster[0].name}</div>
       <div class="grade-seal ${grade[0].toLowerCase()}" id="empire-grade">${grade.replace('-', '−')}</div>
     </div>
     <div class="grade-body">
@@ -837,9 +935,11 @@ function showGrade(centuries) {
       <div class="grade-desc">${gradeDesc}</div>
       <div class="grade-str">Empire strength <b>${state.strength.toFixed(1)}</b>. Rivals ran from ${RIVALS[0]} to ${RIVALS[RIVALS.length - 1]}; a stronger draft beats more of them.</div>
       <button type="button" class="btn" id="again-btn">&#8635; Build Again</button>
+      <button type="button" class="btn-ghost" id="past-btn">Your Past Empires</button>
       <a class="btn-ghost" href="unit3.html#pg-games">&larr; Back to Unit 3 Games</a>
     </div>`;
   $('again-btn').addEventListener('click', startGame);
+  $('past-btn').addEventListener('click', () => show('title-screen'));
 
   $('sim-roster').innerHTML = state.roster.map((p, i) => `
     <div class="row"><span class="pos">${POSITIONS[i].label}</span><span class="nm">${p.name}</span><span class="rt">${p.rating}</span></div>`).join('');
@@ -866,6 +966,7 @@ function showGrade(centuries) {
 }
 
 $('start-btn').addEventListener('click', startGame);
+renderRecords();
 $('spin-btn').addEventListener('click', spinSlot);
 $('skip-btn').addEventListener('click', skipRegion);
 </script>

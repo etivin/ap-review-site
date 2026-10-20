@@ -81,7 +81,7 @@ site; Eli edits content.
 | `unitN-map.html` | Interactive Leaflet map, embedded in each unit's Maps tab. All nine units use `unit-map-engine.js` + a `window.UNIT_MAP` object (the page holds only data). |
 | `unitN-interrogate.html` | "Myth Sweeper" fact/myth game, one per unit, linked from the Games tab. |
 | `unit2-hexweb.html`, `unit3-racer.html`, `unit4-voyage.html` | One-off games (Hex Web, Empire Road, Sea Lanes). Sea Lanes is a copy of Empire Road with ships, reefs and Unit 4 questions (`QUESTIONS` array in the page). |
-| `unit3-empire.html` | Build the Perfect Empire: draft game (spin a region, fill 12 slots, chemistry bonuses and clashes, ten-century simulation). Content spans Units 1–3; data (`DB`, `SYNERGIES`, `CLASHES`) lives in the page. Credits `APWH_ACTIVITY.done('game','empire')` on the grade screen. |
+| `unit3-empire.html` | Build the Perfect Empire: draft game (spin a region, fill 12 slots, chemistry bonuses and clashes, ten-century simulation). Content spans Units 1–3; data (`DB`, `SYNERGIES`, `CLASHES`) lives in the page. Credits `APWH_ACTIVITY.done('game','empire')` on the grade screen. Grading is a rival ladder (`RIVALS`, `CHEM_WEIGHT`, `CHEM_CAP` near the top of the script). Each finished empire gets a name from its grade, ruler and main region (`empireName`) and is saved to `empireRecords_u3`, listed on the title screen. |
 | `unit5-minecart.html`, `unit6-rails.html`, `unit7-tank.html`, `unit8-sputnik.html`, `unit9-freight.html` | Lane-runner games on the shared `lane-runner.js` engine: Coal Cart (minecart through a mine, ironworks, cotton mill), Iron Rails (steam train across India, the savanna, Siberia), Front Line (tank on the Western Front, North Africa, Eastern Front), Space Race (Sputnik past Earth, the Moon, deep space), Global Freight (container ship: Pacific, Malacca, Suez, Rotterdam). Each page holds only its look and its questions. |
 | `cumulative.html` + `cumulative.js` | Cumulative Review: cross-unit MCQ mix. |
 | `flashcards.html` | Flashcard Hub (Anki-style decks, custom study, browse) for every unit. |
@@ -205,7 +205,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 `apReview_v1` (everything about progress: `spaced`, `studyLog`, `components['uN']` games/videos,
 `lastSeen`, legacy `mcq`/`drafts`). **Always read-modify-write the current value; never write back
 a copy loaded earlier** (that erases progress saved since). Others: `mcTheme`, `fcHub_v1` (Hub
-settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `u4VoyageBest`, `u5MinecartBest`, `u6RailsBest`, `u7TankBest`, `u8SputnikBest`, `u9FreightBest`, `unitMapPanel` (unit map side panel open/closed), `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
+settings), `ufc_v1` (unit flashcard settings), `unitPlan_uN`, `unitTourSeen`, `u3RacerBest`, `u4VoyageBest`, `u5MinecartBest`, `u6RailsBest`, `u7TankBest`, `u8SputnikBest`, `u9FreightBest`, `empireRecords_u3` (last 25 Build the Perfect Empire results), `unitMapPanel` (unit map side panel open/closed), `gamesLock_teacher`, `gamesLock_seen_uN`, `bedtimeUnlock`, `pomoBreak_v1`,
 `apwh-timer-*`, `wd-draft:<id>` (writing drafts: Writing Drills boxes by point id such as
 `u3-saq0-a`, Unit 7 FRQ Grader drill boxes as `u7-<textarea id>`), `wd-check:<id>` (Writing
 Drills "I earned this point" ticks; older ticks under `wd-check:<path>:<id>` are migrated on load).

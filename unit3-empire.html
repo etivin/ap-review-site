@@ -555,10 +555,10 @@ const POSITIONS = [
 ];
 const TOTAL_SLOTS = POSITIONS.length;
 const SKIPS = 2;
-// Balance: chemistry adds half its points to strength, capped at +/-6; each century
+// Balance: chemistry adds half its points to strength, capped at +/-4; each century
 // is won with chance 1/(1+e^(-WIN_SLOPE*(strength-WIN_CENTER))).
-const CHEM_WEIGHT = 0.5, CHEM_CAP = 6;
-const WIN_SLOPE = 0.1, WIN_CENTER = 81;
+const CHEM_WEIGHT = 0.5, CHEM_CAP = 4;
+const WIN_SLOPE = 0.1, WIN_CENTER = 88;
 const $ = id => document.getElementById(id);
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 

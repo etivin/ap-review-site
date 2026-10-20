@@ -559,10 +559,10 @@ const TOTAL_SLOTS = POSITIONS.length;
 const SKIPS = 2;
 // Balance: strength = average rating + net chemistry (capped at +/-16).
 // Each century pits strength (+/- RIVAL_SWING) against one rival below; in
-// simulated drafts a drafter who builds connections goes 10-0 about 8% of the
-// time, one who only takes the highest rating about 2%.
+// simulated drafts a drafter who builds connections goes 10-0 about 10% of the
+// time, one who only takes the highest rating about 3%.
 const CHEM_WEIGHT = 1, CHEM_CAP = 16;
-const RIVALS = [78, 81.5, 84.5, 88, 91, 94.5, 97.5, 101, 104, 106];
+const RIVALS = [78, 81.5, 84.5, 88, 91, 94.5, 97.5, 101, 104, 105.5];
 const RIVAL_SWING = 1.5;
 const $ = id => document.getElementById(id);
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;

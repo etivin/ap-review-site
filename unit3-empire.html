@@ -589,8 +589,10 @@ const SKIPS = 2;
 // simulated drafts a drafter who builds connections goes 10-0 about 10% of the
 // time, one who only takes the highest rating about 3%.
 const CHEM_WEIGHT = 1, CHEM_CAP = 16;
+// Every game each rival also shifts by up to RIVAL_JITTER either way, so the
+// opponents differ from game to game (the 10-0 rate stays about the same).
 const RIVALS = [78, 81.5, 84.5, 88, 91, 94.5, 97.5, 101, 104, 105.5];
-const RIVAL_SWING = 1.5;
+const RIVAL_SWING = 1.5, RIVAL_JITTER = 2;
 const $ = id => document.getElementById(id);
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -869,13 +871,15 @@ function runSimulation() {
   const strength = totalRating / TOTAL_SLOTS + state.chemistry.effect;
   state.strength = strength;
 
-  let seed = 0;
+  // Seeded by the picks plus a fresh random number, so each game gets new rivals.
+  let seed = Math.floor(Math.random() * 0x7fffffff);
   state.roster.forEach(p => { for (const c of p.name) seed = ((seed << 5) - seed + c.charCodeAt(0)) | 0; });
   function seededRandom() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
 
   // Each century faces one rival (shuffled order); win when strength, give or take
   // a small swing, beats it. Stronger drafts beat more rivals.
-  const rivals = RIVALS.slice();
+  const rivals = RIVALS.map(b => Math.round((b + (seededRandom() * 2 - 1) * RIVAL_JITTER) * 2) / 2);
+  state.rivals = rivals.slice();
   for (let i = rivals.length - 1; i > 0; i--) {
     const j = Math.floor(seededRandom() * (i + 1));
     [rivals[i], rivals[j]] = [rivals[j], rivals[i]];
@@ -933,7 +937,7 @@ function showGrade(centuries) {
     <div class="grade-body">
       <div class="record">${wins}&ndash;${losses}</div>
       <div class="grade-desc">${gradeDesc}</div>
-      <div class="grade-str">Empire strength <b>${state.strength.toFixed(1)}</b>. Rivals ran from ${RIVALS[0]} to ${RIVALS[RIVALS.length - 1]}; a stronger draft beats more of them.</div>
+      <div class="grade-str">Empire strength <b>${state.strength.toFixed(1)}</b>. This game's rivals ran from ${Math.min(...state.rivals)} to ${Math.max(...state.rivals)}; a stronger draft beats more of them.</div>
       <button type="button" class="btn" id="again-btn">&#8635; Build Again</button>
       <button type="button" class="btn-ghost" id="past-btn">Your Past Empires</button>
       <a class="btn-ghost" href="unit3.html#pg-games">&larr; Back to Unit 3 Games</a>

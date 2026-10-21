@@ -110,10 +110,10 @@
 .wk-ol{font-family:Lato,system-ui,sans-serif;font-weight:700;color:var(--walk-muted);flex-shrink:0;font-weight:600}
 .wk-otext{flex:1}
 .wk-mark{flex-shrink:0;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;font-weight:600}
-.wk[data-step="4"] .wk-opts li.is-correct{background:var(--walk-green-bg);border-color:var(--walk-green);color:var(--walk-green)}
-.wk[data-step="4"] .wk-opts li.is-correct .wk-mark::after{content:'✓ correct';color:var(--walk-green)}
-.wk[data-step="4"] .wk-opts li.is-trap{background:var(--walk-red-bg);border-color:var(--walk-red);color:var(--walk-red)}
-.wk[data-step="4"] .wk-opts li.is-trap .wk-mark::after{content:'✗ trap';color:var(--walk-red)}
+.wk[data-mode="watch"][data-step="4"] .wk-opts li.is-correct,.wk.wk-answered[data-step="4"] .wk-opts li.is-correct{background:var(--walk-green-bg);border-color:var(--walk-green);color:var(--walk-green)}
+.wk[data-mode="watch"][data-step="4"] .wk-opts li.is-correct .wk-mark::after,.wk.wk-answered[data-step="4"] .wk-opts li.is-correct .wk-mark::after{content:'✓ correct';color:var(--walk-green)}
+.wk[data-mode="watch"][data-step="4"] .wk-opts li.is-trap,.wk.wk-answered[data-step="4"] .wk-opts li.is-trap{background:var(--walk-red-bg);border-color:var(--walk-red);color:var(--walk-red)}
+.wk[data-mode="watch"][data-step="4"] .wk-opts li.is-trap .wk-mark::after,.wk.wk-answered[data-step="4"] .wk-opts li.is-trap .wk-mark::after{content:'✗ trap';color:var(--walk-red)}
 
 /* --- the coach panel (right) --- */
 .wk-coach{padding:20px 22px;background:#fbf9f4;display:flex;flex-direction:column}
@@ -163,6 +163,42 @@
 .wk-dot:hover{background:#fff;color:var(--walk-ink)}
 .wk-dot.active{background:var(--walk-accent);color:#fff}
 
+/* ---------- Work it / Watch it ---------- */
+.walk-count{font-size:.86rem;color:var(--walk-mid);margin:0 0 12px}
+.wk-done{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.04em;color:var(--walk-green);border:1px solid var(--walk-green);border-radius:3px;padding:2px 7px}
+.wk-modes{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 18px;border-bottom:1px solid var(--walk-border);background:var(--walk-cream)}
+.wk-mode{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.04em;padding:7px 14px;border:1px solid var(--walk-accent);background:#fff;color:var(--walk-accent);border-radius:3px;cursor:pointer}
+.wk-mode[aria-pressed="true"]{background:var(--walk-accent);color:#fff}
+.wk-mode-hint{font-size:.78rem;color:var(--walk-muted)}
+.wk[data-mode="watch"] .wk-task{display:none}
+.wk[data-mode="work"] .wk-coach-step:not(.solved) .wk-reveal{display:none}
+.wk-task{background:#fff;border:1px solid var(--walk-accent);border-radius:4px;padding:12px 14px;margin-bottom:12px}
+.wk-task-q{font-size:.88rem;line-height:1.5;color:var(--walk-ink);margin:0 0 10px;font-weight:600}
+.wk-yt{display:inline-block;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:#fff;background:var(--walk-accent);padding:2px 7px;border-radius:3px;margin-right:4px;vertical-align:1px}
+.wk-choices{display:flex;flex-direction:column;gap:7px}
+.wk-types,.wk-letters{flex-direction:row;flex-wrap:wrap}
+.wk-choice{font-family:inherit;text-align:left;font-size:.84rem;line-height:1.45;padding:9px 12px;border:1px solid var(--walk-border2);background:var(--walk-cream);color:var(--walk-ink);border-radius:4px;cursor:pointer;transition:background .15s,border-color .15s}
+.wk-letters .wk-choice{min-width:48px;text-align:center;font-weight:700}
+.wk-choice:hover:not(:disabled){border-color:var(--walk-accent);background:#fff}
+.wk-choice:disabled{cursor:default}
+.wk-choice.is-ok{background:var(--walk-green-bg);border-color:var(--walk-green);color:var(--walk-green)}
+.wk-choice.is-no{background:var(--walk-red-bg);border-color:var(--walk-red);color:var(--walk-red)}
+.wk-fb{font-size:.8rem;font-weight:700;margin-top:8px;min-height:1em}
+.wk-fb.is-ok{color:var(--walk-green)}
+.wk-fb.is-no{color:var(--walk-red)}
+.wk.wk-answered[data-step="4"] .wk-opts li.is-chosen{background:var(--walk-red-bg);border-color:var(--walk-red);color:var(--walk-red)}
+.wk.wk-answered[data-step="4"] .wk-opts li.is-chosen .wk-mark::after{content:'✗ your pick';color:var(--walk-red)}
+.wk-look{margin-bottom:10px}
+/* in Work it, a highlight waits until its step is answered */
+.wk[data-mode="work"]:has(.wk-coach-step[data-for="2"]:not(.solved)) .wk-q mark.hq,
+.wk[data-mode="work"]:has(.wk-coach-step[data-for="3"]:not(.solved)) .wk-stim mark.hs{background:transparent;box-shadow:none;text-decoration:none}
+
+/* ---------- pop-up from MCQ Practice ---------- */
+.wk-modal{position:fixed;inset:0;z-index:2147482000;background:rgba(10,14,30,.6);display:flex;align-items:flex-start;justify-content:center;padding:4vh 16px;overflow-y:auto}
+.wk-modal-box{width:100%;max-width:1100px;text-align:right}
+.wk-modal-box .wk{text-align:left;margin:0}
+.wk-modal-x{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;padding:8px 14px;margin-bottom:8px;border:0;border-radius:3px;background:#fff;color:var(--walk-ink);cursor:pointer}
+
 .walk-cta{display:inline-block;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.03em;color:var(--walk-accent);text-decoration:none;border-bottom:1px solid var(--walk-accent);padding-bottom:1px}
 .walk-cta:hover{color:var(--walk-accent-d)}
 
@@ -207,3 +243,11 @@
 :root[data-theme="dark"] .wk[data-step="1"] .wk-srcbar{background:#232a3d}
 /* 3. decorative quote glyph is a ::before: relight it (accent is dark) */
 :root[data-theme="dark"] .wk-quote::before{color:#d9a066}
+/* Work it controls and the pop-up */
+:root[data-theme="dark"] .wk-task,
+:root[data-theme="dark"] .wk-mode,
+:root[data-theme="dark"] .wk-modal-x{background:#1c2029}
+:root[data-theme="dark"] .wk-mode[aria-pressed="true"]{background:var(--walk-accent)}
+:root[data-theme="dark"] .wk-choice{background:#232a3d}
+:root[data-theme="dark"] .wk-choice.is-ok{background:var(--walk-green-bg)}
+:root[data-theme="dark"] .wk-choice.is-no{background:var(--walk-red-bg)}

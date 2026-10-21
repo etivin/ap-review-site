@@ -873,20 +873,68 @@
   /* ---------------------- rendering ---------------------- */
   function letters(i) { return String.fromCharCode(65 + i); }
 
+  /* ---------- bank walkthroughs (walkthrough-data.js) ----------
+     WALKTHROUGH['u{n}_{topic}_{idx}'] adds the coaching steps to a question that
+     lives in mcq-bank.js. The stimulus, source line, stem, options, answer and
+     explanation are read from the bank, so they stay verbatim. */
+  function bankQ(id) {
+    var m = /^u(\d+)_(.+)_(\d+)$/.exec(id);
+    var u = m && window.APWH_MCQ && APWH_MCQ.units && APWH_MCQ.units[m[1]];
+    var q = u && u.questions && u.questions[m[2]] && u.questions[m[2]][+m[3]];
+    return q ? { unit: +m[1], topic: m[2], q: q } : null;
+  }
+  // Wraps the first match of each exact phrase in a <mark>, inside already-escaped text.
+  function markIn(html, phrases, cls) {
+    (phrases || []).forEach(function (p) {
+      var e = esc(p), i = p ? html.indexOf(e) : -1;
+      if (i >= 0) html = html.slice(0, i) + '<mark class="' + cls + '">' + e + '</mark>' + html.slice(i + e.length);
+    });
+    return html;
+  }
+  function fromBank(id) {
+    var w = (window.WALKTHROUGH || {})[id], b = bankQ(id);
+    if (!w || !b) return null;
+    var q = b.q, hs = w.hs ? [].concat(w.hs) : [];
+    // Practice Set sources are page crops; their s is only a pointer to the image.
+    var text = q.s && !/^\[Standalone|^Practice Set \d+, Questions/.test(q.s) ? q.s : '';
+    return {
+      id: id, unit: b.unit, type: w.type,
+      test: q.src ? 'Practice ' + q.src : 'Topic ' + b.topic,
+      imgs: q.simgs || (q.simg ? [q.simg] : []),
+      paras: text ? markIn(esc(text), hs, 'hs').split('\n').filter(function (p) { return p.trim(); }) : [],
+      srcline: q.sl || '',
+      q: markIn(esc(q.q), [w.hq], 'hq'),
+      options: q.o, answer: q.c, trapIdx: w.trapIdx,
+      src: w.src || [], read: w.read, plain: w.plain,
+      plainQ: w.plain ? w.plain[0] : '', meaning: w.meaning || '',
+      why: q.e || '', trap: w.trap || '',
+      trigger: w.hq || '', key: hs.join(' … '), look: w.look || ''
+    };
+  }
+  function fromWorked(ex) {
+    return {
+      id: null, unit: ex.unit, type: ex.type, test: ex.test,
+      imgs: ex.simg ? [ex.simg] : [],
+      paras: ex.stim ? ex.stim.split('\n\n') : [],
+      srcline: ex.srcline, q: ex.q, options: ex.options.map(esc), answer: ex.answer, trapIdx: ex.trapIdx,
+      src: ex.src, read: null, plain: null, plainQ: '', meaning: ex.meaning, why: ex.why, trap: ex.trap,
+      trigger: pullMark(ex.q, 'hq', false), key: pullMark(ex.stim, 'hs', true), look: ''
+    };
+  }
+
   function optionsHTML(ex) {
     var h = '<ol class="wk-opts">';
     for (var i = 0; i < ex.options.length; i++) {
-      var cls = i === ex.answer ? ' class="is-correct"' : (i === ex.trapIdx ? ' class="is-trap"' : '');
-      h += '<li' + cls + '><span class="wk-ol">' + letters(i) + '</span><span class="wk-otext">' + esc(ex.options[i]) + '</span><span class="wk-mark"></span></li>';
+      var cls = i === ex.answer ? ' is-correct' : (i === ex.trapIdx ? ' is-trap' : '');
+      h += '<li class="wk-o' + cls + '" data-j="' + i + '"><span class="wk-ol">' + letters(i) + '</span><span class="wk-otext">' + (ex.id ? esc(ex.options[i]) : ex.options[i]) + '</span><span class="wk-mark"></span></li>';
     }
     return h + '</ol>';
   }
 
   function stimHTML(ex) {
-    // optional real image, then paragraphs split on blank lines; marks are trusted HTML already inside
-    var img = ex.simg ? '<img class="wk-stim-img" src="' + ex.simg + '" alt="" loading="lazy">' : '';
-    var paras = ex.stim ? ex.stim.split('\n\n') : [];
-    return img + paras.map(function (p) { return '<p>' + p + '</p>'; }).join('');
+    // optional real images, then paragraphs; marks are trusted HTML already inside
+    var img = ex.imgs.map(function (s) { return '<img class="wk-stim-img" src="' + esc(s) + '" alt="Source" loading="lazy">'; }).join('');
+    return img + ex.paras.map(function (p) { return '<p>' + p + '</p>'; }).join('');
   }
 
   var TYPEWHY = {
@@ -896,6 +944,7 @@
     bestillustrates: 'ask what the source itself shows, so this is a Best Illustrates question.',
     similar: 'ask you to match the method or process, not the topic, so this is a Most Similar question.'
   };
+  var TYPE_ORDER = ['bestillustrates', 'context', 'causation', 'purpose', 'similar'];
 
   // pull the text out of the <mark> spans so we can quote it in the coach panel
   function pullMark(html, cls, joinAll) {
@@ -904,15 +953,34 @@
     var out = [], mm; while ((mm = re.exec(html))) out.push(mm[1]); return out.join(' … ');
   }
   function quoteBox(t) { return '<blockquote class="wk-quote">' + esc(t) + '</blockquote>'; }
+  // The passage evidence for steps 3 and 4: the highlighted words, or a pointer for an image source.
+  function evidence(ex) {
+    if (ex.key) return quoteBox(ex.key);
+    if (ex.look) return '<div class="wk-plain wk-look">' + esc(ex.look) + '</div>';
+    return '';
+  }
+
+  function shuffled(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  // Work-it choices: the first entry of list is the right one; shown in random order.
+  function choicesHTML(list) {
+    return '<div class="wk-choices">' + shuffled(list.map(function (t, i) { return { t: t, ok: i === 0 }; })).map(function (c) {
+      return '<button type="button" class="wk-choice" data-ok="' + (c.ok ? 1 : 0) + '">' + esc(c.t) + '</button>';
+    }).join('') + '</div><div class="wk-fb" aria-live="polite"></div>';
+  }
+  function task(prompt, inner) {
+    return '<div class="wk-task"><p class="wk-task-q"><span class="wk-yt">Your turn</span> ' + prompt + '</p>' + inner + '</div>';
+  }
 
   function coachSteps(ex) {
     var T = WT[ex.type];
-    var trigger = pullMark(ex.q, 'hq', false);
-    var key = pullMark(ex.stim, 'hs', true);
 
     // step 1: source line, quoted, then since/therefore reasoning
-    var s1 = '<div class="wk-coach-h">Step 1 &middot; Read the source line first</div>' +
-      '<p class="wk-coach-lead">Start with the small line naming who wrote it, when, and what kind of source it is:</p>' +
+    var t1 = ex.read ? task('Read the source line. Which reading of it is strongest?', choicesHTML(ex.read)) : '';
+    var s1 = '<div class="wk-coach-lead">Start with the small line naming who wrote it, when, and what kind of source it is:</div>' +
       quoteBox(ex.srcline) +
       '<p class="wk-note">Now reason it out, since ... therefore ...</p>';
     ex.src.forEach(function (r) {
@@ -920,46 +988,66 @@
         ', <span class="wk-therefore">therefore</span> ' + esc(r.therefore) + '.</div>';
     });
 
-    // step 2: quote the trigger words, then name the type and why
-    var s2 = '<div class="wk-coach-h">Step 2 &middot; Read the question and the choices</div>' +
-      '<p class="wk-coach-lead">The underlined words in the question are the giveaway:</p>' +
-      quoteBox(trigger) +
+    // step 2: name the type, then the trigger words and why
+    var t2 = task('Read the question. Which of the 5 types is it?', '<div class="wk-choices wk-types">' +
+      TYPE_ORDER.map(function (k) {
+        return '<button type="button" class="wk-choice" data-ok="' + (k === ex.type ? 1 : 0) + '">' + WT[k].name + '</button>';
+      }).join('') + '</div><div class="wk-fb" aria-live="polite"></div>');
+    var s2 = '<p class="wk-coach-lead">The underlined words in the question are the giveaway:</p>' +
+      quoteBox(ex.trigger) +
       '<p class="wk-note">These words ' + TYPEWHY[ex.type] + '</p>' +
       '<div class="wk-typecard"><span class="walk-badge ' + T.cls + '">' + T.name + '</span>' +
       '<p class="wk-cue">' + esc(T.cue) + '</p>' +
       '<p><b>How to handle it:</b> ' + esc(T.strat) + '</p></div>';
 
-    // step 3: quote the key phrase in the passage, then plain English
-    var s3 = '<div class="wk-coach-h">Step 3 &middot; Say what it is really asking</div>' +
-      '<p class="wk-coach-lead">Go back to the highlighted words in the passage:</p>' +
-      quoteBox(key) +
-      '<div class="wk-plain">' + esc(ex.meaning) + '</div>';
+    // step 3: plain English
+    var t3 = ex.plain ? task('Which is the best plain-English version of what the question is asking?', choicesHTML(ex.plain)) : '';
+    var s3 = (ex.key ? '<p class="wk-coach-lead">Go back to the highlighted words in the passage:</p>' : '') +
+      evidence(ex) + '<div class="wk-plain">' + (ex.plainQ ? '<b>' + esc(ex.plainQ) + '</b> ' : '') + esc(ex.meaning) + '</div>';
 
-    // step 4: quote the proof, answer, then the trap
-    var s4 = '<div class="wk-coach-h">Step 4 &middot; Answer, and name the trap</div>' +
-      '<p class="wk-coach-lead">The proof is right there in the passage:</p>' +
-      quoteBox(key) +
+    // step 4: answer, proof, then the trap
+    var t4 = task('Now pick your answer.', '<div class="wk-choices wk-letters">' + ex.options.map(function (o, j) {
+      return '<button type="button" class="wk-choice" data-ok="' + (j === ex.answer ? 1 : 0) + '" data-j="' + j + '">' + letters(j) + '</button>';
+    }).join('') + '</div><div class="wk-fb" aria-live="polite"></div>');
+    var s4 = (ex.key ? '<p class="wk-coach-lead">The proof is right there in the passage:</p>' : '') + evidence(ex) +
       '<div class="wk-why"><b>Correct: ' + letters(ex.answer) + '.</b> ' + esc(ex.why) + '</div>' +
       '<div class="wk-trap"><b>What NOT to do</b>' + esc(ex.trap) + '</div>';
 
-    return '<div class="wk-coach-step" data-for="1">' + s1 + '</div>' +
-      '<div class="wk-coach-step" data-for="2">' + s2 + '</div>' +
-      '<div class="wk-coach-step" data-for="3">' + s3 + '</div>' +
-      '<div class="wk-coach-step" data-for="4">' + s4 + '</div>';
+    function step(n, title, t, body) {
+      return '<div class="wk-coach-step' + (t ? '' : ' solved') + '" data-for="' + n + '">' +
+        '<div class="wk-coach-h">Step ' + n + ' &middot; ' + title + '</div>' + t + '<div class="wk-reveal">' + body + '</div></div>';
+    }
+    return step(1, 'Read the source line first', t1, s1) +
+      step(2, 'Read the question and the choices', t2, s2) +
+      step(3, 'Say what it is really asking', t3, s3) +
+      step(4, 'Answer, and name the trap', t4, s4);
   }
 
-  function cardHTML(ex, open) {
+  function doneIds() {
+    var sp = {};
+    try { sp = (JSON.parse(localStorage.getItem('apReview_v1') || '{}').spaced) || {}; } catch (e) {}
+    return sp;
+  }
+
+  function cardHTML(ex, open, mode, done) {
     var T = WT[ex.type];
-    var qplain = esc(String(ex.q).replace(/<[^>]+>/g, '')); // question stem, marks stripped, for the collapsed header
-    return '<div class="wk' + (open ? ' is-open' : '') + '" data-step="1">' +
+    var qplain = esc(String(ex.q).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
+    mode = mode || 'work';
+    return '<div class="wk' + (open ? ' is-open' : '') + '" data-step="1" data-mode="' + mode + '"' + (ex.id ? ' data-id="' + esc(ex.id) + '"' : '') + '>' +
       '<button type="button" class="wk-summary">' +
         '<span class="walk-badge ' + T.cls + '">' + T.name + '</span>' +
         '<span class="wk-sum-topic">Unit ' + ex.unit + ' &middot; ' + esc(ex.test) + '</span>' +
+        (done ? '<span class="wk-done">&#10003; Worked</span>' : '') +
         '<span class="wk-chevron" aria-hidden="true">&#9654;</span>' +
         '<span class="wk-sum-q">' + qplain + '</span>' +
       '</button>' +
 
       '<div class="wk-detail">' +
+        '<div class="wk-modes" role="group" aria-label="Walkthrough mode">' +
+          '<button type="button" class="wk-mode" data-m="work" aria-pressed="' + (mode === 'work') + '">Work it</button>' +
+          '<button type="button" class="wk-mode" data-m="watch" aria-pressed="' + (mode === 'watch') + '">Watch it</button>' +
+          '<span class="wk-mode-hint">' + (mode === 'work' ? WORK_HINT : WATCH_HINT) + '</span>' +
+        '</div>' +
         '<div class="wk-body">' +
           '<div class="wk-doc">' +
             '<div class="wk-stim">' + stimHTML(ex) + '</div>' +
@@ -983,16 +1071,60 @@
       '</div>' +
     '</div>';
   }
+  var WORK_HINT = 'You make the call at each step, then see the reasoning.';
+  var WATCH_HINT = 'See the whole reasoning, step by step, answer included.';
 
+  function stepEl(card, n) { return card.querySelector('.wk-coach-step[data-for="' + n + '"]'); }
+  // In Work it, a step opens only after every step before it is answered.
+  function reachable(card, n) {
+    if (card.getAttribute('data-mode') !== 'work') return n;
+    for (var k = 1; k < n; k++) if (!stepEl(card, k).classList.contains('solved')) return k;
+    return n;
+  }
   function setStep(card, n) {
-    n = Math.max(1, Math.min(4, n));
+    n = reachable(card, Math.max(1, Math.min(4, n)));
     card.setAttribute('data-step', n);
     card.querySelectorAll('.wk-dot').forEach(function (d) {
       d.classList.toggle('active', parseInt(d.getAttribute('data-s'), 10) === n);
     });
+    var work = card.getAttribute('data-mode') === 'work', solved = stepEl(card, n).classList.contains('solved');
     var cnt = card.querySelector('.wk-count b'); if (cnt) cnt.textContent = n;
     var prev = card.querySelector('.wk-prev'); if (prev) prev.disabled = (n === 1);
-    var next = card.querySelector('.wk-next'); if (next) { next.disabled = (n === 4); next.textContent = n === 3 ? 'See answer →' : 'Next →'; }
+    var next = card.querySelector('.wk-next');
+    if (next) {
+      next.disabled = (n === 4) || (work && !solved);
+      next.textContent = n === 3 && !work ? 'See answer →' : 'Next →';
+    }
+  }
+  function setMode(card, m) {
+    card.setAttribute('data-mode', m);
+    card.querySelectorAll('.wk-mode').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-m') === m)); });
+    var hint = card.querySelector('.wk-mode-hint'); if (hint) hint.textContent = m === 'work' ? WORK_HINT : WATCH_HINT;
+    setStep(card, 1);
+  }
+
+  // A Work-it pick: one try, then the right choice is shown and the step's reasoning opens.
+  function choose(card, btn) {
+    var stp = btn.closest('.wk-coach-step');
+    if (!stp || stp.classList.contains('solved')) return;
+    var ok = btn.getAttribute('data-ok') === '1';
+    btn.classList.add(ok ? 'is-ok' : 'is-no');
+    stp.querySelectorAll('.wk-choice').forEach(function (b) {
+      b.disabled = true;
+      if (b.getAttribute('data-ok') === '1') b.classList.add('is-ok');
+    });
+    var fb = stp.querySelector('.wk-fb');
+    if (fb) { fb.className = 'wk-fb ' + (ok ? 'is-ok' : 'is-no'); fb.textContent = ok ? 'Right.' : 'Not quite. The best choice is marked in green.'; }
+    stp.classList.add('solved');
+    if (stp.getAttribute('data-for') === '4') {
+      var j = btn.getAttribute('data-j');
+      var li = card.querySelector('.wk-o[data-j="' + j + '"]'); if (li && !ok) li.classList.add('is-chosen');
+      card.classList.add('wk-answered');
+      var id = card.getAttribute('data-id');
+      // The final pick is a real answer to a bank question, so it counts like one from MCQ Practice.
+      if (id && window.SPACED && SPACED.recordReview) SPACED.recordReview(id, ok, null);
+    }
+    setStep(card, parseInt(card.getAttribute('data-step'), 10) || 1);
   }
 
   function wire(el) {
@@ -1002,12 +1134,17 @@
       var card = e.target.closest('.wk');
       if (!card) return;
       if (e.target.closest('.wk-summary')) { card.classList.toggle('is-open'); return; }
+      var mb = e.target.closest('.wk-mode');
+      if (mb) { setMode(card, mb.getAttribute('data-m')); return; }
+      var ch = e.target.closest('.wk-choice');
+      if (ch) { choose(card, ch); return; }
       var cur = parseInt(card.getAttribute('data-step'), 10) || 1;
       if (e.target.closest('.wk-next')) { setStep(card, cur + 1); return; }
       if (e.target.closest('.wk-prev')) { setStep(card, cur - 1); return; }
       var dot = e.target.closest('.wk-dot');
       if (dot) { setStep(card, parseInt(dot.getAttribute('data-s'), 10)); return; }
     });
+    el.querySelectorAll('.wk').forEach(function (c) { setStep(c, 1); });
   }
 
   /* public: method strip + 5-type cheat sheet */
@@ -1021,7 +1158,7 @@
       '</div>';
 
     var cheat = '<p class="walk-cheat-label">The 5 stimulus-question types. Most are not really about history, they are about decoding what is asked.</p><div class="walk-cheat">';
-    ['bestillustrates', 'context', 'causation', 'purpose', 'similar'].forEach(function (k) {
+    TYPE_ORDER.forEach(function (k) {
       var T = WT[k];
       cheat += '<div class="walk-cheat-card"><div class="walk-cheat-hd ' + T.cls + '">' + T.name + '</div>' +
         '<div class="walk-cheat-bd"><p class="walk-cheat-cue">' + esc(T.cue) + '</p>' +
@@ -1032,26 +1169,69 @@
     el.innerHTML = method + cheat;
   }
 
+  function bankIds(u) {
+    return Object.keys(window.WALKTHROUGH || {}).filter(function (id) { return id.indexOf('u' + u + '_') === 0; });
+  }
+
   /* public: render worked example(s). opts.unit filters to one unit. */
   function renderWalk(el, opts) {
     if (!el) return;
     opts = opts || {};
+    // Unit pages call this before mcq-bank.js has loaded: wait for it.
+    if (!window.APWH_MCQ && window.WALKTHROUGH && document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { renderWalk(el, opts); });
+      return;
+    }
+    var sp = doneIds();
     var units = opts.unit ? [opts.unit] : [1, 2, 3, 4, 5, 6, 7, 8, 9];
     var html = '';
     units.forEach(function (u) {
       html += '<section class="walk-group" id="walk-u' + u + '" data-unit="' + u + '">';
       if (!opts.unit) html += '<h2 class="walk-groupttl">' + UNIT_TITLES[u] + '</h2>';
-      var items = WORKED.filter(function (w) { return w.unit === u; });
+      var items = WORKED.filter(function (w) { return w.unit === u; }).map(fromWorked)
+        .concat(bankIds(u).map(fromBank).filter(Boolean));
       if (!items.length) {
         html += '<div class="walk-empty">Worked example for this unit is coming soon. Drop the unit test PDF into the repo and it will be added here.</div>';
       } else {
-        items.forEach(function (ex, i) { html += cardHTML(ex, i === 0); });
+        html += '<p class="walk-count">' + items.length + ' walkthroughs. <b>Work it</b> to make each call yourself, or <b>Watch it</b> to see the full reasoning.</p>';
+        items.forEach(function (ex, i) {
+          var h = ex.id && sp[ex.id] && (sp[ex.id].reviewHistory || []).length;
+          html += cardHTML(ex, i === 0, 'work', h);
+        });
       }
       html += '</section>';
     });
     el.innerHTML = html;
     wire(el);
   }
+
+  /* public: SBMCQ.has(id) / SBMCQ.open(id) show one bank walkthrough in a pop-up
+     (MCQ Practice offers it after a question is graded). */
+  function openModal(id) {
+    var ex = fromBank(id);
+    if (!ex) return;
+    var ov = document.createElement('div');
+    ov.className = 'sbmcq-root wk-modal';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-modal', 'true');
+    ov.setAttribute('aria-label', 'Walkthrough');
+    ov.innerHTML = '<div class="wk-modal-box"><button type="button" class="wk-modal-x">Close ✕</button>' + cardHTML(ex, true, 'watch') + '</div>';
+    var prevFocus = document.activeElement;
+    function close() {
+      ov.remove(); document.removeEventListener('keydown', onKey);
+      if (prevFocus && prevFocus.focus) prevFocus.focus();
+    }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    ov.addEventListener('click', function (e) { if (e.target === ov || e.target.closest('.wk-modal-x')) close(); });
+    document.addEventListener('keydown', onKey);
+    document.body.appendChild(ov);
+    wire(ov);
+    ov.querySelector('.wk-modal-x').focus();
+  }
+  window.SBMCQ = {
+    has: function (id) { return !!(window.WALKTHROUGH && window.WALKTHROUGH[id]); },
+    open: openModal
+  };
 
   window.renderCheatsheet = renderCheatsheet;
   window.renderWalk = renderWalk;

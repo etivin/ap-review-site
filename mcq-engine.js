@@ -172,6 +172,8 @@
       '.mcqx-fb.mx-show{max-height:none;padding:11px 13px}',
       '.mcqx-fb.mx-ok{background:var(--mx-grnbg);border-left-color:var(--mx-grn)}',
       '.mcqx-fb.mx-bad{background:var(--mx-redbg);border-left-color:var(--mx-red)}',
+      '.mcqx-walk{display:block;margin-top:10px;font-family:inherit;font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--red,#6b4a2b);background:var(--red,#6b4a2b);color:#fff;border-radius:3px;cursor:pointer}',
+      '.mcqx-walk:hover{filter:brightness(1.1)}',
       '.mcqx-foot{position:sticky;bottom:0;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0;margin-top:8px;background:linear-gradient(to top,var(--cream,#f9f6ef) 65%,transparent)}',
       '.mcqx-reveal{padding:12px 22px;background:var(--mx-red);color:#fff;border:none;cursor:pointer;font-weight:600;font-size:.92rem}',
       '.mcqx-reveal:disabled{opacity:.5;cursor:not-allowed}',
@@ -326,6 +328,14 @@
       if (fb) {
         fb.className = 'mcqx-fb mx-show ' + (ok ? 'mx-ok' : 'mx-bad');
         fb.innerHTML = '<strong>' + (ok ? '✓ Correct.' : '✗ Incorrect.') + '</strong> ' + (q.e || '');
+        // Questions with a step-by-step walkthrough (sbmcq.js + walkthrough-data.js) offer it once graded.
+        var wid = itemIdFor(qs[i].ref);
+        if (window.SBMCQ && SBMCQ.has(wid)) {
+          var wb = document.createElement('button');
+          wb.type = 'button'; wb.className = 'mcqx-walk'; wb.textContent = 'Walk me through it';
+          wb.addEventListener('click', function () { SBMCQ.open(wid); });
+          fb.appendChild(wb);
+        }
       }
     }
 

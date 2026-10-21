@@ -105,7 +105,7 @@ One HTML file per unit. Fixed sidebar + top bar + a set of tab "pages" that `sho
 |---|---|---|
 | `pg-home` | Overview (hero, videos, unit timeline) | per-unit hero and videos; timeline shared: `timeline.js` + `timeline-data.js` |
 | `pg-mcq` | MCQ Practice | shared: `mcq-engine.js` + `mcq-bank.js` |
-| `pg-walk` | MCQ Walkthrough | shared: `sbmcq.js` (`renderWalk(el,{unit})`) |
+| `pg-walk` | MCQ Walkthrough | shared: `sbmcq.js` (`renderWalk(el,{unit})`) + `walkthrough-data.js` |
 | `pg-writing` | Writing Drills | shared: `writing-drills.js` + `writing-prompts.js` |
 | `pg-guide` | Study Guide | shared: `study-guide.js` + `study-guide-data.js` |
 | `pg-source` | Documents (sourcing practice) | shared: `source-practice.js` + `source-practice-data.js` |
@@ -143,7 +143,7 @@ stacked sidebar is about 600px tall. Unit 7's `pg-slides` embeds `source-docs/un
 `apple-touch-icon.png`, all made from `tivin-emblem.png`; every page on the site has them, so copy
 them into any new page), then `mission-theme.css`, `mc-mode.js`, `theme.css`, `theme.js`, `bedtime.js`, `pomodoro.js`, `brand.css`,
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
-`flashcard-data.js`, `sbmcq.css/js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`, `source-practice.css`, `spice.css`.
+`flashcard-data.js`, `sbmcq.css/js`, `walkthrough-data.js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`, `source-practice.css`, `spice.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
 `mcq-bank.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `source-practice-data.js`, `source-practice.js`, `spice-data.js`, `spice.js`, `timeline-data.js`, `timeline.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, `games-lock.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
@@ -170,7 +170,7 @@ Flashcards tab heading: eyebrow `Unit N Flashcards` + `<h2>Key Terms &amp; Conce
 |---|---|---|
 | `mcq-bank.js` | All MCQs | `APWH_MCQ.units[n] = {title, topics:[{id,name}], questions:{'n.x':[{s, sl, simg?, simgCap?, simgs?, simgCaps?, q, o:[4], c, e, src?}]}}` (`simgs`/`simgCaps` show several captioned images). New topics: `addTopic(u,id,name,qs)` block before `/* @@APPEND_UNITS_HERE@@ */`. Practice Sets 1–4 are appended to existing topics with `Q(u, topic, {...})` in their own block (`src:'Set N, Qk'`; sources are page crops in `images/stimuli/psN-*.png`). Always append new questions to the end of a topic, never insert, so spaced-review ids don't shift. |
 | `mcq-engine.js` | MCQ UI (Quick Check / Test Mode, confidence tap) | `APWH.mountMCQ(el, {unit} or {pool})` |
-| `sbmcq.js` | Stimulus-MCQ strategy + worked examples | `SBMCQ_WORKED` list; `renderWalk(el,{unit})`, `renderCheatsheet(el)` |
+| `sbmcq.js` + `walkthrough-data.js` | Stimulus-MCQ strategy + 4-step walkthroughs. Every card has **Work it** (the student picks at each step: best reading of the source line, question type, plain-English version, answer; one try, then the reasoning opens; the answer pick on a bank question goes to `SPACED.recordReview`) and **Watch it** (the full reasoning). Cards come from the inline `SBMCQ_WORKED` list (test questions, no step 1/3 choices) and from `WALKTHROUGH` | `WALKTHROUGH[mcqId] = {type, hq, hs?, look?, src:[{tag,since,therefore}], read:[right,wrong,wrong], plain:[right,wrong,wrong], meaning, trapIdx, trap}` (field notes in the file header); stimulus, stem, options, answer and explanation are read from `mcq-bank.js`, so the page needs the bank. `renderWalk(el,{unit})`, `renderCheatsheet(el)`, `SBMCQ.has(id)` / `SBMCQ.open(id)` (pop-up; MCQ Practice shows a "Walk me through it" button on a graded question that has one, so `cumulative.html` loads these too). Every unit has 10 (90 in all, October 2026), 2 of each type where the bank allows (Purpose and Most Similar are scarce, so Units 1, 2, 4 and 6 have one Most Similar) |
 | `flashcard-data.js` | **Single source of truth for flashcards** | `FC_DATA[n] = [[topic, term, def], ...]`, `FC_UNITS`; also feeds Brain Dump for Units 6, 7, 9 |
 | `flashcard-tags.js` | AP theme + region tags per term | `FC_TAGS[term] = "GESCTN EA,SA"` (themes, then regions) |
 | `unit-flashcards.js/.css` | Unit Flashcards tab (Flashcard Hub layout) | mounts `.ufc-mount` |
@@ -253,7 +253,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 
 Units 1–8 content mostly comes from Eli's materials and tests. Unit 9's MCQs, documents, visuals,
 SPICE-T, all of the shared game content for Units 1–4 and 9, and the gap-filling study-guide
-sections and the Unit 9 Brain Dump sentence starters were written by Claude (October 2026).
+sections, the Unit 9 Brain Dump sentence starters, and the coaching in `walkthrough-data.js` (source-line reads, plain-English choices, traps; the questions themselves are Eli's bank, verbatim) were written by Claude (October 2026).
 The 220 Practice Set 1–4 MCQs (added 2026-10-14) are Eli's practice exams, used with permission and kept verbatim;
 they came without an answer key, so the correct answers (`c`), explanations (`e`) and unit/topic placement were set by Claude.
 About 54 of them have the key as the longest option (the source's wording, not changed).

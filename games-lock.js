@@ -1,15 +1,16 @@
-/* games-lock.js: locks a unit's games until the student has rated 20 (CARDS_NEEDED)
-   flashcards from that unit's deck within the last 7 days (FRESH_DAYS; front or reverse side, from
-   the unit Flashcards tab or the Flashcard Hub). Cards come from FC_DATA[n];
-   ratings are read from apReview_v1.spaced using the same ids
-   unit-flashcards.js writes (u{n}_fc_{slug(term)}, rv_ for reverse).
+/* games-lock.js: locks a unit's games until the student has answered MCQ_NEEDED of that
+   unit's practice questions correctly within the last 7 days (FRESH_DAYS; MCQ Practice tab or
+   Cumulative Review; each question counts once). MCQ_NEEDED is a number of questions (20) or a
+   share of the unit's bank ('25%'). Answers are read from the reviewHistory in apReview_v1.spaced
+   under the ids mcq-engine.js writes (u{n}_{topic}_{idx}); the bank size comes from APWH_MCQ on unit pages and from the
+   mcqTotal spaced.js saves (components.uN) on game pages.
 
    Two modes, picked from the page:
-   - Unit page (unitN.html): the Games tab (#pg-games) stays visible but
-     blurred and inert under a lock panel showing progress.
+   - Unit page (unitN.html): everything in the Games tab (#pg-games, every .inner
+     block) stays visible but blurred and inert under a lock panel showing progress.
    - Game page (unitN-*.html, e.g. unit3-racer.html): a full-screen lock
      covers the page and swallows keystrokes, with a link back to the unit's
-     Flashcards tab.
+     MCQ Practice tab.
    The panel has a visible "Teacher unlock" button: the code is checked
    against a SHA-256 hash and unlocks games for every unit on that browser
    (localStorage gamesLock_teacher). When a student finishes the deck, the
@@ -21,25 +22,36 @@
   'use strict';
   var HASH = 'f0edbe28ac723c57055d27fb30cbe4f12d934dce606f6348ad8d17fa77d03822';
   var TKEY = 'gamesLock_teacher';
-  var FRESH_DAYS = 7;   // a card counts toward the unlock for this many days after it was last rated
-  var CARDS_NEEDED = 20; // any this many cards (or the whole deck, if smaller) unlock the games
+  var FRESH_DAYS = 7;    // a right answer counts toward the unlock for this many days after it was given
+  var MCQ_NEEDED = 20;   // questions to get right: a number (20) or a share of the unit's bank ('25%')
 
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-  function slug(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 48); }
 
+  function bankSize(unit, store) {
+    var u = window.APWH_MCQ && APWH_MCQ.units && APWH_MCQ.units[unit];
+    if (u) { var n = 0, q = u.questions || {}; for (var t in q) n += (q[t] || []).length; return n; }
+    return ((store.components || {})['u' + unit] || {}).mcqTotal || 0;
+  }
+  // How many answers unlock the unit (never more than the whole bank, when its size is known).
+  function needed(total) {
+    var pct = /%$/.test(String(MCQ_NEEDED)) ? parseFloat(MCQ_NEEDED) : null;
+    var need = pct !== null ? (total ? Math.ceil(total * pct / 100) : 0) : MCQ_NEEDED;
+    return total ? Math.min(need, total) : need;
+  }
   function progress(unit) {
-    var rows = (window.FC_DATA || {})[unit] || [];
-    var sp = {};
-    try { sp = (JSON.parse(get('apReview_v1') || '{}').spaced) || {}; } catch (e) {}
-    var done = 0, since = Date.now() - FRESH_DAYS * 864e5;
-    function fresh(it) { return !!(it && it.lastReviewed && new Date(it.lastReviewed).getTime() >= since); }
-    rows.forEach(function (r) {
-      var k = 'u' + unit + '_fc_' + slug(r[1]);
-      if (fresh(sp[k]) || fresh(sp['rv_' + k])) done++;
-    });
-    var need = Math.min(CARDS_NEEDED, rows.length);
-    return { done: Math.min(done, need), total: need };
+    var store = {};
+    try { store = JSON.parse(get('apReview_v1') || '{}') || {}; } catch (e) {}
+    var sp = store.spaced || {}, done = 0, since = Date.now() - FRESH_DAYS * 864e5;
+    var re = new RegExp('^u' + unit + '_(?!fc_)');   // MCQ ids; flashcards are u{n}_fc_*
+    // A question counts once if any answer to it in the window was right.
+    function rightSince(h) { return !!(h && h.correct && new Date(h.date).getTime() >= since); }
+    for (var k in sp) {
+      if (re.test(k) && sp[k] && (sp[k].reviewHistory || []).some(rightSince)) done++;
+    }
+    var total = bankSize(unit, store), need = needed(total);
+    // Percent rule on a game page before the unit page was ever opened: size unknown, show the share.
+    return { done: need ? Math.min(done, need) : done, total: need, pctOnly: !need };
   }
   function finished(unit) { var p = progress(unit); return p.total > 0 && p.done >= p.total; }
   function teacher() { return get(TKEY) === '1'; }
@@ -101,10 +113,11 @@
       '<circle cx="42" cy="62" r="7" fill="#fff"/><rect x="38.5" y="64" width="7" height="14" rx="3" fill="#fff"/>' +
     '</svg>';
 
-  /* Builds the lock panel. goHtml is the "Go to Flashcards" control;
+  /* Builds the lock panel. goHtml is the "Go to MCQ Practice" control;
      onOpen(teacher) runs when the teacher code is accepted. */
   function buildPanel(unit, goHtml, onOpen) {
     var p = progress(unit), left = p.total - p.done, pct = p.total ? Math.round(p.done / p.total * 100) : 0;
+    var goal = p.pctOnly ? String(MCQ_NEEDED) + ' of the' : p.total;
     var panel = document.createElement('div');
     panel.className = 'glk-panel';
     panel.setAttribute('role', 'region');
@@ -112,11 +125,12 @@
     panel.innerHTML = LOCK_SVG +
       '<div class="glk-eyebrow">Unit ' + unit + ' Games: Locked</div>' +
       '<h3>Earn your games</h3>' +
-      '<p>Review ' + p.total + ' Unit ' + unit + ' flashcards to unlock the games. Each card counts for ' + FRESH_DAYS +
-        ' days, so keep reviewing to keep them open. ' +
-        (left === 1 ? '1 card to go.' : left + ' cards to go.') + '</p>' +
+      '<p>Get ' + goal + ' Unit ' + unit + ' practice questions right to unlock the games. Each right answer counts for ' + FRESH_DAYS +
+        ' days, so keep practicing to keep them open.' +
+        (p.pctOnly ? '' : left === 1 ? ' 1 question to go.' : ' ' + left + ' questions to go.') + '</p>' +
       '<div class="glk-bar"><i style="width:0"></i></div>' +
-      '<div class="glk-count">' + p.done + ' / ' + p.total + ' cards reviewed in the last ' + FRESH_DAYS + ' days (' + pct + '%)</div>' +
+      '<div class="glk-count">' + (p.pctOnly ? p.done + ' questions right' : p.done + ' / ' + p.total + ' questions right') +
+        ' in the last ' + FRESH_DAYS + ' days' + (p.pctOnly ? '' : ' (' + pct + '%)') + '</div>' +
       goHtml +
       '<button type="button" class="glk-teach">Teacher unlock</button>' +
       '<form class="glk-form"><input type="password" inputmode="numeric" autocomplete="off" placeholder="Code" aria-label="Teacher code"><button type="submit">Unlock</button></form>' +
@@ -142,7 +156,8 @@
     panel.classList.add('glk-open');
     panel.querySelector('.glk-eyebrow').textContent = 'Unlocked';
     panel.querySelector('h3').textContent = byTeacher ? 'Teacher access on' : 'Games unlocked!';
-    panel.querySelector('p').textContent = byTeacher ? 'Games are open on every unit in this browser.' : 'You reviewed ' + progress(unit).total + ' Unit ' + unit + ' flashcards. Go play.';
+    if (!byTeacher) { panel.querySelector('.glk-bar i').style.width = '100%'; panel.querySelector('.glk-count').textContent = ''; }
+    panel.querySelector('p').textContent = byTeacher ? 'Games are open on every unit in this browser.' : 'You got ' + progress(unit).total + ' Unit ' + unit + ' practice questions right. Go play.';
     set('gamesLock_seen_u' + unit, '1');
   }
 
@@ -157,8 +172,12 @@
   function initTab(unit, page) {
     var inner = page.querySelector('.inner');
     if (!inner) return;
-    var kids = Array.prototype.filter.call(inner.children, function (el) {
-      return !el.classList.contains('pg-nav-row') && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE';
+    // Units 2-4 split the tab into two .inner blocks (inline matching, then the shared games): lock them all.
+    var kids = [];
+    Array.prototype.forEach.call(page.querySelectorAll('.inner'), function (box) {
+      Array.prototype.forEach.call(box.children, function (el) {
+        if (!el.classList.contains('pg-nav-row') && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') kids.push(el);
+      });
     });
     var panel = null;
 
@@ -177,9 +196,9 @@
     }
     function lock() {
       if (panel) panel.remove();
-      // Relocked (cards went stale): play the opening again when they re-earn it.
+      // Relocked (answers went stale): play the opening again when they re-earn it.
       if (!finished(unit)) { try { localStorage.removeItem('gamesLock_seen_u' + unit); } catch (e) {} }
-      panel = buildPanel(unit, '<button type="button" class="glk-go" data-tab="pg-flash">Go to Flashcards</button>', openLock);
+      panel = buildPanel(unit, '<button type="button" class="glk-go" data-tab="pg-mcq">Go to MCQ Practice</button>', openLock);
       var nav = inner.querySelector('.pg-nav-row');
       inner.insertBefore(panel, nav ? nav.nextSibling : inner.firstChild);
       setDim(true);
@@ -207,7 +226,7 @@
       else { if (panel) panel.remove(); panel = null; setDim(false); }
     }
 
-    // A deck finished elsewhere (e.g. the Hub) whose opening was never shown: keep the lock up to play it.
+    // Earned elsewhere (e.g. Cumulative Review) and the opening was never shown: keep the lock up to play it.
     if (!teacher() && finished(unit) && get('gamesLock_seen_u' + unit) !== '1') lock();
     else refresh(false);
 
@@ -244,7 +263,7 @@
       setTimeout(function () { screen.classList.add('glk-gone'); release(); }, 1300);
       setTimeout(function () { screen.remove(); }, 1900);
     }
-    var panel = buildPanel(unit, '<a class="glk-go" href="unit' + unit + '.html#pg-flash">Go to Unit ' + unit + ' Flashcards</a>', openLock);
+    var panel = buildPanel(unit, '<a class="glk-go" href="unit' + unit + '.html#pg-mcq">Go to Unit ' + unit + ' MCQ Practice</a>', openLock);
     screen.appendChild(panel);
     document.body.appendChild(screen);
     setInert(kids, true);

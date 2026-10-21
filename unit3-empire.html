@@ -592,7 +592,7 @@ const CHEM_WEIGHT = 1, CHEM_CAP = 16;
 // Every game each rival also shifts by up to RIVAL_JITTER either way, so the
 // opponents differ from game to game (the 10-0 rate stays about the same).
 const RIVALS = [78, 81.5, 84.5, 88, 91, 94.5, 97.5, 101, 104, 105.5];
-const RIVAL_SWING = 1.5, RIVAL_JITTER = 2;
+const RIVAL_SWING = 1.5, RIVAL_JITTER = 2, RIVAL_MAX = 106;
 const $ = id => document.getElementById(id);
 const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -878,7 +878,7 @@ function runSimulation() {
 
   // Each century faces one rival (shuffled order); win when strength, give or take
   // a small swing, beats it. Stronger drafts beat more rivals.
-  const rivals = RIVALS.map(b => Math.round((b + (seededRandom() * 2 - 1) * RIVAL_JITTER) * 2) / 2);
+  const rivals = RIVALS.map(b => Math.min(RIVAL_MAX, Math.round((b + (seededRandom() * 2 - 1) * RIVAL_JITTER) * 2) / 2));
   state.rivals = rivals.slice();
   for (let i = rivals.length - 1; i > 0; i--) {
     const j = Math.floor(seededRandom() * (i + 1));

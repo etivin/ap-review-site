@@ -174,6 +174,9 @@
       '.mcqx-fb.mx-bad{background:var(--mx-redbg);border-left-color:var(--mx-red)}',
       '.mcqx-walk{display:block;margin-top:10px;font-family:inherit;font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--red,#6b4a2b);background:var(--red,#6b4a2b);color:#fff;border-radius:3px;cursor:pointer}',
       '.mcqx-walk:hover{filter:brightness(1.1)}',
+      '.mcqx-walkrow{display:flex;flex-wrap:wrap;gap:8px}',
+      '.mcqx-retry{background:var(--mx-card);color:var(--mx-ink);border-color:var(--mx-ink)}',
+      '.mcqx-fb.mx-retrying{background:var(--mx-paper);border-left-color:var(--mx-ink)}',
       '.mcqx-page{display:none}.mcqx-page.mx-on,.mcqx-all .mcqx-page{display:block}',
       '.mcqx-all .mcqx-page+.mcqx-page{margin-top:26px;padding-top:26px;border-top:1px dashed var(--mx-line)}',
       '.mcqx-all .mcqx-pager{display:none}',
@@ -345,7 +348,7 @@
         el.classList.toggle('mx-on', wait);
         el.innerHTML = wait ? '&#9201; Read the source and the question. You can answer in <b>' + Math.ceil(gateLeft[i] / 1000) + '</b> s.' : '';
       }
-      var locked = (mode === 'quick' && graded[i]) || reasoning || revealed;
+      var locked = (mode === 'quick' && graded[i] && !retrying[i]) || reasoning || revealed;
       optsOf(i).forEach(function (b) { b.disabled = wait || locked; b.classList.toggle('mx-wait', wait); });
     }
     function gateTick() {
@@ -378,15 +381,64 @@
       if (fb) {
         fb.className = 'mcqx-fb mx-show ' + (ok ? 'mx-ok' : 'mx-bad');
         fb.innerHTML = '<strong>' + (ok ? '✓ Correct.' : '✗ Incorrect.') + '</strong> ' + (q.e || '');
-        // Questions with a step-by-step walkthrough (sbmcq.js + walkthrough-data.js) offer it once graded.
-        var wid = itemIdFor(qs[i].ref);
-        if (window.SBMCQ && SBMCQ.has(wid)) {
-          var wb = document.createElement('button');
-          wb.type = 'button'; wb.className = 'mcqx-walk'; wb.textContent = 'Walk me through it';
-          wb.addEventListener('click', function () { SBMCQ.open(wid); });
-          fb.appendChild(wb);
-        }
+        if (!ok) offerWalk(i, fb);
       }
+    }
+
+    /* ---- wrong answer: walkthrough, then a practice-only retry ----
+       A wrongly answered question that has a step-by-step walkthrough (sbmcq.js +
+       walkthrough-data.js) gets a "Walk me through it" button. In Quick Check, opening it
+       adds "Try again": the question resets (fresh 10-second read) for one more pick. The
+       retry is practice only: it is not recorded, so it never counts toward the games
+       unlock and the score keeps the first answer. */
+    var retrying = [];
+    function offerWalk(i, fb) {
+      var wid = itemIdFor(qs[i].ref);
+      if (!(window.SBMCQ && SBMCQ.has(wid))) return;
+      var row = document.createElement('div');
+      row.className = 'mcqx-walkrow';
+      var wb = document.createElement('button');
+      wb.type = 'button'; wb.className = 'mcqx-walk'; wb.textContent = 'Walk me through it';
+      row.appendChild(wb);
+      fb.appendChild(row);
+      wb.addEventListener('click', function () {
+        var tb = mode === 'quick' ? row.querySelector('.mcqx-retry') : null;
+        if (mode === 'quick' && !tb) {
+          tb = document.createElement('button');
+          tb.type = 'button'; tb.className = 'mcqx-walk mcqx-retry'; tb.textContent = 'Try again';
+          tb.addEventListener('click', function () { startRetry(i); });
+          row.appendChild(tb);
+        }
+        SBMCQ.open(wid, function () { if (tb && tb.isConnected) tb.focus(); });
+      });
+    }
+    function startRetry(i) {
+      retrying[i] = true;
+      optsOf(i).forEach(function (b) { b.classList.remove('mx-correct', 'mx-reveal', 'mx-wrong', 'mx-sel'); });
+      var fb = document.getElementById(ctx.uid + '-fb' + i);
+      if (fb) {
+        fb.className = 'mcqx-fb mx-show mx-retrying';
+        fb.innerHTML = '<strong>Try again.</strong> Pick the answer you now think is right. ' +
+          'This try is practice only: it does not count toward unlocking games.';
+      }
+      gateLeft[i] = GATE_MS;
+      syncGate(i);
+    }
+    function retryPick(i, j) {
+      var q = qs[i].q, ok = j === q.c;
+      retrying[i] = false;
+      optsOf(i).forEach(function (b) {
+        var bj = +b.dataset.j; b.disabled = true;
+        if (bj === q.c) b.classList.add(ok ? 'mx-correct' : 'mx-reveal');
+        if (bj === j && !ok) b.classList.add('mx-wrong');
+      });
+      var fb = document.getElementById(ctx.uid + '-fb' + i);
+      if (!fb) return;
+      fb.className = 'mcqx-fb mx-show ' + (ok ? 'mx-ok' : 'mx-bad');
+      fb.innerHTML = ok
+        ? '<strong>✓ Right this time.</strong> Practice only, so it does not count toward unlocking games.'
+        : '<strong>✗ Not yet.</strong> The answer is ' + L[q.c] + '. ' + (q.e || '');
+      if (!ok) offerWalk(i, fb);
     }
 
     function markGraded(i) {
@@ -403,6 +455,7 @@
     /* ---- QUICK CHECK: pick -> confidence tap -> grade ---- */
     function pick(i, j) {
       if (mode === 'quick') {
+        if (retrying[i]) { retryPick(i, j); return; }
         if (graded[i]) return;
         answered[i] = j;
         optsOf(i).forEach(function (b) { b.classList.toggle('mx-sel', +b.dataset.j === j); });

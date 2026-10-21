@@ -1205,9 +1205,9 @@
     wire(el);
   }
 
-  /* public: SBMCQ.has(id) / SBMCQ.open(id) show one bank walkthrough in a pop-up
-     (MCQ Practice offers it after a question is graded). */
-  function openModal(id) {
+  /* public: SBMCQ.has(id) / SBMCQ.open(id, onClose) show one bank walkthrough in a pop-up
+     (MCQ Practice offers it after a wrong answer); onClose runs when it is closed. */
+  function openModal(id, onClose) {
     var ex = fromBank(id);
     if (!ex) return;
     var ov = document.createElement('div');
@@ -1220,6 +1220,7 @@
     function close() {
       ov.remove(); document.removeEventListener('keydown', onKey);
       if (prevFocus && prevFocus.focus) prevFocus.focus();
+      if (onClose) onClose();
     }
     function onKey(e) { if (e.key === 'Escape') close(); }
     ov.addEventListener('click', function (e) { if (e.target === ov || e.target.closest('.wk-modal-x')) close(); });

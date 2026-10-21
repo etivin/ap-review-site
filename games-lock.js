@@ -1,9 +1,16 @@
 /* games-lock.js: locks a unit's games until the student has answered MCQ_NEEDED of that
-   unit's practice questions correctly within the last 7 days (FRESH_DAYS; MCQ Practice tab or
-   Cumulative Review; each question counts once). MCQ_NEEDED is a number of questions (20) or a
-   share of the unit's bank ('25%'). Answers are read from the reviewHistory in apReview_v1.spaced
-   under the ids mcq-engine.js writes (u{n}_{topic}_{idx}); the bank size comes from APWH_MCQ on unit pages and from the
-   mcqTotal spaced.js saves (components.uN) on game pages.
+   unit's practice questions correctly within the last 7 days (FRESH_DAYS; MCQ Practice tab,
+   Cumulative Review or a walkthrough's Work it; each question counts once).
+   MCQ_NEEDED is a number of questions (20) or a share of the unit's bank ('25%'). Answers are
+   read from the reviewHistory in apReview_v1.spaced under the ids mcq-engine.js writes
+   (u{n}_{topic}_{idx}); the bank size comes from APWH_MCQ on unit pages and from the mcqTotal
+   spaced.js saves (components.uN) on game pages.
+
+   Game time: unlocking gives PLAY_MIN (20) minutes of play for that unit, shown in a visible
+   "game time left" box; every MORE_RIGHT (10) more right answers adds PLAY_MIN more. Time counts
+   only while the games are showing, the page is visible and the student used the mouse or keys
+   in the last minute (gamesPlay_uN = {"YYYY-MM-DD": ms}, last FRESH_DAYS days). When it runs
+   out, the Games tab or game page locks again mid-game.
 
    Two modes, picked from the page:
    - Unit page (unitN.html): everything in the Games tab (#pg-games, every .inner
@@ -13,7 +20,7 @@
      MCQ Practice tab.
    The panel has a visible "Teacher unlock" button: the code is checked
    against a SHA-256 hash and unlocks games for every unit on that browser
-   (localStorage gamesLock_teacher). When a student finishes the deck, the
+   (localStorage gamesLock_teacher). When a student earns the games, the
    lock plays an opening animation once per unit (gamesLock_seen_uN).
 
    Load after flashcard-data.js: on unit pages just before unit-shell.js,
@@ -24,6 +31,9 @@
   var TKEY = 'gamesLock_teacher';
   var FRESH_DAYS = 7;    // a right answer counts toward the unlock for this many days after it was given
   var MCQ_NEEDED = 20;   // questions to get right: a number (20) or a share of the unit's bank ('25%')
+  var PLAY_MIN = 20;     // minutes of game time each unlock gives
+  var MORE_RIGHT = 10;   // more right answers that earn another PLAY_MIN minutes
+  var TICK = 5000;       // game time is counted in 5-second steps
 
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -39,21 +49,45 @@
     var need = pct !== null ? (total ? Math.ceil(total * pct / 100) : 0) : MCQ_NEEDED;
     return total ? Math.min(need, total) : need;
   }
+  /* ---- game time: minutes played per unit, by local date (gamesPlay_uN = {"YYYY-MM-DD": ms}) ---- */
+  function dayKey(t) { var d = new Date(t); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function playLog(unit) { try { return JSON.parse(get('gamesPlay_u' + unit) || '{}') || {}; } catch (e) { return {}; } }
+  function playUsed(unit) {
+    var log = playLog(unit), from = dayKey(Date.now() - (FRESH_DAYS - 1) * 864e5), ms = 0;
+    for (var d in log) if (d >= from) ms += log[d] || 0;
+    return ms;
+  }
+  function addPlay(unit, ms) {
+    var log = playLog(unit), today = dayKey(Date.now()), from = dayKey(Date.now() - FRESH_DAYS * 864e5);
+    for (var d in log) if (d < from) delete log[d];   // drop days that no longer count
+    log[today] = (log[today] || 0) + ms;
+    set('gamesPlay_u' + unit, JSON.stringify(log));
+  }
+
   function progress(unit) {
     var store = {};
     try { store = JSON.parse(get('apReview_v1') || '{}') || {}; } catch (e) {}
-    var sp = store.spaced || {}, done = 0, since = Date.now() - FRESH_DAYS * 864e5;
+    var sp = store.spaced || {}, right = 0, since = Date.now() - FRESH_DAYS * 864e5;
     var re = new RegExp('^u' + unit + '_(?!fc_)');   // MCQ ids; flashcards are u{n}_fc_*
     // A question counts once if any answer to it in the window was right.
     function rightSince(h) { return !!(h && h.correct && new Date(h.date).getTime() >= since); }
     for (var k in sp) {
-      if (re.test(k) && sp[k] && (sp[k].reviewHistory || []).some(rightSince)) done++;
+      if (re.test(k) && sp[k] && (sp[k].reviewHistory || []).some(rightSince)) right++;
     }
     var total = bankSize(unit, store), need = needed(total);
-    // Percent rule on a game page before the unit page was ever opened: size unknown, show the share.
-    return { done: need ? Math.min(done, need) : done, total: need, pctOnly: !need };
+    // Unlocking gives PLAY_MIN minutes; every MORE_RIGHT more right answers add PLAY_MIN more.
+    var plays = need && right >= need ? 1 + Math.floor((right - need) / MORE_RIGHT) : 0;
+    var budget = plays * PLAY_MIN * 60000, used = playUsed(unit);
+    return {
+      done: need ? Math.min(right, need) : right, total: need, right: right,
+      // Percent rule on a game page before the unit page was ever opened: size unknown, show the share.
+      pctOnly: !need,
+      timeUp: plays > 0 && used >= budget, leftMs: Math.max(0, budget - used),
+      nextAt: need + plays * MORE_RIGHT
+    };
   }
-  function finished(unit) { var p = progress(unit); return p.total > 0 && p.done >= p.total; }
+  // Games are open: enough right answers and game time left.
+  function finished(unit) { var p = progress(unit); return p.total > 0 && p.done >= p.total && !p.timeUp; }
   function teacher() { return get(TKEY) === '1'; }
 
   function sha256(s) {
@@ -98,6 +132,12 @@
       '.glk-msg{min-height:1em;margin-top:8px;font-size:.72rem;color:var(--gk-acc)}' +
       '.glk-tbar{--gk-acc:var(--red,#2d5deb);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;max-width:820px;margin:0 auto 18px;padding:10px 14px;border:1px dashed var(--border2,var(--border,#c9ced8));background:var(--cream,#f6f3ec);color:var(--mid,#444);font-family:Lato,system-ui,sans-serif;font-size:.78rem}' +
       '.glk-tbar button{background:var(--gk-acc);color:#fff;border:0;padding:8px 14px;font-family:inherit;font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}' +
+      '.glk-time{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;max-width:820px;margin:0 auto 14px;padding:9px 14px;border:1px solid var(--border,#d5d9e2);background:var(--cream,#f6f3ec);color:var(--mid,#444);font-family:Lato,system-ui,sans-serif;font-size:.8rem;box-sizing:border-box}' +
+      '.glk-time[hidden]{display:none}' +
+      '.glk-time b{font-size:1.05rem;color:var(--red,#2d5deb);font-variant-numeric:tabular-nums}' +
+      '.glk-time-note{font-size:.72rem;color:var(--muted,#6b7280)}' +
+      '.glk-time.glk-fixed{position:fixed;left:12px;bottom:12px;z-index:2147482500;margin:0;max-width:300px;background:#fff;color:#222;box-shadow:0 6px 18px rgba(0,0,0,.25)}' +
+      '.glk-time.glk-fixed{padding:6px 11px;font-size:.74rem}.glk-time.glk-fixed b{color:#2d5deb}.glk-time.glk-fixed .glk-time-note{display:none}' +
       '@keyframes glk-in{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}' +
       '@keyframes glk-out{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-20px) scale(.94)}}' +
       '@keyframes glk-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}' +
@@ -116,21 +156,33 @@
   /* Builds the lock panel. goHtml is the "Go to MCQ Practice" control;
      onOpen(teacher) runs when the teacher code is accepted. */
   function buildPanel(unit, goHtml, onOpen) {
-    var p = progress(unit), left = p.total - p.done, pct = p.total ? Math.round(p.done / p.total * 100) : 0;
-    var goal = p.pctOnly ? String(MCQ_NEEDED) + ' of the' : p.total;
+    var p = progress(unit), goal = p.pctOnly ? String(MCQ_NEEDED) + ' of the' : p.total, body;
+    if (p.timeUp) {
+      // Game time used up: the next MORE_RIGHT right answers earn more.
+      var got = p.right - (p.nextAt - MORE_RIGHT), more = p.nextAt - p.right, pct = Math.round(got / MORE_RIGHT * 100);
+      body = '<div class="glk-eyebrow">Unit ' + unit + ' Games: Time is up</div>' +
+        '<h3>Earn more game time</h3>' +
+        '<p>You used your ' + PLAY_MIN + ' minutes of game time. Get ' + MORE_RIGHT + ' more Unit ' + unit +
+          ' practice questions right to earn ' + PLAY_MIN + ' more. ' +
+          (more === 1 ? '1 question to go.' : more + ' questions to go.') + '</p>' +
+        '<div class="glk-bar"><i style="width:0"></i></div>' +
+        '<div class="glk-count">' + got + ' / ' + MORE_RIGHT + ' more questions right (' + pct + '%)</div>';
+    } else {
+      var left = p.total - p.done, pct = p.total ? Math.round(p.done / p.total * 100) : 0;
+      body = '<div class="glk-eyebrow">Unit ' + unit + ' Games: Locked</div>' +
+        '<h3>Earn your games</h3>' +
+        '<p>Get ' + goal + ' Unit ' + unit + ' practice questions right to unlock ' + PLAY_MIN + ' minutes of games.' +
+          ' Each right answer counts for ' + FRESH_DAYS + ' days.' +
+          (p.pctOnly ? '' : left === 1 ? ' 1 question to go.' : ' ' + left + ' questions to go.') + '</p>' +
+        '<div class="glk-bar"><i style="width:0"></i></div>' +
+        '<div class="glk-count">' + (p.pctOnly ? p.done + ' questions right' : p.done + ' / ' + p.total + ' questions right') +
+          ' in the last ' + FRESH_DAYS + ' days' + (p.pctOnly ? '' : ' (' + pct + '%)') + '</div>';
+    }
     var panel = document.createElement('div');
     panel.className = 'glk-panel';
     panel.setAttribute('role', 'region');
     panel.setAttribute('aria-label', 'Games locked');
-    panel.innerHTML = LOCK_SVG +
-      '<div class="glk-eyebrow">Unit ' + unit + ' Games: Locked</div>' +
-      '<h3>Earn your games</h3>' +
-      '<p>Get ' + goal + ' Unit ' + unit + ' practice questions right to unlock the games. Each right answer counts for ' + FRESH_DAYS +
-        ' days, so keep practicing to keep them open.' +
-        (p.pctOnly ? '' : left === 1 ? ' 1 question to go.' : ' ' + left + ' questions to go.') + '</p>' +
-      '<div class="glk-bar"><i style="width:0"></i></div>' +
-      '<div class="glk-count">' + (p.pctOnly ? p.done + ' questions right' : p.done + ' / ' + p.total + ' questions right') +
-        ' in the last ' + FRESH_DAYS + ' days' + (p.pctOnly ? '' : ' (' + pct + '%)') + '</div>' +
+    panel.innerHTML = LOCK_SVG + body +
       goHtml +
       '<button type="button" class="glk-teach">Teacher unlock</button>' +
       '<form class="glk-form"><input type="password" inputmode="numeric" autocomplete="off" placeholder="Code" aria-label="Teacher code"><button type="submit">Unlock</button></form>' +
@@ -157,7 +209,8 @@
     panel.querySelector('.glk-eyebrow').textContent = 'Unlocked';
     panel.querySelector('h3').textContent = byTeacher ? 'Teacher access on' : 'Games unlocked!';
     if (!byTeacher) { panel.querySelector('.glk-bar i').style.width = '100%'; panel.querySelector('.glk-count').textContent = ''; }
-    panel.querySelector('p').textContent = byTeacher ? 'Games are open on every unit in this browser.' : 'You got ' + progress(unit).total + ' Unit ' + unit + ' practice questions right. Go play.';
+    panel.querySelector('p').textContent = byTeacher ? 'Games are open on every unit in this browser.' :
+      'You have ' + Math.ceil(progress(unit).leftMs / 60000) + ' minutes of Unit ' + unit + ' game time. Go play.';
     set('gamesLock_seen_u' + unit, '1');
   }
 
@@ -166,6 +219,39 @@
       if (on) { el.setAttribute('inert', ''); el.setAttribute('aria-hidden', 'true'); }
       else { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); }
     });
+  }
+
+  function clock(ms) { var s = Math.ceil(ms / 1000); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+  function timePill(unit, fixed) {
+    var pill = document.createElement('div');
+    pill.className = 'glk-time' + (fixed ? ' glk-fixed' : '');
+    pill.setAttribute('role', 'status');
+    pill.innerHTML = '<span>Unit ' + unit + ' game time left: <b></b></span>' +
+      '<span class="glk-time-note">When it runs out, get ' + MORE_RIGHT + ' more questions right for ' + PLAY_MIN + ' more minutes.</span>';
+    return pill;
+  }
+  /* Counts game time while the games are open and in use: isActive() is true, the page is visible,
+     and the student clicked, tapped or pressed a key in the last minute. Keeps the pill current and
+     runs onUp() when the time runs out. Returns a function that refreshes the pill. */
+  function playClock(unit, isActive, pill, onUp) {
+    var lastInput = 0;   // nothing counts until the student actually clicks, taps or presses a key
+    ['pointerdown', 'pointermove', 'keydown', 'touchstart'].forEach(function (t) {
+      window.addEventListener(t, function () { lastInput = Date.now(); }, { capture: true, passive: true });
+    });
+    function show() {
+      var on = !teacher() && finished(unit) && isActive();
+      pill.hidden = !on;
+      if (on) pill.querySelector('b').textContent = clock(progress(unit).leftMs);
+    }
+    setInterval(function () {
+      if (!teacher() && finished(unit) && isActive() && document.visibilityState === 'visible' && Date.now() - lastInput < 60000) {
+        addPlay(unit, TICK);
+        if (!finished(unit)) { show(); onUp(); return; }
+      }
+      show();
+    }, TICK);
+    show();
+    return show;
   }
 
   /* ---- unit page: lock the Games tab ---- */
@@ -221,10 +307,16 @@
     }
     function refresh(animate) {
       syncTeacherBar();
-      if (!unlockedNow()) { lock(); return; }
-      if (panel && animate) openLock(teacher());
+      if (!unlockedNow()) { lock(); }
+      else if (panel && animate) openLock(teacher());
       else { if (panel) panel.remove(); panel = null; setDim(false); }
+      if (showPill) showPill();
     }
+    // Game time: counts while the Games tab is showing and unlocked, then relocks the tab.
+    var pill = timePill(unit, false), showPill = null;
+    var nav0 = inner.querySelector('.pg-nav-row');
+    inner.insertBefore(pill, nav0 ? nav0.nextSibling : inner.firstChild);
+    showPill = playClock(unit, function () { return !panel && page.offsetParent !== null; }, pill, lock);
 
     // Earned elsewhere (e.g. Cumulative Review) and the opening was never shown: keep the lock up to play it.
     if (!teacher() && finished(unit) && get('gamesLock_seen_u' + unit) !== '1') lock();
@@ -240,37 +332,46 @@
 
   /* ---- game page: full-screen lock ---- */
   function initPage(unit) {
-    if (teacher() || finished(unit)) return;
-    var kids = Array.prototype.filter.call(document.body.children, function (el) { return el.tagName !== 'SCRIPT'; });
-    var screen = document.createElement('div');
-    screen.className = 'glk-screen';
-    var prevOverflow = document.documentElement.style.overflow;
+    var screen = null, panel = null, kids = [], prevOverflow = '';
 
     // Games listen for keys on window; swallow them (except in the code box) while locked.
     function blockKeys(e) {
-      if (screen.contains(e.target)) return;
+      if (screen && screen.contains(e.target)) return;
       e.stopImmediatePropagation(); e.preventDefault();
     }
-    ['keydown', 'keyup', 'keypress'].forEach(function (t) { window.addEventListener(t, blockKeys, true); });
-
     function release() {
       ['keydown', 'keyup', 'keypress'].forEach(function (t) { window.removeEventListener(t, blockKeys, true); });
       setInert(kids, false);
       document.documentElement.style.overflow = prevOverflow;
     }
     function openLock(byTeacher) {
+      var scr = screen;
       playOpen(panel, unit, byTeacher);
-      setTimeout(function () { screen.classList.add('glk-gone'); release(); }, 1300);
-      setTimeout(function () { screen.remove(); }, 1900);
+      setTimeout(function () { scr.classList.add('glk-gone'); release(); }, 1300);
+      setTimeout(function () { scr.remove(); if (screen === scr) screen = null; showPill(); }, 1900);
     }
-    var panel = buildPanel(unit, '<a class="glk-go" href="unit' + unit + '.html#pg-mcq">Go to Unit ' + unit + ' MCQ Practice</a>', openLock);
-    screen.appendChild(panel);
-    document.body.appendChild(screen);
-    setInert(kids, true);
-    document.documentElement.style.overflow = 'hidden';
+    // Covers the page: at load when the games are locked, or when the game time runs out mid-game.
+    function lockScreen() {
+      if (screen) return;
+      kids = Array.prototype.filter.call(document.body.children, function (el) { return el.tagName !== 'SCRIPT' && el !== pill; });
+      screen = document.createElement('div');
+      screen.className = 'glk-screen';
+      prevOverflow = document.documentElement.style.overflow;
+      ['keydown', 'keyup', 'keypress'].forEach(function (t) { window.addEventListener(t, blockKeys, true); });
+      panel = buildPanel(unit, '<a class="glk-go" href="unit' + unit + '.html#pg-mcq">Go to Unit ' + unit + ' MCQ Practice</a>', openLock);
+      screen.appendChild(panel);
+      document.body.appendChild(screen);
+      setInert(kids, true);
+      document.documentElement.style.overflow = 'hidden';
+    }
+
+    var pill = timePill(unit, true);
+    document.body.appendChild(pill);
+    var showPill = playClock(unit, function () { return !screen; }, pill, lockScreen);
+    if (!(teacher() || finished(unit))) lockScreen();
 
     window.addEventListener('storage', function (e) {
-      if ((e.key === 'apReview_v1' || e.key === TKEY) && (teacher() || finished(unit)) && screen.isConnected) openLock(teacher());
+      if ((e.key === 'apReview_v1' || e.key === TKEY) && (teacher() || finished(unit)) && screen && screen.isConnected) openLock(teacher());
     });
   }
 

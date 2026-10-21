@@ -174,6 +174,17 @@
       '.mcqx-fb.mx-bad{background:var(--mx-redbg);border-left-color:var(--mx-red)}',
       '.mcqx-walk{display:block;margin-top:10px;font-family:inherit;font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--red,#6b4a2b);background:var(--red,#6b4a2b);color:#fff;border-radius:3px;cursor:pointer}',
       '.mcqx-walk:hover{filter:brightness(1.1)}',
+      '.mcqx-page{display:none}.mcqx-page.mx-on,.mcqx-all .mcqx-page{display:block}',
+      '.mcqx-all .mcqx-page+.mcqx-page{margin-top:26px;padding-top:26px;border-top:1px dashed var(--mx-line)}',
+      '.mcqx-all .mcqx-pager{display:none}',
+      '.mcqx-pager{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--mx-line)}',
+      '.mcqx-prev,.mcqx-next{padding:10px 18px;border:1px solid var(--mx-ink);background:var(--mx-card);color:var(--mx-ink);cursor:pointer;font-size:.86rem;font-weight:700}',
+      '.mcqx-next{background:var(--mx-ink);color:#fff}',
+      '.mcqx-prev:disabled,.mcqx-next:disabled{opacity:.35;cursor:default}',
+      '.mcqx-pnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.08em;color:var(--mx-mut)}',
+      '.mcqx-gate{display:none;margin:0 0 10px;padding:9px 12px;border:1px dashed var(--mx-red);font-size:.84rem;color:var(--mx-ink)}',
+      '.mcqx-gate.mx-on{display:block}.mcqx-gate b{color:var(--mx-red);font-size:1rem}',
+      '.mcqx-opt.mx-wait{opacity:.5}',
       '.mcqx-foot{position:sticky;bottom:0;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0;margin-top:8px;background:linear-gradient(to top,var(--cream,#f9f6ef) 65%,transparent)}',
       '.mcqx-reveal{padding:12px 22px;background:var(--mx-red);color:#fff;border:none;cursor:pointer;font-weight:600;font-size:.92rem}',
       '.mcqx-reveal:disabled{opacity:.5;cursor:not-allowed}',
@@ -265,23 +276,21 @@
     function render() {
       var h = '<div class="mcqx-summary mcqx-hidden" id="' + ctx.uid + '-sum"></div>';
       var last = null, sn = 0;
+      // One page per question, each with its own copy of the source (see showPage).
       qs.forEach(function (o, i) {
         var q = o.q;
-        if (q.s !== last) {
-          if (i > 0) h += '<hr class="mcqx-sbr"/>';
-          sn++;
-          h += '<div class="mcqx-sset">Stimulus Set ' + sn + '</div>';
-          if (q.s) {
-            h += '<div class="mcqx-stim"><div class="mcqx-stim-lbl">&#128196; Source</div>' +
-                 '<div class="mcqx-stim-src">' + esc(q.sl) + '</div>' +
-                 stimImages(q) +
-                 '<div class="mcqx-stim-txt"><p>' + esc(q.s).replace(/\n/g, '</p><p>') + '</p></div></div>';
-          }
-          last = q.s;
+        if (q.s !== last) { sn++; last = q.s; }
+        h += '<div class="mcqx-page" data-p="' + i + '"><div class="mcqx-sset">Stimulus Set ' + sn + '</div>';
+        if (q.s) {
+          h += '<div class="mcqx-stim"><div class="mcqx-stim-lbl">&#128196; Source</div>' +
+               '<div class="mcqx-stim-src">' + esc(q.sl) + '</div>' +
+               stimImages(q) +
+               '<div class="mcqx-stim-txt"><p>' + esc(q.s).replace(/\n/g, '</p><p>') + '</p></div></div>';
         }
         h += '<div class="mcqx-qcard" id="' + ctx.uid + '-qc' + i + '">' +
              '<div class="mcqx-qnum">Question ' + (i + 1) + ' of ' + qs.length + '</div>' +
-             '<div class="mcqx-qtxt">' + esc(q.q) + '</div><div class="mcqx-opts">';
+             '<div class="mcqx-qtxt">' + esc(q.q) + '</div>' +
+             '<div class="mcqx-gate" id="' + ctx.uid + '-gt' + i + '" aria-live="polite"></div><div class="mcqx-opts">';
         q.o.forEach(function (x, j) {
           h += '<button type="button" class="mcqx-opt" data-i="' + i + '" data-j="' + j + '">' +
                '<span class="mx-ol">' + L[j] + '</span><span>' + esc(x) + '</span></button>';
@@ -293,8 +302,11 @@
           h += '</div></div>';
         }
         h += '<div class="mcqx-reason mcqx-hidden" id="' + ctx.uid + '-rz' + i + '"></div>';
-        h += '<div class="mcqx-fb" id="' + ctx.uid + '-fb' + i + '"></div></div>';
+        h += '<div class="mcqx-fb" id="' + ctx.uid + '-fb' + i + '"></div></div></div>';
       });
+      h += '<div class="mcqx-pager"><button type="button" class="mcqx-prev">&larr; Previous</button>' +
+           '<span class="mcqx-pnum"></span><button type="button" class="mcqx-next">Next &rarr;</button></div>';
+      ctx.body.classList.remove('mcqx-all');
       ctx.body.innerHTML = h;
       ctx.body.querySelectorAll('.mcqx-opt').forEach(function (b) {
         b.addEventListener('click', function () { pick(+this.dataset.i, +this.dataset.j); });
@@ -302,7 +314,45 @@
       ctx.body.querySelectorAll('.mcqx-chip').forEach(function (b) {
         b.addEventListener('click', function () { setConf(+this.dataset.i, this.dataset.conf); });
       });
+      ctx.body.querySelector('.mcqx-prev').addEventListener('click', function () { showPage(cur - 1); });
+      ctx.body.querySelector('.mcqx-next').addEventListener('click', function () { showPage(cur + 1); });
+      gateLeft = qs.map(function () { return GATE_MS; });
+      showPage(0);
+      clearInterval(ctx.gateTimer);
+      ctx.gateTimer = setInterval(gateTick, 250);
       progress();
+    }
+
+    /* ---- one question per screen, and a 10-second read before answering ----
+       Each question shows on its own page with its source. Its choices stay greyed out,
+       with a countdown, until the page has been on screen for GATE_MS; the clock runs only
+       while that page shows and the browser tab is visible, and once a question opens it
+       stays open. Test Mode's review (after Reveal All) shows every page at once. */
+    var GATE_MS = 10000, cur = 0, gateLeft = [];
+    function showPage(k) {
+      cur = Math.max(0, Math.min(qs.length - 1, k));
+      ctx.body.querySelectorAll('.mcqx-page').forEach(function (p) { p.classList.toggle('mx-on', +p.dataset.p === cur); });
+      ctx.body.querySelector('.mcqx-pnum').textContent = 'Question ' + (cur + 1) + ' of ' + qs.length;
+      ctx.body.querySelector('.mcqx-prev').disabled = cur === 0;
+      ctx.body.querySelector('.mcqx-next').disabled = cur === qs.length - 1;
+      syncGate(cur);
+      var top = ctx.body.getBoundingClientRect().top;
+      if (top < 0) window.scrollBy(0, top - 90);
+    }
+    function syncGate(i) {
+      var el = document.getElementById(ctx.uid + '-gt' + i), wait = gateLeft[i] > 0;
+      if (el) {
+        el.classList.toggle('mx-on', wait);
+        el.innerHTML = wait ? '&#9201; Read the source and the question. You can answer in <b>' + Math.ceil(gateLeft[i] / 1000) + '</b> s.' : '';
+      }
+      var locked = (mode === 'quick' && graded[i]) || reasoning || revealed;
+      optsOf(i).forEach(function (b) { b.disabled = wait || locked; b.classList.toggle('mx-wait', wait); });
+    }
+    function gateTick() {
+      if (!ctx.body.isConnected) { clearInterval(ctx.gateTimer); return; }
+      if (ctx.body.classList.contains('mcqx-all') || document.visibilityState !== 'visible' || !(gateLeft[cur] > 0)) return;
+      gateLeft[cur] = Math.max(0, gateLeft[cur] - 250);
+      syncGate(cur);
     }
 
     function optsOf(i) { return ctx.body.querySelectorAll('.mcqx-opt[data-i="' + i + '"]'); }
@@ -375,7 +425,6 @@
       ctx.body.querySelectorAll('.mcqx-chip[data-i="' + i + '"]').forEach(function (b) { b.disabled = true; });
       record(i);
       progress();
-      updateSummary(false);                   // live calibration card, both modes
     }
 
     /* ---- TEST MODE: reveal -> reasoning gate -> unlock ---- */
@@ -385,6 +434,7 @@
       var blank = qs.filter(function (o, i) { return answered[i] == null; }).length;
       if (blank && !window.confirm(blank + ' of ' + qs.length + ' questions are still blank. Blank questions count as wrong in your score. Lock in your answers anyway?')) return;
       reasoning = true;
+      ctx.body.classList.add('mcqx-all');   // the review shows every question at once
       ctx.body.querySelectorAll('.mcqx-opt').forEach(function (b) { b.disabled = true; });
       ctx.body.querySelectorAll('.mcqx-chip').forEach(function (b) { b.disabled = true; });
       qs.forEach(function (o, i) {
@@ -438,7 +488,7 @@
         markGraded(i);
         record(i);
       });
-      updateSummary(true);
+      updateSummary();
       var rv = ctx.foot.querySelector('.mcqx-reveal'); if (rv) rv.remove();
       var sumEl = document.getElementById(ctx.uid + '-sum');
       if (sumEl) sumEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -451,7 +501,8 @@
         '<span class="mx-crn">' + n + '</span>' +
         '<span class="mx-crt">' + (tag || '') + '</span></div>';
     }
-    function updateSummary(scored) {
+    // Test Mode results card, shown after Reveal All & Score.
+    function updateSummary() {
       var sumEl = document.getElementById(ctx.uid + '-sum');
       if (!sumEl) return;
       var b = { confident: [0, 0], shaky: [0, 0], guessing: [0, 0] }; // [correct, total]
@@ -468,7 +519,7 @@
       var cWrong = c[1] - c[0], sWrong = s[1] - s[0], gWrong = g[1] - g[0];
       // Test Mode scores the whole set: a blank question counts as wrong.
       var skipped = 0;
-      if (mode === 'test' && scored) { skipped = qs.length - tot; tot = qs.length; }
+      if (mode === 'test') { skipped = qs.length - tot; tot = qs.length; }
       var pct = Math.round(right / tot * 100);
       var rows =
         crow('CONFIDENT + Correct', c[0], c[0] ? '&#10003; well-calibrated' : '') +
@@ -477,13 +528,10 @@
         crow('SHAKY + Wrong', sWrong, '') +
         crow('GUESSING + Correct', g[0], g[0] ? 'lucky: treat as unlearned' : '') +
         crow('GUESSING + Wrong', gWrong, '');
-      var head = scored
-        ? '<h4>Results &amp; Calibration</h4><div class="mx-big">' + right + ' / ' + tot +
+      var head = '<h4>Results &amp; Calibration</h4><div class="mx-big">' + right + ' / ' + tot +
             ' <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>' +
             (skipped ? '<div class="mcqx-gap">' + skipped + ' question' + (skipped === 1 ? '' : 's') +
-              ' left blank, counted as wrong. The calibration rows below cover only the questions you answered.</div>' : '')
-        : '<h4>Calibration so far</h4><div class="mx-big">' + right + ' / ' + tot +
-            ' <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>';
+              ' left blank, counted as wrong. The calibration rows below cover only the questions you answered.</div>' : '');
       sumEl.innerHTML = head + '<div class="mcqx-cgrid">' + rows + '</div>';
       sumEl.classList.remove('mcqx-hidden');
     }

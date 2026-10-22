@@ -1,8 +1,8 @@
 /* brand.js: brand every page with the Tivin Teaches lockup:
    a circular globe+shield emblem (cropped out of the logo art, which has
    arced text baked in) + "Tivin Teaches" / "Education is life itself".
-   Header patterns: classic sidebar (.sb-brand), top bar (.bar .brand), and
-   the Mission-Control injected strip (#mc-bar .mcb-brand). */
+   Header patterns: top bar (.bar .brand) and the Mission-Control injected
+   strip (#mc-bar .mcb-brand). The unit sidebar (.sb-brand) gets no lockup. */
 (function () {
   // tivin-emblem.png is the globe (incl. shield) pre-cropped from the logo art,
   // circle-masked so none of the arced text shows.
@@ -39,16 +39,10 @@
   }
 
   function add() {
-    // classic sidebar (unit hubs): prepend the lockup above the unit title
-    var sb = document.querySelector('.sb-brand');
-    if (sb && !sb.dataset.tivinLockup) {
-      sb.dataset.tivinLockup = '1';
-      var old = sb.querySelector('.tivin-logo-sb');
-      if (old) old.remove();
-      var lk = makeLockup(60, false);
-      lk.classList.add('sb');
-      sb.insertBefore(lk, sb.firstChild);
-    }
+    // classic sidebar (unit hubs): no lockup, the top bar already carries it,
+    // so the sidebar header is just the unit name and dates
+    var old = document.querySelector('.sb-brand .tivin-logo-sb');
+    if (old) old.remove();
 
     // main top bar (dashboard, maps, games), full lockup
     fillBrand(document.querySelector('.bar .brand'), 88, false);

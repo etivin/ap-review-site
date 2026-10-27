@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 4 Crown and Coffers</title>
+<meta name="description" content="Rule a European crown from 1600 to 1700 and fill the royal treasury with mercantilist policies: colonies, tariffs, joint-stock companies and navies.">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* the Tivin Teaches palette from brand.css (navy, brand blue, logo gold), light in both site themes */
+  --g-bg:#eef3fa;--g-card:#ffffff;--g-line:#cfdcec;--g-text:#16244d;--g-dim:#66748f;
+  --g-amber:#b8860b;--g-gold:#f4cd4f;--g-blue:#345fbf;--g-green:#1a8a4a;--g-red:#cc3d3d;
+  --g-shadow:0 1px 4px rgba(22,36,77,.10),0 8px 26px rgba(22,36,77,.10)
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--g-bg);color:var(--g-text);font:16px/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+.hidden{display:none!important}
+#shell{position:fixed;inset:0;z-index:1000;background:var(--g-bg);color:var(--g-text);display:flex;flex-direction:column}
+/* the site's top bar: brand.js puts the Tivin Teaches lockup in .bar .brand */
+#shell .bar{display:flex;align-items:center;gap:14px;min-height:0;padding:8px 18px;background:#16244d;color:#fff;box-shadow:0 2px 0 var(--g-blue);flex-shrink:0;z-index:2}
+#shell .bar .brand{text-decoration:none;color:#fff;flex-shrink:0}
+#shell .tivin-emblem{--em:46px!important}
+#shell .tivin-wordmark b{font-size:1.05rem}
+#shell .tivin-wordmark i{font-size:.52rem;margin-top:3px}
+.top .ttl{font:900 1.15rem 'Lato',sans-serif;color:#fff;letter-spacing:-.02em;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-left:1px solid rgba(255,255,255,.25);padding-left:14px}
+.top .ttl small{display:block;font:700 .62rem 'Lato',sans-serif;color:var(--g-gold);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+.hud{display:flex;gap:8px;white-space:nowrap}
+.hud span{background:rgba(255,255,255,.1);border:1px solid rgba(244,205,79,.55);border-radius:999px;padding:4px 14px;font-weight:700;font-size:.92rem;color:#fff}
+.hud b{color:var(--g-gold);font-weight:900}
+.top a.nav,.top button{font:700 .7rem 'Lato',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:transparent;border:0;border-bottom:2px solid transparent;padding:6px 2px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.top a.nav:hover,.top button:hover{color:var(--g-gold);border-bottom-color:var(--g-gold)}
+.stage{position:relative;height:36vh;min-height:190px;flex-shrink:0;overflow:hidden;background:#cfe7ff}
+#scene{display:block;width:100%;height:100%}
+.low{flex:1;min-height:0;display:grid;grid-template-columns:300px minmax(0,1fr)}
+.low.full{grid-template-columns:minmax(0,1fr)}
+.low.full .status{display:none}
+.status{padding:16px;overflow-y:auto;background:#fbf8f1;border-right:1px solid var(--g-line);display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+.tile{background:var(--g-card);border-radius:14px;padding:10px 12px;box-shadow:var(--g-shadow)}
+.tile.wide{grid-column:1/-1}
+.tile span{display:block;font-size:.68rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--g-dim)}
+.tile b{display:block;font-size:1.35rem;font-weight:900;line-height:1.2;color:var(--g-text)}
+.tile b.ok{color:var(--g-green)}.tile b.lo{color:var(--g-red)}.tile b.mid{color:var(--g-amber)}.tile b.gold{color:var(--g-amber)}
+.meter{height:8px;border-radius:99px;background:#efe7d6;margin-top:6px;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:99px;transition:width .5s ease}
+.panel{padding:22px 28px 30px;overflow-y:auto}
+.panel.anim > *{animation:rise .35s ease both}
+@keyframes rise{from{transform:translateY(8px)}to{transform:none}}
+.say{font-size:1.08rem;line-height:1.55;margin:0 0 14px;max-width:860px}
+.say b{color:var(--g-amber);font-weight:900}
+.say.dim{font-size:.95rem;color:var(--g-dim)}
+h2{font:900 1.6rem 'Lato',sans-serif;color:var(--g-text);margin:0 0 10px;letter-spacing:-.02em}
+h3{font-size:.62rem;font-weight:700;color:var(--g-blue);margin:22px 0 10px;letter-spacing:.3em;text-transform:uppercase}
+.menu{display:flex;flex-direction:column;gap:8px;margin:4px 0 12px;max-width:620px}
+.mi{font:700 1rem 'Lato',sans-serif;text-align:left;background:var(--g-blue);color:#fff;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;box-shadow:0 4px 14px rgba(31,78,168,.25);transition:transform .12s,box-shadow .12s,background .12s}
+.mi:hover:not(:disabled),.mi:focus-visible{transform:translateY(-1px);box-shadow:0 8px 20px rgba(52,95,191,.32);background:#26489c;outline:none}
+.mi:disabled{opacity:.4;cursor:default;box-shadow:none}
+.mi .k{display:inline-block;min-width:22px;height:22px;line-height:22px;text-align:center;border-radius:6px;background:rgba(255,255,255,.22);font-size:.8rem;margin-right:10px}
+.mi small{font-weight:400;opacity:.85;margin-left:8px;font-size:.88rem}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:1000px}
+.card{position:relative;border:2px solid transparent;border-radius:16px;padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;cursor:pointer;background:var(--g-card);color:var(--g-text);text-align:left;font:inherit;box-shadow:var(--g-shadow);transition:transform .12s,border-color .12s,box-shadow .12s}
+.card:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 26px rgba(60,45,10,.14)}
+.card.on{border-color:var(--g-gold);background:#fffbea;box-shadow:0 0 0 4px rgba(244,205,79,.3),var(--g-shadow)}
+.card.on::after{content:'\2713';position:absolute;top:12px;right:14px;width:26px;height:26px;border-radius:50%;background:var(--g-gold);color:#fff;font-weight:900;text-align:center;line-height:26px}
+.card:disabled{opacity:.45;cursor:default}
+.card b{font-weight:900;font-size:1.05rem;color:var(--g-text);padding-right:30px}
+.card .cost{align-self:flex-start;font-size:.8rem;font-weight:900;color:var(--g-amber);background:#fff5dc;border-radius:999px;padding:2px 10px}
+.card .fx{display:flex;flex-wrap:wrap;gap:5px}
+.card .fx span{font-size:.76rem;font-weight:700;color:var(--g-green);background:#e9f7ef;border-radius:999px;padding:2px 9px}
+.card .fx span.neg{color:var(--g-red);background:#fdeeee}
+.card .txt{font-size:.86rem;line-height:1.45;color:var(--g-dim)}
+.gopts{display:flex;flex-direction:column;gap:8px;margin:6px 0 14px;max-width:760px}
+.gopt{font:600 .98rem 'Lato',sans-serif;text-align:left;background:var(--g-card);color:var(--g-text);border:2px solid var(--g-line);border-radius:12px;padding:11px 14px;cursor:pointer;transition:border-color .12s,background .12s}
+.gopt:hover:not(:disabled){border-color:var(--g-blue);background:#f4f7fe}
+.gopt.right{border-color:var(--g-green);background:#e9f7ef;color:#14663a}
+.gopt.wrong{border-color:var(--g-red);background:#fdeeee;color:#9c2b2b}
+.gopt:disabled{cursor:default}
+.note{font-size:.92rem;line-height:1.55;background:var(--g-card);border-left:4px solid var(--g-gold);border-radius:0 12px 12px 0;padding:10px 14px;margin:0 0 12px;max-width:860px;box-shadow:var(--g-shadow)}
+.note.good{border-left-color:var(--g-green)}
+.note.bad{border-left-color:var(--g-red);background:#fff8f8}
+.mlist{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px}
+.mcard{background:var(--g-card);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--g-shadow);border-top:6px solid var(--g-blue)}
+.mcard:nth-child(2){border-top-color:#16244d}.mcard:nth-child(3){border-top-color:var(--g-gold)}
+.mcard b{font:900 1.35rem 'Lato',sans-serif;letter-spacing:-.02em;color:var(--g-text)}
+.mcard span{color:var(--g-dim);font-size:.82rem;font-weight:700}
+.mcard p{font-size:.9rem;margin:0;flex:1;color:var(--g-dim)}
+.gb{font:900 .82rem 'Lato',sans-serif;letter-spacing:.06em;text-transform:uppercase;background:var(--g-blue);color:#fff;border:0;border-radius:12px;padding:12px 16px;cursor:pointer;box-shadow:0 4px 14px rgba(31,78,168,.25);transition:transform .12s}
+.gb:hover:not(:disabled){transform:translateY(-1px)}
+.gb:disabled{opacity:.4;cursor:default}
+table.sum{border-collapse:separate;border-spacing:0;width:100%;max-width:640px;font-size:.98rem;margin:4px 0 14px;background:var(--g-card);border-radius:14px;overflow:hidden;box-shadow:var(--g-shadow)}
+table.sum td{padding:10px 16px;border-bottom:1px solid #f1ead9}
+table.sum td:last-child{text-align:right;white-space:nowrap;font-weight:900}
+table.sum .pos{color:var(--g-green)}
+table.sum .neg{color:var(--g-red)}
+table.sum tr.tot td{background:#fff8e6;color:var(--g-amber);font-weight:900;border-bottom:0}
+@media(max-width:800px){
+  .stage{height:26vh}
+  .low{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .status{border-right:0;border-bottom:1px solid var(--g-line);grid-template-columns:repeat(4,1fr);gap:6px;padding:8px}
+  .tile{padding:6px 8px;border-radius:10px}
+  .tile b{font-size:1rem}
+  .tile.wide{grid-column:span 2}
+  .panel{padding:16px}
+  .cards,.mlist{grid-template-columns:1fr}
+  .top .ttl small{display:none}
+  #shell .tivin-wordmark{display:none}
+  #shell .tivin-emblem{--em:38px!important}
+  .top .ttl{flex:1 1 auto;border-left:0;padding-left:0;font-size:1rem}
+  .top .ttl small{display:none}
+  #shell .bar{flex-wrap:wrap;gap:8px 12px;padding:8px 12px}
+}
+</style>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<div id="shell">
+  <div class="bar top">
+    <a class="brand" href="./">Tivin Teaches</a>
+    <div class="ttl">Crown &amp; Coffers<small id="topSub">Unit 4 &middot; Mercantilism, 1600 &ndash; 1700</small></div>
+    <div class="hud hidden" id="hud"><span><b id="hudYear">1600</b></span><span><b id="hudGold">0</b> gold</span></div>
+    <button type="button" id="fsBtn">&#9974; Full screen</button>
+    <a class="nav" href="unit4.html#pg-games">&larr; Unit 4 Games</a>
+  </div>
+  <div class="stage">
+    <svg id="scene" viewBox="0 0 1000 300" preserveAspectRatio="xMidYMax slice" role="img" aria-label="The harbor, the royal treasure chest and the balance of trade">
+      <defs>
+        <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="300" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#9fd0ff"/><stop offset=".7" stop-color="#dff0ff"/><stop offset="1" stop-color="#fff4da"/></linearGradient>
+        <linearGradient id="gSea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4fb0ea"/><stop offset="1" stop-color="#2a78c0"/></linearGradient>
+        <linearGradient id="gCoin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0a8"/><stop offset=".55" stop-color="#f2c33f"/><stop offset="1" stop-color="#cf9a1c"/></linearGradient>
+        <linearGradient id="gWood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9743a"/><stop offset="1" stop-color="#7d4520"/></linearGradient>
+        <linearGradient id="gBrass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d6a632"/><stop offset=".5" stop-color="#ffe08a"/><stop offset="1" stop-color="#c8951f"/></linearGradient>
+        <radialGradient id="gGlow"><stop offset="0" stop-color="#fff3b0" stop-opacity=".95"/><stop offset="1" stop-color="#fff3b0" stop-opacity="0"/></radialGradient>
+        <radialGradient id="gSun"><stop offset="0" stop-color="#fff7c2"/><stop offset=".6" stop-color="#ffd45c"/><stop offset="1" stop-color="#ffd45c" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect x="-1500" y="-700" width="4000" height="1000" fill="url(#gSky)"/>
+      <circle cx="300" cy="58" r="70" fill="url(#gSun)"/>
+      <circle cx="300" cy="58" r="28" fill="#ffe27a"/>
+      <g class="cloud c1"><ellipse cx="120" cy="60" rx="46" ry="16" fill="#fff"/><ellipse cx="150" cy="50" rx="30" ry="16" fill="#fff"/></g>
+      <g class="cloud c2"><ellipse cx="430" cy="38" rx="52" ry="14" fill="#fff" opacity=".9"/><ellipse cx="465" cy="30" rx="28" ry="13" fill="#fff" opacity=".9"/></g>
+      <g class="cloud c3"><ellipse cx="760" cy="74" rx="40" ry="12" fill="#fff" opacity=".85"/></g>
+      <rect x="-1500" y="208" width="4000" height="92" fill="#a9d68f"/><rect x="-1500" y="222" width="4000" height="78" fill="#8cc574"/>
+      <path d="M0 214 Q 90 170 190 196 T 380 200 T 560 206 T 760 192 T 1000 204 V 300 H 0 Z" fill="#a9d68f"/>
+      <path d="M0 226 Q 140 204 300 222 T 620 224 T 1000 220 V 300 H 0 Z" fill="#8cc574"/>
+      <g id="flags"></g>
+      <rect x="-1500" y="236" width="4000" height="64" fill="url(#gSea)"/>
+      <path id="wave1" class="wave" d="M-40 248 q 20 -6 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>
+      <path id="wave2" class="wave w2" d="M-40 270 q 20 -5 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0 t 40 0" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+      <rect x="20" y="230" width="300" height="8" rx="3" fill="#8a5a2c"/>
+      <g fill="#6b431f"><rect x="40" y="236" width="6" height="22"/><rect x="120" y="236" width="6" height="22"/><rect x="200" y="236" width="6" height="22"/><rect x="280" y="236" width="6" height="22"/></g>
+      <g id="ships"></g>
+      <ellipse cx="500" cy="196" rx="140" ry="70" fill="url(#gGlow)"/>
+      <ellipse cx="500" cy="240" rx="92" ry="10" fill="#000" opacity=".12"/>
+      <g id="coins"></g>
+      <rect x="430" y="186" width="140" height="54" rx="8" fill="url(#gWood)"/>
+      <rect x="430" y="186" width="140" height="10" rx="4" fill="#d6a632"/>
+      <rect x="430" y="228" width="140" height="6" fill="#d6a632" opacity=".8"/>
+      <rect x="488" y="196" width="24" height="22" rx="4" fill="url(#gBrass)"/>
+      <circle cx="500" cy="206" r="3.5" fill="#6b431f"/>
+      <text id="tGold" x="500" y="288" text-anchor="middle" font-family="Lato, sans-serif" font-weight="900" font-size="18" fill="#fff8e0" stroke="#7a5a10" stroke-width="3" paint-order="stroke">TREASURY</text>
+      <g id="scale">
+        <rect x="770" y="232" width="120" height="10" rx="5" fill="url(#gBrass)"/>
+        <rect x="826" y="104" width="8" height="130" rx="3" fill="url(#gBrass)"/>
+        <circle cx="830" cy="100" r="9" fill="url(#gBrass)"/>
+        <g id="beam"><rect x="710" y="96" width="240" height="8" rx="4" fill="url(#gBrass)"/></g>
+        <g id="panL"><line x1="720" y1="100" x2="696" y2="160" stroke="#b8860b" stroke-width="2"/><line x1="720" y1="100" x2="744" y2="160" stroke="#b8860b" stroke-width="2"/><path d="M684 160 h72 q-6 16 -36 16 q-30 0 -36 -16z" fill="#2fa866"/><g id="stackL"></g><text id="tExp" x="720" y="196" text-anchor="middle" font-family="Lato, sans-serif" font-weight="900" font-size="15" fill="#1e8f52">EXPORTS</text></g>
+        <g id="panR"><line x1="940" y1="100" x2="916" y2="160" stroke="#b8860b" stroke-width="2"/><line x1="940" y1="100" x2="964" y2="160" stroke="#b8860b" stroke-width="2"/><path d="M904 160 h72 q-6 16 -36 16 q-30 0 -36 -16z" fill="#d94b4b"/><g id="stackR"></g><text id="tImp" x="940" y="196" text-anchor="middle" font-family="Lato, sans-serif" font-weight="900" font-size="15" fill="#cc3d3d">IMPORTS</text></g>
+      </g>
+      <text id="tBal" x="830" y="34" text-anchor="middle" font-family="Lato, sans-serif" font-weight="900" font-size="20" fill="#16244d">THE BALANCE OF TRADE</text>
+      <text id="tFleet" x="170" y="290" text-anchor="middle" font-family="Lato, sans-serif" font-weight="900" font-size="14" fill="#ffffff" stroke="#1d5a9a" stroke-width="3" paint-order="stroke" letter-spacing="1">YOUR HARBOR</text>
+    </svg>
+  </div>
+  <div class="low" id="low">
+    <div class="status" id="status"></div>
+    <div class="panel" id="panel"></div>
+  </div>
+</div>
+
+<script>
+/* Crown & Coffers: rule a crown from 1600 to 1700 with mercantilist policies.
+   Each decade: enact 2 of 4 POLICIES, face one EVENT, answer one QUESTION, then the
+   decade's trade is tallied (exports - imports + silver + company dividends - smuggling).
+   fx keys: exports, imports, colonies, navy, unrest, companies, gold (one-time), war, silver.
+   QUESTIONS list the key first and are shuffled when shown; the key is never the longest. */
+var CROWNS = [
+  { id:'england', name:'England', ruler:'James I', blurb:'An island kingdom with a growing navy and a few struggling colonies. Build trade and sea power.',
+    gold:90, exports:40, imports:48, colonies:1, navy:2, unrest:10, companies:0, silver:0 },
+  { id:'france', name:'France', ruler:'Henry IV', blurb:'The largest kingdom in Western Europe, rich in farmland but weak in trade, with one young colony in New France. Build industry and colonies.',
+    gold:110, exports:40, imports:48, colonies:1, navy:1, unrest:5, companies:0, silver:0 },
+  { id:'spain', name:'Spain', ruler:'Philip III', blurb:'The richest empire in the world, with silver from the Americas. But the silver keeps flowing out to buy foreign goods.',
+    gold:130, exports:28, imports:62, colonies:4, navy:2, unrest:25, companies:0, silver:40 }
+];
+
+var POLICIES = [
+  { id:'colony', name:'Found a colony', cost:40, max:4, fx:{ colonies:1, exports:6, imports:-6, unrest:5 },
+    txt:'Settlers clear land for tobacco, timber and furs, and buy cloth and tools from home.',
+    ap:'Colonies supplied raw materials and served as captive markets for the home country&rsquo;s finished goods.' },
+  { id:'sugar', name:'Plant a Caribbean sugar colony', cost:50, max:2, fx:{ colonies:1, exports:14, unrest:5 }, human:true,
+    txt:'Sugar was the most valuable crop of the age.',
+    ap:'Caribbean sugar plantations were worked by enslaved Africans brought across the Atlantic. The wealth came at a terrible human cost.' },
+  { id:'company', name:'Charter a joint-stock company', cost:30, max:2, fx:{ companies:1, exports:6 },
+    txt:'Investors buy shares and split the risk of long voyages to Asia. Pays a dividend every decade.',
+    ap:'Joint-stock companies like the English East India Company (1600) and the Dutch VOC (1602) pooled money from many investors and shared the risk.' },
+  { id:'navacts', name:'Pass Navigation Acts', cost:10, max:1, only:'england', fx:{ exports:10, unrest:15 },
+    txt:'All goods to and from your colonies must travel on your own ships.',
+    ap:'England&rsquo;s Navigation Acts (1651) kept colonial trade on English ships, enriching English shippers and angering colonists.' },
+  { id:'workshops', name:'Fund royal workshops', cost:30, max:3, only:'france', fx:{ exports:13 },
+    txt:'Pay for workshops, roads and canals so France makes goods to sell abroad.',
+    ap:'Jean-Baptiste Colbert, Louis XIV&rsquo;s finance minister, built up French industry so France would sell more than it bought.' },
+  { id:'flota', name:'Escort the treasure fleet', cost:20, max:2, only:'spain', fx:{ silver:10 },
+    txt:'Armed convoys bring more of the silver of Potosí and Zacatecas safely home.',
+    ap:'Spain&rsquo;s fleet system (the flota) convoyed American silver across the Atlantic twice a year.' },
+  { id:'industry', name:'Subsidize home industry', cost:30, max:2, not:'france', fx:{ exports:10 },
+    txt:'Pay weavers and ironworkers to make goods you would otherwise import.',
+    ap:'Mercantilists wanted to make finished goods at home and export them, rather than buy them from rivals.' },
+  { id:'tariff', name:'Raise tariffs on imports', cost:5, max:2, fx:{ imports:-10, war:10 },
+    txt:'Tax foreign goods so your people buy goods made at home. Rivals will not like it.',
+    ap:'Protective tariffs made foreign goods expensive, cutting imports and shielding home producers.' },
+  { id:'navy', name:'Build warships', cost:35, max:3, fx:{ navy:1 },
+    txt:'Protect your convoys and colonies, and win wars at sea.',
+    ap:'Navies protected trade routes and colonies; much of the fighting between mercantilist powers was at sea.' },
+  { id:'ban', name:'Ban colonial manufacturing', cost:0, max:1, fx:{ exports:8, unrest:20 },
+    txt:'Colonists may not make hats, cloth or iron tools. They must buy yours.',
+    ap:'Laws like Britain&rsquo;s Hat Act (1732) and Iron Act (1750) kept colonies as buyers of home-made goods, and colonists resented them.' },
+  { id:'bullion', name:'Ban exports of gold and silver', cost:0, max:2, fx:{ gold:25, exports:-4 },
+    txt:'Keep bullion inside the kingdom. Merchants complain it slows trade.',
+    ap:'Mercantilists measured a nation&rsquo;s wealth by the gold and silver it held, so many states tried to stop bullion from leaving.' },
+  { id:'ease', name:'Ease colonial rules', cost:15, max:3, fx:{ unrest:-25, exports:-2 },
+    txt:'Let colonial assemblies govern themselves and enforce trade laws loosely.',
+    ap:'Loosely enforcing trade laws (later called salutary neglect) kept colonists calmer, and let them smuggle.' },
+  { id:'privateers', name:'License privateers', cost:15, max:3, fx:{ war:15 }, raid:true,
+    txt:'Private captains raid rival treasure ships and share the loot with the crown.',
+    ap:'Privateers like Francis Drake raided Spanish treasure fleets with royal permission.' },
+  { id:'fur', name:'Fur-trade alliances with Native nations', cost:20, max:2, not:'spain', fx:{ exports:7, unrest:-5 },
+    txt:'Trade guns, cloth and metal goods for beaver furs through Native allies.',
+    ap:'The French fur trade in North America depended on alliances with Native peoples like the Huron.' }
+];
+
+/* One event per decade. when(G) decides if it can happen; choices change the state. */
+var EVENTS = [
+  { id:'pirates', when:function(){ return true; }, title:'Pirates in the sea lanes',
+    text:function(){ return G.navy >= 3 ? 'Pirates prowl the Caribbean, but your warships escort every convoy.' : 'Pirates attack your merchant convoys in the Caribbean.'; },
+    choices:function(){ return G.navy >= 3 ? [{ t:'Continue', fx:function(){ return 'Your navy keeps the convoys safe. Navies protected trade.'; } }] : [
+      { t:'Hire armed escorts (15 gold)', cost:15, fx:function(){ pay(15); return 'The escorts get the convoys through.'; } },
+      { t:'Risk it', fx:function(){ if (Math.random() < 0.55) { var lost = pay(40); return 'Pirates seize two ships. You lose ' + lost + ' gold. (A navy of 3 warships would have stopped them.)'; } return 'Your ships slip past the pirates this time.'; } }]; } },
+  { id:'war', when:function(){ return Math.random() * 100 < 25 + G.war; }, title:'War at sea',
+    text:function(){ return 'A rival crown, ' + (G.war >= 20 ? 'angry at your tariffs and raids' : 'competing for the same trade routes') + ', declares war on your shipping. Wars over trade were common: the Dutch and English fought three in 30 years.'; },
+    choices:function(){ return [
+      { t:'Fight at sea' + (G.navy >= 3 ? ' (your navy is strong)' : ' (your navy is small)'), fx:function(){ G.war = 0; if (G.navy >= 3 || Math.random() < 0.2 * G.navy) { G.gold += 40; G.exports += 5; return 'Victory! You seize prize ships worth 40 gold and win new trade rights (exports +5).'; } var lost = pay(45); G.exports -= 6; return 'Defeat. Your fleet is battered: ' + lost + ' gold lost and exports -6.'; } },
+      { t:'Make peace and pay (30 gold)', cost:30, fx:function(){ pay(30); G.war = 0; return 'You buy peace. Trade goes on.'; } }]; } },
+  { id:'prices', when:function(){ return G.year < 1660; }, title:'The Price Revolution',
+    text:function(){ return 'So much American silver floods Europe that prices keep climbing. Everything you import costs more.' + (G.crown.id === 'spain' ? ' Spain is hit hardest: its silver buys less every year.' : ''); },
+    choices:function(){ return [{ t:'Continue', fx:function(){ G.imports += G.crown.id === 'spain' ? 10 : 6; return 'Imports cost more (+' + (G.crown.id === 'spain' ? 10 : 6) + '). Inflation from silver was called the Price Revolution.'; } }]; } },
+  { id:'smuggle', when:function(){ return G.unrest > 35 && G.colonies > 0; }, title:'Smugglers',
+    text:function(){ return 'Angry colonists smuggle goods to your rivals to dodge your trade laws.'; },
+    choices:function(){ return [
+      { t:'Crack down with customs ships (15 gold)', cost:15, fx:function(){ pay(15); G.unrest += 10; return 'Smuggling drops, but colonists grow angrier (unrest +10).'; } },
+      { t:'Look the other way', fx:function(){ G.exports -= 6; G.unrest -= 10; return 'Colonists calm down (unrest -10), but you lose trade (exports -6).'; } }]; } },
+  { id:'ship', when:function(){ return true; }, title:'A ship from the East',
+    text:function(){ return G.companies ? 'One of your company&rsquo;s ships returns from Asia loaded with pepper, cotton cloth and tea.' : 'A rival company&rsquo;s ship returns from Asia loaded with spices. Your merchants beg you for a charter.'; },
+    choices:function(){ return [{ t:'Continue', fx:function(){ if (!G.companies) return 'Without a joint-stock company, the profits go to your rivals.'; var g = 25 + rnd(0, 25) * G.companies; G.gold += g; return 'The shareholders and the crown share the profit: +' + g + ' gold.'; } }]; } },
+  { id:'hurricane', when:function(){ return G.used.sugar > 0; }, title:'Hurricane',
+    text:function(){ return 'A hurricane flattens the sugar fields of your Caribbean colony.'; },
+    choices:function(){ return [{ t:'Continue', fx:function(){ return 'You lose ' + pay(25) + ' gold of sugar.'; } }]; } },
+  { id:'assembly', when:function(){ return G.colonies > 0; }, title:'A colonial petition',
+    text:function(){ return 'Your colonists ask for their own elected assembly to pass local laws and taxes.'; },
+    choices:function(){ return [
+      { t:'Grant the assembly', fx:function(){ G.unrest -= 20; return 'Colonists are pleased (unrest -20). Self-government grows.'; } },
+      { t:'Refuse', fx:function(){ G.unrest += 10; G.gold += 10; return 'You keep control and collect a little more in taxes (+10 gold), but unrest rises (+10).'; } }]; } },
+  { id:'strike', when:function(){ return G.crown.id === 'spain'; }, title:'A new silver strike',
+    text:function(){ return 'Miners in New Spain find a rich new vein of silver.'; },
+    choices:function(){ return [{ t:'Continue', fx:function(){ G.gold += 30; return '+30 gold. Silver came from mines worked by forced Native labor (the mit&rsquo;a) and enslaved Africans.'; } }]; } },
+  { id:'harvest', when:function(){ return true; }, title:'A bad harvest at home',
+    text:function(){ return 'Rain ruins the wheat. Bread prices soar.'; },
+    choices:function(){ return [
+      { t:'Import grain (20 gold)', cost:20, fx:function(){ pay(20); return 'Your people are fed.'; } },
+      { t:'Do nothing', fx:function(){ G.exports -= 4; return 'Hungry workers make less (exports -4).'; } }]; } }
+];
+
+var QUESTIONS = [
+  { q:'Under mercantilism, how did a state measure its wealth?', o:['By the gold and silver in its treasury','By the number of free laborers in its towns','By how much land its peasants could farm','By the size of its standing armies on land'] },
+  { q:'What did mercantilists mean by a favorable balance of trade?', o:['Exporting more goods than the country imports','Trading equal amounts with every neighboring state','Importing more cheap goods than it sold abroad','Letting merchants trade freely without any taxes'] },
+  { q:'Why did mercantilist states want colonies?', o:['To get raw materials and markets for home goods','To give colonists their own parliaments and laws','To spread the ideas of free trade around the world','To reduce the size of the navy needed at home'] },
+  { q:'What was a joint-stock company, like the Dutch VOC (1602)?', o:['A firm owned by many investors sharing risk','A royal army unit sent to guard overseas trade','A guild of craftsmen who set prices in one city','A bank run by the pope to fund missionaries'] },
+  { q:'What did England&rsquo;s Navigation Acts (1651) require?', o:['Colonial trade had to go on English ships','Colonists had to elect their own royal governors','All English ships had to sail in armed convoys','Foreign merchants could trade in any English port'] },
+  { q:'Why did Spain&rsquo;s huge silver imports fail to make it rich over time?', o:['Silver flowed out to buy foreign goods','The silver mines in Peru ran dry by the 1550s','Spain gave most of its silver to the Ottomans','Spanish law banned using silver as money'] },
+  { q:'What was the Price Revolution of the 1500s and 1600s?', o:['Inflation caused by American silver in Europe','A peasant revolt against rising bread prices in Spain','A fall in prices after the plague killed many','A law that fixed the price of grain in France'] },
+  { q:'Jean-Baptiste Colbert, minister to Louis XIV, is known for what?', o:['Building up French industry to export more','Ending all French colonies in North America','Creating a free-trade treaty with England','Leading the French army against the Dutch'] },
+  { q:'Why did colonial powers forbid colonists to make finished goods?', o:['So colonists would buy goods from home','So colonists had more time to farm wheat','Because the pope banned colonial workshops','Because colonists lacked any iron or wool'] },
+  { q:'Which crop made Caribbean plantation colonies so valuable?', o:['Sugar, grown by enslaved Africans','Wheat, grown by free peasant families','Rice, grown by indentured Chinese workers','Potatoes, grown by Irish tenant farmers'] },
+  { q:'Who were privateers, like Francis Drake?', o:['Private captains licensed to raid enemy ships','Royal tax collectors who sailed to the colonies','Merchants who refused to pay customs duties','Missionaries who sailed with the trade fleets'] },
+  { q:'What did a protective tariff do?', o:['Taxed imports to shield home producers','Taxed exports so that goods stayed at home','Paid colonists to grow more cash crops','Lowered taxes on all goods from rival states'] },
+  { q:'How did the French fur trade in North America mainly work?', o:['Through trade alliances with Native peoples','Through large plantations worked by enslaved people','Through silver mines run with forced Native labor','Through towns of French farmers along the coast'] }
+];
+function pay(n){ var p = Math.min(n, Math.max(0, G.gold)); G.gold -= p; return p; }
+var Q_BONUS = 15, PICKS = 2, HAND = 4, LAST_YEAR = 1700;
+/* rival treasuries in 1700, for the final ranking (a little random each game) */
+var RIVALS = { england:{ name:'England', base:480 }, france:{ name:'France', base:450 }, spain:{ name:'Spain', base:340 }, dutch:{ name:'The Dutch Republic', base:540 } };
+
+var $ = function(id){ return document.getElementById(id); };
+function shuffle(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function rnd(a, b){ return a + Math.floor(Math.random() * (b - a + 1)); }
+function sgn(n){ return (n > 0 ? '+' : '') + n; }
+var BEST_KEY = 'u4CrownBest';
+function loadBest(){ try { return JSON.parse(localStorage.getItem(BEST_KEY) || '{}') || {}; } catch (e) { return {}; } }
+
+var G = null, scene = 'title';
+function panel(html, wide){ panel.at = Date.now(); var pn = $('panel'); pn.classList.toggle('anim', !panel.quiet); panel.quiet = false; pn.innerHTML = html; pn.scrollTop = 0; $('low').classList.toggle('full', !!wide); }
+function menuHtml(items){
+  return '<div class="menu">' + items.map(function(it, i){
+    return '<button class="mi" type="button" data-act="' + it.act + '"' + (it.off ? ' disabled' : '') + '><span class="k">' + (i + 1) + '.</span>' + it.t + (it.sub ? '<small>' + it.sub + '</small>' : '') + '</button>';
+  }).join('') + '</div>';
+}
+document.addEventListener('keydown', function(e){
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  var n = parseInt(e.key, 10); if (!(n >= 1 && n <= 9)) return;
+  /* a double tap must not answer the next screen by accident */
+  if (e.repeat || Date.now() - (panel.at || 0) < 450) { e.preventDefault(); return; }
+  var b = $('panel').querySelectorAll('.mi, .card, .gopt:not(:disabled)')[n - 1];
+  if (b && !b.disabled) { e.preventDefault(); b.click(); }
+});
+
+/* ── title ── */
+function title(){
+  scene = 'title'; G = null; $('hud').classList.add('hidden'); updateScene();
+  var best = loadBest();
+  panel('<h2>Choose your crown</h2><p class="say dim">It is 1600. Rule for ten decades and fill the royal coffers the mercantilist way: sell more than you buy, win colonies, and pile up gold and silver. Each decade you enact two policies, face one event, and answer your minister&rsquo;s question for bonus gold. In 1700 your treasury is compared with your rivals&rsquo;.</p>' +
+    '<div class="mlist">' + CROWNS.map(function(c, i){
+      return '<div class="mcard"><b>' + c.name + '</b><span>' + c.ruler + ' &middot; ' + c.gold + ' gold to start' + (best[c.id] != null ? ' &middot; best ' + best[c.id] : '') + '</span><p>' + c.blurb + '</p>' +
+        '<button class="gb" type="button" data-c="' + i + '">' + (i + 1) + '. Rule ' + c.name + '</button></div>';
+    }).join('') + '</div>', true);
+}
+$('panel').addEventListener('click', function(e){ var b = e.target.closest('[data-c]'); if (b && scene === 'title') start(+b.dataset.c); });
+document.addEventListener('keydown', function(e){ if (scene === 'title' && /^[1-3]$/.test(e.key)) start(+e.key - 1); });
+
+function start(i){
+  var c = CROWNS[i];
+  G = { crown:c, year:1600, gold:c.gold, exports:c.exports, imports:c.imports, colonies:c.colonies, navy:c.navy, unrest:c.unrest,
+    companies:c.companies, silver:c.silver, war:0, used:{}, asked:[], right:0, revolts:0, defaults:0, human:false, history:[], seenEv:{}, lastBal:null };
+  scene = 'game';
+  $('topSub').innerHTML = c.name + ' &middot; ' + c.ruler;
+  $('hud').classList.remove('hidden');
+  decade();
+}
+
+function balance(){ return G.exports - G.imports; }
+function renderStatus(){
+  var bal = balance(), u = G.unrest;
+  $('hudYear').textContent = G.year; $('hudGold').textContent = G.gold;
+  function tile(label, val, cls, wide, extra){ return '<div class="tile' + (wide ? ' wide' : '') + '"><span>' + label + '</span><b class="' + (cls || '') + '">' + val + '</b>' + (extra || '') + '</div>'; }
+  $('status').innerHTML =
+    tile('Treasury', G.gold + ' gold', 'gold', true) +
+    tile('Exports', G.exports, 'ok') + tile('Imports', G.imports, 'lo') +
+    tile('Balance of trade', sgn(bal) + ' a decade', bal >= 0 ? 'ok' : 'lo', true) +
+    (G.silver ? tile('Silver fleet', '+' + G.silver, 'gold', true) : '') +
+    tile('Colonies', G.colonies) + tile('Warships', G.navy) +
+    tile('Companies', G.companies) + tile('Year', G.year) +
+    tile('Rival anger', Math.min(100, G.war) + ' / 100', G.war >= 30 ? 'lo' : G.war >= 15 ? 'mid' : 'ok', true,
+      '<div class="meter"><i style="width:' + Math.min(100, G.war) + '%;background:' + (G.war >= 30 ? 'var(--g-red)' : G.war >= 15 ? 'var(--g-gold)' : 'var(--g-green)') + '"></i></div><small style="display:block;font-size:.72rem;color:var(--g-dim);margin-top:3px">Tariffs and privateers anger rivals. The angrier they are, the likelier a war.</small>') +
+    tile('Colonial unrest', u + ' / 100', u >= 70 ? 'lo' : u >= 40 ? 'mid' : 'ok', true,
+      '<div class="meter"><i style="width:' + u + '%;background:' + (u >= 70 ? 'var(--g-red)' : u >= 40 ? 'var(--g-gold)' : 'var(--g-green)') + '"></i></div>');
+  updateScene();
+}
+
+/* ── a decade: policies ── */
+var hand = [], picked = [];
+function allowed(p){
+  if (p.only && p.only !== G.crown.id) return false;
+  if (p.not && p.not === G.crown.id) return false;
+  return (G.used[p.id] || 0) < p.max;
+}
+function decade(){
+  renderStatus();
+  hand = shuffle(POLICIES.filter(allowed)).slice(0, HAND); picked = [];
+  renderHand();
+}
+function fxText(p){
+  var f = p.fx, out = [];
+  function add(v, label, good){ out.push('<span class="' + (good ? '' : 'neg') + '">' + label + ' ' + sgn(v) + '</span>'); }
+  if (f.exports) add(f.exports, 'exports', f.exports > 0);
+  if (f.imports) add(f.imports, 'imports', f.imports < 0);
+  if (f.colonies) add(f.colonies, 'colony', true);
+  if (f.navy) add(f.navy, 'warship', true);
+  if (f.companies) add(f.companies, 'company', true);
+  if (f.silver) add(f.silver, 'silver', true);
+  if (f.gold) add(f.gold, 'gold now', true);
+  if (f.unrest) add(f.unrest, 'unrest', f.unrest < 0);
+  if (f.war) add(f.war, 'rival anger', false);
+  if (p.raid) out.push('<span>loot 10 to 45 gold</span>');
+  return out.join('');
+}
+function renderHand(){
+  var h = '<h2>' + G.year + ' &ndash; ' + (G.year + 9) + ': your ministers propose</h2>' +
+    '<p class="say dim">Choose <b>' + PICKS + '</b> policies to enact this decade (' + picked.length + ' chosen). Costs are paid now; effects last.</p>' +
+    (hand.every(function(c){ return c.cost > G.gold; }) ? '<div class="note bad">Your treasury is too low for any of these policies. Enact nothing this decade and let trade refill the coffers.</div>' : '') +
+    '<div class="cards">';
+  hand.forEach(function(p, i){
+    var on = picked.indexOf(i) >= 0, spent = picked.reduce(function(s, j){ return s + hand[j].cost; }, 0);
+    var off = !on && (picked.length >= PICKS || spent + p.cost > G.gold);
+    h += '<button class="card' + (on ? ' on' : '') + '" type="button" data-p="' + i + '"' + (off ? ' disabled' : '') + '><b>' + (i + 1) + '. ' + p.name + '</b>' +
+      '<span class="cost">' + (p.cost ? p.cost + ' gold' : 'Free') + (on ? ' &middot; <span style="color:var(--g-green)">chosen</span>' : '') + '</span>' +
+      '<span class="fx">' + fxText(p) + '</span><span class="txt">' + p.txt + '</span></button>';
+  });
+  h += '</div><div style="margin-top:12px">' + menuHtml([{ act:'enact', t:picked.length ? 'Enact ' + picked.length + (picked.length === 1 ? ' policy' : ' policies') : 'Enact nothing this decade', sub:picked.length < PICKS ? 'you may choose ' + (PICKS - picked.length) + ' more' : '' }]).replace('<span class="k">1.</span>', '<span class="k">' + (hand.length + 1) + '.</span>') + '</div>';
+  panel(h);
+  renderStatus();
+}
+$('panel').addEventListener('click', function(e){
+  if (scene !== 'game') return;
+  var c = e.target.closest('[data-p]');
+  if (c && !c.disabled && G.phase !== 'event') { var i = +c.dataset.p, k = picked.indexOf(i); if (k >= 0) picked.splice(k, 1); else picked.push(i); var y = $('panel').scrollTop; panel.quiet = true; renderHand(); $('panel').scrollTop = y; return; }
+  var b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
+  if (b.dataset.act === 'enact') enact();
+});
+function enact(){
+  var notes = [];
+  picked.forEach(function(i){
+    var p = hand[i], f = p.fx;
+    G.gold -= p.cost; G.used[p.id] = (G.used[p.id] || 0) + 1;
+    ['exports', 'imports', 'colonies', 'navy', 'companies', 'silver', 'gold', 'unrest', 'war'].forEach(function(k){ if (f[k]) G[k] += f[k]; });
+    if (p.raid) { var loot = rnd(10, 45); G.gold += loot; notes.push(p.name + ': your privateers bring home ' + loot + ' gold.'); }
+    if (p.human) G.human = true;
+    G.history.push({ year:G.year, p:p });
+    notes.push('<div class="note">' + '<b>' + p.name + ':</b> ' + p.ap + '</div>');
+  });
+  clamp(); renderStatus();
+  event(notes);
+}
+function clamp(){ G.imports = Math.max(5, G.imports); G.exports = Math.max(5, G.exports); G.unrest = Math.max(0, Math.min(100, G.unrest)); G.war = Math.max(0, Math.min(100, G.war)); }
+
+/* ── a decade: the event ── */
+function event(notes){
+  G.phase = 'event';
+  var pool = EVENTS.filter(function(ev){ return !(G.seenEv[ev.id] >= 2) && ev.when(); });
+  var ev = pool[Math.floor(Math.random() * pool.length)] || EVENTS[0];
+  G.seenEv[ev.id] = (G.seenEv[ev.id] || 0) + 1;
+  var ch = ev.choices();
+  var h = (notes.length ? '<h3>Enacted</h3>' + notes.filter(function(n){ return n.charAt(0) === '<'; }).join('') + notes.filter(function(n){ return n.charAt(0) !== '<'; }).map(function(n){ return '<p class="say" style="font-size:22px">' + n + '</p>'; }).join('') : '<p class="say dim">You enact nothing this decade.</p>') +
+    '<h3>News from abroad</h3><p class="say"><b>' + ev.title + '.</b> ' + ev.text() + '</p>' +
+    menuHtml(ch.map(function(c, i){ return { act:'ev' + i, t:c.t, off:c.cost > G.gold, sub:c.cost > G.gold ? 'not enough gold' : '' }; }));
+  panel(h);
+  $('panel').onclick = function(e){
+    var b = e.target.closest('[data-act^="ev"]'); if (!b || b.disabled) return;
+    $('panel').onclick = null;
+    var msg = ch[+b.dataset.act.slice(2)].fx(); clamp(); renderStatus();
+    question(msg);
+  };
+}
+
+/* ── a decade: the minister's question ── */
+function question(evMsg){
+  G.phase = 'question';
+  var left = QUESTIONS.filter(function(q, i){ return G.asked.indexOf(i) < 0; });
+  if (!left.length) { G.asked = []; left = QUESTIONS; }
+  var q = left[Math.floor(Math.random() * left.length)];
+  G.asked.push(QUESTIONS.indexOf(q));
+  var h = '<div class="note">' + evMsg + '</div><h3>Your minister asks</h3><p class="say">' + q.q + ' <span style="color:var(--g-dim)">(+' + Q_BONUS + ' gold if right)</span></p><div class="gopts" id="qOpts">' +
+    shuffle(q.o.map(function(o, i){ return { t:o, ok:i === 0 }; })).map(function(o, i){ return '<button class="gopt" type="button" data-ok="' + (o.ok ? 1 : 0) + '"><span style="color:var(--g-amber)">' + (i + 1) + '.</span> ' + o.t + '</button>'; }).join('') + '</div><div id="qOut"></div>';
+  panel(h);
+  $('qOpts').onclick = function(e){
+    var b = e.target.closest('.gopt'); if (!b || b.disabled) return;
+    var ok = b.dataset.ok === '1';
+    Array.prototype.forEach.call(this.querySelectorAll('.gopt'), function(x){ x.disabled = true; if (x.dataset.ok === '1') x.classList.add('right'); });
+    if (!ok) b.classList.add('wrong');
+    if (ok) { G.gold += Q_BONUS; G.right++; }
+    renderStatus();
+    $('qOut').innerHTML = '<p class="say">' + (ok ? 'Correct! <b>+' + Q_BONUS + ' gold</b>.' : 'Not quite. The right answer is shown in green.') + '</p>' + menuHtml([{ act:'tally', t:'Close the books for the decade' }]);
+    panel.at = Date.now();
+    $('qOut').querySelector('[data-act="tally"]').onclick = tally;
+  };
+}
+
+/* ── a decade: the books ── */
+function tally(){
+  G.phase = 'tally';
+  var rows = [], net = 0;
+  function line(label, v){ rows.push('<tr><td>' + label + '</td><td class="' + (v >= 0 ? 'pos' : 'neg') + '">' + sgn(v) + '</td></tr>'); net += v; }
+  line('Exports sold abroad', G.exports);
+  line('Imports bought from rivals', -G.imports);
+  if (G.silver) line('Silver fleets from the Americas', G.silver);
+  if (G.companies) { var d = 0; for (var i = 0; i < G.companies; i++) d += rnd(6, 18); line('Company dividends', d); }
+  if (G.unrest > 50) line('Lost to colonial smuggling', -Math.round(G.exports * 0.15));
+  var before = G.gold; G.gold += net;
+  var extra = [];
+  if (G.gold < 0) { G.defaults++; G.gold = 0; G.exports -= 5; extra.push('<div class="note bad"><b>The crown defaults on its loans.</b> Bankers stop lending and trade suffers (exports -5). Spain defaulted several times in this era.</div>'); }
+  if (G.colonies) extra.push('<p class="say dim">Colonial unrest +' + (G.colonies * 2) + ' (2 for each of your ' + G.colonies + (G.colonies === 1 ? ' colony' : ' colonies') + '; colonists grow restless under your rules).</p>');
+  G.unrest += G.colonies * 2;
+  if (G.unrest >= 100) {
+    G.revolts++; G.unrest = 60;
+    if (G.colonies) { G.colonies--; G.exports -= 6; G.imports += 6; }
+    extra.push('<div class="note bad"><b>Colonial revolt!</b> Your angriest colony rises up and breaks away. You lose its trade.</div>');
+  }
+  if (G.silver) { var was = G.silver; G.silver = Math.max(8, G.silver - 4); if (G.silver < was) extra.push('<p class="say dim">Silver fleet next decade: ' + G.silver + ' (down ' + (was - G.silver) + ' as the richest mines of Potosí run out).</p>'); }
+  clamp();
+  G.lastBal = balance();
+  var h = '<h2>The royal books, ' + G.year + ' &ndash; ' + (G.year + 9) + '</h2><table class="sum">' + rows.join('') +
+    '<tr class="tot"><td>Change in the treasury</td><td>' + sgn(net) + '</td></tr></table>' +
+    '<p class="say">Treasury: ' + before + ' &rarr; <b>' + G.gold + ' gold</b>.' + (G.exports < G.imports ? ' You still buy more than you sell: an <b style="color:var(--g-red)">unfavorable</b> balance of trade.' : ' You sell more than you buy: a <b style="color:var(--g-green)">favorable</b> balance of trade.') + '</p>' + extra.join('');
+  G.year += 10;
+  renderStatus();
+  h += menuHtml([{ act:'next', t:G.year >= LAST_YEAR ? 'See how your crown compares in 1700' : 'Begin the ' + G.year + 's' }]);
+  panel(h);
+  $('panel').querySelector('[data-act="next"]').onclick = function(){ G.phase = ''; if (G.year >= LAST_YEAR) finish(); else decade(); };
+}
+
+/* ── 1700 ── */
+function finish(){
+  scene = 'end';
+  var table = [{ name:G.crown.name + ' (you)', gold:G.gold, you:true }];
+  Object.keys(RIVALS).forEach(function(k){ if (k !== G.crown.id) table.push({ name:RIVALS[k].name, gold:Math.round(RIVALS[k].base * (0.85 + Math.random() * 0.3)) }); });
+  table.sort(function(a, b){ return b.gold - a.gold; });
+  var rank = table.findIndex(function(r){ return r.you; }) + 1;
+  var best = loadBest(), isBest = best[G.crown.id] == null || G.gold > best[G.crown.id];
+  if (isBest) { best[G.crown.id] = G.gold; try { localStorage.setItem(BEST_KEY, JSON.stringify(best)); } catch (e) {} }
+  var titles = ['The richest crown in Europe!', 'A great trading power.', 'A middling power.', 'The poorest crown at the table.'];
+  var used = {}; G.history.forEach(function(h){ used[h.p.id] = h.p; });
+  var h = '<h2>' + titles[rank - 1] + '</h2>' +
+    '<p class="say">In 1700 the treasury of ' + G.crown.name + ' holds <b>' + G.gold + ' gold</b>. Balance of trade: <b style="color:' + (balance() >= 0 ? 'var(--g-green)' : 'var(--g-red)') + '">' + sgn(balance()) + '</b> a decade. Minister&rsquo;s questions: ' + G.right + ' of 10 right.' +
+    (G.revolts ? ' Colonial revolts: ' + G.revolts + '.' : '') + (G.defaults ? ' Defaults: ' + G.defaults + '.' : '') + (isBest ? ' New best for ' + G.crown.name + ' on this browser!' : '') + '</p>' +
+    '<h3>The treasuries of Europe, 1700</h3><table class="sum">' + table.map(function(r, i){ return '<tr' + (r.you ? ' class="tot"' : '') + '><td>' + (i + 1) + '. ' + r.name + '</td><td>' + r.gold + ' gold</td></tr>'; }).join('') + '</table>' +
+    '<h3>The mercantilist tools you used</h3>' + (Object.keys(used).length ? Object.keys(used).map(function(k){ return '<div class="note"><b>' + used[k].name + ':</b> ' + used[k].ap + '</div>'; }).join('') : '<p class="say dim">None.</p>') +
+    '<h3>The other side of the ledger</h3><div class="note bad">Mercantilist wealth was built on colonies and coerced labor: Native peoples forced into mines and fields, and millions of enslaved Africans carried across the Atlantic to work plantations.' + (G.human ? ' Your sugar colonies were part of this system.' : '') + ' Colonists also came to resent laws that kept them as captive markets, one cause of the revolutions of Unit 5.</div>' +
+    '<div class="note">In 1776 Adam Smith&rsquo;s <i>The Wealth of Nations</i> argued that piling up gold and blocking trade made nations poorer, not richer, and that free trade would serve everyone better. That critique helped end the age of mercantilism.</div>' +
+    '<div class="menu"><button class="mi" type="button" id="againBtn"><span class="k">1.</span>Rule ' + G.crown.name + ' again</button><button class="mi" type="button" id="otherBtn"><span class="k">2.</span>Choose another crown</button></div>';
+  panel(h, true);
+  var ci = CROWNS.indexOf(G.crown);
+  $('againBtn').onclick = function(){ start(ci); };
+  $('otherBtn').onclick = title;
+  if (window.APWH_ACTIVITY) APWH_ACTIVITY.done('game', 'crown');
+}
+
+/* ── full screen ── */
+$('fsBtn').onclick = function(){
+  if (document.fullscreenElement) document.exitFullscreen();
+  else if ($('shell').requestFullscreen) $('shell').requestFullscreen().catch(function(){});
+};
+document.addEventListener('fullscreenchange', function(){ $('fsBtn').innerHTML = document.fullscreenElement ? '&#10005; Exit full screen' : '&#9974; Full screen'; setTimeout(fit, 50); });
+
+/* ── the scene: a sunny harbor, the royal treasure chest and the balance of trade (SVG) ── */
+var NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+(function(){
+  var css = document.createElement('style');
+  css.textContent = '.cloud{animation:drift 40s linear infinite}.c2{animation-duration:55s}.c3{animation-duration:70s}' +
+    '@keyframes drift{from{transform:translateX(-700px)}to{transform:translateX(1700px)}}' +
+    '.wave{animation:wave 3s linear infinite}.w2{animation-duration:4.5s}@keyframes wave{from{transform:translateX(0)}to{transform:translateX(-40px)}}' +
+    '.ship{animation:bob 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes bob{50%{transform:translateY(-3px) rotate(-1.5deg)}}' +
+    '#beam{transform-box:view-box;transform-origin:830px 100px;transition:transform 1s cubic-bezier(.3,1.4,.5,1)}' +
+    '#panL,#panR{transition:transform 1s cubic-bezier(.3,1.4,.5,1)}' +
+    '.coin{animation:drop .5s ease-out both}@keyframes drop{from{transform:translateY(-30px)}to{transform:none}}';
+  document.head.appendChild(css);
+})();
+var shownCoins = 0;
+function updateScene(){
+  var bal = G ? balance() : -8, ex = G ? G.exports : 40, im = G ? G.imports : 48;
+  var ang = Math.max(-12, Math.min(12, -bal / 3)), dy = 110 * Math.sin(ang * Math.PI / 180);
+  $('beam').style.transform = 'rotate(' + ang + 'deg)';
+  $('panL').style.transform = 'translateY(' + (-dy).toFixed(1) + 'px)';
+  $('panR').style.transform = 'translateY(' + dy.toFixed(1) + 'px)';
+  $('tExp').textContent = 'EXPORTS ' + ex; $('tImp').textContent = 'IMPORTS ' + im;
+  [['stackL', ex, 720, '#2fa866'], ['stackR', im, 940, '#d94b4b']].forEach(function(s){
+    var g = $(s[0]); g.innerHTML = ''; var n = Math.min(9, Math.round(s[1] / 12));
+    for (var i = 0; i < n; i++) g.appendChild(el('rect', { x:s[2] - 27 + (i % 3) * 19, y:150 - Math.floor(i / 3) * 12, width:16, height:10, rx:2, fill:s[3], stroke:'#fff', 'stroke-width':1.5 }));
+  });
+  var tb = $('tBal');
+  tb.textContent = G ? (bal >= 0 ? 'FAVORABLE BALANCE ' : 'UNFAVORABLE BALANCE ') + sgn(bal) : 'THE BALANCE OF TRADE';
+  tb.setAttribute('fill', !G ? '#16244d' : bal >= 0 ? '#1e8f52' : '#cc3d3d');
+  $('tGold').textContent = 'TREASURY' + (G ? ' ' + G.gold + ' GOLD' : '');
+  /* coins heaped on the chest: one coin for every 15 gold */
+  var want = G ? Math.max(0, Math.min(45, Math.round(G.gold / 15))) : 12, cg = $('coins');
+  if (want < shownCoins) { while (cg.childNodes.length > want) cg.removeChild(cg.lastChild); }
+  for (var c = cg.childNodes.length; c < want; c++) {
+    var row = 0, left = c; while (left >= 9 - row && row < 6) { left -= 9 - row; row++; }
+    cg.appendChild(el('ellipse', { 'class':'coin', cx:500 - (8 - row) * 7 + left * 14 + (row % 2) * 3, cy:184 - row * 7, rx:9, ry:4, fill:'url(#gCoin)', stroke:'#b8860b', 'stroke-width':1, style:'animation-delay:' + ((c - shownCoins) * 0.04) + 's' }));
+  }
+  shownCoins = want;
+  /* ships in the harbor and colony flags on the hills */
+  var ships = G ? Math.min(6, G.navy + G.companies) : 3, sg = $('ships'); sg.innerHTML = '';
+  for (var i = 0; i < ships; i++) {
+    var x = 36 + i * 48, war = G ? i < G.navy : i < 2, g = el('g', { 'class':'ship', style:'animation-delay:' + (i * 0.3) + 's' });
+    g.appendChild(el('path', { d:'M' + x + ' 238 h36 l-6 10 h-24 z', fill:'#7d4520' }));
+    g.appendChild(el('rect', { x:x + 17, y:204, width:2, height:34, fill:'#5a3418' }));
+    g.appendChild(el('path', { d:'M' + (x + 19) + ' 208 q 14 9 0 22 z', fill:'#fffaf0', stroke:'#e2d6bb' }));
+    g.appendChild(el('path', { d:'M' + (x + 17) + ' 212 q -12 8 0 18 z', fill:'#fffaf0', stroke:'#e2d6bb' }));
+    g.appendChild(el('path', { d:'M' + (x + 19) + ' 204 h9 l-3 3 l3 3 h-9 z', fill:war ? '#cc3d3d' : '#1f4ea8' }));
+    sg.appendChild(g);
+  }
+  var flags = G ? Math.min(9, G.colonies) : 0, fg = $('flags'); fg.innerHTML = '';
+  for (var f = 0; f < flags; f++) {
+    var fx = 40 + f * 30, fy = 200 + (f % 2) * 6;
+    fg.appendChild(el('rect', { x:fx, y:fy - 22, width:2, height:24, fill:'#6b431f' }));
+    fg.appendChild(el('path', { d:'M' + (fx + 2) + ' ' + (fy - 22) + ' h14 l-4 5 l4 5 h-14 z', fill:'#e2b13c' }));
+  }
+  $('tFleet').textContent = G ? 'COLONIES ' + G.colonies + '  ·  SHIPS ' + ships : 'YOUR HARBOR';
+}
+/* the picture never crops: wide screens get more sky and sea at the sides, tall ones more sky on top */
+function fit(){
+  var r = $('scene').getBoundingClientRect(); if (!r.width || !r.height) return;
+  var a = r.width / r.height, vb;
+  if (a >= 1000 / 300) { var w = 300 * a; vb = [-(w - 1000) / 2, 0, w, 300]; }
+  else { var h = 1000 / a; vb = [0, 300 - h, 1000, h]; }
+  $('scene').setAttribute('viewBox', vb.map(function(v){ return v.toFixed(1); }).join(' '));
+  $('scene').setAttribute('preserveAspectRatio', 'xMidYMax meet');
+}
+(function(){
+  var d1 = 'M-1500 248', d2 = 'M-1500 270';
+  for (var i = 0; i < 100; i++) { d1 += ' q 20 -6 40 0'; d2 += ' q 20 -5 40 0'; }
+  $('wave1').setAttribute('d', d1); $('wave2').setAttribute('d', d2);
+})();
+window.addEventListener('resize', fit);
+fit(); updateScene();
+title();
+</script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js?v=20261027"></script>
+</body>
+</html>

@@ -69,7 +69,7 @@ a{color:inherit}
 .slides .slide.active{transform:none}
 html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.slide,.slide.active{transition:none}}
-.slide h2{font:900 clamp(1.55rem,3vw,2.5rem)/1.02 'Lato',sans-serif;letter-spacing:-.055em;margin:6px 0 10px}
+.slide h2{font:900 calc(clamp(1.55rem,3vw,2.5rem)*var(--fit,1))/1.02 'Lato',sans-serif;letter-spacing:-.055em;margin:6px 0 10px}
 .slide p{color:#dce3fa;font-size:.82rem;margin:0;line-height:1.5}
 .lens{border-left:3px solid var(--lime);padding-left:18px}
 .lens b{color:var(--lime);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em}
@@ -240,14 +240,14 @@ body{line-height:1.6}
 .slide{align-items:start}
 .slides{min-height:230px}
 .slide h2{margin:6px 0 12px}
-.slide > div > p{color:#dbe2ff;font-size:.95rem;line-height:1.55}
+.slide > div > p{color:#dbe2ff;font-size:calc(.95rem*var(--fit,1));line-height:1.55}
 .lens{padding-left:20px}
-.lens b{font-size:.7rem}
-.lens > p{color:#f2f5ff;font-size:.9rem;font-weight:700;margin-top:8px;line-height:1.5}
+.lens b{font-size:calc(.7rem*var(--fit,1))}
+.lens > p{color:#f2f5ff;font-size:calc(.9rem*var(--fit,1));font-weight:700;margin-top:8px;line-height:1.5}
 .lens-q{list-style:none;margin:13px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
-.lens-q li{position:relative;padding-left:17px;font-size:.86rem;line-height:1.5;color:#eef1ff}
+.lens-q li{position:relative;padding-left:17px;font-size:calc(.86rem*var(--fit,1));line-height:1.5;color:#eef1ff}
 .lens-q li::before{content:"\203A";position:absolute;left:0;top:-1px;color:var(--lime);font-weight:700}
-.lens-q .norm{display:inline-block;background:var(--lime);color:var(--navy);font-weight:700;font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;margin-right:6px;vertical-align:baseline}
+.lens-q .norm{display:inline-block;background:var(--lime);color:var(--navy);font-weight:700;font-size:calc(.58rem*var(--fit,1));letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;margin-right:6px;vertical-align:baseline}
 .news-dots{display:flex;gap:8px;align-items:center}
 .news-src{color:#b8c2ea}
 /* tools + units */
@@ -932,6 +932,32 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
   $('prev').addEventListener('click', function(){ show(i-1); restart(); });
   $('next').addEventListener('click', function(){ show(i+1); restart(); });
   restart();
+
+  // All slides share one grid cell, so the block is as tall as the longest story.
+  // Scale each shorter story's type up (--fit) until it fills that height.
+  function contentH(s){
+    var top = s.getBoundingClientRect().top, bottom = top;
+    [].forEach.call(s.children, function(c){ bottom = Math.max(bottom, c.getBoundingClientRect().bottom); });
+    return bottom - top;
+  }
+  function fitNews(){
+    slides.forEach(function(s){ s.style.setProperty('--fit', 1); });
+    var H = Math.max.apply(null, slides.map(contentH));
+    slides.forEach(function(s){
+      if (contentH(s) >= H - 4) return;
+      var lo = 1, hi = 1.35;
+      for (var k = 0; k < 8; k++){
+        var mid = (lo + hi) / 2;
+        s.style.setProperty('--fit', mid);
+        if (contentH(s) <= H) lo = mid; else hi = mid;
+      }
+      s.style.setProperty('--fit', lo.toFixed(3));
+    });
+  }
+  fitNews();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNews);
+  var fitT;
+  window.addEventListener('resize', function(){ clearTimeout(fitT); fitT = setTimeout(fitNews, 150); });
 
 })();
 </script>

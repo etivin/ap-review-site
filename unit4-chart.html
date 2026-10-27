@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 4 Chart the Voyage</title>
+<meta name="description" content="Draw the route of each great voyage of exploration from memory; the closer your line is to the real route, the more points you earn.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="world-basemap.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#111a3f;--mid:#36406a;--muted:#5b6690;--red:#0d2960;--white:#fff;--paper:#f6f4ee;
+  --border:#d8dbe6;--border2:#b9bfd3;--cream:#fbf8f0;
+  --sea:#cfe0ef;--land:#f4f3ef;--coast:#bcb8ae;--you:#d9480f;--truth:#0d2960;--good:#1a8a4a;--bad:#c0392b
+}
+:root[data-theme="dark"]{--sea:#1b2a3d;--land:#3a3e46;--coast:#5d6472;--you:#ff8a4c;--truth:#7aa2ff;--good:#4cc985;--bad:#ff7a6b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+a{color:inherit}
+.bar{height:62px;padding:0 max(16px,3vw);background:var(--red);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:1200}
+:root[data-theme="dark"] .bar{background:#0a1530}
+.brand{font:900 16px 'Lato',sans-serif;letter-spacing:-.03em;text-decoration:none;color:#fff;white-space:nowrap}
+.brand b{color:#9fc0ff}
+.links{display:flex;align-items:center;gap:14px}
+.links a{color:#fff;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.links a:hover{text-decoration:underline}
+.main{max-width:1180px;margin:auto;padding:22px max(16px,3vw) 60px}
+.eyebrow{font-size:.68rem;color:var(--red);font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+:root[data-theme="dark"] .eyebrow{color:#9fc0ff}
+h1{font-weight:900;letter-spacing:-.04em;line-height:1;font-size:2.1rem;margin:6px 0 8px}
+.sub{margin:0;color:var(--mid);max-width:760px;font-size:.92rem}
+
+.play{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;margin-top:18px;align-items:start}
+.mapbox{position:relative;border:2px solid var(--ink);background:var(--sea)}
+#map{height:min(62vh,560px);min-height:340px;background:var(--sea);touch-action:none;cursor:crosshair}
+#map.locked{cursor:default}
+.leaflet-container{background:var(--sea);font-family:'Lato',sans-serif}
+.mapbar{display:flex;gap:8px;flex-wrap:wrap;padding:10px;border-top:2px solid var(--ink);background:var(--white)}
+.btn{font:700 .66rem 'Lato',sans-serif;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;border:0;padding:10px 15px;cursor:pointer}
+.btn:hover:not(:disabled){background:var(--red)}
+.btn.alt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn.alt:hover:not(:disabled){background:var(--ink);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.go{background:var(--good)}
+.status{margin-left:auto;align-self:center;font-size:.74rem;color:var(--muted);font-weight:700}
+.toast{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:900;background:var(--ink);color:#fff;font-size:.8rem;font-weight:700;padding:8px 14px;pointer-events:none;opacity:0;transition:opacity .2s;max-width:90%;text-align:center}
+.toast.on{opacity:.95}
+.port-lbl{background:var(--white);color:var(--ink);border:2px solid var(--ink);font:900 11px 'Lato',sans-serif;padding:2px 7px;white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.port-lbl.dest{border-style:dashed}
+.leaflet-tooltip.port-tt{background:transparent;border:0;box-shadow:none;padding:0}
+.leaflet-tooltip.port-tt:before{display:none}
+
+.side{border:2px solid var(--ink);background:var(--white);display:flex;flex-direction:column}
+.side h3{margin:0;font:900 .78rem 'Lato',sans-serif;background:var(--ink);color:#fff;padding:11px 15px;text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between}
+:root[data-theme="dark"] .side h3{background:#0a1530}
+.side .body{padding:14px 15px;display:flex;flex-direction:column;gap:12px}
+.mission .who{font-size:1.25rem;font-weight:900;letter-spacing:-.02em;line-height:1.15}
+.mission .when{font-size:.74rem;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-top:2px}
+.mission .task{font-size:.88rem;color:var(--mid);margin-top:8px}
+.hintline{font-size:.8rem;background:var(--cream);border-left:4px solid var(--red);padding:8px 10px;color:var(--mid)}
+.score-big{font-size:2.6rem;font-weight:900;letter-spacing:-.04em;line-height:1}
+.score-big small{font-size:.9rem;color:var(--muted);font-weight:700;letter-spacing:0}
+.verdict{font-weight:900;font-size:.95rem}
+.legend{display:flex;gap:14px;font-size:.72rem;color:var(--muted);font-weight:700}
+.legend i{display:inline-block;width:20px;height:4px;vertical-align:middle;margin-right:5px}
+.log{font-size:.84rem;line-height:1.55;color:var(--mid)}
+.log b{color:var(--ink)}
+.log dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+.log dt{font-size:.62rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--red);padding-top:3px}
+:root[data-theme="dark"] .log dt{color:#9fc0ff}
+.log dd{margin:0}
+.lesson{background:var(--cream);border:1px solid var(--border);padding:9px 11px;font-size:.82rem}
+.lesson b{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:2px}
+:root[data-theme="dark"] .lesson b{color:#9fc0ff}
+.pips{display:flex;gap:4px;flex-wrap:wrap}
+.pip{width:26px;height:8px;background:var(--border)}
+.pip.done{background:var(--good)}
+.pip.mid{background:#e0a020}
+.pip.low{background:var(--bad)}
+.pip.now{background:var(--red)}
+
+.sortgrid{display:flex;flex-direction:column;gap:8px}
+.sortrow{display:flex;align-items:center;gap:8px;border:1px solid var(--border);padding:7px 9px;font-size:.82rem}
+.sortrow span{flex:1}
+.sortrow button{font:700 .6rem 'Lato',sans-serif;letter-spacing:.08em;text-transform:uppercase;border:2px solid var(--ink);background:transparent;color:var(--ink);padding:5px 8px;cursor:pointer}
+.sortrow button.pick{background:var(--ink);color:#fff}
+.sortrow.right{border-color:var(--good);background:rgba(26,138,74,.08)}
+.sortrow.wrong{border-color:var(--bad);background:rgba(192,57,43,.08)}
+.sortrow .why{display:block;font-size:.74rem;color:var(--muted);margin-top:3px}
+
+.intro,.end{max-width:820px;margin:24px auto 0;border:2px solid var(--ink);background:var(--white);padding:24px}
+.intro h2,.end h2{margin:0 0 8px;font-weight:900;letter-spacing:-.03em;font-size:1.5rem}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.steps div{border:1px solid var(--border);background:var(--cream);padding:11px 12px;font-size:.82rem;color:var(--mid)}
+.steps b{display:block;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:3px}
+.endtable{width:100%;border-collapse:collapse;margin:14px 0;font-size:.86rem}
+.endtable td{padding:7px 8px;border-bottom:1px solid var(--border)}
+.endtable td:last-child{text-align:right;font-weight:900}
+.best{font-size:.8rem;color:var(--muted);font-weight:700}
+.hidden{display:none!important}
+@media(max-width:920px){.play{grid-template-columns:1fr}.steps{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+
+<div class="bar">
+  <a class="brand" href="./">AP WORLD // <b>CHART THE VOYAGE</b></a>
+  <div class="links"><a href="unit4.html">&larr; Unit 4 Review</a></div>
+</div>
+
+<div class="main">
+  <div class="eyebrow">Unit 4 &middot; Transoceanic Interconnections &middot; c. 1450 &ndash; c. 1750</div>
+  <h1>Chart the Voyage</h1>
+  <p class="sub">Eight great voyages, one blank map. For each voyage you get the starting port and the destination: <b>draw the route the ships actually sailed</b>. The closer your line is to the real route, the more points you earn. Then read the ship&rsquo;s log to learn why they went that way.</p>
+
+  <div class="intro" id="intro">
+    <h2>How to play</h2>
+    <div class="steps">
+      <div><b>1. Draw</b>Press on the starting port and drag along the route to the destination. Lift and keep going if you need to; Undo removes the last stroke.</div>
+      <div><b>2. Submit</b>Your line is compared with the real route along its whole length, up to 100 points per voyage. A hint shows a stop along the way but costs 15 points.</div>
+      <div><b>3. Bonus round</b>After the voyages, draw the Treaty of Tordesillas line and sort lands between Spain and Portugal for up to 160 more points.</div>
+    </div>
+    <p class="best" id="bestLine"></p>
+    <button class="btn go" type="button" id="startBtn">&#9875; Set sail</button>
+  </div>
+
+  <div class="play hidden" id="play">
+    <div class="mapbox">
+      <div id="map"></div>
+      <div class="toast" id="toast"></div>
+      <div class="mapbar">
+        <button class="btn alt" type="button" id="undoBtn">&#8630; Undo</button>
+        <button class="btn alt" type="button" id="clearBtn">Clear</button>
+        <button class="btn alt" type="button" id="hintBtn">Hint (&minus;15)</button>
+        <button class="btn" type="button" id="submitBtn">Submit route</button>
+        <button class="btn go hidden" type="button" id="nextBtn">Next voyage &rarr;</button>
+        <span class="status" id="status"></span>
+      </div>
+    </div>
+    <div class="side">
+      <h3><span id="sideTitle">Voyage 1 of 8</span><span id="runScore">0 pts</span></h3>
+      <div class="body" id="sideBody"></div>
+    </div>
+  </div>
+
+  <div class="end hidden" id="end">
+    <h2 id="endTitle">Voyages complete</h2>
+    <div class="score-big" id="endScore"></div>
+    <p class="verdict" id="endVerdict"></p>
+    <table class="endtable" id="endTable"></table>
+    <p class="best" id="endBest"></p>
+    <button class="btn go" type="button" id="againBtn">&#8635; Sail again</button>
+    <a class="btn alt" href="unit4.html#pg-games" style="text-decoration:none;display:inline-block;margin-left:6px">Back to Unit 4 games</a>
+  </div>
+</div>
+
+<script>
+/* Chart the Voyage. Routes are [lat, lng] waypoints, approximate and simplified.
+   Longitudes west of -180 are used for Pacific crossings so the line stays continuous
+   (the basemap is drawn a second time one world to the west for those rounds). */
+var VOYAGES = [
+  { who:'Bartolomeu Dias', when:'1487 – 1488', flag:'Portugal',
+    from:{n:'Lisbon',c:[38.72,-9.14]}, to:{n:'Kwaaihoek (past the Cape)',c:[-33.7,26.6]},
+    task:'Sail south along the coast of Africa and get past its southern tip into the Indian Ocean.',
+    frame:[[42,-28],[-42,34]],
+    route:[[38.72,-9.14],[33,-10.5],[28.3,-14],[21,-18],[14.7,-18],[10,-15.5],[5,-9],[4.4,-3],[5.08,-1.35],[3.5,6],[-1,8.5],[-6,11.5],[-12,13],[-17.5,11.3],[-23,14],[-29,15.5],[-36,14.5],[-38,20],[-34.6,24],[-33.7,26.6]],
+    hint:{c:[-29,15.5],t:'Hug the coast all the way down West Africa. Near the Cape a storm blew Dias far out to sea before he turned back to land.'},
+    log:{sponsor:'King João II of Portugal', why:'Find a sea route to the spices of Asia and the gold of Africa without Muslim or Venetian middlemen.', result:'First European to round the southern tip of Africa, which proved the Atlantic and Indian Oceans connect. João II renamed it the Cape of Good Hope.'},
+    lesson:['Building on Prince Henry','Decades of Portuguese coastal voyages (sponsored by Prince Henry "the Navigator") pushed a little farther south each time, setting up trading posts like Elmina along the way.'] },
+
+  { who:'Christopher Columbus', when:'1492', flag:'Spain',
+    from:{n:'Palos',c:[37.2,-6.9]}, to:{n:'San Salvador (Bahamas)',c:[24.05,-74.5]},
+    task:'Sail west across the Atlantic to the islands of the Caribbean.',
+    frame:[[45,-82],[12,-2]],
+    route:[[37.2,-6.9],[33,-11],[28.1,-15.4],[28,-25],[28,-40],[27,-55],[25.5,-67],[24.05,-74.5]],
+    hint:{c:[28.1,-15.4],t:'He did not head straight west from Spain. He first sailed south to the Canary Islands to catch the easterly trade winds.'},
+    log:{sponsor:'Ferdinand and Isabella of Spain', why:'Reach Asia by sailing west, win spices, gold and converts, and beat Portugal to the riches of the East.', result:'Landed in the Bahamas, then Cuba and Hispaniola, believing he was near Asia. His voyages began the Columbian Exchange and Spanish colonization of the Americas.'},
+    lesson:['Winds decide the route','The trade winds blow from the northeast near the Canaries, pushing ships west. Going home, Columbus sailed north to catch the westerlies. Knowledge of wind patterns was as important as ships.'] },
+
+  { who:'Vasco da Gama', when:'1497 – 1498', flag:'Portugal',
+    from:{n:'Lisbon',c:[38.72,-9.14]}, to:{n:'Calicut, India',c:[11.25,75.78]},
+    task:'Sail from Portugal around Africa and across the Indian Ocean to India.',
+    frame:[[42,-42],[-42,82]],
+    route:[[38.72,-9.14],[28,-16],[15,-23.5],[5,-22],[-8,-27],[-22,-28],[-31,-15],[-32.7,17.9],[-35,20],[-34.2,22.1],[-30,31.5],[-25.9,33.5],[-15,40.7],[-4,39.7],[-3.2,40.1],[2,52],[9,68],[11.25,75.78]],
+    hint:{c:[-22,-28],t:'He did not hug the African coast. From the Cape Verde Islands he swung far out into the South Atlantic (the volta do mar) before curving back east to the Cape.'},
+    log:{sponsor:'King Manuel I of Portugal', why:'Finish what Dias started: reach India by sea and take a share of the spice trade.', result:'First all-sea voyage from Europe to India. At Malindi he picked up a pilot who knew the monsoon route to Calicut. Portugal went on to build a trading-post empire in the Indian Ocean.'},
+    lesson:['The volta do mar','Sailing close to Africa meant fighting headwinds and currents. Swinging wide into the Atlantic used the wind circle to reach the Cape faster: about three months out of sight of land.'] },
+
+  { who:'Pedro Álvares Cabral', when:'1500', flag:'Portugal',
+    from:{n:'Lisbon',c:[38.72,-9.14]}, to:{n:'Porto Seguro, Brazil',c:[-16.4,-39.1]},
+    task:'Follow da Gama&rsquo;s wide Atlantic swing, but go far enough west to reach land.',
+    frame:[[42,-55],[-25,5]],
+    route:[[38.72,-9.14],[28,-16],[16,-24],[5,-28],[-8,-33],[-16.4,-39.1]],
+    hint:{c:[16,-24],t:'Same start as da Gama: south to the Canaries and Cape Verde Islands, then southwest.'},
+    log:{sponsor:'King Manuel I of Portugal', why:'Lead a large fleet to India using da Gama&rsquo;s route.', result:'Swinging wide into the Atlantic, the fleet reached Brazil and claimed it for Portugal before continuing to India.'},
+    lesson:['Why Brazil speaks Portuguese','Brazil bulges east of the Treaty of Tordesillas line (1494), so it fell in Portugal&rsquo;s half. Portugal later built sugar plantations there worked by enslaved Africans.'] },
+
+  { who:'Ferdinand Magellan', when:'1519 – 1521', flag:'Spain',
+    from:{n:'Seville',c:[37.39,-5.98]}, to:{n:'Cebu, Philippines',c:[10.3,-236.1]},
+    task:'Sail west from Spain, find a way around South America, and cross the Pacific to Asia.',
+    frame:[[45,-250],[-58,2]], wrap:true,
+    route:[[37.39,-5.98],[36.8,-6.4],[28,-16],[12,-21],[0,-28],[-12,-36],[-22.9,-43.2],[-35,-55],[-42,-63],[-49.3,-67.7],[-52.4,-68.4],[-53.6,-70.9],[-52.6,-74.6],[-45,-80],[-30,-90],[-15,-110],[-3,-140],[8,-170],[13.4,-215.3],[10.3,-236.1]],
+    hint:{c:[-52.6,-71.5],t:'Down the coast of South America to the narrow strait near its southern tip, then a very long crossing of the Pacific by way of Guam.'},
+    log:{sponsor:'Charles I of Spain (Emperor Charles V)', why:'Reach the Spice Islands by sailing west, inside Spain&rsquo;s half of the world.', result:'Found the strait that bears his name and crossed the Pacific, but was killed in the Philippines in 1521. Juan Sebastián Elcano brought one ship home in 1522: the first circumnavigation.'},
+    lesson:['How big the Pacific is','The crossing took over three months; the crew ate leather and sawdust and many died of scurvy. The voyage proved the size of the Earth and opened the way for Spain to colonize the Philippines.'] },
+
+  { who:'Jacques Cartier', when:'1535', flag:'France',
+    from:{n:'Saint-Malo',c:[48.65,-2.0]}, to:{n:'Hochelaga (Montreal)',c:[45.5,-73.6]},
+    task:'Cross the North Atlantic and sail up the great river into North America.',
+    frame:[[58,-80],[38,0]],
+    route:[[48.65,-2.0],[49,-15],[50,-35],[51.5,-50],[51.6,-56.3],[50.2,-60],[49.4,-64.2],[48.6,-68.4],[46.8,-71.2],[46.2,-72.6],[45.5,-73.6]],
+    hint:{c:[51.6,-56.3],t:'He entered the Gulf through the narrow strait at the north end of Newfoundland, then followed the St. Lawrence River southwest.'},
+    log:{sponsor:'King Francis I of France', why:'Find a Northwest Passage to Asia, plus gold and other riches.', result:'Sailed up the St. Lawrence to the Iroquoian towns of Stadacona and Hochelaga. No passage to Asia, but France claimed the region that became New France.'},
+    lesson:['A different kind of colony','New France grew around the fur trade, which depended on alliances with Native peoples like the Huron, not on large plantations or mines.'] },
+
+  { who:'The Manila Galleons', when:'from 1565', flag:'Spain',
+    from:{n:'Acapulco, New Spain',c:[16.85,-99.9]}, to:{n:'Manila, Philippines',c:[14.6,-239]},
+    task:'Carry American silver west across the Pacific to Manila, where Chinese merchants wanted it.',
+    frame:[[38,-252],[-5,-92]], wrap:true,
+    route:[[16.85,-99.9],[15,-110],[13.5,-125],[13,-145],[13,-170],[13.4,-195],[13.4,-215.3],[12.6,-235.6],[14.6,-239]],
+    hint:{c:[13.4,-215.3],t:'Westbound ships ran straight along the trade winds at about 13° north, stopping at Guam.'},
+    log:{sponsor:'The Spanish Crown (a royal monopoly)', why:'Trade Mexican and Peruvian silver for Chinese silk and porcelain at Manila.', result:'For 250 years one or two galleons a year linked the Americas and Asia, the first permanent trade route across the Pacific.'},
+    lesson:['Silver links the world','Ming China collected taxes in silver (the Single Whip reform), so demand for silver was huge. The galleons tied American mines, Spanish Manila and Chinese markets into one global economy.'] },
+
+  { who:'Zheng He (for comparison)', when:'1413 – 1415', flag:'Ming China',
+    from:{n:'Nanjing',c:[32.05,118.8]}, to:{n:'Malindi, East Africa',c:[-3.2,40.1]},
+    task:'Lead the Ming treasure fleet from China through Southeast Asia and across the Indian Ocean to East Africa.',
+    frame:[[38,34],[-12,126]],
+    route:[[32.05,118.8],[31.3,122],[26,120.5],[22,116],[13.8,109.5],[6,105.5],[2.2,102.25],[5.5,95],[6,82],[6,80.2],[8.5,76.5],[11.25,75.78],[8,62],[2,48],[-3.2,40.1]],
+    hint:{c:[2.2,102.25],t:'South along the coast of Vietnam, through the Strait of Malacca, past Sri Lanka and Calicut, then across the Arabian Sea.'},
+    log:{sponsor:'The Yongle Emperor of Ming China', why:'Show Ming power, collect tribute, and bring back luxury goods (even a giraffe).', result:'Seven huge voyages (1405–1433) with ships far larger than Columbus&rsquo;s. Then the Ming stopped them and turned to defending the northern border.'},
+    lesson:['Compare with Europe','Zheng He sailed the same Indian Ocean as da Gama 80 years earlier, with more ships and men. The difference: the Ming ended the voyages, while European states kept funding them for trade and empire.'] }
+];
+
+/* Bonus round: the Treaty of Tordesillas (1494), 370 leagues west of the Cape Verde Islands */
+var TORD_LNG = -46.6;
+var SORT = [
+  { t:'Brazil', a:'P', why:'East of the line: Cabral claimed it for Portugal in 1500.' },
+  { t:'Mexico (New Spain)', a:'S', why:'West of the line: conquered by Cortés for Spain.' },
+  { t:'The Inca lands of Peru', a:'S', why:'West of the line: conquered by Pizarro for Spain.' },
+  { t:'Trading posts on the coast of Africa', a:'P', why:'East of the line: the route around Africa was Portugal&rsquo;s.' },
+  { t:'Cuba and Hispaniola', a:'S', why:'West of the line: the first Spanish colonies.' },
+  { t:'The sea route to India', a:'P', why:'East of the line: da Gama&rsquo;s route belonged to Portugal.' }
+];
+
+var BEST_KEY = 'u4ChartBest';
+var R = 6371;
+function rad(d){ return d * Math.PI / 180; }
+function km(a, b){
+  var dLat = rad(b[0] - a[0]), dLng = rad(b[1] - a[1]);
+  var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(a[0])) * Math.cos(rad(b[0])) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+function pathLen(p){ var s = 0; for (var i = 1; i < p.length; i++) s += km(p[i - 1], p[i]); return s; }
+/* N evenly spaced points along a polyline (by distance) */
+function resample(p, n){
+  if (p.length < 2) return p.slice();
+  var total = pathLen(p), step = total / (n - 1), out = [p[0]], acc = 0, i = 1, prev = p[0];
+  while (out.length < n - 1 && i < p.length) {
+    var seg = km(prev, p[i]);
+    if (acc + seg >= step && seg > 0) {
+      var f = (step - acc) / seg;
+      prev = [prev[0] + (p[i][0] - prev[0]) * f, prev[1] + (p[i][1] - prev[1]) * f];
+      out.push(prev); acc = 0;
+    } else { acc += seg; prev = p[i]; i++; }
+  }
+  out.push(p[p.length - 1]);
+  return out;
+}
+function nearest(pt, set){ var m = Infinity; for (var i = 0; i < set.length; i++) { var d = km(pt, set[i]); if (d < m) m = d; } return m; }
+
+/* Land test (for the "ran aground" check) against the basemap polygons */
+var LAND_POLYS = (function(){
+  var out = [];
+  (WORLD_BASEMAP.land.coordinates || []).forEach(function(poly){
+    var ring = poly[0], b = [180, 90, -180, -90];
+    ring.forEach(function(q){ if (q[0] < b[0]) b[0] = q[0]; if (q[1] < b[1]) b[1] = q[1]; if (q[0] > b[2]) b[2] = q[0]; if (q[1] > b[3]) b[3] = q[1]; });
+    out.push({ ring:ring, holes:poly.slice(1), b:b });
+  });
+  return out;
+})();
+function inRing(x, y, ring){
+  var c = false;
+  for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    var xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c;
+  }
+  return c;
+}
+function onLand(p){
+  var x = ((p[1] + 540) % 360) - 180, y = p[0];
+  for (var k = 0; k < LAND_POLYS.length; k++) {
+    var P = LAND_POLYS[k];
+    if (x < P.b[0] || x > P.b[2] || y < P.b[1] || y > P.b[3]) continue;
+    if (inRing(x, y, P.ring) && !P.holes.some(function(h){ return inRing(x, y, h); })) return true;
+  }
+  return false;
+}
+
+/* Score a drawn route: the average gap between the two lines, measured both ways
+   (so skipping part of the route costs as much as wandering off it), compared with
+   the length of the real route. */
+function scoreRoute(drawn, truth){
+  var T = resample(truth, 90), D = resample(drawn, 90);
+  var a = 0, b = 0;
+  D.forEach(function(p){ a += nearest(p, T); });
+  T.forEach(function(p){ b += nearest(p, D); });
+  var avg = (a / D.length + b / T.length) / 2;
+  var rel = avg / pathLen(truth);
+  var pts = rel <= 0.012 ? 100 : Math.max(0, Math.round(100 * (1 - (rel - 0.012) / 0.048)));
+  var landShare = D.filter(onLand).length / D.length;
+  var aground = landShare > 0.2;
+  if (aground) pts = Math.max(0, pts - 15);
+  return { pts:pts, avg:Math.round(avg), aground:aground };
+}
+
+/* ── Map ── */
+var BASE = { light:{ land:'#f4f3ef', border:'#bcb8ae' }, dark:{ land:'#3a3e46', border:'#5d6472' } };
+function isDark(){ return document.documentElement.getAttribute('data-theme') === 'dark'; }
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+var map, baseLayers = [], westLayers = [], drawLayer, truthLayer, markLayer;
+function shifted(dx){ return function(c){ return L.latLng(c[1], c[0] + dx); }; }
+function makeBase(dx){
+  var c = isDark() ? BASE.dark : BASE.light, r = L.canvas({ padding:0.3 });
+  return [
+    L.geoJSON(WORLD_BASEMAP.land, { renderer:r, interactive:false, coordsToLatLng:shifted(dx), style:{ stroke:false, fillColor:c.land, fillOpacity:1 } }),
+    L.geoJSON(WORLD_BASEMAP.borders, { renderer:r, interactive:false, coordsToLatLng:shifted(dx), style:{ color:c.border, weight:0.7, opacity:1 } })
+  ];
+}
+function initMap(){
+  map = L.map('map', { zoomControl:false, dragging:false, scrollWheelZoom:false, doubleClickZoom:false, boxZoom:false, keyboard:false, touchZoom:false, zoomSnap:0.1, attributionControl:true, worldCopyJump:false });
+  map.attributionControl.setPrefix(false).addAttribution('Map data &copy; Natural Earth');
+  baseLayers = makeBase(0); baseLayers.forEach(function(l){ l.addTo(map); });
+  drawLayer = L.layerGroup().addTo(map);
+  truthLayer = L.layerGroup().addTo(map);
+  markLayer = L.layerGroup().addTo(map);
+  new MutationObserver(function(){
+    var c = isDark() ? BASE.dark : BASE.light;
+    baseLayers.concat(westLayers).forEach(function(l, i){ l.setStyle(i % 2 ? { color:c.border } : { fillColor:c.land }); });
+  }).observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
+  wireDrawing();
+  window.addEventListener('resize', function(){ map.invalidateSize(); if (frameNow) map.fitBounds(frameNow, { animate:false }); });
+}
+function setWest(on){
+  if (on && !westLayers.length) { westLayers = makeBase(-360); westLayers.forEach(function(l){ l.addTo(map); }); }
+  if (!on && westLayers.length) { westLayers.forEach(function(l){ map.removeLayer(l); }); westLayers = []; }
+}
+var frameNow = null;
+function frameTo(b){ frameNow = b; map.invalidateSize(); map.fitBounds(b, { animate:false, padding:[6, 6] }); }
+function portMarker(p, end){
+  /* label toward the middle of the map so it never runs off the edge */
+  var right = !frameNow || p.c[1] < (frameNow[0][1] + frameNow[1][1]) / 2;
+  L.circleMarker(p.c, { radius:7, color:css('--ink') || '#111', weight:3, fillColor:end ? '#fff' : (css('--you') || '#d9480f'), fillOpacity:1, interactive:false })
+    .bindTooltip('<span class="port-lbl' + (end ? ' dest' : '') + '">' + (end ? '&#9873; ' : '&#9875; ') + p.n + '</span>',
+      { permanent:true, direction:right ? 'right' : 'left', className:'port-tt', offset:right ? [8, 0] : [-8, 0] })
+    .addTo(markLayer);
+}
+
+/* ── Drawing ── */
+var strokes = [], cur = null, mode = 'idle';  /* idle | draw | line | review */
+function evLatLng(e){
+  var r = map.getContainer().getBoundingClientRect();
+  return map.containerPointToLatLng([e.clientX - r.left, e.clientY - r.top]);
+}
+function redrawStrokes(){
+  drawLayer.clearLayers();
+  var col = css('--you') || '#d9480f';
+  strokes.forEach(function(s){ if (s.length > 1) L.polyline(s, { color:col, weight:4, opacity:.95, lineCap:'round', lineJoin:'round', interactive:false }).addTo(drawLayer); });
+  if (cur && cur.length > 1) L.polyline(cur, { color:col, weight:4, opacity:.95, interactive:false }).addTo(drawLayer);
+  syncButtons();
+}
+function wireDrawing(){
+  var el = map.getContainer(), lastPx = null;
+  el.addEventListener('pointerdown', function(e){
+    if (mode === 'line') { placeLine(evLatLng(e)); return; }
+    if (mode !== 'draw') return;
+    e.preventDefault();
+    try { el.setPointerCapture(e.pointerId); } catch (x) {}
+    var ll = evLatLng(e);
+    cur = [[ll.lat, ll.lng]]; lastPx = [e.clientX, e.clientY];
+  });
+  el.addEventListener('pointermove', function(e){
+    if (mode === 'line') { hoverLine(evLatLng(e)); return; }
+    if (mode !== 'draw' || !cur) return;
+    if (Math.abs(e.clientX - lastPx[0]) + Math.abs(e.clientY - lastPx[1]) < 4) return;
+    lastPx = [e.clientX, e.clientY];
+    var ll = evLatLng(e); cur.push([ll.lat, ll.lng]); redrawStrokes();
+  });
+  function up(){
+    if (mode !== 'draw' || !cur) return;
+    if (cur.length > 1) strokes.push(cur);
+    cur = null; redrawStrokes();
+  }
+  el.addEventListener('pointerup', up);
+  el.addEventListener('pointercancel', up);
+}
+/* The strokes joined into one route, starting from the home port */
+function drawnRoute(v){
+  var p = [v.from.c];
+  strokes.forEach(function(s){ p = p.concat(s); });
+  return p;
+}
+
+/* ── Game flow ── */
+var idx = 0, results = [], hintUsed = false, run = 0;
+var $ = function(id){ return document.getElementById(id); };
+function toast(t){ var el = $('toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(function(){ el.classList.remove('on'); }, 2600); }
+function syncButtons(){
+  var drawing = mode === 'draw';
+  $('undoBtn').disabled = !drawing || !strokes.length;
+  $('clearBtn').disabled = !drawing || !strokes.length;
+  $('hintBtn').disabled = !drawing || hintUsed;
+  $('submitBtn').disabled = !drawing || !strokes.length;
+  $('undoBtn').classList.toggle('hidden', mode === 'line' || mode === 'sort');
+  $('clearBtn').classList.toggle('hidden', mode === 'line' || mode === 'sort');
+  $('hintBtn').classList.toggle('hidden', mode === 'line' || mode === 'sort');
+  $('submitBtn').classList.toggle('hidden', mode === 'review' || mode === 'line' || mode === 'sort');
+  $('nextBtn').classList.toggle('hidden', mode !== 'review');
+  $('map').classList.toggle('locked', !(drawing || mode === 'line'));
+}
+function pips(){
+  var h = '<div class="pips">';
+  for (var i = 0; i < VOYAGES.length + 1; i++) {
+    var r = results[i], cls = 'pip';
+    if (r) cls += r.pts >= 70 ? ' done' : r.pts >= 40 ? ' mid' : ' low';
+    else if (i === idx) cls += ' now';
+    h += '<span class="' + cls + '" title="' + (i < VOYAGES.length ? VOYAGES[i].who : 'Bonus round') + '"></span>';
+  }
+  return h + '</div>';
+}
+function total(){ return results.reduce(function(s, r){ return s + (r ? r.pts : 0); }, 0); }
+function updateHead(){
+  $('sideTitle').textContent = idx < VOYAGES.length ? 'Voyage ' + (idx + 1) + ' of ' + VOYAGES.length : 'Bonus round';
+  $('runScore').textContent = total() + ' pts';
+}
+
+function startGame(){
+  idx = 0; results = []; run++;
+  $('intro').classList.add('hidden'); $('end').classList.add('hidden'); $('play').classList.remove('hidden');
+  if (!map) initMap();
+  loadVoyage();
+}
+function loadVoyage(){
+  var v = VOYAGES[idx];
+  strokes = []; cur = null; hintUsed = false; mode = 'draw';
+  drawLayer.clearLayers(); truthLayer.clearLayers(); markLayer.clearLayers();
+  setWest(!!v.wrap);
+  frameTo(v.frame);
+  portMarker(v.from, false); portMarker(v.to, true);
+  updateHead();
+  $('sideBody').innerHTML = pips() +
+    '<div class="mission"><div class="eyebrow">' + v.flag + '</div><div class="who">' + v.who + '</div><div class="when">' + v.when + '</div>' +
+    '<div class="task">' + v.task + '</div></div>' +
+    '<div class="hintline">Start at <b>&#9875; ' + v.from.n + '</b> and draw to <b>&#9873; ' + v.to.n + '</b>. Draw over the water, the way the ships sailed.</div>' +
+    '<div id="hintBox"></div>';
+  $('status').textContent = '';
+  syncButtons();
+}
+function showHint(){
+  var v = VOYAGES[idx]; if (hintUsed) return;
+  hintUsed = true;
+  L.circleMarker(v.hint.c, { radius:9, color:css('--truth') || '#0d2960', weight:3, dashArray:'3 3', fillOpacity:0.15, interactive:false }).addTo(markLayer);
+  $('hintBox').innerHTML = '<div class="lesson"><b>Hint (&minus;15)</b>' + v.hint.t + '</div>';
+  syncButtons();
+}
+function submitRoute(){
+  var v = VOYAGES[idx];
+  var drawnPath = drawnRoute(v);
+  if (pathLen(drawnPath) < pathLen(v.route) * 0.25) { toast('Keep going: draw the whole route to the destination.'); return; }
+  var s = scoreRoute(drawnPath, v.route);
+  if (hintUsed) s.pts = Math.max(0, s.pts - 15);
+  results[idx] = { name:v.who, pts:s.pts, max:100 };
+  mode = 'review';
+  var tcol = css('--truth') || '#0d2960';
+  var line = L.polyline([], { color:tcol, weight:5, opacity:.9, dashArray:'10 7', interactive:false }).addTo(truthLayer);
+  var pts = resample(v.route, 120), k = 0;
+  (function grow(){ k = Math.min(pts.length, k + 4); line.setLatLngs(pts.slice(0, k)); if (k < pts.length) setTimeout(grow, 16); })();
+  var verdict = s.pts >= 90 ? 'Master navigator!' : s.pts >= 70 ? 'Solid seamanship.' : s.pts >= 40 ? 'Off course in places.' : 'Lost at sea. Study the real route.';
+  updateHead();
+  $('sideBody').innerHTML = pips() +
+    '<div><div class="score-big">' + s.pts + ' <small>/ 100</small></div><div class="verdict">' + verdict + '</div>' +
+    '<div class="when" style="font-size:.74rem;color:var(--muted);margin-top:4px">Your line was about ' + s.avg.toLocaleString() + ' km from the real route on average' + (hintUsed ? ', hint used (&minus;15)' : '') + '.</div>' +
+    (s.aground ? '<div class="when" style="font-size:.78rem;color:var(--bad);font-weight:700;margin-top:4px">Ran aground: much of your route crossed land (&minus;15).</div>' : '') + '</div>' +
+    '<div class="legend"><span><i style="background:' + (css('--you') || '#d9480f') + '"></i>Your route</span><span><i style="background:' + tcol + '"></i>Real route</span></div>' +
+    '<div class="log"><div class="who" style="font-size:1rem;font-weight:900;color:var(--ink);margin-bottom:6px">Ship&rsquo;s log: ' + v.who + ', ' + v.when + '</div><dl>' +
+    '<dt>Sponsor</dt><dd>' + v.log.sponsor + '</dd><dt>Why</dt><dd>' + v.log.why + '</dd><dt>Result</dt><dd>' + v.log.result + '</dd></dl></div>' +
+    '<div class="lesson"><b>' + v.lesson[0] + '</b>' + v.lesson[1] + '</div>';
+  $('nextBtn').innerHTML = idx < VOYAGES.length - 1 ? 'Next voyage &rarr;' : 'Bonus round &rarr;';
+  syncButtons();
+}
+function next(){
+  idx++;
+  if (idx < VOYAGES.length) loadVoyage(); else loadBonus();
+}
+
+/* ── Bonus round: Tordesillas ── */
+var lineLayer = null, linePicked = null, sortPicks = {};
+function loadBonus(){
+  mode = 'line'; linePicked = null; sortPicks = {};
+  drawLayer.clearLayers(); truthLayer.clearLayers(); markLayer.clearLayers();
+  setWest(false);
+  frameTo([[48, -95], [-45, 30]]);
+  L.circleMarker([15.1, -23.6], { radius:6, color:css('--ink') || '#111', weight:2, fillColor:'#fff', fillOpacity:1, interactive:false })
+    .bindTooltip('<span class="port-lbl">Cape Verde Islands</span>', { permanent:true, direction:'right', className:'port-tt', offset:[8, 0] }).addTo(markLayer);
+  updateHead();
+  $('sideBody').innerHTML = pips() +
+    '<div class="mission"><div class="eyebrow">Bonus round &middot; up to 160 pts</div><div class="who">The Treaty of Tordesillas</div><div class="when">1494</div>' +
+    '<div class="task">Spain and Portugal split the newly explored world with a north&ndash;south line through the Atlantic, 370 leagues west of the Cape Verde Islands. Lands west of the line went to Spain, lands east to Portugal.</div></div>' +
+    '<div class="hintline"><b>Click the map</b> where you think the line ran (up to 100 pts).</div><div id="hintBox"></div>';
+  $('status').textContent = '';
+  syncButtons();
+}
+function hoverLine(ll){
+  if (linePicked !== null) return;
+  if (!lineLayer) lineLayer = L.polyline([], { color:css('--you') || '#d9480f', weight:3, dashArray:'6 6', interactive:false }).addTo(drawLayer);
+  lineLayer.setLatLngs([[75, ll.lng], [-65, ll.lng]]);
+}
+function placeLine(ll){
+  if (linePicked !== null) return;
+  linePicked = ll.lng; lineLayer = null; mode = 'sort';
+  drawLayer.clearLayers();
+  L.polyline([[75, linePicked], [-65, linePicked]], { color:css('--you') || '#d9480f', weight:4, interactive:false }).addTo(drawLayer);
+  var off = Math.abs(linePicked - TORD_LNG);
+  var pts = off <= 2 ? 100 : Math.max(0, Math.round(100 * (1 - (off - 2) / 18)));
+  results[VOYAGES.length] = { name:'Treaty of Tordesillas', pts:pts, max:160 };
+  var tcol = css('--truth') || '#0d2960';
+  L.polyline([[75, TORD_LNG], [-65, TORD_LNG]], { color:tcol, weight:4, dashArray:'10 7', interactive:false }).addTo(truthLayer);
+  L.marker([30, TORD_LNG], { opacity:0, interactive:false }).bindTooltip('<span class="port-lbl">SPAIN &larr; &rarr; PORTUGAL</span>', { permanent:true, direction:'top', className:'port-tt' }).addTo(truthLayer);
+  updateHead();
+  $('hintBox').innerHTML = '<div><div class="score-big">' + pts + ' <small>/ 100</small></div>' +
+    '<div class="verdict">' + (pts >= 80 ? 'Right on the line!' : pts >= 40 ? 'Close.' : 'Not quite.') + '</div>' +
+    '<div class="when" style="font-size:.74rem;color:var(--muted);margin-top:4px">The real line ran at about 46&frac12;&deg; west. You were ' + off.toFixed(1) + '&deg; away.</div></div>' +
+    '<div class="lesson"><b>Why the line moved</b>The pope first drew a line in 1493 just 100 leagues west of the islands. Portugal wanted more room for its route around Africa, so the 1494 treaty moved it west, which later put the eastern bulge of Brazil on Portugal&rsquo;s side.</div>' +
+    '<div class="hintline"><b>Now sort:</b> did each go to Spain or Portugal? (10 pts each)</div><div class="sortgrid" id="sortGrid">' +
+    SORT.map(function(s, i){ return '<div class="sortrow" data-i="' + i + '"><span>' + s.t + '<em class="why"></em></span><button type="button" data-a="S">Spain</button><button type="button" data-a="P">Portugal</button></div>'; }).join('') +
+    '</div><button class="btn go hidden" type="button" id="finishBtn">See final score &rarr;</button>';
+  $('sortGrid').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var row = b.closest('.sortrow'), i = +row.dataset.i;
+    if (sortPicks[i]) return;
+    sortPicks[i] = b.dataset.a;
+    b.classList.add('pick');
+    var ok = b.dataset.a === SORT[i].a;
+    row.classList.add(ok ? 'right' : 'wrong');
+    row.querySelector('.why').innerHTML = (ok ? '' : 'Answer: ' + (SORT[i].a === 'S' ? 'Spain' : 'Portugal') + '. ') + SORT[i].why;
+    row.querySelector('.why').style.display = 'block';
+    if (ok) results[VOYAGES.length].pts += 10;
+    updateHead();
+    if (Object.keys(sortPicks).length === SORT.length) $('finishBtn').classList.remove('hidden');
+  });
+  $('finishBtn').addEventListener('click', finish);
+  syncButtons();
+}
+
+/* ── End ── */
+function loadBest(){ try { return JSON.parse(localStorage.getItem(BEST_KEY) || 'null'); } catch (e) { return null; } }
+function finish(){
+  var t = total(), max = VOYAGES.length * 100 + 160;
+  var best = loadBest(), isBest = !best || t > best.score;
+  if (isBest) { try { localStorage.setItem(BEST_KEY, JSON.stringify({ score:t, at:Date.now() })); } catch (e) {} }
+  $('play').classList.add('hidden'); $('end').classList.remove('hidden');
+  var pct = t / max;
+  $('endTitle').textContent = pct >= .85 ? 'Admiral of the Ocean Sea' : pct >= .65 ? 'Veteran Navigator' : pct >= .45 ? 'Able Seaman' : 'Cabin Boy';
+  $('endScore').innerHTML = t + ' <small>/ ' + max + '</small>';
+  $('endVerdict').textContent = pct >= .65 ? 'You know your routes. Try for a higher score without hints.' : 'Review the routes on the Unit 4 map, then sail again.';
+  $('endTable').innerHTML = results.map(function(r){ return '<tr><td>' + r.name + '</td><td>' + r.pts + ' / ' + r.max + '</td></tr>'; }).join('');
+  $('endBest').textContent = isBest ? 'New best score on this browser!' : 'Your best: ' + best.score + ' / ' + max;
+  window.scrollTo(0, 0);
+  if (window.APWH_ACTIVITY) APWH_ACTIVITY.done('game', 'chart');
+}
+
+$('startBtn').addEventListener('click', startGame);
+$('againBtn').addEventListener('click', startGame);
+$('undoBtn').addEventListener('click', function(){ strokes.pop(); redrawStrokes(); });
+$('clearBtn').addEventListener('click', function(){ strokes = []; redrawStrokes(); });
+$('hintBtn').addEventListener('click', showHint);
+$('submitBtn').addEventListener('click', submitRoute);
+$('nextBtn').addEventListener('click', next);
+(function(){ var b = loadBest(); if (b) $('bestLine').textContent = 'Your best on this browser: ' + b.score + ' / ' + (VOYAGES.length * 100 + 160); })();
+</script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js?v=20261027"></script>
+</body>
+</html>

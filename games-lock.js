@@ -364,7 +364,8 @@
   }
 
   function init() {
-    var m = location.pathname.match(/unit(\d)(-[\w-]+)?\.html/i);
+    // The site also answers without .html (/unit4, /unit4-fleet), so the extension is optional.
+    var m = location.pathname.match(/unit(\d)(-[\w-]+)?(?:\.html)?$/i);
     if (!m || !(window.FC_DATA || {})[+m[1]]) return;
     var unit = +m[1];
     if (m[2]) {

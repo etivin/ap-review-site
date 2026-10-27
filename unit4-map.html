@@ -13,7 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script src="world-basemap.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="unit-map.css?v=20261018b">
+<link rel="stylesheet" href="unit-map.css?v=20261027">
 <link rel="stylesheet" href="theme.css">
 <script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 <link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
@@ -332,10 +332,211 @@ window.UNIT_MAP = {
   }
   },
   themeOrder:['goods','cities','atlanticwinds','columbian','silver','triangle'],
+  journeyHead:'Follow an Explorer',
+  journeyOrder:['dias','columbus','gama','cortes','magellan','pizarro'],
+  journeys:{
+  dias: {
+    name:'Bartolomeu Dias', sub:'Around the tip of Africa · 1487–88 · Portugal', color:'#0e7490', colorDark:'#5fd0e4', icon:'⛵',
+    blurb:'Sent by King João II to find where Africa ends, Dias sailed around its southern tip and proved that the Atlantic and Indian Oceans connect. He never reached India, but he opened the door for the voyage that did.',
+    stops:[
+      {n:'Lisbon', yr:'August 1487', c:[38.72,-9.14], z:4, topic:'4.2',
+       what:'Dias left with two caravels and a supply ship. Portugal had been working its way down the African coast for decades, a program begun under Prince Henry “the Navigator,” looking for gold, a route to Asian spices, and Christian allies.',
+       impact:'Exploration in Portugal was a <b>state project</b>: the crown paid for the voyages and expected trade, wealth, and prestige back. That royal backing is a big reason Portugal led the way.'},
+      {n:'Angra Pequena (Namibia)', yr:'December 1487', c:[-26.65,15.15], z:5, topic:'4.1',
+       via:[[33,-12],[20,-19],[8,-16],[3,-8],[-4,7],[-15,10],[-22,13]],
+       what:'Farther south than any European before him, Dias anchored in this bay. On the way home he set up a <i>padrão</i> here, a stone pillar topped with a cross, to claim the coast for Portugal.',
+       impact:'The padrões marked a sea route the Portuguese meant to own. Each voyage pushed the known coast farther south, and the lateen-rigged caravel made it possible to sail back against the winds.'},
+      {n:'Mossel Bay', yr:'February 1488', c:[-34.18,22.14], z:5, topic:'4.3',
+       via:[[-33,13],[-39,16],[-40,21],[-36,23]],
+       what:'Storms pushed the ships far south, out of sight of land. When Dias turned north again, the coast ran east: he had already passed the tip of Africa. At Mossel Bay his men met Khoikhoi herders; the meeting ended in violence when Dias shot a man with a crossbow.',
+       impact:'It was the first European landing on the Indian Ocean side of Africa, and a preview of the clashes that would follow first contact across the globe.'},
+      {n:'Kwaaihoek (Great Fish River)', yr:'March 1488', c:[-33.7,26.63], z:6, topic:'4.2',
+       via:[[-34.3,24.3],[-34.0,26.0]],
+       what:'Dias planted his last padrão here. His exhausted crew refused to go farther, so he had to turn back with the way to India open ahead of him.',
+       impact:'Even without reaching India, Dias proved there was a way around Africa into the Indian Ocean, the key fact behind Portugal’s later trading-post empire.'},
+      {n:'Cape of Good Hope', yr:'May 1488', c:[-34.36,18.47], z:5, topic:'4.2',
+       via:[[-34.3,24],[-34.8,20.5]],
+       what:'On the way home Dias finally saw the cape he had sailed past. Tradition says he called it the Cape of Storms and King João renamed it the Cape of Good Hope, for the hope of reaching India.',
+       impact:'The cape became the gateway between two oceans. Later the Dutch built Cape Town (1652) here as a supply station for ships headed to Asia.'},
+      {n:'Lisbon', yr:'December 1488', c:[38.72,-9.14], z:4, topic:'4.2',
+       via:[[-28,12],[-10,4],[2,-8],[12,-22],[30,-16]],
+       what:'Dias returned after 16 months with maps and proof of the route. Portugal now knew the way to the Indian Ocean.',
+       impact:'With a route around Africa in hand, Portugal had no need for Columbus’s plan to sail west, so Columbus took it to Spain. Dias later helped design the ships for Vasco da Gama and died in 1500 when his ship sank near the cape he had found.'}
+    ]
+  },
+  columbus: {
+    name:'Christopher Columbus', sub:'First voyage · 1492–93 · Spain', color:'#b3402f', colorDark:'#ff8a72', icon:'⛵',
+    blurb:'A Genoese sailor backed by Ferdinand and Isabella, Columbus sailed west to reach Asia. He reached the Caribbean instead and began lasting contact between the Eastern and Western Hemispheres.',
+    stops:[
+      {n:'Palos de la Frontera', yr:'August 3, 1492', c:[37.23,-6.89], z:4, topic:'4.2',
+       what:'Columbus left with three ships, the Niña, the Pinta, and the Santa María. Spain’s monarchs had just conquered Granada, the last Muslim kingdom in Iberia, and expelled Spain’s Jews that same year.',
+       impact:'Spain backed him to catch up with Portugal in the race for Asian trade, and to spread Catholic Christianity: <b>God, gold, and glory</b>.'},
+      {n:'La Gomera, Canary Islands', yr:'August–September 1492', c:[28.09,-17.11], z:5, topic:'4.1',
+       via:[[35,-9.5],[31,-13]],
+       what:'The fleet stopped to repair the Pinta and take on water and food, then sailed west on September 6, catching the northeast trade winds.',
+       impact:'The Canaries were a testing ground for Atlantic empire: Castile had conquered the Indigenous Guanche people and set up sugar plantations. Knowing the trade winds blow west here was the key to crossing the Atlantic.'},
+      {n:'San Salvador, the Bahamas', yr:'October 12, 1492', c:[24.05,-74.5], z:5, topic:'4.3',
+       via:[[27,-30],[25.5,-50],[24.5,-68]],
+       what:'Five weeks after leaving the Canaries, the crew sighted land. Columbus met the Taíno (Lucayan) people, called them “Indians” because he believed he was in the Indies, and wrote that they could easily be made servants and converted.',
+       impact:'This landing began sustained contact between the hemispheres and the <b>Columbian Exchange</b>. Within decades, Old World diseases and forced labor had devastated the Taíno.'},
+      {n:'Cuba', yr:'October 28, 1492', c:[21.07,-75.65], z:6, topic:'4.2',
+       via:[[23.6,-74.9],[22.3,-75.3]],
+       what:'Columbus explored the north coast, sure he had reached mainland Asia, and sent men inland to look for the court of the Great Khan of China.',
+       impact:'He never accepted that he had found new continents. Cuba later became a Spanish colony, and Havana became the hub where the treasure fleets gathered to carry American silver to Spain.'},
+      {n:'La Navidad, Hispaniola', yr:'December 25, 1492', c:[19.76,-72.13], z:6, topic:'4.4',
+       via:[[20.4,-74.6],[20.1,-73.2]],
+       what:'The Santa María ran aground on Christmas Day. Columbus used its timbers to build a fort, La Navidad, and left 39 men behind, after seeing local people wearing gold.',
+       impact:'It was the first Spanish settlement in the Americas; the men were all dead when Columbus returned in 1493. Hispaniola became Spain’s first colony, the start of the <b>encomienda</b> system and, later, sugar plantations worked by enslaved Africans.'},
+      {n:'Lisbon, then Palos', yr:'March 1493', c:[37.23,-6.89], z:4, topic:'4.4',
+       via:[[22,-68],[31,-60],[37,-38],[37.4,-25.5],[38.6,-10.5],[38.72,-9.3],[37.0,-9.1],[36.9,-7.6]],
+       what:'Sailing home on the westerlies, a storm drove Columbus into Lisbon, where he met Portugal’s king, before he reached Palos on March 15 to a hero’s welcome. He made three more voyages (1493, 1498, 1502).',
+       impact:'Spain and Portugal now argued over who owned the new lands. The pope drew a line in 1493, and the <b>Treaty of Tordesillas</b> (1494) split the non-European world between them, the reason Brazil speaks Portuguese today.'}
+    ]
+  },
+  gama: {
+    name:'Vasco da Gama', sub:'The sea route to India · 1497–99 · Portugal', color:'#0d7a3a', colorDark:'#4cc985', icon:'⛵',
+    blurb:'Da Gama followed Dias around Africa and crossed the Indian Ocean to Calicut, the first all-sea voyage from Europe to India. It broke the old overland and Venetian–Muslim hold on the spice trade.',
+    stops:[
+      {n:'Lisbon', yr:'July 8, 1497', c:[38.72,-9.14], z:4, topic:'4.2',
+       what:'Four ships and about 170 men left Lisbon. The ships were built with advice from Bartolomeu Dias.',
+       impact:'Portugal wanted Asian spices without paying Venetian and Muslim middlemen, and Christian allies against Muslim powers.'},
+      {n:'Cape Verde Islands', yr:'July 1497', c:[14.93,-23.51], z:5, topic:'4.1',
+       via:[[33,-12],[24,-17]],
+       what:'After taking on supplies, da Gama did not hug the African coast. He swung far out into the South Atlantic in a huge arc, the <i>volta do mar</i>, and spent about three months out of sight of land.',
+       impact:'It was the longest open-ocean voyage Europeans had ever made. Using the Atlantic wind system instead of fighting it became the standard route to the Indian Ocean.'},
+      {n:'Cape of Good Hope', yr:'November 22, 1497', c:[-34.36,18.47], z:4, topic:'4.1',
+       via:[[5,-25],[-10,-30],[-24,-24],[-31,-5],[-33,12],[-32.8,17.6]],
+       what:'The fleet reached St. Helena Bay, then rounded the cape that Dias had found nine years earlier.',
+       impact:'Portugal now controlled the only known sea route from Europe to Asia, which it guarded for most of the 1500s.'},
+      {n:'Mozambique Island', yr:'March 1498', c:[-15.03,40.73], z:5, topic:'4.2',
+       via:[[-35.2,24],[-32,31],[-26,35.5],[-20,37.5],[-17,39.5]],
+       what:'Da Gama entered the Swahili Coast, a world of Muslim trading cities with ships carrying gold, cloves, pepper, and pearls. The local traders were not impressed by the cheap goods the Portuguese brought.',
+       impact:'Europeans were entering an <b>old, rich trade network</b> run by Arab, Swahili, Persian, Indian, and Malay merchants. They had little to sell, so they would rely on force.'},
+      {n:'Malindi', yr:'April 1498', c:[-3.22,40.12], z:5, topic:'4.2',
+       via:[[-12,41.5],[-6,40.6]],
+       what:'Mombasa received the Portuguese with hostility, but the sultan of Malindi, its rival, welcomed them and gave da Gama a skilled pilot who knew the Indian Ocean.',
+       impact:'The Portuguese depended on local knowledge, especially of the <b>monsoon winds</b>, to cross the Indian Ocean. They used rivalries between local rulers to gain footholds.'},
+      {n:'Calicut, India', yr:'May 20, 1498', c:[11.25,75.78], z:5, topic:'4.4',
+       via:[[1,50],[8,66]],
+       what:'Da Gama reached Calicut, a major pepper port. The ruler, the Zamorin, laughed at his gifts of cloth, hats, and honey, and Muslim merchants opposed him, but he still loaded pepper and spices. One of his men told the locals they had come to seek “Christians and spices.”',
+       impact:'The <b>all-sea route to Asia</b> was open. Later Portuguese fleets used cannon instead of gifts: they bombarded Calicut, made Asian ships buy passes, and seized Goa (1510) and Malacca (1511), building a <b>trading-post empire</b>.'},
+      {n:'Lisbon', yr:'September 1499', c:[38.72,-9.14], z:3, topic:'4.4',
+       via:[[8,62],[0,48],[-3.22,40.12],[-12,42],[-26,36],[-35.5,22],[-30,7],[-5,-15],[15,-27],[30,-25],[38,-13]],
+       what:'Crossing back against the monsoon took three months and scurvy killed many men. Only two of the four ships and about 55 men made it home.',
+       impact:'The spices sold for many times the cost of the voyage. Lisbon became a spice market that rivaled Venice, and Portugal began a century as Europe’s leading power in the Indian Ocean.'}
+    ]
+  },
+  cortes: {
+    name:'Hernán Cortés', sub:'Conquest of the Aztec Empire · 1519–21 · Spain', color:'#9d174d', colorDark:'#f472b6', icon:'⚔️',
+    blurb:'With a few hundred Spaniards, tens of thousands of Indigenous allies, and the help of smallpox, Cortés brought down the Aztec Empire and turned its capital into Mexico City, the heart of New Spain.',
+    stops:[
+      {n:'Western Cuba', yr:'February 1519', c:[21.87,-84.95], z:5, topic:'4.4',
+       what:'Cortés sailed with 11 ships, about 500 soldiers, and 16 horses, defying the governor of Cuba, who had canceled his command.',
+       impact:'Conquistadors were private adventurers who hoped to get rich; the crown took a fifth of the treasure. This mix of private ambition and royal claims drove Spain’s conquests.'},
+      {n:'Cozumel', yr:'March 1519', c:[20.42,-86.92], z:6, topic:'4.4',
+       via:[[21.4,-86.2]],
+       what:'On the island of Cozumel, Cortés found Jerónimo de Aguilar, a Spaniard shipwrecked years before who had learned the Maya language.',
+       impact:'Communication was a weapon. Translators let the Spanish learn about the politics of Mesoamerica and find allies.'},
+      {n:'Potonchán, Tabasco', yr:'March 1519', c:[18.6,-92.65], z:6, topic:'4.4',
+       via:[[21.6,-86.9],[21.6,-89.5],[20.7,-91],[19.1,-92.2]],
+       what:'After defeating the Maya of Tabasco in battle, Cortés was given 20 enslaved women. One, Malintzin (La Malinche), spoke both Maya and Nahuatl, the Aztec language.',
+       impact:'Malintzin became Cortés’s interpreter and adviser, perhaps the most important person on the expedition. Her story shows how much the conquest depended on Indigenous people.'},
+      {n:'Veracruz', yr:'April–August 1519', c:[19.65,-96.4], z:6, topic:'4.4',
+       via:[[19.2,-94.5],[19.6,-96.0]],
+       what:'Cortés founded the town of Villa Rica de la Vera Cruz and received envoys from the emperor Moctezuma II bearing gold. Then he had his ships run aground so no one could go back to Cuba.',
+       impact:'Veracruz became the main Atlantic port of <b>New Spain</b>, the place where the treasure fleets loaded silver bound for Spain for the next 300 years.'},
+      {n:'Tlaxcala', yr:'September 1519', c:[19.32,-98.24], z:7, topic:'4.6', land:true,
+       via:[[19.54,-96.92],[19.45,-97.6]],
+       what:'The Tlaxcalans, longtime enemies of the Aztecs, fought the Spanish fiercely, then made an alliance with them.',
+       impact:'The conquest was really an <b>Indigenous uprising</b> against Aztec rule, with Spanish leaders. Tens of thousands of Tlaxcalan warriors fought beside Cortés, and Tlaxcala kept special privileges under Spain.'},
+      {n:'Cholula', yr:'October 1519', c:[19.06,-98.3], z:7, topic:'4.4', land:true,
+       what:'Claiming he had uncovered a plot, Cortés and his allies massacred thousands of people in Cholula, a holy city allied with the Aztecs.',
+       impact:'Terror was a tactic of conquest. The massacre warned other cities what resistance would cost.'},
+      {n:'Tenochtitlán', yr:'November 8, 1519', c:[19.43,-99.13], z:7, topic:'4.4', land:true,
+       via:[[19.09,-98.65],[19.27,-98.95]],
+       what:'Moctezuma welcomed the Spanish into his island capital, a city of perhaps 200,000 people, larger than any in Spain. Within days Cortés took him hostage.',
+       impact:'Holding the ruler let a small force try to control a huge empire, a tactic Pizarro would copy against the Inca.'},
+      {n:'La Noche Triste and Otumba', yr:'June–July 1520', c:[19.69,-98.75], z:7, topic:'4.6', land:true,
+       via:[[19.6,-99.05]],
+       what:'The Aztecs rose up. Moctezuma died, and the Spanish fled the city at night, losing hundreds of men. They survived a battle at Otumba and retreated to Tlaxcala. Then smallpox, brought by a later Spanish expedition, swept through the Aztec capital and killed the new emperor, Cuitláhuac.',
+       impact:'<b>Disease</b> did what Spanish arms could not. Epidemics would kill a large majority of Mexico’s Indigenous people in the 1500s.'},
+      {n:'Fall of Tenochtitlán', yr:'August 13, 1521', c:[19.43,-99.13], z:7, topic:'4.4', land:true,
+       via:[[19.32,-98.24],[19.51,-98.88]],
+       what:'After a siege of nearly three months, with boats built in Tlaxcala and a huge allied army, the Spanish captured the emperor Cuauhtémoc. The city lay in ruins.',
+       impact:'Mexico City rose on the ruins as the capital of the Viceroyalty of <b>New Spain</b>. The encomienda, Catholic missions, the casta system, and later the silver mines of Zacatecas reshaped Mexico, and Indigenous and Catholic beliefs blended (the Virgin of Guadalupe).'}
+    ]
+  },
+  magellan: {
+    name:'Magellan and Elcano', sub:'First voyage around the world · 1519–22 · Spain', color:'#1d4ed8', colorDark:'#7aa2ff', icon:'⛵',
+    blurb:'Ferdinand Magellan, a Portuguese captain sailing for Spain, set out to reach the Spice Islands by sailing west. He was killed in the Philippines; Juan Sebastián Elcano brought one ship home, completing the first voyage around the world.',
+    stops:[
+      {n:'Sanlúcar de Barrameda', yr:'September 20, 1519', c:[36.78,-6.35], z:4, topic:'4.2',
+       what:'Five ships and about 270 men left Spain. Under the Treaty of Tordesillas, the east belonged to Portugal, so Spain hoped to reach the Spice Islands by going west and claim they lay on Spain’s side of the line.',
+       impact:'Competition between Spain and Portugal for the spice trade drove the voyage, and states paid for it hoping for profit.'},
+      {n:'Rio de Janeiro', yr:'December 1519', c:[-22.9,-43.17], z:5, topic:'4.2',
+       via:[[30,-15],[15,-24],[0,-30],[-12,-35],[-20,-39]],
+       what:'The fleet rested and took on food in Guanabara Bay, trading with the Tupi people.',
+       impact:'This coast was in Portugal’s zone; Cabral had claimed Brazil in 1500. Portugal would later build sugar plantations here worked by enslaved Africans.'},
+      {n:'Puerto San Julián, Patagonia', yr:'March–August 1520', c:[-49.31,-67.73], z:5, topic:'4.2',
+       via:[[-30,-46],[-40,-55],[-46,-64]],
+       what:'The fleet waited out the southern winter. Spanish captains mutinied against their Portuguese commander; Magellan crushed the revolt and executed or marooned the leaders. One ship was wrecked.',
+       impact:'Long voyages were hard on crews and on command. Months at sea with short rations made mutiny a constant danger.'},
+      {n:'Strait of Magellan', yr:'October–November 1520', c:[-53.6,-70.9], z:5, topic:'4.1',
+       via:[[-52.3,-68.4]],
+       what:'It took 38 days to thread the stormy passage at the tip of South America. One ship deserted and sailed home. Magellan named the calm ocean beyond the “Pacific.”',
+       impact:'The strait proved the Atlantic and Pacific were connected, but it was too long and dangerous to become a major trade route. Spain reached Asia instead through Mexico and the Manila galleon.'},
+      {n:'Guam', yr:'March 6, 1521', c:[13.44,144.79], z:3, topic:'4.3',
+       via:[[-52.6,-75.5],[-38,-82],[-20,-105],[-2,-135],[10,-165],[13,170]],
+       what:'Crossing the Pacific took 99 days. Out of food, the men ate leather and rats, and many died of scurvy. On Guam, a dispute with the Chamorro people ended with the Spanish burning homes and killing villagers.',
+       impact:'The Pacific was far bigger than anyone in Europe had imagined; the world was much larger than Columbus had thought. Guam later became a stop on the Manila galleon route.'},
+      {n:'Cebu and Mactan, Philippines', yr:'April 1521', c:[10.31,123.89], z:6, topic:'4.4',
+       via:[[11.5,130],[10.2,125.6],[9.9,125.1],[10.1,124.2]],
+       what:'Rajah Humabon of Cebu and hundreds of his people were baptized as Christians. Magellan then attacked Lapulapu, ruler of nearby Mactan, who refused to submit, and was killed in battle on April 27, 1521.',
+       impact:'Lapulapu is remembered as a hero of resistance. Spain came back to conquer the islands (1565) and founded <b>Manila</b> (1571), the hub where American silver bought Chinese silk and porcelain; the Philippines are mostly Catholic today.'},
+      {n:'Tidore, Spice Islands', yr:'November 1521', c:[0.68,127.4], z:5, topic:'4.5',
+       via:[[9.5,123.4],[7.2,122.2],[4.5,124.5],[2.2,126.4]],
+       what:'The two remaining ships finally reached the Spice Islands and loaded cloves, worth a fortune in Europe.',
+       impact:'Spain and Portugal now both claimed the islands. In the Treaty of Zaragoza (1529), Spain sold its claim to Portugal but kept the Philippines. Later the Dutch VOC seized the Spice Islands.'},
+      {n:'Cape of Good Hope', yr:'May 1522', c:[-34.36,18.47], z:3, topic:'4.2',
+       via:[[-3,126.6],[-8.2,125.7],[-12,122],[-25,100],[-38,65],[-38,30]],
+       what:'Under Juan Sebastián Elcano, the Victoria crossed the Indian Ocean far to the south to avoid Portuguese ships and rounded Africa. The other ship tried to recross the Pacific and was captured by the Portuguese.',
+       impact:'Spain’s ships had to sneak home through Portugal’s sea route, a sign of how firmly Portugal held the Indian Ocean.'},
+      {n:'Sanlúcar de Barrameda', yr:'September 6, 1522', c:[36.78,-6.35], z:3, topic:'4.2',
+       via:[[-25,6],[-5,-10],[14.93,-23.51],[28,-24],[35.5,-11]],
+       what:'After a stop at the Cape Verde Islands, where the crew found their logbook was a day off, the Victoria reached Spain with 18 men of the 270 who had left.',
+       impact:'It was the <b>first voyage around the world</b>. It proved all the oceans were connected and the Earth could be sailed around, and the lost day showed why a date line is needed.'}
+    ]
+  },
+  pizarro: {
+    name:'Francisco Pizarro', sub:'Conquest of the Inca Empire · 1531–35 · Spain', color:'#92400e', colorDark:'#f59e0b', icon:'⚔️',
+    blurb:'With fewer than 200 men, Pizarro captured the Inca emperor and took over the largest empire in the Americas, which had already been weakened by smallpox and civil war.',
+    stops:[
+      {n:'Panama', yr:'January 1531', c:[8.95,-79.53], z:5, topic:'4.4',
+       what:'After two earlier expeditions, Pizarro sailed south with about 180 men and a few dozen horses, with a royal license to conquer Peru.',
+       impact:'Like Cortés, Pizarro was a private adventurer seeking wealth under a royal grant, and the crown claimed a fifth of what he took.'},
+      {n:'Tumbes', yr:'1532', c:[-3.57,-80.45], z:5, topic:'4.3',
+       via:[[6,-80],[1,-81],[-2.4,-81.6]],
+       what:'Pizarro found this Inca city damaged and learned the empire was at war with itself. The emperor Huayna Capac had died around 1527, probably of smallpox, and his sons Atahualpa and Huáscar fought over the throne.',
+       impact:'<b>Disease arrived before the conquistadors.</b> Smallpox spread down from Central America and killed the ruler, which led to the civil war that the Spanish exploited.'},
+      {n:'Cajamarca', yr:'November 16, 1532', c:[-7.16,-78.51], z:6, topic:'4.4', land:true,
+       via:[[-5.2,-80.6],[-6.5,-79.5]],
+       what:'Atahualpa, fresh from victory, met the Spanish in the town square. Pizarro’s 168 men ambushed his unarmed attendants, killed thousands, and captured him. Atahualpa filled a room with gold and two with silver as ransom, but the Spanish executed him in 1533.',
+       impact:'Capturing the ruler threw the empire into confusion. Steel, horses, guns, Indigenous allies, and the civil war let a tiny force defeat a huge state.'},
+      {n:'Cusco', yr:'November 15, 1533', c:[-13.53,-71.97], z:6, topic:'4.6', land:true,
+       via:[[-9.5,-77.6],[-11.77,-75.5],[-13.2,-73.6]],
+       what:'The Spanish took the Inca capital and stripped its temples of gold. They crowned Manco Inca as a puppet ruler, but in 1536 he rebelled and besieged Cusco.',
+       impact:'Resistance went on for decades: Manco’s Neo-Inca state in Vilcabamba held out until 1572, when the Spanish executed Túpac Amaru.'},
+      {n:'Lima', yr:'January 18, 1535', c:[-12.05,-77.04], z:6, topic:'4.5', land:true,
+       via:[[-12.6,-74.5],[-11.77,-75.5],[-12,-76.5]],
+       what:'Pizarro founded Lima, the “City of Kings,” on the coast so it could be reached by sea. He was murdered there in 1541 by rival conquistadors.',
+       impact:'Lima became the capital of the <b>Viceroyalty of Peru</b>. After silver was found at <b>Potosí</b> (1545), Spain adapted the Inca <b>mit’a</b> labor draft to force Indigenous men into the mines, and Andean silver flowed to Spain and, through Manila, to China.'}
+    ]
+  }
+  },
   hint:'Tip: turn on the Columbian Exchange to see what crossed the Atlantic. Drag to pan, scroll to zoom.'
 };
 </script>
 <script defer src="theme.js"></script>
-<script src="unit-map-engine.js?v=20261018j"></script>
+<script src="unit-map-engine.js?v=20261027"></script>
 </body>
 </html>

@@ -5,6 +5,11 @@
      routes   = single-select base layer (lines and/or filled regions); drives the side panel
      polities = independent on/off region overlays (popup detail)
      themes   = independent on/off annotations (labels, cities, swooping "spread" arrows, …)
+     journeys = optional "Follow an Explorer" voyages walked stop by stop with a ticker card
+                (M.journeys {key:{name, sub, color, colorDark?, icon?, blurb, stops:[{n, yr, c,
+                via?, land?, z?, topic?, what, impact}]}}, M.journeyOrder, M.journeyHead; via = the
+                points between the previous stop and this one, land = a march drawn dashed,
+                z = zoom for this stop; a leg may cross the date line, it is drawn on both edges)
    Coordinates are [lat, lng]. Basemap = bundled world-basemap.js (no tile service).
    ══════════════════════════════════════════════════════════════ */
 (function () {
@@ -32,12 +37,14 @@
       '<div class="p-intro"><div class="p-eyebrow">Reference Map</div><h1>' + M.h1 + '</h1><p>' + M.intro + '</p></div>' +
       '<div class="route-btns"><div class="route-head">' + M.routeHead + '</div><div class="rb-list" id="rb-list"></div>' +
         '<div class="rb-all"><button type="button" id="btn-all">' + (M.allBtn || 'Show all') + '</button><button type="button" id="btn-reset">Reset view</button></div></div>' +
+      (M.journeys ? '<div class="route-btns jr-wrap"><div class="route-head">' + (M.journeyHead || 'Follow an Explorer') + ' <span class="rh-hint">stop by stop</span></div><div class="rb-list" id="jr-list"></div></div>' : '') +
       (POLITY_ORDER.length ? '<div class="region-wrap"><div class="region-head">' + M.polityHead + ' <span class="rh-hint">layer any on</span></div><div class="pol-grid" id="pol-grid"></div><button type="button" class="thm-clear" id="pol-clear">Clear layers</button></div>' : '') +
       '<div class="region-wrap"><div class="region-head">' + (M.themeHead || 'Annotations') + ' <span class="rh-hint">layer any on</span></div><div class="thm-grid" id="thm-grid"></div><button type="button" class="thm-clear" id="thm-clear">Clear annotations</button></div>' +
       '<div class="p-body" id="p-body"></div>' +
       '<div class="approx">Borders and regions are approximate, drawn to show the big picture for AP review, not exact boundaries. The base map shows modern coastlines and countries.</div>' +
     '</aside><div class="mapcol"><div id="map"></div><div class="legend" id="legend"></div>' +
       '<button type="button" class="panel-open" id="panel-open">&raquo; Show panel</button><div class="ov-key" id="ov-key"></div>' +
+      '<div class="jr-tick" id="jr-tick" role="region" aria-label="Explorer journey" aria-live="polite"></div>' +
       '<div class="map-hint">' + (M.hint || 'Click anything on the map to read more. Drag to pan, scroll to zoom.') + '</div></div></div>');
 
   /* ══ MAP SETUP ══ */
@@ -395,6 +402,7 @@
   var current = null, body = document.getElementById('p-body');
   function showAllOnMap() { ROUTE_ORDER.forEach(function (k) { layers[k].group.addTo(map); }); }
   function selectRoute(key, keepView) {
+    endJourney();
     current = key;
     showAllOnMap();
     ROUTE_ORDER.forEach(function (k) { setRouteVisual(k, k === key ? 'full' : 'dim'); });
@@ -403,6 +411,7 @@
     if (!keepView) { try { map.flyToBounds(layers[key].bounds, { padding: [50, 50], duration: .7, maxZoom: 5 }); } catch (e) {} }
   }
   function showAll() {
+    endJourney();
     current = null;
     showAllOnMap();
     ROUTE_ORDER.forEach(function (k) { setRouteVisual(k, 'full'); });
@@ -478,6 +487,203 @@
     body.querySelectorAll('.place[data-r]').forEach(function (b) { b.addEventListener('click', function () { selectRoute(this.dataset.r); }); });
   }
 
+  /* ══ EXPLORER JOURNEYS ══
+     One explorer at a time: the whole voyage faint, the legs sailed so far solid, numbered stops,
+     and a ticker card on the map (Back / Next, the dots, Auto-play, arrow keys) telling what
+     happened at each stop and what came of it. The routes are hidden while a journey is on. */
+  var JOURNEYS = M.journeys || {}, JOURNEY_ORDER = M.journeyOrder || Object.keys(JOURNEYS);
+  var jCur = null, jIdx = 0, jLayer = null, jLegs = [], jMarkers = [], jShip = null, jLabel = null, jAnim = 0, jPlay = 0, jMin = false;
+  var tick = document.getElementById('jr-tick');
+  var reduceMotion = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function jcol(j) { return isDark() && j.colorDark ? j.colorDark : j.color; }
+  function plain(s) { return String(s).replace(/<[^>]+>/g, ''); }
+  function wrapLng(p) { return [p[0], ((p[1] + 180) % 360 + 360) % 360 - 180]; }
+  // Leg k runs from stop k-1 to stop k through stop k's via points. Longitudes are unwrapped
+  // backward from the stop (so the stop keeps its own coordinates), then the leg is densified
+  // so it can be drawn out a little at a time.
+  function legPts(j, k) {
+    var s = j.stops[k], raw = [j.stops[k - 1].c].concat(s.via || []).concat([s.c]), out = [raw[raw.length - 1].slice()];
+    for (var i = raw.length - 2; i >= 0; i--) {
+      var nx = out[0], p = [raw[i][0], raw[i][1]];
+      while (p[1] - nx[1] > 180) p[1] -= 360;
+      while (nx[1] - p[1] > 180) p[1] += 360;
+      out.unshift(p);
+    }
+    var dense = [out[0]];
+    for (var a = 1; a < out.length; a++) {
+      var A = out[a - 1], B = out[a], n = Math.max(1, Math.ceil(Math.max(Math.abs(B[0] - A[0]), Math.abs(B[1] - A[1])) / 1.2));
+      for (var t = 1; t <= n; t++) dense.push([A[0] + (B[0] - A[0]) * t / n, A[1] + (B[1] - A[1]) * t / n]);
+    }
+    return dense;
+  }
+  function offWorld(pts) { return pts.some(function (p) { return p[1] < -180 || p[1] > 180; }); }
+  // the copy one world over, so a date-line crossing reads from either edge of the map
+  function shifted(pts) {
+    var d = pts.some(function (p) { return p[1] < -180; }) ? 360 : -360;
+    return pts.map(function (p) { return [p[0], p[1] + d]; });
+  }
+  function buildJourney(key) {
+    var j = JOURNEYS[key], color = jcol(j);
+    jLayer = L.layerGroup().addTo(map); jLegs = []; jMarkers = [];
+    for (var k = 1; k < j.stops.length; k++) {
+      var pts = legPts(j, k), land = j.stops[k].land, leg = { pts: pts, copies: offWorld(pts) ? [pts, shifted(pts)] : [pts], solid: [] };
+      leg.copies.forEach(function (c) {
+        L.polyline(c, { color: color, weight: 3, opacity: .35, dashArray: land ? '2 8' : '6 8', interactive: false }).addTo(jLayer);
+        leg.solid.push(L.polyline([], { color: color, weight: 4.5, opacity: .95, dashArray: land ? '1 9' : null, lineCap: 'round', lineJoin: 'round', interactive: false }).addTo(jLayer));
+      });
+      jLegs[k] = leg;
+    }
+    j.stops.forEach(function (s, i) {
+      var m = L.marker(s.c, { keyboard: false, riseOnHover: true, icon: L.divIcon({ className: 'jr-pin', html: '<span style="--jc:' + color + '">' + (i + 1) + '</span>', iconSize: [24, 24], iconAnchor: [12, 12] }) })
+        .bindTooltip(s.n, { direction: 'top', offset: [0, -12], className: 'city-tip' })
+        .on('click', function () { stopPlay(); goStop(i); });
+      m.addTo(jLayer); jMarkers.push(m);
+    });
+    jLabel = L.tooltip({ permanent: true, direction: 'right', offset: [14, 0], className: 'city-tip jr-lbl' }).setLatLng(j.stops[0].c).setContent(j.stops[0].n).addTo(jLayer);
+    jShip = L.marker(j.stops[0].c, { interactive: false, keyboard: false, zIndexOffset: 1000, icon: L.divIcon({ className: 'jr-ship', html: '<span>' + (j.icon || '⛵') + '</span>', iconSize: [30, 30], iconAnchor: [15, 44] }) }).addTo(jLayer);
+  }
+  // Fit the view to the leg just sailed, leaving room for the ticker card.
+  function frameStop(j, i) {
+    // On phones the card sits under the map; elsewhere it covers the left side, so keep the stop to its right.
+    var over = getComputedStyle(tick).position === 'absolute';
+    var opt = { paddingTopLeft: [over ? tick.offsetWidth + 40 : 30, 50], paddingBottomRight: [40, 40], duration: .9 };
+    var s = j.stops[i], leg = jLegs[i], z = s.z || 5, b;
+    if (i === 0) { b = L.latLngBounds(j.stops.map(function (x) { return x.c; })); opt.maxZoom = Math.min(z, 4); }
+    else if (offWorld(leg.pts) || L.latLngBounds(leg.pts).getEast() - L.latLngBounds(leg.pts).getWest() > 150) { b = L.latLngBounds([s.c, s.c]); opt.maxZoom = Math.min(z, 3); }
+    else { b = L.latLngBounds(leg.pts); opt.maxZoom = z; }
+    try { map.flyToBounds(b, opt); } catch (e) {}
+  }
+  function animateLeg(k) {
+    var leg = jLegs[k], pts = leg.pts, t0 = null, dur = Math.min(2600, 700 + pts.length * 18);
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var f = Math.min(1, (ts - t0) / dur), n = Math.round(f * (pts.length - 1)) + 1;
+      leg.solid.forEach(function (pl, ci) { pl.setLatLngs(leg.copies[ci].slice(0, n)); });
+      jShip.setLatLng(wrapLng(pts[n - 1]));
+      if (f < 1) jAnim = requestAnimationFrame(step);
+    }
+    jAnim = requestAnimationFrame(step);
+  }
+  function goStop(i, animate) {
+    var j = JOURNEYS[jCur]; if (!j) return;
+    i = Math.max(0, Math.min(j.stops.length - 1, i));
+    cancelAnimationFrame(jAnim);
+    jIdx = i;
+    var s = j.stops[i];
+    for (var k = 1; k < j.stops.length; k++) {
+      var leg = jLegs[k], full = k < i || (k === i && !animate);
+      leg.solid.forEach(function (pl, ci) { pl.setLatLngs(full ? leg.copies[ci] : []); });
+    }
+    jMarkers.forEach(function (m, n) {
+      var el = m.getElement(); if (el) { el.classList.toggle('past', n < i); el.classList.toggle('cur', n === i); }
+      m.setZIndexOffset(n === i ? 500 : 0);
+    });
+    jLabel.setLatLng(s.c).setContent(s.n);
+    renderTick(); markItin();
+    if (animate && jLegs[i]) animateLeg(i); else jShip.setLatLng(s.c);
+    frameStop(j, i);
+  }
+  function next() {
+    var j = JOURNEYS[jCur];
+    if (jIdx >= j.stops.length - 1) goStop(0); else goStop(jIdx + 1, !reduceMotion);
+  }
+  // Auto-play: each stop stays up long enough to read it (about 220 words a minute, 8 s at least).
+  function readMs(s) { return Math.max(8000, (plain(s.what) + ' ' + plain(s.impact)).split(/\s+/).length * 60000 / 220); }
+  function schedule() {
+    var j = JOURNEYS[jCur];
+    jPlay = setTimeout(function () {
+      if (jIdx >= j.stops.length - 1) { jPlay = 0; renderTick(); return; }
+      goStop(jIdx + 1, !reduceMotion); schedule(); renderTick();
+    }, readMs(j.stops[jIdx]));
+  }
+  function stopPlay() { if (jPlay) { clearTimeout(jPlay); jPlay = 0; } }
+  function togglePlay() {
+    if (jPlay) { stopPlay(); renderTick(); return; }
+    if (jIdx >= JOURNEYS[jCur].stops.length - 1) goStop(0);
+    schedule(); renderTick();
+  }
+  function renderTick() {
+    var j = JOURNEYS[jCur]; if (!j) return;
+    var s = j.stops[jIdx], n = j.stops.length, last = jIdx === n - 1, color = jcol(j);
+    var h = '<div class="jr-top"><span class="jr-ic" aria-hidden="true">' + (j.icon || '⛵') + '</span><span class="jr-who"><b>' + j.name + '</b><span>' + j.sub + '</span></span>' +
+      '<button type="button" class="jr-min" aria-expanded="' + !jMin + '">' + (jMin ? 'Show &#9650;' : 'Hide &#9660;') + '</button>' +
+      '<button type="button" class="jr-x" aria-label="Close this journey">&#10005;</button></div>';
+    if (!jMin) {
+      h += '<div class="jr-body"><div class="jr-meta"><span class="jr-step">Stop ' + (jIdx + 1) + ' of ' + n + '</span><span class="jr-yr">' + s.yr + '</span>' +
+        (s.topic ? '<span class="jr-topic">Topic ' + s.topic + '</span>' : '') + '</div>' +
+        '<h3 class="jr-place">' + s.n + '</h3><p class="jr-what">' + s.what + '</p>' +
+        '<div class="jr-imp"><span class="jr-lab">Ramifications</span>' + s.impact + '</div></div>';
+    }
+    h += '<div class="jr-nav"><button type="button" class="jr-prev"' + (jIdx === 0 ? ' disabled' : '') + '>&#8592; Back</button><div class="jr-dots">';
+    for (var i = 0; i < n; i++) h += '<button type="button" class="jr-dot' + (i === jIdx ? ' on' : i < jIdx ? ' past' : '') + '" data-i="' + i + '" aria-label="Stop ' + (i + 1) + ': ' + plain(j.stops[i].n) + '"></button>';
+    h += '</div><button type="button" class="jr-next">' + (last ? 'Start over &#8635;' : 'Next &#8594;') + '</button></div>' +
+      '<div class="jr-foot"><button type="button" class="jr-play" aria-pressed="' + !!jPlay + '">' + (jPlay ? '&#10073;&#10073; Pause' : '&#9654; Auto-play') + '</button><span class="jr-keys">or use the &#8592; &#8594; keys</span></div>';
+    tick.innerHTML = h;
+    tick.style.setProperty('--jc', color);
+    tick.classList.add('show');
+    tick.classList.toggle('min', jMin);
+  }
+  tick.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.classList.contains('jr-x')) { showAll(); return; }
+    if (b.classList.contains('jr-min')) { jMin = !jMin; renderTick(); return; }
+    if (b.classList.contains('jr-play')) { togglePlay(); return; }
+    stopPlay();
+    if (b.classList.contains('jr-prev')) goStop(jIdx - 1);
+    else if (b.classList.contains('jr-next')) next();
+    else if (b.classList.contains('jr-dot')) goStop(+b.dataset.i);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!jCur || e.altKey || e.ctrlKey || e.metaKey || /^(INPUT|TEXTAREA|SELECT)$/.test((e.target || {}).tagName || '')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); stopPlay(); next(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); stopPlay(); goStop(jIdx - 1); }
+  });
+  function renderJourneyPanel() {
+    var j = JOURNEYS[jCur], color = jcol(j);
+    var h = '<div class="rt-head"><div class="rt-title">' + j.name + '</div><div class="rt-sub">' + j.sub + '</div><div class="rt-blurb">' + j.blurb + '</div></div>' +
+      '<div class="sec"><div class="sec-lbl"><span class="ico">🧭</span>The Journey, Stop by Stop</div><div class="place-list">';
+    j.stops.forEach(function (s, i) {
+      h += '<button class="place jr-it" data-i="' + i + '"><span class="pin jr-num" style="background:' + color + '">' + (i + 1) + '</span>' +
+        '<span><span class="p-name">' + s.n + '</span><span class="p-note">' + s.yr + '</span></span><span class="p-go">Go →</span></button>';
+    });
+    body.innerHTML = h + '</div></div>';
+    body.querySelectorAll('.jr-it').forEach(function (b) { b.addEventListener('click', function () { stopPlay(); goStop(+this.dataset.i); }); });
+  }
+  function markItin() { body.querySelectorAll('.jr-it').forEach(function (b) { b.classList.toggle('on', +b.dataset.i === jIdx); }); }
+  function startJourney(key, idx) {
+    endJourney();
+    jCur = key; jIdx = idx || 0; current = null;
+    ROUTE_ORDER.forEach(function (k) { if (map.hasLayer(layers[k].group)) map.removeLayer(layers[k].group); });
+    document.querySelectorAll('.rb').forEach(function (b) { b.classList.toggle('active', b.dataset.j === key); });
+    map.closePopup(); hideHint(); map.keyboard.disable();
+    // a small map: fold the map key so it doesn't cover the voyage
+    if (!legendMin && document.querySelector('.mapcol').clientWidth < 760) { legendMin = true; renderLegend(); }
+    buildJourney(key);
+    renderJourneyPanel();
+    renderTick(); map.invalidateSize();   // on phones the card under the map changes its height
+    goStop(idx || 0);
+  }
+  function endJourney() {
+    if (!jCur) return;
+    cancelAnimationFrame(jAnim); stopPlay();
+    if (jLayer) map.removeLayer(jLayer);
+    jLayer = null; jCur = null; jLegs = []; jMarkers = [];
+    tick.classList.remove('show'); tick.innerHTML = '';
+    map.invalidateSize(); map.keyboard.enable();
+    document.querySelectorAll('.rb[data-j]').forEach(function (b) { b.classList.remove('active'); });
+  }
+  function renderJourneyButtons() {
+    var list = document.getElementById('jr-list'); if (!list) return;
+    list.innerHTML = '';
+    JOURNEY_ORDER.forEach(function (k) {
+      var j = JOURNEYS[k], b = document.createElement('button');
+      b.type = 'button'; b.className = 'rb' + (jCur === k ? ' active' : ''); b.dataset.j = k; b.style.setProperty('--rc', jcol(j));
+      b.innerHTML = '<span class="rb-dot"></span><span><span class="rb-name">' + j.name + '</span><span class="rb-yrs" style="display:block">' + j.sub + '</span></span>';
+      b.addEventListener('click', function () { startJourney(k); });
+      list.appendChild(b);
+    });
+  }
+
   /* ══ CONTROLS ══ */
   function renderRouteButtons() {
     var list = document.getElementById('rb-list'); list.innerHTML = '';
@@ -503,7 +709,7 @@
     document.getElementById('lg-tog').addEventListener('click', function () { legendMin = !legendMin; renderLegend(); });
   }
   var legendMin = false;
-  renderRouteButtons(); renderLegend();
+  renderRouteButtons(); renderLegend(); renderJourneyButtons();
 
   (function () {
     var grid = document.getElementById('pol-grid'); if (!grid) return;
@@ -559,8 +765,8 @@
       L1.lines.concat(L1.areas).forEach(function (l) { l.setStyle({ color: c, fillColor: c }); });
       L1.markers.forEach(function (m) { m.setStyle({ fillColor: c }); });
     });
-    renderRouteButtons(); renderLegend();
-    if (current) renderPanel(current); else renderAllPanel();
+    renderRouteButtons(); renderLegend(); renderJourneyButtons();
+    if (jCur) startJourney(jCur, jIdx); else if (current) renderPanel(current); else renderAllPanel();
   }
   window.addEventListener('storage', function (e) { if (e.key === 'mcTheme') document.documentElement.setAttribute('data-theme', e.newValue === 'dark' ? 'dark' : 'light'); });
   new MutationObserver(function () { refreshTiles(); recolorRoutes(); })

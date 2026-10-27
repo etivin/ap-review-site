@@ -72,7 +72,7 @@
     ['Full Course Narrative', 'fullcourse.html', 'The whole course as one story, with fill-in-the-blank review.', 'narrative full course story review overview whole course', 'Review'],
     ['Trade Route Map', 'unit2-map.html', 'Silk Road, Indian Ocean, and Trans-Saharan routes.', 'map trade routes silk road indian ocean trans-saharan unit 2', 'Map'],
     ['Land Empires Map', 'unit3-map.html', 'Ottoman, Safavid, Mughal, Qing, and more.', 'map land empires gunpowder ottoman safavid mughal unit 3', 'Map'],
-    ['Exploration & Trade Map', 'unit4-map.html', 'Voyages of exploration and Atlantic trade.', 'map exploration voyages atlantic columbian exchange unit 4', 'Map'],
+    ['Exploration & Trade Map', 'unit4-map.html', 'Voyages of exploration and Atlantic trade; follow six explorers stop by stop.', 'map exploration voyages atlantic columbian exchange unit 4 follow an explorer journey dias columbus da gama vasco cortes cortez magellan elcano pizarro conquistador circumnavigation', 'Map'],
     ['Global Tapestry Map', 'unit1-map.html', 'Song China, Dar al-Islam, the Americas, Africa, and Europe in 1200.', 'map regions song dar al-islam mali inca aztec spread of buddhism islam unit 1', 'Map'],
     ['Revolutions Map', 'unit5-map.html', 'Atlantic revolutions, unification, and the Industrial Revolution.', 'map revolutions american french haitian latin american industrial revolution nationalism unit 5', 'Map'],
     ['Imperialism Map', 'unit6-map.html', 'Empires c. 1900, resistance, raw materials, and migration.', 'map imperialism empires scramble for africa resistance migration opium spheres of influence unit 6', 'Map'],

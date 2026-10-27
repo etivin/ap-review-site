@@ -6,11 +6,13 @@
    (u{n}_{topic}_{idx}); the bank size comes from APWH_MCQ on unit pages and from the mcqTotal
    spaced.js saves (components.uN) on game pages.
 
-   Game time: unlocking gives PLAY_MIN (20) minutes of play for that unit, shown in a visible
-   "game time left" box; every MORE_RIGHT (10) more right answers adds PLAY_MIN more. Time counts
-   only while the games are showing, the page is visible and the student used the mouse or keys
-   in the last minute (gamesPlay_uN = {"YYYY-MM-DD": ms}, last FRESH_DAYS days). When it runs
-   out, the Games tab or game page locks again mid-game.
+   Game time: each unlock opens that unit's games for PLAY_MIN (30) minutes of clock time,
+   shown in a visible "game time left" box. The 30 minutes start the first time the unlocked
+   games show (Games tab open or a game page loaded) and are saved in gamesWin_uN = {start}, so
+   every page of the unit shares them. When they run out, the Games tab or game page locks again
+   mid-game. To reopen, the student gets AGAIN_NEEDED (5) more questions right after the time ran
+   out, for another 30 minutes, and so on. If the last 30 minutes ended more than FRESH_DAYS ago,
+   the full MCQ_NEEDED rule applies again.
 
    Two modes, picked from the page:
    - Unit page (unitN.html): everything in the Games tab (#pg-games, every .inner
@@ -31,9 +33,9 @@
   var TKEY = 'gamesLock_teacher';
   var FRESH_DAYS = 7;    // a right answer counts toward the unlock for this many days after it was given
   var MCQ_NEEDED = 20;   // questions to get right: a number (20) or a share of the unit's bank ('25%')
-  var PLAY_MIN = 20;     // minutes of game time each unlock gives
-  var MORE_RIGHT = 10;   // more right answers that earn another PLAY_MIN minutes
-  var TICK = 5000;       // game time is counted in 5-second steps
+  var PLAY_MIN = 30;     // minutes the games stay open after each unlock (clock time)
+  var AGAIN_NEEDED = 5;  // right answers, given after the time ran out, that reopen the games
+  var TICK = 1000;       // the time box and the relock are checked every second
 
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -49,45 +51,34 @@
     var need = pct !== null ? (total ? Math.ceil(total * pct / 100) : 0) : MCQ_NEEDED;
     return total ? Math.min(need, total) : need;
   }
-  /* ---- game time: minutes played per unit, by local date (gamesPlay_uN = {"YYYY-MM-DD": ms}) ---- */
-  function dayKey(t) { var d = new Date(t); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
-  function playLog(unit) { try { return JSON.parse(get('gamesPlay_u' + unit) || '{}') || {}; } catch (e) { return {}; } }
-  function playUsed(unit) {
-    var log = playLog(unit), from = dayKey(Date.now() - (FRESH_DAYS - 1) * 864e5), ms = 0;
-    for (var d in log) if (d >= from) ms += log[d] || 0;
-    return ms;
-  }
-  function addPlay(unit, ms) {
-    var log = playLog(unit), today = dayKey(Date.now()), from = dayKey(Date.now() - FRESH_DAYS * 864e5);
-    for (var d in log) if (d < from) delete log[d];   // drop days that no longer count
-    log[today] = (log[today] || 0) + ms;
-    set('gamesPlay_u' + unit, JSON.stringify(log));
-  }
+  /* ---- game time: the current 30 minutes per unit (gamesWin_uN = {start: ms}) ---- */
+  function getWin(unit) { try { return JSON.parse(get('gamesWin_u' + unit) || 'null'); } catch (e) { return null; } }
+  function startWin(unit) { set('gamesWin_u' + unit, JSON.stringify({ start: Date.now() })); }
 
   function progress(unit) {
     var store = {};
     try { store = JSON.parse(get('apReview_v1') || '{}') || {}; } catch (e) {}
-    var sp = store.spaced || {}, right = 0, since = Date.now() - FRESH_DAYS * 864e5;
+    var now = Date.now(), full = PLAY_MIN * 60000, win = getWin(unit), end = win && win.start ? win.start + full : 0;
+    if (end > now) return { open: true, ready: true, leftMs: end - now };
+    // The time ran out within the last FRESH_DAYS: AGAIN_NEEDED answers given since then reopen the games.
+    var again = end > 0 && now - end < FRESH_DAYS * 864e5;
+    var sp = store.spaced || {}, right = 0, since = again ? end : now - FRESH_DAYS * 864e5;
     var re = new RegExp('^u' + unit + '_(?!fc_)');   // MCQ ids; flashcards are u{n}_fc_*
-    // A question counts once if any answer to it in the window was right.
+    // A question counts once if any answer to it since then was right.
     function rightSince(h) { return !!(h && h.correct && new Date(h.date).getTime() >= since); }
     for (var k in sp) {
       if (re.test(k) && sp[k] && (sp[k].reviewHistory || []).some(rightSince)) right++;
     }
-    var total = bankSize(unit, store), need = needed(total);
-    // Unlocking gives PLAY_MIN minutes; every MORE_RIGHT more right answers add PLAY_MIN more.
-    var plays = need && right >= need ? 1 + Math.floor((right - need) / MORE_RIGHT) : 0;
-    var budget = plays * PLAY_MIN * 60000, used = playUsed(unit);
+    var need = again ? AGAIN_NEEDED : needed(bankSize(unit, store));
     return {
+      open: false, again: again, ready: need > 0 && right >= need, leftMs: full,
       done: need ? Math.min(right, need) : right, total: need, right: right,
       // Percent rule on a game page before the unit page was ever opened: size unknown, show the share.
-      pctOnly: !need,
-      timeUp: plays > 0 && used >= budget, leftMs: Math.max(0, budget - used),
-      nextAt: need + plays * MORE_RIGHT
+      pctOnly: !need
     };
   }
-  // Games are open: enough right answers and game time left.
-  function finished(unit) { var p = progress(unit); return p.total > 0 && p.done >= p.total && !p.timeUp; }
+  // Games are open: inside a 30-minute window, or earned and waiting to start one.
+  function finished(unit) { var p = progress(unit); return p.open || p.ready; }
   function teacher() { return get(TKEY) === '1'; }
 
   function sha256(s) {
@@ -157,16 +148,16 @@
      onOpen(teacher) runs when the teacher code is accepted. */
   function buildPanel(unit, goHtml, onOpen) {
     var p = progress(unit), goal = p.pctOnly ? String(MCQ_NEEDED) + ' of the' : p.total, body;
-    if (p.timeUp) {
-      // Game time used up: the next MORE_RIGHT right answers earn more.
-      var got = p.right - (p.nextAt - MORE_RIGHT), more = p.nextAt - p.right, pct = Math.round(got / MORE_RIGHT * 100);
+    if (p.again) {
+      // The 30 minutes ran out: AGAIN_NEEDED more right answers reopen the games.
+      var more = p.total - p.done, pct = Math.round(p.done / p.total * 100);
       body = '<div class="glk-eyebrow">Unit ' + unit + ' Games: Time is up</div>' +
         '<h3>Earn more game time</h3>' +
-        '<p>You used your ' + PLAY_MIN + ' minutes of game time. Get ' + MORE_RIGHT + ' more Unit ' + unit +
-          ' practice questions right to earn ' + PLAY_MIN + ' more. ' +
+        '<p>Your ' + PLAY_MIN + ' minutes of game time are up. Get ' + p.total + ' more Unit ' + unit +
+          ' practice questions right to unlock ' + PLAY_MIN + ' more. ' +
           (more === 1 ? '1 question to go.' : more + ' questions to go.') + '</p>' +
         '<div class="glk-bar"><i style="width:0"></i></div>' +
-        '<div class="glk-count">' + got + ' / ' + MORE_RIGHT + ' more questions right (' + pct + '%)</div>';
+        '<div class="glk-count">' + p.done + ' / ' + p.total + ' more questions right (' + pct + '%)</div>';
     } else {
       var left = p.total - p.done, pct = p.total ? Math.round(p.done / p.total * 100) : 0;
       body = '<div class="glk-eyebrow">Unit ' + unit + ' Games: Locked</div>' +
@@ -227,26 +218,23 @@
     pill.className = 'glk-time' + (fixed ? ' glk-fixed' : '');
     pill.setAttribute('role', 'status');
     pill.innerHTML = '<span>Unit ' + unit + ' game time left: <b></b></span>' +
-      '<span class="glk-time-note">When it runs out, get ' + MORE_RIGHT + ' more questions right for ' + PLAY_MIN + ' more minutes.</span>';
+      '<span class="glk-time-note">When it runs out, get ' + AGAIN_NEEDED + ' more questions right for ' + PLAY_MIN + ' more minutes.</span>';
     return pill;
   }
-  /* Counts game time while the games are open and in use: isActive() is true, the page is visible,
-     and the student clicked, tapped or pressed a key in the last minute. Keeps the pill current and
-     runs onUp() when the time runs out. Returns a function that refreshes the pill. */
+  /* Runs the 30 minutes: they start the first time the unlocked games show (isActive() is true)
+     and then count on the clock, on or off the page. Keeps the pill current and runs onUp() when
+     the time runs out while the games show. Returns a function that refreshes the pill. */
   function playClock(unit, isActive, pill, onUp) {
-    var lastInput = 0;   // nothing counts until the student actually clicks, taps or presses a key
-    ['pointerdown', 'pointermove', 'keydown', 'touchstart'].forEach(function (t) {
-      window.addEventListener(t, function () { lastInput = Date.now(); }, { capture: true, passive: true });
-    });
     function show() {
       var on = !teacher() && finished(unit) && isActive();
       pill.hidden = !on;
       if (on) pill.querySelector('b').textContent = clock(progress(unit).leftMs);
     }
     setInterval(function () {
-      if (!teacher() && finished(unit) && isActive() && document.visibilityState === 'visible' && Date.now() - lastInput < 60000) {
-        addPlay(unit, TICK);
-        if (!finished(unit)) { show(); onUp(); return; }
+      if (!teacher() && isActive()) {
+        var p = progress(unit);
+        if (!p.ready) { show(); onUp(); return; }
+        if (!p.open) startWin(unit);
       }
       show();
     }, TICK);

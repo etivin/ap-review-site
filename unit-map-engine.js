@@ -497,10 +497,11 @@
   var reduceMotion = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   function jcol(j) { return isDark() && j.colorDark ? j.colorDark : j.color; }
   function plain(s) { return String(s).replace(/<[^>]+>/g, ''); }
-  function wrapLng(p) { return [p[0], ((p[1] + 180) % 360 + 360) % 360 - 180]; }
   // Leg k runs from stop k-1 to stop k through stop k's via points. Longitudes are unwrapped
-  // backward from the stop (so the stop keeps its own coordinates), then the leg is densified
-  // so it can be drawn out a little at a time.
+  // backward from the stop (so the stop keeps its own coordinates); a Catmull-Rom curve through
+  // the points turns the corners into bends, and the curve is resampled at an even spacing so
+  // the ship moves at a steady pace and the line can be drawn out to any length.
+  var STEP = 0.25;   // degrees between resampled points
   function legPts(j, k) {
     var s = j.stops[k], raw = [j.stops[k - 1].c].concat(s.via || []).concat([s.c]), out = [raw[raw.length - 1].slice()];
     for (var i = raw.length - 2; i >= 0; i--) {
@@ -509,27 +510,42 @@
       while (nx[1] - p[1] > 180) p[1] += 360;
       out.unshift(p);
     }
-    var dense = [out[0]];
-    for (var a = 1; a < out.length; a++) {
-      var A = out[a - 1], B = out[a], n = Math.max(1, Math.ceil(Math.max(Math.abs(B[0] - A[0]), Math.abs(B[1] - A[1])) / 1.2));
-      for (var t = 1; t <= n; t++) dense.push([A[0] + (B[0] - A[0]) * t / n, A[1] + (B[1] - A[1]) * t / n]);
+    var curve = [out[0]];
+    for (var a = 0; a < out.length - 1; a++) {
+      var p0 = out[a - 1] || out[a], p1 = out[a], p2 = out[a + 1], p3 = out[a + 2] || out[a + 1];
+      var steps = Math.max(6, Math.ceil(dist(p1, p2) / 0.5));
+      for (var t = 1; t <= steps; t++) {
+        var u = t / steps, u2 = u * u, u3 = u2 * u;
+        curve.push([0, 1].map(function (d) {
+          return .5 * (2 * p1[d] + (p2[d] - p0[d]) * u + (2 * p0[d] - 5 * p1[d] + 4 * p2[d] - p3[d]) * u2 + (3 * p1[d] - p0[d] - 3 * p2[d] + p3[d]) * u3);
+        }));
+      }
     }
-    return dense;
+    var cum = [0];
+    for (var c = 1; c < curve.length; c++) cum.push(cum[c - 1] + dist(curve[c - 1], curve[c]));
+    var len = cum[cum.length - 1], n = Math.max(2, Math.ceil(len / STEP)), pts = [], at = 0;
+    for (var q = 0; q <= n; q++) {
+      var want = len * q / n;
+      while (at < curve.length - 2 && cum[at + 1] < want) at++;
+      pts.push(lerp(curve[at], curve[at + 1], (want - cum[at]) / ((cum[at + 1] - cum[at]) || 1)));
+    }
+    return { pts: pts, len: len || 1e-9 };
   }
+  function dist(A, B) { return Math.sqrt((B[0] - A[0]) * (B[0] - A[0]) + (B[1] - A[1]) * (B[1] - A[1])); }
+  function lerp(A, B, f) { f = Math.max(0, Math.min(1, f)); return [A[0] + (B[0] - A[0]) * f, A[1] + (B[1] - A[1]) * f]; }
   function offWorld(pts) { return pts.some(function (p) { return p[1] < -180 || p[1] > 180; }); }
   // the copy one world over, so a date-line crossing reads from either edge of the map
-  function shifted(pts) {
-    var d = pts.some(function (p) { return p[1] < -180; }) ? 360 : -360;
-    return pts.map(function (p) { return [p[0], p[1] + d]; });
-  }
+  function shiftOf(pts) { return !offWorld(pts) ? 0 : pts.some(function (p) { return p[1] < -180; }) ? 360 : -360; }
   function buildJourney(key) {
     var j = JOURNEYS[key], color = jcol(j);
     jLayer = L.layerGroup().addTo(map); jLegs = []; jMarkers = [];
     for (var k = 1; k < j.stops.length; k++) {
-      var pts = legPts(j, k), land = j.stops[k].land, leg = { pts: pts, copies: offWorld(pts) ? [pts, shifted(pts)] : [pts], solid: [] };
-      leg.copies.forEach(function (c) {
+      var lp = legPts(j, k), land = j.stops[k].land, sh = shiftOf(lp.pts);
+      var leg = { pts: lp.pts, len: lp.len, shifts: sh ? [0, sh] : [0], solid: [] };
+      leg.shifts.forEach(function (d) {
+        var c = lp.pts.map(function (p) { return [p[0], p[1] + d]; });
         L.polyline(c, { color: color, weight: 3, opacity: .35, dashArray: land ? '2 8' : '6 8', interactive: false }).addTo(jLayer);
-        leg.solid.push(L.polyline([], { color: color, weight: 4.5, opacity: .95, dashArray: land ? '1 9' : null, lineCap: 'round', lineJoin: 'round', interactive: false }).addTo(jLayer));
+        leg.solid.push(L.polyline([], { color: color, weight: 4.5, opacity: .95, dashArray: land ? '1 9' : null, lineCap: 'round', lineJoin: 'round', smoothFactor: 0, interactive: false }).addTo(jLayer));
       });
       jLegs[k] = leg;
     }
@@ -541,51 +557,127 @@
     });
     jLabel = L.tooltip({ permanent: true, direction: 'right', offset: [14, 0], className: 'city-tip jr-lbl' }).setLatLng(j.stops[0].c).setContent(j.stops[0].n).addTo(jLayer);
     jShip = L.marker(j.stops[0].c, { interactive: false, keyboard: false, zIndexOffset: 1000, icon: L.divIcon({ className: 'jr-ship', html: '<span>' + (j.icon || '⛵') + '</span>', iconSize: [30, 30], iconAnchor: [15, 44] }) }).addTo(jLayer);
+    measure(); jPos = 0;
   }
-  // Fit the view to the leg just sailed, leaving room for the ticker card.
-  function frameStop(j, i) {
-    // On phones the card sits under the map; elsewhere it covers the left side, so keep the stop to its right.
+  // Draw a leg out to distance d along it (0 = nothing, len = all of it).
+  function pointAt(leg, d) {
+    var n = leg.pts.length - 1, f = Math.max(0, Math.min(1, d / leg.len)) * n, i = Math.min(n - 1, Math.floor(f));
+    return { i: i, p: lerp(leg.pts[i], leg.pts[i + 1], f - i) };
+  }
+  function drawLeg(leg, d) {
+    var part = d <= 0 ? [] : d >= leg.len ? leg.pts : (function (at) { return leg.pts.slice(0, at.i + 1).concat([at.p]); })(pointAt(leg, d));
+    leg.solid.forEach(function (pl, n) {
+      var sh = leg.shifts[n];
+      pl.setLatLngs(sh ? part.map(function (p) { return [p[0], p[1] + sh]; }) : part);
+    });
+  }
+  // The voyage is one line measured from stop 0: jOff[k] is how far along stop k is, jPos is where
+  // the ship is now. Drawing at a position fills every leg up to it and puts the ship there.
+  var jOff = [0], jPos = 0;
+  function measure() { jOff = [0]; for (var k = 1; k < jLegs.length; k++) jOff[k] = jOff[k - 1] + jLegs[k].len; }
+  function shipAt(p) {
+    // the copy of the point nearest the middle of the view, so a date-line crossing stays on screen
+    var c = map.getCenter().lng, best = p[1];
+    [p[1] - 360, p[1] + 360].forEach(function (x) { if (Math.abs(x - c) < Math.abs(best - c)) best = x; });
+    jShip.setLatLng([p[0], best]);
+  }
+  function drawAt(d) {
+    jPos = d;
+    var n = jLegs.length - 1, k = 1;
+    for (var m = 1; m <= n; m++) drawLeg(jLegs[m], d - jOff[m - 1]);
+    if (!n) return shipAt(JOURNEYS[jCur].stops[0].c);
+    while (k < n && jOff[k] < d) k++;
+    shipAt(pointAt(jLegs[k], d - jOff[k - 1]).p);
+  }
+  function stopBefore(d) { var k = 0; while (k < jOff.length - 1 && jOff[k + 1] <= d + 1e-9) k++; return k; }
+  // Snap everything to stop i: legs up to it drawn, the ship and the label on it.
+  function settle(i) {
+    var j = JOURNEYS[jCur];
+    drawAt(jOff[i]);
+    jShip.setLatLng(j.stops[i].c);
+    var el = jShip.getElement(); if (el) el.classList.remove('sailing');
+    jMarkers.forEach(function (m, n) {
+      var e = m.getElement(); if (e) { e.classList.toggle('past', n < i); e.classList.toggle('cur', n === i); }
+      m.setZIndexOffset(n === i ? 500 : 0);
+    });
+    jLabel.setLatLng(j.stops[i].c).setContent(j.stops[i].n);
+    var le = jLabel.getElement(); if (le) le.style.opacity = '';
+  }
+  // View options that keep the ticker card clear: on phones it sits under the map; elsewhere it
+  // covers the left side, so keep the action to its right.
+  function viewOpt(maxZoom) {
     var over = getComputedStyle(tick).position === 'absolute';
-    var opt = { paddingTopLeft: [over ? tick.offsetWidth + 40 : 30, 50], paddingBottomRight: [40, 40], duration: .9 };
-    var s = j.stops[i], leg = jLegs[i], z = s.z || 5, b;
-    if (i === 0) { b = L.latLngBounds(j.stops.map(function (x) { return x.c; })); opt.maxZoom = Math.min(z, 4); }
-    else if (offWorld(leg.pts) || L.latLngBounds(leg.pts).getEast() - L.latLngBounds(leg.pts).getWest() > 150) { b = L.latLngBounds([s.c, s.c]); opt.maxZoom = Math.min(z, 3); }
-    else { b = L.latLngBounds(leg.pts); opt.maxZoom = z; }
-    try { map.flyToBounds(b, opt); } catch (e) {}
+    return { paddingTopLeft: [over ? tick.offsetWidth + 40 : 30, 50], paddingBottomRight: [170, 40], duration: .8, maxZoom: maxZoom };   // room on the right for the stop's name
   }
-  function animateLeg(k) {
-    var leg = jLegs[k], pts = leg.pts, t0 = null, dur = Math.min(2600, 700 + pts.length * 18);
+  // The view for sailing from stop a to stop b: the legs in between, or for one ocean-wide leg
+  // (the Pacific), the stop it ends at. Stop 0 on its own shows the whole voyage.
+  function viewFor(j, a, b) {
+    var lo = Math.min(a, b), hi = Math.max(a, b), z = j.stops[b].z || 5, pts = [], wide = false;
+    if (lo === hi) {
+      if (b === 0) return { b: L.latLngBounds(j.stops.map(function (x) { return x.c; })), z: Math.min(z, 4) };
+      return viewFor(j, b - 1, b);
+    }
+    for (var k = lo + 1; k <= hi; k++) {
+      var lg = jLegs[k], bb = L.latLngBounds(lg.pts);
+      if (offWorld(lg.pts) || bb.getEast() - bb.getWest() > 150) wide = true;
+      pts = pts.concat(lg.pts);
+    }
+    if (!wide) return { b: L.latLngBounds(pts), z: z };
+    if (hi - lo === 1) return { b: L.latLngBounds([j.stops[b].c, j.stops[b].c]), z: Math.min(z, 3) };
+    var cs = []; for (var s = lo; s <= hi; s++) cs.push(j.stops[s].c);
+    return { b: L.latLngBounds(cs), z: 3 };
+  }
+  function fly(v, then) {
+    var done = false, tm = 0;
+    function go() { if (done) return; done = true; clearTimeout(tm); map.off('moveend', go); if (then) then(); }
+    try { map.flyToBounds(v.b, viewOpt(v.z)); } catch (e) {}
+    if (!then) return;
+    map.on('moveend', go);
+    tm = setTimeout(go, 1100);   // in case the view was already there and no move happens
+  }
+  function ease(f) { return f < .5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2; }
+  // Sail from wherever the ship is to stop b along the route, forward (drawing the line) or back
+  // (retracting it). One leg takes 1.7 s; a jump over several legs plays faster, 2.2 s at most.
+  function sail(b, then) {
+    var from = jPos, to = jOff[b], lo = Math.min(from, to), hi = Math.max(from, to), legs = 0;
+    for (var k = 1; k < jOff.length; k++) if (jOff[k] > lo + 1e-9 && jOff[k - 1] < hi - 1e-9) legs++;
+    var dur = legs <= 1 ? 1700 : Math.min(2200, 1300 + 300 * legs), t0 = null;
+    var el = jShip.getElement(); if (el) el.classList.add('sailing');
     function step(ts) {
       if (t0 === null) t0 = ts;
-      var f = Math.min(1, (ts - t0) / dur), n = Math.round(f * (pts.length - 1)) + 1;
-      leg.solid.forEach(function (pl, ci) { pl.setLatLngs(leg.copies[ci].slice(0, n)); });
-      jShip.setLatLng(wrapLng(pts[n - 1]));
-      if (f < 1) jAnim = requestAnimationFrame(step);
+      var f = Math.min(1, (ts - t0) / dur);
+      drawAt(from + (to - from) * ease(f));
+      if (f < 1) jAnim = requestAnimationFrame(step); else then();
     }
     jAnim = requestAnimationFrame(step);
   }
-  function goStop(i, animate) {
+  // Go to stop i: the card changes at once; the map settles on the stretch to sail, then the ship
+  // sails it, and for a jump or a step back the map settles on the new stop when it arrives.
+  // Clicking again mid-voyage turns the ship around from where it is.
+  var jTok = 0;
+  function goStop(i) {
     var j = JOURNEYS[jCur]; if (!j) return;
     i = Math.max(0, Math.min(j.stops.length - 1, i));
+    var tok = ++jTok, from = stopBefore(jPos), oneLeg = jPos === jOff[i - 1];
     cancelAnimationFrame(jAnim);
     jIdx = i;
-    var s = j.stops[i];
-    for (var k = 1; k < j.stops.length; k++) {
-      var leg = jLegs[k], full = k < i || (k === i && !animate);
-      leg.solid.forEach(function (pl, ci) { pl.setLatLngs(full ? leg.copies[ci] : []); });
-    }
-    jMarkers.forEach(function (m, n) {
-      var el = m.getElement(); if (el) { el.classList.toggle('past', n < i); el.classList.toggle('cur', n === i); }
-      m.setZIndexOffset(n === i ? 500 : 0);
-    });
-    jLabel.setLatLng(s.c).setContent(s.n);
     renderTick(); markItin();
-    if (animate && jLegs[i]) animateLeg(i); else jShip.setLatLng(s.c);
-    frameStop(j, i);
+    if (reduceMotion || Math.abs(jPos - jOff[i]) < 1e-9) { settle(i); fly(viewFor(j, i, i)); return; }
+    var le = jLabel.getElement(); if (le) le.style.opacity = 0;   // the name shows again on arrival
+    jMarkers.forEach(function (m) { var e = m.getElement(); if (e) e.classList.remove('cur'); });
+    var a = jPos > jOff[i] ? Math.min(j.stops.length - 1, from + (jPos > jOff[from] + 1e-9 ? 1 : 0)) : from;
+    fly(viewFor(j, a, i), function () {
+      if (tok !== jTok) return;
+      sail(i, function () {
+        if (tok !== jTok) return;
+        settle(i);
+        if (!oneLeg) fly(viewFor(j, i, i));
+      });
+    });
   }
   function next() {
     var j = JOURNEYS[jCur];
-    if (jIdx >= j.stops.length - 1) goStop(0); else goStop(jIdx + 1, !reduceMotion);
+    goStop(jIdx >= j.stops.length - 1 ? 0 : jIdx + 1);
   }
   // Auto-play: each stop stays up long enough to read it (about 220 words a minute, 8 s at least).
   function readMs(s) { return Math.max(8000, (plain(s.what) + ' ' + plain(s.impact)).split(/\s+/).length * 60000 / 220); }
@@ -593,7 +685,7 @@
     var j = JOURNEYS[jCur];
     jPlay = setTimeout(function () {
       if (jIdx >= j.stops.length - 1) { jPlay = 0; renderTick(); return; }
-      goStop(jIdx + 1, !reduceMotion); schedule(); renderTick();
+      goStop(jIdx + 1); schedule(); renderTick();
     }, readMs(j.stops[jIdx]));
   }
   function stopPlay() { if (jPlay) { clearTimeout(jPlay); jPlay = 0; } }
@@ -661,11 +753,12 @@
     buildJourney(key);
     renderJourneyPanel();
     renderTick(); map.invalidateSize();   // on phones the card under the map changes its height
-    goStop(idx || 0);
+    settle(jIdx);
+    goStop(jIdx);
   }
   function endJourney() {
     if (!jCur) return;
-    cancelAnimationFrame(jAnim); stopPlay();
+    jTok++; cancelAnimationFrame(jAnim); stopPlay();
     if (jLayer) map.removeLayer(jLayer);
     jLayer = null; jCur = null; jLegs = []; jMarkers = [];
     tick.classList.remove('show'); tick.innerHTML = '';

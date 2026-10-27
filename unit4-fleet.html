@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 4 Fit Out the Fleet</title>
+<meta name="description" content="Outfit a fleet with the technology of the age of exploration, then keep your crew alive day by day on the voyage.">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* the game keeps its own night-sea palette in both themes */
+  --g-bg:#0b1430;--g-line:#6d84d4;--g-text:#f2e6c8;--g-dim:#c3cbe8;--g-amber:#f5b942;--g-green:#7fd67f;--g-red:#ff7a6b
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--g-bg);color:var(--g-text);font:16px/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+.hidden{display:none!important}
+
+/* the whole game fills the window */
+#shell{position:fixed;inset:0;z-index:1000;background:var(--g-bg);color:var(--g-text);font-family:'VT323',monospace;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:10px;padding:6px 14px;border-bottom:2px solid var(--g-line);flex-shrink:0}
+.top .ttl{font-size:26px;color:var(--g-amber);letter-spacing:.04em;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .ttl small{color:var(--g-dim);font-size:18px;margin-left:10px}
+.hud{display:flex;gap:18px;font-size:24px;white-space:nowrap}
+.hud span{border:2px solid var(--g-amber);padding:0 10px;color:var(--g-text)}
+.hud b{color:var(--g-amber);font-weight:normal}
+.top a,.top button{font:20px 'VT323',monospace;color:var(--g-text);background:transparent;border:2px solid var(--g-line);padding:2px 10px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.top a:hover,.top button:hover{border-color:var(--g-text)}
+.stage{position:relative;height:44vh;min-height:200px;flex-shrink:0;background:#7fb4e6}
+#scene{display:block;width:100%;height:100%;image-rendering:pixelated}
+#scene.fishing{cursor:crosshair}
+.route{position:relative;height:30px;margin:0 22px;border-bottom:2px dashed var(--g-line);flex-shrink:0}
+.route .dot{position:absolute;bottom:-7px;width:12px;height:12px;margin-left:-6px;background:var(--g-bg);border:2px solid var(--g-dim)}
+.route .dot.port{border-color:var(--g-amber)}
+.route .dot.past{background:var(--g-dim)}
+.route .dot.end{border-color:var(--g-green);width:14px;height:14px;margin-left:-7px;bottom:-8px}
+.route .me{position:absolute;bottom:3px;font-size:20px;transform:translateX(-50%);transition:left .25s linear;line-height:1}
+.low{flex:1;min-height:0;display:grid;grid-template-columns:290px minmax(0,1fr)}
+.status{border-right:2px solid var(--g-line);padding:10px 16px;overflow-y:auto}
+.status p{margin:0 0 4px;font-size:22px;line-height:1.15;display:flex;justify-content:space-between;gap:10px}
+.status span{color:var(--g-dim)}
+.techbox{margin:6px 0 8px;padding:6px 0;border-top:1px dashed var(--g-line);border-bottom:1px dashed var(--g-line);display:flex;flex-direction:column;gap:2px;font-size:20px}
+.techbox span{color:var(--g-dim);font-size:18px;text-transform:uppercase;letter-spacing:.06em}
+.techbox b{font-weight:normal;color:var(--g-green)}
+.techbox i{font-style:normal;color:var(--g-dim)}
+.status .lo{color:var(--g-red)}.status .ok{color:var(--g-green)}.status .mid{color:var(--g-amber)}
+.panel{padding:14px 20px 20px;overflow-y:auto}
+.full .low,.low.full{grid-template-columns:minmax(0,1fr)}
+.low.full .status{display:none}
+.say{font-size:26px;line-height:1.2;margin:0 0 12px}
+.say b{color:var(--g-amber);font-weight:normal}
+.say.dim{font-size:21px;color:var(--g-dim)}
+h2{font-weight:normal;font-size:30px;color:var(--g-amber);margin:0 0 8px;letter-spacing:.03em}
+h3{font-weight:normal;font-size:22px;color:var(--g-dim);margin:18px 0 6px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px dashed var(--g-line)}
+.menu{display:flex;flex-direction:column;gap:2px;margin:0 0 10px;max-width:620px}
+.mi{font:24px 'VT323',monospace;text-align:left;background:transparent;color:var(--g-text);border:0;padding:3px 8px;cursor:pointer;line-height:1.15}
+.mi:hover:not(:disabled),.mi:focus-visible{background:var(--g-text);color:var(--g-bg);outline:none}
+.mi:disabled{opacity:.35;cursor:default}
+.mi .k{color:var(--g-amber);margin-right:8px}
+.mi:hover .k{color:var(--g-bg)}
+.mi small{color:var(--g-dim);font-size:19px;margin-left:8px}
+.mi:hover small{color:var(--g-bg)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.gb{font:22px 'VT323',monospace;background:transparent;color:var(--g-text);border:2px solid var(--g-text);padding:3px 14px;cursor:pointer;line-height:1.2}
+.gb:hover:not(:disabled){background:var(--g-text);color:var(--g-bg)}
+.gb.main{border-color:var(--g-amber);color:var(--g-amber)}
+.gb.main:hover:not(:disabled){background:var(--g-amber);color:var(--g-bg)}
+.gb:disabled{opacity:.35;cursor:default}
+.gopts{display:flex;flex-direction:column;gap:6px;margin:6px 0 12px;max-width:760px}
+.gopt{font:22px 'VT323',monospace;text-align:left;background:transparent;color:var(--g-text);border:1px solid var(--g-line);padding:5px 10px;cursor:pointer;line-height:1.15}
+.gopt:hover:not(:disabled){border-color:var(--g-text)}
+.gopt.right{border-color:var(--g-green);color:var(--g-green)}
+.gopt.wrong{border-color:var(--g-red);color:var(--g-red)}
+.gopt:disabled{cursor:default}
+.note{font-family:'Lato',sans-serif;font-size:.9rem;line-height:1.5;background:rgba(255,255,255,.06);border-left:4px solid var(--g-amber);padding:8px 11px;margin:0 0 12px;max-width:820px}
+.note.good{border-left-color:var(--g-green)}
+.note.bad{border-left-color:var(--g-red)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px 14px;align-items:center;padding:6px 0;border-bottom:1px solid var(--g-line);font-size:22px;max-width:980px}
+.row .nm small{display:block;font-family:'Lato',sans-serif;font-size:.8rem;color:var(--g-dim);line-height:1.35}
+.row .pr{color:var(--g-amber);white-space:nowrap}
+.row .ctl{display:flex;align-items:center;gap:6px}
+.row .qty{min-width:80px;text-align:center}
+.step{font:22px 'VT323',monospace;width:32px;height:32px;background:transparent;color:var(--g-text);border:2px solid var(--g-text);cursor:pointer;line-height:1}
+.step:disabled{opacity:.3;cursor:default}
+.bonus{grid-column:1/-1}
+.mlist{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.mcard{border:2px solid var(--g-line);padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.mcard b{font-weight:normal;font-size:26px;color:var(--g-amber)}
+.mcard span{color:var(--g-dim);font-size:19px}
+.mcard p{font-family:'Lato',sans-serif;font-size:.86rem;margin:0;flex:1}
+.logbox{font-size:19px;color:var(--g-dim);border-top:1px dashed var(--g-line);margin-top:12px;padding-top:6px}
+.logbox p{margin:0}
+table.sum{border-collapse:collapse;width:100%;max-width:820px;font-size:21px;margin:8px 0}
+table.sum td{padding:4px 6px;border-bottom:1px solid var(--g-line)}
+table.sum td:last-child{text-align:right;color:var(--g-amber);white-space:nowrap}
+.origins{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin:8px 0 12px;max-width:1000px}
+.origins div{border:1px solid var(--g-line);padding:7px 10px;font-family:'Lato',sans-serif;font-size:.84rem}
+.origins b{display:block;color:var(--g-amber);font-family:'VT323',monospace;font-weight:normal;font-size:21px}
+@media(max-width:800px){
+  .stage{height:32vh}
+  .low{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .status{border-right:0;border-bottom:2px solid var(--g-line);display:grid;grid-template-columns:1fr 1fr;gap:0 16px;padding:6px 14px}
+  .status p{font-size:19px}
+  .techbox{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;gap:2px 14px;font-size:18px}
+  .techbox span{flex-basis:100%}
+  .mlist{grid-template-columns:1fr}
+  .top .ttl small{display:none}
+  .hud{font-size:19px;gap:8px}
+  .top{flex-wrap:wrap}
+}
+</style>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script>
+</head>
+<body>
+
+<div id="shell">
+  <div class="top">
+    <div class="ttl">FIT OUT THE FLEET<small id="topSub">Unit 4 &middot; Transoceanic Interconnections</small></div>
+    <div class="hud hidden" id="hud"><span>Day <b id="hudDay">0</b></span><span><b id="hudDuc">0</b> ducats</span></div>
+    <button type="button" id="fsBtn">&#9974; Full screen</button>
+    <a href="unit4.html#pg-games">&larr; Unit 4 Games</a>
+  </div>
+  <div class="stage"><canvas id="scene" width="800" height="250" aria-label="Your fleet at sea"></canvas></div>
+  <div class="route hidden" id="route"></div>
+  <div class="low" id="low">
+    <div class="status" id="status"></div>
+    <div class="panel" id="panel"></div>
+  </div>
+</div>
+
+<script>
+/* Fit Out the Fleet: buy technology and supplies, then sail day by day.
+   TECH: what you can buy; naming its origin earns a bonus (never a penalty).
+   MISSIONS: stops in order; mi = miles from the previous stop; shop = port prices
+   (food per 10 days, timber per set; buy/sell = market prices per crate of each good,
+   mnote = what the market teaches; the home port's buy list is what the outfitter sells); ev = a challenge solved by one TECH key. Improvise options
+   list the key first and are shuffled when shown; the key is never the longest option. */
+var ORIGINS = {
+  china:'China',
+  islam:'The Islamic world, building on ancient Greece',
+  arab:'Arab and Indian Ocean sailors',
+  port:'Portugal',
+  med:'Mediterranean mapmakers (Italy and Catalonia)',
+  dutch:'The Dutch Republic'
+};
+var TECH = {
+  compass:{ name:'Magnetic compass', cost:15, origin:'china', does:'Points north in any weather. Without it, fog sends you off course.',
+    note:'Chinese sailors used the magnetic compass at sea by about 1100 (Song dynasty). It reached Europe through Indian Ocean and Mediterranean trade.' },
+  astrolabe:{ name:'Mariner&rsquo;s astrolabe', cost:15, origin:'islam', does:'Finds your latitude from the sun or stars, far from land.',
+    note:'Invented by the ancient Greeks and refined by scholars in the Islamic world. Portuguese navigators made a simpler version for use at sea.' },
+  lateen:{ name:'Lateen sail', cost:12, origin:'arab', does:'Sails at an angle into the wind, so calms and headwinds stall you less.',
+    note:'The sail of the Arab dhow, used for centuries in the Indian Ocean and the Mediterranean. The caravel mixed it with square sails.' },
+  rudder:{ name:'Sternpost rudder', cost:10, origin:'china', does:'Steers big, heavy ships. Storms break fewer masts.',
+    note:'Developed in Han China; it was in use in Europe by about 1200, replacing the old steering oar.' },
+  caravel:{ name:'Caravel hull', cost:20, origin:'port', does:'A small, fast, light ship for shallow coasts. A little faster every day.',
+    note:'Portuguese shipbuilders of the 1400s designed it, combining lateen and square sails on a nimble hull.' },
+  charts:{ name:'Portolan charts', cost:8, origin:'med', does:'Maps of coasts and harbors. Keeps you off reefs near land.',
+    note:'Drawn by Italian and Catalan mapmakers from the 1200s for Mediterranean sailing. Great for coasts, little help in the open ocean.' },
+  cannon:{ name:'Shipboard cannons', cost:20, origin:'china', does:'Heavy guns. Pirates and rivals keep their distance.',
+    note:'Gunpowder was invented in China. By the 1400s European states were mounting heavy cannons on ships, which gave Portugal an edge in the Indian Ocean.' },
+  winds:{ name:'Wind knowledge', cost:12, origin:'port', does:'Knowing where the great ocean winds blow. You sail 10% farther each day.',
+    note:'Decades of Portuguese voyages into the Atlantic mapped its wind circles, like the volta do mar, and later sailors learned the westerlies of the southern oceans.' },
+  pilot:{ name:'A local monsoon pilot', cost:15, origin:'arab', does:'An experienced navigator who knows the seasonal winds of the Indian Ocean.',
+    note:'Gujarati, Arab and Swahili pilots had sailed the monsoon routes for centuries. Da Gama hired one at Malindi to reach India.' },
+  fluyt:{ name:'Dutch fluyt', cost:18, origin:'dutch', does:'A cargo ship that needs a small crew, so provisions last longer.',
+    note:'Designed in Holland around 1595, it made Dutch shipping the cheapest in Europe.' }
+};
+var BONUS = 5;
+
+var MISSIONS = [
+  { id:'gama', flag:'pt', name:'Around Africa to India', who:'Portugal, 1497', captain:'Vasco da Gama', start:[1497, 6, 8], crew:170, minCrew:95, budget:170,
+    hist:{ days:316, text:'The real da Gama left Lisbon on July 8, 1497 and reached Calicut on May 20, 1498: 316 days. He lost about half his men, most of them to scurvy, before he got home.' },
+    brief:['Winds and currents along the African coast that run against you','Months out of sight of land','Days of storm clouds at a stormy cape','Huge waves off the southeast coast of Africa','A sea crossing whose winds change with the season','Rivals in a crowded port who will not welcome you'],
+    blurb:'King Manuel wants a sea route to the pepper of India. Sail down Africa, around the Cape, and across the Indian Ocean to Calicut.',
+    goods:{
+      cloth:{ name:'European cloth and brass', home:8, note:'Woolens, linen and brass basins from Europe.' },
+      ivory:{ name:'Ivory', home:20, note:'Elephant tusks from East Africa, prized in India and China.' },
+      gold:{ name:'Gold', home:30, note:'Gold from the Zimbabwe plateau, traded through Swahili ports like Sofala.' },
+      pepper:{ name:'Pepper', home:60, note:'Black pepper from the Malabar Coast of India, the spice Europe wanted most.' },
+      cinnamon:{ name:'Cinnamon', home:50, note:'From Sri Lanka, sold in the markets of Calicut.' }
+    },
+    stops:[
+      { n:'Lisbon', mi:0, land:'city', shop:{ food:4, timber:10, buy:{ cloth:8 } } },
+      { n:'Cape Verde Islands', mi:1600, land:'island', shop:{ food:6, timber:12, sell:{ cloth:12 },
+        mnote:'A small island market. Your European goods sell for a little more here than at home.' },
+        fact:'The Portuguese had settled these islands in the 1460s. Sugar plantations here used enslaved Africans, a model later carried to Brazil and the Caribbean.' },
+      { n:'Off Sierra Leone', mi:600, ev:{ need:'winds', title:'Headwinds off Africa', what:'South of the equator, winds and currents along the African coast push your ships back north.',
+        have:'You swing far out into the Atlantic and ride the westerlies back toward the Cape: the volta do mar.',
+        q:'Sailing straight down the coast is failing. What did Portuguese captains learn to do instead?',
+        o:['Swing far west into the open Atlantic to catch the winds','Row the ships along the coast with crews of enslaved oarsmen','Wait at Elmina until the winds shifted to blow toward the south','Unload the cargo and carry it overland across southern Africa'] } },
+      { n:'The deep South Atlantic', mi:2500, ev:{ need:'astrolabe', title:'Months without land', what:'No coastline for weeks. You need to know how far south you have come before you turn east.',
+        have:'Your pilot measures the sun&rsquo;s height at noon with the astrolabe and fixes your latitude.',
+        q:'How could a navigator find his latitude with no land in sight?',
+        o:['Measure the angle of the sun or Pole Star above the horizon','Drop a weighted line to measure the depth of the ocean floor','Follow the flights of seabirds back toward their nesting islands','Watch the color of the water change from blue to green to gray'] } },
+      { n:'St. Helena Bay', mi:2400, land:'coast', shop:{ food:9, limit:20, sell:{ cloth:14 },
+        mnote:'The Khoikhoi herders trade cattle for brass and beads, but they will not take much cloth.' },
+        fact:'After 93 days out of sight of land, da Gama&rsquo;s crew filled their water casks here and traded with the Khoikhoi herders for cattle.' },
+      { n:'Cape of Good Hope', mi:150, ev:{ need:'compass', title:'Storm at the Cape', what:'Clouds hide the sun and stars for days as you round the southern tip of Africa.',
+        have:'The compass needle still points north, so you hold your course through the storm.',
+        q:'Which tool lets a ship keep its heading when clouds hide the sky?',
+        o:['The magnetic compass, which points north in any weather','The astrolabe, which measures the height of the stars at night','A portolan chart, which shows harbors along the coastline','The lateen sail, which lets the ship turn into the wind'] } },
+      { n:'Off Natal', mi:900, ev:{ need:'rudder', title:'Heavy seas', what:'The current off southeast Africa throws up huge waves against your heavily loaded ships.',
+        have:'The sternpost rudder keeps your heavy ship under control.',
+        q:'Which Chinese invention made steering large, heavy ships much easier?',
+        o:['The sternpost rudder, mounted at the back of the hull','The magnetic compass, fixed beside the steering wheel','Watertight bulkheads that kept the hull from flooding','The junk sail, stiffened with long bamboo battens'] } },
+      { n:'Mozambique', mi:900, land:'city', shop:{ food:10, timber:14, buy:{ ivory:12, gold:18 }, sell:{ cloth:7 },
+        mnote:'Swahili merchants trade gold, ivory and spices across the Indian Ocean. They laugh at your cloth and brass: Europe made little that this market wanted.' },
+        fact:'A Swahili trading city of the Indian Ocean network. The Portuguese were stunned to find Arab ships carrying gold, silver, cloves, pepper and pearls.' },
+      { n:'Malindi', mi:900, land:'city', shop:{ food:11, timber:14, buy:{ ivory:13 }, sell:{ cloth:8, gold:22 },
+        mnote:'Malindi&rsquo;s merchants send ships to India every monsoon season, so ivory is cheap here and gold sells well.' },
+        fact:'The ruler of Malindi, a rival of Mombasa, welcomed da Gama and gave him a pilot who knew the way to India.' },
+      { n:'The Arabian Sea', mi:300, ev:{ need:'pilot', title:'Crossing the Arabian Sea', what:'To reach India you must cross open sea, and the winds here change with the seasons.',
+        have:'Your local pilot knows the monsoon and times the crossing well: 23 days to Calicut.',
+        q:'What did Indian Ocean sailors rely on to time their crossings?',
+        o:['The monsoon winds, which reverse direction with the seasons','The Gulf Stream current, which flows east from the Americas','The westerlies, which blow steadily all year near the equator','The tides, which carry ships across the sea twice each day'] } },
+      { n:'Calicut, India', mi:2000, land:'city', end:true, shop:{ buy:{ pepper:12, cinnamon:14 }, sell:{ ivory:26, gold:32, cloth:6 },
+        mnote:'The great pepper market of the Malabar Coast. Merchants here want gold and silver, not European cloth. Pepper bought here sells for about five times as much back in Lisbon, which is why Portugal kept coming back.' }, ev:{ need:'cannon', title:'Rivals in the harbor', what:'Merchants who already control the pepper trade want your fleet gone, and armed ships gather.',
+        have:'Your cannons keep rival ships at a distance. Portugal will use naval guns to force its way into Indian Ocean trade.',
+        q:'What gave Portuguese fleets an edge over many Indian Ocean ships?',
+        o:['Heavy cannons mounted on ships built to carry their weight','Much larger crews recruited from all over Western Europe','Better trade goods that Indian merchants wanted to buy','Alliances with the Ming navy, which sailed alongside them'] } }
+    ] },
+  { id:'columbus', flag:'es', name:'West Across the Atlantic', who:'Spain, 1492', captain:'Christopher Columbus', start:[1492, 7, 3], crew:90, minCrew:60, budget:140,
+    hist:{ days:224, text:'The real Columbus left Palos on August 3, 1492 and sailed back into Palos on March 15, 1493: 224 days.' },
+    brief:['Near Spain the winds blow the wrong way for going west','Weeks with no land, holding one heading','Winds that keep swinging around against you','Rulers who want maps of every coast','Shallow coasts full of reefs','A winter storm on the way home'],
+    blurb:'Ferdinand and Isabella want a westward route to Asia. Cross the Atlantic, explore what you find, and bring the news home to Spain.',
+    goods:{
+      beads:{ name:'Glass beads, bells and caps', home:6, note:'Cheap trinkets from Europe.' },
+      sugar:{ name:'Canary sugar', home:14, note:'Grown on Canary Island plantations worked by enslaved laborers.' },
+      cotton:{ name:'Cotton', home:16, note:'Spun cotton grown by the Taíno.' },
+      gold:{ name:'Gold ornaments', home:40, note:'Small gold pieces worn by the Taíno. Gold is why Spain came back.' }
+    },
+    stops:[
+      { n:'Palos', mi:0, land:'city', shop:{ food:4, timber:10, buy:{ beads:6 } } },
+      { n:'Canary Islands', mi:800, land:'island', shop:{ food:6, timber:10, buy:{ sugar:8 }, sell:{ beads:7 },
+        mnote:'Sugar from the island plantations sells well back in Spain.' },
+        fact:'Castile had conquered the Canaries from their Indigenous Guanche people. Columbus stopped here to repair the Pinta&rsquo;s rudder and take on supplies.' },
+      { n:'West of the Canaries', mi:80, ev:{ need:'winds', title:'Which way west?', what:'Off Spain the prevailing winds blow from the west. Here in the south, which way do they blow?',
+        have:'You catch the northeast trade winds, which carry you steadily west.',
+        q:'Why did Columbus sail south to the Canary Islands before heading west?',
+        o:['To catch the trade winds that blow from east to west there','To pick up enslaved workers for the new colonies he planned','To avoid Portuguese ships that patrolled the waters near Spain','To buy spices and gold from the merchants of the islands'] } },
+      { n:'Mid-Atlantic', mi:1400, ev:{ need:'compass', title:'Weeks of open ocean', what:'There is no land for weeks, and you must hold a westward heading day and night.',
+        have:'Your compass keeps the fleet pointed west. Columbus even noticed the needle drifting from true north.',
+        q:'What let Columbus hold a westward heading for weeks at sea?',
+        o:['A magnetic compass, an invention that came from China','A portolan chart showing the islands of the far Atlantic','Following the flights of birds toward the setting sun','Sighting the coast of Africa off to the south each day'] } },
+      { n:'The Sargasso Sea', mi:900, ev:{ need:'lateen', title:'Shifting winds', what:'The sea is thick with floating weed, the crew is close to mutiny, and the wind keeps swinging around against you.',
+        have:'Your lateen sails let you tack back and forth at an angle into the wind.',
+        q:'What did the triangular lateen sail let a ship do?',
+        o:['Sail at an angle toward the wind instead of only away','Carry more cargo by taking up less room on the deck','Travel faster downwind than any square sail could go','Stay hidden from enemy ships because it was so low'] } },
+      { n:'Guanahani (San Salvador)', mi:900, land:'island', shop:{ food:8, limit:20, buy:{ cotton:5 }, sell:{ beads:14 },
+        mnote:'The Taíno trade balls of cotton, parrots and food for glass beads and bells. Neither side knows what the other&rsquo;s goods are worth back home.' },
+        fact:'Land on October 12, 1492. The Taíno people who lived here traded cotton, parrots and food. Columbus renamed the island San Salvador and claimed it for Spain.' },
+      { n:'The coast of Cuba', mi:350, land:'coast', ev:{ need:'charts', title:'Mapping the islands', what:'Ferdinand and Isabella want maps of every harbor and coast you find.',
+        have:'Your mapmakers record harbors and coastlines in the portolan style.',
+        q:'What were portolan charts best at showing?',
+        o:['Coastlines and harbors, with lines of compass bearings','Latitudes of places far out in the middle of the ocean','The monsoon seasons of the Indian Ocean, month by month','The borders of kingdoms in Africa and the Middle East'] } },
+      { n:'Hispaniola', mi:300, land:'island', shop:{ food:9, timber:8, buy:{ cotton:5, gold:18 }, sell:{ beads:16 },
+        mnote:'The Taíno chief Guacanagarí trades gold pieces for bells and beads. Columbus&rsquo;s reports of gold will bring thousands of Spaniards, and disaster for the Taíno.' }, ev:{ need:'caravel', title:'Shallow reefs', what:'The water around the island is shallow and full of reefs. On Christmas Eve the big flagship, the Santa María, runs aground.',
+        have:'Your small caravels draw little water and turn quickly, so they slip past the reefs.',
+        q:'Why did explorers prefer small caravels for scouting new coasts?',
+        o:['They were quick, light, and could enter shallow water','They could carry far more cannons than any other ship','They were made from cheap wood found in the Americas','They were the only ships that the Pope allowed to sail'] },
+        fact:'Columbus left 39 men at a fort built from the Santa María&rsquo;s timbers, La Navidad, the first Spanish settlement in the Americas.' },
+      { n:'Near the Azores', mi:2400, ev:{ need:'rudder', title:'Winter storm', what:'A violent storm hits on the way home in February 1493.',
+        have:'The sternpost rudder lets your helmsman keep the ship&rsquo;s bow into the waves.',
+        q:'Which steering technology, first developed in China, helped European ships ride out storms?',
+        o:['The sternpost rudder fixed to the hull','A longer steering oar off the side','Rows of oars along both sides of the ship','A second mast placed at the stern'] } },
+      { n:'Palos', mi:1000, land:'city', end:true }
+    ] },
+  { id:'voc', flag:'nl', name:'Spices for the VOC', who:'Dutch Republic, 1618', captain:'the Dutch East India Company', start:[1618, 11, 20], crew:200, minCrew:110, budget:180,
+    hist:{ days:240, text:'A typical VOC voyage from the Netherlands to Batavia took about eight months, roughly 240 days.' },
+    brief:['Shareholders who want the most cargo for the least cost','A faster way across the southern ocean','Staying in the right band of winds, far from any coast','Island waters full of reefs and seasonal winds','Rain squalls that hide every landmark','English rivals and local rulers who want you gone'],
+    blurb:'The shareholders of the Dutch East India Company want nutmeg and cloves, and big profits. Take the fast southern route to Java.',
+    goods:{
+      silver:{ name:'Silver coin', home:10, note:'Pieces of eight mined in Spanish America. Asia wanted silver more than any European product.' },
+      cloth:{ name:'Woolen cloth', home:8, note:'Dutch woolens, much too heavy for the tropics.' },
+      nutmeg:{ name:'Nutmeg and mace', home:55, note:'Grown only on the tiny Banda Islands.' },
+      cloves:{ name:'Cloves', home:45, note:'From the Maluku, the Spice Islands.' }
+    },
+    stops:[
+      { n:'Texel', mi:0, land:'city', shop:{ food:4, timber:9, buy:{ silver:10, cloth:8 } }, ev:{ need:'fluyt', title:'Cheap cargo, small crews', what:'Before you sail, the company&rsquo;s shareholders demand the most cargo for the lowest cost.',
+        have:'Your fluyts carry huge cargoes with small crews, so every voyage earns more.',
+        q:'Why did the Dutch fluyt make Dutch shipping so profitable?',
+        o:['It held large cargoes but needed only a small crew','It was armed heavily enough to defeat any warship','It could sail up rivers deep into the African interior','It used steam power when the winds were too weak'] } },
+      { n:'Cape Verde Islands', mi:2600, land:'island', shop:{ food:8, limit:20, timber:12, sell:{ cloth:9, silver:11 },
+        mnote:'Portuguese islands at war with the Dutch: there is little trade for you here.' },
+        fact:'Portuguese islands. The Dutch Republic was at war with Spain, which ruled Portugal at this time, so this is a quick and risky stop.' },
+      { n:'Table Bay (Cape of Good Hope)', mi:4100, land:'coast', shop:{ food:9, limit:40, sell:{ cloth:10, silver:10 },
+        mnote:'The Khoikhoi trade cattle for metal and tobacco. Nobody here needs silver.' },
+        fact:'Ships stopped here for water and traded with the Khoikhoi. In 1652 the VOC built a supply station here that grew into Cape Town.' },
+      { n:'The Roaring Forties', mi:300, ev:{ need:'winds', title:'The fast route east', what:'From the Cape, the old route north along Africa and across with the monsoon is slow.',
+        have:'You ride the strong westerlies east across the southern Indian Ocean, then turn north to Java, cutting months off the trip.',
+        q:'How did Dutch ships reach Java faster after about 1611?',
+        o:['They rode strong westerly winds across the southern ocean','They cut a canal through the isthmus at Suez to the Red Sea','They sailed around South America and across the Pacific','They hired Ottoman pilots to guide them through the Gulf'] } },
+      { n:'Southern Indian Ocean', mi:2500, ev:{ need:'astrolabe', title:'Stay in the wind band', what:'You must keep to the band of westerlies, about 35 to 40 degrees south, far from any coast.',
+        have:'Your astrolabe gives your latitude every clear noon, so you stay in the wind band.',
+        q:'What did the mariner&rsquo;s astrolabe measure?',
+        o:['The height of the sun or stars, giving latitude','The ship&rsquo;s speed through the water, in knots','The direction of magnetic north, in any weather','The depth of the water beneath the ship&rsquo;s hull'] } },
+      { n:'Sunda Strait', mi:2700, land:'coast', ev:{ need:'pilot', title:'Island waters', what:'The seas among the islands are full of reefs, and the winds change with the season.',
+        have:'Your local pilot knows the reefs and the monsoon and brings you safely through.',
+        q:'Who did European newcomers rely on to sail the Indian Ocean&rsquo;s monsoon routes?',
+        o:['Local pilots who had sailed the monsoon routes for centuries','Ottoman admirals sent to train the crews of Christian fleets','Chinese officials left behind from Zheng He&rsquo;s treasure fleet','Spanish sailors from Manila who knew the Pacific galleon route'] } },
+      { n:'Off Jayakarta', mi:120, ev:{ need:'compass', title:'Squalls', what:'Heavy rain squalls hide every landmark as you close in on Java.',
+        have:'Your compass keeps you on course until the squall passes.',
+        q:'Where was the magnetic compass first used for navigation?',
+        o:['In China, by sailors of the Song dynasty','In Portugal, at Prince Henry&rsquo;s court','In ancient Greece, by Aegean traders','In Venice, by merchants trading with Egypt'] } },
+      { n:'Batavia (Jakarta)', mi:60, land:'city', end:true, shop:{ buy:{ nutmeg:12, cloves:10 }, sell:{ silver:24, cloth:7 },
+        mnote:'Chinese, Javanese and Gujarati merchants crowd the harbor. They pay well for silver but want no wool. Nutmeg and cloves bought here sell for four or five times as much in Amsterdam.' }, ev:{ need:'cannon', title:'Rivals for the spice trade', what:'English ships and the local ruler&rsquo;s forces surround the Dutch post at Jayakarta.',
+        have:'Your guns win the fight. In 1619 the VOC took Jayakarta, renamed it Batavia, and used force to win a monopoly on nutmeg and cloves.',
+        q:'How did the VOC gain control of the spice trade in the Indonesian islands?',
+        o:['By using armed force to take ports and shut out rivals','By paying the Ming emperor for the right to trade there','By buying spices at higher prices than its rivals paid','By converting local rulers to Protestant Christianity'] } }
+    ] }
+];
+
+var HOLD = 12, BEST_KEY = 'u4FleetBest', MI_STEADY = 85, MI_FAST = 110, SCURVY_DAYS = 40, FISH_CAP = 15;
+var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var $ = function(id){ return document.getElementById(id); };
+function shuffle(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function rnd(a, b){ return a + Math.floor(Math.random() * (b - a + 1)); }
+function loadBest(){ try { return JSON.parse(localStorage.getItem(BEST_KEY) || '{}') || {}; } catch (e) { return {}; } }
+function longestLeg(m){
+  var best = 0, run = 0;
+  m.stops.forEach(function(s, i){ if (!i) return; run += s.mi; if (s.shop || s.end) { best = Math.max(best, run); run = 0; } });
+  return Math.ceil(best / MI_STEADY);
+}
+function fmtDate(d){ return MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+function healthWord(h){ return h > 75 ? ['Good', 'ok'] : h > 50 ? ['Fair', 'mid'] : h > 25 ? ['Poor', 'lo'] : ['Very poor', 'lo']; }
+function low(s){ return s.replace(/^A /, '').toLowerCase(); }
+function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+var M = null, S = null, cart = null, scene = 'title';
+
+/* ── panel helpers ── */
+function panel(html, wide, keep){ var pn = $('panel'), y = pn.scrollTop; pn.innerHTML = html; pn.scrollTop = keep ? y : 0; $('low').classList.toggle('full', !!wide); }
+function menuHtml(items){
+  return '<div class="menu">' + items.map(function(it, i){
+    return '<button class="mi" type="button" data-act="' + it.act + '"' + (it.off ? ' disabled' : '') + '><span class="k">' + (i + 1) + '.</span>' + it.t + (it.sub ? '<small>' + it.sub + '</small>' : '') + '</button>';
+  }).join('') + '</div>';
+}
+/* number keys pick the numbered choices on screen */
+document.addEventListener('keydown', function(e){
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  var n = parseInt(e.key, 10); if (!(n >= 1 && n <= 9)) return;
+  var b = $('panel').querySelectorAll('.mi, [data-m]')[n - 1];
+  if (b && !b.disabled) { e.preventDefault(); b.click(); }
+});
+
+/* ── title ── */
+function title(){
+  scene = 'title'; $('hud').classList.add('hidden'); S = null; M = null; stopTimer();
+  $('route').classList.add('hidden'); $('topSub').innerHTML = 'Unit 4 &middot; Transoceanic Interconnections';
+  var best = loadBest();
+  panel('<h2>Choose your voyage</h2><p class="say dim">Buy your technology and supplies, then sail day by day. Keep the crew fed and healthy, rest when they weaken, fish to stretch your food, and sell trade goods in foreign ports. At each challenge, the right technology gets you through.</p>' +
+    '<div class="mlist">' + MISSIONS.map(function(m, i){
+      return '<div class="mcard"><b>' + m.name + '</b><span>' + m.who + ' &middot; ' + m.captain + '</span><p>' + m.blurb + '</p><span>' + m.crew + ' sailors &middot; ' + m.budget + ' ducats' + (best[m.id] != null ? ' &middot; best ' + best[m.id] : '') + '</span>' +
+        '<button class="gb main" type="button" data-m="' + i + '">' + (i + 1) + '. Take this voyage</button></div>';
+    }).join('') + '</div>', true);
+}
+$('panel').addEventListener('click', function(e){ var b = e.target.closest('[data-m]'); if (b && scene === 'title') store(+b.dataset.m); });
+
+/* ── the outfitter ── */
+function store(i){
+  M = MISSIONS[i]; scene = 'store'; $('hud').classList.add('hidden'); renderStore.keep = false;
+  cart = { tech:{}, asked:{}, food:0, timber:0, goods:{}, open:null, q:{} };
+  Object.keys(TECH).forEach(function(k){
+    cart.q[k] = shuffle(shuffle(Object.keys(ORIGINS).filter(function(o){ return o !== TECH[k].origin; })).slice(0, 3).concat(TECH[k].origin));
+  });
+  $('topSub').innerHTML = M.who + ' &middot; ' + M.captain;
+  renderStore();
+}
+function spent(){
+  var s = 0, sh = M.stops[0].shop;
+  Object.keys(cart.tech).forEach(function(k){ s += TECH[k].cost; });
+  Object.keys(cart.goods).forEach(function(k){ s += cart.goods[k] * sh.buy[k]; });
+  return s + cart.food * sh.food + cart.timber * sh.timber;
+}
+/* the origin bonus counts only for technology still aboard, so buying and returning earns nothing */
+function tagged(){ return Object.keys(cart.tech).filter(function(k){ return cart.asked[k]; }); }
+function purse(){ return M.budget + BONUS * tagged().length - spent(); }
+function renderStore(){
+  var sh = M.stops[0].shop, left = purse(), need = longestLeg(M) + 10;
+  var h = '<h2>The outfitter at ' + M.stops[0].n + '</h2>' +
+    '<p class="say">You have <b>' + left + ' ducats</b> to fit out ' + M.crew + ' sailors.</p>' +
+    '<p class="say" style="font-size:22px">Aboard: ' + (Object.keys(cart.tech).length ? Object.keys(cart.tech).map(function(k){ return '<span style="color:var(--g-green)">&#10003; ' + TECH[k].name + '</span>'; }).join(', ') : '<span style="color:var(--g-dim)">no technology yet</span>') + '</p>' +
+    '<h3>Dangers ahead</h3><p class="say dim" style="margin-bottom:4px">Each one has a technology that answers it. Buy the right ones.</p>' +
+    '<div class="say" style="font-size:22px">' + M.brief.map(function(b, i){ return (i + 1) + '. ' + b; }).join('<br>') + '</div>' +
+    '<h3>Technology</h3><p class="say dim">Name where each one came from and the crown adds ' + BONUS + ' ducats to your purse.</p>';
+  Object.keys(TECH).forEach(function(k){
+    var t = TECH[k], own = !!cart.tech[k];
+    h += '<div class="row"><div class="nm">' + t.name + (own ? ' <span style="color:var(--g-green)">&#10003; aboard</span>' : '') + '<small>' + t.does + '</small></div><div class="pr">' + t.cost + ' d.</div><div class="ctl">' +
+      (own ? '<button class="gb" type="button" data-sell="' + k + '">Return</button>' : '<button class="gb" type="button" data-buy="' + k + '"' + (t.cost > left ? ' disabled' : '') + '>Buy</button>') + '</div>';
+    if (own && cart.open === k) {
+      h += '<div class="bonus"><p class="say" style="font-size:22px;margin:4px 0">Bonus +' + BONUS + ' ducats: where did the ' + low(t.name) + ' come from?</p><div class="gopts">' +
+        cart.q[k].map(function(o){ return '<button class="gopt" type="button" data-o="' + o + '" data-k="' + k + '">' + ORIGINS[o] + '</button>'; }).join('') + '</div></div>';
+    } else if (k in cart.asked) {
+      h += '<div class="bonus note ' + (cart.asked[k] ? 'good' : '') + '">' + (cart.asked[k] ? '<b>Right! +' + BONUS + ' ducats while it stays aboard.</b> ' : '<b>It came from ' + ORIGINS[t.origin] + '.</b> ') + t.note + '</div>';
+    }
+    h += '</div>';
+  });
+  h += '<h3>Supplies</h3>';
+  [['food', 'Provisions (food and water)', (cart.food * 10) + ' days', 'per 10 days', 'Recommended: at least ' + need + ' days to reach the farthest port on this route.'],
+   ['timber', 'Spare masts and timber', cart.timber + (cart.timber === 1 ? ' set' : ' sets'), 'per set', 'Storms can break a mast. Without a spare, repairs take days.']]
+    .forEach(function(r){
+      h += '<div class="row"><div class="nm">' + r[1] + '<small>' + r[4] + '</small></div><div class="pr">' + sh[r[0]] + ' d. ' + r[3] + '</div><div class="ctl">' +
+        '<button class="step" type="button" data-p="' + r[0] + '" data-d="-1"' + (cart[r[0]] ? '' : ' disabled') + ' aria-label="Less">-</button><span class="qty">' + r[2] + '</span>' +
+        '<button class="step" type="button" data-p="' + r[0] + '" data-d="1"' + (sh[r[0]] > left ? ' disabled' : '') + ' aria-label="More">+</button></div></div>';
+    });
+  var loaded = 0; Object.keys(cart.goods).forEach(function(k){ loaded += cart.goods[k]; });
+  h += '<h3>Trade goods</h3><p class="say dim">Your hold carries ' + HOLD + ' crates. Sell goods in the markets of foreign ports, buy what they offer, and bring back what Europe wants. The cargo in your hold at the end counts toward your fortune.</p>';
+  Object.keys(sh.buy).forEach(function(k){
+    var g = M.goods[k], n = cart.goods[k] || 0;
+    h += '<div class="row"><div class="nm">' + g.name + '<small>' + g.note + '</small></div><div class="pr">' + sh.buy[k] + ' d. per crate</div><div class="ctl">' +
+      '<button class="step" type="button" data-g="' + k + '" data-d="-1"' + (n ? '' : ' disabled') + ' aria-label="Less">-</button><span class="qty">' + n + (n === 1 ? ' crate' : ' crates') + '</span>' +
+      '<button class="step" type="button" data-g="' + k + '" data-d="1"' + (sh.buy[k] > left || loaded >= HOLD ? ' disabled' : '') + ' aria-label="More">+</button></div></div>';
+  });
+  h += '<div class="btns" style="margin-top:16px"><button class="gb main" type="button" id="goBtn">Set sail with ' + left + ' ducats</button><button class="gb" type="button" id="backBtn">Choose another voyage</button></div>';
+  panel(h, true, renderStore.keep); renderStore.keep = false;
+  $('goBtn').onclick = function(){ if (!cart.food && !confirm('Sail with no provisions? Your crew will starve.')) return; voyage(); };
+  $('backBtn').onclick = title;
+}
+$('panel').addEventListener('click', function(e){
+  if (scene !== 'store') return;
+  var b = e.target.closest('button'); if (!b || b.disabled) return;
+  renderStore.keep = true;
+  if (b.dataset.buy) { cart.tech[b.dataset.buy] = 1; if (!(b.dataset.buy in cart.asked)) cart.open = b.dataset.buy; renderStore(); }
+  else if (b.dataset.sell) { delete cart.tech[b.dataset.sell]; if (cart.open === b.dataset.sell) cart.open = null; renderStore(); }
+  else if (b.dataset.o) {
+    var k = b.dataset.k, ok = b.dataset.o === TECH[k].origin;
+    cart.asked[k] = ok; cart.open = null; renderStore();
+  } else if (b.dataset.g) {
+    var g = b.dataset.g; cart.goods[g] = Math.max(0, (cart.goods[g] || 0) + (+b.dataset.d)); if (purse() < 0) cart.goods[g]--; if (!cart.goods[g]) delete cart.goods[g]; renderStore();
+  } else if (b.dataset.p) {
+    var p = b.dataset.p; cart[p] = Math.max(0, cart[p] + (+b.dataset.d)); if (purse() < 0) cart[p]--; renderStore();
+  }
+});
+
+/* ── the voyage ── */
+function voyage(){
+  scene = 'voyage';
+  S = { date:new Date(M.start[0], M.start[1], M.start[2]), day:0, stop:0, left:M.stops[1].mi, traveled:0,
+    total:M.stops.reduce(function(s, x){ return s + x.mi; }, 0),
+    food:cart.food * 10, timber:cart.timber, hold:JSON.parse(JSON.stringify(cart.goods)), tBuy:0, tSell:0, ducats:purse(), crew:M.crew, health:100,
+    pace:'steady', rations:'full', atSea:0, calm:0, weather:'fair', docked:true, mode:'menu',
+    tech:cart.tech, score:0, evLog:[], log:[], dead:{}, seen:{}, bought:{}, good:'' };
+  S.score += 10 * tagged().length;
+  $('route').classList.remove('hidden');
+  if (M.stops[0].ev) challenge(M.stops[0], function(){ menu('Your fleet is ready at <b>' + M.stops[0].n + '</b>.'); });
+  else menu('Your fleet is ready at <b>' + M.stops[0].n + '</b>.');
+}
+function has(k){ return !!(S && S.tech[k]); }
+function use(){ return (S.crew / M.crew) * (has('fluyt') ? 0.85 : 1) * { full:1, half:0.65, scant:0.4 }[S.rations]; }
+function addLog(t){ S.log.unshift(fmtDate(S.date) + ': ' + t.replace(/<[^>]+>/g, '').replace(/&rsquo;/g, '\'')); if (S.log.length > 30) S.log.pop(); }
+function lose(n, why){
+  n = Math.min(n, S.crew); if (n <= 0) return '';
+  S.crew -= n; S.dead[why] = (S.dead[why] || 0) + n;
+  return n === 1 ? 'One sailor has died of ' + why + '.' : n + ' sailors have died of ' + why + '.';
+}
+function here(){ return M.stops[S.stop]; }
+function next(){ return M.stops[S.stop + 1]; }
+
+function renderStatus(){
+  $('hud').classList.remove('hidden'); $('hudDay').textContent = S.day; $('hudDuc').textContent = S.ducats;
+  var hw = healthWord(S.health), nx = next(), fd = Math.floor(S.food / Math.max(0.01, use()));
+  $('status').innerHTML =
+    '<p><span>Date</span>' + fmtDate(S.date) + '</p>' +
+    '<p><span>Weather</span>' + ({ fair:'Fair', storm:'Storm', calm:'Becalmed', rain:'Rain', fog:'Fog', night:'Clear night' })[S.weather] + '</p>' +
+    '<p><span>Health</span><b class="' + hw[1] + '" style="font-weight:normal">' + hw[0] + '</b></p>' +
+    '<p><span>Crew</span>' + S.crew + ' of ' + M.crew + '</p>' +
+    '<p><span>Provisions</span><b class="' + (fd < 10 ? 'lo' : fd < 25 ? 'mid' : '') + '" style="font-weight:normal">' + Math.max(0, fd) + ' days</b></p>' +
+    '<p><span>Ducats</span>' + S.ducats + '</p>' +
+    '<p><span>Cargo</span>' + cargo() + ' of ' + HOLD + ' crates</p>' +
+    '<div class="techbox"><span>Technology aboard</span>' +
+    (Object.keys(S.tech).length ? Object.keys(S.tech).map(function(k){ return '<b>&#10003; ' + TECH[k].name + '</b>'; }).join('') : '<i>None</i>') + '</div>' +
+    '<p><span>Pace</span>' + cap(S.pace) + '</p>' +
+    '<p><span>Rations</span>' + cap(S.rations) + '</p>' +
+    (nx ? '<p><span>Next stop</span>' + Math.round(S.left > 0 ? S.left : nx.mi) + ' mi</p><p style="display:block;color:var(--g-amber)">' + nx.n + '</p>' : '');
+  var acc = 0, h = '';
+  M.stops.forEach(function(s, i){
+    acc += s.mi;
+    h += '<span class="dot' + (s.end ? ' end' : s.shop ? ' port' : '') + (i <= S.stop ? ' past' : '') + '" style="left:' + (100 * acc / S.total) + '%" title="' + s.n + '"></span>';
+  });
+  $('route').innerHTML = h + '<span class="me" style="left:' + (100 * S.traveled / S.total) + '%">&#9973;</span>';
+}
+function logHtml(){ return '<div class="logbox">' + S.log.slice(0, 8).map(function(l){ return '<p>' + l + '</p>'; }).join('') + '</div>'; }
+
+/* The main menu, at sea or in port */
+function menu(msg, keep){
+  scene = 'voyage'; S.mode = 'menu'; stopTimer(); if (S.weather === 'night') S.weather = 'fair'; renderStatus();
+  var st = here(), port = S.docked && st.shop, items = [{ act:'sail', t:S.docked ? 'Set sail for ' + next().n : 'Continue sailing' }];
+  var stock = port && st.shop.limit ? st.shop.limit - (S.bought[S.stop] || 0) : 999;
+  if (port && st.shop.food) items.push({ act:'buyfood', t:'Buy 10 days of provisions', sub:st.shop.food + ' ducats' + (st.shop.limit ? ', ' + Math.max(0, stock) + ' days for sale here' : ''), off:st.shop.food > S.ducats || stock < 10 });
+  if (port && st.shop.timber) items.push({ act:'buytimber', t:'Buy a spare mast', sub:st.shop.timber + ' ducats', off:st.shop.timber > S.ducats });
+  if (port && hasMarket(st)) items.splice(1, 0, { act:'market', t:'Enter the market', sub:'buy and sell goods' });
+  items.push({ act:'supplies', t:'Check supplies' });
+  items.push({ act:'pace', t:'Change pace', sub:'now ' + cap(S.pace) });
+  items.push({ act:'rations', t:'Change rations', sub:'now ' + cap(S.rations) });
+  items.push({ act:'rest', t:'Stop to rest', sub:'heals the crew' });
+  if (!S.docked) items.push({ act:'fish', t:'Go fishing', sub:'1 day' });
+  var fact = '';
+  if (port && st.fact && !S.seen[S.stop]) { S.seen[S.stop] = 1; fact = '<div class="note">' + st.fact + '</div>'; }
+  panel('<p class="say">' + (msg || 'What are your orders?') + '</p>' + fact + menuHtml(items) + logHtml(), false, keep);
+}
+function sub(q, opts){ panel('<p class="say">' + q + '</p>' + menuHtml(opts.concat([{ act:'back', t:'Back' }]))); }
+$('panel').addEventListener('click', function(e){
+  if (scene !== 'voyage') return;
+  var mk = e.target.closest('[data-mb],[data-ms]');
+  if (mk && !mk.disabled) return trade(mk.dataset.mb || mk.dataset.ms, !!mk.dataset.mb);
+  var b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
+  var a = b.dataset.act, st = here();
+  if (a === 'sail') return sail();
+  if (a === 'back') return menu();
+  if (a === 'ok') { var t = notice.then; notice.then = null; return t ? t() : sail(); }
+  if (a === 'buyfood') { S.ducats -= st.shop.food; S.food += 10; S.bought[S.stop] = (S.bought[S.stop] || 0) + 10; addLog('Bought 10 days of provisions.'); return menu('You load <b>10 more days</b> of provisions.', true); }
+  if (a === 'buytimber') { S.ducats -= st.shop.timber; S.timber++; return menu('You buy a <b>spare mast</b>.', true); }
+  if (a === 'market') return market();
+  if (a === 'leavemarket') return menu('You leave the market.');
+  if (a === 'finish') return finish(true);
+  if (a === 'supplies') return supplies();
+  if (a === 'pace') return sub('How hard will you drive the ships?', [
+    { act:'p-steady', t:'Steady', sub:'about ' + MI_STEADY + ' miles a day' },
+    { act:'p-fast', t:'Fast', sub:'about ' + MI_FAST + ' miles a day, but the crew wears down' }]);
+  if (a.indexOf('p-') === 0) { S.pace = a.slice(2); return menu('Pace set to <b>' + S.pace + '</b>.'); }
+  if (a === 'rations') return sub('How much will each sailor eat?', [
+    { act:'r-full', t:'Full rations', sub:'keeps the crew healthy' },
+    { act:'r-half', t:'Half rations', sub:'food lasts longer; the crew weakens slowly' },
+    { act:'r-scant', t:'Scant rations', sub:'food lasts much longer; the crew weakens fast' }]);
+  if (a.indexOf('r-') === 0) { S.rations = a.slice(2); return menu('Rations set to <b>' + S.rations + '</b>.'); }
+  if (a === 'rest') return sub('How many days will you rest?' + (S.docked ? ' Rest in port heals faster.' : ' Rest heals faster in port.'),
+    [1, 2, 3, 5].map(function(n){ return { act:'rest-' + n, t:n + (n === 1 ? ' day' : ' days') }; }));
+  if (a.indexOf('rest-') === 0) return rest(+a.slice(5));
+  if (a === 'fish') return fish();
+});
+function supplies(){
+  var techs = Object.keys(S.tech).map(function(k){ return '<p class="say" style="font-size:22px;margin:0 0 4px">&middot; ' + TECH[k].name + ' <span style="color:var(--g-dim)">' + TECH[k].does + '</span></p>'; }).join('') || '<p class="say dim">No technology aboard.</p>';
+  panel('<h2>Your supplies</h2>' +
+    '<p class="say" style="font-size:23px">Provisions: <b>' + Math.floor(S.food) + '</b> days at full rations for the whole crew<br>' +
+    'Spare masts: <b>' + S.timber + '</b><br>Cargo: <b>' + (cargo() ? Object.keys(S.hold).filter(function(k){ return S.hold[k]; }).map(function(k){ return S.hold[k] + ' ' + M.goods[k].name.toLowerCase(); }).join(', ') : 'empty') + '</b> (' + cargo() + ' of ' + HOLD + ' crates)<br>Ducats: <b>' + S.ducats + '</b><br>' +
+    'Days at sea since the last port: <b>' + S.atSea + '</b>' + (S.atSea > SCURVY_DAYS ? ' <span style="color:var(--g-red)">(scurvy is spreading: reach a port)</span>' : '') + '</p>' +
+    '<h3>Technology aboard</h3>' + techs + menuHtml([{ act:'back', t:'Back' }]));
+}
+
+/* Days pass. sailing = the ships are moving. Returns any news. */
+var timer = null;
+function stopTimer(){ if (timer) { clearInterval(timer); timer = null; } }
+function pass(sailing, resting){
+  S.day++; S.date = new Date(S.date.getTime() + 864e5);
+  if (!S.docked) S.atSea++;
+  S.food = Math.max(0, S.food - use());
+  var dh = S.food <= 0 ? -8 : { full:0, half:-0.4, scant:-1 }[S.rations];
+  if (resting) dh += S.docked ? 8 : 4;
+  if (sailing && S.pace === 'fast') dh -= 0.7;
+  if (S.atSea > SCURVY_DAYS) dh -= 1 + (S.atSea - SCURVY_DAYS) * 0.06;
+  S.health = Math.max(0, Math.min(100, S.health + dh));
+  var news = [];
+  if (S.health < 60 && Math.random() < Math.min(1, (60 - S.health) / 80)) {
+    var why = S.food <= 0 ? 'hunger and thirst' : S.atSea > SCURVY_DAYS ? 'scurvy' : 'fever';
+    var died = lose(rnd(1, Math.max(1, Math.round(M.crew * (60 - S.health) / 1500))), why);
+    if (sailing) { addLog(died); S.died = died; } else news.push(died);
+  }
+  if (sailing) {
+    var mi = (S.pace === 'fast' ? MI_FAST : MI_STEADY) * (has('winds') ? 1.1 : 1) * (has('caravel') ? 1.05 : 1);
+    if (S.calm > 0) { S.calm--; mi = 0; }
+    else S.weather = Math.random() < 0.1 ? 'rain' : 'fair';
+    S.left -= mi; S.traveled = Math.min(S.total, S.traveled + mi);
+    if (!news.length && Math.random() < 0.08) {
+      var ev = seaEvent();
+      if (ev.charAt(0) === '+') { S.good = ev.slice(1); addLog(S.good); } else news.push(ev);
+    }
+  }
+  return news.filter(Boolean);
+}
+function sail(){
+  if (S.docked) { S.docked = false; S.left = next().mi; addLog('Set sail for ' + next().n + '.'); }
+  S.mode = 'sail'; S.weather = 'fair';
+  S.good = '';
+  panel('<p class="say">Sailing for <b>' + next().n + '</b>...</p><p class="say" id="sailNews" style="color:var(--g-green);font-size:23px"></p><p class="say" id="sailWarn" style="color:var(--g-red);font-size:23px"></p>' + menuHtml([{ act:'back', t:'Stop the ships', sub:'to rest, fish, or change pace or rations' }]) + logHtml());
+  renderStatus();
+  stopTimer();
+  timer = setInterval(function(){
+    var news = pass(true);
+    renderStatus();
+    if (dead()) return;
+    if (S.good && $('sailNews')) $('sailNews').textContent = S.good;
+    if (S.health > 60) S.warned = false;
+    if (S.health < 40 && !S.warned) { S.warned = true; return notice('<b>Your crew is weak and sailors are dying.</b> Stop to rest, give full rations, go fishing if food is short, or push hard for the next port.'); }
+    var fd = S.food / Math.max(0.01, use());
+    if ($('sailWarn')) $('sailWarn').textContent = (S.died ? S.died + ' ' : '') + (fd < 15 ? (fd <= 0 ? 'Out of provisions! The crew is starving. Press 1 to stop and go fishing.' : 'Provisions are running low. Press 1 to stop the ships and go fishing.') : '');
+    S.died = '';
+    if (news.length) { news.forEach(addLog); return notice(news.join(' ')); }
+    if (S.left <= 0) arrive();
+  }, 260);
+}
+function notice(msg, then){
+  S.mode = 'notice'; stopTimer(); renderStatus();
+  panel('<p class="say">' + msg + '</p>' + menuHtml([{ act:'ok', t:'Continue' }]) + logHtml());
+  notice.then = then || null;
+}
+function dead(){
+  if (S.crew >= M.minCrew) return false;
+  stopTimer(); S.mode = 'over';
+  notice('<b>Only ' + S.crew + ' sailors are left, too few to work the ships. The voyage is abandoned.</b>', function(){ finish(false); });
+  return true;
+}
+
+/* Random days at sea; technology changes the odds */
+function brokeMast(chance){
+  if (Math.random() > chance) return '';
+  if (S.timber) { S.timber--; return ' A mast cracked, but you had a spare and fixed it.'; }
+  S.calm += 4; return ' A mast cracked, and with no spare the crew spends 4 days rigging a new one.';
+}
+function seaEvent(){
+  var nx = next(), nearCoast = nx.land && S.left < 200;
+  var table = [
+    [14, function(){ S.weather = 'storm'; S.calm = rnd(1, 2); return 'A storm! The fleet is driven back and loses ' + S.calm + (S.calm === 1 ? ' day.' : ' days.') + brokeMast(has('rudder') ? 0.15 : 0.45); }],
+    [has('lateen') ? 5 : 12, function(){ S.calm = rnd(2, 4); S.weather = 'calm'; return 'Becalmed. Not a breath of wind: ' + S.calm + ' days without moving.' + (has('lateen') ? '' : ' (A lateen sail would catch the lightest wind.)'); }],
+    [has('compass') ? 0 : 9, function(){ S.left += 170; S.weather = 'fog'; return 'Thick fog. With no compass you drift off course and lose about two days.'; }],
+    [has('astrolabe') || S.atSea < 15 ? 0 : 8, function(){ S.left += 110; return 'Unsure of your latitude, the fleet doubles back to check. You lose a day.'; }],
+    [5, function(){ S.food += 6; return '+A huge school of fish swarms the ships. The crew catches 6 days of food.'; }],
+    [6, function(){ S.weather = 'rain'; S.food += 3; return '+Heavy rain. You refill the water casks.'; }],
+    [6, function(){ var l = Math.round(S.food * 0.15); S.food -= l; return 'Rats got into the biscuit. You lose ' + l + ' days of food.'; }],
+    [6, function(){ S.health = Math.max(0, S.health - 8); return 'Fever spreads below decks. ' + lose(rnd(1, 3), 'fever'); }],
+    [4, function(){ lose(1, 'drowning'); return 'A sailor is swept overboard in the night and is lost.'; }],
+    [S.stop > 0 ? 5 : 0, function(){
+      if (has('cannon')) return 'Pirates close in, but a few shots from your cannons drive them off.';
+      var take = Math.min(S.ducats, rnd(10, 20)); S.ducats -= take; S.food = Math.max(0, S.food - 8);
+      return 'Pirates board one of your ships! With no cannons to stop them they take ' + take + ' ducats and 8 days of food. ' + lose(rnd(2, 4), 'wounds'); }],
+    [7, function(){ S.left -= 140; return '+A strong, steady wind fills the sails. You make an extra 140 miles.'; }],
+    [nearCoast && !has('charts') ? 12 : 0, function(){ S.calm = 2; return 'You strike a reef in unknown waters and spend 2 days patching the hull. (Portolan charts would have shown the hazards.)' + brokeMast(0.3); }]
+  ];
+  var tot = table.reduce(function(s, t){ return s + t[0]; }, 0), r = Math.random() * tot;
+  for (var i = 0; i < table.length; i++) { r -= table[i][0]; if (r < 0) return table[i][1](); }
+  return '';
+}
+
+/* Resting: the scene turns to night and the days tick by */
+function rest(n){
+  S.mode = 'rest'; stopTimer(); S.weather = 'night';
+  var before = healthWord(S.health)[0], i = 0, news = [];
+  panel('<p class="say">The crew rests' + (S.docked ? ' in port' : ' at anchor') + '. Sails are furled and the watch is light.</p><p class="say" id="restDay"><b>Day 0 of ' + n + '</b></p>');
+  renderStatus();
+  timer = setInterval(function(){
+    i++; news = news.concat(pass(false, true)); renderStatus();
+    var d = $('restDay'); if (d) d.innerHTML = '<b>Day ' + i + ' of ' + n + '</b> &middot; ' + fmtDate(S.date) + ' &middot; health ' + healthWord(S.health)[0];
+    if (i < n) return;
+    stopTimer(); S.weather = 'fair'; addLog('Rested ' + n + (n === 1 ? ' day.' : ' days.'));
+    if (dead()) return;
+    menu('You rested <b>' + n + (n === 1 ? ' day' : ' days') + '</b>. Crew health: ' + before + ' &rarr; <b>' + healthWord(S.health)[0] + '</b>.' + (news.length ? ' ' + news.join(' ') : ''));
+  }, 700);
+}
+
+/* Fishing: click the fish that leap from the water */
+var fishing = null;
+function fish(){
+  S.mode = 'fish'; stopTimer();
+  fishing = { start:performance.now(), len:15000, fish:[], caught:0, nextAt:0, pops:[] };
+  $('scene').classList.add('fishing');
+  panel('<p class="say">Lines over the side! <b>Click the fish</b> as they leap from the water. You have 15 seconds.</p><p class="say dim">Each fish feeds the crew for 1 day. You can salt and store at most ' + FISH_CAP + ' days of fish from one trip.</p>' +
+    menuHtml([{ act:'fishstop', t:'Stop fishing' }]));
+  $('panel').querySelector('[data-act="fishstop"]').onclick = endFish;
+}
+function endFish(){
+  if (!fishing) return;
+  var days = Math.min(FISH_CAP, fishing.caught);
+  fishing = null; $('scene').classList.remove('fishing');
+  var news = pass(false);
+  S.food += days; addLog('Fishing: ' + days + ' days of food.');
+  if (dead()) return;
+  menu('You spent a day fishing and brought in <b>' + days + ' days of food</b>.' + (news.length ? ' ' + news.join(' ') : ''));
+}
+$('scene').addEventListener('pointerdown', function(e){
+  if (!fishing) return;
+  var r = this.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height;
+  fishing.fish.forEach(function(f){
+    if (f.caught || f.gone) return;
+    if (Math.abs(f.x - x) < 34 && Math.abs(f.y - y) < 28) { f.caught = true; fishing.caught++; fishing.pops.push({ x:f.x, y:f.y, t:performance.now() }); }
+  });
+});
+
+/* ── the market: buy low, sell high, and learn what each place wanted ── */
+function cargo(){ var n = 0; for (var k in S.hold) n += S.hold[k]; return n; }
+function hasMarket(st){ return !!(st.shop && (st.shop.buy || st.shop.sell)); }
+function market(msg, final){
+  scene = 'voyage'; S.mode = 'market'; stopTimer(); renderStatus();
+  market.final = !!final;
+  var st = here(), sh = st.shop, h = (msg ? '<p class="say">' + msg + '</p>' : '') + '<h2>The market at ' + st.n + '</h2>' + (sh.mnote ? '<div class="note">' + sh.mnote + '</div>' : '') +
+    '<p class="say">Purse: <b>' + S.ducats + ' ducats</b> &middot; Hold: <b>' + cargo() + ' of ' + HOLD + '</b> crates</p>';
+  Object.keys(M.goods).forEach(function(k){
+    var g = M.goods[k], n = S.hold[k] || 0, bp = sh.buy && sh.buy[k], sp = sh.sell && sh.sell[k];
+    if (!bp && !sp && !n) return;
+    h += '<div class="row"><div class="nm">' + g.name + ' <span style="color:var(--g-dim)">(you have ' + n + ')</span><small>' + g.note + ' Worth about ' + g.home + ' ducats back home.</small></div>' +
+      '<div class="pr">' + (bp ? 'Buy ' + bp : '') + (bp && sp ? ' &middot; ' : '') + (sp ? 'Sell ' + sp : (bp ? '' : 'No buyers')) + '</div><div class="ctl">' +
+      (bp ? '<button class="gb" type="button" data-mb="' + k + '"' + (bp > S.ducats || cargo() >= HOLD ? ' disabled' : '') + '>Buy</button>' : '') +
+      (sp ? '<button class="gb" type="button" data-ms="' + k + '"' + (n ? '' : ' disabled') + '>Sell</button>' : '') + '</div></div>';
+  });
+  h += '<p class="say dim" style="margin-top:10px">Trade so far: bought ' + S.tBuy + ' ducats of goods, sold ' + S.tSell + '.</p>' +
+    menuHtml([final ? { act:'finish', t:'Finish the voyage' } : { act:'leavemarket', t:'Leave the market' }]);
+  panel(h, false, market.keep); market.keep = false;
+}
+function trade(k, buying){
+  var sh = here().shop, g = M.goods[k];
+  if (buying) {
+    if (sh.buy[k] > S.ducats || cargo() >= HOLD) return;
+    S.ducats -= sh.buy[k]; S.tBuy += sh.buy[k]; S.hold[k] = (S.hold[k] || 0) + 1; addLog('Bought a crate of ' + g.name.toLowerCase() + ' for ' + sh.buy[k] + '.');
+  } else {
+    if (!S.hold[k]) return;
+    S.hold[k]--; S.ducats += sh.sell[k]; S.tSell += sh.sell[k]; addLog('Sold a crate of ' + g.name.toLowerCase() + ' for ' + sh.sell[k] + '.');
+  }
+  market.keep = true; market(null, market.final);
+}
+
+/* ── stops and challenges ── */
+function arrive(){
+  stopTimer();
+  S.stop++; S.left = 0;
+  S.traveled = M.stops.slice(0, S.stop + 1).reduce(function(s, x){ return s + x.mi; }, 0);
+  var st = here();
+  if (st.shop || st.end) { S.docked = true; S.atSea = 0; S.health = Math.min(100, S.health + 5); }
+  addLog('Reached ' + st.n + '.');
+  renderStatus();
+  var after = function(){
+    if (st.end) return hasMarket(st) ? market('You have reached <b>' + st.n + '</b>! Before the voyage ends, trade one last time: whatever is in your hold counts toward your fortune.', true) : finish(true);
+    if (hasMarket(st)) return market('You have reached <b>' + st.n + '</b>. Merchants crowd the docks.');
+    if (st.shop) return menu('You have reached <b>' + st.n + '</b>.');
+    S.left = next().mi; sail();
+  };
+  if (st.ev) challenge(st, after);
+  else after();
+}
+function challenge(st, then){
+  var ev = st.ev; S.mode = 'event'; stopTimer(); renderStatus();
+  var h = '<p class="say dim">' + st.n + '</p><p class="say"><b>' + ev.title + '.</b> ' + ev.what + '</p>';
+  if (has(ev.need)) h += '<div class="menu"><button class="mi" type="button" id="useBtn"><span class="k">1.</span>Use your ' + low(TECH[ev.need].name) + '</button></div>';
+  else h += '<p class="say dim">Nothing aboard solves this. Improvise: answer correctly to get through with smaller losses.</p>' +
+      '<p class="say" style="font-size:24px">' + ev.q + '</p><div class="gopts" id="impOpts">' +
+      shuffle(ev.o.map(function(o, i){ return { t:o, ok:i === 0 }; })).map(function(o){ return '<button class="gopt" type="button" data-ok="' + (o.ok ? 1 : 0) + '">' + o.t + '</button>'; }).join('') + '</div>';
+  panel(h + '<div id="evOut"></div>');
+  function done(html){
+    $('evOut').innerHTML = html + '<div class="menu"><button class="mi" type="button" id="evCont"><span class="k">1.</span>Continue</button></div>';
+    var u = $('useBtn'); if (u) u.classList.remove('mi');
+    renderStatus();
+    $('evCont').onclick = function(){ if (!dead()) then(); };
+  }
+  if ($('useBtn')) $('useBtn').onclick = function(){
+    this.disabled = true; S.score += 20; S.evLog.push({ ev:ev, how:'tech' });
+    addLog(ev.title + ': solved with the ' + low(TECH[ev.need].name) + '.');
+    done('<div class="note good"><b>' + TECH[ev.need].name + ':</b> ' + ev.have + '</div>');
+  };
+  if ($('impOpts')) $('impOpts').onclick = function(e){
+    var b = e.target.closest('.gopt'); if (!b || b.disabled) return;
+    var ok = b.dataset.ok === '1';
+    Array.prototype.forEach.call(this.querySelectorAll('.gopt'), function(x){ x.disabled = true; if (x.dataset.ok === '1') x.classList.add('right'); });
+    if (!ok) b.classList.add('wrong');
+    var days = ok ? 3 : 7, news = [lose(Math.round(M.crew * (ok ? 0.04 : 0.12)), 'injuries')];
+    for (var i = 0; i < days; i++) news = news.concat(pass(false));
+    if (ok) S.score += 10;
+    S.evLog.push({ ev:ev, how:ok ? 'right' : 'wrong' });
+    addLog(ev.title + (ok ? ': improvised.' : ': disaster.'));
+    done('<div class="note ' + (ok ? 'good' : 'bad') + '">' + (ok ? 'You improvise and get through.' : 'A costly mistake.') + ' ' + days + ' days lost. ' + news.filter(Boolean).join(' ') +
+      ' <b>The tool for this was the ' + low(TECH[ev.need].name) + '.</b> ' + ev.have + '</div>');
+  };
+}
+
+/* ── the end ── */
+function finish(arrived){
+  stopTimer(); scene = 'end'; S.mode = 'over';
+  var surv = Math.round(100 * S.crew / M.crew), st = M.stops[M.stops.length - 1];
+  var cargoVal = 0; Object.keys(S.hold).forEach(function(k){ cargoVal += S.hold[k] * M.goods[k].home; });
+  var fortune = S.ducats + cargoVal, fortunePts = Math.floor(fortune / 2);
+  var par = Math.round(S.total / MI_STEADY) + 30, quick = arrived ? Math.max(0, par - S.day) * 3 : 0;
+  if (arrived) S.score += 50 + surv + quick + fortunePts;
+  var best = loadBest(), isBest = best[M.id] == null || S.score > best[M.id];
+  if (isBest) { best[M.id] = S.score; try { localStorage.setItem(BEST_KEY, JSON.stringify(best)); } catch (e) {} }
+  var deaths = Object.keys(S.dead).map(function(k){ return S.dead[k] + ' to ' + k; }).join(', ');
+  var rows = S.evLog.map(function(r){
+    return '<tr><td>' + r.ev.title + ' <span style="color:var(--g-dim)">(needed: ' + TECH[r.ev.need].name + ')</span></td><td>' + (r.how === 'tech' ? 'Solved +20' : r.how === 'right' ? 'Improvised +10' : 'Disaster +0') + '</td></tr>';
+  });
+  var nTag = tagged().length;
+  rows.push('<tr><td>Origins named correctly</td><td>' + nTag + ' &times; 10</td></tr>');
+  if (arrived) rows.push('<tr><td>Arrival</td><td>+50</td></tr><tr><td>Crew alive: ' + surv + '% (+1 per percent)</td><td>+' + surv + '</td></tr><tr><td>Speed: ' + S.day + ' days (par ' + par + ', +3 for each day under)</td><td>+' + quick + '</td></tr><tr><td>Fortune: ' + S.ducats + ' ducats + cargo worth ' + cargoVal + (M.stops[0].n === st.n ? ' here at home' : ' back home') + ' = ' + fortune + ' (+1 per 2 ducats)</td><td>+' + fortunePts + '</td></tr>');
+  rows.push('<tr><td>Trade ledger: bought ' + S.tBuy + ', sold ' + S.tSell + '</td><td>' + (S.tSell - S.tBuy >= 0 ? '+' : '') + (S.tSell - S.tBuy) + ' d.</td></tr>');
+  var by = {};
+  Object.keys(TECH).forEach(function(k){ (by[TECH[k].origin] = by[TECH[k].origin] || []).push(TECH[k].name); });
+  panel('<h2>' + (arrived ? (surv >= 75 ? 'A legendary voyage!' : surv >= 50 ? 'You made it.' : 'You limped into port.') : 'The voyage failed.') + '</h2>' +
+    '<p class="say">' + (arrived ? 'You reached ' + st.n + ' on ' + fmtDate(S.date) + ' after ' + S.day + ' days' : 'The voyage ended on ' + fmtDate(S.date) + ' after ' + S.day + ' days') +
+    ', with ' + S.crew + ' of ' + M.crew + ' sailors alive.' + (deaths ? ' Lost: ' + deaths + '.' : '') + '</p>' +
+    '<p class="say dim">' + M.hist.text + '</p>' +
+    '<p class="say">Score: <b>' + S.score + '</b>' + (isBest ? ' (new best on this browser!)' : ' (your best: ' + best[M.id] + ')') + '</p>' +
+    '<table class="sum">' + rows.join('') + '</table>' +
+    '<h3>Where the technology came from</h3><div class="origins">' + Object.keys(ORIGINS).map(function(o){ return '<div><b>' + ORIGINS[o] + '</b>' + by[o].join(', ') + '</div>'; }).join('') + '</div>' +
+    '<div class="note"><b>The big idea (4.1):</b> Europe&rsquo;s ocean voyages were built on technology borrowed from across Afro-Eurasia: the compass, sternpost rudder and gunpowder from China, the astrolabe from Greek and Islamic scholars, the lateen sail and monsoon knowledge from Arab and Indian Ocean sailors. Europeans combined and adapted them, then added new ship designs and knowledge of Atlantic winds.</div>' +
+    '<div class="menu"><button class="mi" type="button" id="againBtn"><span class="k">1.</span>Sail this voyage again</button><button class="mi" type="button" id="otherBtn"><span class="k">2.</span>Choose another voyage</button></div>', true);
+  $('againBtn').onclick = function(){ store(MISSIONS.indexOf(M)); };
+  $('otherBtn').onclick = title;
+  if (window.APWH_ACTIVITY) APWH_ACTIVITY.done('game', 'fleet');
+}
+
+/* ── full screen ── */
+$('fsBtn').onclick = function(){
+  if (document.fullscreenElement) document.exitFullscreen();
+  else if ($('shell').requestFullscreen) $('shell').requestFullscreen().catch(function(){});
+};
+document.addEventListener('fullscreenchange', function(){ $('fsBtn').innerHTML = document.fullscreenElement ? '&#10005; Exit full screen' : '&#9974; Full screen'; setTimeout(fit, 50); });
+
+/* ── the pixel scene ── */
+var cv = $('scene'), cx = cv.getContext('2d'), P = 4, W = 800, H = 250, SEA = 150;
+var wave = 0, cloud = 0, rain = [], stars = [];
+for (var ri = 0; ri < 70; ri++) rain.push([Math.random() * 900, Math.random() * 400]);
+for (var si = 0; si < 60; si++) stars.push([Math.random(), Math.random() * 0.55, Math.random()]);
+function fit(){
+  var r = cv.getBoundingClientRect(); if (!r.width) return;
+  H = 260; W = Math.max(400, Math.round(H * r.width / r.height / P) * P);
+  cv.width = W; cv.height = H; SEA = 168;
+}
+window.addEventListener('resize', fit);
+function px(x, y, w, h, c){ cx.fillStyle = c; cx.fillRect(Math.round(x / P) * P, Math.round(y / P) * P, w * P, h * P); }
+function drawSky(kind){
+  var bands = kind === 'night' ? ['#0a1028', '#0e1634', '#131d40', '#18244c'] : kind === 'storm' ? ['#2b3445', '#323d51', '#3a465c', '#43506a'] : ['#5e98d6', '#6ea6de', '#80b4e5', '#95c3eb'];
+  var bh = Math.ceil(SEA / 4 / P);
+  for (var i = 0; i < 4; i++) px(0, i * bh * P, W / P + 1, bh, bands[i]);
+  if (kind === 'night') {
+    stars.forEach(function(s){ if (Math.sin(Date.now() / 600 + s[2] * 9) > -0.6) px(s[0] * W, s[1] * SEA, 1, 1, '#e8ecff'); });
+    px(W * 0.78, SEA * 0.18, 6, 6, '#f4f1dc'); px(W * 0.78 + 12, SEA * 0.18, 3, 6, '#0e1634');
+    return;
+  }
+  if (kind !== 'storm') { px(W * 0.8, SEA * 0.2, 6, 6, '#ffe28a'); px(W * 0.8 - 4, SEA * 0.2 + 4, 8, 4, '#ffe28a'); }
+  var cc = kind === 'storm' ? '#5a6478' : '#f4f8ff';
+  [[0.08, 0.2], [0.38, 0.36], [0.65, 0.14], [0.95, 0.42]].forEach(function(c, i){
+    var x = ((c[0] * W - cloud * (0.6 + i * 0.15)) % (W + 160) + W + 160) % (W + 160) - 80, y = c[1] * SEA;
+    px(x, y, 14, 3, cc); px(x + 8, y - 8, 8, 3, cc); px(x + 16, y + 8, 12, 2, cc);
+  });
+}
+function drawSea(kind, still){
+  var bands = kind === 'night' ? ['#16325a', '#132c50', '#102645', '#0d203a', '#0a1a30'] : ['#2d6fb0', '#2865a3', '#235a95', '#1c4c7e', '#163f6b'];
+  var bh = Math.ceil((H - SEA) / 5 / P);
+  for (var i = 0; i < 5; i++) px(0, SEA + i * bh * P, W / P + 1, bh, bands[i]);
+  var crest = kind === 'storm' ? '#c9d8ea' : kind === 'night' ? '#3d6a9e' : '#8fc0ec';
+  for (var row = 0; row < 5; row++) {
+    var off = still ? 0 : wave * (1 + row * 0.35);
+    for (var k = 0; k < Math.ceil(W / 90); k++) {
+      var x = ((k * 97 + row * 41 - off) % (W + 40) + W + 40) % (W + 40) - 20;
+      px(x, SEA + row * bh * P + 6, row < 2 ? 3 : 5, 1, crest);
+    }
+  }
+}
+function drawLand(kind, x, night){
+  var d = night ? 0.45 : 1;
+  function c(hex){ if (d === 1) return hex; var n = parseInt(hex.slice(1), 16); return 'rgb(' + [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(function(v){ return Math.round(v * d); }).join(',') + ')'; }
+  if (kind === 'island') { px(x, SEA - 24, 30, 6, c('#3f7d3a')); px(x + 24, SEA - 40, 18, 4, c('#4c8f45')); px(x + 40, SEA - 52, 8, 3, c('#5aa04f')); px(x - 8, SEA - 4, 48, 1, c('#e8d79a')); }
+  else if (kind === 'coast') { px(x, SEA - 36, 120, 9, c('#6f6a4a')); px(x + 20, SEA - 56, 80, 5, c('#7d7756')); px(x + 60, SEA - 72, 30, 4, c('#8a845f')); px(x, SEA - 4, 120, 1, c('#e8d79a')); }
+  else if (kind === 'city') {
+    px(x, SEA - 16, 120, 4, c('#7a6a52')); px(x - 8, SEA - 4, 128, 1, c('#e8d79a'));
+    [[8, 10], [28, 16], [48, 8], [64, 22], [88, 12], [108, 18]].forEach(function(b, i){
+      px(x + b[0], SEA - 16 - b[1] * 2, 4, b[1] / 2, c(i % 2 ? '#d9c7a6' : '#c2ad88'));
+      px(x + b[0] + 4, SEA - 16 - b[1] * 2 + 8, 1, 1, night ? '#ffd27a' : '#4a3b28');
+    });
+  }
+}
+function drawShip(x, y, flag, furled, night){
+  var rail = '#9a6331', hull = '#6b3e1f', hullD = '#4e2b14', sail = '#f3ead2', sailD = '#d9cfb4';
+  for (var r = 0; r < 5; r++) px(x - (56 - r * 6), y + r * 4, 28 - r * 3, 1, r === 0 ? rail : r === 4 ? hullD : hull);
+  px(x + 44, y - 8, 4, 2, hull); px(x - 60, y - 6, 4, 2, hull);
+  [[-28, 26], [4, 32], [32, 22]].forEach(function(m, i){
+    var top = y - m[1] * 4;
+    px(x + m[0], top, 1, m[1], '#3a2614');
+    if (furled) { px(x + m[0] - 12, top + 14, 7, 1, sailD); px(x + m[0] - 8, top + 50, 5, 1, sailD); return; }
+    if (i === 2 && has('lateen')) { for (var t = 0; t < 8; t++) px(x + m[0] - t * 3 + 4, top + 12 + t * 8, t + 1, 2, sail); return; }
+    px(x + m[0] - 12, top + 12, 7, 6, sail); px(x + m[0] - 12, top + 36, 7, 1, sailD);
+    px(x + m[0] - 8, top + 48, 5, 5, sail);
+    if (flag !== 'nl' && i < 2) { px(x + m[0] - 2, top + 16, 1, 4, '#c0392b'); px(x + m[0] - 8, top + 24, 4, 1, '#c0392b'); }
+  });
+  if (night) { px(x + 46, y - 20, 2, 2, '#ffd27a'); px(x - 20, y + 4, 1, 1, '#ffd27a'); px(x + 4, y + 4, 1, 1, '#ffd27a'); }
+  var fy = y - 136, fc = flag === 'nl' ? ['#e8822a', '#f4f4f4', '#2a4e9c'] : flag === 'es' ? ['#c0392b', '#f2c230', '#c0392b'] : ['#1f7a3c', '#c0392b', '#c0392b'];
+  for (var f = 0; f < 3; f++) px(x + 8, fy + f * 4, 5, 1, fc[f]);
+}
+function drawSmall(x, y, furled){
+  for (var r = 0; r < 3; r++) px(x - (28 - r * 4), y + r * 4, 14 - r * 2, 1, r ? '#5a3418' : '#8a5a2c');
+  px(x - 4, y - 48, 1, 12, '#3a2614');
+  if (!furled) { px(x - 12, y - 40, 5, 3, '#efe5cb'); px(x - 10, y - 24, 4, 2, '#efe5cb'); }
+}
+function banner(text){
+  cx.font = '34px VT323, monospace'; cx.textAlign = 'center';
+  var w = cx.measureText(text).width + 30;
+  cx.fillStyle = 'rgba(11,20,48,.8)'; cx.fillRect(W / 2 - w / 2, 12, w, 42);
+  cx.fillStyle = '#f5b942'; cx.fillText(text, W / 2, 43);
+}
+function drawFish(now){
+  if (!fishing) return;
+  var t = now - fishing.start;
+  if (t > fishing.len) { endFish(); return; }
+  if (t > fishing.nextAt) { fishing.fish.push({ x:W * 0.45 + Math.random() * W * 0.45, t0:now, dur:1200 + Math.random() * 600, dir:Math.random() < 0.5 ? -1 : 1, h:50 + Math.random() * 60 }); fishing.nextAt = t + 450 + Math.random() * 450; }
+  fishing.fish.forEach(function(f){
+    var p = (now - f.t0) / f.dur; if (p > 1) { f.gone = true; return; }
+    if (f.caught) return;
+    f.x += f.dir * 0.8; f.y = SEA - Math.sin(Math.PI * p) * f.h;
+    px(f.x - 10, f.y - 4, 5, 2, '#c8d6e5'); px(f.x - (f.dir > 0 ? 18 : -10), f.y - 6, 2, 3, '#9fb2c8'); px(f.x + f.dir * 6 - 2, f.y - 4, 1, 1, '#1b2a3d');
+  });
+  fishing.pops = fishing.pops.filter(function(pp){ return now - pp.t < 700; });
+  cx.font = '28px VT323, monospace'; cx.textAlign = 'center'; cx.fillStyle = '#f5b942';
+  fishing.pops.forEach(function(pp){ cx.fillText('+1 day', pp.x, pp.y - 20 - (now - pp.t) / 30); });
+  banner('Fish caught: ' + fishing.caught + '    Time left: ' + Math.max(0, Math.ceil((fishing.len - t) / 1000)));
+}
+function render(now){
+  var mode = S ? S.mode : 'title', wx = S ? S.weather : 'fair';
+  var atSea = mode === 'sail' || mode === 'notice';
+  var sky = mode === 'rest' ? 'night' : wx === 'storm' && atSea ? 'storm' : 'day';
+  var moving = mode === 'sail' && wx !== 'calm';
+  if (moving) wave += wx === 'storm' ? 3 : 1.6; else wave += 0.25;
+  cloud += moving ? 0.5 : 0.12;
+  cx.clearRect(0, 0, W, H);
+  drawSky(sky);
+  drawSea(sky, wx === 'calm' && atSea);
+  var furled = !!(S && (S.docked || mode === 'rest' || mode === 'fish'));
+  if (S && M) {
+    var nx = next(), hs = here();
+    if (S.docked && hs.land) drawLand(hs.land, W - 330, sky === 'night');
+    else if (nx && nx.land && atSea && S.left < 600) drawLand(nx.land, W - (1 - S.left / 600) * 330);
+  }
+  var storm = sky === 'storm';
+  var bob = Math.round(Math.sin(Date.now() / (storm ? 180 : 420)) * (storm ? 6 : 3));
+  drawSmall(Math.round(W * 0.15), SEA + 6 + Math.round(Math.sin(Date.now() / 500 + 1) * 2), furled);
+  drawShip(Math.round(W * 0.34), SEA - 4 + bob, M ? M.flag : 'pt', furled, sky === 'night');
+  if (mode === 'rest') banner('Resting  ' + fmtDate(S.date));
+  else if (S && S.docked && mode !== 'fish' && scene === 'voyage') banner('In port: ' + here().n.replace(/&rsquo;/g, '\''));
+  if ((wx === 'storm' || wx === 'rain') && atSea) {
+    cx.fillStyle = 'rgba(220,230,255,.55)';
+    rain.forEach(function(r){ r[1] += 9; r[0] -= 3; if (r[1] > H) { r[1] = -10; r[0] = Math.random() * (W + 60); } cx.fillRect(r[0], r[1], 2, 10); });
+  }
+  if (wx === 'fog' && atSea) { cx.fillStyle = 'rgba(230,235,240,.55)'; cx.fillRect(0, 0, W, H); }
+  drawFish(now || performance.now());
+  requestAnimationFrame(render);
+}
+fit();
+requestAnimationFrame(render);
+title();
+</script>
+<script src="flashcard-data.js"></script>
+<script src="games-lock.js?v=20261027"></script>
+</body>
+</html>

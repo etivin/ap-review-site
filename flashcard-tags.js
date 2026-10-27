@@ -58,6 +58,8 @@ window.FC_TAGS = {
 'Chattel Slavery':'SE AM,AF','Potosí':'EN AM,GL','Single Whip Reform':'GE EA','Pueblo Revolt (1680)':'GS AM',
 'Cossacks':'G EU,CA','Sakoku':'GC EA','Canton System':'GE EA','Creoles':'S AM','Mulatto':'S AM',
 'Virgin of Guadalupe':'C AM',
+'Price Revolution':'E EU','Demographic Collapse in the Americas':'NS AM','Population Growth in Afro-Eurasia':'N EA,EU,AF','Plantation Economy':'ES AM,AF,EU',
+'Continuity in Coerced Labor':'SE GL','Persistence of Land-Based Empires':'G ME,SA,EA,EU','Asian Merchants in the Indian Ocean':'E SA,SEA,AF','Asian Economic Dominance':'E EA,SA',
 /* Unit 5 */
 'The Enlightenment':'CG EU','John Locke':'CG EU','Natural Rights':'CG EU','Social Contract':'CG EU',
 'American Revolution':'G AM','French Revolution':'GS EU','Haitian Revolution':'GS AM','Latin American Revolutions':'G AM',

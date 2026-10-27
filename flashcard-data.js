@@ -173,11 +173,19 @@ window.FC_DATA = {
 ["4.7","Casta System","Racial hierarchy in Spanish America ranking people by ancestry, from peninsulares to enslaved."],
 ["4.7","Peninsulares","Spanish-born colonists who sat at the top of the casta hierarchy."],
 ["4.7","Mestizo","Person of mixed European and Indigenous ancestry in Spanish America."],
-["4.7","Syncretic Religions","Blended faiths like Vodun and Santeria combining African and Christian beliefs."],
 ["4.7","Creoles","People of European descent born in the Americas; wealthy but ranked below peninsulares."],
 ["4.7","Mulatto","Person of mixed European and African ancestry."],
 ["4.8","New Global Economy","Worldwide network linking the Americas, Europe, Africa, and Asia for the first time after 1450."],
-["4.8","Virgin of Guadalupe","Image of Mary said to have appeared to an Indigenous man in Mexico (1531); a symbol of blended Catholic and Indigenous faith."]
+["4.8","Virgin of Guadalupe","Image of Mary said to have appeared to an Indigenous man in Mexico (1531); a symbol of blended Catholic and Indigenous faith."],
+["4.8","Syncretic Religions","Blended faiths like Vodun and Santeria combining African and Christian beliefs."],
+["4.8","Price Revolution","Steep inflation in Europe in the 1500s and 1600s, driven in part by the flood of American silver."],
+["4.8","Demographic Collapse in the Americas","Indigenous populations fell by as much as 90% after 1492, mostly from Old World diseases."],
+["4.8","Population Growth in Afro-Eurasia","American crops like maize, potatoes, and cassava helped populations in China, Europe, and Africa grow after 1500."],
+["4.8","Plantation Economy","Export farming in the Americas built on enslaved African labor; it tied Africa, Europe, and the Americas into one system."],
+["4.8","Continuity in Coerced Labor","Forced labor (serfdom, the mit'a, slavery) continued; the change was that Atlantic slavery grew larger, hereditary, and race-based."],
+["4.8","Persistence of Land-Based Empires","Even as sea empires grew, land empires (Ottoman, Mughal, Qing, Russian) remained the world's most powerful states."],
+["4.8","Asian Merchants in the Indian Ocean","Europeans joined the Indian Ocean trade, but Asian and African merchants still carried most of it."],
+["4.8","Asian Economic Dominance","Through 1750, China and India had the world's largest economies, and Europeans paid for their goods mostly in silver."]
 ],
 5:[
 ["5.1","The Enlightenment","Intellectual movement emphasizing reason, natural rights, and human progress over tradition."],

@@ -255,7 +255,7 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 
 Units 1–8 content mostly comes from Eli's materials and tests. Unit 9's MCQs, documents, visuals,
 SPICE-T, all of the shared game content for Units 1–4 and 9, and the gap-filling study-guide
-sections, the Unit 9 Brain Dump sentence starters, and the coaching in `walkthrough-data.js` (source-line reads, plain-English choices, traps; the questions themselves are Eli's bank, verbatim) were written by Claude (October 2026). The Unit 4 map's "Follow an Explorer" stop and ramification text was also written by Claude (2026-10-27). So were the 31 Unit 4 flashcards added that day (drawn from the Unit 4 glossary and approved by Eli), and the reworded Magellan card.
+sections, the Unit 9 Brain Dump sentence starters, and the coaching in `walkthrough-data.js` (source-line reads, plain-English choices, traps; the questions themselves are Eli's bank, verbatim) were written by Claude (October 2026). The Unit 4 map's "Follow an Explorer" stop and ramification text was also written by Claude (2026-10-27). So were the 31 Unit 4 flashcards added that day (drawn from the Unit 4 glossary and approved by Eli), the reworded Magellan card, and 8 topic 4.8 continuity-and-change cards (Price Revolution through Asian Economic Dominance, approved by Eli); Syncretic Religions moved from 4.7 to 4.8 to match the glossary.
 The 220 Practice Set 1–4 MCQs (added 2026-10-14) are Eli's practice exams, used with permission and kept verbatim;
 they came without an answer key, so the correct answers (`c`), explanations (`e`) and unit/topic placement were set by Claude.
 About 54 of them have the key as the longest option (the source's wording, not changed).

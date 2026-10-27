@@ -12,8 +12,8 @@ body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-se
 button{font-family:inherit;cursor:pointer}
 a{color:inherit}
 
-/* ── TOP BAR (navy chrome, matches games) ── */
-.bar{background:#10201f;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:58px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:1000;position:relative}
+/* ── TOP BAR (brand navy #16244d, same as the home page and the unit pages) ── */
+.bar{background:#16244d;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 22px;height:58px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.18);z-index:1000;position:relative}
 .bar .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .bar .badge{background:var(--red);color:#fff;font-weight:900;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:5px 9px;flex-shrink:0}
 .bar .btitle{font-weight:900;font-size:.98rem;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

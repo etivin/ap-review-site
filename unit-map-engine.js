@@ -564,8 +564,12 @@
     var n = leg.pts.length - 1, f = Math.max(0, Math.min(1, d / leg.len)) * n, i = Math.min(n - 1, Math.floor(f));
     return { i: i, p: lerp(leg.pts[i], leg.pts[i + 1], f - i) };
   }
-  function drawLeg(leg, d) {
-    var part = d <= 0 ? [] : d >= leg.len ? leg.pts : (function (at) { return leg.pts.slice(0, at.i + 1).concat([at.p]); })(pointAt(leg, d));
+  // Only a leg whose drawn length changed is redrawn, so a frame costs one leg, not the whole voyage.
+  function drawLeg(leg, d, force) {
+    var st = d <= 0 ? 'e' : d >= leg.len ? 'f' : 'p';
+    if (st !== 'p' && st === leg.st && !force) return;
+    leg.st = st;
+    var part = st === 'e' ? [] : st === 'f' ? leg.pts : (function (at) { return leg.pts.slice(0, at.i + 1).concat([at.p]); })(pointAt(leg, d));
     leg.solid.forEach(function (pl, n) {
       var sh = leg.shifts[n];
       pl.setLatLngs(sh ? part.map(function (p) { return [p[0], p[1] + sh]; }) : part);
@@ -575,16 +579,29 @@
   // the ship is now. Drawing at a position fills every leg up to it and puts the ship there.
   var jOff = [0], jPos = 0;
   function measure() { jOff = [0]; for (var k = 1; k < jLegs.length; k++) jOff[k] = jOff[k - 1] + jLegs[k].len; }
+  // Of the copies of a point one world apart, keep the one next to where the ship was, so it
+  // never flips across the map; only when that copy leaves the view (a date-line crossing on a
+  // zoomed-out map) does it switch to a copy in view, sailing off one edge and in at the other.
+  var jShipLng = null;
   function shipAt(p) {
-    // the copy of the point nearest the middle of the view, so a date-line crossing stays on screen
-    var c = map.getCenter().lng, best = p[1];
-    [p[1] - 360, p[1] + 360].forEach(function (x) { if (Math.abs(x - c) < Math.abs(best - c)) best = x; });
+    var cands = [p[1], p[1] - 360, p[1] + 360], vb = map.getBounds(), w = vb.getWest(), e = vb.getEast();
+    var ref = jShipLng == null ? map.getCenter().lng : jShipLng;
+    cands.sort(function (x, y) { return Math.abs(x - ref) - Math.abs(y - ref); });
+    var best = cands[0];
+    if (best < w || best > e) cands.forEach(function (x) { if ((best < w || best > e) && x >= w && x <= e) best = x; });
+    jShipLng = best;
     jShip.setLatLng([p[0], best]);
   }
-  function drawAt(d) {
+  // While the map is zooming or panning, Leaflet has the layers mid-transform: a line redrawn then
+  // lands in the wrong place. So the voyage keeps its position but waits, and is redrawn at the end.
+  var jMoving = false;
+  map.on('zoomstart movestart', function () { jMoving = true; });
+  map.on('zoomend moveend', function () { jMoving = false; if (jCur && jLayer) drawAt(jPos, true); });
+  function drawAt(d, force) {
     jPos = d;
+    if (jMoving && !force) return;
     var n = jLegs.length - 1, k = 1;
-    for (var m = 1; m <= n; m++) drawLeg(jLegs[m], d - jOff[m - 1]);
+    for (var m = 1; m <= n; m++) drawLeg(jLegs[m], d - jOff[m - 1], force);
     if (!n) return shipAt(JOURNEYS[jCur].stops[0].c);
     while (k < n && jOff[k] < d) k++;
     shipAt(pointAt(jLegs[k], d - jOff[k - 1]).p);
@@ -593,8 +610,8 @@
   // Snap everything to stop i: legs up to it drawn, the ship and the label on it.
   function settle(i) {
     var j = JOURNEYS[jCur];
-    drawAt(jOff[i]);
-    jShip.setLatLng(j.stops[i].c);
+    drawAt(jOff[i], true);
+    jShip.setLatLng(j.stops[i].c); jShipLng = j.stops[i].c[1];
     var el = jShip.getElement(); if (el) el.classList.remove('sailing');
     jMarkers.forEach(function (m, n) {
       var e = m.getElement(); if (e) { e.classList.toggle('past', n < i); e.classList.toggle('cur', n === i); }
@@ -609,31 +626,21 @@
     var over = getComputedStyle(tick).position === 'absolute';
     return { paddingTopLeft: [over ? tick.offsetWidth + 40 : 30, 50], paddingBottomRight: [170, 40], duration: .8, maxZoom: maxZoom };   // room on the right for the stop's name
   }
-  // The view for sailing from stop a to stop b: the legs in between, or for one ocean-wide leg
-  // (the Pacific), the stop it ends at. Stop 0 on its own shows the whole voyage.
-  function viewFor(j, a, b) {
-    var lo = Math.min(a, b), hi = Math.max(a, b), z = j.stops[b].z || 5, pts = [], wide = false;
-    if (lo === hi) {
-      if (b === 0) return { b: L.latLngBounds(j.stops.map(function (x) { return x.c; })), z: Math.min(z, 4) };
-      return viewFor(j, b - 1, b);
-    }
-    for (var k = lo + 1; k <= hi; k++) {
-      var lg = jLegs[k], bb = L.latLngBounds(lg.pts);
-      if (offWorld(lg.pts) || bb.getEast() - bb.getWest() > 150) wide = true;
-      pts = pts.concat(lg.pts);
-    }
-    if (!wide) return { b: L.latLngBounds(pts), z: z };
-    if (hi - lo === 1) return { b: L.latLngBounds([j.stops[b].c, j.stops[b].c]), z: Math.min(z, 3) };
-    var cs = []; for (var s = lo; s <= hi; s++) cs.push(j.stops[s].c);
-    return { b: L.latLngBounds(cs), z: 3 };
+  // The whole voyage, framed once when the explorer is picked. The map then holds still: stop
+  // changes only move the ship and the line (zooming the map on every click looked jumpy).
+  function voyageView(j) {
+    var pts = j.stops.map(function (x) { return x.c; });
+    for (var k = 1; k < jLegs.length; k++) if (!offWorld(jLegs[k].pts)) pts = pts.concat(jLegs[k].pts);
+    return L.latLngBounds(pts);
   }
-  function fly(v, then) {
-    var done = false, tm = 0;
+  function frameVoyage(animate, then) {
+    var j = JOURNEYS[jCur], o = viewOpt(6), done = false, tm = 0;
     function go() { if (done) return; done = true; clearTimeout(tm); map.off('moveend', go); if (then) then(); }
-    try { map.flyToBounds(v.b, viewOpt(v.z)); } catch (e) {}
+    try { if (animate) map.flyToBounds(voyageView(j), o); else map.fitBounds(voyageView(j), { paddingTopLeft: o.paddingTopLeft, paddingBottomRight: o.paddingBottomRight, maxZoom: 6, animate: false }); } catch (e) {}
     if (!then) return;
+    if (!animate) return go();
     map.on('moveend', go);
-    tm = setTimeout(go, 1100);   // in case the view was already there and no move happens
+    tm = setTimeout(go, 1100);
   }
   function ease(f) { return f < .5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2; }
   // Sail from wherever the ship is to stop b along the route, forward (drawing the line) or back
@@ -651,29 +658,22 @@
     }
     jAnim = requestAnimationFrame(step);
   }
-  // Go to stop i: the card changes at once; the map settles on the stretch to sail, then the ship
-  // sails it, and for a jump or a step back the map settles on the new stop when it arrives.
-  // Clicking again mid-voyage turns the ship around from where it is.
+  // Go to stop i: the card changes at once and the ship sails there along the route. The map only
+  // moves if the student zoomed or panned away so the stop is out of sight: it frames the voyage
+  // again first, then the ship sails. Clicking again mid-voyage turns the ship around where it is.
   var jTok = 0;
   function goStop(i) {
     var j = JOURNEYS[jCur]; if (!j) return;
     i = Math.max(0, Math.min(j.stops.length - 1, i));
-    var tok = ++jTok, from = stopBefore(jPos), oneLeg = jPos === jOff[i - 1];
+    var tok = ++jTok;
     cancelAnimationFrame(jAnim);
     jIdx = i;
     renderTick(); markItin();
-    if (reduceMotion || Math.abs(jPos - jOff[i]) < 1e-9) { settle(i); fly(viewFor(j, i, i)); return; }
+    if (reduceMotion || Math.abs(jPos - jOff[i]) < 1e-9) { settle(i); return; }
     var le = jLabel.getElement(); if (le) le.style.opacity = 0;   // the name shows again on arrival
     jMarkers.forEach(function (m) { var e = m.getElement(); if (e) e.classList.remove('cur'); });
-    var a = jPos > jOff[i] ? Math.min(j.stops.length - 1, from + (jPos > jOff[from] + 1e-9 ? 1 : 0)) : from;
-    fly(viewFor(j, a, i), function () {
-      if (tok !== jTok) return;
-      sail(i, function () {
-        if (tok !== jTok) return;
-        settle(i);
-        if (!oneLeg) fly(viewFor(j, i, i));
-      });
-    });
+    function go() { if (tok === jTok) sail(i, function () { if (tok === jTok) settle(i); }); }
+    if (map.getBounds().contains(j.stops[i].c)) go(); else frameVoyage(true, go);
   }
   function next() {
     var j = JOURNEYS[jCur];
@@ -742,7 +742,7 @@
     body.querySelectorAll('.jr-it').forEach(function (b) { b.addEventListener('click', function () { stopPlay(); goStop(+this.dataset.i); }); });
   }
   function markItin() { body.querySelectorAll('.jr-it').forEach(function (b) { b.classList.toggle('on', +b.dataset.i === jIdx); }); }
-  function startJourney(key, idx) {
+  function startJourney(key, idx, keepView) {
     endJourney();
     jCur = key; jIdx = idx || 0; current = null;
     ROUTE_ORDER.forEach(function (k) { if (map.hasLayer(layers[k].group)) map.removeLayer(layers[k].group); });
@@ -754,7 +754,8 @@
     renderJourneyPanel();
     renderTick(); map.invalidateSize();   // on phones the card under the map changes its height
     settle(jIdx);
-    goStop(jIdx);
+    renderTick(); markItin();
+    frameVoyage(!keepView);
   }
   function endJourney() {
     if (!jCur) return;
@@ -859,7 +860,7 @@
       L1.markers.forEach(function (m) { m.setStyle({ fillColor: c }); });
     });
     renderRouteButtons(); renderLegend(); renderJourneyButtons();
-    if (jCur) startJourney(jCur, jIdx); else if (current) renderPanel(current); else renderAllPanel();
+    if (jCur) startJourney(jCur, jIdx, true); else if (current) renderPanel(current); else renderAllPanel();
   }
   window.addEventListener('storage', function (e) { if (e.key === 'mcTheme') document.documentElement.setAttribute('data-theme', e.newValue === 'dark' ? 'dark' : 'light'); });
   new MutationObserver(function () { refreshTiles(); recolorRoutes(); })

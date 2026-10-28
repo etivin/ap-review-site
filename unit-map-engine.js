@@ -637,11 +637,11 @@
   }
   function ease(f) { return f < .5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2; }
   // Sail from wherever the ship is to stop b along the route, forward (drawing the line) or back
-  // (retracting it). One leg takes 1.7 s; a jump over several legs plays faster, 2.2 s at most.
+  // (retracting it). One leg takes 3 s; a jump over several legs plays faster, 4 s at most.
   function sail(b, then) {
     var from = jPos, to = jOff[b], lo = Math.min(from, to), hi = Math.max(from, to), legs = 0;
     for (var k = 1; k < jOff.length; k++) if (jOff[k] > lo + 1e-9 && jOff[k - 1] < hi - 1e-9) legs++;
-    var dur = legs <= 1 ? 1700 : Math.min(2200, 1300 + 300 * legs), t0 = null;
+    var dur = legs <= 1 ? 3000 : Math.min(4000, 2400 + 500 * legs), t0 = null;
     var el = jShip.getElement(); if (el) el.classList.add('sailing');
     function step(ts) {
       if (t0 === null) t0 = ts;

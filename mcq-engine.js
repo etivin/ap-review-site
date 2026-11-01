@@ -269,7 +269,7 @@
       '.mcqx-fb.mx-bad{background:var(--mx-badbg);border-left-color:var(--mx-bad)}',
       '.mcqx-walk{display:block;margin-top:10px;font-family:inherit;font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--red,#6b4a2b);background:var(--red,#6b4a2b);color:#fff;border-radius:3px;cursor:pointer}',
       '.mcqx-walk:hover{filter:brightness(1.1)}',
-      '.mcqx-walkrow{display:flex;flex-wrap:wrap;gap:8px}',
+      '.mcqx-walkrow{display:flex;flex-wrap:wrap;gap:8px;scroll-margin:24px}',
       '.mcqx-retry{background:var(--mx-card);color:var(--mx-ink);border-color:var(--mx-ink)}',
       '.mcqx-fb.mx-retrying{background:var(--mx-paper);border-left-color:var(--mx-ink)}',
       '.mcqx-page{display:none}.mcqx-page.mx-on,.mcqx-all .mcqx-page{display:block}',
@@ -702,7 +702,9 @@
       var wb = document.createElement('button');
       wb.type = 'button'; wb.className = 'mcqx-walk'; wb.textContent = 'Walk me through it';
       row.appendChild(wb);
-      fb.appendChild(row);
+      // right under the verdict line, above the explanation, so it shows without scrolling
+      var head = fb.querySelector('strong');
+      if (head) head.insertAdjacentElement('afterend', row); else fb.appendChild(row);
       wb.addEventListener('click', function () {
         var tb = mode === 'quick' ? row.querySelector('.mcqx-retry') : null;
         if (mode === 'quick' && !tb) {
@@ -713,6 +715,14 @@
         }
         SBMCQ.open(wid, function () { if (tb && tb.isConnected) tb.focus(); });
       });
+    }
+    // bring the verdict (and its "Walk me through it" button) into view in the question pane
+    function showFb(i) {
+      var fb = document.getElementById(ctx.uid + '-fb' + i);
+      if (!fb || !fb.scrollIntoView) return;
+      // aim at the button row (or the verdict), so a long explanation never pushes it off screen
+      var spot = fb.querySelector('.mcqx-walkrow') || fb.querySelector('strong') || fb;
+      spot.scrollIntoView({ block: 'nearest', behavior: 'instant' });
     }
     function startRetry(i) {
       retrying[i] = true;
@@ -744,6 +754,7 @@
         ? '<strong>✓ Right this time.</strong> Practice only, so it does not count toward unlocking games.'
         : '<strong>✗ Not yet.</strong> The answer is ' + L[q.c] + '. ' + (q.e || '');
       if (!ok) offerWalk(i, fb);
+      showFb(i);
     }
 
     function markGraded(i) {
@@ -792,6 +803,7 @@
       graded[i] = true;
       markGraded(i);
       syncGate(i);
+      showFb(i);
       ctx.body.querySelectorAll('.mcqx-chip[data-i="' + i + '"]').forEach(function (b) { b.disabled = true; });
       record(i);
       progress();

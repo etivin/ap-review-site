@@ -83,6 +83,17 @@
 
 /* ---------- real image inside a stimulus ---------- */
 .wk-stim-img{max-width:100%;height:auto;display:block;border:1px solid var(--walk-border);border-radius:4px;margin:0 0 12px}
+/* "Look here" boxes over an image source (image step): dim the rest, outline the evidence */
+.wk-imgbox{position:relative;width:fit-content;max-width:100%;margin:0 0 12px}
+.wk-imgbox .wk-stim-img{margin:0}
+.wk-spots{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .4s ease;border-radius:4px}
+.wk.spots-on .wk-spots{opacity:1}
+.wk-dim{fill:rgba(20,20,30,.42)}
+.wk-spot{fill:none;stroke:#f2b11c;stroke-width:3;vector-effect:non-scaling-stroke}
+.wk.tap-wait .wk-imgbox{cursor:crosshair;outline:3px dashed var(--walk-accent);outline-offset:3px;border-radius:4px}
+.wk-pin{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.5);pointer-events:none}
+.wk-pin.is-ok{background:var(--walk-green)}
+.wk-pin.is-no{background:var(--walk-red)}
 
 .wk-body{display:grid;grid-template-columns:1.35fr 1fr;gap:0;align-items:start}
 @media(max-width:860px){.wk-body{grid-template-columns:1fr}}
@@ -121,7 +132,8 @@
 .wk[data-step="1"] .wk-coach-step[data-for="1"],
 .wk[data-step="2"] .wk-coach-step[data-for="2"],
 .wk[data-step="3"] .wk-coach-step[data-for="3"],
-.wk[data-step="4"] .wk-coach-step[data-for="4"]{display:block;animation:walkFade .3s ease}
+.wk[data-step="4"] .wk-coach-step[data-for="4"],
+.wk[data-step="s"] .wk-coach-step[data-for="s"]{display:block;animation:walkFade .3s ease}
 @keyframes walkFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .wk-coach-h{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--walk-accent);font-weight:600;margin-bottom:8px}
 .wk-coach-lead{font-size:.82rem;line-height:1.5;color:var(--walk-muted);margin:0 0 8px}

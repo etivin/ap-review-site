@@ -5526,4 +5526,4049 @@ window.WALKTHROUGH = window.WALKTHROUGH || {};
     trapIdx: 2,
     trap: 'C is the opposite: the statement opens, "We, men and women." Check the source’s own words.'
   };
+
+  /* ============ BATCH 5: every remaining bank question (2026-10-31) ============ */
+  /* ============ UNIT 1 ============ */
+  W['u1_1.1_1'] = {
+    type: 'causation',
+    hq: 'EXCEPT',
+    hs: ['an increase in China’s productive power and the consequent accumulation of wealth'],
+    src: [
+      { tag: 'WHO', since: 'Miyazaki is a modern historian of the exams', therefore: 'he is explaining causes, looking back' },
+      { tag: 'WHAT', since: 'he says wealth came from "productive power"', therefore: 'look for what China itself produced' }
+    ],
+    read: ['A historian tying Song exams to new wealth', 'A Song official complaining about the exams', 'A merchant describing his Indian Ocean voyages'],
+    plain: ['Which one did NOT build Song wealth?', 'Which one ended the exam system?', 'Which one made the Song much poorer over time?'],
+    meaning: 'EXCEPT flips the question: three choices really did build Song wealth at home. Find the one that did not drive it.',
+    trapIdx: 3,
+    trap: 'D sounds unlike wealth, but Song inventions (better iron smelting, printing, the compass) fed production. Song growth came from farming, crafts and technology at home, not from Indian Ocean trade.'
+  };
+
+  W['u1_1.1_11'] = {
+    type: 'context',
+    hq: 'changes to Chinese policies regarding trade occurred under the Ming',
+    look: 'Ibn Battuta, writing under the Mongol Yuan, finds a Muslim town in every province and Jews, Christians and Turks living in their own walled district of Hangzhou.',
+    src: [
+      { tag: 'WHEN', since: 'Ibn Battuta wrote in the 1330s and 1340s', therefore: 'China was still under the Mongol Yuan, before the Ming took over in 1368' },
+      { tag: 'WHAT', since: 'foreign merchants already live in set districts', therefore: 'the Ming change will be about controlling foreigners even more' }
+    ],
+    read: ['A traveler describing foreigners in Yuan China', 'A Ming emperor banning all foreign religions in China', 'A Chinese merchant planning his own voyage abroad'],
+    plain: ['How did the Ming handle foreign trade?', 'Did the Ming drop Confucian ideas for merchants?', 'Did the Ming invent state salt and iron monopolies?'],
+    meaning: 'The source shows an open Yuan China full of foreign merchants. The Ming tightened that, limiting private trade and keeping foreigners to a few official ports.',
+    trapIdx: 2,
+    trap: 'C sounds like the Zheng He voyages, but those were state tribute missions, and the Ming then banned private overseas trade (haijin). The Ming did not send merchants abroad on their behalf.'
+  };
+
+  W['u1_1.4_3'] = {
+    type: 'similar',
+    hq: 'were similar in that both',
+    look: 'No source here. The stem asks for one thing true of both the Inca and the Aztec.',
+    src: [
+      { tag: 'WHAT', since: 'it compares two American empires', therefore: 'the answer must be true of both, not just one' },
+      { tag: 'WHEN', since: 'both rose in the 1400s', therefore: 'think of how they grew so fast in one century' }
+    ],
+    read: ['A comparison of how two empires were built', 'A question about the Mayan city-states of Yucatán', 'A question about Spanish colonies after the conquest'],
+    plain: ['How did both empires get so big?', 'Which empire came from the Maya?', 'Which empire used iron weapons?'],
+    meaning: 'Both the Aztec and the Inca grew in the 1400s by conquering their neighbors and collecting tribute or labor from them.',
+    trapIdx: 3,
+    trap: 'D sounds right because neither had a full alphabet, but the Inca kept records on quipus and the Aztec used pictographic writing. "Entirely" is the word that sinks it.'
+  };
+
+  W['u1_1.4_6'] = {
+    type: 'bestillustrates',
+    hq: 'governmental structure of the Inca',
+    look: 'Village rulers bring quipus to Cuzco listing births, deaths, widows, taxpayers and "how many men they could count on in the event of war."',
+    src: [
+      { tag: 'WHO', since: 'Cieza de León is a Spanish chronicler in 1540', therefore: 'he is reporting how the Inca system worked' },
+      { tag: 'WHAT', since: 'local rulers report to governors in the capital', therefore: 'it shows layers of officials keeping records' }
+    ],
+    read: ['A Spaniard describing Inca record keeping', 'An Inca ruler writing down his own new law code', 'A Catholic priest describing the temples of Cuzco'],
+    plain: ['What does the passage show about Inca rule?', 'How many people died in the empire each year?', 'Which crime was most common among the Inca?'],
+    meaning: 'Villages report counts up to governors in Cuzco: that is a layered bureaucracy collecting information.',
+    trapIdx: 0,
+    trap: 'A grabs the births and deaths, but those counts are the tool, not the point. A historian of government cares that officials collected them for the capital.'
+  };
+
+  W['u1_1.4_7'] = {
+    type: 'bestillustrates',
+    hq: 'refers to which of the following technologies',
+    look: 'The quipus "told how many births there had been during the year, and how many deaths."',
+    src: [
+      { tag: 'WHAT', since: 'rulers bring quipus that tell counts', therefore: 'the quipu stores numbers' },
+      { tag: 'WHO', since: 'village rulers carry them to Cuzco', therefore: 'it is a record for the government' }
+    ],
+    read: ['A Spaniard naming an Inca counting tool', 'A doctor describing a medicine used by the Inca', 'A priest describing a holy object kept in temples'],
+    plain: ['What did a quipu do?', 'Was it used to deliver babies?', 'Was it a gift to the ruler?'],
+    meaning: 'A quipu is a set of knotted cords: the knots stood for numbers.',
+    trapIdx: 3,
+    trap: 'D is close but too narrow: quipus counted births, deaths, widows and soldiers, not "primarily" taxes, and they were cords, not a new kind of math.'
+  };
+
+  W['u1_1.4_8'] = {
+    type: 'causation',
+    hq: 'environmental constraints',
+    look: 'The passage is about Inca record keeping. The stem asks you to bring in what you know about farming in the Andes.',
+    src: [
+      { tag: 'WHERE', since: 'Cuzco sits high in the Andes', therefore: 'think about farming on steep slopes' },
+      { tag: 'WHAT', since: 'the question asks about the land', therefore: 'the answer is geography, not technology' }
+    ],
+    read: ['A Spaniard describing Inca records', 'A farmer describing a dry coastal desert', 'A trader describing the fertile river valleys'],
+    plain: ['What made Andean farming so hard?', 'Did the Inca lack a steady water supply?', 'Did the Inca lack any animals to carry loads?'],
+    meaning: 'Farming in the Andes meant building and working terraces on steep mountains, which took the labor of whole families.',
+    trapIdx: 0,
+    trap: 'A is a fact about the Americas in general, but the Inca had llamas to carry loads. The mountains are what made the work so heavy.'
+  };
+
+  W['u1_1.4_9'] = {
+    type: 'bestillustrates',
+    hq: 'reference to military preparedness',
+    look: 'The quipus told the Inca "how many men they could count on in the event of war."',
+    src: [
+      { tag: 'WHAT', since: 'the state counts its possible soldiers', therefore: 'war was a planned, regular part of Inca rule' },
+      { tag: 'WHEN', since: 'the Inca grew fast in the 1400s', therefore: 'connect the soldiers to conquest' }
+    ],
+    read: ['A Spaniard noting the Inca counted soldiers', 'A soldier describing a battle fought with gunpowder', 'A priest describing the gods the Inca worshiped'],
+    plain: ['Why did the Inca track their soldiers?', 'Did the Inca use gunpowder weapons in their wars?', 'Were the Inca often invaded by their neighbors?'],
+    meaning: 'The Inca kept count of fighting men because they built their empire by conquest along the Andes.',
+    trapIdx: 1,
+    trap: 'B reads preparedness as fear of attack, but the Inca were the ones expanding. They counted soldiers to conquer, not because they were weak.'
+  };
+
+  W['u1_1.5_4'] = {
+    type: 'bestillustrates',
+    hq: 'best illustrates which of the following about Mali',
+    hs: ['the price of gold fell and did not recover for many years'],
+    src: [
+      { tag: 'WHO', since: 'it is an account of Mansa Musa’s hajj', therefore: 'a Muslim king of Mali traveling to Mecca' },
+      { tag: 'WHAT', since: 'his gifts crashed the price of gold in Cairo', therefore: 'Mali had huge amounts of gold' }
+    ],
+    read: ['A report of a Mali king’s rich pilgrimage', 'A Cairo ruler begging the king of Mali for help', 'A Cairo trader complaining about Mali’s high taxes'],
+    plain: ['Where did Mali’s gold come from?', 'Was Mali poor and cut off from world trade?', 'Did Mali reject Islam and its pilgrimages?'],
+    meaning: 'A king who could crash gold prices on a pilgrimage ruled a very rich state: Mali taxed the trans-Saharan gold and salt trade.',
+    trapIdx: 3,
+    trap: 'D names a real trade system, but it is the wrong one. Mali’s trade crossed the Sahara by camel, not the Indian Ocean by monsoon.'
+  };
+
+  W['u1_1.6_1'] = {
+    type: 'similar',
+    hq: 'were most like',
+    look: 'No source here. Match the role samurai played in Japan to a role in Europe.',
+    src: [
+      { tag: 'WHAT', since: 'samurai were warriors who served a lord', therefore: 'look for European warriors who served a lord' },
+      { tag: 'HOW', since: 'both followed a code (bushido, chivalry)', therefore: 'the match is the role, not the rank' }
+    ],
+    read: ['A comparison of two warrior classes', 'A question about the leaders of the church', 'A question about peasant farmers on manors'],
+    plain: ['Who fought for a lord in Europe?', 'Who owned and ruled the manor in Europe?', 'Who farmed the land of the manor in Europe?'],
+    meaning: 'Samurai were mounted warriors bound to a lord and a code of honor, just like European knights.',
+    trapIdx: 0,
+    trap: 'A is tempting because samurai were elite, but the lord of the manor matches the daimyo, the lord they served.'
+  };
+
+  W['u1_1.6_2'] = {
+    type: 'similar',
+    hq: 'in both feudal Japan and medieval Europe usually included',
+    look: 'No source here. Find a job that aristocratic women did in both places.',
+    src: [
+      { tag: 'WHO', since: 'both are elite women in warrior societies', therefore: 'men were often away fighting' },
+      { tag: 'WHAT', since: 'women had little formal power', therefore: 'look for a job inside the household' }
+    ],
+    read: ['A comparison of noblewomen’s roles', 'A question about women serving as priests', 'A question about women serving as judges'],
+    plain: ['What did noblewomen run at home?', 'Did they lead religious rites?', 'Did they speak for families in court?'],
+    meaning: 'In both societies noblewomen ran the household, its supplies and money, especially while the men were away at war.',
+    trapIdx: 2,
+    trap: 'C gives women a public legal role they rarely had in either place. Their power was real but stayed inside the estate.'
+  };
+
+  W['u1_1.6_3'] = {
+    type: 'similar',
+    hq: 'accurate comparison of the political systems',
+    look: 'No source here. Compare how Europe and Song China were governed between 1000 and 1300.',
+    src: [
+      { tag: 'WHERE', since: 'western Europe was split among many kings and lords', therefore: 'Europe was divided' },
+      { tag: 'WHERE', since: 'Song China had one emperor and a bureaucracy', therefore: 'China was unified' }
+    ],
+    read: ['A comparison of Europe and China’s governments', 'A question about overseas empires in Asia and Africa', 'A question about the start of early democracy'],
+    plain: ['Was each place unified or divided?', 'Did both build overseas empires by sea?', 'Did both become representative democracies?'],
+    meaning: 'Europe was many competing feudal kingdoms; China was one empire run by exam-chosen officials.',
+    trapIdx: 3,
+    trap: 'D sounds like progress, but neither became a representative democracy in 1000 to 1300. That came centuries later.'
+  };
+
+  /* ============ UNIT 2 ============ */
+  W['u2_2.1_1'] = {
+    type: 'causation',
+    hq: 'helps explain the rise of urban centers and the increase in trade',
+    look: 'No source here. The date, the second half of the 1200s, is the clue: that is when the Mongols ruled most of Eurasia.',
+    src: [
+      { tag: 'WHEN', since: 'it is the late 1200s', therefore: 'the Mongol Empire is at its height' },
+      { tag: 'WHAT', since: 'cities and trade both grew', therefore: 'look for something that made trade easier' }
+    ],
+    read: ['A question about why trade grew after 1250', 'A question about why Mongol cities were abandoned', 'A question about the Ming voyages of the 1400s'],
+    plain: ['What made land trade safer then?', 'Did the Mongol khanates collapse in this period?', 'Did Chinese fleets reopen the Indian Ocean?'],
+    meaning: 'Under Mongol rule (the Pax Mongolica) the land routes were safe and reliable, so caravans and the cities along them grew.',
+    trapIdx: 2,
+    trap: 'C is a real event, but the Zheng He voyages came in the 1400s, and Indian Ocean trade had never closed. Check the date in the stem.'
+  };
+
+  W['u2_2.1_2'] = {
+    type: 'causation',
+    hq: 'tended to encourage trade along the Silk Roads primarily by',
+    look: 'No source here. Think about what changed for a caravan once one empire ruled the whole route.',
+    src: [
+      { tag: 'WHAT', since: 'one empire now held most of the Silk Roads', therefore: 'fewer borders and fewer tolls' },
+      { tag: 'HOW', since: 'Mongol soldiers patrolled the roads', therefore: 'bandits were less of a danger' }
+    ],
+    read: ['A question about how the Mongols helped trade', 'A question about how the Mongols ended trade', 'A question about Mongol armies buying weapons'],
+    plain: ['Why was a caravan trip safer and cheaper?', 'Did Mongol armies buy most of the goods?', 'Did the Mongols block trade by sea on purpose?'],
+    meaning: 'One ruler meant fewer local rulers taking tolls, and Mongol patrols meant fewer bandits. Safer and cheaper trips meant more trade.',
+    trapIdx: 0,
+    trap: 'A sounds like more trade, but Central Asia was a route, not a big new market. The Mongols helped by making the trip safe, not by being the buyers.'
+  };
+
+  W['u2_2.2_0'] = {
+    type: 'bestillustrates',
+    hq: 'shows which of the following empires at its greatest extent',
+    hs: ['stretching from Korea and China in the east across Central Asia to Persia and the edge of eastern Europe'],
+    src: [
+      { tag: 'WHEN', since: 'it is the thirteenth century', therefore: 'only empires of the 1200s count' },
+      { tag: 'WHERE', since: 'it runs from China to eastern Europe', therefore: 'one empire held all of that land' }
+    ],
+    read: ['A map of a huge 1200s land empire', 'A map of an ancient Greek empire in Asia', 'A map of the modern Russian state in 1900'],
+    plain: ['Which empire held China and Persia?', 'Which empire did Alexander build in 330 BCE?', 'Which empire ruled from Constantinople?'],
+    meaning: 'Only one empire held China, Central Asia, Persia and the edge of Europe in the 1200s: the Mongols.',
+    trapIdx: 2,
+    trap: 'C covers a lot of the same land, but the Russian Empire grew from the 1500s on and never ruled China or Persia.'
+  };
+
+  W['u2_2.2_1'] = {
+    type: 'causation',
+    hq: 'resulted from the fragmentation of the Mongol Empire',
+    look: 'No source here. Ask what happened to Genghis Khan’s lands once his heirs split them.',
+    src: [
+      { tag: 'WHAT', since: 'the empire was split among his heirs', therefore: 'the pieces became separate states' },
+      { tag: 'WHERE', since: 'the pieces were in China, Persia, Russia and Central Asia', therefore: 'look for a Mongol state in one of those regions' }
+    ],
+    read: ['A question about how the Mongol Empire split', 'A question about the fall of the Byzantine Empire', 'A question about Islam reaching East Asia'],
+    plain: ['What did the empire break into?', 'Did the split bring down Constantinople?', 'Did the split end Africa and Asia trade?'],
+    meaning: 'The heirs divided the empire into khanates: the Yuan, the Chagatai, the Ilkhanate and the Golden Horde.',
+    trapIdx: 0,
+    trap: 'A is a real collapse, but the Ottomans took Constantinople in 1453. The Mongols never conquered it.'
+  };
+
+  W['u2_2.2_2'] = {
+    type: 'bestillustrates',
+    hq: 'is true',
+    look: 'No source here. Test each choice against what you know about the Mongols.',
+    src: [
+      { tag: 'WHAT', since: 'the Mongols were mostly tolerant of religions', therefore: 'cross out any choice about persecution' },
+      { tag: 'WHERE', since: 'the Mongols were horsemen, not sailors', therefore: 'their attacks by sea went badly' }
+    ],
+    read: ['A true or false test on the Mongols', 'A question about Mongol religious beliefs only', 'A question about the Ottoman conquests'],
+    plain: ['Which Mongol fact is true?', 'Did Buddhists and Muslims decline under them?', 'Did the Mongols take Constantinople?'],
+    meaning: 'The Mongols tried to invade Japan twice, in 1274 and 1281, and typhoons wrecked both fleets.',
+    trapIdx: 2,
+    trap: 'C is half right: the Yuan pushed scholar-officials aside. But "permanently" is wrong. The Ming brought back the exams and the scholar-gentry.'
+  };
+
+  W['u2_2.2_3'] = {
+    type: 'bestillustrates',
+    hq: 'accurate statement about the Mongol Empire',
+    look: 'No source here. Remember the Pax Mongolica: what the Mongols did for trade.',
+    src: [
+      { tag: 'WHAT', since: 'the Mongols taxed trade', therefore: 'they wanted merchants to keep moving' },
+      { tag: 'HOW', since: 'they tolerated many faiths', therefore: 'cross out choices about forcing beliefs' }
+    ],
+    read: ['A question testing facts about the Mongols', 'A question about Mongol religious laws and temples', 'A question about Mongol rules for choosing a khan'],
+    plain: ['What did the Mongols do for the Silk Road?', 'Did they force their religion on everyone?', 'Did they have clear rules for succession?'],
+    meaning: 'The Mongols reopened and protected the Silk Road, linking East Asia and Europe again.',
+    trapIdx: 3,
+    trap: 'D is the opposite. The Mongols had no fixed succession rule, and fights between heirs split the empire.'
+  };
+
+  W['u2_2.2_4'] = {
+    type: 'causation',
+    hq: 'fail to conquer, and why',
+    look: 'No source here. Two parts must both be right: the place and the reason.',
+    src: [
+      { tag: 'WHAT', since: 'the Mongols took Russia and Baghdad', therefore: 'those choices fail on the place' },
+      { tag: 'WHERE', since: 'Japan is an island', therefore: 'they had to attack by sea' }
+    ],
+    read: ['A question about where the Mongols lost', 'A question about Mongol trade with Japan', 'A question about Timur’s conquests in India'],
+    plain: ['Where did the Mongols fail, and why?', 'Did Russian winters stop the Mongols?', 'Did floods save the Abbasid caliph?'],
+    meaning: 'Both Mongol fleets sent to Japan were wrecked by typhoons, the "divine winds."',
+    trapIdx: 0,
+    trap: 'A borrows the story of Napoleon and Hitler. The Mongols actually attacked Russia in winter, using frozen rivers as roads, and won.'
+  };
+
+  W['u2_2.2_19'] = {
+    type: 'bestillustrates',
+    hq: 'long-term threat to Islamic culture',
+    look: 'Ibn al-Athir describes a people from China "destroying, and slaying, and plundering" from Bukhara to Iraq, "all this in less than a year."',
+    src: [
+      { tag: 'WHO', since: 'a Muslim historian writing around 1230', therefore: 'he is living through the Mongol attack and is horrified' },
+      { tag: 'WHAT', since: 'the stem asks about a long-term threat', therefore: 'you need evidence over centuries, not one year' }
+    ],
+    read: ['A Muslim historian describing the Mongol attack', 'A Mongol general bragging about his own victory', 'A Chinese official describing a trade mission'],
+    plain: ['What would show if Islam shrank over time?', 'How did Islamic armies fight off attacks?', 'How did Islamic empires run their provinces?'],
+    meaning: 'To test a long-term threat, you need numbers over centuries. Counting Muslims from the 1200s on shows that Islam kept growing; many Mongols even converted.',
+    trapIdx: 1,
+    trap: 'B fits the battles in the passage, but military tactics show only the short run. "Long-term" asks what happened over centuries.'
+  };
+
+  W['u2_2.2_20'] = {
+    type: 'bestillustrates',
+    hq: 'best seen as evidence for which of the following in Yuan China',
+    look: 'Muslims have towns, mosques and colleges "made much of by the Kings of China," and Jews, Christians and Turks live in Hangzhou.',
+    src: [
+      { tag: 'WHO', since: 'Ibn Battuta is a Muslim traveler from Morocco', therefore: 'he notices how Muslims are treated' },
+      { tag: 'WHAT', since: 'many faiths live openly in one city', therefore: 'the rulers allowed many religions' }
+    ],
+    read: ['A Muslim visitor describing faiths in China', 'A Chinese monk attacking all of the foreign religions', 'A Mongol khan ordering all his subjects to convert'],
+    plain: ['How did the Yuan treat other religions?', 'Did foreigners govern all the provinces?', 'Did the Mongols become fully Chinese?'],
+    meaning: 'Muslims, Jews and Christians all worship openly and the kings honor the Muslims: the Yuan tolerated many religions.',
+    trapIdx: 1,
+    trap: 'B is a real Yuan habit (foreigners did serve as officials), but the passage shows religious communities, not who ran the provinces.'
+  };
+
+  W['u2_2.2_21'] = {
+    type: 'bestillustrates',
+    hq: 'most directly supported by the passage',
+    look: 'A traveler from Morocco finds Muslim merchants and a Muslim town in every province of China, under a "Tartar" king descended from Genghis Khan.',
+    src: [
+      { tag: 'WHO', since: 'the writer comes from North Africa', therefore: 'he crossed all of Eurasia to get to China' },
+      { tag: 'WHAT', since: 'the king of China descends from Genghis Khan', therefore: 'steppe nomads rule the route he traveled' }
+    ],
+    read: ['A Moroccan meeting Muslims in China', 'A Chinese traveler visiting Muslim Morocco', 'A merchant saying all the trade has stopped'],
+    plain: ['What made the long trip possible?', 'Did contact between civilizations stall?', 'Did new faiths wipe out all older ones?'],
+    meaning: 'A Moroccan could reach China and find Muslim merchants there because the Mongols, steppe nomads, linked trade across Eurasia.',
+    trapIdx: 3,
+    trap: 'D is true of the period, but the passage shows people and religions moving, not any technology. Stick to what the source supports.'
+  };
+
+  W['u2_2.2_22'] = {
+    type: 'similar',
+    hq: 'differed in that it',
+    look: 'In China the Mongol king rules directly, with towns, guards and officials in every province. Compare that with how the Golden Horde ruled Russia.',
+    src: [
+      { tag: 'WHERE', since: 'in China the Yuan ran the government', therefore: 'Mongol rule there was direct' },
+      { tag: 'WHERE', since: 'in Russia the Golden Horde used Russian princes', therefore: 'Mongol rule there was indirect' }
+    ],
+    read: ['A comparison of Mongol rule in two places', 'A question about trade from Russia to China', 'A question about Russian revolts in 1300'],
+    plain: ['How did ruling Russia differ from China?', 'Was Mongol Russia loved by its subjects?', 'Did Mongol Russia allow only Orthodoxy?'],
+    meaning: 'The Golden Horde let Russian princes rule and just collected tribute. The Yuan ran China directly through a Chinese-style bureaucracy.',
+    trapIdx: 0,
+    trap: 'A gets Russia wrong. The Golden Horde tolerated religions too (and later became Muslim); its key difference was ruling through tribute.'
+  };
+
+  W['u2_2.3_1'] = {
+    type: 'bestillustrates',
+    hq: 'best describes Middle Eastern trade',
+    look: 'No source here. Picture where the Middle East sits on the map: between the Silk Roads, the Indian Ocean and the Sahara.',
+    src: [
+      { tag: 'WHERE', since: 'the region sits where three trade networks meet', therefore: 'it traded in every direction' },
+      { tag: 'WHEN', since: 'it is 1000 to 1450', therefore: 'the Ottomans are only just starting' }
+    ],
+    read: ['A question about Middle East trade partners', 'A question about one united Islamic empire in 1200', 'A question about long Ottoman wars against India'],
+    plain: ['Who did the Middle East trade with?', 'Did one empire end all of its tariffs?', 'Did it stop trading with Europe?'],
+    meaning: 'The Middle East was the crossroads: it traded with China, India and sub-Saharan Africa by land and sea.',
+    trapIdx: 0,
+    trap: 'A sounds like the early caliphate, but after 1000 the Islamic world was split among many states. No single empire held it.'
+  };
+
+  W['u2_2.3_5'] = {
+    type: 'causation',
+    hq: 'significant effect of the Indian Ocean trade',
+    look: 'On the east side of the map, dotted dhow routes link Mombasa, Zanzibar, Kilwa and Sofala across the Indian Ocean.',
+    src: [
+      { tag: 'WHERE', since: 'the dhow routes run along the East African coast', therefore: 'look at the Swahili city-states' },
+      { tag: 'WHO', since: 'Arab and Persian sailors traded with Bantu speakers', therefore: 'the two cultures mixed' }
+    ],
+    read: ['A map of African trade by land and sea', 'A map of European voyages around Africa', 'A map of Christian missions across Africa'],
+    plain: ['What did contact on the coast create?', 'Did many Africans move to South Asia?', 'Did the East African coast turn Christian?'],
+    meaning: 'Bantu speakers mixed with Arab and Persian traders, creating the Swahili language and a Muslim coastal culture.',
+    trapIdx: 3,
+    trap: 'D runs the gold the wrong way. Gold went out of East Africa from Great Zimbabwe through Sofala; it was not brought in from Arabia.'
+  };
+
+  W['u2_2.3_6'] = {
+    type: 'causation',
+    hq: 'broader processes from 600 to 1450',
+    look: 'The legend lists a Muslim mosque, a Calvinist chapel and a Buddhist stupa inside Dutch Batavia on Java.',
+    src: [
+      { tag: 'WHERE', since: 'Batavia is a port on Java', therefore: 'it sits on the Indian Ocean trade routes' },
+      { tag: 'WHAT', since: 'the stem asks about 600 to 1450', therefore: 'the mosque and stupa came long before the Dutch' }
+    ],
+    read: ['A Dutch city plan with many faiths','A map of a Mongol camp on the island of Java', 'A map of a Crusader castle in the Holy Land'],
+    plain: ['How did Buddhism and Islam reach Java?', 'Did the Mongols conquer Java?', 'Did the Crusades bring Christians there?'],
+    meaning: 'Merchants carried Buddhism and then Islam along the Indian Ocean routes to Java. The Dutch only added the chapel.',
+    trapIdx: 3,
+    trap: 'D sounds possible because the Mongols did attack Java, but the 1293 invasion failed. Trade, not conquest, brought these religions.'
+  };
+
+  W['u2_2.4_2'] = {
+    type: 'causation',
+    hq: 'led most directly to the development of the trading network',
+    hs: ['a network of caravan routes crossing the Sahara Desert'],
+    src: [
+      { tag: 'WHERE', since: 'the routes cross the Sahara', therefore: 'merchants needed ways to survive the desert' },
+      { tag: 'WHAT', since: 'they link gold fields to the Mediterranean', therefore: 'the goods were worth the dangerous trip' }
+    ],
+    read: ['A map of caravan routes across the Sahara', 'A map of slave ships crossing the Atlantic', 'A map of Swahili ports on the Indian Ocean'],
+    plain: ['What made crossing the desert possible?', 'Did the Swahili coast cities cause it?', 'Did the Silk Roads decline at this time?'],
+    meaning: 'Camel saddles, caravans and caravanserai and oasis stops let merchants cross the Sahara reliably.',
+    trapIdx: 1,
+    trap: 'B is in West Africa but in the wrong century. The Atlantic slave trade began in the 1500s, long after these caravan routes.'
+  };
+
+  W['u2_2.4_3'] = {
+    type: 'bestillustrates',
+    hq: 'best exemplifies which of the following historical processes',
+    hs: ['a large mud-brick mosque in the West African country of Mali'],
+    src: [
+      { tag: 'WHERE', since: 'Djenné was a trading city in Mali', therefore: 'Muslim merchants passed through it' },
+      { tag: 'HOW', since: 'it is built of local mud brick', therefore: 'Islam was adopted in a West African style' }
+    ],
+    read: ['A photo of a West African-style mosque', 'A photo of a mosque built by Arab armies', 'A photo of a European colonial church'],
+    plain: ['How did Islam come to West Africa?', 'Did an army force Islam on West Africa?', 'Did colonizers wipe out local styles?'],
+    meaning: 'Islam came to West Africa with traders crossing the Sahara, and local people built mosques in their own style.',
+    trapIdx: 1,
+    trap: 'B fits the early Arab conquests in North Africa, but Islam reached Mali through merchants and teachers, not armies.'
+  };
+
+  W['u2_2.4_4'] = {
+    type: 'bestillustrates',
+    hq: 'best illustrates which of the following about Mali',
+    hs: ['the price of gold fell and did not recover for many years'],
+    src: [
+      { tag: 'WHO', since: 'it describes Mansa Musa on hajj', therefore: 'a Muslim king of Mali on his way to Mecca' },
+      { tag: 'WHAT', since: 'his gifts crashed the gold price in Cairo', therefore: 'Mali had an enormous supply of gold' }
+    ],
+    read: ['A report of a Mali king’s rich pilgrimage', 'A Cairo ruler begging the king of Mali for help', 'A Cairo trader complaining about Mali’s taxes'],
+    plain: ['Where did Mali’s wealth come from?', 'Was Mali poor and cut off from world trade?', 'Did Mali reject Islam and its pilgrimages?'],
+    meaning: 'A king who could crash gold prices on a pilgrimage ruled a rich state: Mali taxed the trans-Saharan gold and salt trade.',
+    trapIdx: 3,
+    trap: 'D names the wrong trade system. Mali’s trade crossed the Sahara by camel, not the Indian Ocean by monsoon.'
+  };
+
+  W['u2_2.4_5'] = {
+    type: 'bestillustrates',
+    hq: 'primary groups traversing the Sahara Desert',
+    look: 'Solid caravan routes run from Fez, Tunis, Tripoli and Cairo across the Sahara to Timbuktu, Gao and Djenné.',
+    src: [
+      { tag: 'WHERE', since: 'the routes start in North African cities', therefore: 'the traders came from the Muslim north' },
+      { tag: 'WHEN', since: 'the map shows about 1400', therefore: 'Europeans had not yet sailed down the coast' }
+    ],
+    read: ['A map of caravans crossing the Sahara', 'A map of European forts on the Gold Coast', 'A map of Mongol routes into Africa'],
+    plain: ['Who led caravans across the Sahara?', 'Did Europeans cross the desert to trade?', 'Did Chinese traders cross it by camel?'],
+    meaning: 'Muslim Berber and Arab merchants from North Africa ran the camel caravans to West Africa.',
+    trapIdx: 1,
+    trap: 'B is tempting because of El Mina on the map, but Europeans reached West Africa by sea in the late 1400s. They did not cross the Sahara.'
+  };
+
+  W['u2_2.4_6'] = {
+    type: 'causation',
+    hq: 'main reason that there were no significant trade routes in the central portion',
+    look: 'The middle of the map, around the Congo River and Luba, has almost no routes, while the Sahara and the coasts are full of them.',
+    src: [
+      { tag: 'WHERE', since: 'the empty area is the Congo rainforest', therefore: 'think about the land itself' },
+      { tag: 'HOW', since: 'tsetse flies killed pack animals there', therefore: 'caravans could not get through' }
+    ],
+    read: ['A map showing where trade routes went', 'A map of the languages spoken in Africa', 'A map of the mineral resources of Africa'],
+    plain: ['Why did routes avoid central Africa?', 'Did central Africa have no resources?', 'Did hostile tribes keep outsiders away?'],
+    meaning: 'Rainforest, river rapids and the tsetse fly made it nearly impossible to move goods through central Africa.',
+    trapIdx: 1,
+    trap: 'B is false: central Africa had copper and ivory. The land made travel hard, not a lack of goods.'
+  };
+
+  W['u2_2.5_1'] = {
+    type: 'bestillustrates',
+    hq: 'effects of the Crusades on the diffusion of technology',
+    look: 'No source here. Pick the source that would show knowledge moving from the Islamic world to Europe.',
+    src: [
+      { tag: 'WHAT', since: 'the topic is technology spreading', therefore: 'the source must be about learning, not religion or marriages' },
+      { tag: 'WHO', since: 'monks translated Arabic books into Latin', therefore: 'their work shows the knowledge crossing over' }
+    ],
+    read: ['A question about the best source to use', 'A question about crusader battle tactics', 'A question about who won the Crusades'],
+    plain: ['Which source shows ideas moving to Europe?', 'Which source shows Islamic worship practices?', 'Which source shows royal marriages?'],
+    meaning: 'Translations of Arabic math and science texts show exactly how Islamic knowledge spread into Europe.',
+    trapIdx: 0,
+    trap: 'A is a crusader source, so it feels right, but it is about religion. The question is about technology spreading.'
+  };
+
+  W['u2_2.5_2'] = {
+    type: 'bestillustrates',
+    hq: 'would most likely cite which of the following as evidence',
+    look: 'No source here. The claim is that the world was tied together by 1300. Pick evidence from before 1300.',
+    src: [
+      { tag: 'WHEN', since: 'the end of the 1200s', therefore: 'cross out anything from the Atlantic era or later' },
+      { tag: 'WHAT', since: 'integration means connection', therefore: 'look for trade networks growing' }
+    ],
+    read: ['Evidence for world links by 1300','A question about the Atlantic slave trade', 'A question about modern global capitalism'],
+    plain: ['What tied Afro-Eurasia together by 1300?', 'Did one ruler unite the Mediterranean and China?', 'Did Atlantic plantations exist yet?'],
+    meaning: 'After the Mongol conquests, the Silk Roads, the Indian Ocean and the Saharan routes carried more goods, people and ideas than ever.',
+    trapIdx: 3,
+    trap: 'D is real global integration, but it is from after 1500. Check the date before you pick.'
+  };
+
+  /* ============ UNIT 3 ============ */
+  W['u3_3.1_0'] = {
+    type: 'bestillustrates',
+    hq: 'Taken together, the two images best support',
+    hs: ['soldiers with cannons storming a fortified city', 'elephants, cavalry, and artillery besieging a great fortress'],
+    src: [
+      { tag: 'WHAT', since: 'both images show an army attacking a fortress', therefore: 'look for what the two attacks share' },
+      { tag: 'HOW', since: 'both armies bring cannons and artillery', therefore: 'the common thread is gunpowder' }
+    ],
+    read: ['Two empires using cannons on forts', 'Two empires signing a peace treaty together', 'Two European armies defending their cities'],
+    plain: ['What helped both empires grow?', 'Did Europe have weaker weapons than Asia?', 'Did rulers always lead armies themselves?'],
+    meaning: 'Both the Ottomans and the Mughals took fortresses with cannons. Gunpowder helped land empires expand.',
+    trapIdx: 1,
+    trap: 'B fits Image 2, where Aurangzeb leads, but Image 1 shows no ruler. "Taken together" means the answer must fit both images.'
+  };
+
+  W['u3_3.1_1'] = {
+    type: 'similar',
+    hq: 'most similar to those of the Ottoman and Mughal Empires',
+    hs: ['Ottoman soldiers reconquering a fortress', 'Mughal forces led by Emperor Aurangzeb'],
+    src: [
+      { tag: 'HOW', since: 'the Ottomans and Mughals grew over land with cavalry and guns', therefore: 'look for another land empire' },
+      { tag: 'WHO', since: 'both came from Central Asian horse warriors', therefore: 'a group from the steppe frontier fits best' }
+    ],
+    read: ['Two land empires taking forts with guns', 'Two sea empires building overseas trading posts', 'Two European armies fighting in America'],
+    plain: ['Which other empire grew over land?', 'Which empire grew by sea in Brazil?', 'Which empire built trading posts in Asia?'],
+    meaning: 'Match the method: the Manchus also came from the frontier and built a huge land empire with cavalry and guns.',
+    trapIdx: 2,
+    trap: 'C is a gunpowder empire too, but Spain grew by sailing overseas. The Ottomans and Mughals grew over land, like the Manchu Qing.'
+  };
+
+  W['u3_3.1_8'] = {
+    type: 'causation',
+    hq: 'contributed most to the emergence of Russia',
+    look: 'No source here. Think about what Russia borrowed: the faith and title of tsar from Byzantium, and armies and ships from western Europe.',
+    src: [
+      { tag: 'WHEN', since: 'it is 1450 to 1750', therefore: 'think of Ivan III and Peter the Great' },
+      { tag: 'HOW', since: 'Peter copied western Europe on purpose', therefore: 'Russia grew by borrowing' }
+    ],
+    read: ['A question about why Russia grew', 'A question about Russia losing land in Asia', 'A question about Russian revolutions after 1900'],
+    plain: ['What did Russia borrow to grow strong?', 'Did Russia wipe out Islam in Central Asia?', 'Did Poland and Prussia collapse first?'],
+    meaning: 'Russia took Orthodoxy and the idea of the tsar from Byzantium and armies and technology from western Europe.',
+    trapIdx: 1,
+    trap: 'B sounds like real wars with the Ottomans, but Russia mostly fought the Turks on its own. Its rise came from what it borrowed.'
+  };
+
+  W['u3_3.1_10'] = {
+    type: 'causation',
+    hq: 'was able to successfully invade Esztergom due to',
+    hs: ['against the Holy Roman Empire'],
+    src: [
+      { tag: 'WHEN', since: 'the siege was in 1543', therefore: 'this is during the Protestant Reformation' },
+      { tag: 'WHO', since: 'the enemy was the Holy Roman Empire', therefore: 'ask what was weakening that empire' }
+    ],
+    read: ['An Ottoman siege in Hungary', 'A painting of a Venetian fleet at sea', 'A painting of a Habsburg victory parade'],
+    plain: ['What weakened the defenders in 1543?', 'Was the city easy to attack from the sea?', 'Did local Muslims welcome the Turks?'],
+    meaning: 'In 1543 the Holy Roman Empire was split by the Reformation, so it could not fully defend Hungary.',
+    trapIdx: 2,
+    trap: 'C sounds logical, but the Ottomans failed to take Vienna in 1529 and never held Austria.'
+  };
+
+  W['u3_3.1_12'] = {
+    type: 'context',
+    hq: 'important continuity underlying the conflict',
+    hs: ['a campaign by Suleiman I'],
+    src: [
+      { tag: 'WHO', since: 'the Ottomans and Habsburgs were land empires', therefore: 'both wanted more territory' },
+      { tag: 'WHAT', since: 'the stem asks for a continuity', therefore: 'look for something that kept happening' }
+    ],
+    read: ['A painting of a war between two empires', 'A painting of a forced mass conversion', 'A painting of a naval battle over trade'],
+    plain: ['What kept these empires fighting?', 'Did the Turks force their religion on others?', 'Was this war over overseas trade?'],
+    meaning: 'Land empires kept fighting to expand. Suleiman pushing into Hungary is one example of that pattern.',
+    trapIdx: 1,
+    trap: 'B assumes a holy war, but the Ottomans did not force conversions on Christian subjects. The goal was territory.'
+  };
+
+  W['u3_3.1_13'] = {
+    type: 'bestillustrates',
+    hq: 'best illustrates which of the following trends',
+    look: 'A sixteenth-century Byzantine fresco of the Turks breaking into walled Constantinople, with smoke rising along the walls.',
+    src: [
+      { tag: 'WHEN', since: 'the siege was in 1453', therefore: 'it marks the Ottoman rise' },
+      { tag: 'HOW', since: 'Mehmed II broke the walls with huge cannons', therefore: 'gunpowder made it possible' }
+    ],
+    read: ['The Turks taking Constantinople', 'A fresco of the Crusaders taking Jerusalem', 'A fresco of a Byzantine victory over Turks'],
+    plain: ['What let Islamic empires dominate?', 'Did contact between Islam and Europe stop?', 'Did Islam fail to spread into Europe?'],
+    meaning: 'Ottoman cannons broke the walls of Constantinople. Gunpowder let the Islamic empires expand and dominate.',
+    trapIdx: 3,
+    trap: 'D sounds right for 1453, but Christianity did not decline overall; it spread worldwide in this era. The image is about gunpowder power.'
+  };
+
+  W['u3_3.1_16'] = {
+    type: 'causation',
+    hq: 'drew the ire of Islamic empires',
+    look: 'Selim I calls on the "consensus of the Sunni community" to justify the "expulsion of evil innovation," meaning Ismail’s rule.',
+    src: [
+      { tag: 'WHERE', since: 'Safavid Persia sat between the Ottomans and Mughals', therefore: 'all three wanted the same borderlands' },
+      { tag: 'WHO', since: 'the Safavids were Shi’a, not anti-Islam', therefore: 'cross out "rejected Islam"' }
+    ],
+    read: ['A sultan threatening a rival Muslim ruler', 'A sultan making peace with a Christian king', 'A shah asking the Ottomans for help'],
+    plain: ['Why did neighbors oppose them?', 'Did the Safavids reject Islam itself?', 'Did Ismail claim to be the caliph?'],
+    meaning: 'The Safavids were squeezed between two expanding empires, and all three fought over the land between them.',
+    trapIdx: 1,
+    trap: 'B overreads "evil innovation." Selim attacks Shi’a beliefs, but the Safavids were Muslims, not rejecting Islam.'
+  };
+
+  W['u3_3.2_2'] = {
+    type: 'similar',
+    hq: 'most similar to which broader method',
+    hs: ['forcibly enlisting boys from the empire’s Christian subjects'],
+    src: [
+      { tag: 'HOW', since: 'the state takes boys from conquered Christians', therefore: 'it collects people the way a ruler collects tribute' },
+      { tag: 'WHO', since: 'the book celebrates Suleiman', therefore: 'it shows the system as a source of strength' }
+    ],
+    read: ['An image of the Ottomans taking boys', 'An image of Christians freely joining the army', 'An image of a sultan freeing his slaves'],
+    plain: ['What else took from the conquered?', 'Did it force one religion on everyone?', 'Did it end the privileges of nobles?'],
+    meaning: 'The devshirme took boys from conquered lands for the state, like tribute paid in people instead of goods.',
+    trapIdx: 1,
+    trap: 'B fits the boys being converted, but the empire did not force Islam on all subjects. Match the method: taking resources from the conquered.'
+  };
+
+  W['u3_3.2_6'] = {
+    type: 'context',
+    hq: 'important continuity from the Ming Dynasty to the Qing dynasty',
+    look: 'No source here. The Qing were Manchu outsiders who kept what worked in China.',
+    src: [
+      { tag: 'WHO', since: 'the Qing were Manchus, not Han Chinese', therefore: 'they needed Chinese elites to accept them' },
+      { tag: 'HOW', since: 'they kept the Confucian exams', therefore: 'the scholar-officials kept their place' }
+    ],
+    read: ['A question about what the Qing kept', 'A question about what the Qing destroyed', 'A question about Qing voyages across the seas'],
+    plain: ['What did the Qing keep from the Ming?', 'Did the Ming adopt Manchu traditions?', 'Did the Qing pay for Zheng He-style trips?'],
+    meaning: 'The Qing kept the Confucian exams and bureaucracy, which helped them win over Chinese scholars.',
+    trapIdx: 3,
+    trap: 'D is wrong for both: the Ming stopped the Zheng He voyages in the 1430s, and the Qing never restarted them.'
+  };
+
+  W['u3_3.2_8'] = {
+    type: 'bestillustrates',
+    hq: 'relationship between the Pathans',
+    look: 'Bernier says many nations "neither obey him nor pay him tribute but from constraint," some even "receive tribute from him," and the Pathans are "fierce and warlike."',
+    src: [
+      { tag: 'WHO', since: 'Bernier is a French doctor at the Mughal court', therefore: 'he sees the limits of Mughal power up close' },
+      { tag: 'WHAT', since: 'he says the Mogul is not "full master" of many peoples', therefore: 'the emperor must handle some groups carefully' }
+    ],
+    read: ['A visitor showing limits on Mughal power', 'A Mughal ruler bragging about total control', 'A Pathan leader asking for Mughal help'],
+    plain: ['How did the Mughals treat the Pathans?', 'Did the Pathans pay tribute to the Mughals?', 'Did religion keep the two groups apart?'],
+    meaning: 'The Pathans were fierce and powerful, so the Mughal emperor avoided fights with them instead of forcing tribute.',
+    trapIdx: 3,
+    trap: 'D says religion separated them, but Bernier calls the Pathans "a Mohammedan people." Both were Muslim.'
+  };
+
+  W['u3_3.2_12'] = {
+    type: 'context',
+    hq: 'focused primarily on',
+    look: 'The 1615 laws tell warrior households to study literature and train in archery and horsemanship: "In time of peace, do not forget the possibility of disturbances."',
+    src: [
+      { tag: 'WHO', since: 'the shogun is writing rules for the samurai', therefore: 'he wants order and control at home' },
+      { tag: 'WHEN', since: 'it is 1615', therefore: 'Christianity and foreign trade are about to be restricted' }
+    ],
+    read: ['A shogun’s rules for warrior families', 'A merchant’s plan for new factories in Edo', 'An emperor calling for war overseas'],
+    plain: ['What was the Tokugawa’s big goal?', 'Did the Tokugawa build factories?', 'Did the Tokugawa conquer neighbors?'],
+    meaning: 'The Tokugawa wanted stability. They banned Christianity and limited foreign trade to a few Dutch and Chinese ships at Nagasaki.',
+    trapIdx: 2,
+    trap: 'C misreads the archery and horsemanship. The edict says war is used "only when it is inevitable." The Tokugawa kept peace and closed Japan.'
+  };
+
+  W['u3_3.2_15'] = {
+    type: 'purpose',
+    hq: 'different from those of the medieval period',
+    look: 'Machiavelli says "it is much safer to be feared than loved," because men are "ungrateful, fickle, false."',
+    src: [
+      { tag: 'WHO', since: 'Machiavelli was a Florentine official', therefore: 'he writes from real politics' },
+      { tag: 'WHAT', since: 'he asks what works, not what is good', therefore: 'his ideas are practical, not religious' }
+    ],
+    read: ['A writer on how a ruler keeps power', 'A priest on how a ruler pleases God', 'A noble on why kings must share power'],
+    plain: ['What was new about his advice?', 'Did he say kings could rule?', 'Did he look back to Greece and Rome?'],
+    meaning: 'Medieval writers judged rulers by Christian virtue. Machiavelli judged them by results.',
+    trapIdx: 0,
+    trap: 'A is true of Machiavelli, but medieval writers also accepted royal authority. The question asks what was different.'
+  };
+
+  W['u3_3.2_17'] = {
+    type: 'bestillustrates',
+    hq: 'most likely use this passage',
+    look: 'At Buda, Busbecq finds Janissaries "scattered through every part of the empire," garrisoning forts and protecting Christians and Jews.',
+    src: [
+      { tag: 'WHERE', since: 'he is writing from Buda in Hungary', therefore: 'the Ottomans had conquered it in 1541' },
+      { tag: 'WHAT', since: 'troops guard forts and minorities everywhere', therefore: 'it shows how the Ottomans held conquered land' }
+    ],
+    read: ['A diplomat describing Ottoman troops', 'A Janissary describing his own training', 'A Hungarian noble describing a rebellion'],
+    plain: ['What does it show about Ottoman Hungary?', 'Did the Turks attack Christians and Jews?', 'How were Janissaries trained as boys?'],
+    meaning: 'The Janissary garrisons show how the Ottomans held Hungary after conquering it.',
+    trapIdx: 1,
+    trap: 'B is the opposite: the Janissaries protect Christians and Jews from the mob. Read the passage’s own words.'
+  };
+
+  W['u3_3.2_18'] = {
+    type: 'context',
+    hq: 'most accurately defines the “zamindar[s]”',
+    look: 'A zamindar "who paid revenue to the Mogul was clearly in a position of dependence," and some chiefs in Rajputana refused or rebelled.',
+    src: [
+      { tag: 'WHO', since: 'zamindars paid revenue to the Muslim Mughals', therefore: 'they were local landholders under the emperor' },
+      { tag: 'WHERE', since: 'they are tied to Rajputana', therefore: 'many were Hindu Rajput chiefs' }
+    ],
+    read: ['A historian on Mughal tax collectors', 'An emperor describing Muslim generals', 'A traveler describing Buddhist monks'],
+    plain: ['Who were the zamindars?', 'Were they Muslim landowners?', 'Were they Buddhist peasants?'],
+    meaning: 'Zamindars were mostly Hindu landholding elites who collected taxes and paid revenue to the Mughals.',
+    trapIdx: 0,
+    trap: 'A is tempting because the Mughals were Muslim, but most zamindars were Hindu. The Mughals ruled through local Hindu elites.'
+  };
+
+  W['u3_3.3_10'] = {
+    type: 'bestillustrates',
+    hq: 'is an example of which of the following',
+    hs: ['The building reflects the blending of two distinct architectural traditions'],
+    src: [
+      { tag: 'WHO', since: 'Akbar built it', therefore: 'he wanted to unite Muslims and Hindus' },
+      { tag: 'HOW', since: 'it mixes Persian and Indian styles', therefore: 'two cultures blend in one building' }
+    ],
+    read: ['A mosque mixing Persian and Indian styles', 'A Hindu temple destroyed by Mughal soldiers', 'A European church built in Mughal India'],
+    plain: ['What does the mixed style show?', 'Did capitalism emerge in Mughal India?', 'Did forced labor systems expand?'],
+    meaning: 'A mosque that blends Persian Islamic and Indian styles is cultural syncretism.',
+    trapIdx: 2,
+    trap: 'C is about trade networks, and the mosque shows nothing about trade. The building is about cultures mixing.'
+  };
+
+  W['u3_3.3_13'] = {
+    type: 'bestillustrates',
+    hq: 'the “second wall,”',
+    look: 'Luther’s second wall: "no one may interpret the Scriptures but the Pope." He asks, if that were true, "where were the need and use of the Holy Scriptures?"',
+    src: [
+      { tag: 'WHO', since: 'Luther is a Reformer attacking the papacy', therefore: 'each wall is a papal claim to power' },
+      { tag: 'WHAT', since: 'the second wall is about the Scriptures', therefore: 'it is about who reads the Bible' }
+    ],
+    read: ['A Reformer attacking the pope’s claims', 'A pope defending his right to rule kings', 'A council voting on a new kind of baptism'],
+    plain: ['Who gets to interpret the Bible?', 'What is the meaning of the Holy Ghost?', 'What is the right way to baptize?'],
+    meaning: 'The second wall is the pope’s claim that only he can interpret Scripture. Luther says every believer can read it.',
+    trapIdx: 0,
+    trap: 'A grabs the words "Holy Ghost" from the passage, but Luther uses them to mock the pope’s claim. The wall is about Scripture.'
+  };
+
+  W['u3_3.3_14'] = {
+    type: 'context',
+    hq: 'the “temporal power”',
+    look: 'The first wall: the Romanists say "the temporal power has no jurisdiction over them" and "the spiritual power is above the temporal."',
+    src: [
+      { tag: 'WHO', since: 'Luther writes to the German nobility', therefore: 'he is asking princes to act' },
+      { tag: 'WHAT', since: 'temporal is set against spiritual', therefore: 'temporal means worldly rulers' }
+    ],
+    read: ['Luther asking princes to reform the Church', 'Luther asking bishops to punish the princes', 'Luther asking merchants to stop paying'],
+    plain: ['What does "temporal" mean here?', 'Does it mean the bishops and priests?', 'Does it mean the lawyers and scholars?'],
+    meaning: 'Temporal means worldly. The temporal power is the princes and nobles, the state, as opposed to the Church.',
+    trapIdx: 0,
+    trap: 'A is the spiritual power, the other side. Luther sets the temporal power against it.'
+  };
+
+  W['u3_3.3_15'] = {
+    type: 'context',
+    hq: 'policy the Turks had towards non-Islamic religious groups',
+    look: 'The fresco shows the Turks taking Christian Constantinople. The question asks how they then ruled its Christians and Jews.',
+    src: [
+      { tag: 'WHAT', since: 'the Ottomans now ruled many Christians', therefore: 'they needed a way to keep them loyal' },
+      { tag: 'HOW', since: 'the millet system let faiths run their own affairs', therefore: 'tolerance kept the peace' }
+    ],
+    read: ['A fresco of the Ottoman conquest of 1453', 'A fresco of Christians retaking their city', 'A fresco of a Byzantine church council'],
+    plain: ['How were non-Muslims ruled?', 'Were non-Muslims forced to convert?', 'Were minorities later persecuted?'],
+    meaning: 'Under the millet system, Christians and Jews kept their faith and leaders, paid the jizya and stayed loyal.',
+    trapIdx: 0,
+    trap: 'A fits the conquest scene, but the Ottomans did not force conversion. They taxed non-Muslims instead.'
+  };
+
+  W['u3_3.3_16'] = {
+    type: 'bestillustrates',
+    hq: 'most clearly an example of',
+    look: 'Selim, citing the "consensus of the Sunni community," calls Ismail’s faith "evil innovation" that "must be expelled."',
+    src: [
+      { tag: 'WHO', since: 'Selim is the Sunni Ottoman sultan', therefore: 'Ismail is the Shi’a Safavid shah' },
+      { tag: 'WHEN', since: 'it is 1514', therefore: 'the battle of Chaldiran came weeks later' }
+    ],
+    read: ['A Sunni sultan threatening a Shi’a shah', 'A sultan offering peace to his neighbor', 'A shah calling for an end to all wars'],
+    plain: ['What split shows in the letter?', 'Is Selim keeping power at any cost?', 'Is this a peace offer between empires?'],
+    meaning: 'Selim attacks Ismail’s Shi’a faith in Sunni terms: rising tension between the two branches of Islam.',
+    trapIdx: 2,
+    trap: 'C jumps centuries ahead. In 1514 the Ottomans were rising; they won at Chaldiran and lasted until 1922.'
+  };
+
+  W['u3_3.3_17'] = {
+    type: 'context',
+    hq: 'best characterized by which religious tradition',
+    look: 'Selim calls Ismail’s faith "evil innovation" against the "Sunni community," so Ismail was not Sunni.',
+    src: [
+      { tag: 'WHO', since: 'Selim speaks for the Sunnis', therefore: 'Ismail is on the other side' },
+      { tag: 'WHAT', since: 'Ismail made it the state religion in 1501', therefore: 'Iran is still mostly Shi’a today' }
+    ],
+    read: ['A sultan attacking a rival’s faith', 'A Sikh guru writing to a Mughal emperor', 'A Sunni scholar praising the shah'],
+    plain: ['Which faith did Ismail’s empire hold?', 'Was it the Sunni faith of the Ottomans?', 'Was it the Sikh faith of the Punjab?'],
+    meaning: 'Ismail made Shi’a Islam the religion of Safavid Persia. The letter calls it an innovation because Selim was Sunni.',
+    trapIdx: 0,
+    trap: 'A is half true: the Safavids began as a Sufi order. But the empire was defined by Shi’a Islam.'
+  };
+
+  W['u3_3.4_0'] = {
+    type: 'purpose',
+    hq: 'most useful in evaluating the message',
+    hs: ['capital of a rival Muslim Indian state'],
+    src: [
+      { tag: 'WHO', since: 'it is a Mughal victory painting', therefore: 'it shows Aurangzeb as the rightful winner' },
+      { tag: 'WHAT', since: 'Golconda was also Muslim', therefore: 'ask what divided two Muslim states' }
+    ],
+    read: ['A painting celebrating a Mughal victory', 'A painting mourning the fall of the Mughals', 'A painting of peace between rival kings'],
+    plain: ['Why fight Golconda?', 'How did Aurangzeb become emperor?', 'How big was India’s economy then?'],
+    meaning: 'Aurangzeb was a strict Sunni and Golconda’s rulers were Shi’a. That religious angle shapes the painting’s message.',
+    trapIdx: 3,
+    trap: 'D is true and about religion, but it is about Hindus and taxes inside the empire. It does not explain a war against a Muslim state.'
+  };
+
+  W['u3_3.4_4'] = {
+    type: 'similar',
+    hq: 'true of both the Ottoman Empire and the Mughal Empire',
+    look: 'No source here. Both empires began with Turkic or Mongol horsemen from Central Asia.',
+    src: [
+      { tag: 'WHO', since: 'Osman’s Turks and Babur came from Central Asia', therefore: 'both founders were horse warriors' },
+      { tag: 'HOW', since: 'neither used Chinese-style exams', therefore: 'cross out the exam choice' }
+    ],
+    read: ['A comparison of two Muslim empires', 'A question about Chinese civil service exams', 'A question about banning Christianity'],
+    plain: ['Where were both founders from?', 'Did both pick their officials by exams?', 'Did both ban Christianity?'],
+    meaning: 'Both empires were founded by cavalry warriors from Central Asia.',
+    trapIdx: 1,
+    trap: 'B describes China. The Ottomans used the devshirme and the Mughals used mansabdars, not exams.'
+  };
+
+  W['u3_3.4_5'] = {
+    type: 'similar',
+    hq: 'true about both the Mughal and the Ottoman empires',
+    look: 'No source here. Test each choice on both empires.',
+    src: [
+      { tag: 'WHO', since: 'most Mughal subjects were Hindu', therefore: 'cross out "majority Muslim"' },
+      { tag: 'HOW', since: 'both built strong systems of officials and taxes', therefore: 'the match is administration' }
+    ],
+    read: ['A comparison of two empires’ governments', 'A question about naval battles with Europe', 'A question about peaceful foreign policy'],
+    plain: ['What did both build well?', 'Were most people in both Muslim?', 'Did both have strong navies?'],
+    meaning: 'The Ottomans (timars, devshirme) and Mughals (mansabdars, zamindars) both built efficient administrations.',
+    trapIdx: 0,
+    trap: 'A fits the Ottomans but not the Mughals, who were Muslim rulers over a mostly Hindu population.'
+  };
+
+  /* ============ UNIT 4 ============ */
+  W['u4_4.1_3'] = {
+    type: 'causation',
+    hq: 'most directly facilitated the voyage',
+    hs: ['We agreed to leave the coast of Peru and sail for Japan'],
+    src: [
+      { tag: 'WHO', since: 'Adams is an English navigator', therefore: 'he sailed a European ship' },
+      { tag: 'WHERE', since: 'he crossed the Pacific from Peru to Japan', therefore: 'only strong ships and good navigation make that trip' }
+    ],
+    read: ['An Englishman sailing to Japan to trade', 'A shogun sending ships to conquer England', 'A Spanish priest sailing to convert Peru'],
+    plain: ['What made a Pacific crossing possible?', 'Did Europeans borrow Arab and Indian ships?', 'Did Europeans copy Chinese maps to sail?'],
+    meaning: 'European ship design (caravels, lateen sails) and navigation tools (astrolabe, compass) made ocean crossings possible.',
+    trapIdx: 0,
+    trap: 'A sounds like borrowing technology, but Adams sailed a European ship. The lateen sail and compass were adopted earlier and built into European designs.'
+  };
+
+  W['u4_4.2_4'] = {
+    type: 'causation',
+    hq: 'primary motivation for Portuguese maritime exploration',
+    hs: ['This route bypassed overland Silk Road networks controlled by Ottoman and other intermediaries'],
+    src: [
+      { tag: 'WHERE', since: 'da Gama sailed around Africa to India', therefore: 'the goal was Asia, not Africa or America' },
+      { tag: 'WHY', since: 'the route skipped Ottoman middlemen', therefore: 'Portugal wanted spices without paying them' }
+    ],
+    read: ['Portugal finding a sea route to India', 'Portugal sailing west to find the Americas', 'Portugal sending a crusade into Africa'],
+    plain: ['Why did Portugal sail around Africa?', 'Did Portugal want settler colonies in America?', 'Did Portugal want to rule Indian Ocean cities?'],
+    meaning: 'Portugal wanted to reach Asian spices directly and skip the Ottoman and Italian middlemen.',
+    trapIdx: 2,
+    trap: 'C has some truth (Portugal did see itself as fighting Islam), but the main goal was spices. The passage stresses bypassing trade routes.'
+  };
+
+  W['u4_4.2_5'] = {
+    type: 'bestillustrates',
+    hq: 'most clearly demonstrates which of the following developments',
+    hs: ['across the Indian Ocean to Calicut in India, and back'],
+    src: [
+      { tag: 'WHEN', since: 'it is a late 1400s voyage', therefore: 'Portugal is leading European exploration' },
+      { tag: 'WHERE', since: 'it goes from Lisbon to India and back', therefore: 'it shows Portugal’s skill at sea' }
+    ],
+    read: ['A map of a Portuguese voyage to India', 'A map of Spanish voyages to the Americas', 'A map of Ottoman fleets in the Red Sea'],
+    plain: ['What does this voyage show about Portugal?', 'Did Portugal ignore the New World?', 'Were Muslim lands closed to all Europeans then?'],
+    meaning: 'Sailing from Lisbon around Africa to India and back shows Portugal leading the way at sea.',
+    trapIdx: 0,
+    trap: 'A jumps ahead. The map shows one voyage of exploration, not strong European businesses already running in India.'
+  };
+
+  W['u4_4.2_6'] = {
+    type: 'bestillustrates',
+    hq: 'most directly supported by the map',
+    hs: ['around the southern tip of Africa past Natal, up the East African coast to Malindi'],
+    src: [
+      { tag: 'WHERE', since: 'the route hugs Africa and ends in India', therefore: 'Portugal’s focus was the African and Asian coasts' },
+      { tag: 'WHAT', since: 'it shows one voyage', therefore: 'do not stretch it to all of Europe' }
+    ],
+    read: ['A map of one voyage along Africa to India', 'A map of every European voyage of the 1500s', 'A map of Europeans settling new lands'],
+    plain: ['Where was Portugal looking?', 'Was da Gama the first European at sea?', 'Did Europeans move abroad in large numbers?'],
+    meaning: 'The route hugs Africa and ends at an Indian port: Portugal was focused on the African and Asian coasts.',
+    trapIdx: 2,
+    trap: 'C is true of the period, but one Portuguese map cannot prove what all European nations did. "Most directly supported" means stay close to the map.'
+  };
+
+  W['u4_4.2_7'] = {
+    type: 'context',
+    hq: 'accurate statement concerning Asian nations’ interactions',
+    hs: ['Malindi, across the Indian Ocean to Calicut in India'],
+    src: [
+      { tag: 'WHEN', since: 'the stem covers the whole 1500s', therefore: 'think of what happened after da Gama' },
+      { tag: 'WHERE', since: 'the Portuguese reached Japan in 1543', therefore: 'Japan traded with them for guns and silk' }
+    ],
+    read: ['A map of the voyage that opened Asian trade', 'A map of the voyage that ended trade with Asia for good', 'A map of a Chinese fleet reaching Lisbon'],
+    plain: ['How did Asian states treat Europeans?', 'Did India keep all Europeans off its coast?', 'Did the Ming fully block European trade?'],
+    meaning: 'In the 1500s Japan welcomed Portuguese traders and Jesuit missionaries. Japan closed itself only in the 1600s.',
+    trapIdx: 1,
+    trap: 'B is wrong: Portugal took Goa in 1510 and built forts on the Indian coast. Japan’s closing came in the 1600s, not the 1500s.'
+  };
+
+  W['u4_4.2_9'] = {
+    type: 'context',
+    hq: 'refers to which geographic region',
+    look: 'Lands "on the western side of the said bound" go to the King and Queen of Spain; lands on the eastern side go to Portugal.',
+    src: [
+      { tag: 'WHEN', since: 'it is 1494, two years after Columbus', therefore: 'Spain had just claimed lands to the west' },
+      { tag: 'WHERE', since: 'the line runs pole to pole in the Atlantic', therefore: 'west of it is the Americas' }
+    ],
+    read: ['A treaty splitting new lands in two', 'A treaty ending a long war in Europe', 'A treaty opening ports in East Asia'],
+    plain: ['What lay west of the line?', 'Did Spain get the coast of Africa?', 'Did Spain get India and its ports?'],
+    meaning: 'West of the line meant the Americas, which went to Spain. Portugal got Africa and the route to India.',
+    trapIdx: 1,
+    trap: 'B is on the wrong side. Africa lay east of the line, and Portugal already had forts there.'
+  };
+
+  W['u4_4.2_10'] = {
+    type: 'purpose',
+    hq: 'The purpose of this treaty',
+    look: 'The treaty exists because "a certain controversy exists" over new lands, "for the sake of peace and concord."',
+    src: [
+      { tag: 'WHO', since: 'Spain and Portugal both claimed new lands', therefore: 'they might fight over them' },
+      { tag: 'WHY', since: 'it says "for the sake of peace and concord"', therefore: 'the goal is to prevent a war' }
+    ],
+    read: ['Spain and Portugal dividing new lands', 'Spain and Portugal ending a long war', 'Spain and Portugal joining against England'],
+    plain: ['Why draw a line at all?', 'Were they ending a long war?', 'Were they forming a military alliance?'],
+    meaning: 'The treaty drew a line so the two kingdoms would not fight over newly found lands.',
+    trapIdx: 1,
+    trap: 'B misreads "controversy" as war. Spain and Portugal had not been at war for centuries; the treaty heads off a future fight.'
+  };
+
+  W['u4_4.3_5'] = {
+    type: 'bestillustrates',
+    hq: 'most directly supported by the passage',
+    look: 'Guaman Poma repeats that in the mines "so many Indians die," and that they are sent to the plains "and the Indians die."',
+    src: [
+      { tag: 'WHO', since: 'Guaman Poma is an Andean noble', therefore: 'he speaks for the native people' },
+      { tag: 'WHAT', since: 'he keeps saying the Indians die', therefore: 'the native population is falling' }
+    ],
+    read: ['An Andean writer on deaths in the mines', 'A Spanish miner bragging about his profits', 'A priest describing a happy mission'],
+    plain: ['What happened to the native population?', 'Where did the silver end up going?', 'Did mixed marriages bring equality between races?'],
+    meaning: 'Overwork, abuse and disease in the mines caused the native population of the Americas to fall.',
+    trapIdx: 1,
+    trap: 'B is true about silver, but the passage never says where it went. "Most directly supported" means what the passage itself shows.'
+  };
+
+  W['u4_4.4_4'] = {
+    type: 'similar',
+    hq: 'key difference between European trade in the Americas and European trade in Asia',
+    hs: ['European trade in Asia took a different form'],
+    src: [
+      { tag: 'WHERE', since: 'in the Americas Europeans conquered empires', therefore: 'they took land and colonized' },
+      { tag: 'WHERE', since: 'in Asia strong empires already existed', therefore: 'Europeans mostly carried goods and kept trading posts' }
+    ],
+    read: ['A comparison of European trade in two regions', 'A question about free trade between European states', 'A question about the Aztec and Inca'],
+    plain: ['How did Europeans act in each region?', 'Was Asia trade free of mercantilism?', 'Was trade in the Americas mostly peaceful?'],
+    meaning: 'Europeans conquered and settled the Americas. In Asia they mostly ran trading posts and moved goods between Asian ports.',
+    trapIdx: 1,
+    trap: 'B finishes the source sentence but gets Asia wrong: silver was the main currency in Asia, especially in China.'
+  };
+
+  W['u4_4.4_5'] = {
+    type: 'bestillustrates',
+    hq: 'best characterizes the activities that Cortés references',
+    look: 'Cortés describes "the great extent of this noble city" and "the government and dominions of Moctezuma" for his king.',
+    src: [
+      { tag: 'WHO', since: 'Cortés is a conquistador writing to Charles V', therefore: 'he is reporting on a land he wants to take' },
+      { tag: 'WHEN', since: 'it is 1520, during the conquest', therefore: 'his activity is expanding Spain’s empire' }
+    ],
+    read: ['A conquistador reporting to his king', 'A priest writing to the pope about converts', 'An Aztec noble writing to Moctezuma'],
+    plain: ['What was Cortés doing in Mexico?', 'Was he making peace with nearby tribes?', 'Was he setting up shared property?'],
+    meaning: 'Cortés was marching inland to bring Moctezuma’s empire under Spanish rule: expansion.',
+    trapIdx: 0,
+    trap: 'A misreads the admiring tone. Cortés did make allies, but to conquer the Aztecs. His activity was expanding Spain’s empire.'
+  };
+
+  W['u4_4.4_6'] = {
+    type: 'purpose',
+    hq: 'most likely followed up this excerpt',
+    look: 'Cortés promises to describe "the many rare and wonderful objects" the city contains, so amazing they will seem "scarcely worthy of credit."',
+    src: [
+      { tag: 'WHO', since: 'Cortés led an expedition without permission', therefore: 'he needed the king to back him' },
+      { tag: 'WHY', since: '"rare and wonderful objects" impress a king', therefore: 'he would stress the treasure' }
+    ],
+    read: ['Cortés setting up a report of riches', 'Cortés asking the king to let him come home', 'Cortés apologizing for his failures'],
+    plain: ['What would win the king’s support?', 'Would he describe Aztec labor?', 'Would he describe the mountains and lakes around it?'],
+    meaning: 'To win the king’s support, Cortés would stress the gold and treasure of Moctezuma’s empire.',
+    trapIdx: 2,
+    trap: 'C fits "wonderful," but scenery would not win a king. Conquistadors sought "God, gold, and glory," and gold mattered most to Charles V.'
+  };
+
+  W['u4_4.4_7'] = {
+    type: 'context',
+    hq: 'highly disturbed the Spanish conquistadors',
+    look: 'Source 1 shows the twin-shrine Great Temple of Tenochtitlan; Source 2 describes priests serving idols in its chapels.',
+    src: [
+      { tag: 'WHAT', since: 'the temples were for the gods', therefore: 'look for a religious ritual' },
+      { tag: 'WHO', since: 'the Spanish were Catholic', therefore: 'the practice shocked them' }
+    ],
+    read: ['A temple and a Spaniard’s description of it', 'A market and a merchant’s description of it', 'A palace and a king’s description of it'],
+    plain: ['What happened at the top of the temple?', 'Was grain stored in the temples for hard times?', 'Was trade done in the temples?'],
+    meaning: 'Aztec priests sacrificed people, often war captives, at the top of the temple pyramids.',
+    trapIdx: 2,
+    trap: 'C comes from Source 2 ("the burial places of the nobles"), but burial would not shock the Spanish. Human sacrifice did.'
+  };
+
+  W['u4_4.4_9'] = {
+    type: 'bestillustrates',
+    hq: 'indicates that which of the following was true of Aztec society',
+    look: 'Cortés says one temple is taller than the main tower of Seville’s church, with stone and wood "so well wrought in every part," carved and painted.',
+    src: [
+      { tag: 'WHO', since: 'a Spaniard who saw Seville is amazed', therefore: 'the building is truly impressive' },
+      { tag: 'WHAT', since: 'he praises the stonework and carving', therefore: 'many skilled artisans built it' }
+    ],
+    read: ['A Spaniard praising the Aztec temples', 'A Spaniard mocking poor Aztec buildings', 'An Aztec priest describing a Spanish church'],
+    plain: ['What do the temples show about the Aztecs?', 'Did the Aztecs depend on long-distance ocean trade?', 'Did they treat women as equals?'],
+    meaning: 'Huge, finely carved temples show a complex society with many skilled craftsmen.',
+    trapIdx: 3,
+    trap: 'D is the opposite: the Aztecs were a warring empire that took captives from neighbors.'
+  };
+
+  W['u4_4.4_11'] = {
+    type: 'causation',
+    hq: 'most strongly influenced which of the following developments',
+    look: 'All lands west of the line go to Spain "forever," and all lands east go to Portugal.',
+    src: [
+      { tag: 'WHAT', since: 'two kingdoms divide lands they have not even seen', therefore: 'it sets up empires overseas' },
+      { tag: 'WHEN', since: 'it is 1494', therefore: 'the answer must start soon after' }
+    ],
+    read: ['Two kingdoms dividing new lands', 'Two kingdoms building national pride', 'Two kingdoms reviving Greek learning'],
+    plain: ['What did dividing the lands lead to?', 'Did it spark nationalism?', 'Did it start the ideas of Social Darwinism?'],
+    meaning: 'The treaty shaped colonial empires: Spain took most of the Americas and Portugal took Brazil.',
+    trapIdx: 0,
+    trap: 'A is about kingdoms, but nationalism is a later idea about a people and their nation. Dividing lands overseas is colonialism.'
+  };
+
+  W['u4_4.4_12'] = {
+    type: 'causation',
+    hq: 'likely encouraged the development of the city of Batavia',
+    look: 'The plan shows a fort (1), walls all the way around, garrison barracks (8) and a VOC administration building (3).',
+    src: [
+      { tag: 'WHO', since: 'the Dutch East India Company built it', therefore: 'it was a business and military base' },
+      { tag: 'WHAT', since: 'it has a fort, walls and barracks', therefore: 'defense was a top concern' }
+    ],
+    read: ['A walled Dutch trading base on Java', 'A Dutch mission town for converting Muslims', 'A Javanese city that the Dutch never ruled'],
+    plain: ['Why build Batavia there?', 'Did the Dutch come to convert people?', 'Did Batavia itself grow the spices?'],
+    meaning: 'The VOC built Batavia as a walled, easily defended base to control the spice trade.',
+    trapIdx: 3,
+    trap: 'D sounds right for the spice trade, but the spices came from other islands, like the Moluccas. Batavia was the fort that controlled them.'
+  };
+
+  W['u4_4.5_5'] = {
+    type: 'causation',
+    hq: 'impact of the trade relationship between the Portuguese and Africans',
+    hs: ['past the Cape Verde Islands, around the southern tip of Africa'],
+    src: [
+      { tag: 'WHERE', since: 'the route hugs the African coast', therefore: 'Portugal set up posts along it' },
+      { tag: 'WHAT', since: 'Portugal bought captives at those posts from the 1440s', therefore: 'the impact was the slave trade' }
+    ],
+    read: ['A voyage along Africa’s coast to India', 'A voyage that avoided the African coast entirely', 'A voyage carrying gold to Africa'],
+    plain: ['What did Portugal take from Africa?', 'Did Portugal ignore trade in Africa?', 'Did Portugal refuse to trade slaves?'],
+    meaning: 'Portugal bought enslaved Africans at coastal posts and shipped them to Europe, the Atlantic islands and later Brazil.',
+    trapIdx: 1,
+    trap: 'B is the opposite. Portugal was the leading slave-trading nation of the period.'
+  };
+
+  W['u4_4.5_6'] = {
+    type: 'context',
+    hq: 'reflects the concerns of which of the following groups',
+    look: 'Wesley asks the slave trader, "Are you a man? Then you should have an human heart," and warns that "the great GOD" will judge him.',
+    src: [
+      { tag: 'WHO', since: 'Wesley founded Methodism', therefore: 'he was part of the Evangelical revival' },
+      { tag: 'WHAT', since: 'he attacks slavery as a sin', therefore: 'it is a religious argument against slavery' }
+    ],
+    read: ['A preacher attacking slave traders', 'A slave trader defending his profits', 'A king ordering an end to slavery'],
+    plain: ['Which religious group led abolition?', 'Was it the Puritans of the early 1600s in England?', 'Was it the Freemasons?'],
+    meaning: 'Wesley’s moral and religious attack on slavery reflects the Evangelicals who led the abolition campaign.',
+    trapIdx: 0,
+    trap: 'A is a Protestant group, but the Puritans peaked in the 1600s. Wesley, writing in 1774, was an Evangelical.'
+  };
+
+  W['u4_4.5_7'] = {
+    type: 'context',
+    hq: 'historical context of the movements of goods and people',
+    look: 'Source 1 shows captives packed into a ship’s hold; Source 2 describes "fellow-creatures" squeezed "down in the ship."',
+    src: [
+      { tag: 'WHERE', since: 'the ship carries captives', therefore: 'they went from Africa to the Americas' },
+      { tag: 'HOW', since: 'plantations grew sugar and cotton', therefore: 'those crops went to Europe' }
+    ],
+    read: ['A slave ship and an attack on slavery', 'A merchant ship carrying sugar to Africa', 'A warship guarding the Atlantic'],
+    plain: ['Which way did each thing move?', 'Did captives go from the Americas to Africa?', 'Did sugar go to Africa?'],
+    meaning: 'Captives went to the Americas, plantation crops went to Europe, and goods, guns and rum went to Africa.',
+    trapIdx: 3,
+    trap: 'D gets the first leg right, then swaps the other two. Cash crops went to Europe, and manufactured goods went to Africa.'
+  };
+
+  W['u4_4.5_8'] = {
+    type: 'causation',
+    hq: 'consequence of the layout of transatlantic slave ships',
+    look: 'The diagram shows rows of captives packed side by side across every deck, with almost no space between them.',
+    src: [
+      { tag: 'WHAT', since: 'people are packed tightly', therefore: 'disease spread fast' },
+      { tag: 'HOW', since: 'the ship is a sailing ship', therefore: 'captives did not row' }
+    ],
+    read: ['A diagram of a crowded slave ship', 'A diagram of a navy ship’s gun decks', 'A diagram of a galley with rowers'],
+    plain: ['What did crowding cause?', 'Did ships sink from the weight?', 'Did captives row the ships?'],
+    meaning: 'Packed together in the hold, many captives died of dysentery, smallpox and other diseases.',
+    trapIdx: 1,
+    trap: 'B sounds like a result of overcrowding, but it was not common. Disease in the packed hold was the deadly result.'
+  };
+
+  W['u4_4.5_10'] = {
+    type: 'causation',
+    hq: 'best support the author’s assertion',
+    look: 'Rodney says "the capitalists of Western Europe were the ones who actively extended their exploitation from inside Europe to cover the whole of Africa."',
+    src: [
+      { tag: 'WHO', since: 'Rodney is a historian from Guyana writing in 1974', therefore: 'he blames European capitalism' },
+      { tag: 'WHAT', since: 'the claim is about Western European capitalists', therefore: 'the evidence must involve them' }
+    ],
+    read: ['A historian blaming Europe for Africa’s losses', 'A historian praising European trade with African states', 'A historian blaming Arab traders for slavery'],
+    plain: ['What evidence ties Europe to Africa’s loss?', 'Did Arab traders sell African captives too?', 'Did Europe trade with Ethiopia?'],
+    meaning: 'European planters expanding the slave trade for Caribbean sugar links capitalism directly to Africa’s loss of people.',
+    trapIdx: 1,
+    trap: 'B is true, but it is about Arab merchants, not Western European capitalists. It does not support Rodney’s claim.'
+  };
+
+  W['u4_4.5_11'] = {
+    type: 'context',
+    hq: 'importance of trading contacts with Europeans',
+    look: 'Rodney blames the imperialist system for "draining African wealth," and names "agents or unwitting accomplices" of that system.',
+    src: [
+      { tag: 'WHO', since: 'some Africans were "agents" in the trade', therefore: 'African states took part and gained something' },
+      { tag: 'WHAT', since: 'Europeans paid in guns', therefore: 'coastal kingdoms grew stronger with them' }
+    ],
+    read: ['A historian on Europe’s role in Africa', 'A European merchant listing his customers', 'An African king praising the Portuguese'],
+    plain: ['What did African states gain?', 'Were Europeans the only slave buyers?', 'Did Africans and Europeans expel Arabs?'],
+    meaning: 'States like Dahomey and Asante traded captives for European guns and used them to expand.',
+    trapIdx: 2,
+    trap: 'C overstates it. The trans-Saharan and Indian Ocean slave trades kept going, so Europeans were not the only buyers.'
+  };
+
+  W['u4_4.5_12'] = {
+    type: 'bestillustrates',
+    hq: 'best seen as evidence for',
+    look: 'Mine owners make workers buy corn, meat and chicha and "deduct the price from their labor," so "the Indians end up very poor and deep in debt."',
+    src: [
+      { tag: 'WHO', since: 'Guaman Poma is an Andean writing to the king', therefore: 'he is exposing abuses' },
+      { tag: 'HOW', since: 'workers are charged until they owe more than they earn', therefore: 'debt keeps them working' }
+    ],
+    read: ['An Andean exposing abuses in the mines', 'A Spanish official praising the mine owners', 'A Spanish king writing new laws'],
+    plain: ['What trap do the workers fall into?', 'Were the elites free of corruption?', 'Did the king ignore the natives?'],
+    meaning: 'Workers charged for food until they were "deep in debt" were caught in debt slavery (debt peonage).',
+    trapIdx: 1,
+    trap: 'B is the opposite: Guaman Poma says the owners "join forces in bribing" every official.'
+  };
+
+  W['u4_4.5_13'] = {
+    type: 'causation',
+    hq: 'changes to the Spanish policies towards Native Americans',
+    look: 'Guaman Poma complains that no official warns "Your Majesty" about "the harms done to the poor Indians."',
+    src: [
+      { tag: 'WHO', since: 'critics wrote to the Spanish king', therefore: 'the change came from the Crown' },
+      { tag: 'WHEN', since: 'Las Casas protested in the 1500s', therefore: 'the New Laws came in 1542' }
+    ],
+    read: ['An Andean asking the king to stop abuses', 'A mine owner asking for more workers', 'A viceroy reporting peace and order in the Andes'],
+    plain: ['How did the Crown respond to abuse?', 'Did Africans replace all native miners?', 'Did natives get the vote?'],
+    meaning: 'Reports of abuse led the Crown to issue decrees, like the New Laws of 1542, calling for better treatment. Many were ignored.',
+    trapIdx: 0,
+    trap: 'A happened in the Caribbean and Brazil, but the Andean silver mines kept using native mita labor.'
+  };
+
+  W['u4_4.5_16'] = {
+    type: 'causation',
+    hq: 'need for human labor during the Age of Exploration',
+    look: 'Barbot describes captives carried "from Guinea to America" who refuse food and starve, including at Guadeloupe, a sugar island.',
+    src: [
+      { tag: 'WHERE', since: 'the captives go to Guadeloupe in the Caribbean', therefore: 'they will work sugar plantations' },
+      { tag: 'WHY', since: 'sugar takes huge amounts of labor', therefore: 'planters wanted many workers' }
+    ],
+    read: ['A slave trader describing his captives', 'An abolitionist describing a slave revolt', 'A planter describing his sugar fields'],
+    plain: ['Why did planters need so many workers?', 'Were crops hard to grow in the soil of the Americas?', 'Was gold found in the Americas?'],
+    meaning: 'Sugar was extremely labor-intensive, so planters in Brazil and the Caribbean imported millions of enslaved Africans.',
+    trapIdx: 3,
+    trap: 'D is real, but gold mining did not drive the mass slave trade. Sugar plantations used far more enslaved workers.'
+  };
+
+  W['u4_4.5_17'] = {
+    type: 'context',
+    hq: 'important continuity underlying the interaction',
+    look: 'Captives are "compelled and even beaten" to make them eat; some starve to death rather than go on.',
+    src: [
+      { tag: 'WHAT', since: 'captives are beaten to keep them alive for sale', therefore: 'force is how the trade works' },
+      { tag: 'WHEN', since: 'it is 1732', therefore: 'organized abolition had not started yet' }
+    ],
+    read: ['A trader describing force used on captives', 'A captive describing a fair and paid labor deal', 'A priest describing peaceful colonies'],
+    plain: ['What kept European colonies going?', 'Did many people oppose the slave trade then?', 'Did workers and owners both gain?'],
+    meaning: 'From conquest to the slave trade, European colonies were built and kept by force.',
+    trapIdx: 1,
+    trap: 'B is too early. Widespread opposition to the slave trade grew only in the late 1700s.'
+  };
+
+  W['u4_4.5_18'] = {
+    type: 'bestillustrates',
+    hq: 'representative of most examples of human trafficking',
+    look: 'Barbot describes captives who starve themselves, "several instances in my own slaves." That is one trader’s experience.',
+    src: [
+      { tag: 'WHO', since: 'it is one agent’s account', therefore: 'it may not be typical' },
+      { tag: 'WHAT', since: 'it is about how captives fared', therefore: 'you need data on many voyages' }
+    ],
+    read: ['One trader’s account of his captives', 'A study of every slave voyage across the Atlantic', 'A law banning the slave trade'],
+    plain: ['How did most voyages compare?', 'Which ports did the ships use?', 'What laws were passed?'],
+    meaning: 'To test whether one account was typical, compare it with survival rates across many voyages.',
+    trapIdx: 3,
+    trap: 'D shows where ships sailed, not how captives were treated. Barbot’s account is about suffering and death, so you need survival data.'
+  };
+
+  W['u4_4.7_1'] = {
+    type: 'causation',
+    hq: 'most directly contributed to',
+    hs: ['the highest offices in government and the Church were usually reserved for peninsulares', 'often held great wealth in land and mines'],
+    src: [
+      { tag: 'WHO', since: 'creoles were rich but shut out of top jobs', therefore: 'they resented Spanish rule' },
+      { tag: 'WHEN', since: 'this held through the 1700s', therefore: 'the result came around 1800' }
+    ],
+    read: ['Rich creoles shut out of top offices', 'Peninsulares losing their land to creoles', 'Native rulers taking back Spanish lands'],
+    plain: ['What did shutting out creoles lead to?', 'Did the encomienda system spread back to Spain?', 'Did it cause the Pueblo Revolt?'],
+    meaning: 'Rich creoles shut out of power resented Spain, and that resentment fed the independence movements of the early 1800s.',
+    trapIdx: 2,
+    trap: 'C is a real revolt against Spain, but it was led by Pueblo people against missionaries, not by creoles.'
+  };
+
+  W['u4_4.7_4'] = {
+    type: 'bestillustrates',
+    hq: 'economic hierarchy in San Juan Peribán',
+    hs: ['owner of the hacienda and sugar mill there', 'Mulatto and mestizo brothers had donated land'],
+    src: [
+      { tag: 'WHO', since: 'the creole candidate owns a hacienda and sugar mill', therefore: 'creoles hold the most wealth' },
+      { tag: 'WHAT', since: 'mulattoes and mestizos donated land', therefore: 'they had some resources too' }
+    ],
+    read: ['A dispute over who could lead a brotherhood', 'A dispute in court over who owned the sugar mill', 'A dispute between priests and the king'],
+    plain: ['Who had wealth in this town?', 'Did mestizos own no property at all?', 'Were creoles losing economically?'],
+    meaning: 'Mulattoes and mestizos could donate land, so they had some wealth, but creoles owned the hacienda and mill and stayed on top.',
+    trapIdx: 0,
+    trap: 'A is contradicted by the source: mulatto and mestizo brothers donated land that earned rent. They owned property.'
+  };
+
+  W['u4_4.7_5'] = {
+    type: 'similar',
+    hq: 'differed in that they',
+    look: 'The mine owners "keep Indian cooking women" and "use cooking as a pretext for taking concubines." Spanish and native lives mixed closely.',
+    src: [
+      { tag: 'WHO', since: 'Spanish men often took native women', therefore: 'a large mestizo population grew' },
+      { tag: 'WHO', since: 'English settlers came as families', therefore: 'they kept apart from natives' }
+    ],
+    read: ['An Andean on Spanish abuse of natives', 'An English settler writing on trade with Native peoples', 'A Spanish priest on mixed marriages'],
+    plain: ['How did the English differ?', 'Did the English see natives as equals?', 'Did they use natives for cash crops?'],
+    meaning: 'Spanish colonists mixed with native people. English settlers mostly kept apart and pushed natives off the land.',
+    trapIdx: 3,
+    trap: 'D describes the wrong workforce. English tobacco and cotton farms relied on indentured servants and enslaved Africans.'
+  };
+
+  W['u4_4.8_0'] = {
+    type: 'bestillustrates',
+    hq: 'best illustrates which change',
+    hs: ['Much of it eventually flowed to China in exchange for silk, porcelain, and tea'],
+    src: [
+      { tag: 'WHERE', since: 'silver went from the Americas to China', therefore: 'trade now crossed the whole world' },
+      { tag: 'WHAT', since: 'China sold silk, porcelain and tea', therefore: 'Asian trade grew, not shrank' }
+    ],
+    read: ['American silver flowing to China', 'European trade with Asia shrinking', 'Chinese factories shutting down'],
+    plain: ['What did silver tie together?', 'Did Europe-Asia trade decline?', 'Did Chinese manufacturing end?'],
+    meaning: 'Silver from the Americas paid for Chinese goods: one global trade network linking every continent.',
+    trapIdx: 1,
+    trap: 'B is the opposite: silver flowed to China because Europeans were buying more Asian goods.'
+  };
+
+  W['u4_4.8_4'] = {
+    type: 'bestillustrates',
+    hq: 'best understood as evidence of',
+    hs: ['westward across the Pacific on Manila Galleons to China'],
+    src: [
+      { tag: 'WHERE', since: 'silver went east across the Atlantic and west across the Pacific', therefore: 'it linked three continents' },
+      { tag: 'WHEN', since: 'the Manila galleons began in 1571', therefore: 'this was the first time trade circled the globe' }
+    ],
+    read: ['Silver crossing two oceans to China', 'Silver staying inside Spain’s colonies', 'Silver ending the Silk Roads'],
+    plain: ['What did the silver routes create?', 'Did the overland Silk Roads decline because of Ottomans?', 'Did Ming China collapse?'],
+    meaning: 'Silver moving across the Atlantic and Pacific created the first truly global trade network.',
+    trapIdx: 3,
+    trap: 'D has a kernel of truth (silver problems hurt the late Ming), but the passage shows a network forming, not an empire falling.'
+  };
+
+  /* ============ UNIT 5 ============ */
+  W['u5_5.1_2'] = {
+    type: 'purpose',
+    hq: 'EXCEPT',
+    hs: ['neither the nation nor the Supreme Being created slaves', 'He is your equal, because he is a man'],
+    src: [
+      { tag: 'WHO', since: 'Saint-Maurice is a journalist in Saint-Domingue', therefore: 'he is arguing with the colonists around him' },
+      { tag: 'HOW', since: 'writers often quote the other side to answer it', therefore: 'one quote may be the colonists’ claim, not his' }
+    ],
+    read: ['A journalist arguing for abolition', 'A planter arguing to keep slavery forever', 'A king ordering slaves back to work'],
+    plain: ['Which line is not his own argument?', 'Which line calls all men equal before God?', 'Which line says slavery is ending now?'],
+    meaning: 'Three lines argue for freedom. The odd one out is a colonist argument Saint-Maurice quotes so he can knock it down.',
+    trapIdx: 3,
+    trap: 'D sounds religious rather than political, but it is a direct argument against slavery: no one was created a slave.'
+  };
+
+  W['u5_5.1_7'] = {
+    type: 'context',
+    hq: 'central argument for which Enlightenment-era development',
+    look: 'Hobbes says nature made men "so equal" that "the weakest has strength enough to kill the strongest."',
+    src: [
+      { tag: 'WHO', since: 'Hobbes wrote during England’s civil war', therefore: 'he wants to explain why people accept a ruler' },
+      { tag: 'WHAT', since: 'everyone is equally able to kill', therefore: 'people agree to a ruler for safety' }
+    ],
+    read: ['A thinker on why people need rulers', 'An economist on how markets set prices', 'A king on why God chose him to rule'],
+    plain: ['What deal do equal people make?', 'Is it about free markets setting prices?', 'Is it about kings chosen by God?'],
+    meaning: 'Equal people afraid of each other agree to give up some freedom to a ruler for security: the social contract.',
+    trapIdx: 2,
+    trap: 'C sounds right because Hobbes backed strong rulers, but he bases power on an agreement among equals, not on God.'
+  };
+
+  W['u5_5.1_8'] = {
+    type: 'causation',
+    hq: 'emerged in large part due to the ideas outlined in Leviathan',
+    look: 'Hobbes builds government on the equality of men, not on God’s choice of a king.',
+    src: [
+      { tag: 'WHEN', since: 'Leviathan came out in 1651', therefore: 'the effect must come after, so cross out the English Civil War' },
+      { tag: 'HOW', since: 'Locke and Rousseau built on the idea of a contract', therefore: 'revolutionaries used it against kings' }
+    ],
+    read: ['A thinker basing government on equality', 'A worker describing his first day in a new factory', 'A king defending divine right'],
+    plain: ['What did contract ideas lead to?', 'Did they start the English Civil War?', 'Did they start the Industrial Revolution?'],
+    meaning: 'If government rests on a contract, people can break it. Later thinkers used that idea to justify revolutions against monarchs.',
+    trapIdx: 1,
+    trap: 'B happened first. The English Civil War began in 1642, before Leviathan was published in 1651.'
+  };
+
+  W['u5_5.2_4'] = {
+    type: 'context',
+    hq: 'most likely influenced Fukuzawa’s views',
+    hs: ['whether a treaty is honored or not depends entirely on the financial and military powers', 'If others are violent, then I too must become violent'],
+    src: [
+      { tag: 'WHO', since: 'Fukuzawa is a Meiji-era reformer', therefore: 'he lived through Japan being forced open' },
+      { tag: 'WHAT', since: 'he says force, not virtue, rules nations', therefore: 'something taught him that lesson' }
+    ],
+    read: ['A Japanese thinker saying force rules nations', 'A missionary saying all people are brothers before God', 'A shogun saying Japan must stay closed'],
+    plain: ['What taught Japan that force rules?', 'Did the shogun’s isolation shape his view?', 'Did Buddhist ideas of peace shape it?'],
+    meaning: 'American warships forced Japan to open its markets. That taught Fukuzawa that power, not law, decides world affairs.',
+    trapIdx: 3,
+    trap: 'D is a bloody event of the period, but it was a Chinese civil war. The passage is about how strong nations treat weaker ones.'
+  };
+
+  W['u5_5.2_5'] = {
+    type: 'context',
+    hq: 'final verse of this song is most clearly a reference to',
+    look: 'The last verse calls on God "to shield the land, the one true land, One Deutschland and one fatherland!"',
+    src: [
+      { tag: 'WHAT', since: 'it longs for "one Deutschland"', therefore: 'Germany is not yet one country' },
+      { tag: 'WHEN', since: 'it was popular in the late 1800s', therefore: 'think of unification in 1871' }
+    ],
+    read: ['A song calling for one united Germany', 'A song calling for German colonies abroad', 'A song mourning a lost German war'],
+    plain: ['Which event made Germany one land?', 'Did it call for colonies overseas?', 'Did it praise the Frankfurt Parliament?'],
+    meaning: '"One Deutschland" points to unification in 1871, when Prussia brought the southern Catholic states into one empire.',
+    trapIdx: 3,
+    trap: 'D did try to unite Germany in 1848, but it failed. Unification came under Prussia, so the song points to that.'
+  };
+
+  W['u5_5.2_7'] = {
+    type: 'context',
+    hq: 'categorize this song as part of',
+    look: 'Germany is "wherever is heard the German tongue," a land where "truth lives in each eye of blue."',
+    src: [
+      { tag: 'WHAT', since: 'it defines Germany by language and blood', therefore: 'it is about the German "folk"' },
+      { tag: 'WHERE', since: 'it is a German song', therefore: 'cross out Chinese and Russian movements' }
+    ],
+    read: ['A song defining Germans by language and blood', 'A song attacking the Catholic Church and its bishops', 'A song calling for a Russian revolution'],
+    plain: ['Which movement praised the German folk?', 'Was it China’s reform movement?', 'Was it Bismarck’s fight with Catholics?'],
+    meaning: 'A Germany defined by language and "eyes of blue" fits the Völkisch movement, which celebrated the German people.',
+    trapIdx: 2,
+    trap: 'C is German and from the same era, but the Kulturkampf was Bismarck’s campaign against the Catholic Church. The song never mentions it.'
+  };
+
+  W['u5_5.2_8'] = {
+    type: 'context',
+    hq: 'historical context for the rebellion',
+    look: 'The 1791 print, titled "France Militaire," shows enslaved people rising against white colonists as the plantations of the Plaine du Cap burn.',
+    src: [
+      { tag: 'WHEN', since: 'it is 1791', therefore: 'France is in the middle of its revolution' },
+      { tag: 'WHERE', since: 'Haiti was the French colony Saint-Domingue', therefore: 'events in France shaped it' }
+    ],
+    read: ['A print of the 1791 revolt in Saint-Domingue', 'A print of a French army victory parade in Paris', 'A print of a British raid in the Caribbean'],
+    plain: ['What was happening in France in 1791?', 'Was it the Congress of Vienna of 1815?', 'Was it the Seven Years’ War of the 1750s?'],
+    meaning: 'The revolt began in 1791, inspired by the Rights of Man and helped by the chaos of the French Revolution.',
+    trapIdx: 2,
+    trap: 'C is a French and British war in the colonies, but it ended in 1763, almost thirty years before this revolt.'
+  };
+
+  W['u5_5.2_9'] = {
+    type: 'causation',
+    hq: 'grew out of which of the following',
+    look: 'The print shows enslaved people with axes and guns attacking colonists, with fires in the distance.',
+    src: [
+      { tag: 'WHO', since: 'the rebels are enslaved people', therefore: 'independence began as a slave revolt' },
+      { tag: 'WHEN', since: 'the fighting ran from 1791 to 1804', therefore: 'it took many uprisings and battles' }
+    ],
+    read: ['A print of enslaved people rising up', 'A print of colonists writing a constitution', 'A print of a revolt against Dessalines'],
+    plain: ['How did Haiti become independent?', 'Did a convention write it into being?', 'Was it a revolt against Dessalines?'],
+    meaning: 'A series of slave revolts, led by Toussaint L’Ouverture and Dessalines, defeated France and won independence in 1804.',
+    trapIdx: 3,
+    trap: 'D flips the story. Dessalines led the fight and declared independence; he was not the one rebelled against.'
+  };
+
+  W['u5_5.2_10'] = {
+    type: 'context',
+    hq: 'best understood in the context of',
+    look: 'Bolívar says creoles are "struggling to maintain ourselves in the country that gave us birth against the opposition of the invaders."',
+    src: [
+      { tag: 'WHO', since: 'Bolívar led armies against Spain', therefore: 'the invaders are the Spanish' },
+      { tag: 'WHERE', since: 'Angostura is in Venezuela', therefore: 'the movement is in South America' }
+    ],
+    read: ['A rebel leader on fighting Spain', 'A union leader on factory wages', 'A Filipino leader on American rule'],
+    plain: ['What was Bolívar fighting for?', 'Was it workers’ rights in Central America?', 'Was it self-rule in the Philippines?'],
+    meaning: 'Bolívar spoke in 1819 during the wars for independence from Spain in South America.',
+    trapIdx: 3,
+    trap: 'D is another fight against Spain, but it came in the 1890s and in Asia. Angostura is in Venezuela.'
+  };
+
+  W['u5_5.2_11'] = {
+    type: 'bestillustrates',
+    hq: 'requirements for a properly functioning legal system',
+    look: 'Bolívar ends: "proper morals, and not force, are the bases of law; and that to practice justice is to practice liberty."',
+    src: [
+      { tag: 'WHAT', since: 'he names "proper morals" as the base of law', therefore: 'morality is one part' },
+      { tag: 'WHAT', since: 'he says "to practice justice is to practice liberty"', therefore: 'justice is the other' }
+    ],
+    read: ['A leader naming what law rests on', 'A priest naming what faith rests on', 'A general naming what victory rests on'],
+    plain: ['What does law rest on, per Bolívar?', 'Is it truth and religion together?', 'Is it freedom and democracy together?'],
+    meaning: 'Bolívar names morals and justice as the bases of law.',
+    trapIdx: 1,
+    trap: 'B uses words that sound like Bolívar, and he does mention liberty, but as a result of justice. His two bases are morals and justice.'
+  };
+
+  W['u5_5.2_12'] = {
+    type: 'context',
+    hq: 'accomplished which of the following',
+    look: 'Bolívar speaks to the Congress of Angostura, which created a new republic in 1819.',
+    src: [
+      { tag: 'WHO', since: 'Bolívar led independence in northern South America', therefore: 'look for what he founded' },
+      { tag: 'WHAT', since: 'the congress united Venezuela and New Granada', therefore: 'he built Gran Colombia' }
+    ],
+    read: ['A leader speaking to a new congress', 'A general reporting on the War of 1812', 'A soldier writing during the 1898 war'],
+    plain: ['What did Bolívar build?', 'Did he win the War of 1812?', 'Did he win the Spanish-American War?'],
+    meaning: 'Bolívar created Gran Colombia, the first union of independent Latin American states.',
+    trapIdx: 3,
+    trap: 'D sounds bold, but Bolívar was a creole, and the first mixed-race leaders to win power were in Haiti. His achievement was Gran Colombia.'
+  };
+
+  W['u5_5.2_13'] = {
+    type: 'bestillustrates',
+    hq: 'Taken together, the two sources best illustrate',
+    look: 'Gran Colombia gives power to a President and Congress; Brazil’s government is "a Hereditary Monarchy, constitutional, and Representative."',
+    src: [
+      { tag: 'WHAT', since: 'both are written founding laws', therefore: 'they are constitutions' },
+      { tag: 'HOW', since: 'both set up representatives', therefore: 'the shared idea is representative government' }
+    ],
+    read: ['Two new nations writing constitutions', 'Two generals taking power by force from congress', 'Two kings claiming power from God'],
+    plain: ['What do both governments share?', 'Did both give power to a monarch?', 'Did generals overthrow both?'],
+    meaning: 'A republic and a constitutional monarchy both set up written, representative government.',
+    trapIdx: 1,
+    trap: 'B fits Brazil but not Gran Colombia, which had a president. "Taken together" means it must fit both.'
+  };
+
+  W['u5_5.2_15'] = {
+    type: 'causation',
+    hq: 'most undermine the expectations expressed in Article 1',
+    look: 'Article 1: "The Republics of Venezuela and New Granada are from this day on united in a single one."',
+    src: [
+      { tag: 'WHAT', since: 'Article 1 expects lasting unity', therefore: 'look for what split it apart' },
+      { tag: 'WHEN', since: 'Gran Colombia broke up by 1831', therefore: 'regional leaders pulled away' }
+    ],
+    read: ['A law uniting two republics into one', 'A law splitting one country into two', 'A law ending slavery in Venezuela'],
+    plain: ['What would break the union apart?', 'Would nationalism push for more unity?', 'Did slave revolts split the new states?'],
+    meaning: 'Local elites wanted to rule their own regions, so Gran Colombia split into Venezuela, Colombia and Ecuador.',
+    trapIdx: 0,
+    trap: 'A sounds like a threat, but outside powers did not break up Gran Colombia. Regional leaders inside it did.'
+  };
+
+  W['u5_5.2_16'] = {
+    type: 'bestillustrates',
+    hq: 'inferences about religion',
+    look: 'Article 5: Catholicism stays the religion of the Empire, but "followers of all other religions are allowed to worship" in private.',
+    src: [
+      { tag: 'WHAT', since: 'other religions may worship privately', therefore: 'Brazil allowed limited toleration' },
+      { tag: 'WHO', since: 'the emperor rules by a constitution', therefore: 'it is not divine right' }
+    ],
+    read: ['A constitution allowing private worship', 'A constitution banning all other faiths', 'A constitution ending the state church'],
+    plain: ['How did Brazil treat other faiths?', 'Did it demand one religion for all?', 'Did kings rule by divine right?'],
+    meaning: 'Brazil kept a state church but let other faiths worship in private: religious toleration was spreading.',
+    trapIdx: 0,
+    trap: 'A reads only the first line of Article 5. The second line allows other religions, so uniformity was not required.'
+  };
+
+  W['u5_5.3_1'] = {
+    type: 'causation',
+    hq: 'most directly contributed to industrialization by',
+    hs: ['raising food production while pushing many small farmers off the land'],
+    src: [
+      { tag: 'WHAT', since: 'more food was grown', therefore: 'the population could grow' },
+      { tag: 'WHO', since: 'small farmers lost their land', therefore: 'they moved to towns looking for work' }
+    ],
+    read: ['New farming that pushed farmers off land', 'New laws that gave small farmers more of their own land', 'A famine that emptied the countryside'],
+    plain: ['How did enclosure help factories?', 'Did it end trade with the colonies?', 'Did it shrink Britain’s population?'],
+    meaning: 'Enclosure grew more food and pushed farmers off the land: food for a bigger population and workers for factories.',
+    trapIdx: 3,
+    trap: 'D is the opposite: the passage says small farmers were pushed off the land.'
+  };
+
+  W['u5_5.3_4'] = {
+    type: 'causation',
+    hq: 'help explain the size and composition of the workforce',
+    hs: ['Bayer employs 3,500 people alone at its plant in Leverkusen'],
+    src: [
+      { tag: 'WHERE', since: 'Leverkusen was a small inland town', therefore: 'workers had to come from somewhere else' },
+      { tag: 'HOW', since: 'railroads linked inland towns', therefore: 'people could move to the factory' }
+    ],
+    read: ['A historian describing a huge German plant', 'A worker describing a small family shop in Britain', 'A farmer describing a quiet village'],
+    plain: ['How did workers reach an inland town?', 'Did colonial subjects move to Germany?', 'Did electricity draw the rich to farms?'],
+    meaning: 'Railroads carried workers and chemists from farms and villages to inland factories like Bayer’s.',
+    trapIdx: 2,
+    trap: 'C sounds modern, but the telegraph sent messages, not people. Most of the 3,500 workers were local laborers, not recruits from across the world.'
+  };
+
+  W['u5_5.3_7'] = {
+    type: 'causation',
+    hq: 'deprived them of the opportunity of bringing up their children to labour',
+    look: 'Machines have "thrown thousands of your petitioners out of employ"; one machine "will do as much work in one day as would otherwise employ twenty men."',
+    src: [
+      { tag: 'WHO', since: 'hand workers are writing the petition', therefore: 'they are losing their trade to machines' },
+      { tag: 'HOW', since: 'parents trained children in the family trade', therefore: 'no trade means nothing to pass on' }
+    ],
+    read: ['Hand workers protesting new machines', 'Factory owners praising new machines', 'Lawmakers banning child labor'],
+    plain: ['Why can’t parents train their kids?', 'Did workers choose to have fewer kids?', 'Did new laws ban child labor?'],
+    meaning: 'Children learned their parents’ trade. If machines make hand-scribbling obsolete, there is no trade to teach.',
+    trapIdx: 3,
+    trap: 'D jumps ahead. Child labor laws came decades later, and early factories hired many children.'
+  };
+
+  W['u5_5.4_1'] = {
+    type: 'similar',
+    hq: 'most similar to those for Japan',
+    hs: ['1890 | 57 | 9.8% | 12.1%', '1910 | 88 | 23.1% | 31.9%'],
+    src: [
+      { tag: 'WHAT', since: 'industry jumps from 9.8% to 23.1% of output', therefore: 'Japan industrialized fast' },
+      { tag: 'HOW', since: 'heavy industry nearly triples', therefore: 'look for another fast, state-backed industrializer' }
+    ],
+    read: ['A table of Japan’s fast industrial growth', 'A table of Japan’s farming output falling', 'A table of Japan’s trade with China'],
+    plain: ['Who else industrialized fast then?', 'Did Qing China industrialize quickly?', 'Did the Ottomans industrialize quickly?'],
+    meaning: 'Japan industrialized rapidly from 1890 to 1910. Newly united Germany did the same in those years.',
+    trapIdx: 0,
+    trap: 'A is Japan’s neighbor, but Qing China’s Self-Strengthening efforts were small and slow. Germany matched Japan’s speed.'
+  };
+
+  W['u5_5.4_6'] = {
+    type: 'context',
+    hq: 'best contextualizes the dramatic increases',
+    look: 'Coal output rises from under 1,000 to about 13,000 thousand tons, and steamships from about 25 to 800, between the 1870s and 1905.',
+    src: [
+      { tag: 'WHEN', since: 'the growth runs from 1875 to 1905', therefore: 'it starts just after 1868' },
+      { tag: 'WHAT', since: 'coal and steamships are industrial', therefore: 'look for the era of state-led industry' }
+    ],
+    read: ['Charts of Japan’s coal and ships rising', 'Charts of Japan’s coal and ships falling', 'Charts of Japan’s rice harvests'],
+    plain: ['Which era drove this growth?', 'Was it the Tokugawa era before 1868?', 'Was it the Heian era of the 1100s?'],
+    meaning: 'After 1868 the Meiji government built mines, shipyards and railways, so coal and steamships shot up.',
+    trapIdx: 0,
+    trap: 'A ended in 1868. The charts start in the 1870s, the Meiji years.'
+  };
+
+  W['u5_5.4_8'] = {
+    type: 'similar',
+    hq: 'different from industrialization in Europe',
+    look: 'Both lines barely rise until the 1880s or 1890s, then climb steeply by 1905.',
+    src: [
+      { tag: 'WHEN', since: 'Japan’s rise takes about 30 years', therefore: 'compare that with Britain’s century and more' },
+      { tag: 'HOW', since: 'Japan had few raw materials', therefore: 'cross out "did not need to import"' }
+    ],
+    read: ['Charts of Japan growing very fast', 'Charts of Europe growing very fast', 'Charts of Japan’s trade with Europe'],
+    plain: ['How was Japan’s speed different?', 'Did Japan make very different goods than Europe?', 'Did Japan need no imports?'],
+    meaning: 'Japan built in about thirty years an industrial economy that took Europe more than a century.',
+    trapIdx: 3,
+    trap: 'D is the opposite: Japan had little coal, iron or oil and had to import them, which later pushed it to expand.'
+  };
+
+  W['u5_5.4_9'] = {
+    type: 'causation',
+    hq: 'long-term effect of the rapid growth of Japanese shipbuilding',
+    look: 'The steamship chart climbs from about 170 ships in 1894 to about 800 in 1905.',
+    src: [
+      { tag: 'WHEN', since: 'the chart ends in 1905', therefore: 'that is the year Japan beat Russia at sea' },
+      { tag: 'WHAT', since: 'shipbuilding builds navies', therefore: 'Japan could match Western fleets' }
+    ],
+    read: ['A chart of Japan building many ships', 'A chart of Japan’s navy shrinking', 'A chart of Japan selling ships abroad'],
+    plain: ['What could all those ships do?', 'Did Japan invent unmatched ships?', 'Did Japan defend German colonies?'],
+    meaning: 'Shipbuilding gave Japan a modern navy that beat Russia at Tsushima in 1905.',
+    trapIdx: 2,
+    trap: 'C flips history. In World War I Japan fought Germany and seized its Pacific islands.'
+  };
+
+  W['u5_5.5_1'] = {
+    type: 'bestillustrates',
+    hq: 'best illustrates how industrial technology',
+    hs: ['in minutes rather than weeks'],
+    src: [
+      { tag: 'WHAT', since: 'a cable crossed the Atlantic in 1866', therefore: 'Britain and the US could talk in minutes' },
+      { tag: 'HOW', since: 'weeks became minutes', therefore: 'communication got much faster' }
+    ],
+    read: ['A cable making messages much faster', 'A cable making messages much slower', 'A cable ending Atlantic trade'],
+    plain: ['What did the telegraph change?', 'Did it slow down communication?', 'Did it end trade with the Americas?'],
+    meaning: 'The telegraph cut message time from weeks to minutes.',
+    trapIdx: 0,
+    trap: 'A twists the idea of older systems becoming obsolete. The new system made communication faster, not slower.'
+  };
+
+  W['u5_5.5_4'] = {
+    type: 'causation',
+    hq: 'Over the course of the nineteenth century, the risks',
+    hs: ['18–50% per voyage | High'],
+    src: [
+      { tag: 'WHEN', since: 'the table covers 1750 to 1800', therefore: 'ships were still wooden sailing ships' },
+      { tag: 'WHAT', since: 'voyages to Asia were high risk', therefore: 'ask what made sea travel safer after 1800' }
+    ],
+    read: ['A table of risky voyages to Asia', 'A table of safe voyages along the coast', 'A table of British land prices rising'],
+    plain: ['What made voyages safer after 1800?', 'Did Asian navies threaten European ships?', 'Did new colonial powers raise the danger?'],
+    meaning: 'Steamships did not depend on the wind, so trips were faster and more predictable. Lower danger meant lower risk for investors.',
+    trapIdx: 3,
+    trap: 'D has the right direction but the wrong reason. No international group wiped out piracy in the 1800s; steam power made the difference.'
+  };
+
+  W['u5_5.5_6'] = {
+    type: 'bestillustrates',
+    hq: 'long-term change to the English economy',
+    look: 'The 1835 print shows a long mill hall of power looms driven by overhead belts, worked mostly by women.',
+    src: [
+      { tag: 'WHAT', since: 'one mill holds dozens of machines', therefore: 'work has moved into factories' },
+      { tag: 'HOW', since: 'a long-term change shows across the whole country', therefore: 'look for evidence about where people lived and worked' }
+    ],
+    read: ['A print of women working power looms', 'A print of a family weaving cloth by hand at home', 'A print of farmers harvesting wheat'],
+    plain: ['What shows a lasting national change?', 'Which companies made the most money from looms?', 'How did a power loom actually work?'],
+    meaning: 'If people moved from farms to factory cities across England, factory work changed the whole economy for good.',
+    trapIdx: 3,
+    trap: 'D fits the women in the picture, but it is about one mill. A long-term change to the economy shows up in nationwide shifts.'
+  };
+
+  W['u5_5.6_0'] = {
+    type: 'bestillustrates',
+    hq: 'The policies described best illustrate',
+    hs: ['the Japanese government built railroads and telegraph lines, set up model factories'],
+    src: [
+      { tag: 'WHO', since: 'the government built the railroads and factories', therefore: 'the state led the way' },
+      { tag: 'HOW', since: 'it later sold factories to private firms', therefore: 'the state started industry, then handed it on' }
+    ],
+    read: ['A government building Japan’s industry', 'Foreign companies taking over Japan’s economy', 'Japan turning back to old crafts'],
+    plain: ['Who drove Japan’s industry?', 'Did foreign firms lead it entirely?', 'Did Japan reject Western tools?'],
+    meaning: 'The Meiji state built railways and factories itself: a government directly promoting industry.',
+    trapIdx: 0,
+    trap: 'A grabs the "foreign experts," but Japan hired them and kept control. "Entirely" makes it wrong.'
+  };
+
+  W['u5_5.6_2'] = {
+    type: 'similar',
+    hq: 'most directly differed from',
+    hs: ['The perfectly legitimate objections of some people to chartered companies like ours'],
+    src: [
+      { tag: 'WHAT', since: 'the BSAC is a chartered company holding a huge territory', therefore: 'it works like an old mercantilist company' },
+      { tag: 'WHY', since: 'he has to answer "objections" to chartered companies', therefore: 'the trend was toward free markets' }
+    ],
+    read: ['A chairman defending a chartered company', 'A worker attacking a railroad company over wages', 'A king granting land to farmers'],
+    plain: ['Which trend does a charter go against?', 'Did Africa shift to resource extraction?', 'Did business become transnational?'],
+    meaning: 'A government-chartered monopoly is a mercantilist model, unlike the century’s shift toward free trade.',
+    trapIdx: 0,
+    trap: 'A is a real trend, and the BSAC fits it: it was extracting African resources. The question asks what it differed from.'
+  };
+
+  W['u5_5.6_4'] = {
+    type: 'causation',
+    hq: 'contributed most directly to a change in Safavid production and export patterns',
+    hs: ['Persia exports to the Indies an abundance of tobacco, all sorts of fruit, marmalade, wines, horses, ceramics'],
+    src: [
+      { tag: 'WHEN', since: 'it is 1686', therefore: 'Persia still exports its own crafts' },
+      { tag: 'WHAT', since: 'the stem asks about a change after 1750', therefore: 'ask what undercut handmade goods' }
+    ],
+    read: ['A merchant listing Persia’s many exports', 'A shah banning all of Persia’s trade with Europe', 'A Persian buying British factory cloth'],
+    plain: ['What undercut Persian crafts after 1750?', 'Did economic liberalization in Persia change it?', 'Did the silver trade change it?'],
+    meaning: 'European factories made cloth, ceramics and metal far cheaper, undercutting Persian exports.',
+    trapIdx: 3,
+    trap: 'D is a real global process, but it began in the 1500s, before Chardin wrote. The change after 1750 was industrialization.'
+  };
+
+  W['u5_5.7_3'] = {
+    type: 'causation',
+    hq: 'These changes most directly encouraged',
+    hs: ['investors could lose only the money they had put in'],
+    src: [
+      { tag: 'WHAT', since: 'investors risked only what they put in', therefore: 'investing became safer' },
+      { tag: 'HOW', since: 'more people bought shares', therefore: 'companies could raise huge sums' }
+    ],
+    read: ['New laws making investing less risky', 'New laws banning private investment in industry', 'New laws taxing all stock trades'],
+    plain: ['What did lower risk let companies do?', 'Did mercantilism return?', 'Did investors turn back to buying land instead?'],
+    meaning: 'Lower risk drew more investors, so companies could raise the huge sums railroads and factories needed.',
+    trapIdx: 0,
+    trap: 'A is the opposite: these laws opened private investment, while mercantilism had restricted it.'
+  };
+
+  W['u5_5.7_4'] = {
+    type: 'bestillustrates',
+    hq: 'The developments described best illustrate',
+    hs: ['department stores in Paris, London, and New York sold mass-produced clothing'],
+    src: [
+      { tag: 'WHAT', since: 'stores sell mass-produced goods', therefore: 'factories made goods cheap' },
+      { tag: 'HOW', since: 'newspapers advertise brands', therefore: 'people are urged to buy more' }
+    ],
+    read: ['Stores and ads selling factory goods', 'A government rationing goods in wartime', 'Craft shops closing for lack of buyers'],
+    plain: ['What new culture is forming?', 'Was the middle class shrinking?', 'Did advertising come to an end?'],
+    meaning: 'Department stores and brand ads show a consumer culture built on mass production.',
+    trapIdx: 1,
+    trap: 'B is the opposite. The middle class was growing, and it was the main customer of department stores.'
+  };
+
+  W['u5_5.8_1'] = {
+    type: 'bestillustrates',
+    hq: 'The developments described best illustrate',
+    hs: ['formed labor unions and organized strikes', 'Some governments responded with laws limiting working hours'],
+    src: [
+      { tag: 'WHO', since: 'workers formed unions and struck', therefore: 'workers organized' },
+      { tag: 'HOW', since: 'governments passed laws in response', therefore: 'reform followed pressure' }
+    ],
+    read: ['Workers organizing and states reforming', 'Workers quitting factories to go back to farms', 'Factories using enslaved workers'],
+    plain: ['How did workers and states respond?', 'Did industrialization come to an end?', 'Did the working class shrink?'],
+    meaning: 'Workers organized unions and strikes, and governments answered with reforms like Bismarck’s insurance.',
+    trapIdx: 3,
+    trap: 'D overstates it. Some wages rose, but unions formed because conditions were harsh, and the working class grew.'
+  };
+
+  W['u5_5.8_5'] = {
+    type: 'causation',
+    hq: 'led to the creation of laws',
+    look: 'Bismarck says the worker’s "real grievance" is insecurity: he may be sick, and "he will one day be old and unfit to work."',
+    src: [
+      { tag: 'WHO', since: 'Bismarck is Germany’s chancellor', therefore: 'he can turn the speech into law' },
+      { tag: 'WHAT', since: 'he names illness and old age', therefore: 'the laws will cover health and old age' }
+    ],
+    read: ['A chancellor on workers’ insecurity', 'A union leader calling for a strike', 'A factory owner cutting wages'],
+    plain: ['What laws answer illness and old age?', 'Did they limit factory hours?', 'Did they force older workers into early retirement?'],
+    meaning: 'Bismarck created health insurance, accident insurance and old-age pensions.',
+    trapIdx: 0,
+    trap: 'A is a real reform of the era, but Bismarck’s speech names sickness and old age, not long hours.'
+  };
+
+  W['u5_5.8_7'] = {
+    type: 'causation',
+    hq: 'long-term effects of Otto von Bismarck’s speech',
+    look: 'Bismarck says society "does not currently recognize any real obligation" to a sick or old worker beyond poor relief.',
+    src: [
+      { tag: 'WHAT', since: 'Germany created the first social insurance', therefore: 'other states could copy it' },
+      { tag: 'WHEN', since: 'long-term means decades later', therefore: 'think of the welfare state' }
+    ],
+    read: ['A chancellor calling for worker insurance', 'A chancellor calling for a new war with France', 'A chancellor calling for lower taxes'],
+    plain: ['What did Germany’s model spread to?', 'Did the German states split up again into pieces?', 'Did German output fall?'],
+    meaning: 'Germany’s social insurance became a model for pensions and health insurance across Europe.',
+    trapIdx: 2,
+    trap: 'C confuses social insurance with communism. East Germany’s communist rule came after 1945 and had nothing to do with this speech.'
+  };
+
+  W['u5_5.9_0'] = {
+    type: 'causation',
+    hq: 'most directly a result of',
+    hs: ['crowded, filthy, and unhealthy, with families packed into damp cellars'],
+    src: [
+      { tag: 'WHERE', since: 'Manchester was a booming factory city', therefore: 'people poured in for work' },
+      { tag: 'WHAT', since: 'streets lacked drains and sewers', therefore: 'the city grew faster than it could build' }
+    ],
+    read: ['A writer on slums in a factory city', 'A writer on empty farms in Ireland after the famine', 'A writer on new government housing'],
+    plain: ['Why were the cities so crowded?', 'Was English industry moving abroad?', 'Did new diseases cause it?'],
+    meaning: 'Workers crowded into factory towns faster than housing and sewers could be built.',
+    trapIdx: 2,
+    trap: 'C is the opposite. There was almost no public housing in 1845; workers rented whatever they could afford.'
+  };
+
+  W['u5_5.9_1'] = {
+    type: 'bestillustrates',
+    hq: 'best illustrates which development of the industrial age',
+    hs: ['Many working-class women, however, worked long hours in textile mills'],
+    src: [
+      { tag: 'WHO', since: 'middle-class women stayed home', therefore: 'one class followed "separate spheres"' },
+      { tag: 'WHO', since: 'working-class women worked in mills', therefore: 'another class could not afford to' }
+    ],
+    read: ['Women’s work differing by class', 'Women winning equal pay in mills', 'Men and women sharing all work'],
+    plain: ['How did class shape women’s roles?', 'Did differences between classes disappear?', 'Did women gain equal pay?'],
+    meaning: 'Middle-class women stayed home while working-class women took factory jobs: class shaped gender roles.',
+    trapIdx: 0,
+    trap: 'A is the opposite: the passage is built on a difference between classes.'
+  };
+
+  W['u5_5.9_4'] = {
+    type: 'bestillustrates',
+    hq: 'The Reform Act of 1832 best illustrates',
+    hs: ['gave many middle-class men in Britain the right to vote'],
+    src: [
+      { tag: 'WHO', since: 'middle-class men got the vote', therefore: 'the new industrial class gained power' },
+      { tag: 'WHAT', since: 'working-class men still could not vote', therefore: 'it was a limited reform' }
+    ],
+    read: ['A law giving middle-class men votes', 'A law giving all adult men and women the vote', 'A law ending the British monarchy'],
+    plain: ['Which class gained political power?', 'Did all men and women in Britain get to vote?', 'Did the monarchy end?'],
+    meaning: 'The industrial middle class won the vote: its political power was growing.',
+    trapIdx: 0,
+    trap: 'A ignores the second half of the source: most working-class men still could not vote, and no women could.'
+  };
+
+  W['u5_5.9_5'] = {
+    type: 'bestillustrates',
+    hq: 'Source 1 suggests that which of the following was true',
+    look: 'Pankhurst tells "American men in this meeting" that England must choose: "either women are to be killed or women are to have the vote."',
+    src: [
+      { tag: 'WHO', since: 'a British leader speaks to Americans', therefore: 'suffrage is an issue in more than one country' },
+      { tag: 'WHEN', since: 'it is 1913', therefore: 'several nations had already given women the vote' }
+    ],
+    read: ['A British suffragist speaking in America', 'An American senator rejecting votes for women', 'A queen granting women the vote'],
+    plain: ['How widespread was the suffrage fight?', 'Did Britain grant the vote first?', 'Did the United States go to civil war over it?'],
+    meaning: 'A British leader rallying Americans shows that suffrage was a live fight across Western democracies.',
+    trapIdx: 3,
+    trap: 'D takes "our civil war" literally. Pankhurst means the militant campaign in Britain, not a war in the United States.'
+  };
+
+  W['u5_5.9_6'] = {
+    type: 'context',
+    hq: 'most directly influenced by which of the following ideologies',
+    look: 'Capetillo tells the hacienda owner’s wife to visit "her peons, who produce the wealth she and her husband possess."',
+    src: [
+      { tag: 'WHO', since: 'Capetillo was a Puerto Rican labor organizer', therefore: 'she thinks in terms of workers and owners' },
+      { tag: 'WHAT', since: 'workers "produce the wealth" owners keep', therefore: 'that is a Marxist idea' }
+    ],
+    read: ['A labor organizer on workers and owners', 'A nationalist on Puerto Rican pride and independence', 'A banker on profits and growth'],
+    plain: ['Which ideology sees workers making wealth?', 'Is it nationalism, love of one’s own nation?', 'Is it capitalism, private ownership for profit?'],
+    meaning: 'The idea that workers produce the wealth the owners keep comes from Marxism.',
+    trapIdx: 2,
+    trap: 'C fits Puerto Rico’s history, but Capetillo never mentions colonial rule. She writes about class: peons and owners.'
+  };
+
+  W['u5_5.9_7'] = {
+    type: 'similar',
+    hq: 'key distinction between the two sources',
+    look: 'Capetillo writes about peons’ homes, wealth and "traditional customs"; Pankhurst says "you must give those women the vote."',
+    src: [
+      { tag: 'WHAT', since: 'Capetillo covers living conditions and customs', therefore: 'she writes about economic and social obstacles' },
+      { tag: 'WHAT', since: 'Pankhurst asks for one thing', therefore: 'her focus is the vote' }
+    ],
+    read: ['Two women’s rights writers compared', 'Two writers who both oppose women’s votes', 'Two writers on factory safety'],
+    plain: ['How do their focuses differ?', 'Does Capetillo say it can wait?', 'Is Pankhurst the cautious one?'],
+    meaning: 'Capetillo writes about economic and social obstacles; Pankhurst argues specifically for the vote.',
+    trapIdx: 3,
+    trap: 'D gets Pankhurst wrong. She called herself a "Militant Suffragist" and talks of civil war; she was not a gradualist.'
+  };
+
+  W['u5_5.10_0'] = {
+    type: 'bestillustrates',
+    hq: 'best illustrates which change',
+    hs: ['most British textiles were produced by machines in factories'],
+    src: [
+      { tag: 'WHERE', since: 'cloth was first made in rural homes', therefore: 'that is the starting point' },
+      { tag: 'WHERE', since: 'by the 1800s it was made in factories', therefore: 'that is the change' }
+    ],
+    read: ['Cloth making moving into factories', 'Cloth making moving back into homes', 'Cloth making ending in Britain'],
+    plain: ['Where did production move?', 'Did the textile trade decline?', 'Did global trade end?'],
+    meaning: 'Textile work moved from homes (the putting-out system) into machine-filled factories.',
+    trapIdx: 1,
+    trap: 'B is the opposite: British textiles boomed. Production moved, it did not shrink.'
+  };
+
+  W['u5_5.10_1'] = {
+    type: 'causation',
+    hq: 'The change described is best explained by',
+    hs: ['their combined share had fallen to well under one-tenth'],
+    src: [
+      { tag: 'WHEN', since: 'China and India led in 1750', therefore: 'something changed by 1900' },
+      { tag: 'WHO', since: 'Britain, Germany and the US took over', therefore: 'they had industrialized' }
+    ],
+    read: ['Asia’s share of manufacturing collapsing', 'Asia’s share of world manufacturing growing fast', 'Europe’s factories closing down'],
+    plain: ['Why did the West take the lead?', 'Did Chinese mills beat Britain’s?', 'Did Europe stop trading with Asia?'],
+    meaning: 'Industrialization in the West made goods so cheaply that it took over world manufacturing: the Great Divergence.',
+    trapIdx: 0,
+    trap: 'A is the opposite: China’s share fell because British factory cloth outcompeted handmade goods.'
+  };
+
+  W['u5_5.10_2'] = {
+    type: 'bestillustrates',
+    hq: 'The passage best illustrates',
+    hs: ['the great majority of people in Asia, Africa, and Latin America still made their living by farming'],
+    src: [
+      { tag: 'WHERE', since: 'factories spread in only a few regions', therefore: 'industry was uneven' },
+      { tag: 'WHAT', since: 'most people still farmed', therefore: 'that did not change' }
+    ],
+    read: ['Most of the world still farming in 1900', 'Every country building factories by 1900', 'Farming ending around the world'],
+    plain: ['What stayed the same?', 'Was the world fully industrial?', 'Did agriculture end?'],
+    meaning: 'Most people still farmed: a continuity alongside the big changes in a few regions.',
+    trapIdx: 0,
+    trap: 'A is the opposite: the passage says most of the world still farmed.'
+  };
+
+  W['u5_5.10_3'] = {
+    type: 'bestillustrates',
+    hq: 'The developments described best illustrate',
+    hs: ['plantation owners in many regions turned to indentured laborers from India and China'],
+    src: [
+      { tag: 'WHAT', since: 'slavery was abolished', therefore: 'that is a change' },
+      { tag: 'HOW', since: 'indentured workers took their place under harsh terms', therefore: 'coerced labor continued' }
+    ],
+    read: ['Slavery ending, but forced labor going on', 'Slavery spreading to new factories and mines in Europe', 'All forced labor ending by 1900'],
+    plain: ['What changed, and what stayed?', 'Did all coerced labor end by the late 1800s?', 'Did plantations decline?'],
+    meaning: 'Slavery ended (change), but plantations kept using coerced indentured labor (continuity).',
+    trapIdx: 1,
+    trap: 'B fits the end of slavery but ignores the second half: indentured labor replaced it. The answer needs both.'
+  };
+
+  W['u5_5.10_4'] = {
+    type: 'bestillustrates',
+    hq: 'best supports which conclusion',
+    hs: ['Russia remained an absolute monarchy ruled by tsars throughout the 1800s', 'emancipated the serfs in 1861'],
+    src: [
+      { tag: 'WHAT', since: 'the tsars kept absolute power', therefore: 'traditional rule continued' },
+      { tag: 'HOW', since: 'the serfs were freed in 1861', therefore: 'there was some reform' }
+    ],
+    read: ['Russia keeping tsars but freeing serfs', 'Russia becoming a constitutional republic in 1861', 'Russia’s serfs staying unfree'],
+    plain: ['What did Russia keep, and change?', 'Did revolution change every state?', 'Did Russia become a republic?'],
+    meaning: 'Russia kept autocracy but made a limited reform by freeing the serfs.',
+    trapIdx: 3,
+    trap: 'D ignores the second half of the passage: Alexander II freed the serfs in 1861.'
+  };
+
+  /* ============ UNIT 6 ============ */
+  W['u6_6.1_4'] = {
+    type: 'similar',
+    hq: 'differed from Charles Darwin\'s actual scientific theory',
+    hs: ['took Darwin\'s insights about natural selection and applied them to human societies and nations'],
+    src: [
+      { tag: 'WHAT', since: 'Darwin studied plants and animals', therefore: 'his theory was biology' },
+      { tag: 'HOW', since: 'Spencer applied it to nations and races', therefore: 'Social Darwinism used it to justify conquest' }
+    ],
+    read: ['A summary of a misuse of Darwin', 'A summary of Darwin’s own field work on islands', 'A summary of a religious attack on evolution'],
+    plain: ['What did it add to Darwin?', 'Did it deny that species change over time?', 'Did it say technology decides which nations win?'],
+    meaning: 'Darwin wrote about species. Social Darwinism applied his ideas to nations and races to justify conquest.',
+    trapIdx: 0,
+    trap: 'A is the opposite: Social Darwinists embraced natural selection. They just misapplied it to people.'
+  };
+
+  W['u6_6.1_7'] = {
+    type: 'purpose',
+    hq: 'suggests which of the following about England',
+    look: 'Barker’s 1863 painting, titled The Secret of England’s Greatness, shows Queen Victoria handing a Bible to a kneeling African ruler.',
+    src: [
+      { tag: 'WHAT', since: 'the title calls the Bible England’s "secret"', therefore: 'it claims empire rests on faith' },
+      { tag: 'WHO', since: 'the African ruler kneels to receive it', therefore: 'empire is shown as a gift' }
+    ],
+    read: ['A painting of empire as a moral gift', 'A painting of a queen at war in Africa', 'A painting of an African king in London on trade business'],
+    plain: ['How does it justify empire?', 'Did Victorians reject all other religions?', 'Did Britain depend on the slave trade then?'],
+    meaning: 'The queen handing a Bible to a kneeling ruler presents empire as spreading Christianity: a moral justification.',
+    trapIdx: 3,
+    trap: 'D is out of date. Britain abolished its slave trade in 1807, more than fifty years before this painting.'
+  };
+
+  W['u6_6.1_9'] = {
+    type: 'purpose',
+    hq: 'reflect which of the following attitudes',
+    look: 'Ferry says "the superior races have a right because they have a duty. They have the duty to civilize the inferior races."',
+    src: [
+      { tag: 'WHO', since: 'Ferry was a French prime minister', therefore: 'he is defending French colonies' },
+      { tag: 'WHAT', since: 'he talks of a "civilizing duty"', therefore: 'he says colonies gain from French culture' }
+    ],
+    read: ['A French leader on a duty to "civilize"', 'An African leader asking France for schools', 'A French merchant counting profits from colonies'],
+    plain: ['What does "civilize" claim?', 'Is this line about profits for European nations?', 'Is this line about ports for French ships?'],
+    meaning: 'The racial language claims Africans would benefit from European culture: the "civilizing mission."',
+    trapIdx: 1,
+    trap: 'B is in Source 2 (Ferry wants harbors), but that is a separate argument. The "superior races" line is about civilizing.'
+  };
+
+  W['u6_6.2_8'] = {
+    type: 'purpose',
+    hq: 'best support the author’s assertion',
+    hs: ['the Japanese and Korean peoples formed for a long time one and the same nation'],
+    src: [
+      { tag: 'WHO', since: 'a Japanese official writes in 1912', therefore: 'he is justifying the annexation of Korea' },
+      { tag: 'WHAT', since: 'he claims the two were one nation', therefore: 'support would show a shared people' }
+    ],
+    read: ['An official justifying the Korea annexation', 'A Korean leader protesting the Japanese takeover', 'A historian listing wars between Japan and Korea'],
+    plain: ['What would show one shared people?', 'Would a list of language differences help?', 'Would records of war casualties help?'],
+    meaning: 'To support "one nation," you need evidence of a shared people, like names common to both.',
+    trapIdx: 0,
+    trap: 'A is about language, which sounds relevant, but differences between the languages would weaken the claim, not support it.'
+  };
+
+  W['u6_6.2_9'] = {
+    type: 'causation',
+    hq: 'accelerated by which of the following',
+    hs: ['tropical or sub-tropical lands in which white men will not settle with their families'],
+    src: [
+      { tag: 'WHO', since: 'Hobson blamed financial interests for empire', therefore: 'look for an economic prize' },
+      { tag: 'WHERE', since: 'the Boer Transvaal held huge gold deposits', therefore: 'Britain wanted control of them' }
+    ],
+    read: ['An economist criticizing the new empires', 'A soldier praising the empire in South Africa', 'A missionary praising the work of colonial schools'],
+    plain: ['What made South Africa so valuable?', 'Were there fears of rebellion in British colonies?', 'Did Britain need bases for World War I?'],
+    meaning: 'Gold found in the Boer republics in 1886 drew British miners and investors and led to the Boer War.',
+    trapIdx: 3,
+    trap: 'D sounds possible because Germany held South-West Africa, but gold was the driving force behind British moves in South Africa.'
+  };
+
+  W['u6_6.2_11'] = {
+    type: 'context',
+    hq: 'best understood in the context of',
+    hs: ['Politically, the new Imperialism is an expansion of autocracy'],
+    src: [
+      { tag: 'WHEN', since: 'it was published in 1902', therefore: 'look for an event right then' },
+      { tag: 'WHO', since: 'Hobson reported on the war in South Africa', therefore: 'the Boer War shaped his views' }
+    ],
+    read: ['A 1902 critic attacking British empire', 'An 1884 diplomat dividing Africa at a conference', 'A 1914 general planning a world war'],
+    plain: ['Which war was ending in 1902?', 'Was it the Berlin Conference of 1884?', 'Was it World War I, starting in 1914?'],
+    meaning: 'Hobson wrote as the Boer War ended, arguing that financiers had pushed Britain into it.',
+    trapIdx: 0,
+    trap: 'A divided Africa among Europeans, but it was in 1884 to 1885. Hobson wrote in 1902, as the Boer War ended.'
+  };
+
+  W['u6_6.2_12'] = {
+    type: 'context',
+    hq: 'Queen Victoria’s reign can best be characterized by',
+    look: 'The painting shows Victoria as the face of empire, handing a Bible to an African ruler while her ministers watch.',
+    src: [
+      { tag: 'WHEN', since: 'she reigned from 1837 to 1901', therefore: 'Parliament widened the vote twice' },
+      { tag: 'WHO', since: 'elected ministers governed', therefore: 'the monarch’s real power shrank' }
+    ],
+    read: ['A painting of Victoria as empire’s symbol', 'A painting of Victoria losing her colonies abroad', 'A painting of a queen leading her army'],
+    plain: ['How did Britain change under her?', 'Did Britain lose much of its empire then?', 'Did the British economy stagnate under her?'],
+    meaning: 'Under Victoria, reforms widened the vote and the monarch became a figurehead while ministers governed.',
+    trapIdx: 3,
+    trap: 'D is half right. The empire grew in Africa, but it also grew in Asia: India became a Crown colony in 1858.'
+  };
+
+  W['u6_6.2_13'] = {
+    type: 'causation',
+    hq: 'boundary lines on the map',
+    look: 'Source 1 shows Africa carved into British, French, Portuguese, Belgian, Italian and Spanish colonies, some with straight-line borders.',
+    src: [
+      { tag: 'WHO', since: 'each area is labeled by a European power', therefore: 'Europeans drew the lines' },
+      { tag: 'HOW', since: 'many borders are straight lines', therefore: 'they ignore rivers and peoples on the ground' }
+    ],
+    read: ['A map of Africa split by Europe', 'A map of Africa’s rivers and mountain ranges', 'A map of the African kingdoms before 1800'],
+    plain: ['Whose interests drew these lines?', 'Did the lines follow rivers and mountains?', 'Did the lines follow tribal divisions?'],
+    meaning: 'Europeans drew Africa’s borders for their own economic and political claims, often in straight lines.',
+    trapIdx: 1,
+    trap: 'B fits a few borders, but the straight lines show the borders were drawn on maps in Europe, not by nature.'
+  };
+
+  W['u6_6.2_14'] = {
+    type: 'causation',
+    hq: 'effect of Japanese industrial and military strength',
+    look: 'Japan’s coal output and steamship numbers both climb steeply from the 1880s to 1905.',
+    src: [
+      { tag: 'WHEN', since: 'the charts run to 1905', therefore: 'look for wars before then' },
+      { tag: 'WHERE', since: 'Japan’s neighbors were China, Korea and Russia', therefore: 'cross out France and Britain' }
+    ],
+    read: ['Charts of Japan’s growing industrial power', 'Charts of Japan’s shrinking industry and trade', 'Charts of Japan’s rice harvests over time'],
+    plain: ['Which war did Japan win early on?', 'Did Japan win Siberia from Russia?', 'Did Japan take Indochina from France?'],
+    meaning: 'Japan defeated Qing China in 1894 to 1895 over influence in Korea.',
+    trapIdx: 0,
+    trap: 'A is close: Japan did beat Russia in 1905, but the fight was over Manchuria and Korea, not Siberia.'
+  };
+
+  W['u6_6.2_16'] = {
+    type: 'context',
+    hq: 'conflict between France and which of the following entities',
+    look: 'Auclert says schools for girls existed "prior to the [1830] conquest" of Algeria.',
+    src: [
+      { tag: 'WHEN', since: 'the conquest began in 1830', therefore: 'the Mughal, Safavid and Songhai empires were gone' },
+      { tag: 'WHO', since: 'Algiers was ruled by a dey under the sultan', therefore: 'it was part of the Ottoman Empire' }
+    ],
+    read: ['A feminist on French rule in Algeria', 'A French general on conquering Egypt', 'An Algerian ruler on his alliance with France'],
+    plain: ['Who ruled Algeria before 1830?', 'Was it the Safavid Empire of Persia?', 'Was it the Songhai Empire of West Africa?'],
+    meaning: 'Algiers was an Ottoman regency when France invaded in 1830.',
+    trapIdx: 3,
+    trap: 'D is African and Muslim, but Songhai fell in 1591, more than two centuries before the French invaded.'
+  };
+
+  W['u6_6.2_17'] = {
+    type: 'causation',
+    hq: 'contributed LEAST',
+    look: 'Rodney says European capitalists "actively extended their exploitation from inside Europe to cover the whole of Africa."',
+    src: [
+      { tag: 'WHAT', since: 'LEAST flips the question', therefore: 'three choices really helped conquest' },
+      { tag: 'HOW', since: 'Europeans used quinine, a medicine, not a vaccine', therefore: 'no malaria vaccine existed' }
+    ],
+    read: ['A historian blaming Europe for Africa’s state', 'A historian praising Europe’s medicine in Africa', 'An explorer describing a river trip in Africa'],
+    plain: ['Which one did NOT help conquest?', 'Did the machine gun help Europeans conquer?', 'Did steamships help Europeans move inland?'],
+    meaning: 'Machine guns, steamships and chartered companies all helped. There were no vaccines for tropical diseases.',
+    trapIdx: 2,
+    trap: 'C sounds like a business detail, but companies like the Royal Niger Company ran whole colonies. It did help.'
+  };
+
+  W['u6_6.2_18'] = {
+    type: 'causation',
+    hq: 'used by the British government to do which of the following',
+    look: 'The settler is suing the government over damage "by a contingent of 1,500 natives" camped near his farm.',
+    src: [
+      { tag: 'WHO', since: 'British settlers complained of threats', therefore: 'officials could point to them' },
+      { tag: 'WHEN', since: 'Britain sent the Zulu king an ultimatum in 1878', therefore: 'the threats justified the war' }
+    ],
+    read: ['A settler describing damage near his farm', 'A Zulu chief describing a British attack', 'An official reporting peace with the Zulu'],
+    plain: ['What did such incidents justify?', 'Did Britain tax the Zulu for the damage?', 'Did Britain free the Zulu from colonialism?'],
+    meaning: 'Britain pointed to threats to settlers as a casus belli, a reason to go to war with the Zulu kingdom.',
+    trapIdx: 1,
+    trap: 'B sounds like a fix for damages, but Britain did not tax the Zulu; it invaded them in 1879.'
+  };
+
+  W['u6_6.2_20'] = {
+    type: 'causation',
+    hq: 'direct effect of the expanding British presence in South Africa',
+    look: 'A British settler in 1879 describes the war with the Zulu reaching his town and farm.',
+    src: [
+      { tag: 'WHERE', since: 'Britain pushed inland in South Africa', therefore: 'it collided with the Boer republics' },
+      { tag: 'WHO', since: 'Boers were descendants of Dutch settlers', therefore: 'the war was the Boer War' }
+    ],
+    read: ['A settler’s letter during a colonial war', 'A Boer farmer’s letter about the gold rush', 'A diplomat’s letter from Berlin about Africa'],
+    plain: ['Which war did British expansion cause?', 'Did Britain lose land at the Berlin Conference?', 'Did British settlers form their own nation?'],
+    meaning: 'British expansion toward the gold-rich Boer republics led to the Boer War against the Afrikaners.',
+    trapIdx: 0,
+    trap: 'A overstates it. South Africa was rich, but nothing shows it was the most successful colony. The war is the direct effect.'
+  };
+
+  W['u6_6.2_21'] = {
+    type: 'bestillustrates',
+    hq: 'most likely the outcome of the conflict',
+    look: 'China recognizes "the full and complete independence" of Korea and "cedes to Japan in perpetuity" southern Fengtien and Formosa.',
+    src: [
+      { tag: 'WHAT', since: 'China gives up land and its hold on Korea', therefore: 'China is the loser' },
+      { tag: 'WHO', since: 'Japan gains everything', therefore: 'Japan won the war' }
+    ],
+    read: ['A treaty where China gives up land', 'A treaty where Japan gives up land to China', 'A treaty where both sides trade islands equally'],
+    plain: ['Who won, judging by the terms?', 'Did the war end in a stalemate?', 'Did China defeat the Japanese army?'],
+    meaning: 'China gives up Korea, Taiwan and land in Manchuria: the terms of a loser. Japan won.',
+    trapIdx: 1,
+    trap: 'B misreads the polite opening ("desiring to restore the blessings of peace"). The terms show one clear winner.'
+  };
+
+  W['u6_6.2_23'] = {
+    type: 'context',
+    hq: 'continuities of nineteenth-century Chinese history',
+    look: 'China "cedes to Japan in perpetuity" territory "together with all fortifications, arsenals, and public property."',
+    src: [
+      { tag: 'WHAT', since: 'China gives up land again', therefore: 'look for a pattern across the century' },
+      { tag: 'WHEN', since: 'it began with Nanjing in 1842', therefore: 'Shimonoseki in 1895 continues it' }
+    ],
+    read: ['A treaty forcing China to give up land', 'A treaty expanding China’s empire in Asia', 'A treaty making China a communist state'],
+    plain: ['What kept happening to China?', 'Was China expanding its military power?', 'Was China moving toward communism?'],
+    meaning: 'From 1842 to 1895, a weak Qing China kept giving land and spheres of influence to foreign powers.',
+    trapIdx: 2,
+    trap: 'C is far too early. The Communists took over China in 1949.'
+  };
+
+  W['u6_6.3_1'] = {
+    type: 'bestillustrates',
+    hq: 'Samori Touré\'s actions best illustrate',
+    hs: ['resisted French conquest for nearly two decades'],
+    src: [
+      { tag: 'WHO', since: 'Samori built an army with firearms', therefore: 'he fought with modern weapons' },
+      { tag: 'WHAT', since: 'he held off France for twenty years', therefore: 'it is armed resistance' }
+    ],
+    read: ['A West African leader fighting France', 'A West African king working with France', 'A missionary opening schools in Africa'],
+    plain: ['What did Samori do?', 'Did he work with the French against Britain?', 'Did he spread Christianity in West Africa?'],
+    meaning: 'Samori built a modern army and resisted French conquest for nearly twenty years.',
+    trapIdx: 0,
+    trap: 'A is the opposite: the passage says he resisted French conquest.'
+  };
+
+  W['u6_6.3_6'] = {
+    type: 'bestillustrates',
+    hq: 'useful source for information about',
+    look: 'The settler’s insured house would not be covered, "as the insurance companies will not make good that which is destroyed by the Queen’s enemies."',
+    src: [
+      { tag: 'WHO', since: 'he is a British settler', therefore: 'he is not an Afrikaner' },
+      { tag: 'WHAT', since: 'his property is uninsured and damaged', therefore: 'empire brought costs he did not expect' }
+    ],
+    read: ['A settler surprised by war’s costs', 'An Afrikaner describing his daily farm work', 'A merchant boasting about colonial profits'],
+    plain: ['What does the letter reveal?', 'Does it show the culture spreading in Africa?', 'Does it show daily life for Afrikaners?'],
+    meaning: 'The letter shows unexpected costs of empire, even for the settlers themselves.',
+    trapIdx: 2,
+    trap: 'C misreads the writer. He is a British citizen writing to his sister, not an Afrikaner.'
+  };
+
+  W['u6_6.4_0'] = {
+    type: 'causation',
+    hq: 'most directly contributed to',
+    hs: ['cut the sea route from London to Bombay by about 40 percent', 'undersea telegraph cables linked Britain to India'],
+    src: [
+      { tag: 'WHAT', since: 'ships and messages moved much faster', therefore: 'trade and control got easier' },
+      { tag: 'WHERE', since: 'it linked Britain to India', therefore: 'it tied an empire together' }
+    ],
+    read: ['Faster links between Britain and India', 'Slower trade routes between Europe and Asia', 'India breaking away from British rule'],
+    plain: ['What did faster links make easier?', 'Did British trade with Asia decline after?', 'Did India become independent in the 1800s?'],
+    meaning: 'Faster shipping and instant messages tied colonies more closely to the empire and to world markets.',
+    trapIdx: 2,
+    trap: 'C is decades off. India won independence in 1947, and these links made British control stronger, not weaker.'
+  };
+
+  W['u6_6.4_1'] = {
+    type: 'bestillustrates',
+    hq: 'Economies like these are best described as',
+    hs: ['mostly to industrial Europe and the United States'],
+    src: [
+      { tag: 'WHAT', since: 'they export beef, coffee, rubber and nitrates', therefore: 'these are raw materials' },
+      { tag: 'WHO', since: 'industrial nations buy them', therefore: 'Latin America depends on those buyers' }
+    ],
+    read: ['Latin America exporting raw goods', 'Latin America exporting factory-made goods', 'Latin America closing its ports to trade'],
+    plain: ['What did these economies depend on?', 'Were they highly industrialized exporters?', 'Were they closed off by high tariffs?'],
+    meaning: 'They depended on selling raw materials to industrial nations and buying their manufactured goods.',
+    trapIdx: 0,
+    trap: 'A is the opposite. Beef, wheat, coffee and nitrates are raw materials, not finished goods.'
+  };
+
+  W['u6_6.4_3'] = {
+    type: 'causation',
+    hq: 'most directly contributed to',
+    hs: ['The railroads transported cotton, rubber, and minerals outward; they carried manufactured goods inward'],
+    src: [
+      { tag: 'WHAT', since: 'raw goods went out and factory goods came in', therefore: 'railroads served the empires' },
+      { tag: 'HOW', since: 'interiors were "opened to commercial exploitation"', therefore: 'colonies were tied into a global economy' }
+    ],
+    read: ['Railroads moving raw goods out of colonies', 'Railroads helping colonies trade with each other', 'Railroads spreading democracy in colonies'],
+    plain: ['What system did railroads build?', 'Did railroads make colonies economically independent?', 'Did colonial goods undercut European factories?'],
+    meaning: 'Railroads pulled raw materials out of colonies and pushed factory goods in, deepening the gap between them.',
+    trapIdx: 0,
+    trap: 'A sounds like a benefit, but the passage says the lines ran outward to ports, not between local markets.'
+  };
+
+  W['u6_6.5_1'] = {
+    type: 'bestillustrates',
+    hq: 'The events best illustrate',
+    hs: ['Heavily in debt to European banks', 'Britain occupied Egypt, in part to protect the canal and European creditors'],
+    src: [
+      { tag: 'WHAT', since: 'Egypt sold its canal shares to pay debts', therefore: 'debt gave Britain a foothold' },
+      { tag: 'HOW', since: 'Britain then occupied Egypt', therefore: 'debt opened the door to control' }
+    ],
+    read: ['Debt leading to British control of Egypt', 'Egypt defeating Britain in battle', 'Egypt buying back the Suez Canal from Britain'],
+    plain: ['How did debt lead to empire?', 'Did Egypt successfully resist Europe?', 'Did the Ottomans seize British posts?'],
+    meaning: 'Egypt’s debts gave Britain leverage, and Britain ended up occupying the country.',
+    trapIdx: 1,
+    trap: 'B names a real Egyptian ruler, but Muhammad Ali died in 1849. By 1882 Egypt was occupied, not resisting successfully.'
+  };
+
+  W['u6_6.5_2'] = {
+    type: 'bestillustrates',
+    hq: 'This situation is best described as',
+    hs: ['even though Argentina was politically independent'],
+    src: [
+      { tag: 'WHO', since: 'British investors owned railroads and ports', therefore: 'Britain had economic power' },
+      { tag: 'WHAT', since: 'Argentina was independent', therefore: 'there was no formal colony' }
+    ],
+    read: ['British investors owning Argentine railroads', 'British governors ruling Argentina directly', 'British farmers settling the Argentine plains'],
+    plain: ['What kind of influence is this?', 'Is it formal rule by appointed governors?', 'Is it settler colonialism by farmers?'],
+    meaning: 'Britain held economic power in Argentina without ruling it: economic imperialism.',
+    trapIdx: 1,
+    trap: 'B ignores the key phrase: Argentina was politically independent, so there were no British governors.'
+  };
+
+  W['u6_6.5_5'] = {
+    type: 'causation',
+    hq: 'negative short-term effect',
+    look: 'Ferry claims Europeans fulfill their "civilizing duty" with "generosity" and "sincerity," while Source 1 shows Africa divided among them.',
+    src: [
+      { tag: 'WHAT', since: 'the stem asks for a negative effect', therefore: 'cross out the claimed benefits' },
+      { tag: 'HOW', since: 'colonial taxes forced farmers to grow cash crops', therefore: 'less food was grown' }
+    ],
+    read: ['A map of colonies and a defense of them', 'A map of trade routes and a merchant’s diary', 'A map of independent states and a treaty'],
+    plain: ['What harm did colonization cause?', 'Did Europeans build roads and railways?', 'Did missionaries build schools in Africa?'],
+    meaning: 'Farmers forced to grow export crops grew less food, which led to famines.',
+    trapIdx: 1,
+    trap: 'B really happened, but it is often listed as a benefit. The stem asks for a negative effect.'
+  };
+
+  W['u6_6.6_2'] = {
+    type: 'causation',
+    hq: 'Which pull factor most directly explains this migration',
+    hs: ['to work in the gold mines and to build the Central Pacific Railroad'],
+    src: [
+      { tag: 'WHAT', since: 'they came for mines and railroads', therefore: 'jobs pulled them' },
+      { tag: 'HOW', since: 'a pull factor draws people to a place', therefore: 'look at what California offered' }
+    ],
+    read: ['Chinese workers coming for jobs in America', 'Chinese students coming to American colleges', 'Chinese monks fleeing to American temples'],
+    plain: ['What drew them to California?', 'Did they come for religious freedom as Buddhists?', 'Did they come for free land under the Homestead Act?'],
+    meaning: 'Gold mining and railroad building created a demand for workers and the chance to earn wages.',
+    trapIdx: 3,
+    trap: 'D is a push factor, and it is in the wrong decade. The Qing dynasty did not fall until 1911.'
+  };
+
+  W['u6_6.6_3'] = {
+    type: 'causation',
+    hq: 'best explained by which combination of push and pull factors',
+    hs: ['fleeing the potato famine that killed approximately one million more', 'Irish immigrants provided labor for the eastern transcontinental railroad'],
+    src: [
+      { tag: 'WHAT', since: 'the Irish fled famine', therefore: 'the push was economic disaster' },
+      { tag: 'WHAT', since: 'railroads needed workers', therefore: 'the pull was labor demand' }
+    ],
+    read: ['Famine and jobs driving migration', 'Religious refugees seeking freedom', 'Political exiles seeking asylum'],
+    plain: ['What pushed and pulled them?', 'Was it religious persecution at home?', 'Did the US government recruit them directly?'],
+    meaning: 'Disaster at home (famine, poverty) pushed people out; huge demand for labor in the United States pulled them in.',
+    trapIdx: 3,
+    trap: 'D sounds plausible because the railroads needed workers, but the companies recruited them, not the US government.'
+  };
+
+  W['u6_6.7_0'] = {
+    type: 'bestillustrates',
+    hq: 'Neighborhoods like these best illustrate',
+    hs: ['had their own newspapers, temples or churches, shops, and mutual-aid societies'],
+    src: [
+      { tag: 'WHO', since: 'migrants kept their own temples and newspapers', therefore: 'they preserved their culture' },
+      { tag: 'WHERE', since: 'they lived together in one area', therefore: 'it is an ethnic enclave' }
+    ],
+    read: ['Migrant neighborhoods keeping old ways', 'Migrants fully blending into US culture', 'Governments closing migrant businesses'],
+    plain: ['What did these neighborhoods do?', 'Did migrants assimilate completely?', 'Did migration from Asia and Europe decline?'],
+    meaning: 'Migrants formed ethnic enclaves that kept their languages, religions and customs alive.',
+    trapIdx: 0,
+    trap: 'A is the opposite. Their own newspapers and temples show they kept their cultures, not that they fully assimilated.'
+  };
+
+  W['u6_6.7_2'] = {
+    type: 'causation',
+    hq: 'The pattern described best illustrates',
+    hs: ['women took on more responsibility for farming and family businesses at home'],
+    src: [
+      { tag: 'WHO', since: 'mostly young men left', therefore: 'women stayed behind' },
+      { tag: 'WHAT', since: 'women ran farms and businesses', therefore: 'gender roles changed at home' }
+    ],
+    read: ['Migration changing women’s roles at home', 'Whole villages leaving southern Italy at once', 'Mostly women leaving their villages'],
+    plain: ['How did migration change home?', 'Did family farming end as villages emptied?', 'Were most of the migrants women?'],
+    meaning: 'With the men gone, women took over farms and businesses: migration changed gender roles at home.',
+    trapIdx: 3,
+    trap: 'D is the opposite: the passage says most migrants were young men.'
+  };
+
+  W['u6_6.7_4'] = {
+    type: 'bestillustrates',
+    hq: 'most directly illustrate which effect',
+    hs: ['Diaspora communities simultaneously preserved home cultures and created hybrid new ones'],
+    src: [
+      { tag: 'WHAT', since: 'Indians kept temples and Diwali', therefore: 'they preserved their culture' },
+      { tag: 'HOW', since: 'shopkeepers mixed Creole and Cantonese', therefore: 'they also made new hybrid cultures' }
+    ],
+    read: ['Diasporas keeping and mixing cultures', 'Migrants losing their cultures completely', 'Migrants all returning home'],
+    plain: ['What two things did diasporas do?', 'Did migrants assimilate fully and quickly?', 'Were diaspora cultures destroyed by force?'],
+    meaning: 'Diaspora communities kept their home cultures and also made new mixed ones.',
+    trapIdx: 0,
+    trap: 'A is the opposite. Temples, festivals and mixed languages show the communities kept their cultures.'
+  };
+
+  W['u6_6.8_0'] = {
+    type: 'causation',
+    hq: 'These technologies most directly contributed to',
+    hs: ['used quinine to protect themselves from malaria and used machine guns'],
+    src: [
+      { tag: 'WHAT', since: 'quinine let Europeans survive malaria', therefore: 'they could go inland' },
+      { tag: 'HOW', since: 'machine guns gave huge firepower', therefore: 'they could defeat African armies' }
+    ],
+    read: ['Medicine and guns helping Europe conquer', 'African armies using machine guns on Europeans', 'Britain patrolling for slave ships'],
+    plain: ['What did these tools make possible?', 'Did Africans conquer European coastal colonies?', 'Did these tools end the Atlantic slave trade?'],
+    meaning: 'Quinine and machine guns let Europeans conquer most of Africa quickly.',
+    trapIdx: 1,
+    trap: 'B is the reverse. Europeans used the machine guns against African armies.'
+  };
+
+  W['u6_6.8_1'] = {
+    type: 'causation',
+    hq: 'most directly encouraged',
+    hs: ['much of which came from tropical regions'],
+    src: [
+      { tag: 'WHAT', since: 'factories needed cotton, palm oil and rubber', therefore: 'they needed steady supplies' },
+      { tag: 'WHERE', since: 'those came from the tropics', therefore: 'Europe wanted to control those lands' }
+    ],
+    read: ['Factories needing tropical raw goods', 'Factories growing their own raw goods', 'Colonies becoming useless to Europe'],
+    plain: ['What did factory needs push Europe to do?', 'Did European demand for imports fall?', 'Did colonialism end because colonies weren’t needed?'],
+    meaning: 'Factories needed tropical raw materials, so European states tried to control the lands that produced them.',
+    trapIdx: 2,
+    trap: 'C is the opposite: industry made colonies more valuable, not less.'
+  };
+
+  W['u6_6.8_3'] = {
+    type: 'causation',
+    hq: 'most directly supports which argument',
+    hs: ['It was the factory', 'European industry had outgrown European markets'],
+    src: [
+      { tag: 'WHAT', since: 'it says empire was driven by "the factory"', therefore: 'the cause is economic' },
+      { tag: 'HOW', since: 'industry needed coal, cotton, ore and markets', therefore: 'industry pushed expansion' }
+    ],
+    read: ['A historian tying empire to industry', 'A historian tying empire to missionaries', 'A historian tying empire to European workers'],
+    plain: ['What drove expansion, per the passage?', 'Was it mainly religious missionary work?', 'Did workers back empire for higher wages?'],
+    meaning: 'Industry needed raw materials, markets and places to invest, and that drove territorial expansion.',
+    trapIdx: 3,
+    trap: 'D sounds economic, but the passage says Europe wanted colonies for raw materials and markets, not to industrialize them.'
+  };
+
+  W['u6_6.8_4'] = {
+    type: 'similar',
+    hq: 'best used to support which historical claim',
+    hs: ['the underlying relationship showed a disturbing continuity'],
+    src: [
+      { tag: 'WHEN', since: 'it compares the 1440s and the 1880s', therefore: 'it is a continuity and change argument' },
+      { tag: 'WHAT', since: 'the tools changed but extraction did not', therefore: 'the continuity is economic exploitation' }
+    ],
+    read: ['A comparison across 400 years of contact', 'A history of one Portuguese voyage to West Africa', 'A study of African resistance only'],
+    plain: ['What stayed the same over 400 years?', 'Were the two eras exactly the same?', 'Was Portuguese colonialism worse than British rule?'],
+    meaning: 'Tools changed, but extracting African resources and labor for Europe stayed the same.',
+    trapIdx: 0,
+    trap: 'A goes too far. The passage says the tools changed. It argues for continuity in one relationship, not that nothing differed.'
+  };
+
+  /* ============ UNIT 7 ============ */
+  W['u7_7.1_2'] = {
+    type: 'causation',
+    hq: 'were significant in the period 1918-1945 in contributing to',
+    hs: ['When the proposal to proclaim the equality of races was rejected', 'they are discriminated against because of the color of the skin'],
+    src: [
+      { tag: 'WHO', since: 'a former Japanese prime minister writes in 1921', therefore: 'he speaks for an Asian power treated as unequal' },
+      { tag: 'WHAT', since: 'Western powers rejected racial equality', therefore: 'Asians had reason to resist Western rule' }
+    ],
+    read: ['A Japanese leader attacking Western racism', 'A Japanese leader praising Western ideas of race', 'A European diplomat defending the Versailles treaty'],
+    plain: ['What did rejecting equality feed?', 'Did more Asians convert to Christianity?', 'Did Asian states adopt laissez-faire economics?'],
+    meaning: 'When the West refused racial equality, anti-imperial resistance and independence movements grew stronger.',
+    trapIdx: 3,
+    trap: 'D is the reverse of the trend. European settlement in Asia was not growing; resistance to European rule was.'
+  };
+
+  W['u7_7.1_5'] = {
+    type: 'causation',
+    hq: 'most directly a response to',
+    hs: ['the Holocaust (1941-45) killed approximately 6 million Jews and 6 million others', 'dehumanizing propaganda preceded and accompanied the violence'],
+    src: [
+      { tag: 'WHEN', since: 'the UNESCO statement came in 1949', therefore: 'it follows right after World War II' },
+      { tag: 'WHAT', since: 'it calls race a social myth', therefore: 'it rejects Nazi racial ideas' }
+    ],
+    read: ['A list of 20th-century genocides', 'A list of colonial wars in Africa and Asia', 'A list of new nations formed after 1945'],
+    plain: ['What made the world reject "race"?', 'Did the UN mainly want to celebrate diversity?', 'Did genetics prove race sets culture?'],
+    meaning: 'After the Holocaust, UNESCO declared race a myth to reject the Nazi racial ideas behind the killing.',
+    trapIdx: 0,
+    trap: 'A sounds like UNESCO’s style, but the statement was a direct answer to Nazi racial science, not a celebration.'
+  };
+
+  W['u7_7.1_7'] = {
+    type: 'context',
+    hq: 'principal philosophical underpinning of Lenin’s call to power',
+    look: 'Lenin urges revolutionaries to seize power "on behalf of" the Soviets and promises "the transfer of the land to the peasants."',
+    src: [
+      { tag: 'WHO', since: 'Lenin led the Bolsheviks', therefore: 'he was a Marxist revolutionary' },
+      { tag: 'WHAT', since: 'he calls for workers’ councils to rule', therefore: 'it is a class revolution' }
+    ],
+    read: ['A revolutionary urging a seizure of power', 'A tsar giving up his crown to help win the war', 'A general calling for a war of conquest'],
+    plain: ['Which ideology drove Lenin?', 'Was it capitalism and private property?', 'Was it fascism and extreme nationalism?'],
+    meaning: 'Lenin’s Bolsheviks were Marxists calling for a workers’ revolution against the Provisional Government.',
+    trapIdx: 2,
+    trap: 'C is another 20th-century ideology of seizing power, but fascism was anti-communist and came after 1919.'
+  };
+
+  W['u7_7.2_3'] = {
+    type: 'context',
+    hq: 'best explained in the context of',
+    hs: ['A general European war is mortally dangerous to both Russia and Germany', 'there are countless agitators telling the peasant'],
+    src: [
+      { tag: 'WHAT', since: 'he fears war abroad', therefore: 'there is an external threat' },
+      { tag: 'WHAT', since: 'he fears agitators at home', therefore: 'there is an internal threat too' }
+    ],
+    read: ['A minister warning of war and revolution', 'A general eager for a quick victory over Germany', 'A revolutionary planning to seize power'],
+    plain: ['What threatened the empires?', 'Was the Western-led order declining?', 'Were ethnic nation-states forming?'],
+    meaning: 'Durnovo sees two threats to the Russian Empire: a war abroad and revolution at home.',
+    trapIdx: 3,
+    trap: 'D is a real feature of WWI, but Durnovo does not discuss propaganda. He warns of outside war and inside revolt.'
+  };
+
+  W['u7_7.3_6'] = {
+    type: 'purpose',
+    hq: 'EXCEPT',
+    hs: ['Long live the great guide of the international proletarian revolution, Comrade Stalin!'],
+    src: [
+      { tag: 'WHO', since: 'the Communist Party made the poster', therefore: 'it promotes Soviet goals' },
+      { tag: 'WHAT', since: 'it praises Lenin and Stalin', therefore: 'it would never promote the West' }
+    ],
+    read: ['A Soviet poster praising the Party', 'An American poster praising free markets', 'A Western ad selling consumer goods'],
+    plain: ['Which use would the USSR never allow?', 'Did posters rally people for World War II?', 'Did posters back anti-colonial movements?'],
+    meaning: 'Soviet posters served the state. They never encouraged citizens to embrace Western culture.',
+    trapIdx: 1,
+    trap: 'B sounds like Cold War diplomacy, but the Soviets did promote the Warsaw Pact. EXCEPT asks for the one they never did.'
+  };
+
+  W['u7_7.3_9'] = {
+    type: 'causation',
+    hq: 'most significant in explaining which of the following consequences',
+    hs: ['required mobilizing the entire civilian population and economy for the war effort'],
+    src: [
+      { tag: 'WHAT', since: 'whole nations were mobilized', therefore: 'the losses touched everyone' },
+      { tag: 'HOW', since: 'millions died for little gain', therefore: 'people turned against war' }
+    ],
+    read: ['A summary of total war in WWI', 'A summary of colonies gaining freedom', 'A summary of US economic power'],
+    plain: ['How did total war change attitudes?', 'Did all colonial empires collapse right away?', 'Did every colony get independence at once?'],
+    meaning: 'Total war touched every family, and the slaughter left many people disillusioned and against war.',
+    trapIdx: 2,
+    trap: 'C has some truth over time, but "permanent shift" after 1918 overstates it. The passage is about mobilizing whole populations.'
+  };
+
+  W['u7_7.4_3'] = {
+    type: 'similar',
+    hq: 'example of which broader interwar response',
+    hs: ['through centralized government control'],
+    src: [
+      { tag: 'WHO', since: 'Stalin ran the economy from the center', therefore: 'the state controlled industry' },
+      { tag: 'HOW', since: 'output rose while millions died', therefore: 'an authoritarian state pushed growth at any cost' }
+    ],
+    read: ['Stalin’s state-run push to industrialize', 'A free market fixing a broken economy on its own', 'The League of Nations rebuilding trade'],
+    plain: ['What kind of response is this?', 'Was it a free-market fix?', 'Was it colonies feeding home industry?'],
+    meaning: 'An authoritarian state used central planning to industrialize fast and strengthen its power.',
+    trapIdx: 1,
+    trap: 'B is the opposite: the Five Year Plans replaced markets with state planning.'
+  };
+
+  W['u7_7.4_5'] = {
+    type: 'causation',
+    hq: 'together most directly illustrate',
+    hs: ['Germany\'s Weimar Republic, already weakened by hyperinflation in 1923, could not withstand the economic shock'],
+    src: [
+      { tag: 'WHEN', since: 'crises hit in 1923 and again in 1929', therefore: 'look for a repeated pattern' },
+      { tag: 'WHAT', since: 'Weimar could not withstand the shock', therefore: 'economic crisis led to political instability' }
+    ],
+    read: ['Two crises weakening German democracy', 'Two booms making German democracy strong', 'The League rescuing Germany’s economy'],
+    plain: ['What did repeated crises lead to?', 'Did crises stay inside one country?', 'Did the League coordinate recovery?'],
+    meaning: 'Repeated economic crises created instability that extremists like the Nazis exploited.',
+    trapIdx: 0,
+    trap: 'A is the opposite: trade collapsed by over 50 percent worldwide, so crises spread between countries.'
+  };
+
+  W['u7_7.4_6'] = {
+    type: 'context',
+    hq: 'speech as a whole is best understood in the context of',
+    look: 'Stalin says "to slacken the tempo would mean falling behind" and lists Russia’s defeats because of "industrial backwardness."',
+    src: [
+      { tag: 'WHEN', since: 'it is February 1931', therefore: 'the first Five-Year Plan is underway' },
+      { tag: 'WHO', since: 'he speaks to leaders of industry', therefore: 'he is pushing faster industrial growth' }
+    ],
+    read: ['Stalin urging faster industrial growth', 'Stalin preparing his army for an attack on Finland', 'Stalin announcing an atomic bomb test'],
+    plain: ['What was Stalin pushing in 1931?', 'Was it the Winter War with Finland?', 'Was it a nuclear weapons program?'],
+    meaning: 'In 1931 Stalin was driving the first Five-Year Plan for rapid heavy industry.',
+    trapIdx: 3,
+    trap: 'D happened in the 1930s too, but the speech is about industry and "tempo," not political enemies.'
+  };
+
+  W['u7_7.4_8'] = {
+    type: 'causation',
+    hq: 'How would twentieth-century economist John Maynard Keynes suggest',
+    look: 'Bismarck says the worker is "completely helpless" when ill, old or out of work, and poor relief "leaves a lot to be desired."',
+    src: [
+      { tag: 'WHO', since: 'Keynes wrote in the 1930s', therefore: 'he lived through the Depression' },
+      { tag: 'HOW', since: 'he said governments should spend in downturns', therefore: 'he backed government action' }
+    ],
+    read: ['A chancellor on workers’ insecurity', 'A union leader demanding a general strike', 'A factory owner cutting wages and jobs'],
+    plain: ['What would Keynes have the state do?', 'Would he keep the state out of workers’ lives?', 'Would he help only the elderly?'],
+    meaning: 'Keynes would have the government step in and spend to keep demand and jobs up.',
+    trapIdx: 2,
+    trap: 'C describes laissez-faire, the view Keynes argued against.'
+  };
+
+  W['u7_7.5_0'] = {
+    type: 'similar',
+    hq: 'most similar to which earlier justification for imperialism',
+    hs: ['Despite promises of eventual self-governance, these arrangements often continued colonial exploitation'],
+    src: [
+      { tag: 'WHAT', since: 'mandates promised "eventual self-governance"', therefore: 'Westerners claimed to be guiding others' },
+      { tag: 'HOW', since: 'that is a duty to "civilize"', therefore: 'it echoes the White Man’s Burden' }
+    ],
+    read: ['Mandates continuing colonial rule', 'Mandates ending colonial rule at once', 'Mandates sharing power equally'],
+    plain: ['Which old idea do mandates echo?', 'Is it the Monroe Doctrine?', 'Is it mercantilism, colonies built for wealth?'],
+    meaning: 'Mandates claimed Western powers were guiding peoples toward self-rule: the old "civilizing mission."',
+    trapIdx: 3,
+    trap: 'D fits the exploitation, but mercantilism is an economic system. The mandate idea was a moral duty to guide.'
+  };
+
+  W['u7_7.5_2'] = {
+    type: 'bestillustrates',
+    hq: 'most directly demonstrates that',
+    hs: ['He was completely ignored'],
+    src: [
+      { tag: 'WHO', since: 'Ho cited Wilson’s own Fourteen Points', therefore: 'he took Wilson at his word' },
+      { tag: 'WHAT', since: 'he was ignored', therefore: 'self-determination was not for colonies' }
+    ],
+    read: ['Ho Chi Minh ignored at Versailles', 'Ho Chi Minh winning freedom at Versailles', 'France offering Vietnam self-rule'],
+    plain: ['Who were the Fourteen Points for?', 'Was self-determination for everyone?', 'Did France grant Vietnam autonomy?'],
+    meaning: 'Wilson’s self-determination applied to Europeans, not to Asian or African colonies.',
+    trapIdx: 0,
+    trap: 'A is the opposite. If self-determination were universal, Ho would not have been ignored.'
+  };
+
+  W['u7_7.5_3'] = {
+    type: 'bestillustrates',
+    hq: 'best understood as an example of',
+    hs: ['This policy aimed to erase Korean cultural identity'],
+    src: [
+      { tag: 'WHAT', since: 'Koreans had to take Japanese names', therefore: 'Korean culture was being erased' },
+      { tag: 'WHY', since: 'it served the expanding empire', therefore: 'culture became a tool of control' }
+    ],
+    read: ['Japan erasing Korean names', 'Japan celebrating Korean culture', 'Korea trading equally with Japan'],
+    plain: ['What tool of control is this?', 'Was it a response to an uprising?', 'Was it a progressive reform?'],
+    meaning: 'Forcing Japanese names on Koreans was cultural suppression used to control a conquered people.',
+    trapIdx: 2,
+    trap: 'C repeats Japan’s own claim to be modernizing, but the policy’s aim was to erase Korean identity.'
+  };
+
+  W['u7_7.5_4'] = {
+    type: 'context',
+    hq: 'drew most directly on which of the following intellectual traditions',
+    hs: ['drew directly on Enlightenment ideas of natural rights and self-determination'],
+    src: [
+      { tag: 'WHAT', since: 'the passage names the source', therefore: 'Enlightenment natural rights' },
+      { tag: 'HOW', since: 'colonized people turned the West’s own ideas against it', therefore: 'look for natural rights' }
+    ],
+    read: ['Anti-colonial leaders citing natural rights', 'Colonial rulers citing Social Darwinism to stay', 'Communists rejecting all nationalism'],
+    plain: ['Which ideas did they draw on?', 'Was it Marxist class struggle?', 'Was it Social Darwinism?'],
+    meaning: 'They used Enlightenment ideas of natural rights and self-determination against the powers that preached them.',
+    trapIdx: 0,
+    trap: 'A is tempting because Ho Chi Minh was a communist, but the passage says the League drew on Enlightenment ideas.'
+  };
+
+  W['u7_7.5_5'] = {
+    type: 'similar',
+    hq: 'shared which of the following common factors in their rise to power',
+    look: 'Berryman’s 1938 cartoon shows a small Mussolini boasting "I planned it that way and Adolf carried it out!" while Hitler marches off with Austria "in the bag."',
+    src: [
+      { tag: 'WHO', since: 'both were fascist dictators', therefore: 'look for what put both in power' },
+      { tag: 'WHEN', since: 'Italy had postwar crisis and Germany had the Depression', therefore: 'bad economies helped both' }
+    ],
+    read: ['A cartoon mocking two dictators', 'A cartoon praising two elected leaders', 'A cartoon of two kings at peace'],
+    plain: ['What helped both men rise?', 'Were both democratically elected?', 'Did both court socialist parties?'],
+    meaning: 'Both rose as weak economies made people turn to strongmen.',
+    trapIdx: 1,
+    trap: 'B is a common myth. Mussolini was appointed after the March on Rome, and Hitler was appointed chancellor; neither won a majority vote.'
+  };
+
+  W['u7_7.5_7'] = {
+    type: 'causation',
+    hq: 'instructions indicated in the fourth paragraph to remain nonviolent',
+    look: 'Gandhi writes that the arrest is "a prelude to Swaraj... if we can remain non-violent," and adds, "Let us earn imprisonment."',
+    src: [
+      { tag: 'WHAT', since: 'Gandhi calls for nonviolence and accepting jail', therefore: 'it is satyagraha' },
+      { tag: 'WHO', since: 'Martin Luther King Jr. studied Gandhi', therefore: 'nonviolence spread to the US' }
+    ],
+    read: ['Gandhi urging nonviolent resistance', 'Gandhi calling for an armed revolt against Britain', 'Gandhi asking Britain for mercy'],
+    plain: ['Who later used Gandhi’s methods?', 'Did Southeast Asia win freedom this way?', 'Did Cuba’s communists use them?'],
+    meaning: 'Gandhi’s nonviolent resistance inspired the American civil rights movement.',
+    trapIdx: 1,
+    trap: 'B fits "independence," but Vietnam and Indonesia won through armed struggle, not nonviolence.'
+  };
+
+  W['u7_7.5_8'] = {
+    type: 'causation',
+    hq: 'most inspired the instructions indicated in the fifth paragraph to boycott foreign cloth',
+    look: 'Gandhi hopes "every Indian, man or woman, will completely boycott foreign cloth and take up spinning or weaving."',
+    src: [
+      { tag: 'WHAT', since: 'foreign cloth meant British cloth', therefore: 'trace how Britain came to control India’s trade' },
+      { tag: 'WHEN', since: 'the stem asks about 1450 to 1750', therefore: 'the East India Company was chartered in 1600' }
+    ],
+    read: ['Gandhi calling for a cloth boycott', 'Gandhi praising British factory cloth', 'Gandhi calling for new trade deals'],
+    plain: ['What began British control of India?', 'Was it the conquest of India by a Muslim empire?', 'Was it New World food crops?'],
+    meaning: 'The East India Company, a joint-stock company, gained control of India’s trade. British cloth later ruined Indian weavers.',
+    trapIdx: 0,
+    trap: 'A is the Mughal conquest, but the boycott targets British cloth, so trace British control, which began with a joint-stock company.'
+  };
+
+  W['u7_7.6_4'] = {
+    type: 'context',
+    hq: 'culmination of which broader twentieth century development',
+    hs: ['It did not distinguish between soldiers and children'],
+    src: [
+      { tag: 'WHO', since: 'the survivors describe civilian deaths', therefore: 'civilians were the targets' },
+      { tag: 'WHEN', since: 'it caps WWI gas and WWII bombing', therefore: 'it is the end of a long trend' }
+    ],
+    read: ['Survivors on a bomb that killed civilians', 'Soldiers describing a battle between two navies', 'Generals on a new kind of tank warfare'],
+    plain: ['What trend did the bomb complete?', 'Was it naval blockades?', 'Was it the rise of mechanized tank warfare?'],
+    meaning: 'The bomb was the extreme end of a century of war that blurred the line between soldiers and civilians.',
+    trapIdx: 3,
+    trap: 'D is a real feature of modern war, but not "all major powers" used chemical and biological weapons in WWII. The bomb fits the civilian-targeting trend.'
+  };
+
+  W['u7_7.6_5'] = {
+    type: 'causation',
+    hq: 'most directly reflected',
+    hs: ['Britain and France gave Hitler the Sudetenland in exchange for a promise of no further expansion'],
+    src: [
+      { tag: 'WHO', since: 'Britain and France gave in again and again', therefore: 'they wanted to avoid war' },
+      { tag: 'WHEN', since: 'it was the 1930s', therefore: 'they were still hurting from WWI and the Depression' }
+    ],
+    read: ['Democracies giving in to Axis demands', 'Democracies standing firm against Hitler', 'Democracies allying with fascists'],
+    plain: ['Why did democracies give in?', 'Did they sympathize with fascism?', 'Did they want war with the USSR?'],
+    meaning: 'Worn out by WWI and the Depression, the democracies gave in to avoid another war.',
+    trapIdx: 2,
+    trap: 'C is a conspiracy theory with little support. Appeasement came from exhaustion and fear of war.'
+  };
+
+  W['u7_7.6_7'] = {
+    type: 'bestillustrates',
+    hq: 'most directly connects the atomic bombing to which broader historical pattern',
+    hs: ['It did not distinguish between soldiers and children'],
+    src: [
+      { tag: 'WHAT', since: 'the bomb killed everyone in its path', therefore: 'civilians were part of the target' },
+      { tag: 'HOW', since: 'Dresden and Tokyo were firebombed first', therefore: 'it fits total war strategy' }
+    ],
+    read: ['A survivor on a bomb killing civilians', 'A soldier on a battle far from any city', 'A diplomat on laws protecting civilians'],
+    plain: ['What strategy does it reflect?', 'Was it secret weapons outside command?', 'Was it laws protecting civilians?'],
+    meaning: 'Killing soldiers and children alike reflects total war: deliberately targeting civilians.',
+    trapIdx: 2,
+    trap: 'C is the opposite. Laws of war aimed to protect civilians; the bombing ignored them.'
+  };
+
+  W['u7_7.6_9'] = {
+    type: 'similar',
+    hq: 'In contrast to Hitler, Mussolini focused on',
+    look: 'The cartoon shows Mussolini taking credit while Hitler carries off Austria; the question asks where Mussolini himself looked to expand.',
+    src: [
+      { tag: 'WHERE', since: 'Hitler looked east into Europe', therefore: 'Mussolini looked elsewhere' },
+      { tag: 'WHAT', since: 'Mussolini wanted a new Roman empire', therefore: 'he looked across the Mediterranean' }
+    ],
+    read: ['A cartoon of Mussolini and Hitler', 'A cartoon of Mussolini defeating Hitler', 'A cartoon of Italy at peace with Ethiopia'],
+    plain: ['Where did Mussolini expand?', 'Did he sign pacts with great powers?', 'Did he control the news media?'],
+    meaning: 'Mussolini expanded into North and East Africa, holding Libya and invading Ethiopia in 1935.',
+    trapIdx: 1,
+    trap: 'B fits Hitler better: he signed the Nazi-Soviet Pact. Both dictators used propaganda, so it is no contrast.'
+  };
+
+  W['u7_7.6_10'] = {
+    type: 'context',
+    hq: 'historical background for Adolf Hitler’s condemnation of the Treaty of Versailles',
+    look: 'Hitler calls Versailles a "Diktat" that "is not law to us," a signature "forced out of us with pistols at our head."',
+    src: [
+      { tag: 'WHEN', since: 'he spoke the day Germany invaded Poland', therefore: 'he is justifying the attack' },
+      { tag: 'WHAT', since: 'he says the treaty was forced on Germany', therefore: 'he taps a widely shared German grievance' }
+    ],
+    read: ['Hitler calling Versailles unfair', 'Hitler praising the Versailles treaty as just', 'Churchill attacking the Versailles treaty'],
+    plain: ['Why did Germans resent Versailles?', 'Did Hitler respect Poland’s borders?', 'Was he teaming up with Mussolini here?'],
+    meaning: 'Many Germans felt Versailles treated them unfairly, and Hitler used that anger to justify invading Poland.',
+    trapIdx: 1,
+    trap: 'B is the opposite. Hitler spoke on the day he invaded Poland.'
+  };
+
+  W['u7_7.6_11'] = {
+    type: 'context',
+    hq: 'best understood in the context of',
+    look: 'Churchill vows "we shall defend our island, whatever the cost may be. We shall fight on the beaches."',
+    src: [
+      { tag: 'WHEN', since: 'it is June 4, 1940, just after Dunkirk', therefore: 'France is falling' },
+      { tag: 'WHAT', since: 'he talks of beaches and landing grounds', therefore: 'Britain expects an invasion' }
+    ],
+    read: ['Churchill vowing to defend Britain', 'Churchill offering peace terms to Hitler', 'Churchill planning an attack on Moscow'],
+    plain: ['What did Britain fear in 1940?', 'Was Britain still appeasing the Axis?', 'Was Britain backing Eastern European rebels?'],
+    meaning: 'After Dunkirk, Britain expected a German invasion, and Churchill vowed to fight on.',
+    trapIdx: 2,
+    trap: 'C ended when Churchill replaced Chamberlain in May 1940. "We shall never surrender" is the opposite of appeasement.'
+  };
+
+  W['u7_7.6_12'] = {
+    type: 'causation',
+    hq: 'vindicated by which of the following historical events',
+    look: 'Stalin lists Russia’s defeats, all "because of her backwardness," and says "we must no longer lag behind."',
+    src: [
+      { tag: 'WHAT', since: 'he warns that the backward get beaten', therefore: 'he expects another attack' },
+      { tag: 'WHEN', since: 'Germany invaded in 1941', therefore: 'the new factories helped the USSR survive' }
+    ],
+    read: ['Stalin warning that the weak get beaten', 'Stalin promising lasting peace with the West', 'Stalin praising Russia’s old kings'],
+    plain: ['Which attack proved Stalin right?', 'Was it the later Space Race?', 'Was it the Polish-Soviet War of 1920?'],
+    meaning: 'Germany invaded ten years later, and the industry built under the Five-Year Plans helped the USSR win.',
+    trapIdx: 2,
+    trap: 'C was a real foreign attack, but it came before 1931. Something that happened earlier cannot vindicate a warning about the future.'
+  };
+
+  W['u7_7.6_13'] = {
+    type: 'causation',
+    hq: 'changes illustrated in the table from 1937 to 1942',
+    look: 'Japan’s GDP climbs from 19,949 million yen in 1937 to 23,445 in 1942.',
+    src: [
+      { tag: 'WHEN', since: 'war with China began in 1937', therefore: 'war spending started then' },
+      { tag: 'WHAT', since: 'GDP rose', therefore: 'the cause must have boosted output' }
+    ],
+    read: ['A table of Japan’s wartime growth', 'A table of Japan’s economy in collapse', 'A table of Japan’s trade with America'],
+    plain: ['What raised output in those years?', 'Did U.S. embargoes boost Japan’s economy?', 'Was it the conquest of Manchuria in 1931?'],
+    meaning: 'Spending on the wars with China and then the Allies drove Japan’s output up.',
+    trapIdx: 3,
+    trap: 'D would shrink the economy, not grow it. Embargoes cut off oil and steel.'
+  };
+
+  W['u7_7.6_14'] = {
+    type: 'causation',
+    hq: 'changes illustrated in the table from 1942 to 1946',
+    look: 'GDP falls from 23,445 million yen in 1942 to 13,083 in 1946.',
+    src: [
+      { tag: 'WHEN', since: 'it covers the end of the war', therefore: 'Japan was being bombed' },
+      { tag: 'WHAT', since: 'output fell by almost half', therefore: 'factories and cities were destroyed' }
+    ],
+    read: ['A table of Japan’s output collapsing', 'A table of Japan’s fast postwar boom', 'A table of Japanese trade surging'],
+    plain: ['What cut output in half?', 'Did trade with Pacific allies cause it?', 'Did nationwide strikes cause it?'],
+    meaning: 'American bombing and a submarine blockade destroyed Japan’s factories and cut off supplies.',
+    trapIdx: 3,
+    trap: 'D would add workers, not cut output. Japan did use forced labor, but that does not explain the collapse.'
+  };
+
+  W['u7_7.7_2'] = {
+    type: 'causation',
+    hq: 'most directly explains the Nazis\' ability to carry out the policies of extermination',
+    hs: ['forced to work in a unit responsible for disposing of the bodies of those killed in Auschwitz'],
+    src: [
+      { tag: 'WHO', since: 'Olere was a survivor of Auschwitz', therefore: 'he saw the camp system firsthand' },
+      { tag: 'HOW', since: 'Jews were rounded up all over Europe', therefore: 'the Nazis needed local help' }
+    ],
+    read: ['A survivor’s painting of Auschwitz', 'A Nazi poster calling for new workers', 'A painting of Jews moving to Palestine'],
+    plain: ['Who helped the Nazis do it?', 'Did old ghetto rules make it possible?', 'Did Jews leaving for Palestine matter?'],
+    meaning: 'Across occupied Europe, local people helped out of prejudice, fear or greed.',
+    trapIdx: 3,
+    trap: 'D sounds like propaganda, but many people in occupied lands saw the Nazis as conquerors. They helped out of prejudice, fear or greed.'
+  };
+
+  W['u7_7.7_3'] = {
+    type: 'bestillustrates',
+    hq: 'best understood as an example of',
+    hs: ['This myth was historically false', 'Jews, communists, and traitors had sabotaged Germany from within'],
+    src: [
+      { tag: 'WHO', since: 'Goebbels’ propaganda office spread it', therefore: 'it was government-sponsored' },
+      { tag: 'WHAT', since: 'it blamed Jews and communists falsely', therefore: 'it dehumanized minorities' }
+    ],
+    read: ['A false Nazi myth blaming minorities', 'A true account of how Germany lost the war', 'A soldier’s memoir of fighting at the front'],
+    plain: ['What kind of myth is this?', 'Was it a true account of sabotage?', 'Did the Nazis have no part in it?'],
+    meaning: 'The legend was state propaganda that blamed minorities and helped justify persecution.',
+    trapIdx: 2,
+    trap: 'C is half true (the myth began after 1918), but the passage says Goebbels’ propaganda machine built it up. The Nazis spread it.'
+  };
+
+  W['u7_7.7_4'] = {
+    type: 'similar',
+    hq: 'continuity across twentieth century mass atrocities',
+    hs: ['In all cases, dehumanizing propaganda preceded and accompanied the violence'],
+    src: [
+      { tag: 'WHEN', since: 'they range from 1915 to 1994', therefore: 'not just WWII or fascism' },
+      { tag: 'WHAT', since: 'propaganda came first every time', therefore: 'that is the continuity' }
+    ],
+    read: ['A list of genocides with one shared pattern', 'A list of genocides with no shared pattern at all', 'A list of wars won by the League'],
+    plain: ['What came before every genocide?', 'Were all of them caused only by fascism?', 'Was economic collapse the only trigger?'],
+    meaning: 'In every case, extremist ideas and dehumanizing propaganda came before the killing.',
+    trapIdx: 0,
+    trap: 'A is contradicted by the list: Armenia, Cambodia and Rwanda were not fascist and not during WWII.'
+  };
+
+  W['u7_7.7_5'] = {
+    type: 'similar',
+    hq: 'most similar to the Holocaust in that both',
+    hs: ['executions of educated professionals'],
+    src: [
+      { tag: 'WHO', since: 'the Khmer Rouge was a communist government', therefore: 'it was not fascist' },
+      { tag: 'HOW', since: 'it killed groups it saw as enemies', therefore: 'state-run, ideological killing is the match' }
+    ],
+    read: ['A communist regime killing millions', 'A fascist regime conquering Europe', 'A regime stopped by the United States'],
+    plain: ['What do the two share?', 'Were both governments fascist?', 'Did the US stop both of them?'],
+    meaning: 'Both were state-sponsored, ideology-driven mass killings of people the government saw as enemies.',
+    trapIdx: 0,
+    trap: 'A is wrong about the Khmer Rouge, a communist party. The ideologies differed, but the method matched.'
+  };
+
+  W['u7_7.8_0'] = {
+    type: 'similar',
+    hq: 'Which best describes what both sources agree on',
+    hs: ['its success in blaming the war on Russia was a masterstroke', 'Important losses or battles often went completely unmentioned'],
+    src: [
+      { tag: 'HOW', since: 'Germany spread atrocity stories', therefore: 'one used false stories' },
+      { tag: 'HOW', since: 'Britain hid its losses', therefore: 'the other hid true ones' }
+    ],
+    read: ['Two historians on wartime media control', 'Two soldiers describing life in the trenches', 'Two editors praising a free press'],
+    plain: ['What did both governments understand?', 'Did both use the very same methods of control?', 'Did both rely on outright lies?'],
+    meaning: 'Different methods, same idea: both governments managed news of the war to keep public support.',
+    trapIdx: 0,
+    trap: 'A ignores the contrast: Germany spread false stories while Britain hid true ones. The methods differed.'
+  };
+
+  W['u7_7.8_1'] = {
+    type: 'similar',
+    hq: 'most directly illustrate',
+    hs: ['requiring governments to mobilize all available resources through propaganda, nationalism, and state control'],
+    src: [
+      { tag: 'WHO', since: 'democracies, the USSR and the Nazis all used media', therefore: 'every type of state did it' },
+      { tag: 'HOW', since: 'methods ranged from speeches to rallies', therefore: 'the tools differed but the goal matched' }
+    ],
+    read: ['Every type of state mobilizing for war', 'Only dictators using propaganda in war', 'Only democracies rallying their people'],
+    plain: ['What did all of them do?', 'Were democracies simply more effective?', 'Did dictators skip propaganda?'],
+    meaning: 'Democracies and dictatorships alike used every tool they had to aim civilian life at the war.',
+    trapIdx: 1,
+    trap: 'B is the opposite: the passage lists Nazi films, radio and rallies. Totalitarian states used propaganda heavily.'
+  };
+
+  W['u7_7.8_2'] = {
+    type: 'context',
+    hq: 'most directly illustrates which of the following continuities',
+    hs: ['governments across the political spectrum, democratic, fascist, and communist'],
+    src: [
+      { tag: 'WHO', since: 'every kind of government used propaganda', therefore: 'it was not one system’s trick' },
+      { tag: 'HOW', since: 'modern war needed whole populations', therefore: 'states used mass media to rally them' }
+    ],
+    read: ['All governments using mass media in war', 'Only democracies using propaganda well in war', 'Nationalism fading in modern war'],
+    plain: ['What power did modern states share?', 'Did democracies fail to communicate?', 'Did nationalism stop mattering?'],
+    meaning: 'Modern states of every type used mass media to shape opinion and mobilize civilians.',
+    trapIdx: 3,
+    trap: 'D overstates it. Propaganda often hid losses, but "all states" and "complete victories" go far beyond the passage.'
+  };
+
+  W['u7_7.8_3'] = {
+    type: 'similar',
+    hq: 'most directly significant in helping to explain',
+    hs: ['utilized centralized government economic control and systematic propaganda'],
+    src: [
+      { tag: 'WHO', since: 'Stalin and Hitler had opposite ideologies', therefore: 'the match is in methods' },
+      { tag: 'HOW', since: 'both ran the economy from the top', therefore: 'both built state power for war' }
+    ],
+    read: ['Two dictators using the same tools', 'Two democracies building institutions', 'Two allies signing a lasting pact'],
+    plain: ['What methods did both share?', 'Did both build democratic institutions?', 'Did the Depression make them allies?'],
+    meaning: 'Despite opposite ideologies, both used central economic control and propaganda to build power for war.',
+    trapIdx: 2,
+    trap: 'C twists the 1939 Nazi-Soviet Pact. It was a brief deal, not a lasting alliance, and it did not come from the Depression.'
+  };
+
+  W['u7_7.8_4'] = {
+    type: 'bestillustrates',
+    hq: 'most directly illustrate which of the following patterns',
+    hs: ['using propaganda to recruit soldiers and vilify enemies, censoring media'],
+    src: [
+      { tag: 'WHAT', since: 'governments used propaganda and censorship', therefore: 'they controlled the media' },
+      { tag: 'HOW', since: 'they directed factories, food and workers', therefore: 'whole societies served the war' }
+    ],
+    read: ['States aiming whole societies at war', 'States stepping back from the economy', 'States leaving news to free papers'],
+    plain: ['What did mass media let states do?', 'Did governments leave the economy?', 'Did the League replace propaganda?'],
+    meaning: 'Mass media let modern states direct whole civilian societies toward winning the war.',
+    trapIdx: 0,
+    trap: 'A is the opposite: governments directed factories and rationed food. They took over more of the economy.'
+  };
+
+  W['u7_7.8_5'] = {
+    type: 'purpose',
+    hq: 'implies which of the following claims about Mussolini',
+    look: 'Under the title "Telling the Italians!", a small Mussolini boasts, "I planned it that way and Adolf carried it out!"',
+    src: [
+      { tag: 'WHO', since: 'an American cartoonist drew it', therefore: 'he is mocking Mussolini' },
+      { tag: 'WHAT', since: 'Mussolini takes credit for Hitler’s move', therefore: 'he is spinning the story at home' }
+    ],
+    read: ['A cartoon mocking Mussolini’s boasts', 'A cartoon praising Mussolini’s plans', 'A cartoon showing Italy beating Hitler'],
+    plain: ['What does the cartoon say he does?', 'Was he behind Germany’s military success?', 'Did he start World War II?'],
+    meaning: 'The cartoonist shows Mussolini telling his people a false story to look important: propaganda.',
+    trapIdx: 0,
+    trap: 'A takes Mussolini’s boast at face value. The title "Telling the Italians!" shows the cartoonist does not believe him.'
+  };
+
+  W['u7_7.8_6'] = {
+    type: 'context',
+    hq: 'draws directly on its audience’s experiences of',
+    look: 'The poster shows young soldiers marching under a huge "1917," telling them to defend the freedom "won by your Fathers."',
+    src: [
+      { tag: 'WHAT', since: '"1917" fills the top of the poster', therefore: 'it points to the revolution' },
+      { tag: 'WHO', since: 'their fathers "won" freedom', therefore: 'the parents fought for the Soviet state' }
+    ],
+    read: ['A WWII poster recalling 1917', 'A poster celebrating Stalin’s purges', 'A poster honoring the Tsar’s army'],
+    plain: ['What did the fathers win?', 'Was it the Great Purge of the 1930s?', 'Was it the Yalta Conference?'],
+    meaning: 'The freedom "won by your Fathers" in 1917 means the Russian Revolution.',
+    trapIdx: 2,
+    trap: 'C was going on in 1917, but Soviet leaders called World War I an imperialist war, not a fight for freedom. They honored the Revolution.'
+  };
+
+  W['u7_7.8_8'] = {
+    type: 'similar',
+    hq: 'contrasts to Marx’s view of communism',
+    look: 'The poster calls on Soviet youth to defend the "Motherland" and its honor, not workers everywhere.',
+    src: [
+      { tag: 'WHO', since: 'Marx said workers have no country', therefore: 'he saw communism as international' },
+      { tag: 'HOW', since: 'Stalin backed "socialism in one country"', therefore: 'Soviet communism leaned on the nation' }
+    ],
+    read: ['A Soviet poster calling for national pride', 'A Marxist poster calling all workers to unite', 'A poster calling for peace with Germany'],
+    plain: ['How did the USSR break with Marx?', 'Was Marx the peaceful one?', 'Did Marx run a communist state himself?'],
+    meaning: 'Marx saw communism as international; the USSR built "socialism in one country" and leaned on patriotism.',
+    trapIdx: 1,
+    trap: 'B is wrong about Marx, who expected a violent revolution by workers.'
+  };
+
+  W['u7_7.9_1'] = {
+    type: 'causation',
+    hq: 'best supports which claim about the causes of the Second World War',
+    hs: ['many people turned to leaders who promised national revival through strong government and territorial expansion'],
+    src: [
+      { tag: 'WHAT', since: 'the Depression caused mass unemployment', therefore: 'people wanted strong leaders' },
+      { tag: 'HOW', since: 'those leaders promised expansion', therefore: 'aggression followed' }
+    ],
+    read: ['The Depression helping aggressive leaders', 'The Depression making states more peaceful', 'The Cold War causing World War II'],
+    plain: ['What did the Depression lead to?', 'Were colonial rivalries the only cause?', 'Did states rearm less after 1929?'],
+    meaning: 'The Depression helped bring aggressive, expansionist governments to power.',
+    trapIdx: 1,
+    trap: 'B is the opposite: Japan invaded Manchuria in 1931 and the fascist states rearmed.'
+  };
+
+  W['u7_7.9_2'] = {
+    type: 'causation',
+    hq: 'The rapid spread of the war is best explained by',
+    hs: ['Within weeks, Russia, Germany, France, and Britain had joined the conflict'],
+    src: [
+      { tag: 'WHAT', since: 'one assassination drew in many powers', therefore: 'they were tied together' },
+      { tag: 'HOW', since: 'alliances pulled each power in', therefore: 'a local war became a world war' }
+    ],
+    read: ['Alliances spreading a Balkan war', 'The League failing to stop a war', 'The Depression causing a world war'],
+    plain: ['Why did so many join so fast?', 'Did the League fail to act in 1914?', 'Did the Great Depression cause it?'],
+    meaning: 'Alliance commitments turned a Balkan conflict into a general European war.',
+    trapIdx: 1,
+    trap: 'B is impossible: the League of Nations was created after World War I.'
+  };
+
+  W['u7_7.9_4'] = {
+    type: 'causation',
+    hq: 'most directly contributed to',
+    hs: ['Britain and France were economically exhausted', 'colonized peoples who had fought or worked for the Allies demanded independence'],
+    src: [
+      { tag: 'WHO', since: 'the empires were worn out', therefore: 'they could not hold their colonies' },
+      { tag: 'WHO', since: 'colonized peoples demanded freedom', therefore: 'pressure came from both sides' }
+    ],
+    read: ['Weak empires facing independence demands', 'Strong empires growing even larger after the war', 'The Ottoman Empire coming back'],
+    plain: ['What did weak empires lead to?', 'Did European empires expand?', 'Did nationalism fade in the colonies?'],
+    meaning: 'Exhausted empires and growing independence movements led to decolonization in Asia and Africa.',
+    trapIdx: 0,
+    trap: 'A is the opposite: the empires were exhausted and could not expand.'
+  };
+
+  /* ============ UNIT 8 ============ */
+  W['u8_8.1_2'] = {
+    type: 'context',
+    hq: 'best understood in the context of which wartime agreement',
+    hs: ['all these famous cities and the populations around them lie in what I must call the Soviet sphere'],
+    src: [
+      { tag: 'WHEN', since: 'it is March 1946', therefore: 'look for a wartime deal about Europe' },
+      { tag: 'WHAT', since: 'Eastern Europe is in the "Soviet sphere"', therefore: 'a deal let Soviet power stay there' }
+    ],
+    read: ['Churchill on Soviet control of the East', 'Churchill praising Soviet free elections', 'Churchill planning to invade Soviet lands'],
+    plain: ['Which deal left the East to Moscow?', 'Was it the Atlantic Charter of 1941?', 'Was it the Bretton Woods money system?'],
+    meaning: 'At Yalta in 1945, the Allies left Eastern Europe in the Soviet sphere. Churchill describes the result.',
+    trapIdx: 1,
+    trap: 'B promised self-determination, the opposite of what Churchill describes. It explains his complaint, not how the East fell under Soviet control.'
+  };
+
+  W['u8_8.2_5'] = {
+    type: 'causation',
+    hq: 'most directly contribute to',
+    hs: ['a defeat of free institutions anywhere is a defeat everywhere'],
+    src: [
+      { tag: 'WHO', since: 'the National Security Council wrote it', therefore: 'it is a plan for US defense policy' },
+      { tag: 'WHAT', since: 'it sees a threat "anywhere"', therefore: 'the US must be strong everywhere' }
+    ],
+    read: ['A US plan to confront the Soviets', 'A US plan to make peace with Moscow', 'A Soviet plan to spread revolution'],
+    plain: ['What policy did NSC-68 drive?', 'Did it lead to the Marshall Plan in 1948?', 'Did it lead to détente in the 1970s?'],
+    meaning: 'NSC-68 called for a huge military buildup, and US defense spending tripled in three years.',
+    trapIdx: 0,
+    trap: 'A came first: the Marshall Plan began in 1948, two years before NSC-68. It was economic aid, not a military buildup.'
+  };
+
+  W['u8_8.2_6'] = {
+    type: 'context',
+    hq: 'most clearly an example of',
+    look: 'Khrushchev says "the Soviet Union is not abandoning its efforts for agreement," and Eisenhower answers at the same summit.',
+    src: [
+      { tag: 'WHAT', since: 'both leaders are at a summit conference', therefore: 'it was meant to ease tensions' },
+      { tag: 'HOW', since: 'the U-2 spy flights were real', therefore: 'the spying was not hypothetical' }
+    ],
+    read: ['A summit meant to ease tension', 'A war council planning an attack', 'A treaty ending the Cold War for good'],
+    plain: ['What was the summit for?', 'Was it a debate over missile sites?', 'Was it the build-up to a war?'],
+    meaning: 'The 1960 Paris Summit was meant to ease Cold War tensions, though it collapsed over the U-2 affair.',
+    trapIdx: 2,
+    trap: 'C gets the spying wrong. The U-2 flights were real: a plane had just been shot down over the USSR.'
+  };
+
+  W['u8_8.2_8'] = {
+    type: 'similar',
+    hq: 'disagree in which of the following ways',
+    look: 'Khrushchev calls them "aggressive intelligence flights" made "with a view to starting war"; Eisenhower says they "had no aggressive intent."',
+    src: [
+      { tag: 'WHO', since: 'Khrushchev sees the flights as a threat', therefore: 'he calls them aggressive' },
+      { tag: 'WHO', since: 'Eisenhower sees them as protection', therefore: 'he calls them preventive' }
+    ],
+    read: ['Two leaders clash over spy flights', 'Two leaders agree to end all spying', 'Two leaders plan a joint space flight'],
+    plain: ['How do they see the flights?', 'Does Khrushchev want the Cold War over?', 'Does Khrushchev defend Soviet spying?'],
+    meaning: 'Khrushchev calls the flights aggression; Eisenhower calls them protection against surprise attack.',
+    trapIdx: 1,
+    trap: 'B gets it backward. The flights were American; Eisenhower is the one defending the "necessity of espionage."'
+  };
+
+  W['u8_8.2_9'] = {
+    type: 'purpose',
+    hq: 'maintains which of the following viewpoints about capitalism',
+    look: 'Khrushchev says "there is no other solution than peaceful co-existence of the two systems, the capitalist and the socialist."',
+    src: [
+      { tag: 'WHO', since: 'Khrushchev led the USSR after Stalin', therefore: 'he backed "peaceful coexistence"' },
+      { tag: 'WHAT', since: 'he names both systems side by side', therefore: 'he accepts that both will exist' }
+    ],
+    read: ['Khrushchev calling for coexistence', 'Khrushchev calling for world revolution now', 'Khrushchev praising capitalist markets'],
+    plain: ['How should the systems relate?', 'Must capitalism be wiped out now?', 'Is capitalism the key to world peace?'],
+    meaning: 'Khrushchev says capitalism and socialism must coexist peacefully, or face war.',
+    trapIdx: 0,
+    trap: 'A is a classic communist view, but Khrushchev says the opposite here: the only choice is "peaceful co-existence."'
+  };
+
+  W['u8_8.2_10'] = {
+    type: 'causation',
+    hq: 'most directly supports which of the following decisions in later Soviet foreign policy',
+    look: 'Stalin lists invaders who beat Russia: Mongols, Turks, Swedes, Poles, British, French and Japanese.',
+    src: [
+      { tag: 'WHAT', since: 'Russia was invaded again and again', therefore: 'Soviet leaders wanted protection' },
+      { tag: 'HOW', since: 'after 1945 they built a buffer in the East', therefore: 'they tied it together in the Warsaw Pact' }
+    ],
+    read: ['Stalin on Russia’s history of invasions', 'Stalin on Russia’s easy victories abroad', 'Stalin on Russia’s alliance with Britain'],
+    plain: ['What would guard against invasion?', 'Was it the war in Afghanistan?', 'Was it declaring war on Japan in 1945?'],
+    meaning: 'Fear of invasion led to a buffer of satellite states bound together in the Warsaw Pact in 1955.',
+    trapIdx: 2,
+    trap: 'C fits Soviet anger at the 1968 protests, but crushing protests is not about defense against invasion. The Warsaw Pact is the defensive alliance.'
+  };
+
+  W['u8_8.2_11'] = {
+    type: 'context',
+    hq: 'most clearly an example of',
+    look: 'Article 3 says members will build their "capacity to resist armed attack"; Article 5 makes an attack on one an attack on all.',
+    src: [
+      { tag: 'WHEN', since: 'it is April 1949', therefore: 'the Berlin Blockade was underway' },
+      { tag: 'WHAT', since: 'it prepares to "resist armed attack"', therefore: 'it answers an outside threat' }
+    ],
+    read: ['A treaty to resist armed attack', 'A treaty lowering tariffs between nations', 'A plan to rebuild Europe’s factories'],
+    plain: ['What threat does the treaty answer?', 'Is it a secret balance of power deal?', 'Is it about rebuilding after the war?'],
+    meaning: 'NATO answered Soviet aggression after the takeover of Eastern Europe and the Berlin Blockade.',
+    trapIdx: 2,
+    trap: 'C was the Marshall Plan. NATO is about defending against attack, not rebuilding.'
+  };
+
+  W['u8_8.2_13'] = {
+    type: 'bestillustrates',
+    hq: 'most clearly supports which of the following concepts',
+    look: 'Article 5: "an armed attack against one or more of them in Europe or North America shall be considered an attack against them all."',
+    src: [
+      { tag: 'WHAT', since: 'an attack on one is an attack on all', therefore: 'members defend each other' },
+      { tag: 'WHEN', since: 'it is 1949', therefore: 'MAD came later, with big nuclear arsenals' }
+    ],
+    read: ['A treaty where allies defend each other', 'A treaty sharing nuclear bombs with all', 'A treaty spreading free markets abroad'],
+    plain: ['What idea is in Article 5?', 'Is it mutually assured destruction?', 'Is it capitalism and free trade?'],
+    meaning: 'An attack on one member is an attack on all: collective defense.',
+    trapIdx: 2,
+    trap: 'C sounds like the Cold War, but MAD came later, when both sides had huge nuclear arsenals. Article 5 is about allies.'
+  };
+
+  W['u8_8.3_0'] = {
+    type: 'context',
+    hq: 'most directly an example of which Cold War development',
+    hs: ['shall be considered an attack against them all'],
+    src: [
+      { tag: 'WHO', since: 'the US and Western Europe signed it', therefore: 'it is a Western alliance' },
+      { tag: 'WHY', since: 'it came after Soviet moves in the East', therefore: 'it answers the Soviet threat' }
+    ],
+    read: ['Allies pledging to defend each other', 'Allies pledging to restore their colonies', 'The UN sending troops to Asia'],
+    plain: ['What does Article 5 create?', 'Is it nuclear deterrence and MAD?', 'Is it UN peacekeeping missions?'],
+    meaning: 'Article 5 formed a military alliance as a joint response to the Soviet threat.',
+    trapIdx: 1,
+    trap: 'B is a real Cold War pattern, but Article 5 says nothing about nuclear weapons. It is a pledge of mutual defense.'
+  };
+
+  W['u8_8.3_1'] = {
+    type: 'causation',
+    hq: 'most directly contributed to which Soviet response',
+    hs: ['an armed attack against one or more of them in Europe or North America'],
+    src: [
+      { tag: 'WHAT', since: 'NATO was a Western military alliance', therefore: 'Moscow felt surrounded' },
+      { tag: 'HOW', since: 'the Soviets built a mirror alliance in 1955', therefore: 'that was the Warsaw Pact' }
+    ],
+    read: ['A Western alliance alarming Moscow', 'A Western treaty calming Soviet fears', 'A Soviet plan to join NATO'],
+    plain: ['How did Moscow answer NATO?', 'Was it the Berlin Blockade?', 'Did Soviet troops leave Eastern Europe?'],
+    meaning: 'The Soviets answered with their own alliance, the Warsaw Pact of 1955.',
+    trapIdx: 1,
+    trap: 'B came first: the Berlin Blockade began in 1948 and helped cause NATO, so it cannot be a response to it.'
+  };
+
+  W['u8_8.3_2'] = {
+    type: 'bestillustrates',
+    hq: 'most directly reflects which aspect of postwar Western European relations',
+    hs: ['will assist the Party or Parties so attacked'],
+    src: [
+      { tag: 'WHO', since: 'Western Europe was exhausted by the war', therefore: 'it needed protection' },
+      { tag: 'WHAT', since: 'the US promised to defend it', therefore: 'Europe accepted US leadership' }
+    ],
+    read: ['Europe trading loyalty for US protection', 'The US reviving Europe’s colonial empires', 'France and Britain splitting over NATO'],
+    plain: ['What deal did Europe make?', 'Did the US revive colonialism?', 'Did the UN fail in Korea?'],
+    meaning: 'Western Europe accepted American leadership in return for protection and help rebuilding.',
+    trapIdx: 3,
+    trap: 'D is about Korea, which came in 1950, after NATO. The treaty is about Europe and North America.'
+  };
+
+  W['u8_8.3_5'] = {
+    type: 'bestillustrates',
+    hq: 'best understood as evidence of which broader Cold War pattern',
+    hs: ['the world stood at the brink of nuclear war', 'Ultimately, the Soviets agreed to remove the missiles'],
+    src: [
+      { tag: 'WHAT', since: 'nuclear missiles caused the crisis', therefore: 'the weapons created danger' },
+      { tag: 'HOW', since: 'both sides backed down', therefore: 'fear of nuclear war held them back' }
+    ],
+    read: ['Nukes causing a crisis, then restraint', 'A proxy war turning into direct war', 'The US proving it had total superiority'],
+    plain: ['What role did nukes play?', 'Did proxy wars always escalate?', 'Was US power simply superior?'],
+    meaning: 'Nuclear weapons created the crisis, but fear of using them pushed both sides to back down.',
+    trapIdx: 0,
+    trap: 'A is contradicted by the ending: the crisis was settled, so escalation was not unavoidable.'
+  };
+
+  W['u8_8.3_6'] = {
+    type: 'causation',
+    hq: 'changes illustrated in the table after 1946',
+    look: 'Japan’s GDP rises from 13,083 million yen in 1946 to 25,399 in 1955.',
+    src: [
+      { tag: 'WHO', since: 'the US occupied Japan after 1945', therefore: 'America rebuilt it as an ally' },
+      { tag: 'WHEN', since: 'the Korean War ran from 1950 to 1953', therefore: 'US orders boosted Japanese industry' }
+    ],
+    read: ['A table of Japan’s postwar recovery', 'A table of Japan’s postwar collapse', 'A table of Japan’s war spending'],
+    plain: ['What drove recovery after 1946?', 'Was it democracy returning under a new constitution?', 'Was it communist agents?'],
+    meaning: 'American occupation and Korean War orders set off a boom in Japanese industry.',
+    trapIdx: 0,
+    trap: 'A is true (Japan got a new constitution in 1947), but a constitution alone does not explain a doubled GDP. US spending does.'
+  };
+
+  W['u8_8.3_7'] = {
+    type: 'bestillustrates',
+    hq: 'best supported by the data presented in the table',
+    look: 'GDP per capita is 282 in 1937 and 282 again in 1955, after falling to 173 in 1946.',
+    src: [
+      { tag: 'WHAT', since: 'per capita output matches in 1937 and 1955', therefore: 'it returned to the old level' },
+      { tag: 'HOW', since: 'a table gives numbers, not motives', therefore: 'cross out claims about war goals' }
+    ],
+    read: ['A table of Japan’s output over time', 'A table of Japan’s war goals in Asia', 'A table of Japan’s trade partners'],
+    plain: ['What do the numbers show?', 'Did the economy only grow?', 'Did war only help the economy?'],
+    meaning: 'Output per person was 282 in 1937 and 282 again in 1955: it had returned to its 1937 level.',
+    trapIdx: 3,
+    trap: 'D is true history, but a table of numbers cannot show what the government wanted. Stick to the data.'
+  };
+
+  W['u8_8.4_1'] = {
+    type: 'bestillustrates',
+    hq: 'most significant as evidence of which broader historical pattern',
+    hs: ['This immortal statement was made in the Declaration of Independence of the United States of America in 1776', 'abusing the standard of Liberty, Equality, and Fraternity'],
+    src: [
+      { tag: 'WHO', since: 'Ho quotes Jefferson and the French Revolution', therefore: 'he uses Western ideals' },
+      { tag: 'WHAT', since: 'he turns them against French rule', therefore: 'he uses them to win independence' }
+    ],
+    read: ['Ho using Western ideals against France', 'Ho rejecting all Western ideas as foreign', 'Ho asking France for more aid'],
+    plain: ['How does Ho use Western ideas?', 'Is Marxism his only framework here?', 'Did the US push decolonization here?'],
+    meaning: 'Ho turned the West’s own ideals of liberty and equality against Western colonial rule.',
+    trapIdx: 0,
+    trap: 'A fits Ho, who was a communist, but this declaration quotes Jefferson and the French Revolution, not Marx.'
+  };
+
+  W['u8_8.4_4'] = {
+    type: 'causation',
+    hq: 'most directly contributed to which Cold War development',
+    hs: ['The Chinese people, comprising one quarter of humanity, have now stood up'],
+    src: [
+      { tag: 'WHAT', since: 'a quarter of humanity became communist', therefore: 'Americans feared communism spreading' },
+      { tag: 'HOW', since: 'the US fought in Korea a year later', therefore: 'it began containing communism in Asia' }
+    ],
+    read: ['Mao declaring a communist China', 'Mao joining the Western alliance', 'Mao asking the US for protection'],
+    plain: ['How did the US react to 1949?', 'Did the US pull out of East Asia?', 'Did Moscow control China for decades?'],
+    meaning: 'The "loss of China" made Americans fear communism was spreading, and the US intervened in Korea and Vietnam.',
+    trapIdx: 1,
+    trap: 'B misreads Mao’s "stood up." China had its own leaders, and by 1960 it split with the Soviet Union.'
+  };
+
+  W['u8_8.4_6'] = {
+    type: 'similar',
+    hq: 'differs most strongly from the social structure of',
+    look: 'Ho’s program calls to "overthrow French imperialism, feudalism, and the reactionary Vietnamese capitalist class" and give land to poor peasants.',
+    src: [
+      { tag: 'WHAT', since: 'Ho wants a communist state', therefore: 'look for an anti-communist one' },
+      { tag: 'WHO', since: 'South Korea was US-backed and capitalist', therefore: 'it is the opposite' }
+    ],
+    read: ['Ho calling for a communist Vietnam', 'Ho calling for free markets in Vietnam', 'Ho calling for French rule to continue'],
+    plain: ['Which state was anti-communist?', 'Was Castro’s Cuba anti-communist?', 'Was Romania anti-communist?'],
+    meaning: 'South Korea was a capitalist, US-backed state, the opposite of Ho’s communist program.',
+    trapIdx: 2,
+    trap: 'C is Vietnam’s neighbor, but Laos became communist in 1975, just like Ho’s Vietnam.'
+  };
+
+  W['u8_8.4_7'] = {
+    type: 'context',
+    hq: 'Which economic philosopher most influenced the message of this poster',
+    look: 'The 1958 poster shows workers, farmers and soldiers charging through the waves with a tractor, tools and a rocket: "Brave the wind and the waves."',
+    src: [
+      { tag: 'WHEN', since: 'it is from the Great Leap Forward', therefore: 'Mao’s China was communist' },
+      { tag: 'WHO', since: 'workers and peasants are the heroes', therefore: 'it praises collective labor' }
+    ],
+    read: ['A Chinese poster praising mass labor', 'A Chinese ad for private businesses', 'A Chinese poster praising free trade'],
+    plain: ['Whose ideas shaped Mao’s China?', 'Was it Adam Smith’s free markets?', 'Was it David Ricardo’s trade theory?'],
+    meaning: 'The poster celebrates collective labor in a communist state built on the ideas of Karl Marx.',
+    trapIdx: 0,
+    trap: 'A was a liberal thinker who supported free markets and individual rights, the opposite of Mao’s collective economy.'
+  };
+
+  W['u8_8.4_8'] = {
+    type: 'causation',
+    hq: 'NOT a result',
+    look: 'The poster shows heroic workers charging ahead with a tractor and a rocket: the Great Leap’s promise of fast growth.',
+    src: [
+      { tag: 'WHAT', since: 'NOT flips the question', therefore: 'three choices really did follow' },
+      { tag: 'WHEN', since: 'Soviet advisers left China in 1960', therefore: 'relations with Moscow got worse' }
+    ],
+    read: ['A poster promising a great leap', 'A poster honoring Soviet advisers', 'A poster advertising capitalist reform'],
+    plain: ['Which one did NOT happen after?', 'Did the Cultural Revolution follow it?', 'Did China later adopt market reforms?'],
+    meaning: 'After the Great Leap, China moved further from the Soviet Union, not closer.',
+    trapIdx: 2,
+    trap: 'C sounds unlike Mao, but after his death leaders like Deng Xiaoping turned to market reforms. It did happen.'
+  };
+
+  W['u8_8.5_0'] = {
+    type: 'purpose',
+    hq: 'most directly responds to which historical ideology',
+    hs: ['the black man is capable of managing his own affairs'],
+    src: [
+      { tag: 'WHO', since: 'Nkrumah led Ghana to independence', therefore: 'he is answering colonial rulers' },
+      { tag: 'WHAT', since: 'he insists Africans can rule themselves', therefore: 'someone had claimed they could not' }
+    ],
+    read: ['Nkrumah answering colonial claims', 'Nkrumah thanking Britain for its rule', 'Nkrumah asking Moscow for leaders'],
+    plain: ['Which idea is he refuting?', 'Is he answering Soviet claims?', 'Is he answering civil rights leaders?'],
+    meaning: 'Colonial ideology said Africans needed European rule. Nkrumah says Africans can manage their own affairs.',
+    trapIdx: 1,
+    trap: 'B misses the target. Colonial rule, not Soviet claims, had told Africans they could not govern themselves.'
+  };
+
+  W['u8_8.5_4'] = {
+    type: 'context',
+    hq: 'historical context that most directly explains Gandhi\'s \'Quit India\' call',
+    hs: ['We shall either free India or die in the attempt'],
+    src: [
+      { tag: 'WHEN', since: 'it is August 1942', therefore: 'the Cripps Mission had just failed' },
+      { tag: 'WHAT', since: 'Gandhi calls for "Do or Die"', therefore: 'talks had failed and he wanted confrontation' }
+    ],
+    read: ['Gandhi demanding Britain leave India now', 'Gandhi thanking Britain for its promises', 'Gandhi urging Indians to fight Japan'],
+    plain: ['What made talks seem pointless?', 'Did Britain offer full dominion now?', 'Did the US force Britain to leave?'],
+    meaning: 'The Cripps Mission offered too little, too late, so Gandhi concluded Britain would not leave unless pushed.',
+    trapIdx: 1,
+    trap: 'B is close to Cripps’s offer but wrong on timing. Dominion was promised only after the war, which is why Gandhi rejected it.'
+  };
+
+  W['u8_8.5_5'] = {
+    type: 'context',
+    hq: 'represents which broader historical pattern',
+    hs: ['we shall not live to see the perpetuation of our slavery'],
+    src: [
+      { tag: 'WHEN', since: 'it is 1942, during World War II', therefore: 'the war shaped the demand' },
+      { tag: 'WHAT', since: 'Britain fought for freedom while ruling India', therefore: 'colonized people questioned its authority' }
+    ],
+    read: ['Gandhi using the war to demand freedom', 'Gandhi calling for an armed revolution', 'Gandhi accepting British rule for now'],
+    plain: ['How did the war shape his demand?', 'Did violence radicalize Gandhi?', 'Did Britain grant freedom freely?'],
+    meaning: 'World War II made colonized peoples question empires that fought for "freedom" abroad but denied it at home.',
+    trapIdx: 0,
+    trap: 'A fits some movements, but Gandhi stayed nonviolent. "Do or Die" is a call for mass protest, not armed revolution.'
+  };
+
+  W['u8_8.5_6'] = {
+    type: 'bestillustrates',
+    hq: 'useful as a source of information about',
+    hs: ['the African race, united under one federal government', 'the hope of free Africa’s survival'],
+    src: [
+      { tag: 'WHO', since: 'Nkrumah led Ghana to independence', therefore: 'he is a decolonization leader' },
+      { tag: 'WHAT', since: 'he wants African states united', therefore: 'it shows his view of other African nations’ role' }
+    ],
+    read: ['Nkrumah calling for African unity', 'Nkrumah defending separate nations', 'Nkrumah praising US aid to Africa'],
+    plain: ['What does he say other states should do?', 'Does he stress each nation’s sovereignty?', 'Does he discuss US influence in Africa?'],
+    meaning: 'Nkrumah argues that free African states must unite: his view of other African nations’ role.',
+    trapIdx: 0,
+    trap: 'A is the opposite. Nkrumah calls for "one federal government" and warns against the "petty wranglings of the separate states."'
+  };
+
+  W['u8_8.5_7'] = {
+    type: 'context',
+    hq: 'reference to which of the following',
+    look: 'The anthem calls Pakistan a "citadel of faith" under "the Flag of the Crescent and Star," and its strength "the brotherhood of the People."',
+    src: [
+      { tag: 'WHAT', since: 'it praises a "citadel of faith"', therefore: 'religion defines the nation' },
+      { tag: 'WHEN', since: 'Pakistan formed in 1947 for Muslims', therefore: 'the brotherhood is Muslim' }
+    ],
+    read: ['An anthem for a Muslim homeland', 'An anthem for all of South Asia', 'An anthem praising Britain'],
+    plain: ['Who is the "brotherhood"?', 'Is it all colonized peoples?', 'Is it everyone in South Asia?'],
+    meaning: 'Pakistan was founded as a homeland for the Muslims of British India, so the brotherhood is the Muslim community.',
+    trapIdx: 1,
+    trap: 'B misses partition. Pakistan split from India in 1947 because Muslim leaders wanted their own nation.'
+  };
+
+  W['u8_8.5_8'] = {
+    type: 'causation',
+    hq: 'most acutely attributed to',
+    look: 'The anthem praises Pakistan as a "citadel of faith" under the crescent and star: a nation founded on religion.',
+    src: [
+      { tag: 'WHO', since: 'Jinnah’s Muslim League demanded a Muslim state', therefore: 'it pushed for Pakistan' },
+      { tag: 'WHAT', since: 'Gandhi opposed partition', therefore: 'cross out Gandhi' }
+    ],
+    read: ['An anthem for a new Muslim nation', 'An anthem written by the British crown', 'An anthem for a united India'],
+    plain: ['Who pushed hardest for Pakistan?', 'Did Gandhi push for partition?', 'Did the United Nations create it?'],
+    meaning: 'Jinnah’s Muslim League demanded a separate Muslim state and got it in 1947.',
+    trapIdx: 2,
+    trap: 'C is partly true, since Britain drew the border. But the British agreed to partition only at the end; the Muslim League pushed for it.'
+  };
+
+  W['u8_8.5_9'] = {
+    type: 'causation',
+    hq: 'result of the establishment of Pakistan and India as two separate countries',
+    look: 'The anthem names a "brotherhood of the People" bound by faith, which is why Hindus, Sikhs and Muslims found themselves on the "wrong" side of the new border.',
+    src: [
+      { tag: 'WHAT', since: 'the border split peoples by religion', therefore: 'millions were on the "wrong" side' },
+      { tag: 'HOW', since: 'violence broke out in 1947', therefore: 'people fled in huge numbers' }
+    ],
+    read: ['An anthem for a state born in partition', 'An anthem for a peaceful union of states', 'An anthem shared by India and Pakistan'],
+    plain: ['What happened at partition?', 'Did a common government form?', 'Did Kashmir become a free passage?'],
+    meaning: 'Partition set off religious violence and the migration of 10 to 15 million people.',
+    trapIdx: 2,
+    trap: 'C fits Pakistan but not India, which became officially secular. The direct result was mass migration and violence.'
+  };
+
+  W['u8_8.5_11'] = {
+    type: 'causation',
+    hq: 'directly contributed to the development of which of the following aspects',
+    look: 'Ho’s program calls for "a worker-peasant and soldier government" and to give plantations "to poor peasants."',
+    src: [
+      { tag: 'WHO', since: 'Ho founded a Communist Party', therefore: 'he mixed nationalism and communism' },
+      { tag: 'WHAT', since: 'later movements in Angola and Mozambique did too', therefore: 'communism drew anti-colonial fighters' }
+    ],
+    read: ['Ho mixing communism and independence', 'Ho calling for free markets in Indochina', 'Ho praising French rule in Indochina'],
+    plain: ['What did later movements borrow?', 'Did they adopt free-market ideas?', 'Did they build national congresses?'],
+    meaning: 'Many later independence movements, like Ho’s, appealed to communism and took Soviet or Chinese help.',
+    trapIdx: 2,
+    trap: 'C fits India’s Congress Party, but Ho’s program is about class revolution. The idea that spread was communism.'
+  };
+
+  W['u8_8.5_12'] = {
+    type: 'causation',
+    hq: 'most assisted the ultimate success of the boycott',
+    look: 'Gandhi asks every Indian to "completely boycott foreign cloth" as part of the struggle for Swaraj (self-rule).',
+    src: [
+      { tag: 'WHAT', since: 'the goal was self-rule', therefore: 'success means independence in 1947' },
+      { tag: 'WHEN', since: 'Britain was exhausted by 1945', therefore: 'it could not hold India' }
+    ],
+    read: ['Gandhi calling for a boycott and Swaraj', 'Gandhi calling Indians to join the army', 'Gandhi asking Britain for lower taxes'],
+    plain: ['What finally weakened Britain?', 'Was it Soviet pressure on empires?', 'Was it decolonization in Africa?'],
+    meaning: 'World War II left Britain too exhausted to hold India, which became independent in 1947.',
+    trapIdx: 2,
+    trap: 'C has the order backward. Most African colonies won independence after India, in the 1950s and 1960s.'
+  };
+
+  W['u8_8.5_15'] = {
+    type: 'causation',
+    hq: 'most accelerated by',
+    look: 'Fanon says in the colonies "the policeman and the soldier" rule with "rifle butts and napalm": the language of pure force.',
+    src: [
+      { tag: 'WHO', since: 'leaders like Nkrumah spread Pan-Africanism', therefore: 'Africans united against colonial rule' },
+      { tag: 'WHEN', since: 'seventeen nations won freedom in 1960', therefore: 'independence spread fast' }
+    ],
+    read: ['Fanon on force in the colonies', 'Fanon praising stable colonial rule', 'Fanon describing wealthy colonies'],
+    plain: ['What sped up decolonization?', 'Was it treaties with Europe?', 'Was it new wealth in colonies?'],
+    meaning: 'Pan-Africanism and nationalist movements united Africans, and independence spread fast after 1957.',
+    trapIdx: 0,
+    trap: 'A fits some cases, but treaties came after pressure. The driving force was nationalism uniting Africans against colonial rule.'
+  };
+
+  W['u8_8.5_16'] = {
+    type: 'purpose',
+    hq: 'most likely informs Fanon’s view of the two worlds',
+    look: 'Fanon compares "the capitalist countries," ruled by "moral teachers," with "the colonial countries," ruled by soldiers.',
+    src: [
+      { tag: 'WHAT', since: 'he compares two worlds', therefore: 'he must know both' },
+      { tag: 'WHO', since: 'he grew up in Martinique and lived in France and Algeria', therefore: 'he saw both firsthand' }
+    ],
+    read: ['Fanon comparing colony and metropole', 'Fanon describing only life in France', 'Fanon praising French rule in Algeria'],
+    plain: ['What let him compare both worlds?', 'Was it helping Algerians fight?', 'Was it racism in the Free French?'],
+    meaning: 'Having lived in both the colonies and France, Fanon could compare the two worlds.',
+    trapIdx: 0,
+    trap: 'A is true and shaped his anger, but it explains only one world. To compare the two, he needed to know both.'
+  };
+
+  W['u8_8.6_1'] = {
+    type: 'context',
+    hq: 'most complicated by which development',
+    hs: ['India will awake to life and freedom'],
+    src: [
+      { tag: 'WHEN', since: 'it is August 14, 1947', therefore: 'Pakistan was created the same day' },
+      { tag: 'WHAT', since: 'British India split by religion', therefore: 'millions were displaced' }
+    ],
+    read: ['Nehru greeting Indian independence', 'Nehru mourning a British victory over India', 'Nehru declaring war on Pakistan'],
+    plain: ['What came with independence?', 'Did Britain withhold recognition?', 'Did Soviet agents complicate it?'],
+    meaning: 'Independence came with partition, which displaced millions and killed many in religious violence.',
+    trapIdx: 1,
+    trap: 'B is a real problem of 1947, since the princely states had to be brought in. But most joined quickly, while partition displaced millions.'
+  };
+
+  W['u8_8.6_2'] = {
+    type: 'bestillustrates',
+    hq: 'most significant as evidence of which broader historical process',
+    hs: ['when we step out from the old to the new, when an age ends'],
+    src: [
+      { tag: 'WHO', since: 'Nehru led the independence movement', therefore: 'now he must govern' },
+      { tag: 'WHAT', since: 'he speaks of "the challenge of the future"', therefore: 'the movement becomes a government' }
+    ],
+    read: ['Nehru turning a movement into a state', 'Nehru joining the Soviet bloc', 'Nehru asking the US for a model of government'],
+    plain: ['What shift does the speech mark?', 'Did socialism spread everywhere?', 'Is this the start of Non-Alignment?'],
+    meaning: 'The speech marks the moment an anti-colonial movement had to become the government of a new nation.',
+    trapIdx: 1,
+    trap: 'B is a later Nehru policy, but this speech says nothing about the Cold War. It is about a new nation beginning.'
+  };
+
+  W['u8_8.6_5'] = {
+    type: 'bestillustrates',
+    hq: 'most directly describes which aspect of the situation',
+    hs: ['economies were structured to export raw materials to Europe rather than develop domestic industry'],
+    src: [
+      { tag: 'WHAT', since: 'economies still exported raw goods to Europe', therefore: 'they stayed dependent' },
+      { tag: 'WHO', since: 'Nkrumah coined "neocolonialism"', therefore: 'it means economic control after independence' }
+    ],
+    read: ['A study of problems after independence', 'A study of new African factories', 'A study of colonies wanting rulers back'],
+    plain: ['What is neocolonialism?', 'Is it troops restoring colonies?', 'Is it using European languages?'],
+    meaning: 'Neocolonialism means economic dependence on former rulers that limits a new state’s real independence.',
+    trapIdx: 2,
+    trap: 'C is a real colonial legacy, but neocolonialism is about economic control, not language.'
+  };
+
+  W['u8_8.6_8'] = {
+    type: 'causation',
+    hq: 'saw his vision most closely achieved by',
+    hs: ['the African race, united under one federal government'],
+    src: [
+      { tag: 'WHAT', since: 'he wants African unity', therefore: 'look for a continental organization' },
+      { tag: 'WHEN', since: 'Nkrumah died in 1972', therefore: 'he could only see what came before then' }
+    ],
+    read: ['Nkrumah calling for African unity', 'Nkrumah calling for separate states', 'Nkrumah praising US aid to Africa'],
+    plain: ['What came closest in his lifetime?', 'Was it joining the United Nations?', 'Was it the African Union of 2002?'],
+    meaning: 'Nkrumah helped found the Organization of African Unity in 1963, the closest thing to his vision in his lifetime.',
+    trapIdx: 2,
+    trap: 'C is a closer union, but it came in 2002, thirty years after Nkrumah died. He "saw" only the OAU.'
+  };
+
+  W['u8_8.6_9'] = {
+    type: 'causation',
+    hq: 'experienced difficulty building stable, independent countries',
+    look: 'Fanon calls the colonial world "a world cut in two," ruled by "the language of pure force."',
+    src: [
+      { tag: 'WHO', since: 'Europeans drew the borders', therefore: 'they ignored peoples and languages' },
+      { tag: 'WHAT', since: 'rivals were grouped and groups were split', therefore: 'civil wars followed' }
+    ],
+    read: ['Fanon on force in colonial rule', 'Fanon on colonies rich in factories', 'Fanon on colonies that never left'],
+    plain: ['Why were new states unstable?', 'Did they fail to win independence?', 'Did they lack natural resources?'],
+    meaning: 'European-drawn borders ignored languages and cultures, which fed civil wars after independence.',
+    trapIdx: 2,
+    trap: 'C is false for most colonies, which were rich in resources. The problem was borders and who controlled the wealth.'
+  };
+
+  W['u8_8.7_1'] = {
+    type: 'context',
+    hq: 'historical context most directly relevant',
+    hs: ['I have fought against white domination, and I have fought against black domination'],
+    src: [
+      { tag: 'WHO', since: 'Mandela was on trial in South Africa', therefore: 'he fought the government’s racial laws' },
+      { tag: 'WHEN', since: 'it is 1964', therefore: 'apartheid was the law of the land' }
+    ],
+    read: ['Mandela on trial fighting apartheid', 'Mandela thanking the UN for sanctions', 'Mandela asking Moscow for weapons'],
+    plain: ['What system was Mandela fighting?', 'Were UN sanctions in place in 1964?', 'Is this about Cold War rivalry?'],
+    meaning: 'Mandela was fighting apartheid, which legally separated races and denied rights to non-white citizens.',
+    trapIdx: 1,
+    trap: 'B came later: the UN arms embargo was in 1977, and broad sanctions in the 1980s.'
+  };
+
+  W['u8_8.7_2'] = {
+    type: 'bestillustrates',
+    hq: 'most significant as evidence of which broader historical pattern',
+    hs: ['a democratic and free society in which all persons live together in harmony and with equal opportunities'],
+    src: [
+      { tag: 'WHAT', since: 'he wants equality for "all persons"', therefore: 'he appeals to universal rights' },
+      { tag: 'WHO', since: 'Gandhi and King made the same kind of appeal', therefore: 'it is a global pattern' }
+    ],
+    read: ['Mandela appealing to universal rights', 'Mandela calling for communist revolution', 'Mandela asking for UN troops'],
+    plain: ['What do Mandela, Gandhi and King share?', 'Did African movements all turn communist?', 'Did the UN send troops to end it?'],
+    meaning: 'Mandela challenged an oppressive system by appealing to universal human rights and dignity.',
+    trapIdx: 3,
+    trap: 'D is half true, since the movements knew of each other. But Mandela’s ideals came from his own struggle, not borrowed American tactics.'
+  };
+
+  W['u8_8.7_4'] = {
+    type: 'context',
+    hq: 'most significant in the context of',
+    hs: ['Injustice anywhere is a threat to justice everywhere'],
+    src: [
+      { tag: 'WHEN', since: 'it is 1963', therefore: 'decolonization was at its peak' },
+      { tag: 'WHAT', since: '"anywhere" and "everywhere" link struggles', therefore: 'movements were connected worldwide' }
+    ],
+    read: ['King linking all struggles for justice', 'King praising white moderates', 'King writing about the Soviet Union and its allies'],
+    plain: ['What does "anywhere" connect?', 'Is it the spread of US democracy?', 'Is it Cold War competition?'],
+    meaning: 'King saw civil rights, anti-colonial and anti-apartheid struggles as connected around the world.',
+    trapIdx: 3,
+    trap: 'D shares King’s ideals, but the UDHR came in 1948, and King writes about a struggle happening now, linked to others worldwide.'
+  };
+
+  W['u8_8.7_6'] = {
+    type: 'causation',
+    hq: 'sounds revolutionary to the whites in this country',
+    look: 'Mandela says equal political rights sound revolutionary "because the majority of voters will be Africans. This makes the white man fear democracy."',
+    src: [
+      { tag: 'WHO', since: 'Black South Africans were the majority', therefore: 'equal votes would end white rule' },
+      { tag: 'WHAT', since: 'whites already had a parliament', therefore: 'democracy itself was not new to them' }
+    ],
+    read: ['Mandela on why whites fear equal votes', 'Mandela on why whites love democracy for all', 'Mandela on why whites wanted Britain'],
+    plain: ['Why would whites fear it?', 'Were whites still ruled by Britain?', 'Was democracy unknown to whites?'],
+    meaning: 'With one person, one vote, the Black majority would outvote white citizens and end minority rule.',
+    trapIdx: 2,
+    trap: 'C is wrong: white South Africans voted for their own parliament. They feared sharing democracy, not democracy itself.'
+  };
+
+  W['u8_8.7_7'] = {
+    type: 'context',
+    hq: 'characteristic of South Africa at the time of Mandela’s speech',
+    look: 'Mandela demands "equal political rights, because without them our disabilities will be permanent."',
+    src: [
+      { tag: 'WHEN', since: 'it is 1964, under apartheid', therefore: 'Black citizens lacked basic rights' },
+      { tag: 'HOW', since: 'pass laws controlled movement', therefore: 'Black citizens carried passbooks' }
+    ],
+    read: ['Mandela demanding equal rights', 'Mandela praising open elections', 'Mandela praising Rwanda’s president'],
+    plain: ['Which apartheid policy fits?', 'Was there universal adult voting?', 'Was there loyalty to Habyarimana?'],
+    meaning: 'Under apartheid, pass laws forced Black South Africans to carry identification in white areas.',
+    trapIdx: 2,
+    trap: 'C is the goal Mandela is fighting for, not the reality. Universal voting came only in 1994.'
+  };
+
+  W['u8_8.7_8'] = {
+    type: 'purpose',
+    hq: 'most clearly an example of',
+    look: 'Mandela says "above all, we want equal political rights" and defends the ANC’s fight against racialism.',
+    src: [
+      { tag: 'WHO', since: 'Mandela is on trial, speaking to the court', therefore: 'he is making his case' },
+      { tag: 'WHAT', since: 'he asks for equal political rights', therefore: 'he wants a policy changed' }
+    ],
+    read: ['Mandela asking to end apartheid', 'Mandela attacking capitalism', 'Mandela calling for African union'],
+    plain: ['What is Mandela asking for?', 'Is it about failed unification?', 'Is it opposing capitalism?'],
+    meaning: 'Mandela is pleading to end apartheid and win equal political rights: a change in government policy.',
+    trapIdx: 2,
+    trap: 'C sounds like Nkrumah. Mandela’s demand is about rights inside South Africa, not Africa’s place in the world.'
+  };
+
+  W['u8_8.7_10'] = {
+    type: 'purpose',
+    hq: 'most clearly opposes which of the following ideologies',
+    look: 'Mandela says "political division, based on colour, is entirely artificial" and fights "against white domination."',
+    src: [
+      { tag: 'WHAT', since: 'he attacks division by color', therefore: 'he opposes racial segregation' },
+      { tag: 'WHERE', since: 'South Africa’s system was apartheid', therefore: 'that is his target' }
+    ],
+    read: ['Mandela against racial division', 'Mandela against African unity', 'Mandela against workers’ rights'],
+    plain: ['Which ideology does he oppose?', 'Is it communism, as his accusers claimed?', 'Is it Pan-Africanism, African unity?'],
+    meaning: 'Mandela opposes apartheid, South Africa’s system of racial segregation and white minority rule.',
+    trapIdx: 3,
+    trap: 'D is something Mandela shared, since he fought for "the African people." He opposed racial division, not African unity.'
+  };
+
+  W['u8_8.8_2'] = {
+    type: 'causation',
+    hq: 'most directly challenged which feature of the Soviet system',
+    hs: ['more glasnost, criticism and self-criticism in all spheres of our society'],
+    src: [
+      { tag: 'WHAT', since: 'glasnost means openness', therefore: 'it targets censorship' },
+      { tag: 'WHO', since: 'the Party controlled all information', therefore: 'openness challenged that control' }
+    ],
+    read: ['Gorbachev calling for openness', 'Gorbachev calling for more censorship', 'Gorbachev calling for a new army'],
+    plain: ['What did glasnost challenge?', 'Was it the military’s power?', 'Was it the Brezhnev Doctrine?'],
+    meaning: 'Glasnost challenged the Party’s monopoly on information and public debate.',
+    trapIdx: 2,
+    trap: 'C is what perestroika (restructuring) aimed at. The question asks about glasnost and criticism.'
+  };
+
+  W['u8_8.8_3'] = {
+    type: 'bestillustrates',
+    hq: 'most significant as evidence of which historical development',
+    hs: ['communist governments across Eastern Europe collapsed in rapid succession'],
+    src: [
+      { tag: 'WHO', since: 'East Germans crossed while guards stood aside', therefore: 'the regime lost control from within' },
+      { tag: 'HOW', since: 'governments fell one after another', therefore: 'communist rule had lost support' }
+    ],
+    read: ['Communist rule collapsing from within', 'US troops pushing into East Berlin by force', 'The UN rebuilding Eastern Europe'],
+    plain: ['Why did communist rule fall?', 'Did US military force push them out?', 'Did German unity cause it all?'],
+    meaning: 'Communist systems collapsed because of economic failure and people rejecting Soviet authority.',
+    trapIdx: 0,
+    trap: 'A is a common claim, but the passage shows guards standing aside as crowds crossed. The collapse came from within.'
+  };
+
+  W['u8_8.8_5'] = {
+    type: 'context',
+    hq: 'best understood in the context of which broader historical development',
+    hs: ['By December 1991, the Soviet Union itself had dissolved into 15 independent republics'],
+    src: [
+      { tag: 'WHAT', since: 'the planned economy left shortages', therefore: 'people compared it with Western prosperity' },
+      { tag: 'HOW', since: 'republics broke away', therefore: 'the system lost legitimacy' }
+    ],
+    read: ['The USSR breaking into 15 states', 'The USSR adding new republics to its union', 'NATO invading the USSR'],
+    plain: ['Why did the USSR fall apart?', 'Did capitalism prove the only model?', 'Did NATO expansion force it?'],
+    meaning: 'Planned economies could not keep up with Western prosperity, so communist rule lost legitimacy.',
+    trapIdx: 0,
+    trap: 'A overstates it. "The only viable model" goes beyond the evidence; the passage shows an internal collapse.'
+  };
+
+  W['u8_8.9_0'] = {
+    type: 'causation',
+    hq: 'best explains the timing',
+    hs: ['Britain, France, and the Netherlands were weakened by war'],
+    src: [
+      { tag: 'WHEN', since: 'it all began after 1945', therefore: 'the war is the key' },
+      { tag: 'WHAT', since: 'empires weakened as nationalists grew stronger', therefore: 'both sides changed at once' }
+    ],
+    read: ['Weak empires and strong movements', 'Strong empires growing stronger after the war', 'The League freeing all colonies'],
+    plain: ['Why did it happen after 1945?', 'Did Marshall aid strengthen empires?', 'Did the US take the colonies?'],
+    meaning: 'World War II weakened the colonial powers and strengthened independence movements.',
+    trapIdx: 1,
+    trap: 'B misreads the Marshall Plan. It rebuilt Europe, but it did not make the empires strong enough to hold their colonies.'
+  };
+
+  W['u8_8.9_2'] = {
+    type: 'causation',
+    hq: 'most directly contributed to',
+    hs: ['failed to revive the economy and allowed open criticism of the system'],
+    src: [
+      { tag: 'WHEN', since: 'it is the 1980s', therefore: 'look for a result after that' },
+      { tag: 'WHAT', since: 'the economy failed and criticism opened up', therefore: 'the system lost its hold' }
+    ],
+    read: ['The USSR weakening in the 1980s', 'The USSR growing richer in the 1980s', 'The USSR winning in Afghanistan'],
+    plain: ['What did these problems lead to?', 'Did they cause the Cuban crisis?', 'Did they cause the Korean War?'],
+    meaning: 'A failing economy, the Afghan war and open criticism led to the Soviet collapse in 1991.',
+    trapIdx: 1,
+    trap: 'B happened in 1962. A crisis in the 1980s cannot cause something twenty years earlier.'
+  };
+
+  W['u8_8.9_4'] = {
+    type: 'bestillustrates',
+    hq: 'The choices described best illustrate how',
+    hs: ['accepted aid from both superpowers'],
+    src: [
+      { tag: 'WHO', since: 'Nasser took aid from both sides', therefore: 'he played the superpowers off each other' },
+      { tag: 'WHAT', since: 'others joined one bloc', therefore: 'each state chose for itself' }
+    ],
+    read: ['New states choosing their own path', 'New states all turning communist', 'New states ignored by both of the superpowers'],
+    plain: ['How did new states act?', 'Did all of them turn communist?', 'Did superpowers ignore them?'],
+    meaning: 'New states like Egypt chose their own path, taking aid from both sides to serve their own interests.',
+    trapIdx: 0,
+    trap: 'A is contradicted by the passage: Egypt took aid from both sides, and other states joined different blocs.'
+  };
+
+  /* ============ UNIT 9 ============ */
+  W['u9_9.1_5'] = {
+    type: 'causation',
+    hq: 'most likely an unintended consequence',
+    hs: ['airlines carried more than three billion passengers a year'],
+    src: [
+      { tag: 'WHAT', since: 'billions of people fly each year', therefore: 'people cross the world in hours' },
+      { tag: 'HOW', since: 'unintended means nobody planned it', therefore: 'look for a side effect' }
+    ],
+    read: ['Air travel linking the world', 'Air travel shrinking in the 2000s', 'Air travel ending migration'],
+    plain: ['What side effect did flying bring?', 'Did tourism and business travel decline?', 'Did it end international labor migration?'],
+    meaning: 'People could carry diseases across the world in hours, so outbreaks like SARS and COVID-19 spread along airline routes.',
+    trapIdx: 1,
+    trap: 'B reverses the real effect: tourism and business travel boomed because of jets.'
+  };
+
+  W['u9_9.2_4'] = {
+    type: 'causation',
+    hq: 'The shift described is best explained by',
+    hs: ['shifted away from infectious diseases such as tuberculosis and toward heart disease, cancer'],
+    src: [
+      { tag: 'WHAT', since: 'life expectancy more than doubled', therefore: 'fewer people died young' },
+      { tag: 'HOW', since: 'older people get heart disease and cancer', therefore: 'people now lived long enough to get them' }
+    ],
+    read: ['Longer lives changing causes of death', 'Shorter lives from more wars', 'Infections spreading in rich countries'],
+    plain: ['Why did causes of death change?', 'Did infectious disease vanish completely?', 'Did more people die in wars and violence?'],
+    meaning: 'Sanitation, vaccines and antibiotics let more people reach old age, when heart disease and cancer strike.',
+    trapIdx: 0,
+    trap: 'A goes too far. Infectious diseases declined in wealthy countries but did not disappear.'
+  };
+
+  W['u9_9.4_5'] = {
+    type: 'bestillustrates',
+    hq: 'best illustrates which feature of the global economy after 1980',
+    hs: ['turned a crisis in the United States housing market into a worldwide financial panic'],
+    src: [
+      { tag: 'WHERE', since: 'European banks held American mortgages', therefore: 'markets were tied together' },
+      { tag: 'HOW', since: 'one bank’s fall spread worldwide', therefore: 'a crisis could travel fast' }
+    ],
+    read: ['A US crisis spreading worldwide', 'A US crisis staying inside America', 'Asian banks taken over by the state'],
+    plain: ['Why did the crisis spread?', 'Were national economies isolated?', 'Did the gold standard come back?'],
+    meaning: 'Financial markets were so connected that a US housing crisis became a global recession.',
+    trapIdx: 0,
+    trap: 'A is the opposite: the passage shows a crisis jumping from the US to Europe and the world.'
+  };
+
+  W['u9_9.5_6'] = {
+    type: 'bestillustrates',
+    hq: 'most important way to achieve the goals',
+    look: 'The goal "can only be achieved by eliminating the social pressures on men and women to conform to narrowly defined gender roles."',
+    src: [
+      { tag: 'WHAT', since: '"can only be achieved by" names the main method', therefore: 'that line is the key' },
+      { tag: 'HOW', since: 'the alliance comes later, as a support', therefore: 'it is a means, not the main way' }
+    ],
+    read: ['A manifesto against gender roles', 'A manifesto against women’s rights', 'A manifesto for traditional roles'],
+    plain: ['What does it say is the only way?', 'Is it an alliance with women’s liberation?', 'Is it men giving up their privilege?'],
+    meaning: 'The manifesto says its goal can only be reached by lifting the pressure to conform to gender roles.',
+    trapIdx: 1,
+    trap: 'B is in the source, but as support: "we cannot carry out this revolutionary change alone." The main way comes in the line before.'
+  };
+
+  W['u9_9.5_8'] = {
+    type: 'bestillustrates',
+    hq: 'see which of the following as an obstacle',
+    look: 'The manifesto calls "the gender-role system" the thing "at the root of our oppression."',
+    src: [
+      { tag: 'WHAT', since: 'it names the root of oppression', therefore: 'that is the obstacle' },
+      { tag: 'WHO', since: 'it seeks an alliance with women’s liberation', therefore: 'it sees no conflict there' }
+    ],
+    read: ['A manifesto naming gender roles', 'A manifesto attacking feminists', 'A manifesto about equal pay'],
+    plain: ['What is the root of oppression?', 'Is it conflict with women’s rights groups?', 'Is it unequal pay between workers?'],
+    meaning: 'The Gay Liberation Front names rigid gender roles as the root of its oppression.',
+    trapIdx: 1,
+    trap: 'B is the opposite: the manifesto wants an alliance with the women’s liberation movement.'
+  };
+
+  W['u9_9.6_1'] = {
+    type: 'bestillustrates',
+    hq: 'best support which claim about cultural globalization',
+    hs: ['sold more tickets each year than Hollywood', 'K-pop'],
+    src: [
+      { tag: 'WHERE', since: 'Bollywood is Indian and K-pop is Korean', therefore: 'they are not Western' },
+      { tag: 'HOW', since: 'both spread around the world', therefore: 'culture flows in many directions' }
+    ],
+    read: ['Indian and Korean culture going global', 'American culture taking over the world', 'Governments banning foreign music'],
+    plain: ['Which way did culture flow?', 'Did global culture become all American?', 'Did local cultures disappear completely?'],
+    meaning: 'Bollywood and K-pop spreading worldwide show culture flowing in many directions, not just from the West.',
+    trapIdx: 0,
+    trap: 'A is the "Americanization" claim, and the passage argues against it: Bollywood outsold Hollywood.'
+  };
+
+  W['u9_9.6_3'] = {
+    type: 'causation',
+    hq: 'made possible mainly by',
+    hs: ['Hundreds of millions of people around the world watched at least part of the final match on television'],
+    src: [
+      { tag: 'WHAT', since: 'hundreds of millions watched live', therefore: 'satellite TV was needed' },
+      { tag: 'HOW', since: 'teams flew in from every continent', therefore: 'air travel was needed' }
+    ],
+    read: ['A World Cup watched across the globe', 'A World Cup watched only by the host nation', 'A World Cup ending national teams'],
+    plain: ['What made global events possible?', 'Did nationalism and national teams fade?', 'Did competition between states end?'],
+    meaning: 'Satellite TV let the world watch live, and jets brought teams and fans together.',
+    trapIdx: 1,
+    trap: 'B is wrong: the World Cup is played by national teams, and national pride stayed strong.'
+  };
+
+  W['u9_9.7_4'] = {
+    type: 'purpose',
+    hq: 'most likely intended to',
+    hs: ['deliberately scheduled to coincide with the World Economic Forum', 'Another world is possible'],
+    src: [
+      { tag: 'WHO', since: 'activists met at the same time as Davos', therefore: 'they were challenging the business leaders' },
+      { tag: 'WHAT', since: 'the slogan says "another world is possible"', therefore: 'they offered an alternative' }
+    ],
+    read: ['Activists challenging global elites', 'Activists supporting the WTO and its expansion', 'Activists restoring communism'],
+    plain: ['What were the activists offering?', 'Did they want the WTO to expand?', 'Did they back multinational companies?'],
+    meaning: 'Meeting at the same time as Davos, activists offered an alternative to elite free-market globalization.',
+    trapIdx: 2,
+    trap: 'C overreads "another world." The activists challenged free-market globalization, not the end of the Soviet bloc.'
+  };
+
+  W['u9_9.8_4'] = {
+    type: 'bestillustrates',
+    hq: 'The Grameen Bank best illustrates',
+    hs: ['to make very small loans to poor villagers, most of them women'],
+    src: [
+      { tag: 'WHO', since: 'an economist founded a private bank', therefore: 'it was not a government program' },
+      { tag: 'WHAT', since: 'it lent to the poor, mostly women', therefore: 'it was a new way to fight poverty' }
+    ],
+    read: ['A bank lending to poor villagers', 'A government seizing all banks', 'The IMF cutting a country’s budget'],
+    plain: ['What new approach is this?', 'Was banking nationalized in South Asia?', 'Did women’s economic roles decline?'],
+    meaning: 'Microloans were a new, non-government way to reduce poverty, especially for women.',
+    trapIdx: 3,
+    trap: 'D is the opposite: the bank lent mostly to women, increasing their economic role.'
+  };
+
+  W['u9_9.8_5'] = {
+    type: 'similar',
+    hq: 'differ from the United Nations and the International Monetary Fund primarily in that they',
+    hs: ['funded largely by private donations rather than by governments'],
+    src: [
+      { tag: 'WHO', since: 'the UN and IMF are made up of states', therefore: 'they are intergovernmental' },
+      { tag: 'WHAT', since: 'MSF is privately funded', therefore: 'it is independent of governments' }
+    ],
+    read: ['A private group working across borders', 'A government agency working in only one country', 'A bank lending to governments'],
+    plain: ['How are NGOs different?', 'Does the Security Council control them?', 'Do they work only in one country?'],
+    meaning: 'NGOs like Doctors Without Borders are private and independent of governments, unlike the UN and IMF.',
+    trapIdx: 2,
+    trap: 'C describes the IMF itself, the organization the question compares NGOs against.'
+  };
+
+  W['u9_9.8_6'] = {
+    type: 'context',
+    hq: 'the United Nations mentioned in the first paragraph',
+    look: 'Article 1: the parties will "settle any international dispute... by peaceful means," as "set forth in the Charter of the United Nations."',
+    src: [
+      { tag: 'WHAT', since: 'the UN Charter calls for peaceful settlement', therefore: 'the UN is a forum for disputes' },
+      { tag: 'HOW', since: 'Article 5 still allows self-defense', therefore: 'the UN does not ban force in every case' }
+    ],
+    read: ['A treaty citing the UN on disputes', 'A treaty rejecting the United Nations', 'A treaty about free trade zones'],
+    plain: ['What role does the UN play here?', 'Does the UN spread one ideology?', 'Does the UN ban force in every case?'],
+    meaning: 'The UN gives nations ways to settle disputes peacefully, like the Security Council and the World Court.',
+    trapIdx: 1,
+    trap: 'B goes too far. The same treaty uses the UN Charter’s right of self-defense, so the UN does not ban force "in any situation."'
+  };
+
+  W['u9_9.9_1'] = {
+    type: 'bestillustrates',
+    hq: 'The passage best illustrates',
+    hs: ['remain a small fraction of those in Western Europe and North America'],
+    src: [
+      { tag: 'WHEN', since: 'growth has been rapid since 1950', therefore: 'something still did not change' },
+      { tag: 'WHAT', since: 'the income gap remains', therefore: 'it is a continuity' }
+    ],
+    read: ['A lasting gap between rich and poor', 'The gap between nations closing', 'Every African state industrializing'],
+    plain: ['What stayed the same?', 'Did rich and poor countries become equal?', 'Did every African country industrialize?'],
+    meaning: 'The gap between rich and poor regions has lasted: a continuity in global inequality.',
+    trapIdx: 1,
+    trap: 'B is the opposite: the passage says the gap remains.'
+  };
+
+  W['u9_9.9_3'] = {
+    type: 'bestillustrates',
+    hq: 'The developments described best illustrate',
+    hs: ['promising to restore national control over borders and trade'],
+    src: [
+      { tag: 'WHAT', since: 'Britain left the EU', therefore: 'national control won out' },
+      { tag: 'HOW', since: 'nationalist parties grew in many countries', therefore: 'nationalism stayed powerful' }
+    ],
+    read: ['Nationalism rising against globalization', 'The EU growing larger and stronger with new members', 'Communism spreading again'],
+    plain: ['What force stayed powerful?', 'Did the EU gain new members?', 'Did nation-states stop mattering?'],
+    meaning: 'Nationalism stayed powerful and even grew in reaction to globalization.',
+    trapIdx: 0,
+    trap: 'A is the opposite: Britain left the EU.'
+  };
+
+  W['u9_9.9_4'] = {
+    type: 'bestillustrates',
+    hq: 'The passage best illustrates',
+    hs: ['much as they did in the era of imperialism'],
+    src: [
+      { tag: 'WHAT', since: 'they still export oil, copper, coffee and cocoa', therefore: 'they still rely on raw materials' },
+      { tag: 'WHEN', since: 'just as under imperialism', therefore: 'it is a continuity' }
+    ],
+    read: ['Economies still exporting raw goods', 'Economies fully diversified into many industries', 'Africa leading world manufacturing'],
+    plain: ['What stayed the same?', 'Did developing economies fully diversify?', 'Did raw material trade end?'],
+    meaning: 'Many economies still depend on exporting raw materials, just as in the age of imperialism.',
+    trapIdx: 1,
+    trap: 'B is the opposite: the passage says these economies still depend heavily on raw materials.'
+  };
+})(window.WALKTHROUGH);
+
+/* ============ IMAGE SOURCES: "Look at the source" step + "Look here" boxes ============
+   For questions whose source is an image (a scanned page, map, chart, painting, object),
+   sbmcq.js adds a step after the source line: the student picks what the source shows,
+   then (Work it) taps where the evidence is, and boxes appear over that part of the image.
+     kind  : text | map | chart | table | art | photo (sets the prompt and the checklist)
+     see   : Work it choices describing the source, the right one first (shown shuffled);
+             keep the right one from being the longest
+     spots : boxes [left, top, width, height] in percent of the image, plus an optional
+             5th number = which image, for questions with several (simgs)
+   One description per image is shared by its questions; the boxes are per question. */
+(function (W) {
+  function VIS(id, kind, see, spots) {
+    if (W[id]) { W[id].kind = kind; W[id].see = see; W[id].spots = spots; }
+  }
+
+  /* ---------- UNIT 4 ---------- */
+  var DAGAMA = ['One voyage from Lisbon around Africa to India', 'A land route from Europe across Africa to the Indian Ocean', 'A voyage from Spain west across the Atlantic to the Americas'];
+  VIS('u4_4.2_5', 'map', DAGAMA, [[50, 7, 15, 11], [84, 35, 16, 17]]);
+  VIS('u4_4.2_6', 'map', DAGAMA, [[62, 46, 22, 46], [84, 35, 16, 17]]);
+  VIS('u4_4.2_7', 'map', DAGAMA, [[84, 28, 16, 24]]);
+  VIS('u4_4.5_5', 'map', DAGAMA, [[39, 29, 15, 15], [63, 76, 13, 14], [72, 47, 14, 13]]);
+
+  var TORDESILLAS = ['Spain and Portugal split newly found lands', 'Spain and Portugal agree to trade freely in Asian ports', 'Spain and Portugal end a long war over land in Europe'];
+  VIS('u4_4.2_8', 'text', TORDESILLAS, [[1, 1, 98, 16.4]]);
+  VIS('u4_4.2_9', 'text', TORDESILLAS, [[1, 64.8, 98, 16.4]]);
+  VIS('u4_4.2_10', 'text', TORDESILLAS, [[1, 1, 98, 24.4]]);
+  VIS('u4_4.4_11', 'text', TORDESILLAS, [[1, 49, 98, 32.2]]);
+
+  VIS('u4_4.3_4', 'chart', ['Native population of Mexico falling sharply', 'Spanish settlers in Mexico growing steadily in number', 'Silver output in Mexico rising year after year'], [[19, 12, 34, 60]]);
+
+  var GUAMAN = ['Native miners are abused, cheated and killed', 'Native miners are well paid and fairly treated by owners', 'Spanish officials closely inspect and protect the mines'];
+  VIS('u4_4.3_5', 'text', GUAMAN, [[1, 0.3, 98, 12.2], [1, 33.8, 98, 6.6]]);
+  VIS('u4_4.5_12', 'text', GUAMAN, [[1, 44.9, 98, 12.2]]);
+  VIS('u4_4.5_13', 'text', GUAMAN, [[1, 56.2, 98, 17.5]]);
+  VIS('u4_4.5_14', 'text', GUAMAN, [[1, 11.3, 98, 6.6]]);
+  VIS('u4_4.7_5', 'text', GUAMAN, [[1, 39.2, 98, 6.6]]);
+
+  var GOA = ['Christ standing above a Portuguese sailing ship', 'A Hindu god guarding a fleet of Indian fishing boats', 'A Portuguese king leading his navy into a sea battle'];
+  VIS('u4_4.4_2', 'photo', GOA, [[10, 60, 84, 32]]);
+  VIS('u4_4.4_3', 'photo', GOA, [[26, 11, 46, 51]]);
+  VIS('u4_4.8_3', 'photo', GOA, [[26, 11, 46, 48], [9, 62, 85, 30]]);
+
+  var CORTES1 = ['Cortés amazed by a great Aztec city', 'Cortés apologizing to the king for losing a battle', 'Cortés describing a small and poor fishing village'];
+  VIS('u4_4.4_5', 'text', CORTES1, [[1, 0.9, 98, 15.2]]);
+  VIS('u4_4.4_6', 'text', CORTES1, [[1, 8.8, 98, 7.3]]);
+
+  var TEMPLE = ['A model of the Great Temple and Cortés on it', 'A Spanish church in Mexico and a priest’s sermon about it', 'A map of Tenochtitlan and an Aztec king’s laws for it'];
+  VIS('u4_4.4_7', 'photo', TEMPLE, [[35, 8.5, 19, 8]]);
+  VIS('u4_4.4_8', 'photo', TEMPLE, [[1, 57.4, 98, 3.2]]);
+  VIS('u4_4.4_9', 'photo', TEMPLE, [[1, 83.6, 98, 8.2]]);
+  VIS('u4_4.4_10', 'photo', TEMPLE, [[1, 57.4, 98, 3.2], [1, 92.2, 98, 2.9]]);
+
+  var BATAVIA = ['A walled Dutch company town on Java', 'A Javanese royal palace before the Dutch arrived', 'A plan of Amsterdam drawn for Dutch merchants'];
+  VIS('u4_4.4_12', 'map', BATAVIA, [[27, 25, 10, 12], [56, 48, 8, 8]]);
+  VIS('u4_4.4_13', 'map', BATAVIA, [[22, 44, 8, 9], [43, 81, 56, 18]]);
+
+  var SHIP = ['A packed slave ship and a preacher’s attack', 'A warship plan and an admiral’s report on a battle', 'A trading ship and a merchant’s list of its cargo'];
+  VIS('u4_4.5_6', 'art', SHIP, [[1, 65.6, 98, 3.7], [1, 84.5, 98, 6.4]]);
+  VIS('u4_4.5_7', 'art', SHIP, [[24, 11.5, 54, 43.5]]);
+  VIS('u4_4.5_8', 'art', SHIP, [[24, 33, 54, 21.6]]);
+
+  var RODNEY = ['A historian blaming Europe for Africa’s poverty', 'An explorer praising the wealth of African kingdoms', 'A trader explaining how to profit in West Africa'];
+  VIS('u4_4.5_9', 'text', RODNEY, [[1, 15.9, 98, 25.9]]);
+  VIS('u4_4.5_10', 'text', RODNEY, [[1, 42.3, 98, 26]]);
+  VIS('u4_4.5_11', 'text', RODNEY, [[1, 42.3, 98, 12.4]]);
+
+  var BARBOT = ['A slave trader on captives who refuse food', 'A freed captive describing his voyage home to Guinea', 'A planter describing the crops grown on Guadeloupe'];
+  VIS('u4_4.5_15', 'text', BARBOT, [[1, 1.8, 98, 10.8]]);
+  VIS('u4_4.5_16', 'text', BARBOT, [[1, 47, 32, 9]]);
+  VIS('u4_4.5_17', 'text', BARBOT, [[1, 24.7, 98, 10.8]]);
+  VIS('u4_4.5_18', 'text', BARBOT, [[1, 35.6, 98, 20.3]]);
+
+  VIS('u4_4.7_2', 'art', ['Wealthy free women of color with servants', 'Enslaved field workers cutting sugar cane at harvest', 'A British governor and his family at their estate'], [[44, 36, 24, 50], [72, 52, 26, 34]]);
 })(window.WALKTHROUGH);

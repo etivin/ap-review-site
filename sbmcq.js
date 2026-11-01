@@ -908,7 +908,8 @@
       src: w.src || [], read: w.read, plain: w.plain,
       plainQ: w.plain ? w.plain[0] : '', meaning: w.meaning || '',
       why: q.e || '', trap: w.trap || '',
-      trigger: w.hq || '', key: hs.join(' … '), look: w.look || ''
+      trigger: w.hq || '', key: hs.join(' … '), look: w.look || '',
+      see: w.see || null, kind: w.kind || 'text', spots: w.spots || []
     };
   }
   function fromWorked(ex) {
@@ -918,7 +919,8 @@
       paras: ex.stim ? ex.stim.split('\n\n') : [],
       srcline: ex.srcline, q: ex.q, options: ex.options.map(esc), answer: ex.answer, trapIdx: ex.trapIdx,
       src: ex.src, read: null, plain: null, plainQ: '', meaning: ex.meaning, why: ex.why, trap: ex.trap,
-      trigger: pullMark(ex.q, 'hq', false), key: pullMark(ex.stim, 'hs', true), look: ''
+      trigger: pullMark(ex.q, 'hq', false), key: pullMark(ex.stim, 'hs', true), look: '',
+      see: null, kind: '', spots: []
     };
   }
 
@@ -933,9 +935,37 @@
 
   function stimHTML(ex) {
     // optional real images, then paragraphs; marks are trusted HTML already inside
-    var img = ex.imgs.map(function (s) { return '<img class="wk-stim-img" src="' + esc(s) + '" alt="Source" loading="lazy">'; }).join('');
+    var img = ex.imgs.map(function (s, i) {
+      var tag = '<img class="wk-stim-img" src="' + esc(s) + '" alt="Source" loading="lazy">';
+      var mine = ex.spots.filter(function (b) { return (b[4] || 0) === i; });
+      return mine.length ? '<div class="wk-imgbox" data-spots="' + esc(JSON.stringify(mine)) + '">' + tag + spotsSVG(mine) + '</div>' : tag;
+    }).join('');
     return img + ex.paras.map(function (p) { return '<p>' + p + '</p>'; }).join('');
   }
+  /* "Look here" boxes over an image source: the rest of the image dims and each box is
+     outlined. spots are [left, top, width, height] in percent of the image. */
+  var maskN = 0;
+  function spotsSVG(spots) {
+    var id = 'wkm' + (++maskN), holes = '', rings = '';
+    spots.forEach(function (b) {
+      var r = ' x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '"';
+      holes += '<rect' + r + ' fill="#000"/>';
+      rings += '<rect class="wk-spot"' + r + '/>';
+    });
+    return '<svg class="wk-spots" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' +
+      '<defs><mask id="' + id + '"><rect width="100" height="100" fill="#fff"/>' + holes + '</mask></defs>' +
+      '<rect class="wk-dim" width="100" height="100" mask="url(#' + id + ')"/>' + rings + '</svg>';
+  }
+
+  // The "Look at the source" step (image sources): what to ask, and what to check, for each kind.
+  var SEE = {
+    text:  { q: 'This source is a scanned page. What is its main point?', how: 'For a page of writing: find who is speaking, then the one or two sentences that carry the main claim. Those are what the question is built on.' },
+    map:   { q: 'What does this map show?', how: 'For a map: read the title first, then the key or labels. Then ask what the map shows moving or changing, and where.' },
+    chart: { q: 'What does this graph show?', how: 'For a graph: read the title and the label on each axis, note the years covered, then see which way the line moves and where it changes fastest.' },
+    table: { q: 'What do the numbers in this table show?', how: 'For a table: read the title and the column headings. Compare the first row with the last, and look for the biggest jump.' },
+    art:   { q: 'What does this image show?', how: 'For a painting, cartoon or poster: read the title and caption first. Then name who or what is shown, how they are shown, and what the symbols stand for.' },
+    photo: { q: 'What does this object or photo show?', how: 'For an object or photo: read the caption. Then name what it is, who made it, and which details (materials, symbols, setting) tell you why.' }
+  };
 
   var TYPEWHY = {
     causation: 'point at cause and effect, what led to what, so this is a Causation question.',
@@ -1013,15 +1043,30 @@
       '<div class="wk-why"><b>Correct: ' + letters(ex.answer) + '.</b> ' + esc(ex.why) + '</div>' +
       '<div class="wk-trap"><b>What NOT to do</b>' + esc(ex.trap) + '</div>';
 
-    function step(n, title, t, body) {
-      return '<div class="wk-coach-step' + (t ? '' : ' solved') + '" data-for="' + n + '">' +
-        '<div class="wk-coach-h">Step ' + n + ' &middot; ' + title + '</div>' + t + '<div class="wk-reveal">' + body + '</div></div>';
+    // image sources: describe the source, then (Work it) tap where the evidence is
+    var ts = '', ss = '';
+    if (ex.see) {
+      var K = SEE[ex.kind] || SEE.text;
+      ts = task(esc(K.q), choicesHTML(ex.see)) + (ex.spots.length ?
+        '<div class="wk-task wk-tap" hidden><p class="wk-task-q"><span class="wk-yt">Your turn</span> Now tap the part of the source that matters most for this question.</p>' +
+        '<div class="wk-fb wk-tapfb" aria-live="polite"></div></div>' : '');
+      ss = '<div class="wk-plain"><b>' + esc(ex.see[0]) + '</b></div>' +
+        '<p class="wk-note">' + esc(K.how) + '</p>' +
+        (ex.spots.length ? '<p class="wk-note wk-spotnote">The boxes on the source mark where to look.</p>' : '');
     }
-    return step(1, 'Read the source line first', t1, s1) +
-      step(2, 'Read the question and the choices', t2, s2) +
-      step(3, 'Say what it is really asking', t3, s3) +
-      step(4, 'Answer, and name the trap', t4, s4);
+
+    // Steps keep a fixed id in data-for ("1" to "4", "s" for the image step); position decides the number shown.
+    var list = [['1', 'Read the source line first', t1, s1]];
+    if (ex.see) list.push(['s', 'Look at the source', ts, ss]);
+    list.push(['2', 'Read the question and the choices', t2, s2],
+      ['3', 'Say what it is really asking', t3, s3],
+      ['4', 'Answer, and name the trap', t4, s4]);
+    return list.map(function (st, k) {
+      return '<div class="wk-coach-step' + (st[2] ? '' : ' solved') + '" data-for="' + st[0] + '">' +
+        '<div class="wk-coach-h">Step ' + (k + 1) + ' &middot; ' + st[1] + '</div>' + st[2] + '<div class="wk-reveal">' + st[3] + '</div></div>';
+    }).join('');
   }
+  var DOTS = { '1': 'Source line', s: 'Look at it', '2': 'The question', '3': 'What it asks', '4': 'Answer &amp; trap' };
 
   function doneIds() {
     var sp = {};
@@ -1033,7 +1078,8 @@
     var T = WT[ex.type];
     var qplain = esc(String(ex.q).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
     mode = mode || 'work';
-    return '<div class="wk' + (open ? ' is-open' : '') + '" data-step="1" data-mode="' + mode + '"' + (ex.id ? ' data-id="' + esc(ex.id) + '"' : '') + '>' +
+    var phases = ex.see ? ['1', 's', '2', '3', '4'] : ['1', '2', '3', '4'];
+    return '<div class="wk' + (open ? ' is-open' : '') + '" data-step="1" data-pos="1" data-mode="' + mode + '"' + (ex.id ? ' data-id="' + esc(ex.id) + '"' : '') + '>' +
       '<button type="button" class="wk-summary">' +
         '<span class="walk-badge ' + T.cls + '">' + T.name + '</span>' +
         '<span class="wk-sum-topic">Unit ' + ex.unit + ' &middot; ' + esc(ex.test) + '</span>' +
@@ -1057,16 +1103,14 @@
           '</div>' +
           '<aside class="wk-coach">' + coachSteps(ex) +
             '<div class="wk-nav"><button type="button" class="wk-prev" disabled>← Back</button>' +
-            '<span class="wk-count">Step <b>1</b> of 4</span>' +
+            '<span class="wk-count">Step <b>1</b> of ' + phases.length + '</span>' +
             '<button type="button" class="wk-next">Next →</button></div>' +
           '</aside>' +
         '</div>' +
 
-        '<div class="wk-dots">' +
-          '<button type="button" class="wk-dot active" data-s="1">1. Source line</button>' +
-          '<button type="button" class="wk-dot" data-s="2">2. The question</button>' +
-          '<button type="button" class="wk-dot" data-s="3">3. What it asks</button>' +
-          '<button type="button" class="wk-dot" data-s="4">4. Answer &amp; trap</button>' +
+        '<div class="wk-dots">' + phases.map(function (p, k) {
+          return '<button type="button" class="wk-dot' + (k ? '' : ' active') + '" data-s="' + (k + 1) + '">' + (k + 1) + '. ' + DOTS[p] + '</button>';
+        }).join('') +
         '</div>' +
       '</div>' +
     '</div>';
@@ -1074,7 +1118,10 @@
   var WORK_HINT = 'You make the call at each step, then see the reasoning.';
   var WATCH_HINT = 'See the whole reasoning, step by step, answer included.';
 
-  function stepEl(card, n) { return card.querySelector('.wk-coach-step[data-for="' + n + '"]'); }
+  // Steps by position (1, 2, ...); a card with an image step has 5, otherwise 4.
+  function stepsOf(card) { return card.querySelectorAll('.wk-coach-step'); }
+  function stepEl(card, n) { return stepsOf(card)[n - 1]; }
+  function posOf(card) { return parseInt(card.getAttribute('data-pos'), 10) || 1; }
   // In Work it, a step opens only after every step before it is answered.
   function reachable(card, n) {
     if (card.getAttribute('data-mode') !== 'work') return n;
@@ -1082,8 +1129,14 @@
     return n;
   }
   function setStep(card, n) {
-    n = reachable(card, Math.max(1, Math.min(4, n)));
-    card.setAttribute('data-step', n);
+    var N = stepsOf(card).length;
+    n = reachable(card, Math.max(1, Math.min(N, n)));
+    var phase = stepEl(card, n).getAttribute('data-for');
+    card.setAttribute('data-pos', n);
+    card.setAttribute('data-step', phase);   // the CSS keys on the step id, not its position
+    // "Look here" boxes: Watch it shows them from the image step on; Work it after the tap.
+    var seeAt = Array.prototype.map.call(stepsOf(card), function (s) { return s.getAttribute('data-for'); }).indexOf('s') + 1;
+    card.classList.toggle('spots-on', !!seeAt && (card.getAttribute('data-mode') === 'work' ? card.classList.contains('tapped') : n >= seeAt));
     card.querySelectorAll('.wk-dot').forEach(function (d) {
       d.classList.toggle('active', parseInt(d.getAttribute('data-s'), 10) === n);
     });
@@ -1092,8 +1145,8 @@
     var prev = card.querySelector('.wk-prev'); if (prev) prev.disabled = (n === 1);
     var next = card.querySelector('.wk-next');
     if (next) {
-      next.disabled = (n === 4) || (work && !solved);
-      next.textContent = n === 3 && !work ? 'See answer →' : 'Next →';
+      next.disabled = (n === N) || (work && !solved);
+      next.textContent = n === N - 1 && !work ? 'See answer →' : 'Next →';
     }
   }
   function setMode(card, m) {
@@ -1115,6 +1168,14 @@
     });
     var fb = stp.querySelector('.wk-fb');
     if (fb) { fb.className = 'wk-fb ' + (ok ? 'is-ok' : 'is-no'); fb.textContent = ok ? 'Right.' : 'Not quite. The best choice is marked in green.'; }
+    // the image step has a second task: tap the evidence on the source
+    var tap = stp.querySelector('.wk-tap');
+    if (tap && !card.classList.contains('tapped')) {
+      tap.hidden = false;
+      card.classList.add('tap-wait');
+      setStep(card, posOf(card));
+      return;
+    }
     stp.classList.add('solved');
     if (stp.getAttribute('data-for') === '4') {
       var j = btn.getAttribute('data-j');
@@ -1124,7 +1185,30 @@
       // The final pick is a real answer to a bank question, so it counts like one from MCQ Practice.
       if (id && window.SPACED && SPACED.recordReview) SPACED.recordReview(id, ok, null);
     }
-    setStep(card, parseInt(card.getAttribute('data-step'), 10) || 1);
+    setStep(card, posOf(card));
+  }
+
+  // Work it, image step: one tap on the source, then the boxes show where the evidence is.
+  function tapSource(card, box, e) {
+    var r = box.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width * 100, y = (e.clientY - r.top) / r.height * 100, pad = 4;
+    var hit = JSON.parse(box.getAttribute('data-spots') || '[]').some(function (b) {
+      return x >= b[0] - pad && x <= b[0] + b[2] + pad && y >= b[1] - pad && y <= b[1] + b[3] + pad;
+    });
+    var pin = document.createElement('span');
+    pin.className = 'wk-pin ' + (hit ? 'is-ok' : 'is-no');
+    pin.style.left = x + '%'; pin.style.top = y + '%';
+    box.appendChild(pin);
+    var stp = card.querySelector('.wk-coach-step[data-for="s"]');
+    var fb = stp && stp.querySelector('.wk-tapfb');
+    if (fb) {
+      fb.className = 'wk-fb wk-tapfb ' + (hit ? 'is-ok' : 'is-no');
+      fb.textContent = hit ? 'You found it. The box marks the evidence.' : 'Not quite. The boxes show where to look.';
+    }
+    card.classList.remove('tap-wait');
+    card.classList.add('tapped');
+    if (stp) stp.classList.add('solved');
+    setStep(card, posOf(card));
   }
 
   function wire(el) {
@@ -1138,7 +1222,9 @@
       if (mb) { setMode(card, mb.getAttribute('data-m')); return; }
       var ch = e.target.closest('.wk-choice');
       if (ch) { choose(card, ch); return; }
-      var cur = parseInt(card.getAttribute('data-step'), 10) || 1;
+      var ib = card.classList.contains('tap-wait') && e.target.closest('.wk-imgbox');
+      if (ib) { tapSource(card, ib, e); return; }
+      var cur = posOf(card);
       if (e.target.closest('.wk-next')) { setStep(card, cur + 1); return; }
       if (e.target.closest('.wk-prev')) { setStep(card, cur - 1); return; }
       var dot = e.target.closest('.wk-dot');

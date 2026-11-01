@@ -105,7 +105,9 @@
       '.mcqx{--mx-line:var(--border,#ddd0b8);--mx-ink:var(--ink,#1a1a12);--mx-mut:var(--muted,#7a7860);',
       '--mx-red:var(--red,#b0001c);--mx-grn:var(--green,#1a6825);--mx-card:var(--white,#fff);',
       '--mx-paper:var(--paper,#f3ece0);--mx-grnbg:var(--green-bg,#eef7f0);--mx-redbg:var(--red-bg,#fdf1f3);',
+      '--mx-bad:#c62828;--mx-badbg:#fdecec;',
       'font-family:inherit;color:var(--mx-ink)}',
+      '[data-theme="dark"] .mcqx{--mx-grn:#5fd08f;--mx-bad:#ef6b6b;--mx-badbg:rgba(239,107,107,.14);--mx-grnbg:rgba(70,190,130,.16)}',
       '.mcqx button{font-family:inherit}',
       '.mcqx-modebar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:18px;padding:14px 16px;background:var(--mx-paper);border:1px solid var(--mx-line)}',
       '.mcqx-modebar .mx-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mx-mut)}',
@@ -142,17 +144,66 @@
       '.mcqx-qnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mx-mut);margin-bottom:6px}',
       '.mcqx-qtxt{font-weight:600;line-height:1.55;margin-bottom:12px}',
       '.mcqx-opts{display:flex;flex-direction:column;gap:9px}',
-      '.mcqx-opt{display:flex;gap:11px;align-items:flex-start;text-align:left;padding:12px 14px;background:var(--mx-card);border:1px solid var(--mx-line);cursor:pointer;font-size:.9rem;line-height:1.45;transition:border-color .12s,background .12s}',
+      '.mcqx-opt{display:flex;gap:11px;align-items:flex-start;text-align:left;padding:12px 14px;background:var(--mx-card);border:1px solid var(--mx-line);cursor:pointer;color:var(--mx-ink);font-size:.9rem;line-height:1.45;transition:border-color .12s,background .12s}',
       '.mcqx-opt:hover:not(:disabled){border-color:var(--mx-ink)}',
-      '.mcqx-opt:disabled{cursor:default}',
-      '.mcqx-opt .mx-ol{font-family:Lato,system-ui,sans-serif;font-weight:700;font-weight:600;color:var(--mx-mut);flex-shrink:0}',
-      '.mcqx-opt.mx-sel{border-color:var(--mx-ink);background:var(--mx-paper)}',
-      '.mcqx-opt.mx-sel .mx-ol{color:var(--mx-ink)}',
-      '.mcqx-opt.mx-correct{border-color:var(--mx-grn);background:var(--mx-grnbg)}',
-      '.mcqx-opt.mx-correct .mx-ol{color:var(--mx-grn)}',
-      '.mcqx-opt.mx-reveal{border-color:var(--mx-grn);background:var(--mx-grnbg)}',
-      '.mcqx-opt.mx-wrong{border-color:var(--mx-red);background:var(--mx-redbg)}',
-      '.mcqx-opt.mx-wrong .mx-ol{color:var(--mx-red)}',
+      '.mcqx-opt:disabled{cursor:default;color:var(--mx-ink)}',
+      '.mcqx-all .mcqx-xtip{display:none}.mcqx-all .mcqx-orow:not(.mx-x) .mcqx-xbtn{visibility:hidden}',
+      '.mcqx-opt .mx-ol{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-top:-3px;border-radius:50%;border:1.5px solid var(--mx-line);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.78rem;color:var(--mx-mut);flex-shrink:0}',
+      '.mcqx-opt .mx-ot{flex:1;min-width:0}',
+      '.mcqx-opt .mx-tag{align-self:center;flex-shrink:0;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:10px;white-space:nowrap}',
+      '.mcqx-opt .mx-tag:empty{display:none}',
+      '.mcqx-opt .mx-tag.mx-tok{background:var(--mx-grn);color:#fff}',
+      '.mcqx-opt .mx-tag.mx-tbad{background:var(--mx-bad);color:#fff}',
+      '.mcqx-opt .mx-tag.mx-tkey{border:1.5px solid var(--mx-grn);color:var(--mx-grn)}',
+      '.mcqx-opt.mx-sel{border-color:var(--mx-ink);background:var(--mx-paper);box-shadow:inset 0 0 0 1px var(--mx-ink)}',
+      '.mcqx-opt.mx-sel .mx-ol{background:var(--mx-ink);border-color:var(--mx-ink);color:var(--mx-card)}',
+      '.mcqx-opt.mx-correct{border-color:var(--mx-grn);background:var(--mx-grnbg);box-shadow:inset 0 0 0 1px var(--mx-grn)}',
+      '.mcqx-opt.mx-correct .mx-ol{background:var(--mx-grn);border-color:var(--mx-grn);color:#fff}',
+      '.mcqx-opt.mx-reveal{border:1.5px dashed var(--mx-grn);background:var(--mx-grnbg)}',
+      '.mcqx-opt.mx-reveal .mx-ol{border-color:var(--mx-grn);color:var(--mx-grn)}',
+      '.mcqx-opt.mx-wrong{border-color:var(--mx-bad);background:var(--mx-badbg);box-shadow:inset 0 0 0 1px var(--mx-bad)}',
+      '.mcqx-opt.mx-wrong .mx-ol{background:var(--mx-bad);border-color:var(--mx-bad);color:#fff}',
+      /* cross out: a visible button beside every choice */
+      '.mcqx-orow{display:flex;gap:6px;align-items:stretch}',
+      '.mcqx-orow .mcqx-opt{flex:1;min-width:0}',
+      '.mcqx-xbtn{flex-shrink:0;width:58px;border:1px solid var(--mx-line);background:var(--mx-card);color:var(--mx-mut);cursor:pointer;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.04em;line-height:1.15;padding:4px 2px}',
+      '.mcqx-xbtn .mx-xi{display:block;font-size:1rem}',
+      '.mcqx-xbtn:hover:not(:disabled){border-color:var(--mx-red);color:var(--mx-red)}',
+      '.mcqx-xbtn:disabled{opacity:.35;cursor:default}',
+      '.mcqx-orow.mx-x .mcqx-xbtn{background:var(--mx-paper);color:var(--mx-bad);border-color:var(--mx-bad)}',
+      '.mcqx-orow.mx-x .mcqx-opt{opacity:.5}',
+      '.mcqx-orow.mx-x .mcqx-opt.mx-correct,.mcqx-orow.mx-x .mcqx-opt.mx-reveal,.mcqx-orow.mx-x .mcqx-opt.mx-wrong{opacity:.9}',
+      '.mcqx-orow.mx-x .mx-ot{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--mx-bad)}',
+      '.mcqx-xtip{font-size:.74rem;color:var(--mx-mut);margin:-4px 0 9px}',
+      /* question map */
+      '.mcqx-nav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:10px 12px;background:var(--mx-paper);border:1px solid var(--mx-line)}',
+      '.mcqx-nav .mx-nl{flex-basis:100%;font-size:.74rem;color:var(--mx-mut);margin-bottom:2px}',
+      '.mcqx-nav .mx-nl b{font-family:Lato,system-ui,sans-serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;margin-right:8px;color:var(--mx-ink)}',
+      '.mcqx-navb{position:relative;min-width:34px;height:34px;padding:0 6px;border:1px solid var(--mx-line);background:var(--mx-card);color:var(--mx-mut);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.8rem;cursor:pointer}',
+      '.mcqx-navb:hover{border-color:var(--mx-ink);color:var(--mx-ink)}',
+      '.mcqx-navb.mx-ans{background:var(--mx-ink);border-color:var(--mx-ink);color:var(--mx-card)}',
+      '.mcqx-navb.mx-noconf::after{content:"";position:absolute;top:-5px;right:-5px;width:10px;height:10px;border-radius:50%;background:var(--mx-bad);border:2px solid var(--mx-paper)}',
+      '.mcqx-navb.mx-ok{background:var(--mx-grn);border-color:var(--mx-grn);color:#fff}',
+      '.mcqx-navb.mx-bad{background:var(--mx-bad);border-color:var(--mx-bad);color:#fff}',
+      '.mcqx-navb.mx-blank{border:1.5px dashed var(--mx-bad);color:var(--mx-bad)}',
+      '.mcqx-navb.mx-cur{outline:2px solid var(--mx-red);outline-offset:2px}',
+      /* review: verdict banner on each question */
+      '.mcqx-verdict{display:none}',
+      '.mcqx-verdict.mx-on{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:0 0 14px;padding:10px 14px;border-left:5px solid var(--mx-mut);background:var(--mx-paper)}',
+      '.mcqx-verdict .mx-vh{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.02rem}',
+      '.mcqx-verdict .mx-vd{font-size:.86rem;color:var(--mx-ink)}',
+      '.mcqx-verdict.mx-vok{border-left-color:var(--mx-grn);background:var(--mx-grnbg)}.mcqx-verdict.mx-vok .mx-vh{color:var(--mx-grn)}',
+      '.mcqx-verdict.mx-vbad{border-left-color:var(--mx-bad);background:var(--mx-badbg)}.mcqx-verdict.mx-vbad .mx-vh{color:var(--mx-bad)}',
+      '.mcqx-verdict.mx-vblank .mx-vh{color:var(--mx-bad)}',
+      '.mcqx-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 4px}',
+      '.mcqx-stat{padding:10px 8px;background:var(--mx-card);border:1px solid var(--mx-line);border-top:4px solid var(--mx-mut);text-align:center}',
+      '.mcqx-stat b{display:block;font-family:Lato,system-ui,sans-serif;font-size:1.5rem;line-height:1.1}',
+      '.mcqx-stat span{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mx-mut)}',
+      '.mcqx-stat.mx-sok{border-top-color:var(--mx-grn)}.mcqx-stat.mx-sok b{color:var(--mx-grn)}',
+      '.mcqx-stat.mx-sbad{border-top-color:var(--mx-bad)}.mcqx-stat.mx-sbad b{color:var(--mx-bad)}',
+      '.mcqx-filter{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}',
+      '.mcqx-filter .mx-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mx-mut)}',
+      '.mcqx-all .mcqx-page.mx-filt{display:none}',
       '.mcqx-conf{margin-top:11px;padding:10px 13px;background:var(--mx-paper);border:1px dashed var(--mx-line)}',
       '.mcqx-conf.mcqx-conf-hide{display:none}',
       '.mcqx-conf .mx-clbl{display:block;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mx-mut)}',
@@ -165,20 +216,24 @@
       '.mcqx-reason.mx-need{border-left-color:var(--mx-red)}',
       '.mcqx-reason .mx-rst{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.64rem;letter-spacing:.05em;color:var(--mx-mut);margin-bottom:7px}',
       '.mcqx-reason .mx-rst .mx-rok{color:var(--mx-grn);font-weight:600}',
-      '.mcqx-reason .mx-rst .mx-rbad{color:var(--mx-red);font-weight:600}',
+      '.mcqx-reason .mx-rst .mx-rbad{color:var(--mx-bad);font-weight:600}',
       '.mcqx-reason textarea{width:100%;font-family:inherit;font-size:.86rem;line-height:1.5;padding:8px 10px;border:1px solid var(--mx-line);background:var(--mx-paper);color:var(--mx-ink);resize:vertical;min-height:44px}',
       '.mcqx-reason textarea:focus{outline:none;border-color:var(--mx-red)}',
       '.mcqx-fb{margin-top:11px;padding:0 13px;max-height:0;overflow:hidden;font-size:.86rem;line-height:1.55;border-left:3px solid transparent;transition:none}',
       '.mcqx-fb.mx-show{max-height:none;padding:11px 13px}',
       '.mcqx-fb.mx-ok{background:var(--mx-grnbg);border-left-color:var(--mx-grn)}',
-      '.mcqx-fb.mx-bad{background:var(--mx-redbg);border-left-color:var(--mx-red)}',
+      '.mcqx-fb.mx-bad{background:var(--mx-badbg);border-left-color:var(--mx-bad)}',
       '.mcqx-walk{display:block;margin-top:10px;font-family:inherit;font-weight:700;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border:1px solid var(--red,#6b4a2b);background:var(--red,#6b4a2b);color:#fff;border-radius:3px;cursor:pointer}',
       '.mcqx-walk:hover{filter:brightness(1.1)}',
       '.mcqx-walkrow{display:flex;flex-wrap:wrap;gap:8px}',
       '.mcqx-retry{background:var(--mx-card);color:var(--mx-ink);border-color:var(--mx-ink)}',
       '.mcqx-fb.mx-retrying{background:var(--mx-paper);border-left-color:var(--mx-ink)}',
       '.mcqx-page{display:none}.mcqx-page.mx-on,.mcqx-all .mcqx-page{display:block}',
-      '.mcqx-all .mcqx-page+.mcqx-page{margin-top:26px;padding-top:26px;border-top:1px dashed var(--mx-line)}',
+      '.mcqx-all .mcqx-page{padding:16px 18px 4px;background:var(--mx-card);border:1px solid var(--mx-line);border-left:6px solid var(--mx-line)}',
+      '.mcqx-all .mcqx-page+.mcqx-page{margin-top:18px}',
+      '.mcqx-all .mcqx-page.mx-rok{border-left-color:var(--mx-grn)}',
+      '.mcqx-all .mcqx-page.mx-rbad{border-left-color:var(--mx-bad)}',
+      '.mcqx-all .mcqx-page.mx-rblank{border-left-style:dashed;border-left-color:var(--mx-bad)}',
       '.mcqx-all .mcqx-pager{display:none}',
       '.mcqx-pager{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--mx-line)}',
       '.mcqx-prev,.mcqx-next{padding:10px 18px;border:1px solid var(--mx-ink);background:var(--mx-card);color:var(--mx-ink);cursor:pointer;font-size:.86rem;font-weight:700}',
@@ -201,8 +256,8 @@
       '.mcqx-crow .mx-crl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mx-mut)}',
       '.mcqx-crow .mx-crn{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.05rem;font-weight:600;color:var(--mx-ink);text-align:right}',
       '.mcqx-crow .mx-crt{font-size:.8rem;color:var(--mx-mut);line-height:1.4}',
-      '.mcqx-crow.mx-over{background:var(--mx-redbg);border-left:4px solid var(--mx-red)}',
-      '.mcqx-crow.mx-over .mx-crl,.mcqx-crow.mx-over .mx-crn,.mcqx-crow.mx-over .mx-crt{color:var(--mx-red)}',
+      '.mcqx-crow.mx-over{background:var(--mx-badbg);border-left:4px solid var(--mx-bad)}',
+      '.mcqx-crow.mx-over .mx-crl,.mcqx-crow.mx-over .mx-crn,.mcqx-crow.mx-over .mx-crt{color:var(--mx-bad)}',
       '.mcqx-gap{margin-top:12px;font-size:.86rem;line-height:1.55;color:var(--mx-ink)}',
       '.mcqx-hidden{display:none}'
     ].join('');
@@ -238,6 +293,7 @@
     var answered = new Array(qs.length);   // chosen option index or undefined
     var conf = new Array(qs.length);       // confidence id
     var graded = new Array(qs.length);     // quick mode: this item revealed/scored
+    var crossed = qs.map(function () { return {}; }); // choices the student crossed out
     var reasoning = false;                 // test mode: in the reasoning-unlock stage
     var revealed = false;                  // test mode: correct answers unlocked
 
@@ -274,16 +330,95 @@
           rv.title = missing ? 'Rate your confidence on every answered question first' : '';
         }
       }
+      updateNav();
+    }
+
+    /* ---- question map: one numbered square per question, colored by its state ---- */
+    function updateNav() {
+      var nav = document.getElementById(ctx.uid + '-nav');
+      if (!nav) return;
+      var all = ctx.body.classList.contains('mcqx-all');
+      nav.querySelectorAll('.mcqx-navb').forEach(function (b) {
+        var i = +b.dataset.n, a = answered[i] != null, ok = a && answered[i] === qs[i].q.c, st = '';
+        if (revealed) st = !a ? 'mx-blank' : ok ? 'mx-ok' : 'mx-bad';
+        else if (mode === 'quick' && graded[i]) st = ok ? 'mx-ok' : 'mx-bad';
+        else if (a) st = 'mx-ans' + (calib && !conf[i] ? ' mx-noconf' : '');
+        b.className = 'mcqx-navb ' + st + (!all && i === cur ? ' mx-cur' : '');
+        b.title = 'Question ' + (i + 1) + (revealed ? (!a ? ': left blank' : ok ? ': correct' : ': missed')
+          : (mode === 'quick' && graded[i]) ? (ok ? ': correct' : ': missed') : a ? (calib && !conf[i] ? ': answered, needs a confidence tap' : ': answered') : ': not answered yet');
+      });
+      var lbl = nav.querySelector('.mx-nl');
+      lbl.innerHTML = '<b>Questions</b>' + (revealed || mode === 'quick'
+        ? 'Green = correct &middot; red = missed' + (revealed ? ' &middot; dashed = left blank' : '') + ' &middot; tap a number to jump to it'
+        : 'Dark = answered &middot; red dot = still needs a confidence tap &middot; tap a number to jump to it');
+    }
+    function goTo(n) {
+      if (!ctx.body.classList.contains('mcqx-all')) { showPage(n); return; }
+      var p = ctx.body.querySelector('.mcqx-page[data-p="' + n + '"]');
+      if (p) window.scrollTo({ top: p.getBoundingClientRect().top + window.pageYOffset - 90, behavior: 'smooth' });
+    }
+
+    /* ---- cross out: rule out a choice before answering ----
+       Crossing out a choice greys and strikes it; tapping again brings it back. Picking a
+       crossed-out choice un-crosses it, and crossing out the choice you picked clears that
+       pick. Locked once the question is graded (Quick Check) or answers are locked in (Test). */
+    function setX(i, j, on) {
+      if (isLocked(i)) return;
+      crossed[i][j] = on;
+      var row = ctx.body.querySelector('.mcqx-orow[data-i="' + i + '"][data-j="' + j + '"]');
+      if (row) {
+        row.classList.toggle('mx-x', on);
+        var xb = row.querySelector('.mcqx-xbtn');
+        xb.setAttribute('aria-pressed', on ? 'true' : 'false');
+        xb.title = (on ? 'Bring back choice ' : 'Cross out choice ') + L[j];
+        xb.innerHTML = on ? '<span class="mx-xi">&#8634;</span>Undo' : '<span class="mx-xi">&#10005;</span>Cross out';
+      }
+      if (on && answered[i] === j && !graded[i]) {
+        answered[i] = undefined;
+        optsOf(i).forEach(function (b) { b.classList.remove('mx-sel'); });
+        progress();
+      }
+    }
+    function isLocked(i) { return (mode === 'quick' && graded[i] && !retrying[i]) || reasoning || revealed; }
+
+    // "Your answer" / "Correct answer" tags on a graded question's choices.
+    function tagOpts(i, j) {
+      var q = qs[i].q;
+      optsOf(i).forEach(function (b) {
+        var bj = +b.dataset.j, t = b.querySelector('.mx-tag');
+        if (!t) return;
+        t.className = 'mx-tag'; t.textContent = '';
+        if (bj === j) { t.classList.add(j === q.c ? 'mx-tok' : 'mx-tbad'); t.textContent = (j === q.c ? '✓' : '✗') + ' Your answer'; }
+        else if (bj === q.c) { t.classList.add('mx-tkey'); t.textContent = 'Correct answer'; }
+      });
+    }
+
+    // Test Mode review: banner at the top of each question and a colored edge on its card.
+    function setVerdict(i) {
+      var q = qs[i].q, j = answered[i], a = j != null, ok = a && j === q.c;
+      var vd = document.getElementById(ctx.uid + '-vd' + i);
+      var pg = ctx.body.querySelector('.mcqx-page[data-p="' + i + '"]');
+      if (pg) { pg.classList.remove('mx-rok', 'mx-rbad', 'mx-rblank'); pg.classList.add(!a ? 'mx-rblank' : ok ? 'mx-rok' : 'mx-rbad'); }
+      if (!vd) return;
+      vd.className = 'mcqx-verdict mx-on ' + (!a ? 'mx-vblank' : ok ? 'mx-vok' : 'mx-vbad');
+      vd.innerHTML = '<span class="mx-vh">' + (i + 1) + '. ' + (!a ? '&#9675; Left blank' : ok ? '&#10003; Correct' : '&#10007; Missed') + '</span>' +
+        '<span class="mx-vd">' + (a ? 'You chose <b>' + L[j] + '</b>' + (ok ? '' : ' &middot; ') : '') +
+        (ok ? '' : 'Correct answer: <b>' + L[q.c] + '</b>') +
+        (a && calib && conf[i] ? ' &middot; You felt: <b>' + CONF_LBL[conf[i]] + '</b>' : '') + '</span>';
     }
 
     function render() {
       var h = '<div class="mcqx-summary mcqx-hidden" id="' + ctx.uid + '-sum"></div>';
+      h += '<div class="mcqx-nav" id="' + ctx.uid + '-nav"><div class="mx-nl"></div>';
+      qs.forEach(function (o, i) { h += '<button type="button" class="mcqx-navb" data-n="' + i + '">' + (i + 1) + '</button>'; });
+      h += '</div>';
       var last = null, sn = 0;
       // One page per question, each with its own copy of the source (see showPage).
       qs.forEach(function (o, i) {
         var q = o.q;
         if (q.s !== last) { sn++; last = q.s; }
-        h += '<div class="mcqx-page" data-p="' + i + '"><div class="mcqx-sset">Stimulus Set ' + sn + '</div>';
+        h += '<div class="mcqx-page" data-p="' + i + '"><div class="mcqx-verdict" id="' + ctx.uid + '-vd' + i + '"></div>' +
+             '<div class="mcqx-sset">Stimulus Set ' + sn + '</div>';
         if (q.s) {
           h += '<div class="mcqx-stim"><div class="mcqx-stim-lbl">&#128196; Source</div>' +
                '<div class="mcqx-stim-src">' + esc(q.sl) + '</div>' +
@@ -293,10 +428,14 @@
         h += '<div class="mcqx-qcard" id="' + ctx.uid + '-qc' + i + '">' +
              '<div class="mcqx-qnum">Question ' + (i + 1) + ' of ' + qs.length + '</div>' +
              '<div class="mcqx-qtxt">' + esc(q.q) + '</div>' +
-             '<div class="mcqx-gate" id="' + ctx.uid + '-gt' + i + '" aria-live="polite"></div><div class="mcqx-opts">';
+             '<div class="mcqx-gate" id="' + ctx.uid + '-gt' + i + '" aria-live="polite"></div>' +
+             '<div class="mcqx-xtip">Ruled a choice out? Tap <b>&#10005; Cross out</b> beside it. Tap again to bring it back.</div><div class="mcqx-opts">';
         q.o.forEach(function (x, j) {
-          h += '<button type="button" class="mcqx-opt" data-i="' + i + '" data-j="' + j + '">' +
-               '<span class="mx-ol">' + L[j] + '</span><span>' + esc(x) + '</span></button>';
+          h += '<div class="mcqx-orow" data-i="' + i + '" data-j="' + j + '">' +
+               '<button type="button" class="mcqx-opt" data-i="' + i + '" data-j="' + j + '">' +
+               '<span class="mx-ol">' + L[j] + '</span><span class="mx-ot">' + esc(x) + '</span><span class="mx-tag"></span></button>' +
+               '<button type="button" class="mcqx-xbtn" data-i="' + i + '" data-j="' + j + '" aria-pressed="false" title="Cross out choice ' + L[j] + '">' +
+               '<span class="mx-xi">&#10005;</span>Cross out</button></div>';
         });
         h += '</div>';
         if (calib) {
@@ -316,6 +455,12 @@
       });
       ctx.body.querySelectorAll('.mcqx-chip').forEach(function (b) {
         b.addEventListener('click', function () { setConf(+this.dataset.i, this.dataset.conf); });
+      });
+      ctx.body.querySelectorAll('.mcqx-xbtn').forEach(function (b) {
+        b.addEventListener('click', function () { setX(+this.dataset.i, +this.dataset.j, !crossed[+this.dataset.i][+this.dataset.j]); });
+      });
+      ctx.body.querySelectorAll('.mcqx-navb').forEach(function (b) {
+        b.addEventListener('click', function () { goTo(+this.dataset.n); });
       });
       ctx.body.querySelector('.mcqx-prev').addEventListener('click', function () { showPage(cur - 1); });
       ctx.body.querySelector('.mcqx-next').addEventListener('click', function () { showPage(cur + 1); });
@@ -339,6 +484,7 @@
       ctx.body.querySelector('.mcqx-prev').disabled = cur === 0;
       ctx.body.querySelector('.mcqx-next').disabled = cur === qs.length - 1;
       syncGate(cur);
+      updateNav();
       var top = ctx.body.getBoundingClientRect().top;
       if (top < 0) window.scrollBy(0, top - 90);
     }
@@ -348,8 +494,9 @@
         el.classList.toggle('mx-on', wait);
         el.innerHTML = wait ? '&#9201; Read the source and the question. You can answer in <b>' + Math.ceil(gateLeft[i] / 1000) + '</b> s.' : '';
       }
-      var locked = (mode === 'quick' && graded[i] && !retrying[i]) || reasoning || revealed;
+      var locked = isLocked(i);
       optsOf(i).forEach(function (b) { b.disabled = wait || locked; b.classList.toggle('mx-wait', wait); });
+      ctx.body.querySelectorAll('.mcqx-xbtn[data-i="' + i + '"]').forEach(function (b) { b.disabled = locked; });
     }
     function gateTick() {
       if (!ctx.body.isConnected) { clearInterval(ctx.gateTimer); return; }
@@ -415,6 +562,7 @@
     function startRetry(i) {
       retrying[i] = true;
       optsOf(i).forEach(function (b) { b.classList.remove('mx-correct', 'mx-reveal', 'mx-wrong', 'mx-sel'); });
+      optsOf(i).forEach(function (b) { var t = b.querySelector('.mx-tag'); if (t) { t.className = 'mx-tag'; t.textContent = ''; } });
       var fb = document.getElementById(ctx.uid + '-fb' + i);
       if (fb) {
         fb.className = 'mcqx-fb mx-show mx-retrying';
@@ -432,6 +580,8 @@
         if (bj === q.c) b.classList.add(ok ? 'mx-correct' : 'mx-reveal');
         if (bj === j && !ok) b.classList.add('mx-wrong');
       });
+      tagOpts(i, j);
+      syncGate(i);
       var fb = document.getElementById(ctx.uid + '-fb' + i);
       if (!fb) return;
       fb.className = 'mcqx-fb mx-show ' + (ok ? 'mx-ok' : 'mx-bad');
@@ -449,11 +599,22 @@
         if (bj === q.c) b.classList.add(ok ? 'mx-correct' : 'mx-reveal');
         if (bj === j && !ok) b.classList.add('mx-wrong');
       });
+      tagOpts(i, j);
       showFeedback(i);
+    }
+
+    // Test Mode: a blank question still shows its correct answer in the review.
+    function markBlank(i) {
+      var q = qs[i].q;
+      optsOf(i).forEach(function (b) { b.disabled = true; if (+b.dataset.j === q.c) b.classList.add('mx-reveal'); });
+      tagOpts(i, null);
+      var fb = document.getElementById(ctx.uid + '-fb' + i);
+      if (fb) { fb.className = 'mcqx-fb mx-show mx-bad'; fb.innerHTML = '<strong>Left blank.</strong> ' + (q.e || ''); }
     }
 
     /* ---- QUICK CHECK: pick -> confidence tap -> grade ---- */
     function pick(i, j) {
+      if (crossed[i][j] && !isLocked(i)) setX(i, j, false);
       if (mode === 'quick') {
         if (retrying[i]) { retryPick(i, j); return; }
         if (graded[i]) return;
@@ -475,6 +636,7 @@
       if (graded[i]) return;
       graded[i] = true;
       markGraded(i);
+      syncGate(i);
       ctx.body.querySelectorAll('.mcqx-chip[data-i="' + i + '"]').forEach(function (b) { b.disabled = true; });
       record(i);
       progress();
@@ -490,6 +652,8 @@
       ctx.body.classList.add('mcqx-all');   // the review shows every question at once
       ctx.body.querySelectorAll('.mcqx-opt').forEach(function (b) { b.disabled = true; });
       ctx.body.querySelectorAll('.mcqx-chip').forEach(function (b) { b.disabled = true; });
+      ctx.body.querySelectorAll('.mcqx-xbtn').forEach(function (b) { b.disabled = true; });
+      updateNav();
       qs.forEach(function (o, i) {
         if (answered[i] == null) return;
         var ok = answered[i] === o.q.c;
@@ -537,10 +701,15 @@
       if (revealed) return;
       revealed = true;
       qs.forEach(function (o, i) {
-        if (answered[i] == null) return;
+        setVerdict(i);
+        var rz = document.getElementById(ctx.uid + '-rz' + i);
+        if (rz) rz.querySelectorAll('.mx-rst').forEach(function (s) { s.remove(); }); // the verdict banner says it now
+        if (answered[i] == null) { markBlank(i); return; }
         markGraded(i);
         record(i);
       });
+      ctx.body.querySelectorAll('.mcqx-reason').forEach(function (rz) { if (!rz.querySelector('textarea')) rz.classList.add('mcqx-hidden'); });
+      updateNav();
       updateSummary();
       var rv = ctx.foot.querySelector('.mcqx-reveal'); if (rv) rv.remove();
       var sumEl = document.getElementById(ctx.uid + '-sum');
@@ -585,8 +754,27 @@
             ' <span style="font-size:1rem;color:var(--muted)">(' + pct + '%)</span></div>' +
             (skipped ? '<div class="mcqx-gap">' + skipped + ' question' + (skipped === 1 ? '' : 's') +
               ' left blank, counted as wrong. The calibration rows below cover only the questions you answered.</div>' : '');
-      sumEl.innerHTML = head + '<div class="mcqx-cgrid">' + rows + '</div>';
+      var missed = tot - right - skipped;
+      var stats = '<div class="mcqx-stats">' +
+        '<div class="mcqx-stat mx-sok"><b>' + right + '</b><span>Correct</span></div>' +
+        '<div class="mcqx-stat mx-sbad"><b>' + missed + '</b><span>Missed</span></div>' +
+        '<div class="mcqx-stat"><b>' + skipped + '</b><span>Left blank</span></div></div>';
+      var filt = '<div class="mcqx-filter"><span class="mx-lbl">Show</span>' +
+        '<button type="button" class="mcqx-modebtn active" data-f="all">All ' + qs.length + '</button>' +
+        '<button type="button" class="mcqx-modebtn" data-f="miss">Missed &amp; blank ' + (missed + skipped) + '</button>' +
+        '<button type="button" class="mcqx-modebtn" data-f="ok">Correct ' + right + '</button></div>';
+      sumEl.innerHTML = head + stats + '<div class="mcqx-cgrid">' + rows + '</div>' + filt;
       sumEl.classList.remove('mcqx-hidden');
+      sumEl.querySelectorAll('[data-f]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var f = b.dataset.f;
+          sumEl.querySelectorAll('[data-f]').forEach(function (x) { x.classList.toggle('active', x === b); });
+          ctx.body.querySelectorAll('.mcqx-page').forEach(function (p) {
+            var ok = p.classList.contains('mx-rok');
+            p.classList.toggle('mx-filt', (f === 'miss' && ok) || (f === 'ok' && !ok));
+          });
+        });
+      });
     }
 
     ctx.foot.querySelector('.mcqx-reset').addEventListener('click', function () { runSession(ctx, pool, label); });

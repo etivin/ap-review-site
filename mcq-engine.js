@@ -107,12 +107,14 @@
       '--mx-paper:var(--paper,#f3ece0);--mx-grnbg:var(--green-bg,#eef7f0);--mx-redbg:var(--red-bg,#fdf1f3);',
       '--mx-bad:#c62828;--mx-badbg:#fdecec;',
       'font-family:inherit;color:var(--mx-ink)}',
-      '[data-theme="dark"] .mcqx{--mx-grn:#5fd08f;--mx-bad:#ef6b6b;--mx-badbg:rgba(239,107,107,.14);--mx-grnbg:rgba(70,190,130,.16)}',
+      '[data-theme="dark"] .mcqx{--mx-ink:#e8ecf5;--mx-grn:#5fd08f;--mx-bad:#ef6b6b;--mx-badbg:rgba(239,107,107,.14);--mx-grnbg:rgba(70,190,130,.16)}',
+      /* theme.css forces light text on spans and buttons in dark mode; keep dark text on the light-filled pieces */
+      '[data-theme="dark"] .mcqx :is(.mcqx-qbox,.mcqx-qpill,.mcqx-reveal,.mcqx-navb.mx-ans,.mcqx-modebtn.active,.mcqx-bigbtn.mx-primary,.mcqx-opt.mx-sel .mx-ol),[data-theme="dark"] .mcqx :is(.mcqx-qbox,.mcqx-qpill,.mcqx-reveal,.mcqx-bigbtn.mx-primary) *{color:#12141b}',
       '.mcqx button{font-family:inherit}',
       '.mcqx-modebar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:18px;padding:14px 16px;background:var(--mx-paper);border:1px solid var(--mx-line)}',
       '.mcqx-modebar .mx-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mx-mut)}',
       '.mcqx-modebtn{padding:8px 15px;background:var(--mx-card);border:1px solid var(--mx-line);cursor:pointer;font-size:.86rem;color:var(--mx-mut);transition:all .13s}',
-      '.mcqx-modebtn.active{background:var(--mx-ink);color:#fff;border-color:var(--mx-ink)}',
+      '.mcqx-modebtn.active{background:var(--mx-ink);color:var(--mx-card);border-color:var(--mx-ink)}',
       '.mcqx-modehint{flex-basis:100%;font-size:.8rem;color:var(--mx-mut);line-height:1.5;font-style:italic}',
       '.mcqx-topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:16px}',
       '.mcqx-tc{text-align:left;padding:14px 16px;background:var(--mx-card);border:1px solid var(--mx-line);border-left:4px solid var(--mx-red);cursor:pointer;transition:transform .12s,box-shadow .12s}',
@@ -122,35 +124,73 @@
       '.mcqx-tc .mx-tcnt{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;color:var(--mx-mut)}',
       '.mcqx-actions{display:flex;flex-wrap:wrap;gap:12px}',
       '.mcqx-bigbtn{flex:1;min-width:220px;padding:14px;border:1px solid var(--mx-line);background:var(--mx-card);cursor:pointer;font-size:.92rem;font-weight:600;transition:all .13s}',
-      '.mcqx-bigbtn.mx-primary{background:var(--mx-ink);color:#fff;border-color:var(--mx-ink)}',
+      '.mcqx-bigbtn.mx-primary{background:var(--mx-ink);color:var(--mx-card);border-color:var(--mx-ink)}',
       '.mcqx-bigbtn:hover{box-shadow:0 4px 14px rgba(0,0,0,.12)}',
-      '.mcqx-shead{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:8px}',
-      '.mcqx-back{padding:7px 13px;background:none;border:1px solid var(--mx-line);cursor:pointer;font-size:.8rem;color:var(--mx-mut)}',
-      '.mcqx-back:hover{color:var(--mx-ink)}',
-      '.mcqx-title{font-weight:700;font-size:1.05rem}',
-      '.mcqx-prog{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.08em;color:var(--mx-mut);margin-left:auto}',
-      '.mcqx-score{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem;padding:3px 10px;background:var(--mx-paper);border:1px solid var(--mx-line)}',
-      '.mcqx-pbar{height:5px;background:var(--mx-line);margin:0 0 22px}',
+      '.mcqx-shead{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:12px 18px;background:var(--mx-paper);border-bottom:2px dashed var(--mx-ink)}',
+      '.mcqx-back{padding:8px 14px;background:var(--mx-card);border:1px solid var(--mx-line);border-radius:6px;cursor:pointer;font-size:.86rem;color:var(--mx-ink)}',
+      '.mcqx-back:hover{border-color:var(--mx-ink)}',
+      '.mcqx-title{font-weight:700;font-size:1.2rem}',
+      '.mcqx-prog{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.06em;color:var(--mx-mut);margin-left:auto}',
+      '.mcqx-score{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.82rem;padding:4px 11px;background:var(--mx-card);border:1px solid var(--mx-line)}',
+      '.mcqx-pbar{height:4px;background:var(--mx-line);margin:0 0 22px}',
       '.mcqx-pbar-f{height:100%;width:0;background:var(--mx-red);transition:width .25s}',
       '.mcqx-sbr{border:none;border-top:1px dashed var(--mx-line);margin:26px 0}',
-      '.mcqx-sset{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mx-mut);margin:0 0 8px}',
-      '.mcqx-stim{background:var(--mx-paper);border:1px solid var(--mx-line);border-left:4px solid var(--mx-mut);padding:14px 16px;margin-bottom:14px}',
-      '.mcqx-stim-lbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mx-red);margin-bottom:4px}',
-      '.mcqx-stim-src{font-size:.78rem;color:var(--mx-mut);font-style:italic;margin-bottom:8px}',
-      '.mcqx-stim img{max-width:100%;height:auto;margin:8px 0;border:1px solid var(--mx-line)}',
-      '.mcqx-stim-txt p{margin:0 0 8px;line-height:1.6}',
-      '.mcqx-stim-cap{font-size:.76rem;color:var(--mx-mut);font-style:italic;margin:-4px 0 10px}',
-      '.mcqx-qcard{margin-bottom:20px;padding-bottom:6px}',
-      '.mcqx-qnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mx-mut);margin-bottom:6px}',
-      '.mcqx-qtxt{font-weight:600;line-height:1.55;margin-bottom:12px}',
-      '.mcqx-opts{display:flex;flex-direction:column;gap:9px}',
-      '.mcqx-opt{display:flex;gap:11px;align-items:flex-start;text-align:left;padding:12px 14px;background:var(--mx-card);border:1px solid var(--mx-line);cursor:pointer;color:var(--mx-ink);font-size:.9rem;line-height:1.45;transition:border-color .12s,background .12s}',
+      /* exam layout: source on the left, question on the right (stacks when narrow) */
+      '.mcqx-split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:start;max-width:1700px;margin:0 auto}',
+      '.mcqx-split.mx-solo{grid-template-columns:minmax(0,1fr);max-width:900px}',
+      '.mcqx-left{position:sticky;top:150px;max-height:calc(100vh - 250px);overflow:auto;padding:6px 32px 22px 6px;border-right:3px solid var(--mx-line)}',
+      '.mcqx-right{min-width:0;padding:6px 6px 22px 32px}',
+      '.mx-solo .mcqx-right{padding:6px 0 22px}',
+      '.mcqx-all .mcqx-left{position:static;max-height:70vh}',
+      /* full window: the test fills the browser; source and question each scroll on their own */
+      'html.mcqx-open,html.mcqx-open body{overflow:hidden}',
+      '.mcqx-session.mx-full.mcqx-hidden{display:none}',
+      '.mcqx-session.mx-full{position:fixed;inset:0;z-index:999;box-shadow:0 0 0 1px var(--mx-line);display:flex;flex-direction:column;background:var(--cream,#f9f6ef)}',
+      '.mx-full .mcqx-pbar{margin:0;flex-shrink:0}',
+      '.mx-full .mcqx-body{flex:1;min-height:0;overflow:auto;padding:22px clamp(16px,3vw,48px) 0}',
+      '.mx-full .mcqx-body:not(.mcqx-all){overflow:hidden;display:flex;flex-direction:column;padding-bottom:0}',
+      '.mx-full .mcqx-body:not(.mcqx-all) .mcqx-page.mx-on{flex:1;min-height:0}',
+      '.mx-full .mcqx-body:not(.mcqx-all) .mcqx-split{height:100%}',
+      '.mx-full .mcqx-body:not(.mcqx-all) .mcqx-left,.mx-full .mcqx-body:not(.mcqx-all) .mcqx-right{position:static;height:100%;max-height:none;overflow:auto}',
+      '.mx-full .mcqx-foot{margin-top:0;flex-shrink:0}',
+      '@media (max-width:820px){.mcqx-split{grid-template-columns:minmax(0,1fr)}.mcqx-left{position:static;max-height:none;overflow:visible;border-right:none;border-bottom:3px solid var(--mx-line);padding:0 0 16px;margin-bottom:16px}.mcqx-right{padding:0 0 18px}',
+      '.mx-full .mcqx-body:not(.mcqx-all){overflow:auto;display:block}.mx-full .mcqx-body:not(.mcqx-all) .mcqx-split{height:auto}',
+      '.mx-full .mcqx-body:not(.mcqx-all) .mcqx-left,.mx-full .mcqx-body:not(.mcqx-all) .mcqx-right{height:auto;overflow:visible}}',
+      '.mcqx-sset{font-size:1.3rem;font-weight:400;color:var(--mx-ink);margin:0 0 18px}',
+      '.mcqx-stim-src{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.03em;text-transform:uppercase;text-align:center;line-height:1.55;color:var(--mx-ink);margin:0 0 14px}',
+      '.mcqx-stim-txt{font-size:1.06rem}',
+      '.mcqx-stim-txt p{margin:0 0 12px;line-height:1.75}',
+      '.mcqx-stim-cap{font-size:.86rem;color:var(--mx-mut);text-align:center;margin:6px 0 18px}',
+      /* image viewer: zoom in / out / reset / enlarge above every source image */
+      '.mcqx-img{margin:10px auto 4px;border:1px solid var(--mx-line);background:var(--mx-card)}',
+      '.mcqx-itools{display:flex;align-items:center;justify-content:center;gap:4px;padding:5px 8px;background:var(--mx-paper);border-bottom:1px solid var(--mx-line)}',
+      '.mcqx-itools button{min-width:34px;height:32px;padding:0 9px;background:var(--mx-card);border:1px solid var(--mx-line);border-radius:5px;cursor:pointer;color:var(--mx-ink);font-size:.95rem;font-weight:700}',
+      '.mcqx-itools button:hover{border-color:var(--mx-ink)}',
+      '.mcqx-itools .mx-zpct{min-width:52px;text-align:center;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.82rem;color:var(--mx-mut)}',
+      '.mcqx-itools .mx-zbig{margin-left:10px}',
+      '.mcqx-ivp{overflow:auto;max-height:75vh}',
+      '.mcqx-ivp img{display:block;width:100%;max-width:none;height:auto;margin:0 auto;cursor:zoom-in}',
+      '.mcqx-lb{position:fixed;inset:0;z-index:1500;display:flex;flex-direction:column;background:rgba(10,12,18,.92)}',
+      '.mcqx-lb .mcqx-itools{background:#1c2029;border-bottom:1px solid #333a49}',
+      '.mcqx-lb .mcqx-itools .mx-zpct{color:#c4cad7}',
+      '.mcqx-lb .mx-lbcap{flex:1;color:#e8ecf5;font-size:.9rem;padding:0 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
+      '.mcqx-lb .mcqx-img{flex:1;min-height:0;display:flex;flex-direction:column;margin:0;border:none;background:none}',
+      '.mcqx-lb .mcqx-ivp{flex:1;max-height:none;padding:16px}',
+      '.mcqx-lb .mcqx-ivp img{cursor:default;background:#fff}',
+      '.mcqx-qhead{display:flex;align-items:center;gap:14px;background:var(--mx-paper);border-bottom:2px dashed var(--mx-ink);margin-bottom:22px;padding-right:8px}',
+      '.mcqx-qbox{display:flex;align-items:center;justify-content:center;min-width:40px;height:44px;padding:0 8px;background:var(--mx-ink);color:var(--mx-card);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:1.2rem}',
+      '.mcqx-flag{display:flex;align-items:center;gap:8px;padding:6px 4px;background:none;border:none;cursor:pointer;color:var(--mx-ink);font-size:1rem}',
+      '.mcqx-flag svg{width:16px;height:20px;fill:none;stroke:currentColor;stroke-width:2}',
+      '.mcqx-flag[aria-pressed="true"] svg{fill:var(--mx-bad);stroke:var(--mx-bad)}',
+      '.mcqx-qcard{margin-bottom:8px}',
+      '.mcqx-qtxt{font-size:1.14rem;line-height:1.65;margin-bottom:22px}',
+      '.mcqx-opts{display:flex;flex-direction:column;gap:14px}',
+      '.mcqx-opt{display:flex;gap:18px;align-items:flex-start;text-align:left;padding:16px 20px;background:var(--mx-card);border:1.5px solid var(--border2,var(--mx-mut));border-radius:10px;cursor:pointer;color:var(--mx-ink);font-size:1.04rem;line-height:1.55;transition:border-color .12s,background .12s}',
       '.mcqx-opt:hover:not(:disabled){border-color:var(--mx-ink)}',
       '.mcqx-opt:disabled{cursor:default;color:var(--mx-ink)}',
-      '.mcqx-all .mcqx-xtip{display:none}.mcqx-all .mcqx-orow:not(.mx-x) .mcqx-xbtn{visibility:hidden}',
-      '.mcqx-opt .mx-ol{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-top:-3px;border-radius:50%;border:1.5px solid var(--mx-line);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.78rem;color:var(--mx-mut);flex-shrink:0}',
-      '.mcqx-opt .mx-ot{flex:1;min-width:0}',
-      '.mcqx-opt .mx-tag{align-self:center;flex-shrink:0;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:10px;white-space:nowrap}',
+      '.mcqx-opt .mx-ol{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-top:-3px;border-radius:50%;border:1.5px solid var(--mx-ink);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.88rem;color:var(--mx-ink);flex-shrink:0}',
+      '.mcqx-opt{flex-wrap:wrap;row-gap:8px}.mcqx-opt .mx-ot{flex:1 1 calc(100% - 50px);min-width:0}',
+      '.mcqx-opt .mx-tag{align-self:flex-start;margin-left:48px;flex-shrink:0;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:10px;white-space:nowrap}',
       '.mcqx-opt .mx-tag:empty{display:none}',
       '.mcqx-opt .mx-tag.mx-tok{background:var(--mx-grn);color:#fff}',
       '.mcqx-opt .mx-tag.mx-tbad{background:var(--mx-bad);color:#fff}',
@@ -163,20 +203,24 @@
       '.mcqx-opt.mx-reveal .mx-ol{border-color:var(--mx-grn);color:var(--mx-grn)}',
       '.mcqx-opt.mx-wrong{border-color:var(--mx-bad);background:var(--mx-badbg);box-shadow:inset 0 0 0 1px var(--mx-bad)}',
       '.mcqx-opt.mx-wrong .mx-ol{background:var(--mx-bad);border-color:var(--mx-bad);color:#fff}',
-      /* cross out: a visible button beside every choice */
-      '.mcqx-orow{display:flex;gap:6px;align-items:stretch}',
+      /* cross out: the "Cross out" toggle in the question header shows a button beside every choice */
+      '.mcqx-orow{display:flex;gap:4px;align-items:center}',
       '.mcqx-orow .mcqx-opt{flex:1;min-width:0}',
-      '.mcqx-xbtn{flex-shrink:0;width:58px;border:1px solid var(--mx-line);background:var(--mx-card);color:var(--mx-mut);cursor:pointer;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.04em;line-height:1.15;padding:4px 2px}',
-      '.mcqx-xbtn .mx-xi{display:block;font-size:1rem}',
-      '.mcqx-xbtn:hover:not(:disabled){border-color:var(--mx-red);color:var(--mx-red)}',
+      '.mcqx-xbtn{display:flex;flex-shrink:0;width:54px;align-self:stretch;align-items:center;justify-content:center;padding:0;background:none;border:none;color:var(--mx-ink);cursor:pointer}',
+      '.mcqx-all .mcqx-xbtn{display:none}',
+      '.mcqx-intro-off > .pg-hero{display:none}',
+      '.mcqx-xbtn .mx-xc{position:relative;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1.5px solid currentColor;border-radius:50%;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.72rem}',
+      '.mcqx-xbtn .mx-xc::after{content:"";position:absolute;left:-6px;right:-6px;top:50%;height:2px;margin-top:-1px;background:currentColor}',
+      '.mcqx-xbtn .mx-xu{font-weight:700;font-size:.82rem;text-decoration:underline}',
+      '.mcqx-xbtn:hover:not(:disabled){color:var(--mx-bad)}',
       '.mcqx-xbtn:disabled{opacity:.35;cursor:default}',
-      '.mcqx-orow.mx-x .mcqx-xbtn{background:var(--mx-paper);color:var(--mx-bad);border-color:var(--mx-bad)}',
       '.mcqx-orow.mx-x .mcqx-opt{opacity:.5}',
       '.mcqx-orow.mx-x .mcqx-opt.mx-correct,.mcqx-orow.mx-x .mcqx-opt.mx-reveal,.mcqx-orow.mx-x .mcqx-opt.mx-wrong{opacity:.9}',
       '.mcqx-orow.mx-x .mx-ot{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--mx-bad)}',
-      '.mcqx-xtip{font-size:.74rem;color:var(--mx-mut);margin:-4px 0 9px}',
-      /* question map */
+      /* question map: in the bottom bar's pop-up, and inline above the review */
       '.mcqx-nav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px;padding:10px 12px;background:var(--mx-paper);border:1px solid var(--mx-line)}',
+      '.mcqx-nav.mx-inline{display:none}.mcqx-all .mcqx-nav.mx-inline{display:flex}',
+      '.mcqx-navb.mx-flag::before{content:"";position:absolute;top:-1px;left:-1px;border-top:11px solid var(--mx-bad);border-right:11px solid transparent}',
       '.mcqx-nav .mx-nl{flex-basis:100%;font-size:.74rem;color:var(--mx-mut);margin-bottom:2px}',
       '.mcqx-nav .mx-nl b{font-family:Lato,system-ui,sans-serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;margin-right:8px;color:var(--mx-ink)}',
       '.mcqx-navb{position:relative;min-width:34px;height:34px;padding:0 6px;border:1px solid var(--mx-line);background:var(--mx-card);color:var(--mx-mut);font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.8rem;cursor:pointer}',
@@ -234,19 +278,30 @@
       '.mcqx-all .mcqx-page.mx-rok{border-left-color:var(--mx-grn)}',
       '.mcqx-all .mcqx-page.mx-rbad{border-left-color:var(--mx-bad)}',
       '.mcqx-all .mcqx-page.mx-rblank{border-left-style:dashed;border-left-color:var(--mx-bad)}',
-      '.mcqx-all .mcqx-pager{display:none}',
-      '.mcqx-pager{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--mx-line)}',
-      '.mcqx-prev,.mcqx-next{padding:10px 18px;border:1px solid var(--mx-ink);background:var(--mx-card);color:var(--mx-ink);cursor:pointer;font-size:.86rem;font-weight:700}',
-      '.mcqx-next{background:var(--mx-ink);color:#fff}',
+      '.mcqx-prev,.mcqx-next{padding:9px 20px;border:1.5px solid var(--mx-red);border-radius:20px;background:var(--mx-card);color:var(--mx-red);cursor:pointer;font-size:.9rem;font-weight:700}',
+      '.mcqx-next{background:var(--mx-red);color:#fff}',
       '.mcqx-prev:disabled,.mcqx-next:disabled{opacity:.35;cursor:default}',
-      '.mcqx-pnum{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.08em;color:var(--mx-mut)}',
+      '.mx-review .mcqx-prev,.mx-review .mcqx-next{display:none}',
       '.mcqx-gate{display:none;margin:0 0 10px;padding:9px 12px;border:1px dashed var(--mx-red);font-size:.84rem;color:var(--mx-ink)}',
       '.mcqx-gate.mx-on{display:block}.mcqx-gate b{color:var(--mx-red);font-size:1rem}',
       '.mcqx-opt.mx-wait{opacity:.5}',
-      '.mcqx-foot{position:sticky;bottom:0;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0;margin-top:8px;background:linear-gradient(to top,var(--cream,#f9f6ef) 65%,transparent)}',
-      '.mcqx-reveal{padding:12px 22px;background:var(--mx-red);color:#fff;border:none;cursor:pointer;font-weight:600;font-size:.92rem}',
-      '.mcqx-reveal:disabled{opacity:.5;cursor:not-allowed}',
-      '.mcqx-reset,.mcqx-newset{padding:11px 18px;background:var(--mx-card);border:1px solid var(--mx-line);cursor:pointer;font-size:.86rem}',
+      /* bottom bar: reset | Question N of M (opens the question map) | Previous, Next, Reveal */
+      '.mcqx-foot{position:sticky;bottom:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:11px 14px;margin-top:18px;background:var(--mx-paper);border-top:2px dashed var(--mx-ink)}',
+      '.mcqx-foot .mx-fl{display:flex;flex-wrap:wrap;gap:8px}',
+      '.mcqx-foot .mx-fc{position:relative;display:flex;justify-content:center}',
+      '.mcqx-foot .mx-fr{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}',
+      '@media (max-width:760px){.mcqx-foot{display:flex;flex-wrap:wrap;gap:8px;padding:8px 10px}.mcqx-foot .mx-fc{order:-1;flex-basis:100%}.mcqx-foot .mx-fl,.mcqx-foot .mx-fr{flex:1 1 0;flex-wrap:nowrap}',
+      '.mcqx-foot .mx-fl button,.mcqx-foot .mx-fr button{padding:7px 11px;font-size:.8rem;white-space:nowrap}}',
+      '.mcqx-qpill{display:flex;align-items:center;gap:9px;padding:9px 16px;background:var(--mx-ink);color:var(--mx-card);border:none;border-radius:6px;cursor:pointer;font-weight:700;font-size:.9rem;white-space:nowrap}',
+      '.mcqx-qpill .mx-car{display:inline-block;font-size:.7rem;transition:transform .15s}',
+      '.mcqx-qpill[aria-expanded="true"] .mx-car{transform:rotate(180deg)}',
+      '.mcqx-pop{position:absolute;bottom:calc(100% + 14px);left:50%;transform:translateX(-50%);width:min(540px,88vw);padding:14px 16px;background:var(--mx-card);border:1px solid var(--mx-line);border-radius:8px;box-shadow:0 12px 34px rgba(0,0,0,.28);z-index:30}',
+      '.mcqx-pop .mx-ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-weight:700}',
+      '.mcqx-pop .mx-pclose{background:none;border:1px solid var(--mx-line);border-radius:4px;padding:3px 9px;cursor:pointer;color:var(--mx-ink);font-size:.8rem}',
+      '.mcqx-pop .mcqx-nav{margin:0;padding:0;border:none;background:none;max-height:50vh;overflow:auto}',
+      '.mcqx-reveal{padding:10px 20px;background:var(--mx-ink);color:var(--mx-card);border:none;border-radius:20px;cursor:pointer;font-weight:700;font-size:.9rem}',
+      '.mcqx-reveal:disabled{opacity:.45;cursor:not-allowed}',
+      '.mcqx-reset,.mcqx-newset{padding:8px 14px;background:var(--mx-card);border:1px solid var(--mx-line);border-radius:6px;cursor:pointer;color:var(--mx-ink);font-size:.82rem}',
       '.mcqx-summary{margin:4px 0 22px;padding:18px 20px;background:var(--mx-paper);border:1px solid var(--mx-line);border-top:4px solid var(--mx-red)}',
       '.mcqx-summary h4{font-family:Lato,system-ui,sans-serif;letter-spacing:-.02em;font-size:1.15rem;margin:0 0 10px}',
       '.mcqx-summary .mx-big{font-size:1.6rem;font-weight:700}',
@@ -279,10 +334,68 @@
     var srcs = q.simgs || (q.simg ? [q.simg] : []);
     var caps = q.simgCaps || (q.simgCap ? [q.simgCap] : []);
     return srcs.map(function (src, k) {
-      return '<img src="' + esc(src) + '" alt="' + esc(caps[k] || 'Source') + '" loading="lazy" onerror="this.style.display=\'none\'"/>' +
+      return imgViewer('<img src="' + esc(src) + '" alt="' + esc(caps[k] || 'Source') + '" loading="lazy" onerror="this.closest(\'.mcqx-img\').style.display=\'none\'"/>', '') +
         (caps[k] ? '<div class="mcqx-stim-cap">' + esc(caps[k]) + '</div>' : '');
     }).join('');
   }
+
+  /* ---- image viewer: zoom out / in / reset, and Enlarge (full-window view) ----
+     Zoom is the image's width as a share of its box (ZMIN..ZMAX); the box scrolls when
+     zoomed in. Clicking the image also opens the enlarged view; Esc or Close shuts it. */
+  var ZMIN = 50, ZMAX = 400, ZSTEP = 25;
+  function imgViewer(imgHTML, extra) {
+    return '<div class="mcqx-img" data-z="100"><div class="mcqx-itools">' + (extra || '') +
+      '<button type="button" class="mx-zout" title="Zoom out" aria-label="Zoom out">&minus;</button>' +
+      '<span class="mx-zpct">100%</span>' +
+      '<button type="button" class="mx-zin" title="Zoom in" aria-label="Zoom in">+</button>' +
+      '<button type="button" class="mx-zreset">Reset</button>' +
+      (extra ? '<button type="button" class="mx-lbclose">&#10005; Close</button>'
+             : '<button type="button" class="mx-zbig" title="Open the image larger">&#10530; Enlarge</button>') +
+      '</div><div class="mcqx-ivp">' + imgHTML + '</div></div>';
+  }
+  function setZoom(box, z) {
+    z = Math.max(ZMIN, Math.min(ZMAX, z));
+    box.dataset.z = z;
+    var img = box.querySelector('img'), base = +(box.dataset.base || 100);
+    if (img) img.style.width = (base * z / 100) + '%';
+    box.querySelector('.mx-zpct').textContent = z + '%';
+  }
+  function closeLightbox() {
+    var lb = document.getElementById('mcqx-lb');
+    if (lb) lb.remove();
+    document.removeEventListener('keydown', lbKey);
+  }
+  function lbKey(e) { if (e.key === 'Escape') closeLightbox(); }
+  function openLightbox(img) {
+    closeLightbox();
+    var lb = document.createElement('div');
+    lb.id = 'mcqx-lb'; lb.className = 'mcqx-lb mcqx';
+    lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-label', 'Enlarged image');
+    lb.innerHTML = imgViewer('<img src="' + esc(img.getAttribute('src')) + '" alt="' + esc(img.alt) + '"/>',
+      '<span class="mx-lbcap">' + esc(img.alt) + '</span>');
+    document.body.appendChild(lb);
+    // Start at "fit": as wide as the window allows without the image running past its height.
+    var box = lb.querySelector('.mcqx-img'), vp = lb.querySelector('.mcqx-ivp'), big = lb.querySelector('img');
+    function fit() {
+      var w = vp.clientWidth - 32, h = vp.clientHeight - 32;
+      if (big.naturalWidth && w > 0 && h > 0) box.dataset.base = Math.min(100, (h / big.naturalHeight) * big.naturalWidth / w * 100);
+      setZoom(box, 100);
+    }
+    if (big.complete) fit(); else big.addEventListener('load', fit);
+    document.addEventListener('keydown', lbKey);
+    lb.querySelector('.mx-lbclose').focus();
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('.mcqx-itools button, .mcqx-ivp img') : null;
+    if (!t) { if (e.target.id === 'mcqx-lb') closeLightbox(); return; }
+    var box = t.closest('.mcqx-img'), z = +(box.dataset.z || 100);
+    if (t.tagName === 'IMG') { if (!t.closest('#mcqx-lb')) openLightbox(t); return; }
+    if (t.classList.contains('mx-zin')) setZoom(box, z + ZSTEP);
+    else if (t.classList.contains('mx-zout')) setZoom(box, z - ZSTEP);
+    else if (t.classList.contains('mx-zreset')) setZoom(box, 100);
+    else if (t.classList.contains('mx-zbig')) openLightbox(box.querySelector('img'));
+    else if (t.classList.contains('mx-lbclose')) closeLightbox();
+  });
 
   /* ---- the session ---- */
   function runSession(ctx, pool, label) {
@@ -300,14 +413,47 @@
 
     ctx.home.classList.add('mcqx-hidden');
     ctx.session.classList.remove('mcqx-hidden');
+    ctx.hideIntro();
+    ctx.setFull(ctx.full);
     ctx.titleEl.textContent = label || 'Questions';
     ctx.scoreEl.classList.toggle('mcqx-hidden', mode !== 'quick');
 
-    var footHTML = '';
-    if (mode === 'test') footHTML += '<button type="button" class="mcqx-reveal">Reveal All &amp; Score</button>';
-    footHTML += '<button type="button" class="mcqx-reset">↺ Reset &amp; Retry</button>';
+    var flagged = [];                      // "Mark for Review" bookmarks
+    var footHTML = '<div class="mx-fl">' + (mode === 'test' ? '<button type="button" class="mcqx-reveal">Reveal All &amp; Score</button>' : '') +
+      '<button type="button" class="mcqx-reset">↺ Reset &amp; Retry</button>';
     if (ctx.opts.regenerate) footHTML += '<button type="button" class="mcqx-newset">🎲 ' + esc(ctx.opts.newSetLabel || 'New Set') + '</button>';
+    footHTML += '</div><div class="mx-fc"><button type="button" class="mcqx-qpill" aria-expanded="false"><span class="mx-pt"></span><span class="mx-car">&#9650;</span></button>' +
+      '<div class="mcqx-pop mcqx-hidden"><div class="mx-ph"><span>' + esc(label || 'Questions') + '</span><button type="button" class="mx-pclose">Close</button></div>' +
+      navHTML('') + '</div></div>' +
+      '<div class="mx-fr"><button type="button" class="mcqx-prev">Previous</button><button type="button" class="mcqx-next">Next</button>';
+    footHTML += '</div>';
     ctx.foot.innerHTML = footHTML;
+    ctx.session.classList.remove('mx-review');
+
+    function navHTML(cls) {
+      var s = '<div class="mcqx-nav' + cls + '"><div class="mx-nl"></div>';
+      qs.forEach(function (o, i) { s += '<button type="button" class="mcqx-navb" data-n="' + i + '">' + (i + 1) + '</button>'; });
+      return s + '</div>';
+    }
+    var pill = ctx.foot.querySelector('.mcqx-qpill'), pop = ctx.foot.querySelector('.mcqx-pop');
+    function setPop(open) {
+      pop.classList.toggle('mcqx-hidden', !open);
+      pill.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    pill.addEventListener('click', function () { setPop(pop.classList.contains('mcqx-hidden')); });
+    pop.querySelector('.mx-pclose').addEventListener('click', function () { setPop(false); });
+    if (ctx.offPop) document.removeEventListener('click', ctx.offPop);
+    ctx.offPop = function (e) { if (!pop.isConnected) return; if (!e.target.closest || !e.target.closest('.mx-fc')) setPop(false); };
+    document.addEventListener('click', ctx.offPop);
+    ctx.foot.querySelector('.mcqx-prev').addEventListener('click', function () { showPage(cur - 1); });
+    ctx.foot.querySelector('.mcqx-next').addEventListener('click', function () { showPage(cur + 1); });
+
+    function toggleFlag(i) {
+      flagged[i] = !flagged[i];
+      var b = ctx.body.querySelector('.mcqx-flag[data-i="' + i + '"]');
+      if (b) { b.setAttribute('aria-pressed', flagged[i] ? 'true' : 'false'); b.lastChild.textContent = flagged[i] ? 'Marked for Review' : 'Mark for Review'; }
+      updateNav();
+    }
 
     function record(i) {
       var o = qs[i], ok = answered[i] === o.q.c;
@@ -335,27 +481,35 @@
 
     /* ---- question map: one numbered square per question, colored by its state ---- */
     function updateNav() {
-      var nav = document.getElementById(ctx.uid + '-nav');
-      if (!nav) return;
       var all = ctx.body.classList.contains('mcqx-all');
+      var pt = ctx.foot.querySelector('.mx-pt');
+      if (pt) pt.textContent = all ? 'Jump to a question' : 'Question ' + (cur + 1) + ' of ' + qs.length;
+      ctx.session.querySelectorAll('.mcqx-nav').forEach(function (nav) { paintNav(nav, all); });
+    }
+    function paintNav(nav, all) {
       nav.querySelectorAll('.mcqx-navb').forEach(function (b) {
         var i = +b.dataset.n, a = answered[i] != null, ok = a && answered[i] === qs[i].q.c, st = '';
         if (revealed) st = !a ? 'mx-blank' : ok ? 'mx-ok' : 'mx-bad';
         else if (mode === 'quick' && graded[i]) st = ok ? 'mx-ok' : 'mx-bad';
         else if (a) st = 'mx-ans' + (calib && !conf[i] ? ' mx-noconf' : '');
-        b.className = 'mcqx-navb ' + st + (!all && i === cur ? ' mx-cur' : '');
+        b.className = 'mcqx-navb ' + st + (!all && i === cur ? ' mx-cur' : '') + (flagged[i] ? ' mx-flag' : '');
         b.title = 'Question ' + (i + 1) + (revealed ? (!a ? ': left blank' : ok ? ': correct' : ': missed')
-          : (mode === 'quick' && graded[i]) ? (ok ? ': correct' : ': missed') : a ? (calib && !conf[i] ? ': answered, needs a confidence tap' : ': answered') : ': not answered yet');
+          : (mode === 'quick' && graded[i]) ? (ok ? ': correct' : ': missed') : a ? (calib && !conf[i] ? ': answered, needs a confidence tap' : ': answered') : ': not answered yet') +
+          (flagged[i] ? ' (marked for review)' : '');
       });
       var lbl = nav.querySelector('.mx-nl');
       lbl.innerHTML = '<b>Questions</b>' + (revealed || mode === 'quick'
-        ? 'Green = correct &middot; red = missed' + (revealed ? ' &middot; dashed = left blank' : '') + ' &middot; tap a number to jump to it'
-        : 'Dark = answered &middot; red dot = still needs a confidence tap &middot; tap a number to jump to it');
+        ? 'Green = correct &middot; red = missed' + (revealed ? ' &middot; dashed = left blank' : '')
+        : 'Dark = answered &middot; red dot = still needs a confidence tap') +
+        ' &middot; red corner = marked for review &middot; tap a number to jump to it';
     }
     function goTo(n) {
+      setPop(false);
       if (!ctx.body.classList.contains('mcqx-all')) { showPage(n); return; }
       var p = ctx.body.querySelector('.mcqx-page[data-p="' + n + '"]');
-      if (p) window.scrollTo({ top: p.getBoundingClientRect().top + window.pageYOffset - 90, behavior: 'smooth' });
+      if (!p) return;
+      if (ctx.full) ctx.body.scrollTo({ top: p.getBoundingClientRect().top - ctx.body.getBoundingClientRect().top + ctx.body.scrollTop - 12, behavior: 'smooth' });
+      else window.scrollTo({ top: p.getBoundingClientRect().top + window.pageYOffset - 90, behavior: 'smooth' });
     }
 
     /* ---- cross out: rule out a choice before answering ----
@@ -371,7 +525,7 @@
         var xb = row.querySelector('.mcqx-xbtn');
         xb.setAttribute('aria-pressed', on ? 'true' : 'false');
         xb.title = (on ? 'Bring back choice ' : 'Cross out choice ') + L[j];
-        xb.innerHTML = on ? '<span class="mx-xi">&#8634;</span>Undo' : '<span class="mx-xi">&#10005;</span>Cross out';
+        xb.innerHTML = on ? '<span class="mx-xu">Undo</span>' : '<span class="mx-xc">' + L[j] + '</span>';
       }
       if (on && answered[i] === j && !graded[i]) {
         answered[i] = undefined;
@@ -408,34 +562,37 @@
     }
 
     function render() {
-      var h = '<div class="mcqx-summary mcqx-hidden" id="' + ctx.uid + '-sum"></div>';
-      h += '<div class="mcqx-nav" id="' + ctx.uid + '-nav"><div class="mx-nl"></div>';
-      qs.forEach(function (o, i) { h += '<button type="button" class="mcqx-navb" data-n="' + i + '">' + (i + 1) + '</button>'; });
-      h += '</div>';
-      var last = null, sn = 0;
+      var h = '<div class="mcqx-summary mcqx-hidden" id="' + ctx.uid + '-sum"></div>' + navHTML(' mx-inline');
+      // Questions that share a source in a row form a set: "Questions 1 through 3 refer to the following."
+      var setEnd = [];
+      for (var k = qs.length - 1; k >= 0; k--) setEnd[k] = (k < qs.length - 1 && qs[k + 1].q.s === qs[k].q.s) ? setEnd[k + 1] : k;
+      var setStart = 0;
       // One page per question, each with its own copy of the source (see showPage).
       qs.forEach(function (o, i) {
         var q = o.q;
-        if (q.s !== last) { sn++; last = q.s; }
+        if (i === 0 || qs[i - 1].q.s !== q.s) setStart = i;
         h += '<div class="mcqx-page" data-p="' + i + '"><div class="mcqx-verdict" id="' + ctx.uid + '-vd' + i + '"></div>' +
-             '<div class="mcqx-sset">Stimulus Set ' + sn + '</div>';
+             '<div class="mcqx-split' + (q.s ? '' : ' mx-solo') + '">';
         if (q.s) {
-          h += '<div class="mcqx-stim"><div class="mcqx-stim-lbl">&#128196; Source</div>' +
-               '<div class="mcqx-stim-src">' + esc(q.sl) + '</div>' +
+          h += '<div class="mcqx-left"><div class="mcqx-sset">' + (setEnd[i] === setStart
+                 ? 'Question ' + (i + 1) + ' refers to the following.'
+                 : 'Questions ' + (setStart + 1) + ' through ' + (setEnd[i] + 1) + ' refer to the following.') + '</div>' +
+               '<div class="mcqx-stim"><div class="mcqx-stim-src">' + esc(q.sl) + '</div>' +
                stimImages(q) +
-               '<div class="mcqx-stim-txt"><p>' + esc(q.s).replace(/\n/g, '</p><p>') + '</p></div></div>';
+               '<div class="mcqx-stim-txt"><p>' + esc(q.s).replace(/\n/g, '</p><p>') + '</p></div></div></div>';
         }
-        h += '<div class="mcqx-qcard" id="' + ctx.uid + '-qc' + i + '">' +
-             '<div class="mcqx-qnum">Question ' + (i + 1) + ' of ' + qs.length + '</div>' +
+        h += '<div class="mcqx-right"><div class="mcqx-qhead"><span class="mcqx-qbox">' + (i + 1) + '</span>' +
+             '<button type="button" class="mcqx-flag" data-i="' + i + '" aria-pressed="false">' +
+             '<svg viewBox="0 0 14 18" aria-hidden="true"><path d="M1 1h12v16l-6-4.5L1 17z"/></svg><span>Mark for Review</span></button></div>' +
+             '<div class="mcqx-qcard" id="' + ctx.uid + '-qc' + i + '">' +
              '<div class="mcqx-qtxt">' + esc(q.q) + '</div>' +
-             '<div class="mcqx-gate" id="' + ctx.uid + '-gt' + i + '" aria-live="polite"></div>' +
-             '<div class="mcqx-xtip">Ruled a choice out? Tap <b>&#10005; Cross out</b> beside it. Tap again to bring it back.</div><div class="mcqx-opts">';
+             '<div class="mcqx-gate" id="' + ctx.uid + '-gt' + i + '" aria-live="polite"></div><div class="mcqx-opts">';
         q.o.forEach(function (x, j) {
           h += '<div class="mcqx-orow" data-i="' + i + '" data-j="' + j + '">' +
                '<button type="button" class="mcqx-opt" data-i="' + i + '" data-j="' + j + '">' +
                '<span class="mx-ol">' + L[j] + '</span><span class="mx-ot">' + esc(x) + '</span><span class="mx-tag"></span></button>' +
                '<button type="button" class="mcqx-xbtn" data-i="' + i + '" data-j="' + j + '" aria-pressed="false" title="Cross out choice ' + L[j] + '">' +
-               '<span class="mx-xi">&#10005;</span>Cross out</button></div>';
+               '<span class="mx-xc">' + L[j] + '</span></button></div>';
         });
         h += '</div>';
         if (calib) {
@@ -444,12 +601,13 @@
           h += '</div></div>';
         }
         h += '<div class="mcqx-reason mcqx-hidden" id="' + ctx.uid + '-rz' + i + '"></div>';
-        h += '<div class="mcqx-fb" id="' + ctx.uid + '-fb' + i + '"></div></div></div>';
+        h += '<div class="mcqx-fb" id="' + ctx.uid + '-fb' + i + '"></div></div></div></div></div>';
       });
-      h += '<div class="mcqx-pager"><button type="button" class="mcqx-prev">&larr; Previous</button>' +
-           '<span class="mcqx-pnum"></span><button type="button" class="mcqx-next">Next &rarr;</button></div>';
       ctx.body.classList.remove('mcqx-all');
       ctx.body.innerHTML = h;
+      ctx.body.querySelectorAll('.mcqx-flag').forEach(function (b) {
+        b.addEventListener('click', function () { toggleFlag(+this.dataset.i); });
+      });
       ctx.body.querySelectorAll('.mcqx-opt').forEach(function (b) {
         b.addEventListener('click', function () { pick(+this.dataset.i, +this.dataset.j); });
       });
@@ -459,11 +617,9 @@
       ctx.body.querySelectorAll('.mcqx-xbtn').forEach(function (b) {
         b.addEventListener('click', function () { setX(+this.dataset.i, +this.dataset.j, !crossed[+this.dataset.i][+this.dataset.j]); });
       });
-      ctx.body.querySelectorAll('.mcqx-navb').forEach(function (b) {
+      ctx.session.querySelectorAll('.mcqx-navb').forEach(function (b) {
         b.addEventListener('click', function () { goTo(+this.dataset.n); });
       });
-      ctx.body.querySelector('.mcqx-prev').addEventListener('click', function () { showPage(cur - 1); });
-      ctx.body.querySelector('.mcqx-next').addEventListener('click', function () { showPage(cur + 1); });
       gateLeft = qs.map(function () { return GATE_MS; });
       showPage(0);
       clearInterval(ctx.gateTimer);
@@ -480,9 +636,8 @@
     function showPage(k) {
       cur = Math.max(0, Math.min(qs.length - 1, k));
       ctx.body.querySelectorAll('.mcqx-page').forEach(function (p) { p.classList.toggle('mx-on', +p.dataset.p === cur); });
-      ctx.body.querySelector('.mcqx-pnum').textContent = 'Question ' + (cur + 1) + ' of ' + qs.length;
-      ctx.body.querySelector('.mcqx-prev').disabled = cur === 0;
-      ctx.body.querySelector('.mcqx-next').disabled = cur === qs.length - 1;
+      ctx.foot.querySelector('.mcqx-prev').disabled = cur === 0;
+      ctx.foot.querySelector('.mcqx-next').disabled = cur === qs.length - 1;
       syncGate(cur);
       updateNav();
       var top = ctx.body.getBoundingClientRect().top;
@@ -650,6 +805,7 @@
       if (blank && !window.confirm(blank + ' of ' + qs.length + ' questions are still blank. Blank questions count as wrong in your score. Lock in your answers anyway?')) return;
       reasoning = true;
       ctx.body.classList.add('mcqx-all');   // the review shows every question at once
+      ctx.session.classList.add('mx-review');
       ctx.body.querySelectorAll('.mcqx-opt').forEach(function (b) { b.disabled = true; });
       ctx.body.querySelectorAll('.mcqx-chip').forEach(function (b) { b.disabled = true; });
       ctx.body.querySelectorAll('.mcqx-xbtn').forEach(function (b) { b.disabled = true; });
@@ -820,7 +976,7 @@
     }
     syncMode();
     ctx.home.querySelectorAll('.mcqx-modebtn').forEach(function (b) {
-      b.addEventListener('click', function () { ctx.mode = b.dataset.mode; syncMode(); });
+      b.addEventListener('click', function () { ctx.mode = b.dataset.mode; syncMode(); ctx.hideIntro(); });
     });
     ctx.home.querySelectorAll('.mcqx-tc').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -870,9 +1026,62 @@
     ctx.body = root.querySelector('.mcqx-body');
     ctx.foot = root.querySelector('.mcqx-foot');
 
+    /* Full window: a unit's question set fills the space beside the sidebar and below the
+       site's top bars, like the AP exam app; the Cumulative Review set (pool) starts in the
+       page. The page scroll is locked only while the
+       full-window set is actually on screen. */
+    ctx.full = opts.fullWindow != null ? !!opts.fullWindow : !opts.pool;
+    // Top edge: below the lowest bar pinned to the top (fixed, or sticky and stuck, which
+    // lockScroll makes sure of by scrolling down to the set first).
+    // Left edge: right of the sidebar when it is pinned (wide screens).
+    function place() {
+      if (!ctx.full) { ctx.session.style.top = ctx.session.style.left = ''; return; }
+      var top = 0, left = 0;
+      document.querySelectorAll('#mc-bar, .top-bar, .subtab-bar').forEach(function (el) {
+        if (!el.getClientRects().length || !/fixed|sticky/.test(getComputedStyle(el).position)) return;
+        var b = el.getBoundingClientRect().bottom;
+        if (b > 0 && b < window.innerHeight / 2) top = Math.max(top, b);
+      });
+      var sb = document.querySelector('.sidebar');
+      if (sb && sb.getClientRects().length && /fixed|sticky/.test(getComputedStyle(sb).position)) {
+        var r = sb.getBoundingClientRect();
+        if (r.right < window.innerWidth / 2) left = r.right;
+      }
+      ctx.session.style.top = Math.round(top) + 'px';
+      ctx.session.style.left = Math.round(left) + 'px';
+    }
+    window.addEventListener('resize', place);
+    // While full window, the set lives on <body> (the unit page's tab panel would otherwise
+    // clip a fixed box), and it hides whenever its tab is not the one showing.
+    function lockScroll() {
+      var shown = root.getClientRects().length > 0;
+      if (ctx.session.parentNode === document.body) ctx.session.style.display = shown ? '' : 'none';
+      var on = shown && ctx.session.classList.contains('mx-full') && !ctx.session.classList.contains('mcqx-hidden');
+      // Bring the sticky bars to their stuck spot before the page scroll locks.
+      if (on && !document.documentElement.classList.contains('mcqx-open')) {
+        var y = root.getBoundingClientRect().top + window.pageYOffset - 140;
+        if (window.pageYOffset < y) window.scrollTo({ top: y, behavior: 'instant' });
+      }
+      document.documentElement.classList.toggle('mcqx-open', on);
+      place();
+    }
+    ctx.setFull = function (on) {
+      ctx.full = on;
+      ctx.session.classList.toggle('mx-full', on);
+      ctx.session.classList.toggle('mcqx', on);
+      if (on && ctx.session.parentNode !== document.body) document.body.appendChild(ctx.session);
+      if (!on && ctx.session.parentNode !== root) { ctx.session.style.display = ''; root.appendChild(ctx.session); }
+      lockScroll();
+    };
+    document.addEventListener('unit:tab', function () { setTimeout(lockScroll, 0); });
+    document.documentElement.classList.remove('mcqx-open');
+    // The tab's intro ("Stimulus-Based Questions") steps aside once a mode or a set is picked.
+    ctx.hideIntro = function () { if (root.parentElement) root.parentElement.classList.add('mcqx-intro-off'); };
+
     var backToHome = function () {
       ctx.session.classList.add('mcqx-hidden');
       ctx.home.classList.remove('mcqx-hidden');
+      lockScroll();
     };
 
     if (opts.pool) {

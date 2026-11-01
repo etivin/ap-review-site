@@ -9571,4 +9571,325 @@ window.WALKTHROUGH = window.WALKTHROUGH || {};
   VIS('u4_4.5_18', 'text', BARBOT, [[1, 35.6, 98, 20.3]]);
 
   VIS('u4_4.7_2', 'art', ['Wealthy free women of color with servants', 'Enslaved field workers cutting sugar cane at harvest', 'A British governor and his family at their estate'], [[44, 36, 24, 50], [72, 52, 26, 34]]);
+
+  /* ---------- UNIT 1 ---------- */
+  var IBN_CHINA = ['Muslims and other faiths living well in Yuan China', 'Chinese officials forcing all foreigners out of their cities', 'A Muslim traveler complaining of cruel treatment in China'];
+  VIS('u1_1.1_11', 'text', IBN_CHINA, [[1, 9.2, 98, 16.1], [1, 49.4, 98, 7.9]]);
+
+  var QUIPU = ['Inca officials collecting counts from villages', 'Inca priests describing gifts offered to their gods', 'Spanish soldiers counting the gold taken from Cuzco'];
+  VIS('u1_1.4_6', 'text', QUIPU, [[1, 2.5, 98, 38.9]]);
+  VIS('u1_1.4_7', 'text', QUIPU, [[1, 2.5, 98, 23.6]]);
+  VIS('u1_1.4_8', 'text', QUIPU, [[1, 2.5, 98, 12]]);
+  VIS('u1_1.4_9', 'text', QUIPU, [[1, 29.4, 98, 24.8]]);
+
+  /* ---------- UNIT 2 ---------- */
+  VIS('u2_2.2_0', 'map', ['One empire across most of Asia', 'The spread of a single religion across South Asia', 'Ocean trade routes around the Indian subcontinent'], [[22, 27, 61, 37]]);
+
+  var RUBRUCK = ['A European visitor describing the Mongol capital', 'A Mongol khan describing the cities he has conquered', 'A Chinese official listing the taxes paid in Karakorum'];
+  VIS('u2_2.2_11', 'text', RUBRUCK, [[1, 1.8, 98, 9.8]]);
+  VIS('u2_2.2_12', 'text', RUBRUCK, [[1, 33.6, 98, 19.9]]);
+  VIS('u2_2.2_13', 'text', RUBRUCK, [[1, 1.8, 98, 20.4]]);
+  VIS('u2_2.2_14', 'text', RUBRUCK, [[1, 1.8, 98, 9.8]]);
+
+  var POLO = ['A Mongol khan warmly welcoming the Polos', 'A Mongol khan jailing European visitors as spies', 'The pope sending an army to attack the Mongols'];
+  VIS('u2_2.2_15', 'text', POLO, [[1, 0.7, 98, 6.8], [1, 52.4, 98, 6.8]]);
+  VIS('u2_2.2_16', 'text', POLO, [[1, 71.6, 98, 13.3]]);
+
+  var ATHIR = ['Invaders from China destroying Muslim cities', 'Muslim armies conquering cities on the border of China', 'Merchants from China founding new trading towns'];
+  VIS('u2_2.2_17', 'text', ATHIR, [[1, 1.8, 98, 9.8]]);
+  VIS('u2_2.2_18', 'text', ATHIR, [[1, 12.4, 98, 30.5]]);
+  VIS('u2_2.2_19', 'text', ATHIR, [[1, 33.1, 98, 39.8]]);
+
+  VIS('u2_2.2_20', 'text', IBN_CHINA, [[1, 9.2, 98, 16.1], [1, 49.4, 98, 16]]);
+  VIS('u2_2.2_21', 'text', IBN_CHINA, [[1, 1.1, 98, 16.1], [1, 25.4, 98, 8]]);
+  VIS('u2_2.2_22', 'text', IBN_CHINA, [[1, 25.4, 98, 8], [1, 41.3, 98, 15]]);
+
+  VIS('u2_2.3_2', 'map', ['Sea routes linking Africa, Arabia, India and China', 'Land routes linking Europe and China across the steppe', 'Portuguese routes around Africa to Indian Ocean ports'], [[21, 45, 18, 42], [71, 13, 26, 44]]);
+
+  var AFRICA = ['Caravan and sea trade routes across Africa', 'European colonies and their borders in Africa around 1900', 'The spread of Christian missions across the continent'];
+  VIS('u2_2.3_5', 'map', AFRICA, [[62, 52, 22, 30]]);
+  VIS('u2_2.4_5', 'map', AFRICA, [[26, 8, 40, 27]]);
+  VIS('u2_2.4_6', 'map', AFRICA, [[45, 52, 19, 26]]);
+
+  VIS('u2_2.3_6', 'map', BATAVIA, [[42, 23, 16, 14], [72, 85, 26, 9]]);
+
+  var ADEN = ['A traveler describing a busy Indian Ocean port', 'A sultan describing the army that defends his desert city', 'A farmer describing crops grown in the mountains of Yemen'];
+  VIS('u2_2.3_7', 'text', ADEN, [[1, 24.2, 98, 21.4]]);
+  VIS('u2_2.3_8', 'text', ADEN, [[1, 31.3, 98, 14.3], [1, 52.5, 98, 7.3]]);
+  VIS('u2_2.3_9', 'text', ADEN, [[1, 3.3, 98, 6]]);
+  VIS('u2_2.5_5', 'text', ADEN, [[1, 52.5, 98, 14]]);
+
+  VIS('u2_2.4_2', 'map', ['Desert caravan routes linking gold fields to the north', 'River trade routes along the Niger connecting fishing villages', 'Roman roads built across North Africa for marching armies'], [[42, 18, 9, 43], [17, 66, 17, 13]]);
+  VIS('u2_2.4_3', 'photo', ['A huge mosque built of mud brick', 'A European cathedral built of stone blocks', 'A royal palace built of wood and thatch'], [[32, 2, 18, 59]]);
+  VIS('u2_2.5_3', 'map', ['A walled city between two bodies of water', 'A small fishing village on an open river plain', 'A desert caravan town surrounded by sand dunes'], [[10, 12, 55, 15], [62, 12, 15, 58]]);
+
+  /* ---------- UNIT 3 ---------- */
+  var CANNON2 = ['Two armies using cannons to attack forts', 'Two armies signing a peace treaty outside a city', 'Two cities celebrating a royal wedding with parades'];
+  VIS('u3_3.1_0', 'art', CANNON2, [[23, 60, 33, 18, 0], [9, 31, 82, 13, 1]]);
+  VIS('u3_3.1_1', 'art', CANNON2, [[23, 60, 33, 18, 0], [9, 31, 82, 13, 1]]);
+  VIS('u3_3.4_0', 'art', CANNON2, [[57, 53, 23, 18, 1]]);
+
+  VIS('u3_3.1_2', 'map', ['Trade routes linking Europe, Africa and Asia', 'The borders of the empires of Europe and Asia in 1500', 'Ocean currents and winds used by European explorers'], [[26, 35, 14, 12]]);
+
+  var SADHUS = ['A Mughal official visiting Hindu holy men', 'A Mughal army destroying a Hindu temple in battle', 'A British officer meeting Sikh soldiers in Punjab'];
+  VIS('u3_3.1_3', 'art', SADHUS, []);
+  VIS('u3_3.3_11', 'art', SADHUS, []);
+  VIS('u3_3.4_3', 'art', SADHUS, [[62, 39, 15, 21], [41, 33, 18, 26]]);
+
+  var OTTOSIEGE = ['Ottoman sieges of Christian cities, with cannons', 'Christian armies driving the Ottomans out of Europe', 'Ottoman and European leaders signing a peace treaty'];
+  VIS('u3_3.1_4', 'art', OTTOSIEGE, [[86, 52, 14, 30, 0], [17, 43, 48, 16, 1]]);
+  VIS('u3_3.1_5', 'art', OTTOSIEGE, [[86, 52, 14, 30, 0], [17, 43, 48, 16, 1]]);
+  VIS('u3_3.1_6', 'art', OTTOSIEGE, [[12, 72, 82, 25, 1]]);
+
+  var ESZTERGOM = ['An Ottoman army with cannons besieging a city', 'A Habsburg army celebrating a victory parade at home', 'Peasants farming peacefully along a quiet river valley'];
+  VIS('u3_3.1_9', 'art', ESZTERGOM, [[10, 55, 52, 35]]);
+  VIS('u3_3.1_10', 'art', ESZTERGOM, [[41, 91, 58, 9]]);
+  VIS('u3_3.1_11', 'art', ESZTERGOM, [[54, 34, 34, 16]]);
+  VIS('u3_3.1_12', 'art', ESZTERGOM, [[10, 55, 52, 35], [54, 34, 34, 16]]);
+
+  var FRESCO1453 = ['Turkish forces attacking a walled Christian city', 'Crusader knights defending Jerusalem from an Arab army', 'A peaceful festival held inside a European capital'];
+  VIS('u3_3.1_13', 'art', FRESCO1453, [[21, 28, 18, 50]]);
+  VIS('u3_3.1_14', 'art', FRESCO1453, [[42, 20, 25, 30]]);
+  VIS('u3_3.1_15', 'art', FRESCO1453, [[21, 75, 64, 18]]);
+  VIS('u3_3.3_15', 'art', FRESCO1453, [[40, 8, 45, 40]]);
+
+  var SELIM = ['A Sunni sultan justifying action against a rival', 'A Shi’a shah asking the Ottoman sultan for an alliance', 'A scholar praising the friendship of two Muslim rulers'];
+  VIS('u3_3.1_16', 'text', SELIM, [[1, 43, 98, 24.9]]);
+  VIS('u3_3.3_16', 'text', SELIM, [[1, 4.1, 98, 24.9]]);
+  VIS('u3_3.3_17', 'text', SELIM, [[1, 17.3, 98, 11.7]]);
+
+  var DEVSHIRME = ['Ottoman officials taking boys from Christian families', 'Christian parents sending their sons off to a church school', 'A sultan handing out gifts to children at a festival'];
+  VIS('u3_3.2_2', 'art', DEVSHIRME, [[6, 45, 29, 24], [37, 70, 51, 28]]);
+  VIS('u3_3.2_3', 'art', DEVSHIRME, [[37, 70, 51, 28]]);
+  VIS('u3_3.2_4', 'art', DEVSHIRME, [[6, 45, 29, 24]]);
+
+  VIS('u3_3.2_7', 'art', ['A city of European-style palaces', 'A Russian village of wooden huts and churches', 'A Mongol camp of tents on an open steppe'], [[5, 42, 65, 23]]);
+
+  var BERNIER = ['A visitor on peoples the Mughals do not fully rule', 'A Mughal emperor boasting that every Indian prince obeys him', 'A Hindu rajah asking a French king to help him fight the Mughals'];
+  VIS('u3_3.2_8', 'text', BERNIER, [[1, 36.6, 98, 7], [1, 63.3, 98, 17.5]]);
+  VIS('u3_3.2_9', 'text', BERNIER, [[1, 19.2, 98, 24.4]]);
+  VIS('u3_3.3_12', 'text', BERNIER, [[1, 1.3, 98, 16.4]]);
+
+  var BUKE = ['Rules telling samurai to study and train', 'A shogun ordering samurai to invade Korea and China', 'Merchants asking the shogun to open new trading ports'];
+  VIS('u3_3.2_10', 'text', BUKE, [[1, 23, 98, 21.4]]);
+  VIS('u3_3.2_11', 'text', BUKE, [[1, 1.8, 98, 10], [1, 23, 98, 10.8]]);
+  VIS('u3_3.2_12', 'text', BUKE, [[1, 34.4, 98, 10]]);
+
+  var PRINCE = ['Advice that a ruler is safer being feared', 'A sermon telling a prince to rule with Christian love', 'A history of the wars between Florence and Venice'];
+  VIS('u3_3.2_13', 'text', PRINCE, [[1, 17.1, 98, 23.6]]);
+  VIS('u3_3.2_14', 'text', PRINCE, [[1, 1.1, 98, 14.9]]);
+  VIS('u3_3.2_15', 'text', PRINCE, [[1, 9.1, 98, 6.9]]);
+
+  var BUSBECQ = ['A diplomat describing Ottoman soldiers', 'A Janissary describing his capture as a Christian boy', 'A Hungarian noble describing a revolt against the Turks'];
+  VIS('u3_3.2_16', 'text', BUSBECQ, [[1, 1.1, 98, 19]]);
+  VIS('u3_3.2_17', 'text', BUSBECQ, [[1, 1.1, 98, 9.3], [1, 20.7, 98, 9.2]]);
+
+  var ZAMINDAR = ['A historian on local rulers paying the Mughals', 'A Mughal emperor’s order abolishing all local landlords', 'A zamindar’s diary describing his travels to Persia'];
+  VIS('u3_3.2_18', 'text', ZAMINDAR, [[1, 2.1, 98, 22.6]]);
+  VIS('u3_3.2_19', 'text', ZAMINDAR, [[1, 13.9, 98, 22.7]]);
+  VIS('u3_3.2_20', 'text', ZAMINDAR, [[1, 37.7, 98, 43.7]]);
+  VIS('u3_3.4_6', 'text', ZAMINDAR, [[1, 2.1, 98, 22.6]]);
+
+  var DUHALDE = ['Jesuit scholars and Chinese Christian converts', 'Chinese emperors and the officials of their court in Beijing', 'Buddhist monks teaching astronomy at a temple school'];
+  VIS('u3_3.3_5', 'art', DUHALDE, [[1, 3, 98, 42]]);
+  VIS('u3_3.3_6', 'art', DUHALDE, [[2, 13, 14, 25], [36, 49, 28, 40]]);
+
+  VIS('u3_3.3_10', 'photo', ['A huge stone gateway mixing two styles', 'A wooden Hindu temple carved with gods and animals', 'A European cathedral with tall towers and stained glass'], [[37, 66, 18, 25], [36, 48, 40, 8]]);
+
+  var LUTHER = ['A reformer attacking the pope’s claims to power', 'A pope defending his right to crown and depose kings', 'A prince asking the pope to approve his new laws'];
+  VIS('u3_3.3_13', 'text', LUTHER, [[1, 23.1, 98, 10.9], [1, 40.2, 98, 6.2]]);
+  VIS('u3_3.3_14', 'text', LUTHER, [[1, 11.9, 98, 11.9]]);
+
+  var GOLKONDA = ['A royal wedding procession on horseback', 'A funeral procession carrying a dead king to his tomb', 'An army marching out to war under royal umbrellas'];
+  VIS('u3_3.4_1', 'art', GOLKONDA, [[41, 24, 15, 38]]);
+  VIS('u3_3.4_2', 'art', GOLKONDA, [[41, 24, 15, 38]]);
+
+  /* ---------- UNIT 5 ---------- */
+  var HOBBES = ['A thinker arguing that all men are nearly equal', 'A king arguing that God chose him to rule over men', 'A general describing the battles of the English civil war'];
+  VIS('u5_5.1_6', 'text', HOBBES, [[1, 49.7, 98, 26.6]]);
+  VIS('u5_5.1_7', 'text', HOBBES, [[1, 3.1, 98, 13.7], [1, 49.7, 98, 13.6]]);
+  VIS('u5_5.1_8', 'text', HOBBES, [[1, 3.1, 98, 45.2]]);
+
+  var FATHERLAND = ['A song praising one united German land', 'A hymn praising a German king and his victories', 'A soldier’s song mourning friends lost in a war'];
+  VIS('u5_5.2_5', 'text', FATHERLAND, [[31, 59.5, 33, 29.4]]);
+  VIS('u5_5.2_6', 'text', FATHERLAND, [[31, 10.2, 33, 4.8], [31, 39.8, 33, 4.8]]);
+  VIS('u5_5.2_7', 'text', FATHERLAND, [[31, 10.2, 33, 9.8], [31, 39.8, 33, 4.8]]);
+
+  var HAITI = ['Enslaved people rising against colonists in 1791', 'French soldiers parading through a calm Caribbean town', 'Colonists and workers celebrating a harvest festival'];
+  VIS('u5_5.2_8', 'art', HAITI, [[35, 0, 32, 5], [40, 8, 22, 5]]);
+  VIS('u5_5.2_9', 'art', HAITI, [[40, 40, 32, 40]]);
+
+  var BOLIVAR = ['A creole leader on the fight for independence', 'A Spanish viceroy ordering rebels to lay down arms', 'An Indigenous leader asking Spain to protect his land'];
+  VIS('u5_5.2_10', 'text', BOLIVAR, [[1, 6.6, 98, 12.6]]);
+  VIS('u5_5.2_11', 'text', BOLIVAR, [[1, 72.7, 98, 12.5]]);
+  VIS('u5_5.2_12', 'text', BOLIVAR, [[1, 0.6, 98, 6.5]]);
+
+  var CONSTITUTIONS = ['Founding laws of two new nations', 'A peace treaty between Spain and its former colonies', 'Two letters from Spanish kings to their colonial viceroys'];
+  VIS('u5_5.2_13', 'text', CONSTITUTIONS, [[1, 36.1, 98, 6.4], [1, 75.7, 98, 3.9]]);
+  VIS('u5_5.2_14', 'text', CONSTITUTIONS, [[1, 4.5, 98, 5.9], [1, 60.8, 98, 6]]);
+  VIS('u5_5.2_15', 'text', CONSTITUTIONS, [[1, 31.2, 98, 5.9]]);
+  VIS('u5_5.2_16', 'text', CONSTITUTIONS, [[1, 80.7, 98, 13.3]]);
+
+  var LEEDS = ['Cloth workers protesting new machines', 'Factory owners asking Parliament for more machines', 'Merchants complaining that wool prices are too high'];
+  VIS('u5_5.3_5', 'text', LEEDS, [[1, 53.6, 98, 34.4]]);
+  VIS('u5_5.3_6', 'text', LEEDS, [[1, 18.8, 98, 17.3]]);
+  VIS('u5_5.3_7', 'text', LEEDS, [[1, 27.6, 98, 16.9]]);
+  VIS('u5_5.3_8', 'text', LEEDS, [[1, 18.8, 98, 8.5], [1, 71.1, 98, 16.9]]);
+
+  var JAPANCHARTS = ['Coal output and steamships in Japan soaring', 'Rice harvests and farm families in Japan shrinking', 'Silk exports from Japan falling year after year'];
+  VIS('u5_5.4_6', 'chart', JAPANCHARTS, [[40, 12, 51, 27], [62, 58, 32, 36]]);
+  VIS('u5_5.4_7', 'chart', JAPANCHARTS, [[40, 12, 51, 27], [62, 58, 32, 36]]);
+  VIS('u5_5.4_8', 'chart', JAPANCHARTS, [[40, 12, 51, 27], [62, 58, 32, 36]]);
+  VIS('u5_5.4_9', 'chart', JAPANCHARTS, [[62, 58, 32, 36]]);
+
+  var LOOMS = ['Women tending rows of power looms in a mill', 'A family spinning thread by hand in their cottage', 'Engineers testing a steam locomotive in a workshop'];
+  VIS('u5_5.5_5', 'art', LOOMS, [[60, 42, 37, 46]]);
+  VIS('u5_5.5_6', 'art', LOOMS, [[2, 40, 40, 45], [60, 42, 37, 46]]);
+
+  var BISMARCK = ['A chancellor on why workers feel insecure', 'A factory owner explaining why wages must be cut', 'A union leader calling on workers to go on strike'];
+  VIS('u5_5.8_5', 'text', BISMARCK, [[1, 4.3, 98, 25.5]]);
+  VIS('u5_5.8_6', 'text', BISMARCK, [[1, 57.8, 98, 23.2]]);
+  VIS('u5_5.8_7', 'text', BISMARCK, [[1, 31.4, 98, 25.5]]);
+
+  var SUFFRAGE = ['Two women’s rights activists making their case', 'Two men arguing that women should stay out of politics', 'Two factory owners describing their women workers'];
+  VIS('u5_5.9_5', 'text', SUFFRAGE, [[1, 7.8, 98, 8.1]]);
+  VIS('u5_5.9_6', 'text', SUFFRAGE, [[1, 59.4, 98, 8.9]]);
+  VIS('u5_5.9_7', 'text', SUFFRAGE, [[1, 31.4, 98, 4.4], [1, 59.4, 98, 12.2]]);
+
+  /* ---------- UNIT 6 ---------- */
+  var VICTORIA = ['Queen Victoria handing a Bible to an African ruler', 'An African king crowning a British queen in his own court', 'British soldiers taking an African chief prisoner in battle'];
+  VIS('u6_6.1_7', 'art', VICTORIA, [[40, 45, 20, 20]]);
+  VIS('u6_6.1_8', 'art', VICTORIA, [[36, 18, 40, 70]]);
+  VIS('u6_6.2_12', 'art', VICTORIA, [[70, 22, 10, 30]]);
+
+  var FERRY = ['A map of colonial Africa and a defense of empire', 'A map of African kingdoms and an African king’s speech', 'A map of trade routes and a merchant’s list of goods'];
+  VIS('u6_6.1_9', 'map', FERRY, [[1, 72.8, 98, 3.7], [1, 79.4, 98, 3.7]]);
+  VIS('u6_6.2_13', 'map', FERRY, [[30, 16, 30, 16]]);
+  VIS('u6_6.5_5', 'map', FERRY, [[18, 9, 62, 53]]);
+  VIS('u6_6.2_14', 'chart', JAPANCHARTS, [[62, 58, 32, 36]]);
+
+  var AUCLERT = ['A feminist on French rule blocking girls’ schools', 'A French governor praising the new schools he opened', 'An Algerian father asking France to close girls’ schools'];
+  VIS('u6_6.2_15', 'text', AUCLERT, [[1, 2.3, 98, 24]]);
+  VIS('u6_6.2_16', 'text', AUCLERT, [[1, 14.9, 98, 11.4]]);
+  VIS('u6_6.3_5', 'text', AUCLERT, [[1, 52.8, 98, 21.3]]);
+
+  VIS('u6_6.2_17', 'text', RODNEY, [[1, 42.3, 98, 26]]);
+
+  var ZULULETTER = ['A settler describing his losses in a war', 'A Zulu chief describing an attack on his village', 'A British general reporting a victory to the Queen'];
+  VIS('u6_6.2_18', 'text', ZULULETTER, [[1, 41.8, 98, 23.4]]);
+  VIS('u6_6.2_19', 'text', ZULULETTER, [[1, 2.5, 98, 25.1]]);
+  VIS('u6_6.2_20', 'text', ZULULETTER, [[1, 2.5, 98, 25.1]]);
+  VIS('u6_6.3_6', 'text', ZULULETTER, [[1, 2.5, 98, 25.1]]);
+  VIS('u6_6.3_7', 'text', ZULULETTER, [[1, 29.1, 98, 24.5]]);
+
+  var SHIMONOSEKI = ['A treaty where China gives up land to Japan', 'A treaty where Japan pays China for lost ships', 'A trade deal opening Korean ports to Western ships'];
+  VIS('u6_6.2_21', 'text', SHIMONOSEKI, [[1, 51, 98, 23.2]]);
+  VIS('u6_6.2_22', 'text', SHIMONOSEKI, [[1, 62.3, 98, 11.9]]);
+  VIS('u6_6.2_23', 'text', SHIMONOSEKI, [[1, 22.9, 98, 16.8], [1, 51, 98, 11.8]]);
+
+  var GATE = ['A Chinese man shut out of America’s gate', 'A Chinese man welcomed by cheering American crowds', 'American workers marching to protest new factories'];
+  VIS('u6_6.7_5', 'art', GATE, [[43, 24, 48, 58]]);
+  VIS('u6_6.7_6', 'art', GATE, [[33, 38, 15, 14]]);
+  VIS('u6_6.7_7', 'art', GATE, [[44, 56, 15, 19], [70, 66, 20, 15]]);
+  VIS('u6_6.7_8', 'art', GATE, [[33, 16, 15, 25]]);
+
+  /* ---------- UNIT 7 ---------- */
+  var ABDICATE = ['A tsar giving up power and Lenin calling for revolt', 'A tsar crushing a revolt and Lenin asking for his pardon', 'Two generals planning the next attack on Germany together'];
+  VIS('u7_7.1_6', 'text', ABDICATE, [[1, 7, 98, 8.1]]);
+  VIS('u7_7.1_7', 'text', ABDICATE, [[1, 69, 98, 4.6], [1, 79.8, 98, 4.6]]);
+
+  var SOVPOSTER = ['Lenin and Stalin above new Soviet factories', 'A Russian tsar blessing his army before a battle', 'American workers building a new skyscraper in New York'];
+  VIS('u7_7.3_4', 'art', SOVPOSTER, [[5, 72, 50, 10], [5, 5, 50, 40]]);
+  VIS('u7_7.3_5', 'art', SOVPOSTER, [[42, 12, 55, 45]]);
+  VIS('u7_7.3_6', 'art', SOVPOSTER, [[5, 5, 50, 40], [52, 48, 45, 32]]);
+
+  var STALIN31 = ['Stalin urging Soviet industry to speed up', 'Stalin announcing the end of all Soviet factory plans', 'A tsar describing his victories over Mongols and Turks'];
+  VIS('u7_7.4_6', 'text', STALIN31, [[1, 0.7, 98, 6.8], [1, 78.1, 98, 6]]);
+  VIS('u7_7.4_7', 'text', STALIN31, [[1, 58.6, 98, 13.3]]);
+  VIS('u7_7.4_8', 'text', BISMARCK, [[1, 31.4, 98, 25.5]]);
+
+  var BERRYMAN = ['Mussolini boasting as Hitler carries off a prize', 'Mussolini and Hitler shaking hands at a peace conference', 'Hitler bowing to Mussolini as the leader of Europe'];
+  VIS('u7_7.5_5', 'art', BERRYMAN, [[37, 35, 19, 63], [54, 10, 32, 74]]);
+  VIS('u7_7.6_8', 'art', BERRYMAN, [[68, 33, 10, 19]]);
+  VIS('u7_7.6_9', 'art', BERRYMAN, [[37, 35, 19, 63]]);
+  VIS('u7_7.8_5', 'art', BERRYMAN, [[37, 17, 13, 14], [46, 93, 22, 5]]);
+
+  var GANDHI21 = ['Gandhi urging calm protest and a cloth boycott', 'Gandhi calling for an armed uprising against the British', 'A British governor ordering Indians to buy English cloth'];
+  VIS('u7_7.5_6', 'text', GANDHI21, [[1, 48.4, 98, 17]]);
+  VIS('u7_7.5_7', 'text', GANDHI21, [[1, 42.8, 98, 17.3], [1, 76, 98, 6.1]]);
+  VIS('u7_7.5_8', 'text', GANDHI21, [[1, 59.3, 98, 10.7]]);
+
+  var DIKTAT = ['Hitler attacking Versailles and Churchill vowing to fight', 'Hitler praising Versailles and Churchill offering a peace deal', 'Two leaders signing a treaty to end the war in Europe in 1940'];
+  VIS('u7_7.6_10', 'text', DIKTAT, [[1, 20.9, 98, 15.3]]);
+  VIS('u7_7.6_11', 'text', DIKTAT, [[1, 69.9, 98, 11.3]]);
+  VIS('u7_7.6_12', 'text', STALIN31, [[1, 7.2, 98, 19.8]]);
+
+  var JAPANGDP = ['Japan’s economy rising, crashing and recovering', 'Japan’s population shrinking steadily from 1934 to 1955', 'Japan’s exports to the US rising every single year'];
+  VIS('u7_7.6_13', 'table', JAPANGDP, [[29, 37, 68, 30]]);
+  VIS('u7_7.6_14', 'table', JAPANGDP, [[29, 57, 68, 30]]);
+
+  var OLERE = ['A camp prisoner sorting food left by the dead', 'A soldier sharing his rations with hungry children', 'A farmer gathering bread and fruit after a harvest'];
+  VIS('u7_7.7_0', 'art', OLERE, [[45, 42, 26, 48]]);
+  VIS('u7_7.7_1', 'art', OLERE, [[29, 42, 18, 24]]);
+  VIS('u7_7.7_2', 'art', OLERE, [[32, 52, 16, 10]]);
+
+  var POSTER1917 = ['Soviet soldiers marching under the year 1917', 'Russian peasants harvesting wheat in the year 1917', 'Tsarist soldiers parading for the Tsar’s coronation'];
+  VIS('u7_7.8_6', 'art', POSTER1917, [[34, 17, 30, 15]]);
+  VIS('u7_7.8_7', 'art', POSTER1917, [[27, 38, 46, 54]]);
+  VIS('u7_7.8_8', 'art', POSTER1917, [[27, 5, 47, 13]]);
+
+  /* ---------- UNIT 8 ---------- */
+  var U2 = ['Two leaders blaming each other over spy flights', 'Two leaders announcing a new treaty to ban nuclear tests', 'Two generals planning a joint attack on a common enemy'];
+  VIS('u8_8.2_6', 'text', U2, [[1, 31.4, 98, 8.9]]);
+  VIS('u8_8.2_7', 'text', U2, [[1, 11.6, 98, 4.3], [1, 79.1, 98, 4.9]]);
+  VIS('u8_8.2_8', 'text', U2, [[1, 19.6, 98, 8.9], [1, 83.1, 98, 4.9]]);
+  VIS('u8_8.2_9', 'text', U2, [[1, 43.3, 98, 8.9]]);
+  VIS('u8_8.2_10', 'text', STALIN31, [[1, 7.2, 98, 19.8]]);
+
+  var NATO = ['A treaty where allies promise to defend each other', 'A treaty dividing Germany into four zones after the war', 'A trade deal cutting tariffs between Europe and America'];
+  VIS('u8_8.2_11', 'text', NATO, [[1, 51.8, 98, 9.8]]);
+  VIS('u8_8.2_12', 'text', NATO, [[1, 66, 98, 10]]);
+  VIS('u8_8.2_13', 'text', NATO, [[1, 66, 98, 10]]);
+
+  VIS('u8_8.3_6', 'table', JAPANGDP, [[29, 77, 68, 21]]);
+  VIS('u8_8.3_7', 'table', JAPANGDP, [[70, 37, 27, 10], [70, 87, 27, 10]]);
+
+  var HOPROGRAM = ['A communist program for an independent Vietnam', 'A French plan to keep ruling Indochina as a colony', 'A royal decree from the emperor of Vietnam to his court'];
+  VIS('u8_8.4_6', 'text', HOPROGRAM, [[1, 30.3, 98, 17.3]]);
+  VIS('u8_8.5_11', 'text', HOPROGRAM, [[1, 12.5, 98, 6.5], [1, 59.9, 98, 12.5]]);
+
+  var LEAP = ['Workers, farmers and soldiers charging forward', 'Chinese emperors and nobles riding in a royal parade', 'Fishermen pulling their boats ashore during a storm'];
+  VIS('u8_8.4_7', 'art', LEAP, [[20, 22, 16, 58], [50, 18, 34, 47]]);
+  VIS('u8_8.4_8', 'art', LEAP, [[33, 40, 17, 25]]);
+  VIS('u8_8.4_9', 'art', LEAP, [[33, 40, 17, 25], [33, 17, 13, 9]]);
+  VIS('u8_8.4_10', 'art', LEAP, [[20, 22, 16, 58], [50, 18, 34, 47]]);
+
+  var ANTHEM = ['A national anthem praising a land of faith', 'A protest song attacking British rule over all of India', 'A hymn praising the Mughal emperors of the past'];
+  VIS('u8_8.5_7', 'text', ANTHEM, [[31, 22.2, 36, 5.1], [31, 38.7, 36, 6.1]]);
+  VIS('u8_8.5_8', 'text', ANTHEM, [[31, 22.2, 36, 5.1], [31, 66, 36, 5.1]]);
+  VIS('u8_8.5_9', 'text', ANTHEM, [[31, 22.2, 36, 5.1]]);
+  VIS('u8_8.5_10', 'text', ANTHEM, [[31, 22.2, 36, 5.1], [31, 66, 36, 5.1]]);
+  VIS('u8_8.5_12', 'text', GANDHI21, [[1, 59.3, 98, 10.7]]);
+
+  var FANON = ['A writer describing colonies ruled by force', 'A colonial governor praising the peace kept by his police', 'A missionary describing schools built in the colonies'];
+  VIS('u8_8.5_13', 'text', FANON, [[1, 13.9, 98, 22.7], [1, 37.7, 98, 10.7]]);
+  VIS('u8_8.5_14', 'text', FANON, [[1, 2.1, 98, 22.6]]);
+  VIS('u8_8.5_15', 'text', FANON, [[1, 2.1, 98, 9.2]]);
+  VIS('u8_8.5_16', 'text', FANON, [[1, 2.1, 98, 22.6]]);
+  VIS('u8_8.6_9', 'text', FANON, [[1, 2.1, 98, 9.2]]);
+
+  var MANDELA = ['Mandela demanding equal rights for all', 'Mandela asking the government to keep races apart', 'A white official defending the laws of South Africa'];
+  VIS('u8_8.7_6', 'text', MANDELA, [[1, 0.8, 98, 13.7]]);
+  VIS('u8_8.7_7', 'text', MANDELA, [[1, 0.8, 98, 6.9]]);
+  VIS('u8_8.7_8', 'text', MANDELA, [[1, 0.8, 98, 6.9]]);
+  VIS('u8_8.7_9', 'text', MANDELA, [[1, 34.2, 98, 13.7]]);
+  VIS('u8_8.7_10', 'text', MANDELA, [[1, 27.4, 98, 13.8]]);
+
+  /* ---------- UNIT 9 ---------- */
+  var NOWGLF = ['Two groups calling for equality of the sexes', 'Two groups defending traditional roles for men and women', 'Two unions demanding higher wages for factory workers'];
+  VIS('u9_9.5_6', 'text', NOWGLF, [[1, 61.7, 98, 8.3]]);
+  VIS('u9_9.5_7', 'text', NOWGLF, [[1, 7, 98, 8.2], [1, 32.1, 98, 4.6]]);
+  VIS('u9_9.5_8', 'text', NOWGLF, [[1, 58.1, 98, 8.3]]);
+  VIS('u9_9.5_9', 'text', NOWGLF, [[1, 10.5, 98, 4.7], [1, 58.1, 98, 4.6]]);
+  VIS('u9_9.8_6', 'text', NATO, [[1, 4.8, 98, 10]]);
 })(window.WALKTHROUGH);

@@ -46,6 +46,8 @@
       '#mc-bar nav a{color:#fff;text-decoration:none;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:8px 4px}' +
       '#mc-bar nav a:hover{color:#d8f13a;border-bottom-color:#d8f13a}' +
       '#mc-bar nav a.here{color:#111a3f;background:#d8f13a;padding:8px 9px}' +
+      '#mc-bar nav a.meet{border:2px solid #d8f13a;color:#d8f13a;padding:6px 9px}' +
+      '#mc-bar nav a.meet:hover{background:#d8f13a;color:#111a3f}' +
       // Reset .dd fully: some pages (writing-guide.html) define their own .dd grid.
       '#mc-bar .dd{position:relative;display:block;margin:0;padding:0;gap:0}' +
       '#mc-bar .dd-t{font:inherit;color:#fff;background:none;border:none;cursor:pointer;font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;border-bottom:2px solid transparent;padding:8px 4px;display:inline-flex;align-items:center;gap:5px}' +
@@ -68,11 +70,13 @@
       '.top-bar .top-bar-title{font-size:1rem!important}' +
       '.top-bar .top-bar-sub{display:none!important}' +
       '.subtab-bar{top:' + (H + 44) + 'px!important}' +
+      '@media(max-width:860px){#mc-bar .mt-long{display:none}}' +
       '@media(max-width:760px){#mc-bar .mcb-brand{display:none}}' +
       '@media(max-width:620px){#mc-bar{gap:6px;padding:0 12px}#mc-bar nav{gap:12px}' +
         '#mc-bar .mcb-back{font-size:.56rem;padding:8px 10px;gap:4px}' +
         '#mc-bar nav a,#mc-bar .dd-t{font-size:.64rem;padding:7px 3px}' +
-        '#mc-bar nav a.here,#mc-bar .dd.has-here .dd-t{padding:7px 7px}}';
+        '#mc-bar nav a.here,#mc-bar .dd.has-here .dd-t{padding:7px 7px}' +
+        '#mc-bar nav a.meet{padding:5px 7px}#mc-bar .mt-long{display:none}}';
     document.head.appendChild(st);
 
     var here = location.pathname.replace(/^.*\//, '');
@@ -84,6 +88,8 @@
         '<button type="button" class="dd-t">' + label + ' <span class="cv">&#9662;</span></button>' +
         '<div class="dd-m">' + menu + '</div></div>';
     }
+    // Before-school sign-up form (Microsoft Forms); also linked on index.html.
+    var MEET_URL = 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kUCzKuD7l0efJ6poJywNJXQfXJB4Ba5FnE54OVSB00NUQzRPRU5XNjZVMTA4R1o3OEtETUs4NksxQS4u';
     var bar = document.createElement('header'); bar.id = 'mc-bar';
     bar.innerHTML =
       '<div class="mcb-left">' +
@@ -94,6 +100,7 @@
         '<a href="./#units">Units</a>' +
         group('How to', [['sbmcq.html', 'How to Stimulus MCQ'], ['brain-sculptor.html', 'How to Study'], ['writing-guide.html', 'How to Write']]) +
         group('Review', [['resources.html', 'Resources'], ['cumulative.html', 'Cumulative'], ['fullcourse.html', 'Narrative']]) +
+        '<a class="meet" href="' + MEET_URL + '" target="_blank" rel="noopener" title="Sign up to see Mr. Tivin before school">Meet<span class="mt-long"> with Mr. Tivin</span></a>' +
       '</nav>';
     document.body.insertBefore(bar, document.body.firstChild);
 

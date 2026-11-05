@@ -153,6 +153,12 @@
       '.mx-full .mcqx-body:not(.mcqx-all) .mcqx-split{height:100%}',
       '.mx-full .mcqx-body:not(.mcqx-all) .mcqx-left,.mx-full .mcqx-body:not(.mcqx-all) .mcqx-right{position:static;height:100%;max-height:none;overflow:auto}',
       '.mx-full .mcqx-foot{margin-top:0;flex-shrink:0}',
+      /* Work Through It: the walkthrough card fills the page and scrolls on its own */
+      '.mx-full .mcqx-body:not(.mcqx-all) .mcqx-page.mx-wkp.mx-on{overflow:auto;padding-bottom:18px}',
+      '.mcqx-wk{max-width:1500px;margin:0 auto}.mcqx-wk .wk{margin:0}',
+      '.mcqx-wk .wk-summary,.mcqx-wk .wk-modes{display:none}',
+      '.mx-wkp .mcqx-qhead{max-width:1500px;margin-left:auto;margin-right:auto}',
+      '.mx-wkhint{font-family:Lato,system-ui,sans-serif;font-size:.78rem;color:var(--mx-mut);margin-left:auto}',
       '@media (max-width:820px){.mcqx-split{grid-template-columns:minmax(0,1fr)}.mcqx-left{position:static;max-height:none;overflow:visible;border-right:none;border-bottom:3px solid var(--mx-line);padding:0 0 16px;margin-bottom:16px}.mcqx-right{padding:0 0 18px}',
       '.mx-full .mcqx-body:not(.mcqx-all){overflow:auto;display:block}.mx-full .mcqx-body:not(.mcqx-all) .mcqx-split{height:auto}',
       '.mx-full .mcqx-body:not(.mcqx-all) .mcqx-left,.mx-full .mcqx-body:not(.mcqx-all) .mcqx-right{height:auto;overflow:visible}}',
@@ -416,7 +422,7 @@
     ctx.hideIntro();
     ctx.setFull(ctx.full);
     ctx.titleEl.textContent = label || 'Questions';
-    ctx.scoreEl.classList.toggle('mcqx-hidden', mode !== 'quick');
+    ctx.scoreEl.classList.toggle('mcqx-hidden', mode === 'test');
 
     var flagged = [];                      // "Mark for Review" bookmarks
     var footHTML = '<div class="mx-fl">' + (mode === 'test' ? '<button type="button" class="mcqx-reveal">Reveal All &amp; Score</button>' : '') +
@@ -464,7 +470,7 @@
       var n = answered.filter(function (v) { return v != null; }).length;
       ctx.progEl.textContent = n + ' of ' + qs.length + ' answered';
       ctx.pbarF.style.width = qs.length ? (n / qs.length * 100) + '%' : '0%';
-      if (mode === 'quick') {
+      if (mode !== 'test') {
         var right = 0, done = 0;
         qs.forEach(function (o, i) { if (graded[i]) { done++; if (answered[i] === o.q.c) right++; } });
         ctx.scoreEl.textContent = right + ' / ' + done;
@@ -490,15 +496,15 @@
       nav.querySelectorAll('.mcqx-navb').forEach(function (b) {
         var i = +b.dataset.n, a = answered[i] != null, ok = a && answered[i] === qs[i].q.c, st = '';
         if (revealed) st = !a ? 'mx-blank' : ok ? 'mx-ok' : 'mx-bad';
-        else if (mode === 'quick' && graded[i]) st = ok ? 'mx-ok' : 'mx-bad';
+        else if (mode !== 'test' && graded[i]) st = ok ? 'mx-ok' : 'mx-bad';
         else if (a) st = 'mx-ans' + (calib && !conf[i] ? ' mx-noconf' : '');
         b.className = 'mcqx-navb ' + st + (!all && i === cur ? ' mx-cur' : '') + (flagged[i] ? ' mx-flag' : '');
         b.title = 'Question ' + (i + 1) + (revealed ? (!a ? ': left blank' : ok ? ': correct' : ': missed')
-          : (mode === 'quick' && graded[i]) ? (ok ? ': correct' : ': missed') : a ? (calib && !conf[i] ? ': answered, needs a confidence tap' : ': answered') : ': not answered yet') +
+          : (mode !== 'test' && graded[i]) ? (ok ? ': correct' : ': missed') : a ? (calib && !conf[i] ? ': answered, needs a confidence tap' : ': answered') : ': not answered yet') +
           (flagged[i] ? ' (marked for review)' : '');
       });
       var lbl = nav.querySelector('.mx-nl');
-      lbl.innerHTML = '<b>Questions</b>' + (revealed || mode === 'quick'
+      lbl.innerHTML = '<b>Questions</b>' + (revealed || mode !== 'test'
         ? 'Green = correct &middot; red = missed' + (revealed ? ' &middot; dashed = left blank' : '')
         : 'Dark = answered &middot; red dot = still needs a confidence tap') +
         ' &middot; red corner = marked for review &middot; tap a number to jump to it';
@@ -561,8 +567,55 @@
         (a && calib && conf[i] ? ' &middot; You felt: <b>' + CONF_LBL[conf[i]] + '</b>' : '') + '</span>';
     }
 
+    /* ---- Work Through It: each question is its walkthrough card (sbmcq.js) in Work it.
+       The student makes each step's call (source line, question type, plain English, answer);
+       the answer pick is recorded by sbmcq.js through SPACED and reported here with a
+       wk:answer event, which scores the set and colors the question map. */
+    function renderWork() {
+      var h = '';
+      qs.forEach(function (o, i) {
+        var id = itemIdFor(o.ref);
+        var card = (window.SBMCQ && SBMCQ.card) ? SBMCQ.card(id) : '';
+        h += '<div class="mcqx-page mx-wkp" data-p="' + i + '"><div class="mcqx-qhead"><span class="mcqx-qbox">' + (i + 1) + '</span>' +
+             '<button type="button" class="mcqx-flag" data-i="' + i + '" aria-pressed="false">' +
+             '<svg viewBox="0 0 14 18" aria-hidden="true"><path d="M1 1h12v16l-6-4.5L1 17z"/></svg><span>Mark for Review</span></button>' +
+             '<span class="mx-wkhint">Make the call at each step, then see the reasoning.</span></div>' +
+             (card ? '<div class="sbmcq-root mcqx-wk" data-i="' + i + '">' + card + '</div>'
+                   : '<div class="mcqx-gap">This question has no walkthrough yet. Try it in Quick Check.</div>') + '</div>';
+      });
+      ctx.body.classList.remove('mcqx-all');
+      ctx.body.innerHTML = h;
+      ctx.body.querySelectorAll('.mcqx-wk').forEach(function (el) { SBMCQ.wire(el); });
+      ctx.body.querySelectorAll('.mcqx-flag').forEach(function (b) {
+        b.addEventListener('click', function () { toggleFlag(+this.dataset.i); });
+      });
+      ctx.session.querySelectorAll('.mcqx-navb').forEach(function (b) {
+        b.addEventListener('click', function () { goTo(+this.dataset.n); });
+      });
+      if (!ctx.body._wkListen) {
+        ctx.body._wkListen = true;
+        ctx.body.addEventListener('wk:answer', function (e) { if (ctx.onWkAnswer) ctx.onWkAnswer(e); });
+      }
+      ctx.onWkAnswer = function (e) {
+        var box = e.target.closest && e.target.closest('.mcqx-wk');
+        if (!box) return;
+        var i = +box.dataset.i;
+        if (graded[i]) return;
+        answered[i] = e.detail.j; graded[i] = true;
+        // sbmcq.js already wrote the SPACED review; keep the legacy log and lastSeen in step.
+        recordAnswer(qs[i].ref, qs[i].q, e.detail.j, e.detail.ok, null);
+        APWH.markSeen([String(qs[i].ref.unit)]);
+        progress();
+      };
+      gateLeft = qs.map(function () { return 0; });
+      showPage(0);
+      clearInterval(ctx.gateTimer);
+      progress();
+    }
+
     function render() {
-      var h = '<div class="mcqx-summary mcqx-hidden" id="' + ctx.uid + '-sum"></div>' + navHTML(' mx-inline');
+      if (mode === 'work') { renderWork(); return; }
+      var h ='<div class="mcqx-summary mcqx-hidden" id="' + ctx.uid + '-sum"></div>' + navHTML(' mx-inline');
       // Questions that share a source in a row form a set: "Questions 1 through 3 refer to the following."
       var setEnd = [];
       for (var k = qs.length - 1; k >= 0; k--) setEnd[k] = (k < qs.length - 1 && qs[k + 1].q.s === qs[k].q.s) ? setEnd[k + 1] : k;
@@ -965,6 +1018,7 @@
       h += '<div class="mcqx-modebar"><span class="mx-lbl">Mode</span>' +
            '<button type="button" class="mcqx-modebtn" data-mode="quick">&#9889; Quick Check</button>' +
            '<button type="button" class="mcqx-modebtn" data-mode="test">&#128221; Test Mode</button>' +
+           (window.SBMCQ && SBMCQ.card ? '<button type="button" class="mcqx-modebtn" data-mode="work">&#129517; Work Through It</button>' : '') +
            '<div class="mcqx-modehint"></div></div>';
     }
     h += '<div class="mcqx-topics">';
@@ -984,6 +1038,8 @@
       var hint = ctx.home.querySelector('.mcqx-modehint');
       if (hint) hint.textContent = ctx.mode === 'test'
         ? 'Test Mode: answer the whole set, commit your confidence, and see nothing until you write a line on your misses and Unlock, closest to real exam conditions.'
+        : ctx.mode === 'work'
+        ? 'Work Through It: go step by step on every question. Read the source line, name the question type, put it in plain English, then pick your answer and see the trap.'
         : 'Quick Check: pick an answer, commit how sure you are, then get instant right/wrong, the confidence tap is what builds calibration.';
     }
     syncMode();

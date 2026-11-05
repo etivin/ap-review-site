@@ -1184,6 +1184,8 @@
       var id = card.getAttribute('data-id');
       // The final pick is a real answer to a bank question, so it counts like one from MCQ Practice.
       if (id && window.SPACED && SPACED.recordReview) SPACED.recordReview(id, ok, null);
+      // MCQ Practice's "Work Through It" mode listens for this to score the question.
+      try { card.dispatchEvent(new CustomEvent('wk:answer', { bubbles: true, detail: { id: id, ok: ok, j: +j } })); } catch (e) {}
     }
     setStep(card, posOf(card));
   }
@@ -1317,7 +1319,10 @@
   }
   window.SBMCQ = {
     has: function (id) { return !!(window.WALKTHROUGH && window.WALKTHROUGH[id]); },
-    open: openModal
+    open: openModal,
+    // card(id): one bank walkthrough, open in Work it; wire(el) makes the cards inside el work.
+    card: function (id) { var ex = fromBank(id); return ex ? cardHTML(ex, true, 'work') : ''; },
+    wire: function (el) { wire(el); }
   };
 
   window.renderCheatsheet = renderCheatsheet;

@@ -250,6 +250,27 @@ body{line-height:1.6}
 .lens-q li{position:relative;padding-left:17px;font-size:calc(.86rem*var(--fit,1));line-height:1.5;color:#eef1ff}
 .lens-q li::before{content:"\203A";position:absolute;left:0;top:-1px;color:var(--lime);font-weight:700}
 .lens-q .norm{display:inline-block;background:var(--lime);color:var(--navy);font-weight:700;font-size:calc(.58rem*var(--fit,1));letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;margin-right:6px;vertical-align:baseline}
+/* midterm results graphic (news slide) */
+.vote-chart{margin:14px 0 0;padding:10px 14px 8px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.vc-key,.vote-chart figcaption{grid-column:1/-1}
+.vote-chart .vc-group + .vc-group{margin-top:0}
+@media(max-width:560px){.vote-chart{grid-template-columns:1fr}.vote-chart .vc-group + .vc-group{margin-top:10px}}
+.vc-key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:calc(.66rem*var(--fit,1));color:#dbe2ff;margin-bottom:8px}
+.vc-key span{display:inline-flex;align-items:center;gap:6px}
+.vc-key i{display:inline-block;width:11px;height:11px}
+.vc-group + .vc-group{margin-top:10px}
+.vc-title{font-weight:900;font-size:calc(.78rem*var(--fit,1));color:#fff;margin-bottom:4px}
+.vc-title em{font-style:normal;font-weight:400;color:#b8c2ea;font-size:.85em;margin-left:6px}
+.vc-row{display:grid;grid-template-columns:52px 1fr;align-items:center;gap:8px;margin-top:4px}
+.vc-lab{font-size:calc(.62rem*var(--fit,1));text-transform:uppercase;letter-spacing:.08em;color:#b8c2ea}
+.vc-bar{position:relative;display:flex;height:calc(20px*var(--fit,1))}
+.vc-bar b{display:flex;align-items:center;justify-content:center;font-size:calc(.68rem*var(--fit,1));font-weight:900;color:#0b1130;overflow:hidden;white-space:nowrap}
+.vc-bar::after{content:"";position:absolute;left:var(--maj);top:-4px;bottom:-4px;width:2px;background:#fff;box-shadow:0 0 0 1px var(--navy)}
+.vc-d{background:#7aa2ff}
+.vc-r{background:#ff684c}
+.vc-u{background:repeating-linear-gradient(135deg,#8a93b8 0 4px,#5d6690 4px 8px)}
+.vc-bar .vc-u{color:#fff}
+.vote-chart figcaption{margin-top:8px;font-size:calc(.6rem*var(--fit,1));color:#b8c2ea;line-height:1.45}
 .news-dots{display:flex;gap:8px;align-items:center}
 .news-src{color:#b8c2ea}
 /* tools + units */
@@ -491,113 +512,111 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
     <div class="slides">
       <article class="slide active">
         <div>
-          <h2>Americans vote in the midterm elections one week from today.</h2>
-          <p>On November 3, voters choose all 435 members of the U.S. House, 35 senators (including special elections in Florida and Ohio), and governors in 36 states. Midterms fall halfway through a president&rsquo;s four-year term, and early voting is already underway in many states, including Ohio.</p>
-          <p>Republicans now hold narrow majorities in both chambers: 218 to 214 in the House, with two seats vacant, and 53 to 47 in the Senate, counting two independents who vote with Democrats. Surveys show the cost of living, including gas, housing, and health care, is voters&rsquo; top concern.</p>
+          <h2>Democrats win control of the House and Senate in the midterm elections.</h2>
+          <p>In the November 3 midterms, Democrats flipped seven Senate seats (Texas, South Carolina, Maine, North Carolina, Ohio, Iowa, and Kansas), and won dozens of Republican-held House districts. Senate totals count the independents who vote with Democrats.</p>
+          <p>In Ohio, Democrat Amy Acton defeated Vivek Ramaswamy to become the first woman elected governor in state history. Senate races in Alaska and Mississippi are still too close to call, and Alaska&rsquo;s ranked-choice count is set for November 18. The new Congress takes office in January.</p>
+          <figure class="vote-chart" aria-label="Seats before and after the 2026 midterms">
+            <div class="vc-key"><span><i class="vc-d"></i>Democrats</span><span><i class="vc-r"></i>Republicans</span><span><i class="vc-u"></i>Not yet called or vacant</span></div>
+            <div class="vc-group">
+              <div class="vc-title">Senate <em>100 seats &middot; 51 for a majority</em></div>
+              <div class="vc-row"><span class="vc-lab">Before</span><div class="vc-bar" style="--maj:51%"><b class="vc-d" style="width:47%">47</b><b class="vc-r" style="width:53%">53</b></div></div>
+              <div class="vc-row"><span class="vc-lab">After</span><div class="vc-bar" style="--maj:51%"><b class="vc-d" style="width:54%">54</b><b class="vc-u" style="width:2%"></b><b class="vc-r" style="width:44%">44</b></div></div>
+            </div>
+            <div class="vc-group">
+              <div class="vc-title">House <em>435 seats &middot; 218 for a majority</em></div>
+              <div class="vc-row"><span class="vc-lab">Before</span><div class="vc-bar" style="--maj:50.1%"><b class="vc-d" style="width:49.2%">214</b><b class="vc-u" style="width:0.7%"></b><b class="vc-r" style="width:50.1%">218</b></div></div>
+              <div class="vc-row"><span class="vc-lab">After</span><div class="vc-bar" style="--maj:50.1%"><b class="vc-d" style="width:56.8%">247</b><b class="vc-u" style="width:8%">35</b><b class="vc-r" style="width:35.2%">153</b></div></div>
+            </div>
+            <figcaption>AP race calls as of midday Nov. 5, 2026. The white line marks a majority. Totals will change as counting finishes.</figcaption>
+          </figure>
         </div>
         <aside class="lens">
           <b>AP World lens &middot; Unit 5 &amp; 9</b>
-          <p>Choosing lawmakers in regular, scheduled elections is an Enlightenment idea that spread around the world after 1750.</p>
+          <p>Midterms let voters check the president&rsquo;s power halfway through a term, an idea rooted in Enlightenment arguments for separated powers.</p>
           <ul class="lens-q">
-            <li>How did Enlightenment thinkers such as Locke and Montesquieu shape the idea of elected legislatures and separated powers?</li>
-            <li><span class="norm">Normative</span> Should voting be required by law, as it is in Australia and Brazil, or should it stay a free choice?</li>
-            <li>How has the question of who is allowed to vote changed since the 1700s, when many places limited voting to men who owned property?</li>
+            <li>How did Montesquieu&rsquo;s idea of separated powers shape the U.S. Constitution and the constitutions written in Latin America after independence?</li>
+            <li><span class="norm">Normative</span> Should a party that wins Congress use its power to block the president&rsquo;s agenda, or look for compromise?</li>
+            <li>How does a peaceful change of power in a legislature compare to how power changed hands in the absolute monarchies of the 1600s and 1700s?</li>
           </ul>
         </aside>
       </article>
       <article class="slide">
         <div>
-          <h2>Microsoft offers voluntary buyouts to about 60,000 employees.</h2>
-          <p>On October 26, Microsoft offered exit packages to selected teams in the U.S., Canada, India, and the U.K., about a quarter of its roughly 223,000 workers. Employees have until early December to decide, and those who accept leave at the end of the year with pay tied to years worked, health care, and career help.</p>
-          <p>Microsoft says the move will help control costs while it spends heavily on artificial intelligence. It follows a July cut of about 4,800 jobs and an earlier voluntary retirement offer; the company expects fewer people to take this round.</p>
+          <h2>Cristiano Ronaldo retires from Portugal&rsquo;s national team.</h2>
+          <p>On November 5, Ronaldo, 41, said in a social media video that he will &ldquo;hand back the number 7 shirt&rdquo; after this month&rsquo;s international games, ending 23 years with Portugal. He leaves with all-time records of 234 appearances and 146 goals, and he captained Portugal to its first major trophy at Euro 2016.</p>
+          <p>The decision follows a dispute with coach Jorge Jesus, who said he would not start Ronaldo in a September Nations League match; Ronaldo then left the team&rsquo;s camp. He will keep playing for Al-Nassr in Saudi Arabia, where he is expected to end his club career this season, and he is chasing 1,000 career goals (he has 985).</p>
         </div>
         <aside class="lens">
           <b>AP World lens &middot; Unit 6 &amp; 9</b>
-          <p>New technology has reshaped work before: the steam engine and the power loom changed which jobs existed and who did them.</p>
+          <p>Soccer spread around the world with British sailors, merchants, and railway workers in the 1800s and is now a global business.</p>
           <ul class="lens-q">
-            <li>How did the Industrial Revolution change where people worked and which skills employers valued?</li>
-            <li><span class="norm">Normative</span> Should companies that save money with new technology owe anything to the workers whose jobs it changes or replaces?</li>
-            <li>How does a tech company shrinking its workforce compare to British handloom weavers losing work to factory machines in the early 1800s?</li>
+            <li>How did the British Empire and industrial trade networks help spread modern sports such as soccer and cricket?</li>
+            <li><span class="norm">Normative</span> Should oil-rich states such as Saudi Arabia use huge salaries to bring global stars to their leagues, a strategy critics call &ldquo;sportswashing&rdquo;?</li>
+            <li>How does Portugal&rsquo;s worldwide fame through soccer today compare to its global reach as a maritime empire in the 1500s?</li>
           </ul>
         </aside>
       </article>
       <article class="slide">
         <div>
-          <h2>Colorado&rsquo;s glaciers thinned sharply in 2026.</h2>
-          <p>Andrews Glacier in the Rocky Mountains lost more than 12 feet of thickness in one year, Arapaho Glacier nearly 10 feet, and Isabelle Glacier about 6.5 feet, the Associated Press reported on October 27. Glaciologist Dan McGrath of Colorado State University says that is double their rate over the previous five years.</p>
-          <p>Scientists tie the loss to the state&rsquo;s worst snowpack on record followed by record summer heat. St. Mary&rsquo;s Glacier, a permanent snowfield popular with hikers, melted away completely in September, and McGrath says the remaining glaciers may not last much longer.</p>
+          <h2>Bob Dylan meets Pope Leo XIV at the Vatican.</h2>
+          <p>On November 4, Dylan, 85, met the pope in a brief private audience at the Apostolic Palace during a stop on his concert tour, Euronews and Rolling Stone reported. The pope gave him a rosary, and Dylan gave the pope a copy of his memoir, <i>Chronicles: Volume One</i>.</p>
+          <p>Leo XIV, born in Chicago and the first pope from the United States, quoted a 1963 Dylan protest song about the nuclear threat in the preface to a Vatican book on peace last July, using it to warn against rearmament. Dylan, who won the 2016 Nobel Prize in Literature, also performed for Pope John Paul II in 1997.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 8</b>
+          <p>Dylan&rsquo;s early songs came out of the Cold War, when the fear of nuclear war shaped art, protest, and politics.</p>
+          <ul class="lens-q">
+            <li>How did the nuclear arms race between the United States and the Soviet Union shape protest movements in the 1960s?</li>
+            <li><span class="norm">Normative</span> Should religious leaders speak out about weapons and war, or leave questions of national defense to governments?</li>
+            <li>How does Pope Leo&rsquo;s warning against rearmament compare to Pope John Paul II&rsquo;s role in challenging communism in Poland in the 1980s?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>China&rsquo;s AI stock boom loses about $480 billion.</h2>
+          <p>Shanghai&rsquo;s STAR 50 index, which tracks China&rsquo;s leading AI and chip companies, fell about 40 percent from its July high in under four months, Reuters reported on October 26. Chip designers such as Moore Threads and MetaX, promoted as China&rsquo;s answer to Nvidia, have lost about half their value.</p>
+          <p>Goldman Sachs estimates that AI stocks make up 42 percent of the value of China&rsquo;s stock market, so the drop matters for the whole economy. Analysts disagree about whether the bubble has fully popped, and some are asking whether American AI stocks could be next.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 7 &amp; 9</b>
+          <p>Investors have chased exciting new technologies before, and booms turn into busts when prices run far ahead of profits.</p>
+          <ul class="lens-q">
+            <li>How did stock speculation in the 1920s contribute to the 1929 crash and the Great Depression?</li>
+            <li><span class="norm">Normative</span> Should governments rescue an industry they see as vital, like AI, when its stock prices collapse?</li>
+            <li>How does China&rsquo;s state-guided push into AI compare to Deng Xiaoping&rsquo;s market reforms after 1978?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>Hoax bomb threats disrupt flights across Europe.</h2>
+          <p>Since November 2, more than 20 flights have received false bomb threats, many sent by anonymous email, forcing diversions and searches on airlines including Ryanair, LOT, Wizz Air, Aer Lingus, and Finnair. Italy and Hungary sent fighter jets to escort planes, and no explosives have been found.</p>
+          <p>The U.K. government called the threats a &ldquo;malicious hoax,&rdquo; and the European Union says it is too early to know whether they are linked. No one has been arrested or officially blamed; security experts say the cause could be copycats, a single group, or &ldquo;hybrid warfare&rdquo; by a foreign state.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 8 &amp; 9</b>
+          <p>Air travel and the internet tie the world together, and the same networks can be used to spread fear cheaply.</p>
+          <ul class="lens-q">
+            <li>How did new technologies after 1900, from radio to the internet, change the ways states and groups pursue conflict without open war?</li>
+            <li><span class="norm">Normative</span> Should airlines treat every threat as real when nearly all turn out to be hoaxes, given the cost to passengers?</li>
+            <li>How do hidden &ldquo;hybrid&rdquo; pressures today compare to the spying, propaganda, and proxy wars of the Cold War?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>Kellogg&rsquo;s swaps whole rice for rice flour in British Rice Krispies.</h2>
+          <p>Rice Krispies sold in Britain are now made from rice flour instead of whole grains of rice, and Coco Pops from a mix of rice and corn flour, <i>The Irish Times</i> and Just Food reported this week. The company blamed &ldquo;changing weather conditions&rdquo; that hurt the quality and supply of the rice it used.</p>
+          <p>The new recipes add wheat gluten, so they are no longer safe for people with celiac disease or a wheat allergy. WK Kellogg says Rice Krispies in the U.S. and Canada are still made with real rice and will stay that way.</p>
         </div>
         <aside class="lens">
           <b>AP World lens &middot; Unit 6 &amp; 9</b>
-          <p>Human activity has changed the environment since the first farms, but the scale grew enormously after industrialization.</p>
+          <p>Boxed cereal is a product of industrialization, and climate change now reaches all the way to the breakfast table.</p>
           <ul class="lens-q">
-            <li>How did the shift to coal and other fossil fuels during the Industrial Revolution increase human impact on the environment?</li>
-            <li><span class="norm">Normative</span> Should countries that industrialized first pay a larger share of the cost of responding to climate change?</li>
-            <li>How do international efforts on climate, such as the 1997 Kyoto Protocol and the 2015 Paris Agreement, compare to earlier global responses to shared problems like disease?</li>
-          </ul>
-        </aside>
-      </article>
-      <article class="slide">
-        <div>
-          <h2>Jay-Z will headline the 2027 Super Bowl halftime show.</h2>
-          <p>On October 26, the NFL, Apple Music, and Roc Nation announced that Jay-Z will perform at Super Bowl LXI on February 14, 2027, at SoFi Stadium in Inglewood, California. The show comes 30 years after his first album, <i>Reasonable Doubt</i>.</p>
-          <p>Since 2019, Jay-Z&rsquo;s company, Roc Nation, has worked with the NFL to choose and produce halftime performers. NFL Commissioner Roger Goodell said he had long asked Jay-Z to take the stage himself when the time felt right; no guest performers have been confirmed.</p>
-        </div>
-        <aside class="lens">
-          <b>AP World lens &middot; Unit 9</b>
-          <p>Hip-hop began at block parties in the Bronx in the 1970s and is now one of the most popular music forms on Earth.</p>
-          <ul class="lens-q">
-            <li>How did new technologies such as radio, television, and the internet help popular culture spread around the world after 1900?</li>
-            <li><span class="norm">Normative</span> Should the company that helps pick the halftime performer be allowed to pick its own founder?</li>
-            <li>How does the global spread of American hip-hop compare to the spread of Bollywood films or reggae from India and Jamaica?</li>
-          </ul>
-        </aside>
-      </article>
-      <article class="slide">
-        <div>
-          <h2>Israelis vote in an election seen as a judgment on Netanyahu&rsquo;s wartime leadership.</h2>
-          <p>Israelis voted on October 27, with early turnout the fastest since 1981, according to the Central Elections Committee. Prime Minister Benjamin Netanyahu of Likud, Israel&rsquo;s longest-serving leader, faces former military chief Gadi Eisenkot, and polls showed a close race for the 120-seat Knesset.</p>
-          <p>A central issue is accountability for the security failures of the October 7, 2023, Hamas attack and the war that followed. Opposition parties promise a national commission of inquiry; Netanyahu has said a special commission is needed but only after the war ends. Forming a coalition could take weeks.</p>
-        </div>
-        <aside class="lens">
-          <b>AP World lens &middot; Unit 7 &amp; 8</b>
-          <p>Israel was founded in 1948 as Britain ended its mandate in Palestine, and conflict over the land has shaped the region ever since.</p>
-          <ul class="lens-q">
-            <li>How did the end of the British mandate and the 1948 creation of Israel fit the wider wave of decolonization after World War II?</li>
-            <li><span class="norm">Normative</span> Should a country investigate a major security failure while a war is still going on, or wait until the fighting ends?</li>
-            <li>How does this wartime election compare to Britain&rsquo;s 1945 election, when voters replaced Winston Churchill as World War II was ending?</li>
-          </ul>
-        </aside>
-      </article>
-      <article class="slide">
-        <div>
-          <h2>Americans are spending less time socializing.</h2>
-          <p>The federal American Time Use Survey found that on an average day in 2025, 30 percent of Americans spent time socializing and communicating, down from 38 percent in 2015, and the average time fell from 41 to 35 minutes. Time spent on games and computers rose from 25 to 37 minutes.</p>
-          <p>A Data for Progress poll compared answers in 2026 to a 1995 survey: the share who entertained at home in the past year fell from 88 to 67 percent, and club meetings from 45 to 26 percent. The authors caution that the two surveys used different methods, so the numbers show a trend rather than exact change.</p>
-        </div>
-        <aside class="lens">
-          <b>AP World lens &middot; Unit 6 &amp; 9</b>
-          <p>Big changes in technology and the economy have always changed how families and communities spend their time together.</p>
-          <ul class="lens-q">
-            <li>How did industrialization and the move to cities in the 1800s change family life and leisure time?</li>
-            <li><span class="norm">Normative</span> Should towns spend public money on gathering places like libraries, parks, and community centers to bring people together?</li>
-            <li>How did radio and television change the way people spent free time in the 1900s, compared to smartphones and the internet today?</li>
-          </ul>
-        </aside>
-      </article>
-      <article class="slide">
-        <div>
-          <h2>A Ramaswamy ad draws a response from alumni of his Cincinnati high school.</h2>
-          <p>In Ohio&rsquo;s race for governor, Republican Vivek Ramaswamy&rsquo;s campaign released a video on October 19 in which Democrat Amy Acton&rsquo;s estranged mother calls Acton a liar; Acton has spoken publicly about a childhood she says included abuse and homelessness. Ramaswamy says the ad is &ldquo;about lying,&rdquo; not abuse, and his campaign is spending $4 million on it, while Acton, her brother, and Republican Governor Mike DeWine have called for it to come down.</p>
-          <p>Alumni of St. Xavier High School, where Ramaswamy graduated, started a petition with about 2,900 signatures asking him to pull the ad and apologize, citing the school&rsquo;s Jesuit motto, &ldquo;Men for Others.&rdquo; The petition says it speaks for alumni only, since the school, as a nonprofit, cannot comment on candidates. The election is November 3.</p>
-        </div>
-        <aside class="lens">
-          <b>AP World lens &middot; Unit 4 &amp; 7</b>
-          <p>St. Xavier is named for Francis Xavier, a founding Jesuit who carried Catholic missions to India and Japan in the 1540s.</p>
-          <ul class="lens-q">
-            <li>How did the Jesuits, founded in 1540 during the Catholic Reformation, spread Christianity in Asia and the Americas?</li>
-            <li><span class="norm">Normative</span> Should a candidate&rsquo;s family members be off limits in political ads, or fair game when the candidate talks about their own past?</li>
-            <li>How do modern campaign ads compare to the propaganda governments used to win public support during World War I and World War II?</li>
+            <li>How did industrialization and railroads in the late 1800s create national markets for mass-produced, branded foods?</li>
+            <li><span class="norm">Normative</span> Should a company keep a product&rsquo;s famous name after changing what it is made of?</li>
+            <li>How does bad weather disrupting a crop today compare to the failed potato harvests behind the Irish Famine of the 1840s?</li>
           </ul>
         </aside>
       </article>
@@ -713,7 +732,7 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
     <script>/* #syllabus / #about links (top bar, site search) open their panels */ (function(){var P={'#syllabus':'syllabus','#about':'about-dd'};function o(){var id=P[location.hash];if(id){var d=document.getElementById(id);d.open=true;d.scrollIntoView();}}o();addEventListener('hashchange',o);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="#about"]');if(a)document.getElementById('about-dd').open=true;});})();</script>
   </section>
 
-  <p class="foot">Progress is read from this device&rsquo;s local storage and never leaves it. News sources: Associated Press, Reuters, NPR, PBS NewsHour, CNBC, Axios, Al Jazeera, Variety, Ohio Capital Journal, WOSU, The Cincinnati Enquirer, Bureau of Labor Statistics, Data for Progress, Oct. 19&ndash;27, 2026.</p>
+  <p class="foot">Progress is read from this device&rsquo;s local storage and never leaves it. News sources: Associated Press, Reuters, NPR, PBS NewsHour, CBS News, CNBC, Axios, Al Jazeera, Euronews, Rolling Stone, Foreign Policy, The Irish Times, Just Food, Oct. 26&ndash;Nov. 5, 2026.</p>
 
 </main>
 

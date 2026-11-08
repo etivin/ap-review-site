@@ -9893,3 +9893,1021 @@ window.WALKTHROUGH = window.WALKTHROUGH || {};
   VIS('u9_9.5_9', 'text', NOWGLF, [[1, 10.5, 98, 4.7], [1, 58.1, 98, 4.6]]);
   VIS('u9_9.8_6', 'text', NATO, [[1, 4.8, 98, 10]]);
 })(window.WALKTHROUGH);
+
+/* ============ PLAIN-ENGLISH STEPS (Unit 4 first, 2026-11-07) ============
+   An entry with say + cut gets the plain-English Work it in sbmcq.js:
+   1 what the source is saying, 2 reword the question (plain), 3 cross out and why, 4 answer.
+     say : [the right plain-English summary of the source, wrong, wrong] (shown shuffled;
+           keep the right one from being the longest, CLAUDE.md rule 4)
+     cut : one reason per option A-D: why it can be crossed out, or, for the key, why it stays */
+(function (W) {
+  function P(id, say, cut) { if (W[id]) { W[id].say = say; W[id].cut = cut; } }
+
+  /* ---- 4.1 ---- */
+  P('u4_4.1_0',
+    ['Europe’s new ships and tools used ideas borrowed from Asia and the Islamic world', 'Portuguese shipbuilders invented the caravel, the compass and the astrolabe all on their own', 'European ships of the 1400s were powered by steam engines first built in Chinese shipyards'],
+    ['The source says the lateen sail, compass and astrolabe came from the Indian Ocean, China and the Islamic world. "Almost entirely" Portuguese is the opposite.',
+     'Every tool in the source was borrowed from somewhere else in Afro-Eurasia. That is exactly this choice.',
+     'Steam engines and iron hulls are the 1800s (Units 5 and 6). Wrong century.',
+     'The source is about the 1400s, before 1492. The Americas are not in it at all.']);
+  P('u4_4.1_1',
+    ['Better sails and navigation tools let sailors go farther from home', 'Portugal built caravels so it could fight Ottoman fleets near home waters', 'Chinese scholars taught Portuguese sailors how to read the stars at sea'],
+    ['The Mongols conquered China in the 1200s on horseback. Ships and compasses from the 1400s did not make that happen.',
+     'Buddhism reached Japan around 500 C.E. That is centuries too early, and it has nothing to do with these ships.',
+     'Sails that work against the wind, plus tools to find your position, are what let Portugal sail down Africa and on to India.',
+     'Caravanserais are inns on land routes. The source is about ships at sea.']);
+  P('u4_4.1_2',
+    ['A 1507 map named the new lands "America" after an Italian sailor', 'A 1507 map showed that Chinese fleets had already sailed to America', 'A 1507 map showed Spain giving its American lands to England'],
+    ['Printing was growing in the 1500s, and this map was printed. Nothing here shows printing declining.',
+     'A map with brand-new lands on it shows Europe learning about the world from ocean voyages.',
+     'Spain kept most of its American colonies until the 1800s. In 1507 it was just starting to take them.',
+     'The map is German and names an Italian navigator. Nothing in it points to China.']);
+  P('u4_4.1_3',
+    ['An English sailor tells how he sailed the Pacific to sell cloth in Japan', 'An English sailor tells how the shogun forced him to stay and fight Spain', 'A Japanese official reports that English pirates attacked ports near Edo'],
+    ['Europeans did borrow from Arab and Indian ships, but an English ship crossing the Pacific was built and sailed with European designs.',
+     'China did not give Europe its maps of the Pacific. This choice borrows China only because Japan is nearby.',
+     'Crossing the whole Pacific took European ship designs and navigation tools. That is what made the voyage possible.',
+     'Polynesians were great navigators, but nothing connects them to an English ship going from Peru to Japan.']);
+  P('u4_4.1_4',
+    ['An English ship sailed from Peru west across the Pacific to Japan', 'An English ship left London and sailed east around Africa to reach Japan', 'A Spanish ship carried English traders from Peru to Japan as passengers'],
+    ['No such treaty existed. England and Spain were rivals in this period and often at war.',
+     'England was already crossing the Atlantic by 1611 (Jamestown, 1607). It did not lack the ships.',
+     'The Pacific trade winds blow from east to west near the equator, so sailing from the Americas to Asia used them.',
+     'The shogun welcomed Adams, an Englishman. Japan was not limited to ships from Spanish lands.']);
+
+  /* ---- 4.2 ---- */
+  P('u4_4.2_0',
+    ['Columbus told Spain’s rulers the island was rich so they would fund more trips', 'Columbus warned Spain’s rulers that the island was too poor to be worth a colony', 'Columbus told Spain’s rulers the people there wanted to buy Spanish cloth'],
+    ['Spain was Catholic, not Protestant. And Columbus is talking about gold and spices, not religion.',
+     'Europeans wanted Asian spices without paying Muslim and Venetian middlemen. Columbus promised exactly what his backers wanted.',
+     'The letter is about what Spain could get from the island, not what Native people wanted to buy.',
+     'Chinese demand for American silver comes later (after 1571). Columbus mentions gold and spices, not silver for China.']);
+  P('u4_4.2_1',
+    ['Spain and Portugal drew a line: west went to Spain, east to Portugal', 'Spain and Portugal agreed to share every new land equally between their crowns', 'Spain and Portugal agreed to let England and France claim land west of a line'],
+    ['England was not part of this treaty. It ignored the line later, but the treaty does not explain English colonies.',
+     'The Dutch East India Company came in 1602, more than 100 years later, and the treaty gave it nothing.',
+     'Constantinople fell in 1453, before the treaty. A cause cannot come after its effect.',
+     'The eastern bulge of South America fell on Portugal’s side of the line, so Brazil became Portuguese.']);
+  P('u4_4.2_10',
+    ['To keep the peace, Spain and Portugal drew a line to split new lands', 'After a long war, Spain and Portugal signed a peace that ended the fighting', 'Spain and Portugal agreed to trade with each other through ports on the line'],
+    ['The treaty divides land. It says nothing about trade between the two kingdoms.',
+     'The treaty settles a "controversy," not a long war. Spain and Portugal had not been at war for centuries.',
+     'Nobody agrees to fight together against an enemy. A line on a map is not an alliance.',
+     'The treaty says it was made "for the sake of peace and concord." Splitting the lands ahead of time heads off a fight.']);
+  P('u4_4.2_2',
+    ['Indian merchants were not impressed by the cheap goods da Gama brought', 'Indian merchants bought all of da Gama’s cloth, hats and washbasins at once', 'The ruler of Calicut refused to let da Gama land and closed the port'],
+    ['The Portuguese took some ports, but Muslim and Asian merchants kept carrying most Indian Ocean trade. "All" is too strong.',
+     'Calicut met da Gama and looked at his goods. The source does not say India closed every port.',
+     'The source says the opposite: Indian merchants did not want his European goods.',
+     'Europe had little that Asia wanted, so the Portuguese used force, and later Europeans paid with American silver.']);
+  P('u4_4.2_3',
+    ['An English sailor tells the shogun the English came only to trade', 'An English sailor tells the shogun England plans to conquer part of Japan', 'An English sailor says Japan should stop trading with all Europeans'],
+    ['The passage is set in Peru and Japan. Africa is not part of this story.',
+     'The shogun asks about the conflicts between Spain, Portugal and England. All three were chasing trade in Asia, and that rivalry is the conflict.',
+     'The Mughal Empire is in India. Adams is in Japan and never mentions it.',
+     'Piracy happened, but the conflict in the passage is between European nations competing for trade, not pirates.']);
+  P('u4_4.2_4',
+    ['Da Gama found a sea route to India that skipped the Ottoman land routes', 'Da Gama found a land route to India that ran straight through the Ottoman Empire', 'Da Gama sailed west across the Atlantic and reached the coast of the Americas'],
+    ['Sailing along Africa leads to India, not the Americas. And Portugal’s goal here was trade, not settlers.',
+     'The source says the route "bypassed" overland routes run by Ottoman and other middlemen. Reaching the spices directly was the goal.',
+     'Religion was one Portuguese motive, but the source is about trade routes. The main goal was spices and profit.',
+     'Portugal set up a few forts, but it never controlled all the Indian Ocean city-states, and that is not why it explored.']);
+  P('u4_4.2_5',
+    ['A ship sailed from Lisbon around Africa to India and came back', 'A ship sailed from Lisbon west across the Atlantic to the Americas', 'A ship sailed from India around Africa to attack the port of Lisbon'],
+    ['One voyage is not a strong business in India. Portuguese businesses there came later.',
+     'Portugal claimed Brazil in 1500. A map of one voyage to India does not show it had no interest in the Americas.',
+     'The ship stopped at Muslim-ruled ports like Malindi and Calicut. Those lands were reachable.',
+     'A Portuguese ship going all the way around Africa to India and back shows Portugal leading the way at sea.']);
+  P('u4_4.2_6',
+    ['The whole route follows the coasts of Africa and ends at a port in India', 'The route crosses the Atlantic and stops at ports in the Caribbean islands', 'The route goes from Lisbon straight across Asia by land to reach India'],
+    ['The ship hugs Africa and ends at an Indian port. That shows Portugal looking at the African and Asian coasts.',
+     'Vikings and others had sailed between continents long before. "First" is a claim the map cannot prove.',
+     'True of Europe in general, but the map shows one Portuguese voyage. "Most directly supported" means the answer has to come from the map.',
+     'One ship is not a mass migration. Europeans did not move in huge numbers this early.']);
+  P('u4_4.2_7',
+    ['A Portuguese ship reached India by sea in the late 1400s', 'A Spanish fleet reached the coast of China and Japan by sea in the late 1400s', 'A Dutch ship reached Japan by sailing west across the Pacific in the late 1400s'],
+    ['In the 1500s Japan traded with the Portuguese and let Jesuit missionaries in. It closed itself off only in the 1630s.',
+     'Portugal took Goa in 1510 and set up ports on the Indian coast. India did not keep them out for long.',
+     'The Ming did trade: the Portuguese got Macao in 1557, and Chinese silk was bought with American silver.',
+     'The Dutch reached Asia in the 1590s, still inside the sixteenth century. "Exclusively" makes this wrong.']);
+  P('u4_4.2_8',
+    ['Spain and Portugal agreed on a line to divide newly found lands', 'Spain and Portugal agreed to stop all of their ocean voyages forever', 'Spain and Portugal agreed to share the new factories and machines they built'],
+    ['"Dark Ages" is an old label for Europe around 500 to 1000. The treaty is from 1494.',
+     'Lands just "discovered" across the ocean, in 1494: that is the Age of Exploration.',
+     'The Enlightenment is the 1700s, a set of ideas about reason and rights. Wrong time and wrong topic.',
+     'The Industrial Revolution starts around 1750 with factories. Nothing in a 1494 treaty about land fits.']);
+  P('u4_4.2_9',
+    ['Lands west of the line go to Spain; lands east go to Portugal', 'Lands west of the line go to Portugal, and lands east go to Spain', 'All lands on both sides of the line are shared by both kingdoms'],
+    ['The line ran north to south through the Atlantic. West of it lay the Americas, which is why most of Latin America speaks Spanish.',
+     'Africa was east of the line, on Portugal’s side. That is why Portugal built forts along the African coast.',
+     'East Asia is reached by sailing east around Africa, on Portugal’s side, so it is not the "western side."',
+     'India was the goal of Portugal’s eastern route. It was on the Portuguese side, not the western side.']);
+
+  /* ---- 4.3 ---- */
+  P('u4_4.3_0',
+    ['American crops grew on hills where rice could not, so there was more food', 'American crops replaced rice everywhere in China within just a few years', 'American crops spread diseases that ruined the rice fields of southern China'],
+    ['More food leads to more people, not fewer. And rice farming did not collapse.',
+     'The source says maize grew on hillsides "unsuitable for rice." The new crops added to rice; they did not replace it.',
+     'Extra food from new crops is a main reason populations grew in China, Africa and Europe after 1500.',
+     'Smallpox went the other way, from Europe to the Americas. And the source is about crops, not disease.']);
+  P('u4_4.3_1',
+    ['Plains peoples took Spanish horses and used them to hunt and fight', 'The Spanish used horses to take over the Great Plains from the Comanche', 'Plains peoples rejected the Spanish horse and kept hunting bison on foot'],
+    ['Horses made the Comanche and Lakota stronger, not weaker. They became powerful mounted warriors.',
+     'Horses came over in the Columbian Exchange and changed how Plains peoples hunted, moved and fought.',
+     'Llamas did not become European farm animals. And the source is about horses going to the Americas.',
+     'The Comanche and Lakota used the horses, not Spanish missionaries. Spain never controlled the Plains.']);
+  P('u4_4.3_2',
+    ['A Maya writer describes a deadly plague, the Spanish arrival, and conversion', 'A Spanish priest describes how his medicine cured the Maya of a terrible plague', 'A Maya writer describes a long war between two Maya kings over their farmland'],
+    ['Friars knowing the Maya language would show the friars changing. It is not evidence that Maya culture changed.',
+     'The author says the Maya did not know Christian teaching before, then were converted. A change in beliefs is a cultural change.',
+     'Becoming poor is an economic change, not a cultural one.',
+     'A killing is a political event, and the passage says the king died of the plague. It does not show a change in beliefs.']);
+  P('u4_4.3_3',
+    ['The plague struck first, and the Spanish arrived years later', 'The Spanish arrived first and the author says they brought the plague', 'The plague and the Spanish soldiers arrived in the very same year'],
+    ['This could show how bad the plague was, but it does not explain why the Spanish are left out of it.',
+     'This also shows how bad the plague was. It does not explain why the Spanish are not used as evidence.',
+     'True to the passage, but it answers a different question. The question asks why the Spanish are NOT linked to the plague.',
+     'The author tells the plague first and the Spanish "years later," and never says one caused the other.']);
+  P('u4_4.3_4',
+    ['Mexico’s population fell from 25 million to about 1 million by 1600', 'Central Mexico’s population grew from about 1 million to 25 million by 1600', 'Central Mexico’s population stayed steady at about 25 million until 1700'],
+    ['Sugar plantations used forced labor, but they cannot explain 9 out of 10 people dying in under 100 years.',
+     'Silver mines killed many workers, but mining was not big enough to cause a drop this huge and this fast.',
+     'Smallpox, measles and other Old World diseases hit people with no immunity. Only epidemics explain a fall this fast.',
+     'African kingdoms and their trade goods had nothing to do with Mexico’s population.']);
+  P('u4_4.3_5',
+    ['A native noble tells the king mine owners abuse and kill native workers', 'A native noble thanks the king for the fair pay that mine workers receive', 'A Spanish mine owner complains that native workers are too lazy to dig'],
+    ['The passage says again and again that "the Indians die." Deaths in the mines are part of why the native population fell.',
+     'Silver did go to Europe and Asia, but the passage is about abuse in the mines, not where the silver went.',
+     'Religion and customs did change, but this passage is about forced labor and debt, not religion.',
+     'Nothing in the passage is about intermarriage, and Spanish America was not equal. It was a strict hierarchy.']);
+
+  /* ---- 4.4 ---- */
+  P('u4_4.4_0',
+    ['Spanish ships took American silver across the Pacific to buy Chinese goods', 'Chinese merchant ships carried silk across the Pacific to sell in Mexico and Peru', 'Spanish ships carried Chinese silver across the Pacific to pay for Mexico'],
+    ['Spain never conquered southern China. It traded with China from Manila.',
+     'Ming China paid its taxes in silver, so silver was worth more there. That demand pulled American silver across the Pacific.',
+     'Spain, not the Dutch, owned the mines of Mexico and Peru.',
+     'Europeans wanted silk and porcelain. There was no ban, which is why the galleons carried silver to buy them.']);
+  P('u4_4.4_1',
+    ['A Dutch company paid for by shareholders had armies and ran the spice trade', 'The Dutch government ran the spice trade itself and banned private companies', 'A Dutch company lost the spice trade to Indonesian rulers by the mid-1600s'],
+    ['The source shows the Dutch taking over the spice trade. That is growth, not decline.',
+     'The Mughals were a land empire without a big navy. And the source is about a Dutch company.',
+     'Raising money from shareholders makes it a joint-stock company, and its forts and armies show it spreading trade and control.',
+     'The VOC took control of nutmeg, cloves and mace. The spice trade was booming, not ending.']);
+  P('u4_4.4_10',
+    ['Cortés describes Tenochtitlan’s many temples, priests and idols', 'Cortés describes the markets where Aztec merchants sold their goods', 'Cortés describes the battles his soldiers fought against the Aztecs'],
+    ['Calling Aztec gods "idols" is how a Christian who believes in one God talks about a religion with many gods.',
+     'The passage is about temples and gods, not money or who owns property.',
+     'This choice uses big words that sound smart but fit nothing in a passage about idols.',
+     'Nothing in the passage is about pleasure or learning. These labels do not match the word "idols."']);
+  P('u4_4.4_11',
+    ['Spain and Portugal claimed the right to own the new lands they found', 'Spain and Portugal agreed to give the new lands back to their peoples', 'Spain and Portugal agreed to keep away from every newly found land'],
+    ['Nationalism (loyalty to a nation of people) grows in the 1800s. The treaty is about kings claiming land.',
+     'Humanism is a Renaissance idea about learning from Greece and Rome. It is not about dividing land.',
+     'Two kingdoms claiming whole continents "forever" is the start of colonialism: ruling lands far away.',
+     'Social Darwinism is an 1800s racist idea used to justify imperialism. Wrong century.']);
+  P('u4_4.4_12',
+    ['A 1667 Dutch company city with a fort, walls, a market and temples', 'A 1667 Dutch farming village with fields of spices and no walls at all', 'A 1667 Javanese royal city with a palace and no Europeans living there'],
+    ['The map shows a mosque and a Buddhist stupa standing in the city. Batavia was built for trade, not to convert people.',
+     'The map shows a fort and walls, not shipyards. Nothing in the legend points to docks.',
+     'The fort (1) and the walls around the city show it was planned as a place the company could defend.',
+     'Spices grew on other islands, like the Moluccas. Batavia was a trading and ruling center, not a spice farm.']);
+  P('u4_4.4_13',
+    ['A trading company built a planned city with a fort, market and homes', 'A trading company built a factory town full of workshops and cloth mills', 'A trading company built a hospital town to stop the spread of disease'],
+    ['The Dutch East India Company built Batavia as its capital, with its offices (3), a market (4) and homes (2). A company built a city where it traded.',
+     'New World crops did help populations grow, but nothing on this map shows crops or population.',
+     'The legend has no hospitals, sewers or anything about sanitation.',
+     'The legend lists a fort, homes, a market and places of worship, but no workshops or factories.']);
+  P('u4_4.4_2',
+    ['An ivory carving made in Portuguese Goa shows baby Jesus on a ship', 'An ivory carving made in Lisbon shows an Indian king on a Portuguese ship', 'A painting made in Goa shows Portuguese sailors praying to Hindu gods'],
+    ['Plantations were in the Americas. Goa was a Portuguese trading port.',
+     'The printing press had nothing to do with carving ivory in India.',
+     'Portugal held Goa as one of its trading posts, along with Malacca and Hormuz. That is a trading-post empire.',
+     'The Mughal Empire was strong in the early 1600s. It was not declining yet.']);
+  P('u4_4.4_3',
+    ['Christ stands on a Portuguese ship, as if blessing the voyage', 'Christ sinks a Portuguese ship to punish its greedy sailors for their sins', 'Christ points the Portuguese ship away from India and back home to Lisbon'],
+    ['Nothing in the image says to give up wealth. A trading ship is the opposite of rejecting wealth.',
+     'Putting Christ on the ship says God is on Portugal’s side as it sails and trades in the Indian Ocean.',
+     'The image is about the Portuguese and their voyages, not about Muslims in Goa.',
+     'Nobody believed Jesus handed out ship technology. This choice reads the image too literally.']);
+  P('u4_4.4_4',
+    ['In the Americas, European trade was built on taking silver; Asia was different', 'In the Americas and in Asia, European trade worked in exactly the same way', 'In Asia, European trade was built on taking silver; the Americas were different'],
+    ['Europeans used mercantilism in Asia too, through companies with monopolies. It was not free trade.',
+     'Silver mattered a lot in Asia. China wanted it so badly that American silver flowed there.',
+     'Conquest in the Americas was not peaceful, and Europeans did not overthrow the big Asian empires in this period.',
+     'Europeans conquered and settled the Americas, but in Asia they mostly carried goods between Asian ports (the "carrying trade").']);
+  P('u4_4.4_5',
+    ['Cortés tells the king Tenochtitlan is so amazing it is hard to describe', 'Cortés tells the king Tenochtitlan is too small to be worth conquering', 'Cortés tells the king he has made peace with Moctezuma and is going home'],
+    ['Cortés was conquering, not making peace. He came with soldiers.',
+     'Nothing in the letter is about sharing property.',
+     'Women are not mentioned in this passage.',
+     'A Spanish commander describing a rich city and its ruler’s lands to his king is reporting on conquest: expansion.']);
+  P('u4_4.4_6',
+    ['Cortés tells the king the city is full of wonders he can barely describe', 'Cortés tells the king the city is very poor and has nothing worth taking back', 'Cortés tells the king he wants to leave Mexico and return to Spain right away'],
+    ['Possible, but labor is not what would excite a king paying for a conquest.',
+     'He does mention religion, but the king cared most about riches, so this is not the best follow-up.',
+     'Pretty scenery does not pay for an expedition.',
+     'Cortés needed the king’s support, and nothing won it like gold. Spanish conquest was driven by the hunt for gold.']);
+  P('u4_4.4_7',
+    ['A model of a huge Aztec temple, and Cortés describing its idols', 'A model of an Aztec market, and Cortés describing the goods sold there', 'A model of an Aztec palace, and Cortés describing the king who lived there'],
+    ['The Aztecs sacrificed people on top of temples like this one, and it horrified the Spanish.',
+     'Grain storage would not disturb anyone, and temples were not granaries.',
+     'Cortés says the towers were burial places, but he does not describe burials as horrifying.',
+     'Markets were not held at the temples, and trade did not upset the Spanish. They came to get rich.']);
+  P('u4_4.4_8',
+    ['Cortés describes the temples and priests of Tenochtitlan', 'Cortés describes the farms that fed the people of Tenochtitlan', 'Cortés describes the ships that sailed out of Tenochtitlan'],
+    ['The Spanish did convert people, but the question asks for the main motivation, and that was wealth.',
+     'Tenochtitlan is in Mexico, not South America, and the Spanish conquered rather than built trade networks.',
+     'Farmland came later. The conquistadors came first for treasure.',
+     'Gold, God and glory: of the three, gold came first. The conquistadors came to get rich.']);
+  P('u4_4.4_9',
+    ['Cortés says the temples are huge, with fine stone and wood carving', 'Cortés says the temples are small, plain huts made of mud and straw', 'Cortés says the temples are empty because the Aztecs had no religion'],
+    ['Tenochtitlan was an inland city on a lake. Nothing here is about ocean trade.',
+     'Forty tall towers, carved stone, painted wood: building like that takes a complex society with many skilled workers.',
+     'Cortés says no woman was allowed in the religious houses. That is not equal treatment.',
+     'The Aztecs conquered their neighbors and took captives for sacrifice. Not peaceful.']);
+
+  /* ---- 4.5 ---- */
+  P('u4_4.5_0',
+    ['The ship was so crowded and hot that the captives could barely breathe', 'The ship gave each captive plenty of room, but the weather was very hot', 'The crew kept the captives on deck in the fresh air for most of the trip'],
+    ['There was no shortage of ships. Traders chose to pack them full.',
+     'There were no British laws ordering this. Later British laws tried to limit crowding.',
+     'The Middle Passage took weeks or months. It was not short.',
+     'More captives per ship meant more profit per trip, so traders crammed in as many as they could.']);
+  P('u4_4.5_1',
+    ['A formerly enslaved man describes the awful crowding on a slave ship', 'A slave ship captain explains how he kept his captives healthy and safe', 'A British planter explains why the sugar islands needed more workers'],
+    ['Equiano describes horror on a slave ship. That would not get anyone to move to the Caribbean.',
+     'Showing the cruelty of slavery would turn readers against plantations, not get them to invest.',
+     'The encomienda was a Spanish system. Equiano wrote in London about the British slave trade.',
+     'A formerly enslaved man publishing his story in London in 1789, during the abolition campaign, wanted to end the slave trade.']);
+  P('u4_4.5_10',
+    ['A historian blames Western European capitalists for keeping Africa poor', 'A historian praises Western European traders for building up African economies', 'A historian blames African kings alone for keeping Africa poor'],
+    ['European traders shipping millions of Africans to sugar plantations drained Africa of people. That proves his point.',
+     'Arab merchants are not Western European capitalists, so this would not support his claim about Europe.',
+     'Cape Colony was one Dutch settlement in the far south. It does not show Africa as a whole being drained.',
+     'Trade with Ethiopia was small. And growing trade does not show Europe draining Africa.']);
+  P('u4_4.5_11',
+    ['A historian argues Europe drained Africa’s wealth and held it back', 'A historian argues Africa grew rich and strong from its trade with Europe', 'A historian argues Africa had no trade at all with Europe before 1900'],
+    ['New World crops like maize and cassava did spread, but Africans grew them. They did not rely on European shipments of food.',
+     'Kingdoms like Dahomey and Asante traded captives for European guns and used them to build stronger states.',
+     'Africans also sold captives to Arab and Indian Ocean traders. Europeans were not the only buyers.',
+     'African states did not team up with Europe to push out Muslim merchants. That did not happen.']);
+  P('u4_4.5_12',
+    ['Mine owners make workers buy food from them, so workers sink into debt', 'Mine owners pay native workers well, so they get rich and pay their tribute', 'The king sends inspectors twice a year, and they stop all the abuse'],
+    ['Workers are charged for food and corn beer out of their pay, so they end up "very poor and deep in debt." That is debt slavery.',
+     'Poma says officials take bribes and side with the owners. That is corruption, the opposite.',
+     'Poma writes to the king because he thinks the king would care. He blames local officials, not the king.',
+     'Rank by birth was real, but this passage is about debt and abuse at the mines.']);
+  P('u4_4.5_13',
+    ['A native noble reports cruelty in the mines and asks the king to act', 'A native noble reports that the mines are run fairly and very safely now', 'A native noble asks the king to bring in African slaves to work the mines'],
+    ['Andean mines kept using native labor through the mit’a. Enslaved Africans worked mostly on plantations.',
+     'Viceroyalties were set up earlier (1535 and 1542) to rule the colonies, not because of these abuses.',
+     'The Crown passed laws, like the New Laws of 1542, ordering better treatment of native people, though they were often ignored.',
+     'Natives were not given the vote. Spanish colonies were ruled by the Crown, not by elections.']);
+  P('u4_4.5_14',
+    ['Native workers in the silver and mercury mines are abused and die', 'Native workers in the silver mines are paid well and treated fairly', 'Spanish workers in the gold mines are abused by native bosses'],
+    ['American silver paid for Spain’s wars across Europe and the world under the Habsburg kings.',
+     'Silver flowed through Spain to pay debts abroad, so Spain did not build a strong merchant class.',
+     'Spanish kings used their silver to support the Catholic Church more, not less.',
+     'Silver paid for more voyages and fleets, not fewer.']);
+  P('u4_4.5_15',
+    ['A French slave trader says some captives starved themselves to death', 'A French slave trader says his captives were well fed and happy on board', 'A French slave trader says he set all his captives free at Guadeloupe'],
+    ['Guinea to Guadeloupe (in the Caribbean) is not South America, and "colonization" is too general.',
+     'The ship sails from West Africa (Guinea) across the Atlantic, not through North Africa.',
+     'France had colonies, but it did not dominate the Americas. Spain, Portugal and Britain held more.',
+     'Enslaved people shipped from Africa to the Americas were part of the Atlantic exchange of people, crops and goods.']);
+  P('u4_4.5_16',
+    ['Captives shipped to the Americas feared Europeans and refused food', 'Captives shipped from Guinea to the Americas were treated as paid workers', 'Captives shipped from the Americas to Guinea were sent home to their families'],
+    ['Crops grew well in the Americas. That is why planters needed so many workers.',
+     'No country had industrial machines yet. That was true everywhere, so it does not explain the Americas.',
+     'Sugar takes huge numbers of workers to plant, cut and boil, and that demand drove the slave trade.',
+     'Gold mines used some workers, but sugar plantations are what pulled in millions of enslaved Africans.']);
+  P('u4_4.5_17',
+    ['Captives on slave ships were beaten when they refused to eat', 'Captives on slave ships were given extra food to keep them happy', 'Captives on slave ships were free to leave at any port'],
+    ['Barbot says captives were "beaten" to make them eat. Violence held up the whole colonial system.',
+     'Most people did not oppose the slave trade in 1732. Barbot himself was a slave trader.',
+     'Enslaved people were forced and beaten. Nothing about this was "mutually beneficial."',
+     'The passage is about enslaved Africans, not Native Americans.']);
+  P('u4_4.5_18',
+    ['One trader describes what happened on his own slave ships', 'One trader describes every slave ship that sailed in the 1700s', 'One trader describes the laws that protected captives at sea'],
+    ['A list of ports tells you where ships went, not how the captives on them fared.',
+     'To know if one man’s story is typical, compare it with numbers from many voyages, like how many captives survived.',
+     'Laws tell you the rules, not what really happened on the ships.',
+     'Routes show where ships sailed, not what happened to the people on board.']);
+  P('u4_4.5_2',
+    ['Spain made Andean villages send men to work in the deadly Potosí mines', 'Spain paid Andean villages good money to send volunteers to the Potosí mines', 'Spain sent enslaved Africans to replace Andean men in the Potosí mines'],
+    ['The source describes forced labor still going on. It was not abolished.',
+     'The source says Native communities sent their men. Africans were not the main workers here.',
+     'The mit’a was an old Inca system of labor turns. Spain took it over to dig silver.',
+     'The source says men were required to go, and many died. That is forced labor, not high pay.']);
+  P('u4_4.5_3',
+    ['Spanish soldiers tore down a sacred Andean shrine and put up a cross', 'Spanish soldiers protected a sacred Andean shrine from being destroyed', 'Andean leaders asked the Spanish to replace their god with a cross'],
+    ['Silver exports are about the economy. They do not show whether the religious goal failed.',
+     'American crops in Eurasia have nothing to do with converting people in Peru.',
+     'Andean people blended Christianity with their old beliefs, so the old gods were never fully wiped out. The goal failed.',
+     'Forced labor shows Spanish power growing. It does not show their religious goal failing.']);
+  P('u4_4.5_4',
+    ['The Spanish used force to destroy a native god and set up Christianity', 'The Spanish asked politely if the people would like to hear about Christ', 'The Spanish learned about the native god and decided to worship it'],
+    ['Missionaries in Asia did not depend on minority groups. Jesuits mostly tried to win over rulers and elites.',
+     'The Spanish had beaten the Inca, so they could force change. In Asia, strong states like the Ming and the Mughals could not be pushed around.',
+     'Europeans did try to spread Christianity in Asia. Jesuits went to China, Japan and India.',
+     'Missionaries in Asia converted some people, not entire populations.']);
+  P('u4_4.5_5',
+    ['A Portuguese ship sailed down the coast of Africa on the way to India', 'A Portuguese ship sailed to Africa and stayed there to set up big farms', 'A Portuguese ship avoided Africa entirely by sailing far out into the ocean'],
+    ['Portugal traded heavily in Africa for gold and enslaved people. It did not ignore Africa.',
+     'Portugal was one of the first and biggest slave traders.',
+     'Portuguese ports and slave raiding hurt many Africans. Calling it beneficial for many ignores that.',
+     'From the 1440s, the Portuguese shipped enslaved Africans to Portugal and its Atlantic islands. That was exploitation.']);
+  P('u4_4.5_6',
+    ['A preacher shames slave traders and warns that God will judge them', 'A preacher praises slave traders for bringing Africans to learn about Christ', 'A preacher tells slaves to accept their suffering because God planned it'],
+    ['The Puritans were 1600s Calvinists. By 1774 the push against slavery came from Evangelicals and Quakers.',
+     'The Freemasons were a social club. They were not known for leading abolition.',
+     'John Wesley founded Methodism, part of the Evangelical revival. Evangelicals led the fight against the slave trade.',
+     'The Mormons began in the 1830s in the United States, decades after 1774.']);
+  P('u4_4.5_7',
+    ['A slave ship packed with captives, and a preacher condemning the trade', 'A slave ship carrying sugar to Europe, and a preacher praising the planters', 'A navy ship freeing captives, and a preacher thanking the sailors'],
+    ['Captives went to the Americas, plantation crops went to Europe, and European goods and rum went to Africa to buy more captives.',
+     'Enslaved people were taken from Africa, not to it.',
+     'Plantation crops grew in the Americas and went to Europe, not to the Americas.',
+     'Crops went to Europe, not Africa, and European goods went to Africa.']);
+  P('u4_4.5_8',
+    ['A drawing shows captives packed tightly side by side in a ship', 'A drawing shows the captives rowing the ship with long wooden oars', 'A drawing shows only a few captives with lots of room to move about'],
+    ['Packing people tightly with no fresh air spread disease, and many died on the Middle Passage.',
+     'Ships were loaded with people on purpose, for profit. They did not usually sink from it.',
+     'These were sailing ships, not rowed galleys. The drawing shows captives lying down, not rowing.',
+     'The drawing shows hundreds of captives and only a little space for crew. The numbers were far from equal.']);
+  P('u4_4.5_9',
+    ['A historian says European capitalists drained Africa’s wealth', 'A historian says Africans chose to stop all of their trade with Europe', 'A historian says Africa grew rich thanks to European investment there'],
+    ['Europeans did not take over the interior of Africa until the late 1800s, long after 1750.',
+     'From 1450 to 1750, millions of Africans were forced to the Americas. Losing so many people drained Africa.',
+     'Christianity spreading is a religious change. Rodney is talking about wealth being drained.',
+     'New crops like maize helped Africa’s food supply. That does not fit an argument about Europe draining Africa.']);
+
+  /* ---- 4.6 ---- */
+  P('u4_4.6_0',
+    ['Pueblo peoples drove out the Spanish after years of forced labor', 'Pueblo peoples welcomed the Spanish priests and helped them build new missions', 'Spanish officials fought each other for control of the Pueblo lands'],
+    ['The fight was Pueblo against Spanish, not Spanish officials against each other.',
+     'The source says officials punished Pueblo religious leaders and demanded labor and tribute. The revolt pushed back on both.',
+     'The Pueblo fought the Spanish, not alongside them, and there were no English settlers in New Mexico.',
+     'The rebels were Pueblo peoples in New Mexico, not enslaved Africans from the Caribbean.']);
+  P('u4_4.6_1',
+    ['Queen Nzinga used talks, alliances and war to resist the Portuguese', 'Queen Nzinga gave her kingdom to Portugal in return for peace and trade', 'Queen Nzinga joined the Ottomans to drive all Europeans out of Africa'],
+    ['She negotiated, allied with the Dutch, and fought wars. That is diplomacy and warfare used to resist Europe.',
+     'Nzinga worked with the Dutch, not the Ottomans, and the source says nothing about Islam.',
+     'The Atlantic slave trade went on until the 1800s. It did not end in the 1600s.',
+     'Nzinga’s long resistance shows Portugal did not control the interior.']);
+  P('u4_4.6_2',
+    ['Native peoples went to war because English settlers kept taking their land', 'English settlers went to war because Native peoples attacked their churches', 'Native peoples helped the English fight the French for control of New England'],
+    ['Spain and Portugal were not part of a war in New England.',
+     'The Protestant Reformation was in Europe. This war was about land in New England.',
+     'The Ottomans were in the Mediterranean, nowhere near New England.',
+     'The source says the English were "expanding onto their lands." Settlers taking land caused the war.']);
+  P('u4_4.6_3',
+    ['Britain made peace with escaped slaves in Jamaica after failing to beat them', 'Britain defeated the escaped slaves in Jamaica and sold them back into slavery', 'Escaped slaves in Jamaica asked Britain to let them go back to Africa'],
+    ['Disease was a real trend, but the Maroons were fighting slavery, not epidemics.',
+     'The Maroons were escaped Africans, not indigenous people, and they were not reacting to crops.',
+     'This is a fight between escaped slaves and a colony, not between rival states over trade routes.',
+     'Maroons were people who escaped plantation slavery. Their war was a reaction to the growing slave trade and plantation system.']);
+  P('u4_4.6_4',
+    ['For land and peace, the Maroons agreed to hunt down other rebels', 'In return for land and peace, the Maroons agreed to move back to Africa', 'In return for land and peace, Britain agreed to free all slaves in Jamaica'],
+    ['Britain turned one rebel group into its ally against other rebels. That is co-opting a local group to stop resistance.',
+     'Captain Quao already had a title. Article 4 is about a duty, not a new rank.',
+     'Article 4 says nothing about money or running local government.',
+     'Nothing in Article 4 is about marriage.']);
+
+  /* ---- 4.7 ---- */
+  P('u4_4.7_0',
+    ['Paintings put mixed-ancestry families in a ranked order with racial labels', 'Paintings showed that every family in New Spain had exactly the same legal rights', 'Paintings showed that mixed families did not exist in New Spain'],
+    ['The paintings rank the groups. A ranking is the opposite of equality.',
+     'Casta paintings were made in the 1700s, before independence in the 1820s.',
+     'Labels like mestizo and mulatto in a ranked order show a social hierarchy based on ancestry.',
+     'The paintings are of mixed-ancestry families, so those families clearly existed.']);
+  P('u4_4.7_1',
+    ['People born in Spain got the top jobs, not the wealthy creoles', 'Creoles born in the Americas got all the top jobs over people from Spain', 'The top jobs were shared equally by people born in Spain and in America'],
+    ['Rich creoles shut out of power grew angry, and that anger later fed the Latin American independence movements.',
+     'The encomienda was a colonial system. It did not spread back to Spain.',
+     'The Pueblo Revolt was Native people against the Spanish, not creoles against peninsulares.',
+     'Spain and the Dutch were enemies for much of this time, and this has nothing to do with creoles.']);
+  P('u4_4.7_2',
+    ['Free women of mixed race are shown as wealthy, with servants', 'Enslaved women of mixed race are shown cutting sugarcane in a field', 'European women are shown teaching their children in a Caribbean garden'],
+    ['Women were often painted in European art. That is not what made this one unusual.',
+     'Caribbean society kept high status for white people. Showing free women of color as wealthy, with servants, challenged that.',
+     'Children often appeared in art of this period.',
+     'Caribbean society was run by men, not women.']);
+  P('u4_4.7_3',
+    ['Creole members want only creoles to vote and lead the brotherhood', 'Mestizo members want to close the brotherhood to every creole member', 'All of the members agree the brotherhood should stop holding elections'],
+    ['The fight is about who can vote and lead, by ancestry, not landowners against landless peasants.',
+     'The brotherhood is Catholic. Nobody here is blending religions.',
+     'The source is about an election, not disease or population loss.',
+     'Creoles, mestizos and mulattoes arguing over who may lead shows new mixed identities and a social hierarchy being fought over.']);
+  P('u4_4.7_4',
+    ['Creoles tried to block mestizos and mulattoes, who had the votes to win', 'Mestizos and mulattoes tried to block creoles, who had enough votes to win', 'Creoles, mestizos and mulattoes all agreed on who should lead'],
+    ['Mulatto and mestizo brothers donated land that earns rent. People with no property rights could not do that.',
+     'The source does not say who worked in commerce or in farming.',
+     'Mestizos and mulattoes donated land worth 25 pesos a year, so they had some resources, but the creole candidate owned the hacienda and sugar mill.',
+     'The creole candidate owns the hacienda and the sugar mill. Creoles were still on top.']);
+  P('u4_4.7_5',
+    ['Spanish mine owners force native workers to labor and live among them', 'Spanish mine owners stay far away from native workers and never meet them', 'English settlers force native workers to dig silver in the Andes'],
+    ['The English did not treat Native Americans as equals. They pushed them off their land.',
+     'Some English did misunderstand Native ideas about land, but that is not a comparison with the practices in this passage.',
+     'In the passage, Spanish owners live among native people, even keeping native women. English settlers mostly kept apart and did not mix.',
+     'The English mostly did not use Native workers. Their tobacco and cotton fields used enslaved Africans.']);
+
+  /* ---- 4.8 ---- */
+  P('u4_4.8_0',
+    ['Spanish America mined most of the world’s silver, and much of it went to China', 'Most of the world’s silver was mined in China and much of it was shipped to Spain', 'Most of the world’s silver stayed in Spanish America and was never traded'],
+    ['Silver flowing to China for silk and tea shows trade with Asia growing, not declining.',
+     'China kept making silk, porcelain and tea. That is what the silver bought.',
+     'The colonial revolts came after 1750. In this period Europe controlled the mines.',
+     'Silver mined in the Americas, carried by Europeans, spent in China: one trade network linking the world.']);
+  P('u4_4.8_1',
+    ['Asian and Arab merchants kept most of the trade even after Portugal came', 'Portugal took over all of the Indian Ocean trade as soon as its ships arrived', 'Arab and Indian merchants left the Indian Ocean for good once Portugal arrived'],
+    ['The source says most trade "continued to be carried by" Asian and Arab merchants. Not a complete takeover.',
+     'Most trade stayed in the hands of the same merchants as before. That is continuity.',
+     'Islam kept spreading in Southeast Asia. The source says nothing about it ending.',
+     'The monsoon winds kept driving the trade. The source says the trade continued.']);
+  P('u4_4.8_2',
+    ['About 12.5 million Africans were taken to American plantations', 'About 12.5 million Africans were shipped to Europe to work in factories', 'About 12.5 million Europeans were shipped to Africa to work plantations'],
+    ['Atlantic slavery took far more than prisoners of war, and earlier slavery in Africa also used war captives. Not a difference.',
+     'Atlantic slavery was for life and passed to children. Freedom after a few years was rare.',
+     'Enslaved for life, passed on to children, on a huge scale, on plantations, justified by race: that is what made it different.',
+     'The Atlantic trade carried people across the ocean on European ships. It was not inside Africa only.']);
+  P('u4_4.8_3',
+    ['A carving puts the Christ Child on a ship, tying faith to sea voyages', 'A carving puts a Hindu god on a ship, mixing two religions together', 'A carving puts a merchant on a ship, showing money mattered more than faith'],
+    ['Ships carried Christianity as far as India. Growing global connections spread an old religion to new places.',
+     'Church leaders of this time did not argue for protecting other religions. The image celebrates spreading Christianity.',
+     'Syncretism means blending religions. The plaque shows only Christian figures.',
+     'The image puts religion front and center. It does not argue that religion came second.']);
+  P('u4_4.8_4',
+    ['Silver from Potosí went east to Europe and Asia, and west to China', 'Silver from China flowed east to Potosí and west to Spain and Europe', 'Silver from Potosí stayed in Spain and was never sent on to Asia'],
+    ['Silver went both east and west and ended in China. For the first time, trade linked the Americas, Europe and Asia.',
+     'The source is about sea routes, not the Silk Roads, and it does not mention the Ottomans.',
+     'The colonies were still under Spanish control. Nothing here shows them breaking away.',
+     'The Ming fell in 1644 for many reasons. The source does not say silver caused it.']);
+})(window.WALKTHROUGH);
+
+/* ===== Period 4 Test + Stimulus set questions (added 2026-11-07): full entries with the
+   plain-English steps (say + cut). Written by Claude; the questions are Eli's, verbatim. ===== */
+(function (W) {
+  function E(id, o) { W[id] = o; }
+
+  E('u3_3.1_17', {
+    type: 'purpose', hq: 'claim is structured upon',
+    hs: ['military technology based on guns, steel weapons, and horses', 'centralized political organization of European states'],
+    src: [{ tag: 'WHO', since: 'Jared Diamond wrote Guns, Germs, and Steel in 1997', therefore: 'his book explains history through geography and environment' },
+      { tag: 'WHAT', since: 'he lists what Europeans had that the Inca lacked', therefore: 'the claim rests on advantages, not on one man' }],
+    read: ['A 1997 scholar listing Europe’s advantages over the Inca', 'A Spanish soldier writing home about his own bravery in Peru', 'An Inca noble remembering the fall of his empire to Spain'],
+    plain: ['What kind of reasons does Diamond give for the win?', 'Which famous person’s life story is Diamond telling here?', 'Which spoken memories of the Inca did Diamond write down?'],
+    meaning: 'Guns, steel, horses and strong states are advantages that came from where Europeans lived.',
+    trapIdx: 3, trap: 'D grabs Pizarro’s name. But the quote explains his success by what whole societies had, not by his life story.',
+    say: ['Pizarro won because of guns, steel, horses and strong states', 'Pizarro won because the Inca people welcomed him as a returning god', 'Pizarro won because he was a smarter general than any Inca'],
+    cut: ['A Marxist reads history as a struggle between classes, rich against poor. Diamond talks about weapons and states, not classes.',
+      'Guns, steel and horses came from where Europeans lived: animals to tame, metals, crops. His book ties them to geography and environment.',
+      'Oral history means spoken memories collected from people. This is a written argument about advantages.',
+      'A biography tells one person’s life. The quote is about whole societies, not Pizarro’s life.']
+  });
+
+  E('u3_3.1_18', {
+    type: 'bestillustrates', hq: 'which of the following empires',
+    look: 'The shaded lands: Anatolia, the Balkans, Egypt, North Africa and the coasts of Arabia',
+    src: [{ tag: 'WHAT', since: 'it is a map of one empire at its largest', therefore: 'match the places it covers to an empire you know' },
+      { tag: 'WHERE', since: 'it wraps around the eastern Mediterranean and holds Anatolia', therefore: 'look for an empire ruled from Istanbul' }],
+    read: ['A map of one empire around the eastern Mediterranean', 'A map of trade routes crossing the whole Indian Ocean', 'A map of an empire stretching from Korea to Poland'],
+    plain: ['Which empire held Anatolia, the Balkans and Egypt?', 'Which empire ruled all the way from China to Persia?', 'Which empire stretched across all of northern Asia?'],
+    meaning: 'Anatolia, the Balkans, Egypt, Iraq and North Africa together are the Ottoman Empire at its peak.',
+    trapIdx: 2, trap: 'C is tempting because the Byzantines also ruled from Constantinople. But the Ottomans took the city in 1453, and only the Ottomans held Egypt, Iraq and North Africa at once.',
+    say: ['The red land wraps around the eastern Mediterranean Sea', 'The red land covers all of China, Central Asia and Persia', 'The red land covers Siberia and the far north of Asia'],
+    cut: ['At its peak the Mongol Empire held China, Central Asia, Persia and Russia. This map has none of China.',
+      'Russia spread east across Siberia. It never held Egypt or North Africa.',
+      'The Byzantines never held Iraq, Arabia’s coasts and all of North Africa together, and they fell in 1453.',
+      'Anatolia, the Balkans, Egypt, Iraq and North Africa: the Ottoman Empire in the 1500s and 1600s.']
+  });
+
+  E('u3_3.1_19', {
+    type: 'causation', hq: 'served to',
+    look: 'There is no source. Use what you know about the Thirty Years War (1618–1648).',
+    src: [{ tag: 'WHAT', since: 'the Thirty Years War pulled in many European states', therefore: 'think about what it did to any one state trying to grow' },
+      { tag: 'WHEN', since: 'it ran from 1618 to 1648', therefore: 'it ended in the Peace of Westphalia, a balance of many states' }],
+    read: ['No source: a question about wars between European states', 'A source from a king bragging about his growing power', 'A source from a merchant praising the peace between European rulers'],
+    plain: ['Did wars between rivals help or hold back empires?', 'How did wars like this make Europe calmer and safer?', 'How did wars like this give power to charity groups?'],
+    meaning: 'Rivals fought each other to a standstill, so no one state could build the empire it wanted.',
+    trapIdx: 0, trap: 'A sounds right because states fought for power. But a rivalry is a check: each rival held the others back.',
+    say: ['No source here: just what you know about the Thirty Years War', 'A long passage from the peace treaty that ended a European war in 1648', 'A map showing which states gained the most land in the war'],
+    cut: ['A few states gained, but the war mostly wore states out and kept any one from taking over.',
+      'The war kept the Habsburgs from uniting Europe. Rivals checked each other’s growth.',
+      'Thirty years of war is the opposite of stability.',
+      'Non-governmental organizations, like charities and the Red Cross, are a modern idea. Wrong era.']
+  });
+
+  E('u3_3.1_20', {
+    type: 'bestillustrates', hq: 'best explains the process illustrated',
+    look: 'The cannons lined up in the battle',
+    src: [{ tag: 'WHAT', since: 'it shows the Battle of Panipat, 1526, where the Mughals won', therefore: 'it shows how the Mughal Empire began' },
+      { tag: 'WHO', since: 'it was made for the Mughal emperor Akbar', therefore: 'it celebrates Mughal power' }],
+    read: ['A Mughal painting of the battle that began their empire', 'A Delhi painting mourning a sultan who lost to his rebels', 'A Persian map showing the marching routes of the Mughals'],
+    plain: ['What helped the Mughals win and build an empire?', 'Why did the Mughals stop using horses in their wars?', 'What new armor did the Mughals invent for battle?'],
+    meaning: 'The cannons in the painting are the clue: gunpowder built the Mughal, Ottoman and Safavid empires.',
+    trapIdx: 0, trap: 'A is real (the Ottoman Janissaries), but slave soldiers are not what the painting shows. Answer from the image: cannons.',
+    say: ['Mughal cannons help beat the Sultan of Delhi in 1526', 'Mughal horsemen with stirrups ride down the Delhi army', 'Mughal slave soldiers rise up against their own sultan'],
+    cut: ['Slave soldiers mattered in some empires, but the painting shows cannons. The process is gunpowder.',
+      'The stirrup was centuries old by 1526. Nothing new here.',
+      'Armor did not stop gunpowder. Guns made armor less useful.',
+      'Cannons and guns won Panipat. Gunpowder built the Mughal, Ottoman and Safavid empires.']
+  });
+
+  E('u3_3.1_21', {
+    type: 'bestillustrates', hq: 'EXCEPT',
+    look: 'The cannons: the method of warfare is gunpowder',
+    src: [{ tag: 'WHAT', since: 'the painting shows cannons winning a battle in 1526', therefore: 'the method of warfare is gunpowder weapons' },
+      { tag: 'WHEN', since: 'it is the 1500s', therefore: 'ask which empires grew with gunpowder in this era' }],
+    read: ['A Mughal painting of the battle that began their empire', 'A Delhi painting mourning a sultan who lost to his rebels', 'A Persian map showing the marching routes of the Mughals'],
+    plain: ['Which empire grew without gunpowder weapons?', 'Which empire used gunpowder the most of all four?', 'Which empire was the first to invent gunpowder?'],
+    meaning: 'EXCEPT means find the one that does not fit. Cross out each empire that did use gunpowder.',
+    trapIdx: 1, trap: 'B can surprise you, but the Qing used cannons too. On an EXCEPT question, cross out every empire that used the method.',
+    say: ['Gunpowder weapons win a battle for the Mughals', 'Bows and spears win a battle for the Aztecs', 'Gunpowder weapons bring down the whole Mughal Empire'],
+    cut: ['The Safavids used cannons and muskets against the Ottomans and Uzbeks. They used gunpowder, so they are not the exception.',
+      'The Qing used cannons to conquer China and push into Central Asia. Not the exception.',
+      'The Aztecs had no gunpowder. They built their empire with obsidian blades, spears and alliances. This is the exception.',
+      'The Ottomans took Constantinople with huge cannons in 1453. Not the exception.']
+  });
+
+  E('u3_3.1_22', {
+    type: 'causation', hq: 'most common effect',
+    look: 'The cannons that let one state crush a rival',
+    src: [{ tag: 'WHAT', since: 'one state uses cannons to defeat another', therefore: 'think about what stronger armies did between neighbors' },
+      { tag: 'WHEN', since: 'the question covers 1450 to 1750', therefore: 'think of the Ottoman–Safavid wars and Europe’s wars' }],
+    read: ['A Mughal painting of the battle that began their empire', 'A Delhi painting mourning a sultan who lost to his rebels', 'A Persian map showing the marching routes of the Mughals'],
+    plain: ['How did stronger armies change how states got along?', 'How did cannons start new arguments about God and the Bible?', 'How did cannons help nomads build huge empires?'],
+    meaning: 'Better weapons meant more wars between neighbors and sharper rivalries.',
+    trapIdx: 3, trap: 'D sounds detailed but has it backwards. Cannons were costly, so only rulers could afford them, and kings grew stronger than nobles.',
+    say: ['Cannons help one state crush a rival state in 1526', 'Nomad horsemen beat a city army with bows and arrows', 'Priests argue over a new religion on a battlefield'],
+    cut: ['Stronger armies, more wars: Ottomans against Safavids, Mughals against Rajputs, Europe’s many wars.',
+      'New religious disputes came from the Reformation and the Sunni–Shia split, not from cannons.',
+      'Gunpowder ended the age of nomadic empires. Cannons beat horse archers.',
+      'Gunpowder made kings stronger than nobles. Cannons knocked down castles, so feudalism weakened.']
+  });
+
+  E('u3_3.2_21', {
+    type: 'purpose', hq: 'the purpose of the military reforms',
+    hs: ['spreading military obligations to classes hitherto exempt', 'the position of the nobility, which had been preponderant in the old army, was completely changed'],
+    src: [{ tag: 'WHO', since: 'Klyuchevsky is a Russian historian', therefore: 'it is an expert looking back at Peter’s reforms' },
+      { tag: 'WHAT', since: 'it is about who had to serve in the army', therefore: 'the answer is about power over Russian society' }],
+    read: ['A historian explaining how Peter’s army changed Russia', 'A Russian noble praising Peter for protecting his rights', 'A Western visitor describing Russian soldiers at war'],
+    plain: ['What did Peter gain by drafting every class?', 'Which Enlightenment thinker did Peter’s army follow?', 'Where in Africa did Peter want new trading posts?'],
+    meaning: 'One army drawn from every class answers to the tsar, and the nobles lost their old lead in it.',
+    trapIdx: 2, trap: 'C is partly true: Peter copied Western armies. But the passage is about recruits and nobles, so the purpose is control.',
+    say: ['Drafting all classes cut the nobles’ old hold on the army', 'Drafting all classes gave the nobles more power than before', 'Drafting all classes ended Russia’s need for an army at all'],
+    cut: ['Peter came before most Enlightenment reform, and his goal was power, not rights.',
+      'One army from all classes answers to the tsar. Nobles lost their old place. That is central control.',
+      'The passage is about who gets drafted, not new weapons, and not about exploration.',
+      'Russia did not build trading posts in Africa or Asia. It grew over land.']
+  });
+
+  E('u3_3.2_22', {
+    type: 'context', hq: 'true about Peter the Great',
+    hs: ['completely altered existing social relationships'],
+    src: [{ tag: 'WHO', since: 'Klyuchevsky is a Russian historian', therefore: 'it is an expert looking back at Peter’s reforms' },
+      { tag: 'WHAT', since: 'the reforms changed who served and weakened nobles', therefore: 'Peter was gaining power, not giving it away' }],
+    read: ['A historian explaining how Peter’s army changed Russia', 'A Russian noble praising Peter for protecting his rights', 'A Western visitor describing Russian soldiers at war'],
+    plain: ['What were Peter’s Western reforms really for?', 'Who forced Peter to copy the West against his will?', 'Did Peter’s reforms free Russia’s serfs from lords?'],
+    meaning: 'Peter borrowed from the West to make the tsar stronger.',
+    trapIdx: 3, trap: 'D is almost right. One wrong detail, Moscow instead of St. Petersburg, makes the whole choice wrong.',
+    say: ['Peter’s army reform changed who served and weakened nobles', 'Peter’s army reform freed all the serfs and gave them their own land', 'Peter’s army reform was forced on him by angry nobles'],
+    cut: ['Westernizing made the tsar stronger: a new army, new taxes, control of nobles and the church. More control, not freedom.',
+      'Peter pushed the nobles to change. Many of them hated his reforms.',
+      'Serfs were freed in 1861, long after Peter. Serfdom got harsher under him.',
+      'His “Window to the West” was St. Petersburg, a new city on the Baltic, not Moscow.']
+  });
+
+  E('u3_3.2_23', {
+    type: 'bestillustrates', hq: 'architecture from which empire',
+    look: 'The white dome, the four minarets and the long garden pool',
+    src: [{ tag: 'WHEN', since: 'it was built from 1632 to 1653', therefore: 'ancient empires are out' },
+      { tag: 'WHAT', since: 'it is a domed tomb with minarets and gardens', therefore: 'it is Islamic architecture; ask where' }],
+    read: ['A photo of a domed tomb built in the 1600s', 'A photo of an ancient temple with stone columns', 'A photo of a wooden palace with curved roofs'],
+    plain: ['Which empire built this domed tomb in India?', 'Which ancient empire built domes and columns?', 'Which empire built this as a palace in Persia?'],
+    meaning: 'This is the Taj Mahal, built by the Mughal emperor Shah Jahan.',
+    trapIdx: 3, trap: 'Ottoman mosques have domes and minarets too. The date and the garden tomb point to the Mughals: the Taj Mahal.',
+    say: ['A white domed tomb with four towers and a garden pool', 'A stone temple with tall columns and a carved triangle roof', 'A wooden palace with curved roofs and painted gates'],
+    cut: ['Persian styles shaped it, but Persia did not build it. It stands in Agra, India.',
+      'Rome is ancient. 1632 is far too late.',
+      'The Taj Mahal, built by the Mughal emperor Shah Jahan as a tomb for his wife.',
+      'Ottoman mosques also have domes and minarets, but they are in Anatolia and the Balkans, and this is a garden tomb in India.']
+  });
+
+  E('u3_3.2_24', {
+    type: 'purpose', hq: 'BEST explains Peter the Great’s actions',
+    hs: ['must shave their beards and moustaches', 'let a yearly tax be collected from such persons'],
+    src: [{ tag: 'WHO', since: 'it is Peter’s own decree', therefore: 'it is an order with the force of law' },
+      { tag: 'WHAT', since: 'the cartoon shows Peter cutting a boyar’s beard, c. 1705', therefore: 'people saw the beard order as Peter forcing change' }],
+    read: ['Peter’s law ordering officials to shave or pay a tax', 'A noble’s letter begging Peter to let him keep his beard', 'A church order telling priests to grow long beards'],
+    plain: ['Why did Peter want Russians to look Western?', 'Why did Peter want Russians to leave the church?', 'Why did Peter want Russians to vote for leaders?'],
+    meaning: 'Shaving was a sign of a new, Western-style Russia. The tax was a push to get there.',
+    trapIdx: 2, trap: 'C has a real tax in it. But if money were the goal, Peter would want beards. He wanted them gone.',
+    say: ['Shave your beard, or pay a tax every year to keep it', 'Grow your beard long, or pay a tax for shaving it off', 'Only peasants may keep beards; nobles must shave'],
+    cut: ['Peter stayed Orthodox. He put the church under state control but did not reject the faith.',
+      'After touring Western Europe he wanted a modern, European-looking Russia. Shaving was a symbol of that.',
+      'The tax raised some money, but you could avoid it by shaving. The goal was the change.',
+      'Peter was an absolute ruler. No democracy here.']
+  });
+
+  E('u3_3.3_18', {
+    type: 'context', hq: 'occurred as a result of the',
+    hs: ['prefer the authority of the church far above God’s Word'],
+    src: [{ tag: 'WHO', since: 'Martin Luther began the Protestant Reformation in 1517', therefore: 'his words come from that split' },
+      { tag: 'WHAT', since: 'Table Talk records his sayings', therefore: 'these are his blunt views of the Catholic Church' }],
+    read: ['Luther attacking Catholics for putting church over the Bible', 'A pope warning faithful Catholics about Luther’s dangerous new ideas', 'A Renaissance artist praising the beauty of Rome’s churches'],
+    plain: ['What split Christianity over the Bible and the pope?', 'What trade moved new crops and animals between two hemispheres?', 'What spread of Muslim mystics changed Christianity?'],
+    meaning: 'Luther attacking the pope’s authority is the Protestant Reformation.',
+    trapIdx: 2, trap: 'C is close in time and place. But splitting the church over the Bible against the pope is the Reformation.',
+    say: ['The pope’s followers put church rules above the Bible', 'The pope’s followers put the Bible above church rules', 'The pope’s followers must obey the church above all else, always'],
+    cut: ['The Columbian Exchange moved crops, animals and diseases, not Luther’s ideas.',
+      'Luther’s attack on the pope’s authority is the Protestant Reformation, which split Christianity.',
+      'The Renaissance was about art and learning. It helped ideas spread, but the split is the Reformation.',
+      'Sufis are Muslim mystics. Nothing to do with Luther.']
+  });
+
+  E('u3_3.3_19', {
+    type: 'causation', hq: 'interacted with African and Amerindian belief systems',
+    look: 'The quote is about Christianity splitting. The question moves to the Americas, so use what you know.',
+    src: [{ tag: 'WHO', since: 'Luther is attacking the Catholic Church', therefore: 'the source shows Christianity changing' },
+      { tag: 'WHERE', since: 'the question is about the Americas', therefore: 'think about what happened when faiths met there' }],
+    read: ['Luther attacking Catholics for putting church over the Bible', 'A missionary bragging that every Native in Mexico gave up their old gods', 'An African priest refusing to hear about Christianity'],
+    plain: ['What happened when Christianity mixed with other faiths?', 'Why did no Africans or Native Americans ever become Christians at all?', 'Why did reformers try to stop Natives converting?'],
+    meaning: 'Faiths blended: Vodun, Santería and the Virgin of Guadalupe.',
+    trapIdx: 2, trap: 'C is partly true: many enslaved Africans were baptized. But they kept old beliefs alongside, so blending is the better answer.',
+    say: ['Luther says Catholics put the church above the Bible', 'Luther says Africans and Natives must turn Catholic', 'Luther says the Americas must be left without priests'],
+    cut: ['Many did convert. Ignoring Christianity completely is too extreme.',
+      'Christianity blended with African and Native beliefs: Vodun, Santería, the Virgin of Guadalupe.',
+      '“Succeeded at instilling Catholicism” is too strong. Enslaved Africans kept their own beliefs and blended them in.',
+      'No reform movement tried to keep Natives from Christianity. Missionaries wanted converts.']
+  });
+
+  E('u3_3.3_20', {
+    type: 'bestillustrates', hq: 'highlights',
+    hs: ['to put on the shield and coat of mail', 'to exhort you to embrace the true faith'],
+    src: [{ tag: 'WHO', since: 'a Sunni Ottoman sultan writes to a Shia Safavid shah', therefore: 'two Muslim rulers from rival branches of Islam' },
+      { tag: 'WHEN', since: 'it is 1514', therefore: 'the same year as the Battle of Chaldiran between them' }],
+    read: ['A Sunni sultan warning a Shia shah that war is coming', 'A Shia shah begging a Sunni sultan for peace and trade', 'A Sunni sultan inviting a Shia shah to join a crusade'],
+    plain: ['What does this show about Sunni and Shia rivals?', 'How did the Quran help these rulers avoid war?', 'Why were Muslims uniting against Christians here?'],
+    meaning: 'A Sunni ruler declares war on a Shia ruler over faith. The split was getting deeper.',
+    trapIdx: 1, trap: 'B grabs the end, where Selim offers the Quran “in place of the sword.” Read the whole letter: he has already started the campaign.',
+    say: ['A Sunni sultan says he will make war on a Shia shah', 'A Sunni sultan says he will make peace with a Shia shah', 'A Sunni sultan says he will fight the Jews of his empire'],
+    cut: ['Sunni and Shia rulers at war. The Ottoman–Safavid wars deepened the split.',
+      'He mentions the Quran, but he is putting on armor and marching. Not nonviolent.',
+      'Jews are not mentioned. The target is a Shia Muslim ruler.',
+      'This is Muslims fighting Muslims, not uniting against Christians.']
+  });
+
+  E('u3_3.3_21', {
+    type: 'causation', hq: 'most strongly influenced by Protestant desires to',
+    hs: ['because Christ taught that Christians shall not resist evil with violence', 'as not only Holy Scripture, but their own canon law teaches and requires'],
+    src: [{ tag: 'WHO', since: 'Martin Luther started the Protestant Reformation', therefore: 'his views show what Protestants wanted' },
+      { tag: 'WHEN', since: 'it is 1528, as the Ottomans pushed toward Vienna', therefore: 'war with the Turks was a real question' }],
+    read: ['Luther telling a prince that priests should stay out of war', 'Luther telling a prince to lead a new crusade against the Ottoman Turks', 'Luther telling a prince that the pope should command armies'],
+    plain: ['What did Luther want Christians to base their lives on?', 'Why did Luther want Christians to fight a war against each other?', 'Why did Luther want one German nation?'],
+    meaning: 'Luther argues from what Christ taught and what Scripture requires.',
+    trapIdx: 2, trap: 'C is a real Protestant idea (Calvin’s). But nothing here is about fate. Pick the desire the passage shows: following the Bible.',
+    say: ['Priests should pray and preach at home, as the Bible says', 'Priests should lead armies against the Turks, as the pope says', 'Priests should be paid by princes to fight in their wars'],
+    cut: ['Luther argues against war here. He does not call for war on fellow Christians.',
+      'A united Germany came in 1871. The passage is not about building a state.',
+      'Predestination is Calvin’s big idea. The passage never mentions destiny.',
+      'He cites what Christ taught and Holy Scripture. That is following the Bible more closely.']
+  });
+
+  E('u3_3.3_22', {
+    type: 'context', hq: 'in the context of Protestant claims that the Catholic Church',
+    hs: ['The popes and bishops called for war against the Turks in the name of Christ', 'mind the duties of their office'],
+    src: [{ tag: 'WHO', since: 'Martin Luther started the Protestant Reformation', therefore: 'he is criticizing the Catholic clergy' },
+      { tag: 'WHAT', since: 'he says clergy marched with armies', therefore: 'his complaint is about the Church reaching for worldly power' }],
+    read: ['Luther telling a prince that priests should stay out of war', 'Luther telling a prince to lead a new crusade against the Ottoman Turks', 'Luther telling a prince that the pope should command armies'],
+    plain: ['What was wrong with the Church, to Protestants?', 'Why did the Church fail to back the Crusades enough?', 'Why did the Church fail to convert Muslims?'],
+    meaning: 'Popes and bishops calling for war and riding with armies looked like a Church hungry for power.',
+    trapIdx: 0, trap: 'A mentions Crusades, like the passage, but backwards. Luther thinks the clergy are too eager for war.',
+    say: ['Popes and bishops call for wars instead of minding their office', 'Popes and bishops refuse to help fellow Christians against the Turks', 'Popes and bishops spend all their time with Renaissance artists'],
+    cut: ['Luther complains the clergy push for war, the opposite of not supporting it.',
+      'Clergy calling for war and riding with armies shows a Church reaching for worldly power. Corruption.',
+      'Humanism is never mentioned.',
+      'Converting Muslims in Europe is not his point.']
+  });
+
+  E('u3_3.3_23', {
+    type: 'purpose', hq: 'the audience of the sermon',
+    hs: ['To the count of Katzenellenbogen, Ziegenhain, and Nidda, my gracious lord.'],
+    src: [{ tag: 'AUDIENCE', since: 'Luther writes to a German count, his “gracious lord”', therefore: 'he is speaking to a noble who backs him' },
+      { tag: 'WHEN', since: 'it is 1528, eleven years after the 95 Theses', therefore: 'Protestant churches were just getting started' }],
+    read: ['Luther telling a prince that priests should stay out of war', 'Luther telling a prince to lead a new crusade against the Ottoman Turks', 'Luther telling a prince that the pope should command armies'],
+    plain: ['Why does it matter that Luther wrote to a prince?', 'Why were German nobles afraid to fight without the pope?', 'Why did German nobles refuse to fight anyone?'],
+    meaning: 'German princes protected Luther and backed the new churches.',
+    trapIdx: 3, trap: 'D twists Luther’s point. He says priests should stay home, not that princes should never fight.',
+    say: ['Luther writes to a German count, whom he calls his lord', 'Luther writes to the pope, whom he calls his gracious lord', 'Luther writes to the Ottoman sultan to ask for peace'],
+    cut: ['The passage is a friendly letter to a noble, not about persecution.',
+      'The passage never says nobles needed Catholic help. Luther says to leave priests at home.',
+      'German princes protected Luther (Frederick the Wise hid him) and backed the new churches.',
+      'German princes fought plenty of wars. Luther’s advice about priests is not pacifism.']
+  });
+
+  E('u4_4.1_5', {
+    type: 'causation', hq: 'most strongly aided by',
+    look: 'The ships in the bay',
+    src: [{ tag: 'WHO', since: 'Theodor de Bry was a European engraver who never went to the Americas', therefore: 'it shows how Europeans imagined the landing' },
+      { tag: 'WHEN', since: 'it is 1594, a century after 1492', therefore: 'it looks back; it is not an eyewitness view' }],
+    read: ['A 1594 engraving of Columbus landing and getting gifts', 'A 1492 sketch Columbus himself drew of the first people he met', 'A Taíno carving showing Spaniards as gods from the sky'],
+    plain: ['What made Columbus’s ocean crossing possible?', 'What did the Native people want from the Spanish?', 'Which pope sent Columbus to claim new lands?'],
+    meaning: 'Getting there took ships and tools that could cross the ocean. Many came from Indian Ocean sailors.',
+    trapIdx: 2, trap: 'C matches the picture, but the question asks what aided his arrival, how he sailed there. The gifts come after he lands.',
+    say: ['Spaniards land, plant a cross, and Natives bring gold gifts', 'Spaniards land and pay Natives in gold for their food', 'Natives attack the Spaniards as soon as their ships reach the shore'],
+    cut: ['The lateen sail, the astrolabe and the compass came to Europe from Arab and other Indian Ocean sailors.',
+      'Joint-stock companies came later, in the 1600s. The crown paid for Columbus.',
+      'The gifts happen after he lands, and the scene is how a European imagined it.',
+      'Pope Urban II called the First Crusade in 1095. Wrong pope, wrong century.']
+  });
+
+  E('u4_4.1_6', {
+    type: 'causation', hq: 'dramatically increased European interest in',
+    hs: ['where will be great trade and profit', 'I will give them as much gold as they may need'],
+    src: [{ tag: 'WHO', since: 'Columbus writes to the king who paid for his voyage', therefore: 'he wants more money for more voyages' },
+      { tag: 'WHEN', since: 'it is 1493, right after the first voyage', therefore: 'this is the news that set Europe sailing' }],
+    read: ['Columbus promising the king gold, spices and trade', 'Columbus warning the king the islands are worthless', 'Columbus begging the king to free the people he met'],
+    plain: ['What did Europe want more of after this trip?', 'What racial labels did Spain create in the Americas?', 'Which Canadian forests did Europe want to cut?'],
+    meaning: 'Columbus sold the voyage as a road to gold and trade. Other Europeans rushed to cross the ocean too.',
+    trapIdx: 0, trap: 'A is a real result of Spanish rule, but it took generations. The letter is selling trade and profit across the ocean.',
+    say: ['Columbus claims islands for Spain and promises riches', 'Columbus finds nothing of any value and asks to come home', 'Columbus gives the islands back to the people there'],
+    cut: ['Racial categories came later, as colonies grew. Not what the voyage first set off.',
+      'Transoceanic trade and travel. Spain, Portugal, then England, France and the Dutch rushed to sail.',
+      'Canada’s forests have nothing to do with this letter.',
+      'Versailles was built by France in the 1600s. Not about ocean voyages.']
+  });
+
+  E('u4_4.2_11', {
+    type: 'causation', hq: 'enabled Columbus, and other European explorers to successfully sail across the Atlantic',
+    hs: ['set sail from Spain to find an all-water route to Asia'],
+    src: [{ tag: 'WHO', since: 'Columbus is reporting to the king', therefore: 'he describes the voyage and the islands' },
+      { tag: 'WHEN', since: 'it is 1492–1493', therefore: 'only technology from before then could help' }],
+    read: ['Columbus promising the king gold, spices and trade', 'Columbus warning the king the islands are worthless', 'Columbus begging the king to free the people he met'],
+    plain: ['What tools let Columbus sail the open ocean?', 'What crops kept Columbus’s crew alive at sea?', 'Why did disease never reach Columbus’s crew?'],
+    meaning: 'Caravels, the compass, the astrolabe and better maps made the crossing possible.',
+    trapIdx: 1, trap: 'B mixes up the order. American crops were found because of the voyage, so they could not help make it.',
+    say: ['Columbus sailed west to reach Asia and landed in the Bahamas', 'Columbus sailed by steamship and reached China in just one week', 'Columbus walked overland to Asia and found new islands there'],
+    cut: ['Steamships came in the 1800s. Columbus used sails.',
+      'American crops came after contact. They could not help before it.',
+      'Disease spread from Europeans to Natives, and sailors did get sick. Untrue and beside the point.',
+      'Caravels, the compass, the astrolabe and maps made ocean crossings possible.']
+  });
+
+  E('u4_4.3_6', {
+    type: 'bestillustrates', hq: 'what global transformation is best illustrated',
+    look: 'The spotted bodies lying on mats',
+    src: [{ tag: 'WHO', since: 'an Aztec artist drew it', therefore: 'it shows a Native view of what happened' },
+      { tag: 'WHEN', since: 'it is from the 1500s', therefore: 'it comes after the Spanish arrived' }],
+    read: ['An Aztec drawing of people covered in smallpox spots', 'A Spanish drawing of Aztec doctors curing the sick in a hospital', 'An Aztec drawing of a harvest festival in the city'],
+    plain: ['What big change killed so many in the Americas?', 'How did universities help doctors cure diseases?', 'How did the plague hurt Aztec farms and crops?'],
+    meaning: 'Smallpox from Europe killed most of the Native population: the Columbian Exchange.',
+    trapIdx: 0, trap: 'A is a disease too, but the wrong one. The Black Death struck Afro-Eurasia centuries earlier.',
+    say: ['Aztecs lie sick with spots, and others try to help them', 'Aztecs stand healthy at a busy market selling their food', 'Spanish doctors cure Aztecs in a brand new hospital'],
+    cut: ['Bubonic plague hit Afro-Eurasia in the 1300s. This is smallpox in the Americas.',
+      'Nothing here shows medical progress. Universities did not save the Aztecs.',
+      'Smallpox from Europe killed huge numbers. That population collapse came with the Columbian Exchange.',
+      'The picture shows disease, not religion.']
+  });
+
+  E('u4_4.3_7', {
+    type: 'causation', hq: 'a result of Columbus’ arrival',
+    look: 'The arrow from the Americas carrying potatoes, corn, tomatoes and more',
+    src: [{ tag: 'WHAT', since: 'it maps the Columbian Exchange', therefore: 'crops, animals and diseases moved both ways' },
+      { tag: 'WHERE', since: 'one arrow runs from the Americas to Afro-Eurasia', therefore: 'ask what those foods did for people there' }],
+    read: ['A map of what moved each way between hemispheres', 'A map of where Columbus sailed on his four voyages', 'A map of the Spanish empire’s cities and forts'],
+    plain: ['How did American crops change life overseas?', 'Why did the Caribbean population grow so fast?', 'Why did Portugal have to sail around Africa?'],
+    meaning: 'Potatoes, corn and sweet potatoes fed people in Africa, Europe and Asia and helped populations grow.',
+    trapIdx: 0, trap: 'A mixes up who gained. Afro-Eurasia gained crops; the Caribbean lost most of its people.',
+    say: ['Crops cross both ways; Old World diseases reach the Americas', 'Crops go only from Europe to the Americas, and nothing returns', 'Diseases go from the Americas to Europe and kill most people'],
+    cut: ['The Native population fell, not rose. Disease killed most of it.',
+      'Vodun grew among enslaved Africans in Haiti, not among Native people.',
+      'Portugal sailed around Africa to reach India. Columbus did not force that.',
+      'Potatoes, corn and sweet potatoes fed Afro-Eurasia.']
+  });
+
+  E('u4_4.3_8', {
+    type: 'bestillustrates', hq: 'best describes Alfred Crosby’s argument',
+    hs: ['those creatures who have been in isolation longest suffer most', 'the dangerous privilege of the longest isolation from the rest of mankind'],
+    src: [{ tag: 'WHO', since: 'Crosby is a world historian', therefore: 'it is a scholar’s argument' },
+      { tag: 'WHAT', since: 'it is about migration and disease', therefore: 'the answer is about why diseases hit some people hardest' }],
+    read: ['A historian explaining why Native Americans died of disease', 'A doctor in 1492 describing a new cure for smallpox', 'A Native leader describing daily life before the Spanish came'],
+    plain: ['Why did isolation leave Natives so vulnerable?', 'Why did Native groups never meet each other before 1492?', 'Why did Native genes never change at all?'],
+    meaning: 'No contact meant no immunity. Old World diseases hit the Americas hardest.',
+    trapIdx: 2, trap: 'C borrows “genetic material” but goes too far. “Remained unchanged” is not what Crosby says.',
+    say: ['Those cut off longest suffered most when new diseases came', 'Those who traveled most suffered most when diseases came', 'Those cut off longest were the safest when the new diseases came'],
+    cut: ['He means isolation from the rest of mankind, not from each other. Native peoples traded with each other.',
+      'Long isolation, no immunity: a biological disadvantage.',
+      'He says genes were “least tempered,” not unchanged. Too extreme.',
+      'He does not compare how far people migrated.']
+  });
+
+  E('u4_4.3_9', {
+    type: 'bestillustrates', hq: 'EXCEPT',
+    hs: ['In 1521 my father, King Hunyg, died.', 'Half the people threw themselves into the ravines to escape it.', 'In 1542 Dominican friars arrived from Mexico'],
+    src: [{ tag: 'WHO', since: 'members of the Maya elite wrote it', therefore: 'they lived through these events or heard of them from family' },
+      { tag: 'WHEN', since: 'it was written 1571–1604', therefore: 'it looks back over fifty years' }],
+    read: ['A Maya chronicle of plague, conquest and friars', 'A Spanish report bragging about beating the Maya', 'A friar’s letter about teaching the Maya to pray'],
+    plain: ['Which choice does not show the plague was terrible?', 'Which choice shows the plague was the very worst of all?', 'Which choice shows the Spanish caused the plague?'],
+    meaning: 'EXCEPT means find the one that does not back up “terrible.” Check each choice against the plague years.',
+    trapIdx: 1, trap: 'B uses a hard word that makes it look different. But it is in the passage and shows the terror, so it supports the claim.',
+    say: ['Plague kills the king and many; then Spain and friars come', 'Spain arrives first; then a plague kills only Spanish soldiers', 'Friars bring a plague that kills only the Maya priests'],
+    cut: ['The king died of the plague. That supports “terrible,” so it is not the answer.',
+      'People threw themselves into ravines to escape it. That shows terror, so it supports the claim.',
+      'Elders and priests died. That supports the claim.',
+      'The friars arrived in 1542, two decades later. The chronicle does not link them to the disease. This is the exception.']
+  });
+
+  E('u4_4.3_10', {
+    type: 'bestillustrates', hq: 'destroyed our people',
+    hs: ['In 1524 the Spanish arrived in our country and destroyed our people. The Spanish conquered all the towns.'],
+    src: [{ tag: 'WHO', since: 'members of the Maya elite wrote it', therefore: 'they lived through these events or heard of them from family' },
+      { tag: 'WHEN', since: 'the plague began in 1519 and the Spanish came in 1524', therefore: 'keep the order of events straight' }],
+    read: ['A Maya chronicle of plague, conquest and friars', 'A Spanish report bragging about beating the Maya', 'A friar’s letter about teaching the Maya to pray'],
+    plain: ['What comes right after “destroyed our people”?', 'Which detail shows the Spanish brought the plague?', 'Which detail shows the Spanish killed the king’s son?'],
+    meaning: 'The very next sentence gives the evidence: the Spanish conquered all the towns.',
+    trapIdx: 0, trap: 'A is true in real history, but the question asks what the author uses. In the chronicle the plague starts before the Spanish come.',
+    say: ['In 1524 the Spanish came and conquered every town', 'In 1524 the Spanish came and brought the first plague', 'In 1524 the Spanish came and killed the king’s sons'],
+    cut: ['The plague began in 1519, before the Spanish came in 1524. The author does not blame them for it.',
+      'The next sentence: “The Spanish conquered all the towns.”',
+      '“Our people became poor” comes in 1521, after the plague and before the Spanish.',
+      'The king’s son died “at the same time” as the plague deaths. The Spanish did not kill him.']
+  });
+
+  E('u4_4.4_14', {
+    type: 'bestillustrates', hq: 'maritime empire of the',
+    look: 'The shaded land: Mexico, Central America, the Caribbean and western South America, with Brazil left blank',
+    src: [{ tag: 'WHAT', since: 'it maps one empire in the Americas', therefore: 'match the shaded lands to an empire' },
+      { tag: 'WHERE', since: 'Brazil is not shaded', therefore: 'the empire is not Portugal’s' }],
+    read: ['A map of one empire’s lands in the Americas', 'A map of trade routes from Africa to the Americas', 'A map of Native empires before Europeans came'],
+    plain: ['Which empire held Mexico and Peru, not Brazil?', 'Which empire held Brazil and the coast of Africa?', 'Which empire held Canada and the Mississippi?'],
+    meaning: 'Mexico, Central America, the Caribbean and Peru were the core of Spain’s empire.',
+    trapIdx: 0, trap: 'A pairs with Spain in the Treaty of Tordesillas. The blank Brazil is the clue: that was Portugal’s.',
+    say: ['Red covers Mexico, the Caribbean and western South America', 'Red covers Canada, the Great Lakes and the Mississippi River valley', 'Red covers only Brazil along the Atlantic coast'],
+    cut: ['Portugal held Brazil, the part left blank.',
+      'Spain: New Spain (Mexico), the Caribbean and Peru.',
+      'France held Canada and Louisiana. Not shaded.',
+      'Britain held the east coast of North America. Not shaded.']
+  });
+
+  E('u4_4.4_15', {
+    type: 'context', hq: 'originally used in the western hemisphere by the',
+    hs: ['an adult male had to spend 1/7 of his time working for the ruler', 'The Spanish adopted this system'],
+    src: [{ tag: 'WHAT', since: 'men worked for the ruler in turns', therefore: 'it was a labor tax, not paid work' },
+      { tag: 'WHO', since: 'the Spanish adopted it', therefore: 'a Native empire used it first' }],
+    read: ['A passage on a labor system Spain took over', 'A Spanish law freeing Natives from forced work', 'A Native song about trading at a busy market'],
+    plain: ['Which empire made men work in turns for the state?', 'Which empire paid its workers in gold for their time?', 'Which empire had no rulers to work for at all?'],
+    meaning: 'The mit’a was the Inca labor tax. Spain used it to work the silver mines of Potosí.',
+    trapIdx: 0, trap: 'A is close: the Aztecs also demanded tribute. But mit’a is an Inca word from the Andes.',
+    say: ['Men worked for the ruler in turns, and Spain copied it', 'Men worked for wages in mines, and Spain banned it', 'Men worked only for their own families, never for rulers'],
+    cut: ['The Aztecs collected tribute, but the mit’a comes from the Andes.',
+      'The Anasazi (Ancestral Puebloans) built no empire and were gone long before.',
+      'The mit’a was the Inca labor tax. Spain used it at Potosí.',
+      'The Maya lived in city-states, and mit’a is a word from Quechua, the Inca language.']
+  });
+
+  E('u4_4.4_16', {
+    type: 'bestillustrates', hq: 'the greatest number of slaves was sent',
+    look: 'Where the thickest arrows across the Atlantic end',
+    src: [{ tag: 'WHAT', since: 'it maps the slave trade from 1500 to 1900', therefore: 'thicker arrows mean more people' },
+      { tag: 'WHERE', since: 'the arrows cross the Atlantic to the Americas', therefore: 'compare where they end' }],
+    read: ['A map of where enslaved Africans were taken', 'A map of where African trade goods were sold', 'A map of where Europeans settled in Africa'],
+    plain: ['Where did the most enslaved Africans end up?', 'Where did cotton farms need the most workers?', 'Where did mines use the most enslaved workers?'],
+    meaning: 'Most arrows end in Brazil and the Caribbean, where sugar plantations took the most people.',
+    trapIdx: 0, trap: 'A is the famous story, but the map shows far more people sent to Brazil and the Caribbean.',
+    say: ['The thickest arrows go to Brazil and the Caribbean', 'The thickest arrows go to the farms of North America and Canada', 'The thickest arrows go from the Americas to Africa'],
+    cut: ['North America took only a small share, and the cotton boom came after 1800.',
+      'Brazil and the Caribbean, for sugar.',
+      'North America grew little sugar. That was the Caribbean and Brazil.',
+      'The Caribbean was mostly sugar plantations, not mines.']
+  });
+
+  E('u4_4.4_17', {
+    type: 'context', hq: 'The material used to create the plaque',
+    hs: ['A Portuguese ivory plaque'],
+    src: [{ tag: 'WHAT', since: 'it is carved from ivory', therefore: 'ivory was a luxury good traded from Africa and South Asia' },
+      { tag: 'WHERE', since: 'it was made in Portuguese Goa', therefore: 'Portugal held trading ports on the Indian Ocean' }],
+    read: ['An ivory carving made in Portuguese Goa', 'A silver coin minted in Spanish Mexico City', 'A wooden statue carved in Lisbon'],
+    plain: ['What does ivory say about Indian Ocean trade?', 'Why did Asians start buying European luxury goods?', 'Why did Asians use American silver and furs?'],
+    meaning: 'Ivory moved along the old Indian Ocean routes. Holding Goa put it in Portuguese hands.',
+    trapIdx: 3, trap: 'D is about style. The question asks about the material: ivory, a luxury good.',
+    say: ['A Portuguese ivory carving made in Goa, India', 'A Portuguese silver carving made in Lisbon, Portugal', 'An Indian wood carving made for a temple'],
+    cut: ['Ivory traveled the Indian Ocean routes. Holding Goa gave Portugal direct access, and the trade kept going.',
+      'Ivory is an African and Asian material, not a European good. Asia wanted little that Europe made.',
+      'Ivory came from Africa and Asia, not the Americas.',
+      'The question asks about the material, not the style. The plaque shows Christian subjects.']
+  });
+
+  E('u4_4.5_19', {
+    type: 'causation', hq: 'change in the volume of silver trade on the Southern African route',
+    look: 'The Southern African Route arrow: 16 tons a year in 1600–1650, 160 tons in 1725–1750',
+    src: [{ tag: 'WHO', since: 'two economic historians, 2007', therefore: 'the numbers are averages they worked out' },
+      { tag: 'WHAT', since: 'it shows tons of silver per year', therefore: 'compare the same arrow on both charts' }],
+    read: ['Two charts showing silver flows around the world', 'Two charts showing gold mined in southern Africa', 'Two charts showing how many ships sailed to India'],
+    plain: ['Who carried ten times more silver around Africa?', 'What new ships first let Europeans reach Africa?', 'What gold or diamonds were found in southern Africa?'],
+    meaning: 'The Dutch and English East India Companies sailed around Africa and paid for Asian goods with silver.',
+    trapIdx: 3, trap: 'D sounds like “Southern African.” But the route is a sea lane around Africa to Asia, and the mines were found in the 1800s.',
+    say: ['Silver around Africa jumps from 16 to 160 tons a year', 'Silver around Africa drops from 160 to only 16 tons a year', 'Silver from Japan grows from 59 to 160 tons a year'],
+    cut: ['Caravels and carracks came in the 1400s, before both charts.',
+      'The Dutch and English East India Companies sailed this route with American silver.',
+      'Kongo’s rulers converted around 1500. Nothing to do with silver to Asia.',
+      'Southern Africa’s gold and diamonds were found in the 1800s, after these charts.']
+  });
+
+  E('u4_4.5_20', {
+    type: 'causation', hq: 'as a result of',
+    look: 'No source: connect furs, cotton cloth and silk to what was changing in the world.',
+    src: [{ tag: 'WHAT', since: 'furs, cotton and silk were all sold far away', therefore: 'think about who was buying them' },
+      { tag: 'WHEN', since: 'it is 1450 to 1750', therefore: 'global trade was growing fast' }],
+    read: ['No source: furs, cotton and silk made for trade', 'A source from a tsar about Russia’s new tax on furs', 'A source from a Chinese silk weaver'],
+    plain: ['Why did peasants make more goods to sell?', 'Why did kings lose control in these places?', 'Why did traders stop buying these goods?'],
+    meaning: 'Buyers around the world wanted more, so peasants were put to work making goods for export.',
+    trapIdx: 2, trap: 'C is tempting, since forced labor grew in the Americas. In Russia, India and China the work was done by peasants.',
+    say: ['No source here: three goods that sold around the world', 'A passage about kings losing their power in great world wars', 'A chart showing trade shrinking after 1450'],
+    cut: ['Rulers in Russia, India and China grew stronger, not weaker.',
+      'The world economy grew, and demand for these goods rose.',
+      'This work was done by peasants, many of them serfs, not mostly by enslaved people.',
+      'Trade grew in this period. It did not shrink.']
+  });
+
+  E('u4_4.7_6', {
+    type: 'context', hq: 'rulers legitimized their rule through',
+    hs: ["kings are not only God's lieutenants upon earth", 'accountable to none but God only'],
+    src: [{ tag: 'WHO', since: 'King James I is defending his own power', therefore: 'he wants to show no one can limit him' },
+      { tag: 'AUDIENCE', since: 'he is speaking to Parliament in 1609', therefore: 'he is telling lawmakers he answers only to God' }],
+    read: ['A king telling Parliament his power comes from God', 'A Parliament member telling the king to obey the law', 'A bishop telling the king the church outranks him'],
+    plain: ['Where does James say a king’s power comes from?', 'Which family line does James say made him king?', 'Which Chinese idea does James use to defend himself?'],
+    meaning: 'This is the divine right of kings: religious ideas used to justify a ruler’s power.',
+    trapIdx: 2, trap: 'C sounds like “heaven,” but it is a Chinese idea, and heaven could take the mandate away from a bad ruler.',
+    say: ['Kings are like gods on earth and answer only to God', 'Kings are like servants and answer to their Parliament', 'Kings are like merchants and answer to their customers'],
+    cut: ['James argues from God and Scripture, not from custom.',
+      'James was a hereditary king, but he does not argue from inheritance here.',
+      'The Mandate of Heaven is Chinese and could be lost. James says kings answer to no one but God.',
+      'Divine right of kings: power justified by religious ideas.']
+  });
+
+  E('u4_4.8_5', {
+    type: 'bestillustrates', hq: 'best illustrates',
+    look: 'The arrows that do not cross the Atlantic: Asia to Europe, and between Africa and Europe',
+    src: [{ tag: 'WHAT', since: 'it maps goods and diseases moving after 1492', therefore: 'look at every arrow, not just the Atlantic ones' },
+      { tag: 'WHERE', since: 'arrows link Asia, Europe, Africa and the Americas', therefore: 'there was more than one network' }],
+    read: ['A map of goods and diseases moving between continents', 'A map of the Silk Roads before 1450', 'A map of Spanish treasure ships crossing the Atlantic to Seville'],
+    plain: ['Was the Atlantic the only network on the map?', 'Did these new routes make life better everywhere?', 'Did sugar first come to the Americas from Africa?'],
+    meaning: 'The Asia–Europe and Africa–Europe arrows show other networks running alongside the Columbian Exchange.',
+    trapIdx: 2, trap: 'C uses an arrow on the map, but sugar did not originate in Africa. It came from Asia.',
+    say: ['Goods and diseases move between all four regions', 'Goods move only between Western Europe and the Americas', 'Only diseases move; no goods travel anywhere'],
+    cut: ['The map shows routes across oceans and continents. Not limited to regions.',
+      'The map shows smallpox, malaria, yellow fever and plague. Life did not improve everywhere.',
+      'Sugar first came from Asia, and the map also shows it moving from Asia. It did not originate in Africa.',
+      'Arrows between Asia, Europe and Africa show other networks alongside the Columbian Exchange.']
+  });
+
+  E('u4_4.8_6', {
+    type: 'causation', hq: 'direct consequence of the decreased Native American population',
+    look: 'The arrows marked “slaves” running from Africa to the West Indies and North America',
+    src: [{ tag: 'WHO', since: 'it comes from a history review book', therefore: 'it is a summary map of Atlantic trade' },
+      { tag: 'WHAT', since: 'it shows goods and people moving around the Atlantic', therefore: 'look for who did the work' }],
+    read: ['A map of Atlantic trade linking three continents', 'A map of Spanish forts along the Gulf coast of Mexico', 'A map of Native trade routes before Columbus'],
+    plain: ['Who did Europeans use for labor once Natives died?', 'Why did the colonies make fewer goods to trade abroad?', 'How did the Spanish learn to grow grapes well?'],
+    meaning: 'With so many Native people dead, colonists turned to enslaved Africans for labor.',
+    trapIdx: 3, trap: 'D is a real change in colonial society, but the direct result of losing workers was bringing in new ones: enslaved Africans.',
+    say: ['Goods, rum and enslaved Africans move around the Atlantic', 'Only European goods move, and nothing ever comes back to Europe', 'Only Native goods move from the Americas to Asia'],
+    cut: ['Colonists turned to enslaved Africans to replace Native workers.',
+      'The map shows plenty of goods. Production grew with forced labor.',
+      'Grapes have nothing to do with the labor shortage.',
+      'Mixed-race populations grew, but the direct result of losing workers was importing new ones.']
+  });
+
+  E('u6_6.5_6', {
+    type: 'similar', hq: 'most similar to the arguments made in the early nineteenth century by supporters of the continued use of',
+    hs: ['it is immensely profitable', 'supplying an important source of revenue to British companies operating in India'],
+    src: [{ tag: 'WHO', since: 'an English merchant in Canton wrote it anonymously', therefore: 'an insider criticizing his own country’s trade' },
+      { tag: 'WHEN', since: 'it is 1836', therefore: 'three years before the First Opium War' }],
+    read: ['An English merchant attacking the opium trade as wrong', 'A Chinese official asking Britain to sell more opium in Canton', 'An Indian farmer praising the money opium brings'],
+    plain: ['Who else defended a cruel trade because it paid?', 'Who defended making goods by hand over factories?', 'Who defended royal control of trade over free trade?'],
+    meaning: 'The opium traders’ case is “it pays, so it is fine.” Defenders of slavery said the same.',
+    trapIdx: 1, trap: 'B sounds like an economics answer. But the argument in paragraph 2 is “it is profitable, so it is fine,” the same thing slavery’s defenders said.',
+    say: ['Opium traders say profits make their harmful trade OK', 'Opium traders say their trade is harmless and healthy', 'Opium traders say they lose money but trade to help China'],
+    cut: ['Artisans against factories is about how goods are made, not about defending a harmful trade for profit.',
+      'The opium traders wanted free trade, not mercantilism.',
+      'Slavery’s defenders said the profits were too important to give up.',
+      'Household labor in China is not in the passage.']
+  });
+
+  E('u6_6.5_7', {
+    type: 'causation', hq: 'reflected a turning point in world history primarily because the opium trade',
+    hs: ['The trade may be a profitable one'],
+    src: [{ tag: 'WHO', since: 'an English merchant in Canton wrote it anonymously', therefore: 'an insider criticizing his own country’s trade' },
+      { tag: 'WHEN', since: 'it is 1836', therefore: 'three years before the First Opium War' }],
+    read: ['An English merchant attacking the opium trade as wrong', 'A Chinese official asking Britain to sell more opium in Canton', 'An Indian farmer praising the money opium brings'],
+    plain: ['How did opium change which way silver flowed?', 'How did opium end the age of mercantilism?', 'How did opium use migrant farm workers for the first time?'],
+    meaning: 'For centuries silver flowed into China. Opium reversed it, and silver began flowing out.',
+    trapIdx: 1, trap: 'B is tempting because Britain argued for free trade in the Opium War. But the big change was China losing silver for the first time.',
+    say: ['A merchant says the opium trade pays but is still wrong', 'A merchant says the opium trade is harmless and perfectly fair', 'A merchant says China should ban every British good'],
+    cut: ['For centuries silver flowed into China. Opium grown in British India reversed that.',
+      'The passage is about a harmful trade, not a switch in trade policy.',
+      'Plantations had used forced and migrant labor long before.',
+      'Opium was grown on farms in India. No factory methods or modern marketing.']
+  });
+})(window.WALKTHROUGH);

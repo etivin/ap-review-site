@@ -909,7 +909,8 @@
       plainQ: w.plain ? w.plain[0] : '', meaning: w.meaning || '',
       why: q.e || '', trap: w.trap || '',
       trigger: w.hq || '', key: hs.join(' … '), look: w.look || '',
-      see: w.see || null, kind: w.kind || 'text', spots: w.spots || []
+      see: w.see || null, kind: w.kind || 'text',
+      say: w.say || null, cut: w.cut || null
     };
   }
   function fromWorked(ex) {
@@ -920,7 +921,7 @@
       srcline: ex.srcline, q: ex.q, options: ex.options.map(esc), answer: ex.answer, trapIdx: ex.trapIdx,
       src: ex.src, read: null, plain: null, plainQ: '', meaning: ex.meaning, why: ex.why, trap: ex.trap,
       trigger: pullMark(ex.q, 'hq', false), key: pullMark(ex.stim, 'hs', true), look: '',
-      see: null, kind: '', spots: []
+      see: null, kind: '', say: null, cut: null
     };
   }
 
@@ -934,27 +935,14 @@
   }
 
   function stimHTML(ex) {
-    // optional real images, then paragraphs; marks are trusted HTML already inside
-    var img = ex.imgs.map(function (s, i) {
-      var tag = '<img class="wk-stim-img" src="' + esc(s) + '" alt="Source" loading="lazy">';
-      var mine = ex.spots.filter(function (b) { return (b[4] || 0) === i; });
-      return mine.length ? '<div class="wk-imgbox" data-spots="' + esc(JSON.stringify(mine)) + '">' + tag + spotsSVG(mine) + '</div>' : tag;
+    // optional real images (each with its typed text from stim-text.js), then paragraphs;
+    // marks are trusted HTML already inside
+    var img = ex.imgs.map(function (s) {
+      var ty = window.stimTyped ? window.stimTyped(s) : null, shown = ty ? ty.img : s;
+      return (ty ? ty.head : '') + (shown ? '<img class="wk-stim-img" src="' + esc(shown) + '" alt="Source" loading="lazy">' : '') +
+        (ty ? ty.body : '');
     }).join('');
     return img + ex.paras.map(function (p) { return '<p>' + p + '</p>'; }).join('');
-  }
-  /* "Look here" boxes over an image source: the rest of the image dims and each box is
-     outlined. spots are [left, top, width, height] in percent of the image. */
-  var maskN = 0;
-  function spotsSVG(spots) {
-    var id = 'wkm' + (++maskN), holes = '', rings = '';
-    spots.forEach(function (b) {
-      var r = ' x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '"';
-      holes += '<rect' + r + ' fill="#000"/>';
-      rings += '<rect class="wk-spot"' + r + '/>';
-    });
-    return '<svg class="wk-spots" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' +
-      '<defs><mask id="' + id + '"><rect width="100" height="100" fill="#fff"/>' + holes + '</mask></defs>' +
-      '<rect class="wk-dim" width="100" height="100" mask="url(#' + id + ')"/>' + rings + '</svg>';
   }
 
   // The "Look at the source" step (image sources): what to ask, and what to check, for each kind.
@@ -1005,7 +993,49 @@
     return '<div class="wk-task"><p class="wk-task-q"><span class="wk-yt">Your turn</span> ' + prompt + '</p>' + inner + '</div>';
   }
 
+  /* Plain-English walkthrough (entries with say + cut; Unit 4 first, 2026-11-07):
+     1 what the source is saying, 2 reword the question, 3 cross out and why, 4 answer. */
+  function cutsHTML(ex) {
+    return '<div class="wk-cuts" data-key="' + ex.answer + '">' + ex.options.map(function (o, j) {
+      return '<button type="button" class="wk-cut" data-j="' + j + '" aria-pressed="false"><span class="wk-ol">' + letters(j) + '</span><span class="wk-cut-t">' + esc(o) + '</span></button>';
+    }).join('') + '</div><button type="button" class="wk-cutcheck" disabled>Check my cross-outs</button><div class="wk-fb" aria-live="polite"></div>';
+  }
+  function plainSteps(ex) {
+    var T = WT[ex.type];
+    var t1 = task('What is the source saying? Pick the best plain-English summary.', choicesHTML(ex.say));
+    var s1 = '<div class="wk-plain"><b>In plain English:</b> ' + esc(ex.say[0]) + '</div>' +
+      (ex.key ? '<p class="wk-note">The words that carry it are highlighted in the source:</p>' + quoteBox(ex.key) : '') +
+      '<p class="wk-note">The source line tells you who wrote it and when:</p>' + quoteBox(ex.srcline);
+    ex.src.forEach(function (r) {
+      s1 += '<div class="wk-since"><span class="wk-since-k">' + esc(r.tag) + '</span> Since ' + esc(r.since) +
+        ', <span class="wk-therefore">therefore</span> ' + esc(r.therefore) + '.</div>';
+    });
+
+    var t2 = task('Now reword the question. Which plain-English question asks the same thing?', choicesHTML(ex.plain));
+    var s2 = '<div class="wk-plain"><b>Reworded: ' + esc(ex.plain[0]) + '</b> ' + esc(ex.meaning) + '</div>' +
+      '<p class="wk-note">The underlined words in the question tell you what kind of question it is:</p>' + quoteBox(ex.trigger) +
+      '<div class="wk-typecard"><span class="walk-badge ' + T.cls + '">' + T.name + '</span>' +
+      '<p><b>How to handle it:</b> ' + esc(T.strat) + '</p></div>';
+
+    var t3 = task('Cross out every choice you can rule out. Tap a choice to cross it out, then check.', cutsHTML(ex));
+    var s3 = '<ul class="wk-cutwhy">' + ex.options.map(function (o, j) {
+      var keep = j === ex.answer;
+      return '<li class="' + (keep ? 'is-keep' : 'is-out') + '"><span class="wk-ol">' + letters(j) + '</span><span><b>' +
+        (keep ? 'Keep.' : 'Cross out.') + '</b> ' + esc(ex.cut[j] || '') + '</span></li>';
+    }).join('') + '</ul>';
+
+    var t4 = task('Pick your answer from what is left.', '<div class="wk-choices wk-letters">' + ex.options.map(function (o, j) {
+      return '<button type="button" class="wk-choice" data-ok="' + (j === ex.answer ? 1 : 0) + '" data-j="' + j + '">' + letters(j) + '</button>';
+    }).join('') + '</div><div class="wk-fb" aria-live="polite"></div>');
+    var s4 = '<div class="wk-why"><b>Correct: ' + letters(ex.answer) + '.</b> ' + esc(ex.why) + '</div>' +
+      '<div class="wk-trap"><b>What NOT to do</b>' + esc(ex.trap) + '</div>';
+
+    return [['1', 'What is the source saying?', t1, s1], ['2', 'Reword the question', t2, s2],
+      ['3', 'Cross out what is wrong, and why', t3, s3], ['4', 'Answer', t4, s4]];
+  }
+
   function coachSteps(ex) {
+    if (ex.cut && ex.say) return stepsHTML(plainSteps(ex));
     var T = WT[ex.type];
 
     // step 1: source line, quoted, then since/therefore reasoning
@@ -1043,16 +1073,13 @@
       '<div class="wk-why"><b>Correct: ' + letters(ex.answer) + '.</b> ' + esc(ex.why) + '</div>' +
       '<div class="wk-trap"><b>What NOT to do</b>' + esc(ex.trap) + '</div>';
 
-    // image sources: describe the source, then (Work it) tap where the evidence is
+    // image sources: describe the source
     var ts = '', ss = '';
     if (ex.see) {
       var K = SEE[ex.kind] || SEE.text;
-      ts = task(esc(K.q), choicesHTML(ex.see)) + (ex.spots.length ?
-        '<div class="wk-task wk-tap" hidden><p class="wk-task-q"><span class="wk-yt">Your turn</span> Now tap the part of the source that matters most for this question.</p>' +
-        '<div class="wk-fb wk-tapfb" aria-live="polite"></div></div>' : '');
+      ts = task(esc(K.q), choicesHTML(ex.see));
       ss = '<div class="wk-plain"><b>' + esc(ex.see[0]) + '</b></div>' +
-        '<p class="wk-note">' + esc(K.how) + '</p>' +
-        (ex.spots.length ? '<p class="wk-note wk-spotnote">The boxes on the source mark where to look.</p>' : '');
+        '<p class="wk-note">' + esc(K.how) + '</p>';
     }
 
     // Steps keep a fixed id in data-for ("1" to "4", "s" for the image step); position decides the number shown.
@@ -1061,12 +1088,16 @@
     list.push(['2', 'Read the question and the choices', t2, s2],
       ['3', 'Say what it is really asking', t3, s3],
       ['4', 'Answer, and name the trap', t4, s4]);
+    return stepsHTML(list);
+  }
+  function stepsHTML(list) {
     return list.map(function (st, k) {
       return '<div class="wk-coach-step' + (st[2] ? '' : ' solved') + '" data-for="' + st[0] + '">' +
         '<div class="wk-coach-h">Step ' + (k + 1) + ' &middot; ' + st[1] + '</div>' + st[2] + '<div class="wk-reveal">' + st[3] + '</div></div>';
     }).join('');
   }
   var DOTS = { '1': 'Source line', s: 'Look at it', '2': 'The question', '3': 'What it asks', '4': 'Answer &amp; trap' };
+  var DOTS_PLAIN = { '1': 'What it says', '2': 'Reword it', '3': 'Cross out', '4': 'Answer' };
 
   function doneIds() {
     var sp = {};
@@ -1078,8 +1109,10 @@
     var T = WT[ex.type];
     var qplain = esc(String(ex.q).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
     mode = mode || 'work';
-    var phases = ex.see ? ['1', 's', '2', '3', '4'] : ['1', '2', '3', '4'];
-    return '<div class="wk' + (open ? ' is-open' : '') + '" data-step="1" data-pos="1" data-mode="' + mode + '"' + (ex.id ? ' data-id="' + esc(ex.id) + '"' : '') + '>' +
+    var plain = !!(ex.cut && ex.say);
+    var phases = ex.see && !plain ? ['1', 's', '2', '3', '4'] : ['1', '2', '3', '4'];
+    var dots = plain ? DOTS_PLAIN : DOTS;
+    return '<div class="wk' + (plain ? ' wk-v2' : '') + (open ? ' is-open' : '') + '" data-step="1" data-pos="1" data-mode="' + mode + '"' + (ex.id ? ' data-id="' + esc(ex.id) + '"' : '') + '>' +
       '<button type="button" class="wk-summary">' +
         '<span class="walk-badge ' + T.cls + '">' + T.name + '</span>' +
         '<span class="wk-sum-topic">Unit ' + ex.unit + ' &middot; ' + esc(ex.test) + '</span>' +
@@ -1109,7 +1142,7 @@
         '</div>' +
 
         '<div class="wk-dots">' + phases.map(function (p, k) {
-          return '<button type="button" class="wk-dot' + (k ? '' : ' active') + '" data-s="' + (k + 1) + '">' + (k + 1) + '. ' + DOTS[p] + '</button>';
+          return '<button type="button" class="wk-dot' + (k ? '' : ' active') + '" data-s="' + (k + 1) + '">' + (k + 1) + '. ' + dots[p] + '</button>';
         }).join('') +
         '</div>' +
       '</div>' +
@@ -1134,9 +1167,6 @@
     var phase = stepEl(card, n).getAttribute('data-for');
     card.setAttribute('data-pos', n);
     card.setAttribute('data-step', phase);   // the CSS keys on the step id, not its position
-    // "Look here" boxes: Watch it shows them from the image step on; Work it after the tap.
-    var seeAt = Array.prototype.map.call(stepsOf(card), function (s) { return s.getAttribute('data-for'); }).indexOf('s') + 1;
-    card.classList.toggle('spots-on', !!seeAt && (card.getAttribute('data-mode') === 'work' ? card.classList.contains('tapped') : n >= seeAt));
     card.querySelectorAll('.wk-dot').forEach(function (d) {
       d.classList.toggle('active', parseInt(d.getAttribute('data-s'), 10) === n);
     });
@@ -1168,14 +1198,6 @@
     });
     var fb = stp.querySelector('.wk-fb');
     if (fb) { fb.className = 'wk-fb ' + (ok ? 'is-ok' : 'is-no'); fb.textContent = ok ? 'Right.' : 'Not quite. The best choice is marked in green.'; }
-    // the image step has a second task: tap the evidence on the source
-    var tap = stp.querySelector('.wk-tap');
-    if (tap && !card.classList.contains('tapped')) {
-      tap.hidden = false;
-      card.classList.add('tap-wait');
-      setStep(card, posOf(card));
-      return;
-    }
     stp.classList.add('solved');
     if (stp.getAttribute('data-for') === '4') {
       var j = btn.getAttribute('data-j');
@@ -1190,26 +1212,40 @@
     setStep(card, posOf(card));
   }
 
-  // Work it, image step: one tap on the source, then the boxes show where the evidence is.
-  function tapSource(card, box, e) {
-    var r = box.getBoundingClientRect();
-    var x = (e.clientX - r.left) / r.width * 100, y = (e.clientY - r.top) / r.height * 100, pad = 4;
-    var hit = JSON.parse(box.getAttribute('data-spots') || '[]').some(function (b) {
-      return x >= b[0] - pad && x <= b[0] + b[2] + pad && y >= b[1] - pad && y <= b[1] + b[3] + pad;
+  // Cross-out step: tap choices to strike them (mirrored on the question's own options), then check.
+  function toggleCut(card, btn) {
+    var stp = btn.closest('.wk-coach-step');
+    if (!stp || stp.classList.contains('solved')) return;
+    var on = btn.getAttribute('aria-pressed') !== 'true';
+    btn.setAttribute('aria-pressed', String(on));
+    btn.classList.toggle('is-cut', on);
+    var li = card.querySelector('.wk-o[data-j="' + btn.getAttribute('data-j') + '"]');
+    if (li) li.classList.toggle('is-struck', on);
+    stp.querySelector('.wk-cutcheck').disabled = !stp.querySelector('.wk-cut.is-cut');
+  }
+  function checkCuts(card, chk) {
+    var stp = chk.closest('.wk-coach-step');
+    if (!stp || stp.classList.contains('solved')) return;
+    var key = +stp.querySelector('.wk-cuts').getAttribute('data-key'), right = 0, cutKey = false;
+    stp.querySelectorAll('.wk-cut').forEach(function (b) {
+      var j = +b.getAttribute('data-j'), cut = b.classList.contains('is-cut');
+      b.disabled = true;
+      if (j === key) { b.classList.add('is-key'); if (cut) { cutKey = true; b.classList.add('is-bad'); } }
+      else if (cut) { right++; b.classList.add('is-good'); }
+      else b.classList.add('is-missed');
+      // crossed-out letters stay dimmed in the answer step
+      var lb = card.querySelector('.wk-coach-step[data-for="4"] .wk-choice[data-j="' + j + '"]');
+      if (lb && cut) lb.classList.add('is-cutl');
     });
-    var pin = document.createElement('span');
-    pin.className = 'wk-pin ' + (hit ? 'is-ok' : 'is-no');
-    pin.style.left = x + '%'; pin.style.top = y + '%';
-    box.appendChild(pin);
-    var stp = card.querySelector('.wk-coach-step[data-for="s"]');
-    var fb = stp && stp.querySelector('.wk-tapfb');
+    chk.disabled = true;
+    var fb = stp.querySelector('.wk-fb'), wrong = stp.querySelectorAll('.wk-cut').length - 1;
     if (fb) {
-      fb.className = 'wk-fb wk-tapfb ' + (hit ? 'is-ok' : 'is-no');
-      fb.textContent = hit ? 'You found it. The box marks the evidence.' : 'Not quite. The boxes show where to look.';
+      fb.className = 'wk-fb ' + (cutKey ? 'is-no' : 'is-ok');
+      fb.textContent = cutKey ? 'Careful: you crossed out ' + letters(key) + ', and that is the answer. Read why it stays below.'
+        : right === wrong ? 'All ' + wrong + ' wrong choices crossed out. Read why each one goes.'
+        : 'You crossed out ' + right + ' of the ' + wrong + ' wrong choices. Read why the others go too.';
     }
-    card.classList.remove('tap-wait');
-    card.classList.add('tapped');
-    if (stp) stp.classList.add('solved');
+    stp.classList.add('solved');
     setStep(card, posOf(card));
   }
 
@@ -1224,8 +1260,10 @@
       if (mb) { setMode(card, mb.getAttribute('data-m')); return; }
       var ch = e.target.closest('.wk-choice');
       if (ch) { choose(card, ch); return; }
-      var ib = card.classList.contains('tap-wait') && e.target.closest('.wk-imgbox');
-      if (ib) { tapSource(card, ib, e); return; }
+      var cb = e.target.closest('.wk-cut');
+      if (cb) { toggleCut(card, cb); return; }
+      var ck = e.target.closest('.wk-cutcheck');
+      if (ck) { checkCuts(card, ck); return; }
       var cur = posOf(card);
       if (e.target.closest('.wk-next')) { setStep(card, cur + 1); return; }
       if (e.target.closest('.wk-prev')) { setStep(card, cur - 1); return; }

@@ -340,8 +340,13 @@
     var srcs = q.simgs || (q.simg ? [q.simg] : []);
     var caps = q.simgCaps || (q.simgCap ? [q.simgCap] : []);
     return srcs.map(function (src, k) {
-      return imgViewer('<img src="' + esc(src) + '" alt="' + esc(caps[k] || 'Source') + '" loading="lazy" onerror="this.closest(\'.mcqx-img\').style.display=\'none\'"/>', '') +
-        (caps[k] ? '<div class="mcqx-stim-cap">' + esc(caps[k]) + '</div>' : '');
+      // A scanned page with typed text (stim-text.js): text only, or just its picture plus the typed text.
+      var ty = window.stimTyped ? window.stimTyped(src) : null;
+      var shown = ty ? ty.img : src;
+      return (ty ? ty.head : '') +
+        (shown ? imgViewer('<img src="' + esc(shown) + '" alt="' + esc(caps[k] || 'Source') + '" loading="lazy" onerror="this.closest(\'.mcqx-img\').style.display=\'none\'"/>', '') : '') +
+        (caps[k] && !ty ? '<div class="mcqx-stim-cap">' + esc(caps[k]) + '</div>' : '') +
+        (ty ? ty.body : '');
     }).join('');
   }
 

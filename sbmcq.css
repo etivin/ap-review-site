@@ -83,17 +83,38 @@
 
 /* ---------- real image inside a stimulus ---------- */
 .wk-stim-img{max-width:100%;height:auto;display:block;border:1px solid var(--walk-border);border-radius:4px;margin:0 0 12px}
-/* "Look here" boxes over an image source (image step): dim the rest, outline the evidence */
-.wk-imgbox{position:relative;width:fit-content;max-width:100%;margin:0 0 12px}
-.wk-imgbox .wk-stim-img{margin:0}
-.wk-spots{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .4s ease;border-radius:4px}
-.wk.spots-on .wk-spots{opacity:1}
-.wk-dim{fill:rgba(20,20,30,.42)}
-.wk-spot{fill:none;stroke:#f2b11c;stroke-width:3;vector-effect:non-scaling-stroke}
-.wk.tap-wait .wk-imgbox{cursor:crosshair;outline:3px dashed var(--walk-accent);outline-offset:3px;border-radius:4px}
-.wk-pin{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.5);pointer-events:none}
-.wk-pin.is-ok{background:var(--walk-green)}
-.wk-pin.is-no{background:var(--walk-red)}
+/* typed text of a scanned source (stim-text.js); also used by MCQ Practice, so page tokens only */
+.stx{margin:0 0 16px}
+.stx p{font-size:.94rem;line-height:1.75;color:var(--ink, #1a1a12);margin:0 0 10px;text-align:left;text-indent:1.5em}
+.stx p.stx-head{text-indent:0;font-weight:700;text-decoration:underline;margin:0 0 8px}
+.stx-imghead{font-weight:700;text-decoration:underline;margin:0 0 6px;font-size:.94rem;color:var(--ink, #1a1a12)}
+.stx p.stx-sl{text-indent:0;text-align:right;font-style:italic;font-size:.86rem;color:var(--mid, #48483a);margin-top:4px}
+
+/* plain-English walkthrough (.wk-v2): cross-out step */
+.wk-cuts{display:flex;flex-direction:column;gap:7px}
+.wk-cut{display:flex;gap:10px;align-items:flex-start;font-family:inherit;text-align:left;font-size:.84rem;line-height:1.45;padding:9px 12px;border:1px solid var(--walk-border2);background:var(--walk-cream);color:var(--walk-ink);border-radius:4px;cursor:pointer}
+.wk-cut:hover:not(:disabled){border-color:var(--walk-accent);background:#fff}
+.wk-cut:disabled{cursor:default}
+.wk-cut.is-cut .wk-cut-t{text-decoration:line-through;text-decoration-thickness:2px;opacity:.6}
+.wk-cut.is-good{border-color:var(--walk-green);background:var(--walk-green-bg)}
+.wk-cut.is-missed{border-style:dashed}
+.wk-cut.is-key{border-color:var(--walk-green);box-shadow:0 0 0 2px var(--walk-green)}
+.wk-cut.is-bad{background:var(--walk-red-bg)}
+.wk-cutcheck{margin-top:10px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.04em;padding:8px 14px;border:0;border-radius:3px;background:var(--walk-accent);color:#fff;cursor:pointer}
+.wk-cutcheck:disabled{opacity:.45;cursor:default}
+.wk-cutwhy{list-style:none;margin:0;padding:0}
+.wk-cutwhy li{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;margin-bottom:7px;border-radius:0 3px 3px 0;font-size:.85rem;line-height:1.55;color:var(--walk-ink)}
+.wk-cutwhy li.is-out{background:var(--walk-red-bg);border-left:3px solid var(--walk-red)}
+.wk-cutwhy li.is-keep{background:var(--walk-green-bg);border-left:3px solid var(--walk-green)}
+.wk-cutwhy li.is-out b{color:var(--walk-red)}
+.wk-cutwhy li.is-keep b{color:var(--walk-green)}
+.wk-letters .wk-choice.is-cutl:not(.is-ok):not(.is-no){opacity:.4;text-decoration:line-through}
+.wk-opts li.is-struck .wk-otext,
+.wk-v2[data-mode="watch"][data-step="3"] .wk-opts li:not(.is-correct) .wk-otext,
+.wk-v2[data-mode="watch"][data-step="4"] .wk-opts li:not(.is-correct) .wk-otext{text-decoration:line-through;opacity:.6}
+/* the source's key words light up once the student has said what it means (step 1) */
+.wk-v2[data-step="2"] .wk-stim mark.hs{background:var(--walk-hl-s);box-shadow:0 0 0 1px rgba(46,107,52,.25);text-decoration:underline;text-decoration-color:var(--walk-green);text-underline-offset:3px}
+:root[data-theme="dark"] .wk-cut{background:#232a3d}
 
 .wk-body{display:grid;grid-template-columns:1.35fr 1fr;gap:0;align-items:start}
 @media(max-width:860px){.wk-body{grid-template-columns:1fr}}
@@ -203,7 +224,8 @@
 .wk-look{margin-bottom:10px}
 /* in Work it, a highlight waits until its step is answered */
 .wk[data-mode="work"]:has(.wk-coach-step[data-for="2"]:not(.solved)) .wk-q mark.hq,
-.wk[data-mode="work"]:has(.wk-coach-step[data-for="3"]:not(.solved)) .wk-stim mark.hs{background:transparent;box-shadow:none;text-decoration:none}
+.wk:not(.wk-v2)[data-mode="work"]:has(.wk-coach-step[data-for="3"]:not(.solved)) .wk-stim mark.hs,
+.wk-v2[data-mode="work"]:has(.wk-coach-step[data-for="1"]:not(.solved)) .wk-stim mark.hs{background:transparent;box-shadow:none;text-decoration:none}
 
 /* ---------- pop-up from MCQ Practice ---------- */
 .wk-modal{position:fixed;inset:0;z-index:2147482000;background:rgba(10,14,30,.6);display:flex;align-items:flex-start;justify-content:center;padding:4vh 16px;overflow-y:auto}

@@ -1005,7 +1005,7 @@
     var t1 = task('What is the source saying? Pick the best plain-English summary.', choicesHTML(ex.say));
     var s1 = '<div class="wk-plain"><b>In plain English:</b> ' + esc(ex.say[0]) + '</div>' +
       (ex.key ? '<p class="wk-note">The words that carry it are highlighted in the source:</p>' + quoteBox(ex.key) : '') +
-      '<p class="wk-note">The source line tells you who wrote it and when:</p>' + quoteBox(ex.srcline);
+      (ex.srcline ? '<p class="wk-note">The source line tells you who wrote it and when:</p>' + quoteBox(ex.srcline) : '');
     ex.src.forEach(function (r) {
       s1 += '<div class="wk-since"><span class="wk-since-k">' + esc(r.tag) + '</span> Since ' + esc(r.since) +
         ', <span class="wk-therefore">therefore</span> ' + esc(r.therefore) + '.</div>';
@@ -1130,7 +1130,7 @@
         '<div class="wk-body">' +
           '<div class="wk-doc">' +
             '<div class="wk-stim">' + stimHTML(ex) + '</div>' +
-            '<div class="wk-srcbar"><span class="wk-srclabel">Source line</span><span class="wk-srctext">' + esc(ex.srcline) + '</span></div>' +
+            (ex.srcline ? '<div class="wk-srcbar"><span class="wk-srclabel">Source line</span><span class="wk-srctext">' + esc(ex.srcline) + '</span></div>' : '') +
             '<div class="wk-q">' + ex.q + '</div>' +
             optionsHTML(ex) +
           '</div>' +

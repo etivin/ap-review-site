@@ -12657,3 +12657,207 @@ window.WALKTHROUGH = window.WALKTHROUGH || {};
   P('u9_9.9_4', ['Poor regions still export raw goods', 'Poor regions now lead the world in industry', 'Raw material trade has ended worldwide'],
     ['Keep: these regions keep their old economic roles.', 'They did not fully diversify.', 'Raw material trade continues.', 'Africa did not become the top manufacturer.']);
 })(window.WALKTHROUGH);
+
+/* ===== Unit 4 Set questions (added 2026-11-09): full entries with the plain-English steps
+   (say + cut). Written by Claude; the questions are Eli's, verbatim. ===== */
+(function (W) {
+  function E(id, o) { W[id] = o; }
+  var MAP_LOOK = 'Where the thickest arrows go: the Caribbean (2,692,000) and South America';
+  var MAP_SRC = [{ tag: 'WHAT', since: 'it maps the Atlantic slave trade from 1450 to 1900', therefore: 'it shows where captives were taken and how many' },
+    { tag: 'WHERE', since: 'the biggest arrows end in the Caribbean and Brazil', therefore: 'think about the sugar colonies there' }];
+  var MAP_READ = ['Most captives went to the Caribbean and Brazil', 'Most captives went to North America and Europe', 'Captives were spread evenly across the Americas'];
+  var MAP_SAY = ['Most captives went to the Caribbean and Brazil', 'Most captives were taken to Europe and North America', 'The trade was small and ended before the year 1600'];
+
+  E('u4_4.4_18', {
+    type: 'causation', hq: 'contributed most directly to', look: MAP_LOOK, src: MAP_SRC, read: MAP_READ,
+    plain: ['Which revolt grew out of this trade?', 'Which revolution happened in Europe in the 1600s?', 'Which revolution happened in Cuba in the 1900s?'],
+    meaning: 'Millions of enslaved Africans in Caribbean colonies like Saint-Domingue led to the revolt that became Haiti.',
+    trapIdx: 3, trap: 'D grabs Cuba, which is on the map. But the Cuban Revolution was in 1959 and was about communism, not slavery.',
+    say: MAP_SAY,
+    cut: ['The Glorious Revolution (1688) was a fight over England’s crown.', 'The French Revolution happened in Europe, not in the slave colonies.', 'Keep: enslaved Africans in Saint-Domingue rose up and founded Haiti.', 'The Cuban Revolution came in 1959 and was a communist revolt.']
+  });
+  E('u4_4.4_19', {
+    type: 'causation', hq: 'EXCEPT', look: MAP_LOOK, src: MAP_SRC, read: MAP_READ,
+    plain: ['Which one was NOT an effect of this trade?', 'Which one was the biggest effect of this trade?', 'Which effect happened only inside Africa itself?'],
+    meaning: 'Three choices are real effects. Find the one that comes from a later time.',
+    trapIdx: 2, trap: 'C sounds odd, but maize and cassava from the Americas really did become staples in Africa.',
+    say: MAP_SAY,
+    cut: ['Diseases did cross the Atlantic with the trade, so this is true.', 'Sugar planting did wear out Caribbean soil, so this is true.', 'Maize and cassava did become African staples, so this is true.', 'Keep: burning fossil fuels came with industry in the 1800s.']
+  });
+  E('u4_4.4_20', {
+    type: 'causation', hq: 'impact on African society', look: MAP_LOOK, src: MAP_SRC, read: MAP_READ,
+    plain: ['How did losing so many people change Africa?', 'How did Africans move to new lands long ago?', 'How did Africa’s cities grow larger and richer?'],
+    meaning: 'Traders took mostly young men, so the societies left behind had to change.',
+    trapIdx: 1, trap: 'B is a real African migration, but the Bantu moved many centuries before this trade.',
+    say: MAP_SAY,
+    cut: ['Keep: with fewer men, women’s work and family roles changed.', 'The Bantu migrations happened long before 1450.', 'The trade did not turn African societies to Islam.', 'The trade drained people; it did not build big cities.']
+  });
+  E('u4_4.4_21', {
+    type: 'causation', hq: 'relative volume of trade to different destinations', look: MAP_LOOK, src: MAP_SRC, read: MAP_READ,
+    plain: ['Why did some places take far more captives?', 'Why did the Ottomans want enslaved soldiers?', 'Why did rich merchants want house servants?'],
+    meaning: 'The places with the biggest arrows grew sugar and other cash crops that needed huge numbers of workers.',
+    trapIdx: 0, trap: 'A is tempting because mines used forced labor too, but the big arrows go to sugar islands, not mining towns.',
+    say: MAP_SAY,
+    cut: ['Mines used forced labor, but far fewer captives went to them.', 'The map shows no trade to the Ottoman Empire.', 'Keep: cash crop plantations needed the most workers.', 'Household servants were a small share of the trade.']
+  });
+  E('u4_4.4_22', {
+    type: 'causation', hq: 'best explained by the expansion in the production of',
+    look: 'The bars grow from about 0.5 to 2.5 million, and the West Indies share grows the most',
+    src: [{ tag: 'WHAT', since: 'it graphs the Atlantic slave trade from 1601 to 1750', therefore: 'it shows the trade growing over time' },
+      { tag: 'WHERE', since: 'the biggest growth is to the West Indies and Brazil', therefore: 'think about what those colonies grew' }],
+    read: ['The trade grows, mostly to the West Indies', 'The trade shrinks after 1650 in every region', 'The trade grows mostly to North America'],
+    plain: ['Which crop drove the growth?', 'Which crop grew in North America after 1800?', 'Which crop did Europe stop buying after 1650?'],
+    meaning: 'The West Indies and Brazil were sugar colonies, and sugar needed the most workers.',
+    trapIdx: 0, trap: 'A grabs cotton, the crop most tied to slavery in the United States. But cotton boomed after 1790, later than this graph.',
+    say: ['The trade grows, mostly to the West Indies', 'The trade shrinks after 1650 in every region shown', 'The trade grows mostly to North America and Europe'],
+    cut: ['Cotton boomed after 1790, after this graph ends.', 'Keep: sugar colonies in the West Indies and Brazil drove it.', 'Tobacco grew in North America, the smallest bar.', 'Rice took far fewer workers than sugar.', 'Coffee grew big later, mostly in the 1800s.']
+  });
+  E('u4_4.4_23', {
+    type: 'similar', hq: 'most similar to the predominant form of slavery',
+    look: 'An enslaved woman working at a spinning wheel inside a family home',
+    src: [{ tag: 'WHO', since: 'a Dutch minister drew his own home in Jakarta', therefore: 'it shows slavery inside a household' },
+      { tag: 'WHAT', since: 'Flora spins thread in the house', therefore: 'this is domestic slavery, not field work' }],
+    read: ['A woman works inside a family home', 'Enslaved men cut sugar cane in the fields', 'Serfs farm land owned by a noble'],
+    plain: ['Where was slavery mostly inside homes?', 'Where was slavery mostly on sugar plantations?', 'Where did serfs work the land for nobles?'],
+    meaning: 'Find the region where most enslaved people worked in households, not fields or mines.',
+    trapIdx: 1, trap: 'B is the slavery students know best, but the Caribbean used plantation slavery, not household slavery.',
+    say: ['An enslaved woman works inside a family home', 'Enslaved men cut sugar cane on a big plantation', 'Serfs farm land that belongs to a Russian noble'],
+    cut: ['Keep: slavery inside Africa was mostly household slavery.', 'Caribbean slavery meant sugar plantations.', 'Russia relied on serfs bound to the land.', 'South American slavery meant plantations and mines.']
+  });
+  var ZHS1 = ['enormous quantity of silver'];
+  var ZSRC = [{ tag: 'WHO', since: 'a Spanish bishop wrote it in Mexico', therefore: 'he saw the colony from the inside' },
+    { tag: 'WHEN', since: 'it was written in 1605', therefore: 'Spanish silver was flowing around the world' }];
+  var ZREAD = ['A bishop describes a silver city', 'An Aztec ruler describes his empire before Spain', 'A Spanish king orders the mines to be closed'];
+  var ZSAY = ['Spaniards grow rich on silver dug by forced workers', 'Indian workers own the mines and sell silver to Spain', 'Zacatecas is a quiet farm town with plenty of trees'];
+  E('u4_4.5_21', {
+    type: 'causation', hq: 'contributed most directly to', hs: ZHS1, src: ZSRC, read: ZREAD,
+    plain: ['Where did all this silver end up?', 'What made factories start in Europe?', 'What made China’s population grow?'],
+    meaning: 'Mexican silver went to Europe and across the Pacific to China, linking the whole world in trade.',
+    trapIdx: 3, trap: 'D grabs China, where much of the silver went. But the Song dynasty ended in 1279, long before this silver.',
+    say: ZSAY,
+    cut: ['Keep: American silver linked every continent in one trade web.', 'Industry began in the 1700s, and in Britain, not Mexico.', 'Chartered companies grew from European trade, not this mine.', 'The Song dynasty ended in 1279, before this silver.']
+  });
+  E('u4_4.5_22', {
+    type: 'purpose', hq: 'conclusions about Mota y Escobar', hs: ['satisfy your greed with it'], src: ZSRC, read: ZREAD,
+    plain: ['What did he think of the soldiers?', 'Did the bishop ever live in Mexico himself?', 'Did the bishop think silver was worth mining?'],
+    meaning: 'He lets the Aztec call his master greedy. That shows how the bishop saw the soldiers.',
+    trapIdx: 1, trap: 'B is tempting because he mentions slaves, but he never objects to slavery.',
+    say: ZSAY,
+    cut: ['He was a bishop in Mexico, so he knew it firsthand.', 'He mentions slaves calmly; he never objects.', 'Keep: the “greed” line shows he judged their motives.', 'He praises the silver; he does not doubt its value.']
+  });
+  E('u4_4.5_23', {
+    type: 'bestillustrates', hq: 'ethnic makeup of Zacatecas', hs: ['about 800 Black slaves and mulattoes', 'about 1,500 Indians in the work gangs'], src: ZSRC, read: ZREAD,
+    plain: ['Who did the work in the mines?', 'What made colonists fight for independence?', 'How did Africans mix their religions?'],
+    meaning: 'A few hundred Spaniards, with thousands of enslaved and Indian workers doing the labor.',
+    trapIdx: 1, trap: 'B sounds right because the groups are unequal, but the wars of independence came 200 years later.',
+    say: ZSAY,
+    cut: ['Keep: thousands of forced workers did the mining.', 'The wars of independence came in the 1800s.', 'Indentured servants are not in this passage.', 'The passage says nothing about religion.']
+  });
+  E('u4_4.5_24', {
+    type: 'causation', hq: 'high prices of firewood', hs: ['all of which have since vanished'], src: ZSRC, read: ZREAD,
+    plain: ['Why did the forests disappear?', 'Why did the climate get colder?', 'Why did Aztec farms use up the land?'],
+    meaning: 'The forests were there when silver was found and vanished after. The mines used them up.',
+    trapIdx: 2, trap: 'C names the Columbian Exchange, a big Unit 4 idea. But the passage blames mining, not new crops or germs.',
+    say: ZSAY,
+    cut: ['The passage ties the change to mining, not to climate.', 'Chinampas were farms far away, in the Valley of Mexico.', 'The trees vanished from mining, not from crops or germs.', 'Keep: Spanish mining cut down the forests.']
+  });
+  E('u4_4.5_25', {
+    type: 'similar', hq: 'Latin America and in Southeast Asia',
+    look: 'What the two regions had in common under European rule in the 1500s',
+    src: [{ tag: 'WHAT', since: 'there is no source; it asks you to compare two regions', therefore: 'think about how Europeans ran both' }],
+    read: ['Compare how both regions used workers', 'Compare which region made more money', 'Compare which region was conquered first'],
+    plain: ['What labor did both regions use?', 'Which region made porcelain for sale?', 'Which region gave peasants more land?'],
+    meaning: 'Spain forced Indigenous people to work in the Americas and in the Philippines too.',
+    trapIdx: 0, trap: 'A names porcelain, a famous Asian export, but it came from China, not Southeast Asia or Latin America.',
+    say: ['Both used workers who were forced', 'Both made goods in big modern factories', 'Both gave land to small family farmers'],
+    cut: ['Porcelain came from China.', 'Keep: both used forced labor under European rule.', 'Neither gave land to peasants.', 'Grain for Europe came from places like Poland.', 'Both had large estates, not small farms.']
+  });
+  var WHS = ['Dependent regions had weak governments'];
+  var WSRC = [{ tag: 'WHAT', since: 'it is a historian’s theory of the world economy', therefore: 'test each choice against its claims' },
+    { tag: 'WHEN', since: 'it covers 1500 to 1800', therefore: 'think about colonies, plantations and trade' }];
+  var WREAD = ['Strong Europe used weaker regions', 'All regions traded as equal partners', 'Europe depended on the strong states of Asia'];
+  var WSAY = ['Strong Europe used weak regions for cheap goods', 'Every region in the world traded as an equal partner', 'Weak Europe depended on strong governments abroad'];
+  E('u4_4.5_26', {
+    type: 'purpose', hq: 'complicate generalizations', hs: WHS, src: WSRC, read: WREAD,
+    plain: ['Which fact does NOT fit the theory?', 'Which fact best proves the theory right?', 'Which fact is about Europe’s own kings?'],
+    meaning: 'The theory says regions that supplied slaves had weak governments. Find a fact that breaks that.',
+    trapIdx: 2, trap: 'C is about Europeans in Asia, but Dutch companies dominating trade fits the theory instead of breaking it.',
+    say: WSAY,
+    cut: ['A strong France fits the theory’s strong Europe.', 'Keep: strong West African states break the “weak government” claim.', 'Dutch companies dominating trade fits the theory.', 'Plantations using slaves fit the theory.', 'Europe importing sugar fits the theory.']
+  });
+  E('u4_4.5_27', {
+    type: 'bestillustrates', hq: 'an illustration of this world economy theory', hs: ['produce cheap foods and minerals for Europe'], src: WSRC, read: WREAD,
+    plain: ['Which fact matches the theory?', 'Which fact proves the theory wrong?', 'Which fact is about religion?'],
+    meaning: 'Look for a region sending raw goods to Europe and buying European goods back.',
+    trapIdx: 0, trap: 'A is about the world economy, but China staying apart does not show the pattern the theory describes.',
+    say: WSAY,
+    cut: ['China staying apart does not show the theory.', 'Religion and science are not the trade pattern.', 'Keep: raw goods out, manufactured goods in.', 'Britain’s government is not the trade pattern.', 'Missionaries are not part of this theory.']
+  });
+  E('u4_4.5_28', {
+    type: 'purpose', hq: 'an objection to this world economic theory', hs: ['imported more expensive European items in turn'], src: WSRC, read: WREAD,
+    plain: ['Which fact goes against the theory?', 'Which fact shows the theory at work?', 'Which fact is about African kings?'],
+    meaning: 'The theory says dependent regions bought manufactured goods. A colony making its own goods breaks that.',
+    trapIdx: 1, trap: 'B is about serfs, which the theory mentions, so it supports the theory instead of objecting to it.',
+    say: WSAY,
+    cut: ['Africa buying guns fits the theory.', 'Polish serfs making grain fits the theory.', 'Keep: Latin America making goods breaks the pattern.', 'Planters buying European art fits the theory.', 'Caribbean plantations fit the theory.']
+  });
+  var MSRC = [{ tag: 'WHO', since: 'Map 1 is a Genoese sailing chart; Map 2 is a world map from Florence', therefore: 'both show what Europeans knew around 1490' },
+    { tag: 'WHEN', since: 'they were made in 1489 and the early 1490s', therefore: 'just before Columbus reached the Americas' }];
+  var MREAD = ['What Europe knew in about 1490', 'Two maps that show the Americas in detail', 'Two maps that Chinese sailors drew of Asia'];
+  var MSAY = ['Europe maps its seas, Africa and the way east', 'Europe maps the Americas and the Pacific in detail', 'Chinese sailors map the coasts of Europe and Africa'];
+  E('u4_4.2_12', {
+    type: 'causation', hq: 'most strongly contributed to', look: 'Map 2: the west coast of Africa and its southern tip, with the sea around it', src: MSRC, read: MREAD,
+    plain: ['Who sailed around Africa?', 'Who sailed the Indian Ocean from China?', 'Who stopped trading with Africa?'],
+    meaning: 'Europeans could draw Africa’s southern tip only after Portuguese ships sailed there.',
+    trapIdx: 1, trap: 'B names a real voyage, but Zheng He’s fleets did not explore the west coast of Africa for European mapmakers.',
+    say: MSAY,
+    cut: ['Keep: Portuguese sailors mapped Africa’s coast and tip.', 'Zheng He sailed the Indian Ocean, not West Africa.', 'The map shows new knowledge, not limited knowledge.', 'Those Atlantic powers rose later.']
+  });
+  E('u4_4.1_7', {
+    type: 'purpose', hq: 'use Map 1 to research', look: 'Map 1: compass lines and Muslim cities like Granada, Cairo and Damascus', src: MSRC, read: MREAD,
+    plain: ['What did mapmakers learn from?', 'Who paid artists in the Renaissance?', 'How did Russia grow into Siberia?'],
+    meaning: 'A merchant city’s sailing chart full of Muslim cities shows where European map knowledge came from.',
+    trapIdx: 0, trap: 'A sounds like Italy around 1490, but this is a working sailing chart, not art made for a patron.',
+    say: MSAY,
+    cut: ['It is a sailing chart, not art made for a patron.', 'Keep: it draws on Mediterranean trade and Islamic maps.', 'Crusades against the Ottomans are not shown.', 'Russia and Siberia are not on this map.']
+  });
+  E('u4_4.2_13', {
+    type: 'causation', hq: 'future revisions of Map 2', look: 'Map 2: Europe, Africa and Asia only, with no Americas', src: MSRC, read: MREAD,
+    plain: ['What would add new lands to the map?', 'What would add more of the Indian Ocean?', 'What would add China’s tribute states?'],
+    meaning: 'The map has no Americas or Pacific. Voyages that found them would change it.',
+    trapIdx: 1, trap: 'B sounds like exploration, but the Indian Ocean is already on the map.',
+    say: MSAY,
+    cut: ['Mongol scholarship would not add new lands.', 'The Indian Ocean is already on the map.', 'Keep: Columbus and Magellan added the Americas and Pacific.', 'Qing China never sent out great voyages.']
+  });
+  E('u4_4.5_29', {
+    type: 'bestillustrates', hq: 'best supports which of the following conclusions',
+    look: 'Exports: silver 8,016 in 1648, then gold 16,529 in 1670',
+    src: [{ tag: 'WHAT', since: 'it lists Nagasaki’s imports and exports in 1648 and 1670', therefore: 'compare what came in with what paid for it' },
+      { tag: 'WHERE', since: 'Nagasaki was Japan’s one port open to Chinese and Dutch ships', therefore: 'this is almost all of Japan’s foreign trade' }],
+    read: ['Japan paid with silver and gold', 'Japan sold mostly cloth and tea to China', 'Japan bought almost nothing from abroad'],
+    plain: ['What paid for the imports?', 'Which country did Japan like better?', 'What did the samurai do with markets?'],
+    meaning: 'Silver, then gold, make up most of the exports, so precious metals paid for what Japan bought.',
+    trapIdx: 0, trap: 'A compares Chinese and Dutch goods, but Chinese imports tripled, so they were not less wanted.',
+    say: ['Japan paid for imports with silver and gold', 'Japan sold mostly cloth and tea to China and Holland', 'Japan bought almost nothing from China or the Dutch'],
+    cut: ['Chinese imports tripled, so they were wanted more.', 'Keep: silver and then gold paid for the imports.', 'The table shows nothing about local production.', 'Chinese plus Dutch goods equal all the imports.', 'The table says nothing about the samurai.']
+  });
+  E('u4_4.4_24', {
+    type: 'context', hq: 'a king located', hs: ['take them to be sold to the Whites who are in our Kingdoms'],
+    src: [{ tag: 'WHO', since: 'an African king writes to a European monarch in 1526', therefore: 'Europeans were already trading in his kingdom' },
+      { tag: 'WHAT', since: 'he says his people are kidnapped and sold to Whites', therefore: 'this is the early Atlantic slave trade' }],
+    read: ['A king says European trade makes his people sell their own', 'A king thanks Europe for its trade goods and its friendship', 'A king asks Europe to send soldiers to conquer his rivals'],
+    plain: ['Where did Europeans buy captives?', 'Where did Spain conquer empires in the 1500s?', 'Where did Europeans first cross the Pacific?'],
+    meaning: 'In 1526 the Portuguese were buying captives along the west coast of Africa, in Kongo.',
+    trapIdx: 0, trap: 'A is Africa too, but the Atlantic slave trade with Portugal ran from the west coast, not the east.',
+    say: ['A king says European trade makes his people sell their own', 'A king thanks Europe for its trade goods and its friendship', 'A king asks Europe to send soldiers to conquer his rivals'],
+    cut: ['The east coast traded in the Indian Ocean, not with Portugal’s slave ships.', 'Keep: Afonso I of Kongo, on the west coast, wrote to Portugal.', 'Central America’s Pacific coast had no such trade in 1526.', 'Spain was only beginning to reach Peru in 1526.', 'Europeans barely knew the Pacific Islands in 1526.']
+  });
+  E('u4_4.7_7', {
+    type: 'bestillustrates', hq: 'use the passage as evidence for', hs: ['they had so many Indian slaves, they devoted themselves to seeking riches'], src: ZSRC, read: ZREAD,
+    plain: ['Who rose to the top after the conquest?', 'Who got the best jobs in the government?', 'Who refused to become Christian?'],
+    meaning: 'Former soldiers with many slaves became mine owners: a new ruling class right after the conquest.',
+    trapIdx: 0, trap: 'A describes a real colonial divide, but the passage never compares Spanish-born and American-born people.',
+    say: ZSAY,
+    cut: ['The passage never compares Spanish-born and American-born people.', 'The passage does not mention converting anyone.', 'Keep: conquistadors became a new mining elite.', 'The passage does not mention disease.']
+  });
+})(window.WALKTHROUGH);

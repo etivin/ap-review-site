@@ -10911,3 +10911,1749 @@ window.WALKTHROUGH = window.WALKTHROUGH || {};
       'Opium was grown on farms in India. No factory methods or modern marketing.']
   });
 })(window.WALKTHROUGH);
+
+/* ===== Plain-English steps (say + cut) for Units 5-9, added 2026-11-07. Written by Claude. ===== */
+(function (W) {
+  function P(id, say, cut) { if (W[id]) { W[id].say = say; W[id].cut = cut; } }
+  /* ---------- UNIT 5 ---------- */
+  P('u5_5.1_0',
+    ['Spain bans creole trade and keeps them as mere buyers', 'Spain treats creoles as equals and lets them trade with anyone', 'Spain makes creoles rich by buying all of their factory goods'],
+    ['Bolívar is talking about creoles like himself, not forced labor of Natives and Africans.',
+     'Banned crops, banned factories, trade monopolies: he is angry about Spain’s mercantilist limits on trade.',
+     'He calls creoles “mere consumers,” but he means Spain lets them do nothing else. He is not attacking shopping.',
+     'Nothing here is about crops, animals or diseases moving between hemispheres.']);
+  P('u5_5.1_1',
+    ['Spain bans creole crops and factories to protect Spain', 'Spain lets creoles build any factories and trade freely abroad', 'Spain spends too much money on the creoles of its colonies'],
+    ['He wants fewer limits on trade, not more limits on investment.',
+     'Banned crops, banned factories, monopolies: outrage at mercantilism.',
+     'Socialist governments came later. Spain was a monarchy.',
+     'Feudalism is lords and serfs. His complaint is about trade rules.']);
+  P('u5_5.1_2',
+    ['Two Frenchmen argue the colony’s enslaved deserve rights', 'Two Frenchmen argue that slavery in the colony must stay forever', 'Two Frenchmen argue that France should sell the colony to Britain'],
+    ['This is the colonists’ argument that only enslaved Africans can work the fields. Saint-Maurice quotes it to knock it down, so it is the exception.',
+     'Man “will no longer be the slave of man” argues for ending slavery.',
+     '“He is your equal, because he is a man” argues for ending slavery.',
+     '“Neither the nation nor the Supreme Being created slaves” argues for ending slavery.']);
+  P('u5_5.1_3',
+    ['Both men use “free and equal in rights” to argue for change', 'Both men use the king’s power to argue that nothing should change', 'Both men use trade profits to argue that slavery should grow'],
+    ['Mercantilists cared about trade and gold, not natural rights.',
+     'Absolutists backed the king’s total power, not equal rights.',
+     'Laissez-faire is about free markets, not “born free and equal.”',
+     '“Born free and equal in rights” and the philosophes: Enlightenment thinkers.']);
+  P('u5_5.1_4',
+    ['Both men want Black people in the colony to be French citizens', 'Both men want only white Frenchmen in Europe to be citizens', 'Both men want the colony’s people sent back to Africa as free men'],
+    ['These authors do not argue about language or religion, so this is not the opposite view.',
+     'They would make people far from France citizens. The opposite view: only those born in the nation with a shared origin.',
+     'They would agree that power comes from the citizens’ will. Not the opposite.',
+     'They would agree that different peoples can be equal citizens. Not the opposite.']);
+  P('u5_5.1_5',
+    ['Kersaint wants freedom with conditions; Source 2 wants it now', 'Kersaint wants slavery to grow; Source 2 wants it to stay the same', 'Kersaint wants instant freedom; Source 2 wants freedom with conditions'],
+    ['Encouraging migration does not explain why he puts conditions on freeing enslaved people.',
+     'His navy service does not explain his conditions.',
+     'He owned plantations in the Caribbean. Freeing slaves at once would cost him, so he adds conditions.',
+     'Ending noble privileges does not explain why he holds back on slavery.']);
+  P('u5_5.1_6',
+    ['People are so equal that anyone could kill anyone', 'People are so unequal that the strong always rule the weak', 'People are naturally kind and need no government at all'],
+    ['The Counter Reformation was the Catholic answer to Protestants. Hobbes is writing about government.',
+     'The War of Spanish Succession came after 1700. Leviathan is 1651.',
+     'The Glorious Revolution was 1688, after Leviathan.',
+     'Hobbes wrote during the English Civil War, which showed him how deadly life is without strong rule.']);
+  P('u5_5.1_7',
+    ['Equal people are a danger to each other without a ruler', 'Equal people can live in peace with no ruler or laws at all', 'Kings rule because God chose them to rule over the weak'],
+    ['The invisible hand is Adam Smith’s idea about markets.',
+     'Equal, fearful people give up some freedom to a ruler for safety: the social contract.',
+     'Hobbes builds government on human equality, not God’s choice.',
+     'Communism comes from Marx in the 1800s.']);
+  P('u5_5.1_8',
+    ['Government rests on equal people, not God’s choice', 'Government rests on God’s choice of king, not on the people', 'Government rests on factories and the workers inside them'],
+    ['The Industrial Revolution came from machines and coal, not Leviathan.',
+     'The English Civil War came before Leviathan, so the book could not cause it.',
+     'If government is a contract, people can end it. Later thinkers used that to justify revolutions.',
+     'Marxist reforms came from Marx, much later.']);
+  P('u5_5.2_0',
+    ['Enslaved people in Saint-Domingue revolt and found Haiti', 'French colonists in Saint-Domingue revolt against the king', 'British troops in Saint-Domingue free all the enslaved people'],
+    ['Enslaved people beat their masters and founded a nation. No other Atlantic revolution did that.',
+     'Every Atlantic revolution drew on the Enlightenment. Not unique.',
+     'It ended French rule. It did not restore the French king.',
+     'It took place in the Caribbean, not Europe.']);
+  P('u5_5.2_1',
+    ['Indian liberals pushed for women’s education and rights', 'Indian liberals pushed women out of schools and public life', 'Indian liberals pushed to send women abroad as factory workers'],
+    ['Indian industry was small. The passage ties women’s rights to ideas, not factories.',
+     'Women’s rights and suffrage movements grew worldwide in the same century.',
+     'Indentured migration was mostly men. Not about liberal views of women.',
+     'Birth control is not mentioned.']);
+  P('u5_5.2_2',
+    ['Bayly ties Indian nationalism to liberal ideas from Europe', 'Bayly ties Indian nationalism to Mughal and Hindu traditions only', 'Bayly ties Indian nationalism to the 1857 rebellion alone'],
+    ['Many Indian historians stressed India’s own traditions, not European ideas.',
+     'Environmental motives are not part of this argument.',
+     'Late twentieth-century French theory is not what they objected with.',
+     'The 1857 rebellion matters, but the objection is to calling nationalism European.']);
+  P('u5_5.2_3',
+    ['Indian liberals wanted a free press and a voice in government', 'Indian liberals wanted a strong king with total power over India', 'Indian liberals wanted workers to take over all the factories'],
+    ['Bayly says these ideas were new, not classical Indian ones.',
+     'Class struggle is Marx, not liberalism.',
+     'A free press, assembly and representation are Enlightenment natural rights.',
+     'Laissez-faire is about markets. The passage is about rights.']);
+  P('u5_5.2_4',
+    ['In theory nations are equal, but in practice power wins', 'In theory and in practice, all nations treat each other fairly', 'In practice small nations always win against large ones'],
+    ['Japan’s isolation was ended. Fukuzawa is reacting to what came after.',
+     'Shinto and Buddhism are not his point. He says power wins, not peace.',
+     'American warships forced Japan open, and that led to the Meiji Restoration. He learned power decides.',
+     'The Taiping Rebellion was in China. He is writing about Japan and the West.']);
+  P('u5_5.2_5',
+    ['The song calls for one united Germany for all Germans', 'The song calls for Germany to split into many small states', 'The song calls for Germany to take colonies far overseas'],
+    ['The Concert of Europe is not about uniting Germany.',
+     '“One Deutschland” points to unification in 1871, when Prussia brought in the Catholic south.',
+     'The song is about uniting Germans at home, not colonies abroad.',
+     'The Frankfurt Parliament (1848) failed to unite Germany. The song points to unification.']);
+  P('u5_5.2_6',
+    ['Germany is wherever German is spoken and eyes are blue', 'Germany is wherever people choose to live under German law', 'Germany is any land that Germans have ever traded with'],
+    ['The song is about language and blood, not religious zeal.',
+     'A nation of “the German tongue” and “eyes of blue” is a nation of blood. That fed racial superiority.',
+     'Isolationism means staying out of world affairs. The song is about who belongs.',
+     'Nothing here is about voting or democracy.']);
+  P('u5_5.2_7',
+    ['Germany belongs to people of German tongue and blood', 'Germany belongs to anyone who moves there and works hard', 'Germany belongs to the Catholic Church and its bishops'],
+    ['A Germany of language and “eyes of blue” is the Völkisch movement.',
+     'Self-Strengthening was China copying Western technology.',
+     'The Kulturkampf was Bismarck’s fight with the Catholic Church.',
+     'The People’s Will was a Russian revolutionary group.']);
+  P('u5_5.2_8',
+    ['Enslaved people rise up and burn the plantations, 1791', 'Colonists rise up and burn the slave ships in the harbor', 'French troops arrive and burn the rebels’ villages in 1791'],
+    ['The revolt began in 1791 during the French Revolution and its talk of rights.',
+     'The Congress of Vienna was 1815, after the revolt.',
+     'The Seven Years’ War ended in 1763, decades earlier.',
+     'The Bourbon Restoration was 1814, after the revolt.']);
+  P('u5_5.2_9',
+    ['Enslaved people attack colonists as plantations burn', 'Colonists attack enslaved people who refuse to work the fields', 'Soldiers attack colonists who refuse to pay new taxes'],
+    ['No convention wrote Haiti’s freedom. It was won by fighting.',
+     'The fighting was enslaved people against masters, not groups against each other.',
+     'A series of slave revolts led to independence in 1804.',
+     'Dessalines led Haiti to independence. The uprising was not against him.']);
+  P('u5_5.2_10',
+    ['Creoles are fighting the Spanish for their own homeland', 'Creoles are fighting Native peoples to win more land for Spain', 'Creoles are fighting the British to keep their trade with Spain'],
+    ['Workers’ rights in Central America are not his subject.',
+     'He spoke in 1819 during the wars for independence in South America.',
+     'The Caribbean and economic justice do not fit Bolívar.',
+     'The Philippines fought Spain later, in the 1890s.']);
+  P('u5_5.2_11',
+    ['Laws rest on good morals and justice, not on force', 'Laws rest on strong armies and force, not on morals', 'Laws rest on the church and its teaching alone'],
+    ['Bolívar does not name religion as the base of law.',
+     'He values liberty, but he names morals and justice as the bases.',
+     'Intelligence and order are not the two he names.',
+     'He says “proper morals” and “justice” are the bases of law.']);
+  P('u5_5.2_12',
+    ['Bolívar speaks to a congress creating a new republic', 'Bolívar speaks to the Spanish king asking to keep his colony', 'Bolívar speaks to the United States asking for military aid'],
+    ['He created Gran Colombia, the first union of independent Latin American states.',
+     'The War of 1812 was between the United States and Britain.',
+     'The Spanish-American War was 1898, long after Bolívar.',
+     'Bolívar was a creole, and he led an independence movement, not a coup.']);
+  P('u5_5.2_13',
+    ['A new republic and a new empire both set up elected bodies', 'A new republic and a new empire both give all power to one man', 'A new republic and a new empire both let the army choose leaders'],
+    ['Both a republic and a constitutional monarchy set up written, representative government.',
+     'Brazil had an emperor, but a constitutional one. Gran Colombia had none.',
+     'Neither source sets up military rule.',
+     'Neither source mentions industry.']);
+  P('u5_5.2_14',
+    ['Two new South American states write their first laws', 'Two old colonies in South America ask Spain to stay', 'Two new states in Europe write laws for their colonies'],
+    ['Pan-Americanism (uniting all the Americas) did not produce these.',
+     'Creole elites led revolts, won independence and wrote these constitutions.',
+     'Native peoples did not lead these movements.',
+     'Spain and Portugal fought independence. They did not prepare colonies for it.']);
+  P('u5_5.2_15',
+    ['Venezuela and New Granada join as one republic', 'Venezuela and New Granada split into two republics', 'Venezuela and New Granada go back under Spanish rule'],
+    ['Foreign meddling did not split Gran Colombia. Local rivalries did.',
+     'Stronger unity would help Article 1, not undermine it.',
+     'Slave rebellions did not break up Gran Colombia.',
+     'Local elites wanted to rule their own regions. Gran Colombia split into Venezuela, Colombia and Ecuador.']);
+  P('u5_5.2_16',
+    ['Brazil keeps Catholicism but lets others pray at home', 'Brazil bans all religions except the Catholic Church', 'Brazil makes every citizen choose a new state religion'],
+    ['Brazil lets other faiths worship, so uniformity was not required.',
+     'A state church that still lets others worship: religious toleration.',
+     'Brazil’s emperor rules under a constitution, not divine right.',
+     'Science is not mentioned.']);
+  P('u5_5.3_0',
+    ['Britain had coal, iron, rivers, workers and money to invest', 'Britain had little coal and few workers, but many colonies', 'Britain had no rivers or canals, so it built railroads first'],
+    ['China industrialized much later.',
+     'Britain kept its monarchy.',
+     'Britain was building colonies, not avoiding them.',
+     'Coal, iron, rivers, workers and capital: the Industrial Revolution began in Britain.']);
+  P('u5_5.3_1',
+    ['Enclosure grew more food and pushed farmers off the land', 'Enclosure gave every small farmer more land of his own', 'Enclosure caused a famine that emptied out the countryside'],
+    ['Britain kept trading with its colonies.',
+     'Population grew. Enclosure fed more people.',
+     'More food plus farmers pushed off the land: food for cities and workers for factories.',
+     'Enclosure took land from small farmers.']);
+  P('u5_5.3_2',
+    ['Germany passed Britain with new industries', 'Britain passed Germany by sticking to its old industries', 'Germany fell behind Britain by ignoring new science'],
+    ['The internal combustion engine came from Germany, not the United States.',
+     'Chemicals, electricity and science labs: new methods of the second industrial revolution.',
+     'More kinds of goods is not why Germany pulled ahead.',
+     'Coal powered the first industrial revolution. Germany won with newer industries.']);
+  P('u5_5.3_3',
+    ['Britain led in old industries like textiles', 'Britain led in new industries like chemicals', 'Britain led in farming, not in industry at all'],
+    ['British mills were the first to run steam-powered machines on a large scale.',
+     'Using colonial raw materials was not new. Steam power was.',
+     'Coerced labor is not what made British factories first.',
+     'Mercantilism was not what made Britain first. Steam was.']);
+  P('u5_5.3_4',
+    ['Bayer’s inland plant employs thousands of workers', 'Bayer’s coastal plant has only a handful of workers', 'Bayer’s plant is run by colonial subjects from overseas'],
+    ['Railroads moved people from farms and villages to inland factories like Bayer’s.',
+     'Steamships brought colonial subjects to Europe, but Bayer’s workers came from Germany.',
+     'The telegraph sent messages. It did not move workers.',
+     'Electricity did not draw the rich to the countryside.']);
+  P('u5_5.3_5',
+    ['One machine does the work of twenty men near Leeds', 'One man does the work of twenty machines near Leeds', 'Machines near Leeds are broken and cannot do any work'],
+    ['That change took a century. The petition is about machines replacing men.',
+     'The crown and Parliament are not mentioned.',
+     'The petition is about jobs, not revolution.',
+     'Machines doing the work of twenty men each: labor being automated.']);
+  P('u5_5.3_6',
+    ['Machines have put thousands of workers out of jobs', 'Machines have given thousands of hand workers new jobs', 'Machines have made the hand workers rich merchants'],
+    ['Marxist politicians did not win seats in Parliament then.',
+     'Britain grew stronger, not weaker.',
+     'The workers say machines cost them jobs.',
+     'Families spun and wove at home, the domestic system. Machines in mills ended it.']);
+  P('u5_5.3_7',
+    ['Machines took the jobs, leaving no trade to teach', 'Machines took the jobs, so workers had more free time', 'Machines took the jobs, so unions grew much stronger'],
+    ['The petition says nothing about having fewer children.',
+     'Unions are not mentioned.',
+     'Children learned their parents’ trade. If machines make it obsolete, there is nothing to teach.',
+     'Child labor laws came later.']);
+  P('u5_5.3_8',
+    ['Wool workers say machines have taken their jobs', 'Wool workers say machines have made work easier', 'Wool workers say they love the merchants and the machines'],
+    ['A 1786 petition against cloth machines shows the early Industrial Revolution hitting textiles.',
+     'The workers see harm, not benefits.',
+     'Child labor investigations came later.',
+     'They are asking the merchants to listen, not cheering them.']);
+  P('u5_5.4_0',
+    ['Japan’s income and industry climb after 1890', 'Japan’s income and industry fall steadily after 1890', 'Japan’s industry stays the same from 1890 to 1938'],
+    ['Manchuria was taken in 1931. The rise started in 1890.',
+     'The Meiji reforms (from 1868) set the steady growth in motion.',
+     'The Russo-Japanese War was 1905. The rise was already under way.',
+     'The WTO began in 1995.']);
+  P('u5_5.4_1',
+    ['Japan industrializes fast between 1890 and 1910', 'Japan stops building factories from 1890 to 1910', 'Japan becomes a colony of the West from 1890 to 1910'],
+    ['Qing China industrialized slowly.',
+     'Dutch Indonesia was a colony supplying raw goods.',
+     'Newly united Germany industrialized just as fast in these years.',
+     'The Ottomans industrialized slowly.']);
+  P('u5_5.4_2',
+    ['China takes Western technology but keeps its own values', 'China takes Western values but rejects Western technology', 'China rejects everything from the West, even its ships'],
+    ['Millenarian movements (like the Taiping) wanted a new age. This is a government plan.',
+     'The policy aimed to resist colonial powers.',
+     'Western technology with Chinese values: the Self-Strengthening Movement.',
+     'Communism came to China in the 1900s.']);
+  P('u5_5.4_3',
+    ['The empire was strong, grew weak, and needs new laws', 'The empire is stronger than ever and needs no change', 'The empire should give up Islam and copy Europe fully'],
+    ['The decree is about reform at home, not conquest.',
+     'No colonies in Africa are mentioned.',
+     'The Safavids and Mughals were not the threat by 1839.',
+     'It admits “weakness and poverty.” The new laws are meant to keep up with industrial Europe.']);
+  P('u5_5.4_4',
+    ['The decree praises the Shari’a while announcing reforms', 'The decree ends the Shari’a and replaces it with French law', 'The decree hands all power to Shi’a religious leaders'],
+    ['The Janissaries were already gone by 1839.',
+     'Christian and Jewish merchants would not need the Shari’a praised.',
+     'Praising the Shari’a reassures the Sunni religious elite, who feared reform.',
+     'The Ottomans were Sunni, and nobody here wants a democratic Islamic republic.']);
+  P('u5_5.4_5',
+    ['A once-mighty empire admits it has grown weak', 'A once-weak empire brags that it is now mighty', 'A mighty empire plans to conquer all of Europe'],
+    ['Russia had just won. It did not feel weak.',
+     'The Qing were humbled by the West and forced into unequal treaties. Same sense of decline.',
+     'Japan had just won. It did not feel weak.',
+     'The Mughal Empire ended after 1857. It was not reforming.']);
+  P('u5_5.4_6',
+    ['Japan’s coal and steamships shoot up after the 1870s', 'Japan’s coal and steamships fall sharply after the 1870s', 'Japan’s coal and steamships stay flat from 1873 to 1905'],
+    ['The Tokugawa shogunate ended in 1868, before the charts start.',
+     'The Heian era was a thousand years earlier.',
+     'The Meiji government built mines, shipyards and railways.',
+     'The Showa era began in 1926, after the charts end.']);
+  P('u5_5.4_7',
+    ['Japan’s coal and steamships climb fast by 1905', 'Japan’s coal and steamships drop fast from 1875 to 1905', 'Japan buys all of its coal and steamships from Britain'],
+    ['Japan’s war with the United States came in 1941.',
+     'Meiji Japan built up the emperor. Imperial traditions grew stronger.',
+     'Meiji culture blended old and new. It did not lose creativity.',
+     'A Western-style conscript army ended the samurai as a warrior class.']);
+  P('u5_5.4_8',
+    ['Both lines stay low, then shoot up in about thirty years', 'Both lines climb slowly and steadily for more than a century', 'Both lines rise for a while, then fall back to where they began'],
+    ['Japan made the same kinds of goods: coal, ships, textiles.',
+     'Japan did in a few decades what took Europe more than a century.',
+     'The Meiji leaders worked closely with industrialists (the zaibatsu).',
+     'Japan had few resources and had to import raw materials.']);
+  P('u5_5.4_9',
+    ['Japan goes from about 170 steamships to about 800', 'Japan goes from about 800 steamships to about 170', 'Japan builds no steamships at all between 1894 and 1905'],
+    ['A modern navy beat Russia at Tsushima in 1905 and matched Western fleets.',
+     'Japan copied Western naval technology. It did not invent unmatched new ones.',
+     'Japan took German Pacific islands in World War I. It did not defend them.',
+     'Japan built up its military. It did not demilitarize.']);
+  P('u5_5.5_0',
+    ['Watt’s engine used less coal and powered mills', 'Watt’s engine used more coal and was soon given up for water', 'Watt’s engine ran only on wind and powered sailing ships'],
+    ['Mills once needed rivers for water power. Steam let factories go anywhere.',
+     'Steam engines burned coal, so mining grew.',
+     'Steam made British textiles boom.',
+     'Steam moved production out of homes and into factories.']);
+  P('u5_5.5_1',
+    ['Telegraph cables sent messages in minutes', 'Telegraph lines and an ocean cable made messages slower', 'Telegraph lines carried mail on trains across the ocean'],
+    ['The telegraph sped up communication.',
+     'Message time dropped from weeks to minutes.',
+     'It changed business and news, not only farming.',
+     'Trade across the Atlantic grew.']);
+  P('u5_5.5_2',
+    ['English banks list the risks of lending for trade abroad', 'English banks refuse to lend any money outside of England', 'English banks list the prices of factory goods in London'],
+    ['The lenders are English banks, not traditional elites.',
+     'British loans for trade in India, China and Southeast Asia tied the world economy together.',
+     'The table is about investing, not hiring local merchants.',
+     'These are private lenders, not governments.']);
+  P('u5_5.5_3',
+    ['Land in Britain is safe; land in India is risky', 'Land in India is low risk; land in Britain is high risk', 'Land in Britain and India carries the very same risk'],
+    ['British farms were productive and settled. Britain was still fighting for control of India.',
+     'Cottage industry does not explain the risk of owning land.',
+     'The Mughal decline is real, but the risk came from Britain’s unfinished conquest.',
+     'India had farmed successfully for thousands of years.']);
+  P('u5_5.5_4',
+    ['Lending for trading voyages is risky in the 1700s', 'Lending for trading voyages is perfectly safe in the 1700s', 'Lending for trading voyages is banned in the 1700s'],
+    ['Steamships did not need the wind, so trips got faster and safer.',
+     'Asian navies did not threaten European ships more over the 1800s.',
+     'Italy and Germany did not make trade more dangerous.',
+     'Piracy dropped, but international organizations did not wipe it out.']);
+  P('u5_5.5_5',
+    ['Rows of machine looms tended by a few workers', 'Rows of hand looms with a weaver seated at every one', 'Rows of spinning wheels in a family’s small cottage'],
+    ['The cotton gin was another machine that hugely raised textile output.',
+     'The quipu was an Inca record-keeping tool of knotted string.',
+     'Movable type sped up printing, not cloth making.',
+     'The three-field system was a medieval farming method.']);
+  P('u5_5.5_6',
+    ['Women tend a long hall of belt-driven power looms', 'Men weave cloth by hand in their own small homes', 'Children spin thread outdoors in a country village'],
+    ['Which companies profited says nothing about the whole economy.',
+     'How the loom works does not show long-term change.',
+     'If people moved from farms to factory towns across England, the change was lasting.',
+     'Women’s roles in the mill are one detail, not the whole economy.']);
+  P('u5_5.6_0',
+    ['Meiji Japan’s government built railroads and factories', 'Meiji Japan’s government let foreign companies run everything', 'Meiji Japan’s government banned railroads and factories'],
+    ['The government led, with foreign experts hired for a time.',
+     'Japan adopted Western technology.',
+     'The state got stronger.',
+     'The state built railways and model factories: a government promoting industry.']);
+  P('u5_5.6_1',
+    ['A company chairman brags to shareholders about success', 'A company chairman admits it has gone broke and must close', 'A company chairman thanks the workers who own the company'],
+    ['Indentured workers did not fund the company.',
+     'Consumer goods did not pay for occupying land.',
+     'The telegraph helped, but the company’s money came from shareholders.',
+     'New banking and finance let the company raise money from thousands of investors.']);
+  P('u5_5.6_2',
+    ['Shareholders paid to occupy African land', 'Shareholders refused to pay for any land in Africa', 'Shareholders gave African land back to its rulers'],
+    ['African economies were pushed toward extraction. That fits the company.',
+     'The company was transnational. That fits the trend.',
+     'Heavy industry to consumer goods is not about this company.',
+     'A government-chartered monopoly is mercantilist, unlike the shift toward free trade.']);
+  P('u5_5.6_3',
+    ['A chartered company answers critics of its special rights', 'A chartered company asks for even more limits on its rights', 'A chartered company gives up its charter to the government'],
+    ['Laissez-faire economists said chartered monopolies distorted competition and hurt consumers.',
+     'Laissez-faire economists wanted more free trade, not less.',
+     'They wanted less government involvement and fewer rules.',
+     'Joint-stock companies were made of private investment.']);
+  P('u5_5.6_4',
+    ['Persia is known for its own cloth, ceramics and metal goods', 'Persia buys all of its cloth and metal from European factories', 'Persia has no trade at all with the rest of Asia'],
+    ['Economic liberalization did not change what Persia made.',
+     'European factories made cheaper goods that undercut Persian exports.',
+     'The abolition of slavery did not change Persian crafts.',
+     'The silver trade peaked before 1750.']);
+  P('u5_5.7_0',
+    ['Sellers feed us out of self-interest', 'Sellers feed us out of kindness, not self-interest', 'Sellers feed us only when the government orders it'],
+    ['Smith opposed government running industries.',
+     'If self-interest feeds everyone, government should stay out: laissez-faire.',
+     'Collectivization is a communist policy.',
+     'Price controls are government interference.']);
+  P('u5_5.7_1',
+    ['Self-interest in free markets feeds us all', 'Government rules in the market feed everyone', 'Kindness and charity are what feed everyone'],
+    ['Smith attacked government monopolies and trade limits: mercantilism.',
+     'Marx wrote after Smith.',
+     'Smith was arguing for free trade, not against it.',
+     'The cooperative movement came later.']);
+  P('u5_5.7_2',
+    ['A bank and companies work across many countries', 'A bank and companies do business inside one city only', 'A bank and companies are run by the British government'],
+    ['Global trade grew in these years.',
+     'These are private firms, not government export programs.',
+     'A bank financing trade on three continents: a transnational business.',
+     'Colonial rule continued in Asia.']);
+  P('u5_5.7_3',
+    ['Investors could lose only what they put in', 'Investors could now lose everything they owned', 'Investors were now banned from buying stocks'],
+    ['Limited liability encouraged private investment.',
+     'Factories grew.',
+     'Private property stayed.',
+     'Lower risk drew investors, raising the huge sums railroads needed.']);
+  P('u5_5.7_4',
+    ['Stores sell mass-made goods with ads', 'Stores sell handmade goods only to the very rich', 'Stores close as the government rations all goods'],
+    ['Department stores and brand ads: a consumer culture built on mass production.',
+     'The middle class grew and became the main shoppers.',
+     'Rationing came in the world wars.',
+     'Advertising grew.']);
+  P('u5_5.8_0',
+    ['All history is class struggle', 'All history is a story of great kings', 'All history is the work of God’s plan'],
+    ['Feudalism was fading in 1848.',
+     'Class struggle in 1848 means workers against factory owners.',
+     'The Columbian Exchange is centuries earlier.',
+     'Factories were spreading, not moving overseas.']);
+  P('u5_5.8_1',
+    ['Workers strike; governments pass reforms', 'Workers quit factories and go back to their farms', 'Workers are replaced by enslaved people in factories'],
+    ['Industry kept growing.',
+     'Slavery was ending, not spreading to Europe.',
+     'Unions and strikes, then reforms like Bismarck’s insurance.',
+     'The working class grew.']);
+  P('u5_5.8_2',
+    ['A revolution needs a party with a clear theory to lead it', 'A revolution needs no leaders, only angry workers in the street', 'A revolution needs the support of kings and the church'],
+    ['New financial tools were not an answer to socialism.',
+     'Colonies did not answer workers’ demands.',
+     'Governments passed reforms that improved workers’ conditions.',
+     'Foreign investment was not an answer to socialism.']);
+  P('u5_5.8_3',
+    ['Lenin says a party must lead the revolution', 'Lenin says markets will fix the problems of the workers', 'Lenin says workers should go back to farming the land'],
+    ['Lenin is not revising Smith or Mill in a university.',
+     'Lenin wants a new society, not to keep old ways of production.',
+     'Lenin offers a new vision of society in answer to capitalism.',
+     'Lenin is about the working class, not the middle class.']);
+  P('u5_5.8_4',
+    ['Workers’ power depends on more than industry', 'Workers can never take power until industry is fully grown', 'Workers in Russia will never take power from the tsar'],
+    ['Trotsky says Russia could have its revolution even though it was less industrial.',
+     'He uses Marxist classes. He does not question them.',
+     'He is talking about classes and forces, not individuals.',
+     'He does not say a dictatorship must come first.']);
+  P('u5_5.8_5',
+    ['Workers fear sickness, old age and losing their jobs', 'Workers have no worries because factories pay them well', 'Workers want shorter hours and nothing else at all'],
+    ['Bismarck is talking about sickness and old age, not work hours.',
+     'He created health insurance, accident insurance and old-age pensions.',
+     'Nothing about moving people out of cities.',
+     'Pensions help the old. They do not force them to retire.']);
+  P('u5_5.8_6',
+    ['Workers are helpless if sick, old or jobless', 'Workers are safe because their families support them', 'Workers are angry about German tariffs on imports'],
+    ['Child labor is not his topic.',
+     'Life expectancy is not mentioned.',
+     'Tariffs are not mentioned.',
+     'Lost jobs, illness and old age with nothing: problems of industrial capitalism.']);
+  P('u5_5.8_7',
+    ['Society feels no duty to sick or old workers today', 'Society takes good care of all sick and old workers', 'Society should leave sick workers to the church'],
+    ['Germany’s social insurance became a model across Europe.',
+     'Germany was already united.',
+     'East Germany came after World War II, not from this speech.',
+     'Germany’s economy kept growing.']);
+  P('u5_5.9_0',
+    ['Manchester’s workers live in crowded, filthy cellars', 'Manchester’s workers live in clean houses with big gardens', 'Manchester’s factory owners share their homes with workers'],
+    ['Cities grew faster than housing and sewers could be built.',
+     'English factories were booming.',
+     'Governments built little housing then.',
+     'These diseases came from crowding and dirty water, not the Columbian Exchange.']);
+  P('u5_5.9_1',
+    ['Middle-class wives stay home while husbands work', 'Middle-class wives run businesses while husbands stay home', 'Middle-class wives and husbands both work in factories'],
+    ['Class differences grew.',
+     'The middle class grew.',
+     'Women were paid less.',
+     'Middle-class women stayed home; working-class women took factory jobs.']);
+  P('u5_5.9_2',
+    ['Children tell Parliament of long hours and beatings', 'Children tell Parliament they enjoy their mill jobs', 'Parents tell Parliament to send more children to the mills'],
+    ['Britain’s industry kept running.',
+     'Parliament heard the testimony, then passed a law. Reform in response.',
+     'The law limited child labor.',
+     'It was a British law, not a treaty.']);
+  P('u5_5.9_3',
+    ['Snow traces cholera to a dirty pump; sewers follow', 'Snow blames cholera on bad air; cities do nothing at all', 'Snow finds cholera only in farming villages, not cities'],
+    ['Industry kept growing.',
+     'The Green Revolution came in the 1900s.',
+     'Cities kept growing.',
+     'Crowded cities had dirty water. Sewers answered fast urban growth.']);
+  P('u5_5.9_4',
+    ['Middle-class men win the vote; workers do not', 'All men and women win the vote at the same time', 'Workers win the vote, but middle-class men do not'],
+    ['Most men and all women still could not vote.',
+     'The monarchy and Lords stayed.',
+     'The industrial middle class gained power.',
+     'The middle class gained power. Workers waited.']);
+  P('u5_5.9_5',
+    ['A British suffragist tells American men to give women the vote', 'A British suffragist tells American women to give up the vote', 'An American suffragist tells British men to give women the vote'],
+    ['Many American states let women vote before Britain did.',
+     'Other countries were debating it too (New Zealand gave the vote in 1893).',
+     'A British leader rallying Americans shows suffrage was a fight across Western democracies.',
+     '“Our civil war” is her metaphor for Britain. No American civil war over it.']);
+  P('u5_5.9_6',
+    ['Peons make the wealth that the rich owners keep', 'Owners make the wealth that the lazy peons spend', 'The church makes the wealth that the owners keep'],
+    ['She talks about workers and owners, not the nation.',
+     'Workers produce the wealth the owners keep: Marxism.',
+     'She is not attacking a foreign ruler.',
+     'She criticizes the owners’ wealth, not praises markets.']);
+  P('u5_5.9_7',
+    ['Capetillo: wealth and customs; Pankhurst: the vote', 'Capetillo talks about votes; Pankhurst about wealth and customs', 'Both women say women should wait patiently for their rights'],
+    ['Capetillo calls women to act now, too.',
+     'Capetillo writes about economic and social obstacles; Pankhurst about the vote.',
+     'Capetillo does mention husbands.',
+     'Pankhurst is a militant, not a gradualist.']);
+  P('u5_5.10_0',
+    ['Cloth making moved from homes into factories', 'Spinning and weaving moved from factories into homes', 'Spinning and weaving stopped as cotton ran out'],
+    ['Work moved from homes into machine-filled factories.',
+     'Textiles boomed.',
+     'Global trade grew.',
+     'Factories grew.']);
+  P('u5_5.10_1',
+    ['China and India’s share of world industry collapses', 'China and India’s share of world industry rises from a tenth to half', 'China and India’s share of world industry stays the same'],
+    ['Chinese factories did not out-compete British mills.',
+     'Trade with Asia grew.',
+     'Western factories made goods cheaply and took over world manufacturing.',
+     'The Columbian Exchange is centuries earlier.']);
+  P('u5_5.10_2',
+    ['Most people still farm for a living', 'Most people everywhere now work in factories', 'Most people in Asia have left farming for cities'],
+    ['Most of the world was not industrialized.',
+     'Most people still farmed: a continuity.',
+     'Farming was still the main way to live.',
+     'Asia’s population grew.']);
+  P('u5_5.10_3',
+    ['Slavery ends; plantations turn to indentured labor', 'Slavery ends, and plantations pay everyone fair wages', 'Slavery grows, and plantations bring it to Europe'],
+    ['Slavery did not spread to European factories.',
+     'Indentured labor was still coerced.',
+     'Plantations kept going.',
+     'Slavery ended (change), but coerced labor went on (continuity).']);
+  P('u5_5.10_4',
+    ['Russia stays ruled by tsars but frees the serfs in 1861', 'Russia becomes a republic and frees the serfs in 1861', 'Russia keeps the tsars and the serfs, with no change at all'],
+    ['Russia kept the tsar and made a limited reform.',
+     'Russia did not change like France did.',
+     'Russia stayed an absolute monarchy.',
+     'Serfdom ended in 1861.']);
+})(window.WALKTHROUGH);
+
+(function (W) {
+  function P(id, say, cut) { if (W[id]) { W[id].say = say; W[id].cut = cut; } }
+  /* ---------- UNIT 6 ---------- */
+  P('u6_6.1_0',
+    ['Rhodes says his race is best and should spread', 'Rhodes says every race is equal and should rule itself', 'Rhodes says Britain should give its colonies away soon'],
+    ['Rhodes is a business leader who backs empire.',
+     'Marx is not part of this. Rhodes argues from race.',
+     'He wants British rule, not African self-government.',
+     '“The finest race” should hold more land: race used to justify empire.']);
+  P('u6_6.1_1',
+    ['Missionaries call empire a moral duty', 'Missionaries call empire a sin that must end at once', 'Missionaries call on Africans to fight their rulers'],
+    ['Missionaries usually supported expansion.',
+     'They did not urge armed resistance.',
+     'They opened schools and missions.',
+     'Calling empire a duty made it look like a gift: the civilizing mission.']);
+  P('u6_6.1_2',
+    ['Kipling says whites must rule “half-child” peoples', 'Kipling says whites should leave other peoples alone', 'Kipling says whites must trade fairly with their equals'],
+    ['“Half-devil and half-child” calls people inferior: scientific racism and Social Darwinism.',
+     'The poem says nothing about markets for goods.',
+     'The poem says nothing about defense.',
+     'The poem talks about duty and race, not converting people.']);
+  P('u6_6.1_3',
+    ['Ferry: civilize “inferior races” and find markets', 'Ferry: all races are equal, and colonies cost too much money', 'Ferry: France must leave Africa to keep peace with Britain'],
+    ['Ferry does not argue from religion or humanitarian concern.',
+     'He does not argue from defense or rivals here.',
+     'Markets for industry plus “superior races”: economics and ideology together.',
+     'No international organizations pressed him.']);
+  P('u6_6.1_4',
+    ['Social Darwinists applied natural selection to nations', 'Social Darwinists rejected the idea of natural selection', 'Social Darwinists said every nation was perfectly equal'],
+    ['Social Darwinists used Darwin’s idea of change. They did not reject it.',
+     'Darwin wrote about species. Social Darwinism applied it to nations to justify conquest.',
+     'They ranked nations and races, not set them on one equal path.',
+     'Technology is not what set it apart from Darwin’s theory.']);
+  P('u6_6.1_5',
+    ['A few whites rule millions with no rights', 'Millions of whites settle with full rights', 'A few natives rule millions of white settlers'],
+    ['Officials and traders from the colonizing country hold power over huge populations.',
+     'Hobson is not describing rebels.',
+     'The white minority holds power. It is not oppressed.',
+     'Missionaries are not the ruling “small minority.”']);
+  P('u6_6.1_6',
+    ['Imperialism never gives the ruled their rights', 'Imperialism always gives the ruled full rights', 'Imperialism brings democracy to every land it rules'],
+    ['Hobson does not split them by climate zone.',
+     'Colonists carry their own government; imperialism denies rights to the ruled.',
+     'This is close to his words but misses his point about rights.',
+     'He says imperialism denies self-government. Neither side here promotes democracy.']);
+  P('u6_6.1_7',
+    ['The queen hands a Bible to a kneeling ruler', 'The queen bows to an African king on his throne', 'The queen signs a trade deal with an African chief'],
+    ['The painting is about giving faith, not intolerance.',
+     'A Bible as “the secret of England’s greatness” justifies empire on moral grounds.',
+     'The painting is from 1863, before the Berlin Conference.',
+     'Britain had ended the slave trade by then.']);
+  P('u6_6.1_8',
+    ['Victoria gives a Bible to a kneeling chief', 'Victoria kneels before an African chief', 'Victoria gives gold coins to an African chief'],
+    ['Social Darwinism is about competition. The painting shows giving.',
+     'The Open Door was about trade in China.',
+     'Bringing faith and civilization as a duty: the “White Man’s Burden.”',
+     'Mercantilism is about trade and gold.']);
+  P('u6_6.1_9',
+    ['Ferry says superior races must civilize others', 'Ferry says all races should learn from each other', 'Ferry says Europe should stay out of Africa'],
+    ['Profit is a reason Ferry gives elsewhere. Race talk is about culture.',
+     'Navies and ports are not what race words show.',
+     'The racial language claims Africans would gain from European culture.',
+     'Ferry does not see the exchange as equal.']);
+  P('u6_6.2_0',
+    ['Leopold’s agents force Congolese to gather rubber', 'Leopold’s agents pay Congolese well to gather rubber', 'Leopold’s agents leave the Congo to its own rulers'],
+    ['Outrage forced Leopold out, and Belgium’s government took over in 1908.',
+     'Congo became independent in 1960.',
+     'The Berlin Conference was 1884, before the outrage.',
+     'Rubber production went on.']);
+  P('u6_6.2_1',
+    ['Settlers take Aboriginal and Māori land', 'British settlers buy land fairly from the Māori', 'British settlers leave Australia for good'],
+    ['These colonists settled in large numbers, not just invested.',
+     'Abolition is not about settling land.',
+     'This is about colonies, not rural Britain.',
+     'Settlers took Indigenous land and ran their own governments: settler colonialism.']);
+  P('u6_6.2_2',
+    ['Europeans set rules for claiming African land', 'Africans set rules for keeping Europeans out', 'Europeans agree to give Africa back to Africans'],
+    ['Borders came from talks, not battles.',
+     'No Africans took part.',
+     'The United States did not lead it.',
+     'European powers split Africa among themselves with no Africans present.']);
+  P('u6_6.2_3',
+    ['Japan built mines, railways and a modern army', 'Japan refused all Western technology and ships', 'Japan became a colony of Britain to modernize'],
+    ['Japan was not Protestant and still industrialized.',
+     'Japan industrialized without being colonized.',
+     'The question is about imperialism’s assumptions, not government type.',
+     'Japan chose Western technology, modernized and stayed independent.']);
+  P('u6_6.2_4',
+    ['In 1858 the Crown takes over India', 'In 1858 India became independent from Britain', 'In 1858 the Company took India from the Crown'],
+    ['Nationalist demands came later.',
+     'Revenue was not the trigger.',
+     'The 1857 Rebellion showed company rule could not keep control.',
+     'No outside pressure caused the transfer.']);
+  P('u6_6.2_5',
+    ['A Japanese writer calls annexation a reunion', 'A Korean writer calls Japan’s rule a terrible crime', 'A Chinese writer says Korea belongs to China'],
+    ['The Treaty of Shimonoseki pushed China out of Korea and let Japan in.',
+     'The Meiji Restoration made Japan strong but did not take Korea.',
+     'Kanagawa opened Japan to the United States.',
+     'The White Lotus revolts were in China, much earlier.']);
+  P('u6_6.2_6',
+    ['Japan claims the two peoples were always one', 'Japan admits it took Korea by force and fraud', 'Japan says Korea and China should unite'],
+    ['This is Japan, not Western spheres.',
+     'Calling annexation a “reunion” is propaganda to make rule look natural.',
+     'Chinese nationalists are not mentioned.',
+     'Japan was not neutral; it was expanding.']);
+  P('u6_6.2_7',
+    ['A Japanese official praises taking over Korea', 'A Korean official praises independence from Japan', 'A Chinese official praises reforms in Beijing'],
+    ['Taking Korea in 1910 was part of Japan’s rise to imperial power.',
+     'Japan’s opening to the West was in the 1850s.',
+     'Korea did not want to join Japan.',
+     'China is not the subject.']);
+  P('u6_6.2_8',
+    ['The writer says Japan and Korea were one nation', 'The writer says Japan and Korea were always enemies', 'The writer says Korea was never part of Asia'],
+    ['Differences in language would hurt his claim.',
+     'Separate boundaries would hurt his claim.',
+     'War records do not show a shared people.',
+     'Names common to both would back up the claim of one people.']);
+  P('u6_6.2_9',
+    ['Hobson says imperialism denies rights to the ruled', 'Hobson says imperialism spreads rights to the ruled', 'Hobson says imperialism is good for British workers'],
+    ['Rebellions did not drive the push in South Africa.',
+     'World War I came later.',
+     'Gold found in the Boer republics in 1886 drew British miners and investors.',
+     'Germany was not the main driver in South Africa.']);
+  P('u6_6.2_10',
+    ['Hobson: a few whites rule people with no rights', 'Hobson: millions of whites rule with full rights', 'Hobson: Europeans trade fairly everywhere they go'],
+    ['Trade with China was not equal.',
+     'Europeans made big profits in China.',
+     'China limited European trade, but that is not the difference.',
+     'In China’s spheres Europeans wanted profit; in colonies they ruled and changed cultures.']);
+  P('u6_6.2_11',
+    ['Hobson: the ruled get no rights', 'Hobson says empire brings freedom to the colonies', 'Hobson says Britain must conquer all of Africa'],
+    ['The Berlin Conference was 1884.',
+     'World War I was 1914.',
+     'Hobson wrote as the Boer War ended, blaming the financiers behind it.',
+     'The Treaty of Córdoba was Mexican independence in 1821.']);
+  P('u6_6.2_12',
+    ['Victoria hands a Bible to an African ruler', 'Victoria hands her crown to an African ruler', 'Victoria hands a sword to an African ruler'],
+    ['The empire grew under Victoria.',
+     'Industry kept growing.',
+     'Reforms widened the vote, and ministers governed while she reigned.',
+     'Britain held India and grew in Asia too.']);
+  P('u6_6.2_13',
+    ['Africa is split into colonies', 'Africa is shown as one united kingdom', 'Africa is split along its many rivers'],
+    ['Many borders are straight lines, not rivers or mountains.',
+     'Borders cut through African peoples.',
+     'Borders ignore language.',
+     'Europeans drew the lines for their own claims.']);
+  P('u6_6.2_14',
+    ['Japan’s coal and steamships climb steeply', 'Japan’s coal and steamships fall to nothing', 'Japan’s coal and steamships never change at all'],
+    ['Japan beat Russia in 1905, but over Korea and Manchuria, not Siberia.',
+     'Japan beat China in 1894–95 for control of Korea.',
+     'France held Indochina. Japan did not fight it then.',
+     'Britain held Burma. Japan did not fight it then.']);
+  P('u6_6.2_15',
+    ['France closed Arab girls’ schools in Algeria', 'France opened new girls’ schools all over Algeria', 'Algeria’s rulers closed French schools'],
+    ['Utopianism is about ideal communities.',
+     'Communism is not the backdrop.',
+     'Industrialism is not the backdrop.',
+     'A French government ruling Algeria after a conquest: colonialism.']);
+  P('u6_6.2_16',
+    ['Girls’ schools existed before the 1830 conquest', 'Girls’ schools were first built after the conquest', 'No schools of any kind existed in Algeria'],
+    ['The Mughals were in India.',
+     'The Safavids were in Persia, and they were gone by 1830.',
+     'Algiers was an Ottoman province when France invaded.',
+     'Songhai fell in 1591.']);
+  P('u6_6.2_17',
+    ['European capitalists exploited all of Africa', 'African rulers exploited the wealth of Europe', 'European capitalists made Africa rich and strong'],
+    ['Machine guns helped conquer Africa.',
+     'There were no vaccines for tropical diseases. That helped least.',
+     'Joint-stock companies paid for conquest.',
+     'Steamships carried Europeans up rivers.']);
+  P('u6_6.2_18',
+    ['A settler sues over damage by 1,500 natives', 'A settler thanks the natives for guarding his farm', 'A settler leaves his farm to the natives as a gift'],
+    ['Britain used threats to settlers as a reason (casus belli) for war with the Zulu.',
+     'Britain fought the Zulu. It did not tax them.',
+     'Britain protected settlers. It did not drop them.',
+     'Britain conquered the Zulu. It did not free them.']);
+  P('u6_6.2_19',
+    ['A settler owns a house in town and a farm', 'A settler lives in a tent with no land', 'A settler owns a diamond mine and nothing else'],
+    ['There was no special crown offer.',
+     'The Zulu did not build ports.',
+     'The Berlin Conference was 1884, after 1867.',
+     'Diamonds were found in 1867, and the rush drew Europeans.']);
+  P('u6_6.2_20',
+    ['A settler says the Zulu war reached his farm', 'A settler describes peace and calm on his farm', 'A settler describes a war in India far away'],
+    ['Other colonies, like India, earned more.',
+     'Britain lost no land at Berlin.',
+     'British expansion toward the Boer gold fields led to the Boer War.',
+     'South Africa did not become independent then.']);
+  P('u6_6.2_21',
+    ['China gives up Korea and Taiwan', 'Japan gives up Korea, Taiwan and land to China', 'China and Japan agree to share Korea equally'],
+    ['China giving up land is a loser’s terms. Japan won.',
+     'A stalemate would not give Japan so much.',
+     'Japan did not help China. It fought China.',
+     'China lost.']);
+  P('u6_6.2_22',
+    ['China cedes Taiwan to Japan and frees Korea', 'Japan cedes Taiwan and frees Korea to China’s gain', 'China and Japan both give up Korea forever'],
+    ['Korea split at the 38th parallel after 1945.',
+     'Taiwan went to Japan.',
+     'China kept trading with foreigners.',
+     'Taiwan was Japan’s first colony. Japan began building its Pacific empire.']);
+  P('u6_6.2_23',
+    ['China hands Japan land forever', 'Japan hands land and forts to China forever', 'China buys land and forts from Japan'],
+    ['China was losing land.',
+     'From 1842 to 1895 the Qing kept giving land and spheres to foreigners.',
+     'Communism came in 1949.',
+     'The emperor was getting weaker.']);
+  P('u6_6.3_0',
+    ['A dance to bring back land and bison', 'A dance to celebrate a treaty with the U.S.', 'A dance taught in government boarding schools'],
+    ['A ritual to bring back land and bison: a religious response to loss.',
+     'It was not a government program.',
+     'Settlers did not lead it.',
+     'Mexico was not part of it.']);
+  P('u6_6.3_1',
+    ['Samori builds an army and fights France', 'Samori signs away his lands to France', 'Samori invites French missionaries to rule'],
+    ['He fought the French.',
+     'Christianity is not part of his story.',
+     'Trade routes are not the point.',
+     'A modern army that held off the French for years: armed resistance.']);
+  P('u6_6.3_2',
+    ['Rumored greased cartridges spark a revolt', 'British officers hand out new uniforms to troops', 'Indian soldiers vote to join the British army'],
+    ['It was not one coordinated national movement.',
+     'The cartridges were only the spark, not the sole cause.',
+     'Many old grievances, set off by one cultural offense.',
+     'Communism came much later.']);
+  P('u6_6.3_3',
+    ['Ethiopia’s modern army beats Italy at Adwa', 'Italy’s army easily conquers Ethiopia at Adwa', 'Ethiopia and Italy sign a peace with no battle'],
+    ['An African army beat a European one and inspired anti-colonial movements.',
+     'Europeans kept their other African colonies.',
+     'It inspired others, but it did not set off resistance everywhere at once.',
+     'Ethiopia stayed independent. It did not absorb settlers.']);
+  P('u6_6.3_4',
+    ['Qing officials want Western tools, Chinese ways', 'Qing officials want to copy the West in everything', 'Qing officials want to overthrow the emperor'],
+    ['This was not an effort to drive out all Westerners.',
+     'They kept Chinese institutions.',
+     'Western technology, Chinese institutions: selective modernization.',
+     'They worked for the dynasty, not against it.']);
+  P('u6_6.3_5',
+    ['Officials fear educated girls will not stay home', 'Officials hope educated girls will run the colony', 'Officials say girls cannot learn to read at all'],
+    ['Educated girls would push back, so officials feared education.',
+     'Religious diversity is not the fear.',
+     'Contact between French and native girls is not the fear.',
+     'They closed schools. They did not think they would fail.']);
+  P('u6_6.3_6',
+    ['A settler’s house is not insured against war', 'A settler’s house is fully paid for by the Queen', 'A settler’s house is safe far from any fighting'],
+    ['Nothing about spreading culture.',
+     'The letter shows losses, not boons.',
+     'He is British, not an Afrikaner.',
+     'Insurance will not cover war damage: an unexpected cost of empire.']);
+  P('u6_6.3_7',
+    ['A settler lists his house, farm and lawsuit', 'A settler praises the war and the government', 'A settler blames only himself for his losses'],
+    ['House, farm, then a lawsuit: each detail adds to his losses.',
+     'He does not oppose the war.',
+     'He does not mock officials.',
+     'He blames the natives and wants payment. Not both sides.']);
+  P('u6_6.4_0',
+    ['Suez and cables speed up ships and messages', 'Suez and cables slow down ships and messages', 'Suez and cables cut Britain off from India'],
+    ['British trade with Asia grew.',
+     'Steamships kept sailing.',
+     'India stayed British until 1947.',
+     'Faster ships and messages tied the empire and world trade together.']);
+  P('u6_6.4_1',
+    ['Latin America sells beef and coffee abroad', 'Latin America sells factory goods to Europe', 'Latin America refuses to trade with Europe'],
+    ['They exported raw goods, not finished goods.',
+     'They depended on selling raw materials to industrial nations.',
+     'They were open to foreign trade and investment.',
+     'They traded a lot.']);
+  P('u6_6.4_2',
+    ['Rubber is needed for tires and wires', 'Rubber is needed for sailing ships and armor', 'Rubber is needed to pay taxes in China'],
+    ['Tires and wires were new industrial products.',
+     'Global trade was growing.',
+     'The Columbian Exchange was centuries earlier.',
+     'The single-whip system was Ming China.']);
+  P('u6_6.4_3',
+    ['Railroads haul raw goods out of colonies', 'Railroads let colonies build their own factories', 'Railroads stop raw goods leaving the colonies'],
+    ['Railroads served the empire, not local independence.',
+     'Raw materials out, factory goods in: deeper inequality.',
+     'Railroads did not spread democracy.',
+     'European industry grew.']);
+  P('u6_6.4_4',
+    ['Egypt’s farmers grow cotton instead of food', 'Egypt’s farmers switch from cotton back to food', 'Egypt’s farmers build their own cotton mills'],
+    ['Britain wanted more Egyptian cotton, not less.',
+     'Egypt’s economy was reshaped for British mills and tied to world prices.',
+     'Egyptian farmers did not build up capital.',
+     'British policy was not humanitarian.']);
+  P('u6_6.5_0',
+    ['China burns opium; Britain goes to war', 'China buys British opium; Britain pays a fine', 'Britain destroys Chinese tea; China goes to war'],
+    ['Britain fought the ban. It did not support it.',
+     'Self-Strengthening was a Chinese program.',
+     'Communism is not involved.',
+     'War to keep a market open: force protecting merchants.']);
+  P('u6_6.5_1',
+    ['Egypt’s debts let Britain take over', 'Egypt’s wealth leads to its own empire', 'Egypt’s army drives the British out'],
+    ['Debt gave Britain the opening to take control.',
+     'Muhammad Ali was earlier, and Egypt did not resist successfully.',
+     'The Ottomans did not conquer British posts.',
+     'Cotton exports went on.']);
+  P('u6_6.5_2',
+    ['British investors own its railways', 'British governors rule Argentina directly', 'Argentina’s state owns all of its railways'],
+    ['Foreign farmers did not take over.',
+     'Argentina was independent.',
+     'Argentina did not run a command economy.',
+     'Economic power without formal rule: economic imperialism.']);
+  P('u6_6.5_3',
+    ['China gives up Hong Kong and opens ports', 'Britain gives up Hong Kong and leaves China', 'China and Britain trade as equal partners'],
+    ['China did not choose this. It lost a war.',
+     'Land, forced ports and British courts: an unequal treaty.',
+     'It was not a fair compromise.',
+     'Trade with China grew.']);
+  P('u6_6.5_4',
+    ['The Boxers fail; foreigners stay', 'The Boxers win; foreigners leave China for good', 'The Boxers fail; foreigners leave China anyway'],
+    ['China lost. Foreign privileges grew.',
+     'This was resistance, not accommodation.',
+     'Fighting back led to more foreign control and debt.',
+     'The Qing army did not stop the intervention.']);
+  P('u6_6.5_5',
+    ['Africa is split up as Ferry praises it', 'Africa is united while Ferry praises freedom', 'Africa is left alone while Ferry praises trade'],
+    ['Forced export crops meant less food and famines.',
+     'Roads and railways are not a negative.',
+     'Schools are not a negative.',
+     'Better medicine is not a negative.']);
+  P('u6_6.6_0',
+    ['Blight kills Ireland’s potatoes; millions leave', 'A big harvest makes Ireland rich; millions arrive', 'Blight kills America’s corn; the Irish go home'],
+    ['Free land in Australia did not drive this.',
+     'Crop disaster plus poverty pushed people out.',
+     'Catholics were not persecuted into leaving.',
+     'No government paid them to go.']);
+  P('u6_6.6_1',
+    ['After slavery ends, planters recruit Indians', 'After slavery ends, planters close their farms', 'After slavery ends, Indians buy the plantations'],
+    ['Plantations lost their workers and needed new ones.',
+     'The Caribbean was not overpopulated.',
+     'Indians were not demanding Caribbean sugar.',
+     'British rule in India went on.']);
+  P('u6_6.6_2',
+    ['Chinese migrants come to mine gold in California', 'Chinese migrants come to farm free land in Iowa', 'Chinese migrants come to escape the end of the Qing'],
+    ['Religious freedom was not the draw.',
+     'The Homestead Act did not offer land to Asians.',
+     'Mines and railroads needed workers who could earn wages.',
+     'The Qing fell in 1912, later.']);
+  P('u6_6.6_3',
+    ['Famine and poverty push; U.S. jobs pull', 'Religious persecution pushes; U.S. freedom pulls', 'Political repression pushes; U.S. asylum pulls'],
+    ['Religion was not the driver here.',
+     'Disaster at home and labor demand in the U.S.',
+     'They were not mainly political refugees.',
+     'The U.S. government did not run recruiting programs.']);
+  P('u6_6.6_4',
+    ['After abolition, planters bind workers by contract', 'After abolition, planters pay all workers fairly', 'After abolition, plantations close across the empire'],
+    ['Slavery ended, but coerced labor went on in a new form.',
+     'Workers were not treated equally.',
+     'The contracts were hard and often forced.',
+     'Plantations kept going.']);
+  P('u6_6.7_0',
+    ['Migrants build neighborhoods with their own papers', 'Migrants give up their language and customs at once', 'Migrants are banned from owning any businesses'],
+    ['They kept their cultures.',
+     'They ran their own shops.',
+     'Ethnic enclaves kept their cultures alive.',
+     'Migration kept growing.']);
+  P('u6_6.7_1',
+    ['Australia keeps out non-Europeans', 'Australia invites Asian workers with free land', 'Australia ends all limits on who may come in'],
+    ['Employers did not welcome them by law.',
+     'Like U.S. Chinese exclusion: part of a wider pattern.',
+     'Australia was still in the empire.',
+     'This is about Australia’s borders, not India’s contracts.']);
+  P('u6_6.7_2',
+    ['Men leave, so women run the farms', 'Women leave, so men run the farms and shops', 'Whole villages leave, so the farms are empty'],
+    ['With men gone, women took on new roles.',
+     'Whole villages did not leave.',
+     'Women were working more.',
+     'Most migrants were men.']);
+  P('u6_6.7_3',
+    ['Rallies cry “The Chinese must go!”', 'Rallies welcome Chinese workers; Congress agrees', 'China asks the U.S. to send its workers back'],
+    ['There was no such evidence. This is prejudice.',
+     'China did not protest emigration.',
+     'Nativist anger over jobs, race and culture.',
+     'They were kept out by law, not by failure to fit in.']);
+  P('u6_6.7_4',
+    ['Migrants keep old ways and mix in new ones', 'Migrant communities drop every old custom quickly', 'Migrant communities all go home within a year'],
+    ['They did not fully assimilate.',
+     'Diaspora communities kept their cultures and made new mixed ones.',
+     'They stayed and built permanent communities.',
+     'They were not wiped out.']);
+  P('u6_6.7_5',
+    ['A gate welcomes everyone except a Chinese man', 'A gate keeps out everyone except a Chinese man', 'A gate is closed to every migrant who comes'],
+    ['U.S. empire abroad is not the subject.',
+     'A fight over who gets in happens when many people are arriving.',
+     'Trade was growing.',
+     'Human rights movements came later.']);
+  P('u6_6.7_6',
+    ['A country bars immigrants of one race', 'A country opens its doors to every race', 'A country forces its people to move away'],
+    ['The Open Door was about trade in China.',
+     'White Australia also kept out immigrants by race.',
+     'The Meiji Restoration was Japan modernizing.',
+     'Russification forced Russian culture on minorities.']);
+  P('u6_6.7_7',
+    ['The barred Chinese man sits on “Industry” bags', 'The barred Chinese man carries guns and bombs', 'The barred Chinese man is shown as lazy and idle'],
+    ['Overpopulation is not the cartoon’s point.',
+     'The radicals walk in. Communism is not why he is kept out.',
+     'The “Industry” bag: other workers wanted his competition gone.',
+     'The Boxer Uprising came in 1900.']);
+  P('u6_6.7_8',
+    ['Radicals walk in; a quiet worker is barred', 'A radical is barred; quiet workers walk in', 'Everyone walks in, radicals and workers alike'],
+    ['Temperance is not shown.',
+     'The cartoonist mocks barring by race.',
+     'He shows hard work as good.',
+     'Satire: the radicals let in are the real problem.']);
+  P('u6_6.8_0',
+    ['Quinine and machine guns help Europeans in Africa', 'Quinine and machine guns help Africans beat Europe', 'Quinine and machine guns end the slave trade'],
+    ['Africans did not take European colonies.',
+     'Naval patrols ended the slave trade.',
+     'Quinine and machine guns made fast conquest possible.',
+     'Industry grew.']);
+  P('u6_6.8_1',
+    ['Factories need tropical cotton and rubber', 'British factories need nothing from abroad', 'British factories shut down for lack of coal'],
+    ['Factories’ needs pushed Europe to control producing lands.',
+     'Demand for imports grew.',
+     'Colonialism grew.',
+     'Europe kept importing food.']);
+  P('u6_6.8_2',
+    ['Japan industrializes, then wins colonies', 'Japan stays closed, then is colonized by the West', 'Japan loses wars and gives up its own islands'],
+    ['Industry succeeded in Japan.',
+     'Japan had left Tokugawa isolation.',
+     'Japan was never colonized.',
+     'Industry made a non-Western state an imperial power.']);
+  P('u6_6.8_3',
+    ['The factory drove expansion', 'The church, not the factory, drove expansion', 'Glory, not the factory, drove expansion'],
+    ['Religion is not the passage’s point.',
+     'Raw materials, markets and investment drove expansion.',
+     'European workers’ wages are not the argument.',
+     'Europe did not aim to industrialize colonies.']);
+  P('u6_6.8_4',
+    ['Tools change; taking from Africa goes on', 'Tools change, and extraction from Africa ends', 'Nothing at all changes from the 1440s to 1880s'],
+    ['The passage notes real differences too.',
+     'Resistance is not the comparison.',
+     'Extracting resources and labor stayed the same across 400 years.',
+     'It does not rank the two.']);
+})(window.WALKTHROUGH);
+
+(function (W) {
+  function P(id, say, cut) { if (W[id]) { W[id].say = say; W[id].cut = cut; } }
+  /* ---------- UNIT 7 ---------- */
+  P('u7_7.1_0',
+    ['The West refused Japan racial equality', 'The West welcomed Japan as a full and equal partner', 'Japan refused to sign any treaty with the Western powers'],
+    ['Leaders used the insult to justify a military empire in Asia in the 1930s.',
+     'The Russo-Japanese War was 1904–05, before Versailles.',
+     'The Meiji Restoration was 1868.',
+     'Japan industrialized decades before.']);
+  P('u7_7.1_1',
+    ['Japan resents Western race prejudice', 'Japan thanks the West for treating Asians as equals', 'Japan says Asians should accept Western rule forever'],
+    ['Enlightenment rights are not the point.',
+     'Japan rejected the place the West gave Asians.',
+     'Japan borrowed the civilizing mission to justify its own empire.',
+     'Immigration limits are a side issue here.']);
+  P('u7_7.1_2',
+    ['The West refused Japan racial equality', 'The West agreed that every race was equal in 1919', 'Asian leaders asked the West to rule them longer'],
+    ['Refusing equality fed anti-imperial and independence movements.',
+     'Christian conversion did not grow from this.',
+     'Laissez-faire is not connected.',
+     'European enclaves are not the result.']);
+  P('u7_7.1_3',
+    ['Kemal: sovereignty is taken, not begged', 'Kemal: Turkey should ask the Allies to protect it', 'Kemal: Turkey should rebuild the Ottoman sultanate'],
+    ['Marxism is not his point.',
+     'Mandates covered Arab lands, not Turkey itself.',
+     'The Depression came after 1929.',
+     'The Allies tried to split Turkish land after the Ottoman collapse.']);
+  P('u7_7.1_4',
+    ['Turkey says its sovereignty is its own', 'Turkey says its sovereignty belongs to the Allies', 'Turkey says it will join the Soviet Union soon'],
+    ['Communism is not his point.',
+     'A nation demanding self-determination after the war.',
+     'Turkey was not a formerly imperial state adopting democracy.',
+     'Alliances are not the point.']);
+  P('u7_7.1_5',
+    ['The century saw several mass atrocities', 'The century saw no mass killings at all', 'The century saw atrocities only in Africa'],
+    ['UNESCO was not just celebrating diversity.',
+     'Science found the opposite: race does not decide culture.',
+     'After the Holocaust, UNESCO rejected Nazi race ideas.',
+     'Colonial powers were not behind this statement.']);
+  P('u7_7.1_6',
+    ['Nicholas gives up the throne amid war', 'Nicholas wins the war and keeps his crown', 'Nicholas hands the throne to the Bolsheviks'],
+    ['Russia was not prosperous.',
+     'Nicholas did not tolerate dissidents.',
+     'War losses and angry workers forced him out.',
+     'Religious persecution is not his reason.']);
+  P('u7_7.1_7',
+    ['Lenin urges the Soviets to take power', 'Lenin urges support for the czar and the war', 'Lenin urges free markets and private farms'],
+    ['Lenin attacked capitalism.',
+     'Mercantilism is about trade and gold.',
+     'Fascism was its enemy.',
+     'Lenin’s Bolsheviks were Marxists.']);
+  P('u7_7.2_0',
+    ['The paper calls the terms on Germany cruel', 'The paper calls the terms on Germany too soft', 'The paper praises the treaty as fair to all'],
+    ['The League was one of Wilson’s ideas, but the editorial is about revenge.',
+     'New nation-states are not its complaint.',
+     'Wilson promised a peace without revenge; this treaty mocks that.',
+     'Bolshevism is not the point.']);
+  P('u7_7.2_1',
+    ['The paper calls the terms humiliating', 'The paper calls the terms gentle and kind', 'The paper says Germany will recover at once'],
+    ['Germany did not have a successful communist revolution.',
+     'There was no huge wave of emigration.',
+     'Germany kept its industry.',
+     'Humiliation and hardship fed extremists like the Nazis.']);
+  P('u7_7.2_2',
+    ['Dutch editors fear for German trade', 'A Dutch paper cheers the ruin of Germany', 'A German paper worries about Dutch trade'],
+    ['The neutral Dutch profited from trade with Germany, so they wanted it to recover.',
+     'An empire is not why the paper sides with Germany.',
+     'A merchant fleet alone does not explain the view.',
+     'Being a monarchy does not explain it.']);
+  P('u7_7.2_3',
+    ['Durnovo warns war may bring revolution', 'Durnovo says Russia is ready for any war', 'Durnovo says war will make Russia calm'],
+    ['Empires faced threats from war abroad and revolution at home.',
+     'The Western order was not declining yet.',
+     'New nation-states came after the war.',
+     'Propaganda is not his point.']);
+  P('u7_7.2_4',
+    ['Durnovo: war with Germany brings revolution', 'Durnovo promises war with Germany will be easy', 'Durnovo says Russia should join Germany in war'],
+    ['He was right: war led to revolution.',
+     'He predicted revolution in the loser. He was not saying both would fall regardless.',
+     'Revolution came in Russia, the losing side, so he was not wrong about that.',
+     'War brought losses and hunger, and revolution came in 1917.']);
+  P('u7_7.2_5',
+    ['Durnovo says old ruling elites are weakening', 'Durnovo says old ruling elites are growing stronger', 'Durnovo says Russia is the most stable land on earth'],
+    ['Mexico’s revolution ousted the dictator Díaz in 1910.',
+     'Austria-Hungary collapsed in 1918, not the first decade.',
+     'The Boer War was settlers against Britain, not a fall of old elites.',
+     'The Triple Entente is an alliance.']);
+  P('u7_7.2_6',
+    ['Moltke: it will be a people’s war', 'Moltke: war with France will be over in a week', 'Moltke: France will never fight Germany again'],
+    ['France was not superior.',
+     'France had fewer people than Germany.',
+     'After 1871, nationalism in both countries ran deep.',
+     'Fascists did not exist in 1906.']);
+  P('u7_7.2_7',
+    ['Two power blocs could turn a small war big', 'Small wars in the Balkans can never spread', 'Italy should rule the whole Balkan peninsula'],
+    ['Diversity alone does not explain his fear.',
+     'Alliances bound countries to defend each other.',
+     'Deadly weapons are not his point here.',
+     'Austria-Hungary broke up after the war, not before.']);
+  P('u7_7.2_8',
+    ['Giolitti fears a Libya war could spread', 'Giolitti says a Libya war would be perfectly safe', 'Giolitti wants Italy to leave Africa forever'],
+    ['African states did not unite against Europe.',
+     'Religion is not his concern.',
+     'Japan is not part of this.',
+     'New colonies could inflame rivalries between European powers.']);
+  P('u7_7.3_0',
+    ['Germans blamed Russia and backed the war', 'Germans blamed their own leaders for the war', 'Only young Germans supported the war at all'],
+    ['Muster rolls and letters show many kinds of people joined.',
+     'He does not rely on newspapers for this point.',
+     'Propaganda ministry records are not his evidence.',
+     'He does not lean on other historians.']);
+  P('u7_7.3_1',
+    ['Germany says it fights only to defend itself', 'Germany says it wants to conquer all of Russia', 'Germany says Russia has already surrendered'],
+    ['Propaganda framed the war as defending the homeland.',
+     'No atrocities are quoted.',
+     'The quote is about a fear, not an occupation.',
+     'The quote shows they were afraid.']);
+  P('u7_7.3_2',
+    ['Britain quietly hid bad war news', 'Britain reported every loss in full detail', 'Britain let soldiers write anything home'],
+    ['Soldiers’ letters are not her evidence.',
+     'Rewards to journalists are not mentioned.',
+     'Germany is a comparison, not her proof.',
+     'A sunk battleship and Jutland kept from the public.']);
+  P('u7_7.3_3',
+    ['Germany invented; Britain hid', 'Britain spread stories; Germany hid bad news', 'Neither government controlled the war news'],
+    ['Britain controlled the press too.',
+     'Both kept up support.',
+     'Britain also censored.',
+     'Germany pushed out false stories; Britain kept bad news quiet.']);
+  P('u7_7.3_4',
+    ['A Soviet party poster from 1934', 'A czarist poster calling men to war', 'A Western poster mocking the Soviets'],
+    ['World War I broke the Russian Empire, and Lenin seized power.',
+     'Peace treaties did not create the Soviet state.',
+     'Freeing the serfs came in 1861, too early.',
+     'Ethnic violence did not create it.']);
+  P('u7_7.3_5',
+    ['A 1934 poster praising Lenin and Stalin', 'A 1934 poster praising free markets', 'A 1934 poster calling for revolt in Russia'],
+    ['The League is not its subject.',
+     'It backs Stalin’s Five-Year Plans for state-run modernization.',
+     'The Soviets rejected free markets.',
+     'It supports the government, not resistance.']);
+  P('u7_7.3_6',
+    ['A Soviet poster praising party leaders', 'A Soviet poster praising Hollywood films', 'A Soviet poster criticizing Stalin openly'],
+    ['Posters rallied Soviets for World War II.',
+     'Posters backed the Warsaw Pact.',
+     'Posters backed anti-imperialist movements.',
+     'Soviet posters never pushed Western culture. That is the exception.']);
+  P('u7_7.3_7',
+    ['800,000 women take over men’s jobs', '800,000 women lose their jobs to men', '800,000 men take over women’s jobs'],
+    ['Equality was not a pre-war commitment.',
+     'Total war needed every worker, women included.',
+     'Britain brought in a draft, but that is not the point.',
+     'Strength rules did not change because of machines.']);
+  P('u7_7.3_8',
+    ['Women fill jobs; votes are rethought', 'Women leave jobs; suffrage is forgotten', 'Men return; women are sent home for good'],
+    ['Marxism is not the point.',
+     'After the war, Britain, the U.S. and others gave women the vote.',
+     'Most women lost those jobs after the war.',
+     'Birth control is not mentioned.']);
+  P('u7_7.3_9',
+    ['Total war drew in whole nations', 'Total war touched only soldiers at the front', 'Total war ended once the generals agreed'],
+    ['Empires did not collapse at once.',
+     'The slaughter left many disillusioned and against war.',
+     'The shift to the U.S. came later, after 1945.',
+     'Colonies were not freed then.']);
+  P('u7_7.4_0',
+    ['Brazil guarantees workers’ rights', 'Brazil’s state leaves wages to the market', 'Brazil’s state bans all trade unions'],
+    ['Some did, but this passage is about helping workers.',
+     'Race is not part of it.',
+     'Leaders took an active role in guiding the economy.',
+     'This is the opposite of liberal policy.']);
+  P('u7_7.4_1',
+    ['Brazil boasts of workers’ rights', 'Brazil boasts of low taxes and no unions', 'Brazil boasts of its army and its conquests'],
+    ['Socialist ideas shaped governments across the spectrum.',
+     'The military is not the point.',
+     'War is not the point.',
+     'Industry is not what it brags about here.']);
+  P('u7_7.4_2',
+    ['Brazil praises its own reforms', 'Brazil’s workers complain about the reforms', 'A foreign critic attacks Brazil’s reforms'],
+    ['The reforms were for workers, not the rich.',
+     'The tribunal is a small part.',
+     'Union tensions are not the main gap.',
+     'A government describing its reforms will skip their problems.']);
+  P('u7_7.4_3',
+    ['Stalin plans industry from the top', 'Stalin industrializes through free markets', 'Stalin halts industry to help farmers'],
+    ['An authoritarian state planned fast industry.',
+     'This is not a liberal democracy.',
+     'The USSR was not a colonial power.',
+     'The League did not run this.']);
+  P('u7_7.4_4',
+    ['The 1929 crash starts a world depression', 'The 1929 boom brings years of prosperity', 'The 1929 crash hits only the United States'],
+    ['Germany was not prosperous.',
+     'Trade collapse did not build alliances.',
+     'Ruin weakened democracies and fed extremists.',
+     'Democracies did not grab new colonies.']);
+  P('u7_7.4_5',
+    ['Crisis after crisis hits Germany', 'Germany’s economy is calm for twenty years', 'Germany recovers fully and quickly in 1923'],
+    ['Crises spread between nations.',
+     'Versailles did not plan to block recovery.',
+     'Repeated crises created instability that extremists exploited.',
+     'The League did not coordinate relief.']);
+  P('u7_7.4_6',
+    ['Stalin says slowing down means falling behind', 'Stalin says Russia can slow down and rest now', 'Stalin says Russia is already ahead of the West'],
+    ['The Winter War was 1939.',
+     'Nuclear weapons came after 1945.',
+     'In 1931 he was driving the first Five-Year Plan.',
+     'The purges are a different story.']);
+  P('u7_7.4_7',
+    ['Stalin blames backwardness and capitalism', 'Stalin praises capitalism and its markets', 'Stalin blames socialism for Russia’s defeats'],
+    ['Appeasement is about Hitler.',
+     'Fascism was his enemy.',
+     '“Jungle law of capitalism” and “Socialist Industry”: communism.',
+     'Secret treaties are not the point.']);
+  P('u7_7.4_8',
+    ['Workers are helpless if sick', 'Workers are well cared for in old age', 'Workers need no help from the state'],
+    ['Keynes wanted government spending to keep demand up.',
+     'Keynes wanted more government action, not less.',
+     'Keynes favored intervention.',
+     'Keynes did not argue for doing nothing.']);
+  P('u7_7.5_0',
+    ['Mandates kept old imperial claims alive', 'Mandates gave every colony instant freedom', 'Mandates ended all European empires'],
+    ['Mandates claimed to guide peoples toward self-rule: the civilizing mission.',
+     'The Monroe Doctrine kept Europe out of the Americas.',
+     'Social Darwinism is about competition.',
+     'Mercantilism is about wealth for the mother country.']);
+  P('u7_7.5_1',
+    ['Amritsar turns Indians against Britain', 'Amritsar makes Indians trust the British', 'Amritsar ends the nationalist movement'],
+    ['Making salt against the law: nonviolent civil disobedience.',
+     'The march was nonviolent.',
+     'It targeted the salt law, not imports.',
+     'It was not a diplomatic effort.']);
+  P('u7_7.5_2',
+    ['Ho asks Wilson for self-rule', 'Ho asks Wilson for help and gets a treaty', 'Ho asks France to stay in Vietnam'],
+    ['Self-determination was not applied to colonies.',
+     'The League did not help.',
+     'France did not grant autonomy.',
+     'Wilson’s self-determination was meant for Europeans.']);
+  P('u7_7.5_3',
+    ['Japan forces Japanese names on Koreans', 'Japan lets Koreans keep their own names', 'Korea forces Japanese to take Korean names'],
+    ['It was not just a reaction to uprisings.',
+     'Cultural suppression used to control a people.',
+     'It was not progressive.',
+     'It was not about trade.']);
+  P('u7_7.5_4',
+    ['Anti-imperial groups unite', 'Imperial powers unite to crush all colonies', 'Colonized peoples ask to stay under empire'],
+    ['Many leaders were Marxist, but the core claim is rights and self-determination.',
+     'They turned Enlightenment ideas of rights and self-rule against the empires.',
+     'Social Darwinism was the empires’ idea, not theirs.',
+     'Pan-nationalism is about ethnic unity, not the core idea here.']);
+  P('u7_7.5_5',
+    ['Mussolini brags; Hitler takes Austria', 'Hitler takes credit as Mussolini grabs Austria', 'Mussolini stops Hitler from taking Austria'],
+    ['Both rose as weak economies pushed people to strongmen.',
+     'Neither won a free majority election to take power.',
+     'Both opposed socialists.',
+     'Neither came from elite military schools.']);
+  P('u7_7.5_6',
+    ['Gandhi urges a boycott of foreign cloth', 'Gandhi urges Indians to buy British cloth', 'Gandhi urges Indians to fight the British army'],
+    ['It was not protectionism for its own sake.',
+     'Swaraj means self-rule. The boycott pushed toward independence.',
+     'It is not labor organizing.',
+     'The Cold War came later.']);
+  P('u7_7.5_7',
+    ['Gandhi: stay nonviolent, accept jail', 'Gandhi says fight back if you are arrested', 'Gandhi says flee India to avoid any arrest'],
+    ['Zionism did not take its methods from Gandhi.',
+     'Many Southeast Asian independence fights were armed.',
+     'The U.S. civil rights movement used his nonviolence.',
+     'Cuba’s revolution was armed.']);
+  P('u7_7.5_8',
+    ['Gandhi asks Indians to spin their own cloth', 'Gandhi asks Indians to buy cloth from Britain', 'Gandhi asks Indians to stop wearing cloth'],
+    ['Muslim empires are not the issue.',
+     'The East India Company, a joint-stock company, took over India’s trade.',
+     'New World crops are not the issue.',
+     'The slave trade is not the issue.']);
+  P('u7_7.6_0',
+    ['Hitler demands Germany’s colonies back', 'Hitler gives up any claim to colonies', 'Hitler says Germany needs no raw materials'],
+    ['The Depression is not his argument here.',
+     'Settler colonies were not used for soldiers.',
+     'He does not blame protectionism.',
+     'Demanding colonies for food and materials: imperial ambition.']);
+  P('u7_7.6_1',
+    ['Hitler says Germany’s colonies were stolen', 'Hitler says Germany gave its colonies freely', 'Hitler says Germany never had colonies'],
+    ['Colonial nationalism is not his point.',
+     'Communism is not mentioned.',
+     'Radio is not his point.',
+     'Versailles took the colonies. Anger over it helped start the war.']);
+  P('u7_7.6_2',
+    ['Chamberlain returns from Munich with a deal', 'Chamberlain returns from Munich to declare war', 'Chamberlain returns from Munich empty-handed'],
+    ['Giving Hitler what he wanted: appeasement.',
+     'Munich was a deal, not a fight between ideologies.',
+     'Not all nations avoided war.',
+     'The League was not part of Munich.']);
+  P('u7_7.6_3',
+    ['Churchill calls Munich a total defeat', 'Churchill calls Munich a great victory', 'Churchill calls Munich a fair deal for all'],
+    ['Churchill rejected it.',
+     'He did not expect peace.',
+     'Giving in showed Hitler nobody would stop him.',
+     'He did not call for war at once.']);
+  P('u7_7.6_4',
+    ['A survivor recalls Hiroshima', 'A pilot describes the flight to Hiroshima', 'A general explains why Hiroshima was spared'],
+    ['A blockade is not the point.',
+     'The bomb was the extreme end of blurring soldiers and civilians.',
+     'Blitzkrieg is not the point.',
+     'Chemical weapons are not the point.']);
+  P('u7_7.6_5',
+    ['Axis aggression goes unpunished', 'Axis aggression is stopped quickly each time', 'The Axis gives back every land it takes'],
+    ['They were not fascist sympathizers.',
+     'Exhausted by WWI and the Depression, they gave in to avoid war.',
+     'This was not a plan to turn Hitler east.',
+     'They did not think the claims fully fair.']);
+  P('u7_7.6_6',
+    ['Aggression meets words but no force', 'Aggression meets armies every single time', 'The League stops each invasion it condemns'],
+    ['No decisive resistance came.',
+     'The League did not deter anyone.',
+     'Unchallenged aggression encouraged more.',
+     'The Axis knew what each other did.']);
+  P('u7_7.6_7',
+    ['The bomb killed soldiers and children alike', 'The bomb was aimed only at an army base', 'The bomb hit an empty field outside the city'],
+    ['Secret weapons are not the pattern.',
+     'Total war deliberately targeted civilians.',
+     'Laws to protect civilians were broken, not followed.',
+     'The Allies’ debate is not the pattern.']);
+  P('u7_7.6_8',
+    ['Hitler carries off Czechoslovakia in a bag', 'Mussolini carries off Czechoslovakia in a bag', 'Hitler gives Czechoslovakia back to its people'],
+    ['Brest-Litovsk was 1918.',
+     'The Tripartite Pact was 1940.',
+     'The Anti-Comintern Pact was against communism.',
+     'Czechoslovakia “in the bag” in 1938 is the Munich Agreement.']);
+  P('u7_7.6_9',
+    ['Mussolini boasts as Hitler takes Austria', 'Mussolini leads the march into Austria', 'Mussolini blocks Hitler at the Austrian border'],
+    ['Non-aggression pacts were Hitler’s tool too.',
+     'Both used propaganda.',
+     'Racial superiority was mainly Hitler’s focus.',
+     'Mussolini held Libya and invaded Ethiopia.']);
+  P('u7_7.6_10',
+    ['Hitler calls Versailles a forced “Diktat”', 'Hitler calls Versailles a fair and just law', 'Hitler promises to obey Versailles forever'],
+    ['Hitler invaded Poland, so he did not respect its borders.',
+     'This is about the treaty, not minorities.',
+     'Many Germans felt Versailles was unfair.',
+     'Mussolini is not the background.']);
+  P('u7_7.6_11',
+    ['Churchill vows to fight on the beaches', 'Churchill vows to surrender to Germany', 'Churchill vows to invade Germany at once'],
+    ['Eastern European resistance is not the speech’s focus.',
+     'Trade deals are not the point.',
+     'Appeasement was over.',
+     'After Dunkirk, Britain feared invasion.']);
+  P('u7_7.6_12',
+    ['Russia was beaten for being backward', 'Russia always won because it was strong', 'Russia lost because it had too much industry'],
+    ['The Space Race came later.',
+     'The Polish-Soviet War came before the speech.',
+     'The Western intervention came before the speech.',
+     'Germany invaded in 1941, and Soviet industry helped win.']);
+  P('u7_7.6_13',
+    ['Japan’s GDP rises from 1937 to 1942', 'Japan’s GDP falls from 1937 to 1942', 'Japan’s GDP stays flat from 1937 to 1942'],
+    ['War spending against China and the Allies drove output up.',
+     'The military already ran things.',
+     'Manchuria was taken in 1931.',
+     'Embargoes hurt the economy.']);
+  P('u7_7.6_14',
+    ['Japan’s GDP drops sharply by 1946', 'Japan’s GDP doubles by 1946', 'Japan’s GDP stays steady through 1946'],
+    ['Bombing and blockade destroyed Japan’s industry.',
+     'Trade does not explain a collapse.',
+     'Strikes did not cause it.',
+     'Forced labor did not cause a drop.']);
+  P('u7_7.7_0',
+    ['A survivor paints a Nazi death camp', 'A Nazi painter celebrates the camp', 'A soldier paints a battle at the front'],
+    ['The Aryan myth mattered, but this choice does not explain killing.',
+     'The Nazis did not plan to Germanize Jews.',
+     'Nazis blamed Jews for losing WWI and used it to justify genocide.',
+     'Living space was about land in the east.']);
+  P('u7_7.7_1',
+    ['A survivor paints the gas chambers', 'A survivor paints a peaceful village', 'A survivor paints his escape by sea'],
+    ['Factory methods applied to murder set the Holocaust apart in scale.',
+     'Other genocides also targeted groups.',
+     'Other regimes also hid crimes.',
+     'Other genocides also happened during wars.']);
+  P('u7_7.7_2',
+    ['A survivor paints the camp’s killing', 'A guard paints the camp as a work farm', 'A survivor paints the camp’s liberation'],
+    ['Old ghettos do not explain the killing.',
+     'Emigration does not explain it.',
+     'Local people helped out of prejudice, fear or greed.',
+     'Few were convinced they were being freed.']);
+  P('u7_7.7_3',
+    ['Nazis blame Jews and communists for 1918', 'Nazis admit the army lost on the battlefield', 'Nazis praise Jews for helping Germany win'],
+    ['It was a lie.',
+     'Germany lost on the battlefield.',
+     'The Nazis spread it on purpose.',
+     'State propaganda that blamed minorities and led to genocide.']);
+  P('u7_7.7_4',
+    ['The century saw several mass atrocities', 'The century saw no mass killings at all', 'The century saw atrocities only in Europe'],
+    ['They happened outside Europe too.',
+     'Economics was not the single trigger.',
+     'Extremist ideas and propaganda came before the killing every time.',
+     'The League did not prevent them.']);
+  P('u7_7.7_5',
+    ['The Khmer Rouge kill millions', 'The Khmer Rouge free millions in Cambodia', 'The Khmer Rouge leave Cambodia in peace'],
+    ['The Khmer Rouge were communist, not fascist.',
+     'Both were state-run, ideology-driven mass killings.',
+     'Neither was mainly about economics.',
+     'Vietnam ended the Khmer Rouge regime.']);
+  P('u7_7.7_6',
+    ['The Ottomans kill Armenians', 'The Ottomans protect the Armenians in war', 'The Armenians conquer the Ottoman capital'],
+    ['It was not a battlefield strategy.',
+     'A state killed one group it called a threat.',
+     'The world did not quickly recognize either.',
+     'It was not mainly a fight for land.']);
+  P('u7_7.8_0',
+    ['Both governments managed war news', 'Both governments told the full truth', 'Neither government cared what people knew'],
+    ['Their methods differed.',
+     'Britain mostly suppressed news.',
+     'Neither lost support that way.',
+     'Both managed news to keep public support.']);
+  P('u7_7.8_1',
+    ['Every side mobilized for war', 'Only democracies mobilized for war', 'Only dictatorships mobilized for war'],
+    ['Neither type was simply better.',
+     'Dictatorships used heavy propaganda.',
+     'Both used every tool to aim civilian life at the war.',
+     'The question is about mobilizing, not who won.']);
+  P('u7_7.8_2',
+    ['States of every kind used propaganda', 'Only dictatorships ever used propaganda', 'No state used propaganda in either war'],
+    ['Democracies did communicate.',
+     'Modern states used mass media to shape opinion.',
+     'Nationalism grew stronger.',
+     'Not all propaganda was lies.']);
+  P('u7_7.8_3',
+    ['Both ran economies and propaganda', 'Stalin and Hitler both built free democracies', 'Stalin and Hitler both banned all propaganda'],
+    ['Neither built democracy.',
+     'Opposite ideologies, same tools: central control and propaganda.',
+     'They were not allied by the Depression.',
+     'Both relied heavily on propaganda.']);
+  P('u7_7.8_4',
+    ['Total war mobilizes society', 'Total war involves only the army', 'Total war leaves the economy alone'],
+    ['Governments took more control.',
+     'Mass media let states aim whole societies at war.',
+     'The League did not reduce propaganda.',
+     'Neither type was simply better.']);
+  P('u7_7.8_5',
+    ['Mussolini boasts that he planned it all', 'Mussolini admits Hitler planned everything', 'Mussolini refuses to talk to the Italians'],
+    ['The cartoonist doubts his claim.',
+     'He did not start the war.',
+     'He tells his people a false story: propaganda.',
+     'The cartoon is not about popularity.']);
+  P('u7_7.8_6',
+    ['Soldiers march under “1917”', 'Soldiers march under a huge “1945”', 'Workers march under a huge “1905”'],
+    ['The Great Purge was in the 1930s.',
+     'Yalta was 1945.',
+     'World War I is not what “1917” honors here.',
+     'Freedom “won by your Fathers” in 1917: the Russian Revolution.']);
+  P('u7_7.8_7',
+    ['Youth must defend the Motherland', 'Youth are called to leave the Motherland', 'Youth are called to vote out the party'],
+    ['The Cold War came after.',
+     'Patriotic propaganda to rally support for World War II.',
+     'It shows pride, not regret.',
+     'Collectivization is not shown.']);
+  P('u7_7.8_8',
+    ['The poster praises the Soviet Motherland', 'The poster praises workers of every nation', 'The poster praises the end of nations'],
+    ['Marx was international; the USSR built socialism in one country.',
+     'Marx was not a pacifist.',
+     'The USSR did not think communism was finished in 1917.',
+     'Marx did not build a communist state.']);
+  P('u7_7.9_0',
+    ['Versailles blames Germany and takes its land', 'Versailles forgives Germany and gives it land', 'Versailles lets Germany build a huge army'],
+    ['Humiliation fed resentment the Nazis exploited.',
+     'Germany did not ally with the Soviets against Britain.',
+     'Nationalism grew.',
+     'The EU came after 1945.']);
+  P('u7_7.9_1',
+    ['The Depression drives people to strongmen', 'The Depression makes everyone calm and patient', 'The Depression ends all European armies'],
+    ['Colonies were not the only cause.',
+     'States rearmed.',
+     'Economic crisis brought aggressive governments to power.',
+     'The Cold War came after.']);
+  P('u7_7.9_2',
+    ['An assassination pulls the great powers into war', 'An assassination brings a lasting peace to Europe', 'An assassination leads to a quick, small war'],
+    ['Alliance commitments spread the war.',
+     'The League came after the war.',
+     'The Depression came after.',
+     'Decolonization came after.']);
+  P('u7_7.9_3',
+    ['Britain and France give Hitler land', 'Britain and France declare war on Hitler', 'Hitler gives land back to Czechoslovakia'],
+    ['The Cold War came after.',
+     'The League did not prevent war.',
+     'Germany did not give up its ambitions.',
+     'They gave land to avoid war, and Hitler took more.']);
+  P('u7_7.9_4',
+    ['Worn-out empires face freedom demands', 'Strong empires grow bigger after the war', 'Colonized peoples ask empires to stay'],
+    ['Empires shrank.',
+     'Exhausted empires and independence movements: decolonization.',
+     'The Ottoman Empire was gone.',
+     'Nationalism grew.']);
+})(window.WALKTHROUGH);
+
+/* Plain-English steps, Unit 8 (part 1). Written by Claude, 2026-11-08. */
+(function (W) {
+  function P(id, say, cut) { if (W[id]) { W[id].say = say; W[id].cut = cut; } }
+  P('u8_8.1_0', ['Churchill: a line now splits Europe', 'Churchill: the Soviets have declared war on Britain', 'Churchill: Eastern Europe has freely chosen communism'],
+    ['Keep: he names the split between the old allies out loud.', 'No war was declared; this was a speech, not a declaration.', 'The Marshall Plan came from Truman’s team, not this metaphor.', 'He warns against Soviet control; he does not back communists.']);
+  P('u8_8.1_1', ['Moscow now controls the eastern capitals', 'Churchill praises Soviet help in rebuilding Europe', 'Churchill says the Allies should bring troops home'],
+    ['Two blocs facing off meant more troops, not fewer.', 'The Soviets refused to join Western rebuilding plans.', 'Keep: a divided Europe led to NATO and the Warsaw Pact.', 'China’s civil war had its own causes, not this speech.']);
+  P('u8_8.1_2', ['Soviet power now holds Eastern Europe', 'Churchill says Eastern Europe is free to vote as it likes', 'Churchill thanks Stalin for freeing Western Europe'],
+    ['Keep: Yalta left Eastern Europe in the Soviet sphere.', 'The Atlantic Charter promised self-rule, the opposite of this.', 'Potsdam’s declaration dealt with Japan, not Eastern Europe.', 'Bretton Woods set up money and banks, not borders.']);
+  P('u8_8.1_3', ['The U.S. will help free peoples resist', 'The U.S. will invade Soviet lands to free them', 'The U.S. will stay out of other nations’ troubles'],
+    ['Keep: stopping communism from spreading is containment.', 'Détente came in the 1970s and meant easing tensions.', 'Rollback pushes communism back; Truman holds the line.', 'Massive retaliation was Eisenhower’s nuclear threat, later.']);
+  P('u8_8.1_4', ['The U.S. will help free peoples resist', 'The U.S. will invade Soviet lands to free them', 'The U.S. will stay out of other nations’ troubles'],
+    ['The Soviet bomb came in 1949, two years after this speech.', 'The Berlin Blockade began in 1948, after this speech.', 'China fell in 1949; Truman spoke in 1947.', 'Keep: communist pressure on Greece and Turkey prompted it.']);
+  P('u8_8.1_5', ['The U.S. pledges aid to nations abroad', 'The U.S. promises to stay out of European affairs', 'The U.S. will fight only in the Western Hemisphere'],
+    ['Dollar diplomacy was about Latin America, not this break.', 'Joining European alliances is what the doctrine began.', 'The Monroe Doctrine kept Europe out; this goes into Europe.', 'Keep: the U.S. had long stayed out of European affairs.']);
+  P('u8_8.2_0', ['Colonized peoples unite against empire', 'Asians and Africans pledge to join the Soviet bloc', 'Asians and Africans thank Europe for colonial rule'],
+    ['Keep: anti-colonial nationalism grew as Europe weakened.', 'Sukarno stresses unity of colored peoples, not Soviet ideas.', 'The UN is not the subject; this is a separate conference.', 'The U.S. often backed its European allies, not independence.']);
+  P('u8_8.2_1', ['New nations refuse to pick a superpower', 'New nations pledge loyalty to the Soviet Union', 'New nations form an army to fight both superpowers'],
+    ['They chose neither side; they did not join the Soviets.', 'Bandung did not force talks between the superpowers.', 'No military alliance came out of Bandung.', 'Keep: staying neutral challenged a two-sided world.']);
+  P('u8_8.2_2', ['We are weak, so we must act together', 'We are strong enough to win wars against empires', 'We will play power politics as the great powers do'],
+    ['They avoided alliances with both superpowers.', 'Economic plans are not what “little physical power” points to.', 'Keep: without force, they used unity and moral authority.', 'Sukarno rejects power politics, so no direct confrontation.']);
+  P('u8_8.2_3', ['The USSR spreads a faith hostile to ours', 'The USSR is a normal rival that wants only trade', 'The USSR has already invaded Western Europe twice'],
+    ['“Fanatic faith” is ideology, not a count of weapons.', 'The Soviets did not invade Western Europe after 1945.', 'The Soviets never used nuclear weapons on anyone.', 'Keep: it frames the Cold War as a clash of whole systems.']);
+  P('u8_8.2_4', ['A loss anywhere is a loss everywhere', 'Only defeats in Europe matter to the free world', 'The free world can afford to lose a few small states'],
+    ['Keep: one country falling makes others fall: the domino theory.', 'Massive retaliation is about nuclear threats, not this idea.', 'Détente means easing tension, not fearing every loss.', 'The Eisenhower Doctrine was about the Middle East only.']);
+  P('u8_8.2_5', ['The USSR is a fanatic, global threat', 'The USSR is weak and will collapse on its own soon', 'The USSR can be won over with trade and friendship'],
+    ['The Marshall Plan began in 1948, before NSC-68 (1950).', 'Détente came in the 1970s and cut arms; NSC-68 built them.', 'Keep: NSC-68 led to a huge military buildup.', 'The Non-Aligned Movement was not a U.S. policy.']);
+  P('u8_8.2_6', ['Both leaders still talk about agreement', 'Khrushchev declares war on the United States today', 'The two leaders plan where to place their missiles'],
+    ['Missile placement is not the topic here.', 'No war followed; the summit tried to ease tension.', 'The spying was real (the U-2), not hypothetical.', 'Keep: a summit meant to ease Cold War tensions.']);
+  P('u8_8.2_7', ['U.S. spy planes crossed Soviet borders', 'Soviet spies were caught working inside the U.S.', 'The Soviets threatened to bomb American cities'],
+    ['The complaint is about American planes, not Soviet spies.', 'Soviet moves in Europe are not what Khrushchev protests.', 'No nuclear threat is named; the issue is spy flights.', 'Keep: the Soviets shot down a U-2 spy plane.']);
+  P('u8_8.2_8', ['Khrushchev: aggression; Ike: no intent', 'Both leaders agree the spy flights were a mistake', 'Ike calls the flights aggression; Khrushchev denies it'],
+    ['Neither one talks about ending or extending the Cold War.', 'Khrushchev attacks spying; he does not claim a right to it.', 'Keep: one calls it aggression, the other prevention.', 'Neither one argues over spying versus defense.']);
+  P('u8_8.2_9', ['The two systems must live in peace', 'Capitalism must be destroyed by force, and soon', 'Capitalism is the key to peace in the world'],
+    ['He calls for coexistence, not doing away with capitalism.', 'Keep: “peaceful co-existence of the two systems.”', 'He hopes for peace; he does not blame capitalism for war.', 'He does not praise capitalism as the key to peace.']);
+  P('u8_8.2_10', ['Russia was beaten again and again', 'Russia always defeated every invader it faced', 'Russia should conquer the lands of its old enemies'],
+    ['Afghanistan (1979) was not a buffer against Europe.', 'Keep: fear of invasion led to a buffer bloc, the Warsaw Pact.', 'The Brezhnev Doctrine crushed revolts; it is a later step.', 'War on Japan in 1945 was a wartime move, not a buffer.']);
+  P('u8_8.2_11', ['Members unite to resist armed attack', 'Members agree to cut tariffs on each other’s goods', 'Members secretly divide Europe among themselves'],
+    ['The treaty is about defense, not trade.', 'It was public, not secret.', 'Rebuilding was the Marshall Plan’s job.', 'Keep: a response to Soviet aggression from the east.']);
+  P('u8_8.2_12', ['An attack on one is an attack on all', 'Members promise to share nuclear weapons equally', 'Members will help each other retake lost colonies'],
+    ['Voting laws had nothing to do with joining NATO.', 'Keep: fear of Soviet attack drove them to unite.', 'Retaking colonies was not a goal of the treaty.', 'The treaty is about armed attack, not a nuclear monopoly.']);
+  P('u8_8.2_13', ['An attack on one is an attack on all', 'Each member must defend only its own borders alone', 'Members vow to strike the Soviet Union first'],
+    ['Capitalism is an economic system, not a defense pact.', 'Keep: one for all is collective defense.', 'MAD is about a nuclear standoff, not alliance pledges.', 'NATO was formed against communism.']);
+  P('u8_8.3_0', ['An attack on one is an attack on all', 'NATO members will use the UN to keep the peace', 'Members promise to rebuild their colonial empires'],
+    ['Keep: an alliance formed against the Soviet threat.', 'Deterrence is about nukes; Article 5 is an alliance pledge.', 'Colonies are not mentioned in Article 5.', 'NATO is separate from UN peacekeeping.']);
+  P('u8_8.3_1', ['Allies pledge to defend each other', 'Allies pledge to disarm and trust the Soviets', 'Allies pledge to split Europe with the Soviets'],
+    ['The Soviet bomb test was not a response to NATO.', 'The Berlin Blockade (1948) came before NATO.', 'Keep: the Soviets formed the Warsaw Pact in 1955.', 'The Soviets did not withdraw; they tightened control.']);
+  P('u8_8.3_2', ['Western allies promise mutual defense', 'France and Britain compete to lead the alliance', 'Allies complain the UN failed them in Korea'],
+    ['Keep: Europe accepted U.S. leadership for safety and aid.', 'NATO did not revive colonialism.', 'French-British rivalry is not what NATO reflects.', 'Korea came after 1949; NATO is about Europe.']);
+  P('u8_8.3_3', ['Missiles in Cuba bring the world near war', 'Cuba alone decides how the superpowers will act', 'The UN settles the crisis between the two powers'],
+    ['The crisis shows danger, not that the U.S. scared off Moscow.', 'The superpowers decided; Cuba was not in charge.', 'Keep: nuclear danger forced direct talks.', 'The deal was made by the two leaders, not the UN.']);
+  P('u8_8.3_4', ['Thirteen days at the brink, then a deal', 'Thirteen days of nuclear war across the Caribbean', 'Cuba wins its revolution in thirteen days of war'],
+    ['Keep: the hotline was set up to avoid future blunders.', 'Vietnam escalation had other causes.', 'The Cuban Revolution (1959) came before the crisis.', 'Hungary (1956) came before the crisis.']);
+  P('u8_8.3_5', ['Both sides stepped back from nuclear war', 'Both sides fired nuclear weapons, then stopped', 'The U.S. crushed Soviet forces near Cuba'],
+    ['The crisis did not turn into a direct war.', 'This was a standoff, not attacks across the region.', 'Keep: nuclear weapons made the crisis and restrained both sides.', 'The lesson is mutual fear, not American superiority.']);
+  P('u8_8.3_6', ['Japan’s output nearly doubles by 1955', 'Japan’s output falls steadily after the war ends', 'Japan’s output stays exactly the same for ten years'],
+    ['A new constitution alone does not explain a boom.', 'Keep: U.S. occupation and Korean War orders drove growth.', 'Communist meddling would not cause growth.', 'Japan was rebuilding at home, not investing abroad.']);
+  P('u8_8.3_7', ['Output per person is back to 1937 levels', 'Output per person keeps falling every year after 1946', 'Output per person in 1955 is triple its 1937 level'],
+    ['The table covers more than 1934 to 1955 growth alone.', 'Keep: 282 in 1937 and 282 again in 1955.', 'Output per person fell to 173 in 1946: war hurt too.', 'The table shows output, not Japan’s war goals.']);
+  P('u8_8.4_0', ['Ho quotes America’s founding words', 'Ho says Vietnam will become an American colony', 'Ho rejects every idea that comes from the West'],
+    ['Keep: a strategic appeal for American support.', 'Ho was a communist; the quote was strategy, not liberal faith.', 'Colonial Vietnam was French, not American, in culture.', 'Missionaries are not the reason for the quote.']);
+  P('u8_8.4_1', ['Ho quotes America’s founding words', 'Ho says Vietnam will become an American colony', 'Ho rejects every idea that comes from the West'],
+    ['He uses American liberal ideals here, not Marxist ones.', 'He borrows Western ideas; he does not reject them.', 'The U.S. did not back Vietnamese independence.', 'Keep: Western ideals turned against Western rule.']);
+  P('u8_8.4_2', ['Ho declares Vietnam’s independence', 'Ho welcomes France back to rule Vietnam again', 'Ho surrenders Vietnam to Japanese forces'],
+    ['Keep: Japan’s defeat left a gap before France came back.', 'The U.S. made no such promise.', 'The Viet Minh beat France later, at Dien Bien Phu in 1954.', 'The Geneva Accords came in 1954.']);
+  P('u8_8.4_3', ['The Chinese have stood up for good', 'China will now invade its neighbors to grow', 'China thanks the West for its guidance'],
+    ['The words are about national pride, not an alliance.', 'Keep: national pride ending the Century of Humiliation.', 'He says no one will invade China, not that China will attack.', 'Nuclear weapons are not mentioned.']);
+  P('u8_8.4_4', ['The Chinese have stood up for good', 'China will now invade its neighbors to grow', 'China thanks the West for its guidance'],
+    ['The U.S. did the opposite: it expanded commitments.', 'China and the USSR later split; Moscow never ran China.', 'Keep: fear of spreading communism led to Korea and Vietnam.', 'The Non-Aligned Movement did not reject China.']);
+  P('u8_8.4_5', ['The Chinese have stood up for good', 'China will now invade its neighbors to grow', 'China thanks the West for its guidance'],
+    ['The Qing were forced open; isolation is not the insult.', 'Keep: unequal treaties and foreign control humiliated China.', 'Soviet attitudes are not what Mao answers here.', 'Confucian pride is China’s own idea, not an insult to it.']);
+  P('u8_8.4_6', ['Ho: overthrow France, give land to peasants', 'Ho wants French rule to stay but with lower taxes', 'Ho wants landlords and capitalists to run Vietnam'],
+    ['Cuba became communist too, like Ho’s plan.', 'Keep: capitalist, U.S.-backed South Korea is the opposite.', 'Laos also became communist.', 'Romania was a communist state.']);
+  P('u8_8.4_7', ['Workers and farmers charge ahead together', 'Merchants race to open private shops in China', 'Farmers flee the cities to escape factory work'],
+    ['Mill wrote about liberty, not communist labor.', 'Smith championed free markets, the opposite.', 'Keep: collective labor in a Marxist state.', 'Ricardo was a free-trade economist.']);
+  P('u8_8.4_8', ['The poster promises a great leap ahead', 'The poster mourns the famine the plan caused', 'The poster thanks the Soviet Union for its help'],
+    ['Keep: this did NOT happen; China drifted from the USSR.', 'This did happen: the Cultural Revolution followed in 1966.', 'This did happen: later reforms added elements of capitalism.', 'This is listed as a result, so it is not the answer.']);
+  P('u8_8.4_9', ['Everyone rushes forward with machines', 'Farmers rest while foreign experts build factories', 'Soldiers march off to fight a war with Taiwan'],
+    ['Both plans pushed industry and farming.', 'Keep: Stalin built heavy industry; the Great Leap failed to.', 'Stalin collectivized too, so this is wrong.', 'Both plans caused mass starvation.']);
+  P('u8_8.4_10', ['Every citizen works to build China', 'Only soldiers are shown working for the state', 'The poster shows China welcoming Taiwan back'],
+    ['The poster shows work, not cutting foreign ties.', 'Keep: everyone, even children, helps industrialize.', 'The Cultural Revolution came later, in 1966.', 'Taiwan is not in the poster.']);
+  P('u8_8.5_0', ['Ghana is free; Africans can rule themselves', 'Ghana is free, but it still needs British guidance', 'Ghana thanks Britain for preparing it to govern'],
+    ['He answers colonial ideas, not critics at home.', 'Soviet claims are not in the speech.', 'He answers colonizers, not African Americans.', 'Keep: colonizers said Africans could not govern themselves.']);
+  P('u8_8.5_1', ['Ghana is free, and a new African is born', 'Ghana is free only after winning a long armed war', 'Ghana asks Britain to stay a few more years to help'],
+    ['Keep: first sub-Saharan colony free, inspiring others.', 'Ghana won through protest and votes, not armed revolt.', 'Ghana stood alone; no Pan-African union was formed.', 'Britain left its colonies one by one, not all at once.']);
+  P('u8_8.5_2', ['Ghana is free, and a new African is born', 'Ghana is free only after winning a long armed war', 'Ghana asks Britain to stay a few more years to help'],
+    ['No UN rule forced immediate independence.', 'Most colonies won freedom without major wars.', 'Keep: a weak Europe and strong nationalism ended empires.', 'Marshall aid had no such condition.']);
+  P('u8_8.5_3', ['Gandhi: free India or die trying', 'Gandhi: take up arms and drive out the British', 'Gandhi: wait patiently for Britain to offer freedom'],
+    ['Keep: wartime frustration became a demand for freedom now.', 'Gandhi stayed nonviolent; this was not a call to arms.', 'Britain made no firm promise; that is why he spoke out.', 'Congress did not side with the Axis.']);
+  P('u8_8.5_4', ['Gandhi: free India or die trying', 'Gandhi: take up arms and drive out the British', 'Gandhi: wait patiently for Britain to offer freedom'],
+    ['Britain made no such announcement in 1942.', 'Japan’s advances mattered, but the trigger was Cripps.', 'Keep: the Cripps Mission offered too little.', 'Lend-Lease had no such condition.']);
+})(window.WALKTHROUGH);
+
+/* Plain-English steps, Unit 8 (part 2). Written by Claude, 2026-11-08. */
+(function (W) {
+  function P(id, say, cut) { if (W[id]) { W[id].say = say; W[id].cut = cut; } }
+  var NK = ['Free African states must unite as one', 'Each African state should go its own separate way', 'Africa should copy Europe’s empires to grow strong'];
+  P('u8_8.5_6', NK,
+    ['He wants unity, not the sovereignty of single nations.', 'Keep: his view of what other African states should do.', 'The United States is not the focus of his argument.', 'He is hopeful about unity, not stressing great-power pressure.']);
+  var PK = ['Pakistan is a land built on faith', 'Pakistan is a land for every people of India alike', 'Pakistan thanks Britain for its years of rule'];
+  P('u8_8.5_7', PK,
+    ['The anthem speaks of faith, not of all colonized peoples.', 'Pakistan split off from India, so not all of the subcontinent.', 'Former colonizers are not part of this brotherhood.', 'Keep: the brotherhood is the Muslim community.']);
+  P('u8_8.5_8', PK,
+    ['Gandhi wanted one united India.', 'The UN did not create Pakistan.', 'Britain carried out partition but did not demand it.', 'Keep: Jinnah’s Muslim League demanded a Muslim state.']);
+  P('u8_8.5_9', PK,
+    ['Keep: religious violence drove millions to migrate.', 'There was no common government; they split apart.', 'India stayed a secular state, so not two state religions.', 'Kashmir became a fight, not a free-passage deal.']);
+  P('u8_8.5_10', PK,
+    ['Germany and Japan were allies, not a land split by religion.', 'Poland under Moscow was control, not a division by faith.', 'Keep: Palestine was also divided along religious lines.', 'Indochina was a colony, not a land split between faiths.']);
+  var HO = ['Ho: workers and peasants should rule', 'Ho: landlords should keep the plantations', 'Ho: Vietnam should stay a French colony for now'];
+  P('u8_8.5_11', HO,
+    ['Pan-nationalism unites a region; this is about class.', 'Keep: later movements also appealed to communism.', 'National congresses are not what this program builds.', 'Free markets are the opposite of seizing plantations.']);
+  P('u8_8.5_12', ['Boycott foreign cloth to win self-rule', 'Buy more British cloth to win Britain’s favor', 'Burn Indian mills to protest against the British'],
+    ['The Soviets did not force Britain out of India.', 'The Depression did not free India.', 'African decolonization came after India’s, not before.', 'Keep: World War II left Britain too weak to hold India.']);
+  P('u8_8.5_13', ['Colonies are ruled by police and guns', 'Colonies are ruled by kind teachers and priests', 'Colonies have no government agents at all'],
+    ['Keep: empires were still holding colonies by force.', 'The point is force, not a language barrier.', 'Dehumanization is real, but the continuity is colonial rule.', 'Fanon describes colonial force, not the Cold War.']);
+  P('u8_8.5_14', ['The colonial world is split in two', 'The colonial world is fair to rich and poor alike', 'The colonial world is ruled by its native people'],
+    ['Keep: exploited versus those in power is Marxist analysis.', 'He is anti-colonial, but the class lens comes from Marx.', 'Social Darwinism justified empire; Fanon attacks it.', 'Nationalism is not where his class framing comes from.']);
+  P('u8_8.5_15', ['Colonies are ruled by police and guns', 'Colonies are ruled by kind teachers and priests', 'Colonies have no government agents at all'],
+    ['Treaties with colonizers did not drive the change.', 'Keep: Pan-Africanism and nationalism united Africans.', 'Colonies were not growing rich.', 'The period was unstable, not stable.']);
+  P('u8_8.5_16', ['Rich nations use teachers; colonies use soldiers', 'Rich nations and colonies are ruled the very same way', 'Colonies are freer than the rich capitalist nations'],
+    ['True, but it does not explain comparing two worlds.', 'True, but racism in the army is not this comparison.', 'Keep: he lived in both, so he could compare them.', 'True, but France’s politics are not his comparison.']);
+  var NE = ['At midnight India wakes up free', 'At midnight India falls back under British rule', 'At midnight India becomes a Hindu religious state'];
+  P('u8_8.6_0', NE,
+    ['Keep: a long struggle becomes a sovereign state.', 'He speaks of a new start, not cutting all ties.', 'India chose nonalignment, not the Western bloc.', 'India was founded as a secular state.']);
+  P('u8_8.6_1', NE,
+    ['Britain did not hold back independence over debts.', 'Most princely states did join India.', 'Soviet moves were not the main problem in 1947.', 'Keep: partition displaced millions in religious violence.']);
+  P('u8_8.6_2', NE,
+    ['Socialist ideas were not a universal model.', 'Nonalignment came later; this speech is about freedom.', 'The U.S. is not part of this speech.', 'Keep: an anti-colonial movement becomes a government.']);
+  var AF = ['New African states inherited colonial problems', 'New African states began rich and well prepared', 'New African states had no borders drawn for them'];
+  P('u8_8.6_3', AF,
+    ['The problems came from colonial rule, not poor planning.', 'Keep: colonial policies built Africa to serve Europe.', 'Cold War meddling came later and is not the cause here.', 'The borders were colonial, not older tribal ones.']);
+  P('u8_8.6_4', AF,
+    ['No nation tried to rejoin its old empire.', 'Keep: bad borders led to ethnic conflict and civil war.', 'Pan-African unity did not erase the borders.', 'Conflict, not fast growth, followed.']);
+  P('u8_8.6_5', AF,
+    ['Neocolonialism is economic, not military reconquest.', 'Keep: economic dependence limited real sovereignty.', 'Languages are culture; neocolonialism is about money.', 'No state asked to become a colony again.']);
+  P('u8_8.6_6', NK,
+    ['Class struggle is not his focus here.', 'Keep: one government for all of Africa is Pan-Africanism.', 'Neoliberalism means free markets, not African union.', 'He wants unity beyond any one nation.']);
+  P('u8_8.6_7', NK,
+    ['He praises the U.S. example; he does not criticize it.', 'Keep: the U.S. shows separate states can unite.', 'He admires the Founding Fathers’ vision.', 'He says Africa can follow the model, not that it is too late.']);
+  P('u8_8.6_8', NK,
+    ['UN membership is about each state, not unity.', 'NGOs are not a union of African states.', 'The African Union came in 2002, after Nkrumah died.', 'Keep: the OAU (1963) was closest in his lifetime.']);
+  P('u8_8.6_9', ['The colonial world is split in two', 'The colonial world is fair to rich and poor alike', 'The colonial world is ruled by its native people'],
+    ['They did win independence.', 'Resistance to constitutions is not the cause given.', 'Many colonies were rich in resources.', 'Keep: European borders ignored languages and cultures.']);
+  var MA = ['Mandela fights all racial domination', 'Mandela wants Black South Africans to rule over whites', 'Mandela says the races should stay apart forever'];
+  P('u8_8.7_0', MA,
+    ['He does not reject the ANC here.', 'Marxism is not what “white” and “black domination” points to.', 'Outside pressure is not in this statement.', 'Keep: the goal is democracy for all, not reversal.']);
+  P('u8_8.7_1', MA,
+    ['Keep: apartheid denied rights to non-white citizens.', 'UN sanctions came later than this 1964 trial.', 'The Cold War is not his subject.', 'The PAC is a rival group, not the main context.']);
+  P('u8_8.7_2', MA,
+    ['Keep: he appeals to universal rights and dignity.', 'He appeals to democracy, not communism.', 'No UN army ended apartheid.', 'He speaks of his own struggle, not U.S. tactics.']);
+  var KI = ['Injustice anywhere threatens us all', 'Injustice far away is none of our business', 'Freedom comes if the oppressed wait patiently'];
+  P('u8_8.7_3', KI,
+    ['King rejects waiting; he says freedom must be demanded.', 'Keep: freedom takes active, nonviolent pressure.', 'He speaks of the oppressed acting, not outsiders.', 'He does not hold up America as a model here.']);
+  P('u8_8.7_4', KI,
+    ['He is not exporting U.S. institutions.', 'The Cold War is not his point here.', 'Keep: struggles around the world were connected.', 'The UN declaration is not what his claim refers to.']);
+  P('u8_8.7_5', KI,
+    ['Gandhi used Western ideas too; this is not the parallel.', 'Ho’s quarrel with moderates is not about calm over justice.', 'Keep: Nkrumah also attacked leaders who settled for less.', 'Mandela on Sharpeville is about tactics, not moderates.']);
+  var M2 = ['Mandela wants equal political rights', 'Mandela wants whites to keep all political power', 'Mandela wants South Africa to rejoin Britain'];
+  P('u8_8.7_6', M2,
+    ['South Africa was already independent of Britain.', 'Most whites did not support Black rights.', 'Whites already had a democracy for themselves.', 'Keep: a Black majority would outvote white citizens.']);
+  P('u8_8.7_7', M2,
+    ['Habyarimana led Rwanda, not South Africa.', 'There were no dual governments at this time.', 'There was no universal vote; that is what he demands.', 'Keep: pass laws made Black citizens carry papers.']);
+  P('u8_8.7_8', M2,
+    ['No unification attempt is mentioned.', 'Keep: a plea to end apartheid’s policies.', 'He speaks of South Africa, not Africa’s world standing.', 'Capitalism is not his target.']);
+  P('u8_8.7_9', M2,
+    ['The ANC is on his side, not an opposing view.', 'He wants change, not the status quo.', 'Keep: “half a century” shows a long struggle.', 'The ANC is South African, not other nations.']);
+  P('u8_8.7_10', M2,
+    ['Keep: he opposes apartheid’s racial rule.', 'Communism is not his target here.', 'Neocolonialism is about economics after independence.', 'Pan-Africanism is about unity, not his target.']);
+  var GO = ['Gorbachev: end stagnation, open up debate', 'Gorbachev: tighten Party control over all speech', 'Gorbachev: the Soviet economy is growing fast'];
+  P('u8_8.8_0', GO,
+    ['The Soviets withdrew from Afghanistan without victory.', 'The reforms did not bring renewed growth.', 'Keep: loosening control helped the USSR fall apart.', 'Arms deals came, but the reforms led to collapse.']);
+  P('u8_8.8_1', GO,
+    ['Keep: stagnation, Afghanistan and unmet needs drove reform.', 'SDI pressure is not the “stagnation” he names.', 'The uprisings came after the reforms, not before.', 'No major sanctions forced these reforms.']);
+  P('u8_8.8_2', GO,
+    ['Military dominance is not what openness challenges.', 'The Brezhnev Doctrine is foreign policy, not speech.', 'Gosplan is economics; glasnost is about speech.', 'Keep: it broke the Party’s hold on information.']);
+  var BW = ['East Germans pour through the open Wall', 'East German guards fire to stop the crowds', 'The Soviets build the Wall higher in 1989'];
+  P('u8_8.8_3', BW,
+    ['The Soviets were not forced out by U.S. troops.', 'Reunification followed the collapse; it did not cause it.', 'Keep: economic failure and popular rejection ended it.', 'No UN peacekeepers managed this.']);
+  P('u8_8.8_4', BW,
+    ['NATO did not threaten the satellite states.', 'U.S. aid did not fund the mass protests.', 'Keep: Moscow would not send troops to save them.', 'Trade with Western Europe was not the main factor.']);
+  P('u8_8.8_5', BW,
+    ['Capitalism did not prove itself the only model.', 'Keep: planned economies lost to Western prosperity.', 'China grew under communist rule, the opposite.', 'NATO expansion came after 1991.']);
+  P('u8_8.9_0', ['War weakened Europe’s colonial powers', 'War made Europe’s empires stronger than ever', 'War ended the independence movements in Asia'],
+    ['The League of Nations ended in the 1940s; it freed no one.', 'Europe’s empires grew weaker, not stronger.', 'The U.S. did not take over most colonies.', 'Keep: the war weakened empires and built up independence.']);
+  P('u8_8.9_1', ['The superpowers fight through others', 'The superpowers join forces against small nations', 'The superpowers stay out of other nations’ wars'],
+    ['They were rivals, not allies.', 'These wars happened during the Cold War.', 'Keep: nuclear danger made them fight by proxy.', 'Their ideologies were very different.']);
+  P('u8_8.9_2', ['A stalled economy and open criticism', 'A booming economy and a won war in Afghanistan', 'Stricter censorship and a growing army in Europe'],
+    ['Keep: these pressures led to the collapse in 1991.', 'The Cuban crisis came in 1962, long before.', 'NATO was founded in 1949.', 'The Korean War began in 1950.']);
+  P('u8_8.9_3', ['New nations meet between the two blocs', 'Old empires meet to divide new colonies', 'The superpowers meet to end the Cold War'],
+    ['The EU came much later, from Europe, not Bandung.', 'The Cold War was still going in 1955.', 'Keep: decolonization met Cold War rivalry.', 'Versailles was 1919, too early.']);
+  P('u8_8.9_4', ['New states choose their own path', 'New states all join the Soviet side for aid', 'New states refuse any aid from either side'],
+    ['Egypt took aid from both; it did not turn communist.', 'Competition went on in the developing world.', 'The superpowers courted these states.', 'Keep: they used the rivalry for their own interests.']);
+})(window.WALKTHROUGH);
+
+/* Plain-English steps, Unit 9, plus u8_8.5_5. Written by Claude, 2026-11-08. */
+(function (W) {
+  function P(id, say, cut) { if (W[id]) { W[id].say = say; W[id].cut = cut; } }
+  P('u8_8.5_5', ['Gandhi: free India or die trying', 'Gandhi: take up arms and drive out the British', 'Gandhi: wait patiently for Britain to offer freedom'],
+    ['Gandhi stayed nonviolent; he did not turn to armed revolt.', 'Britain did not hand over freedom as a reward.', 'Keep: the war pushed colonized peoples to question empire.', 'Gandhi’s movement was not a Soviet communist one.']);
+  P('u9_9.1_0', ['A pill lets women plan their families', 'A pill makes families grow bigger than before', 'A pill ends women’s chances at school and work'],
+    ['Birth control led to smaller families, not bigger ones.', 'Keep: women gained control over childbearing.', 'The Green Revolution is about crops, not this pill.', 'Women’s schooling and work grew, not shrank.']);
+  var BO = ['More food bought time against hunger', 'Hunger has been beaten once and for all', 'Farmers should give up on new crop science'];
+  P('u9_9.1_1', BO,
+    ['Collective farms are not what a crop scientist means.', 'Keep: new seeds, fertilizer and irrigation.', 'Land reform did not create the green revolution.', 'It used synthetic chemicals, the opposite of organic.']);
+  P('u9_9.1_2', BO,
+    ['Keep: population growth could outrun the food gains.', 'World War II grain trade is not his worry.', 'Cold War export rules are not in the passage.', 'Latin American land reform is not his concern.']);
+  P('u9_9.1_3', ['Standard boxes make shipping cheap', 'Ships stop carrying goods across the ocean', 'Shipping costs rise and trade slows down'],
+    ['East Asian manufacturing grew, not declined.', 'Bretton Woods is about money, not shipping.', 'Keep: cheap shipping built global supply chains.', 'Ocean shipping grew enormously.']);
+  P('u9_9.1_4', ['Billions of people get connected online', 'Internet use shrinks after 1995 around the world', 'Phones and the internet stay rare and costly'],
+    ['Trade deals still mattered; they did not vanish.', 'Multinationals grew stronger, not weaker.', 'English grew as the language of business.', 'Keep: globalization sped up.']);
+  P('u9_9.1_5', ['Jets cross the ocean in hours', 'Air travel gets slower and harder to afford', 'Ships replace planes for most long trips'],
+    ['Keep: diseases spread fast along airline routes.', 'Travel and tourism grew, not shrank.', 'Labor migration continued and grew.', 'Sea trade between Asia and Europe kept growing.']);
+  var SM = ['The world is now free of smallpox', 'Smallpox is spreading to new countries', 'Smallpox is cured by a new antibiotic'];
+  P('u9_9.2_0', SM,
+    ['Antibiotics treat bacteria; smallpox is a virus.', 'Keep: a global vaccination campaign run by the WHO.', 'Travel bans did not end smallpox.', 'Mosquitoes spread malaria, not smallpox.']);
+  P('u9_9.2_1', SM,
+    ['Global organizations grew stronger after 1945.', 'Many diseases of poverty remain.', 'Keep: medicine and global institutions raised life spans.', 'This program crossed Cold War lines.']);
+  P('u9_9.2_2', ['A flu kills millions around the world', 'A flu stays inside one small country', 'A flu is stopped quickly by new medicine'],
+    ['There were no antibiotics in 1918, and they do not treat flu.', 'Victory parades are not the main reason given.', 'Trade and shipping were busy, not collapsed.', 'Keep: troop movements and connected transport.']);
+  P('u9_9.2_3', ['Africa has most of the world’s HIV cases', 'Africa has almost no HIV cases at all', 'Africa has the most HIV drugs in the world'],
+    ['Keep: rich nations got the drugs; Africa did not.', 'The disease was not eliminated.', 'Cooperation on health continued.', 'Infectious disease remained a big killer in Africa.']);
+  P('u9_9.2_4', ['People live longer and die of old age', 'People die younger than they did in 1900', 'People die mostly from war in rich nations'],
+    ['Infectious disease did not disappear completely.', 'War is not what changed the causes of death.', 'Keep: sanitation, vaccines and antibiotics.', 'The Green Revolution is about food, not causes of death.']);
+  P('u9_9.3_0', ['Pesticides are silently poisoning nature', 'Pesticides make the American town healthier', 'The town is thriving thanks to new farm chemicals'],
+    ['Carson warned against pesticides; she did not spread them.', 'Keep: her book helped launch the environmental movement.', 'Public concern about chemicals grew.', 'U.S. commercial farming did not end.']);
+  P('u9_9.3_1', ['Grow today without ruining tomorrow', 'Grow as fast as possible whatever the cost', 'Stop all growth to protect the planet'],
+    ['Command economies polluted heavily.', 'Industrial pollution did not end after the 1970s.', 'The UN did not collapse.', 'Keep: how poorer nations could grow while limiting harm.']);
+  var PA = ['Nations agree to limit global warming', 'Nations agree to burn more coal and oil', 'Nations agree that warming is not happening'];
+  P('u9_9.3_2', PA,
+    ['Keep: scientists agreed fossil fuels were warming Earth.', 'Developing countries kept industrializing.', 'Fossil fuel use grew after 1945.', 'Volcanoes are not the cause of recent warming.']);
+  P('u9_9.3_3', PA,
+    ['Nation-states signed it; they did not fade away.', 'No single superpower controlled the deal.', 'Keep: a treaty for a problem no state could solve alone.', 'Most governments accepted the science.']);
+  P('u9_9.3_4', ['Forest is cleared for cattle and soy', 'Forest is replanted across the Amazon', 'Brazil stops selling beef and soy abroad'],
+    ['Government type is not the tension here.', 'Keep: export income versus protecting the forest.', 'Religion is not part of this story.', 'The Cold War is not the issue here.']);
+  P('u9_9.4_0', ['Chile cuts spending and opens trade', 'Chile takes over foreign companies and plans', 'Chile shuts out imports to protect its industry'],
+    ['Keep: free-market ideas spreading in the late 1900s.', 'Central planning is the opposite.', 'Selling state firms is the opposite of nationalizing.', 'Opening trade is the opposite of import substitution.']);
+  P('u9_9.4_1', ['Results matter more than the label', 'Only a truly communist economy can succeed', 'Only white cats are good at catching mice'],
+    ['Deng moved away from Mao’s collective farms.', 'Party rule stayed; there was no multiparty democracy.', 'Keep: market reforms with the party still in charge.', 'He opened China to trade and investment.']);
+  P('u9_9.4_2', ['People should rely on themselves', 'Government should take care of everyone’s needs', 'The state should run all the major industries'],
+    ['Keep: cutting spending and privatizing industry.', 'Nationalizing and a bigger welfare state is the opposite.', 'Five-year plans are central planning.', 'Protecting industry from competition is not her view.']);
+  P('u9_9.4_3', ['The Tigers grew by exporting goods', 'The Tigers grew by blocking all foreign trade', 'The Tigers grew by giving land to peasants'],
+    ['Soviet plans made goods for home use, not export.', 'Import substitution limited trade; the Tigers exported.', 'Land reform is not export manufacturing.', 'Keep: China’s zones also used export-led manufacturing.']);
+  P('u9_9.4_4', ['Oil states cut supply to pressure the West', 'The West stops needing Middle Eastern oil', 'The Soviets seize control of Arab oil fields'],
+    ['The embargo showed dependence; it did not end it.', 'Keep: producers used interdependence as leverage.', 'The Soviets did not control this oil.', 'Nationalism stayed strong in the region.']);
+  P('u9_9.4_5', ['A U.S. bank failure spreads worldwide', 'The crisis stays inside the United States', 'Every country’s banks were owned by the state'],
+    ['Economies were tied together, not isolated.', 'Private banks were not replaced in most of Asia.', 'The gold standard did not return.', 'Keep: connected markets spread the crisis fast.']);
+  P('u9_9.5_0', ['India reserves seats for lower castes', 'India bans lower castes from public jobs', 'India lets the British choose its leaders'],
+    ['This is independent India’s law, not British policy.', 'It weakens caste divisions; it does not strengthen them.', 'Keep: a law that challenges an old social hierarchy.', 'The Green Revolution is about farming.']);
+  var UD = ['All people are born free and equal', 'Only citizens of rich nations have rights', 'Rights depend on a person’s race or religion'];
+  P('u9_9.5_1', UD,
+    ['Keep: an answer to the Holocaust and World War II.', 'The USSR collapsed in 1991, long after 1948.', 'The Green Revolution came later and is unrelated.', 'The EU came decades later.']);
+  P('u9_9.5_2', UD,
+    ['Equal rights cannot justify empire.', 'It says all humans, not just rich nations.', 'Keep: a tool against laws that denied people rights.', 'Equal rights condemn apartheid.']);
+  P('u9_9.5_3', ['Oppression will never return to this land', 'South Africa will stay under minority rule', 'South Africa wants to be cut off from the world'],
+    ['No Soviet-backed army defeated South Africa.', 'Keep: resistance at home plus sanctions abroad.', 'The UN did not take over the government.', 'World demand for gold and diamonds did not collapse.']);
+  P('u9_9.5_4', ['American women feel a hidden discontent', 'American women are fully content at home', 'American women want to leave the country'],
+    ['Women kept working after 1945.', 'Joining the military is not her subject.', 'Consumer culture boomed after the war.', 'Keep: it fed movements for women’s rights.']);
+  P('u9_9.5_5', ['Students demand reform and are crushed', 'Students win a multiparty democracy in China', 'The government agrees to every protest demand'],
+    ['Keep: an open economy, but no political reform.', 'China did not become a multiparty democracy.', 'The Cultural Revolution ended in 1976.', 'China was never in the Warsaw Pact.']);
+  var GR = ['Rigid gender roles hold people back', 'Gender roles should be made stricter', 'Gender roles have no effect on equality'];
+  P('u9_9.5_6', GR,
+    ['Keep: lessen the pressure to conform to gender roles.', 'An alliance is not named as the main way.', 'Giving up privilege is not the method it stresses.', 'Youth individuality is not the main way named.']);
+  P('u9_9.5_7', ['Women still lack equal opportunity', 'Women have already won full equality', 'Women do not want equal opportunity'],
+    ['A call for a new movement means goals were not met.', 'It is about real conditions, not abstract talk.', 'Support from men is not discussed.', 'Keep: full equality had not been reached.']);
+  P('u9_9.5_8', GR,
+    ['Keep: rigid gender roles are the root of the problem.', 'It does not attack the women’s movement.', 'Race is not the obstacle it names.', 'Pay scales are not the obstacle here.']);
+  P('u9_9.5_9', ['Both fight inequality of the sexes', 'Both want stricter roles for men and women', 'Both say the sexes are already equal'],
+    ['Lack of action is not named by both.', 'Keep: both name inequality between the sexes.', 'Chauvinism appears in only one source.', 'New movements are their tools, not their obstacles.']);
+  P('u9_9.6_0', ['A McDonald’s opens in Moscow', 'Moscow bans American food from the city', 'Soviet restaurants open across the West'],
+    ['Long lines show Soviet consumer goods were lacking.', 'Multinationals grew as the Cold War ended.', 'Keep: Western consumer culture spreading.', 'This is Western culture going east, not the reverse.']);
+  P('u9_9.6_1', ['Bollywood and K-pop win world fans', 'Hollywood is the only film industry left', 'Asian films are banned in most countries'],
+    ['Bollywood and K-pop show it was not all American.', 'Keep: culture flowed in many directions.', 'Foreign films and music spread widely.', 'Local cultures thrived and spread.']);
+  P('u9_9.6_2', ['Marley’s reggae reaches a global audience', 'Marley’s music is banned outside Jamaica', 'Marley avoids political themes in his songs'],
+    ['Governments did not stop his music.', 'His songs drew the diaspora toward Africa.', 'His songs were political, and they sold.', 'Keep: global media spread music from a former colony.']);
+  P('u9_9.6_3', ['The world watches a World Cup in Africa', 'Only South Africans watch the tournament', 'The tournament is played with no fans at all'],
+    ['Keep: satellite TV and jets connected the world.', 'National teams and pride stayed strong.', 'Countries kept competing.', 'No bans drove athletes to global events.']);
+  P('u9_9.6_4', ['Protesters organize with social media', 'Protesters stop using phones to stay safe', 'Governments use Facebook to end protests'],
+    ['Governments failed to end the protests this way.', 'Young people became more political, not less.', 'Keep: new technology helped challenge authority.', 'Social media, not newspapers, was central.']);
+  P('u9_9.7_0', ['Indigenous rebels rise as NAFTA begins', 'Indigenous farmers welcome free trade', 'The rebels fight Soviet influence in Mexico'],
+    ['The Cold War was over by 1994.', 'Keep: free trade threatened indigenous farmers.', 'Bollywood has nothing to do with this.', 'The Church is not the threat they name.']);
+  P('u9_9.7_1', ['Protesters fight global trade rules', 'Protesters demand even freer world trade', 'Protesters want Seattle to leave the U.S.'],
+    ['The Cold War was over by 1999.', 'Most colonies were already independent.', 'These were unions and greens, not religious groups.', 'Keep: resisting free-market globalization.']);
+  P('u9_9.7_2', ['Iran overthrows its Western-backed shah', 'Iran becomes a Soviet-style communist state', 'Iran’s new rulers embrace Western culture'],
+    ['Keep: a religious movement rejecting Western culture.', 'Iran became a religious state, not a communist one.', 'The shah’s reforms are what was overthrown.', 'Religion grew more important, not less.']);
+  P('u9_9.7_3', ['Terrorists attack the United States', 'NATO breaks apart after the attacks', 'Oil trade with the Middle East stops'],
+    ['NATO did not dissolve; it backed the U.S.', 'Oil trade continued.', 'Keep: wars in Afghanistan and Iraq followed.', 'The Security Council existed since 1945.']);
+  P('u9_9.7_4', ['Activists meet to challenge Davos', 'Activists meet to praise the WTO', 'Activists meet to bring back communism'],
+    ['They opposed the WTO’s free-trade push.', 'Keep: an alternative to elite free-market policies.', 'Restoring communism was not their goal.', 'They opposed corporate power.']);
+  P('u9_9.8_0', ['A court can try people for genocide', 'A court that protects leaders from trials', 'A court that only settles trade disputes'],
+    ['It shows cooperation growing, not declining.', 'Keep: holding individuals accountable for abuses.', 'States kept their own courts.', 'It is a court, not a military alliance.']);
+  P('u9_9.8_1', ['Nations unite to prevent another war', 'Nations unite to restart the Cold War', 'Nations unite to build colonial empires'],
+    ['The Cold War ended in 1991; the UN began in 1945.', 'The oil embargo was in 1973.', 'The EU came much later.', 'Keep: the League had failed to stop a second war.']);
+  P('u9_9.8_2', ['Loans came with cuts to subsidies', 'Loans came with no conditions at all', 'Loans paid for bigger welfare programs'],
+    ['Keep: the poor paid while foreign investors gained.', 'The conditions took control away from these countries.', 'The programs cut welfare spending.', 'They opened markets to multinationals.']);
+  P('u9_9.8_3', ['Members share one market and money', 'Members close their borders to each other', 'Members split into rival military blocs'],
+    ['This is about trade, not colonies.', 'The Cold War divide ended before 1992.', 'Keep: states traded some sovereignty for gains.', 'The EU is built on free trade among members.']);
+  P('u9_9.8_4', ['Small loans help poor village women', 'Big loans go only to wealthy businesses', 'The state takes over all the banks'],
+    ['It is a private bank, not nationalization.', 'Keep: a new, non-government way to fight poverty.', 'The IMF is not involved.', 'It increased women’s economic work.']);
+  P('u9_9.8_5', ['Doctors go where crises are worst', 'Doctors work only inside France itself', 'Doctors lend money to struggling nations'],
+    ['The Security Council does not control NGOs.', 'They work across many countries.', 'Lending money is what the IMF does.', 'Keep: NGOs are independent of governments.']);
+  P('u9_9.8_6', ['Disputes will be settled peacefully', 'Disputes will be settled by war alone', 'Disputes will be ignored by all members'],
+    ['The UN does not push one ideology.', 'The UN allows force in some cases.', 'Keep: the UN offers ways to settle disputes.', 'Free trade is not the UN’s role here.']);
+  P('u9_9.9_0', ['People live longer and fewer are poor', 'People die younger and poverty grows', 'Life expectancy stays the same since 1900'],
+    ['Global organizations grew after the Cold War.', 'Global trade grew, not declined.', 'Big gaps between rich and poor remain.', 'Keep: medicine, farming and growth.']);
+  P('u9_9.9_1', ['The rich-poor gap is still huge', 'Africa’s incomes now match rich nations', 'Western incomes fall below Africa’s'],
+    ['Keep: the gap is a continuity.', 'The gap did not end.', 'Not every African country industrialized.', 'The West did not fall below Africa.']);
+  P('u9_9.9_2', ['China becomes a top manufacturer', 'China leaves world trade after 1978', 'China’s factories close as wages rise'],
+    ['The Qing did not return.', 'Keep: economic power shifted toward Asia.', 'Chinese manufacturing grew.', 'China joined world trade more deeply.']);
+  P('u9_9.9_3', ['Britain votes to leave the EU', 'Britain votes to join a bigger union', 'Nationalist parties lose all support'],
+    ['The EU lost a member, not gained.', 'Nation-states remained central.', 'Keep: nationalism stayed powerful.', 'Communism did not spread.']);
+  P('u9_9.9_4', ['Poor regions still export raw goods', 'Poor regions now lead the world in industry', 'Raw material trade has ended worldwide'],
+    ['Keep: these regions keep their old economic roles.', 'They did not fully diversify.', 'Raw material trade continues.', 'Africa did not become the top manufacturer.']);
+})(window.WALKTHROUGH);

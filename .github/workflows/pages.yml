@@ -45,3 +45,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # The upload is about 280 MB; the default 10-minute wait sometimes runs out.
+          timeout: 1800000

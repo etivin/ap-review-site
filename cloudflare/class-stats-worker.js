@@ -7,10 +7,12 @@
    { id, pick, ok, who } when it answers a bank question. Only the first answer from each
    browser to each question is kept. Nothing personal is stored.
 
-   Teacher questions: MCQs typed in on class-stats.html. They are served as a script
-   (custom.js) that every unit page loads right after mcq-bank.js; it adds a topic
-   "N.0 Mr. Tivin's Questions" to each unit that has any. Each question keeps its slot
-   for good (removing one only hides it), so question ids never shift.
+   Teacher questions: MCQs typed in on class-stats.html, each placed in one of the unit's
+   AP topics (data.t). They are served as a script (custom.js) that every unit page loads
+   right after mcq-bank.js; it puts each question into its topic at index 1000 + slot, so
+   it never collides with bank questions (which fill 0..n-1) and its id u{unit}_{topic}_{idx}
+   never shifts. Removing one only hides it. An optional walkthrough (data.w: the
+   plain-English Work it steps, same fields as walkthrough-data.js) goes into WALKTHROUGH.
 
    Routes (teacher routes need header X-Teacher-Code = TEACHER_CODE)
      POST /api/class-stats/answer         save one answer, reply with that question's totals
@@ -32,7 +34,11 @@ const ORIGINS = [
 const QID = /^u[1-9]_[0-9.]+_\d{1,4}$/;
 const WHO = /^[a-z0-9-]{16,40}$/;
 const PER_WHO_DAY = 400;
-const TOPIC_NAME = "Mr. Tivin's Questions";
+const TOPIC_NAME = "Mr. Tivin's Questions";   // only for a question saved without a topic
+const TOPIC = /^[1-9]\.\d{1,2}$/;
+const IDX0 = 1000;                            // teacher questions sit at index 1000 + slot
+const TYPES = ["bestillustrates", "context", "causation", "purpose", "similar"];
+const SRC_TAGS = ["WHO", "WHEN", "WHERE", "WHAT", "WHY"];
 const IMG = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/;
 const NL = String.fromCharCode(10);   // newline and backslash, written this way so the
 const BS = String.fromCharCode(92);   // code survives being typed into the dashboard editor
@@ -98,9 +104,28 @@ function cleanQ(d) {
     if (typeof d.simg !== "string" || d.simg.length > 900000 || !IMG.test(d.simg)) return null;
     out.simg = d.simg;
   }
-  const t = str(d.t || "", 40);
-  if (t) out.t = t;
+  if (typeof d.t !== "string" || !TOPIC.test(d.t)) return null;
+  out.t = d.t;
+  if (d.w) {
+    out.w = cleanW(d.w, o.length, d.c);
+    if (!out.w) return null;
+  }
   return out;
+}
+
+// Checks a walkthrough: the plain-English Work it steps of sbmcq.js.
+function cleanW(w, n, key) {
+  if (!w || typeof w !== "object" || TYPES.indexOf(w.type) < 0) return null;
+  const three = a => Array.isArray(a) && a.length === 3 && a.every(x => str(x, 400) && x.trim()) ? a : null;
+  const say = three(w.say), plain = three(w.plain);
+  const hq = str(w.hq || "", 300), meaning = str(w.meaning || "", 800), trap = str(w.trap || "", 1000);
+  if (!say || !plain || hq === null || meaning === null || trap === null) return null;
+  if (!Array.isArray(w.cut) || w.cut.length !== n || !w.cut.every(x => str(x, 800) !== null)) return null;
+  if (!Number.isInteger(w.trapIdx) || w.trapIdx < 0 || w.trapIdx >= n || w.trapIdx === key) return null;
+  const hs = Array.isArray(w.hs) ? w.hs.filter(x => str(x, 400) && x.trim()).slice(0, 6) : [];
+  const src = Array.isArray(w.src) ? w.src.filter(r => r && SRC_TAGS.indexOf(r.tag) >= 0 &&
+    str(r.since, 400) && str(r.therefore, 400)).slice(0, 4).map(r => ({ tag: r.tag, since: r.since, therefore: r.therefore })) : [];
+  return { type: w.type, hq, hs, src, say, plain, meaning, cut: w.cut, trapIdx: w.trapIdx, trap };
 }
 
 function escHtml(s) {
@@ -111,22 +136,27 @@ async function customJs(env) {
   const { results } = await env.DB.prepare(
     "SELECT unit, slot, data, hidden FROM custom_qs ORDER BY unit, slot"
   ).all();
-  const D = {};
+  const D = [];
   for (const r of results) {
     let q;
-    try { q = JSON.parse(r.data); } catch (e) { q = { q: "(missing)", o: ["-", "-", "-", "-"], c: 0, e: "" }; }
+    try { q = JSON.parse(r.data); } catch (e) { continue; }
+    const t = q.t && TOPIC.test(q.t) ? q.t : r.unit + ".0";
+    const w = q.w;
+    delete q.w; delete q.t;
     // The engine escapes stem, choices, source text; the explanation is shown as HTML.
     q.e = escHtml(q.e).split(NL).join("<br>");
-    q.src = "Mr. Tivin";
     if (r.hidden) q.hidden = true;
-    (D[r.unit] = D[r.unit] || [])[r.slot] = q;
+    const x = { u: String(r.unit), t, i: IDX0 + r.slot, q };
+    if (w && !r.hidden) x.w = w;
+    D.push(x);
   }
   const data = JSON.stringify(D).split("<").join(BS + "u003c");
   return "/* Teacher questions from class-stats.html (served by the class-stats Worker). */" + NL +
-    "(function(){var U=window.APWH_MCQ&&window.APWH_MCQ.units;if(!U)return;var D=" + data + ";" +
-    "for(var u in D){if(!U[u])continue;var id=u+'.0';" +
-    "if(!U[u].questions[id])U[u].topics.push({id:id,name:" + JSON.stringify(TOPIC_NAME) + "});" +
-    "U[u].questions[id]=D[u];}})();" + NL;
+    "(function(){var U=window.APWH_MCQ&&window.APWH_MCQ.units;if(!U)return;" +
+    "var W=window.WALKTHROUGH=window.WALKTHROUGH||{};var D=" + data + ";" +
+    "D.forEach(function(x){var u=U[x.u];if(!u)return;var a=u.questions[x.t];" +
+    "if(!a){u.topics.push({id:x.t,name:" + JSON.stringify(TOPIC_NAME) + "});a=u.questions[x.t]=[];}" +
+    "a[x.i]=x.q;if(x.w)W['u'+x.u+'_'+x.t+'_'+x.i]=x.w;});})();" + NL;
 }
 
 export default {
@@ -195,7 +225,9 @@ export default {
         const b = await req.json().catch(() => null);
         const unit = b && b.unit;
         const data = cleanQ(b && b.data);
-        if (!Number.isInteger(unit) || unit < 1 || unit > 9 || !data) return json(req, { error: "bad question" }, 400);
+        if (!Number.isInteger(unit) || unit < 1 || unit > 9 || !data || data.t.split(".")[0] !== String(unit)) {
+          return json(req, { error: "bad question" }, 400);
+        }
         if (b.slot == null) {
           const row = await env.DB.prepare("SELECT COALESCE(MAX(slot) + 1, 0) AS s FROM custom_qs WHERE unit = ?").bind(unit).first();
           const slot = row ? row.s : 0;
@@ -205,6 +237,10 @@ export default {
           return json(req, { unit, slot });
         }
         if (!Number.isInteger(b.slot)) return json(req, { error: "bad slot" }, 400);
+        // A saved question stays in its topic: its id (and students' progress) depends on it.
+        const old = await env.DB.prepare("SELECT data FROM custom_qs WHERE unit = ? AND slot = ?").bind(unit, b.slot).first();
+        if (!old) return json(req, { error: "not found" }, 404);
+        try { const ot = JSON.parse(old.data).t; if (ot) data.t = ot; } catch (e) {}
         const r = await env.DB.prepare("UPDATE custom_qs SET data = ?, updated = ? WHERE unit = ? AND slot = ?")
           .bind(JSON.stringify(data), Date.now(), unit, b.slot).run();
         if (!r.meta || !r.meta.changes) return json(req, { error: "not found" }, 404);

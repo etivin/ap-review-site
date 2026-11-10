@@ -78,11 +78,12 @@ site; Eli edits content.
   setup steps in `cloudflare/README.md`. If the Worker is missing, the site shows nothing extra.
   It also stores **teacher questions** (table `custom_qs`) typed in on `class-stats.html` and serves
   them as `/api/class-stats/custom.js`, loaded right after `mcq-bank.js` on the unit pages,
-  `cumulative.html` and `class-stats.html`. That script adds topic `N.0` "Mr. Tivin's Questions" to
-  each unit that has any (ids `uN_N.0_slot`). Slots are never reused: removing a question sets
+  `cumulative.html` and `class-stats.html`. That script puts each question into the AP topic Eli picked, at index 1000 + slot (id
+  `uN_N.x_10SS`, so bank ids never shift; bank questions fill 0..n-1), and adds its walkthrough to
+  `WALKTHROUGH` when he built one. The topic is fixed once saved. Slots are never reused: removing a question sets
   `hidden:true`, and `mcq-engine.js` (`APWH.liveIdx`), `cumulative.js`, `spaced.js` and
-  `games-lock.js` skip hidden entries. Teacher questions have no walkthrough (Work Through It shows
-  "no walkthrough yet").
+  `games-lock.js` skip hidden entries (and the holes before index 1000). A question saved without a walkthrough has none
+  (Work Through It shows "no walkthrough yet").
 
 ## 3. Site map
 
@@ -105,7 +106,7 @@ site; Eli edits content.
 | `resources.html` | Review videos and outside resources. |
 | `fullcourse.html` | Course narrative. |
 | `timer.html` | Study timer. |
-| `class-stats.html` | Teacher page (not linked from student pages, `noindex`): asks for the teacher code, then shows class-wide first-try results from the class-stats Worker by topic and by question (most missed first, top wrong pick, click a question for the split of picks). Reads stems and keys from `mcq-bank.js`. A "Make a question" tab (`question-maker.js`) lets Eli type an MCQ (unit, optional AP topic tag, source text, source line, dragged-in image shrunk to JPEG, 4 or 5 choices reordered by dragging, key, explanation) with a live student preview and checks (key longest, em dashes; warnings need a second Save click), and lists saved questions with Edit and Remove / Show again. |
+| `class-stats.html` | Teacher page (not linked from student pages, `noindex`): asks for the teacher code, then shows class-wide first-try results from the class-stats Worker by topic and by question (most missed first, top wrong pick, click a question for the split of picks). Reads stems and keys from `mcq-bank.js`. A "Make a question" tab (`question-maker.js`) lets Eli type an MCQ (unit, AP topic (the question joins that topic in MCQ Practice and Cumulative Review), source text, source line, dragged-in image shrunk to JPEG, 4 or 5 choices reordered by dragging, key, explanation) with a live student preview and checks (key longest, em dashes; warnings need a second Save click), A "Build a walkthrough" toggle adds the plain-English Work it steps (type, trigger words, `say` and `plain` right + 2 wrong, meaning, a cross-out reason typed on each choice row, the trap and why; optional highlight phrases and source notes), checked like the key (right choice not the longest) and previewed with the real `SBMCQ.card`, so the page loads `sbmcq.css`, `stim-text.js` and `sbmcq.js`. It lists saved questions with Edit and Remove / Show again. |
 | `faq.html` | Student FAQ (progress, saving, games lock, night lock, breaks, studying, writing). Answers are Eli's text, verbatim; each question has an id so `faq.html#games-locked` opens it. Linked from the home page "How to" menu and Skills column, and in `search.js`. |
 | `classic-hub.html` | Old home page (kept for reference); `mission-control.html` redirects to `index.html`. |
 | `source-docs/released-frqs/` | Catalog of every released College Board FRQ (README) + prompt PDFs. Use only to fill gaps. |

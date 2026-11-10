@@ -63,7 +63,7 @@ emails or IP addresses. A browser can save at most 400 answers a day.
 Free-plan limits (D1: 100,000 rows written and 5 million rows read a day; Workers: 100,000
 requests a day) are far above what a few classes use.
 
-Teacher questions: one row per question (unit, slot, the question as JSON, hidden or not).
+Teacher questions: one row per question (unit, slot, the question as JSON with its AP topic `t` and optional walkthrough `w`, hidden or not). Each one joins its topic at index 1000 + slot.
 A slot is never reused, so "Remove" on the teacher page only hides a question. Images are
 shrunk in the browser before saving (under about 650 KB each).
 

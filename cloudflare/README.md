@@ -28,7 +28,17 @@ from the server and shows nothing.
      PRIMARY KEY (qid, who)
    );
    CREATE INDEX IF NOT EXISTS answers_who ON answers (who, ts);
+   CREATE TABLE IF NOT EXISTS custom_qs (
+     unit    INTEGER NOT NULL,
+     slot    INTEGER NOT NULL,
+     data    TEXT NOT NULL,
+     hidden  INTEGER NOT NULL DEFAULT 0,
+     updated INTEGER NOT NULL,
+     PRIMARY KEY (unit, slot)
+   );
    ```
+
+   (`custom_qs`, the teacher questions made on `class-stats.html`, was added on 2026-11-09.)
 
 3. **Make the Worker.** Workers & Pages > Create > Worker. Name it `class-stats`, deploy
    the starter code, then Edit code: replace everything with `class-stats-worker.js` and Deploy.
@@ -53,5 +63,10 @@ emails or IP addresses. A browser can save at most 400 answers a day.
 Free-plan limits (D1: 100,000 rows written and 5 million rows read a day; Workers: 100,000
 requests a day) are far above what a few classes use.
 
+Teacher questions: one row per question (unit, slot, the question as JSON, hidden or not).
+A slot is never reused, so "Remove" on the teacher page only hides a question. Images are
+shrunk in the browser before saving (under about 650 KB each).
+
 To start fresh (for example, a new school year), run `DELETE FROM answers;` in the D1 console.
+Don't delete rows from `custom_qs`: students' saved progress points at those slots.
 To turn it off, delete the route; the site stops showing class results.

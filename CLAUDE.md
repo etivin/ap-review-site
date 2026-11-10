@@ -76,6 +76,13 @@ site; Eli edits content.
   to each bank MCQ (question id, random browser id, pick, right/wrong; nothing personal) and returns
   totals. Source: `cloudflare/class-stats-worker.js`, pasted into the dashboard like the night lock;
   setup steps in `cloudflare/README.md`. If the Worker is missing, the site shows nothing extra.
+  It also stores **teacher questions** (table `custom_qs`) typed in on `class-stats.html` and serves
+  them as `/api/class-stats/custom.js`, loaded right after `mcq-bank.js` on the unit pages,
+  `cumulative.html` and `class-stats.html`. That script adds topic `N.0` "Mr. Tivin's Questions" to
+  each unit that has any (ids `uN_N.0_slot`). Slots are never reused: removing a question sets
+  `hidden:true`, and `mcq-engine.js` (`APWH.liveIdx`), `cumulative.js`, `spaced.js` and
+  `games-lock.js` skip hidden entries. Teacher questions have no walkthrough (Work Through It shows
+  "no walkthrough yet").
 
 ## 3. Site map
 
@@ -98,7 +105,7 @@ site; Eli edits content.
 | `resources.html` | Review videos and outside resources. |
 | `fullcourse.html` | Course narrative. |
 | `timer.html` | Study timer. |
-| `class-stats.html` | Teacher page (not linked from student pages, `noindex`): asks for the teacher code, then shows class-wide first-try results from the class-stats Worker by topic and by question (most missed first, top wrong pick, click a question for the split of picks). Reads stems and keys from `mcq-bank.js`. |
+| `class-stats.html` | Teacher page (not linked from student pages, `noindex`): asks for the teacher code, then shows class-wide first-try results from the class-stats Worker by topic and by question (most missed first, top wrong pick, click a question for the split of picks). Reads stems and keys from `mcq-bank.js`. A "Make a question" tab (`question-maker.js`) lets Eli type an MCQ (unit, optional AP topic tag, source text, source line, dragged-in image shrunk to JPEG, 4 or 5 choices reordered by dragging, key, explanation) with a live student preview and checks (key longest, em dashes; warnings need a second Save click), and lists saved questions with Edit and Remove / Show again. |
 | `faq.html` | Student FAQ (progress, saving, games lock, night lock, breaks, studying, writing). Answers are Eli's text, verbatim; each question has an id so `faq.html#games-locked` opens it. Linked from the home page "How to" menu and Skills column, and in `search.js`. |
 | `classic-hub.html` | Old home page (kept for reference); `mission-control.html` redirects to `index.html`. |
 | `source-docs/released-frqs/` | Catalog of every released College Board FRQ (README) + prompt PDFs. Use only to fill gaps. |
@@ -153,7 +160,7 @@ them into any new page), then `mission-theme.css`, `mc-mode.js`, `theme.css`, `t
 `brand.js`, `search.js`, `nav-flyout.js`, `tour.js`, `glossary-data.js`, `glossary.js`,
 `flashcard-data.js`, `sbmcq.css`, `stim-text.js`, `sbmcq.js`, `walkthrough-data.js`, `review-games.css`, `unit-flashcards.css`, `study-guide.css`, `brain-dump.css`, `visual-sources.css`, `source-practice.css`, `spice.css`.
 End of `<body>`: `spaced.js`, `activity.js`, `flashcard-tags.js`, `unit-flashcards.js`,
-`mcq-bank.js`, `class-stats.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `source-practice-data.js`, `source-practice.js`, `spice-data.js`, `spice.js`, `timeline-data.js`, `timeline.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, `games-lock.js`, and last `unit-shell.js`.
+`mcq-bank.js`, `/api/class-stats/custom.js` (teacher questions, from the Worker), `class-stats.js`, `mcq-engine.js`, `brain-dump-data.js`, `brain-dump.js`, `bd-confidence.js`, `writing-prompts.js`, `writing-drills.js`, `source-practice-data.js`, `source-practice.js`, `spice-data.js`, `spice.js`, `timeline-data.js`, `timeline.js`, `visual-sources-data.js`, `visual-sources.js`, `study-guide-data.js`, `study-guide.js`, `games-lock.js`, and last `unit-shell.js`.
 Inside `#pg-games`: `review-games-data.js`, `review-games.js`, then the mount call.
 
 ### 4.4 Mount points (copy exactly; N = unit number)
@@ -244,7 +251,8 @@ you currently have to edit each unit. **The plan is to move each into a shared e
 - **Fix or add a flashcard:** edit `flashcard-data.js` only (and its tag in `flashcard-tags.js`).
   Renaming a term resets that card's review history.
 - **Add a glossary term:** `glossary-data.js` (shows in Glossary and search).
-- **Add MCQs:** `mcq-bank.js` (see rule 4). At least 5 questions per topic.
+- **Add MCQs:** `mcq-bank.js` (see rule 4). At least 5 questions per topic. Eli can also add
+  his own on `class-stats.html` > Make a question (stored in Cloudflare, not in this repo).
 - **Edit a study guide section:** `study-guide-data.js` → `STUDY_GUIDE[n]`.
 - **Edit Brain Dump topics, starters or key points:** `brain-dump-data.js` → `BRAIN_DUMP[n]`.
 - **Edit an Overview timeline event:** `timeline-data.js` → `TIMELINE_DATA[n]`.

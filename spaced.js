@@ -314,12 +314,15 @@
     return n;
   };
   // Bank-dependent; returns null where the MCQ bank is not loaded (e.g. plain pages).
+  // Questions students can see (a teacher question removed on class-stats.html keeps its
+  // slot with hidden:true, so it is skipped here).
+  function liveCount(arr) { var n = 0; (arr || []).forEach(function (x) { if (x && !x.hidden) n++; }); return n; }
   SPACED.newCount = function () {
     if (!window.APWH_MCQ || !window.APWH_MCQ.units) return null;
     var sp = load().spaced || {}, U = window.APWH_MCQ.units, n = 0;
     for (var u in U) {
       var q = (U[u] && U[u].questions) || {};
-      for (var t in q) { for (var i = 0; i < q[t].length; i++) { if (!sp['u' + u + '_' + t + '_' + i]) n++; } }
+      for (var t in q) { for (var i = 0; i < q[t].length; i++) { if (q[t][i] && !q[t][i].hidden && !sp['u' + u + '_' + t + '_' + i]) n++; } }
     }
     return n;
   };
@@ -490,7 +493,7 @@
     try {
       if (window.APWH_MCQ && APWH_MCQ.units && APWH_MCQ.units[unit]) {
         var q = APWH_MCQ.units[unit].questions || {}, n = 0;
-        for (var t in q) n += (q[t] || []).length;
+        for (var t in q) n += liveCount(q[t]);
         if (n) c.mcqTotal = n;
       }
       // Every unit's deck lives in flashcard-data.js (FC_DATA), loaded in the unit page's <head>.
@@ -511,7 +514,7 @@
     function comp(u) { return (s.components['u' + u] = s.components['u' + u] || {}); }
     for (u in (M || {})) {
       var q = (M[u] && M[u].questions) || {}, n = 0;
-      for (var t in q) n += (q[t] || []).length;
+      for (var t in q) n += liveCount(q[t]);
       if (n && comp(u).mcqTotal !== n) { comp(u).mcqTotal = n; changed = true; }
     }
     for (u in (F || {})) {

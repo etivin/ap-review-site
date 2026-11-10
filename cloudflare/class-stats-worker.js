@@ -1,35 +1,27 @@
-/* ─────────────────────────────────────────────────────────────
-   Class stats: Cloudflare Worker + D1 database behind tivinteaches.com/api/class-stats.
-   NOT part of the GitHub Pages site. Paste this into the Cloudflare dashboard
-   (Workers & Pages > class-stats > Edit code). Setup steps: cloudflare/README.md.
+/* Class stats + teacher questions: Cloudflare Worker + D1 database behind
+   tivinteaches.com/api/class-stats. NOT part of the GitHub Pages site: paste this into
+   the Cloudflare dashboard (Workers & Pages > class-stats > Edit code). Setup and the
+   database schema: cloudflare/README.md.
 
-   Students never sign in. Each browser makes a random id (class-stats.js) and sends
-   { id: question id, pick: 0-4, ok: true/false, who: random id } when it answers a
-   bank question. Only the FIRST answer from each browser to each question is kept,
-   so the numbers measure first tries. Nothing personal is stored: no name, no email,
-   no IP address.
+   Class stats: each browser makes a random id (class-stats.js) and sends
+   { id, pick, ok, who } when it answers a bank question. Only the first answer from each
+   browser to each question is kept. Nothing personal is stored.
 
-   Routes
-     POST /api/class-stats/answer        save one answer, reply with that question's totals
-     GET  /api/class-stats/q?id=u4_4.1_0 totals for one question
-     GET  /api/class-stats/report        every question's totals (teacher only:
-                                         header X-Teacher-Code must match TEACHER_CODE)
+   Teacher questions: MCQs typed in on class-stats.html. They are served as a script
+   (custom.js) that every unit page loads right after mcq-bank.js; it adds a topic
+   "N.0 Mr. Tivin's Questions" to each unit that has any. Each question keeps its slot
+   for good (removing one only hides it), so question ids never shift.
 
-   Bindings (Worker > Settings > Bindings / Variables and Secrets)
-     DB            D1 database "class-stats" (schema below)
-     TEACHER_CODE  Secret: the code class-stats.html asks for
+   Routes (teacher routes need header X-Teacher-Code = TEACHER_CODE)
+     POST /api/class-stats/answer         save one answer, reply with that question's totals
+     GET  /api/class-stats/q?id=u4_4.1_0  totals for one question
+     GET  /api/class-stats/report         every question's totals (teacher)
+     GET  /api/class-stats/custom.js      teacher questions as a script (public)
+     GET  /api/class-stats/custom/list    every teacher question, hidden ones too (teacher)
+     POST /api/class-stats/custom/save    {unit, slot?, data} add (no slot) or edit (teacher)
+     POST /api/class-stats/custom/hide    {unit, slot, hidden} hide or show again (teacher)
 
-   Schema (run once in the D1 console):
-     CREATE TABLE IF NOT EXISTS answers (
-       qid  TEXT NOT NULL,
-       who  TEXT NOT NULL,
-       pick INTEGER NOT NULL,
-       ok   INTEGER NOT NULL,
-       ts   INTEGER NOT NULL,
-       PRIMARY KEY (qid, who)
-     );
-     CREATE INDEX IF NOT EXISTS answers_who ON answers (who, ts);
-   ───────────────────────────────────────────────────────────── */
+   Bindings: DB (D1 database "class-stats"), TEACHER_CODE (Secret). */
 
 const ORIGINS = [
   /^https:\/\/(www\.)?tivinteaches\.com$/,
@@ -37,9 +29,13 @@ const ORIGINS = [
   /^https:\/\/ap-review-site\.pages\.dev$/,
   /^https:\/\/ap-review-site\.elitivin\.workers\.dev$/
 ];
-const QID = /^u[1-9]_[0-9.]+_\d{1,4}$/;      // u{unit}_{topic}_{idx}, same as spaced.js
+const QID = /^u[1-9]_[0-9.]+_\d{1,4}$/;
 const WHO = /^[a-z0-9-]{16,40}$/;
-const PER_WHO_DAY = 400;                       // answers one browser may save per day
+const PER_WHO_DAY = 400;
+const TOPIC_NAME = "Mr. Tivin's Questions";
+const IMG = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/;
+const NL = String.fromCharCode(10);   // newline and backslash, written this way so the
+const BS = String.fromCharCode(92);   // code survives being typed into the dashboard editor
 
 function cors(req) {
   const o = req.headers.get("Origin") || "";
@@ -80,6 +76,59 @@ function same(a, b) {
   return d === 0 && x.length > 0;
 }
 
+function teacher(req, env) {
+  return same(req.headers.get("X-Teacher-Code"), env.TEACHER_CODE);
+}
+
+function str(v, max) {
+  return typeof v === "string" && v.length <= max ? v : null;
+}
+
+// Checks a typed-in question; returns the clean copy or null.
+function cleanQ(d) {
+  if (!d || typeof d !== "object") return null;
+  const q = str(d.q, 2000), e = str(d.e || "", 4000), s = str(d.s || "", 8000), sl = str(d.sl || "", 400);
+  if (!q || !q.trim() || e === null || s === null || sl === null) return null;
+  if (!Array.isArray(d.o) || d.o.length < 4 || d.o.length > 5) return null;
+  const o = d.o.map(x => str(x, 800));
+  if (o.some(x => x === null || !x.trim())) return null;
+  if (!Number.isInteger(d.c) || d.c < 0 || d.c >= o.length) return null;
+  const out = { s, sl, q, o, c: d.c, e };
+  if (d.simg) {
+    if (typeof d.simg !== "string" || d.simg.length > 900000 || !IMG.test(d.simg)) return null;
+    out.simg = d.simg;
+  }
+  const t = str(d.t || "", 40);
+  if (t) out.t = t;
+  return out;
+}
+
+function escHtml(s) {
+  return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+async function customJs(env) {
+  const { results } = await env.DB.prepare(
+    "SELECT unit, slot, data, hidden FROM custom_qs ORDER BY unit, slot"
+  ).all();
+  const D = {};
+  for (const r of results) {
+    let q;
+    try { q = JSON.parse(r.data); } catch (e) { q = { q: "(missing)", o: ["-", "-", "-", "-"], c: 0, e: "" }; }
+    // The engine escapes stem, choices, source text; the explanation is shown as HTML.
+    q.e = escHtml(q.e).split(NL).join("<br>");
+    q.src = "Mr. Tivin";
+    if (r.hidden) q.hidden = true;
+    (D[r.unit] = D[r.unit] || [])[r.slot] = q;
+  }
+  const data = JSON.stringify(D).split("<").join(BS + "u003c");
+  return "/* Teacher questions from class-stats.html (served by the class-stats Worker). */" + NL +
+    "(function(){var U=window.APWH_MCQ&&window.APWH_MCQ.units;if(!U)return;var D=" + data + ";" +
+    "for(var u in D){if(!U[u])continue;var id=u+'.0';" +
+    "if(!U[u].questions[id])U[u].topics.push({id:id,name:" + JSON.stringify(TOPIC_NAME) + "});" +
+    "U[u].questions[id]=D[u];}})();" + NL;
+}
+
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
@@ -109,10 +158,17 @@ export default {
         return json(req, await totals(env, qid));
       }
 
+      if (path === "/api/class-stats/custom.js" && req.method === "GET") {
+        return new Response(await customJs(env), {
+          headers: { "Content-Type": "application/javascript; charset=utf-8", "Cache-Control": "public, max-age=60" }
+        });
+      }
+
+      if (path.indexOf("/api/class-stats/custom/") === 0 || path === "/api/class-stats/report") {
+        if (!teacher(req, env)) return json(req, { error: "wrong code" }, 403);
+      }
+
       if (path === "/api/class-stats/report" && req.method === "GET") {
-        if (!same(req.headers.get("X-Teacher-Code"), env.TEACHER_CODE)) {
-          return json(req, { error: "wrong code" }, 403);
-        }
         const { results } = await env.DB.prepare(
           "SELECT qid, pick, COUNT(*) AS n, SUM(ok) AS r FROM answers GROUP BY qid, pick"
         ).all();
@@ -124,6 +180,45 @@ export default {
         }
         const browsers = await env.DB.prepare("SELECT COUNT(DISTINCT who) AS c FROM answers").first();
         return json(req, { questions: Object.values(by), browsers: browsers ? browsers.c : 0, at: Date.now() });
+      }
+
+      if (path === "/api/class-stats/custom/list" && req.method === "GET") {
+        const { results } = await env.DB.prepare(
+          "SELECT unit, slot, data, hidden, updated FROM custom_qs ORDER BY unit, slot"
+        ).all();
+        return json(req, {
+          questions: results.map(r => ({ unit: r.unit, slot: r.slot, hidden: !!r.hidden, updated: r.updated, data: JSON.parse(r.data) }))
+        });
+      }
+
+      if (path === "/api/class-stats/custom/save" && req.method === "POST") {
+        const b = await req.json().catch(() => null);
+        const unit = b && b.unit;
+        const data = cleanQ(b && b.data);
+        if (!Number.isInteger(unit) || unit < 1 || unit > 9 || !data) return json(req, { error: "bad question" }, 400);
+        if (b.slot == null) {
+          const row = await env.DB.prepare("SELECT COALESCE(MAX(slot) + 1, 0) AS s FROM custom_qs WHERE unit = ?").bind(unit).first();
+          const slot = row ? row.s : 0;
+          if (slot > 999) return json(req, { error: "too many questions" }, 400);
+          await env.DB.prepare("INSERT INTO custom_qs (unit, slot, data, hidden, updated) VALUES (?, ?, ?, 0, ?)")
+            .bind(unit, slot, JSON.stringify(data), Date.now()).run();
+          return json(req, { unit, slot });
+        }
+        if (!Number.isInteger(b.slot)) return json(req, { error: "bad slot" }, 400);
+        const r = await env.DB.prepare("UPDATE custom_qs SET data = ?, updated = ? WHERE unit = ? AND slot = ?")
+          .bind(JSON.stringify(data), Date.now(), unit, b.slot).run();
+        if (!r.meta || !r.meta.changes) return json(req, { error: "not found" }, 404);
+        return json(req, { unit, slot: b.slot });
+      }
+
+      if (path === "/api/class-stats/custom/hide" && req.method === "POST") {
+        const b = await req.json().catch(() => null);
+        if (!b || !Number.isInteger(b.unit) || !Number.isInteger(b.slot) || typeof b.hidden !== "boolean") {
+          return json(req, { error: "bad request" }, 400);
+        }
+        await env.DB.prepare("UPDATE custom_qs SET hidden = ?, updated = ? WHERE unit = ? AND slot = ?")
+          .bind(b.hidden ? 1 : 0, Date.now(), b.unit, b.slot).run();
+        return json(req, { ok: true });
       }
 
       return json(req, { error: "not found" }, 404);

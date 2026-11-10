@@ -42,7 +42,7 @@
 
   function bankSize(unit, store) {
     var u = window.APWH_MCQ && APWH_MCQ.units && APWH_MCQ.units[unit];
-    if (u) { var n = 0, q = u.questions || {}; for (var t in q) n += (q[t] || []).length; return n; }
+    if (u) { var n = 0, q = u.questions || {}; for (var t in q) (q[t] || []).forEach(function (x) { if (x && !x.hidden) n++; }); return n; }
     return ((store.components || {})['u' + unit] || {}).mcqTotal || 0;
   }
   // How many answers unlock the unit (never more than the whole bank, when its size is known).

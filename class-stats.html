@@ -69,7 +69,7 @@ tr.q:hover td{background:var(--paper)}
 <div class="wrap">
   <div class="eyebrow">For Mr. Tivin</div>
   <h1>Class Stats</h1>
-  <p class="lead">How students did on every bank question, on their first try. Students never sign in, so this shows totals only: no names, no individual students.</p>
+  <p class="lead">How students did on every bank question, on their first try, and a place to write your own questions. Students never sign in, so results are totals only: no names, no individual students.</p>
 
   <div class="panel">
     <div class="row">
@@ -82,6 +82,12 @@ tr.q:hover td{background:var(--paper)}
   </div>
 
   <div id="out" class="hidden">
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab on" data-tab="tab-results" role="tab" aria-selected="true">Results</button>
+      <button type="button" class="tab" data-tab="tab-make" role="tab" aria-selected="false">Make a question</button>
+    </div>
+    <div id="tab-make" class="hidden"></div>
+    <div id="tab-results">
     <div class="cards" id="cards"></div>
     <div class="panel row">
       <label for="unit">Unit</label>
@@ -98,10 +104,12 @@ tr.q:hover td{background:var(--paper)}
     <h2>By question</h2>
     <p class="note">Click a question to see how the picks split.</p>
     <table><thead><tr><th class="num">#</th><th>Question</th><th class="num">Students</th><th class="num">Right</th><th class="num hide-sm">Top wrong pick</th></tr></thead><tbody id="qs"></tbody></table>
+    </div>
   </div>
 </div>
 
 <script src="mcq-bank.js?v=20261109a"></script>
+<script src="/api/class-stats/custom.js"></script>
 <script src="class-stats.js?v=20261109"></script>
 <script>
 (function () {
@@ -142,12 +150,13 @@ tr.q:hover td{background:var(--paper)}
         return r.json();
       })
       .then(function (d) {
-        data = d;
+        data = d; window.CS_REPORT = d;
         try { sessionStorage.setItem('classStatsCode', code); } catch (e) {}
         $('forget').classList.remove('hidden');
         $('msg').textContent = 'Updated ' + new Date(d.at || Date.now()).toLocaleString() + '.';
         $('out').classList.remove('hidden');
         draw();
+        if (window.QMAKER) QMAKER.load();
       })
       .catch(function (e) { $('msg').className = 'msg bad'; $('msg').textContent = e.message || 'Could not reach the server.'; });
   }
@@ -217,5 +226,6 @@ tr.q:hover td{background:var(--paper)}
   if ($('code').value) load();
 })();
 </script>
+<script src="question-maker.js?v=20261109"></script>
 </body>
 </html>

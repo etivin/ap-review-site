@@ -82,6 +82,14 @@
     for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
     return a;
   }
+  // Indexes of the questions students can see. A teacher question removed on
+  // class-stats.html stays in its slot with hidden:true, so later ids never shift.
+  function live(arr) {
+    var out = [];
+    (arr || []).forEach(function (q, i) { if (q && !q.hidden) out.push(i); });
+    return out;
+  }
+  APWH.liveIdx = live;
   APWH.poolFromUnit = function (unitId, o) {
     o = o || {}; var u = units()[String(unitId)]; if (!u) return [];
     var pool = [];
@@ -89,10 +97,10 @@
       var arr = u.questions[t.id] || [];
       if (o.topic && o.topic !== t.id) return;
       if (o.mode === 'mixed') {
-        var idx = shuffle(arr.map(function (_, i) { return i; })).slice(0, o.mixedPerTopic || 2);
+        var idx = shuffle(live(arr)).slice(0, o.mixedPerTopic || 2);
         idx.forEach(function (i) { pool.push({ unit: String(unitId), topic: t.id, idx: i }); });
       } else {
-        arr.forEach(function (_, i) { pool.push({ unit: String(unitId), topic: t.id, idx: i }); });
+        live(arr).forEach(function (i) { pool.push({ unit: String(unitId), topic: t.id, idx: i }); });
       }
     });
     return pool;
@@ -1031,7 +1039,7 @@
     }
     h += '<div class="mcqx-topics">';
     (u.topics || []).forEach(function (t) {
-      var n = (u.questions[t.id] || []).length;
+      var n = live(u.questions[t.id]).length;
       h += '<button type="button" class="mcqx-tc" data-topic="' + t.id + '"' + (n ? '' : ' disabled style="opacity:.5"') + '>' +
            '<div class="mx-tn">Topic ' + t.id + '</div><div class="mx-tt">' + t.name + '</div>' +
            '<div class="mx-tcnt">' + n + ' question' + (n === 1 ? '' : 's') + '</div></button>';

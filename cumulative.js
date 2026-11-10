@@ -17,7 +17,8 @@
   var SET_SIZE = 15;
 
   function units() { return (window.APWH_MCQ && window.APWH_MCQ.units) || {}; }
-  function countQ(u) { var n = 0; for (var k in u.questions) n += u.questions[k].length; return n; }
+  function liveIdx(arr) { var out = []; (arr || []).forEach(function (q, i) { if (q && !q.hidden) out.push(i); }); return out; }
+  function countQ(u) { var n = 0; for (var k in u.questions) n += liveIdx(u.questions[k]).length; return n; }
   function allUnitIds() { var U = units(); return Object.keys(U).filter(function (id) { return countQ(U[id]) > 0; }); }
 
   function unitWeight(id, seen, now) {
@@ -56,11 +57,11 @@
     while (chosen.length < n && guard < cap) {
       guard++;
       var u = weightedPickUnit(ids, weights);
-      var topics = U[u].topics.filter(function (t) { return (U[u].questions[t.id] || []).length; });
+      var topics = U[u].topics.filter(function (t) { return liveIdx(U[u].questions[t.id]).length; });
       if (!topics.length) continue;
       var t = topics[Math.floor(Math.random() * topics.length)].id;
-      var arr = U[u].questions[t];
-      var idx = Math.floor(Math.random() * arr.length);
+      var arr = liveIdx(U[u].questions[t]);
+      var idx = arr[Math.floor(Math.random() * arr.length)];
       var key = u + ':' + t + ':' + idx;
       if (used[key]) continue;
       used[key] = true;

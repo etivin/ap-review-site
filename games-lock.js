@@ -31,6 +31,9 @@
   'use strict';
   var HASH = 'f0edbe28ac723c57055d27fb30cbe4f12d934dce606f6348ad8d17fa77d03822';
   var TKEY = 'gamesLock_teacher';
+  // Teacher unlocks are saved with this number. To relock every browser that was ever
+  // teacher-unlocked (yours too: type the code again), raise it and bump the ?v= tags.
+  var TGEN = '2';
   var FRESH_DAYS = 7;    // a right answer counts toward the unlock for this many days after it was given
   var MCQ_NEEDED = 20;   // questions to get right: a number (20) or a share of the unit's bank ('25%')
   var PLAY_MIN = 30;     // minutes the games stay open after each unlock (clock time)
@@ -79,7 +82,7 @@
   }
   // Games are open: inside a 30-minute window, or earned and waiting to start one.
   function finished(unit) { var p = progress(unit); return p.open || p.ready; }
-  function teacher() { return get(TKEY) === '1'; }
+  function teacher() { return get(TKEY) === TGEN; }
 
   function sha256(s) {
     if (!(window.crypto && crypto.subtle && window.TextEncoder)) return Promise.reject();
@@ -122,6 +125,9 @@
       '.glk-form button{background:var(--gk-acc);color:#fff;border:0;padding:9px 14px;font-family:inherit;font-weight:700;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}' +
       '.glk-msg{min-height:1em;margin-top:8px;font-size:.72rem;color:var(--gk-acc)}' +
       '.glk-tbar{--gk-acc:var(--red,#2d5deb);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;max-width:820px;margin:0 auto 18px;padding:10px 14px;border:1px dashed var(--border2,var(--border,#c9ced8));background:var(--cream,#f6f3ec);color:var(--mid,#444);font-family:Lato,system-ui,sans-serif;font-size:.78rem}' +
+      '.glk-tbtns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}' +
+      '.glk-tbar a{color:var(--gk-acc);font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:7px 12px;border:1px solid var(--gk-acc)}' +
+      '.glk-tbar a:hover{background:var(--gk-acc);color:#fff}' +
       '.glk-tbar button{background:var(--gk-acc);color:#fff;border:0;padding:8px 14px;font-family:inherit;font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}' +
       '.glk-time{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;max-width:820px;margin:0 auto 14px;padding:9px 14px;border:1px solid var(--border,#d5d9e2);background:var(--cream,#f6f3ec);color:var(--mid,#444);font-family:Lato,system-ui,sans-serif;font-size:.8rem;box-sizing:border-box}' +
       '.glk-time[hidden]{display:none}' +
@@ -187,7 +193,7 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       sha256(input.value.trim()).then(function (h) {
-        if (h === HASH) { set(TKEY, '1'); msg.textContent = ''; onOpen(true); }
+        if (h === HASH) { set(TKEY, TGEN); msg.textContent = ''; onOpen(true); }
         else { msg.textContent = 'That code is not right.'; input.value = ''; shake(); }
       }, function () { msg.textContent = 'Unlock needs the https site.'; });
     });
@@ -285,7 +291,7 @@
       tbar = document.createElement('div');
       tbar.className = 'glk-tbar';
       tbar.innerHTML = '<span>Teacher access is on in this browser: games are unlocked on every unit.</span>' +
-        '<button type="button">Lock games again</button>';
+        '<span class="glk-tbtns"><a href="class-stats.html">Teacher dashboard</a><button type="button">Lock games again</button></span>';
       tbar.querySelector('button').addEventListener('click', function () {
         try { localStorage.removeItem(TKEY); } catch (e) {}
         refresh(false);

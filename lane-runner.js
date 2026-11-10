@@ -210,6 +210,7 @@ let carTimer = 0, itemTimer = 0, shake = 0, time = 0, tilt = 0, crashTime = 0, n
 let shield = 0, double = 0, magnet = 0, fly = 0, flyLift = 0, dent = 0, bgFar = 0, bgNear = 0, bgCloud = 0;
 let gate = null, gateTimer = 0, feedback = null, deck = [], strikes = 3, streak = 0, asked = 0, right = 0, overReason = '';
 try { best = +localStorage.getItem(R.key) || 0; } catch (e) {}
+if (window.LEADERBOARD) LEADERBOARD.init(R.activity, R.key);
 let paused = false; // Space or the Pause button freezes a run
 
 function reset() {
@@ -577,6 +578,7 @@ function crash(reason) {
     best = s; newBest = true;
     try { localStorage.setItem(R.key, best); } catch (e) {}
   }
+  if (window.LEADERBOARD) LEADERBOARD.submit(R.activity, s);
 }
 
 // ---------- Palette ----------

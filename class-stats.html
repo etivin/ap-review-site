@@ -85,8 +85,10 @@ tr.q:hover td{background:var(--paper)}
     <div class="tabs" role="tablist">
       <button type="button" class="tab on" data-tab="tab-results" role="tab" aria-selected="true">Results</button>
       <button type="button" class="tab" data-tab="tab-make" role="tab" aria-selected="false">Make a question</button>
+      <button type="button" class="tab" data-tab="tab-board" role="tab" aria-selected="false">Leaderboards</button>
     </div>
     <div id="tab-make" class="hidden"></div>
+    <div id="tab-board" class="hidden"></div>
     <div id="tab-results">
     <div class="cards" id="cards"></div>
     <div class="panel row">
@@ -228,6 +230,7 @@ tr.q:hover td{background:var(--paper)}
   if ($('code').value) load();
 })();
 </script>
-<script src="question-maker.js?v=20261109b"></script>
+<script src="question-maker.js?v=20261110"></script>
+<script src="leaderboard-admin.js?v=20261110"></script>
 </body>
 </html>

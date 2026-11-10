@@ -72,6 +72,7 @@ canvas{display:block;width:100%;height:auto;border:2px solid var(--navy);backgro
 <script defer src="theme.js"></script>
 <script defer src="activity.js"></script>
 <script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+<script src="leaderboard.js?v=20261110"></script>
 </head>
 <body>
 
@@ -389,6 +390,7 @@ let carTimer = 0, itemTimer = 0, shake = 0, time = 0, tilt = 0, crashTime = 0, n
 let shield = 0, double = 0, magnet = 0, fly = 0, flyLift = 0, dent = 0, bgFar = 0, bgNear = 0, bgCloud = 0;
 let gate = null, gateTimer = 0, feedback = null, deck = [], strikes = 3, streak = 0, asked = 0, right = 0, overReason = '';
 try { best = +localStorage.getItem('u3RacerBest') || 0; } catch (e) {}
+if (window.LEADERBOARD) LEADERBOARD.init('racer', 'u3RacerBest');
 let paused = false; // Space or the Pause button freezes a run
 
 function reset() {
@@ -754,6 +756,7 @@ function crash(reason) {
     best = s; newBest = true;
     try { localStorage.setItem('u3RacerBest', best); } catch (e) {}
   }
+  if (window.LEADERBOARD) LEADERBOARD.submit('racer', s);
 }
 
 // ---------- Palette ----------

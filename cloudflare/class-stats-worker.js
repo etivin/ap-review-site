@@ -22,6 +22,12 @@
      GET  /api/class-stats/custom/list    every teacher question, hidden ones too (teacher)
      POST /api/class-stats/custom/save    {unit, slot?, data} add (no slot) or edit (teacher)
      POST /api/class-stats/custom/hide    {unit, slot, hidden} hide or show again (teacher)
+     POST /api/class-stats/score          {game, score, who} keep this browser's best, reply with the top 5
+     GET  /api/class-stats/scores?game=x  the top 5 scores (numbers only)
+     GET  /api/class-stats/board/list     top 5 per game with browser ids (teacher)
+     POST /api/class-stats/board/remove   {game, who} delete a score (teacher)
+   Racing-game leaderboards (table scores, made on first use): one row per browser per game,
+   its best score. Nothing personal; students see only the numbers.
 
    Bindings: DB (D1 database "class-stats"), TEACHER_CODE (Secret). */
 
@@ -128,6 +134,24 @@ function cleanW(w, n, key) {
   return { type: w.type, hq, hs, src, say, plain, meaning, cut: w.cut, trapIdx: w.trapIdx, trap };
 }
 
+// Racing-game leaderboards: each browser's best score per game; the top 5 are public (numbers only).
+const GAMES = ["racer", "voyage", "minecart", "rails", "tank", "sputnik", "freight"];
+const MAX_SCORE = 10000000;
+const TOP = 5;
+let scoresReady = false;
+async function scoresTable(env) {
+  if (scoresReady) return;
+  await env.DB.prepare("CREATE TABLE IF NOT EXISTS scores (game TEXT NOT NULL, who TEXT NOT NULL, " +
+    "score INTEGER NOT NULL, ts INTEGER NOT NULL, PRIMARY KEY (game, who))").run();
+  scoresReady = true;
+}
+async function topScores(env, game) {
+  const { results } = await env.DB.prepare(
+    "SELECT score FROM scores WHERE game = ? ORDER BY score DESC, ts ASC LIMIT ?"
+  ).bind(game, TOP).all();
+  return results.map(r => r.score);
+}
+
 function escHtml(s) {
   return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
@@ -194,8 +218,49 @@ export default {
         });
       }
 
-      if (path.indexOf("/api/class-stats/custom/") === 0 || path === "/api/class-stats/report") {
+      if (path === "/api/class-stats/score" && req.method === "POST") {
+        const b = await req.json().catch(() => null);
+        if (!b || GAMES.indexOf(b.game) < 0 || !WHO.test(b.who || "") ||
+            !Number.isInteger(b.score) || b.score < 1 || b.score > MAX_SCORE) {
+          return json(req, { error: "bad score" }, 400);
+        }
+        await scoresTable(env);
+        await env.DB.prepare("INSERT INTO scores (game, who, score, ts) VALUES (?, ?, ?, ?) " +
+          "ON CONFLICT (game, who) DO UPDATE SET score = excluded.score, ts = excluded.ts WHERE excluded.score > scores.score")
+          .bind(b.game, b.who, b.score, Date.now()).run();
+        return json(req, { game: b.game, top: await topScores(env, b.game) });
+      }
+
+      if (path === "/api/class-stats/scores" && req.method === "GET") {
+        const game = url.searchParams.get("game") || "";
+        if (GAMES.indexOf(game) < 0) return json(req, { error: "bad game" }, 400);
+        await scoresTable(env);
+        return json(req, { game, top: await topScores(env, game) });
+      }
+
+      if (path.indexOf("/api/class-stats/custom/") === 0 || path.indexOf("/api/class-stats/board/") === 0 ||
+          path === "/api/class-stats/report") {
         if (!teacher(req, env)) return json(req, { error: "wrong code" }, 403);
+      }
+
+      if (path === "/api/class-stats/board/list" && req.method === "GET") {
+        await scoresTable(env);
+        const out = {};
+        for (const g of GAMES) {
+          const { results } = await env.DB.prepare(
+            "SELECT who, score, ts FROM scores WHERE game = ? ORDER BY score DESC, ts ASC LIMIT ?"
+          ).bind(g, TOP).all();
+          out[g] = results;
+        }
+        return json(req, { games: out });
+      }
+
+      if (path === "/api/class-stats/board/remove" && req.method === "POST") {
+        const b = await req.json().catch(() => null);
+        if (!b || GAMES.indexOf(b.game) < 0 || !WHO.test(b.who || "")) return json(req, { error: "bad request" }, 400);
+        await scoresTable(env);
+        await env.DB.prepare("DELETE FROM scores WHERE game = ? AND who = ?").bind(b.game, b.who).run();
+        return json(req, { ok: true });
       }
 
       if (path === "/api/class-stats/report" && req.method === "GET") {

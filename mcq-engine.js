@@ -469,6 +469,8 @@
     function record(i) {
       var o = qs[i], ok = answered[i] === o.q.c;
       recordReview(o.ref, o.q, answered[i], ok, conf[i] || null);
+      // class-wide first-try totals under the explanation (class-stats.js; silent if absent)
+      if (window.CLASS_STATS) CLASS_STATS.submit(itemIdFor(o.ref), answered[i], o.q.c, document.getElementById(ctx.uid + '-fb' + i));
     }
 
     function progress() {
@@ -610,6 +612,7 @@
         // sbmcq.js already wrote the SPACED review; keep the legacy log and lastSeen in step.
         recordAnswer(qs[i].ref, qs[i].q, e.detail.j, e.detail.ok, null);
         APWH.markSeen([String(qs[i].ref.unit)]);
+        if (window.CLASS_STATS) CLASS_STATS.submit(itemIdFor(qs[i].ref), e.detail.j, qs[i].q.c, box);
         progress();
       };
       gateLeft = qs.map(function () { return 0; });

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>Class Stats</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f9f6ef;--white:#fff;--paper:#f3ece0;--border:#ddd0b8;--border2:#b8a478;
+  --ink:#1a1a12;--mid:#48483a;--muted:#7a7860;
+  --red:#b0001c;--red-d:#850015;--red-bg:#fdf1f3;--green:#1a6825
+}
+body{background:var(--cream);color:var(--ink);font-family:Lato,system-ui,sans-serif;line-height:1.55;min-height:100vh}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 20px 80px}
+.eyebrow{font-weight:700;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+h1{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+.lead{color:var(--mid);max-width:680px;margin-bottom:22px}
+.panel{background:var(--white);border:1px solid var(--border);padding:16px 18px;margin-bottom:18px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+label{font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+input,select{font:inherit;font-size:.92rem;padding:8px 10px;border:1px solid var(--border2);background:var(--white);color:var(--ink)}
+button{font:inherit;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:9px 14px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+button:hover{background:var(--red);border-color:var(--red)}
+button.ghost{background:var(--white);color:var(--mid);border-color:var(--border)}
+button.ghost:hover{color:var(--red);border-color:var(--red);background:var(--white)}
+.msg{font-size:.88rem;color:var(--mid);margin-top:8px}
+.msg.bad{color:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.card{background:var(--white);border:1px solid var(--border);padding:12px 14px}
+.card b{display:block;font-size:1.5rem;font-weight:900}
+.card span{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h2{font-size:1.1rem;font-weight:900;margin:22px 0 8px}
+.note{font-size:.82rem;color:var(--muted);margin-bottom:8px}
+table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);font-size:.86rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+th{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--paper)}
+td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr.q{cursor:pointer}
+tr.q:hover td{background:var(--paper)}
+.pct{display:inline-block;min-width:44px;font-weight:900}
+.lo{color:var(--red)}.hi{color:var(--green)}
+.meter{display:inline-block;width:70px;height:6px;background:var(--border);vertical-align:middle;margin-left:6px}
+.meter i{display:block;height:100%;background:var(--red)}
+.detail td{background:var(--cream);font-size:.84rem}
+.opts{list-style:none;margin-top:8px}
+.opts li{display:grid;grid-template-columns:22px 1fr 130px;gap:8px;align-items:center;padding:3px 0}
+.opts li.key{color:var(--green);font-weight:700}
+.bar{display:inline-block;width:46px;height:7px;background:var(--border);vertical-align:middle;margin-right:6px}.bar i{display:block;height:100%;background:var(--muted)}
+.opts li.key .bar i{background:var(--green)}
+.stem{color:var(--mid)}
+.hidden{display:none}
+@media(max-width:640px){.hide-sm{display:none}.opts li{grid-template-columns:22px 1fr 70px}}
+</style>
+<link rel="stylesheet" href="mission-theme.css">
+<script src="mc-mode.js?v=20261105"></script>
+<link rel="stylesheet" href="theme.css">
+<script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<script defer src="theme.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script><link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">For Mr. Tivin</div>
+  <h1>Class Stats</h1>
+  <p class="lead">How students did on every bank question, on their first try. Students never sign in, so this shows totals only: no names, no individual students.</p>
+
+  <div class="panel">
+    <div class="row">
+      <label for="code">Teacher code</label>
+      <input id="code" type="password" autocomplete="off" size="16"/>
+      <button id="load" type="button">Show stats</button>
+      <button id="forget" type="button" class="ghost hidden">Forget code</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div id="out" class="hidden">
+    <div class="cards" id="cards"></div>
+    <div class="panel row">
+      <label for="unit">Unit</label>
+      <select id="unit"><option value="">All units</option></select>
+      <label for="minn">At least</label>
+      <select id="minn"><option>1</option><option selected>5</option><option>10</option><option>20</option></select>
+      <label for="sort">Sort</label>
+      <select id="sort"><option value="hard">Most missed first</option><option value="n">Most answered first</option><option value="id">Unit and topic order</option></select>
+      <button id="refresh" type="button" class="ghost">Refresh</button>
+    </div>
+    <h2>By topic</h2>
+    <p class="note">Share of first tries that were right, per topic.</p>
+    <table><thead><tr><th>Topic</th><th class="num">Questions</th><th class="num">Answers</th><th class="num">Right</th></tr></thead><tbody id="topics"></tbody></table>
+    <h2>By question</h2>
+    <p class="note">Click a question to see how the picks split.</p>
+    <table><thead><tr><th class="num">#</th><th>Question</th><th class="num">Students</th><th class="num">Right</th><th class="num hide-sm">Top wrong pick</th></tr></thead><tbody id="qs"></tbody></table>
+  </div>
+</div>
+
+<script src="mcq-bank.js?v=20261109a"></script>
+<script src="class-stats.js?v=20261109"></script>
+<script>
+(function () {
+  var L = ['A', 'B', 'C', 'D', 'E'];
+  var data = null, open = {};
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function base() { return (window.CLASS_STATS && CLASS_STATS.base()) || 'https://tivinteaches.com/api/class-stats'; }
+  function bank(id) {
+    var m = /^u(\d)_(.+)_(\d+)$/.exec(id); if (!m) return null;
+    var u = APWH_MCQ.units[m[1]]; if (!u) return null;
+    var arr = u.questions[m[2]] || [];
+    var topic = (u.topics || []).filter(function (t) { return t.id === m[2]; })[0];
+    return { unit: m[1], topic: m[2], topicName: topic ? topic.name : m[2], q: arr[+m[3]], idx: +m[3] };
+  }
+  function idKey(id) { var m = /^u(\d)_(.+)_(\d+)$/.exec(id) || []; return [m[1], (m[2] || '').split('.').map(Number), +m[3]]; }
+  function cmpId(a, b) {
+    var x = idKey(a), y = idKey(b);
+    if (x[0] !== y[0]) return x[0] - y[0];
+    for (var i = 0; i < Math.max(x[1].length, y[1].length); i++) if ((x[1][i] || 0) !== (y[1][i] || 0)) return (x[1][i] || 0) - (y[1][i] || 0);
+    return x[2] - y[2];
+  }
+  function pctCls(p) { return p < 50 ? 'lo' : p >= 80 ? 'hi' : ''; }
+
+  try { var saved = sessionStorage.getItem('classStatsCode'); if (saved) { $('code').value = saved; $('forget').classList.remove('hidden'); } } catch (e) {}
+  Object.keys(APWH_MCQ.units).sort().forEach(function (u) {
+    var o = document.createElement('option'); o.value = u; o.textContent = 'Unit ' + u + ': ' + APWH_MCQ.units[u].title; $('unit').appendChild(o);
+  });
+
+  function load() {
+    var code = $('code').value.trim();
+    if (!code) { $('msg').className = 'msg bad'; $('msg').textContent = 'Type the teacher code first.'; return; }
+    $('msg').className = 'msg'; $('msg').textContent = 'Loading...';
+    fetch(base() + '/report', { headers: { 'X-Teacher-Code': code } })
+      .then(function (r) {
+        if (r.status === 403) throw new Error('That code did not work.');
+        if (!r.ok) throw new Error('The class stats server did not answer (' + r.status + '). Is the Worker set up? See cloudflare/README.md.');
+        return r.json();
+      })
+      .then(function (d) {
+        data = d;
+        try { sessionStorage.setItem('classStatsCode', code); } catch (e) {}
+        $('forget').classList.remove('hidden');
+        $('msg').textContent = 'Updated ' + new Date(d.at || Date.now()).toLocaleString() + '.';
+        $('out').classList.remove('hidden');
+        draw();
+      })
+      .catch(function (e) { $('msg').className = 'msg bad'; $('msg').textContent = e.message || 'Could not reach the server.'; });
+  }
+
+  function draw() {
+    if (!data) return;
+    var unit = $('unit').value, minn = +$('minn').value, sort = $('sort').value;
+    var all = data.questions.filter(function (q) { return !unit || q.id.indexOf('u' + unit + '_') === 0; });
+    var answers = 0, right = 0;
+    all.forEach(function (q) { answers += q.n; right += q.right; });
+    $('cards').innerHTML =
+      '<div class="card"><b>' + data.browsers + '</b><span>Student browsers</span></div>' +
+      '<div class="card"><b>' + answers + '</b><span>First tries' + (unit ? ' in Unit ' + unit : '') + '</span></div>' +
+      '<div class="card"><b>' + (answers ? Math.round(right / answers * 100) : 0) + '%</b><span>Right on first try</span></div>' +
+      '<div class="card"><b>' + all.length + '</b><span>Questions answered</span></div>';
+
+    // topics
+    var tp = {};
+    all.forEach(function (q) {
+      var b = bank(q.id); var k = b ? 'u' + b.unit + '|' + b.topic : q.id;
+      var t = tp[k] || (tp[k] = { id: q.id, name: b ? 'Unit ' + b.unit + ' · ' + b.topic + ': ' + b.topicName : q.id, qs: 0, n: 0, r: 0 });
+      t.qs++; t.n += q.n; t.r += q.right;
+    });
+    var tl = Object.keys(tp).map(function (k) { return tp[k]; }).filter(function (t) { return t.n >= minn; });
+    tl.sort(sort === 'hard' ? function (a, b) { return a.r / a.n - b.r / b.n; } : sort === 'n' ? function (a, b) { return b.n - a.n; } : function (a, b) { return cmpId(a.id, b.id); });
+    $('topics').innerHTML = tl.length ? tl.map(function (t) {
+      var p = Math.round(t.r / t.n * 100);
+      return '<tr><td>' + esc(t.name) + '</td><td class="num">' + t.qs + '</td><td class="num">' + t.n + '</td><td class="num"><span class="pct ' + pctCls(p) + '">' + p + '%</span><span class="meter"><i style="width:' + p + '%"></i></span></td></tr>';
+    }).join('') : '<tr><td colspan="4">No topics with enough answers yet.</td></tr>';
+
+    // questions
+    var ql = all.filter(function (q) { return q.n >= minn; });
+    ql.sort(sort === 'hard' ? function (a, b) { return a.right / a.n - b.right / b.n || b.n - a.n; } : sort === 'n' ? function (a, b) { return b.n - a.n; } : function (a, b) { return cmpId(a.id, b.id); });
+    var h = '';
+    ql.forEach(function (q, i) {
+      var b = bank(q.id), bq = b && b.q, key = bq ? bq.c : -1;
+      var p = Math.round(q.right / q.n * 100);
+      var w = -1, wn = 0;
+      q.picks.forEach(function (n, j) { if (j !== key && n > wn) { wn = n; w = j; } });
+      var label = b ? 'Unit ' + b.unit + ' · ' + b.topic + ' #' + (b.idx + 1) : q.id;
+      var stem = bq ? bq.q : '(question not found in the bank)';
+      h += '<tr class="q" data-id="' + q.id + '"><td class="num">' + (i + 1) + '</td><td><b>' + esc(label) + '</b><div class="stem">' + esc(stem.length > 140 ? stem.slice(0, 140) + '...' : stem) + '</div></td>' +
+           '<td class="num">' + q.n + '</td><td class="num"><span class="pct ' + pctCls(p) + '">' + p + '%</span></td>' +
+           '<td class="num hide-sm">' + (w >= 0 && wn ? L[w] + ' (' + Math.round(wn / q.n * 100) + '%)' : '-') + '</td></tr>';
+      if (open[q.id] && bq) {
+        h += '<tr class="detail"><td></td><td colspan="4"><div>' + esc(bq.q) + '</div><ul class="opts">' + bq.o.map(function (o, j) {
+          var pp = Math.round((q.picks[j] || 0) / q.n * 100);
+          return '<li class="' + (j === key ? 'key' : '') + '"><span>' + L[j] + '</span><span>' + esc(o) + (j === key ? ' (key)' : '') + '</span><span><span class="bar"><i style="width:' + pp + '%"></i></span>' + pp + '% (' + (q.picks[j] || 0) + ')</span></li>';
+        }).join('') + '</ul>' + (bq.src ? '<div class="note" style="margin-top:6px">' + esc(bq.src) + '</div>' : '') + '</td></tr>';
+      }
+    });
+    $('qs').innerHTML = h || '<tr><td colspan="5">No questions with enough answers yet.</td></tr>';
+  }
+
+  $('qs').addEventListener('click', function (e) {
+    var tr = e.target.closest('tr.q'); if (!tr) return;
+    open[tr.dataset.id] = !open[tr.dataset.id]; draw();
+  });
+  $('load').addEventListener('click', load);
+  $('refresh').addEventListener('click', load);
+  $('code').addEventListener('keydown', function (e) { if (e.key === 'Enter') load(); });
+  $('forget').addEventListener('click', function () {
+    try { sessionStorage.removeItem('classStatsCode'); } catch (e) {}
+    $('code').value = ''; $('forget').classList.add('hidden'); $('out').classList.add('hidden'); data = null; $('msg').textContent = '';
+  });
+  ['unit', 'minn', 'sort'].forEach(function (id) { $(id).addEventListener('change', draw); });
+  if ($('code').value) load();
+})();
+</script>
+</body>
+</html>

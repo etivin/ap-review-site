@@ -1,17 +1,17 @@
 /* games-lock.js: locks a unit's games until the student has answered MCQ_NEEDED of that
    unit's practice questions correctly within the last 7 days (FRESH_DAYS; MCQ Practice tab,
    Cumulative Review or a walkthrough's Work it; each question counts once).
-   MCQ_NEEDED is a number of questions (20) or a share of the unit's bank ('25%'). Answers are
+   MCQ_NEEDED is a number of questions (15) or a share of the unit's bank ('25%'). Answers are
    read from the reviewHistory in apReview_v1.spaced under the ids mcq-engine.js writes
    (u{n}_{topic}_{idx}); the bank size comes from APWH_MCQ on unit pages and from the mcqTotal
    spaced.js saves (components.uN) on game pages.
 
-   Game time: each unlock opens that unit's games for PLAY_MIN (30) minutes of clock time,
-   shown in a visible "game time left" box. The 30 minutes start the first time the unlocked
+   Game time: each unlock opens that unit's games for PLAY_MIN (60) minutes of clock time,
+   shown in a visible "game time left" box. The 60 minutes start the first time the unlocked
    games show (Games tab open or a game page loaded) and are saved in gamesWin_uN = {start}, so
    every page of the unit shares them. When they run out, the Games tab or game page locks again
    mid-game. To reopen, the student gets AGAIN_NEEDED (5) more questions right after the time ran
-   out, for another 30 minutes, and so on. If the last 30 minutes ended more than FRESH_DAYS ago,
+   out, for another 60 minutes, and so on. If the last 60 minutes ended more than FRESH_DAYS ago,
    the full MCQ_NEEDED rule applies again.
 
    Two modes, picked from the page:
@@ -35,8 +35,8 @@
   // teacher-unlocked (yours too: type the code again), raise it and bump the ?v= tags.
   var TGEN = '2';
   var FRESH_DAYS = 7;    // a right answer counts toward the unlock for this many days after it was given
-  var MCQ_NEEDED = 20;   // questions to get right: a number (20) or a share of the unit's bank ('25%')
-  var PLAY_MIN = 30;     // minutes the games stay open after each unlock (clock time)
+  var MCQ_NEEDED = 15;   // questions to get right: a number (15) or a share of the unit's bank ('25%')
+  var PLAY_MIN = 60;     // minutes the games stay open after each unlock (clock time)
   var AGAIN_NEEDED = 5;  // right answers, given after the time ran out, that reopen the games
   var TICK = 1000;       // the time box and the relock are checked every second
 
@@ -54,7 +54,7 @@
     var need = pct !== null ? (total ? Math.ceil(total * pct / 100) : 0) : MCQ_NEEDED;
     return total ? Math.min(need, total) : need;
   }
-  /* ---- game time: the current 30 minutes per unit (gamesWin_uN = {start: ms}) ---- */
+  /* ---- game time: the current 60 minutes per unit (gamesWin_uN = {start: ms}) ---- */
   function getWin(unit) { try { return JSON.parse(get('gamesWin_u' + unit) || 'null'); } catch (e) { return null; } }
   function startWin(unit) { set('gamesWin_u' + unit, JSON.stringify({ start: Date.now() })); }
 
@@ -80,7 +80,7 @@
       pctOnly: !need
     };
   }
-  // Games are open: inside a 30-minute window, or earned and waiting to start one.
+  // Games are open: inside a 60-minute window, or earned and waiting to start one.
   function finished(unit) { var p = progress(unit); return p.open || p.ready; }
   function teacher() { return get(TKEY) === TGEN; }
 
@@ -155,7 +155,7 @@
   function buildPanel(unit, goHtml, onOpen) {
     var p = progress(unit), goal = p.pctOnly ? String(MCQ_NEEDED) + ' of the' : p.total, body;
     if (p.again) {
-      // The 30 minutes ran out: AGAIN_NEEDED more right answers reopen the games.
+      // The 60 minutes ran out: AGAIN_NEEDED more right answers reopen the games.
       var more = p.total - p.done, pct = Math.round(p.done / p.total * 100);
       body = '<div class="glk-eyebrow">Unit ' + unit + ' Games: Time is up</div>' +
         '<h3>Earn more game time</h3>' +
@@ -227,7 +227,7 @@
       '<span class="glk-time-note">When it runs out, get ' + AGAIN_NEEDED + ' more questions right for ' + PLAY_MIN + ' more minutes.</span>';
     return pill;
   }
-  /* Runs the 30 minutes: they start the first time the unlocked games show (isActive() is true)
+  /* Runs the 60 minutes: they start the first time the unlocked games show (isActive() is true)
      and then count on the clock, on or off the page. Keeps the pill current and runs onUp() when
      the time runs out while the games show. Returns a function that refreshes the pill. */
   function playClock(unit, isActive, pill, onUp) {

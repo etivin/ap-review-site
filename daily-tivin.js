@@ -70,7 +70,7 @@
     return s.replace(/ /g, '');
   }
   function lev(a, b) {
-    if (Math.abs(a.length - b.length) > 2) return 9;
+    if (Math.abs(a.length - b.length) > 3) return 9;
     var p = [], i, j; for (j = 0; j <= b.length; j++) p[j] = j;
     for (i = 1; i <= a.length; i++) { var prev = p[0]; p[0] = i; for (j = 1; j <= b.length; j++) { var t = p[j]; p[j] = Math.min(p[j] + 1, p[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = t; } }
     return p[b.length];
@@ -81,11 +81,29 @@
     prompt.a.forEach(function (row) {
       for (var k = 1; k < row.length; k++) {
         var a = norm(row[k]), as = a.replace(/s$/, '');
-        var ok = a === t || as === ts || (a.length >= 5 && lev(a, t) <= (a.length >= 9 ? 2 : 1));
+        var ok = a === t || as === ts;
         if (ok && (!best || row[0] > best[0])) best = row;
       }
     });
     return best;
+  }
+  // Close but not exact: up to 3 answers to offer as "Did you mean ...?" (typos, or one word of a longer name).
+  function suggest(prompt, typed) {
+    var t = norm(typed); if (t.length < 4) return [];
+    var tol = t.length <= 5 ? 1 : t.length <= 8 ? 2 : 3, found = [];
+    prompt.a.forEach(function (row) {
+      var best = 99;
+      for (var k = 1; k < row.length; k++) {
+        var a = norm(row[k]); if (!a) continue;
+        var d = lev(a, t); if (d <= tol && d < best) best = d;
+        String(row[k]).split(/[\s\-]+/).forEach(function (w) {
+          var nw = norm(w); if (nw.length >= 4 && nw !== a && (nw === t || (nw.length >= 6 && lev(nw, t) <= 1))) best = Math.min(best, 0.5);
+        });
+      }
+      if (best < 99) found.push({ row: row, d: best });
+    });
+    found.sort(function (x, y) { return x.d - y.d; });
+    return found.slice(0, 3).map(function (x) { return x.row; });
   }
 
   /* ---------- styles ---------- */
@@ -144,6 +162,11 @@
       '.dt-timer.low i{background:var(--dt-coral)}',
       '.dt-in{width:100%;box-sizing:border-box;font:700 1.1rem Lato,sans-serif;padding:12px 14px;border:2px solid var(--dt-ink);background:var(--dt-panel);color:var(--dt-ink)}',
       '.dt-msg{min-height:1.4em;font-size:.8rem;margin-top:8px;color:var(--dt-coral);font-weight:700}',
+      '.dt-dym{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;background:var(--dt-sky);border:1px solid var(--dt-line);border-left:4px solid var(--dt-gold);color:var(--dt-ink);font-weight:700}',
+      '.dt-dym span{font-size:.8rem}',
+      '.dt-dym-b{all:unset;cursor:pointer;background:var(--dt-gold);color:#16244d;font:900 .78rem Lato,sans-serif;padding:6px 12px;border:2px solid var(--dt-navy);transition:transform .15s}',
+      '.dt-dym-b:hover,.dt-dym-b:focus-visible{transform:translate(-1px,-1px);box-shadow:2px 2px 0 var(--dt-navy)}',
+      '.dt-dym-no{all:unset;cursor:pointer;font:700 .66rem Lato,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--dt-mut);text-decoration:underline;margin-left:auto}',
       '.dt-tier{display:inline-block;font:900 .7rem Lato,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;background:var(--dt-gold);color:var(--dt-navy)}',
       '.dt-tier.t0{background:var(--dt-miss);color:#fff}',
       '.dt-res{border-top:1px solid var(--dt-line);padding:10px 0;font-size:.82rem}',
@@ -558,9 +581,23 @@
         if (over) return;
         var v = inp.value.trim(); if (!v) return;
         var m = matchAnswer(P, v);
-        if (m) finish(m, v);
-        else { msg.textContent = '“' + v + '” is not on the list. Try another.'; anim(msg, 'dt-fade'); anim(inp, 'dt-shake'); inp.value = ''; inp.focus(); }
+        if (m) return finish(m, v);
+        var near = suggest(P, v);
+        msg.innerHTML = ''; inp.value = ''; inp.focus();
+        if (!near.length) { msg.textContent = '“' + v + '” is not on the list. Try another.'; anim(msg, 'dt-fade'); anim(inp, 'dt-shake'); return; }
+        // close but not exact: the student picks the answer they meant, or keeps typing (the clock keeps running)
+        var box = el('div', 'dt-dym dt-fade', '<span>Did you mean</span>');
+        near.forEach(function (row) {
+          var b = el('button', 'dt-dym-b', esc(row[1]) + '?'); b.type = 'button';
+          b.onclick = function () { finish(row, v); };
+          box.appendChild(b);
+        });
+        var no = el('button', 'dt-dym-no', 'No, try another'); no.type = 'button';
+        no.onclick = function () { msg.innerHTML = ''; inp.focus(); };
+        box.appendChild(no);
+        msg.appendChild(box);
       }
+      inp.addEventListener('input', function () { if (msg.querySelector('.dt-dym')) msg.innerHTML = ''; });
       sub.onclick = trySubmit; skip.onclick = function () { finish(null, ''); };
       inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); trySubmit(); } });
     }
@@ -896,6 +933,6 @@
     // a new day starts while the page is open: refresh the card
     setInterval(function () { var k = todayKey(); if (k !== TODAY && !ov) { TODAY = k; DAY = dayNum(k); renderCard(); } }, 60000);
   }
-  window.DAILY_TIVIN_APP = { open: open, today: function () { return TODAY; }, match: matchAnswer };
+  window.DAILY_TIVIN_APP = { open: open, today: function () { return TODAY; }, match: matchAnswer, suggest: suggest };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
 })();

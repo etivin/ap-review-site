@@ -16,7 +16,7 @@
    ============================================================ */
 window.DAILY_TIVIN = {
   units: [1, 2, 3, 4],
-  deepPerDay: 4,
+  deepPerDay: 5,
 
   deep: [
     { p: 'Name an innovation or invention of Song China.', u: 1, a: [
@@ -156,7 +156,59 @@ window.DAILY_TIVIN = {
       [1,'Zheng He voyages','zheng he'], [1,'Forbidden City'], [1,'Great Wall','great wall of china'], [2,'Civil service exam','civil service examination','exams'],
       [2,'Manchus','manchu'], [3,'Kangxi Emperor','kangxi'], [3,'Yongle Emperor','yongle'], [3,'Porcelain','blue and white porcelain'], [4,'Qianlong Emperor','qianlong'],
       [4,'Queue','queue hairstyle'], [4,'Canton System','canton'], [4,'Eight Banners','banner system','banners'], [5,'Yongle Encyclopedia'], [5,'Single Whip Tax','single whip'],
-      [5,'Hongwu Emperor','hongwu'] ] }
+      [5,'Hongwu Emperor','hongwu'] ] },
+
+    { p: 'Name a city on the Silk Roads.', u: 2, a: [
+      [1,'Samarkand'], [2,'Baghdad'], [2,'Constantinople','istanbul'], [2,'Chang’an','changan','xian','xi an'], [3,'Bukhara'], [3,'Kashgar'],
+      [3,'Merv'], [3,'Damascus'], [4,'Dunhuang'], [4,'Herat'], [4,'Tabriz'], [4,'Aleppo'], [4,'Antioch'], [5,'Turpan','turfan'], [5,'Khotan'],
+      [5,'Karakorum'], [5,'Balkh'] ] },
+
+    { p: 'Name a reason Europeans explored the oceans after 1450.', u: 4, a: [
+      [1,'Gold','wealth','money','riches'], [1,'God','spread christianity','christianity','religion','missionaries'], [2,'Glory','fame'],
+      [2,'Spices','spice trade','spice'], [3,'Ottoman control of trade','ottomans','ottoman empire','avoid the ottomans'], [3,'New technology','technology'],
+      [3,'Mercantilism'], [3,'Rivalry between states','competition','rivalry'], [4,'Fall of Constantinople','constantinople'], [4,'Reconquista'],
+      [4,'Joint-stock companies','joint stock companies'], [4,'Henry the Navigator','prince henry'], [5,'Prester John'], [5,'Renaissance curiosity','curiosity','renaissance'] ] },
+
+    { p: 'Name a group of people in the Ottoman Empire.', u: 3, a: [
+      [1,'Janissaries','janissary'], [2,'Millets','millet'], [2,'Christians'], [2,'Jews','jewish community'], [2,'Turks'], [3,'Ulama','ulema'],
+      [3,'Viziers','vizier','grand vizier'], [3,'Devshirme boys','devshirme'], [3,'Harem','women of the harem'], [3,'Arabs'], [4,'Sipahis','sipahi'],
+      [4,'Greeks'], [4,'Armenians'], [4,'Timar holders','timariots','timar'], [5,'Phanariots'], [5,'Kurds'], [5,'Mamluks'] ] },
+
+    { p: 'Name an innovation or practice of the Aztecs or Inca.', u: 1, a: [
+      [1,'Human sacrifice','sacrifice'], [1,'Pyramids','temples'], [2,'Chinampas','chinampa','floating gardens'], [2,'Quipu','khipu'],
+      [2,'Terrace farming','terraces','terrace'], [2,'Tribute','tribute system'], [2,'Roads','inca roads','road system'], [2,'Calendar'],
+      [3,'Mit’a','mita','mit a'], [3,'Llamas','llama'], [4,'Suspension bridges','rope bridges'], [4,'Cacao beans as money','cacao money','cacao'],
+      [4,'Templo Mayor'], [4,'Ball game','ullamaliztli'], [5,'Freeze-dried potatoes','chuno'], [5,'Ayllu'], [5,'Pochteca'] ] },
+
+    { p: 'Name a cause or effect of the Black Death.', u: 2, a: [
+      [1,'Fleas','rats','flea'], [1,'Population decline','deaths','depopulation'], [2,'Trade routes','trade','silk roads'], [2,'Mongols','mongol empire'],
+      [3,'Labor shortage','labor shortages'], [3,'Higher wages','wages'], [4,'Decline of serfdom','end of serfdom','serfdom'],
+      [4,'Persecution of Jews','pogroms','antisemitism'], [4,'Peasant revolts','peasant revolt'], [5,'Flagellants'], [5,'Siege of Caffa','caffa','kaffa'],
+      [5,'Loss of faith in the Church','religious doubt'] ] },
+
+    { p: 'Name a good carried in the Indian Ocean trade.', u: 2, a: [
+      [1,'Spices','spice'], [2,'Pepper'], [2,'Cotton textiles','cotton','textiles','cloth'], [2,'Porcelain'], [2,'Silk'], [2,'Gold'], [3,'Ivory'],
+      [3,'Cinnamon'], [3,'Cloves'], [3,'Enslaved people','slaves'], [4,'Nutmeg'], [4,'Horses'], [4,'Timber','teak'], [4,'Coffee'], [4,'Rice'],
+      [5,'Frankincense','incense'], [5,'Myrrh'], [5,'Tortoiseshell'], [5,'Sandalwood'] ] },
+
+    { p: 'Name a European state that built a maritime empire, 1450 to 1750.', u: 4, a: [
+      [1,'Spain'], [1,'Portugal'], [2,'England','britain','great britain'], [2,'France'], [2,'Dutch Republic','netherlands','dutch','holland'],
+      [4,'Denmark','denmark norway'], [5,'Sweden'], [5,'Courland'] ] },
+
+    { p: 'Name something the Mongol Empire spread across Eurasia.', u: 2, a: [
+      [1,'Bubonic plague','black death','plague'], [1,'Trade'], [2,'Gunpowder'], [3,'Paper'], [3,'Yam system','yam','postal relay'],
+      [4,'Paper money'], [4,'Printing'], [4,'Islam'], [4,'Tibetan Buddhism'], [5,'Astronomy'], [5,'Chinese medicine','medicine'],
+      [5,'Persian miniature painting','miniature painting'], [5,'Cotton'] ] },
+
+    { p: 'Name a Christian church or religious order, 1450 to 1750.', u: 3, a: [
+      [1,'Catholic Church','catholic','catholicism'], [2,'Lutherans','lutheran','lutheranism'], [2,'Calvinists','calvinist','calvinism'],
+      [3,'Anglican Church','anglican','church of england'], [3,'Jesuits','society of jesus'], [3,'Orthodox Church','orthodox','russian orthodox'],
+      [4,'Franciscans'], [4,'Dominicans'], [4,'Huguenots'], [4,'Puritans'], [5,'Anabaptists'], [5,'Presbyterians'], [5,'Quakers'] ] },
+
+    { p: 'Name a way rulers showed they had the right to rule, 1450 to 1750.', u: 3, a: [
+      [1,'Divine right','divine right of kings'], [1,'Religion'], [2,'Monumental architecture','monuments','architecture'], [2,'Mandate of Heaven'],
+      [3,'Art','paintings'], [3,'Military victories','military'], [3,'Palace of Versailles','versailles'], [3,'Tribute'], [4,'Court rituals','court ceremonies','rituals'],
+      [4,'Human sacrifice'], [4,'Taj Mahal'], [4,'Coronations','coronation'], [5,'Hall of Mirrors'], [5,'Patronage of the arts','patronage'], [5,'Kowtow'] ] }
   ],
 
   groups: [

@@ -276,9 +276,33 @@
 
   /* ---------- today's set ---------- */
   var TODAY = todayKey(), DAY = dayNum(TODAY);
-  function deepToday() { return pick(D.deep.length, D.deepPerDay || 4, 'deep', DAY).map(function (i) { return D.deep[i]; }); }
-  function groupsToday() { return D.groups[pick(D.groups.length, 1, 'groups', DAY)[0]]; }
-  function wordToday() { return D.words[pick(D.words.length, 1, 'word', DAY)[0]]; }
+  // A fixed calendar: from D.start, day d gets the next unused items in list order, so new
+  // entries added at the end never move an earlier day. Items already shown before the
+  // calendar began (D.shown) go to the back of the line. Days listed in D.shown replay
+  // exactly what was shown then. Past the end of a list, it falls back to seeded shuffles.
+  function shownDay(k) { return (D.shown || {})[k]; }
+  function calendar(list, perDay, part, salt) {
+    var n = list.length, back = {}, order = [], out = [], i;
+    var sh = D.shown || {};
+    Object.keys(sh).forEach(function (k) { [].concat(sh[k][part]).forEach(function (x) { back[typeof x === 'string' ? idxOfWord(x) : x] = 1; }); });
+    for (i = 0; i < n; i++) if (!back[i]) order.push(i);
+    for (i = 0; i < n; i++) if (back[i]) order.push(i);
+    var d = DAY - dayNum(D.start || TODAY);
+    if (d < 0) return pick(n, perDay, salt, DAY);
+    for (var j = 0; j < perDay; j++) {
+      var k = d * perDay + j;
+      if (k < n) out.push(order[k]);
+      else { var m = k - n; out.push(order[shuffled(n, salt + ':after:' + Math.floor(m / n))[m % n]]); }
+    }
+    return out;
+  }
+  function idxOfWord(w) { for (var i = 0; i < D.words.length; i++) if (D.words[i][0] === w) return i; return -1; }
+  function deepToday() {
+    var s = shownDay(TODAY), ix = s ? s.deep : calendar(D.deep, D.deepPerDay || 5, 'deep', 'deep');
+    return ix.map(function (i) { return D.deep[i]; });
+  }
+  function groupsToday() { var s = shownDay(TODAY); return D.groups[s ? s.groups : calendar(D.groups, 1, 'groups', 'groups')[0]]; }
+  function wordToday() { var s = shownDay(TODAY); return D.words[s ? idxOfWord(s.words) : calendar(D.words, 1, 'words', 'word')[0]]; }
 
   /* ---------- home card ---------- */
   var root, ov, box, keyHandler = null;
@@ -1042,6 +1066,6 @@
     // a new day starts while the page is open: refresh the card
     setInterval(function () { var k = todayKey(); if (k !== TODAY && !ov) { TODAY = k; DAY = dayNum(k); renderCard(); } }, 60000);
   }
-  window.DAILY_TIVIN_APP = { open: open, today: function () { return TODAY; }, match: matchAnswer, suggest: suggest };
+  window.DAILY_TIVIN_APP = { open: open, today: function () { return TODAY; }, sets: function () { return { deep: deepToday(), groups: groupsToday(), word: wordToday() }; }, match: matchAnswer, suggest: suggest };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
 })();

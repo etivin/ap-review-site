@@ -35,6 +35,8 @@
 .tt-text:hover{opacity:1}
 .tt-barwrap .tt-text{margin-left:-8px}
 @media(max-width:520px){.tt-barwrap{flex-wrap:wrap;justify-content:flex-end;gap:6px 16px;min-width:0}}
+/* Phones: the decorative tag in a page's title row repeats the page heading; drop it so the row fits (links stay). */
+@media(max-width:520px){span.top-bar-tag,div.top-bar-tag{display:none}}
 .theme-toggle.tt-float{position:fixed;top:12px;right:12px;z-index:9999;
   background:rgba(127,127,127,.15);backdrop-filter:blur(4px)}
 

@@ -302,6 +302,8 @@
       '.mcqx-gate.mx-on{display:block}.mcqx-gate b{color:var(--mx-red);font-size:1rem}',
       '.mcqx-opt.mx-wait{opacity:.5}',
       /* bottom bar: reset | Question N of M (opens the question map) | Previous, Next, Reveal */
+      '@media (max-width:620px){html.mcqx-foot-on .ss-btn{display:none!important}}',
+      'html.mcqx-foot-on #bedtime-countdown{bottom:calc(var(--mcqx-foot-h,0px) + 10px)!important}',
       '.mcqx-foot{position:sticky;bottom:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:11px 14px;margin-top:18px;background:var(--mx-paper);border-top:2px dashed var(--mx-ink)}',
       '.mcqx-foot .mx-fl{display:flex;flex-wrap:wrap;gap:8px}',
       '.mcqx-foot .mx-fc{position:relative;display:flex;justify-content:center}',
@@ -310,6 +312,11 @@
       '.mcqx-foot .mx-fl button,.mcqx-foot .mx-fr button{padding:7px 11px;font-size:.8rem;white-space:nowrap}}',
       // Phones: Test Mode's left group (Reveal, Reset, New set) may wrap instead of widening the page.
       '@media (max-width:760px){.mcqx-foot .mx-fl{flex-wrap:wrap;min-width:0}}',
+      // Phones: two rows. Row 1: the question pill with Previous / Next; row 2: Reset (and Test Mode's
+      // Reveal and New set). The question map then centers on the whole bar, not on the pill.
+      '@media (max-width:620px){.mcqx-foot .mx-fc{order:0;flex:0 0 auto;position:static}.mcqx-foot .mx-fr{order:1;flex:1 1 0;justify-content:flex-end}' +
+        '.mcqx-foot .mx-fl{order:2;flex:1 1 100%}.mcqx-foot .mcqx-qpill{padding:7px 11px;font-size:.8rem;gap:6px}' +
+        '.mcqx-foot .mx-fl button{padding:6px 10px;font-size:.76rem}}',
       '.mcqx-qpill{display:flex;align-items:center;gap:9px;padding:9px 16px;background:var(--mx-ink);color:var(--mx-card);border:none;border-radius:6px;cursor:pointer;font-weight:700;font-size:.9rem;white-space:nowrap}',
       '.mcqx-qpill .mx-car{display:inline-block;font-size:.7rem;transition:transform .15s}',
       '.mcqx-qpill[aria-expanded="true"] .mx-car{transform:rotate(180deg)}',
@@ -1087,6 +1094,28 @@
     });
   }
 
+  /* ---- floating things vs. the bottom bar ----
+     While a set's bottom bar is on screen, <html> gets .mcqx-foot-on and --mcqx-foot-h, so the
+     phone search button hides and the 9-11 PM bedtime countdown sits above the bar. */
+  var footsOn = [];
+  function syncFoot() {
+    var de = document.documentElement, h = 0;
+    footsOn.forEach(function (f) { h = Math.max(h, f.offsetHeight); });
+    de.classList.toggle('mcqx-foot-on', footsOn.length > 0);
+    de.style.setProperty('--mcqx-foot-h', h + 'px');
+  }
+  function watchFoot(foot) {
+    if (!foot || !window.IntersectionObserver) return;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var i = footsOn.indexOf(foot), on = e.isIntersecting && foot.offsetHeight > 0;
+        if (on && i < 0) footsOn.push(foot); else if (!on && i > -1) footsOn.splice(i, 1);
+      });
+      syncFoot();
+    }).observe(foot);
+    if (window.ResizeObserver) new ResizeObserver(syncFoot).observe(foot);
+  }
+
   /* ---- public mount ---- */
   var UID = 0;
   APWH.mountMCQ = function (root, opts) {
@@ -1120,6 +1149,7 @@
     ctx.pbarF = root.querySelector('.mcqx-pbar-f');
     ctx.body = root.querySelector('.mcqx-body');
     ctx.foot = root.querySelector('.mcqx-foot');
+    watchFoot(ctx.foot);
 
     /* Full window: a unit's question set fills the space beside the sidebar and below the
        site's top bars, like the AP exam app; the Cumulative Review set (pool) starts in the
@@ -1131,14 +1161,16 @@
     // Left edge: right of the sidebar when it is pinned (wide screens).
     function place() {
       if (!ctx.full) { ctx.session.style.top = ctx.session.style.left = ''; return; }
-      var top = 0, left = 0;
-      document.querySelectorAll('#mc-bar, .top-bar, .subtab-bar').forEach(function (el) {
+      var top = 0, left = 0, sb = document.querySelector('.sidebar');
+      var pinned = sb && sb.getClientRects().length && /fixed|sticky/.test(getComputedStyle(sb).position);
+      // Phones (sidebar stacked, not pinned): cover the unit bar, title row and streak strip too,
+      // so the set starts right under the site's top bar and gets the most room to read.
+      document.querySelectorAll(pinned ? '#mc-bar, .top-bar, .subtab-bar' : '#mc-bar').forEach(function (el) {
         if (!el.getClientRects().length || !/fixed|sticky/.test(getComputedStyle(el).position)) return;
         var b = el.getBoundingClientRect().bottom;
         if (b > 0 && b < window.innerHeight / 2) top = Math.max(top, b);
       });
-      var sb = document.querySelector('.sidebar');
-      if (sb && sb.getClientRects().length && /fixed|sticky/.test(getComputedStyle(sb).position)) {
+      if (pinned) {
         var r = sb.getBoundingClientRect();
         if (r.right < window.innerWidth / 2) left = r.right;
       }

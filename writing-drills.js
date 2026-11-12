@@ -546,7 +546,7 @@
   function ensureCSS() {
     if (document.querySelector('link[data-wd-css]')) return;
     var l = document.createElement('link');
-    l.rel = 'stylesheet'; l.href = 'writing-drills.css'; l.setAttribute('data-wd-css', '1');
+    l.rel = 'stylesheet'; l.href = 'writing-drills.css?v=20261112'; l.setAttribute('data-wd-css', '1');
     document.head.appendChild(l);
   }
 

@@ -1402,3 +1402,35 @@ window.WRITING_PROMPTS = {
     });
   });
 })(window.WRITING_PROMPTS);
+
+/* ── Complexity rows: list every option a student can pick from (Eli, 2026-11-12).
+   Replaces the requirement text of each LEQ and DBQ "complexity" rubric row. ── */
+(function (W) {
+  if (!W) return;
+  var CX_DBQ = 'Earn it with <strong>ONE</strong> of these options, developed beyond a single phrase:' +
+    '<ol class="wd-cx-opts">' +
+    '<li><strong>Counterargument:</strong> bring in a view or evidence that goes against your thesis and explain why your argument still holds or how it limits your claim.</li>' +
+    '<li><strong>Use all 7 documents</strong> effectively to support your argument.</li>' +
+    '<li><strong>HIPP 4 documents:</strong> explain how the historical situation, intended audience, purpose, and/or point of view of at least four documents supports your argument.</li>' +
+    '<li><strong>Both sides of the skill:</strong> both cause <em>and</em> effect, similarity <em>and</em> difference, or continuity <em>and</em> change (or multiple of one).</li>' +
+    '<li><strong>Multiple themes or perspectives</strong> explained to explore nuance.</li>' +
+    '<li><strong>Insightful connections</strong> within and across periods or regions, tied to your argument.</li>' +
+    '<li><strong>Documents plus outside evidence</strong> used together to show different perspectives.</li>' +
+    '</ol>';
+  var CX_LEQ = 'Earn it with <strong>ONE</strong> of these options, developed with evidence:' +
+    '<ol class="wd-cx-opts">' +
+    '<li><strong>Counterargument:</strong> bring in a view or evidence that goes against your thesis and explain why your argument still holds or how it limits your claim.</li>' +
+    '<li><strong>Four pieces of evidence:</strong> at least four specific pieces, each explained, supporting a nuanced argument.</li>' +
+    '<li><strong>Both sides of the skill:</strong> both cause <em>and</em> effect, similarity <em>and</em> difference, or continuity <em>and</em> change (or multiple of one).</li>' +
+    '<li><strong>Multiple themes or perspectives</strong> explained to explore nuance.</li>' +
+    '<li><strong>Insightful connections</strong> within and across periods or regions, tied to your argument.</li>' +
+    '<li><strong>Evidence from different perspectives</strong> on the prompt.</li>' +
+    '</ol>';
+  function fix(rubric, text) {
+    (rubric || []).forEach(function (r) { if (r && r.key === 'complexity') r.requirement = text; });
+  }
+  Object.keys(W).forEach(function (u) {
+    (W[u].leq || []).forEach(function (l) { fix(l.rubric, CX_LEQ); });
+    [].concat(W[u].dbq ? [W[u].dbq] : [], W[u].dbqs || []).forEach(function (d) { fix(d.rubric, CX_DBQ); });
+  });
+})(window.WRITING_PROMPTS);

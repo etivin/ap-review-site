@@ -15,7 +15,8 @@
    Add new entries at the end of a list.
    ============================================================ */
 window.DAILY_TIVIN = {
-  units: [1, 2, 3, 4],
+  // Units 1 through the class's unit (class-unit.js; falls back to 4).
+  units: (function () { var n = +window.CLASS_UNIT || 4, a = []; for (var i = 1; i <= n; i++) a.push(i); return a; })(),
   deepPerDay: 5,
 
   deep: [

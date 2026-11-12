@@ -130,7 +130,9 @@
       '.mcqx-tc .mx-tn{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mx-red)}',
       '.mcqx-tc .mx-tt{font-weight:600;margin:3px 0 4px;font-size:.98rem}',
       '.mcqx-tc .mx-tcnt{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;color:var(--mx-mut)}',
-      '.mcqx-actions{display:flex;flex-wrap:wrap;gap:12px}',
+      '.mcqx-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px}',
+      '.mcqx-bigbtn .mx-sub{display:block;margin-top:4px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;opacity:.75}',
+      '.mcqx-orlbl{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mx-mut);margin:0 0 10px}',
       '.mcqx-bigbtn{flex:1;min-width:220px;padding:14px;border:1px solid var(--mx-line);background:var(--mx-card);cursor:pointer;font-size:.92rem;font-weight:600;transition:all .13s}',
       '.mcqx-bigbtn.mx-primary{background:var(--mx-ink);color:var(--mx-card);border-color:var(--mx-ink)}',
       '.mcqx-bigbtn:hover{box-shadow:0 4px 14px rgba(0,0,0,.12)}',
@@ -1037,6 +1039,15 @@
            (window.SBMCQ && SBMCQ.card ? '<button type="button" class="mcqx-modebtn" data-mode="work">&#129517; Work Through It</button>' : '') +
            '<div class="mcqx-modehint"></div></div>';
     }
+    // Whole-unit options first (the fastest start), then one topic at a time.
+    var nAll = 0, nMix = 0;
+    (u.topics || []).forEach(function (t) { var n = live(u.questions[t.id]).length; nAll += n; nMix += Math.min(n, 2); });
+    h += '<div class="mcqx-actions">' +
+         '<button type="button" class="mcqx-bigbtn mx-primary" data-act="mixed">&#9889; Quick Mixed Quiz' +
+         '<span class="mx-sub">' + nMix + ' questions: 2 from every topic</span></button>' +
+         '<button type="button" class="mcqx-bigbtn" data-act="all">&#128203; Practice All Questions' +
+         '<span class="mx-sub">all ' + nAll + ' questions in this unit</span></button></div>' +
+         '<div class="mcqx-orlbl">Or practice one topic</div>';
     h += '<div class="mcqx-topics">';
     (u.topics || []).forEach(function (t) {
       var n = live(u.questions[t.id]).length;
@@ -1044,9 +1055,7 @@
            '<div class="mx-tn">Topic ' + t.id + '</div><div class="mx-tt">' + t.name + '</div>' +
            '<div class="mx-tcnt">' + n + ' question' + (n === 1 ? '' : 's') + '</div></button>';
     });
-    h += '</div><div class="mcqx-actions">' +
-         '<button type="button" class="mcqx-bigbtn mx-primary" data-act="all">&#128203; Practice All Questions</button>' +
-         '<button type="button" class="mcqx-bigbtn" data-act="mixed">&#9889; Quick Mixed Quiz</button></div>';
+    h += '</div>';
     ctx.home.innerHTML = h;
 
     function syncMode() {

@@ -12,7 +12,7 @@
 (function () {
   'use strict';
   var DAY = 86400000;
-  var NEVER_WEIGHT = 30;   // treat never-seen units as ~30 days stale (max bias)
+  var NEVER_WEIGHT = 7;    // a selected unit never practiced counts as ~7 days stale (shows up, doesn't crowd out the rest)
   var MAX_DAYS = 45;       // cap so one ancient unit doesn't crowd out everything
   var SET_SIZE = 15;
 
@@ -98,17 +98,25 @@
   }
 
   /* ---- selected-units persistence ---- */
+  // Default mix: Units 1 through the class's unit (class-unit.js). A student's own pick
+  // (chip, All, None) is saved as cumUnitsPick and wins from then on. The older cumUnits
+  // key was saved on every page load, so it isn't a real choice and is ignored.
+  function defaultSelected(all) {
+    var cu = +window.CLASS_UNIT || 0;
+    var set = cu ? all.filter(function (id) { return +id <= cu; }) : [];
+    return set.length ? set : all.slice();
+  }
   function loadSelected() {
     var s = window.APWH.store.load();
-    var saved = s.cumUnits;
+    var saved = s.cumUnitsPick;
     var all = allUnitIds();
-    if (!saved || !saved.length) return all.slice();
+    if (!saved || !saved.length) return defaultSelected(all);
     var set = saved.filter(function (id) { return all.indexOf(id) > -1; });
-    return set.length ? set : all.slice();
+    return set.length ? set : defaultSelected(all);
   }
   function saveSelected(ids) {
     var s = window.APWH.store.load();
-    s.cumUnits = ids.slice();
+    s.cumUnitsPick = ids.slice();
     window.APWH.store.save(s);
   }
 
@@ -148,8 +156,8 @@
         });
       }
 
-      function remount() {
-        saveSelected(selected);
+      function remount(userPick) {
+        if (userPick) saveSelected(selected);  // only a real choice is remembered
         var ids = selectedIds();
         renderStaleness(staleEl, ids);
         if (!ids.length) {
@@ -174,12 +182,12 @@
           var i = selected.indexOf(id);
           if (i > -1) selected.splice(i, 1); else selected.push(id);
           syncUnitButtons();
-          remount();
+          remount(true);
         });
       }
-      if (allBtn) allBtn.addEventListener('click', function () { selected = all.slice(); syncUnitButtons(); remount(); });
-      if (noneBtn) noneBtn.addEventListener('click', function () { selected = []; syncUnitButtons(); remount(); });
-      if (sizeSel) sizeSel.addEventListener('change', remount);
+      if (allBtn) allBtn.addEventListener('click', function () { selected = all.slice(); syncUnitButtons(); remount(true); });
+      if (noneBtn) noneBtn.addEventListener('click', function () { selected = []; syncUnitButtons(); remount(true); });
+      if (sizeSel) sizeSel.addEventListener('change', function () { remount(false); });
 
       remount();
     }

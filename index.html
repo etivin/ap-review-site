@@ -303,6 +303,24 @@ body{line-height:1.6}
 .theme-toggle:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
 .theme-toggle .tt-knob{position:absolute;top:50%;left:2px;transform:translateY(-50%);width:19px;height:19px;border-radius:50%;background:var(--lime);color:var(--navy);font-size:11px;line-height:19px;text-align:center;transition:left .22s cubic-bezier(.3,.8,.3,1)}
 html[data-theme="dark"] .theme-toggle .tt-knob{left:31px}
+.tt-text{align-self:center;margin-left:-4px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;line-height:1.15;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;cursor:pointer;color:var(--lime);opacity:.85;user-select:none}
+.tt-text:hover{opacity:1}
+/* Phones: Pick what you need, the unit cards and the Daily Tivin fold up (HOME_FOLD, key homeFold_v1) */
+.fold-btn{display:none}
+@media(max-width:700px){
+  .fold-btn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;background:transparent;color:inherit;border:2px solid currentColor;font:800 .7rem 'Lato',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  section.folded .path-grid,section.folded .unit-grid,section.folded .sec-head p{display:none}
+  section.folded .sec-head{margin-bottom:0}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:6px}
+  /* News: folded shows BREAKING and the current headline only */
+  .news .news-fold{order:9;margin:0 0 0 auto;padding:6px 11px;color:var(--lime);font-size:.62rem;white-space:nowrap}
+  .news-top{flex-wrap:wrap;row-gap:8px}
+  .news-src{display:none}
+  .news-kicker{order:10;flex-basis:100%}
+  .news.folded .news-kicker,.news.folded .news-src,.news.folded .slide p,.news.folded .lens,.news.folded .news-controls{display:none}
+  .news.folded .slides{min-height:0}
+  .news.folded .slide h2{margin-bottom:0}
+}
 
 /* ── DARK MODE ── */
 html[data-theme="dark"]{
@@ -386,6 +404,32 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
   .links a,.dd-t{font-size:.66rem;padding:6px 5px}
 }
 
+/* Phones: compact two-row header. Row 1: logo + Dark mode (moved there by script); row 2: links. */
+.bar-tools{display:none}
+@media(max-width:620px){
+  .bar{gap:8px;padding:8px 14px}
+  .bar-left{flex-direction:row;align-items:center;justify-content:space-between;width:100%;gap:10px}
+  .bar-course{display:none}
+  .bar .tivin-emblem{--em:34px!important}
+  .bar-tools{display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .bar-tools .tt-text{margin-left:-2px}
+  .links{flex-wrap:nowrap;gap:4px 6px;width:100%;justify-content:space-between}
+  .links .mt-long{display:none}
+  .links a.meet{padding:5px 8px}
+  .links a,.dd-t{white-space:nowrap;padding:6px 3px}
+  .dd-t .cv{margin-left:2px}
+}
+@media(max-width:400px){
+  .links a,.dd-t{font-size:.6rem;letter-spacing:.04em;padding:6px 2px}
+  .links a.meet{padding:4px 6px}
+}
+@media(max-width:340px){
+  .bar{padding:8px 10px}
+  .links{gap:2px}
+  .links a,.dd-t{font-size:.56rem;letter-spacing:.02em}
+  .dd-t .cv{display:none}
+}
+
 /* ── HERO SEARCH (centered, above the news) ── */
 .hero-search{max-width:820px;margin:0 auto 30px;text-align:center;position:relative;z-index:20}
 .hs-lbl{display:block;font:900 1.6rem/1.1 'Lato',sans-serif;letter-spacing:-.05em;margin:0 0 16px}
@@ -453,10 +497,11 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
 @media(max-width:700px){.path-grid{grid-template-columns:1fr}.hs-lbl{font-size:1.3rem}.hs-box kbd{display:none}}
 </style>
 <script>try{if(localStorage.getItem('mcTheme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-<script src="mc-mode.js?v=20261105"></script>
+<script src="mc-mode.js?v=20261112"></script>
 <script src="class-unit.js?v=20261112"></script>
+<script src="games-lock.js?v=20261112"></script>
 <script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script>
-<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js"></script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js?v=20261112"></script>
 </head>
 <body>
 
@@ -470,7 +515,7 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
     <div class="dd">
       <button type="button" class="dd-t">How to <span class="cv">&#9662;</span></button>
       <div class="dd-m">
-        <a href="sbmcq.html">How to Stimulus MCQ</a>
+        <a href="sbmcq.html">Attack the Stimulus MCQ</a>
         <a href="brain-sculptor.html">How to Study</a>
         <a href="writing-guide.html">How to Write</a>
         <a href="faq.html">FAQ</a>
@@ -485,8 +530,8 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
       </div>
     </div>
     <a href="#about">About</a>
-    <a class="meet" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kUCzKuD7l0efJ6poJywNJXQfXJB4Ba5FnE54OVSB00NUQzRPRU5XNjZVMTA4R1o3OEtETUs4NksxQS4u" target="_blank" rel="noopener" title="Meet with Mr. Tivin or ask Mr. Tivin a question">Meet or Ask Mr. Tivin</a>
-    <button type="button" class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-knob" id="ttKnob">&#9728;</span></button>
+    <a class="meet" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kUCzKuD7l0efJ6poJywNJXQfXJB4Ba5FnE54OVSB00NUQzRPRU5XNjZVMTA4R1o3OEtETUs4NksxQS4u" target="_blank" rel="noopener" title="Meet with Mr. Tivin or ask Mr. Tivin a question">Meet or Ask<span class="mt-long"> Mr. Tivin</span></a>
+    <button type="button" class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-knob" id="ttKnob">&#9728;</span></button><span class="tt-text" aria-hidden="true" onclick="document.getElementById('themeToggle').click()">Dark<br>mode</span>
   </nav>
 </header>
 
@@ -507,9 +552,10 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
   <section id="daily-tivin" aria-label="Daily Tivin"></section>
 
   <!-- BREAKING NEWS HERO -->
-  <section class="news" aria-label="Breaking history">
+  <section class="news" id="news" data-fold="news" aria-label="Breaking history">
     <div class="news-top">
       <span class="brk">Breaking</span>
+      <button type="button" class="fold-btn news-fold" aria-controls="news"></button>
       <span class="news-kicker">History: connect it to the course</span>
       <span class="news-src">Current events &middot; discuss &amp; analyze</span>
     </div>
@@ -619,11 +665,12 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
   </section>
 
   <!-- TOOLS: three paths, grouped the same way as the top-bar menus -->
-  <section>
+  <section id="pick" data-fold="pick">
     <div class="sec-head">
       <div>
         <div class="eyebrow">Where to go</div>
         <h2>Pick what you need</h2>
+        <button type="button" class="fold-btn" aria-controls="pick"></button>
       </div>
       <p>Unit tools follow the unit you pick. Review tools mix every unit. Skill guides teach the moves the AP exam tests.</p>
     </div>
@@ -635,7 +682,7 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
           <div class="unit-picker"><label for="unit-select">We are in</label><select id="unit-select"></select></div>
         </div>
         <a class="path-row" id="selected-unit-tile" href="unit1.html"><b id="selected-unit-strong">Unit 1 Review Hub</b><span>MCQs, flashcards, writing, glossary, and study guide</span><em>&rarr;</em></a>
-        <a class="path-row" id="games-tile" href="unit1.html#pg-games"><b id="games-strong">Unit 1 Games</b><span>Bust the myths and connect the terms</span><em>&rarr;</em></a>
+        <a class="path-row" id="games-tile" href="unit1.html#pg-games"><b id="games-strong">Unit 1 Games</b><span id="games-desc">Bust the myths and connect the terms</span><em>&rarr;</em></a>
         <a class="path-row" id="maps-tile" href="unit2-map.html"><b id="maps-tile-strong">Interactive Maps</b><span id="maps-tile-desc">Routes and empires for Units 2&ndash;4</span><em>&rarr;</em></a>
       </div>
       <div class="path p-mix">
@@ -656,7 +703,7 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
           <p>Methods that work in every unit.</p>
         </div>
         <a class="path-row" href="brain-sculptor.html"><b>How to Study</b><span>Swap rereading for recall that lasts</span><em>&rarr;</em></a>
-        <a class="path-row" href="sbmcq.html"><b>How to Stimulus MCQ</b><span>A four-step method for sources and graphs</span><em>&rarr;</em></a>
+        <a class="path-row" href="sbmcq.html"><b>Attack the Stimulus MCQ</b><span>A four-step method for sources and graphs</span><em>&rarr;</em></a>
         <a class="path-row" href="writing-guide.html"><b>How to Write</b><span>SAQ, LEQ, and DBQ rubrics, thesis, and HIPP</span><em>&rarr;</em></a>
         <a class="path-row" href="faq.html"><b>FAQ</b><span>How progress, game locks, and breaks work</span><em>&rarr;</em></a>
         <a class="path-row" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kUCzKuD7l0efJ6poJywNJXQfXJB4Ba5FnE54OVSB00NUQzRPRU5XNjZVMTA4R1o3OEtETUs4NksxQS4u" target="_blank" rel="noopener"><b>Meet or Ask Mr. Tivin</b><span>Meet with Mr. Tivin or ask Mr. Tivin a question</span><em>&rarr;</em></a>
@@ -665,11 +712,12 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
   </section>
 
   <!-- UNITS -->
-  <section id="units">
+  <section id="units" data-fold="units">
     <div class="sec-head">
       <div>
         <div class="eyebrow">All units</div>
         <h2>Jump to any unit</h2>
+        <button type="button" class="fold-btn" aria-controls="unit-grid"></button>
       </div>
       <p>Units 1&ndash;9, each with its own review hub. Concurrent units share a time period.</p>
     </div>
@@ -827,6 +875,17 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
     // Games row follows the selected unit and opens straight to its Games tab.
     $('games-tile').setAttribute('href', home + '#pg-games');
     $('games-strong').textContent = 'Unit ' + u + ' Games';
+    // Say whether this unit's games are open before the student clicks (games-lock.js).
+    var gd = 'Bust the myths and connect the terms', gs = window.GAMES_LOCK && GAMES_LOCK.status(u);
+    if (gs) {
+      if (gs.teacher) gd = 'Unlocked on this browser (teacher)';
+      else if (gs.open) gd = 'Unlocked: ' + Math.max(1, Math.ceil(gs.leftMs / 60000)) + ' min of game time left';
+      else if (gs.ready) gd = 'Unlocked: ' + GAMES_LOCK.PLAY_MIN + ' minutes of game time ready';
+      else if (gs.pctOnly) gd = 'Locked: get Unit ' + u + ' MCQs right to unlock';
+      else gd = 'Locked: get ' + gs.need + ' more Unit ' + u + ' MCQ' + (gs.need === 1 ? '' : 's') + ' right ' +
+                (gs.again ? 'for ' + GAMES_LOCK.PLAY_MIN + ' more minutes' : 'to unlock');
+    }
+    $('games-desc').textContent = gd;
     // Every unit has an interactive map; the row follows the selected unit.
     var mapDesc = {
       1:'States, beliefs, and cities in every region',
@@ -983,7 +1042,52 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
 })();
 </script>
 <script src="spaced.js"></script>
-<script src="daily-tivin-data.js?v=20261112"></script><script src="daily-tivin-words.js?v=20261110c"></script><script src="daily-tivin.js?v=20261110e"></script>
+<script>
+/* Phones: fold or open home sections; remembered per browser. Defaults: Pick what you need open,
+   unit cards and Daily Tivin folded. Desktop ignores this (the buttons and folding are phone-only CSS). */
+(function () {
+  var KEY = 'homeFold_v1', DEF = { pick: false, units: true, daily: true, news: true };
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { return {}; } }
+  function isFolded(k) { var s = load(); return (k in s) ? !!s[k] : DEF[k]; }
+  function set(k, v) { var s = load(); s[k] = !!v; try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
+  window.HOME_FOLD = { isFolded: isFolded, set: set };
+  function paint(sec) {
+    var k = sec.getAttribute('data-fold'), f = isFolded(k), b = sec.querySelector('.fold-btn');
+    sec.classList.toggle('folded', f);
+    if (b) { b.innerHTML = f ? 'Show &#9662;' : 'Hide &#9652;'; b.setAttribute('aria-expanded', f ? 'false' : 'true'); }
+  }
+  document.querySelectorAll('section[data-fold]').forEach(function (sec) {
+    paint(sec);
+    var b = sec.querySelector('.fold-btn');
+    if (b) b.addEventListener('click', function () { set(sec.getAttribute('data-fold'), !isFolded(sec.getAttribute('data-fold'))); paint(sec); });
+  });
+  // The top-bar "Units" link goes to #units: open the unit cards when that happens.
+  function openFromHash() {
+    var sec = location.hash && document.querySelector('section[data-fold]' + location.hash);
+    if (sec && isFolded(sec.getAttribute('data-fold'))) { set(sec.getAttribute('data-fold'), false); paint(sec); sec.scrollIntoView(); }
+  }
+  openFromHash(); window.addEventListener('hashchange', openFromHash);
+  // Phones: move the Dark mode switch and its label up beside the logo, so the header is two rows.
+  var mq = window.matchMedia('(max-width:620px)'), tg = document.getElementById('themeToggle'),
+      tl = tg && tg.nextElementSibling, left = document.querySelector('.bar-left'), nav = document.querySelector('.bar .links'), tools = null;
+  function placeToggle() {
+    if (!tg || !left || !nav) return;
+    if (mq.matches) {
+      if (!tools) { tools = document.createElement('div'); tools.className = 'bar-tools'; left.appendChild(tools); }
+      tools.appendChild(tg); if (tl) tools.appendChild(tl);
+    } else if (tools && tg.parentNode === tools) {
+      var ref = nav.querySelector('.ss-btn');
+      nav.insertBefore(tg, ref); if (tl) nav.insertBefore(tl, ref);
+    }
+  }
+  placeToggle();
+  if (mq.addEventListener) mq.addEventListener('change', placeToggle); else if (mq.addListener) mq.addListener(placeToggle);
+  document.querySelectorAll('a[href="#units"]').forEach(function (a) {
+    a.addEventListener('click', function () { var u = document.getElementById('units'); set('units', false); paint(u); });
+  });
+})();
+</script>
+<script src="daily-tivin-data.js?v=20261112"></script><script src="daily-tivin-words.js?v=20261110c"></script><script src="daily-tivin.js?v=20261112"></script>
 <script src="qrcode.min.js"></script>
 <script>
 (function(){

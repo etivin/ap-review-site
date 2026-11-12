@@ -308,6 +308,8 @@
       '.mcqx-foot .mx-fr{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}',
       '@media (max-width:760px){.mcqx-foot{display:flex;flex-wrap:wrap;gap:8px;padding:8px 10px}.mcqx-foot .mx-fc{order:-1;flex-basis:100%}.mcqx-foot .mx-fl,.mcqx-foot .mx-fr{flex:1 1 0;flex-wrap:nowrap}',
       '.mcqx-foot .mx-fl button,.mcqx-foot .mx-fr button{padding:7px 11px;font-size:.8rem;white-space:nowrap}}',
+      // Phones: Test Mode's left group (Reveal, Reset, New set) may wrap instead of widening the page.
+      '@media (max-width:760px){.mcqx-foot .mx-fl{flex-wrap:wrap;min-width:0}}',
       '.mcqx-qpill{display:flex;align-items:center;gap:9px;padding:9px 16px;background:var(--mx-ink);color:var(--mx-card);border:none;border-radius:6px;cursor:pointer;font-weight:700;font-size:.9rem;white-space:nowrap}',
       '.mcqx-qpill .mx-car{display:inline-block;font-size:.7rem;transition:transform .15s}',
       '.mcqx-qpill[aria-expanded="true"] .mx-car{transform:rotate(180deg)}',

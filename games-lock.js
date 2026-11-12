@@ -369,6 +369,17 @@
     });
   }
 
+  // Read-only status for other pages (the home page's Games tile). Never starts the clock.
+  window.GAMES_LOCK = {
+    status: function (unit) {
+      if (teacher()) return { open: true, teacher: true };
+      var p = progress(unit);
+      p.need = p.pctOnly ? 0 : Math.max(0, p.total - p.done);
+      return p;
+    },
+    PLAY_MIN: PLAY_MIN
+  };
+
   function init() {
     // The site also answers without .html (/unit4, /unit4-fleet), so the extension is optional.
     var m = location.pathname.match(/unit(\d)(-[\w-]+)?(?:\.html)?$/i);

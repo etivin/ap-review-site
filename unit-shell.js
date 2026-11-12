@@ -29,10 +29,11 @@
     { label: 'Writing', pages: ['pg-write', 'pg-writing'] },
     { label: 'Study Guide', pages: ['pg-guide', 'pg-slides'] },
     { label: 'Sources', pages: ['pg-source', 'pg-visual', 'pg-maps'] },
-    { label: 'Review & Recall', pages: ['pg-flash', 'pg-glossary', 'pg-brain', 'pg-spice', 'pg-games'] }
+    { label: 'Review & Recall', pages: ['pg-flash', 'pg-glossary', 'pg-brain', 'pg-spice'] },
+    { label: 'Games', pages: ['pg-games'] }
   ];
   var SUBLABELS = {
-    'pg-mcq': 'Questions', 'pg-walk': 'How to Attack an MCQ', 'pg-web': 'Web Review',
+    'pg-mcq': 'MCQ Practice', 'pg-walk': 'MCQ Walkthrough', 'pg-web': 'Web Review',
     'pg-write': 'FRQ Grader', 'pg-writing': 'Writing Drills',
     'pg-guide': 'Study Guide', 'pg-slides': 'Class Slides',
     'pg-source': 'Documents', 'pg-visual': 'Visual Sources', 'pg-maps': 'Maps',
@@ -62,7 +63,22 @@
     s.textContent = '.subtab-bar{display:flex;flex-wrap:wrap;align-items:center;gap:0 26px;background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:62px;z-index:90;box-shadow:0 1px 3px rgba(0,0,0,.04)}' +
       '.subtab-bar:empty{display:none}' +
       '.subtab{appearance:none;background:none;border:none;border-bottom:3px solid transparent;padding:11px 2px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:color .13s,border-color .13s;white-space:nowrap}' +
-      '.subtab:hover{color:var(--ink)}.subtab.active{color:var(--red);border-bottom-color:var(--red)}';
+      '.subtab:hover{color:var(--ink)}.subtab.active{color:var(--red);border-bottom-color:var(--red)}' +
+      // Phones (sidebar stacked, max-width 900px): a slim bar with the unit name and a Sections button;
+      // the menu opens below it and lists every group's sub-tabs, so no hover menus are needed.
+      '.sb-menu-btn,.nav-subs{display:none}' +
+      '@media(max-width:900px){' +
+        '.sidebar .sb-brand{display:flex;align-items:center;gap:12px;padding:12px 16px}' +
+        '.sidebar .sb-badge,.sidebar .sb-sub{display:none}' +
+        '.sidebar .sb-title{flex:1;min-width:0;font-size:1.02rem;line-height:1.25}' +
+        '.sb-menu-btn{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;padding:9px 13px;background:transparent;color:#fff;border:2px solid rgba(255,255,255,.55);border-radius:6px;cursor:pointer;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}' +
+        '.sb-menu-btn[aria-expanded="true"]{background:#fff;color:var(--ink)}' +
+        '.sidebar.sb-closed .sb-nav,.sidebar.sb-closed .sb-footer{display:none}' +
+        '#sb-nav-items .nav-caret{display:none}' +
+        '.nav-subs{display:block;padding:0 0 6px}' +
+        '.nav-sub{display:block;width:100%;text-align:left;background:none;border:none;border-left:3px solid transparent;padding:9px 20px 9px 44px;color:rgba(255,255,255,.62);font-family:inherit;font-size:.86rem;cursor:pointer}' +
+        '.nav-sub.active{color:#fff;border-left-color:var(--red)}' +
+      '}';
     document.head.appendChild(s);
   }
   function ensureSubtabBar() {
@@ -85,7 +101,33 @@
       it.appendChild(dot); it.appendChild(document.createTextNode(g.label));
       it.addEventListener('click', function () { showTab(g.pages[0]); });
       wrap.appendChild(it);
+      // Phone menu only (hidden on desktop, where the hover flyouts do this job).
+      if (g.pages.length > 1) {
+        var subs = document.createElement('div'); subs.className = 'nav-subs';
+        g.pages.forEach(function (id) {
+          var b = document.createElement('button'); b.type = 'button';
+          b.className = 'nav-sub'; b.setAttribute('data-tab', id); b.textContent = label(id);
+          subs.appendChild(b);
+        });
+        wrap.appendChild(subs);
+      }
     });
+  }
+  // Phones: the sidebar starts closed as a slim bar with a Sections button.
+  function setupMenu() {
+    var sb = document.querySelector('.sidebar'), brand = sb && sb.querySelector('.sb-brand');
+    if (!brand || brand.querySelector('.sb-menu-btn')) return;
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'sb-menu-btn';
+    b.setAttribute('aria-controls', 'sb-nav-items');
+    brand.appendChild(b);
+    function set(open) {
+      sb.classList.toggle('sb-closed', !open);
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      b.innerHTML = open ? 'Close &#9652;' : 'Sections &#9662;';
+    }
+    b.addEventListener('click', function () { set(sb.classList.contains('sb-closed')); });
+    set(false);
+    window.UNIT_MENU = { open: function () { set(true); }, close: function () { set(false); } };
   }
   function renderSubtabs(group, activeId) {
     var bar = document.getElementById('subtab-bar');
@@ -109,6 +151,10 @@
     Array.prototype.forEach.call(document.querySelectorAll('#sb-nav-items .nav-item'), function (n) {
       n.classList.toggle('active', !!group && n.dataset.group === group.label);
     });
+    Array.prototype.forEach.call(document.querySelectorAll('#sb-nav-items .nav-sub'), function (n) {
+      n.classList.toggle('active', n.getAttribute('data-tab') === id);
+    });
+    if (window.UNIT_MENU) UNIT_MENU.close();
     renderSubtabs(group, id);
     var tt = document.getElementById('top-title');
     if (tt) tt.textContent = group ? group.label : (PAGE_TITLES[id] || '');
@@ -129,10 +175,10 @@
     }
   }
   var ready = false, fromHistory = false;
-  // On phones the sidebar stacks above the content (~600px tall), so scrolling to 0
+  // On phones the sidebar stacks above the content (a slim bar, taller while its menu is open), so scrolling to 0
   // would leave the new tab below the screen. Scroll to where the top bar sticks instead.
   function contentTop() {
-    if (opening) return 0;   // first load: show the sidebar menu
+    if (opening) return 0;   // first load: start at the top of the page
     var sb = document.querySelector('.sidebar'), tb = document.querySelector('.top-bar');
     if (!sb || !tb || !tb.parentElement || getComputedStyle(sb).position === 'fixed') return 0;
     var stick = parseFloat(getComputedStyle(tb).top) || 0;
@@ -146,7 +192,7 @@
     return t && t.classList && t.classList.contains('page') ? h : null;
   }
   function init() {
-    injectCSS(); ensureSubtabBar(); renderNav();
+    injectCSS(); ensureSubtabBar(); renderNav(); setupMenu();
     var start = hashPage();
     opening = !start;        // a deep link goes straight to its tab's content
     showTab(start || 'pg-home');

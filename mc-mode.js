@@ -76,7 +76,11 @@
         '#mc-bar .mcb-back{font-size:.56rem;padding:8px 10px;gap:4px}' +
         '#mc-bar nav a,#mc-bar .dd-t{font-size:.64rem;padding:7px 3px}' +
         '#mc-bar nav a.here,#mc-bar .dd.has-here .dd-t{padding:7px 7px}' +
-        '#mc-bar nav a.meet{padding:3px 4px;letter-spacing:.02em;display:inline-flex;flex-direction:column;align-items:center;font-size:.56rem;line-height:1.1}#mc-bar .mt-long{display:none}}';
+        '#mc-bar nav a.meet{padding:3px 4px;letter-spacing:.02em;display:inline-flex;flex-direction:column;align-items:center;font-size:.56rem;line-height:1.1}#mc-bar .mt-long{display:none}}' +
+      // Narrow phones: tighter gaps so the whole bar fits on one row (it was 4px too wide at 390px).
+      '@media(max-width:430px){#mc-bar{gap:4px;padding:0 8px}#mc-bar nav{gap:6px}' +
+        '#mc-bar .mcb-back{padding:8px 7px}' +
+        '#mc-bar nav a,#mc-bar .dd-t{letter-spacing:.04em;padding:7px 2px}#mc-bar .dd-t{gap:3px}}';
     document.head.appendChild(st);
 
     var here = location.pathname.replace(/^.*\//, '');
@@ -98,7 +102,7 @@
       '</div>' +
       '<nav>' +
         '<a href="./#units">Units</a>' +
-        group('How to', [['sbmcq.html', 'How to Stimulus MCQ'], ['brain-sculptor.html', 'How to Study'], ['writing-guide.html', 'How to Write']]) +
+        group('How to', [['sbmcq.html', 'Attack the Stimulus MCQ'], ['brain-sculptor.html', 'How to Study'], ['writing-guide.html', 'How to Write']]) +
         group('Review', [['resources.html', 'Resources'], ['cumulative.html', 'Cumulative'], ['fullcourse.html', 'Narrative']]) +
         '<a class="meet" href="' + MEET_URL + '" target="_blank" rel="noopener" title="Meet with Mr. Tivin or ask Mr. Tivin a question"><span>Meet or</span> <span>Ask<span class="mt-long"> Mr. Tivin</span></span></a>' +
       '</nav>';

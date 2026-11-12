@@ -56,6 +56,15 @@
   }
 
   place();
+  // Visible text label beside the switch, so students know what it does. Clicking it flips the switch.
+  if (!btn.classList.contains('tt-float')){
+    var txt = document.createElement('span');
+    txt.className = 'tt-text';
+    txt.textContent = 'Dark mode';
+    txt.setAttribute('aria-hidden', 'true');
+    txt.addEventListener('click', function(){ btn.click(); });
+    btn.insertAdjacentElement('afterend', txt);
+  }
   paint();
   btn.addEventListener('click', function(){
     var dark = root.getAttribute('data-theme') === 'dark';

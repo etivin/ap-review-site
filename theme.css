@@ -30,6 +30,11 @@
 :root[data-theme="dark"] .theme-toggle .tt-knob{left:28px}
 .tt-barwrap{display:flex;align-items:center;gap:16px}
 .links .theme-toggle{margin-left:8px}
+.tt-text{margin-left:8px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.66rem;
+  letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;cursor:pointer;opacity:.72;color:inherit;vertical-align:middle;user-select:none}
+.tt-text:hover{opacity:1}
+.tt-barwrap .tt-text{margin-left:-8px}
+@media(max-width:520px){.tt-barwrap{flex-wrap:wrap;justify-content:flex-end;gap:6px 16px;min-width:0}}
 .theme-toggle.tt-float{position:fixed;top:12px;right:12px;z-index:9999;
   background:rgba(127,127,127,.15);backdrop-filter:blur(4px)}
 

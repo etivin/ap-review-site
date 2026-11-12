@@ -48,7 +48,7 @@
           why:'Pulling it out of memory builds it far more than rereading. Your misses tell you exactly what to study.' },
         { id:'p3-guide', tour:false, page:'pg-guide', label:'Study Guide: read only the sections your Brain Dump missed' },
         { id:'p3-flash', page:'pg-flash', label:'Flashcards: say the answer before you flip, and rate every card honestly',
-          title:'Flashcards, Glossary, and Games', body:'<b>How:</b> say the answer out loud before you flip, then rate yourself honestly. Shaky and Guessing cards come back sooner, and the streak bar up top shows how many are ready today. The Glossary has every term if you need to look one up. Games unlock once you’ve rated 20 flashcards in the last 7 days.',
+          title:'Flashcards, Glossary, and Games', body:'<b>How:</b> say the answer out loud before you flip, then rate yourself honestly. Shaky and Guessing cards come back sooner, and the streak bar up top shows how many are ready today. The Glossary has every term if you need to look one up. Games unlock once you’ve gotten 15 of this unit’s MCQs right in the last 7 days.',
           why:'Short sessions spread over days beat one long session the night before. A game after studying is one more round of retrieval; a game instead of studying is just a game.' },
         { id:'p3-gloss', tour:false, page:'pg-glossary', label:'Glossary: look up words from class, then cover the definition and say it back' },
         { id:'p3-games', tour:false, page:'pg-games', label:'Games: play after flashcards to check what stuck' }
@@ -317,6 +317,12 @@
     if (tryIt){ resumeAt = cur + 1; showPill(); }
   }
   function targetFor(step){
+    var t = targetRaw(step);
+    // Phones: the unit menu starts closed, so point at its Sections button instead of a hidden item.
+    if (t && !t.getClientRects().length) t = document.querySelector('.sb-menu-btn') || t;
+    return t;
+  }
+  function targetRaw(step){
     if (step.target) return document.querySelector(step.target);
     if (!step.page) return null;
     var nav = navItemFor(step.page);

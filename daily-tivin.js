@@ -135,6 +135,9 @@
       '.dt-tile.done em{color:var(--dt-navy);background:var(--dt-gold);align-self:flex-start;padding:2px 7px}',
       '@media(max-width:1080px){.dt-card{grid-template-columns:1fr}}',
       '@media(max-width:620px){.dt-tiles{grid-template-columns:1fr 1fr}.dt-card{padding:16px}}',
+      '.dt-fold{display:none}',
+      '@media(max-width:700px){.dt-card{position:relative}.dt-fold{display:inline-flex;align-items:center;gap:6px;position:absolute;top:14px;right:14px;padding:7px 12px;background:transparent;color:var(--dt-gold);border:2px solid var(--dt-gold);font:800 .66rem Lato,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}' +
+        '#daily-tivin.dt-folded .dt-sub,#daily-tivin.dt-folded .dt-tiles{display:none}#daily-tivin.dt-folded .dt-card{gap:0}}',
       /* overlay */
       '.dt-ov{position:fixed;inset:0;z-index:9000;background:rgba(10,15,40,.72);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:4vh 14px}',
       '.dt-box{background:var(--dt-bg);color:var(--dt-ink);width:min(760px,100%);border:2px solid var(--dt-ink);box-shadow:8px 8px 0 var(--dt-gold);font:1rem/1.5 Lato,sans-serif;position:relative}',
@@ -314,7 +317,17 @@
       t.onclick = function () { open(g.id); };
       tiles.appendChild(t);
     });
-    card.appendChild(tiles); root.appendChild(card);
+    card.appendChild(tiles);
+    // Phones: the card folds to its title and done count (HOME_FOLD on index.html; phone-only CSS).
+    if (window.HOME_FOLD) {
+      var folded = HOME_FOLD.isFolded('daily');
+      root.classList.toggle('dt-folded', folded);
+      var fb = el('button', 'dt-fold', folded ? 'Show &#9662;' : 'Hide &#9652;');
+      fb.type = 'button'; fb.setAttribute('aria-expanded', folded ? 'false' : 'true');
+      fb.onclick = function () { HOME_FOLD.set('daily', !folded); renderCard(); };
+      card.appendChild(fb);
+    }
+    root.appendChild(card);
   }
   function copyResults(btn) {
     var d = getDay(TODAY), lines = ['Daily Tivin ' + TODAY];

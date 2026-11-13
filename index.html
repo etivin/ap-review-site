@@ -303,7 +303,8 @@ body{line-height:1.6}
 .theme-toggle:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
 .theme-toggle .tt-knob{position:absolute;top:50%;left:2px;transform:translateY(-50%);width:19px;height:19px;border-radius:50%;background:var(--lime);color:var(--navy);font-size:11px;line-height:19px;text-align:center;transition:left .22s cubic-bezier(.3,.8,.3,1)}
 html[data-theme="dark"] .theme-toggle .tt-knob{left:31px}
-.tt-text{align-self:center;margin-left:-4px;font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;line-height:1.15;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;cursor:pointer;color:var(--lime);opacity:.85;user-select:none}
+.tt-wrap{display:inline-flex;align-items:center;gap:7px;flex-shrink:0}
+.tt-text{font-family:Lato,system-ui,sans-serif;font-weight:700;font-size:.58rem;line-height:1.15;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;cursor:pointer;color:var(--lime);opacity:.85;user-select:none}
 .tt-text:hover{opacity:1}
 /* Phones: Pick what you need, the unit cards and the Daily Tivin fold up (HOME_FOLD, key homeFold_v1) */
 .fold-btn{display:none}
@@ -385,7 +386,10 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
 .bar-course{color:#fff;font:900 1.05rem/1.15 'Lato',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding-left:22px;border-left:2px solid var(--lime);white-space:nowrap}
 .bar.tivin-shrink .bar-course{font-size:.85rem}
 /* one line on wide screens; two lines on laptops; the menu drops below the logo when space runs out; under the logo on phones */
-@media(max-width:1399px){.bar-course{font-size:.9rem}.bar-course span{display:block}}
+.bar-left{flex-shrink:0}
+@media(min-width:1181px){.bar .links{flex-wrap:nowrap;align-items:center;gap:12px}}
+@media(max-width:1699px){.bar-course{font-size:.9rem}.bar-course span{display:block}}
+@media(max-width:1499px){.bar .ss-btn .ss-lbl{display:none}}
 @media(max-width:1180px){
   .bar{height:auto;flex-direction:column;align-items:flex-start;gap:9px;padding:12px max(18px,4vw)}
   .links{justify-content:flex-start;gap:9px 14px}
@@ -412,7 +416,6 @@ html[data-theme="dark"] .wm-dev-btn.active{background:var(--lime);color:var(--na
   .bar-course{display:none}
   .bar .tivin-emblem{--em:34px!important}
   .bar-tools{display:flex;align-items:center;gap:8px;flex-shrink:0}
-  .bar-tools .tt-text{margin-left:-2px}
   .links{flex-wrap:nowrap;gap:4px 6px;width:100%;justify-content:space-between}
   .links .mt-long{display:none}
   .links a.meet{padding:5px 8px}
@@ -531,7 +534,7 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
     </div>
     <a href="#about">About</a>
     <a class="meet" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=kUCzKuD7l0efJ6poJywNJXQfXJB4Ba5FnE54OVSB00NUQzRPRU5XNjZVMTA4R1o3OEtETUs4NksxQS4u" target="_blank" rel="noopener" title="Meet with Mr. Tivin or ask Mr. Tivin a question">Meet or Ask<span class="mt-long"> Mr. Tivin</span></a>
-    <button type="button" class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-knob" id="ttKnob">&#9728;</span></button><span class="tt-text" aria-hidden="true" onclick="document.getElementById('themeToggle').click()">Dark<br>mode</span>
+    <span class="tt-wrap"><button type="button" class="theme-toggle" id="themeToggle" role="switch" aria-checked="false" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="tt-knob" id="ttKnob">&#9728;</span></button><span class="tt-text" aria-hidden="true" onclick="document.getElementById('themeToggle').click()">Dark<br>mode</span></span>
   </nav>
 </header>
 
@@ -1068,16 +1071,15 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
   }
   openFromHash(); window.addEventListener('hashchange', openFromHash);
   // Phones: move the Dark mode switch and its label up beside the logo, so the header is two rows.
-  var mq = window.matchMedia('(max-width:620px)'), tg = document.getElementById('themeToggle'),
-      tl = tg && tg.nextElementSibling, left = document.querySelector('.bar-left'), nav = document.querySelector('.bar .links'), tools = null;
+  var mq = window.matchMedia('(max-width:620px)'), tw = document.querySelector('.bar .tt-wrap'),
+      left = document.querySelector('.bar-left'), nav = document.querySelector('.bar .links'), tools = null;
   function placeToggle() {
-    if (!tg || !left || !nav) return;
+    if (!tw || !left || !nav) return;
     if (mq.matches) {
       if (!tools) { tools = document.createElement('div'); tools.className = 'bar-tools'; left.appendChild(tools); }
-      tools.appendChild(tg); if (tl) tools.appendChild(tl);
-    } else if (tools && tg.parentNode === tools) {
-      var ref = nav.querySelector('.ss-btn');
-      nav.insertBefore(tg, ref); if (tl) nav.insertBefore(tl, ref);
+      tools.appendChild(tw);
+    } else if (tools && tw.parentNode === tools) {
+      nav.insertBefore(tw, nav.querySelector('.ss-btn'));
     }
   }
   placeToggle();

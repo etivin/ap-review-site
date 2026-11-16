@@ -1,0 +1,1396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 5 The Urban Game</title>
+<meta name="description" content="Plan an English market town through the Industrial Revolution, 1750 to 1900: clear forests, dig canals, build mills, tenements and railways, and watch the smoke, the crowding and the reforms that followed.">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g-bg:#eef3fa;--g-card:#ffffff;--g-line:#cfdcec;--g-text:#16244d;--g-dim:#66748f;
+  --g-amber:#b8860b;--g-gold:#f4cd4f;--g-blue:#345fbf;--g-green:#1a8a4a;--g-red:#cc3d3d;
+  --g-shadow:0 1px 4px rgba(22,36,77,.10),0 8px 26px rgba(22,36,77,.10)
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--g-bg);color:var(--g-text);font:16px/1.5 'Lato',-apple-system,'Segoe UI',sans-serif}
+.hidden{display:none!important}
+#shell{position:fixed;inset:0;z-index:1000;background:var(--g-bg);color:var(--g-text);display:flex;flex-direction:column}
+#shell .bar{display:flex;align-items:center;gap:14px;padding:8px 18px;background:#16244d;color:#fff;box-shadow:0 2px 0 var(--g-blue);flex-shrink:0;z-index:2}
+#shell .bar .brand{text-decoration:none;color:#fff;flex-shrink:0}
+#shell .tivin-emblem{--em:46px!important}
+#shell .tivin-wordmark b{font-size:1.05rem}
+#shell .tivin-wordmark i{font-size:.52rem;margin-top:3px}
+.top .ttl{font:900 1.15rem 'Lato',sans-serif;color:#fff;letter-spacing:-.02em;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-left:1px solid rgba(255,255,255,.25);padding-left:14px}
+.top .ttl small{display:block;font:700 .62rem 'Lato',sans-serif;color:var(--g-gold);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+.hud{display:flex;gap:8px;white-space:nowrap}
+.hud span{background:rgba(255,255,255,.1);border:1px solid rgba(244,205,79,.55);border-radius:999px;padding:4px 14px;font-weight:700;font-size:.92rem;color:#fff}
+.hud b{color:var(--g-gold);font-weight:900}
+.top a.nav,.top button{font:700 .7rem 'Lato',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:transparent;border:0;border-bottom:2px solid transparent;padding:6px 2px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.top a.nav:hover,.top button:hover{color:var(--g-gold);border-bottom-color:var(--g-gold)}
+
+.main{flex:1;min-height:0;display:grid;grid-template-columns:290px minmax(0,1fr) 220px}
+.side{overflow-y:auto;background:#fbf8f1;border-right:1px solid var(--g-line);padding:12px 12px 18px}
+.stats{overflow-y:auto;background:#fbf8f1;border-left:1px solid var(--g-line);padding:12px;display:flex;flex-direction:column;gap:8px}
+.mapwrap{position:relative;min-width:0;min-height:0;display:flex;flex-direction:column;background:#dfe9d3}
+.maptools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px 10px;background:#fff;border-bottom:1px solid var(--g-line);font-size:.8rem}
+.maptools label{display:flex;align-items:center;gap:4px;font-weight:700;color:var(--g-dim);cursor:pointer}
+.maptools .hint{margin-left:auto;color:var(--g-dim)}
+.rotbtn{font:inherit;font-weight:900;font-size:.8rem;padding:5px 12px;border-radius:999px;border:2px solid var(--g-navy,#16244d);background:var(--g-navy,#16244d);color:#fff;cursor:pointer}
+.rotbtn:disabled{background:#fff;color:var(--g-dim);border-color:var(--g-line);cursor:default}
+.rotbtn.on{background:#f4b428;border-color:#f4b428;color:#16244d}
+.mapbox{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden}
+#map{display:block;max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.25);touch-action:none;cursor:crosshair;image-rendering:auto;background:#7fb069}
+#tip{position:absolute;pointer-events:none;background:rgba(22,36,77,.94);color:#fff;font-size:.78rem;line-height:1.4;padding:7px 10px;border-radius:8px;max-width:260px;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+#tip b{color:var(--g-gold)}
+
+.rc{background:var(--g-card);border-radius:14px;padding:12px 14px;box-shadow:var(--g-shadow);margin-bottom:10px}
+.rc .yr{font:900 1.7rem 'Lato',sans-serif;letter-spacing:-.02em;line-height:1}
+.rc .hl{font-weight:900;color:var(--g-blue);font-size:.95rem;margin-top:2px}
+.rc h4{font-size:.62rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--g-dim);margin:10px 0 6px}
+.ord{display:flex;align-items:center;gap:8px;font-size:.86rem;padding:3px 0}
+.ord i{font-style:normal;flex-shrink:0;width:20px;height:20px;border-radius:50%;border:2px solid var(--g-line);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:900;color:#fff}
+.ord.done i{background:var(--g-green);border-color:var(--g-green)}
+.ord.done span{color:var(--g-dim);text-decoration:line-through}
+.ord b{margin-left:auto;font-size:.8rem;color:var(--g-dim);white-space:nowrap}
+.permits{display:flex;align-items:center;justify-content:space-between;background:#fff5dc;border-radius:10px;padding:6px 10px;font-size:.85rem;font-weight:700;color:#7a5a0a;margin-top:8px}
+.permits b{font-size:1.1rem;color:var(--g-amber)}
+.limits{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;margin-top:6px;font-size:.76rem;color:var(--g-dim);font-weight:700}
+.limits b{color:var(--g-text);font-size:.9rem}
+.pal h4{font-size:.62rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--g-dim);margin:12px 0 6px}
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.pb{display:flex;align-items:center;gap:6px;font:700 .78rem 'Lato',sans-serif;text-align:left;background:#fff;color:var(--g-text);border:2px solid var(--g-line);border-radius:10px;padding:5px 7px;cursor:pointer;line-height:1.15;min-height:38px}
+.pb canvas{flex-shrink:0;width:24px;height:24px}
+.pb small{display:block;font-weight:700;font-size:.66rem;color:var(--g-dim)}
+.pb small.ord{color:var(--g-green);padding:0}
+.pb:hover:not(:disabled){border-color:var(--g-blue)}
+.pb.on{border-color:var(--g-gold);background:#fffbea;box-shadow:0 0 0 3px rgba(244,205,79,.35)}
+.pb:disabled{opacity:.38;cursor:default}
+.desc{font-size:.82rem;line-height:1.45;color:var(--g-dim);background:#fff;border-left:4px solid var(--g-gold);border-radius:0 10px 10px 0;padding:8px 10px;margin-top:10px}
+.desc b{color:var(--g-text)}
+.gb{font:900 .82rem 'Lato',sans-serif;letter-spacing:.06em;text-transform:uppercase;background:var(--g-blue);color:#fff;border:0;border-radius:12px;padding:12px 16px;cursor:pointer;box-shadow:0 4px 14px rgba(31,78,168,.25);transition:transform .12s}
+.gb:hover:not(:disabled){transform:translateY(-1px)}
+.gb:disabled{opacity:.4;cursor:default}
+.gb.alt{background:#fff;color:var(--g-blue);border:2px solid var(--g-blue);box-shadow:none}
+.gb.end{width:100%;margin-top:12px;background:var(--g-green)}
+
+.tile{background:var(--g-card);border-radius:12px;padding:8px 11px;box-shadow:var(--g-shadow)}
+.tile span{display:block;font-size:.62rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--g-dim)}
+.tile b{display:block;font-size:1.3rem;font-weight:900;line-height:1.2}
+.tile small{display:block;font-size:.72rem;color:var(--g-dim);line-height:1.3}
+.tile b.ok{color:var(--g-green)}.tile b.lo{color:var(--g-red)}.tile b.mid{color:var(--g-amber)}
+.meter{height:7px;border-radius:99px;background:#efe7d6;margin-top:5px;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:99px;transition:width .5s ease}
+.achs{display:flex;flex-wrap:wrap;gap:4px}
+.ach{font-size:.68rem;font-weight:700;border-radius:999px;padding:2px 8px;background:#eef1f6;color:#9aa3b5}
+.ach.got{background:#fff1c2;color:#7a5a0a}
+
+#modal{position:absolute;inset:0;z-index:20;background:rgba(14,24,52,.55);display:flex;align-items:center;justify-content:center;padding:18px}
+#modal .box{background:var(--g-bg);border-radius:18px;max-width:880px;width:100%;max-height:100%;overflow-y:auto;padding:24px 28px 26px;box-shadow:0 20px 60px rgba(0,0,0,.35);animation:rise .3s ease both}
+@keyframes rise{from{transform:translateY(10px);opacity:.6}to{transform:none;opacity:1}}
+.box h2{font:900 1.65rem 'Lato',sans-serif;margin:0 0 8px;letter-spacing:-.02em}
+.box h3{font-size:.62rem;font-weight:900;color:var(--g-blue);margin:18px 0 8px;letter-spacing:.26em;text-transform:uppercase}
+.box p{margin:0 0 10px;line-height:1.55}
+.eyebrow{font-size:.7rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--g-amber)}
+.bigyr{font:900 3rem 'Lato',sans-serif;line-height:1;letter-spacing:-.03em;color:var(--g-text)}
+.note{font-size:.93rem;line-height:1.55;background:var(--g-card);border-left:4px solid var(--g-gold);border-radius:0 12px 12px 0;padding:10px 14px;margin:0 0 10px;box-shadow:var(--g-shadow)}
+.note.good{border-left-color:var(--g-green)}
+.note.bad{border-left-color:var(--g-red);background:#fff8f8}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.8rem;font-weight:700;background:#fff;border:1px solid var(--g-line);border-radius:999px;padding:3px 10px}
+.vis{display:flex;gap:16px;align-items:flex-start}
+.vis canvas{flex-shrink:0;width:96px;height:96px;background:#16244d;border-radius:14px}
+.copts{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.copt{font:600 .98rem 'Lato',sans-serif;text-align:left;background:var(--g-card);color:var(--g-text);border:2px solid var(--g-line);border-radius:12px;padding:11px 14px;cursor:pointer}
+.copt b{display:block;font-weight:900}
+.copt small{display:block;color:var(--g-dim);font-size:.85rem;margin-top:2px}
+.copt:hover:not(:disabled){border-color:var(--g-blue);background:#f4f7fe}
+.copt:disabled{opacity:.45;cursor:default}
+.copt.right{border-color:var(--g-green);background:#e9f7ef;color:#14663a}
+.copt.wrong{border-color:var(--g-red);background:#fdeeee;color:#9c2b2b}
+table.sum{border-collapse:separate;border-spacing:0;width:100%;font-size:.95rem;margin:4px 0 12px;background:var(--g-card);border-radius:14px;overflow:hidden;box-shadow:var(--g-shadow)}
+table.sum td,table.sum th{padding:8px 14px;border-bottom:1px solid #eef1f6;text-align:left}
+table.sum th{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g-dim)}
+table.sum td.n{text-align:right;white-space:nowrap;font-weight:900}
+.pos{color:var(--g-green)}.neg{color:var(--g-red)}
+table.sum tr.tot td{background:#fff8e6;color:var(--g-amber);font-weight:900;border-bottom:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.tl{display:flex;gap:12px;align-items:center;margin:8px 0}
+.tl input{flex:1}
+#tlCanvas,#chart{width:100%;height:auto;border-radius:10px;box-shadow:var(--g-shadow);background:#fff}
+input.txt{font:700 1rem 'Lato',sans-serif;padding:10px 12px;border:2px solid var(--g-line);border-radius:10px;width:min(360px,100%)}
+ol.prompts li{margin-bottom:8px}
+
+@media(max-width:1100px){
+  .main{grid-template-columns:260px minmax(0,1fr)}
+  .stats{grid-column:1/-1;grid-row:1;flex-direction:row;flex-wrap:wrap;border-left:0;border-bottom:1px solid var(--g-line);padding:6px 8px;gap:6px}
+  .stats .tile{flex:1 1 110px;padding:5px 8px}
+  .stats .tile b{font-size:1rem}
+  .stats .tile small,.stats .meter,.stats .achwrap{display:none}
+}
+@media(max-width:760px){
+  .main{grid-template-columns:1fr;grid-template-rows:auto auto auto;overflow-y:auto}
+  .mapbox{flex:none}
+  .mapwrap{grid-row:2}
+  .side{grid-row:3;border-right:0;border-top:1px solid var(--g-line)}
+  .stats{grid-row:1}
+  .top .ttl small,#shell .tivin-wordmark{display:none}
+  #shell .bar{flex-wrap:wrap;gap:8px 12px;padding:8px 12px}
+  .maptools .hint{display:none}
+  #modal .box{padding:18px}
+  .vis{flex-direction:column}
+}
+</style>
+<script defer src="activity.js"></script>
+<script defer src="bedtime.js?v=20261018"></script><script defer src="pomodoro.js"></script>
+<link rel="stylesheet" href="brand.css"><script defer src="brand.js"></script><script defer src="search.js?v=20261112"></script>
+</head>
+<body>
+
+<div id="shell">
+  <div class="bar top">
+    <a class="brand" href="./">Tivin Teaches</a>
+    <div class="ttl">The Urban Game<small id="topSub">Unit 5 &middot; Industrializing a town, 1750 &ndash; 1900</small></div>
+    <div class="hud hidden" id="hud"><span><b id="hudYear">1750</b></span><span>Round <b id="hudRound">1</b>/10</span></div>
+    <button type="button" id="fsBtn">&#9974; Full screen</button>
+    <a class="nav" href="unit5.html#pg-games">&larr; Unit 5 Games</a>
+  </div>
+  <div class="main">
+    <aside class="side" id="side"></aside>
+    <section class="mapwrap">
+      <div class="maptools">
+        <label><input type="checkbox" id="ovSmoke"> Smoke map</label>
+        <label><input type="checkbox" id="ovNet"> Transport links</label>
+        <label><input type="checkbox" id="ovHouse"> Living conditions</label>
+        <button type="button" class="rotbtn" id="bRot" disabled title="Pick a rectangular building first">&#8635; Rotate building (arrow keys)</button>
+        <span class="hint">Click to build &middot; drag for roads, canals, rails &middot; Esc or right-click cancels</span>
+      </div>
+      <div class="mapbox" id="mapbox"><canvas id="map" width="1024" height="640" aria-label="Town map"></canvas></div>
+      <div id="tip" class="hidden"></div>
+    </section>
+    <aside class="stats" id="stats"></aside>
+  </div>
+  <div id="modal" class="hidden"><div class="box" id="mbox"></div></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var W = 64, H = 40, T = 16, SAVE = 'u5Urban_v1', BEST = 'u5UrbanBest';
+var $ = function(id){ return document.getElementById(id); };
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function clamp(v, a, b){ return v < a ? a : v > b ? b : v; }
+function store(k, v){ try { localStorage.setItem(k, v); } catch (e) {} }
+function load(k){ try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+/* ---------- terrain ---------- */
+var GR = 0, RIV = 1, SEA = 2, FARM = 3, COMMON = 4, HILL = 5, COAL = 6, SAND = 7;
+function mulberry(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function coastX(y){ return 57 + Math.round(2 * Math.sin(y / 5) + Math.sin(y / 2.3) * 0.6); }
+var RIVER_PTS = [[0,12],[7,14],[14,13],[21,16],[28,18],[35,19],[41,18],[47,21],[53,20],[64,21]];
+function riverY(x){
+  for (var i = 0; i < RIVER_PTS.length - 1; i++) {
+    var a = RIVER_PTS[i], b = RIVER_PTS[i + 1];
+    if (x >= a[0] && x <= b[0]) { var t = (x - a[0]) / (b[0] - a[0]); return Math.round(a[1] + (b[1] - a[1]) * (0.5 - Math.cos(t * Math.PI) / 2)); }
+  }
+  return 21;
+}
+var ter = new Uint8Array(W * H), noise = new Float32Array(W * H);
+function genTerrain(){
+  var r = mulberry(1750);
+  for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+    var i = y * W + x, t = GR; noise[i] = r();
+    if (x >= coastX(y)) t = SEA; else if (x === coastX(y) - 1) t = SAND;
+    else {
+      var ry = riverY(x); if (y === ry || y === ry + 1) t = RIV;
+      else if ((x >= 1 && x <= 6 && y >= 2 && y <= 9) || (x >= 3 && x <= 14 && y >= 17 && y <= 21 && y > riverY(x) + 2)) t = FARM;
+      else if (x >= 4 && x <= 14 && y >= 25 && y <= 32) t = COMMON;
+      else if (x >= 35 && x <= 46 && y >= 28 && y <= 38) t = (x >= 38 && x <= 43 && y >= 31 && y <= 35) ? COAL : HILL;
+      else if (x >= 1 && x <= 8 && y >= 34 && y <= 39) t = (x >= 2 && x <= 6 && y >= 35 && y <= 38) ? COAL : HILL;
+    }
+    ter[i] = t;
+  }
+}
+function tAt(x, y){ return (x < 0 || y < 0 || x >= W || y >= H) ? -1 : ter[y * W + x]; }
+function isWater(x, y){ var t = tAt(x, y); return t === RIV || t === SEA; }
+
+/* ---------- buildings ---------- */
+/* cap = residents, jobs = workers, prod = output, smoke = chimney strength, acc = life bonus to homes within reach */
+var B = {
+  road:{n:'Road', line:1, r:1, d:'Turnpike roads carried carts, coaches and walking workers. Homes need a road to the works.'},
+  canal:{n:'Canal', line:1, r:3, d:'The Bridgewater Canal (1761) halved the price of coal in Manchester. Canals move heavy coal cheaply; link mines and mills to the river.'},
+  rail:{n:'Railway', line:1, r:6, d:'The Liverpool and Manchester Railway (1830) was the first steam railway between two cities. Rails carry coal and cloth fast.'},
+  lamp:{n:'Street lamps', line:1, r:5, d:'Gas lighting came to English streets from the 1810s. Lit streets felt safer and let shops and works stay open after dark.'},
+  cottage:{n:'Cottage', w:2, h:2, r:1, cap:30, life:60, c:'#c9a46a', roof:'#8a6a3a', g:'', d:'Thatched homes of farming families. Many spun and wove wool at home for merchants: the putting-out system.'},
+  house:{n:'Terraced houses', w:2, h:2, r:2, cap:60, life:56, c:'#b5563c', roof:'#6e2f22', g:'', d:'Rows of brick terraced houses for mill families, built fast and close together.'},
+  tenement:{n:'Tenements', w:3, h:2, r:4, cap:240, life:36, c:'#8f4a3a', roof:'#4d2620', g:'T', d:'Back-to-back housing: many families, shared privies, little light or air. Holds the most people by far.'},
+  villa:{n:"Manager's villa", w:3, h:2, r:4, cap:10, life:72, c:'#e8d7b0', roof:'#5a6f8f', g:'', d:'A comfortable house for a mill manager, clerk or engineer: the new middle class.'},
+  mansion:{n:'Lavish residence', w:4, h:3, r:6, cap:8, life:86, c:'#f1e6cc', roof:'#3e5a86', g:'R', d:'The mill owner\'s mansion. Owners often built upwind of the smoke, on the west edge of town.'},
+  watermill:{n:'Water mill', w:3, h:3, r:2, jobs:120, prod:8, smoke:1, c:'#a98a5a', roof:'#5e4a2c', g:'', river:1, d:'Arkwright\'s water frame (1769) spun strong cotton thread, but needed a fast river to turn the wheel. Must touch the river.'},
+  factory:{n:'Steam factory', w:4, h:3, r:3, jobs:240, prod:14, smoke:10, coal:1, c:'#9c3f2f', roof:'#4a2019', g:'F', d:'A steam-powered cotton mill. It can stand anywhere, but it burns coal: link it to a mine by canal or rail. Smoke blows east with the wind.'},
+  mine:{n:'Coal mine', w:3, h:3, r:3, jobs:150, prod:6, smoke:5, onCoal:1, c:'#55504a', roof:'#2c2925', g:'M', d:'Coal pits fed every engine. Must sit on a coal seam (the dark speckled hills). The Mines Act (1842) banned women and children under 10 from working underground.'},
+  foundry:{n:'Iron foundry', w:4, h:3, r:5, jobs:180, prod:14, smoke:13, coal:1, c:'#6b5b52', roof:'#3a302b', g:'I', d:'Coke-smelted iron for engines, rails and bridges. Coal-hungry and smoky.'},
+  steel:{n:'Steel foundry', w:4, h:4, r:9, jobs:330, prod:26, smoke:18, coal:1, c:'#5b6577', roof:'#2c3240', g:'S', d:'Bessemer\'s converter (1856) made cheap steel for rails, ships and bridges: the Second Industrial Revolution.'},
+  warehouse:{n:'Warehouse', w:3, h:2, r:3, jobs:45, prod:4, c:'#b98d54', roof:'#6d5130', g:'W', d:'Stores raw cotton and finished cloth. Pays off when linked to the docks by water or rail.'},
+  dockyard:{n:'Dockyard', w:4, h:3, r:8, jobs:210, prod:12, smoke:4, onSea:1, c:'#7d8a96', roof:'#3f4a55', g:'D', d:'Builds and repairs iron steamships. Must touch the sea.'},
+  shop:{n:'Shop', w:2, h:2, r:1, jobs:9, prod:1, acc:4, c:'#e2c26f', roof:'#8a6d22', g:'S', d:'Grocers, drapers and pawnbrokers. Workers now bought food and cloth instead of making it.'},
+  pub:{n:'Pub', w:2, h:2, r:1, jobs:6, acc:3, c:'#c58b3f', roof:'#6b4313', g:'P', d:'The center of working-class social life, and of union meetings. Too many pubs for the population brings drunkenness.'},
+  church:{n:'Church', w:3, h:3, r:1, jobs:3, acc:4, c:'#d9d2c3', roof:'#6c6a72', g:'C', d:'Parish churches and Methodist chapels. Chapels and Sunday schools spread fast in the mill towns.'},
+  school:{n:'School', w:3, h:2, r:4, jobs:6, acc:6, c:'#e9d9a6', roof:'#7a3b2a', g:'Sch', d:'The Factory Act (1833) required mill children to get two hours of school a day; the Education Act (1870) set up board schools.'},
+  cemetery:{n:'Cemetery', w:3, h:3, r:4, acc:-3, c:'#9aa596', roof:'#6c7768', g:'', d:'Churchyards overflowed in the crowded towns. Without a new cemetery, life gets worse once the town passes 1,500 people.'},
+  jail:{n:'Jail', w:3, h:2, r:5, jobs:12, acc:2, c:'#8b8f96', roof:'#4b4f56', g:'J', d:'New prisons and police (from 1829) kept order in towns full of strangers, strikers and the very poor.'},
+  hospital:{n:'Hospital', w:3, h:3, r:6, jobs:30, acc:8, c:'#f3f1ec', roof:'#b33a3a', g:'+', d:'Fever hospitals and infirmaries fought cholera and typhus. Cuts deaths when disease strikes.'},
+  park:{n:'Park', w:4, h:4, r:7, acc:7, env:3, c:'#5c9e4a', roof:'#3f7a31', g:'', d:'Public parks (Manchester opened three in 1846) gave workers fresh air. Each one lifts the environment.'},
+  bank:{n:'Bank', w:2, h:2, r:7, jobs:15, prod:5, c:'#d8cfb8', roof:'#6f6550', g:'&pound;', d:'Banks lent the capital that built mills and railways. Adds industrial output.'},
+  telegraph:{n:'Telegraph office', w:2, h:2, r:8, jobs:12, prod:4, c:'#cfd7e2', roof:'#41587a', g:'Tel', d:'By the 1850s telegraph wires linked every big town; an Atlantic cable worked from 1866. Orders and prices now travel in minutes. Adds 5% to all output.'},
+  football:{n:'Football pitch', w:5, h:3, r:9, acc:5, c:'#4f9a45', roof:'#3f7a31', g:'', d:'The Football Association (1863) and the FA Cup (1871) turned a factory pastime into a mass sport. Saturday half-days gave workers time to play and watch.'},
+  concert:{n:'Concert hall', w:3, h:3, r:9, jobs:10, acc:3, c:'#d7b9e0', roof:'#5d3f6d', g:'&#9835;', d:'Music halls and the Halle Orchestra (Manchester, 1858) brought new leisure to the middle and working classes.'},
+  quay:{n:'The quay', w:3, h:2, r:99, jobs:60, prod:3, c:'#9a7b52', roof:'#5b452a', g:'Q', d:'The old harbor quay where ships load and unload.'},
+  tree:{n:'Forest', w:1, h:1, r:99},
+  clear:{n:'Clear trees', tool:1, r:1, d:'Cut down trees for timber, fields and space. Every tree you cut lowers the environment score.'},
+  demolish:{n:'Demolish', tool:1, r:1, d:'Knocks down a building so you can use the land again, for example to clear slum tenements in 1890. You may knock down 2 old buildings a round (more when the council orders it); old roads, canals and rails come up for free. Clicking something you placed this round is a free undo and gives back its permit.'}
+};
+var HOUSING = ['cottage','house','tenement','villa','mansion'];
+var PALETTE = [
+  ['Transport', ['road','canal','rail','lamp']],
+  ['Homes', ['cottage','house','tenement','villa','mansion']],
+  ['Work', ['watermill','factory','mine','foundry','steel','warehouse','dockyard','bank','telegraph']],
+  ['Town life', ['shop','pub','church','school','cemetery','jail','hospital','park','football','concert']],
+  ['Tools', ['clear','demolish']]
+];
+
+/* ---------- rounds (history written for this game) ---------- */
+var ROUNDS = [
+  { y:1750, hl:'A market town on the river', permits:2,
+    p:['Most English families still farm. In the villages, families spin and weave wool at home for merchants who drop off raw wool and collect the cloth: the putting-out system.',
+       'Better farming (crop rotation, new fodder crops, seed drills) grows more food with fewer hands. More food means more people, and Parliament is passing enclosure acts that fence the old common fields into private farms.'],
+    orders:[{k:'clear', n:6, l:'Clear forest for timber and fields'},{k:'build', b:'cottage', n:2},{k:'build', b:'road', n:8, l:'Lay 8 road tiles toward the port'}] },
+  { y:1770, hl:'Water power', permits:2,
+    p:['Richard Arkwright\'s water frame (1769) spins cotton thread strong enough for cloth, but its wheel needs a fast river. His mill at Cromford (1771) runs day and night in shifts.',
+       'Spinning moves out of cottages and into one building with set hours, a bell and an overseer. That is the factory system.'],
+    orders:[{k:'build', b:'watermill', n:2},{k:'build', b:'house', n:4},{k:'build', b:'shop', n:1}] },
+  { y:1785, hl:'Coal, canals and steam', permits:3,
+    p:['James Watt\'s improved steam engine, turning wheels from 1781, frees mills from the river. The first steam-powered cotton mill opens in 1785. Now a factory can stand anywhere coal can reach.',
+       'Coal is heavy, and roads are slow and muddy. The Bridgewater Canal (1761) showed the answer: a barge can float thirty tons where a cart carries one or two.'],
+    orders:[{k:'build', b:'mine', n:1},{k:'link', a:'mine', to:'water', net:'heavy', l:'Link the mine to the river by canal'},{k:'build', b:'factory', n:1},{k:'build', b:'house', n:4},{k:'clear', n:6, l:'Clear forest for pit props and fuel'}] },
+  { y:1800, hl:'The mill town', permits:3,
+    p:['Manchester more than triples in size between the 1770s and 1801. Families pour in from the countryside and from Ireland, and builders throw up cheap back-to-back housing as fast as they can.',
+       'Workers keep factory time: twelve to fourteen hours a day, six days a week, with children working beside adults.'],
+    orders:[{k:'build', b:'factory', n:2},{k:'build', b:'tenement', n:4},{k:'build', b:'church', n:1},{k:'build', b:'pub', n:1}] },
+  { y:1812, hl:'Hard times', permits:3,
+    p:['Britain has been at war with France for almost twenty years. Bread is dear, wages are low, and in 1811 the Luddites begin smashing the machines that took their trades.',
+       'Ironworks boom on war orders, and gas lamps start to light town streets.'],
+    orders:[{k:'build', b:'foundry', n:1},{k:'build', b:'factory', n:1},{k:'build', b:'tenement', n:3},{k:'build', b:'jail', n:1},{k:'build', b:'lamp', n:6, l:'Put up 6 gas street lamps'}] },
+  { y:1832, hl:'The railway age', permits:4,
+    p:['The Liverpool and Manchester Railway (1830) carries cotton from the port to the mills in under two hours. Railway fever follows.',
+       'In 1832 cholera reaches Britain, and the Reform Act gives the vote to more middle-class men. The Factory Act (1833) bans children under 9 from textile mills and orders schooling for those under 13.'],
+    orders:[{k:'link', a:'factory', to:'quay', net:'rail', l:'Link a factory to the quay by rail'},{k:'build', b:'mine', n:1},{k:'build', b:'school', n:1},{k:'build', b:'tenement', n:4},{k:'clear', n:8, l:'Clear forest for the railway'}] },
+  { y:1848, hl:'Reform and public health', permits:4,
+    p:['Edwin Chadwick\'s report (1842) ties disease to filth, crowding and bad water. The Public Health Act (1848) lets towns build sewers, clean water and parks.',
+       'Friedrich Engels, a German who managed his family\'s Manchester mill, publishes The Condition of the Working Class in England (1845). Chartists march for the vote. The Mines Act (1842) bans women and young children from working underground.'],
+    orders:[{k:'build', b:'hospital', n:1},{k:'build', b:'park', n:1},{k:'build', b:'cemetery', n:1},{k:'build', b:'factory', n:2},{k:'build', b:'tenement', n:4}] },
+  { y:1860, hl:'Telegraph and steam at sea', permits:4,
+    p:['Telegraph wires now link every large town, and iron steamships tie Britain to its empire. After the rebellion of 1857 the Crown takes over the rule of India from the East India Company.',
+       'British cloth floods world markets while raw cotton pours in. When the American Civil War (1861) cuts off cotton from the South, mill towns starve, and Britain turns to cotton from India and Egypt.'],
+    orders:[{k:'build', b:'dockyard', n:1},{k:'build', b:'warehouse', n:1},{k:'build', b:'telegraph', n:1},{k:'build', b:'bank', n:1},{k:'build', b:'villa', n:3},{k:'build', b:'tenement', n:3}] },
+  { y:1872, hl:'The world comes to visit', permits:5,
+    p:['Bessemer steel (1856) makes rails, bridges and ships cheaper and stronger. The Education Act (1870) opens board schools, and a new Bank Holidays Act (1871) gives workers days off.',
+       'Factory teams and clubs play football, and the first FA Cup is played in 1872.'],
+    orders:[{k:'build', b:'steel', n:1},{k:'build', b:'school', n:1},{k:'build', b:'football', n:1},{k:'build', b:'concert', n:1},{k:'build', b:'tenement', n:4},{k:'clear', n:8, l:'Clear forest for the steelworks'}] },
+  { y:1890, hl:'A world of competition', permits:5,
+    p:['Germany and the United States now make more steel than Britain. Electric light, chemicals and the telephone mark a Second Industrial Revolution.',
+       'Unskilled workers organize: the match girls strike in 1888 and the London dockers in 1889. The Housing of the Working Classes Act (1890) lets towns clear the worst slums.'],
+    orders:[{k:'build', b:'steel', n:1},{k:'build', b:'mansion', n:2},{k:'demolish', b:'tenement', n:2, l:'Clear 2 slum tenements (marked SLUM on the map)'},{k:'build', b:'house', n:4},{k:'build', b:'lamp', n:8, l:'Put up 8 electric street lamps'},{k:'build', b:'park', n:1}] }
+];
+
+/* ---------- visitors and events ---------- */
+var EVENTS = [
+  { who:'The squire', icon:'squire', t:'Enclose the common?',
+    s:'The squire and the larger farmers ask Parliament to enclose Millbrook\'s common, where cottagers have grazed cows and geese for centuries.',
+    c:[ { b:'Enclose the common', s:'Fence it into private farms.', f:function(){ G.flags.enclosed = 1; G.mod.pop += 0.1; G.mod.life -= 2; },
+          r:'Fences go up. The new farms grow more food with fewer hands, and cottagers who lost their grazing walk to town looking for work. The common is now open to build on. (Population +10% from now on, quality of life -2.)' },
+        { b:'Keep the common open', s:'Side with the cottagers.', f:function(){ G.mod.life += 2; G.permits = Math.max(0, G.permits - 1); },
+          r:'The common stays green, and the cottagers keep their cows. The squire is furious and blocks one of your building permits. Across England most commons were enclosed anyway: by 1850 very little open field was left. (Quality of life +2, one permit lost.)' } ] },
+  { who:'The mill owner', icon:'owner', t:'Who will work the water frames?',
+    s:'Your new mills need hands. Adult spinners want good wages. The parish workhouse offers to send orphan children as "pauper apprentices" for nothing but bed and board.',
+    c:[ { b:'Take the pauper apprentices', s:'Cheap child labor.', f:function(){ G.mod.ind += 6; G.mod.life -= 4; },
+          r:'Children as young as seven work twelve-hour shifts piecing broken threads and crawling under moving machines. Output rises; so do injuries. Many early mills were run just this way. (Output +6%, quality of life -4.)' },
+        { b:'Hire village spinners at fair wages', s:'Costs more, keeps families together.', f:function(){ G.mod.life += 3; },
+          r:'Village families bring their skill into the mill. Costs are higher, but the town is steadier. (Quality of life +3.)' } ] },
+  { who:'A merchantman', icon:'ship', t:'A merchantman docks',
+    s:'A merchant ship ties up at the quay. Her captain offers bales of raw cotton grown on plantations in the American South, and asks for cloth to carry to India.',
+    c:[ { b:'Buy the American cotton', s:'Cheap raw material for the mills.', f:function(){ G.mod.ind += 8; G.flags.cotton = 1; },
+          r:'Your mills hum. That cheap cotton is picked by enslaved people; the cotton gin (1793) will make the South Britain\'s main supplier. Industry in Britain is tied to slavery across the Atlantic. (Output +8%.)' },
+        { b:'Ship your cloth to India', s:'Open a new market.', f:function(){ G.mod.ind += 6; G.permits += 1; },
+          r:'Machine-made cloth undersells India\'s handloom weavers, once the best in the world. Over the next century Indian textile exports collapse while British cloth floods in. (Output +6%, one extra permit for the trade boom.)' },
+        { b:'Stick to local wool', s:'Turn the ship away.', f:function(){ G.mod.ind -= 4; },
+          r:'The ship sails to Liverpool instead, and rival towns grow faster. Cotton, not wool, drives the early Industrial Revolution. (Output -4%.)' } ] },
+  { who:'Robert Owen', icon:'owner', t:'A visitor from New Lanark',
+    s:'Robert Owen, who runs the New Lanark mills in Scotland, says shorter hours, no very young children and a school make better workers. Your partners say long hours make profits.',
+    c:[ { b:'Follow Owen: 10-hour days and a mill school', s:'One free permit for the school.', f:function(){ G.mod.life += 5; G.mod.ind -= 4; G.permits += 1; },
+          r:'Owen\'s ideas inspire factory reformers and early socialists. Output dips a little, but your workers are healthier. (Quality of life +5, output -4%, one extra permit.)' },
+        { b:'Keep the 14-hour shifts', s:'Profits first.', f:function(){ G.mod.ind += 5; G.mod.life -= 5; },
+          r:'Most owners chose the same, until Parliament forced limits in the Factory Acts. (Output +5%, quality of life -5.)' } ] },
+  { who:'The Luddites', icon:'crowd', t:'Frames smashed in the night',
+    s:'Masked croppers and weavers, signing their letters "General Ludd," break into a mill and smash the new machines that cost them their trades.',
+    c:[ { b:'Call in the soldiers', s:'Parliament makes frame-breaking a hanging crime (1812).', f:function(){ G.mod.ind += 4; G.mod.life -= 4; },
+          r:'More soldiers were sent against the Luddites than Wellington led in Spain. Leaders were hanged or transported to Australia, and the machines stayed. (Output +4%, quality of life -4.)' },
+        { b:'Meet the croppers and slow the new machines', s:'Keep the peace.', f:function(){ G.mod.ind -= 5; G.mod.life += 3; },
+          r:'The town is calmer, but neighboring towns mechanize faster and undersell you. (Output -5%, quality of life +3.)' } ] },
+  { who:'Cholera', icon:'skull', t:'Cholera reaches the town', chol:1,
+    s:'"King Cholera" arrives from overseas. It spreads through dirty water, though nobody knows that yet. Doctors blame "miasma," bad air from rotting filth.',
+    c:[ { b:'Burn tar barrels to clean the air', s:'What most towns tried.', f:function(){ G.mod.life -= 2; cholera(1); },
+          r:'The smoke does nothing; cholera travels in the water, not the air. Deaths are worst in the crowded tenements by the river. (Quality of life -2.)' },
+        { b:'Open a fever hospital and clean the wells', s:'Uses one permit.', need:1, f:function(){ G.permits -= 1; G.mod.life += 2; cholera(0.5); },
+          r:'Clean water cuts the deaths in half. In 1854 Dr. John Snow will prove cholera spreads through water by tracing a London outbreak to one pump. (Quality of life +2.)' } ] },
+  { who:'Herr Schreiber', icon:'german', t:'A visitor from the Rhineland',
+    s:'Herr Schreiber, an engineer from Prussia, asks to tour your mills and sketch your engines. British law banned the export of most machinery until 1843.',
+    c:[ { b:'Show him everything and sell him engines', s:'Machinery exports are legal now.', f:function(){ G.mod.ind += 4; G.permits += 1; G.flags.germany = 2; },
+          r:'You sell engines and send engineers. German industry, built on Ruhr coal and soon on railways, will grow very fast. (Output +4% now, one extra permit; stronger German rivals later.)' },
+        { b:'Turn him away', s:'Guard British secrets.', f:function(){ G.flags.germany = 1; },
+          r:'He tours a rival town instead. Skilled workers, smuggled plans and copied machines spread the technology anyway. (No change now; German rivals later.)' } ] },
+  { who:'A steamer frigate', icon:'steamer', t:'The Admiralty wants iron and coal',
+    s:'An iron steam frigate anchors offshore. The Royal Navy wants your coal and iron for steam gunboats bound for China and India.',
+    c:[ { b:'Take the navy contract', s:'More furnaces, more smoke.', f:function(){ G.mod.ind += 10; G.mod.env -= 4; },
+          r:'Steam gunboats helped Britain win the Opium War (1839 to 1842) and project power up rivers across Asia. Industry and empire feed each other. (Output +10%, environment -4.)' },
+        { b:'Turn it down', s:'Keep your works for trade.', f:function(){ },
+          r:'Another town takes the order. (No change.)' } ] },
+  { who:'The Iwakura Mission', icon:'japan', t:'Visitors from Japan',
+    s:'Japanese officials of the Iwakura Mission (1871 to 1873) tour Britain\'s mills, shipyards and schools, studying what Meiji Japan should copy.',
+    c:[ { b:'Show them the mills and the rail yard', s:'Sell them locomotives.', f:function(){ G.mod.ind += 6; },
+          r:'Japan opens its first railway in 1872 with British engines and engineers, and a state silk mill at Tomioka the same year. (Output +6%.)' },
+        { b:'Show them the schools and the hospital', s:'Sell them ideas.', f:function(){ G.mod.life += 3; },
+          r:'The envoys note Britain\'s wealth and also its slums. Japan sets up universal schooling (1872) as part of its modernization. (Quality of life +3.)' } ] },
+  { who:'The dockers', icon:'crowd', t:'The great strike',
+    s:'Inspired by the London dock strike (1889), your dockers and mill hands form a union and stop work for a raise of "the docker\'s tanner," sixpence an hour.',
+    c:[ { b:'Recognize the union', s:'Pay the raise.', f:function(){ G.mod.life += 5; G.mod.ind -= 3; },
+          r:'New unions of unskilled workers spread fast, and by 1900 they help found the Labour Party. (Quality of life +5, output -3%.)' },
+        { b:'Lock them out', s:'Bring in replacement workers.', f:function(){ G.mod.ind += 2; G.mod.life -= 6; },
+          r:'The works reopen, but bitterness stays for a generation. (Output +2%, quality of life -6.)' } ] }
+];
+
+
+var ACH = [
+  ['woodsman', 'Woodsman', 'Clear 30 trees'],
+  ['bridge', 'Bridge builder', 'Carry a road or rail over the river'],
+  ['mill', 'Water power', 'Build a water mill'],
+  ['steam', 'Steam age', 'Build a steam factory'],
+  ['canal', 'Cut the canal', 'Link a mine to the river'],
+  ['rail', 'Railway town', 'Link a factory to the quay by rail'],
+  ['gas', 'Gaslight', 'Light 12 street lamps'],
+  ['reform', 'Reformer', 'Have a school, a hospital and a park'],
+  ['port', 'World port', 'Dockyard, warehouse and telegraph'],
+  ['leisure', 'Saturday afternoon', 'Park, football pitch and concert hall'],
+  ['clean', 'Clean air', 'Environment 40+ in 1890'],
+  ['healthy', 'Healthy town', 'Quality of life 55+ in 1890'],
+  ['orders', 'Model planner', 'Fill every order in all ten rounds']
+];
+
+/* ---------- state ---------- */
+var G = null, occ = new Int32Array(W * H), byId = {}, tool = null, M = null, NET = null, smokeGrid = null;
+function initialItems(){
+  var items = [], id = 1;
+  function add(t, x, y, w, h){ var b = B[t]; items.push({ id:id++, t:t, x:x, y:y, w:w || b.w || 1, h:h || b.h || 1, born:0 }); }
+  /* farm village (north-west) */
+  [[9,5],[12,5],[15,6],[9,8],[12,9],[16,9],[19,9],[6,11]].forEach(function(p){ add('cottage', p[0], p[1]); });
+  add('church', 19, 4); add('pub', 13, 2);
+  /* port town (east) */
+  var qx = coastX(17) - 3; add('quay', qx, 17);
+  [[46,13],[49,13],[46,16],[49,16],[52,13],[47,24]].forEach(function(p){ add('house', p[0], p[1]); });
+  add('shop', 51, 16); add('church', 49, 24);
+  /* old lane from the village to the port */
+  var paths = [[[8,11],[22,11],[29,13],[44,13],[44,15],[qx - 1, 15],[qx - 1, 17]], [[11,5],[11,10]], [[14,7],[14,10]], [[18,5],[18,10]], [[46,23],[52,23]]];
+  var seen = {};
+  paths.forEach(function(path){
+    for (var i = 0; i < path.length - 1; i++) linePts(path[i][0], path[i][1], path[i + 1][0], path[i + 1][1]).forEach(function(p){
+      var k = p[0] + ',' + p[1]; if (seen[k]) return; seen[k] = 1; add('road', p[0], p[1], 1, 1); });
+  });
+  /* forests */
+  var r = mulberry(1066), blocked = {};
+  items.forEach(function(it){ for (var yy = it.y - 1; yy <= it.y + it.h; yy++) for (var xx = it.x - 1; xx <= it.x + it.w; xx++) blocked[xx + ',' + yy] = 1; });
+  function forest(x0, y0, x1, y1, p){
+    for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) {
+      var t = tAt(x, y); if (t !== GR && t !== HILL && t !== COAL) continue;
+      if (blocked[x + ',' + y]) continue;
+      var cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, dd = Math.hypot((x - cx) / ((x1 - x0) / 2 + 1), (y - cy) / ((y1 - y0) / 2 + 1));
+      if (r() < p * (1.15 - dd * 0.75)) { add('tree', x, y, 1, 1); blocked[x + ',' + y] = 1; }
+    }
+  }
+  forest(24, 1, 37, 9, 0.6); forest(19, 27, 31, 37, 0.6); forest(41, 3, 47, 8, 0.45);
+  forest(0, 23, 3, 30, 0.4); forest(49, 31, 55, 38, 0.45); forest(30, 30, 45, 39, 0.15);
+  return { items:items, next:id };
+}
+function newGame(name){
+  var init = initialItems();
+  G = { v:1, name:name || 'Millbrook', round:0, items:init.items, next:init.next, permits:0, mod:{ life:0, ind:0, env:0, pop:0 }, flags:{}, hist:[],
+        cleared:{}, demol:{}, ach:{}, gaz:0, gazDone:{}, ordersMissed:0, trees0:init.items.filter(function(i){ return i.t === 'tree'; }).length, chol:0, phase:'brief', done:false };
+  rebuild(); M = compute(); G.hist.push(snap(0));
+}
+function save(){ if (G) store(SAVE, JSON.stringify(G)); }
+var saveT = 0; function saveSoon(){ clearTimeout(saveT); saveT = setTimeout(save, 400); }
+
+function alive(it){ return !it.died; }
+function rebuild(){
+  occ.fill(0); byId = {};
+  G.items.forEach(function(it){
+    byId[it.id] = it; if (it.died) return;
+    for (var y = it.y; y < it.y + it.h; y++) for (var x = it.x; x < it.x + it.w; x++) occ[y * W + x] = it.id;
+  });
+}
+function itemAt(x, y){ if (x < 0 || y < 0 || x >= W || y >= H) return null; var id = occ[y * W + x]; return id ? byId[id] : null; }
+function linePts(x0, y0, x1, y1){
+  var pts = [], dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1, err = dx - dy;
+  while (true) { pts.push([x0, y0]); if (x0 === x1 && y0 === y1) break; var e2 = 2 * err;
+    if (e2 > -dy && e2 < dx) { /* step one axis at a time so lines stay 4-connected */ if (Math.abs(err - dy) < Math.abs(err + dx)) { err -= dy; x0 += sx; } else { err += dx; y0 += sy; } }
+    else if (e2 > -dy) { err -= dy; x0 += sx; } else { err += dx; y0 += sy; } }
+  return pts;
+}
+
+/* ---------- rules ---------- */
+function unlocked(t){ return B[t] && B[t].r <= G.round + 1; }
+function curRound(){ return ROUNDS[G.round]; }
+function orderFor(t){ var o = curRound().orders; for (var i = 0; i < o.length; i++) if (o[i].k === 'build' && o[i].b === t) return o[i]; return null; }
+function builtThisRound(t){ var n = 0; G.items.forEach(function(it){ if (it.t === t && !it.died && it.born === G.round + 1) n++; }); return n; }
+function needsPermit(t){
+  var b = B[t]; if (b.line || b.tool) return false;
+  var o = orderFor(t); return !(o && builtThisRound(t) < o.n);
+}
+var rot = 0; /* 1 = the picked building is turned a quarter turn (arrow keys or the Rotate button) */
+function canRotate(t){ var b = B[t]; return !!(t && b && !b.line && !b.tool && b.w !== b.h); }
+function dims(t){ var b = B[t]; if (b.line || b.tool) return [1, 1]; return rot && b.w !== b.h ? [b.h, b.w] : [b.w, b.h]; }
+function footprint(t, x, y){ var d = dims(t); return { x:x, y:y, w:d[0], h:d[1] }; }
+/* ---------- limits: each round allows only so many tree clearings, demolitions and lamps (roads, canals and rails are unlimited) ---------- */
+var RAIL_OK = /factory|mine|foundry|steel|quay|warehouse|dockyard|watermill/;
+function orderN(k, b){ var n = 0; curRound().orders.forEach(function(o){ if (o.k === k && (!b || o.b === b)) n += o.n; }); return n; }
+function allowance(k){
+  if (k === 'clear') return 6 + orderN('clear');
+  if (k === 'demol') return 2 + orderN('demolish');
+  if (k === 'lamp') return 2 + orderN('build', 'lamp');
+}
+function used(k){
+  var r = G.round + 1, n = 0;
+  if (k === 'clear') return G.cleared[r] || 0;
+  if (k === 'demol') { var d = G.demol[r] || {}; for (var t in d) n += d[t]; return n; }
+  G.items.forEach(function(it){ if (it.died || it.born !== r) return;
+    if (k === 'lamp' && it.t === 'lamp') n++; });
+  return n;
+}
+function left(k){ return Math.max(0, allowance(k) - used(k)); }
+function nextTo(x, y, fn){ return [[1,0],[-1,0],[0,1],[0,-1]].some(function(d){ return fn(x + d[0], y + d[1]); }); }
+function isType(x, y, re){ var o = itemAt(x, y); return !!(o && o.t !== 'tree' && (re.test(o.t) || (o.x2 && re.test(o.x2)))); }
+/* roads, canals and railways may cross each other: the second one is stored on the same tile as x2 */
+var CROSS = { road:1, rail:1, canal:1 };
+function canCross(t, it){ return !!(it && CROSS[t] && CROSS[it.t] && it.t !== t && !it.x2 && tAt(it.x, it.y) !== RIV && !nextTo(it.x, it.y, function(a, c){ var o = itemAt(a, c); return !!(o && o.x2 && (o.t === it.t || o.x2 === it.t)); })); }
+function canPlace(t, x, y){
+  var b = B[t], f = footprint(t, x, y);
+  if (f.x < 0 || f.y < 0 || f.x + f.w > W || f.y + f.h > H) return 'Off the map.';
+  if (b.line) {
+    var it = itemAt(x, y), tt = tAt(x, y);
+    if (it && !canCross(t, it)) return it.t === 'tree' ? 'Clear the trees first.' : it.x2 === t || it.t === t ? 'Already built here.' : CROSS[t] && CROSS[it.t] && !it.x2 && tAt(x, y) !== RIV ? 'Cross straight over: crossings and bridges are one tile wide.' : 'Something is already here.';
+    if (tt === SEA) return 'That is the sea.';
+    if (tt === RIV && (t === 'canal' || t === 'lamp')) return t === 'canal' ? 'The river is already water: dig the canal up to its bank.' : 'No lamps in the river.';
+    if (tt === COMMON && !G.flags.enclosed) return 'Common land: the cottagers graze animals here.';
+    if (tt === SAND && (t === 'canal' || t === 'lamp')) return 'Not on the beach.';
+    if (t === 'road' && !nextTo(x, y, function(a, c){ return isType(a, c, /^road$/) || (itemAt(a, c) && !B[itemAt(a, c).t].line && itemAt(a, c).t !== 'tree'); })) return 'A new road must join an existing road or a building.';
+    if (t === 'canal' && !nextTo(x, y, function(a, c){ return isWater(a, c) || isType(a, c, /^canal$/); })) return 'A canal must join the river, the sea or another canal.';
+    if (t === 'rail' && !nextTo(x, y, function(a, c){ return isType(a, c, /^rail$/) || isType(a, c, RAIL_OK); })) return 'A railway must start at a mine, works, warehouse or the quay, or join another rail.';
+    if (t === 'lamp' && !nextTo(x, y, function(a, c){ return isType(a, c, /^road$/); })) return 'Street lamps go beside a road.';
+    if (t === 'lamp') { if (left('lamp') < 1) return 'No more lamps allowed this round.'; }
+    
+    return '';
+  }
+  var coal = 0, river = false, sea = false, road = false, freight = false;
+  for (var yy = f.y; yy < f.y + f.h; yy++) for (var xx = f.x; xx < f.x + f.w; xx++) {
+    var i2 = itemAt(xx, yy), t2 = tAt(xx, yy);
+    if (i2) return i2.t === 'tree' ? 'Clear the trees first.' : 'Something is already here.';
+    if (t2 === RIV || t2 === SEA) return 'You cannot build on the water.';
+    if (t2 === COMMON && !G.flags.enclosed) return 'Common land: the cottagers graze animals here.';
+    if (t2 === SAND && !/quay|dockyard|warehouse/.test(t)) return 'Only docks and warehouses go on the beach.';
+    if (t2 === COAL) coal++;
+  }
+  ring(f, function(xx, yy){ var t3 = tAt(xx, yy); if (t3 === RIV) river = true; if (t3 === SEA) sea = true;
+    if (isType(xx, yy, /^road$/)) road = true; if (isType(xx, yy, /^(canal|rail)$/)) freight = true; });
+  if (b.river && !river) return 'A water mill must touch the river.';
+  if (b.onCoal && coal < 3) return 'A mine must sit on a coal seam (dark speckled hills).';
+  if (!b.onCoal && coal > 0) return 'Coal seams are kept for mines. Build on other land.';
+  if (b.onSea && !sea) return 'A dockyard must touch the sea.';
+  if (!road && !(freight && /mine|dockyard|warehouse/.test(t))) return 'It must face a road. Lay a road here first.';
+  if (needsPermit(t) && G.permits < 1) return 'No permits left. Fill your orders, or demolish something you built this round.';
+  return '';
+}
+function ring(f, fn){
+  for (var x = f.x; x < f.x + f.w; x++) { fn(x, f.y - 1); fn(x, f.y + f.h); }
+  for (var y = f.y; y < f.y + f.h; y++) { fn(f.x - 1, y); fn(f.x + f.w, y); }
+}
+function place(t, x, y){
+  if (canPlace(t, x, y)) return false;
+  var ex = itemAt(x, y); if (ex && canCross(t, ex)) { ex.x2 = t; ex.x2born = G.round + 1; return true; }
+  var f = footprint(t, x, y), it = { id:G.next++, t:t, x:f.x, y:f.y, w:f.w, h:f.h, born:G.round + 1 };
+  if (needsPermit(t)) { it.p = 1; G.permits--; }
+  G.items.push(it); byId[it.id] = it;
+  for (var yy = it.y; yy < it.y + it.h; yy++) for (var xx = it.x; xx < it.x + it.w; xx++) occ[yy * W + xx] = it.id;
+  return true;
+}
+function clearAt(x, y){
+  var it = itemAt(x, y); if (!it || it.t !== 'tree') return false;
+  if (left('clear') < 1) { flash('No more tree clearing this round.'); return false; }
+  it.died = G.round + 1; occ[y * W + x] = 0;
+  var r = G.round + 1; G.cleared[r] = (G.cleared[r] || 0) + 1; return true;
+}
+function demolishAt(x, y){
+  var it = itemAt(x, y); if (!it || it.t === 'tree') return false;
+  if (it.t === 'quay') { flash('The old quay stays.'); return false; }
+  if (it.x2) { delete it.x2; delete it.x2born; return true; }
+  var r = G.round + 1;
+  var line = B[it.t].line && it.t !== 'lamp';
+  if (it.born !== r && !line && left('demol') < 1) { flash('No more demolitions this round.'); return false; }
+  for (var yy = it.y; yy < it.y + it.h; yy++) for (var xx = it.x; xx < it.x + it.w; xx++) occ[yy * W + xx] = 0;
+  if (line && it.born !== r) { it.died = r; return true; }
+  if (it.born === r) {
+    G.items.splice(G.items.indexOf(it), 1); delete byId[it.id];
+    if (it.p) G.permits++;
+    else { /* an order building went: let a permit-built twin take its place and refund that permit */
+      for (var i = 0; i < G.items.length; i++) { var o = G.items[i]; if (o.t === it.t && o.born === r && o.p && !o.died) { o.p = 0; G.permits++; break; } }
+    }
+  } else {
+    var wasSlum = isSlum(it);
+    it.died = r; G.demol[r] = G.demol[r] || {}; G.demol[r][it.t] = (G.demol[r][it.t] || 0) + 1;
+    if (wasSlum) { var so = slumOrder(); flash('Slum cleared (' + Math.min(so.n, G.demol[r].tenement) + ' of ' + so.n + ').'); }
+  }
+  return true;
+}
+/* slum clearance: in a round whose orders say to clear tenements, every older tenement is a slum */
+function slumOrder(){ var R = ROUNDS[G.round]; if (!R) return null; for (var i = 0; i < R.orders.length; i++) if (R.orders[i].k === 'demolish' && R.orders[i].b === 'tenement') return R.orders[i]; return null; }
+function isSlum(it){ var so = slumOrder(); return !!so && it.t === 'tenement' && !it.died && it.born !== G.round + 1 && orderProgress(so).have < so.n; }
+
+/* ---------- networks ---------- */
+function computeNet(){
+  var road = new Int32Array(W * H).fill(-1), heavy = new Int32Array(W * H).fill(-1), rail = new Int32Array(W * H).fill(-1);
+  var kind = new Uint8Array(W * H); /* 1 road, 2 rail, 4 canal, 8 water */
+  G.items.forEach(function(it){ if (it.died) return; var i = it.y * W + it.x;
+    [it.t, it.x2].forEach(function(t){ if (t === 'road') kind[i] |= 1; else if (t === 'rail') kind[i] |= 2; else if (t === 'canal') kind[i] |= 4; }); });
+  for (var i = 0; i < W * H; i++) if (ter[i] === RIV || ter[i] === SEA) kind[i] |= 8;
+  function flood(arr, mask){
+    var id = 0, q = [];
+    for (var s = 0; s < W * H; s++) {
+      if (!(kind[s] & mask) || arr[s] >= 0) continue;
+      arr[s] = id; q.length = 0; q.push(s);
+      while (q.length) { var c = q.pop(), cx = c % W, cy = (c - cx) / W;
+        [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){ var nx = cx + d[0], ny = cy + d[1]; if (nx < 0 || ny < 0 || nx >= W || ny >= H) return;
+          var n = ny * W + nx; if ((kind[n] & mask) && arr[n] < 0) { arr[n] = id; q.push(n); } }); }
+      id++;
+    }
+  }
+  flood(road, 1); flood(heavy, 2 | 4 | 8); flood(rail, 2);
+  var waterIds = {}; for (var j = 0; j < W * H; j++) if ((kind[j] & 8) && heavy[j] >= 0) waterIds[heavy[j]] = 1;
+  var seaIds = {}; for (var k = 0; k < W * H; k++) if (ter[k] === SEA) seaIds[heavy[k]] = 1;
+  return { road:road, heavy:heavy, rail:rail, kind:kind, waterIds:waterIds, seaIds:seaIds };
+}
+function touches(it, arr){
+  var s = {}; ring(it, function(x, y){ if (x < 0 || y < 0 || x >= W || y >= H) return; var v = arr[y * W + x]; if (v >= 0) s[v] = 1; });
+  if (it.w === 1 && it.h === 1) { var v2 = arr[it.y * W + it.x]; if (v2 >= 0) s[v2] = 1; }
+  return s;
+}
+function shares(a, b){ for (var k in a) if (b[k]) return true; return false; }
+function linkDone(o){
+  var N = NET, as = [], bs = [];
+  G.items.forEach(function(it){ if (it.died) return; if (it.t === o.a) as.push(it); if (o.to !== 'water' && (it.t === o.to || (o.to === 'quay' && it.t === 'dockyard'))) bs.push(it); });
+  var arr = o.net === 'rail' ? N.rail : N.heavy;
+  for (var i = 0; i < as.length; i++) {
+    var ta = touches(as[i], arr);
+    if (o.to === 'water') { for (var k in ta) if (N.waterIds[k]) return true; continue; }
+    for (var j = 0; j < bs.length; j++) if (shares(ta, touches(bs[j], arr))) return true;
+  }
+  return false;
+}
+function orderProgress(o, r){
+  r = r || G.round + 1;
+  if (o.k === 'build') { var n = 0; G.items.forEach(function(it){ if (it.t === o.b && !it.died && it.born === r) n++; }); return { have:Math.min(n, o.n), need:o.n }; }
+  if (o.k === 'clear') return { have:Math.min(G.cleared[r] || 0, o.n), need:o.n };
+  if (o.k === 'demolish') return { have:Math.min((G.demol[r] || {})[o.b] || 0, o.n), need:o.n };
+  if (o.k === 'link') return { have:linkDone(o) ? 1 : 0, need:1 };
+}
+function orderLabel(o){
+  if (o.l) return o.l;
+  var b = B[o.b]; return 'Build ' + o.n + ' ' + (o.n > 1 ? plural(b.n) : b.n.toLowerCase().replace(/^the /, ''));
+}
+function plural(n){ n = n.toLowerCase(); if (/houses$|lamps$|tenements$/.test(n)) return n; if (/y$/.test(n) && !/ey$/.test(n)) return n.slice(0, -1) + 'ies'; if (/ch$|sh$/.test(n)) return n + 'es'; if (n === 'lavish residence') return 'lavish residences'; if (n === "manager's villa") return "managers' villas"; return n + 's'; }
+
+/* ---------- scoring ---------- */
+var REACH = 10;
+function centerOf(it){ return [it.x + it.w / 2, it.y + it.h / 2]; }
+function emitters(){
+  var e = []; G.items.forEach(function(it){ if (it.died) return; var b = B[it.t]; if (b.smoke) { var c = centerOf(it); e.push([c[0], c[1] - 0.5, b.smoke]); } }); return e;
+}
+function smokeAt(x, y, em){
+  var s = 0; for (var i = 0; i < em.length; i++) { var dx = x - em[i][0], dy = y - em[i][1];
+    var d = dx > 0 ? Math.hypot(dx * 0.45, dy) : Math.hypot(dx * 1.4, dy); s += em[i][2] * Math.exp(-d / 4.5); }
+  return s;
+}
+function compute(){
+  NET = computeNet();
+  var live = G.items.filter(alive), em = emitters(), cap = 0, jobs = 0, P = 0, H2 = [], counts = {};
+  live.forEach(function(it){ var b = B[it.t]; counts[it.t] = (counts[it.t] || 0) + 1; cap += b.cap || 0; jobs += b.jobs || 0; });
+  var pop = Math.round((400 + jobs * 1.6) * (1 + G.mod.pop) * (1 - (G.chol || 0)));
+  var pct = cap ? pop / cap * 100 : 999;
+  /* workplaces and homes by road network */
+  var homeRoads = {}, workRoads = {};
+  live.forEach(function(it){ var b = B[it.t]; if (b.cap) Object.assign(homeRoads, touches(it, NET.road)); if (b.jobs) Object.assign(workRoads, touches(it, NET.road)); });
+  /* industry */
+  var mineRoad = {}, mineHeavy = {};
+  live.forEach(function(it){ if (it.t === 'mine') { Object.assign(mineRoad, touches(it, NET.road)); Object.assign(mineHeavy, touches(it, NET.heavy)); } });
+  var tele = Math.min(2, counts.telegraph || 0), unlinked = 0, nocoal = 0;
+  live.forEach(function(it){
+    var b = B[it.t]; if (!b.prod) return;
+    var m = 1, tr = touches(it, NET.road), th = touches(it, NET.heavy);
+    if (!shares(tr, homeRoads)) { m *= 0.5; unlinked++; }
+    if (b.coal) { if (shares(th, mineHeavy)) m *= 1.25; else if (shares(tr, mineRoad)) m *= 1; else { m *= 0.6; nocoal++; } }
+    if (/factory|foundry|steel|watermill|mine|warehouse/.test(it.t)) { for (var k in th) if (NET.seaIds[k]) { m *= 1.15; break; } }
+    it._m = m; P += b.prod * m;
+  });
+  P *= (1 + tele * 0.05) * (1 + G.mod.ind / 100);
+  var ind = Math.round(100 * (1 - Math.exp(-P / 110)));
+  /* environment */
+  var trees = live.filter(function(i){ return i.t === 'tree'; }).length, smokeSum = 0;
+  em.forEach(function(e){ smokeSum += e[2]; });
+  var riverP = 0;
+  live.forEach(function(it){ var b = B[it.t]; if (!b.smoke && it.t !== 'tenement') return; var wet = false; ring(it, function(x, y){ if (tAt(x, y) === RIV) wet = true; }); if (wet) riverP += it.t === 'watermill' ? 1 : it.t === 'tenement' ? 2 : 4; });
+  var roads = (counts.road || 0) + (counts.rail || 0);
+  var envParts = { trees:-Math.round(32 * (1 - trees / G.trees0)), smoke:-Math.round(Math.min(45, smokeSum * 0.35)), river:-Math.min(15, riverP), roads:-Math.min(5, Math.round(roads / 60)), parks:Math.min(9, (counts.park || 0) * 3) };
+  var env = clamp(100 + envParts.trees + envParts.smoke + envParts.river + envParts.roads + envParts.parks + G.mod.env, 0, 100);
+  /* living conditions */
+  var acc = live.filter(function(it){ return B[it.t].acc; }), lamps = live.filter(function(it){ return it.t === 'lamp'; });
+  var crowdPen = clamp((pct - 100) * 0.35, 0, 25), pubs = counts.pub || 0, globalPen = 0;
+  if (pubs > 1 + pop / 1500) globalPen += 4;
+  if (pop > 1500 && !counts.cemetery) globalPen += 5;
+  var lifeSum = 0, wsum = 0;
+  live.forEach(function(it){
+    var b = B[it.t]; if (!b.cap) return;
+    var c = centerOf(it), l = b.life, got = {}, a = 0;
+    acc.forEach(function(s){ var sc = centerOf(s); if (Math.hypot(sc[0] - c[0], sc[1] - c[1]) <= REACH && !got[s.t]) { got[s.t] = 1; a += B[s.t].acc; } });
+    l += Math.min(28, a);
+    for (var i = 0; i < lamps.length; i++) if (Math.hypot(lamps[i].x - c[0], lamps[i].y - c[1]) <= 4) { l += 3; break; }
+    var sm = smokeAt(c[0], c[1], em); l -= Math.min(30, sm * 1.1);
+    if (!shares(touches(it, NET.road), workRoads)) l -= 6;
+    l = clamp(l - crowdPen - globalPen + G.mod.life, 0, 100);
+    it._life = l; it._smoke = sm;
+    lifeSum += l * b.cap; wsum += b.cap;
+  });
+  var life = wsum ? Math.round(lifeSum / wsum) : 0;
+  var crowd = clamp(Math.round(pct - 50), 0, 100);
+  var rating = Math.round(0.3 * ind + 0.3 * life + 0.2 * env + 0.2 * (100 - crowd));
+  return { pop:pop, cap:cap, pct:Math.round(pct), jobs:jobs, P:Math.round(P), ind:ind, env:Math.round(env), envParts:envParts, life:life, crowd:crowd, rating:rating,
+           counts:counts, unlinked:unlinked, nocoal:nocoal, riverP:riverP, trees:trees, em:em, smokeSum:smokeSum, smog:clamp(smokeSum / 170, 0, 1) };
+}
+function snap(r){ return { r:r, y:r ? ROUNDS[r - 1].y : 1750, pop:M.pop, pct:M.pct, env:M.env, life:M.life, ind:M.ind, rating:M.rating, smog:M.smog }; }
+function cholera(f){
+  var base = 0.02 + clamp((M.pct - 90) / 100, 0, 0.6) * 0.12 + Math.min(15, M.riverP) * 0.003;
+  var rate = base * f; G.chol = Math.min(0.15, rate); G.cholDeaths = Math.round(M.pop * rate);
+}
+
+/* ---------- drawing ---------- */
+var cv = $('map'), ctx = cv.getContext('2d'), DPR = clamp(Math.ceil(window.devicePixelRatio || 1), 2, 3);
+cv.width = W * T * DPR; cv.height = H * T * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+var terrC = document.createElement('canvas'); terrC.width = W * T * 2; terrC.height = H * T * 2;
+function shade(hex, f){ var n = parseInt(hex.slice(1), 16), r = n >> 16, g = n >> 8 & 255, b = n & 255;
+  function c(v){ return clamp(Math.round(f > 0 ? v + (255 - v) * f : v * (1 + f)), 0, 255); } return 'rgb(' + c(r) + ',' + c(g) + ',' + c(b) + ')'; }
+function mix(a, b, t){ return 'rgb(' + [0,1,2].map(function(i){ return Math.round(a[i] + (b[i] - a[i]) * t); }).join(',') + ')'; }
+function hash2(x, y){ var s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return s - Math.floor(s); }
+function vnoise(x, y){ var ix = Math.floor(x), iy = Math.floor(y), fx = x - ix, fy = y - iy; fx = fx * fx * (3 - 2 * fx); fy = fy * fy * (3 - 2 * fy);
+  var a = hash2(ix, iy), b = hash2(ix + 1, iy), c = hash2(ix, iy + 1), d = hash2(ix + 1, iy + 1); return a + (b - a) * fx + (c - a) * fy + (a - b - c + d) * fx * fy; }
+var riverTint = 0, NOISEPX = null;
+var PAL = { grass:[128,182,96], grass2:[92,146,68], farmA:[218,192,104], farmB:[150,180,86], farmC:[168,128,84], common:[168,208,120], common2:[132,182,96],
+  hill:[178,166,116], hill2:[136,128,90], coal:[118,108,90], sand:[236,220,168], mud:[156,134,92], river:[84,152,208], dirty:[118,104,70], sea:[34,98,164], shallow:[92,168,210], foam:[232,242,246] };
+function landEff(t){ return (t === COMMON && G && G.flags.enclosed) ? FARM : t; }
+function fieldCol(tx, ty){ var h = hash2(Math.floor(tx / 4) * 7.3 + 1, Math.floor(ty / 3) * 3.1 + 2); return h < 0.4 ? PAL.farmA : h < 0.75 ? PAL.farmB : PAL.farmC; }
+function fieldVert(tx, ty){ return hash2(Math.floor(tx / 4) + 9, Math.floor(ty / 3) + 4) > 0.5; }
+function drawTerrain(){
+  var S = W * T, SH = H * T, x, y;
+  if (!NOISEPX) { NOISEPX = new Float32Array(S * SH); for (y = 0; y < SH; y++) for (x = 0; x < S; x++) NOISEPX[y * S + x] = vnoise(x / 26, y / 26) * 0.62 + vnoise(x / 7, y / 7) * 0.38; }
+  var img = new ImageData(S, SH), d = img.data, rv = PAL.river.map(function(v, i){ return v + (PAL.dirty[i] - v) * riverTint; });
+  function lerp(a, b, t){ return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
+  function br(c, f){ return f >= 0 ? lerp(c, [255,255,255], f) : lerp(c, [0,0,0], -f); }
+  for (y = 0; y < SH; y++) for (x = 0; x < S; x++) {
+    var tx = x >> 4, ty = y >> 4, lx = x & 15, ly = y & 15, t = landEff(ter[ty * W + tx]), k = NOISEPX[y * S + x], f = k - 0.5, col;
+    if (t === GR) col = br(lerp(PAL.grass2, PAL.grass, k), f * 0.08);
+    else if (t === FARM) { var vert = fieldVert(tx, ty), row = ((vert ? x : y) % 4) < 2; col = br(fieldCol(tx, ty), f * 0.14 + (row ? -0.07 : 0.05)); }
+    else if (t === COMMON) col = br(lerp(PAL.common2, PAL.common, k), f * 0.06);
+    else if (t === HILL) col = br(lerp(PAL.hill2, PAL.hill, k), (vnoise(x / 11, y / 11) - 0.5) * 0.28);
+    else if (t === COAL) { col = br(PAL.coal, (vnoise(x / 11, y / 11) - 0.5) * 0.3); if (((x * 73856093 ^ y * 19349663) >>> 0) % 100 > 93) col = [44,38,32]; }
+    else if (t === SAND) col = br(PAL.sand, f * 0.12);
+    else if (t === RIV) { var mid = Math.abs(((riverY(tx) + 1) * 16) - y) / 16; col = br(rv, -0.12 * (1 - mid) + f * 0.1); if (vnoise(x / 9, y / 2.2) > 0.78) col = br(col, 0.18); }
+    else { var depth = clamp((tx - coastX(ty)) / 5, 0, 1); col = br(lerp(PAL.shallow, PAL.sea, depth), f * 0.1); if (vnoise(x / 12, y / 2.5) > 0.8) col = br(col, 0.14); }
+    var water = t === RIV || t === SEA;
+    if (!water) {
+      if ((lx < 3 && isWater(tx - 1, ty)) || (lx > 12 && isWater(tx + 1, ty)) || (ly < 3 && isWater(tx, ty - 1)) || (ly > 12 && isWater(tx, ty + 1)))
+        col = lerp(col, t === SAND ? [214,196,140] : PAL.mud, 0.65);
+    } else {
+      var landN = function(dx, dy){ var tt = tAt(tx + dx, ty + dy); return tt >= 0 && tt !== RIV && tt !== SEA; };
+      if ((lx < 2 && landN(-1, 0)) || (lx > 13 && landN(1, 0)) || (ly < 2 && landN(0, -1)) || (ly > 13 && landN(0, 1))) col = lerp(col, PAL.foam, 0.4);
+    }
+    var o = (y * S + x) * 4; d[o] = col[0]; d[o + 1] = col[1]; d[o + 2] = col[2]; d[o + 3] = 255;
+  }
+  var tmp = document.createElement('canvas'); tmp.width = S; tmp.height = SH; tmp.getContext('2d').putImageData(img, 0, 0);
+  var c = terrC.getContext('2d'), sc = terrC.width / S;
+  c.setTransform(1, 0, 0, 1, 0, 0); c.imageSmoothingEnabled = true; c.drawImage(tmp, 0, 0, terrC.width, terrC.height); c.setTransform(sc, 0, 0, sc, 0, 0);
+  /* hedgerows around fields, tufts, sheep */
+  for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
+    var t2 = landEff(ter[y * W + x]), px = x * T, py = y * T, n = noise[y * W + x];
+    if (t2 === FARM) {
+      c.strokeStyle = '#3f6b2e'; c.lineWidth = 2.2; c.lineCap = 'round'; c.beginPath();
+      if (x % 4 === 0 || landEff(tAt(x - 1, y)) !== FARM) { c.moveTo(px, py); c.lineTo(px, py + T); }
+      if (y % 3 === 0 || landEff(tAt(x, y - 1)) !== FARM) { c.moveTo(px, py); c.lineTo(px + T, py); }
+      if (landEff(tAt(x + 1, y)) !== FARM) { c.moveTo(px + T, py); c.lineTo(px + T, py + T); }
+      if (landEff(tAt(x, y + 1)) !== FARM) { c.moveTo(px, py + T); c.lineTo(px + T, py + T); }
+      c.stroke();
+      if (n > 0.9) { c.fillStyle = '#3a6a2c'; c.beginPath(); c.arc(px + (x % 4 === 0 ? 1 : 8), py + (y % 3 === 0 ? 1 : 8), 3, 0, 7); c.fill(); }
+    } else if (t2 === GR && n > 0.82) {
+      c.strokeStyle = 'rgba(60,110,40,.55)'; c.lineWidth = 1; c.beginPath(); var gx = px + 3 + n * 9, gy = py + 4 + hash2(x, y) * 8;
+      c.moveTo(gx, gy + 3); c.lineTo(gx - 1.5, gy); c.moveTo(gx, gy + 3); c.lineTo(gx, gy - 0.5); c.moveTo(gx, gy + 3); c.lineTo(gx + 1.5, gy); c.stroke();
+      if (n > 0.96) { c.fillStyle = hash2(y, x) > 0.5 ? '#f4e27a' : '#f2f2f2'; c.beginPath(); c.arc(gx + 4, gy + 1, 1.2, 0, 7); c.fill(); }
+    } else if (t2 === COMMON && n > 0.86) {
+      var sx = px + 4 + n * 6, sy = py + 5 + hash2(x, y) * 6;
+      c.fillStyle = 'rgba(0,0,0,.18)'; c.beginPath(); c.ellipse(sx + 1, sy + 2.5, 3.5, 1.6, 0, 0, 7); c.fill();
+      c.fillStyle = '#fbfaf4'; c.beginPath(); c.ellipse(sx, sy, 3.4, 2.4, 0, 0, 7); c.fill(); c.fillStyle = '#2b2b2b'; c.beginPath(); c.arc(sx + 3, sy - 0.5, 1.2, 0, 7); c.fill();
+    } else if ((t2 === HILL || t2 === COAL) && n > 0.9) {
+      c.fillStyle = 'rgba(90,82,70,.8)'; c.beginPath(); c.ellipse(px + 5 + n * 5, py + 9, 2.6, 1.8, 0.3, 0, 7); c.fill();
+      c.fillStyle = 'rgba(255,255,255,.25)'; c.beginPath(); c.ellipse(px + 4.5 + n * 5, py + 8.4, 1.2, 0.8, 0.3, 0, 7); c.fill();
+    }
+  }
+  c.font = '900 9px Lato,sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+  function label(txt, x, y, col){ c.lineWidth = 3; c.strokeStyle = 'rgba(0,0,0,.25)'; c.strokeText(txt, x, y); c.fillStyle = col; c.fillText(txt, x, y); }
+  label('THE SEA', (W - 3) * T, 6 * T, 'rgba(255,255,255,.85)');
+  if (!G || !G.flags.enclosed) label('THE COMMON', 9.5 * T, 28.8 * T, 'rgba(255,255,255,.9)');
+  label('COAL', 40.5 * T, 33.6 * T, 'rgba(255,240,200,.9)'); label('COAL', 4.5 * T, 37.3 * T, 'rgba(255,240,200,.9)');
+}
+/* ---------- tracks: connected roads, canals and rails ---------- */
+function conn(it){
+  if (it.icon) return [1, 1, 0, 0];
+  function ok(dx, dy){ var x = it.x + dx, y = it.y + dy, o = itemAt(x, y);
+    if (o && (o.t === it.t || o.x2 === it.t)) return 1;
+    if (it.t === 'canal' && isWater(x, y)) return 1;
+    if (o && o.t !== 'tree' && !B[o.t].line && (it.t === 'road' || (it.t === 'rail' && RAIL_OK.test(o.t)))) return 1;
+    return 0; }
+  return [ok(1, 0), ok(-1, 0), ok(0, 1), ok(0, -1)];
+}
+function arms(c, px, py, cn, wd, col){
+  var m = T / 2, hw = wd / 2; c.fillStyle = col; c.beginPath(); c.arc(px + m, py + m, hw, 0, 7); c.fill();
+  if (cn[0]) c.fillRect(px + m, py + m - hw, m, wd); if (cn[1]) c.fillRect(px, py + m - hw, m, wd);
+  if (cn[2]) c.fillRect(px + m - hw, py + m, wd, m); if (cn[3]) c.fillRect(px + m - hw, py, wd, m);
+}
+var LORDER = { canal:0, road:1, rail:2, lamp:3 };
+function drawLines(c, it){ if (!it.x2) { drawLine(c, it); return; } var wet = it.t === 'canal' || it.x2 === 'canal';
+  [it.t, it.x2].sort(function(a, b){ return LORDER[a] - LORDER[b]; }).forEach(function(ty){ drawLine(c, { x:it.x, y:it.y, t:ty, br:wet && ty !== 'canal' }); }); }
+function drawLine(c, it){
+  var px = it.x * T, py = it.y * T, wet = !it.icon && (it.br || tAt(it.x, it.y) === RIV), cn = conn(it), m = T / 2;
+  if (wet && (it.t === 'road' || it.t === 'rail')) {
+    var hz = cn[0] || cn[1] || !(cn[2] || cn[3]);
+    c.save(); c.translate(px + m, py + m); if (!hz) c.rotate(Math.PI / 2);
+    c.fillStyle = 'rgba(10,30,50,.35)'; c.fillRect(-m, -2, T, 9);
+    c.fillStyle = '#9a8f80'; c.fillRect(-m, -5.5, T, 11); c.fillStyle = '#7b7064'; c.fillRect(-m, -6.5, T, 2); c.fillRect(-m, 4.5, T, 2);
+    if (it.t === 'rail') { c.fillStyle = '#5a4030'; for (var s = -m + 1; s < m; s += 3) c.fillRect(s, -4, 1.6, 8); c.fillStyle = '#3d4249'; c.fillRect(-m, -2.6, T, 1.2); c.fillRect(-m, 1.4, T, 1.2); }
+    else { c.fillStyle = G && G.round >= 5 ? '#aaa397' : '#c4a978'; c.fillRect(-m, -3.5, T, 7); }
+    c.restore(); return;
+  }
+  if (it.t === 'road') {
+    var cob = G && G.round >= 5;
+    arms(c, px, py, cn, 11, cob ? '#7d776c' : '#94774c');
+    arms(c, px, py, cn, 8.5, cob ? '#a8a195' : '#c3a676');
+    if (cob) { c.fillStyle = 'rgba(80,74,66,.35)'; for (var k = 0; k < 4; k++) c.fillRect(px + 4 + hash2(it.x * 3 + k, it.y) * 8, py + 4 + hash2(it.y * 5 + k, it.x) * 8, 1.4, 1.4); }
+  } else if (it.t === 'canal') {
+    arms(c, px, py, cn, 15, '#c2ad86'); arms(c, px, py, cn, 11, '#7b7462');
+    arms(c, px, py, cn, 8, mix([66,128,186], [104,96,66], riverTint * 0.9));
+    c.fillStyle = 'rgba(255,255,255,.25)'; if (cn[0] || cn[1]) c.fillRect(px + 3, py + m - 1, 4, 1); else c.fillRect(px + m - 1, py + 3, 1, 4);
+  } else if (it.t === 'rail') {
+    arms(c, px, py, cn, 11, '#8c8378');
+    c.fillStyle = '#5c4030';
+    if (cn[0] || cn[1]) for (var s2 = (cn[1] ? 0 : m) + 1; s2 < (cn[0] ? T : m + 2); s2 += 3) c.fillRect(px + s2, py + m - 4.5, 1.6, 9);
+    if (cn[2] || cn[3]) for (var s3 = (cn[3] ? 0 : m) + 1; s3 < (cn[2] ? T : m + 2); s3 += 3) c.fillRect(px + m - 4.5, py + s3, 9, 1.6);
+    c.fillStyle = '#3b4048';
+    if (cn[0] || cn[1]) { var x0 = cn[1] ? 0 : m - 3, x1 = cn[0] ? T : m + 3; c.fillRect(px + x0, py + m - 2.8, x1 - x0, 1.3); c.fillRect(px + x0, py + m + 1.5, x1 - x0, 1.3); }
+    if (cn[2] || cn[3]) { var y0 = cn[3] ? 0 : m - 3, y1 = cn[2] ? T : m + 3; c.fillRect(px + m - 2.8, py + y0, 1.3, y1 - y0); c.fillRect(px + m + 1.5, py + y0, 1.3, y1 - y0); }
+  } else if (it.t === 'lamp') {
+    var electric = G && G.round >= 9;
+    c.fillStyle = 'rgba(0,0,0,.25)'; c.beginPath(); c.ellipse(px + 10, py + 14, 4, 1.5, 0, 0, 7); c.fill();
+    c.fillStyle = electric ? 'rgba(230,240,255,.25)' : 'rgba(255,214,120,.25)'; c.beginPath(); c.arc(px + 8, py + 5, 7, 0, 7); c.fill();
+    c.fillStyle = '#262a33'; c.fillRect(px + 7.2, py + 5, 1.8, 10); c.fillRect(px + 5.5, py + 14, 5, 1.5);
+    c.fillStyle = electric ? '#f4f8ff' : '#ffd36b'; c.fillRect(px + 6, py + 2, 4, 4); c.fillStyle = '#262a33'; c.fillRect(px + 5.5, py + 1, 5, 1.2);
+  }
+}
+function drawTree(c, it){
+  var n = noise[Math.round(it.y) * W + Math.round(it.x)] || 0.5, h = hash2(it.x, it.y), ox = (n - 0.5) * 4, oy = (h - 0.5) * 4, px = it.x * T + 8 + ox, py = it.y * T + 8 + oy;
+  var t = tAt(it.x, it.y), conifer = t === HILL || t === COAL || h > 0.8, r = 5.2 + n * 1.8;
+  c.fillStyle = 'rgba(20,40,10,.28)'; c.beginPath(); c.ellipse(px + 3, py + 4, r, r * 0.55, 0, 0, 7); c.fill();
+  if (conifer) {
+    c.fillStyle = '#5a3c22'; c.fillRect(px - 0.8, py + 3, 1.6, 3);
+    c.fillStyle = '#244d2a'; c.beginPath(); c.moveTo(px, py - r - 3); c.lineTo(px - r, py + 4); c.lineTo(px + r, py + 4); c.closePath(); c.fill();
+    c.fillStyle = '#326638'; c.beginPath(); c.moveTo(px, py - r - 3); c.lineTo(px - r * 0.7, py); c.lineTo(px + r * 0.2, py); c.closePath(); c.fill();
+    c.fillStyle = '#2b5a31'; c.beginPath(); c.moveTo(px, py - r - 6); c.lineTo(px - r * 0.65, py - 1); c.lineTo(px + r * 0.65, py - 1); c.closePath(); c.fill();
+  } else {
+    c.fillStyle = '#2c5e26'; c.beginPath(); c.arc(px, py, r, 0, 7); c.fill();
+    c.fillStyle = '#3c7b32'; c.beginPath(); c.arc(px - r * 0.35, py - r * 0.25, r * 0.7, 0, 7); c.arc(px + r * 0.4, py - r * 0.1, r * 0.62, 0, 7); c.fill();
+    c.fillStyle = '#5c9c48'; c.beginPath(); c.arc(px - r * 0.45, py - r * 0.45, r * 0.38, 0, 7); c.fill();
+    c.fillStyle = 'rgba(255,255,255,.12)'; c.beginPath(); c.arc(px - r * 0.55, py - r * 0.55, r * 0.18, 0, 7); c.fill();
+  }
+}
+/* ---------- buildings, drawn in a three-quarter view ---------- */
+function bShadow(c, px, py, w, h){ c.fillStyle = 'rgba(25,35,15,.3)'; c.beginPath(); c.moveTo(px + w, py + 2); c.lineTo(px + w + 4, py + 6); c.lineTo(px + w + 4, py + h + 4); c.lineTo(px + 4, py + h + 4); c.lineTo(px, py + h); c.lineTo(px + w, py + h); c.closePath(); c.fill(); }
+function gable(c, px, py, w, rh, col, tex){
+  var m = Math.round(rh * 0.45); c.fillStyle = shade(col, 0.14); c.fillRect(px, py, w, m); c.fillStyle = shade(col, -0.14); c.fillRect(px, py + m, w, rh - m);
+  c.fillStyle = 'rgba(0,0,0,' + (tex || 0.1) + ')'; for (var y = py + 2; y < py + rh; y += 2.5) c.fillRect(px, y, w, 0.7);
+  c.fillStyle = 'rgba(255,255,255,.4)'; c.fillRect(px, py + m - 0.6, w, 1.2);
+}
+function flatRoof(c, px, py, w, rh, col){ c.fillStyle = col; c.fillRect(px, py, w, rh); c.fillStyle = 'rgba(255,255,255,.12)'; c.fillRect(px + 1.5, py + 1.5, w - 3, rh - 3); c.fillStyle = shade(col, -0.25); c.fillRect(px, py + rh - 1.5, w, 1.5); }
+function wallF(c, px, y, w, wh, col, step, lit, door){
+  c.fillStyle = col; c.fillRect(px, y, w, wh); c.fillStyle = 'rgba(0,0,0,.22)'; c.fillRect(px, y, w, 1.2);
+  c.fillStyle = lit ? '#ffd879' : '#33405a';
+  for (var wx = px + 2.5; wx < px + w - 3; wx += step) { c.fillRect(wx, y + 2.4, 2.2, Math.max(1.5, Math.min(3.4, wh - 4))); if (wh > 11) c.fillRect(wx, y + 7, 2.2, 2.6); }
+  if (door) { c.fillStyle = '#4a2f1c'; c.fillRect(px + w / 2 - 1.5, y + wh - 4.5, 3, 4.5); }
+}
+function chimney(c, x, y, wd, ht, col){ c.fillStyle = col || '#5b2b20'; c.fillRect(x, y - ht, wd, ht); c.fillStyle = 'rgba(255,255,255,.18)'; c.fillRect(x, y - ht, 1, ht); c.fillStyle = '#2a1712'; c.fillRect(x - 0.6, y - ht, wd + 1.2, 1.6); }
+function outline(c, px, py, w, h){ c.strokeStyle = 'rgba(30,20,10,.45)'; c.lineWidth = 0.8; c.strokeRect(px + 0.4, py + 0.4, w - 0.8, h - 0.8); }
+function drawBuilding(c, it, ghost){
+  var b = B[it.t], t = it.t, px = it.x * T + 1, py = it.y * T + 1, w = it.w * T - 2, h = it.h * T - 2;
+  var wh = clamp(Math.round(h * 0.34), 5, 12), rh = h - wh, i, x, y;
+  /* open grounds */
+  if (t === 'park') {
+    c.fillStyle = '#5fa04c'; c.fillRect(px, py, w, h); c.strokeStyle = '#2f5d27'; c.lineWidth = 2; c.strokeRect(px + 1, py + 1, w - 2, h - 2);
+    c.strokeStyle = '#e2d3a6'; c.lineWidth = 2.4; c.beginPath(); c.moveTo(px, py + h * 0.5); c.lineTo(px + w, py + h * 0.5); c.moveTo(px + w * 0.5, py); c.lineTo(px + w * 0.5, py + h); c.stroke();
+    c.fillStyle = '#4f93c8'; c.beginPath(); c.ellipse(px + w * 0.75, py + h * 0.75, 8, 5, 0, 0, 7); c.fill(); c.fillStyle = 'rgba(255,255,255,.4)'; c.fillRect(px + w * 0.7, py + h * 0.73, 5, 1);
+    c.fillStyle = '#efe7d4'; c.beginPath(); c.arc(px + w * 0.5, py + h * 0.5, 4.5, 0, 7); c.fill(); c.fillStyle = '#6b3f6d'; c.beginPath(); c.arc(px + w * 0.5, py + h * 0.5, 2.5, 0, 7); c.fill();
+    [[.2,.22],[.78,.2],[.22,.78]].forEach(function(p){ drawTree(c, { x:(px + w * p[0] - 8) / T, y:(py + h * p[1] - 8) / T }); });
+    return;
+  }
+  if (t === 'football') {
+    for (i = 0; i < 6; i++) { c.fillStyle = i % 2 ? '#4f9a45' : '#5aa850'; c.fillRect(px + i * w / 6, py, w / 6 + 0.5, h); }
+    c.strokeStyle = 'rgba(255,255,255,.9)'; c.lineWidth = 1; c.strokeRect(px + 4, py + 4, w - 8, h - 8);
+    c.beginPath(); c.moveTo(px + w / 2, py + 4); c.lineTo(px + w / 2, py + h - 4); c.stroke(); c.beginPath(); c.arc(px + w / 2, py + h / 2, 6, 0, 7); c.stroke();
+    c.strokeRect(px + 4, py + h / 2 - 8, 8, 16); c.strokeRect(px + w - 12, py + h / 2 - 8, 8, 16);
+    c.fillStyle = '#7a4a2a'; c.fillRect(px + 8, py - 1, w - 16, 3); c.fillStyle = '#c94a3a'; c.fillRect(px + 8, py - 3, w - 16, 2);
+    return;
+  }
+  if (t === 'cemetery') {
+    c.fillStyle = '#87a07c'; c.fillRect(px, py, w, h); c.strokeStyle = '#5e5a52'; c.lineWidth = 2; c.strokeRect(px + 1, py + 1, w - 2, h - 2);
+    c.fillStyle = '#d7d9d2';
+    for (y = 0; y < 4; y++) for (x = 0; x < 5; x++) { var gx = px + 6 + x * 8, gy = py + 7 + y * 10; if (x === 2 && y < 2) continue; c.fillRect(gx, gy, 3, 4); c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(gx + 1, gy + 4, 3, 1); c.fillStyle = '#d7d9d2'; }
+    c.fillStyle = '#e9e6dc'; c.fillRect(px + w / 2 - 1, py + 5, 2, 10); c.fillRect(px + w / 2 - 4, py + 8, 8, 2);
+    drawTree(c, { x:(px + w - 14) / T, y:(py + h - 14) / T });
+    return;
+  }
+  if (!ghost) bShadow(c, px, py, w, h);
+  if (t === 'mansion') {
+    c.fillStyle = '#6aa857'; c.fillRect(px, py, w, h); c.strokeStyle = '#335f2a'; c.lineWidth = 2; c.strokeRect(px + 1, py + 1, w - 2, h - 2);
+    c.fillStyle = '#e6dcc4'; c.fillRect(px + w / 2 - 2, py + h - 10, 4, 10);
+    var mx = px + 7, my = py + 4, mw = w - 14, mh = h - 16;
+    c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(mx + 3, my + 3, mw, mh);
+    c.fillStyle = shade('#3e5a86', 0.15); c.beginPath(); c.moveTo(mx, my + mh * 0.62); c.lineTo(mx + 6, my); c.lineTo(mx + mw - 6, my); c.lineTo(mx + mw, my + mh * 0.62); c.closePath(); c.fill();
+    c.fillStyle = '#f1e6cc'; c.fillRect(mx, my + mh * 0.62, mw, mh * 0.38); c.fillStyle = '#ffffff'; for (i = 0; i < 4; i++) c.fillRect(mx + mw / 2 - 7 + i * 4.5, my + mh * 0.62, 1.4, mh * 0.38);
+    c.fillStyle = '#33405a'; for (x = mx + 3; x < mx + mw - 3; x += 5) if (Math.abs(x - (mx + mw / 2)) > 8) c.fillRect(x, my + mh * 0.7, 2, 2.6);
+    chimney(c, mx + 6, my + 2, 2.4, 4, '#8a7a6a'); chimney(c, mx + mw - 9, my + 2, 2.4, 4, '#8a7a6a');
+    drawTree(c, { x:(px - 2) / T, y:(py + h - 14) / T }); drawTree(c, { x:(px + w - 14) / T, y:(py + h - 14) / T });
+    return;
+  }
+  if (t === 'mine') {
+    c.fillStyle = '#3a342d'; c.beginPath(); c.moveTo(px, py + h); c.quadraticCurveTo(px + w * 0.3, py + h * 0.3, px + w * 0.6, py + h); c.closePath(); c.fill();
+    c.fillStyle = '#5a5047'; c.beginPath(); c.moveTo(px + 4, py + h); c.quadraticCurveTo(px + w * 0.3, py + h * 0.45, px + w * 0.5, py + h); c.closePath(); c.fill();
+    var ex = px + w * 0.5, ew = w * 0.48;
+    gable(c, ex, py + h * 0.35, ew, h * 0.32, '#5c4a3e'); wallF(c, ex, py + h * 0.67, ew, h * 0.33, '#9b5a42', 5, false, true);
+    chimney(c, ex + ew - 6, py + h * 0.4, 3.5, 14);
+    c.strokeStyle = '#1f1c19'; c.lineWidth = 1.8; c.beginPath(); c.moveTo(px + w * 0.2, py + h * 0.75); c.lineTo(px + w * 0.36, py - 4); c.lineTo(px + w * 0.52, py + h * 0.75); c.moveTo(px + w * 0.36, py - 4); c.lineTo(px + w * 0.36, py + h * 0.75); c.stroke();
+    c.lineWidth = 1.3; c.beginPath(); c.arc(px + w * 0.36, py - 3, 4.5, 0, 7); c.stroke(); c.beginPath(); c.moveTo(px + w * 0.36 - 4.5, py - 3); c.lineTo(px + w * 0.36 + 4.5, py - 3); c.moveTo(px + w * 0.36, py - 7.5); c.lineTo(px + w * 0.36, py + 1.5); c.stroke();
+    return;
+  }
+  if (t === 'quay' || t === 'dockyard') {
+    c.fillStyle = '#8c6c48'; c.fillRect(px, py, w, h); c.fillStyle = 'rgba(0,0,0,.18)'; for (x = px + 3; x < px + w; x += 3) c.fillRect(x, py, 0.8, h);
+    c.fillStyle = '#5b452e'; c.fillRect(px, py + h - 2, w, 2);
+    if (t === 'dockyard') {
+      c.fillStyle = '#6f7d8b'; c.fillRect(px + 4, py + 4, w * 0.55, h - 8);
+      c.fillStyle = '#2d343c'; c.beginPath(); c.moveTo(px + 8, py + h / 2 - 5); c.lineTo(px + w * 0.55, py + h / 2 - 5); c.lineTo(px + w * 0.55 + 6, py + h / 2); c.lineTo(px + w * 0.55, py + h / 2 + 5); c.lineTo(px + 8, py + h / 2 + 5); c.closePath(); c.fill();
+      c.fillStyle = '#a33'; c.fillRect(px + 10, py + h / 2 + 3, w * 0.55 - 4, 2);
+      gable(c, px + w * 0.68, py + 3, w * 0.3, h * 0.45, '#3f4a55'); wallF(c, px + w * 0.68, py + 3 + h * 0.45, w * 0.3, h * 0.3, '#7d8a96', 5, false);
+    } else {
+      [[6,6,'#a0733f'],[12,8,'#8a5f32'],[7,13,'#b48650']].forEach(function(cr){ c.fillStyle = cr[2]; c.fillRect(px + cr[0], py + cr[1], 5, 5); c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(px + cr[0], py + cr[1] + 4, 5, 1); });
+      c.fillStyle = '#2b2b2b'; for (x = px + 4; x < px + w; x += 10) { c.beginPath(); c.arc(x, py + h - 4, 1.4, 0, 7); c.fill(); }
+    }
+    c.strokeStyle = '#3a2c1e'; c.lineWidth = 2; c.beginPath(); c.moveTo(px + w - 6, py + h - 4); c.lineTo(px + w - 6, py - 8); c.lineTo(px + w - 18, py - 4); c.stroke();
+    c.lineWidth = 0.8; c.beginPath(); c.moveTo(px + w - 18, py - 4); c.lineTo(px + w - 18, py + 4); c.stroke();
+    return;
+  }
+  /* roofed buildings */
+  var S = {
+    cottage:{ roof:'#c9a85a', wall:'#efe6d2', step:6, tex:.16 }, house:{ roof:'#5d4c48', wall:'#a84c36', step:4 }, tenement:{ roof:'#4b3d38', wall:'#83463a', step:3.5, lit:1, flat:1 },
+    villa:{ roof:'#56657d', wall:'#ebdcb6', step:5 }, watermill:{ roof:'#6b5338', wall:'#b8ab92', step:6 }, factory:{ roof:'#4a2a22', wall:'#9c3f2f', step:4, lit:1, saw:1 },
+    foundry:{ roof:'#3a302b', wall:'#6b5b52', step:6 }, steel:{ roof:'#2c3240', wall:'#5b6577', step:6, saw:1 }, warehouse:{ roof:'#7a5a36', wall:'#b98d54', step:8 },
+    shop:{ roof:'#8a6d22', wall:'#e7d6a8', step:5 }, pub:{ roof:'#6b4313', wall:'#eadfc4', step:5 }, church:{ roof:'#6c6a72', wall:'#d9d2c3', step:6 },
+    school:{ roof:'#7a3b2a', wall:'#e9d9a6', step:4 }, jail:{ roof:'#4b4f56', wall:'#8b8f96', step:5, flat:1 }, hospital:{ roof:'#e7e3da', wall:'#f6f4ee', step:4, flat:1 },
+    bank:{ roof:'#6f6550', wall:'#e2dac6', step:5 }, telegraph:{ roof:'#41587a', wall:'#cfd7e2', step:5 }, concert:{ roof:'#5d3f6d', wall:'#e5d0ea', step:5 }
+  }[t] || { roof:b.roof || '#555', wall:b.c || '#999', step:5 };
+  if (t === 'church') { rh = h - wh; }
+  if (S.flat) flatRoof(c, px, py, w, rh, S.roof); else if (S.saw) {
+    var teeth = Math.max(2, Math.round(w / 8)), tw = w / teeth;
+    for (i = 0; i < teeth; i++) { var tx0 = px + i * tw; c.fillStyle = shade(S.roof, -0.1); c.fillRect(tx0, py, tw, rh);
+      c.fillStyle = '#bfc6cc'; c.beginPath(); c.moveTo(tx0, py + rh); c.lineTo(tx0, py); c.lineTo(tx0 + tw * 0.35, py + rh); c.closePath(); c.fill();
+      c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(tx0 + tw - 0.8, py, 0.8, rh); }
+  } else gable(c, px, py, w, rh, S.roof, S.tex);
+  wallF(c, px, py + rh, w, wh, S.wall, S.step, S.lit, !/tenement|factory|steel|foundry/.test(t));
+  outline(c, px, py, w, h);
+  /* details */
+  if (t === 'house') { c.fillStyle = 'rgba(0,0,0,.3)'; for (x = px + 8; x < px + w; x += 8) c.fillRect(x, py, 0.8, rh); for (x = px + 3; x < px + w; x += 8) chimney(c, x, py + rh * 0.45, 2.2, 3, '#6b3a2a'); }
+  if (t === 'cottage') { chimney(c, px + w - 7, py + rh * 0.45, 2.4, 3.5, '#8a7a6a'); c.fillStyle = '#c94a6a'; c.fillRect(px + 2, py + h - 2, 3, 2); c.fillStyle = '#e8d04a'; c.fillRect(px + w - 5, py + h - 2, 3, 2); }
+  if (t === 'tenement') { for (x = px + 4; x < px + w - 2; x += 7) chimney(c, x, py + rh - 2, 3, 4, '#4b2a22'); c.strokeStyle = 'rgba(255,255,255,.7)'; c.lineWidth = 0.6; c.beginPath(); c.moveTo(px + 2, py + h + 2); c.lineTo(px + w - 2, py + h + 2); c.stroke(); c.fillStyle = '#e9e2d0'; c.fillRect(px + 6, py + h + 2, 2, 2); c.fillStyle = '#9fb7d6'; c.fillRect(px + 14, py + h + 2, 2, 2.4); }
+  if (t === 'villa') { c.fillStyle = '#ffffff'; c.fillRect(px + w / 2 - 3, py + rh - 1, 6, 2); chimney(c, px + 4, py + rh * 0.45, 2.2, 3.5, '#7a6a5a'); }
+  if (t === 'factory') { chimney(c, px + w - 7, py + 2, 4.5, 17); c.fillStyle = 'rgba(255,255,255,.15)'; c.fillRect(px + w - 7, py - 13, 4.5, 1); }
+  if (t === 'foundry') { chimney(c, px + w - 7, py + 2, 4, 14); chimney(c, px + w - 15, py + 2, 4, 11);
+    var g = c.createRadialGradient(px + 8, py + h - 4, 0, px + 8, py + h - 4, 7); g.addColorStop(0, '#ffe08a'); g.addColorStop(0.5, '#ff8a2a'); g.addColorStop(1, 'rgba(255,90,20,0)'); c.fillStyle = g; c.fillRect(px + 1, py + h - 11, 14, 11); }
+  if (t === 'steel') { chimney(c, px + w - 7, py + 2, 4.5, 18); chimney(c, px + w - 15, py + 2, 4.5, 15); chimney(c, px + w - 23, py + 2, 4.5, 12);
+    var g2 = c.createRadialGradient(px + 12, py + h - 5, 0, px + 12, py + h - 5, 10); g2.addColorStop(0, '#fff2b0'); g2.addColorStop(0.45, '#ff9a30'); g2.addColorStop(1, 'rgba(255,90,20,0)'); c.fillStyle = g2; c.fillRect(px + 1, py + h - 15, 22, 15); }
+  if (t === 'watermill') { var ty = tAt(it.x, it.y + it.h) === RIV ? py + h + 1 : tAt(it.x, it.y - 1) === RIV ? py - 1 : py + h / 2, wx2 = it.x + it.w <= W && tAt(it.x + it.w, it.y + 1) === RIV ? px + w + 1 : px + w * 0.5, ang = ghost ? 0 : clock / 700;
+    c.fillStyle = '#5a3c20'; c.strokeStyle = '#4a3218'; c.lineWidth = 1.6; c.beginPath(); c.arc(wx2, ty, 7, 0, 7); c.stroke();
+    for (i = 0; i < 8; i++) { var a = ang + i * Math.PI / 4; c.beginPath(); c.moveTo(wx2, ty); c.lineTo(wx2 + Math.cos(a) * 7, ty + Math.sin(a) * 7); c.stroke(); c.fillRect(wx2 + Math.cos(a) * 7 - 1.2, ty + Math.sin(a) * 7 - 1.2, 2.4, 2.4); } }
+  if (t === 'warehouse') { c.fillStyle = '#4a3220'; for (x = px + 5; x < px + w - 4; x += 12) c.fillRect(x, py + rh + 2, 5, wh - 2); c.strokeStyle = '#3a2c1e'; c.lineWidth = 1.2; c.beginPath(); c.moveTo(px + w - 4, py + rh); c.lineTo(px + w + 2, py + rh - 6); c.lineTo(px + w + 2, py + rh + 2); c.stroke(); }
+  if (t === 'shop') { for (i = 0; i < 6; i++) { c.fillStyle = i % 2 ? '#ffffff' : '#c83a3a'; c.fillRect(px + i * w / 6, py + rh - 1, w / 6 + 0.3, 3); } }
+  if (t === 'pub') { c.strokeStyle = 'rgba(70,40,20,.8)'; c.lineWidth = 0.8; for (x = px + 3; x < px + w; x += 5) { c.beginPath(); c.moveTo(x, py + rh); c.lineTo(x, py + h); c.stroke(); }
+    c.fillStyle = '#3a2412'; c.fillRect(px - 2, py + rh + 1, 4, 1); c.fillStyle = '#d4a23a'; c.fillRect(px - 3, py + rh + 2, 5, 4); chimney(c, px + w - 6, py + rh * 0.45, 2.4, 3.5, '#6b3a2a'); }
+  if (t === 'church') { var tx1 = px + 2, tw1 = 11; c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(tx1 + 3, py + 3, tw1, h - 3); c.fillStyle = '#cfc6b4'; c.fillRect(tx1, py + 4, tw1, h - 4); c.fillStyle = '#b8af9c'; c.fillRect(tx1 + tw1 - 3, py + 4, 3, h - 4);
+    c.fillStyle = '#5a5862'; c.beginPath(); c.moveTo(tx1 - 1, py + 5); c.lineTo(tx1 + tw1 / 2, py - 14); c.lineTo(tx1 + tw1 + 1, py + 5); c.closePath(); c.fill();
+    c.fillStyle = '#7a7882'; c.beginPath(); c.moveTo(tx1 - 1, py + 5); c.lineTo(tx1 + tw1 / 2, py - 14); c.lineTo(tx1 + tw1 / 2, py + 5); c.closePath(); c.fill();
+    c.fillStyle = '#33405a'; c.beginPath(); c.arc(tx1 + tw1 / 2, py + 12, 2, Math.PI, 0); c.fill(); c.fillRect(tx1 + tw1 / 2 - 2, py + 12, 4, 4); }
+  if (t === 'school') { c.fillStyle = '#f2ead2'; c.fillRect(px + w / 2 - 2.5, py + rh * 0.45 - 6, 5, 6); c.fillStyle = '#7a3b2a'; c.beginPath(); c.moveTo(px + w / 2 - 3.5, py + rh * 0.45 - 6); c.lineTo(px + w / 2, py + rh * 0.45 - 10); c.lineTo(px + w / 2 + 3.5, py + rh * 0.45 - 6); c.fill(); c.fillStyle = '#c9a23a'; c.fillRect(px + w / 2 - 1, py + rh * 0.45 - 4, 2, 2); }
+  if (t === 'hospital') { c.fillStyle = '#c63b3b'; c.fillRect(px + w / 2 - 2, py + rh / 2 - 6, 4, 12); c.fillRect(px + w / 2 - 6, py + rh / 2 - 2, 12, 4); }
+  if (t === 'jail') { c.fillStyle = '#6a6e75'; c.fillRect(px + 3, py + 3, w - 6, rh - 6); c.fillStyle = '#9a9ea5'; c.fillRect(px + 6, py + 6, w - 12, rh - 12); c.fillStyle = '#2a2d33'; for (x = px + 3; x < px + w - 2; x += 4) c.fillRect(x, py + rh + 2, 0.8, wh - 3); }
+  if (t === 'bank') { c.fillStyle = '#ffffff'; for (i = 0; i < 4; i++) c.fillRect(px + 4 + i * (w - 8) / 3 - 0.8, py + rh, 1.8, wh); c.fillStyle = '#efe9da'; c.beginPath(); c.moveTo(px + 2, py + rh + 0.5); c.lineTo(px + w / 2, py + rh - 5); c.lineTo(px + w - 2, py + rh + 0.5); c.closePath(); c.fill(); }
+  if (t === 'telegraph') { c.strokeStyle = '#4a3a2a'; c.lineWidth = 1.4; c.beginPath(); c.moveTo(px + w + 3, py + h); c.lineTo(px + w + 3, py - 8); c.moveTo(px + w, py - 6); c.lineTo(px + w + 6, py - 6); c.stroke();
+    c.strokeStyle = 'rgba(30,30,30,.6)'; c.lineWidth = 0.6; c.beginPath(); c.moveTo(px + w, py - 6); c.lineTo(px - 6, py - 2); c.moveTo(px + w + 6, py - 6); c.lineTo(px + w + 14, py - 3); c.stroke(); }
+  if (t === 'concert') { var gd = c.createRadialGradient(px + w / 2 - 3, py + rh / 2 - 3, 1, px + w / 2, py + rh / 2, rh * 0.55); gd.addColorStop(0, '#b78ccc'); gd.addColorStop(1, '#4d2f5d'); c.fillStyle = gd; c.beginPath(); c.arc(px + w / 2, py + rh / 2 + 1, Math.min(w, rh) * 0.42, 0, 7); c.fill(); c.fillStyle = '#e8c860'; c.fillRect(px + w / 2 - 0.8, py + 1, 1.6, 4); }
+}
+var puffs = [], clock = 0, ghost = null, hover = null, flashMsg = '', flashT = 0;
+function flash(m){ flashMsg = m; flashT = 120; }
+/* Smog texture: soft blobs that wrap left to right, so the layer can drift east with the wind. */
+var SMOGTX = null;
+function smogTexture(){
+  if (SMOGTX) return SMOGTX;
+  var sw = 64, sh = 40, s = document.createElement('canvas'); s.width = sw; s.height = sh;
+  var sx = s.getContext('2d'), img = sx.createImageData(sw, sh), P = 8;
+  for (var y = 0; y < sh; y++) for (var x = 0; x < sw; x++) {
+    /* periodic in x: blend noise sampled at x and x - period */
+    var u = x / sw, n1 = vnoise(x / P, y / P + 40), n2 = vnoise((x - sw) / P, y / P + 40);
+    var n = n1 * (1 - u) + n2 * u, m = vnoise(x / 3 + 9, y / 3 + 2) * 0.35;
+    var a = clamp((n * 0.8 + m) * 1.25 - 0.25, 0, 1), i = (y * sw + x) * 4;
+    img.data[i] = 96; img.data[i + 1] = 86; img.data[i + 2] = 74; img.data[i + 3] = Math.round(a * 255);
+  }
+  sx.putImageData(img, 0, 0); SMOGTX = s; return s;
+}
+function drawSmog(c, k, now){
+  if (!(k > 0.01)) return;
+  var mw = W * T, mh = H * T, tx = smogTexture();
+  /* an even brown-gray veil over the whole town */
+  c.fillStyle = 'rgba(88,78,66,' + (0.06 + k * 0.26).toFixed(3) + ')'; c.fillRect(0, 0, mw, mh);
+  /* two banks of drifting smoke (the second flipped and faster), both blowing east */
+  c.save(); c.imageSmoothingEnabled = true;
+  [[0.85, 0.010], [0.55, 0.022]].forEach(function(L, j){
+    var off = ((now || 0) * L[1] + j * 400) % mw;
+    c.globalAlpha = clamp(k * L[0], 0, 0.7);
+    for (var ox = off - mw; ox < mw; ox += mw) {
+      if (j) { c.save(); c.translate(0, mh); c.scale(1, -1); c.drawImage(tx, ox, 0, mw, mh); c.restore(); }
+      else c.drawImage(tx, ox, 0, mw, mh);
+    }
+  });
+  c.restore();
+}
+function draw(){
+  ctx.clearRect(0, 0, W * T, H * T);
+  ctx.drawImage(terrC, 0, 0, W * T, H * T);
+  var live = G.items.filter(alive);
+  live.forEach(function(it){ if (B[it.t].line) drawLines(ctx, it); });
+  live.sort(function(a, b){ return (a.y + a.h) - (b.y + b.h); });
+  live.forEach(function(it){ if (it.t === 'tree') drawTree(ctx, it); else if (!B[it.t].line) drawBuilding(ctx, it); });
+  /* citywide smog: thickens with every smoking chimney in town */
+  if (M) drawSmog(ctx, M.smog, performance.now());
+  /* slums to clear (1890) */
+  if (G.phase === 'build' && slumOrder()) {
+    var pulse = 0.55 + 0.45 * Math.sin(performance.now() / 260);
+    live.forEach(function(it){ if (!isSlum(it)) return;
+      var px = it.x * T, py = it.y * T, w = it.w * T, h = it.h * T;
+      ctx.fillStyle = 'rgba(70,52,40,.35)'; ctx.fillRect(px, py, w, h);
+      ctx.strokeStyle = 'rgba(204,61,61,' + pulse.toFixed(2) + ')'; ctx.lineWidth = 3; ctx.setLineDash([5, 3]); ctx.strokeRect(px + 1.5, py + 1.5, w - 3, h - 3); ctx.setLineDash([]);
+      ctx.fillStyle = '#cc3d3d'; ctx.fillRect(px + w / 2 - 15, py - 9, 30, 12);
+      ctx.fillStyle = '#fff'; ctx.font = '900 9px Lato,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('SLUM', px + w / 2, py - 2.5); });
+  }
+  if ($('ovSmoke').checked) drawSmokeMap();
+  if ($('ovNet').checked) drawNet();
+  if ($('ovHouse').checked) drawLife();
+  /* animated smoke */
+  puffs.forEach(function(p){ ctx.fillStyle = 'rgba(70,64,60,' + (p.a * 0.5).toFixed(3) + ')'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); });
+  if (ghost) {
+    var f = ghost; ctx.globalAlpha = 0.6;
+    if (B[f.t].line || B[f.t].tool) { ctx.fillStyle = f.bad ? 'rgba(204,61,61,.55)' : 'rgba(52,95,191,.45)'; ctx.fillRect(f.x * T, f.y * T, T, T); }
+    else { var fd = dims(f.t); drawBuilding(ctx, { t:f.t, x:f.x, y:f.y, w:fd[0], h:fd[1] }, true); ctx.fillStyle = f.bad ? 'rgba(204,61,61,.45)' : 'rgba(26,138,74,.30)'; ctx.fillRect(f.x * T, f.y * T, fd[0] * T, fd[1] * T); }
+    ctx.globalAlpha = 1;
+  }
+  if (flashT > 0) { ctx.font = '900 14px Lato,sans-serif'; var tw = ctx.measureText(flashMsg).width + 24;
+    ctx.fillStyle = 'rgba(22,36,77,' + Math.min(0.92, flashT / 30) + ')'; ctx.fillRect((W * T - tw) / 2, 10, tw, 28);
+    ctx.fillStyle = 'rgba(255,255,255,' + Math.min(1, flashT / 30) + ')'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(flashMsg, W * T / 2, 24); flashT--; }
+}
+function drawSmokeMap(){
+  if (!smokeGrid) { smokeGrid = []; for (var y = 0; y < H; y += 2) for (var x = 0; x < W; x += 2) smokeGrid.push([x, y, smokeAt(x + 1, y + 1, M.em)]); }
+  smokeGrid.forEach(function(s){ var a = clamp(s[2] / 22, 0, 0.75); if (a > 0.03) { ctx.fillStyle = 'rgba(60,40,40,' + a.toFixed(3) + ')'; ctx.fillRect(s[0] * T, s[1] * T, 2 * T, 2 * T); } });
+  ctx.fillStyle = 'rgba(22,36,77,.85)'; ctx.fillRect(8, H * T - 30, 190, 22); ctx.fillStyle = '#fff'; ctx.font = '700 11px Lato,sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  ctx.fillText('Wind from the west → smoke drifts east', 16, H * T - 19);
+}
+function drawNet(){
+  var cols = ['#ff6b6b','#ffd166','#06d6a0','#4cc9f0','#b388eb','#f78c6b','#83c5be','#e5989b'];
+  for (var i = 0; i < W * H; i++) {
+    var r = NET.road[i], hv = NET.heavy[i], x = i % W, y = (i - x) / W;
+    if (r >= 0) { ctx.fillStyle = cols[r % cols.length]; ctx.globalAlpha = 0.55; ctx.fillRect(x * T + 4, y * T + 4, T - 8, T - 8); }
+    if (hv >= 0 && (NET.kind[i] & 6)) { ctx.fillStyle = '#16244d'; ctx.globalAlpha = 0.6; ctx.fillRect(x * T + 6, y * T + 6, T - 12, T - 12); }
+  }
+  ctx.globalAlpha = 1;
+  G.items.forEach(function(it){ if (it.died || !B[it.t].prod) return; if (it._m < 1) { ctx.strokeStyle = '#cc3d3d'; ctx.lineWidth = 3; ctx.setLineDash([4, 3]); ctx.strokeRect(it.x * T + 1, it.y * T + 1, it.w * T - 2, it.h * T - 2); ctx.setLineDash([]); } });
+}
+function drawLife(){
+  G.items.forEach(function(it){ if (it.died || !B[it.t].cap) return; var l = it._life || 0;
+    ctx.fillStyle = l >= 55 ? 'rgba(26,138,74,.55)' : l >= 38 ? 'rgba(244,180,40,.6)' : 'rgba(204,61,61,.65)'; ctx.fillRect(it.x * T, it.y * T, it.w * T, it.h * T);
+    ctx.fillStyle = '#fff'; ctx.font = '900 10px Lato,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(Math.round(l), (it.x + it.w / 2) * T, (it.y + it.h / 2) * T); });
+}
+var lastT = 0;
+function loop(t){
+  requestAnimationFrame(loop);
+  if (!G || document.hidden || t - lastT < 33) return; lastT = t; clock = t;
+  if (M && M.em && puffs.length < 260) M.em.forEach(function(e){ if (Math.random() < e[2] / 40) puffs.push({ x:e[0] * T + (Math.random() - 0.5) * 8, y:(e[1] - 1) * T, r:2 + Math.random() * 2, a:0.9 }); });
+  puffs.forEach(function(p){ p.x += 0.55 + Math.random() * 0.2; p.y -= 0.25; p.r += 0.07; p.a -= 0.007; });
+  puffs = puffs.filter(function(p){ return p.a > 0 && p.x < W * T + 20; });
+  draw();
+}
+
+/* ---------- input ---------- */
+var drag = null;
+function cell(e){ var r = cv.getBoundingClientRect(); return [Math.floor((e.clientX - r.left) / r.width * W), Math.floor((e.clientY - r.top) / r.height * H)]; }
+function anchor(t, c){ var b = B[t]; if (b.line || b.tool) return c; var d = dims(t); return [c[0] - Math.floor((d[0] - 1) / 2), c[1] - Math.floor((d[1] - 1) / 2)]; }
+function applyAt(x, y){
+  if (!tool) return false;
+  if (tool === 'clear') return clearAt(x, y);
+  if (tool === 'demolish') return demolishAt(x, y);
+  var why = canPlace(tool, x, y); if (why) { if (!B[tool].line) flash(why); return false; }
+  return place(tool, x, y);
+}
+function changed(){ M = compute(); smokeGrid = null; if (riverTint !== clamp(M.riverP / 18, 0, 0.75)) { riverTint = clamp(M.riverP / 18, 0, 0.75); drawTerrain(); } renderSide(); renderStats(); saveSoon(); }
+cv.addEventListener('pointerdown', function(e){
+  if (!G || G.phase !== 'build') return;
+  if (e.button === 2) { setTool(null); return; }
+  if (!tool) { return; }
+  var c = anchor(tool, cell(e)), ch = applyAt(c[0], c[1]);
+  if (B[tool].line || tool === 'clear' || tool === 'demolish') { drag = c; try { cv.setPointerCapture(e.pointerId); } catch (err) {} }
+  if (ch) changed();
+});
+cv.addEventListener('pointermove', function(e){
+  if (!G) return;
+  var c = cell(e);
+  if (drag && tool) {
+    var any = false; linePts(drag[0], drag[1], c[0], c[1]).forEach(function(p){ if (tool === 'demolish') { var di = itemAt(p[0], p[1]); if (!di || !B[di.t].line) return; } if (applyAt(p[0], p[1])) any = true; });
+    drag = c; if (any) changed();
+  }
+  lastCell = c; setGhost(c);
+  showTip(e, c);
+});
+cv.addEventListener('pointerup', function(){ drag = null; });
+cv.addEventListener('pointerleave', function(){ ghost = null; $('tip').classList.add('hidden'); });
+cv.addEventListener('contextmenu', function(e){ e.preventDefault(); setTool(null); });
+document.addEventListener('keydown', function(e){
+  if (!G || G.phase !== 'build') return;
+  if (e.key === 'Escape') setTool(null);
+  else if (/^Arrow/.test(e.key) && canRotate(tool) && !/INPUT|TEXTAREA|SELECT/.test((e.target || {}).tagName || '')) { e.preventDefault(); turn(); }
+});
+var lastCell = null;
+function setGhost(c){
+  if (c && tool && G.phase === 'build') { var a = anchor(tool, c); var bad = tool === 'clear' ? !(itemAt(a[0], a[1]) || {}).t || itemAt(a[0], a[1]).t !== 'tree' : tool === 'demolish' ? !itemAt(a[0], a[1]) || itemAt(a[0], a[1]).t === 'tree' : !!canPlace(tool, a[0], a[1]); ghost = { t:tool, x:a[0], y:a[1], bad:bad }; }
+  else ghost = null;
+}
+function turn(){ rot ^= 1; setGhost(lastCell); renderSide(); }
+$('bRot').onclick = function(){ if (canRotate(tool)) turn(); };
+['ovSmoke','ovNet','ovHouse'].forEach(function(id){ $(id).addEventListener('change', function(){ smokeGrid = null; }); });
+var TERR_N = ['Grassland','River','Sea','Farmland','Common land','Hills','Coal seam','Beach'];
+function showTip(e, c){
+  var tip = $('tip'); if (c[0] < 0 || c[1] < 0 || c[0] >= W || c[1] >= H) { tip.classList.add('hidden'); return; }
+  var it = itemAt(c[0], c[1]), h = '', t = tAt(c[0], c[1]);
+  var tn = TERR_N[t]; if (t === COMMON && G.flags.enclosed) tn = 'Enclosed farmland';
+  if (it && it.t !== 'tree') {
+    var b = B[it.t]; h = '<b>' + esc(b.n) + '</b>' + (it.born ? ' (built ' + ROUNDS[it.born - 1].y + ')' : ' (old town)');
+    if (b.cap) h += '<br>Home for ' + b.cap + ' people. Living conditions: <b>' + Math.round(it._life || 0) + '</b>/100' + ((it._smoke || 0) > 4 ? '. Smoky!' : '');
+    if (b.jobs) h += '<br>' + b.jobs + ' jobs';
+    if (b.prod) { h += ' &middot; output ' + (it._m >= 1 ? 'running well' : 'held back'); if (it._m < 1) h += '<br>' + (b.coal ? 'Needs coal linked by road, canal or rail, ' : '') + 'and a road to workers\' homes.'; }
+    if (b.line && t === RIV) h = '<b>Bridge</b> (' + esc(b.n.toLowerCase()) + ')';
+    if (it.x2) h = (it.t === 'canal' || it.x2 === 'canal') ? '<b>Bridge</b> over the canal' : '<b>Level crossing</b>: road and railway';
+    if (isSlum(it)) h += '<br><span style="color:#ffb4b4"><b>Slum.</b> Pick Demolish and click it to clear it.</span>';
+  } else if (it) h = '<b>Forest</b><br>Use Clear trees to cut it.';
+  else h = '<b>' + tn + '</b>';
+  var sm = M ? smokeAt(c[0] + 0.5, c[1] + 0.5, M.em) : 0; if (sm > 2) h += '<br>Smoke here: ' + (sm > 12 ? 'heavy' : sm > 6 ? 'thick' : 'light');
+  if (ghost && ghost.bad && tool && !B[tool].tool) { var why = canPlace(tool, ghost.x, ghost.y); if (why) h += '<br><span style="color:#ffb4b4">' + esc(why) + '</span>'; }
+  tip.innerHTML = h; tip.classList.remove('hidden');
+  var wr = tip.parentNode.getBoundingClientRect(), x = e.clientX - wr.left + 14, y = e.clientY - wr.top + 14;
+  if (x + 270 > wr.width) x = e.clientX - wr.left - 270; if (y + 90 > wr.height) y = e.clientY - wr.top - 90;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+
+/* ---------- side panel ---------- */
+function iconCanvas(t){
+  var c = document.createElement('canvas'), s = 2; c.width = 24 * s; c.height = 24 * s; var x = c.getContext('2d'); x.scale(s, s);
+  var b = B[t];
+  if (t === 'clear') { drawTree(x, { x:0, y:0 }); x.strokeStyle = '#cc3d3d'; x.lineWidth = 2.5; x.beginPath(); x.moveTo(3, 3); x.lineTo(21, 21); x.stroke(); return c; }
+  if (t === 'demolish') { x.fillStyle = '#5a5f6a'; x.fillRect(4, 8, 16, 12); x.strokeStyle = '#cc3d3d'; x.lineWidth = 3; x.beginPath(); x.moveTo(3, 3); x.lineTo(21, 21); x.moveTo(21, 3); x.lineTo(3, 21); x.stroke(); return c; }
+  if (b.line) { x.save(); x.translate(4, 4); x.scale(1, 1); [[0,0]].forEach(function(){ drawLine(x, { t:t, x:0, y:0, icon:1 }); }); x.restore(); return c; }
+  var sc = 22 / (Math.max(b.w, b.h) * T); x.save(); x.translate(1 + (22 - b.w * T * sc) / 2, 1 + (22 - b.h * T * sc) / 2 + 2); x.scale(sc, sc);
+  drawBuilding(x, { t:t, x:0, y:0, w:b.w, h:b.h }, true); x.restore(); return c;
+}
+var ICONS = {};
+function setTool(t){ tool = t; ghost = null; renderSide(); }
+function renderSide(){
+  var s = $('side'); if (!G || G.phase === 'title' || G.done) { s.innerHTML = ''; return; }
+  var R = curRound(), html = '<div class="rc"><div class="yr">' + R.y + '</div><div class="hl">' + esc(R.hl) + '</div><h4>Orders from the town council</h4>';
+  var all = true;
+  R.orders.forEach(function(o){ var p = orderProgress(o), ok = p.have >= p.need; if (!ok) all = false;
+    html += '<div class="ord' + (ok ? ' done' : '') + '"><i>' + (ok ? '&#10003;' : '') + '</i><span>' + esc(orderLabel(o)) + '</span><b>' + (o.k === 'link' ? (ok ? 'linked' : 'not yet') : p.have + '/' + p.need) + '</b></div>'; });
+  html += '<div class="permits"><span>Building permits</span><b>' + G.permits + '</b></div>';
+  html += '<div class="limits"><span><b>' + left('clear') + '</b> tree clearings</span><span><b>' + left('demol') + '</b> demolitions</span>' + (unlocked('lamp') ? '<span><b>' + left('lamp') + '</b> lamps</span>' : '') + '</div>';
+  html += '<button class="gb end" id="endRound">' + (all ? 'Finish ' + R.y + ' &rarr;' : 'Finish ' + R.y + ' (orders unfinished)') + '</button></div>';
+  html += '<div class="pal">';
+  PALETTE.forEach(function(g){
+    var btns = g[1].filter(function(t){ return unlocked(t); }); if (!btns.length) return;
+    html += '<h4>' + g[0] + '</h4><div class="pgrid">';
+    btns.forEach(function(t){ var b = B[t], o = orderFor(t), sub;
+      if (b.line || b.tool) sub = o ? '<small class="ord">order ' + Math.min(builtThisRound(t), o.n) + '/' + o.n + '</small>' : '<small>' + (t === 'clear' ? left('clear') + ' left' : t === 'demolish' ? left('demol') + ' left' : t === 'lamp' ? left('lamp') + ' left' : 'unlimited') + '</small>';
+      else if (o && builtThisRound(t) < o.n) sub = '<small class="ord">order ' + builtThisRound(t) + '/' + o.n + '</small>';
+      else sub = '<small>1 permit</small>';
+      html += '<button class="pb' + (tool === t ? ' on' : '') + '" data-t="' + t + '"><span class="ic" data-ic="' + t + '"></span><span>' + esc(b.n) + sub + '</span></button>'; });
+    html += '</div>';
+  });
+  html += '</div>';
+  if (tool) html += '<div class="desc"><b>' + esc(B[tool].n) + ':</b> ' + B[tool].d + '</div>';
+  else html += '<div class="desc">Pick something to build. Orders are free; anything extra costs a permit. Hover the map to inspect a spot.</div>';
+  s.innerHTML = html;
+  s.querySelectorAll('[data-ic]').forEach(function(sp){ var t = sp.getAttribute('data-ic'); sp.replaceWith(ICONS[t] ? ICONS[t].cloneNode(false) : document.createElement('span')); });
+  s.querySelectorAll('canvas').forEach(function(c, i){ var t = c.parentNode.getAttribute('data-t'); c.getContext('2d').drawImage(ICONS[t], 0, 0); });
+  s.querySelectorAll('.pb').forEach(function(b){ b.onclick = function(){ setTool(tool === b.dataset.t ? null : b.dataset.t); }; });
+  var rb = $('bRot'); if (rb) { var can = canRotate(tool); rb.disabled = !can; rb.classList.toggle('on', can && !!rot); rb.title = can ? 'Turn the ' + B[tool].n.toLowerCase() + ' a quarter turn (or press an arrow key)' : 'Pick a rectangular building first'; }
+  $('endRound').onclick = endRound;
+}
+function tileHtml(label, val, cls, sub, pct, color){
+  return '<div class="tile"><span>' + label + '</span><b class="' + (cls || '') + '">' + val + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + (pct != null ? '<div class="meter"><i style="width:' + clamp(pct, 0, 100) + '%;background:' + color + '"></i></div>' : '') + '</div>';
+}
+function lvl(v){ return v >= 60 ? 'ok' : v >= 40 ? 'mid' : 'lo'; }
+function col(v){ return v >= 60 ? 'var(--g-green)' : v >= 40 ? 'var(--g-amber)' : 'var(--g-red)'; }
+function renderStats(){
+  var s = $('stats'); if (!G || !M || G.done) { s.innerHTML = ''; return; }
+  var h = '';
+  h += tileHtml('Population', M.pop.toLocaleString(), '', M.jobs.toLocaleString() + ' jobs draw migrants');
+  h += tileHtml('Housing', M.pct + '% full', M.pct > 115 ? 'lo' : M.pct > 100 ? 'mid' : 'ok', 'Room for ' + M.cap.toLocaleString() + (M.pct > 100 ? '. Overcrowded!' : ''), M.pct, M.pct > 115 ? 'var(--g-red)' : M.pct > 100 ? 'var(--g-amber)' : 'var(--g-green)');
+  h += tileHtml('Living conditions', M.life, lvl(M.life), 'Average for residents', M.life, col(M.life));
+  h += tileHtml('Environment', M.env, lvl(M.env), 'Trees ' + M.envParts.trees + ', smoke ' + M.envParts.smoke + ', river ' + M.envParts.river, M.env, col(M.env));
+  h += tileHtml('Industry', M.ind, M.ind >= 60 ? 'ok' : M.ind >= 30 ? 'mid' : 'lo', 'Output ' + M.P + (M.unlinked ? ', ' + M.unlinked + ' cut off from homes' : '') + (M.nocoal ? ', ' + M.nocoal + ' short of coal' : ''), M.ind, 'var(--g-blue)');
+  h += tileHtml('Town rating', M.rating, lvl(M.rating), 'Industry 30%, living 30%, environment 20%, room to live 20%');
+  var got = Object.keys(G.ach).length;
+  h += '<div class="tile achwrap"><span>Achievements ' + got + '/' + ACH.length + '</span><div class="achs">' + ACH.map(function(a){ return '<i class="ach' + (G.ach[a[0]] ? ' got' : '') + '" title="' + esc(a[2]) + '" style="font-style:normal">' + esc(a[1]) + '</i>'; }).join('') + '</div></div>';
+  s.innerHTML = h;
+}
+
+/* ---------- modal screens ---------- */
+function modal(html){ $('mbox').innerHTML = html; $('modal').classList.remove('hidden'); $('mbox').scrollTop = 0; }
+function closeModal(){ $('modal').classList.add('hidden'); }
+function hud(){ $('hud').classList.remove('hidden'); $('hudYear').textContent = curRound() ? curRound().y : 1900; $('hudRound').textContent = Math.min(10, G.round + 1); }
+function title(){
+  var saved = null; try { saved = JSON.parse(load(SAVE) || 'null'); } catch (e) {}
+  var best = +(load(BEST) || 0);
+  modal('<div class="eyebrow">Unit 5 &middot; Industrialization</div><h2>The Urban Game</h2>' +
+    '<p>It is 1750. You are the planner of a small English market town: a farm village, a little port at the river mouth, forests, a common, and coal under the hills. Over ten rounds, from 1750 to 1890, the Industrial Revolution arrives, and the town council will order you to build mills, mines, canals, tenements and railways.</p>' +
+    '<div class="note"><b>How to play.</b> Each round the council gives <b>orders</b> (free to build). Anything extra costs a <b>building permit</b>. Clear trees before you build on forest. Watch the scores on the right change live: crowding, smoke, living conditions and industry. Visitors arrive with choices. Roads, canals and railways are unlimited and can cross each other (a road or railway bridges a canal), but you only get so many tree clearings and demolitions each round, so plan before you cut.</div>' +
+    '<div class="note good"><b>Tips.</b> Factories need coal: link them to a mine by canal, rail or road. Homes need a road to the works. Smoke blows east with the wind. Schools, churches, shops, parks and hospitals near homes raise living conditions.</div>' +
+    '<h3>Name your town</h3><input class="txt" id="tname" maxlength="24" value="Millbrook">' +
+    '<div class="row"><button class="gb" id="bNew">Start in 1750</button>' + (saved && !saved.done && saved.v === 1 ? '<button class="gb alt" id="bCont">Continue ' + esc(saved.name) + ' (' + (ROUNDS[saved.round] ? ROUNDS[saved.round].y : '') + ')</button>' : '') + '</div>' +
+    (best ? '<p class="say" style="margin-top:12px;color:var(--g-dim)">Your best final score: <b>' + best + '</b></p>' : ''));
+  $('bNew').onclick = function(){ newGame(($('tname').value || 'Millbrook').trim()); drawTerrain(); changed(); brief(); };
+  if ($('bCont')) $('bCont').onclick = function(){
+    G = saved; rebuild(); M = compute(); drawTerrain(); changed(); hud();
+    var chose = G.choice && G.choice[G.round] != null;
+    if (G.phase === 'build') closeModal();
+    else if (G.phase === 'event') { if (chose) report(); else eventScreen(G.missedNow || 0); }
+    else if (G.phase === 'report' || G.phase === 'gazette') report();
+    else brief();
+  };
+}
+function brief(){
+  G.phase = 'brief'; hud(); var R = curRound(), r = G.round + 1;
+  if (!G.permitsGiven || G.permitsGiven < r) { G.permits += R.permits; G.permitsGiven = r; }
+  var newB = Object.keys(B).filter(function(t){ return B[t].r === r; });
+  modal('<div class="eyebrow">Round ' + r + ' of 10 &middot; ' + esc(G.name) + '</div><div class="bigyr">' + R.y + '</div><h2>' + esc(R.hl) + '</h2>' +
+    R.p.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join('') +
+    '<h3>Orders from the town council</h3><div class="note">' + R.orders.map(function(o){ return '&bull; ' + esc(orderLabel(o)); }).join('<br>') + '</div>' +
+    '<p>You also have <b>' + G.permits + ' building permit' + (G.permits === 1 ? '' : 's') + '</b> for anything extra you choose. Unused permits carry over.</p>' +
+    '<p>This round you may clear <b>' + allowance('clear') + ' trees</b>, demolish <b>' + allowance('demol') + '</b> old building' + (allowance('demol') === 1 ? '' : 's') + ' (knock down to free the land). Roads, canals and railways are unlimited and can cross each other: lay a road or railway over a canal to bridge it. Coal seams are kept for mines. Every new building must face a road.</p>' +
+    (newB.length ? '<h3>New this round</h3><div class="chips">' + newB.map(function(t){ return '<span class="chip">' + esc(B[t].n) + '</span>'; }).join('') + '</div>' : '') +
+    '<div class="row"><button class="gb" id="bGo">Start building</button></div>');
+  $('bGo').onclick = function(){ G.phase = 'build'; closeModal(); renderSide(); save(); };
+  renderSide(); save();
+}
+function endRound(){
+  var R = curRound(), miss = [];
+  R.orders.forEach(function(o){ var p = orderProgress(o); if (p.have < p.need) miss.push(orderLabel(o) + ' (' + (o.k === 'link' ? 'not linked' : p.have + '/' + p.need) + ')'); });
+  if (miss.length) {
+    modal('<h2>Orders unfinished</h2><p>The council expected:</p><div class="note bad">' + miss.map(esc).join('<br>') + '</div><p>Each unfinished order costs 4 rating points this round. Keep building, or finish ' + R.y + ' anyway?</p>' +
+      '<div class="row"><button class="gb alt" id="bBack">Keep building</button><button class="gb" id="bAnyway">Finish anyway</button></div>');
+    $('bBack').onclick = closeModal; $('bAnyway').onclick = function(){ eventScreen(miss.length); };
+  } else eventScreen(0);
+}
+function eventScreen(missed){
+  setTool(null); G.phase = 'event'; G.missedNow = missed; var E = EVENTS[G.round];
+  if (E.chol) { M = compute(); }
+  var opts = E.c.map(function(c, i){ var dis = c.need && G.permits < c.need; return '<button class="copt" data-i="' + i + '"' + (dis ? ' disabled' : '') + '><b>' + esc(c.b) + '</b><small>' + esc(c.s) + (dis ? ' (no permits left)' : '') + '</small></button>'; }).join('');
+  modal('<div class="eyebrow">A visitor &middot; ' + curRound().y + '</div><div class="vis"><canvas id="visC" width="192" height="192"></canvas><div><h2>' + esc(E.t) + '</h2><p><b>' + esc(E.who) + '.</b> ' + esc(E.s) + '</p>' +
+    (E.chol ? '<div class="note bad">Your town: housing ' + M.pct + '% full, river pollution ' + M.riverP + '. Crowding and dirty water make cholera worse.</div>' : '') +
+    '<div class="copts">' + opts + '</div><div id="evRes"></div></div></div>');
+  drawVisitor($('visC'), E.icon);
+  $('mbox').querySelectorAll('.copt').forEach(function(b){ b.onclick = function(){
+    var c = E.c[+b.dataset.i]; c.f(); G.choice = G.choice || {}; G.choice[G.round] = +b.dataset.i;
+    $('mbox').querySelectorAll('.copt').forEach(function(x){ x.disabled = true; }); b.classList.add('right');
+    var extra = E.chol ? '<div class="note bad">Cholera deaths: about <b>' + (G.cholDeaths || 0).toLocaleString() + '</b> people.</div>' : '';
+    $('evRes').innerHTML = '<div class="note good">' + esc(c.r) + '</div>' + extra + '<button class="gb" id="bRep">See the ' + curRound().y + ' report</button>';
+    $('bRep').onclick = report; save();
+  }; });
+}
+function checkAch(){
+  var c = M.counts, live = G.items.filter(alive), newA = [];
+  function give(k){ if (!G.ach[k]) { G.ach[k] = G.round + 1; newA.push(k); } }
+  var cut = G.items.filter(function(i){ return i.t === 'tree' && i.died; }).length;
+  if (cut >= 30) give('woodsman');
+  if (live.some(function(i){ return (i.t === 'road' || i.t === 'rail') && tAt(i.x, i.y) === RIV; })) give('bridge');
+  if (c.watermill) give('mill'); if (c.factory) give('steam');
+  if (linkDone({ a:'mine', to:'water', net:'heavy' })) give('canal');
+  if (linkDone({ a:'factory', to:'quay', net:'rail' })) give('rail');
+  if ((c.lamp || 0) >= 12) give('gas');
+  if (c.school && c.hospital && c.park) give('reform');
+  if (c.dockyard && c.warehouse && c.telegraph) give('port');
+  if (c.park && c.football && c.concert) give('leisure');
+  if (G.round === 9 && M.env >= 40) give('clean');
+  if (G.round === 9 && M.life >= 55) give('healthy');
+  if (G.round === 9 && !G.ordersMissed) give('orders');
+  return newA;
+}
+function report(){
+  G.phase = 'report';
+  var r = G.round + 1, h;
+  if (G.hist.length > r) { h = G.hist[r]; M = compute(); }
+  else {
+    if (r === 10 && G.flags.germany) G.mod.ind -= G.flags.germany === 2 ? 6 : 3;
+    M = compute(); var pen0 = (G.missedNow || 0) * 4; if (G.missedNow) G.ordersMissed += G.missedNow;
+    h = snap(r); h.rating = Math.max(0, M.rating - pen0); h.pen = pen0; G.hist.push(h);
+  }
+  var before = G.hist[r - 1], pen = h.pen || 0;
+  G.chol = 0; /* cholera deaths are a one-time loss */
+  var newA = checkAch();
+  function row(label, a, b, good){ var d = b - a, cls = d === 0 ? '' : ((d > 0) === good ? 'pos' : 'neg'); return '<tr><td>' + label + '</td><td class="n">' + a.toLocaleString() + '</td><td class="n">' + b.toLocaleString() + '</td><td class="n ' + cls + '">' + (d > 0 ? '+' : '') + d.toLocaleString() + '</td></tr>'; }
+  var html = '<div class="eyebrow">Round ' + r + ' report</div><h2>' + esc(G.name) + ' in ' + curRound().y + '</h2>' +
+    '<table class="sum"><tr><th></th><th>Before</th><th>Now</th><th>Change</th></tr>' +
+    row('Population', before.pop, h.pop, true) + row('Housing (% full)', before.pct, h.pct, false) + row('Living conditions', before.life, h.life, true) +
+    row('Environment', before.env, h.env, true) + row('Industry', before.ind, h.ind, true) +
+    (pen ? '<tr><td>Unfinished orders</td><td></td><td></td><td class="n neg">-' + pen + '</td></tr>' : '') +
+    '<tr class="tot"><td>Town rating this round</td><td></td><td></td><td class="n">' + h.rating + '</td></tr></table>';
+  var notes = [];
+  if (h.pct > 110) notes.push(['bad', 'Families are doubling up in cellars and single rooms. Overcrowding drags living conditions down and makes disease spread.']);
+  if (M.envParts.smoke <= -20) notes.push(['bad', 'A pall of coal smoke hangs over the town. Homes downwind (east) of the works suffer most.']);
+  if (M.envParts.trees <= -15) notes.push(['bad', 'The old forests are mostly gone, cut for timber, fuel, pit props and building land.']);
+  if (M.nocoal) notes.push(['bad', M.nocoal + ' coal-burning works ' + (M.nocoal > 1 ? 'are' : 'is') + ' short of coal. Link them to a mine.']);
+  if (M.unlinked) notes.push(['bad', M.unlinked + ' workplace' + (M.unlinked > 1 ? 's have' : ' has') + ' no road to any homes, so workers cannot reach ' + (M.unlinked > 1 ? 'them' : 'it') + '.']);
+  if (newA.length) notes.push(['good', 'Achievement' + (newA.length > 1 ? 's' : '') + ' earned: ' + newA.map(function(k){ return ACH.filter(function(a){ return a[0] === k; })[0][1]; }).join(', ') + '.']);
+  html += notes.map(function(n){ return '<div class="note ' + n[0] + '">' + esc(n[1]) + '</div>'; }).join('');
+  html += '<div class="row"><button class="gb" id="bNext">' + (G.round < 9 ? 'On to ' + ROUNDS[G.round + 1].y + ' &rarr;' : 'See your town in 1900 &rarr;') + '</button></div>';
+  modal(html); $('bNext').onclick = nextRound; renderStats(); save();
+}
+function nextRound(){
+  if (G.round >= 9) { finish(); return; }
+  G.round++; G.missedNow = 0; changed(); drawTerrain(); brief();
+}
+function finalScore(){
+  var sum = 0; G.hist.forEach(function(h){ if (h.r) sum += h.rating; });
+  return { rounds:sum, ach:Object.keys(G.ach).length * 10, total:sum + Object.keys(G.ach).length * 10 };
+}
+function finish(){
+  G.done = true; G.phase = 'end'; save(); setTool(null);
+  var S = finalScore(), best = +(load(BEST) || 0); if (S.total > best) store(BEST, S.total);
+  if (window.APWH_ACTIVITY) APWH_ACTIVITY.done('game', 'urban');
+  var first = G.hist[0], last = G.hist[G.hist.length - 1];
+  modal('<div class="eyebrow">' + esc(G.name) + ' &middot; 1750 to 1900</div><h2>Final score: ' + S.total + '</h2>' +
+    '<table class="sum"><tr><td>Ten round ratings</td><td class="n">' + S.rounds + '</td></tr><tr><td>Achievements (' + Object.keys(G.ach).length + ' &times; 10)</td><td class="n">' + S.ach + '</td></tr><tr class="tot"><td>Total' + (S.total > best ? ' (new best!)' : '') + '</td><td class="n">' + S.total + '</td></tr></table>' +
+    '<h3>Watch your town grow</h3><div class="tl"><input type="range" id="tlR" min="0" max="10" value="10"><b id="tlY">1890</b></div><canvas id="tlCanvas" width="1024" height="640"></canvas>' +
+    '<h3>Your town by the numbers</h3><canvas id="chart" width="900" height="300"></canvas>' +
+    '<table class="sum"><tr><th></th><th>1750</th><th>1890</th></tr><tr><td>Population</td><td class="n">' + first.pop.toLocaleString() + '</td><td class="n">' + last.pop.toLocaleString() + '</td></tr><tr><td>Living conditions</td><td class="n">' + first.life + '</td><td class="n">' + last.life + '</td></tr><tr><td>Environment</td><td class="n">' + first.env + '</td><td class="n">' + last.env + '</td></tr><tr><td>Industry</td><td class="n">' + first.ind + '</td><td class="n">' + last.ind + '</td></tr></table>' +
+    '<h3>What really happened</h3><div class="note">Manchester grew from about 25,000 people in the 1770s to more than 300,000 by 1850 and over 500,000 by 1900. Chadwick\'s 1842 report found that laborers\' families in Manchester died at an average age of about 17, because so many children died young. Reforms (Factory Acts, the Public Health Act, parks, sewers, schools and unions) came slowly, and only after the worst crowding and pollution.</div>' +
+    '<h3>Think it over</h3><ol class="prompts"><li>Slide the time-lapse from 1750 to 1890. What did the town gain, and what did it lose?</li><li>Where did the wealthy live in your town, and where did the smoke blow? Why did the West End become the rich side of many British cities?</li><li>Which global connections (American cotton, Indian markets, steamships, foreign visitors) did your town depend on?</li><li>Pick one reform you built (school, hospital, park) or chose (Owen\'s hours, the union). What problem was it answering?</li><li>You had to follow the council\'s orders even when they hurt the town. Who gave those orders in real British towns, and who had no say?</li></ol>' +
+    '<div class="row"><button class="gb" id="bAgain">Plan a new town</button><a class="gb alt" href="unit5.html#pg-games" style="text-decoration:none">Back to Unit 5 Games</a></div>');
+  var tc = $('tlCanvas'), tx = tc.getContext('2d');
+  function tl(r){ var keep = G.items; tx.clearRect(0, 0, 1024, 640);
+    var saveFlag = G.flags.enclosed; if (r < 1) G.flags.enclosed = 0; var tmp = document.createElement('canvas'); tmp.width = W * T; tmp.height = H * T;
+    var oldT = terrC; terrC = tmp; var oldTint = riverTint; riverTint = clamp((r / 10) * oldTint, 0, 0.75); drawTerrain(); tx.drawImage(tmp, 0, 0); terrC = oldT; riverTint = oldTint; G.flags.enclosed = saveFlag;
+    var vis = keep.filter(function(it){ return it.born <= r && (!it.died || it.died > r); });
+    vis.forEach(function(it){ if (B[it.t].line) drawLineStatic(tx, it, vis); });
+    vis.sort(function(a, b){ return (a.y + a.h) - (b.y + b.h); }).forEach(function(it){ if (it.t === 'tree') drawTree(tx, it); else if (!B[it.t].line) drawBuilding(tx, it, true); });
+    drawSmog(tx, G.hist[r] ? (G.hist[r].smog != null ? G.hist[r].smog : clamp((100 - G.hist[r].env) / 90, 0, 1)) : 0, 0);
+    $('tlY').textContent = r ? ROUNDS[r - 1].y : 'Start, 1750'; }
+  $('tlR').oninput = function(){ tl(+this.value); }; tl(10);
+  chart($('chart'));
+  $('bAgain').onclick = function(){ store(SAVE, ''); G = null; title(); };
+  renderSide(); renderStats();
+}
+function drawLineStatic(c, it, vis){
+  /* the time-lapse draws lines without the live occupancy grid */
+  [it.t].concat(it.x2 ? [it.x2] : []).sort(function(a, b){ return LORDER[a] - LORDER[b]; }).forEach(function(ty){
+  var set = {}; vis.forEach(function(o){ if (o.t === ty || o.x2 === ty) set[o.x + ',' + o.y] = 1; });
+  var saveItemAt = itemAt; itemAt = function(x, y){ return set[x + ',' + y] ? { t:ty } : null; };
+  drawLine(c, { x:it.x, y:it.y, t:ty, br:!!it.x2 && (it.t === 'canal' || it.x2 === 'canal') && ty !== 'canal' }); itemAt = saveItemAt; });
+}
+function chart(c){
+  var x = c.getContext('2d'), w = c.width, h = c.height, pad = 40, hs = G.hist, LW = 190;
+  x.fillStyle = '#fff'; x.fillRect(0, 0, w, h); x.font = '700 12px Lato,sans-serif';
+  x.strokeStyle = '#e3e8f0'; x.fillStyle = '#66748f';
+  for (var v = 0; v <= 100; v += 25) { var y = h - pad - v / 100 * (h - pad * 2); x.beginPath(); x.moveTo(pad, y); x.lineTo(w - LW, y); x.stroke(); x.fillText(v, 10, y + 4); }
+  hs.forEach(function(p, i){ x.fillText(i ? p.y : 'Start', pad + i / (hs.length - 1) * (w - LW - pad) - 14, h - 14); });
+  [['life','Living','#1a8a4a'],['env','Environment','#7a8a3a'],['ind','Industry','#345fbf'],['crowdP','Housing % full (half)','#cc3d3d']].forEach(function(s, k){
+    x.strokeStyle = s[2]; x.lineWidth = 3; x.beginPath();
+    hs.forEach(function(p, i){ var val = s[0] === 'crowdP' ? Math.min(200, p.pct) / 2 : p[s[0]]; var px = pad + i / (hs.length - 1) * (w - LW - pad), py = h - pad - val / 100 * (h - pad * 2); i ? x.lineTo(px, py) : x.moveTo(px, py); });
+    x.stroke(); x.fillStyle = s[2]; x.fillRect(w - LW + 14, 30 + k * 22, 12, 12); x.fillStyle = '#16244d'; x.fillText(s[1], w - LW + 32, 40 + k * 22);
+  });
+}
+/* simple chalk-style visitor portraits, after the reference sheet */
+function drawVisitor(c, kind){
+  var x = c.getContext('2d'); x.fillStyle = '#16244d'; x.fillRect(0, 0, 192, 192); x.strokeStyle = '#fff'; x.fillStyle = '#fff'; x.lineWidth = 3; x.lineCap = 'round';
+  function fig(cx, hat, flag){ x.beginPath(); x.arc(cx, 70, 12, 0, 7); x.stroke(); x.fillRect(cx - 8, 84, 16, 54); x.beginPath(); x.moveTo(cx - 5, 138); x.lineTo(cx - 8, 160); x.moveTo(cx + 5, 138); x.lineTo(cx + 8, 160); x.stroke();
+    if (hat) { x.fillRect(cx - 9, 46, 18, 10); x.fillRect(cx - 14, 55, 28, 3); } }
+  if (kind === 'ship' || kind === 'steamer') {
+    x.beginPath(); x.moveTo(20, 130); x.lineTo(172, 130); x.lineTo(155, 152); x.lineTo(35, 152); x.closePath(); x.stroke();
+    if (kind === 'ship') { [60, 96, 132].forEach(function(m){ x.beginPath(); x.moveTo(m, 130); x.lineTo(m, 40); x.stroke(); for (var s = 0; s < 3; s++) { x.beginPath(); x.moveTo(m - 16, 55 + s * 24); x.lineTo(m + 16, 52 + s * 24); x.stroke(); } }); }
+    else { x.fillRect(80, 80, 16, 50); x.beginPath(); x.arc(92, 66, 12, 0, 7); x.arc(108, 52, 15, 0, 7); x.stroke(); [50, 140].forEach(function(m){ x.beginPath(); x.moveTo(m, 130); x.lineTo(m, 60); x.stroke(); }); }
+    return;
+  }
+  if (kind === 'skull') { x.beginPath(); x.arc(96, 86, 40, Math.PI * 0.85, Math.PI * 2.15); x.stroke(); x.strokeRect(74, 112, 44, 24); x.beginPath(); x.arc(80, 88, 9, 0, 7); x.arc(112, 88, 9, 0, 7); x.fill(); return; }
+  if (kind === 'japan') { [44, 80, 116, 152].forEach(function(cx){ fig(cx, true); }); x.strokeRect(150, 20, 34, 24); x.beginPath(); x.arc(167, 32, 6, 0, 7); x.fill(); return; }
+  if (kind === 'german') { fig(80, true); x.beginPath(); x.moveTo(110, 40); x.lineTo(110, 120); x.stroke(); x.strokeRect(110, 40, 50, 30); x.fillRect(110, 40, 50, 10); return; }
+  if (kind === 'crowd') { [40, 72, 104, 136, 160].forEach(function(cx, i){ fig(cx, i % 2); }); x.beginPath(); x.moveTo(150, 60); x.lineTo(150, 20); x.stroke(); x.strokeRect(150, 20, 30, 18); return; }
+  fig(96, true); x.fillRect(84, 100, 24, 6);
+}
+$('fsBtn').onclick = function(){ var el = document.documentElement; if (!document.fullscreenElement) { if (el.requestFullscreen) el.requestFullscreen(); } else if (document.exitFullscreen) document.exitFullscreen(); };
+
+/* ---------- start ---------- */
+genTerrain();
+Object.keys(B).forEach(function(t){ if (t !== 'tree' && t !== 'quay') ICONS[t] = null; });
+G = { round:0, flags:{}, items:[], mod:{ life:0, ind:0, env:0, pop:0 } }; /* placeholder so icons can draw */
+Object.keys(ICONS).forEach(function(t){ ICONS[t] = iconCanvas(t); });
+G = null;
+requestAnimationFrame(loop);
+title();
+})();
+</script>
+<script src="flashcard-data.js?v=20261027b"></script>
+<script src="games-lock.js?v=20261112"></script>
+</body>
+</html>

@@ -768,6 +768,7 @@ function smokeAt(x, y, em){
     var d = dx > 0 ? Math.hypot(dx * 0.45, dy) : Math.hypot(dx * 1.4, dy); s += em[i][2] * Math.exp(-d / 4.5); }
   return s;
 }
+function indBar(r){ return 110 + 30 * Math.max(0, r - 4); }   /* r = round index: 110 through 1812, then +30 a round (320 by 1900) */
 function compute(){
   NET = computeNet();
   var live = G.items.filter(alive), em = emitters(), cap = 0, jobs = 0, P = 0, H2 = [], counts = {};
@@ -790,7 +791,9 @@ function compute(){
     it._m = m; P += b.prod * m;
   });
   P *= (1 + tele * 0.05) * (1 + G.mod.ind / 100);
-  var ind = Math.round(100 * (1 - Math.exp(-P / 110)));
+  /* the bar rises with the times: from 1825 on, the same output counts for less as rival towns and nations industrialize */
+  var bar = indBar(G.round);
+  var ind = Math.round(100 * (1 - Math.exp(-P / bar)));
   /* environment */
   var trees = live.filter(function(i){ return i.t === 'tree'; }).length, smokeSum = 0;
   em.forEach(function(e){ smokeSum += e[2]; });
@@ -1534,7 +1537,7 @@ function renderStats(){
   h += tileHtml('Housing', M.pct + '% full', M.pct > 115 ? 'lo' : M.pct > 100 ? 'mid' : 'ok', 'Room for ' + M.cap.toLocaleString() + (M.pct > 100 ? '. Overcrowded!' : ''), M.pct, M.pct > 115 ? 'var(--g-red)' : M.pct > 100 ? 'var(--g-amber)' : 'var(--g-green)');
   h += tileHtml('Living conditions', M.life, lvl(M.life), 'Average for residents', M.life, col(M.life));
   h += tileHtml('Environment', M.env, lvl(M.env), 'Trees ' + M.envParts.trees + ', smoke ' + M.envParts.smoke + ', river ' + M.envParts.river, M.env, col(M.env));
-  h += tileHtml('Industry', M.ind, M.ind >= 60 ? 'ok' : M.ind >= 30 ? 'mid' : 'lo', 'Output ' + M.P + (M.unlinked ? ', ' + M.unlinked + ' cut off from homes' : '') + (M.nocoal ? ', ' + M.nocoal + ' short of coal' : ''), M.ind, 'var(--g-blue)');
+  h += tileHtml('Industry', M.ind, M.ind >= 60 ? 'ok' : M.ind >= 30 ? 'mid' : 'lo', 'Output ' + M.P + ' (the bar rises each round from 1825)' + (M.unlinked ? ', ' + M.unlinked + ' cut off from homes' : '') + (M.nocoal ? ', ' + M.nocoal + ' short of coal' : ''), M.ind, 'var(--g-blue)');
   h += tileHtml('Town rating', M.rating, lvl(M.rating), 'Industry 30%, living 30%, environment 20%, room to live 20%');
   var got = Object.keys(G.ach).length;
   h += '<div class="tile achwrap"><span>Achievements ' + got + '/' + ACH.length + '</span><div class="achs">' + ACH.map(function(a){ return '<i class="ach' + (G.ach[a[0]] ? ' got' : '') + '" title="' + esc(a[2]) + '" style="font-style:normal">' + esc(a[1]) + '</i>'; }).join('') + '</div></div>';
@@ -1648,6 +1651,7 @@ function report(){
   if (M.envParts.trees <= -15) notes.push(['bad', 'The old forests are mostly gone, cut for timber, fuel, pit props and building land.']);
   if (M.nocoal) notes.push(['bad', M.nocoal + ' coal-burning works ' + (M.nocoal > 1 ? 'are' : 'is') + ' short of coal. Link them to a mine.']);
   if (M.unlinked) notes.push(['bad', M.unlinked + ' workplace' + (M.unlinked > 1 ? 's have' : ' has') + ' no road to any homes, so workers cannot reach ' + (M.unlinked > 1 ? 'them' : 'it') + '.']);
+  if (r === 6) notes.push(['', 'Other towns, and soon other nations, are building mills and railways too. From now on the industry bar rises every round: the same output earns a lower industry score, so keep linking works to coal, homes and the sea.']);
   if (newA.length) notes.push(['good', 'Achievement' + (newA.length > 1 ? 's' : '') + ' earned: ' + newA.map(function(k){ return ACH.filter(function(a){ return a[0] === k; })[0][1]; }).join(', ') + '.']);
   html += notes.map(function(n){ return '<div class="note ' + n[0] + '">' + esc(n[1]) + '</div>'; }).join('');
   html += '<div class="row"><button class="gb" id="bNext">' + (G.round < LAST - 1 ? 'On to ' + ROUNDS[G.round + 1].y + ' &rarr;' : 'See your finished town &rarr;') + '</button></div>';

@@ -204,14 +204,71 @@ function load(k){ try { return localStorage.getItem(k); } catch (e) { return nul
 var GR = 0, RIV = 1, SEA = 2, FARM = 3, COMMON = 4, HILL = 5, COAL = 6, SAND = 7;
 function mulberry(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 function coastX(y){ return 72 + Math.round(2 * Math.sin(y / 5) + Math.sin(y / 2.3) * 0.6); }
-var RIVER_PTS = [[0,14],[9,17],[18,16],[27,19],[35,22],[44,23],[52,22],[59,25],[66,24],[80,25]];
+/* The map changes every game: makeMap(seed) picks the river's course (always in the middle third),
+   where the three coal seams and the forests lie, and moves the farms, the common and the port to fit.
+   The farm village (north-west) and the coast stay put. G.seed is saved, so a game reloads its own map. */
+var MAP = null, RIVER_PTS = [];
+function rectHit(a, b, m){ m = m || 0; return a.x0 - m <= b.x1 && b.x0 - m <= a.x1 && a.y0 - m <= b.y1 && b.y0 - m <= a.y1; }
+function makeMap(seed, depth){
+  depth = depth || 0;
+  var r = mulberry(seed), ri = function(a, b){ return a + Math.floor(r() * (b - a + 1)); }, x, i;
+  /* river: a random walk through rows 17 to 29 (two tiles wide), meeting the sea at rows 23 to 28 */
+  RIVER_PTS = []; var y = ri(17, 29);
+  for (x = 0; x <= 80; x += 8) {
+    if (x > 0) y = clamp(y + ri(-4, 4), 17, 29);
+    if (x >= 56) y = clamp(y, 23, 28);
+    RIVER_PTS.push([x, y]);
+  }
+  MAP = { seed:seed };
+  var eMin = 99, eMax = 0; for (x = 54; x <= 74; x++) { eMin = Math.min(eMin, riverY(x)); eMax = Math.max(eMax, riverY(x)); }
+  MAP.quayY = clamp(eMin - 4, 16, 24);            /* the quay and port street sit just above the river */
+  MAP.southY = eMax + 3;                          /* the little church and houses across the river from the port */
+  var maxW = 0, minW = 99; for (x = 1; x <= 18; x++) { maxW = Math.max(maxW, riverY(x)); minW = Math.min(minW, riverY(x)); }
+  MAP.farm2 = { x0:3, x1:17, y0:maxW + 3, y1:maxW + 7 };
+  MAP.common = { x0:4, x1:17, y0:Math.min(maxW + 10, 38), y1:Math.min(maxW + 10, 38) + 8 };
+  /* places coal must keep away from: the village and lane, the port, the farms and common, the river and coast */
+  var keep = [{ x0:0, x1:23, y0:0, y1:14 }, { x0:20, x1:58, y0:11, y1:14 }, { x0:54, x1:80, y0:12, y1:MAP.quayY + 3 },
+              { x0:55, x1:80, y0:MAP.southY - 1, y1:MAP.southY + 4 }, MAP.farm2, MAP.common];
+  function riverClash(R){ for (var xx = R.x0; xx <= R.x1; xx++) { var ry = riverY(xx); if (ry + 3 >= R.y0 && ry - 2 <= R.y1) return true; } return false; }
+  MAP.seams = [];
+  /* two seams south of the river; the third north of it (the strip above the old lane, or between lane and river) */
+  var wants = ['south', 'south', 'north'];
+  for (i = 0; i < 3; i++) {
+    var done = false;
+    for (var tries = 0; tries < 800 && !done; tries++) {
+      var late = tries >= 400;   /* if that side is crowded, look anywhere, with a smaller hill */
+      var w = late ? ri(9, 12) : ri(10, 14), h = late || wants[i] === 'north' ? ri(8, 9) : ri(8, 11), x0 = ri(0, 66 - w);
+      var y0 = late ? ri(0, H - h) : wants[i] === 'south' ? ri(28, H - h) : (r() < 0.6 ? ri(0, 1) : ri(13, 22));
+      var R = { x0:x0, x1:x0 + w - 1, y0:y0, y1:y0 + h - 1 };
+      if (R.x1 >= coastX(R.y0) - 4 || R.x1 >= coastX(R.y1) - 4) continue;
+      if (riverClash(R) || keep.some(function(k){ return rectHit(R, k, 1); }) || MAP.seams.some(function(s){ return rectHit(R, s.hill, 3); })) continue;
+      var cw = ri(5, 7), ch = ri(4, 6), cx = R.x0 + ri(2, w - cw - 2), cy = R.y0 + ri(2, h - ch - 2);
+      MAP.seams.push({ hill:R, coal:{ x0:cx, x1:cx + cw - 1, y0:cy, y1:cy + ch - 1 } }); done = true;
+    }
+  }
+  if (MAP.seams.length < 3 && depth < 6) { makeMap(seed + 7919, depth + 1); MAP.seed = seed; return; }   /* rare: try another layout */
+  /* forests: blobs of trees anywhere there is open land */
+  MAP.forests = [];
+  for (i = 0; i < 8; i++) { var fw = ri(6, 16), fh = ri(5, 11), fx = ri(0, 70 - fw), fy = ri(0, H - fh);
+    MAP.forests.push([fx, fy, fx + fw, fy + fh, [0.6, 0.55, 0.45, 0.45, 0.35, 0.3, 0.25, 0.2][i]]); }
+  MAP.seams.forEach(function(s){ MAP.forests.push([s.hill.x0, s.hill.y0, s.hill.x1, s.hill.y1, 0.15]); });
+}
+/* the original fixed map, kept for games saved before maps were random */
+function classicMap(){
+  RIVER_PTS = [[0,14],[9,17],[18,16],[27,19],[35,22],[44,23],[52,22],[59,25],[66,24],[80,25]];
+  MAP = { seed:0, quayY:21, southY:27, farm2:{ x0:3, x1:17, y0:21, y1:26 }, common:{ x0:4, x1:17, y0:30, y1:38 },
+    seams:[{ hill:{ x0:43, x1:57, y0:33, y1:46 }, coal:{ x0:47, x1:53, y0:37, y1:42 } }, { hill:{ x0:1, x1:10, y0:40, y1:47 }, coal:{ x0:2, x1:7, y0:41, y1:46 } },
+           { hill:{ x0:52, x1:61, y0:1, y1:8 }, coal:{ x0:54, x1:58, y0:3, y1:6 } }],
+    forests:[[24,1,40,10,.6],[21,33,35,45,.6],[42,3,50,9,.45],[52,1,62,9,.25],[0,27,3,36,.4],[60,36,69,46,.45],[36,34,57,47,.15]] };
+}
 function riverY(x){
   for (var i = 0; i < RIVER_PTS.length - 1; i++) {
     var a = RIVER_PTS[i], b = RIVER_PTS[i + 1];
     if (x >= a[0] && x <= b[0]) { var t = (x - a[0]) / (b[0] - a[0]); return Math.round(a[1] + (b[1] - a[1]) * (0.5 - Math.cos(t * Math.PI) / 2)); }
   }
-  return 25;
+  return RIVER_PTS.length ? RIVER_PTS[RIVER_PTS.length - 1][1] : 25;
 }
+function inR(R, x, y){ return x >= R.x0 && x <= R.x1 && y >= R.y0 && y <= R.y1; }
 var ter = new Uint8Array(W * H), noise = new Float32Array(W * H);
 function genTerrain(){
   var r = mulberry(1750);
@@ -220,15 +277,14 @@ function genTerrain(){
     if (x >= coastX(y)) t = SEA; else if (x === coastX(y) - 1) t = SAND;
     else {
       var ry = riverY(x); if (y === ry || y === ry + 1) t = RIV;
-      else if ((x >= 1 && x <= 6 && y >= 2 && y <= 9) || (x >= 3 && x <= 17 && y >= 21 && y <= 26 && y > riverY(x) + 2)) t = FARM;
-      else if (x >= 4 && x <= 17 && y >= 30 && y <= 38) t = COMMON;
-      else if (x >= 43 && x <= 57 && y >= 33 && y <= 46) t = (x >= 47 && x <= 53 && y >= 37 && y <= 42) ? COAL : HILL;
-      else if (x >= 1 && x <= 10 && y >= 40 && y <= 47) t = (x >= 2 && x <= 7 && y >= 41 && y <= 46) ? COAL : HILL;
-      else if (x >= 52 && x <= 61 && y >= 1 && y <= 8) t = (x >= 54 && x <= 58 && y >= 3 && y <= 6) ? COAL : HILL;
+      else if ((x >= 1 && x <= 6 && y >= 2 && y <= 9) || (inR(MAP.farm2, x, y) && y > ry + 2)) t = FARM;
+      else if (inR(MAP.common, x, y) && y > ry + 2) t = COMMON;
+      else MAP.seams.some(function(s){ if (inR(s.hill, x, y)) { t = inR(s.coal, x, y) ? COAL : HILL; return true; } return false; });
     }
     ter[i] = t;
   }
 }
+function useMap(seed){ if (seed) makeMap(seed); else classicMap(); genTerrain(); }
 function tAt(x, y){ return (x < 0 || y < 0 || x >= W || y >= H) ? -1 : ter[y * W + x]; }
 function isWater(x, y){ var t = tAt(x, y); return t === RIV || t === SEA; }
 
@@ -453,18 +509,21 @@ function initialItems(){
   [[9,5],[12,5],[15,6],[9,8],[12,9],[16,9],[19,9],[6,11]].forEach(function(p){ add('cottage', p[0], p[1]); });
   add('church', 19, 4); add('pub', 13, 2);
   /* port town (east) */
-  var qx = coastX(21) - 3; add('quay', qx, 21);
-  [[58,15],[61,15],[64,15],[58,19],[61,19],[65,28]].forEach(function(p){ add('house', p[0], p[1]); });
-  add('shop', 63, 19); add('church', 61, 28);
+  var qy = MAP.quayY, sy = MAP.southY, qx = Math.min(coastX(qy), coastX(qy + 1)) - 3; add('quay', qx, qy);
+  var lane = qy - 3;   /* the port street */
+  [[58, lane - 2],[61, lane - 2],[64, lane - 2],[58, lane + 1],[61, lane + 1]].forEach(function(p){ add('house', p[0], p[1]); });
+  add('shop', 63, lane + 1);
+  /* across the river: a church and a house on the south road */
+  add('house', 65, sy + 1); add('church', 61, sy + 1);
   /* old lane from the village to the port */
-  var paths = [[[8,11],[22,11],[29,13],[56,13],[56,18],[qx - 1, 18],[qx - 1, 21]], [[11,5],[11,10]], [[14,7],[14,10]], [[18,5],[18,10]], [[59,27],[67,27]]];
+  var paths = [[[8,11],[22,11],[29,13],[56,13],[56,lane],[qx - 1, lane],[qx - 1, qy]], [[11,5],[11,10]], [[14,7],[14,10]], [[18,5],[18,10]], [[59,sy],[67,sy]]];
   var seen = {};
   paths.forEach(function(path){
     for (var i = 0; i < path.length - 1; i++) linePts(path[i][0], path[i][1], path[i + 1][0], path[i + 1][1]).forEach(function(p){
       var k = p[0] + ',' + p[1]; if (seen[k]) return; seen[k] = 1; add('road', p[0], p[1], 1, 1); });
   });
   /* forests */
-  var r = mulberry(1066), blocked = {};
+  var r = mulberry(MAP.seed || 1066), blocked = {};
   items.forEach(function(it){ for (var yy = it.y - 1; yy <= it.y + it.h; yy++) for (var xx = it.x - 1; xx <= it.x + it.w; xx++) blocked[xx + ',' + yy] = 1; });
   function forest(x0, y0, x1, y1, p){
     for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) {
@@ -474,13 +533,19 @@ function initialItems(){
       if (r() < p * (1.15 - dd * 0.75)) { add('tree', x, y, 1, 1); blocked[x + ',' + y] = 1; }
     }
   }
-  forest(24, 1, 40, 10, 0.6); forest(21, 33, 35, 45, 0.6); forest(42, 3, 50, 9, 0.45); forest(52, 1, 62, 9, 0.25);
-  forest(0, 27, 3, 36, 0.4); forest(60, 36, 69, 46, 0.45); forest(36, 34, 57, 47, 0.15);
+  MAP.forests.forEach(function(f){ forest(f[0], f[1], f[2], f[3], f[4]); });
+  if (MAP.seed) {   /* random maps: keep the woods between 150 and 230 trees */
+    var nTree = function(){ return items.filter(function(i){ return i.t === 'tree'; }).length; };
+    for (var k = 0; k < 8 && nTree() < 150; k++) { var fw = 6 + Math.floor(r() * 9), fh = 5 + Math.floor(r() * 6), fx = Math.floor(r() * (70 - fw)), fy = Math.floor(r() * (H - fh)); forest(fx, fy, fx + fw, fy + fh, 0.5); }
+    while (nTree() > 230) { var trees = items.filter(function(i){ return i.t === 'tree'; }); items.splice(items.indexOf(trees[Math.floor(r() * trees.length)]), 1); }
+  }
   return { items:items, next:id };
 }
-function newGame(name){
+function newGame(name, seed){
+  seed = seed || (1 + Math.floor(Math.random() * 2147483000));
+  useMap(seed);
   var init = initialItems();
-  G = { v:1, name:name || 'Millbrook', round:0, items:init.items, next:init.next, permits:0, mod:{ life:0, ind:0, env:0, pop:0 }, flags:{}, hist:[],
+  G = { v:1, seed:seed, name:name || 'Millbrook', round:0, items:init.items, next:init.next, permits:0, mod:{ life:0, ind:0, env:0, pop:0 }, flags:{}, hist:[],
         cleared:{}, demol:{}, ach:{}, gaz:0, gazDone:{}, ordersMissed:0, trees0:init.items.filter(function(i){ return i.t === 'tree'; }).length, chol:0, phase:'brief', done:false };
   rebuild(); M = compute(); G.hist.push(snap(0));
 }
@@ -837,8 +902,8 @@ function drawTerrain(){
   c.font = '900 9px Lato,sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
   function label(txt, x, y, col){ c.lineWidth = 3; c.strokeStyle = 'rgba(0,0,0,.25)'; c.strokeText(txt, x, y); c.fillStyle = col; c.fillText(txt, x, y); }
   label('THE SEA', (W - 3) * T, 6 * T, 'rgba(255,255,255,.85)');
-  if (!G || !G.flags.enclosed) label('THE COMMON', 11 * T, 34.5 * T, 'rgba(255,255,255,.9)');
-  label('COAL', 50.5 * T, 40 * T, 'rgba(255,240,200,.9)'); label('COAL', 5 * T, 44 * T, 'rgba(255,240,200,.9)'); label('COAL', 56.5 * T, 5 * T, 'rgba(255,240,200,.9)');
+  var cm = MAP.common; if (!G || !G.flags.enclosed) label('THE COMMON', (cm.x0 + cm.x1 + 1) / 2 * T, (cm.y0 + cm.y1 + 1) / 2 * T, 'rgba(255,255,255,.9)');
+  MAP.seams.forEach(function(s){ label('COAL', (s.coal.x0 + s.coal.x1 + 1) / 2 * T, (s.coal.y0 + s.coal.y1 + 1) / 2 * T, 'rgba(255,240,200,.9)'); });
 }
 /* ---------- tracks: connected roads, canals and rails ---------- */
 function conn(it){
@@ -1110,11 +1175,155 @@ function drawSmog(c, k, now){
   });
   c.restore();
 }
+/* ---------- moving traffic: trains on rails, barges on canals and the river, ships at the quay ----------
+   Each connected rail line or waterway gets a few vehicles that wander along it tile by tile
+   (turning at junctions, reversing at dead ends). Rebuilt whenever the town changes. Not saved. */
+var VEH = { list:[], ships:[], dirty:true, g:null, sets:null };
+function onLine(x, y, ty){ var it = itemAt(x, y); return !!it && !it.died && (it.t === ty || it.x2 === ty); }
+function vehSync(){
+  VEH.dirty = false;
+  if (VEH.g !== G) { VEH.g = G; VEH.list = []; VEH.ships = []; }
+  var rail = new Uint8Array(W * H), water = new Uint8Array(W * H), x, y, i;
+  for (y = 0; y < H; y++) for (x = 0; x < W; x++) { i = y * W + x;
+    if (onLine(x, y, 'rail')) rail[i] = 1;
+    if (tAt(x, y) === RIV || onLine(x, y, 'canal')) water[i] = 1; }
+  VEH.sets = { rail:rail, water:water };
+  /* drop vehicles whose track was removed */
+  VEH.list = VEH.list.filter(function(v){ var s = VEH.sets[v.k]; return s[v.from[1] * W + v.from[0]] && s[v.to[1] * W + v.to[0]]; });
+  ['rail', 'water'].forEach(function(k){
+    var set = VEH.sets[k], seen = new Uint8Array(W * H);
+    for (var s = 0; s < W * H; s++) { if (!set[s] || seen[s]) continue;
+      var comp = [], q = [s]; seen[s] = 1; var canal = 0;
+      while (q.length) { var c = q.pop(), cx = c % W, cy = (c - cx) / W; comp.push(c); if (k === 'water' && tAt(cx, cy) !== RIV) canal++;
+        [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){ var nx = cx + d[0], ny = cy + d[1], n = ny * W + nx;
+          if (nx >= 0 && ny >= 0 && nx < W && ny < H && set[n] && !seen[n]) { seen[n] = 1; q.push(n); } }); }
+      if (comp.length < 4) continue;
+      var want = k === 'rail' ? Math.min(3, Math.max(1, Math.floor(comp.length / 30) + 1)) : Math.min(5, 1 + Math.round(canal / 14));
+      var inComp = {}; comp.forEach(function(c){ inComp[c] = 1; });
+      var have = VEH.list.filter(function(v){ return v.k === k && inComp[v.from[1] * W + v.from[0]]; });
+      for (var e = want; e < have.length; e++) VEH.list.splice(VEH.list.indexOf(have[e]), 1);
+      for (var a = have.length; a < want; a++) {
+        /* start on a tile that has a neighbor, preferring canal tiles for barges */
+        for (var tries = 0; tries < 40; tries++) {
+          var st = comp[Math.floor(Math.random() * comp.length)], sx = st % W, sy = (st - sx) / W;
+          if (k === 'water' && canal && tries < 30 && tAt(sx, sy) === RIV) continue;
+          var nb = vehNbrs(k, sx, sy); if (!nb.length) continue;
+          VEH.list.push({ k:k, from:[sx, sy], to:nb[Math.floor(Math.random() * nb.length)], s:Math.random(), trail:[], wait:0,
+            spd:k === 'rail' ? 0.07 + Math.random() * 0.03 : 0.018 + Math.random() * 0.01, cars:k === 'rail' ? 2 + Math.floor(Math.random() * 3) : 0 });
+          break;
+        }
+      }
+    }
+  });
+  /* ships: one for the quay, another for each dockyard */
+  var quay = G.items.filter(function(it){ return !it.died && it.t === 'quay'; })[0];
+  var docks = G.items.filter(function(it){ return !it.died && it.t === 'dockyard'; });
+  var berths = (quay ? [quay] : []).concat(docks);
+  VEH.ships = VEH.ships.filter(function(sh){ return berths.indexOf(sh.berth) >= 0; });
+  berths.forEach(function(b, n){ if (VEH.ships.some(function(sh){ return sh.berth === b; })) return;
+    VEH.ships.push({ berth:b, x:W + 2 + n * 9, phase:'in', wait:0, row:b.y + b.h / 2 }); });
+}
+function vehNbrs(k, x, y){ var set = VEH.sets[k], out = [];
+  [[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){ var nx = x + d[0], ny = y + d[1];
+    if (nx >= 0 && ny >= 0 && nx < W && ny < H && set[ny * W + nx]) out.push([nx, ny]); });
+  return out; }
+function vehStep(){
+  if (!G) return;
+  if (VEH.dirty || VEH.g !== G) vehSync();
+  VEH.list.forEach(function(v){
+    if (v.wait > 0) { v.wait--; return; }
+    /* trains keep their distance: stop if another train is just ahead; turn back if it stays blocked */
+    if (v.k === 'rail' && vehBlocked(v)) {
+      v.blocked = (v.blocked || 0) + 1;
+      if (v.blocked > 45) { var tmp = v.from; v.from = v.to; v.to = tmp; v.s = 1 - v.s; v.trail = []; v.blocked = 0; v.wait = 20; }
+      return;
+    }
+    v.blocked = 0;
+    v.s += v.spd;
+    while (v.s >= 1) {
+      v.s -= 1; v.trail.push(v.from); if (v.trail.length > 6) v.trail.shift();
+      var prev = v.from; v.from = v.to;
+      var nb = vehNbrs(v.k, v.from[0], v.from[1]).filter(function(p){ return p[0] !== prev[0] || p[1] !== prev[1]; });
+      if (!nb.length) { v.to = prev; v.trail = []; v.wait = v.k === 'rail' ? 25 : 40; v.s = 0; break; }   /* end of the line: pause, turn back */
+      var dx = v.from[0] - prev[0], dy = v.from[1] - prev[1];
+      var straight = nb.filter(function(p){ return p[0] - v.from[0] === dx && p[1] - v.from[1] === dy; })[0];
+      v.to = straight && Math.random() < (v.k === 'water' ? 0.85 : 0.6) ? straight : nb[Math.floor(Math.random() * nb.length)];
+    }
+    /* steam from the engine */
+    if (v.k === 'rail' && Math.random() < 0.18 && puffs.length < 300) { var hp = vehPos(v, 0);
+      puffs.push({ x:hp[0] * T, y:hp[1] * T - 5, r:1.6, a:0.7 }); }
+  });
+  VEH.ships.forEach(function(sh){
+    var stop = sh.berth.x + sh.berth.w + 0.8;
+    if (sh.wait > 0) { sh.wait--; if (!sh.wait) sh.phase = sh.phase === 'in' ? 'out' : 'in'; return; }
+    if (sh.phase === 'in') { sh.x -= 0.035; if (sh.x <= stop) { sh.x = stop; sh.wait = 150; } }
+    else { sh.x += 0.035; if (sh.x >= W + 3) { sh.wait = 120 + Math.floor(Math.random() * 200); } }
+    if (G.round >= 6 && Math.random() < 0.15 && sh.x < W && puffs.length < 300) puffs.push({ x:(sh.x + 0.9) * T, y:(sh.row - 0.9) * T, r:2, a:0.6 });
+  });
+}
+function vehBlocked(v){
+  var h = vehPos(v, 0), ang = Math.atan2(v.to[1] - v.from[1], v.to[0] - v.from[0]);
+  var ax = h[0] + Math.cos(ang) * 0.9, ay = h[1] + Math.sin(ang) * 0.9;
+  return VEH.list.some(function(o){ if (o === v || o.k !== 'rail') return false;
+    for (var k = 0; k <= o.cars; k++) { var p = vehPos(o, k * 0.8); if (Math.abs(p[0] - ax) + Math.abs(p[1] - ay) < 0.9) return true; }
+    return false; });
+}
+/* point (in tiles) b tiles behind the front of vehicle v, and the heading there */
+function vehPos(v, b){
+  var pts = v.trail.concat([v.from]), a = v.from, c = v.to, s = v.s;
+  var hx = a[0] + (c[0] - a[0]) * s, hy = a[1] + (c[1] - a[1]) * s;
+  if (b <= s) { var t1 = s - b; return [a[0] + (c[0] - a[0]) * t1 + 0.5, a[1] + (c[1] - a[1]) * t1 + 0.5, Math.atan2(c[1] - a[1], c[0] - a[0])]; }
+  b -= s;
+  for (var i = pts.length - 1; i > 0; i--) { var p = pts[i], q = pts[i - 1];
+    if (b <= 1) return [p[0] + (q[0] - p[0]) * b + 0.5, p[1] + (q[1] - p[1]) * b + 0.5, Math.atan2(p[1] - q[1], p[0] - q[0])];
+    b -= 1; }
+  return [hx + 0.5, hy + 0.5, Math.atan2(c[1] - a[1], c[0] - a[0])];   /* not enough track behind yet: bunch up */
+}
+function drawVehicles(c){
+  VEH.list.forEach(function(v){
+    if (v.k === 'rail') {
+      for (var k = v.cars; k >= 0; k--) { var p = vehPos(v, k * 0.8);
+        c.save(); c.translate(p[0] * T, p[1] * T); c.rotate(p[2]);
+        c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(-5.5, -2.5, 12, 7);
+        if (k === 0) {   /* locomotive */
+          c.fillStyle = '#23402f'; c.fillRect(-6, -3.5, 12, 7);
+          c.fillStyle = '#1a1d22'; c.fillRect(3, -2.2, 3.5, 4.4); c.fillRect(-1, -1.4, 2.6, 2.8);
+          c.fillStyle = '#c23b2e'; c.fillRect(6, -3, 1, 6);
+          c.fillStyle = '#d9b54a'; c.fillRect(-5, -3.5, 8, 0.9);
+        } else {          /* wagon: coal, cotton bales or goods */
+          var kind = (k + v.cars) % 3;
+          c.fillStyle = '#6b4a2f'; c.fillRect(-5, -3.2, 10, 6.4);
+          c.fillStyle = kind === 0 ? '#22252a' : kind === 1 ? '#efe9dc' : '#8a6a42'; c.fillRect(-4, -2.2, 8, 4.4);
+        }
+        c.restore(); }
+    } else {
+      var b = vehPos(v, 0);
+      c.save(); c.translate(b[0] * T, b[1] * T); c.rotate(b[2]);
+      c.fillStyle = 'rgba(255,255,255,.35)'; c.fillRect(-9, -0.5, 3, 1);
+      c.fillStyle = '#5a3b22'; c.beginPath(); c.moveTo(-6, -2.8); c.lineTo(5, -2.8); c.lineTo(7, 0); c.lineTo(5, 2.8); c.lineTo(-6, 2.8); c.closePath(); c.fill();
+      c.fillStyle = (v.from[0] + v.from[1]) % 2 ? '#2a2c30' : '#c9b48a'; c.fillRect(-4, -1.8, 7, 3.6);
+      c.restore();
+    }
+  });
+  VEH.ships.forEach(function(sh){
+    if (sh.x > W + 1.5) return;
+    var x = sh.x * T, y = sh.row * T, steam = G.round >= 6;
+    c.save(); if (sh.phase === 'out') { c.translate(2 * x + 22, 0); c.scale(-1, 1); }
+    c.fillStyle = 'rgba(255,255,255,.4)'; c.fillRect(x + 26, y + 3, 10, 1.2);
+    c.fillStyle = steam ? '#2c2f36' : '#6a4529';
+    c.beginPath(); c.moveTo(x - 4, y); c.lineTo(x + 26, y - 4); c.lineTo(x + 26, y + 5); c.lineTo(x, y + 5); c.closePath(); c.fill();
+    if (steam) { c.fillStyle = '#e8e2d6'; c.fillRect(x + 6, y - 7, 14, 4); c.fillStyle = '#b8352a'; c.fillRect(x + 14, y - 13, 4, 7); c.fillStyle = '#1a1c20'; c.fillRect(x + 14, y - 13, 4, 1.5); }
+    else { c.fillStyle = '#3a2a1c'; c.fillRect(x + 11, y - 18, 1.5, 18); c.fillStyle = '#f4efe2'; c.beginPath(); c.moveTo(x + 13, y - 17); c.lineTo(x + 22, y - 4); c.lineTo(x + 13, y - 4); c.closePath(); c.fill();
+      c.beginPath(); c.moveTo(x + 10, y - 15); c.lineTo(x + 3, y - 4); c.lineTo(x + 10, y - 4); c.closePath(); c.fill(); }
+    c.restore();
+  });
+}
 function draw(){
   ctx.clearRect(0, 0, W * T, H * T);
   ctx.drawImage(terrC, 0, 0, W * T, H * T);
   var live = G.items.filter(alive);
   live.forEach(function(it){ if (B[it.t].line) drawLines(ctx, it); });
+  drawVehicles(ctx);
   live.sort(function(a, b){ return (a.y + a.h) - (b.y + b.h); });
   live.forEach(function(it){ if (it.t === 'tree') drawTree(ctx, it); else if (!B[it.t].line) drawBuilding(ctx, it); });
   /* citywide smog: thickens with every smoking chimney in town */
@@ -1188,6 +1397,7 @@ function loop(t){
   if (!G || document.hidden || t - lastT < 33) return; lastT = t; clock = t;
   if (M && M.em && puffs.length < 260) M.em.forEach(function(e){ if (Math.random() < e[2] / 40) puffs.push({ x:e[0] * T + (Math.random() - 0.5) * 8, y:(e[1] - 1) * T, r:2 + Math.random() * 2, a:0.9 }); });
   puffs.forEach(function(p){ p.x += 0.55 + Math.random() * 0.2; p.y -= 0.25; p.r += 0.07; p.a -= 0.007; });
+  vehStep();
   puffs = puffs.filter(function(p){ return p.a > 0 && p.x < W * T + 20; });
   draw();
 }
@@ -1203,7 +1413,7 @@ function applyAt(x, y){
   var why = canPlace(tool, x, y); if (why) { if (!B[tool].line) flash(why); return false; }
   return place(tool, x, y);
 }
-function changed(){ M = compute(); smokeGrid = null; if (riverTint !== clamp(M.riverP / 18, 0, 0.75)) { riverTint = clamp(M.riverP / 18, 0, 0.75); drawTerrain(); } renderSide(); renderStats(); saveSoon(); }
+function changed(){ M = compute(); smokeGrid = null; VEH.dirty = true; if (riverTint !== clamp(M.riverP / 18, 0, 0.75)) { riverTint = clamp(M.riverP / 18, 0, 0.75); drawTerrain(); } renderSide(); renderStats(); saveSoon(); }
 cv.addEventListener('pointerdown', function(e){
   if (!G || G.phase !== 'build') return;
   if (e.button === 2) { setTool(null); return; }
@@ -1339,7 +1549,7 @@ function title(){
   var saved = null; try { saved = JSON.parse(load(SAVE) || 'null'); } catch (e) {}
   var best = +(load(BEST) || 0);
   modal('<div class="eyebrow">Unit 5 &middot; Industrialization</div><h2>The Urban Game</h2>' +
-    '<p>It is 1750. You are the planner of a small English market town: a farm village, a little port at the river mouth, forests, a common, and coal under the hills. Over twelve rounds, from 1750 to 1900, the Industrial Revolution arrives, and the town council will order you to build mills, mines, canals, tenements, railways and much more. Where you put things matters: workers walk to work, the rich keep away from the smoke, cemeteries go beside churches.</p>' +
+    '<p>It is 1750. You are the planner of a small English market town: a farm village, a little port at the river mouth, forests, a common, and coal under the hills. Over twelve rounds, from 1750 to 1900, the Industrial Revolution arrives, and the town council will order you to build mills, mines, canals, tenements, railways and much more. Where you put things matters: workers walk to work, the rich keep away from the smoke, cemeteries go beside churches. Every town is different: the river, the forests and the coal seams lie somewhere new each game.</p>' +
     '<div class="note"><b>How to play.</b> Each round the council gives <b>orders</b> (free to build). Anything extra costs a <b>building permit</b>. Clear trees before you build on forest. Watch the scores on the right change live: crowding, smoke, living conditions and industry. Visitors arrive with choices. Roads, canals and railways are unlimited and can cross each other (a road or railway bridges a canal), but you only get so many tree clearings and demolitions each round, so plan before you cut.</div>' +
     '<div class="note good"><b>Tips.</b> Factories need coal: link them to a mine by canal, rail or road. Homes need a road to the works. Smoke blows east with the wind. Schools, churches, shops, parks and hospitals near homes raise living conditions.</div>' +
     '<h3>Name your town</h3><input class="txt" id="tname" maxlength="24" value="Millbrook">' +
@@ -1347,7 +1557,7 @@ function title(){
     (best ? '<p class="say" style="margin-top:12px;color:var(--g-dim)">Your best final score: <b>' + best + '</b></p>' : ''));
   $('bNew').onclick = function(){ newGame(($('tname').value || 'Millbrook').trim()); drawTerrain(); changed(); brief(); };
   if ($('bCont')) $('bCont').onclick = function(){
-    G = saved; rebuild(); M = compute(); drawTerrain(); changed(); hud();
+    useMap(saved.seed); G = saved; rebuild(); M = compute(); drawTerrain(); changed(); hud();
     var chose = G.choice && G.choice[G.round] != null;
     if (G.phase === 'build') closeModal();
     else if (G.phase === 'event') { if (chose) report(); else eventScreen(G.missedNow || 0); }
@@ -1599,7 +1809,7 @@ function drawVisitor(c, kind){
 $('fsBtn').onclick = function(){ var el = document.documentElement; if (!document.fullscreenElement) { if (el.requestFullscreen) el.requestFullscreen(); } else if (document.exitFullscreen) document.exitFullscreen(); };
 
 /* ---------- start ---------- */
-genTerrain();
+classicMap(); genTerrain();
 Object.keys(B).forEach(function(t){ if (t !== 'tree' && t !== 'quay') ICONS[t] = null; });
 G = { round:0, flags:{}, items:[], mod:{ life:0, ind:0, env:0, pop:0 } }; /* placeholder so icons can draw */
 Object.keys(ICONS).forEach(function(t){ ICONS[t] = iconCanvas(t); });

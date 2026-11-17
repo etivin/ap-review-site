@@ -304,6 +304,7 @@ var B = {
   workhouse:{n:'Workhouse', w:3, h:3, r:7, cap:120, life:18, jobs:10, c:'#9a9284', roof:'#4f4a42', g:'W', rules:[['far', /^(villa|mansion)$/, 5, 'Nobody wealthy wanted the workhouse nearby: keep it at least 6 tiles from villas and residences.']], d:'The New Poor Law (1834) sent the poor into workhouses with hard labor and families split apart, to make relief as unpleasant as possible.'},
   watermill:{n:'Water mill', w:3, h:3, r:2, jobs:120, prod:8, smoke:1, c:'#a98a5a', roof:'#5e4a2c', g:'', river:1, d:'Arkwright\'s water frame (1769) spun strong cotton thread, but needed a fast river to turn the wheel. Must touch the river.'},
   factory:{n:'Steam factory', w:4, h:3, r:3, jobs:240, prod:14, smoke:10, coal:1, c:'#9c3f2f', roof:'#4a2019', g:'F', d:'A steam-powered cotton mill. It can stand anywhere, but it burns coal: link it to a mine by canal or rail. Smoke blows east with the wind.'},
+  mill2:{n:'Small mill', w:3, h:2, r:3, jobs:80, prod:7, smoke:14, coal:1, c:'#8a4a36', roof:'#3d2a24', g:'S', d:'A cheap little steam mill, put up fast on borrowed money. It makes about half what a big factory does, but its two short chimneys and poor boilers pour out more smoke. Link it to coal like any factory.'},
   mine:{n:'Coal mine', w:3, h:3, r:3, jobs:150, prod:6, smoke:5, onCoal:1, c:'#55504a', roof:'#2c2925', g:'M', d:'Coal pits fed every engine. Must sit on a coal seam (the dark speckled hills). The Mines Act (1842) banned women and children under 10 from working underground.'},
   foundry:{n:'Iron foundry', w:3, h:3, r:5, jobs:180, prod:14, smoke:13, coal:1, c:'#6b5b52', roof:'#3a302b', g:'I', d:'Coke-smelted iron for engines, rails and bridges. Coal-hungry and smoky.'},
   steel:{n:'Steel foundry', w:4, h:4, r:10, jobs:330, prod:26, smoke:18, coal:1, c:'#5b6577', roof:'#2c3240', g:'S', d:'Bessemer\'s converter (1856) made cheap steel for rails, ships and bridges: the Second Industrial Revolution.'},
@@ -337,15 +338,15 @@ var B = {
 };
 /* groups used by the placement rules */
 var GROUP = {
-  works:/^(factory|foundry|steel|dockyard|gasworks|chemical|power)$/,
-  jobs:/^(watermill|factory|mine|foundry|steel|dockyard|gasworks|chemical|power|warehouse|quay|station)$/,
+  works:/^(factory|mill2|foundry|steel|dockyard|gasworks|chemical|power)$/,
+  jobs:/^(watermill|factory|mill2|mine|foundry|steel|dockyard|gasworks|chemical|power|warehouse|quay|station)$/,
   homes:/^(cottage|house|tenement|villa|mansion|model|workhouse)$/
 };
 var HOUSING = ['cottage','house','tenement','villa','mansion','model','workhouse'];
 var PALETTE = [
   ['Transport', ['road','canal','rail','lamp','station']],
   ['Homes', ['cottage','house','tenement','model','villa','mansion','workhouse']],
-  ['Work', ['watermill','factory','mine','foundry','steel','gasworks','chemical','power','warehouse','dockyard','bank','telegraph']],
+  ['Work', ['watermill','factory','mill2','mine','foundry','steel','gasworks','chemical','power','warehouse','dockyard','bank','telegraph']],
   ['Town life', ['shop','market','store','pub','church','cemetery','school','library','jail','hospital','waterworks','townhall','park','football','concert']],
   ['Tools', ['clear','demolish']]
 ];
@@ -363,15 +364,15 @@ var ROUNDS = [
   { y:1785, hl:'Coal, canals and steam', permits:3,
     p:['James Watt\'s improved steam engine, turning wheels from 1781, frees mills from the river. The first steam-powered cotton mill opens in 1785. Now a factory can stand anywhere coal can reach.',
        'Coal is heavy, and roads are slow and muddy. The Bridgewater Canal (1761) showed the answer: a barge can float thirty tons where a cart carries one or two.'],
-    orders:[{k:'build', b:'mine', n:1},{k:'link', a:'mine', to:'water', net:'heavy', l:'Link the mine to the river by canal'},{k:'build', b:'factory', n:2},{k:'build', b:'house', n:6},{k:'build', b:'warehouse', n:1},{k:'clear', n:6, l:'Clear forest for pit props and fuel'}] },
+    orders:[{k:'build', b:'mine', n:1},{k:'link', a:'mine', to:'water', net:'heavy', l:'Link the mine to the river by canal'},{k:'build', b:'factory', n:2},{k:'build', b:'house', n:12},{k:'build', b:'warehouse', n:1},{k:'clear', n:6, l:'Clear forest for pit props and fuel'}] },
   { y:1800, hl:'The mill town', permits:3,
     p:['Manchester more than triples in size between the 1770s and 1801. Families pour in from the countryside and from Ireland, and builders throw up cheap back-to-back housing as fast as they can.',
        'Workers keep factory time: twelve to fourteen hours a day, six days a week, with children working beside adults. The old churchyard is full, and the market spills out of the square.'],
-    orders:[{k:'build', b:'factory', n:3},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:4},{k:'build', b:'church', n:1},{k:'build', b:'cemetery', n:1},{k:'build', b:'market', n:1}] },
+    orders:[{k:'build', b:'factory', n:3},{k:'build', b:'mill2', n:2},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:8},{k:'build', b:'church', n:1},{k:'build', b:'cemetery', n:1},{k:'build', b:'market', n:1}] },
   { y:1812, hl:'Hard times', permits:3,
     p:['Britain has been at war with France for almost twenty years. Bread is dear, wages are low, and in 1811 the Luddites begin smashing the machines that took their trades.',
        'Ironworks boom on war orders. Gasworks bake coal into gas, and gas lamps start to light town streets.'],
-    orders:[{k:'build', b:'foundry', n:1},{k:'build', b:'factory', n:2},{k:'build', b:'tenement', n:4},{k:'build', b:'jail', n:1},{k:'build', b:'gasworks', n:1},{k:'build', b:'lamp', n:6, l:'Put up 6 gas street lamps'}] },
+    orders:[{k:'build', b:'foundry', n:1},{k:'build', b:'factory', n:2},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:4},{k:'build', b:'jail', n:1},{k:'build', b:'gasworks', n:1},{k:'build', b:'lamp', n:6, l:'Put up 6 gas street lamps'}] },
   { y:1825, hl:'Steam on rails', permits:4,
     p:['The Stockton and Darlington Railway (1825) uses George Stephenson\'s steam locomotive to haul coal. Iron rails can carry far more than a canal barge, and faster.',
        'In 1824 Parliament repeals the Combination Acts, so workers may now form trade unions. Mill managers and clerks, a growing middle class, want homes away from the smoke.'],
@@ -379,27 +380,27 @@ var ROUNDS = [
   { y:1838, hl:'The railway age', permits:4,
     p:['The Liverpool and Manchester Railway (1830) carries cotton from the port to the mills in under two hours. Railway fever follows, and every town wants a station.',
        'Cholera reached Britain in 1832. The Factory Act (1833) bans children under 9 from textile mills, and the New Poor Law (1834) sends the poor to the workhouse. In 1838 the Chartists draw up the People\'s Charter demanding the vote for working men.'],
-    orders:[{k:'link', a:'factory', to:'quay', net:'rail', l:'Link a factory to the quay by rail'},{k:'build', b:'station', n:1},{k:'build', b:'workhouse', n:1},{k:'build', b:'school', n:1},{k:'build', b:'tenement', n:5},{k:'build', b:'foundry', n:1},{k:'clear', n:8, l:'Clear forest for the railway'}] },
+    orders:[{k:'link', a:'factory', to:'quay', net:'rail', l:'Link a factory to the quay by rail'},{k:'build', b:'station', n:1},{k:'build', b:'workhouse', n:1},{k:'build', b:'school', n:1},{k:'build', b:'tenement', n:5},{k:'build', b:'foundry', n:1},{k:'build', b:'mill2', n:2},{k:'clear', n:8, l:'Clear forest for the railway'}] },
   { y:1848, hl:'Reform and public health', permits:4,
     p:['Edwin Chadwick\'s report (1842) ties disease to filth, crowding and bad water. The Public Health Act (1848) lets towns build sewers, clean water and parks, and elected councils (from 1835) build town halls.',
        'Friedrich Engels, a German who managed his family\'s Manchester mill, publishes The Condition of the Working Class in England (1845). The Mines Act (1842) bans women and young children from working underground.'],
-    orders:[{k:'build', b:'waterworks', n:1},{k:'build', b:'park', n:1},{k:'build', b:'townhall', n:1},{k:'build', b:'factory', n:3},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:4},{k:'build', b:'cemetery', n:1}] },
+    orders:[{k:'build', b:'waterworks', n:1},{k:'build', b:'park', n:1},{k:'build', b:'townhall', n:1},{k:'build', b:'factory', n:3},{k:'build', b:'mill2', n:1},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:4},{k:'build', b:'cemetery', n:1}] },
   { y:1860, hl:'Telegraph and steam at sea', permits:5,
     p:['Telegraph wires now link every large town, and iron steamships tie Britain to its empire. After the rebellion of 1857 the Crown takes over the rule of India from the East India Company.',
        'British cloth floods world markets. A few owners build model villages for their workers: Titus Salt opens Saltaire (1853) beside his mill, with clean houses, baths and a library.'],
-    orders:[{k:'build', b:'dockyard', n:1},{k:'build', b:'warehouse', n:2},{k:'build', b:'telegraph', n:1},{k:'build', b:'bank', n:1},{k:'build', b:'model', n:4},{k:'build', b:'library', n:1},{k:'build', b:'factory', n:2},{k:'build', b:'villa', n:2}] },
+    orders:[{k:'build', b:'dockyard', n:1},{k:'build', b:'warehouse', n:2},{k:'build', b:'telegraph', n:1},{k:'build', b:'bank', n:1},{k:'build', b:'model', n:4},{k:'build', b:'library', n:1},{k:'build', b:'factory', n:2},{k:'build', b:'mill2', n:2},{k:'build', b:'house', n:4},{k:'build', b:'villa', n:2}] },
   { y:1872, hl:'The world comes to visit', permits:5,
     p:['Bessemer steel (1856) makes rails, bridges and ships cheaper and stronger. The Education Act (1870) opens board schools, and a new Bank Holidays Act (1871) gives workers days off.',
        'Factory teams and clubs play football, and the first FA Cup is played in 1872.'],
-    orders:[{k:'build', b:'steel', n:1},{k:'build', b:'school', n:1},{k:'build', b:'football', n:1},{k:'build', b:'concert', n:1},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:6},{k:'clear', n:8, l:'Clear forest for the steelworks'}] },
+    orders:[{k:'build', b:'steel', n:1},{k:'build', b:'mill2', n:2},{k:'build', b:'school', n:1},{k:'build', b:'football', n:1},{k:'build', b:'concert', n:1},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:6},{k:'clear', n:8, l:'Clear forest for the steelworks'}] },
   { y:1885, hl:'A world of competition', permits:5,
     p:['Germany and the United States are catching up fast. Chemicals, dyes and electric light mark a Second Industrial Revolution; Joseph Swan\'s bulbs light a London theater in 1881.',
        'The Third Reform Act (1884) gives the vote to most working men. Department stores and suburbs grow for the middle class, while the mill owners build ever grander houses.'],
-    orders:[{k:'build', b:'chemical', n:1},{k:'build', b:'store', n:1},{k:'build', b:'steel', n:1},{k:'build', b:'mansion', n:2},{k:'build', b:'house', n:6},{k:'build', b:'factory', n:2}] },
+    orders:[{k:'build', b:'chemical', n:1},{k:'build', b:'store', n:1},{k:'build', b:'steel', n:1},{k:'build', b:'mansion', n:2},{k:'build', b:'house', n:10},{k:'build', b:'factory', n:2},{k:'build', b:'mill2', n:1}] },
   { y:1900, hl:'A new century', permits:5,
     p:['Unskilled workers organize: the match girls strike in 1888 and the London dockers in 1889. The Housing of the Working Classes Act (1890) lets towns clear the worst slums and build council housing.',
        'Power stations light the streets and run electric trams. In 1900 trade unions help found the Labour Party.'],
-    orders:[{k:'demolish', b:'tenement', n:3, l:'Clear 3 slum tenements (marked SLUM on the map)'},{k:'build', b:'power', n:1},{k:'build', b:'house', n:6},{k:'build', b:'park', n:1},{k:'build', b:'hospital', n:1},{k:'build', b:'lamp', n:8, l:'Put up 8 electric street lamps'}] }
+    orders:[{k:'demolish', b:'tenement', n:3, l:'Clear 3 slum tenements (marked SLUM on the map)'},{k:'build', b:'power', n:1},{k:'build', b:'house', n:12},{k:'build', b:'park', n:1},{k:'build', b:'hospital', n:1},{k:'build', b:'lamp', n:8, l:'Put up 8 electric street lamps'}] }
 ];
 var LAST = ROUNDS.length;
 
@@ -583,7 +584,7 @@ function canRotate(t){ var b = B[t]; return !!(t && b && !b.line && !b.tool && b
 function dims(t){ var b = B[t]; if (b.line || b.tool) return [1, 1]; return rot && b.w !== b.h ? [b.h, b.w] : [b.w, b.h]; }
 function footprint(t, x, y){ var d = dims(t); return { x:x, y:y, w:d[0], h:d[1] }; }
 /* ---------- limits: each round allows only so many tree clearings, demolitions and lamps (roads, canals and rails are unlimited) ---------- */
-var RAIL_OK = /^(factory|mine|foundry|steel|quay|warehouse|dockyard|watermill|station|gasworks|chemical|power)$/;
+var RAIL_OK = /^(factory|mill2|mine|foundry|steel|quay|warehouse|dockyard|watermill|station|gasworks|chemical|power)$/;
 function orderN(k, b){ var n = 0; curRound().orders.forEach(function(o){ if (o.k === k && (!b || o.b === b)) n += o.n; }); return n; }
 function allowance(k){
   if (k === 'clear') return 6 + orderN('clear');
@@ -761,7 +762,10 @@ function plural(n){ n = n.toLowerCase(); if (/s$/.test(n)) return n; if (/y$/.te
 var REACH = 10;
 function centerOf(it){ return [it.x + it.w / 2, it.y + it.h / 2]; }
 function emitters(){
-  var e = []; G.items.forEach(function(it){ if (it.died) return; var b = B[it.t]; if (b.smoke) { var c = centerOf(it); e.push([c[0], c[1] - 0.5, b.smoke]); } }); return e;
+  var e = []; G.items.forEach(function(it){ if (it.died) return; var b = B[it.t]; if (!b.smoke) return;
+    /* the small mill smokes from its two chimneys, one at each end */
+    if (it.t === 'mill2') { e.push([it.x + 0.3, it.y + 0.4, b.smoke / 2]); e.push([it.x + it.w - 0.33, it.y + 0.4, b.smoke / 2]); return; }
+    var c = centerOf(it); e.push([c[0], c[1] - 0.5, b.smoke]); }); return e;
 }
 function smokeAt(x, y, em){
   var s = 0; for (var i = 0; i < em.length; i++) { var dx = x - em[i][0], dy = y - em[i][1];
@@ -787,7 +791,7 @@ function compute(){
     var m = 1, tr = touches(it, NET.road), th = touches(it, NET.heavy);
     if (!shares(tr, homeRoads)) { m *= 0.5; unlinked++; }
     if (b.coal) { if (shares(th, mineHeavy)) m *= 1.25; else if (shares(tr, mineRoad)) m *= 1; else { m *= 0.6; nocoal++; } }
-    if (/^(factory|foundry|steel|watermill|mine|warehouse|chemical)$/.test(it.t)) { for (var k in th) if (NET.seaIds[k]) { m *= 1.15; break; } }
+    if (/^(factory|mill2|foundry|steel|watermill|mine|warehouse|chemical)$/.test(it.t)) { for (var k in th) if (NET.seaIds[k]) { m *= 1.15; break; } }
     it._m = m; P += b.prod * m;
   });
   P *= (1 + tele * 0.05) * (1 + G.mod.ind / 100);
@@ -1088,7 +1092,7 @@ function drawBuilding(c, it, ghost){
     power:{ roof:'#30343c', wall:'#6e7480', step:5, flat:1 }, station:{ roof:'#5a4636', wall:'#c9b48e', step:5 }, market:{ roof:'#7a5a2a', wall:'#e0c99a', step:6 },
     store:{ roof:'#7a3a4a', wall:'#e8d3c2', step:4, flat:1, lit:1 }, library:{ roof:'#4a5a6a', wall:'#d8cbb0', step:5 }, townhall:{ roof:'#5a5040', wall:'#e3d6b4', step:4 },
     cottage:{ roof:'#c9a85a', wall:'#efe6d2', step:6, tex:.16 }, house:{ roof:'#5d4c48', wall:'#a84c36', step:4 }, tenement:{ roof:'#4b3d38', wall:'#83463a', step:3.5, lit:1, flat:1 },
-    villa:{ roof:'#56657d', wall:'#ebdcb6', step:5 }, watermill:{ roof:'#6b5338', wall:'#b8ab92', step:6 }, factory:{ roof:'#4a2a22', wall:'#9c3f2f', step:4, lit:1, saw:1 },
+    villa:{ roof:'#56657d', wall:'#ebdcb6', step:5 }, watermill:{ roof:'#6b5338', wall:'#b8ab92', step:6 }, factory:{ roof:'#4a2a22', wall:'#9c3f2f', step:4, lit:1, saw:1 }, mill2:{ roof:'#3d2a24', wall:'#8a4a36', step:4, lit:1, saw:1 },
     foundry:{ roof:'#3a302b', wall:'#6b5b52', step:6 }, steel:{ roof:'#2c3240', wall:'#5b6577', step:6, saw:1 }, warehouse:{ roof:'#7a5a36', wall:'#b98d54', step:8 },
     shop:{ roof:'#8a6d22', wall:'#e7d6a8', step:5 }, pub:{ roof:'#6b4313', wall:'#eadfc4', step:5 }, church:{ roof:'#6c6a72', wall:'#d9d2c3', step:6 },
     school:{ roof:'#7a3b2a', wall:'#e9d9a6', step:4 }, jail:{ roof:'#4b4f56', wall:'#8b8f96', step:5, flat:1 }, hospital:{ roof:'#e7e3da', wall:'#f6f4ee', step:4, flat:1 },
@@ -1101,13 +1105,14 @@ function drawBuilding(c, it, ghost){
       c.fillStyle = '#bfc6cc'; c.beginPath(); c.moveTo(tx0, py + rh); c.lineTo(tx0, py); c.lineTo(tx0 + tw * 0.35, py + rh); c.closePath(); c.fill();
       c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(tx0 + tw - 0.8, py, 0.8, rh); }
   } else gable(c, px, py, w, rh, S.roof, S.tex);
-  wallF(c, px, py + rh, w, wh, S.wall, S.step, S.lit, !/tenement|factory|steel|foundry/.test(t));
+  wallF(c, px, py + rh, w, wh, S.wall, S.step, S.lit, !/tenement|factory|mill2|steel|foundry/.test(t));
   outline(c, px, py, w, h);
   /* details */
   if (t === 'house') { c.fillStyle = 'rgba(0,0,0,.3)'; for (x = px + 8; x < px + w; x += 8) c.fillRect(x, py, 0.8, rh); for (x = px + 3; x < px + w; x += 8) chimney(c, x, py + rh * 0.45, 2.2, 3, '#6b3a2a'); }
   if (t === 'cottage') { chimney(c, px + w - 7, py + rh * 0.45, 2.4, 3.5, '#8a7a6a'); c.fillStyle = '#c94a6a'; c.fillRect(px + 2, py + h - 2, 3, 2); c.fillStyle = '#e8d04a'; c.fillRect(px + w - 5, py + h - 2, 3, 2); }
   if (t === 'tenement') { for (x = px + 4; x < px + w - 2; x += 7) chimney(c, x, py + rh - 2, 3, 4, '#4b2a22'); c.strokeStyle = 'rgba(255,255,255,.7)'; c.lineWidth = 0.6; c.beginPath(); c.moveTo(px + 2, py + h + 2); c.lineTo(px + w - 2, py + h + 2); c.stroke(); c.fillStyle = '#e9e2d0'; c.fillRect(px + 6, py + h + 2, 2, 2); c.fillStyle = '#9fb7d6'; c.fillRect(px + 14, py + h + 2, 2, 2.4); }
   if (t === 'villa') { c.fillStyle = '#ffffff'; c.fillRect(px + w / 2 - 3, py + rh - 1, 6, 2); chimney(c, px + 4, py + rh * 0.45, 2.2, 3.5, '#7a6a5a'); }
+  if (t === 'mill2') { chimney(c, px + 3, py + 2, 3.5, 12, '#4a2a20'); chimney(c, px + w - 7, py + 2, 3.5, 13, '#4a2a20'); c.fillStyle = 'rgba(30,24,20,.35)'; c.fillRect(px + 2, py - 11, 5, 2); c.fillRect(px + w - 8, py - 12, 5, 2); }
   if (t === 'factory') { chimney(c, px + w - 7, py + 2, 4.5, 17); c.fillStyle = 'rgba(255,255,255,.15)'; c.fillRect(px + w - 7, py - 13, 4.5, 1); }
   if (t === 'foundry') { chimney(c, px + w - 7, py + 2, 4, 14); chimney(c, px + w - 15, py + 2, 4, 11);
     var g = c.createRadialGradient(px + 8, py + h - 4, 0, px + 8, py + h - 4, 7); g.addColorStop(0, '#ffe08a'); g.addColorStop(0.5, '#ff8a2a'); g.addColorStop(1, 'rgba(255,90,20,0)'); c.fillStyle = g; c.fillRect(px + 1, py + h - 11, 14, 11); }

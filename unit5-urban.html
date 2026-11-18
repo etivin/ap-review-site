@@ -179,6 +179,8 @@ ol.prompts li{margin-bottom:8px}
         <label><input type="checkbox" id="ovSmoke"> Smoke map</label>
         <label><input type="checkbox" id="ovNet"> Transport links</label>
         <label><input type="checkbox" id="ovHouse"> Living conditions</label>
+        <label><input type="checkbox" id="ovSick"> Disease and water</label>
+        <label><input type="checkbox" id="ovCrime"> Crime</label>
         <button type="button" class="rotbtn" id="bRot" disabled title="Pick a rectangular building first">&#8635; Rotate building (arrow keys)</button>
         <span class="hint">Click to build &middot; drag for roads, canals, rails &middot; Esc or right-click cancels</span>
       </div>
@@ -322,9 +324,11 @@ var B = {
   school:{n:'School', w:3, h:2, r:4, jobs:6, acc:6, c:'#e9d9a6', roof:'#7a3b2a', g:'Sch', rules:[['far', /^pub$/, 2, 'Reformers wanted children kept from drink: a school must be at least 3 tiles from any pub.']], d:'The Factory Act (1833) required mill children to get two hours of school a day; the Education Act (1870) set up board schools.'},
   library:{n:'Public library', w:2, h:2, r:9, jobs:4, acc:4, c:'#d8cbb0', roof:'#4a5a6a', g:'Lib', d:'The Public Libraries Act (1850) let towns open free libraries; Manchester\'s opened in 1852. Workers could read for free.'},
   cemetery:{n:'Cemetery', w:3, h:3, r:4, acc:-3, c:'#9aa596', roof:'#6c7768', g:'', rules:[['near', /^church$/, 2, 'Burials went with the parish: a cemetery must be within 2 tiles of a church.']], d:'Churchyards overflowed in the crowded towns. Without a new cemetery, life gets worse once the town passes 1,500 people.'},
-  jail:{n:'Jail', w:3, h:2, r:5, jobs:12, acc:2, c:'#8b8f96', roof:'#4b4f56', g:'J', d:'New prisons and police (from 1829) kept order in towns full of strangers, strikers and the very poor.'},
+  jail:{n:'Jail', w:3, h:2, r:5, jobs:12, acc:2, c:'#8b8f96', roof:'#4b4f56', g:'J', d:'New prisons and police (from 1829) kept order in towns full of strangers, strikers and the very poor. Having one lowers crime a little across the whole town.'},
+  police:{n:'Police station', w:2, h:2, r:7, jobs:10, c:'#3a5684', roof:'#1d2f50', g:'Pol', rules:[['near', 'homes', 6, 'Constables walk a beat: build the station within 6 tiles of homes.']], d:'Robert Peel\'s Metropolitan Police Act (1829) put uniformed "bobbies" on London\'s streets, and the Municipal Corporations Act (1835) made boroughs set up their own forces. Constables on the beat cut crime in homes within 10 tiles.'},
   hospital:{n:'Hospital', w:3, h:3, r:6, jobs:30, acc:8, c:'#f3f1ec', roof:'#b33a3a', g:'+', rules:[['far', 'works', 3, 'Patients need clean air: a hospital must be at least 4 tiles from any factory or works.']], d:'Fever hospitals and infirmaries fought cholera and typhus. Cuts deaths when disease strikes.'},
-  waterworks:{n:'Waterworks', w:3, h:2, r:8, jobs:20, acc:6, c:'#a8c4d6', roof:'#3c5a72', g:'H2O', rules:[['wet', 'river', 0, 'A waterworks draws from the river: it must touch the river.'], ['far', 'works', 3, 'Clean water must come from away from the filth: keep it at least 4 tiles from any factory or works.']], d:'The Public Health Act (1848) let towns pipe clean water and dig sewers. Clean water halves cholera deaths.'},
+  waterworks:{n:'Waterworks', w:3, h:2, r:8, jobs:20, acc:6, c:'#a8c4d6', roof:'#3c5a72', g:'H2O', rules:[['wet', 'river', 0, 'A waterworks draws from the river: it must touch the river.'], ['far', 'works', 3, 'Clean water must come from away from the filth: keep it at least 4 tiles from any factory or works.']], d:'The Public Health Act (1848) let towns pipe clean water and dig sewers. Piped water cuts water-borne disease (cholera, typhoid) in homes within 30 tiles. Its intake draws from the river right where it stands, so put it upstream (west) of the filth: a dirty intake helps far less.'},
+  sewer:{n:'Sewers and outfall', w:3, h:2, r:9, jobs:15, c:'#7d8a7a', roof:'#3e4a3c', g:'S~', rules:[['wet', 'river', 0, 'The main sewer empties into the river: the outfall must touch the river.'], ['far', 'homes', 3, 'Nobody wants to live by the outfall: keep it at least 4 tiles from any homes.']], d:'After the "Great Stink" of 1858, Joseph Bazalgette built London\'s main sewers (1859 to 1875). Brick sewers carry the waste of homes within 30 tiles away from their wells and streets and dump it at the outfall. Put the outfall downstream (east) of the town, so the river through town runs cleaner.'},
   townhall:{n:'Town hall', w:3, h:3, r:8, jobs:30, acc:3, c:'#e3d6b4', roof:'#5a5040', g:'TH', rules:[['near', /^market$/, 8, 'The town hall faced the market square: build it within 8 tiles of the market hall.']], d:'The Municipal Corporations Act (1835) gave towns elected councils. Grand town halls, like Manchester\'s (1877), showed off civic pride.'},
   park:{n:'Park', w:4, h:4, r:8, acc:7, env:3, c:'#5c9e4a', roof:'#3f7a31', g:'', d:'Public parks (Manchester opened three in 1846) gave workers fresh air. Each one lifts the environment.'},
   bank:{n:'Bank', w:2, h:2, r:8, jobs:15, prod:5, c:'#d8cfb8', roof:'#6f6550', g:'&pound;', d:'Banks lent the capital that built mills and railways. Adds industrial output.'},
@@ -347,7 +351,7 @@ var PALETTE = [
   ['Transport', ['road','canal','rail','lamp','station']],
   ['Homes', ['cottage','house','tenement','model','villa','mansion','workhouse']],
   ['Work', ['watermill','factory','mill2','mine','foundry','steel','gasworks','chemical','power','warehouse','dockyard','bank','telegraph']],
-  ['Town life', ['shop','market','store','pub','church','cemetery','school','library','jail','hospital','waterworks','townhall','park','football','concert']],
+  ['Town life', ['shop','market','store','pub','church','cemetery','school','library','jail','police','hospital','waterworks','sewer','townhall','park','football','concert']],
   ['Tools', ['clear','demolish']]
 ];
 
@@ -379,8 +383,8 @@ var ROUNDS = [
     orders:[{k:'link', a:'mine', to:'factory', net:'rail', l:'Link a mine to a factory by rail'},{k:'build', b:'mine', n:1},{k:'build', b:'factory', n:2},{k:'build', b:'tenement', n:4},{k:'build', b:'villa', n:2},{k:'build', b:'hospital', n:1}] },
   { y:1838, hl:'The railway age', permits:4,
     p:['The Liverpool and Manchester Railway (1830) carries cotton from the port to the mills in under two hours. Railway fever follows, and every town wants a station.',
-       'Cholera reached Britain in 1832. The Factory Act (1833) bans children under 9 from textile mills, and the New Poor Law (1834) sends the poor to the workhouse. In 1838 the Chartists draw up the People\'s Charter demanding the vote for working men.'],
-    orders:[{k:'link', a:'factory', to:'quay', net:'rail', l:'Link a factory to the quay by rail'},{k:'build', b:'station', n:1},{k:'build', b:'workhouse', n:1},{k:'build', b:'school', n:1},{k:'build', b:'tenement', n:5},{k:'build', b:'foundry', n:1},{k:'build', b:'mill2', n:2},{k:'clear', n:8, l:'Clear forest for the railway'}] },
+       'Cholera reached Britain in 1832. The Factory Act (1833) bans children under 9 from textile mills, and the New Poor Law (1834) sends the poor to the workhouse. In 1838 the Chartists draw up the People\'s Charter demanding the vote for working men. Crime grows with the crowds, and the Municipal Corporations Act (1835) makes boroughs set up police forces like London\'s (1829).'],
+    orders:[{k:'link', a:'factory', to:'quay', net:'rail', l:'Link a factory to the quay by rail'},{k:'build', b:'station', n:1},{k:'build', b:'workhouse', n:1},{k:'build', b:'school', n:1},{k:'build', b:'police', n:1},{k:'build', b:'tenement', n:5},{k:'build', b:'foundry', n:1},{k:'build', b:'mill2', n:2},{k:'clear', n:8, l:'Clear forest for the railway'}] },
   { y:1848, hl:'Reform and public health', permits:4,
     p:['Edwin Chadwick\'s report (1842) ties disease to filth, crowding and bad water. The Public Health Act (1848) lets towns build sewers, clean water and parks, and elected councils (from 1835) build town halls.',
        'Friedrich Engels, a German who managed his family\'s Manchester mill, publishes The Condition of the Working Class in England (1845). The Mines Act (1842) bans women and young children from working underground.'],
@@ -391,8 +395,8 @@ var ROUNDS = [
     orders:[{k:'build', b:'dockyard', n:1},{k:'build', b:'warehouse', n:2},{k:'build', b:'telegraph', n:1},{k:'build', b:'bank', n:1},{k:'build', b:'model', n:4},{k:'build', b:'library', n:1},{k:'build', b:'factory', n:2},{k:'build', b:'mill2', n:2},{k:'build', b:'house', n:4},{k:'build', b:'villa', n:2}] },
   { y:1872, hl:'The world comes to visit', permits:5,
     p:['Bessemer steel (1856) makes rails, bridges and ships cheaper and stronger. The Education Act (1870) opens board schools, and a new Bank Holidays Act (1871) gives workers days off.',
-       'Factory teams and clubs play football, and the first FA Cup is played in 1872.'],
-    orders:[{k:'build', b:'steel', n:1},{k:'build', b:'mill2', n:2},{k:'build', b:'school', n:1},{k:'build', b:'football', n:1},{k:'build', b:'concert', n:1},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:6},{k:'clear', n:8, l:'Clear forest for the steelworks'}] },
+       'Factory teams and clubs play football, and the first FA Cup is played in 1872. After London\'s "Great Stink" (1858), towns dig brick sewers to carry waste away from homes and wells.'],
+    orders:[{k:'build', b:'steel', n:1},{k:'build', b:'mill2', n:2},{k:'build', b:'sewer', n:1},{k:'build', b:'school', n:1},{k:'build', b:'football', n:1},{k:'build', b:'concert', n:1},{k:'build', b:'tenement', n:4},{k:'build', b:'house', n:6},{k:'clear', n:8, l:'Clear forest for the steelworks'}] },
   { y:1885, hl:'A world of competition', permits:5,
     p:['Germany and the United States are catching up fast. Chemicals, dyes and electric light mark a Second Industrial Revolution; Joseph Swan\'s bulbs light a London theater in 1881.',
        'The Third Reform Act (1884) gives the vote to most working men. Department stores and suburbs grow for the middle class, while the mill owners build ever grander houses.'],
@@ -498,6 +502,8 @@ var ACH = [
   ['saltaire', 'Model village', 'Build 4 model cottages'],
   ['clean', 'Clean air', 'Environment 40+ in 1900'],
   ['healthy', 'Healthy town', 'Quality of life 55+ in 1900'],
+  ['sanitary', 'Sanitary town', 'Fewer than 22 deaths per 1,000 in 1900'],
+  ['bobby', 'Safe streets', 'Crime 30 or lower in 1900'],
   ['orders', 'Model planner', 'Fill every order in all twelve rounds']
 ];
 
@@ -772,6 +778,17 @@ function smokeAt(x, y, em){
     var d = dx > 0 ? Math.hypot(dx * 0.45, dy) : Math.hypot(dx * 1.4, dy); s += em[i][2] * Math.exp(-d / 4.5); }
   return s;
 }
+/* distance from every tile to the nearest river tile, and that tile's column (where its waste enters the river) */
+function riverField(){
+  var d = new Int16Array(W * H).fill(999), xs = new Int16Array(W * H).fill(-1), q = [], i, h;
+  for (i = 0; i < W * H; i++) if (ter[i] === RIV) { d[i] = 0; xs[i] = i % W; q.push(i); }
+  for (h = 0; h < q.length; h++) { var c = q[h], cx = c % W, cy = (c - cx) / W;
+    for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) { var nx = cx + dx, ny = cy + dy; if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+      var n = ny * W + nx; if (d[n] > d[c] + 1) { d[n] = d[c] + 1; xs[n] = xs[c]; q.push(n); } } }
+  return { d:d, x:xs };
+}
+var HOME_SICK = { tenement:20, workhouse:16, house:10, cottage:6, model:4, villa:3, mansion:2 };
+var HOME_CRIME = { tenement:28, workhouse:18, house:12, cottage:5, model:6, villa:10, mansion:12 };
 function indBar(r){ return 110 + 30 * Math.max(0, r - 4); }   /* r = round index: 110 through 1812, then +30 a round (320 by 1900) */
 function compute(){
   NET = computeNet();
@@ -801,39 +818,84 @@ function compute(){
   /* environment */
   var trees = live.filter(function(i){ return i.t === 'tree'; }).length, smokeSum = 0;
   em.forEach(function(e){ smokeSum += e[2]; });
-  var riverP = 0;
-  live.forEach(function(it){ var b = B[it.t]; if (!b.smoke && it.t !== 'tenement') return; var wet = false; ring(it, function(x, y){ if (tAt(x, y) === RIV) wet = true; }); if (wet) riverP += it.t === 'watermill' ? 1 : it.t === 'tenement' ? 2 : it.t === 'chemical' ? 8 : 4; });
+  /* river pollution: works and homes dump waste into the river at their column, and it flows downstream (east) to the sea */
+  var RF = riverField(), load = new Float32Array(W), riverP = 0;
+  var sewers = live.filter(function(it){ return it.t === 'sewer'; }), wworks = live.filter(function(it){ return it.t === 'waterworks'; });
+  function nearestOf(list, c, reach){ for (var i = 0; i < list.length; i++) { var sc = centerOf(list[i]); if (Math.hypot(sc[0] - c[0], sc[1] - c[1]) <= reach) return list[i]; } return null; }
+  function colOf(it){ var c = centerOf(it), i = clamp(Math.floor(c[1]), 0, H - 1) * W + clamp(Math.floor(c[0]), 0, W - 1); return [RF.d[i], RF.x[i]]; }
+  live.forEach(function(it){
+    var b = B[it.t], dc = colOf(it), d = dc[0], x = dc[1]; if (x < 0) return;
+    if (b.smoke || it.t === 'chemical') {
+      var wet = false; ring(it, function(x2, y2){ if (tAt(x2, y2) === RIV) wet = true; });
+      var w = it.t === 'watermill' ? 1 : it.t === 'chemical' ? 8 : it.t === 'gasworks' ? 5 : 4;
+      if (wet) load[x] += w; else if (d <= 3) load[x] += w / 2;
+    }
+    if (b.cap) {
+      it._sewer = !!nearestOf(sewers, centerOf(it), 30);
+      var s = b.cap / 120;   /* sewage from open drains and privies */
+      if (it._sewer) { var sw = sewers.filter(function(o){ return Math.hypot(centerOf(o)[0] - centerOf(it)[0], centerOf(o)[1] - centerOf(it)[1]) <= 30; })[0]; var so = colOf(sw); if (so[1] >= 0) load[so[1]] += s; }
+      else if (d <= 8) load[x] += s;
+    }
+  });
+  var rivt = new Float32Array(W), flow = 0, rivMax = 0;
+  for (var rx = 0; rx < W; rx++) { flow = flow * 0.94 + load[rx]; riverP += load[rx]; rivt[rx] = clamp(flow / 12, 0, 0.85); if (rivt[rx] > rivMax) rivMax = rivt[rx]; }
+  riverP = Math.round(riverP);
   var roads = (counts.road || 0) + (counts.rail || 0);
-  var envParts = { trees:-Math.round(32 * (1 - trees / G.trees0)), smoke:-Math.round(Math.min(45, smokeSum * 0.35)), river:-Math.min(15, riverP), roads:-Math.min(5, Math.round(roads / 60)), parks:Math.min(9, (counts.park || 0) * 3) };
+  var envParts = { trees:-Math.round(32 * (1 - trees / G.trees0)), smoke:-Math.round(Math.min(45, smokeSum * 0.35)), river:-Math.round(Math.min(18, rivMax * 22)), roads:-Math.min(5, Math.round(roads / 60)), parks:Math.min(9, (counts.park || 0) * 3) };
   var env = clamp(100 + envParts.trees + envParts.smoke + envParts.river + envParts.roads + envParts.parks + G.mod.env, 0, 100);
   /* living conditions */
   var acc = live.filter(function(it){ return B[it.t].acc; }), lamps = live.filter(function(it){ return it.t === 'lamp'; });
   var crowdPen = clamp((pct - 100) * 0.35, 0, 25), pubs = counts.pub || 0, globalPen = 0;
   if (pubs > 1 + pop / 1500) globalPen += 4;
   if (pop > 1500 && !counts.cemetery) globalPen += 5;
-  var lifeSum = 0, wsum = 0;
+  var lifeSum = 0, wsum = 0, sickSum = 0, waterSum = 0, crimeSum = 0;
+  var homes = live.filter(function(it){ return B[it.t].cap; }), pubList = live.filter(function(it){ return it.t === 'pub'; });
+  var police = live.filter(function(it){ return it.t === 'police'; }), hosp = live.filter(function(it){ return it.t === 'hospital'; });
+  var schools = live.filter(function(it){ return it.t === 'school'; }), parks = live.filter(function(it){ return it.t === 'park'; });
+  var wwCol = wworks.map(function(w){ var cx = colOf(w)[1]; return cx >= 0 ? rivt[cx] : 0; });
+  var crowdSick = clamp((pct - 95) * 0.5, 0, 25), crowdCrime = clamp((pct - 100) * 0.4, 0, 18), bigTown = Math.min(15, pop / 800);
   live.forEach(function(it){
     var b = B[it.t]; if (!b.cap) return;
     var c = centerOf(it), l = b.life, got = {}, a = 0;
     acc.forEach(function(s){ var sc = centerOf(s); if (Math.hypot(sc[0] - c[0], sc[1] - c[1]) <= REACH && !got[s.t]) { got[s.t] = 1; a += B[s.t].acc; } });
     l += Math.min(28, a);
-    for (var i = 0; i < lamps.length; i++) if (Math.hypot(lamps[i].x - c[0], lamps[i].y - c[1]) <= 4) { l += 3; break; }
+    var lit = false;
+    for (var i = 0; i < lamps.length; i++) if (Math.hypot(lamps[i].x - c[0], lamps[i].y - c[1]) <= 4) { l += 3; lit = true; break; }
     var sm = smokeAt(c[0], c[1], em); l -= Math.min(30, sm * 1.1);
     if (!shares(touches(it, NET.road), workRoads)) l -= 6;
+    /* disease: dirty water (the river by the house, or privies leaking into crowded wells), crowding, smoke in the lungs */
+    var dc = colOf(it), near = dc[1] >= 0 && dc[0] <= 7 ? rivt[dc[1]] * (1 - dc[0] / 9) : 0, packed = 0;
+    if (!it._sewer) homes.forEach(function(o){ if (o !== it && Math.hypot(centerOf(o)[0] - c[0], centerOf(o)[1] - c[1]) <= 4) packed += B[o.t].cap; });
+    var water = 45 * near + (it._sewer ? 0 : Math.min(20, packed / 80));
+    for (var w2 = 0; w2 < wworks.length; w2++) { var wc = centerOf(wworks[w2]); if (Math.hypot(wc[0] - c[0], wc[1] - c[1]) <= 30) { water *= 0.3 + 0.7 * wwCol[w2]; break; } }
+    var sick = HOME_SICK[it.t] + crowdSick + water + Math.min(18, sm * 0.5);
+    if (nearestOf(hosp, c, REACH)) sick -= 8;
+    if (nearestOf(parks, c, REACH)) sick -= 3;
+    if (it._sewer) sick -= 5;   /* no filth standing in the streets and courts */
+    sick = clamp(sick, 0, 100);
+    /* crime: big anonymous towns, crowding, drink and dark streets; police, lamps and schools push it down */
+    var pubsNear = 0; pubList.forEach(function(p){ if (gap(p, it) <= 5) pubsNear++; });
+    var crime = HOME_CRIME[it.t] + bigTown + crowdCrime + Math.min(14, pubsNear * 7) - (lit ? 10 : 0) - (nearestOf(police, c, 10) ? 20 : 0) - (nearestOf(schools, c, REACH) ? 5 : 0) - (counts.jail ? 4 : 0);
+    crime = clamp(crime, 0, 100);
+    l -= Math.max(0, sick - 15) * 0.15 + Math.max(0, crime - 15) * 0.15;
     l = clamp(l - crowdPen - globalPen + G.mod.life, 0, 100);
-    it._life = l; it._smoke = sm;
-    lifeSum += l * b.cap; wsum += b.cap;
+    it._life = l; it._smoke = sm; it._sick = sick; it._crime = crime; it._water = water;
+    lifeSum += l * b.cap; wsum += b.cap; sickSum += sick * b.cap; waterSum += water * b.cap; crimeSum += crime * b.cap;
   });
   var life = wsum ? Math.round(lifeSum / wsum) : 0;
+  var sickAvg = wsum ? sickSum / wsum : 0, crime = wsum ? Math.round(crimeSum / wsum) : 0;
+  var waterAvg = wsum ? waterSum / wsum : 0, deaths = Math.round(13 + sickAvg * 0.25 + waterAvg * 0.35);
   var crowd = clamp(Math.round(pct - 50), 0, 100);
   var rating = Math.round(0.3 * ind + 0.3 * life + 0.2 * env + 0.2 * (100 - crowd));
   return { pop:pop, cap:cap, pct:Math.round(pct), jobs:jobs, P:Math.round(P), ind:ind, env:Math.round(env), envParts:envParts, life:life, crowd:crowd, rating:rating,
-           counts:counts, unlinked:unlinked, nocoal:nocoal, riverP:riverP, trees:trees, em:em, smokeSum:smokeSum, smog:clamp(smokeSum / 260, 0, 1) };
+           counts:counts, unlinked:unlinked, nocoal:nocoal, riverP:riverP, trees:trees, em:em, smokeSum:smokeSum, smog:clamp(smokeSum / 170, 0, 1),
+           rivt:rivt, rivMax:rivMax, rivSig:Array.prototype.map.call(rivt, function(v){ return Math.round(v * 20); }).join(''),
+           deaths:deaths, sick:Math.round(sickAvg), water:wsum ? Math.round(waterSum / wsum) : 0, crime:crime, wwDirty:wwCol.some(function(v){ return v > 0.35; }) };
 }
-function snap(r){ return { r:r, y:r ? ROUNDS[r - 1].y : 1750, pop:M.pop, pct:M.pct, env:M.env, life:M.life, ind:M.ind, rating:M.rating, smog:M.smog }; }
+function snap(r){ return { r:r, y:r ? ROUNDS[r - 1].y : 1750, pop:M.pop, pct:M.pct, env:M.env, life:M.life, ind:M.ind, rating:M.rating, smog:M.smog, deaths:M.deaths, crime:M.crime }; }
 function cholera(f){
-  var base = 0.02 + clamp((M.pct - 90) / 100, 0, 0.6) * 0.12 + Math.min(15, M.riverP) * 0.003;
-  if (M.counts.waterworks) base *= 0.5;
+  /* cholera travels in dirty water and spreads fastest where people are packed together */
+  var base = 0.015 + clamp((M.pct - 90) / 100, 0, 0.6) * 0.1 + Math.min(40, M.water) * 0.0025;
   var rate = base * f; G.chol = Math.min(0.15, rate); G.cholDeaths = Math.round(M.pop * rate);
 }
 
@@ -847,16 +909,18 @@ function mix(a, b, t){ return 'rgb(' + [0,1,2].map(function(i){ return Math.roun
 function hash2(x, y){ var s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return s - Math.floor(s); }
 function vnoise(x, y){ var ix = Math.floor(x), iy = Math.floor(y), fx = x - ix, fy = y - iy; fx = fx * fx * (3 - 2 * fx); fy = fy * fy * (3 - 2 * fy);
   var a = hash2(ix, iy), b = hash2(ix + 1, iy), c = hash2(ix, iy + 1), d = hash2(ix + 1, iy + 1); return a + (b - a) * fx + (c - a) * fy + (a - b - c + d) * fx * fy; }
-var riverTint = 0, NOISEPX = null;
+var riverTint = 0, RIVT = null, rivSig = '', NOISEPX = null;
 var PAL = { grass:[128,182,96], grass2:[92,146,68], farmA:[218,192,104], farmB:[150,180,86], farmC:[168,128,84], common:[168,208,120], common2:[132,182,96],
-  hill:[178,166,116], hill2:[136,128,90], coal:[118,108,90], sand:[236,220,168], mud:[156,134,92], river:[84,152,208], dirty:[118,104,70], sea:[34,98,164], shallow:[92,168,210], foam:[232,242,246] };
+  hill:[178,166,116], hill2:[136,128,90], coal:[118,108,90], sand:[236,220,168], mud:[156,134,92], river:[84,152,208], dirty:[96,104,58], sea:[34,98,164], shallow:[92,168,210], foam:[232,242,246] };
 function landEff(t){ return (t === COMMON && G && G.flags.enclosed) ? FARM : t; }
 function fieldCol(tx, ty){ var h = hash2(Math.floor(tx / 4) * 7.3 + 1, Math.floor(ty / 3) * 3.1 + 2); return h < 0.4 ? PAL.farmA : h < 0.75 ? PAL.farmB : PAL.farmC; }
 function fieldVert(tx, ty){ return hash2(Math.floor(tx / 4) + 9, Math.floor(ty / 3) + 4) > 0.5; }
 function drawTerrain(){
   var S = W * T, SH = H * T, x, y;
   if (!NOISEPX) { NOISEPX = new Float32Array(S * SH); for (y = 0; y < SH; y++) for (x = 0; x < S; x++) NOISEPX[y * S + x] = vnoise(x / 26, y / 26) * 0.62 + vnoise(x / 7, y / 7) * 0.38; }
-  var img = new ImageData(S, SH), d = img.data, rv = PAL.river.map(function(v, i){ return v + (PAL.dirty[i] - v) * riverTint; });
+  /* the river darkens column by column as waste flows downstream (riverTint 0 draws it clean, for the time-lapse) */
+  var img = new ImageData(S, SH), d = img.data, rvc = [];
+  for (x = 0; x < W; x++) { var tt = riverTint > 0 ? (RIVT ? RIVT[x] : riverTint) : 0; rvc.push([PAL.river.map(function(v, i){ return v + (PAL.dirty[i] - v) * tt; }), tt]); }
   function lerp(a, b, t){ return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
   function br(c, f){ return f >= 0 ? lerp(c, [255,255,255], f) : lerp(c, [0,0,0], -f); }
   for (y = 0; y < SH; y++) for (x = 0; x < S; x++) {
@@ -867,7 +931,9 @@ function drawTerrain(){
     else if (t === HILL) col = br(lerp(PAL.hill2, PAL.hill, k), (vnoise(x / 11, y / 11) - 0.5) * 0.28);
     else if (t === COAL) { col = br(PAL.coal, (vnoise(x / 11, y / 11) - 0.5) * 0.3); if (((x * 73856093 ^ y * 19349663) >>> 0) % 100 > 93) col = [44,38,32]; }
     else if (t === SAND) col = br(PAL.sand, f * 0.12);
-    else if (t === RIV) { var mid = Math.abs(((riverY(tx) + 1) * 16) - y) / 16; col = br(rv, -0.12 * (1 - mid) + f * 0.1); if (vnoise(x / 9, y / 2.2) > 0.78) col = br(col, 0.18); }
+    else if (t === RIV) { var mid = Math.abs(((riverY(tx) + 1) * 16) - y) / 16, rq = rvc[tx]; col = br(rq[0], -0.12 * (1 - mid) + f * 0.1);
+      if (rq[1] > 0.3 && vnoise(x / 4, y / 2.6) > 0.85 - rq[1] * 0.08) col = lerp(col, [204,196,150], 0.6);   /* scum and froth on foul water */
+      else if (vnoise(x / 9, y / 2.2) > 0.78) col = br(col, rq[1] > 0.3 ? 0.06 : 0.18); }
     else { var depth = clamp((tx - coastX(ty)) / 5, 0, 1); col = br(lerp(PAL.shallow, PAL.sea, depth), f * 0.1); if (vnoise(x / 12, y / 2.5) > 0.8) col = br(col, 0.14); }
     var water = t === RIV || t === SEA;
     if (!water) {
@@ -1170,12 +1236,12 @@ function drawSmog(c, k, now){
   if (!(k > 0.01)) return;
   var mw = W * T, mh = H * T, tx = smogTexture();
   /* an even brown-gray veil over the whole town */
-  c.fillStyle = 'rgba(88,78,66,' + (0.06 + k * 0.26).toFixed(3) + ')'; c.fillRect(0, 0, mw, mh);
+  c.fillStyle = 'rgba(88,78,66,' + (0.08 + k * 0.32).toFixed(3) + ')'; c.fillRect(0, 0, mw, mh);
   /* two banks of drifting smoke (the second flipped and faster), both blowing east */
   c.save(); c.imageSmoothingEnabled = true;
   [[0.85, 0.010], [0.55, 0.022]].forEach(function(L, j){
     var off = ((now || 0) * L[1] + j * 400) % mw;
-    c.globalAlpha = clamp(k * L[0], 0, 0.7);
+    c.globalAlpha = clamp(k * L[0] * 1.15, 0, 0.8);
     for (var ox = off - mw; ox < mw; ox += mw) {
       if (j) { c.save(); c.translate(0, mh); c.scale(1, -1); c.drawImage(tx, ox, 0, mw, mh); c.restore(); }
       else c.drawImage(tx, ox, 0, mw, mh);
@@ -1349,8 +1415,10 @@ function draw(){
   if ($('ovSmoke').checked) drawSmokeMap();
   if ($('ovNet').checked) drawNet();
   if ($('ovHouse').checked) drawLife();
+  if ($('ovSick').checked) drawSick();
+  if ($('ovCrime').checked) drawCrime();
   /* animated smoke */
-  puffs.forEach(function(p){ ctx.fillStyle = 'rgba(70,64,60,' + (p.a * 0.5).toFixed(3) + ')'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); });
+  puffs.forEach(function(p){ ctx.fillStyle = 'rgba(62,56,52,' + (p.a * 0.6).toFixed(3) + ')'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); });
   if (tool && G.phase === 'build' && B[tool].rules) drawZones(tool);
   if (ghost) {
     var f = ghost; ctx.globalAlpha = 0.6;
@@ -1399,12 +1467,41 @@ function drawLife(){
     ctx.fillStyle = l >= 55 ? 'rgba(26,138,74,.55)' : l >= 38 ? 'rgba(244,180,40,.6)' : 'rgba(204,61,61,.65)'; ctx.fillRect(it.x * T, it.y * T, it.w * T, it.h * T);
     ctx.fillStyle = '#fff'; ctx.font = '900 10px Lato,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(Math.round(l), (it.x + it.w / 2) * T, (it.y + it.h / 2) * T); });
 }
+function ovLegend(text){
+  ctx.font = '700 11px Lato,sans-serif'; var w = ctx.measureText(text).width + 20;
+  ctx.fillStyle = 'rgba(22,36,77,.85)'; ctx.fillRect(W * T - w - 8, H * T - 30, w, 22); ctx.fillStyle = '#fff'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  ctx.fillText(text, W * T - w + 2, H * T - 19);
+}
+function homeBadge(it, v, good, mid){
+  ctx.fillStyle = v <= good ? 'rgba(26,138,74,.6)' : v <= mid ? 'rgba(244,180,40,.65)' : 'rgba(204,61,61,.7)'; ctx.fillRect(it.x * T, it.y * T, it.w * T, it.h * T);
+  ctx.fillStyle = '#fff'; ctx.font = '900 10px Lato,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(Math.round(v), (it.x + it.w / 2) * T, (it.y + it.h / 2) * T);
+}
+function drawSick(){
+  /* foul water: brown hatching on the river, darker downstream */
+  if (M.rivt) for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) { if (ter[y * W + x] !== RIV) continue; var v = M.rivt[x]; if (v < 0.08) continue;
+    ctx.fillStyle = 'rgba(110,70,20,' + (v * 0.8).toFixed(3) + ')'; ctx.fillRect(x * T, y * T, T, T); }
+  G.items.forEach(function(it){
+    if (it.died) return;
+    if (it.t === 'waterworks' || it.t === 'sewer' || it.t === 'hospital') { var c = centerOf(it), rr = (it.t === 'waterworks' ? 30 : it.t === 'sewer' ? 30 : REACH) * T;
+      ctx.strokeStyle = it.t === 'hospital' ? 'rgba(204,61,61,.8)' : 'rgba(40,110,190,.85)'; ctx.lineWidth = 2; ctx.setLineDash([6, 4]); ctx.beginPath(); ctx.arc(c[0] * T, c[1] * T, rr, 0, 7); ctx.stroke(); ctx.setLineDash([]); }
+    if (B[it.t].cap) homeBadge(it, it._sick || 0, 20, 35);
+  });
+  ovLegend('Disease risk per home (lower is better). Brown river = sewage and factory waste flowing east');
+}
+function drawCrime(){
+  G.items.forEach(function(it){
+    if (it.died) return;
+    if (it.t === 'police') { var c = centerOf(it); ctx.strokeStyle = 'rgba(40,70,160,.9)'; ctx.lineWidth = 2; ctx.setLineDash([6, 4]); ctx.beginPath(); ctx.arc(c[0] * T, c[1] * T, 10 * T, 0, 7); ctx.stroke(); ctx.setLineDash([]); }
+    if (B[it.t].cap) homeBadge(it, it._crime || 0, 20, 35);
+  });
+  ovLegend('Crime per home (lower is better). Police beats circled; lamps, schools and police help, pubs and crowding hurt');
+}
 var lastT = 0;
 function loop(t){
   requestAnimationFrame(loop);
   if (!G || document.hidden || t - lastT < 33) return; lastT = t; clock = t;
-  if (M && M.em && puffs.length < 260) M.em.forEach(function(e){ if (Math.random() < e[2] / 40) puffs.push({ x:e[0] * T + (Math.random() - 0.5) * 8, y:(e[1] - 1) * T, r:2 + Math.random() * 2, a:0.9 }); });
-  puffs.forEach(function(p){ p.x += 0.55 + Math.random() * 0.2; p.y -= 0.25; p.r += 0.07; p.a -= 0.007; });
+  if (M && M.em && puffs.length < 420) M.em.forEach(function(e){ if (Math.random() < e[2] / 26) puffs.push({ x:e[0] * T + (Math.random() - 0.5) * 8, y:(e[1] - 1) * T, r:2 + Math.random() * 2, a:0.9 }); });
+  puffs.forEach(function(p){ p.x += 0.55 + Math.random() * 0.2; p.y -= 0.25; p.r += 0.08; p.a -= 0.006; });
   vehStep();
   puffs = puffs.filter(function(p){ return p.a > 0 && p.x < W * T + 20; });
   draw();
@@ -1421,7 +1518,7 @@ function applyAt(x, y){
   var why = canPlace(tool, x, y); if (why) { if (!B[tool].line) flash(why); return false; }
   return place(tool, x, y);
 }
-function changed(){ M = compute(); smokeGrid = null; VEH.dirty = true; if (riverTint !== clamp(M.riverP / 18, 0, 0.75)) { riverTint = clamp(M.riverP / 18, 0, 0.75); drawTerrain(); } renderSide(); renderStats(); saveSoon(); }
+function changed(){ M = compute(); smokeGrid = null; VEH.dirty = true; if (rivSig !== M.rivSig) { rivSig = M.rivSig; RIVT = M.rivt; riverTint = M.rivMax; drawTerrain(); } renderSide(); renderStats(); saveSoon(); }
 cv.addEventListener('pointerdown', function(e){
   if (!G || G.phase !== 'build') return;
   if (e.button === 2) { setTool(null); return; }
@@ -1455,7 +1552,7 @@ function setGhost(c){
 }
 function turn(){ rot ^= 1; setGhost(lastCell); renderSide(); }
 $('bRot').onclick = function(){ if (canRotate(tool)) turn(); };
-['ovSmoke','ovNet','ovHouse'].forEach(function(id){ $(id).addEventListener('change', function(){ smokeGrid = null; }); });
+['ovSmoke','ovNet','ovHouse','ovSick','ovCrime'].forEach(function(id){ $(id).addEventListener('change', function(){ smokeGrid = null; }); });
 var TERR_N = ['Grassland','River','Sea','Farmland','Common land','Hills','Coal seam','Beach'];
 function showTip(e, c){
   var tip = $('tip'); if (c[0] < 0 || c[1] < 0 || c[0] >= W || c[1] >= H) { tip.classList.add('hidden'); return; }
@@ -1463,7 +1560,8 @@ function showTip(e, c){
   var tn = TERR_N[t]; if (t === COMMON && G.flags.enclosed) tn = 'Enclosed farmland';
   if (it && it.t !== 'tree') {
     var b = B[it.t]; h = '<b>' + esc(b.n) + '</b>' + (it.born ? ' (built ' + ROUNDS[it.born - 1].y + ')' : ' (old town)');
-    if (b.cap) h += '<br>Home for ' + b.cap + ' people. Living conditions: <b>' + Math.round(it._life || 0) + '</b>/100' + ((it._smoke || 0) > 4 ? '. Smoky!' : '');
+    if (b.cap) h += '<br>Home for ' + b.cap + ' people. Living conditions: <b>' + Math.round(it._life || 0) + '</b>/100' + ((it._smoke || 0) > 4 ? '. Smoky!' : '') +
+      '<br>Disease risk <b>' + Math.round(it._sick || 0) + '</b>' + ((it._water || 0) > 12 ? ' (dirty water)' : '') + ' &middot; crime <b>' + Math.round(it._crime || 0) + '</b>' + (it._sewer ? ' &middot; on the sewers' : '');
     if (b.jobs) h += '<br>' + b.jobs + ' jobs';
     if (b.prod) { h += ' &middot; output ' + (it._m >= 1 ? 'running well' : 'held back'); if (it._m < 1) h += '<br>' + (b.coal ? 'Needs coal linked by road, canal or rail, ' : '') + 'and a road to workers\' homes.'; }
     if (b.line && t === RIV) h = '<b>Bridge</b> (' + esc(b.n.toLowerCase()) + ')';
@@ -1471,6 +1569,7 @@ function showTip(e, c){
     if (isSlum(it)) h += '<br><span style="color:#ffb4b4"><b>Slum.</b> Pick Demolish and click it to clear it.</span>';
   } else if (it) h = '<b>Forest</b><br>Use Clear trees to cut it.';
   else h = '<b>' + tn + '</b>';
+  if (t === RIV && M && M.rivt) { var rv = M.rivt[c[0]]; h += '<br>Water here: ' + (rv > 0.55 ? 'foul, an open sewer' : rv > 0.3 ? 'dirty and smelly' : rv > 0.1 ? 'murky' : 'clean'); }
   var sm = M ? smokeAt(c[0] + 0.5, c[1] + 0.5, M.em) : 0; if (sm > 2) h += '<br>Smoke here: ' + (sm > 12 ? 'heavy' : sm > 6 ? 'thick' : 'light');
   if (ghost && ghost.bad && tool && !B[tool].tool) { var why = canPlace(tool, ghost.x, ghost.y); if (why) h += '<br><span style="color:#ffb4b4">' + esc(why) + '</span>'; }
   tip.innerHTML = h; tip.classList.remove('hidden');
@@ -1541,6 +1640,8 @@ function renderStats(){
   h += tileHtml('Population', M.pop.toLocaleString(), '', M.jobs.toLocaleString() + ' jobs draw migrants');
   h += tileHtml('Housing', M.pct + '% full', M.pct > 115 ? 'lo' : M.pct > 100 ? 'mid' : 'ok', 'Room for ' + M.cap.toLocaleString() + (M.pct > 100 ? '. Overcrowded!' : ''), M.pct, M.pct > 115 ? 'var(--g-red)' : M.pct > 100 ? 'var(--g-amber)' : 'var(--g-green)');
   h += tileHtml('Living conditions', M.life, lvl(M.life), 'Average for residents', M.life, col(M.life));
+  h += tileHtml('Deaths a year', M.deaths + ' per 1,000', M.deaths <= 21 ? 'ok' : M.deaths <= 27 ? 'mid' : 'lo', 'England about 22; the worst mill towns over 30. Dirty water, crowding and smoke raise it', clamp((M.deaths - 12) * 4, 0, 100), M.deaths <= 21 ? 'var(--g-green)' : M.deaths <= 27 ? 'var(--g-amber)' : 'var(--g-red)');
+  h += tileHtml('Crime', M.crime <= 25 ? 'Low (' + M.crime + ')' : M.crime <= 40 ? 'Rising (' + M.crime + ')' : 'High (' + M.crime + ')', M.crime <= 25 ? 'ok' : M.crime <= 40 ? 'mid' : 'lo', 'Crowds, pubs and dark streets raise it; police, lamps and schools cut it', M.crime, M.crime <= 25 ? 'var(--g-green)' : M.crime <= 40 ? 'var(--g-amber)' : 'var(--g-red)');
   h += tileHtml('Environment', M.env, lvl(M.env), 'Trees ' + M.envParts.trees + ', smoke ' + M.envParts.smoke + ', river ' + M.envParts.river, M.env, col(M.env));
   h += tileHtml('Industry', M.ind, M.ind >= 60 ? 'ok' : M.ind >= 30 ? 'mid' : 'lo', 'Output ' + M.P + ' (the bar rises each round from 1825)' + (M.unlinked ? ', ' + M.unlinked + ' cut off from homes' : '') + (M.nocoal ? ', ' + M.nocoal + ' short of coal' : ''), M.ind, 'var(--g-blue)');
   h += tileHtml('Town rating', M.rating, lvl(M.rating), 'Industry 30%, living 30%, environment 20%, room to live 20%');
@@ -1601,7 +1702,7 @@ function eventScreen(missed){
   if (E.chol) { M = compute(); }
   var opts = E.c.map(function(c, i){ var dis = c.need && G.permits < c.need; return '<button class="copt" data-i="' + i + '"' + (dis ? ' disabled' : '') + '><b>' + esc(c.b) + '</b><small>' + esc(c.s) + (dis ? ' (no permits left)' : '') + '</small></button>'; }).join('');
   modal('<div class="eyebrow">A visitor &middot; ' + curRound().y + '</div><div class="vis"><canvas id="visC" width="192" height="192"></canvas><div><h2>' + esc(E.t) + '</h2><p><b>' + esc(E.who) + '.</b> ' + esc(E.s) + '</p>' +
-    (E.chol ? '<div class="note bad">Your town: housing ' + M.pct + '% full, river pollution ' + M.riverP + '. Crowding and dirty water make cholera worse.</div>' : '') +
+    (E.chol ? '<div class="note bad">Your town: housing ' + M.pct + '% full, dirty-water risk ' + M.water + ' (homes by the foul river or on crowded wells). Crowding and dirty water make cholera worse.' + (M.counts.waterworks ? '' : ' A waterworks upstream would help.') + '</div>' : '') +
     '<div class="copts">' + opts + '</div><div id="evRes"></div></div></div>');
   drawVisitor($('visC'), E.icon);
   $('mbox').querySelectorAll('.copt').forEach(function(b){ b.onclick = function(){
@@ -1628,6 +1729,8 @@ function checkAch(){
   if (c.waterworks) give('water'); if ((c.model || 0) >= 4) give('saltaire');
   if (G.round === LAST - 1 && M.env >= 40) give('clean');
   if (G.round === LAST - 1 && M.life >= 55) give('healthy');
+  if (G.round === LAST - 1 && M.deaths < 22) give('sanitary');
+  if (G.round === LAST - 1 && M.crime <= 30) give('bobby');
   if (G.round === LAST - 1 && !G.ordersMissed) give('orders');
   return newA;
 }
@@ -1643,16 +1746,26 @@ function report(){
   var before = G.hist[r - 1], pen = h.pen || 0;
   G.chol = 0; /* cholera deaths are a one-time loss */
   var newA = checkAch();
-  function row(label, a, b, good){ var d = b - a, cls = d === 0 ? '' : ((d > 0) === good ? 'pos' : 'neg'); return '<tr><td>' + label + '</td><td class="n">' + a.toLocaleString() + '</td><td class="n">' + b.toLocaleString() + '</td><td class="n ' + cls + '">' + (d > 0 ? '+' : '') + d.toLocaleString() + '</td></tr>'; }
+  function row(label, a, b, good){ if (b == null) return ''; if (a == null) a = b; var d = b - a, cls = d === 0 ? '' : ((d > 0) === good ? 'pos' : 'neg'); return '<tr><td>' + label + '</td><td class="n">' + a.toLocaleString() + '</td><td class="n">' + b.toLocaleString() + '</td><td class="n ' + cls + '">' + (d > 0 ? '+' : '') + d.toLocaleString() + '</td></tr>'; }
   var html = '<div class="eyebrow">Round ' + r + ' report</div><h2>' + esc(G.name) + ' in ' + curRound().y + '</h2>' +
     '<table class="sum"><tr><th></th><th>Before</th><th>Now</th><th>Change</th></tr>' +
     row('Population', before.pop, h.pop, true) + row('Housing (% full)', before.pct, h.pct, false) + row('Living conditions', before.life, h.life, true) +
+    row('Deaths per 1,000', before.deaths, h.deaths, false) + row('Crime', before.crime, h.crime, false) +
     row('Environment', before.env, h.env, true) + row('Industry', before.ind, h.ind, true) +
     (pen ? '<tr><td>Unfinished orders</td><td></td><td></td><td class="n neg">-' + pen + '</td></tr>' : '') +
     '<tr class="tot"><td>Town rating this round</td><td></td><td></td><td class="n">' + h.rating + '</td></tr></table>';
   var notes = [];
   if (h.pct > 110) notes.push(['bad', 'Families are doubling up in cellars and single rooms. Overcrowding drags living conditions down and makes disease spread.']);
   if (M.envParts.smoke <= -20) notes.push(['bad', 'A pall of coal smoke hangs over the town. Homes downwind (east) of the works suffer most.']);
+  if (M.rivMax > 0.55) notes.push(['bad', 'The river runs brown and stinks: privies, drains and works all empty into it, and the filth piles up as it flows downstream (east). ' + (r >= 9 ? 'In the hot summer of 1858 the Thames smelled so bad that Parliament fled the "Great Stink" and paid for sewers. Sewers with an outfall below the town would clean the river through town.' : 'People downstream drink and wash in it.')]);
+  else if (M.rivMax > 0.3) notes.push(['bad', 'The river is getting dirty below the town: waste from homes and works flows downstream (east).']);
+  if (M.deaths >= 28) notes.push(['bad', 'About ' + M.deaths + ' of every 1,000 people die each year. Typhus spreads by lice in crowded rooms, tuberculosis ("consumption") in damp, smoky air, and cholera and typhoid in dirty water. ' + (r >= 8 ? 'Edwin Chadwick (1842) found that laborers in Manchester died at an average age of about 17, counting the many babies who died, against 38 for the gentry.' : 'Doctors still blame "miasma," bad air from rotting filth.')]);
+  else if (M.deaths >= 24) notes.push(['bad', 'The death rate (' + M.deaths + ' per 1,000) is above the English average of about 22. Check the Disease and water map for the worst homes.']);
+  if (M.wwDirty) notes.push(['bad', 'Your waterworks draws its water from a dirty stretch of river, so it helps far less. Water companies learned to take water upstream of the town.']);
+  if (M.crime > 40) notes.push(['bad', 'Crime is high. Thieves and pickpockets work the crowded streets, and drunken fights spill out of the pubs. ' + (r >= 7 ? 'A police station puts constables on the beat; street lamps and schools help too.' : 'Towns rely on parish constables and night watchmen, who are few and badly paid.')]);
+  else if (M.crime > 25 && r >= 7 && !M.counts.police) notes.push(['', 'Crime is rising as the town grows. Borough councils now set up police forces (Municipal Corporations Act, 1835): a police station would help.']);
+  if (r === 6) notes.push(['', 'Coming in 1838: police stations. Sir Robert Peel\'s Metropolitan Police (1829) were nicknamed "bobbies" and "peelers."']);
+  if (r === 8) notes.push(['', 'Coming in 1860: sewers. In 1854 Dr. John Snow traced a cholera outbreak to one water pump on Broad Street in London. Sewers that carry waste away from wells and streets save more lives than any doctor.']);
   if (M.envParts.trees <= -15) notes.push(['bad', 'The old forests are mostly gone, cut for timber, fuel, pit props and building land.']);
   if (M.nocoal) notes.push(['bad', M.nocoal + ' coal-burning works ' + (M.nocoal > 1 ? 'are' : 'is') + ' short of coal. Link them to a mine.']);
   if (M.unlinked) notes.push(['bad', M.unlinked + ' workplace' + (M.unlinked > 1 ? 's have' : ' has') + ' no road to any homes, so workers cannot reach ' + (M.unlinked > 1 ? 'them' : 'it') + '.']);

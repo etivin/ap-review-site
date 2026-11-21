@@ -287,6 +287,12 @@ body{line-height:1.6}
 .tg-poll .tg-reply{margin-top:12px;min-height:4.5em;font-size:calc(.82rem*var(--fit,1));font-weight:400;color:#dce3fa}
 .tg-poll .tg-count{margin-top:4px;min-height:1.4em;font-size:calc(.72rem*var(--fit,1));color:var(--lime);font-weight:700;letter-spacing:.02em}
 @media(max-width:420px){.tg-opts{grid-template-columns:1fr}}
+/* Thanksgiving message: big type so it fills its half of the news box */
+.tg-slide{align-items:stretch}
+.tg-msg{display:flex;flex-direction:column;justify-content:center}
+.tg-msg h2{font-size:calc(clamp(2rem,4.4vw,3.6rem)*var(--fit,1))}
+.slide .tg-msg > p{font-size:calc(clamp(1.1rem,1.9vw,1.55rem)*var(--fit,1));line-height:1.4;color:#fff}
+.slide .tg-msg > p + p{margin-top:.7em;font-weight:700;color:var(--lime)}
 .news-dots{display:flex;gap:8px;align-items:center}
 .news-src{color:#b8c2ea}
 /* tools + units */
@@ -575,8 +581,8 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
       <span class="news-src">Current events &middot; discuss &amp; analyze</span>
     </div>
     <div class="slides">
-      <article class="slide active">
-        <div>
+      <article class="slide active tg-slide">
+        <div class="tg-msg">
           <h2>Happy Thanksgiving from Mr. Tivin!</h2>
           <p>I am thankful for all of you, and I hope you all be safe, be smart, and have fun this break.</p>
           <p>A reminder: we have a test first thing back from break, so make sure you study!</p>

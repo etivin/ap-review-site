@@ -415,7 +415,20 @@
     var cap = el('div', 'dt-dcap', '<b></b><span></span>');
     wrap.appendChild(cv); wrap.appendChild(cap);
     var c = cv.getContext('2d');
-    var ZONES = [
+    // Thanksgiving break (seasonal.js): a turkey dives through a plate of gravy.
+    var TG = !!(window.SEASON && SEASON.on && SEASON.on('thanksgiving'));
+    var ZONES = TG ? [
+      [0, 'Perched on the gravy boat'],
+      [TOP, 'Warm gravy shallows'],
+      [150, 'Cranberry reef on a mashed potato shelf'],
+      [280, 'Marshmallows drifting off the sweet potatoes'],
+      [360, 'A dinner roll sank down here'],
+      [470, 'Somebody dropped a fork'],
+      [575, 'Green bean casserole canyon'],
+      [690, 'The deep gravy: a lost anglerfish glows'],
+      [815, 'A drumstick at the bottom of the plate'],
+      [866, 'Pumpkin pie: a perfect dive']
+    ] : [
       [0, 'On deck: a dhow riding the monsoon winds'],
       [TOP, 'Sunlit shallows of the Indian Ocean'],
       [150, 'Coral reef off the Swahili Coast'],
@@ -432,7 +445,9 @@
     function P(ctx, x, y, w, h, col) { ctx.fillStyle = col; ctx.fillRect(Math.round(x), Math.round(y), w, h); }
     function text(ctx, s, x, y, col) { String(s).split('').forEach(function (ch, i) { var g = FONT[ch]; if (!g) return; for (var k = 0; k < 15; k++) if (g[k] === '1') P(ctx, x + i * 4 + (k % 3), y + Math.floor(k / 3), 1, 1, col); }); }
     function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
-    var STOPS = [[0, [122, 163, 230]], [0.12, [74, 120, 208]], [0.3, [47, 86, 179]], [0.5, [29, 58, 130]], [0.68, [19, 34, 77]], [0.84, [10, 19, 48]], [1, [5, 10, 26]]];
+    var STOPS = TG
+      ? [[0, [214, 160, 92]], [0.12, [190, 128, 62]], [0.3, [160, 98, 44]], [0.5, [122, 70, 30]], [0.68, [88, 48, 20]], [0.84, [60, 32, 14]], [1, [38, 20, 9]]]
+      : [[0, [122, 163, 230]], [0.12, [74, 120, 208]], [0.3, [47, 86, 179]], [0.5, [29, 58, 130]], [0.68, [19, 34, 77]], [0.84, [10, 19, 48]], [1, [5, 10, 26]]];
     function waterRGB(f) {
       for (var i = 1; i < STOPS.length; i++) if (f <= STOPS[i][0]) {
         var a = STOPS[i - 1], b = STOPS[i], t = (f - a[0]) / (b[0] - a[0]);
@@ -444,8 +459,10 @@
     /* ----- static scenery, drawn once ----- */
     var bg = document.createElement('canvas'); bg.width = W; bg.height = WORLD;
     var b = bg.getContext('2d'), R = rng(hash('dive-walls'));
+    var y, x, m;
+    if (TG) tgScenery(); else {
     // sky
-    for (var y = 0; y < SURF; y++) P(b, 0, y, W, 1, y < 14 ? '#cfe0f7' : y < 28 ? '#dde9fa' : '#eaf2fc');
+    for (y = 0; y < SURF; y++) P(b, 0, y, W, 1, y < 14 ? '#cfe0f7' : y < 28 ? '#dde9fa' : '#eaf2fc');
     P(b, 86, 8, 10, 10, '#f4cd4f'); P(b, 84, 10, 14, 6, '#f4cd4f'); P(b, 88, 6, 6, 14, '#f4cd4f'); P(b, 88, 9, 3, 3, '#fbe39a');
     // water: 26 stepped bands with a dithered seam between each
     var BANDS = 26, span = (FLOOR - SURF) / BANDS;
@@ -510,8 +527,68 @@
     P(b, cx0, 886, 18, 10, '#6e4420'); P(b, cx0, 883, 18, 3, '#8a5a2b'); P(b, cx0, 889, 18, 1, '#4a2f17'); P(b, cx0 + 8, 888, 3, 3, '#f4cd4f');
     P(b, cx0 + 2, 879, 14, 4, '#c9cfdb'); P(b, cx0 + 4, 877, 10, 2, '#e3e7ef'); P(b, cx0 + 6, 876, 5, 1, '#ffffff');
     [[2, 893], [27, 894], [31, 892], [36, 895]].forEach(function (q) { P(b, q[0], q[1], 2, 1, '#d9dee8'); });
+    }
+    /* Thanksgiving scenery: cream sky, gravy that darkens with depth, stuffing
+       walls, cranberries on a mashed potato shelf, a dinner roll, a dropped fork,
+       green bean casserole, and a plate with a drumstick and pumpkin pie. */
+    function tgScenery() {
+      var y, x;
+      for (y = 0; y < SURF; y++) P(b, 0, y, W, 1, y < 14 ? '#f6e7c8' : y < 28 ? '#f9eed8' : '#fbf3e4');
+      P(b, 86, 8, 10, 10, '#e8a83a'); P(b, 84, 10, 14, 6, '#e8a83a'); P(b, 88, 6, 6, 14, '#e8a83a'); P(b, 88, 9, 3, 3, '#f6cf7a');
+      var BANDS = 26, span = (FLOOR - SURF) / BANDS;
+      for (y = SURF; y < FLOOR; y++) {
+        var k = Math.floor((y - SURF) / span), off = (y - SURF) - k * span;
+        var col = waterRGB(k / (BANDS - 1)), prev = waterRGB(Math.max(0, k - 1) / (BANDS - 1));
+        if (k > 0 && off < 2) for (x = 0; x < W; x++) P(b, x, y, 1, 1, (x + y) % 2 ? col : prev);
+        else P(b, 0, y, W, 1, col);
+      }
+      // stuffing walls with crumbs and herbs
+      var lw = 0, rw = 0;
+      for (y = 230; y < FLOOR; y += 4) {
+        var depthF = (y - 230) / (FLOOR - 230);
+        lw = Math.max(0, Math.min(26, lw + Math.round((R() - 0.45) * 4) + (depthF > 0.4 ? 1 : 0)));
+        rw = Math.max(0, Math.min(22, rw + Math.round((R() - 0.48) * 4) + (depthF > 0.5 ? 1 : 0)));
+        var wc = depthF < 0.5 ? '#8a5a2b' : '#5e3a1a', edge = depthF < 0.5 ? '#b07a3e' : '#7a4e26';
+        if (lw) { P(b, 0, y, lw, 4, wc); P(b, lw - 1, y, 1, 4, edge); if (R() < 0.6) P(b, Math.floor(R() * lw), y + 1, 2, 1, R() < 0.3 ? '#56692b' : '#c79a5a'); }
+        if (rw) { P(b, W - rw, y, rw, 4, wc); P(b, W - rw, y, 1, 4, edge); if (R() < 0.6) P(b, W - rw + Math.floor(R() * rw), y + 2, 2, 1, R() < 0.3 ? '#56692b' : '#c79a5a'); }
+      }
+      // mashed potato shelf with cranberries
+      P(b, 0, 196, 50, 16, '#efe6d2'); P(b, 0, 190, 34, 6, '#efe6d2'); P(b, 0, 186, 18, 4, '#efe6d2'); P(b, 0, 190, 34, 1, '#fffaf0');
+      P(b, 6, 192, 8, 2, '#e8c35a'); P(b, 8, 191, 4, 1, '#f6dc7a'); // butter pat
+      [[3, 182], [9, 180], [15, 183], [21, 185], [27, 184], [33, 189], [40, 191], [46, 192], [12, 177], [24, 180], [36, 186]].forEach(function (q) {
+        P(b, q[0], q[1], 4, 3, '#a3202c'); P(b, q[0] + 1, q[1] - 1, 2, 5, '#a3202c'); P(b, q[0] + 1, q[1], 1, 1, '#e0566a');
+      });
+      P(b, 70, 214, 42, 10, '#efe6d2'); P(b, 80, 210, 32, 4, '#efe6d2'); P(b, 80, 210, 32, 1, '#fffaf0');
+      // dinner roll on a ledge
+      P(b, 58, 402, 54, 8, '#6b4320'); P(b, 66, 398, 46, 4, '#6b4320'); P(b, 66, 398, 46, 1, '#8a5a2b');
+      var jx = 78;
+      P(b, jx + 4, 386, 10, 2, '#c98a3e'); P(b, jx + 2, 388, 14, 3, '#c98a3e'); P(b, jx, 391, 18, 7, '#c98a3e');
+      P(b, jx + 1, 395, 16, 3, '#a96d2c'); P(b, jx + 5, 387, 6, 1, '#e3b06a'); P(b, jx + 3, 389, 3, 1, '#e3b06a');
+      P(b, jx + 6, 390, 1, 6, '#8a5420'); P(b, jx + 11, 390, 1, 6, '#8a5420'); // score marks
+      // a dropped fork on the left wall
+      P(b, 0, 514, 44, 8, '#5e3a1a'); P(b, 0, 514, 44, 1, '#7a4e26');
+      var fx = 22;
+      P(b, fx, 486, 3, 28, '#c9cfdb'); P(b, fx + 1, 486, 1, 28, '#e8ecf4');
+      P(b, fx - 4, 478, 11, 3, '#c9cfdb'); P(b, fx - 4, 470, 2, 8, '#c9cfdb'); P(b, fx - 1, 470, 2, 8, '#c9cfdb'); P(b, fx + 2, 470, 2, 8, '#c9cfdb'); P(b, fx + 5, 470, 2, 8, '#c9cfdb');
+      P(b, fx - 1, 481, 5, 5, '#c9cfdb');
+      // green bean casserole dish on the right
+      P(b, 44, 636, 68, 10, '#4a2c12'); P(b, 52, 632, 60, 4, '#4a2c12');
+      var kx = 56;
+      P(b, kx, 612, 50, 18, '#efe9dd'); P(b, kx - 2, 610, 54, 3, '#d6cfbf'); P(b, kx, 626, 50, 2, '#d6cfbf'); P(b, kx + 2, 618, 46, 2, '#3f6fb3');
+      for (var g = 0; g < 9; g++) P(b, kx + 3 + g * 5, 604 + (g % 3), 4, 2, '#56692b');
+      for (g = 0; g < 8; g++) P(b, kx + 5 + g * 5, 602 + (g % 2) * 3, 3, 1, '#d9a54a');
+      P(b, kx + 2, 606, 46, 4, '#6f8a35');
+      // the plate, a drumstick, and pumpkin pie
+      P(b, 0, FLOOR, W, WORLD - FLOOR, '#efe9dd'); P(b, 0, FLOOR, W, 2, '#d6cfbf'); P(b, 0, FLOOR + 6, W, 1, '#d6cfbf');
+      var gx = 44;
+      P(b, gx + 4, 872, 34, 22, '#8a4f1e'); P(b, gx, 876, 42, 16, '#8a4f1e'); P(b, gx + 2, 874, 30, 4, '#a8652a'); P(b, gx + 6, 878, 8, 3, '#c07c3a');
+      P(b, gx + 40, 880, 18, 5, '#efe6d2'); P(b, gx + 56, 876, 5, 5, '#efe6d2'); P(b, gx + 56, 884, 5, 5, '#efe6d2'); P(b, gx + 40, 880, 18, 1, '#ffffff');
+      var cx0 = 6;
+      P(b, cx0, 884, 24, 12, '#d9a54a'); P(b, cx0 + 2, 882, 20, 2, '#c2571a'); P(b, cx0 + 2, 884, 20, 8, '#c2571a'); P(b, cx0, 892, 24, 4, '#b8862e');
+      P(b, cx0 + 4, 885, 16, 1, '#d9692a'); P(b, cx0 + 8, 877, 9, 5, '#fffdf8'); P(b, cx0 + 10, 875, 5, 2, '#fffdf8'); P(b, cx0 + 12, 874, 1, 1, '#fffdf8');
+    }
     // depth ruler on the left edge
-    for (var m = 0; m <= MAXM; m += 250) {
+    for (m = 0; m <= MAXM; m += 250) {
       var ty = Math.round(yFor(m / 10));
       P(b, 0, ty, m % 1000 === 0 ? 5 : 3, 1, 'rgba(255,255,255,.55)');
       if (m && m < MAXM && m % 1000 === 0) text(b, m + 'M', 7, ty - 2, 'rgba(255,255,255,.6)');
@@ -530,7 +607,7 @@
       var y = SURF - cam; if (y < -2 || y > H) return;
       for (var x = 0; x < W; x++) {
         var up = Math.sin((x + frame * 0.6) / 5) > 0.55;
-        P(c, x, y - (up ? 1 : 0), 1, 1, up ? '#ffffff' : '#a9c1de');
+        P(c, x, y - (up ? 1 : 0), 1, 1, TG ? (up ? '#f2d6a8' : '#c48a4a') : (up ? '#ffffff' : '#a9c1de'));
       }
       var cx = (frame * 0.04) % (W + 30) - 30;
       P(c, cx, 10 - cam, 14, 3, '#ffffff'); P(c, cx + 3, 8 - cam, 7, 2, '#ffffff');
@@ -547,7 +624,17 @@
         }
       }
     }
+    function gravyBoat(cam) {
+      var y = SURF - cam + Math.round(Math.sin(frame / 25)), x = 40;
+      if (y < -12 || y > H + 8) return;
+      P(c, x - 2, y - 3, 38, 1, '#d6cfbf');
+      for (var r = 0; r < 6; r++) P(c, x + r, y - 2 + r, 34 - 2 * r, 1, r === 5 ? '#d6cfbf' : '#efe9dd');
+      P(c, x + 33, y - 5, 5, 2, '#efe9dd'); P(c, x + 31, y - 4, 4, 1, '#efe9dd'); P(c, x + 37, y - 4, 1, 4, '#8a5a2b');
+      P(c, x - 5, y - 2, 1, 4, '#d6cfbf'); P(c, x - 5, y - 2, 3, 1, '#d6cfbf'); P(c, x - 5, y + 1, 3, 1, '#d6cfbf');
+      P(c, x + 2, y - 1, 6, 1, '#ffffff'); P(c, x + 4, y - 2, 26, 1, '#8a5a2b');
+    }
     function dhow(cam) {
+      if (TG) return gravyBoat(cam);
       var y = SURF - cam + Math.round(Math.sin(frame / 25)), x = 38;
       if (y < -26 || y > H + 6) return;
       P(c, x + 16, y - 22, 1, 22, '#4a2f17');
@@ -558,6 +645,7 @@
       P(c, x + 2, y + 3, 30, 1, 'rgba(255,255,255,.25)'); // reflection
     }
     function weed(cam) {
+      if (TG) return;
       for (var s = 0; s < 5; s++) {
         var sx = 78 + s * 6, base = 210 - cam; if (base < -20 || base > H + 20) continue;
         for (var hh = 0; hh < 14 + (s % 2) * 5; hh++) P(c, sx + Math.round(Math.sin(frame / 22 + s + hh / 5) * (hh / 7)), base - hh, 1, 1, hh % 4 ? '#2f7d3a' : '#3f9a4c');
@@ -567,6 +655,11 @@
       jellies.forEach(function (j, n) {
         var pulse = Math.sin(frame / 18 + n * 2), y = j.y + Math.sin(frame / 60 + n) * 4 - cam, x = j.x + Math.sin(frame / 90 + n) * 3;
         if (y < -12 || y > H + 12) return;
+        if (TG) { // a marshmallow, toasted on top
+          var mw = 7 + (pulse > 0.6 ? 1 : 0);
+          P(c, x - 3, y, mw, 5, '#fffdf8'); P(c, x - 3, y + 4, mw, 1, '#e8dcc6'); P(c, x - 2, y, mw - 2, 1, '#e3b77a'); P(c, x - 3, y + 1, 1, 1, '#ffffff');
+          return;
+        }
         var w = 7 + (pulse > 0 ? 1 : 0);
         P(c, x - w / 2 + 1, y, w - 2, 1, '#f6c3d3'); P(c, x - w / 2, y + 1, w, 2, '#f3a9c0'); P(c, x - w / 2 + 1, y + 1, 1, 1, '#ffffff');
         for (var t = 0; t < 3; t++) for (var l = 0; l < 6; l++) P(c, x - 2 + t * 2 + Math.round(Math.sin(frame / 10 + l + t) * 0.8), y + 3 + l, 1, 1, l % 2 ? 'rgba(243,169,192,.6)' : 'rgba(243,169,192,.9)');
@@ -586,6 +679,7 @@
       var moving = Math.abs(to - dy) > 0.6 && !onBoat, headDown = moving && to > dy;
       var x = 60 + Math.round(Math.sin(frame / 30) * (onBoat ? 0 : 3)), y = Math.round(dy - cam);
       var kick = Math.floor(frame / (moving ? 4 : 14)) % 2;
+      if (TG) { drawTurkey(x, y, headDown, kick, moving); return; }
       var O = '#e2703f', Od = '#b9532a', G = '#d4a72c', Gd = '#a8811b', Wn = '#bfe3ff';
       function D(dx, row, w, hh, col) { P(c, x + dx, headDown ? y + (14 - (row + hh - 1)) : y + row, w, hh, col); }
       D(1, 0, 5, 1, G); D(0, 1, 7, 4, G); D(1, 5, 5, 1, Gd); D(6, 2, 1, 2, Gd);
@@ -603,6 +697,26 @@
       var bx = x + (headDown ? 4 : 5), byy = headDown ? dy + 13 : dy + 1;
       if (!onBoat && frame % (moving ? 5 : 26) === 0) bubbles.push({ x: bx, y: byy, life: 0, big: Math.random() < 0.3 });
     }
+    // A turkey in a snorkel mask: tail fan behind, wattle, flapping wing.
+    function drawTurkey(x, y, headDown, kick, moving) {
+      function D(dx, row, w, hh, col) { P(c, x + dx, headDown ? y + (14 - (row + hh - 1)) : y + row, w, hh, col); }
+      D(-3, 2, 2, 6, '#8e2c2c'); D(-1, 0, 2, 8, '#c2571a'); D(1, 1, 2, 6, '#e8a83a'); D(-2, 1, 1, 1, '#c2571a'); D(3, 3, 1, 3, '#8e2c2c');
+      D(1, 6, 7, 6, '#6b4a2e'); D(2, 7, 5, 4, '#7d5838');
+      D(6, 2, 3, 5, '#7d5838'); D(6, 3, 3, 1, '#bfe3ff'); D(7, 3, 1, 1, '#16244d');
+      D(9, 4, 2, 1, '#e8a83a'); D(8, 5, 1, 3, '#c0392b');
+      D(1, 8 + kick, 4, 2, '#5a3c22');
+      D(3, 12, 1, 2 + (moving ? kick : 0), '#e8a83a'); D(6, 12, 1, 2 + (moving ? 1 - kick : 0), '#e8a83a');
+      D(2, 14, 3, 1, '#e8a83a'); D(5, 14, 3, 1, '#e8a83a');
+      if (!onBoat && dy > 640) {
+        for (var r = 0; r < 18; r++) {
+          c.fillStyle = 'rgba(255,240,180,' + (0.16 - r * 0.008).toFixed(3) + ')';
+          if (headDown) c.fillRect(x + 7 - Math.floor(r / 2), y + 15 + r, 1 + r, 1);
+          else c.fillRect(x + 9 + r, y + 3 - Math.floor(r / 2), 1, 1 + r);
+        }
+      }
+      var bx = x + (headDown ? 7 : 9), byy = headDown ? dy + 13 : dy + 3;
+      if (!onBoat && frame % (moving ? 5 : 26) === 0) bubbles.push({ x: bx, y: byy, life: 0, big: Math.random() < 0.3 });
+    }
     function draw() {
       if (!alive) return;
       frame++;
@@ -617,12 +731,17 @@
         for (var q = 0; q < count; q++) {
           var fx = f.x - q * 7 * f.d, y = f.y + q * 3 + Math.round(Math.sin(frame / 20 + n + q)) - dstart;
           if (y < -3 || y > H + 3) continue;
+          if (TG) { // corn kernels and peas drifting in the gravy
+            if (n % 2) { P(c, fx, y, 3, 2, '#f2c94c'); P(c, fx, y, 1, 1, '#fff1b0'); }
+            else { P(c, fx, y, 2, 2, '#7da83a'); P(c, fx, y, 1, 1, '#a9cf6a'); }
+            continue;
+          }
           P(c, fx, y, 5, 3, f.col); P(c, fx + (f.d > 0 ? -2 : 5), y + (frame % 24 < 12 ? 0 : 1), 2, 2, f.col);
           P(c, fx + (f.d > 0 ? 3 : 1), y, 1, 1, '#16244d');
         }
       });
       jellyfish(cam); angler(cam);
-      snow.forEach(function (p) { p.y += p.v; if (p.y > FLOOR) p.y = 430; var y = p.y - cam; if (y > 0 && y < H) P(c, p.x, y, 1, 1, 'rgba(220,230,255,.45)'); });
+      snow.forEach(function (p) { p.y += p.v; if (p.y > FLOOR) p.y = 430; var y = p.y - cam; if (y > 0 && y < H) P(c, p.x, y, 1, 1, TG ? 'rgba(255,226,170,.35)' : 'rgba(220,230,255,.45)'); });
       dhow(cam);
       if (splash > 0) { splash--; var sy = SURF - cam, sp = 22 - splash; for (var s2 = -1; s2 <= 1; s2 += 2) { P(c, 63 + s2 * sp, sy - 1 - Math.floor(splash / 6), 2, 1, '#ffffff'); P(c, 63 + s2 * (sp + 3), sy, 1, 1, '#ffffff'); } }
       bubbles = bubbles.filter(function (q) { q.y -= q.big ? 0.45 : 0.32; q.life++; q.x += Math.sin(q.life / 6) * 0.22; return q.y > SURF + 1 && q.life < 220; });

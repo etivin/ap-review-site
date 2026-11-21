@@ -269,6 +269,24 @@ body{line-height:1.6}
 .vc-u{background:repeating-linear-gradient(135deg,#8a93b8 0 4px,#5d6690 4px 8px)}
 .vc-bar .vc-u{color:#fff}
 .vote-chart figcaption{margin-top:8px;font-size:calc(.6rem*var(--fit,1));color:#b8c2ea;line-height:1.45}
+/* Thanksgiving poll (news slide) */
+.tg-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.tg-opts button{display:flex;align-items:center;gap:10px;text-align:left;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.28);color:#fff;font:700 calc(.86rem*var(--fit,1))/1.25 'Lato',sans-serif;padding:10px 12px;cursor:pointer;transition:background .2s,border-color .2s,transform .15s}
+.tg-opts button i{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border:1.5px solid var(--lime);color:var(--lime);font-style:normal;font-size:.75rem}
+.tg-opts button:hover{border-color:var(--lime);background:rgba(255,255,255,.1)}
+.tg-opts button:active{transform:scale(.97)}
+.tg-opts button:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.tg-opts button.on{background:var(--lime);border-color:var(--lime);color:var(--navy)}
+.tg-opts button.on i{background:var(--navy);border-color:var(--navy);color:var(--lime)}
+.tg-opts .tg-lab{flex:1}
+.tg-opts .tg-pct{flex:none;font-weight:900;font-variant-numeric:tabular-nums}
+/* class results: each choice fills like a bar to its share of the votes */
+.tg-opts button.shown{background:linear-gradient(90deg,rgba(255,255,255,.22) var(--pct,0%),rgba(255,255,255,.04) var(--pct,0%));transition:background .6s ease}
+.tg-opts button.shown.on{background:linear-gradient(90deg,var(--lime) var(--pct,0%),rgba(255,255,255,.12) var(--pct,0%));color:#fff;border-color:var(--lime);box-shadow:inset 0 0 0 1px var(--lime)}
+.tg-opts button.shown.on .tg-lab,.tg-opts button.shown.on .tg-pct{text-shadow:0 1px 2px rgba(0,0,0,.55)}
+.tg-poll .tg-reply{margin-top:12px;min-height:4.5em;font-size:calc(.82rem*var(--fit,1));font-weight:400;color:#dce3fa}
+.tg-poll .tg-count{margin-top:4px;min-height:1.4em;font-size:calc(.72rem*var(--fit,1));color:var(--lime);font-weight:700;letter-spacing:.02em}
+@media(max-width:420px){.tg-opts{grid-template-columns:1fr}}
 .news-dots{display:flex;gap:8px;align-items:center}
 .news-src{color:#b8c2ea}
 /* tools + units */
@@ -559,81 +577,84 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
     <div class="slides">
       <article class="slide active">
         <div>
-          <h2>Trump, Xi, and Putin hold their first three-way meeting.</h2>
-          <p>On November 19, President Trump, China&rsquo;s Xi Jinping, and Russia&rsquo;s Vladimir Putin met for more than an hour in Shenzhen, China, during the Asia-Pacific Economic Cooperation (APEC) summit. The three countries hold the world&rsquo;s largest nuclear arsenals, and Trump said they were &ldquo;uniquely positioned&rdquo; to talk about reducing nuclear weapons.</p>
-          <p>Al Jazeera and Chinese state media reported a joint &ldquo;peace declaration&rdquo; promising talks on nuclear risks and steady energy supplies, but <i>The Washington Post</i> said the leaders reached little agreement. Russia said the war in Ukraine was not the main topic.</p>
+          <h2>Happy Thanksgiving from Mr. Tivin!</h2>
+          <p>I am thankful for all of you, and I hope you all be safe, be smart, and have fun this break.</p>
+          <p>A reminder: we have a test first thing back from break, so make sure you study!</p>
         </div>
-        <aside class="lens">
-          <b>AP World lens &middot; Unit 7 &amp; 8</b>
-          <p>When the most powerful states meet to shape the world order, the countries left out of the room often pay the price.</p>
-          <ul class="lens-q">
-            <li>How did the 1945 Yalta Conference among Roosevelt, Churchill, and Stalin shape Europe and Asia after World War II?</li>
-            <li><span class="norm">Normative</span> Should a few great powers make decisions about wars and weapons that affect countries not at the table, such as Ukraine?</li>
-            <li>How do today&rsquo;s nuclear talks compare to Cold War arms control agreements such as the SALT treaties of the 1970s?</li>
-          </ul>
+        <aside class="lens tg-poll" aria-label="Thanksgiving poll">
+          <b>Quick poll &middot; Thanksgiving</b>
+          <p>What is your favorite part of Thanksgiving?</p>
+          <div class="tg-opts">
+            <button type="button" data-pick="family" aria-pressed="false"><i>A</i><span class="tg-lab">Family</span><span class="tg-pct"></span></button>
+            <button type="button" data-pick="food" aria-pressed="false"><i>B</i><span class="tg-lab">Food</span><span class="tg-pct"></span></button>
+            <button type="button" data-pick="football" aria-pressed="false"><i>C</i><span class="tg-lab">Football</span><span class="tg-pct"></span></button>
+            <button type="button" data-pick="apwh" aria-pressed="false"><i>D</i><span class="tg-lab">Studying AP World</span><span class="tg-pct"></span></button>
+          </div>
+          <p class="tg-reply" aria-live="polite">Tap an answer to vote and see how the class voted. You can change your vote anytime.</p>
+          <p class="tg-count"></p>
         </aside>
       </article>
       <article class="slide">
         <div>
-          <h2>The U.N.&rsquo;s top court rules that Myanmar committed genocide against the Rohingya.</h2>
-          <p>On November 19, the International Court of Justice voted 9 to 6 that Myanmar committed genocide against the Rohingya, a mostly Muslim minority, during a 2017 military campaign in Rakhine state. The court found Myanmar&rsquo;s forces killed about 10,000 Rohingya; about 1.2 million Rohingya now live as refugees in Bangladesh.</p>
-          <p>It is the first time the court has found a country guilty of genocide. The court ordered Myanmar to punish those responsible, pay compensation, and allow refugees to return safely, but it has no police: it can only report a country that ignores it to the U.N. Security Council.</p>
-        </div>
-        <aside class="lens">
-          <b>AP World lens &middot; Unit 7 &amp; 9</b>
-          <p>The world wrote the Genocide Convention after the Holocaust, and this case tests whether those promises can be enforced.</p>
-          <ul class="lens-q">
-            <li>How did the Holocaust lead to new international laws and institutions after 1945, such as the Genocide Convention and the United Nations?</li>
-            <li><span class="norm">Normative</span> Should other countries use force or sanctions to make a government obey an international court ruling?</li>
-            <li>How does the violence against the Rohingya compare to other 20th-century mass atrocities, such as the Armenian genocide or the Rwandan genocide?</li>
-          </ul>
-        </aside>
-      </article>
-      <article class="slide">
-        <div>
-          <h2>Anthropic stock starts trading after a record-setting sale.</h2>
-          <p>Anthropic, the company that makes Claude (the AI that helped build this site), sold shares at $83 each on November 18, above its planned range of $70 to $78. The sale of 980 million shares brought in about $81 billion, which would make it the largest stock debut on record, and the shares began trading on the Nasdaq on November 19 under the ticker &ldquo;ANT.&rdquo;</p>
-          <p>Demand from investors was strong, but some analysts question whether a company still losing money is worth more than a trillion dollars. The company&rsquo;s filing also warns that AI that helps build more powerful AI could carry serious safety risks.</p>
-        </div>
-        <aside class="lens">
-          <b>AP World lens &middot; Unit 4 &amp; 9</b>
-          <p>Selling shares to the public is how risky, expensive ventures have raised money since the Dutch East India Company in the 1600s.</p>
-          <ul class="lens-q">
-            <li>How did joint-stock companies such as the Dutch East India Company (VOC) let investors share the risks and profits of long ocean voyages?</li>
-            <li><span class="norm">Normative</span> Should governments limit how fast private companies can build powerful AI, even if it slows new inventions?</li>
-            <li>How does the rush to invest in AI today compare to the railroad boom of the 1800s, when investors poured money into a new technology before it made steady profits?</li>
-          </ul>
-        </aside>
-      </article>
-      <article class="slide">
-        <div>
-          <h2>Democrats win Alaska&rsquo;s Senate and governor races.</h2>
-          <p>Democrat Mary Peltola, a former congresswoman, defeated Republican Senator Dan Sullivan with about 50.1 percent of first-choice votes, NPR reported on November 17. She is the first Democrat to win a Senate race in Alaska since 2008. Democrat Jonathan Kreiss-Tomkins won the open governor&rsquo;s seat with about 51 percent.</p>
-          <p>Both won a majority outright, so Alaska&rsquo;s ranked-choice count was not needed. Voters also rejected a ballot measure to repeal ranked-choice voting, about 54 to 46 percent.</p>
-        </div>
-        <aside class="lens">
-          <b>AP World lens &middot; Unit 6</b>
-          <p>Alaska was part of the Russian Empire until the United States bought it in 1867, during an age when states raced to claim land and resources.</p>
-          <ul class="lens-q">
-            <li>Why did Russia sell Alaska to the United States in 1867, and how did the sale fit the pattern of empires expanding and pulling back in the 1800s?</li>
-            <li><span class="norm">Normative</span> Should voters rank several candidates instead of choosing just one, even if the count is harder to understand?</li>
-            <li>How did the experience of Alaska Native peoples under Russian and then American rule compare to that of Indigenous peoples in other settler colonies, such as Australia or Canada?</li>
-          </ul>
-        </aside>
-      </article>
-      <article class="slide">
-        <div>
-          <h2>Fiona the hippo swallows a hat at the Cincinnati Zoo.</h2>
-          <p>Fiona, the 9-year-old hippo who became famous after being born six weeks early in 2017, swallowed a hat that was tossed into her habitat about 10 days ago, WVXU and WLWT reported on November 18. The zoo says surgery is not an option for a full-grown hippo of about 2,400 pounds, and a nine-foot scope borrowed from the Columbus Zoo could not reach the hat.</p>
-          <p>Keepers are giving her fluids and medicine and had her stand on a vibration plate borrowed from a local horse farm to help the hat pass. She is off exhibit and watched around the clock, and other zoos have sent messages of support.</p>
+          <h2>Fiona the hippo dies at the Cincinnati Zoo.</h2>
+          <p>Fiona, the 9-year-old hippo who became famous after being born six weeks early in 2017, died on November 19, the zoo announced. A necropsy (an animal autopsy) found that a visitor&rsquo;s knit hat she swallowed nearly two weeks earlier was stuck in the middle of her small intestine.</p>
+          <p>Surgery was not possible for an animal her size, so keepers tried medicine, a colonoscopy, and a vibration plate. Zoo director Dave Jenike said the staff was in shock, and fans have left flowers and crayon notes at the hippo statue on the zoo grounds.</p>
         </div>
         <aside class="lens">
           <b>AP World lens &middot; Unit 6 &amp; 9</b>
-          <p>Public zoos grew in the age of empire, when African animals were shipped to Europe as symbols of imperial reach.</p>
+          <p>Zoos grew in the age of empire, and today they argue that their main job is protecting animals that are disappearing in the wild.</p>
           <ul class="lens-q">
-            <li>How did imperialism in the 1800s bring African and Asian animals, plants, and goods to European cities, as when a hippo named Obaysch was shipped from Egypt to London in 1850?</li>
-            <li><span class="norm">Normative</span> Should zoos keep large wild animals such as hippos, or should they be left only in the wild?</li>
-            <li>How do today&rsquo;s zoo conservation programs compare to the menageries of rulers and empires in earlier centuries?</li>
+            <li>How did imperialism in the 1800s bring African and Asian animals to zoos in European and American cities?</li>
+            <li><span class="norm">Normative</span> Should zoos keep visitors farther from animal habitats, even if it makes it harder to see the animals up close?</li>
+            <li>How does the worldwide following Fiona built online compare to the crowds and newspaper stories around Jumbo the elephant, sold from the London Zoo to an American circus in 1882?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>A record five Black governors will serve at the same time.</h2>
+          <p>In the November 3 elections, voters chose four new Black governors: Keisha Lance Bottoms in Georgia, Byron Donalds in Florida, Aaron Ford in Nevada, and David Crowley in Wisconsin. With Wes Moore re-elected in Maryland, five Black governors will serve at once in 2027, the most in U.S. history.</p>
+          <p>Before this year, only three Black governors had ever been elected in any state. Bottoms will be the first Black woman to serve as a governor, Donalds the first Black Republican elected governor, and Ford the first Black governor elected west of the Mississippi River.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 5 &amp; 9</b>
+          <p>The right to vote and hold office was won step by step, from the end of slavery to the civil rights movement of the 1960s.</p>
+          <ul class="lens-q">
+            <li>How did movements for civil rights after 1945, in the United States and in South Africa, use protest to win political rights for Black citizens?</li>
+            <li><span class="norm">Normative</span> Should voters consider whether their leaders reflect the people they represent, or judge candidates only on their ideas?</li>
+            <li>How does this record compare to Reconstruction after the Civil War, when Black Americans first won public office in the South and then lost those gains?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2>A mathematician says he and Claude proved the Riemann hypothesis.</h2>
+          <p>On November 20, Levent Alp&ouml;ge, a mathematician at Anthropic (the company that makes Claude, the AI that helped build this site), posted a four-page note saying he and Claude had found a proof of the Riemann hypothesis. The famous problem about prime numbers was first posed in 1859 and carries a $1 million prize.</p>
+          <p>The proof is written in Lean, a computer language that can check every step, and independent researchers, including MIT&rsquo;s Andrew Sutherland, say the code runs without errors. Experts are still checking that it proves the real problem, so the claim is not yet confirmed.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 5 &amp; 9</b>
+          <p>New tools for checking ideas, from the experiments of the Scientific Revolution to computers today, change how knowledge is made.</p>
+          <ul class="lens-q">
+            <li>How did the Scientific Revolution change the way Europeans decided what was true, and how did those ideas feed the Enlightenment?</li>
+            <li><span class="norm">Normative</span> If an AI does much of the work on a famous discovery, who should get the credit and the prize?</li>
+            <li>How does the spread of computers and AI after 2000 compare to the spread of the printing press in the 1400s and 1500s in changing who can share new ideas?</li>
+          </ul>
+        </aside>
+      </article>
+      <article class="slide">
+        <div>
+          <h2><i>Grand Theft Auto VI</i> breaks entertainment sales records.</h2>
+          <p>The video game <i>Grand Theft Auto VI</i>, rated M for Mature, came out on November 19. Its publisher, Take-Two, told regulators that it sold 32.5 million copies before launch and about $3.79 billion worldwide by the end of its first day, which the company calls the biggest launch in entertainment history.</p>
+          <p>The previous game in the series earned about $800 million on its first day in 2013. Fans also spent more than 132 million hours watching others play the game online on launch day, a streaming record.</p>
+        </div>
+        <aside class="lens">
+          <b>AP World lens &middot; Unit 9</b>
+          <p>New technology lets one piece of popular culture reach the whole world on the same day.</p>
+          <ul class="lens-q">
+            <li>How did technologies after 1900, from radio and television to the internet, help popular culture spread across the globe?</li>
+            <li><span class="norm">Normative</span> Should governments limit violent video games for teenagers, or leave the choice to families?</li>
+            <li>How does the worldwide reach of American video games today compare to the spread of Hollywood movies and American music after World War II?</li>
           </ul>
         </aside>
       </article>
@@ -751,7 +772,7 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
     <script>/* #syllabus / #about links (top bar, site search) open their panels */ (function(){var P={'#syllabus':'syllabus','#about':'about-dd'};function o(){var id=P[location.hash];if(id){var d=document.getElementById(id);d.open=true;d.scrollIntoView();}}o();addEventListener('hashchange',o);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="#about"]');if(a)document.getElementById('about-dd').open=true;});})();</script>
   </section>
 
-  <p class="foot">Progress is read from this device&rsquo;s local storage and never leaves it. News sources: Al Jazeera, The Washington Post, CNBC, ABC News, CBS News, CNN, U.N. News, Anthropic, Yahoo Finance, NPR, FairVote, Alaska&rsquo;s News Source, WVXU, WLWT, Nov. 17&ndash;19, 2026.</p>
+  <p class="foot">Progress is read from this device&rsquo;s local storage and never leaves it. News sources: Cincinnati Zoo, PBS NewsHour, ABC News, The Washington Post, Joint Center for Political and Economic Studies, Stateline, Phys.org, Tom&rsquo;s Hardware, Take-Two Interactive, CNN, Deadline, Nov. 19&ndash;21, 2026.</p>
 
 </main>
 
@@ -993,6 +1014,98 @@ html[data-theme="dark"] .about-sum img,html[data-theme="dark"] #about > .about-q
   $('prev').addEventListener('click', function(){ show(i-1); restart(); });
   $('next').addEventListener('click', function(){ show(i+1); restart(); });
   restart();
+
+  // Thanksgiving poll on the first news slide. The vote goes to the class-stats Worker
+  // (POST /vote, GET /poll; one vote per browser, changeable) and the class totals show as
+  // bars once this browser has voted, refreshed every 15 s while the poll is on screen.
+  // Off the live site (or if the Worker fails) it still works, without class totals.
+  var poll = document.querySelector('.tg-poll');
+  if (poll){
+    var POLL_ID = 'thanks2026';
+    var REPLIES = {
+      family: 'Great pick. Ask a grandparent what history they lived through. Their stories are primary sources!',
+      food: 'Same here. Turkey, potatoes, corn, and pumpkin all came from the Americas: the Columbian Exchange is on your plate.',
+      football: 'Fair enough. Just save some time to study for the test after break.',
+      apwh: 'Correct answer. See you at the test first thing back from break!'
+    };
+    var pollBtns = [].slice.call(poll.querySelectorAll('[data-pick]'));
+    var pollReply = poll.querySelector('.tg-reply');
+    var pollCount = poll.querySelector('.tg-count');
+    var myPick = null, lastCounts = null;
+    function pollBase(){
+      if (window.CLASS_STATS_URL) return window.CLASS_STATS_URL;
+      var h = location.hostname;
+      if (/(^|\.)tivinteaches\.com$/.test(h)) return '/api/class-stats';
+      if (/ap-review-site\.(pages\.dev|elitivin\.workers\.dev)$/.test(h)) return 'https://tivinteaches.com/api/class-stats';
+      return null;
+    }
+    function pollWho(){
+      var id = null;
+      try { id = localStorage.getItem('classStatsId'); } catch(e){}
+      if (id && /^[a-z0-9-]{16,40}$/.test(id)) return id;
+      id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 14);
+      try { localStorage.setItem('classStatsId', id); } catch(e){}
+      return id;
+    }
+    function drawPoll(){
+      pollBtns.forEach(function(b){
+        var k = b.getAttribute('data-pick'), on = k === myPick;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        var pct = b.querySelector('.tg-pct');
+        if (myPick && lastCounts && lastCounts.n){
+          var p = Math.round(100 * (lastCounts.counts[k] || 0) / lastCounts.n);
+          b.style.setProperty('--pct', p + '%');
+          b.classList.add('shown');
+          pct.textContent = p + '%';
+        } else {
+          b.style.removeProperty('--pct');
+          b.classList.remove('shown');
+          pct.textContent = '';
+        }
+      });
+      if (myPick && REPLIES[myPick]) pollReply.textContent = REPLIES[myPick];
+      if (myPick && lastCounts && lastCounts.n){
+        pollCount.textContent = 'Class results: ' + lastCounts.n + (lastCounts.n === 1 ? ' vote' : ' votes') + ' so far, updating live.';
+      } else {
+        pollCount.textContent = '';
+      }
+    }
+    function gotCounts(d){
+      if (d && d.counts && typeof d.n === 'number'){ lastCounts = d; drawPoll(); fitNews(); }
+    }
+    function loadCounts(){
+      var base = pollBase(); if (!base || !myPick) return;
+      fetch(base + '/poll?poll=' + POLL_ID, { cache: 'no-store' })
+        .then(function(r){ return r.ok ? r.json() : null; }).then(gotCounts).catch(function(){});
+    }
+    function sendVote(pick){
+      var base = pollBase(); if (!base) return;
+      fetch(base + '/vote', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ poll: POLL_ID, who: pollWho(), pick: pick }) })
+        .then(function(r){ return r.ok ? r.json() : null; }).then(gotCounts).catch(function(){});
+    }
+    try { myPick = localStorage.getItem('tgPoll_2026'); } catch(e){}
+    if (!REPLIES[myPick]) myPick = null;
+    drawPoll();
+    loadCounts();
+    pollBtns.forEach(function(b){
+      b.addEventListener('click', function(){
+        var pick = b.getAttribute('data-pick');
+        if (pick === myPick) return;
+        myPick = pick;
+        try { localStorage.setItem('tgPoll_2026', pick); } catch(e){}
+        drawPoll();
+        sendVote(pick);
+        fitNews();
+        restart();
+      });
+    });
+    // Live refresh while the poll slide is showing and the tab is visible.
+    setInterval(function(){
+      if (document.visibilityState === 'visible' && poll.closest('.slide').classList.contains('active')) loadCounts();
+    }, 15000);
+  }
 
   // All slides share one grid cell, so the block is as tall as the longest story.
   // Scale each shorter story's type up (--fit) until it fills that height.

@@ -17,7 +17,7 @@
    Routes (teacher routes need header X-Teacher-Code = TEACHER_CODE)
      POST /api/class-stats/answer         save one answer, reply with that question's totals
      GET  /api/class-stats/q?id=u4_4.1_0  totals for one question
-     GET  /api/class-stats/report         every question's totals (teacher)
+     GET  /api/class-stats/report         every question's totals (teacher); ?days=7 counts only the last 7 days
      GET  /api/class-stats/custom.js      teacher questions as a script (public)
      GET  /api/class-stats/custom/list    every teacher question, hidden ones too (teacher)
      POST /api/class-stats/custom/save    {unit, slot?, data} add (no slot) or edit (teacher)
@@ -26,8 +26,11 @@
      GET  /api/class-stats/scores?game=x  the top 5 scores (numbers only)
      GET  /api/class-stats/board/list     top 5 per game with browser ids (teacher)
      POST /api/class-stats/board/remove   {game, who} delete a score (teacher)
+     POST /api/class-stats/vote           {poll, who, pick} save or change this browser's vote, reply with counts
+     GET  /api/class-stats/poll?poll=x    vote counts for one home page poll
    Racing-game leaderboards (table scores, made on first use): one row per browser per game,
    its best score. Nothing personal; students see only the numbers.
+   Home page polls (table poll_votes, made on first use): one row per browser per poll.
 
    Bindings: DB (D1 database "class-stats"), TEACHER_CODE (Secret). */
 
@@ -152,6 +155,29 @@ async function topScores(env, game) {
   return results.map(r => r.score);
 }
 
+// Home page polls (news carousel): one vote per browser per poll, which it may change.
+// Add a poll here (id: its choices) before the page uses it. Results are public counts.
+const POLLS = {
+  thanks2026: ["family", "food", "football", "apwh"]
+};
+let pollReady = false;
+async function pollTable(env) {
+  if (pollReady) return;
+  await env.DB.prepare("CREATE TABLE IF NOT EXISTS poll_votes (poll TEXT NOT NULL, who TEXT NOT NULL, " +
+    "pick TEXT NOT NULL, ts INTEGER NOT NULL, PRIMARY KEY (poll, who))").run();
+  pollReady = true;
+}
+async function pollCounts(env, poll) {
+  const { results } = await env.DB.prepare(
+    "SELECT pick, COUNT(*) AS n FROM poll_votes WHERE poll = ? GROUP BY pick"
+  ).bind(poll).all();
+  const counts = {};
+  let n = 0;
+  for (const k of POLLS[poll]) counts[k] = 0;
+  for (const r of results) if (r.pick in counts) { counts[r.pick] = r.n; n += r.n; }
+  return { poll, n, counts };
+}
+
 function escHtml(s) {
   return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
@@ -238,6 +264,26 @@ export default {
         return json(req, { game, top: await topScores(env, game) });
       }
 
+      if (path === "/api/class-stats/vote" && req.method === "POST") {
+        const b = await req.json().catch(() => null);
+        const opts = b && POLLS[b.poll];
+        if (!opts || !WHO.test(b.who || "") || opts.indexOf(b.pick) < 0) {
+          return json(req, { error: "bad vote" }, 400);
+        }
+        await pollTable(env);
+        await env.DB.prepare("INSERT INTO poll_votes (poll, who, pick, ts) VALUES (?, ?, ?, ?) " +
+          "ON CONFLICT (poll, who) DO UPDATE SET pick = excluded.pick, ts = excluded.ts")
+          .bind(b.poll, b.who, b.pick, Date.now()).run();
+        return json(req, await pollCounts(env, b.poll));
+      }
+
+      if (path === "/api/class-stats/poll" && req.method === "GET") {
+        const poll = url.searchParams.get("poll") || "";
+        if (!POLLS[poll]) return json(req, { error: "bad poll" }, 400);
+        await pollTable(env);
+        return json(req, await pollCounts(env, poll));
+      }
+
       if (path.indexOf("/api/class-stats/custom/") === 0 || path.indexOf("/api/class-stats/board/") === 0 ||
           path === "/api/class-stats/report") {
         if (!teacher(req, env)) return json(req, { error: "wrong code" }, 403);
@@ -264,17 +310,20 @@ export default {
       }
 
       if (path === "/api/class-stats/report" && req.method === "GET") {
+        // optional ?days=N (1 to 365): only first tries made in the last N days
+        const days = parseInt(url.searchParams.get("days") || "0", 10);
+        const since = days >= 1 && days <= 365 ? Date.now() - days * 864e5 : 0;
         const { results } = await env.DB.prepare(
-          "SELECT qid, pick, COUNT(*) AS n, SUM(ok) AS r FROM answers GROUP BY qid, pick"
-        ).all();
+          "SELECT qid, pick, COUNT(*) AS n, SUM(ok) AS r FROM answers WHERE ts > ? GROUP BY qid, pick"
+        ).bind(since).all();
         const by = {};
         for (const row of results) {
           const q = by[row.qid] || (by[row.qid] = { id: row.qid, n: 0, right: 0, picks: [0, 0, 0, 0, 0] });
           if (row.pick >= 0 && row.pick < 5) q.picks[row.pick] = row.n;
           q.n += row.n; q.right += row.r || 0;
         }
-        const browsers = await env.DB.prepare("SELECT COUNT(DISTINCT who) AS c FROM answers").first();
-        return json(req, { questions: Object.values(by), browsers: browsers ? browsers.c : 0, at: Date.now() });
+        const browsers = await env.DB.prepare("SELECT COUNT(DISTINCT who) AS c FROM answers WHERE ts > ?").bind(since).first();
+        return json(req, { questions: Object.values(by), browsers: browsers ? browsers.c : 0, days: since ? days : 0, at: Date.now() });
       }
 
       if (path === "/api/class-stats/custom/list" && req.method === "GET") {

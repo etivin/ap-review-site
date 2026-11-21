@@ -76,6 +76,12 @@ site; Eli edits content.
   to each bank MCQ (question id, random browser id, pick, right/wrong; nothing personal) and returns
   totals. Source: `cloudflare/class-stats-worker.js`, pasted into the dashboard like the night lock;
   setup steps in `cloudflare/README.md`. If the Worker is missing, the site shows nothing extra.
+  The teacher route `/api/class-stats/report` takes `?days=N` (last N days only). A cloud routine,
+  "Weekly class report (AP World stats)" (`trig_01ApEZffKrq7tbDrMoraiWcs`, Sundays 23:00 UTC), reads
+  it through a network secret of the claude.ai environment `ap-review-site` (its proxy adds the
+  `X-Teacher-Code` header for `tivinteaches.com/api/class-stats/`, so the agent never sees the code) and posts a
+  read-only report (weakest topics, most-missed questions, suggestions) as its final message; its
+  prompt lives in the routine, edit it at claude.ai/code/routines.
   It also stores **teacher questions** (table `custom_qs`) typed in on `class-stats.html` and serves
   them as `/api/class-stats/custom.js`, loaded right after `mcq-bank.js` on the unit pages,
   `cumulative.html` and `class-stats.html`. That script puts each question into the AP topic Eli picked, at index 1000 + slot (id
@@ -87,6 +93,11 @@ site; Eli edits content.
   It also keeps the **racing-game leaderboards** (table `scores`, created on first use): each browser's best
   score per game (`racer voyage minecart rails tank sputnik freight`), top 5 shown as numbers only by
   `leaderboard.js`; Eli removes a fake score on `class-stats.html` > Leaderboards (`leaderboard-admin.js`).
+  It also runs **home page polls** in the news carousel (table `poll_votes`, created on first use; one
+  changeable vote per browser per poll; `POST /vote`, `GET /poll?poll=id`). A poll id and its choices must be
+  listed in the Worker's `POLLS` before a slide uses it (today `thanks2026`: family, food, football, apwh). The
+  slide (`.tg-poll` in `index.html`) shows the class's percentages as bars after the student votes and
+  refreshes them every 15 s while the slide is showing; the pick is also kept in `tgPoll_2026`.
 
 ## 3. Site map
 

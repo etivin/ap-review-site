@@ -9,10 +9,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# actions: read lets deploy-pages look up the uploaded artifact.
 permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 # Dedicated group (away from the old stuck "pages" runs). Do NOT cancel in
 # progress; let a run finish instead of newer runs killing it mid-deploy.
@@ -20,15 +22,13 @@ concurrency:
   group: pages-actions-deploy
   cancel-in-progress: false
 
+# Two jobs: on 2026-11-23 a single job kept failing with "No artifacts named
+# github-pages were found" right after a successful upload. A separate deploy
+# job only starts once the upload is fully stored.
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      # Current majors (Node 24). On 2026-11-23 deploy-pages@v4 stopped finding
-      # the artifact from upload-pages-artifact@v3, so keep these two in step.
       - name: Checkout
         uses: actions/checkout@v5
 
@@ -45,6 +45,13 @@ jobs:
         with:
           path: '.'
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5

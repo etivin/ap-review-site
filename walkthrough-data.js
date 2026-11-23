@@ -12861,3 +12861,144 @@ window.WALKTHROUGH = window.WALKTHROUGH || {};
     cut: ['The passage never compares Spanish-born and American-born people.', 'The passage does not mention converting anyone.', 'Keep: conquistadors became a new mining elite.', 'The passage does not mention disease.']
   });
 })(window.WALKTHROUGH);
+
+/* ===== Unit 4 Test Friday questions (added 2026-11-23): full entries with the plain-English steps
+   (say + cut). Written by Claude; the questions are Eli's, verbatim. ===== */
+(function (W) {
+  function E(id, o) { W[id] = o; }
+  var BR_LOOK = 'Free women of color in fine European dress, with children and servants around them';
+  var BR_SRC = [{ tag: 'WHO', since: 'an Italian painter worked in a British sugar colony', therefore: 'it shows Caribbean society through a European eye' },
+    { tag: 'WHEN', since: 'it was painted in the late 1700s', therefore: 'the plantation system was at its height' }];
+  E('u4_4.4_25', {
+    type: 'causation', hq: 'most directly led to the arrival of substantial numbers of Africans', look: BR_LOOK, src: BR_SRC,
+    read: ['Free women of color living well in a sugar colony', 'Enslaved Africans at work deep in a Spanish silver mine', 'European noblewomen posing at a royal court in Italy'],
+    plain: ['Why were so many Africans brought here?', 'Why did the Aztec and Inca empires fall?', 'Why did factories grow in the United States?'],
+    meaning: 'Dominica was a sugar island. Sugar plantations needed huge numbers of workers, so planters bought enslaved Africans.',
+    trapIdx: 3, trap: 'D is tempting because silver mines used forced labor, but Caribbean islands had sugar, not silver, and mines used mostly Native workers.',
+    say: ['Free women of color live well in a sugar colony', 'Enslaved Africans dig for silver in a Spanish mine', 'European noblewomen pose at a royal court in Italy'],
+    cut: ['The empires fell in the 1500s on the mainland, not in the Caribbean.', 'Factories in the United States came later and did not bring Africans here.', 'Keep: sugar plantations needed huge numbers of enslaved workers.', 'Silver mines were on the mainland and used mostly Native labor.']
+  });
+  E('u4_4.4_26', {
+    type: 'similar', hq: 'primary difference', look: 'No source: compare what Europeans did in the Americas with what they did in Asia',
+    src: [{ tag: 'WHAT', since: 'the question compares two regions', therefore: 'the right choice must be true about both halves' }],
+    read: ['Compare European trade in two places', 'Describe one European voyage in detail', 'Explain why Asian empires fell'],
+    plain: ['How was Asia different from the Americas?', 'How did European navies win their wars in Asia?', 'Why was silver useless as money in Asian markets?'],
+    meaning: 'In the Americas, Europeans conquered and settled. In Asia, strong empires stood, so Europeans mostly traded from ports.',
+    trapIdx: 2, trap: 'C has it backward: the Americas saw conquest, and European navies did not topple the big Asian empires before 1750.',
+    say: ['Europeans traded in both the Americas and Asia', 'Europeans traded only across the Atlantic Ocean basin', 'Europeans conquered every big Asian empire by 1600'],
+    cut: ['Mercantilism shaped trade in Asia too, through monopoly companies.', 'Silver was the main money Europeans used in Asia.', 'Conquest came in the Americas; Asian empires stayed strong.', 'Keep: conquest in the Americas, carrying trade in Asia.']
+  });
+  E('u4_4.4_27', {
+    type: 'causation', hq: 'best explains these demographic changes', look: 'No source: Brazil grew fast and became mostly African',
+    src: [{ tag: 'WHAT', since: 'Brazil became mostly African', therefore: 'ask why so many Africans were brought there' }],
+    read: ['Brazil grew and became mostly African', 'Brazil shrank as Africans left for home', 'Brazil filled with Portuguese farmers'],
+    plain: ['Why were so many Africans brought to Brazil?', 'What new food crops did Africans in Brazil start to eat?', 'Where did Portugal lose its colonies in the Indian Ocean?'],
+    meaning: 'Brazil’s sugar plantations needed workers, so the Portuguese brought millions of enslaved Africans.',
+    trapIdx: 2, trap: 'C sounds logical, but harsh plantation work killed so many that the enslaved population grew only because new captives kept arriving.',
+    say: ['Brazil grew and became mostly African', 'Brazil shrank as Africans went back home', 'Brazil filled up with Portuguese farmers'],
+    cut: ['Eating new crops does not explain mass forced migration.', 'Losses in the Indian Ocean did not bring Africans to Brazil.', 'Deaths were so high that natural increase did not drive growth.', 'Keep: sugar demand drove the slave trade to Brazil.']
+  });
+  E('u4_4.5_30', {
+    type: 'causation', hq: 'On a global scale', look: 'Amsterdam clove prices stay far above Southeast Asian prices for most of the period',
+    src: [{ tag: 'WHAT', since: 'it shows clove prices in Asia and in Amsterdam', therefore: 'Europeans made big profits on Asian spices' },
+      { tag: 'UNIT', since: 'prices are in Spanish silver reals', therefore: 'silver was the money of this trade' }],
+    read: ['Cloves cost far more in Amsterdam than in Asia', 'Cloves cost about the same in Asia and in Amsterdam', 'Clove prices rise steadily every decade in Southeast Asia'],
+    plain: ['What let Europe buy more Asian goods?', 'What did China want to buy from Europe?', 'Why did Indian Ocean trade fall apart?'],
+    meaning: 'The prices are even counted in Spanish silver. American silver paid for Europe’s growing purchases in Asia.',
+    trapIdx: 0, trap: 'A sounds like trade, but Asians wanted few European goods. Europeans paid with silver instead.',
+    say: ['Cloves cost far more in Amsterdam than in Asia', 'Cloves cost about the same in Asia and in Amsterdam', 'Clove prices rise steadily every decade in Southeast Asia'],
+    cut: ['Asians bought few European manufactured goods in this period.', 'Chinese buyers wanted silver, not European luxuries.', 'Keep: American silver paid for Asian goods.', 'Europeans joined Indian Ocean networks; they did not collapse.']
+  });
+  E('u4_4.5_31', {
+    type: 'causation', hq: 'best be explained by', look: 'No source: how did Europeans get into Asian trade by 1600?',
+    src: [{ tag: 'WHEN', since: 'the date is 1600', therefore: 'anything from the industrial age is ruled out' }],
+    read: ['Europeans break into Asian trade by 1600', 'Europeans close all the Asian ports by 1600', 'Asian merchants take over European trade by 1600'],
+    plain: ['What gave Europeans a way into Asian trade?', 'What new machines did Europeans invent in the 1800s?', 'What farm goods did China and India buy from Europe?'],
+    meaning: 'Asia wanted little that Europe made, but it wanted silver. American silver mines gave Europe the money.',
+    trapIdx: 0, trap: 'A is true, but Asian demand for luxuries does not explain how Europeans paid for them. Silver does.',
+    say: ['Europeans break into Asian trade by 1600', 'Europeans close Asian ports to trade by 1600', 'Asian merchants take over European trade by 1600'],
+    cut: ['Asians already had luxury goods; this does not explain Europe’s entry.', 'Steam power came after 1750.', 'China and India grew their own food.', 'European goods were not cheap enough to sell in Asia.', 'Keep: silver from Peru and Mexico paid the way.']
+  });
+  E('u4_4.5_32', {
+    type: 'context', hq: 'best understood in the context of', look: 'A Christian image made to be stepped on, used to find hidden Christians',
+    src: [{ tag: 'WHO', since: 'the Japanese government made these plates', therefore: 'Japan’s rulers saw Christianity as a threat' },
+      { tag: 'WHEN', since: 'it dates to about 1630', therefore: 'this is early Tokugawa Japan' }],
+    read: ['Japan hunts down hidden Christians', 'Japan honors Christian art in temples', 'Japanese Christians make holy images'],
+    plain: ['How did Christianity reach Japan?', 'How did Chinese ideas reach Japan?', 'How did the Tokugawa lose power?'],
+    meaning: 'European ships brought merchants and missionaries along Asian sea routes, and Japan pushed back.',
+    trapIdx: 1, trap: 'B names the Tokugawa, but they fell in 1868. In 1630 they were just getting started.',
+    say: ['Japan hunts down hidden Christians', 'Japan honors Christian art in its temples', 'Japanese Christians make holy images'],
+    cut: ['Chinese influence is not Christian and came much earlier.', 'The Tokugawa fell in 1868, long after 1630.', 'Russia did not bring Christianity to Japan in this period.', 'Keep: European merchants and missionaries brought it by sea.']
+  });
+  E('u4_4.5_33', {
+    type: 'bestillustrates', hq: 'best illustrates', look: 'A Christian image made to be stepped on, used to find hidden Christians',
+    src: [{ tag: 'WHO', since: 'the Japanese government made these plates', therefore: 'Japan’s rulers saw Christianity as a threat' },
+      { tag: 'WHY', since: 'the plates were used to catch Christians', therefore: 'Japan was pushing out foreign influence' }],
+    read: ['Japan hunts down hidden Christians', 'Japan honors Christian art in temples', 'Japanese Christians make holy images'],
+    plain: ['What were Asian states trying to keep out?', 'What works of art did Asian rulers pay artists for?', 'Why did whole countries convert after their rulers did?'],
+    meaning: 'Japan used the plates to root out a foreign religion, part of limiting European influence.',
+    trapIdx: 1, trap: 'B mentions art, but the plate was a test of faith, not art to glorify a ruler.',
+    say: ['Japan hunts down hidden Christians', 'Japan honors Christian art in its temples', 'Japanese Christians make holy images'],
+    cut: ['Keep: Japan was limiting European influence.', 'The plate was a test of faith, not art to glorify the shogun.', 'Japan’s rulers did not convert; they banned Christianity.', 'Japan was not a land empire expanding its borders.']
+  });
+  E('u4_4.6_5', {
+    type: 'context', hq: 'best be understood in the context of', look: 'A general warns rebel slaves to surrender or face death',
+    src: [{ tag: 'WHO', since: 'a British general in Jamaica wrote it', therefore: 'this is the empire answering a revolt' },
+      { tag: 'WHAT', since: 'enslaved people “have taken up arms”', therefore: 'it is about resistance to slavery' }],
+    read: ['A general warns rebel slaves to surrender', 'A king announces the end of slavery in his empire', 'Planters ask the crown for more enslaved workers'],
+    plain: ['What bigger pattern was this revolt part of?', 'Why was the slave trade growing so fast then?', 'Why were the sugar plantations earning more money?'],
+    meaning: 'Enslaved people rose up against their masters and the crown, part of growing resistance across the Americas.',
+    trapIdx: 0, trap: 'A sounds connected, but Britain had banned the slave trade in 1807. The notice is about a revolt.',
+    say: ['A general warns rebel slaves to surrender', 'A king announces the end of slavery in his empire', 'Planters ask the crown to send them more workers'],
+    cut: ['Britain had already banned its slave trade in 1807.', 'Keep: enslaved people were rising against the empire.', 'The notice is about a revolt, not profits.', 'Religion and nationalism are not the issue here.']
+  });
+  E('u4_4.7_8', {
+    type: 'causation', hq: 'most directly an effect of', hs: ['only creoles should vote', 'mestizos and mulattoes make up most of the membership'],
+    src: [{ tag: 'WHO', since: 'creoles and mixed-race members argue in court', therefore: 'it is a fight over social rank' },
+      { tag: 'WHERE', since: 'it is a town in colonial Mexico', therefore: 'think of the casta system' }],
+    read: ['Creoles and mixed-race members fight over votes', 'Priests argue about which Catholic rituals to use', 'Peasants demand land from the lords who own the estates'],
+    plain: ['What process caused this fight over rank?', 'What new religions grew in the American colonies?', 'Why did Native populations fall so sharply?'],
+    meaning: 'Mestizos and mulattoes were new groups in the colonial hierarchy, and here they push for equal rights.',
+    trapIdx: 0, trap: 'A sounds like class conflict, but the fight is about race and rank, not land.',
+    say: ['Creoles and mixed-race members fight over votes', 'Priests argue over which Catholic rituals to use', 'Peasants demand land from their landlords in court'],
+    cut: ['The dispute is over votes and race, not land.', 'Nobody argues about beliefs or rituals.', 'Native deaths are not mentioned.', 'Keep: new mixed-race identities challenged the hierarchy.']
+  });
+  E('u4_4.7_9', {
+    type: 'bestillustrates', hq: 'best describes', look: 'No source: who ruled the Mughal Empire, and over whom?',
+    src: [{ tag: 'WHAT', since: 'the Mughals were Muslims ruling South Asia', therefore: 'think about rulers and the people they ruled' }],
+    read: ['Who the Mughals ruled', 'How the Mughals traded', 'Where the Mughals fought'],
+    plain: ['Who ruled whom in Mughal India?', 'Which empire used civil service exams?', 'Which empire treated everyone equally?'],
+    meaning: 'The Mughals were Muslim rulers over a mostly Hindu population.',
+    trapIdx: 3, trap: 'D sounds like Akbar’s tolerance, but even Akbar did not treat all faiths as equal, and later rulers did less.',
+    say: ['The Mughals ruled most of South Asia', 'The Mughals ruled most of East Asia', 'The Mughals ruled a small island kingdom'],
+    cut: ['No empire of the period treated all subjects as equals.', 'Keep: Muslim rulers over a Hindu majority.', 'Exams belong to China, not Mughal India.', 'Akbar was tolerant, but groups were never equal.', 'Hindus did not rule; the Mughals were Muslim.']
+  });
+  var BF_SRC = [{ tag: 'WHO', since: 'a Plymouth settler wrote it in his diary', therefore: 'it shows what an English Puritan believed' },
+    { tag: 'WHAT', since: 'smallpox kills the Native people but no English', therefore: 'he wants to explain the difference' }];
+  var BF_HS = ['died most miserably', 'by the marvelous goodness of God, not one of the English colonists was stricken'];
+  var BF_READ = ['Smallpox kills Native people but spares the English', 'Smallpox kills the English and the Native people alike', 'The English settlers bring a cure for smallpox with them'];
+  E('u4_4.3_11', {
+    type: 'purpose', hq: 'EXCEPT', hs: BF_HS, src: BF_SRC, read: BF_READ,
+    plain: ['Which is NOT about what smallpox did?', 'Which line shows smallpox killed the most people?', 'Which line shows the English got sick too?'],
+    meaning: 'Three choices describe the disease’s toll. One is about the English being kind.',
+    trapIdx: 2, trap: 'C might seem off topic, but the fear shows how deadly smallpox was. It counts as evidence.',
+    say: BF_READ,
+    cut: ['Deaths are evidence of the impact, so this is used.', 'Keep: helping is about the English, not smallpox’s impact.', 'Fear of the disease shows its impact, so this is used.', 'How common it was shows its impact, so this is used.']
+  });
+  E('u4_4.3_12', {
+    type: 'purpose', hq: 'invokes which of the following', hs: ['by the marvelous goodness of God'], src: BF_SRC, read: BF_READ,
+    plain: ['Why does he say the English were spared?', 'What modern science does he use to explain it?', 'What does he say about hard work and wealth?'],
+    meaning: 'He thanks “the marvelous goodness of God.” He believes God protected the English.',
+    trapIdx: 0, trap: 'A grabs racism, but racial science came later. Bradford gives God the credit.',
+    say: BF_READ,
+    cut: ['Racial science came in the 1800s, not 1633.', 'Genetics did not exist yet.', 'Keep: he credits “the marvelous goodness of God.”', 'He never mentions work or wealth.']
+  });
+  E('u4_4.3_13', {
+    type: 'purpose', hq: 'aware of smallpox being an infectious disease', hs: ['though many performed these favors for the Indians for weeks'], src: BF_SRC, read: BF_READ,
+    plain: ['Which line shows he feared catching it?', 'Which line shows how sick people got?', 'Which line shows where Native people lived?'],
+    meaning: 'He is amazed no English got sick after weeks near the sick. That means he knew it could spread.',
+    trapIdx: 1, trap: 'B shows how sick people got, but not that the disease spreads from person to person.',
+    say: BF_READ,
+    cut: ['Where people lived says nothing about catching a disease.', 'This shows how sick people got, not that it spreads.', 'Pity shows feelings, not knowledge of infection.', 'Keep: surprise that no helper caught it shows he knew it spread.']
+  });
+})(window.WALKTHROUGH);
